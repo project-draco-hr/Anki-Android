@@ -1,0 +1,6 @@
+{
+  super.onDraw(canvas);
+  canvas.drawColor(mBackgroundColor);
+  canvas.drawBitmap(mBitmap,0,0,mBitmapPaint);
+  canvas.drawPath(mPath,mPaint);
+}

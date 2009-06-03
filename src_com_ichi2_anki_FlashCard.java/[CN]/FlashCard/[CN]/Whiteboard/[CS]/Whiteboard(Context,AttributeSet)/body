@@ -1,0 +1,16 @@
+{
+  super(context,attrs);
+  mBackgroundColor=context.getResources().getColor(R.color.wb_bg_color);
+  mForegroundColor=context.getResources().getColor(R.color.wb_fg_color);
+  mPaint=new Paint();
+  mPaint.setAntiAlias(true);
+  mPaint.setDither(true);
+  mPaint.setColor(mForegroundColor);
+  mPaint.setStyle(Paint.Style.STROKE);
+  mPaint.setStrokeJoin(Paint.Join.ROUND);
+  mPaint.setStrokeCap(Paint.Cap.ROUND);
+  mPaint.setStrokeWidth(8);
+  createBitmap(320,480,Bitmap.Config.ARGB_8888);
+  mPath=new Path();
+  mBitmapPaint=new Paint(Paint.DITHER_FLAG);
+}

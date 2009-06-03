@@ -1,0 +1,7 @@
+{
+  mTimer.stop();
+  mSelectResult.setVisibility(View.VISIBLE);
+  mSelectResult.requestFocus();
+  mShowAnswer.setVisibility(View.GONE);
+  updateCard(currentCard.answer);
+}

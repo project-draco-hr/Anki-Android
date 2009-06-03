@@ -1,0 +1,6 @@
+{
+  String[] selArgs=new String[1];
+  selArgs[0]=id.toString();
+  Cursor cursor=AnkiDb.mDb.rawQuery("select " + COLUMNS + " from "+ TABLE+ " where id=?",selArgs);
+  return oneFromCursor(cursor);
+}

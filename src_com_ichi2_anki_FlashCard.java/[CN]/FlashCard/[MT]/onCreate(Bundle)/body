@@ -1,0 +1,9 @@
+{
+  super.onCreate(savedInstanceState);
+  Bundle extras=getIntent().getExtras();
+  initResourceValues();
+  AnkiDb.openDatabase(extras.getString(OPT_DB));
+  initLayout(R.layout.flashcard_portrait);
+  nextCard();
+  displayCardQuestion();
+}

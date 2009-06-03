@@ -1,0 +1,12 @@
+{
+  setContentView(layout);
+  mCard=(WebView)findViewById(R.id.flashcard);
+  mShowAnswer=(Button)findViewById(R.id.show_answer);
+  mSelectResult=(Button)findViewById(R.id.sel_result);
+  mTimer=(Chronometer)findViewById(R.id.card_time);
+  mToggleWhiteboard=(ToggleButton)findViewById(R.id.toggle_overlay);
+  mWhiteboard=(Whiteboard)findViewById(R.id.whiteboard);
+  mShowAnswer.setOnClickListener(mShowAnswerHandler);
+  mSelectResult.setOnClickListener(mSelectResultHandler);
+  mToggleWhiteboard.setOnCheckedChangeListener(mToggleOverlayHandler);
+}

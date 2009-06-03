@@ -1,0 +1,17 @@
+{
+  if (currentCard == null) {
+    nextCard();
+  }
+  if (currentCard == null) {
+    updateCard("Unable to find a card!");
+  }
+ else {
+    mWhiteboard.clear();
+    mSelectResult.setVisibility(View.GONE);
+    mShowAnswer.setVisibility(View.VISIBLE);
+    mShowAnswer.requestFocus();
+    mTimer.setBase(SystemClock.elapsedRealtime());
+    mTimer.start();
+    updateCard(currentCard.question);
+  }
+}

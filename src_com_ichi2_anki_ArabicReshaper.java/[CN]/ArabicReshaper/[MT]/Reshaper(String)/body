@@ -1,0 +1,27 @@
+{
+  String _RetString="";
+  int nLen=UnshapedAra.length();
+  char[] bString=new char[nLen];
+  UnshapedAra.getChars(0,nLen,bString,0);
+  if (GetGlphyType(bString[0]) == 2) {
+    _RetString+=GetReshapedGlphy(bString[0],1);
+  }
+ else {
+    _RetString+=GetReshapedGlphy(bString[0],2);
+  }
+  for (int nStringLoop=1; nStringLoop < nLen - 1; nStringLoop++) {
+    if (GetGlphyType(bString[nStringLoop - 1]) == 2) {
+      _RetString+=GetReshapedGlphy(bString[nStringLoop],2);
+    }
+ else {
+      _RetString+=GetReshapedGlphy(bString[nStringLoop],3);
+    }
+  }
+  if (GetGlphyType(bString[nLen - 2]) == 2) {
+    _RetString+=GetReshapedGlphy(bString[nLen - 1],1);
+  }
+ else {
+    _RetString+=GetReshapedGlphy(bString[nLen - 1],4);
+  }
+  return _RetString;
+}

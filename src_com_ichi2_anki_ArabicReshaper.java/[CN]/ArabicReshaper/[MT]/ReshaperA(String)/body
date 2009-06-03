@@ -1,0 +1,11 @@
+{
+  String x="";
+  String y;
+  StringTokenizer parser=new StringTokenizer(UnA,",. ",true);
+  while (parser.hasMoreTokens()) {
+    y=parser.nextToken();
+    if (y.length() <= 1)     x=x + y;
+ else     x=x + Reshaper(y);
+  }
+  return x;
+}

@@ -1,0 +1,7 @@
+{
+  if (cursor.isClosed()) {
+    throw new SQLException();
+  }
+  cursor.moveToFirst();
+  return instanceFromCursor(cursor);
+}

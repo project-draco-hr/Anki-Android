@@ -1,0 +1,5 @@
+{
+  Intent flashcard=new Intent(this,FlashCard.class);
+  flashcard.putExtra(FlashCard.OPT_DB,dbName);
+  startActivity(flashcard);
+}

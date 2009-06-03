@@ -1,0 +1,15 @@
+{
+  FileEntry ent=mFileListAdapter.getItem(id);
+  if (ent.mIsDir) {
+    try {
+      mBrowser.moveTo(ent.mFilename);
+      mFileListAdapter.clear();
+      populateDirList();
+    }
+ catch (    NotDirException e) {
+    }
+  }
+ else   if (ent.mIsFile) {
+    startFlashCardWithDb(mBrowser.mCurrent.getAbsolutePath() + "/" + ent.mFilename);
+  }
+}

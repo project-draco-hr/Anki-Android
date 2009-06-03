@@ -1,0 +1,6 @@
+{
+  if (mDb != null) {
+    mDb.close();
+  }
+  mDb=SQLiteDatabase.openDatabase(filename,null,DB_OPEN_OPTS);
+}

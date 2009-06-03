@@ -1,0 +1,7 @@
+{
+  Card card=new Card();
+  card.id=cursor.getInt(0);
+  card.question=cursor.getString(1);
+  card.answer=cursor.getString(2);
+  return card;
+}
