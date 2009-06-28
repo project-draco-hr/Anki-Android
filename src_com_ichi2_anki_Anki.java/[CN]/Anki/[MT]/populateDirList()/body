@@ -25,7 +25,9 @@
   }
   list=mBrowser.mFiles;
   for (int i=0; i < list.length; i++) {
-    fa.add(list[i]);
+    if (list[i].mFilename.endsWith(".anki")) {
+      fa.add(list[i]);
+    }
   }
   mFileList.clearChoices();
 }
