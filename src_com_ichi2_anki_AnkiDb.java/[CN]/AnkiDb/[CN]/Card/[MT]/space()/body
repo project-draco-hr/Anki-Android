@@ -1,0 +1,7 @@
+{
+  double newInterval=2 * interval;
+  String query="update " + TABLE + " set interval="+ newInterval+ " where id="+ id;
+  Log.d("db",query);
+  Cursor cursor=AnkiDb.mDb.rawQuery(query,null);
+  Log.d("db",cursor.toString());
+}

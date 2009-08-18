@@ -1,0 +1,5 @@
+{
+  String query="update " + TABLE + " set interval=0.1 where id="+ id;
+  Log.d("db",query);
+  AnkiDb.mDb.rawQuery(query,null);
+}

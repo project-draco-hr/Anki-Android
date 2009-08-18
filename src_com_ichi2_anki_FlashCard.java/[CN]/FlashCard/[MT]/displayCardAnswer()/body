@@ -1,7 +1,8 @@
 {
   mTimer.stop();
-  mSelectResult.setVisibility(View.VISIBLE);
-  mSelectResult.requestFocus();
+  mSelectRemembered.setVisibility(View.VISIBLE);
+  mSelectNotRemembered.setVisibility(View.VISIBLE);
+  mSelectRemembered.requestFocus();
   mShowAnswer.setVisibility(View.GONE);
   updateCard(currentCard.answer);
 }

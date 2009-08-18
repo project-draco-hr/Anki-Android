@@ -1,3 +1,0 @@
-{
-  return oneFromCursor(AnkiDb.mDb.rawQuery("select " + COLUMNS + " from "+ TABLE+ " order by random() limit 1",null));
-}

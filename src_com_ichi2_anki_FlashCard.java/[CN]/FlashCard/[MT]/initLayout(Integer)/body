@@ -2,11 +2,13 @@
   setContentView(layout);
   mCard=(WebView)findViewById(R.id.flashcard);
   mShowAnswer=(Button)findViewById(R.id.show_answer);
-  mSelectResult=(Button)findViewById(R.id.sel_result);
+  mSelectRemembered=(Button)findViewById(R.id.select_remembered);
+  mSelectNotRemembered=(Button)findViewById(R.id.select_notremembered);
   mTimer=(Chronometer)findViewById(R.id.card_time);
   mToggleWhiteboard=(ToggleButton)findViewById(R.id.toggle_overlay);
   mWhiteboard=(Whiteboard)findViewById(R.id.whiteboard);
   mShowAnswer.setOnClickListener(mShowAnswerHandler);
-  mSelectResult.setOnClickListener(mSelectResultHandler);
+  mSelectRemembered.setOnClickListener(mSelectRememberedHandler);
+  mSelectNotRemembered.setOnClickListener(mSelectNotRememberedHandler);
   mToggleWhiteboard.setOnCheckedChangeListener(mToggleOverlayHandler);
 }

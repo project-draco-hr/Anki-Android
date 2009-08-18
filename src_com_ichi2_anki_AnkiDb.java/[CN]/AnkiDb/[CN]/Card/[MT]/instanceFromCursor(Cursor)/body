@@ -1,7 +1,9 @@
 {
   Card card=new Card();
   card.id=cursor.getInt(0);
-  card.question=cursor.getString(1);
-  card.answer=cursor.getString(2);
+  card.interval=cursor.getDouble(1);
+  card.question=cursor.getString(2);
+  card.answer=cursor.getString(3);
+  Log.d("db","id=" + card.id + ", interval="+ card.interval);
   return card;
 }
