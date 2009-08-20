@@ -2,6 +2,7 @@
   if (cursor.isClosed()) {
     throw new SQLException();
   }
+  Log.d("db","Nb of results:" + cursor.getCount());
   cursor.moveToFirst();
   return instanceFromCursor(cursor);
 }

@@ -1,6 +1,8 @@
 {
   Card card=new Card();
-  card.id=cursor.getInt(0);
+  String s=cursor.getString(0);
+  Log.d("db",s);
+  card.id=s;
   card.interval=cursor.getDouble(1);
   card.question=cursor.getString(2);
   card.answer=cursor.getString(3);

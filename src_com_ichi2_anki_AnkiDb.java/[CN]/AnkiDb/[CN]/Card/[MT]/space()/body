@@ -1,7 +1,10 @@
 {
-  double newInterval=2 * interval;
-  String query="update " + TABLE + " set interval="+ newInterval+ " where id="+ id;
+  double newInterval=1;
+  if (interval != 0)   newInterval=2 * interval;
+  String query="UPDATE " + TABLE + " SET interval="+ newInterval+ " where id='"+ id+ "'";
   Log.d("db",query);
   Cursor cursor=AnkiDb.mDb.rawQuery(query,null);
-  Log.d("db",cursor.toString());
+  Log.d("db","cursor=" + cursor.toString());
+  Card card=oneFromCursor(AnkiDb.mDb.rawQuery("select " + COLUMNS + " from "+ TABLE+ " where id='"+ id+ "'",null));
+  Log.d("db","Updated card id " + card.id + " with interval "+ card.interval);
 }

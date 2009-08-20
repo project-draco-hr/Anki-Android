@@ -1,5 +1,7 @@
 {
-  String query="update " + TABLE + " set interval=0.1 where id="+ id;
+  String query="UPDATE " + TABLE + " SET interval=0.1 where id="+ id;
   Log.d("db",query);
   AnkiDb.mDb.rawQuery(query,null);
+  Card card=oneFromCursor(AnkiDb.mDb.rawQuery("select " + COLUMNS + " from "+ TABLE+ " where id='"+ id+ "'",null));
+  Log.d("db","Updated card id " + card.id + " with interval "+ card.interval);
 }
