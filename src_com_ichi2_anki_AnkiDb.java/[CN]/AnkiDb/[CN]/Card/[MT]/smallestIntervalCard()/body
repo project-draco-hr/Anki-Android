@@ -1,5 +1,5 @@
 {
-  Card card=oneFromCursor(AnkiDb.mDb.rawQuery("select " + COLUMNS + " from "+ TABLE+ " order by interval limit 1",null));
-  Log.d("db","Selected card id " + card.id + " with interval "+ card.interval);
+  Card card=oneFromCursor(AnkiDb.database.rawQuery("SELECT id,interval,question,answer " + "FROM cards " + "ORDER BY interval "+ "LIMIT 1",null));
+  Log.i("anki","Selected card id " + card.id + " with interval "+ card.interval);
   return card;
 }

@@ -1,6 +1,6 @@
 {
-  if (mDb != null) {
-    mDb.close();
+  if (database != null) {
+    database.close();
   }
-  mDb=SQLiteDatabase.openDatabase(filename,null,DB_OPEN_OPTS);
+  database=SQLiteDatabase.openDatabase(ankiFilename,null,SQLiteDatabase.OPEN_READWRITE | SQLiteDatabase.NO_LOCALIZED_COLLATORS);
 }
