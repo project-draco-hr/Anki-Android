@@ -1,0 +1,19 @@
+{
+  FileEntry ent=mFileListAdapter.getItem(id);
+  if (ent.mIsDir) {
+    try {
+      mBrowser.moveTo(ent.mFilename);
+      mFileListAdapter.clear();
+      populateDirList();
+    }
+ catch (    NotDirException e) {
+    }
+  }
+ else   if (ent.mIsFile) {
+    String deckFilename=mBrowser.mCurrent.getAbsolutePath() + "/" + ent.mFilename;
+    Intent intent=this.getIntent();
+    intent.putExtra(Ankidroid.OPT_DB,deckFilename);
+    setResult(RESULT_OK,intent);
+    finish();
+  }
+}

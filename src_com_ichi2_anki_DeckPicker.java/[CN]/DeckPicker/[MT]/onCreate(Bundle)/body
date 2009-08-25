@@ -1,0 +1,10 @@
+{
+  super.onCreate(savedInstanceState);
+  mSelf=this;
+  setContentView(R.layout.main);
+  mFileList=(ListView)findViewById(R.id.files);
+  mFileListAdapter=new ArrayAdapter<FileBrowser.FileEntry>(this,R.layout.main_fileentry);
+  mFileList.setOnItemClickListener(mFileSelHandler);
+  mFileList.setAdapter(mFileListAdapter);
+  populateDirList();
+}
