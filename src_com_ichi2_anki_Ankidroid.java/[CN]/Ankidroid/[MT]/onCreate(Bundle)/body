@@ -6,5 +6,13 @@
   mFileListAdapter=new ArrayAdapter<FileBrowser.FileEntry>(this,R.layout.main_fileentry);
   mFileList.setOnItemClickListener(mFileSelHandler);
   mFileList.setAdapter(mFileListAdapter);
+  if (savedInstanceState != null) {
+    deckFilename=savedInstanceState.getString("deckFilename");
+    if (deckFilename != null) {
+      Intent flashcard=new Intent(this,FlashCard.class);
+      flashcard.putExtra(FlashCard.OPT_DB,deckFilename);
+      startActivity(flashcard);
+    }
+  }
   populateDirList();
 }
