@@ -1,0 +1,8 @@
+{
+  this.deckFilename=deckFilename;
+  AnkiDb.openDatabase(deckFilename);
+  requestWindowFeature(Window.FEATURE_NO_TITLE);
+  initLayout(R.layout.flashcard_portrait);
+  nextCard();
+  displayCardQuestion();
+}

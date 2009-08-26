@@ -1,0 +1,15 @@
+{
+  super.onActivityResult(requestCode,resultCode,intent);
+  if (requestCode == PICK_DECK_REQUEST) {
+    if (resultCode != RESULT_OK) {
+      Log.e("ankidroid","Deck browser returned with error");
+      return;
+    }
+    if (intent == null) {
+      Log.e("ankidroid","Deck browser returned null intent");
+      return;
+    }
+    deckFilename=intent.getExtras().getString(OPT_DB);
+    loadDeck(deckFilename);
+  }
+}
