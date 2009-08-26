@@ -2,13 +2,18 @@
   super.onCreate(savedInstanceState);
   Bundle extras=getIntent().getExtras();
   initResourceValues();
+  Log.i("ankidroidstart","savedInstanceState: " + savedInstanceState);
   if (extras != null && extras.getString(OPT_DB) != null) {
     deckFilename=extras.getString(OPT_DB);
   }
  else   if (savedInstanceState != null) {
     deckFilename=savedInstanceState.getString("deckFilename");
+    Log.i("ankidroidstart","savedInstanceState deckFilename: " + deckFilename);
   }
-  if (deckFilename == null) {
+  if (deckFilename == null || !new File(deckFilename).exists()) {
     openDeckPicker();
+  }
+ else {
+    loadDeck(deckFilename);
   }
 }
