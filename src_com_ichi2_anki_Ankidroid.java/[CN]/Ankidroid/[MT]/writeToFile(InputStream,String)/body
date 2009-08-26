@@ -1,0 +1,10 @@
+{
+  OutputStream output=new FileOutputStream(destination);
+  byte[] buf=new byte[1024];
+  int len;
+  while ((len=source.read(buf)) > 0) {
+    output.write(buf,0,len);
+  }
+  source.close();
+  output.close();
+}
