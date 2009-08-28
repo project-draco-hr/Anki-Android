@@ -3,6 +3,8 @@
   Bundle extras=getIntent().getExtras();
   initResourceValues();
   Log.i("ankidroidstart","savedInstanceState: " + savedInstanceState);
+  SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+  corporalPunishments=preferences.getBoolean("corporalPunishments",false);
   if (extras != null && extras.getString(OPT_DB) != null) {
     deckFilename=extras.getString(OPT_DB);
     Log.i("ankidroidstart","deckFilename from extras: " + deckFilename);
@@ -12,23 +14,28 @@
     Log.i("ankidroidstart","deckFilename from savedInstanceState: " + deckFilename);
   }
  else {
-    SharedPreferences preferences=getSharedPreferences("ankidroid",MODE_PRIVATE);
     Log.i("ankidroidstart",preferences.getAll().toString());
     deckFilename=preferences.getString("deckFilename",null);
     Log.i("ankidroidstart","deckFilename from preferences: " + deckFilename);
   }
   if (deckFilename == null || !new File(deckFilename).exists()) {
-    String SAMPLE_DECK_FILENAME="/sdcard/sample-deck.anki";
-    if (!new File("/sdcard","japanese.anki").exists()) {
-      try {
-        InputStream stream=getResources().getAssets().open("sample-deck.anki");
-        writeToFile(stream,SAMPLE_DECK_FILENAME);
+    boolean generateSampleDeck=preferences.getBoolean("generateSampleDeck",true);
+    if (generateSampleDeck) {
+      String SAMPLE_DECK_FILENAME="/sdcard/sample-deck.anki";
+      if (!new File("/sdcard","japanese.anki").exists()) {
+        try {
+          InputStream stream=getResources().getAssets().open("sample-deck.anki");
+          writeToFile(stream,SAMPLE_DECK_FILENAME);
+        }
+ catch (        IOException e) {
+          e.printStackTrace();
+        }
       }
- catch (      IOException e) {
-        e.printStackTrace();
-      }
+      loadDeck(SAMPLE_DECK_FILENAME);
     }
-    loadDeck(SAMPLE_DECK_FILENAME);
+ else {
+      openDeckPicker();
+    }
   }
  else {
     loadDeck(deckFilename);

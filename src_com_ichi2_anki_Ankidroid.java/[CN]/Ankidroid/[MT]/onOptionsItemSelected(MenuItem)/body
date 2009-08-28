@@ -1,12 +1,16 @@
 {
 switch (item.getItemId()) {
 case MENU_OPEN:
-    Intent decksPicker=new Intent(this,DeckPicker.class);
-  startActivityForResult(decksPicker,PICK_DECK_REQUEST);
-return true;
+    openDeckPicker();
+  return true;
 case MENU_PREFERENCES:
 Intent preferences=new Intent(this,Preferences.class);
-startActivity(preferences);
+startActivityForResult(preferences,PREFERENCES_UPDATE);
+return true;
+case MENU_ABOUT:
+Toast.makeText(this,deckFilename,Toast.LENGTH_LONG).show();
+Intent about=new Intent(this,About.class);
+startActivity(about);
 return true;
 }
 return false;

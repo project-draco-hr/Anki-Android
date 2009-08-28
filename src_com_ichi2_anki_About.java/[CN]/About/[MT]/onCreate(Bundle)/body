@@ -1,0 +1,6 @@
+{
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.about);
+  WebView webview=(WebView)findViewById(R.id.about);
+  webview.loadUrl("file:///android_asset/about.html");
+}

@@ -1,4 +1,5 @@
 {
+  new File(destination).createNewFile();
   OutputStream output=new FileOutputStream(destination);
   byte[] buf=new byte[1024];
   int len;

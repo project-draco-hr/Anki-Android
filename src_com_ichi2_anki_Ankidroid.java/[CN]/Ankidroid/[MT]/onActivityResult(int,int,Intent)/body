@@ -10,6 +10,14 @@
       return;
     }
     deckFilename=intent.getExtras().getString(OPT_DB);
+    SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+    Editor editor=preferences.edit();
+    editor.putString("deckFilename",deckFilename);
+    editor.commit();
     loadDeck(deckFilename);
+  }
+ else   if (requestCode == PREFERENCES_UPDATE) {
+    SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+    corporalPunishments=preferences.getBoolean("corporalPunishments",false);
   }
 }
