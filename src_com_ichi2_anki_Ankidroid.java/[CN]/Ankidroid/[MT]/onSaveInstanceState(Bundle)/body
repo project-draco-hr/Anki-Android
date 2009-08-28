@@ -2,8 +2,5 @@
   Log.i("ankidroidstart","onSaveInstanceState: " + deckFilename);
   if (deckFilename != null) {
     outState.putString("deckFilename",deckFilename);
-    SharedPreferences preferences=getBaseContext().getSharedPreferences("ankidroid",MODE_PRIVATE);
-    preferences.edit().putString("deckFilename",deckFilename);
-    preferences.edit().commit();
   }
 }

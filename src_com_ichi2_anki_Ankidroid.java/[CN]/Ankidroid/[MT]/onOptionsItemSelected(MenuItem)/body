@@ -1,8 +1,13 @@
 {
 switch (item.getItemId()) {
 case MENU_OPEN:
-    openDeckPicker();
-  return true;
+    Intent decksPicker=new Intent(this,DeckPicker.class);
+  startActivityForResult(decksPicker,PICK_DECK_REQUEST);
+return true;
+case MENU_PREFERENCES:
+Intent preferences=new Intent(this,Preferences.class);
+startActivity(preferences);
+return true;
 }
 return false;
 }

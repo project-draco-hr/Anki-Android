@@ -1,0 +1,8 @@
+{
+  super.onStop();
+  if (deckFilename != null) {
+    SharedPreferences preferences=getSharedPreferences("ankidroid",MODE_PRIVATE);
+    preferences.edit().putString("deckFilename",deckFilename);
+    preferences.edit().commit();
+  }
+}
