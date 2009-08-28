@@ -21,10 +21,10 @@
   if (deckFilename == null || !new File(deckFilename).exists()) {
     boolean generateSampleDeck=preferences.getBoolean("generateSampleDeck",true);
     if (generateSampleDeck) {
-      String SAMPLE_DECK_FILENAME="/sdcard/sample-deck.anki";
-      if (!new File("/sdcard","japanese.anki").exists()) {
+      String SAMPLE_DECK_FILENAME="/sdcard/country-capitals.anki";
+      if (!new File("/sdcard","country-capitals.anki").exists()) {
         try {
-          InputStream stream=getResources().getAssets().open("sample-deck.anki");
+          InputStream stream=getResources().getAssets().open("country-capitals.anki");
           writeToFile(stream,SAMPLE_DECK_FILENAME);
         }
  catch (        IOException e) {
