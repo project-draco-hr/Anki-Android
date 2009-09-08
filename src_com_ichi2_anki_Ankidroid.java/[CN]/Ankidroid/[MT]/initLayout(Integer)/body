@@ -1,4 +1,5 @@
 {
+  requestWindowFeature(Window.FEATURE_NO_TITLE);
   setContentView(layout);
   mCard=(WebView)findViewById(R.id.flashcard);
   mShowAnswer=(Button)findViewById(R.id.show_answer);
@@ -7,6 +8,7 @@
   mTimer=(Chronometer)findViewById(R.id.card_time);
   mToggleWhiteboard=(ToggleButton)findViewById(R.id.toggle_overlay);
   mWhiteboard=(Whiteboard)findViewById(R.id.whiteboard);
+  showOrHideControls();
   mShowAnswer.setOnClickListener(mShowAnswerHandler);
   mSelectRemembered.setOnClickListener(mSelectRememberedHandler);
   mSelectNotRemembered.setOnClickListener(mSelectNotRememberedHandler);

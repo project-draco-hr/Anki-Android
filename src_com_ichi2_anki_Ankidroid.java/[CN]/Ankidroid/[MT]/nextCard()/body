@@ -1,3 +1,4 @@
 {
-  currentCard=AnkiDb.Card.smallestIntervalCard();
+  if (spacedRepetition)   currentCard=AnkiDb.Card.smallestIntervalCard();
+ else   currentCard=AnkiDb.Card.randomCard();
 }

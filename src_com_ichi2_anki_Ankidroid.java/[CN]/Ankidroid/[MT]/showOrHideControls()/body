@@ -1,0 +1,12 @@
+{
+  if (!timerAndWhiteboard) {
+    mTimer.setVisibility(View.GONE);
+    mToggleWhiteboard.setVisibility(View.GONE);
+    mWhiteboard.setVisibility(View.GONE);
+  }
+ else {
+    mTimer.setVisibility(View.VISIBLE);
+    mToggleWhiteboard.setVisibility(View.VISIBLE);
+    mWhiteboard.setVisibility(View.VISIBLE);
+  }
+}

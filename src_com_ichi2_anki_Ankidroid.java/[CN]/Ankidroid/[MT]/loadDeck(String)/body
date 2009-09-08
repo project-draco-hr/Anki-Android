@@ -1,7 +1,6 @@
 {
   this.deckFilename=deckFilename;
   AnkiDb.openDatabase(deckFilename);
-  initLayout(R.layout.flashcard_portrait);
   nextCard();
   displayCardQuestion();
 }

@@ -1,5 +1,11 @@
 {
-  new File(destination).createNewFile();
+  try {
+    new File(destination).createNewFile();
+  }
+ catch (  IOException e) {
+    Toast.makeText(this,"Please turn off USB storage",Toast.LENGTH_LONG).show();
+    return false;
+  }
   OutputStream output=new FileOutputStream(destination);
   byte[] buf=new byte[1024];
   int len;
@@ -8,4 +14,5 @@
   }
   source.close();
   output.close();
+  return true;
 }

@@ -1,4 +1,4 @@
 {
-  String card=card_template.replace("::content::",content);
+  String card=cardTemplate.replace("::content::",content);
   mCard.loadDataWithBaseURL("",card,"text/html","utf-8",null);
 }
