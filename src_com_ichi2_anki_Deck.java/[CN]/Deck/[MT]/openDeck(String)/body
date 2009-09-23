@@ -1,0 +1,14 @@
+{
+  Deck deck=new Deck();
+  AnkiDb.openDatabase(path);
+  Cursor cursor=AnkiDb.database.rawQuery("SELECT id,modified,cardCount,failedSoonCount," + "revCount,newCount" + " FROM decks"+ " LIMIT 1",null);
+  if (cursor.isClosed())   throw new SQLException();
+  cursor.moveToFirst();
+  deck.id=cursor.getInt(0);
+  deck.modified=cursor.getFloat(1);
+  deck.cardCount=cursor.getInt(2);
+  deck.failedSoonCount=cursor.getInt(3);
+  deck.revCount=cursor.getInt(4);
+  deck.newCount=cursor.getInt(5);
+  return deck;
+}

@@ -1,0 +1,44 @@
+{
+  int len=0;
+  File[] fileList;
+  TreeSet<HashMap<String,String>> tree=new TreeSet<HashMap<String,String>>(new HashMapCompare());
+  File dir=new File(location);
+  fileList=dir.listFiles(new AnkiFilter());
+  if (dir.exists() && dir.isDirectory() && fileList != null) {
+    len=fileList.length;
+  }
+  if (len > 0 && fileList != null) {
+    for (int i=0; i < len; i++) {
+      String absPath=fileList[i].getAbsolutePath();
+      Deck deck;
+      try {
+        deck=Deck.openDeck(absPath);
+      }
+ catch (      SQLException e) {
+        Log.w("anki","Could not open database " + absPath);
+        continue;
+      }
+      int due=deck.failedSoonCount + deck.revCount;
+      HashMap<String,String> data=new HashMap<String,String>();
+      data.put("name",fileList[i].getName().replaceAll(".anki",""));
+      data.put("cards",String.valueOf(due) + " of " + String.valueOf(deck.cardCount)+ " due");
+      data.put("due",String.valueOf(deck.newCount) + " new");
+      data.put("filepath",absPath);
+      data.put("mod",String.valueOf(deck.modified));
+      deck.closeDeck();
+      tree.add(data);
+    }
+  }
+ else {
+    HashMap<String,String> data=new HashMap<String,String>();
+    data.put("name","No decks found.");
+    data.put("cards","");
+    data.put("due","");
+    data.put("mod","1");
+    tree.add(data);
+  }
+  mDeckList.clear();
+  mDeckList.addAll(tree);
+  mDeckListView.clearChoices();
+  mDeckListAdapter.notifyDataSetChanged();
+}
