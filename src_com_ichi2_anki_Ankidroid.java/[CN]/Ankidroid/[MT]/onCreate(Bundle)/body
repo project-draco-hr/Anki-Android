@@ -39,7 +39,8 @@
         }
       }
       initLayout(R.layout.flashcard_portrait);
-      loadDeck(SAMPLE_DECK_FILENAME);
+      deckFilename=SAMPLE_DECK_FILENAME;
+      displayProgressDialogAndLoadDeck();
     }
  else {
       openDeckPicker();
@@ -47,6 +48,6 @@
   }
  else {
     initLayout(R.layout.flashcard_portrait);
-    loadDeck(deckFilename);
+    displayProgressDialogAndLoadDeck();
   }
 }

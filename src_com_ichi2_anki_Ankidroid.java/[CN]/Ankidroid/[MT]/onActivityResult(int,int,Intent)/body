@@ -14,7 +14,7 @@
     Editor editor=preferences.edit();
     editor.putString("deckFilename",deckFilename);
     editor.commit();
-    loadDeck(deckFilename);
+    displayProgressDialogAndLoadDeck();
   }
  else   if (requestCode == PREFERENCES_UPDATE) {
     SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(getBaseContext());
