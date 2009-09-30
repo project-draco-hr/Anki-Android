@@ -1,0 +1,17 @@
+{
+  Log.i("anki","Getting global stats...");
+  int type=STATS_LIFE;
+  Date today=genToday(deck);
+  Cursor cursor=AnkiDb.database.rawQuery("SELECT id " + "FROM stats " + "WHERE type = "+ String.valueOf(type),null);
+  if (cursor.isClosed())   throw new SQLException();
+  Stats stats=new Stats();
+  if (cursor.moveToFirst()) {
+    stats.fromDB(cursor.getInt(0));
+    cursor.close();
+    return stats;
+  }
+ else   stats.create(type,today);
+  cursor.close();
+  stats.type=type;
+  return stats;
+}

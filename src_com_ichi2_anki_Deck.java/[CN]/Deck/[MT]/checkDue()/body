@@ -1,0 +1,15 @@
+{
+  Log.i("anki","Checking due cards...");
+  checkDailyStats();
+  ContentValues val=new ContentValues(1);
+  val.put("isDue",1);
+  failedSoonCount+=AnkiDb.database.update("cards",val,"type = 0 and " + "isDue = 0 and " + "priority in (1,2,3,4) and "+ String.format("combinedDue <= %f",(float)((System.currentTimeMillis() / 1000f) + delay0)),null);
+  failedNowCount=AnkiDb.queryScalar("SELECT count(id) " + "FROM cards " + "WHERE type = 0 and "+ "isDue = 1 and "+ String.format("combinedDue <= %f",(float)(System.currentTimeMillis() / 1000f)));
+  val.clear();
+  val.put("isDue",1);
+  revCount+=AnkiDb.database.update("cards",val,"type = 1 and " + "isDue = 0 and " + "priority in (1,2,3,4) and "+ String.format("combinedDue <= %f",(float)(System.currentTimeMillis() / 1000f)),null);
+  val.clear();
+  val.put("isDue",1);
+  newCount+=AnkiDb.database.update("cards",val,"type = 2 and " + "isDue = 0 and " + "priority in (1,2,3,4) and "+ String.format("combinedDue <= %f",(float)(System.currentTimeMillis() / 1000f)),null);
+  newCountToday=Math.max(Math.min(newCount,newCardsPerDay - newCardsToday()),0);
+}

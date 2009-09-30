@@ -21,8 +21,8 @@
       int due=deck.failedSoonCount + deck.revCount;
       HashMap<String,String> data=new HashMap<String,String>();
       data.put("name",fileList[i].getName().replaceAll(".anki",""));
-      data.put("cards",String.valueOf(due) + " of " + String.valueOf(deck.cardCount)+ " due");
-      data.put("due",String.valueOf(deck.newCount) + " new");
+      data.put("due",String.valueOf(due) + " of " + String.valueOf(deck.cardCount)+ " due");
+      data.put("new",String.valueOf(deck.newCountToday) + " new");
       data.put("filepath",absPath);
       data.put("mod",String.valueOf(deck.modified));
       deck.closeDeck();

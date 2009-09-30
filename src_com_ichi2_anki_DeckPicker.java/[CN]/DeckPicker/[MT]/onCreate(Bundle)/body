@@ -5,7 +5,7 @@
   setContentView(R.layout.main);
   mDeckList=new ArrayList<HashMap<String,String>>();
   mDeckListView=(ListView)findViewById(R.id.files);
-  mDeckListAdapter=new SimpleAdapter(this,mDeckList,R.layout.deck_picker_list,new String[]{"name","cards","due"},new int[]{R.id.DeckPickerName,R.id.DeckPickerCards,R.id.DeckPickerDue});
+  mDeckListAdapter=new SimpleAdapter(this,mDeckList,R.layout.deck_picker_list,new String[]{"name","due","new"},new int[]{R.id.DeckPickerName,R.id.DeckPickerDue,R.id.DeckPickerNew});
   mDeckListView.setOnItemClickListener(mDeckSelHandler);
   mDeckListView.setAdapter(mDeckListAdapter);
   populateDeckList(deckPath);
