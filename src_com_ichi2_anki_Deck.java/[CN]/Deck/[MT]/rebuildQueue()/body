@@ -1,0 +1,22 @@
+{
+  Log.i("anki","Rebuilding query...");
+  globalStats=Stats.globalStats(this);
+  dailyStats=Stats.dailyStats(this);
+  checkDue();
+  if (newCardSpacing == NEW_CARDS_DISTRIBUTE) {
+    if (newCountToday > 0) {
+      newCardModulus=(newCountToday + revCount) / newCountToday;
+      if (revCount > 0)       newCardModulus=Math.max(2,newCardModulus);
+    }
+ else {
+      newCardModulus=0;
+    }
+  }
+ else   newCardModulus=0;
+  Log.i("anki","newCardModulus set to " + newCardModulus);
+  Cursor cursor=AnkiDb.database.rawQuery("SELECT avg(factor) " + "FROM cards " + "WHERE type = 1",null);
+  if (cursor.isClosed())   throw new SQLException();
+  if (!cursor.moveToFirst())   averageFactor=Deck.initialFactor;
+ else   averageFactor=cursor.getFloat(0);
+  cursor.close();
+}
