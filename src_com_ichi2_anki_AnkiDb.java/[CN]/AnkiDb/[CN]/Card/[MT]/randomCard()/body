@@ -1,5 +1,5 @@
 {
   Card card=oneFromCursor(AnkiDb.database.rawQuery("SELECT id,interval,question,answer" + " FROM cards" + " ORDER BY random()"+ " LIMIT 1",null));
-  Log.i("anki","Selected card id " + card.id + " with interval "+ card.interval);
+  Log.d("anki","Selected card id " + card.id + " with interval "+ card.interval);
   return card;
 }
