@@ -1,0 +1,38 @@
+{
+  int len=0;
+  if (mFileList != null)   len=mFileList.length;
+  if (len > 0 && mFileList != null) {
+    mLock.lock();
+    try {
+      mFinished=false;
+      for (int i=0; i < len; i++) {
+        String path=mFileList[i].getAbsolutePath();
+        Deck deck;
+        try {
+          deck=Deck.openDeck(path);
+        }
+ catch (        SQLException e) {
+          Log.w("anki","Could not open database " + path);
+          continue;
+        }
+        int dueCards=deck.failedSoonCount + deck.revCount;
+        int totalCards=deck.cardCount;
+        int newCards=deck.newCountToday;
+        deck.closeDeck();
+        Bundle data=new Bundle();
+        data.putString("absPath",path);
+        data.putInt("due",dueCards);
+        data.putInt("total",totalCards);
+        data.putInt("new",newCards);
+        Message msg=Message.obtain();
+        msg.setData(data);
+        handler.sendMessage(msg);
+      }
+      mFinished=true;
+      mCondFinished.signal();
+    }
+  finally {
+      mLock.unlock();
+    }
+  }
+}

@@ -7,25 +7,15 @@
   if (dir.exists() && dir.isDirectory() && fileList != null) {
     len=fileList.length;
   }
+  mFileList=fileList;
   if (len > 0 && fileList != null) {
     for (int i=0; i < len; i++) {
       String absPath=fileList[i].getAbsolutePath();
-      Deck deck;
-      try {
-        deck=Deck.openDeck(absPath);
-      }
- catch (      SQLException e) {
-        Log.w("anki","Could not open database " + absPath);
-        continue;
-      }
-      int due=deck.failedSoonCount + deck.revCount;
       HashMap<String,String> data=new HashMap<String,String>();
       data.put("name",fileList[i].getName().replaceAll(".anki",""));
-      data.put("due",String.valueOf(due) + " of " + String.valueOf(deck.cardCount)+ " due");
-      data.put("new",String.valueOf(deck.newCountToday) + " new");
-      data.put("filepath",absPath);
-      data.put("mod",String.valueOf(deck.modified));
-      deck.closeDeck();
+      data.put("due","Loading deck...");
+      data.put("new","");
+      data.put("mod",String.valueOf(i));
       tree.add(data);
     }
   }
@@ -40,5 +30,6 @@
   mDeckList.clear();
   mDeckList.addAll(tree);
   mDeckListView.clearChoices();
-  mDeckListAdapter.notifyDataSetChanged();
+  Thread thread=new Thread(this);
+  thread.start();
 }
