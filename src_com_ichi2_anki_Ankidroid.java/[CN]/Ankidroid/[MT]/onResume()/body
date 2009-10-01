@@ -1,0 +1,8 @@
+{
+  super.onResume();
+  if (!deckSelected) {
+    AnkiDb.openDatabase(deckFilename);
+    deckSelected=true;
+  }
+ else   deckSelected=false;
+}

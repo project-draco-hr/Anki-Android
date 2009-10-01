@@ -1,6 +1,17 @@
 {
-  HashMap<String,String> data=(HashMap<String,String>)mDeckListAdapter.getItem(id);
-  String deckFilename=data.get("filepath");
+  String deckFilename=null;
+  mLock.lock();
+  try {
+    while (!mFinished)     mCondFinished.await();
+    HashMap<String,String> data=(HashMap<String,String>)mDeckListAdapter.getItem(id);
+    deckFilename=data.get("filepath");
+  }
+ catch (  InterruptedException e) {
+    e.printStackTrace();
+  }
+ finally {
+    mLock.unlock();
+  }
   if (deckFilename != null) {
     Log.i("anki","Selected " + deckFilename);
     Intent intent=this.getIntent();
