@@ -1,0 +1,18 @@
+{
+  Log.i("anki","Getting daily stats...");
+  int type=STATS_DAY;
+  Date today=genToday(deck);
+  Log.i("anki","Trying to get stats for " + today.toString());
+  Cursor cursor=AnkiDb.database.rawQuery("SELECT id " + "FROM stats " + "WHERE type = " + String.valueOf(type) + " and day = \""+ today.toString()+ "\"",null);
+  if (cursor.isClosed())   throw new SQLException();
+  Stats stats=new Stats();
+  if (cursor.moveToFirst()) {
+    stats.fromDB(cursor.getInt(0));
+    cursor.close();
+    return stats;
+  }
+ else   stats.create(type,today);
+  cursor.close();
+  stats.type=type;
+  return stats;
+}

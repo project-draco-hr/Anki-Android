@@ -1,10 +1,12 @@
 {
   super.onCreate(savedInstanceState);
   mSelf=this;
+  String deckPath=getIntent().getStringExtra("com.ichi2.anki.Ankidroid.DeckPath");
   setContentView(R.layout.main);
-  mFileList=(ListView)findViewById(R.id.files);
-  mFileListAdapter=new ArrayAdapter<FileBrowser.FileEntry>(this,R.layout.main_fileentry);
-  mFileList.setOnItemClickListener(mFileSelHandler);
-  mFileList.setAdapter(mFileListAdapter);
-  populateDirList();
+  mDeckList=new ArrayList<HashMap<String,String>>();
+  mDeckListView=(ListView)findViewById(R.id.files);
+  mDeckListAdapter=new SimpleAdapter(this,mDeckList,R.layout.deck_picker_list,new String[]{"name","due","new"},new int[]{R.id.DeckPickerName,R.id.DeckPickerDue,R.id.DeckPickerNew});
+  mDeckListView.setOnItemClickListener(mDeckSelHandler);
+  mDeckListView.setAdapter(mDeckListAdapter);
+  populateDeckList(deckPath);
 }

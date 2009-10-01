@@ -1,0 +1,22 @@
+{
+  Log.i("anki","Updating indices...");
+  HashMap<String,String> indices=new HashMap<String,String>();
+  indices.put("intervalDesc","(type, isDue, priority desc, interval desc)");
+  indices.put("intervalAsc","(type, isDue, priority desc, interval)");
+  indices.put("randomOrder","(type, isDue, priority desc, factId, ordinal)");
+  indices.put("dueAsc","(type, isDue, priority desc, due)");
+  indices.put("dueDesc","(type, isDue, priority desc, due desc)");
+  ArrayList<String> required=new ArrayList<String>();
+  if (revCardOrder == REV_CARDS_OLD_FIRST)   required.add("intervalDesc");
+  if (revCardOrder == REV_CARDS_NEW_FIRST)   required.add("intervalAsc");
+  if (revCardOrder == REV_CARDS_RANDOM)   required.add("randomOrder");
+  if (revCardOrder == REV_CARDS_DUE_FIRST || newCardOrder == NEW_CARDS_OLD_FIRST || newCardOrder == NEW_CARDS_RANDOM)   required.add("dueAsc");
+  if (newCardOrder == NEW_CARDS_NEW_FIRST)   required.add("dueDesc");
+  Set<Entry<String,String>> entries=indices.entrySet();
+  Iterator<Entry<String,String>> iter=entries.iterator();
+  while (iter.hasNext()) {
+    Entry<String,String> entry=iter.next();
+    if (required.contains(entry.getKey()))     AnkiDb.database.execSQL("CREATE INDEX IF NOT EXISTS " + "ix_cards_" + entry.getKey() + " ON cards "+ entry.getValue());
+ else     AnkiDb.database.execSQL("DROP INDEX IF EXISTS " + "ix_cards_" + entry.getKey());
+  }
+}
