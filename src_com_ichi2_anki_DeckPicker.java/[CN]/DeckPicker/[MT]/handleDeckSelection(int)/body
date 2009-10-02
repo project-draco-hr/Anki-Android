@@ -1,8 +1,9 @@
 {
   String deckFilename=null;
+  mDeckIsSelected=true;
   mLock.lock();
   try {
-    while (!mFinished)     mCondFinished.await();
+    while (!mIsFinished)     mCondFinished.await();
     HashMap<String,String> data=(HashMap<String,String>)mDeckListAdapter.getItem(id);
     deckFilename=data.get("filepath");
   }
