@@ -1,0 +1,13 @@
+{
+  mDeckIsSelected=true;
+  mLock.lock();
+  try {
+    while (!mIsFinished)     mCondFinished.await();
+  }
+ catch (  InterruptedException e) {
+    e.printStackTrace();
+  }
+ finally {
+    mLock.unlock();
+  }
+}
