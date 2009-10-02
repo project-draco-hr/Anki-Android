@@ -4,8 +4,9 @@
   if (len > 0 && mFileList != null) {
     mLock.lock();
     try {
-      mFinished=false;
+      mIsFinished=false;
       for (int i=0; i < len; i++) {
+        if (mDeckIsSelected)         break;
         String path=mFileList[i].getAbsolutePath();
         Deck deck;
         try {
@@ -28,7 +29,7 @@
         msg.setData(data);
         handler.sendMessage(msg);
       }
-      mFinished=true;
+      mIsFinished=true;
       mCondFinished.signal();
     }
   finally {
