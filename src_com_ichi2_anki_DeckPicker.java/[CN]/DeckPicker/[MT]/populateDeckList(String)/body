@@ -16,8 +16,11 @@
       data.put("due","Loading deck...");
       data.put("new","");
       data.put("mod",String.valueOf(i));
+      data.put("filepath",absPath);
       tree.add(data);
     }
+    Thread thread=new Thread(this);
+    thread.start();
   }
  else {
     HashMap<String,String> data=new HashMap<String,String>();
@@ -30,6 +33,4 @@
   mDeckList.clear();
   mDeckList.addAll(tree);
   mDeckListView.clearChoices();
-  Thread thread=new Thread(this);
-  thread.start();
 }
