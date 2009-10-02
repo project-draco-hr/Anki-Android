@@ -1,5 +1,6 @@
 {
   Log.i("anki","Loading deck " + deckFilename);
+  showControls(false);
   dialog=ProgressDialog.show(this,"","Loading deck. Please wait...",true);
   Thread thread=new Thread(this);
   thread.start();
