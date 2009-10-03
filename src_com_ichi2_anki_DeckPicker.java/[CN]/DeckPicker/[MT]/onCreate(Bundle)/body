@@ -5,7 +5,18 @@
   setContentView(R.layout.main);
   mDeckList=new ArrayList<HashMap<String,String>>();
   mDeckListView=(ListView)findViewById(R.id.files);
-  mDeckListAdapter=new SimpleAdapter(this,mDeckList,R.layout.deck_picker_list,new String[]{"name","due","new"},new int[]{R.id.DeckPickerName,R.id.DeckPickerDue,R.id.DeckPickerNew});
+  mDeckListAdapter=new SimpleAdapter(this,mDeckList,R.layout.deck_picker_list,new String[]{"name","due","new","showProgress"},new int[]{R.id.DeckPickerName,R.id.DeckPickerDue,R.id.DeckPickerNew,R.id.DeckPickerProgress});
+  mDeckListAdapter.setViewBinder(new SimpleAdapter.ViewBinder(){
+    public boolean setViewValue(    View view,    Object data,    String text){
+      if (view instanceof ProgressBar) {
+        if (text.equals("true"))         view.setVisibility(View.VISIBLE);
+ else         view.setVisibility(View.GONE);
+        return true;
+      }
+      return false;
+    }
+  }
+);
   mDeckListView.setOnItemClickListener(mDeckSelHandler);
   mDeckListView.setAdapter(mDeckListAdapter);
   populateDeckList(deckPath);

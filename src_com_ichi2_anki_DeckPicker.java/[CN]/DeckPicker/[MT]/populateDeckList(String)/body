@@ -17,6 +17,7 @@
       data.put("new","");
       data.put("mod",String.valueOf(i));
       data.put("filepath",absPath);
+      data.put("showProgress","true");
       tree.add(data);
     }
     Thread thread=new Thread(this);
@@ -25,9 +26,10 @@
  else {
     HashMap<String,String> data=new HashMap<String,String>();
     data.put("name","No decks found.");
-    data.put("cards","");
+    data.put("new","");
     data.put("due","");
     data.put("mod","1");
+    data.put("showProgress","false");
     tree.add(data);
   }
   mDeckList.clear();
