@@ -1,4 +1,5 @@
 {
+  Resources res=getResources();
   int len=0;
   File[] fileList;
   TreeSet<HashMap<String,String>> tree=new TreeSet<HashMap<String,String>>(new HashMapCompare());
@@ -13,7 +14,7 @@
       String absPath=fileList[i].getAbsolutePath();
       HashMap<String,String> data=new HashMap<String,String>();
       data.put("name",fileList[i].getName().replaceAll(".anki",""));
-      data.put("due","Loading deck...");
+      data.put("due",res.getString(R.string.deckpicker_loaddeck));
       data.put("new","");
       data.put("mod",String.format("%f",Deck.getLastModified(absPath)));
       data.put("filepath",absPath);
@@ -25,7 +26,7 @@
   }
  else {
     HashMap<String,String> data=new HashMap<String,String>();
-    data.put("name","No decks found.");
+    data.put("name",res.getString(R.string.deckpicker_nodeck));
     data.put("new","");
     data.put("due","");
     data.put("mod","1");
