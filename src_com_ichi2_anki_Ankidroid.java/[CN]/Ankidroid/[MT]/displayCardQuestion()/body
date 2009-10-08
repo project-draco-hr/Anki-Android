@@ -6,13 +6,8 @@
     updateCard("Unable to find a card!");
   }
  else {
-    mWhiteboard.clear();
     mSelectRemembered.setVisibility(View.GONE);
     mSelectNotRemembered.setVisibility(View.GONE);
-    mShowAnswer.setVisibility(View.VISIBLE);
-    mShowAnswer.requestFocus();
-    mTimer.setBase(SystemClock.elapsedRealtime());
-    mTimer.start();
     updateCard(currentCard.question);
   }
 }

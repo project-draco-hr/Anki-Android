@@ -1,8 +1,8 @@
 {
   mTimer.stop();
+  mWhiteboard.lock();
   mSelectRemembered.setVisibility(View.VISIBLE);
   mSelectNotRemembered.setVisibility(View.VISIBLE);
   mSelectRemembered.requestFocus();
-  mShowAnswer.setVisibility(View.GONE);
   updateCard(currentCard.answer);
 }
