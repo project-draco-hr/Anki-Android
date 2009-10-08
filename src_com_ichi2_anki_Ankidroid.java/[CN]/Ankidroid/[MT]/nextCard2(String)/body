@@ -1,0 +1,5 @@
+{
+  AnkiDb.openDatabase(path);
+  if (ACTIVE_INSTANCE.spacedRepetition)   return AnkiDb.Card.smallestIntervalCard();
+ else   return AnkiDb.Card.randomCard();
+}

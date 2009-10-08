@@ -1,0 +1,6 @@
+{
+  if (ACTIVE_INSTANCE != null)   if (ACTIVE_INSTANCE.dialog != null) {
+    ACTIVE_INSTANCE.dialog.dismiss();
+    ACTIVE_INSTANCE.dialog=null;
+  }
+}
