@@ -4,4 +4,5 @@
   ContentValues values=new ContentValues();
   values.put("interval",newInterval);
   AnkiDb.database.update("cards",values,"id='" + id + "'",null);
+  Log.d("anki","Spaced card to interval " + newInterval);
 }

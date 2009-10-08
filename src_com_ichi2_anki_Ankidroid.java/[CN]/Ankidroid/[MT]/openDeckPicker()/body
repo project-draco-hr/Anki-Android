@@ -1,4 +1,5 @@
 {
+  deckSelected=false;
   Intent decksPicker=new Intent(this,DeckPicker.class);
   decksPicker.putExtra("com.ichi2.anki.Ankidroid.DeckPath",deckPath);
   startActivityForResult(decksPicker,PICK_DECK_REQUEST);

@@ -1,0 +1,15 @@
+{
+  if (show) {
+    mCard.setVisibility(View.VISIBLE);
+    showOrHideControls();
+  }
+ else {
+    mCard.setVisibility(View.GONE);
+    mToggleWhiteboard.setVisibility(View.GONE);
+    mShowAnswer.setVisibility(View.GONE);
+    mSelectRemembered.setVisibility(View.GONE);
+    mSelectNotRemembered.setVisibility(View.GONE);
+    mTimer.setVisibility(View.GONE);
+    mWhiteboard.setVisibility(View.GONE);
+  }
+}
