@@ -3,20 +3,16 @@
     mCard.setVisibility(View.VISIBLE);
     mSelectRemembered.setVisibility(View.VISIBLE);
     mSelectNotRemembered.setVisibility(View.VISIBLE);
-    mTimer.setVisibility(View.VISIBLE);
     mFlipCard.setVisibility(View.VISIBLE);
-    mToggleWhiteboard.setVisibility(View.VISIBLE);
-    if (mToggleWhiteboard.isChecked()) {
-      mWhiteboard.setVisibility(View.VISIBLE);
-    }
+    showOrHideControls();
   }
  else {
     mCard.setVisibility(View.GONE);
-    mToggleWhiteboard.setVisibility(View.GONE);
     mSelectRemembered.setVisibility(View.GONE);
     mSelectNotRemembered.setVisibility(View.GONE);
-    mTimer.setVisibility(View.GONE);
     mFlipCard.setVisibility(View.GONE);
+    mTimer.setVisibility(View.GONE);
+    mToggleWhiteboard.setVisibility(View.GONE);
     mWhiteboard.setVisibility(View.GONE);
   }
 }
