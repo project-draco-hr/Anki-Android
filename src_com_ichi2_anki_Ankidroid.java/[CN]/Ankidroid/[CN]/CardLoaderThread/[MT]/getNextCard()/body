@@ -1,0 +1,5 @@
+{
+  if (mOpenNewDeck)   AnkiDb.openDatabase(mDeckPath);
+  if (mSpacedRepetition)   return AnkiDb.Card.smallestIntervalCard();
+ else   return AnkiDb.Card.randomCard();
+}

@@ -1,6 +1,7 @@
 {
   super.onCreate(savedInstanceState);
   ACTIVE_INSTANCE=this;
+  if (ACTIVE_INSTANCE_LOCK.isHeldByCurrentThread())   ACTIVE_INSTANCE_LOCK.unlock();
   Bundle extras=getIntent().getExtras();
   initResourceValues();
   Log.i("ankidroidstart","savedInstanceState: " + savedInstanceState);

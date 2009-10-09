@@ -1,8 +1,0 @@
-{
-  AnkiDb.Card card;
-  if (ACTIVE_INSTANCE != null) {
-    card=nextCard2(ACTIVE_INSTANCE.deckFilename);
-    ACTIVE_INSTANCE.currentCard=card;
-  }
-  handler.sendEmptyMessage(0);
-}

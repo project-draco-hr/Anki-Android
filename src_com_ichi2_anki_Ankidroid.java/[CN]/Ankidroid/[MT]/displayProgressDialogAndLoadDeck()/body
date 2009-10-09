@@ -2,6 +2,6 @@
   Log.i("anki","Loading deck " + deckFilename);
   showControls(false);
   showProgressDialog();
-  Thread thread=new Thread(this);
+  Thread thread=new CardLoaderThread(true,deckFilename,spacedRepetition);
   thread.start();
 }
