@@ -6,7 +6,7 @@
   if (cursor.isClosed())   throw new SQLException();
   Stats stats=new Stats();
   if (cursor.moveToFirst()) {
-    stats.fromDB(cursor.getInt(0));
+    stats.fromDB(cursor.getLong(0));
     cursor.close();
     return stats;
   }

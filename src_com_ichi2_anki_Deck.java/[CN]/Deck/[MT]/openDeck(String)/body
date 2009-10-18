@@ -5,12 +5,12 @@
   Cursor cursor=AnkiDb.database.rawQuery("SELECT *" + " FROM decks" + " LIMIT 1",null);
   if (cursor.isClosed())   throw new SQLException();
   cursor.moveToFirst();
-  deck.id=cursor.getInt(0);
+  deck.id=cursor.getLong(0);
   deck.created=cursor.getFloat(1);
   deck.modified=cursor.getFloat(2);
   deck.description=cursor.getString(3);
   deck.version=cursor.getInt(4);
-  deck.currentModelId=cursor.getInt(5);
+  deck.currentModelId=cursor.getLong(5);
   deck.syncName=cursor.getString(6);
   deck.lastSync=cursor.getFloat(7);
   deck.hardIntervalMin=cursor.getFloat(8);
@@ -51,9 +51,9 @@
   if (cursor.isClosed())   throw new SQLException();
   if (cursor.moveToFirst()) {
     int count=cursor.getCount();
-    int[] ids=new int[count];
+    long[] ids=new long[count];
     for (int i=0; i < count; i++) {
-      ids[i]=cursor.getInt(0);
+      ids[i]=cursor.getLong(0);
       cursor.moveToNext();
     }
     deck.updatePriorities(ids);

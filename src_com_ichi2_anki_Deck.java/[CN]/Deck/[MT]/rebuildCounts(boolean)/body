@@ -2,11 +2,11 @@
   Log.i("anki","Rebuilding global and due counts...");
   checkDue();
   if (full) {
-    cardCount=AnkiDb.queryScalar("SELECT count(id) FROM cards");
-    factCount=AnkiDb.queryScalar("SELECT count(id) FROM facts");
+    cardCount=(int)AnkiDb.queryScalar("SELECT count(id) FROM cards");
+    factCount=(int)AnkiDb.queryScalar("SELECT count(id) FROM facts");
   }
-  failedSoonCount=AnkiDb.queryScalar("SELECT count(id) FROM failedCards");
-  failedNowCount=AnkiDb.queryScalar("SELECT count(id) " + "FROM cards " + "WHERE type = 0 and "+ "isDue = 1 and "+ "combinedDue <= "+ String.format("%f",(float)(System.currentTimeMillis() / 1000f)));
-  revCount=AnkiDb.queryScalar("SELECT count(id) " + "FROM cards " + "WHERE type = 1 and "+ "priority in (1,2,3,4) and "+ "isDue = 1");
-  newCount=AnkiDb.queryScalar("SELECT count(id) " + "FROM cards " + "WHERE type = 2 and "+ "priority in (1,2,3,4) and "+ "isDue = 1");
+  failedSoonCount=(int)AnkiDb.queryScalar("SELECT count(id) FROM failedCards");
+  failedNowCount=(int)AnkiDb.queryScalar("SELECT count(id) " + "FROM cards " + "WHERE type = 0 and "+ "isDue = 1 and "+ "combinedDue <= "+ String.format("%f",(float)(System.currentTimeMillis() / 1000f)));
+  revCount=(int)AnkiDb.queryScalar("SELECT count(id) " + "FROM cards " + "WHERE type = 1 and "+ "priority in (1,2,3,4) and "+ "isDue = 1");
+  newCount=(int)AnkiDb.queryScalar("SELECT count(id) " + "FROM cards " + "WHERE type = 2 and "+ "priority in (1,2,3,4) and "+ "isDue = 1");
 }

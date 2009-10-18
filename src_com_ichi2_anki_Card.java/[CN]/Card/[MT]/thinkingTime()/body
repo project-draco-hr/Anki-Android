@@ -1,0 +1,4 @@
+{
+  if (timerStopped == Float.NaN)   return (System.currentTimeMillis() / 1000f) - timerStarted;
+ else   return timerStopped - timerStarted;
+}

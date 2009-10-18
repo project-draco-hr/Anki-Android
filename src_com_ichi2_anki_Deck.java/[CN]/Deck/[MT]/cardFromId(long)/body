@@ -1,0 +1,7 @@
+{
+  Card card=new Card();
+  if (!card.fromDB(id))   return null;
+  card.genFuzz();
+  card.startTimer();
+  return card;
+}

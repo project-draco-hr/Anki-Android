@@ -1,0 +1,30 @@
+{
+  Log.i("anki","Reading stats from DB...");
+  Cursor cursor=AnkiDb.database.rawQuery("SELECT * " + "FROM stats " + "WHERE id = "+ String.valueOf(id),null);
+  if (cursor.isClosed())   throw new SQLException();
+  cursor.moveToFirst();
+  this.id=cursor.getLong(0);
+  type=cursor.getInt(1);
+  day=Date.valueOf(cursor.getString(2));
+  reps=cursor.getInt(3);
+  averageTime=cursor.getFloat(4);
+  reviewTime=cursor.getFloat(5);
+  distractedTime=cursor.getFloat(6);
+  distractedReps=cursor.getInt(7);
+  newEase0=cursor.getInt(8);
+  newEase1=cursor.getInt(9);
+  newEase2=cursor.getInt(10);
+  newEase3=cursor.getInt(11);
+  newEase4=cursor.getInt(12);
+  youngEase0=cursor.getInt(13);
+  youngEase1=cursor.getInt(14);
+  youngEase2=cursor.getInt(15);
+  youngEase3=cursor.getInt(16);
+  youngEase4=cursor.getInt(17);
+  matureEase0=cursor.getInt(18);
+  matureEase1=cursor.getInt(19);
+  matureEase2=cursor.getInt(20);
+  matureEase3=cursor.getInt(21);
+  matureEase4=cursor.getInt(22);
+  cursor.close();
+}
