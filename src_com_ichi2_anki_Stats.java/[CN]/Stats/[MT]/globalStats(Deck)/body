@@ -1,5 +1,5 @@
 {
-  Log.i("anki","Getting global stats...");
+  Log.i(TAG,"Getting global stats...");
   int type=STATS_LIFE;
   Date today=genToday(deck);
   Cursor cursor=AnkiDb.database.rawQuery("SELECT id " + "FROM stats " + "WHERE type = "+ String.valueOf(type),null);

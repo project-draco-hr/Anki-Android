@@ -1,5 +1,5 @@
 {
-  Log.i("anki","Rebuilding query...");
+  Log.i(TAG,"rebuildQueue - Rebuilding query...");
   globalStats=Stats.globalStats(this);
   dailyStats=Stats.dailyStats(this);
   checkDue();
@@ -13,7 +13,7 @@
     }
   }
  else   newCardModulus=0;
-  Log.i("anki","newCardModulus set to " + newCardModulus);
+  Log.i(TAG,"newCardModulus set to " + newCardModulus);
   Cursor cursor=AnkiDb.database.rawQuery("SELECT avg(factor) " + "FROM cards " + "WHERE type = 1",null);
   if (cursor.isClosed())   throw new SQLException();
   if (!cursor.moveToFirst())   averageFactor=Deck.initialFactor;

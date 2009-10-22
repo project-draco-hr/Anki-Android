@@ -1,5 +1,5 @@
 {
-  Log.i("anki","Rebuilding global and due counts...");
+  Log.i(TAG,"rebuildCounts - Rebuilding global and due counts...");
   checkDue();
   if (full) {
     cardCount=AnkiDb.queryScalar("SELECT count(id) FROM cards");

@@ -1,5 +1,5 @@
 {
-  Log.i("anki","Saving deck to DB...");
+  Log.i(TAG,"commitToDB - Saving deck to DB...");
   ContentValues values=new ContentValues();
   values.put("id",id);
   values.put("created",created);

@@ -1,5 +1,5 @@
 {
-  Log.i("ank","Updating priorities...");
+  Log.i(TAG,"updatePriorities - Updating priorities...");
   if (suspend != null) {
     int[] ids=tagIds(suspend);
     AnkiDb.database.execSQL("UPDATE tags " + "SET priority = 0 " + "WHERE id in "+ ids2str(ids));

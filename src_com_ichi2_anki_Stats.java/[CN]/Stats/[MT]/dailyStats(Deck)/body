@@ -1,8 +1,8 @@
 {
-  Log.i("anki","Getting daily stats...");
+  Log.i(TAG,"Getting daily stats...");
   int type=STATS_DAY;
   Date today=genToday(deck);
-  Log.i("anki","Trying to get stats for " + today.toString());
+  Log.i(TAG,"Trying to get stats for " + today.toString());
   Cursor cursor=AnkiDb.database.rawQuery("SELECT id " + "FROM stats " + "WHERE type = " + String.valueOf(type) + " and day = \""+ today.toString()+ "\"",null);
   if (cursor.isClosed())   throw new SQLException();
   Stats stats=new Stats();

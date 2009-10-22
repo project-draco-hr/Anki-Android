@@ -1,5 +1,5 @@
 {
-  Log.i("anki","Checking due cards...");
+  Log.i(TAG,"Checking due cards...");
   checkDailyStats();
   ContentValues val=new ContentValues(1);
   val.put("isDue",1);

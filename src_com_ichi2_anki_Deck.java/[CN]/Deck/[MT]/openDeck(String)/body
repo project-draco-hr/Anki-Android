@@ -1,6 +1,6 @@
 {
   Deck deck=new Deck();
-  Log.i("anki","Opening database " + path);
+  Log.i(TAG,"openDeck - Opening database " + path);
   AnkiDb.openDatabase(path);
   Cursor cursor=AnkiDb.database.rawQuery("SELECT *" + " FROM decks" + " LIMIT 1",null);
   if (cursor.isClosed())   throw new SQLException();
@@ -41,7 +41,7 @@
   deck.revCount=cursor.getInt(33);
   deck.newCount=cursor.getInt(34);
   deck.revCardOrder=cursor.getInt(35);
-  Log.i("anki","Read " + cursor.getColumnCount() + " columns from decks table.");
+  Log.i(TAG,"openDeck - Read " + cursor.getColumnCount() + " columns from decks table.");
   cursor.close();
   deck.initVars();
   deck.updateDynamicIndices();
