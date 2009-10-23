@@ -1,4 +1,5 @@
 {
+  Log.i(TAG,"onResume() - " + System.currentTimeMillis());
   super.onResume();
   if (!deckSelected) {
     AnkiDb.openDatabase(deckFilename);

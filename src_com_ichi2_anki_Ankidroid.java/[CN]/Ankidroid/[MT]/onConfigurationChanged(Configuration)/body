@@ -1,0 +1,8 @@
+{
+  super.onConfigurationChanged(newConfig);
+  int extraHeight=0;
+  if (mSelectRemembered.isShown() && mSelectNotRemembered.isShown()) {
+    extraHeight=java.lang.Math.max(mSelectRemembered.getHeight(),mSelectNotRemembered.getHeight());
+  }
+  mWhiteboard.rotate(extraHeight);
+}
