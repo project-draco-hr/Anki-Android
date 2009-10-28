@@ -8,6 +8,7 @@
  else {
     mSelectRemembered.setVisibility(View.GONE);
     mSelectNotRemembered.setVisibility(View.GONE);
+    mFlipCard.requestFocus();
     updateCard(currentCard.question);
   }
 }
