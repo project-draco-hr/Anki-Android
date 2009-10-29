@@ -16,6 +16,6 @@
   }
  else   if (requestCode == PREFERENCES_UPDATE) {
     restorePreferences();
-    showOrHideControls();
+    if (deckSelected)     showOrHideControls();
   }
 }

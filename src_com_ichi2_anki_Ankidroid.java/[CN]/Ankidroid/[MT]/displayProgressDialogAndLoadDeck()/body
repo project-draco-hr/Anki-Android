@@ -1,5 +1,9 @@
 {
   Log.i(TAG,"displayProgressDialogAndLoadDeck - Loading deck " + deckFilename);
+  if (!layoutInitialized) {
+    initLayout(R.layout.flashcard_portrait);
+    layoutInitialized=true;
+  }
   showControls(false);
   dialog=ProgressDialog.show(this,"","Loading deck. Please wait...",true);
   Thread thread=new Thread(this);

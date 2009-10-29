@@ -1,5 +1,14 @@
 {
   this.deckFilename=deckFilename;
-  AnkiDb.openDatabase(deckFilename);
-  nextCard();
+  if (isSdCardMounted() && deckFilename != null && new File(deckFilename).exists()) {
+    if (!layoutInitialized) {
+      initLayout(R.layout.flashcard_portrait);
+      layoutInitialized=true;
+    }
+    Log.i(TAG,"loadDeck - SD card mounted and existent file -> Loading deck...");
+    AnkiDb.openDatabase(deckFilename);
+    Log.i(TAG,"Deck loaded!");
+    deckSelected=true;
+    nextCard();
+  }
 }

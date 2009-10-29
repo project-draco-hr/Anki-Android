@@ -25,6 +25,12 @@
     thread.start();
   }
  else {
+    if (!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+      AlertDialog.Builder builder=new AlertDialog.Builder(this);
+      builder.setMessage("The SD card could not be read. Please, turn off USB storage.");
+      builder.setPositiveButton("OK",null);
+      builder.show();
+    }
     HashMap<String,String> data=new HashMap<String,String>();
     data.put("name",res.getString(R.string.deckpicker_nodeck));
     data.put("new","");

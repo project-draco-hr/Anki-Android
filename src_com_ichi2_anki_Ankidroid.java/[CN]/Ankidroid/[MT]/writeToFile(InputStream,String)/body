@@ -3,7 +3,6 @@
     new File(destination).createNewFile();
   }
  catch (  IOException e) {
-    Toast.makeText(this,"Please turn off USB storage",Toast.LENGTH_LONG).show();
     return false;
   }
   OutputStream output=new FileOutputStream(destination);

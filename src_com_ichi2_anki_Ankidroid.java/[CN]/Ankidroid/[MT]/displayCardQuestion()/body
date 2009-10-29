@@ -1,4 +1,5 @@
 {
+  Log.i(TAG,"displayCardQuestion");
   if (currentCard == null) {
     nextCard();
   }
@@ -6,6 +7,7 @@
     updateCard("Unable to find a card!");
   }
  else {
+    Log.i(TAG,"displayCardQuestion - Hiding 'Remembered' and 'Not Remembered' buttons...");
     mSelectRemembered.setVisibility(View.GONE);
     mSelectNotRemembered.setVisibility(View.GONE);
     mFlipCard.requestFocus();
