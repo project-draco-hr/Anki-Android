@@ -23,7 +23,7 @@
         data.put("mod",String.format("%f",Deck.getLastModified(absPath)));
         data.put("filepath",absPath);
         data.put("showProgress","true");
-        tree.add(data);
+        boolean result=tree.add(data);
       }
  catch (      SQLException e) {
         Log.w(TAG,"DeckPicker - populateDeckList, File " + fileList[i].getName() + " is not a real anki file");
