@@ -2,6 +2,7 @@
   super.onCreate(savedInstanceState);
   Log.i(TAG,"onCreate - savedInstanceState: " + savedInstanceState);
   requestWindowFeature(Window.FEATURE_NO_TITLE);
+  registerExternalStorageListener();
   Bundle extras=getIntent().getExtras();
   initResourceValues();
   SharedPreferences preferences=restorePreferences();
