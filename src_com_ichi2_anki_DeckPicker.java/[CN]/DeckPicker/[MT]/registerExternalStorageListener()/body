@@ -14,6 +14,7 @@
           SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(getBaseContext());
           String deckPath=preferences.getString("deckPath","/sdcard");
           mDeckIsSelected=false;
+          setTitle(R.string.deckpicker_title);
           populateDeckList(deckPath);
         }
       }
