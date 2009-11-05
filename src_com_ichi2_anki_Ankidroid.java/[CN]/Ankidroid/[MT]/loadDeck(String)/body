@@ -2,16 +2,12 @@
   Log.i(TAG,"loadDeck - deckFilename = " + deckFilename);
   this.deckFilename=deckFilename;
   if (isSdCardMounted() && deckFilename != null && new File(deckFilename).exists()) {
-    if (!layoutInitialized) {
-      initLayout(R.layout.flashcard_portrait);
-      layoutInitialized=true;
-    }
     Log.i(TAG,"loadDeck - SD card mounted and existent file -> Loading deck...");
     try {
       AnkiDb.openDatabase(deckFilename);
-      Log.i(TAG,"Deck loaded!");
       deckSelected=true;
       nextCard();
+      Log.i(TAG,"Deck loaded!");
     }
  catch (    SQLException e) {
       Log.i(TAG,"The database " + deckFilename + " could not be opened = "+ e.getMessage());
