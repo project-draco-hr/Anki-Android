@@ -16,6 +16,6 @@
   }
  else   if (requestCode == PREFERENCES_UPDATE) {
     restorePreferences();
-    if (deckSelected)     showOrHideControls();
+    if (deckSelected && isSdCardMounted())     showOrHideControls();
   }
 }
