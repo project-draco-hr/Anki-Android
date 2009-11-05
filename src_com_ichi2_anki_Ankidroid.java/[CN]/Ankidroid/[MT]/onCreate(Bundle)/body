@@ -3,9 +3,10 @@
   Log.i(TAG,"onCreate - savedInstanceState: " + savedInstanceState);
   requestWindowFeature(Window.FEATURE_NO_TITLE);
   registerExternalStorageListener();
-  Bundle extras=getIntent().getExtras();
   initResourceValues();
+  Bundle extras=getIntent().getExtras();
   SharedPreferences preferences=restorePreferences();
+  initLayout(R.layout.flashcard_portrait);
   if (extras != null && extras.getString(OPT_DB) != null) {
     deckFilename=extras.getString(OPT_DB);
     Log.i(TAG,"onCreate - deckFilename from extras: " + deckFilename);
