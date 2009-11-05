@@ -1,9 +1,14 @@
 {
   Log.i(TAG,"onResume() - deckFilename = " + deckFilename + ", deckSelected = "+ deckSelected);
   super.onResume();
-  if (!deckSelected && isSdCardMounted()) {
-    Log.i(TAG,"onResume() - No deck selected before");
-    displayProgressDialogAndLoadDeck();
+  if (isSdCardMounted()) {
+    if (!deckSelected) {
+      Log.i(TAG,"onResume() - No deck selected before");
+      displayProgressDialogAndLoadDeck();
+    }
+  }
+ else {
+    deckSelected=false;
   }
   Log.i(TAG,"onResume() - Ending");
 }

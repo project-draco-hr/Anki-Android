@@ -1,11 +1,14 @@
 {
+  Log.i(TAG,"Thread run - Beginning");
   int len=0;
   if (mFileList != null)   len=mFileList.length;
   if (len > 0 && mFileList != null) {
     mLock.lock();
     try {
+      Log.i(TAG,"Thread run - Inside lock");
       mIsFinished=false;
       for (int i=0; i < len; i++) {
+        Log.i(TAG,"Thread run - Before break mDeckIsSelected = " + mDeckIsSelected);
         if (mDeckIsSelected)         break;
         String path=mFileList[i].getAbsolutePath();
         Deck deck;

@@ -33,7 +33,9 @@
     thread.start();
   }
  else {
+    Log.i(TAG,"populateDeckList - No decks found.");
     if (!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+      Log.i(TAG,"populateDeckList - No sd card.");
       AlertDialog.Builder builder=new AlertDialog.Builder(this);
       builder.setMessage("The SD card could not be read. Please, turn off USB storage.");
       builder.setPositiveButton("OK",null);
@@ -50,5 +52,6 @@
   mDeckList.clear();
   mDeckList.addAll(tree);
   mDeckListView.clearChoices();
+  mDeckListAdapter.notifyDataSetChanged();
   Log.i(TAG,"DeckPicker - populateDeckList, Ending");
 }
