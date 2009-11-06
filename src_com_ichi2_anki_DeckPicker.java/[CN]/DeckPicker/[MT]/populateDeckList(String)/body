@@ -37,10 +37,7 @@
     if (!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
       Log.i(TAG,"populateDeckList - No sd card.");
       setTitle(R.string.deckpicker_title_nosdcard);
-      AlertDialog.Builder builder=new AlertDialog.Builder(this);
-      builder.setMessage("The SD card could not be read. Please, turn off USB storage.");
-      builder.setPositiveButton("OK",null);
-      builder.show();
+      showDialog(DIALOG_NO_SDCARD);
     }
     HashMap<String,String> data=new HashMap<String,String>();
     data.put("name",res.getString(R.string.deckpicker_nodeck));

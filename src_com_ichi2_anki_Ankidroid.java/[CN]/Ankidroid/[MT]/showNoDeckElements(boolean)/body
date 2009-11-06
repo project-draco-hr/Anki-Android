@@ -1,0 +1,15 @@
+{
+  LinearLayout layout=(LinearLayout)findViewById(R.id.nodeck_layout);
+  TextView message=(TextView)findViewById(R.id.nodeck_message);
+  TextView detail=(TextView)findViewById(R.id.nodeck_message_detail);
+  if (show) {
+    layout.setVisibility(View.VISIBLE);
+    message.setVisibility(View.VISIBLE);
+    detail.setVisibility(View.VISIBLE);
+  }
+ else {
+    layout.setVisibility(View.GONE);
+    message.setVisibility(View.GONE);
+    detail.setVisibility(View.VISIBLE);
+  }
+}
