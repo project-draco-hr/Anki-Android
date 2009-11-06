@@ -1,7 +1,6 @@
 {
   super.onCreate(savedInstanceState);
   Log.i(TAG,"onCreate - savedInstanceState: " + savedInstanceState);
-  requestWindowFeature(Window.FEATURE_NO_TITLE);
   registerExternalStorageListener();
   initResourceValues();
   Bundle extras=getIntent().getExtras();
@@ -22,31 +21,31 @@
   }
   if (deckFilename == null || !new File(deckFilename).exists()) {
     Log.i(TAG,"onCreate - No previously selected deck or the previously selected deck is not available at the moment");
-    boolean generateSampleDeck=preferences.getBoolean("generateSampleDeck",true);
-    if (generateSampleDeck) {
-      Log.i(TAG,"onCreate - Generating sample deck...");
-      String SAMPLE_DECK_FILENAME="/sdcard/country-capitals.anki";
-      if (!new File("/sdcard","country-capitals.anki").exists()) {
-        try {
-          InputStream stream=getResources().getAssets().open("country-capitals.anki");
-          boolean written=writeToFile(stream,SAMPLE_DECK_FILENAME);
-          if (!written) {
-            openDeckPicker();
-            Log.i(TAG,"onCreate - The copy of country-capitals.anki to the sd card failed.");
-            return;
+    if (isSdCardMounted()) {
+      boolean generateSampleDeck=preferences.getBoolean("generateSampleDeck",true);
+      if (generateSampleDeck) {
+        Log.i(TAG,"onCreate - Generating sample deck...");
+        String SAMPLE_DECK_FILENAME="/sdcard/country-capitals.anki";
+        if (!new File("/sdcard","country-capitals.anki").exists()) {
+          try {
+            InputStream stream=getResources().getAssets().open("country-capitals.anki");
+            boolean written=writeToFile(stream,SAMPLE_DECK_FILENAME);
+            if (!written) {
+              openDeckPicker();
+              Log.i(TAG,"onCreate - The copy of country-capitals.anki to the sd card failed.");
+              return;
+            }
+            Log.i(TAG,"onCreate - The copy of country-capitals.anki to the sd card was sucessful.");
           }
-          Log.i(TAG,"onCreate - The copy of country-capitals.anki to the sd card was sucessful.");
+ catch (          IOException e) {
+            e.printStackTrace();
+          }
         }
- catch (        IOException e) {
-          e.printStackTrace();
-        }
+        deckFilename=SAMPLE_DECK_FILENAME;
       }
-      deckFilename=SAMPLE_DECK_FILENAME;
-    }
  else {
-      openDeckPicker();
+        openDeckPicker();
+      }
     }
-  }
- else {
   }
 }

@@ -1,7 +1,22 @@
 {
   Log.i(TAG,"displayProgressDialogAndLoadDeck - Loading deck " + deckFilename);
-  showControls(false);
-  dialog=ProgressDialog.show(this,"","Loading deck. Please wait...",true);
-  Thread thread=new Thread(this);
-  thread.start();
+  if (isSdCardMounted()) {
+    if (deckFilename != null && new File(deckFilename).exists()) {
+      showControls(false);
+      dialog=ProgressDialog.show(this,"","Loading deck. Please wait...",true);
+      Thread thread=new Thread(this);
+      thread.start();
+    }
+ else {
+      if (deckFilename == null)       Log.i(TAG,"displayProgressDialogAndLoadDeck - SD card unmounted.");
+      if (!new File(deckFilename).exists())       Log.i(TAG,"displayProgressDialogAndLoadDeck - The deck " + deckFilename + "does not exist.");
+      displayNoDeckError();
+    }
+  }
+ else {
+    Log.i(TAG,"displayProgressDialogAndLoadDeck - SD card unmounted.");
+    deckSelected=false;
+    Log.i(TAG,"displayProgressDialogAndLoadDeck - deckSelected = " + deckSelected);
+    displaySdError();
+  }
 }

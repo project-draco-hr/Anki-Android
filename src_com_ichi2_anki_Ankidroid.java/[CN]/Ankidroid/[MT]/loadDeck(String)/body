@@ -1,16 +1,15 @@
 {
   Log.i(TAG,"loadDeck - deckFilename = " + deckFilename);
   this.deckFilename=deckFilename;
-  if (isSdCardMounted() && deckFilename != null && new File(deckFilename).exists()) {
-    Log.i(TAG,"loadDeck - SD card mounted and existent file -> Loading deck...");
-    try {
-      AnkiDb.openDatabase(deckFilename);
-      deckSelected=true;
-      nextCard();
-      Log.i(TAG,"Deck loaded!");
-    }
- catch (    SQLException e) {
-      Log.i(TAG,"The database " + deckFilename + " could not be opened = "+ e.getMessage());
-    }
+  Log.i(TAG,"loadDeck - SD card mounted and existent file -> Loading deck...");
+  try {
+    AnkiDb.openDatabase(deckFilename);
+    nextCard();
+    Log.i(TAG,"Deck loaded!");
+    return true;
+  }
+ catch (  SQLException e) {
+    Log.i(TAG,"The database " + deckFilename + " could not be opened = "+ e.getMessage());
+    return false;
   }
 }
