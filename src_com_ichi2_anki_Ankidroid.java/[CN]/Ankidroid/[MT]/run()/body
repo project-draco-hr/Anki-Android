@@ -1,10 +1,4 @@
 {
   Log.i(TAG,"Ankidroid loader thread - run");
-  if (loadDeck(deckFilename)) {
-    handler.sendEmptyMessage(0);
-  }
- else {
-    dialog.dismiss();
-    displayNoDeckError();
-  }
+  handler.sendEmptyMessage(loadDeck(deckFilename));
 }
