@@ -6,10 +6,14 @@
     AnkiDb.openDatabase(deckFilename);
     nextCard();
     Log.i(TAG,"Deck loaded!");
-    return true;
+    return DECK_LOADED;
   }
  catch (  SQLException e) {
     Log.i(TAG,"The database " + deckFilename + " could not be opened = "+ e.getMessage());
-    return false;
+    return DECK_NOT_LOADED;
+  }
+catch (  CursorIndexOutOfBoundsException e) {
+    Log.i(TAG,"The deck has no cards = " + e.getMessage());
+    return DECK_EMPTY;
   }
 }

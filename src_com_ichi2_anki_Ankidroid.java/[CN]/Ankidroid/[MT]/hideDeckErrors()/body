@@ -1,0 +1,8 @@
+{
+  LinearLayout layout=(LinearLayout)findViewById(R.id.deck_error_layout);
+  TextView message=(TextView)findViewById(R.id.deck_message);
+  TextView detail=(TextView)findViewById(R.id.deck_message_detail);
+  layout.setVisibility(View.GONE);
+  message.setVisibility(View.GONE);
+  detail.setVisibility(View.GONE);
+}

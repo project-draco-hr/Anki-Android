@@ -5,7 +5,7 @@
     mSelectNotRemembered.setVisibility(View.VISIBLE);
     mFlipCard.setVisibility(View.VISIBLE);
     showOrHideControls();
-    showNoDeckElements(false);
+    hideDeckErrors();
   }
  else {
     mCard.setVisibility(View.GONE);
