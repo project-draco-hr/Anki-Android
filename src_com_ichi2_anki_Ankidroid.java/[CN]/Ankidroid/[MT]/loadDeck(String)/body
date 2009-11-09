@@ -14,6 +14,7 @@
   }
 catch (  CursorIndexOutOfBoundsException e) {
     Log.i(TAG,"The deck has no cards = " + e.getMessage());
+    ;
     return DECK_EMPTY;
   }
 }
