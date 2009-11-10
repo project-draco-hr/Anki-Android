@@ -1,25 +1,27 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
   if (requestCode == PICK_DECK_REQUEST) {
+    updateCard("");
+    hideSdError();
+    hideDeckErrors();
     if (resultCode != RESULT_OK) {
       Log.e(TAG,"onActivityResult - Deck browser returned with error");
       deckSelected=false;
       return;
     }
     if (intent == null) {
-      deckSelected=false;
       Log.e(TAG,"onActivityResult - Deck browser returned null intent");
+      deckSelected=false;
       return;
     }
     Log.i(TAG,"onActivityResult = OK");
     deckFilename=intent.getExtras().getString(OPT_DB);
     savePreferences();
-    deckSelected=true;
     Log.i(TAG,"onActivityResult - deckSelected = " + deckSelected);
     displayProgressDialogAndLoadDeck();
   }
  else   if (requestCode == PREFERENCES_UPDATE) {
     restorePreferences();
-    if (deckSelected && isSdCardMounted())     showOrHideControls();
+    if (deckLoaded)     showOrHideControls();
   }
 }

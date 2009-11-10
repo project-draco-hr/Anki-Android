@@ -4,6 +4,5 @@
   timerAndWhiteboard=preferences.getBoolean("timerAndWhiteboard",true);
   Log.i(TAG,"restorePreferences - timerAndWhiteboard: " + timerAndWhiteboard);
   spacedRepetition=preferences.getBoolean("spacedRepetition",true);
-  deckPath=preferences.getString("deckPath","/sdcard");
   return preferences;
 }

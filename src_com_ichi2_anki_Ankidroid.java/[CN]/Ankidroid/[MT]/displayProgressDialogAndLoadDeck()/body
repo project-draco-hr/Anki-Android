@@ -1,5 +1,6 @@
 {
   Log.i(TAG,"displayProgressDialogAndLoadDeck - Loading deck " + deckFilename);
+  deckSelected=true;
   if (isSdCardMounted()) {
     if (deckFilename != null && new File(deckFilename).exists()) {
       showControls(false);
