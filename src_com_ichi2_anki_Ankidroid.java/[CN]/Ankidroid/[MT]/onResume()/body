@@ -3,8 +3,6 @@
   super.onResume();
   if (!deckSelected) {
     Log.i(TAG,"onResume() - No deck selected before");
-    deckSelected=true;
-    Log.i(TAG,"onResume - deckSelected = " + deckSelected);
     displayProgressDialogAndLoadDeck();
   }
   Log.i(TAG,"onResume() - Ending");
