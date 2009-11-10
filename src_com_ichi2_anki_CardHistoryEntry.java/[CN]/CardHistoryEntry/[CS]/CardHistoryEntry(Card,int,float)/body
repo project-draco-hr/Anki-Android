@@ -1,0 +1,14 @@
+{
+  if (card == null)   return;
+  this.cardId=card.id;
+  this.lastInterval=card.lastInterval;
+  this.nextInterval=card.interval;
+  this.lastFactor=card.lastFactor;
+  this.nextFactor=card.factor;
+  this.reps=card.reps;
+  this.yesCount=card.yesCount;
+  this.noCount=card.noCount;
+  this.ease=ease;
+  this.delay=delay;
+  this.thinkingTime=card.thinkingTime();
+}

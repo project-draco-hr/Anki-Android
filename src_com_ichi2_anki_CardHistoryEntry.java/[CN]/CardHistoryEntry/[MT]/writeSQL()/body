@@ -1,0 +1,16 @@
+{
+  ContentValues values=new ContentValues();
+  values.put("cardId",cardId);
+  values.put("lastInterval",lastInterval);
+  values.put("nextInterval",nextInterval);
+  values.put("ease",ease);
+  values.put("delay",delay);
+  values.put("lastFactor",lastFactor);
+  values.put("nextFactor",nextFactor);
+  values.put("reps",reps);
+  values.put("thinkingTime",thinkingTime);
+  values.put("yesCount",yesCount);
+  values.put("noCount",noCount);
+  values.put("time",System.currentTimeMillis() / 1000f);
+  AnkiDb.database.insert("reviewHistory",null,values);
+}

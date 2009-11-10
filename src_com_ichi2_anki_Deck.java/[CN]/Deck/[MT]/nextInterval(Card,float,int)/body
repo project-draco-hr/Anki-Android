@@ -1,0 +1,31 @@
+{
+  float interval=card.interval;
+  float factor=card.factor;
+  if ((delay < 0) && (card.successive != 0)) {
+    interval=Math.max(card.lastInterval,card.interval + delay);
+    if (interval < this.midIntervalMin)     interval=0;
+    delay=0;
+  }
+  if (ease == 1) {
+    interval*=this.delay2;
+    if (interval < this.hardIntervalMin)     interval=0;
+  }
+ else   if (interval == 0) {
+    if (ease == 2)     interval=this.hardIntervalMin + ((float)Math.random()) * (hardIntervalMax - hardIntervalMin);
+ else     if (ease == 3)     interval=this.midIntervalMin + ((float)Math.random()) * (midIntervalMax - midIntervalMin);
+ else     if (ease == 4)     interval=this.easyIntervalMin + ((float)Math.random()) * (easyIntervalMax - easyIntervalMin);
+  }
+ else {
+    if ((interval < this.hardIntervalMax) && (interval > 0.166)) {
+      float mid=(this.midIntervalMin + this.midIntervalMax) / 2f;
+      interval*=(mid / interval / factor);
+    }
+    if (ease == 2)     interval=(interval + delay / 4f) * 1.2f;
+ else     if (ease == 3)     interval=(interval + delay / 2f) * factor;
+ else     if (ease == 4)     interval=(interval + delay) * factor * factorFour;
+    float fuzz=0.95f + ((float)Math.random()) * (1.05f - 0.95f);
+    interval*=fuzz;
+  }
+  if (maxScheduleTime != 0)   interval=Math.min(interval,maxScheduleTime);
+  return interval;
+}

@@ -1,4 +1,5 @@
 {
+  if (id == 0)   return null;
   Card card=new Card();
   if (!card.fromDB(id))   return null;
   card.genFuzz();

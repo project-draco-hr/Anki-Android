@@ -1,0 +1,7 @@
+{
+  float due;
+  if (ease == 1)   if (oldState.equals("mature"))   due=this.delay1;
+ else   due=this.delay0;
+ else   due=card.interval * 86400f;
+  return due + (System.currentTimeMillis() / 1000f);
+}
