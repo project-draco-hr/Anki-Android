@@ -1,7 +1,23 @@
 {
-  Log.i("anki","Loading deck " + deckFilename);
-  showControls(false);
-  showProgressDialog();
-  Thread thread=new CardLoaderThread(true,deckFilename,spacedRepetition);
-  thread.start();
+  Log.i(TAG,"displayProgressDialogAndLoadDeck - Loading deck " + deckFilename);
+  deckSelected=true;
+  if (isSdCardMounted()) {
+    if (deckFilename != null && new File(deckFilename).exists()) {
+      showControls(false);
+      dialog=ProgressDialog.show(this,"","Loading deck. Please wait...",true);
+      Thread thread=new Thread(this);
+      thread.start();
+    }
+ else {
+      if (deckFilename == null)       Log.i(TAG,"displayProgressDialogAndLoadDeck - SD card unmounted.");
+ else       if (!new File(deckFilename).exists())       Log.i(TAG,"displayProgressDialogAndLoadDeck - The deck " + deckFilename + "does not exist.");
+      displayDeckNotLoaded();
+    }
+  }
+ else {
+    Log.i(TAG,"displayProgressDialogAndLoadDeck - SD card unmounted.");
+    deckSelected=false;
+    Log.i(TAG,"displayProgressDialogAndLoadDeck - deckSelected = " + deckSelected);
+    displaySdError();
+  }
 }

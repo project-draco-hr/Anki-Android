@@ -4,5 +4,5 @@
   ContentValues values=new ContentValues();
   values.put("interval",newInterval);
   AnkiDb.database.update("cards",values,"id='" + id + "'",null);
-  Log.d("anki","Reset card with interval " + newInterval);
+  Log.d(TAG,"Reset card with interval " + newInterval);
 }

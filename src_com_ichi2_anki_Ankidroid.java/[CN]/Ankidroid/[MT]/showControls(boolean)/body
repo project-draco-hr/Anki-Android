@@ -1,15 +1,19 @@
 {
   if (show) {
     mCard.setVisibility(View.VISIBLE);
+    mSelectRemembered.setVisibility(View.VISIBLE);
+    mSelectNotRemembered.setVisibility(View.VISIBLE);
+    mFlipCard.setVisibility(View.VISIBLE);
     showOrHideControls();
+    hideDeckErrors();
   }
  else {
     mCard.setVisibility(View.GONE);
-    mToggleWhiteboard.setVisibility(View.GONE);
-    mShowAnswer.setVisibility(View.GONE);
     mSelectRemembered.setVisibility(View.GONE);
     mSelectNotRemembered.setVisibility(View.GONE);
+    mFlipCard.setVisibility(View.GONE);
     mTimer.setVisibility(View.GONE);
+    mToggleWhiteboard.setVisibility(View.GONE);
     mWhiteboard.setVisibility(View.GONE);
   }
 }

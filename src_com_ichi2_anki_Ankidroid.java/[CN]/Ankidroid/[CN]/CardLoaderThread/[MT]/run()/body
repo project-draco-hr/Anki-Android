@@ -1,7 +1,0 @@
-{
-  AnkiDb.Card card=getNextCard();
-  Ankidroid.ACTIVE_INSTANCE_LOCK.lock();
-  Ankidroid.ACTIVE_INSTANCE.currentCard=card;
-  Ankidroid.ACTIVE_INSTANCE_LOCK.unlock();
-  Ankidroid.handler.sendEmptyMessage(0);
-}

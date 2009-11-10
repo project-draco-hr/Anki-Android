@@ -1,5 +1,5 @@
 {
-  Log.i("anki","Reading stats from DB...");
+  Log.i(TAG,"Reading stats from DB...");
   Cursor cursor=AnkiDb.database.rawQuery("SELECT * " + "FROM stats " + "WHERE id = "+ String.valueOf(id),null);
   if (cursor.isClosed())   throw new SQLException();
   cursor.moveToFirst();

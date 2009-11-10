@@ -1,15 +1,16 @@
 {
+  Log.i(TAG,"displayCardQuestion");
+  if (currentCard == null) {
+    nextCard();
+  }
   if (currentCard == null) {
     updateCard("Unable to find a card!");
   }
  else {
-    mWhiteboard.clear();
+    Log.i(TAG,"displayCardQuestion - Hiding 'Remembered' and 'Not Remembered' buttons...");
     mSelectRemembered.setVisibility(View.GONE);
     mSelectNotRemembered.setVisibility(View.GONE);
-    mShowAnswer.setVisibility(View.VISIBLE);
-    mShowAnswer.requestFocus();
-    mTimer.setBase(SystemClock.elapsedRealtime());
-    mTimer.start();
+    mFlipCard.requestFocus();
     updateCard(currentCard.question);
   }
 }

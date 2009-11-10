@@ -1,0 +1,4 @@
+{
+  Log.i(TAG,"Ankidroid loader thread - run");
+  handler.sendEmptyMessage(loadDeck(deckFilename));
+}

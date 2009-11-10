@@ -1,28 +1,27 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
   if (requestCode == PICK_DECK_REQUEST) {
+    updateCard("");
+    hideSdError();
+    hideDeckErrors();
     if (resultCode != RESULT_OK) {
-      Log.e("ankidroid","Deck browser returned with error");
+      Log.e(TAG,"onActivityResult - Deck browser returned with error");
+      deckSelected=false;
       return;
     }
     if (intent == null) {
-      Log.e("ankidroid","Deck browser returned null intent");
+      Log.e(TAG,"onActivityResult - Deck browser returned null intent");
+      deckSelected=false;
       return;
     }
+    Log.i(TAG,"onActivityResult = OK");
     deckFilename=intent.getExtras().getString(OPT_DB);
-    SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-    Editor editor=preferences.edit();
-    editor.putString("deckFilename",deckFilename);
-    editor.commit();
-    deckSelected=true;
+    savePreferences();
+    Log.i(TAG,"onActivityResult - deckSelected = " + deckSelected);
     displayProgressDialogAndLoadDeck();
   }
  else   if (requestCode == PREFERENCES_UPDATE) {
-    SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-    corporalPunishments=preferences.getBoolean("corporalPunishments",false);
-    timerAndWhiteboard=preferences.getBoolean("timerAndWhiteboard",true);
-    spacedRepetition=preferences.getBoolean("spacedRepetition",true);
-    deckPath=preferences.getString("deckPath","/sdcard");
-    showOrHideControls();
+    restorePreferences();
+    if (deckLoaded)     showOrHideControls();
   }
 }

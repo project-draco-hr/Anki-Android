@@ -1,0 +1,6 @@
+{
+  SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+  Editor editor=preferences.edit();
+  editor.putString("deckFilename",deckFilename);
+  editor.commit();
+}

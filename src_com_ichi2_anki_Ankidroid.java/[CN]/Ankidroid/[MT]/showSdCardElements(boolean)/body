@@ -1,0 +1,16 @@
+{
+  Log.i(TAG,"showSdCardElements");
+  LinearLayout layout=(LinearLayout)findViewById(R.id.sd_layout);
+  TextView tv=(TextView)findViewById(R.id.sd_message);
+  ImageView image=(ImageView)findViewById(R.id.sd_icon);
+  if (show) {
+    layout.setVisibility(View.VISIBLE);
+    tv.setVisibility(View.VISIBLE);
+    image.setVisibility(View.VISIBLE);
+  }
+ else {
+    layout.setVisibility(View.GONE);
+    tv.setVisibility(View.GONE);
+    image.setVisibility(View.GONE);
+  }
+}

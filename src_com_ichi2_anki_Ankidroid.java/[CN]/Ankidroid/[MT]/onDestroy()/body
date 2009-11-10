@@ -1,4 +1,5 @@
 {
+  Log.i(TAG,"onDestroy()");
   super.onDestroy();
-  ACTIVE_INSTANCE=null;
+  unregisterReceiver(mUnmountReceiver);
 }

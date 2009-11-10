@@ -1,6 +1,7 @@
 {
-  Log.i("ankidroidstart","onSaveInstanceState: " + deckFilename);
+  Log.i(TAG,"onSaveInstanceState: " + deckFilename);
   if (deckFilename != null) {
     outState.putString("deckFilename",deckFilename);
   }
+  Log.i(TAG,"onSaveInstanceState - Ending");
 }

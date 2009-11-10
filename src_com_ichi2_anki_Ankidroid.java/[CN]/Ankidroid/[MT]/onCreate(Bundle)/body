@@ -1,33 +1,30 @@
 {
   super.onCreate(savedInstanceState);
-  ACTIVE_INSTANCE=this;
-  if (ACTIVE_INSTANCE_LOCK.isHeldByCurrentThread())   ACTIVE_INSTANCE_LOCK.unlock();
-  Bundle extras=getIntent().getExtras();
+  Log.i(TAG,"onCreate - savedInstanceState: " + savedInstanceState);
+  registerExternalStorageListener();
   initResourceValues();
-  Log.i("ankidroidstart","savedInstanceState: " + savedInstanceState);
-  SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-  corporalPunishments=preferences.getBoolean("corporalPunishments",false);
-  timerAndWhiteboard=preferences.getBoolean("timerAndWhiteboard",true);
-  spacedRepetition=preferences.getBoolean("spacedRepetition",true);
-  deckPath=preferences.getString("deckPath","/sdcard/.ankidroid");
+  Bundle extras=getIntent().getExtras();
+  SharedPreferences preferences=restorePreferences();
+  initLayout(R.layout.flashcard_portrait);
   if (extras != null && extras.getString(OPT_DB) != null) {
     deckFilename=extras.getString(OPT_DB);
-    Log.i("ankidroidstart","deckFilename from extras: " + deckFilename);
+    Log.i(TAG,"onCreate - deckFilename from extras: " + deckFilename);
   }
  else   if (savedInstanceState != null) {
     deckFilename=savedInstanceState.getString("deckFilename");
-    Log.i("ankidroidstart","deckFilename from savedInstanceState: " + deckFilename);
+    Log.i(TAG,"onCreate - deckFilename from savedInstanceState: " + deckFilename);
   }
  else {
-    Log.i("ankidroidstart",preferences.getAll().toString());
+    Log.i(TAG,"onCreate - " + preferences.getAll().toString());
     deckFilename=preferences.getString("deckFilename",null);
-    Log.i("ankidroidstart","deckFilename from preferences: " + deckFilename);
+    Log.i(TAG,"onCreate - deckFilename from preferences: " + deckFilename);
   }
-  currentCard=(AnkiDb.Card)getLastNonConfigurationInstance();
-  if (currentCard == null) {
-    if (deckFilename == null || !new File(deckFilename).exists()) {
+  if (deckFilename == null || !new File(deckFilename).exists()) {
+    Log.i(TAG,"onCreate - No previously selected deck or the previously selected deck is not available at the moment");
+    if (isSdCardMounted()) {
       boolean generateSampleDeck=preferences.getBoolean("generateSampleDeck",true);
       if (generateSampleDeck) {
+        Log.i(TAG,"onCreate - Generating sample deck...");
         String SAMPLE_DECK_FILENAME="/sdcard/country-capitals.anki";
         if (!new File("/sdcard","country-capitals.anki").exists()) {
           try {
@@ -35,30 +32,20 @@
             boolean written=writeToFile(stream,SAMPLE_DECK_FILENAME);
             if (!written) {
               openDeckPicker();
+              Log.i(TAG,"onCreate - The copy of country-capitals.anki to the sd card failed.");
               return;
             }
+            Log.i(TAG,"onCreate - The copy of country-capitals.anki to the sd card was sucessful.");
           }
  catch (          IOException e) {
             e.printStackTrace();
           }
         }
-        initLayout(R.layout.flashcard_portrait);
         deckFilename=SAMPLE_DECK_FILENAME;
-        displayProgressDialogAndLoadDeck();
       }
  else {
         openDeckPicker();
       }
     }
- else {
-      initLayout(R.layout.flashcard_portrait);
-      displayProgressDialogAndLoadDeck();
-    }
   }
- else {
-    initLayout(R.layout.flashcard_portrait);
-    showControls(true);
-    displayCardQuestion();
-  }
-  deckSelected=true;
 }

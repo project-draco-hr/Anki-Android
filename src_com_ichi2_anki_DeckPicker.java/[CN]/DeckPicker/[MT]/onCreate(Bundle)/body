@@ -1,7 +1,10 @@
 {
+  Log.i(TAG,"DeckPicker - onCreate");
   super.onCreate(savedInstanceState);
+  registerExternalStorageListener();
   mSelf=this;
-  String deckPath=getIntent().getStringExtra("com.ichi2.anki.Ankidroid.DeckPath");
+  SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+  String deckPath=preferences.getString("deckPath","/sdcard");
   setContentView(R.layout.main);
   mDeckList=new ArrayList<HashMap<String,String>>();
   mDeckListView=(ListView)findViewById(R.id.files);

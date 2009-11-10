@@ -1,16 +1,18 @@
 {
-  requestWindowFeature(Window.FEATURE_NO_TITLE);
+  Log.i(TAG,"initLayout - Beginning");
   setContentView(layout);
   mCard=(WebView)findViewById(R.id.flashcard);
-  mShowAnswer=(Button)findViewById(R.id.show_answer);
   mSelectRemembered=(Button)findViewById(R.id.select_remembered);
   mSelectNotRemembered=(Button)findViewById(R.id.select_notremembered);
   mTimer=(Chronometer)findViewById(R.id.card_time);
+  mFlipCard=(ToggleButton)findViewById(R.id.flip_card);
   mToggleWhiteboard=(ToggleButton)findViewById(R.id.toggle_overlay);
   mWhiteboard=(Whiteboard)findViewById(R.id.whiteboard);
-  showOrHideControls();
-  mShowAnswer.setOnClickListener(mShowAnswerHandler);
+  showControls(false);
   mSelectRemembered.setOnClickListener(mSelectRememberedHandler);
   mSelectNotRemembered.setOnClickListener(mSelectNotRememberedHandler);
+  mFlipCard.setOnCheckedChangeListener(mFlipCardHandler);
   mToggleWhiteboard.setOnCheckedChangeListener(mToggleOverlayHandler);
+  mCard.setFocusable(false);
+  Log.i(TAG,"initLayout - Ending");
 }
