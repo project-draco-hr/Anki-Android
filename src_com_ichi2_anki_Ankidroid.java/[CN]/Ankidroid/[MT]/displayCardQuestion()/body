@@ -5,11 +5,21 @@
   }
   if (currentCard == null) {
     updateCard("Unable to find a card!");
+    mEase0.setVisibility(View.GONE);
+    mEase1.setVisibility(View.GONE);
+    mEase2.setVisibility(View.GONE);
+    mEase3.setVisibility(View.GONE);
+    mFlipCard.setVisibility(View.GONE);
+    mTimer.setVisibility(View.GONE);
+    mToggleWhiteboard.setVisibility(View.GONE);
+    mWhiteboard.setVisibility(View.GONE);
   }
  else {
     Log.i(TAG,"displayCardQuestion - Hiding 'Remembered' and 'Not Remembered' buttons...");
-    mSelectRemembered.setVisibility(View.GONE);
-    mSelectNotRemembered.setVisibility(View.GONE);
+    mEase0.setVisibility(View.GONE);
+    mEase1.setVisibility(View.GONE);
+    mEase2.setVisibility(View.GONE);
+    mEase3.setVisibility(View.GONE);
     mFlipCard.requestFocus();
     updateCard(currentCard.question);
   }

@@ -2,8 +2,10 @@
   Log.i(TAG,"displayCardAnswer");
   mTimer.stop();
   mWhiteboard.lock();
-  mSelectRemembered.setVisibility(View.VISIBLE);
-  mSelectNotRemembered.setVisibility(View.VISIBLE);
-  mSelectRemembered.requestFocus();
+  mEase0.setVisibility(View.VISIBLE);
+  mEase1.setVisibility(View.VISIBLE);
+  mEase2.setVisibility(View.VISIBLE);
+  mEase3.setVisibility(View.VISIBLE);
+  mEase2.requestFocus();
   updateCard(currentCard.answer);
 }

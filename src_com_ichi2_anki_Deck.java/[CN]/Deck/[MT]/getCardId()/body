@@ -1,7 +1,7 @@
 {
   long id;
   if ((delay0 != 0) && (failedNowCount != 0))   return AnkiDb.queryScalar("SELECT id FROM failedCards LIMIT 1");
-  if (failedSoonCount >= failedCardMax)   return AnkiDb.queryScalar("SELECT id FROM failedCards LIMIT 1");
+  if ((failedCardMax != 0) && (failedSoonCount >= failedCardMax))   return AnkiDb.queryScalar("SELECT id FROM failedCards LIMIT 1");
   if (timeForNewCard()) {
     id=maybeGetNewCard();
     if (id != 0)     return id;

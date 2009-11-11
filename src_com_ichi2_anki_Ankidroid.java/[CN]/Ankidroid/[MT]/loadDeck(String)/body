@@ -3,7 +3,7 @@
   this.deckFilename=deckFilename;
   Log.i(TAG,"loadDeck - SD card mounted and existent file -> Loading deck...");
   try {
-    AnkiDb.openDatabase(deckFilename);
+    deck=Deck.openDeck(deckFilename);
     nextCard();
     Log.i(TAG,"Deck loaded!");
     return DECK_LOADED;

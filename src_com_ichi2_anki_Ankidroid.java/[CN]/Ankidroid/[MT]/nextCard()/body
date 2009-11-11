@@ -1,7 +1,6 @@
 {
   Log.i(TAG,"nextCard");
-  if (spacedRepetition)   currentCard=AnkiDb.Card.smallestIntervalCard();
- else   currentCard=AnkiDb.Card.randomCard();
+  currentCard=deck.getCard();
   mFlipCard.setChecked(false);
   mWhiteboard.clear();
   mTimer.setBase(SystemClock.elapsedRealtime());

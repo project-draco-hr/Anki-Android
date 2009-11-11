@@ -38,4 +38,5 @@
   values.put("newCount",newCount);
   values.put("revCardOrder",revCardOrder);
   AnkiDb.database.update("decks",values,"id = " + this.id,null);
+  lastLoaded=System.currentTimeMillis() / 1000f;
 }
