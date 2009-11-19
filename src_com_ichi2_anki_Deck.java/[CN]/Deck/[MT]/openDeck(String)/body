@@ -6,23 +6,23 @@
   if (cursor.isClosed())   throw new SQLException();
   cursor.moveToFirst();
   deck.id=cursor.getLong(0);
-  deck.created=cursor.getFloat(1);
-  deck.modified=cursor.getFloat(2);
+  deck.created=cursor.getDouble(1);
+  deck.modified=cursor.getDouble(2);
   deck.description=cursor.getString(3);
   deck.version=cursor.getInt(4);
   deck.currentModelId=cursor.getLong(5);
   deck.syncName=cursor.getString(6);
-  deck.lastSync=cursor.getFloat(7);
-  deck.hardIntervalMin=cursor.getFloat(8);
-  deck.hardIntervalMax=cursor.getFloat(9);
-  deck.midIntervalMin=cursor.getFloat(10);
-  deck.midIntervalMax=cursor.getFloat(11);
-  deck.easyIntervalMin=cursor.getFloat(12);
-  deck.easyIntervalMax=cursor.getFloat(13);
+  deck.lastSync=cursor.getDouble(7);
+  deck.hardIntervalMin=cursor.getDouble(8);
+  deck.hardIntervalMax=cursor.getDouble(9);
+  deck.midIntervalMin=cursor.getDouble(10);
+  deck.midIntervalMax=cursor.getDouble(11);
+  deck.easyIntervalMin=cursor.getDouble(12);
+  deck.easyIntervalMax=cursor.getDouble(13);
   deck.delay0=cursor.getInt(14);
   deck.delay1=cursor.getInt(15);
   deck.delay2=cursor.getInt(16);
-  deck.collapseTime=cursor.getFloat(17);
+  deck.collapseTime=cursor.getDouble(17);
   deck.highPriority=cursor.getString(18);
   deck.medPriority=cursor.getString(19);
   deck.lowPriority=cursor.getString(20);
@@ -33,7 +33,7 @@
   deck.newCardsPerDay=cursor.getInt(25);
   deck.sessionRepLimit=cursor.getInt(26);
   deck.sessionTimeLimit=cursor.getInt(27);
-  deck.utcOffset=cursor.getFloat(28);
+  deck.utcOffset=cursor.getDouble(28);
   deck.cardCount=cursor.getInt(29);
   deck.factCount=cursor.getInt(30);
   deck.failedNowCount=cursor.getInt(31);
@@ -43,6 +43,7 @@
   deck.revCardOrder=cursor.getInt(35);
   Log.i(TAG,"openDeck - Read " + cursor.getColumnCount() + " columns from decks table.");
   cursor.close();
+  Log.i(TAG,String.format("openDeck - modified: %f currentTime: %f",deck.modified,System.currentTimeMillis() / 1000.0));
   deck.initVars();
   deck.updateDynamicIndices();
   int oldCount=deck.failedSoonCount + deck.revCount + deck.newCount;
@@ -61,5 +62,6 @@
   }
   cursor.close();
   if ((oldCount != (deck.failedSoonCount + deck.revCount + deck.newCount)) || deck.modifiedSinceSave())   deck.commitToDB();
+  Card.updateStmt=null;
   return deck;
 }

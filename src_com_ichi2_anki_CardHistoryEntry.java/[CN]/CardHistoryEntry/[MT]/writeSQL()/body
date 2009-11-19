@@ -11,6 +11,6 @@
   values.put("thinkingTime",thinkingTime);
   values.put("yesCount",yesCount);
   values.put("noCount",noCount);
-  values.put("time",System.currentTimeMillis() / 1000f);
+  values.put("time",System.currentTimeMillis() / 1000.0);
   AnkiDb.database.insert("reviewHistory",null,values);
 }

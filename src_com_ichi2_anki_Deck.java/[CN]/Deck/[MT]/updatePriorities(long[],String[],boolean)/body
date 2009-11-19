@@ -17,7 +17,7 @@
   }
   cursor.close();
   String extra="";
-  if (dirty)   extra=", modified = " + String.format("%f",(float)(System.currentTimeMillis() / 1000f));
+  if (dirty)   extra=", modified = " + String.format("%f",(double)(System.currentTimeMillis() / 1000.0));
   for (int pri=0; pri < 5; pri++) {
     int count=0;
     for (int i=0; i < len; i++) {

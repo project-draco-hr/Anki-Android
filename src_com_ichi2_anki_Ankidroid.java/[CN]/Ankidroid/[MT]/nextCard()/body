@@ -1,8 +1,0 @@
-{
-  Log.i(TAG,"nextCard");
-  currentCard=deck.getCard();
-  mFlipCard.setChecked(false);
-  mWhiteboard.clear();
-  mTimer.setBase(SystemClock.elapsedRealtime());
-  mTimer.start();
-}

@@ -1,9 +1,6 @@
 {
   Log.i(TAG,"displayCardQuestion");
   if (currentCard == null) {
-    nextCard();
-  }
-  if (currentCard == null) {
     updateCard("Unable to find a card!");
     mEase0.setVisibility(View.GONE);
     mEase1.setVisibility(View.GONE);

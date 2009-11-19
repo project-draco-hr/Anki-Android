@@ -1,5 +1,6 @@
 {
   if (database != null) {
     database.close();
+    database=null;
   }
 }

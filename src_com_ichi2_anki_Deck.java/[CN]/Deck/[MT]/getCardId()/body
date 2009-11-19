@@ -19,7 +19,7 @@
   }
   if (showFailedLast()) {
     try {
-      id=AnkiDb.queryScalar("SELECT id FROM failedCards limit 1");
+      id=AnkiDb.queryScalar("SELECT id FROM failedCards LIMIT 1");
     }
  catch (    Exception e) {
       return 0;
