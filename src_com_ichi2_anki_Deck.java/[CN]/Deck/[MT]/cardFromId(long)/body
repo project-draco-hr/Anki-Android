@@ -1,7 +1,11 @@
 {
   if (id == 0)   return null;
   Card card=new Card();
-  if (!card.fromDB(id))   return null;
+  long start=System.currentTimeMillis();
+  boolean result=card.fromDB(id);
+  long stop=System.currentTimeMillis();
+  Log.v(TAG,"cardFromId - card.fromDB in " + (stop - start) + " ms.");
+  if (!result)   return null;
   card.genFuzz();
   card.startTimer();
   return card;

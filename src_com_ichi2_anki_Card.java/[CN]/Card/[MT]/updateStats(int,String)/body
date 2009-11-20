@@ -2,10 +2,10 @@
   reps+=1;
   if (ease > 1)   successive+=1;
  else   successive=0;
-  float delay=totalTime();
+  double delay=totalTime();
   if (delay < 60) {
     reviewTime+=delay;
-    if (averageTime != 0)     averageTime=(averageTime + delay) / 2f;
+    if (averageTime != 0)     averageTime=(averageTime + delay) / 2.0;
  else     averageTime=delay;
   }
   if (state == "new")   state="young";
@@ -19,6 +19,6 @@
   }
   if (ease < 2)   noCount+=1;
  else   yesCount+=1;
-  if (firstAnswered == 0)   firstAnswered=System.currentTimeMillis() / 1000f;
+  if (firstAnswered == 0)   firstAnswered=System.currentTimeMillis() / 1000.0;
   setModified();
 }

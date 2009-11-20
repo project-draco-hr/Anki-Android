@@ -7,9 +7,9 @@
   type=cursor.getInt(1);
   day=Date.valueOf(cursor.getString(2));
   reps=cursor.getInt(3);
-  averageTime=cursor.getFloat(4);
-  reviewTime=cursor.getFloat(5);
-  distractedTime=cursor.getFloat(6);
+  averageTime=cursor.getDouble(4);
+  reviewTime=cursor.getDouble(5);
+  distractedTime=cursor.getDouble(6);
   distractedReps=cursor.getInt(7);
   newEase0=cursor.getInt(8);
   newEase1=cursor.getInt(9);

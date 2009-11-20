@@ -1,7 +1,6 @@
 {
   Log.i(TAG,"commitToDB - Saving deck to DB...");
   ContentValues values=new ContentValues();
-  values.put("id",id);
   values.put("created",created);
   values.put("modified",modified);
   values.put("description",description);
@@ -38,5 +37,4 @@
   values.put("newCount",newCount);
   values.put("revCardOrder",revCardOrder);
   AnkiDb.database.update("decks",values,"id = " + this.id,null);
-  lastLoaded=System.currentTimeMillis() / 1000f;
 }
