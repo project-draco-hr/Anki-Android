@@ -8,6 +8,7 @@
   mFlipCard=(ToggleButton)findViewById(R.id.flip_card);
   mToggleWhiteboard=(ToggleButton)findViewById(R.id.toggle_overlay);
   mWhiteboard=(Whiteboard)findViewById(R.id.whiteboard);
+  mAnswerField=(EditText)findViewById(R.id.answer_field);
   showControls(false);
   mSelectRemembered.setOnClickListener(mSelectRememberedHandler);
   mSelectNotRemembered.setOnClickListener(mSelectNotRememberedHandler);

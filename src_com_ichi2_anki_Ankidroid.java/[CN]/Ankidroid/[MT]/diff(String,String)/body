@@ -1,0 +1,32 @@
+{
+  String diff="";
+  if (str1.equals(str2)) {
+    diff="<span style=\"background-color:#c0ffc0\">" + str1 + "</span>";
+  }
+ else {
+    int str1Length=str1.length();
+    int str2Length=str2.length();
+    int n=Math.min(str1Length,str2Length);
+    int pre;
+    for (pre=0; pre < n; pre++) {
+      if (str1.charAt(pre) != str2.charAt(pre)) {
+        break;
+      }
+    }
+    if (pre > 0)     diff="<span style=\"background-color:#c0ffc0\">" + str1.subSequence(0,pre) + "</span>";
+    int su;
+    for (su=1; su <= n - pre; su++) {
+      if (str1.charAt(str1Length - su) != str2.charAt(str2Length - su)) {
+        break;
+      }
+    }
+    diff+="<span style=\"background-color:#ffc0c0\">" + str1.subSequence(pre,str1Length - su + 1) + "</span>";
+    if (su > 1)     diff+="<span style=\"background-color:#c0ffc0\">" + str1.subSequence(str1Length - su + 1,str1Length) + "</span>";
+    String aux="";
+    for (int i=str1Length; i < str2Length; i++) {
+      aux+="&nbsp;&nbsp;";
+    }
+    if (aux != "")     diff+="<span style=\"background-color:#ffc0c0\">" + aux + "</span>";
+  }
+  return diff;
+}

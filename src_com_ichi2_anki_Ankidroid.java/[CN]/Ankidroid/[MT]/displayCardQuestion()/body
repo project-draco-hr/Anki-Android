@@ -10,6 +10,9 @@
     Log.i(TAG,"displayCardQuestion - Hiding 'Remembered' and 'Not Remembered' buttons...");
     mSelectRemembered.setVisibility(View.GONE);
     mSelectNotRemembered.setVisibility(View.GONE);
+    if (writeAnswers) {
+      mAnswerField.setVisibility(View.VISIBLE);
+    }
     mFlipCard.requestFocus();
     updateCard(currentCard.question);
   }
