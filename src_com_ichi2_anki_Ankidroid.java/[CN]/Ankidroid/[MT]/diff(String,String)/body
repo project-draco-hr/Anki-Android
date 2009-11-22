@@ -1,7 +1,7 @@
 {
   String diff="";
   if (str1.equals(str2)) {
-    diff="<span style=\"background-color:#c0ffc0\">" + str1 + "</span>";
+    diff="<span style=\"background-color:" + RIGHT_COLOR + "\">"+ str1+ "</span>";
   }
  else {
     int str1Length=str1.length();
@@ -13,20 +13,58 @@
         break;
       }
     }
-    if (pre > 0)     diff="<span style=\"background-color:#c0ffc0\">" + str1.subSequence(0,pre) + "</span>";
+    if (pre > 0)     diff="<span style=\"background-color:" + RIGHT_COLOR + "\">"+ str1.substring(0,pre)+ "</span>";
     int su;
     for (su=1; su <= n - pre; su++) {
       if (str1.charAt(str1Length - su) != str2.charAt(str2Length - su)) {
         break;
       }
     }
-    diff+="<span style=\"background-color:#ffc0c0\">" + str1.subSequence(pre,str1Length - su + 1) + "</span>";
-    if (su > 1)     diff+="<span style=\"background-color:#c0ffc0\">" + str1.subSequence(str1Length - su + 1,str1Length) + "</span>";
-    String aux="";
-    for (int i=str1Length; i < str2Length; i++) {
-      aux+="&nbsp;&nbsp;";
+    String diffStr1=str1.substring(pre,str1Length - su + 1);
+    String diffStr2=str2.substring(pre,str2Length - su + 1);
+    int diffStr1Length=diffStr1.length();
+    int diffStr2Length=diffStr2.length();
+    int j=0;
+    int i=0;
+    int lastCorrectChar=0;
+    while (i < diffStr1Length - 1 && j < diffStr2Length - 1) {
+      int k=2;
+      String bitStr1=diffStr1.substring(i,i + k);
+      int index=diffStr2.substring(j).indexOf(bitStr1);
+      if (index >= 0) {
+        for (k++; i - 1 + k < diffStr1Length && j - 1 + index + k < diffStr2Length; k++) {
+          String tryBitStr1=diffStr1.substring(i,i + k);
+          if (diffStr2.substring(j + index,j + index + k).equals(tryBitStr1)) {
+            bitStr1=tryBitStr1;
+          }
+ else {
+            break;
+          }
+        }
+        String spaces="";
+        for (int m=0; m < j + index - i; m++) {
+          spaces+="&nbsp;";
+        }
+        if (spaces != "")         diff+="<span style=\"background-color:" + WRONG_COLOR + "\">"+ spaces+ "</span>";
+        diff+="<span style=\"background-color:" + RIGHT_COLOR + "\">"+ bitStr1+ "</span>";
+        j+=index + k - 1;
+        i+=k - 1;
+        lastCorrectChar=i;
+      }
+ else {
+        diff+="<span style=\"background-color:" + WRONG_COLOR + "\">"+ diffStr1.charAt(i)+ "</span>";
+        i++;
+      }
     }
-    if (aux != "")     diff+="<span style=\"background-color:#ffc0c0\">" + aux + "</span>";
+    if (i < diffStr1Length) {
+      diff+="<span style=\"background-color:" + WRONG_COLOR + "\">"+ diffStr1.charAt(i)+ "</span>";
+    }
+    String aux="";
+    for (int m=0; m < (diffStr2Length - j) - (diffStr1Length - lastCorrectChar); m++) {
+      aux+="&nbsp;";
+    }
+    if (aux != "")     diff+="<span style=\"background-color:" + WRONG_COLOR + "\">"+ aux+ "</span>";
+    if (su > 1)     diff+="<span style=\"background-color:" + RIGHT_COLOR + "\">"+ str1.substring(str1Length - su + 1,str1Length)+ "</span>";
   }
   return diff;
 }
