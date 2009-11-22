@@ -1,4 +1,5 @@
 {
+  str1=str1.replace("\n","<br>");
   String diff="";
   if (str1.equals(str2)) {
     diff="<span style=\"background-color:" + RIGHT_COLOR + "\">"+ str1+ "</span>";
