@@ -1,6 +1,7 @@
 {
   super.onCreate(savedInstanceState);
   Log.i(TAG,"onCreate - savedInstanceState: " + savedInstanceState);
+  checkUpdates();
   registerExternalStorageListener();
   initResourceValues();
   Bundle extras=getIntent().getExtras();

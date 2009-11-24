@@ -4,7 +4,9 @@
   if (isSdCardMounted()) {
     if (deckFilename != null && new File(deckFilename).exists()) {
       showControls(false);
-      dialog=ProgressDialog.show(this,"","Loading deck. Please wait...",true);
+      if (!updateDialog.isShowing()) {
+        progressDialog=ProgressDialog.show(this,"","Loading deck. Please wait...",true);
+      }
       Thread thread=new Thread(this);
       thread.start();
     }
