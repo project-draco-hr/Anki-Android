@@ -1,0 +1,12 @@
+{
+  try {
+    if ((instance != null) && (instance.getStatus() != AsyncTask.Status.FINISHED))     instance.get();
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+  instance=new DeckTask();
+  instance.listener=listener;
+  instance.type=type;
+  return (DeckTask)instance.execute(params);
+}

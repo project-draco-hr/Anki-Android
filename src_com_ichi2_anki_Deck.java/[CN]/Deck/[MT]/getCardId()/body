@@ -1,0 +1,30 @@
+{
+  long id;
+  if ((delay0 != 0) && (failedNowCount != 0))   return AnkiDb.queryScalar("SELECT id FROM failedCards LIMIT 1");
+  if ((failedCardMax != 0) && (failedSoonCount >= failedCardMax))   return AnkiDb.queryScalar("SELECT id FROM failedCards LIMIT 1");
+  if (timeForNewCard()) {
+    id=maybeGetNewCard();
+    if (id != 0)     return id;
+  }
+  if (revCount != 0)   return getRevCard();
+  id=maybeGetNewCard();
+  if (id != 0)   return id;
+  if (reviewEarly) {
+    id=getCardIdAhead();
+    if (id != 0)     return id;
+ else {
+      resetAfterReviewEarly();
+      checkDue();
+    }
+  }
+  if (showFailedLast()) {
+    try {
+      id=AnkiDb.queryScalar("SELECT id FROM failedCards LIMIT 1");
+    }
+ catch (    Exception e) {
+      return 0;
+    }
+    return id;
+  }
+  return 0;
+}

@@ -1,0 +1,8 @@
+{
+  for (  String key : this.pref.values.keySet()) {
+    Preference pref=this.findPreference(key);
+    if (pref == null)     continue;
+    if (pref instanceof CheckBoxPreference)     continue;
+    pref.setSummary(this.pref.getString(key,""));
+  }
+}

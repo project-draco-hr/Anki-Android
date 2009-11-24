@@ -1,0 +1,15 @@
+{
+  FieldModel fieldModel=new FieldModel(this.name,(this.required == 1) ? true : false,(this.unique == 1) ? true : false);
+  fieldModel.ordinal=this.ordinal;
+  fieldModel.modelId=this.modelId;
+  fieldModel.description=this.description;
+  fieldModel.features=this.features;
+  fieldModel.numeric=this.numeric;
+  fieldModel.quizFontFamily=this.quizFontFamily;
+  fieldModel.quizFontSize=this.quizFontSize;
+  fieldModel.quizFontColour=this.quizFontColour;
+  fieldModel.editFontFamily=this.editFontFamily;
+  fieldModel.editFontSize=this.editFontSize;
+  fieldModel.model=null;
+  return fieldModel;
+}
