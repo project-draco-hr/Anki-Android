@@ -5,6 +5,7 @@
     mSelectNotRemembered.setVisibility(View.VISIBLE);
     mFlipCard.setVisibility(View.VISIBLE);
     showOrHideControls();
+    showOrHideAnswerField();
     hideDeckErrors();
   }
  else {
@@ -15,5 +16,6 @@
     mTimer.setVisibility(View.GONE);
     mToggleWhiteboard.setVisibility(View.GONE);
     mWhiteboard.setVisibility(View.GONE);
+    mAnswerField.setVisibility(View.GONE);
   }
 }

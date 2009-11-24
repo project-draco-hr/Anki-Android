@@ -1,5 +1,10 @@
 {
   Log.i(TAG,"updateCard");
+  String realContent=content.replaceAll("\\<br.*?\\>","               ");
+  realContent=realContent.replaceAll("\\<.*?\\>","");
+  realContent=realContent.replaceAll("&nbsp;"," ");
+  int size=Math.max(MIN_FONT_SIZE,MAX_FONT_SIZE - (int)(realContent.length() / 5));
+  mCard.getSettings().setDefaultFontSize(size);
   String card=cardTemplate.replace("::content::",content);
   mCard.loadDataWithBaseURL("",card,"text/html","utf-8",null);
 }

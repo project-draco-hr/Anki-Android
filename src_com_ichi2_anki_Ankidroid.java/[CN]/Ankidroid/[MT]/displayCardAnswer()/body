@@ -4,6 +4,15 @@
   mWhiteboard.lock();
   mSelectRemembered.setVisibility(View.VISIBLE);
   mSelectNotRemembered.setVisibility(View.VISIBLE);
+  mAnswerField.setVisibility(View.GONE);
   mSelectRemembered.requestFocus();
-  updateCard(currentCard.answer);
+  if (writeAnswers) {
+    String userAnswer=mAnswerField.getText().toString();
+    String correctAnswer=(String)currentCard.answer.subSequence(currentCard.answer.indexOf(">") + 1,currentCard.answer.lastIndexOf("<"));
+    String diff=diff(userAnswer,correctAnswer);
+    updateCard(diff + "<br/>" + currentCard.answer);
+  }
+ else {
+    updateCard(currentCard.answer);
+  }
 }
