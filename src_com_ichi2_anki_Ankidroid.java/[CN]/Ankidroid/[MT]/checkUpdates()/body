@@ -1,5 +1,5 @@
 {
-  String result=queryRESTurl("http://www.ichi2.net/anki/wiki/AndroidAnki?action=AttachFile&do=get&target=lastVersionCode");
+  String result=queryRESTurl("http://ankidroid.googlecode.com/files/last_release");
   Log.i(TAG,"Json = " + result);
   try {
     JSONObject json=new JSONObject(result);

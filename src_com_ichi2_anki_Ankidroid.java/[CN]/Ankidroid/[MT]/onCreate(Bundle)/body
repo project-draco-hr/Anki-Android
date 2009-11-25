@@ -1,12 +1,12 @@
 {
   super.onCreate(savedInstanceState);
   Log.i(TAG,"onCreate - savedInstanceState: " + savedInstanceState);
-  checkUpdates();
-  registerExternalStorageListener();
-  initResourceValues();
   Bundle extras=getIntent().getExtras();
   SharedPreferences preferences=restorePreferences();
   initLayout(R.layout.flashcard_portrait);
+  if (updateNotifications)   checkUpdates();
+  registerExternalStorageListener();
+  initResourceValues();
   if (extras != null && extras.getString(OPT_DB) != null) {
     deckFilename=extras.getString(OPT_DB);
     Log.i(TAG,"onCreate - deckFilename from extras: " + deckFilename);
