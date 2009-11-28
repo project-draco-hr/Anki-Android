@@ -5,5 +5,6 @@
   Log.i(TAG,"restorePreferences - timerAndWhiteboard: " + timerAndWhiteboard);
   spacedRepetition=preferences.getBoolean("spacedRepetition",true);
   writeAnswers=preferences.getBoolean("writeAnswers",false);
+  updateNotifications=preferences.getBoolean("updateNotifications",true);
   return preferences;
 }
