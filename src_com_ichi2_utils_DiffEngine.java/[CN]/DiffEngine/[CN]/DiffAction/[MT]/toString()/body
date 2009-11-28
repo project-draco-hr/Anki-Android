@@ -1,0 +1,4 @@
+{
+  String prettyText=this.text.replace('\n','\u00b6');
+  return "Diff(" + this.operation + ",\""+ prettyText+ "\")";
+}

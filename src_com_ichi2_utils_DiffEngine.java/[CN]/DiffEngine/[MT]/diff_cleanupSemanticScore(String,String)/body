@@ -1,0 +1,19 @@
+{
+  if (one.length() == 0 || two.length() == 0) {
+    return 5;
+  }
+  int score=0;
+  if (!Character.isLetterOrDigit(one.charAt(one.length() - 1)) || !Character.isLetterOrDigit(two.charAt(0))) {
+    score++;
+    if (Character.isWhitespace(one.charAt(one.length() - 1)) || Character.isWhitespace(two.charAt(0))) {
+      score++;
+      if (Character.getType(one.charAt(one.length() - 1)) == Character.CONTROL || Character.getType(two.charAt(0)) == Character.CONTROL) {
+        score++;
+        if (BLANKLINEEND.matcher(one).find() || BLANKLINESTART.matcher(two).find()) {
+          score++;
+        }
+      }
+    }
+  }
+  return score;
+}

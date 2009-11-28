@@ -1,0 +1,94 @@
+{
+  LinkedList<DiffAction> diffs=new LinkedList<DiffAction>();
+  if (text1.length() == 0) {
+    diffs.add(new DiffAction(Operation.INSERT,text2));
+    return diffs;
+  }
+  if (text2.length() == 0) {
+    diffs.add(new DiffAction(Operation.DELETE,text1));
+    return diffs;
+  }
+  String longtext=text1.length() > text2.length() ? text1 : text2;
+  String shorttext=text1.length() > text2.length() ? text2 : text1;
+  int i=longtext.indexOf(shorttext);
+  if (i != -1) {
+    Operation op=(text1.length() > text2.length()) ? Operation.DELETE : Operation.INSERT;
+    diffs.add(new DiffAction(op,longtext.substring(0,i)));
+    diffs.add(new DiffAction(Operation.EQUAL,shorttext));
+    diffs.add(new DiffAction(op,longtext.substring(i + shorttext.length())));
+    return diffs;
+  }
+  longtext=shorttext=null;
+  String[] hm=diff_halfMatch(text1,text2);
+  if (hm != null) {
+    String text1_a=hm[0];
+    String text1_b=hm[1];
+    String text2_a=hm[2];
+    String text2_b=hm[3];
+    String mid_common=hm[4];
+    LinkedList<DiffAction> diffs_a=diff_main(text1_a,text2_a,checklines);
+    LinkedList<DiffAction> diffs_b=diff_main(text1_b,text2_b,checklines);
+    diffs=diffs_a;
+    diffs.add(new DiffAction(Operation.EQUAL,mid_common));
+    diffs.addAll(diffs_b);
+    return diffs;
+  }
+  if (checklines && (text1.length() < 100 || text2.length() < 100)) {
+    checklines=false;
+  }
+  List<String> linearray=null;
+  if (checklines) {
+    LinesToCharsResult b=diff_linesToChars(text1,text2);
+    text1=b.chars1;
+    text2=b.chars2;
+    linearray=b.lineArray;
+  }
+  diffs=diff_map(text1,text2);
+  if (diffs == null) {
+    diffs=new LinkedList<DiffAction>();
+    diffs.add(new DiffAction(Operation.DELETE,text1));
+    diffs.add(new DiffAction(Operation.INSERT,text2));
+  }
+  if (checklines) {
+    diff_charsToLines(diffs,linearray);
+    diff_cleanupSemantic(diffs);
+    diffs.add(new DiffAction(Operation.EQUAL,""));
+    int count_delete=0;
+    int count_insert=0;
+    String text_delete="";
+    String text_insert="";
+    ListIterator<DiffAction> pointer=diffs.listIterator();
+    DiffAction thisDiff=pointer.next();
+    while (thisDiff != null) {
+switch (thisDiff.operation) {
+case INSERT:
+        count_insert++;
+      text_insert+=thisDiff.text;
+    break;
+case DELETE:
+  count_delete++;
+text_delete+=thisDiff.text;
+break;
+case EQUAL:
+if (count_delete >= 1 && count_insert >= 1) {
+pointer.previous();
+for (int j=0; j < count_delete + count_insert; j++) {
+pointer.previous();
+pointer.remove();
+}
+for (DiffAction newDiff : diff_main(text_delete,text_insert,false)) {
+pointer.add(newDiff);
+}
+}
+count_insert=0;
+count_delete=0;
+text_delete="";
+text_insert="";
+break;
+}
+thisDiff=pointer.hasNext() ? pointer.next() : null;
+}
+diffs.removeLast();
+}
+return diffs;
+}

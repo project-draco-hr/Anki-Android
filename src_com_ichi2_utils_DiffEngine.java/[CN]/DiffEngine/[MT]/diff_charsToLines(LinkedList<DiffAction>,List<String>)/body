@@ -1,0 +1,10 @@
+{
+  StringBuilder text;
+  for (  DiffAction diff : diffs) {
+    text=new StringBuilder();
+    for (int y=0; y < diff.text.length(); y++) {
+      text.append(lineArray.get(diff.text.charAt(y)));
+    }
+    diff.text=text.toString();
+  }
+}

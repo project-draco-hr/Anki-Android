@@ -1,0 +1,105 @@
+{
+  long ms_end=System.currentTimeMillis() + (long)(Diff_Timeout * 1000);
+  int text1_length=text1.length();
+  int text2_length=text2.length();
+  int max_d=text1_length + text2_length - 1;
+  boolean doubleEnd=Diff_DualThreshold * 2 < max_d;
+  List<Set<Long>> v_map1=new ArrayList<Set<Long>>();
+  List<Set<Long>> v_map2=new ArrayList<Set<Long>>();
+  Map<Integer,Integer> v1=new HashMap<Integer,Integer>();
+  Map<Integer,Integer> v2=new HashMap<Integer,Integer>();
+  v1.put(1,0);
+  v2.put(1,0);
+  int x, y;
+  Long footstep=0L;
+  Map<Long,Integer> footsteps=new HashMap<Long,Integer>();
+  boolean done=false;
+  boolean front=((text1_length + text2_length) % 2 == 1);
+  for (int d=0; d < max_d; d++) {
+    if (Diff_Timeout > 0 && System.currentTimeMillis() > ms_end) {
+      return null;
+    }
+    v_map1.add(new HashSet<Long>());
+    for (int k=-d; k <= d; k+=2) {
+      if (k == -d || k != d && v1.get(k - 1) < v1.get(k + 1)) {
+        x=v1.get(k + 1);
+      }
+ else {
+        x=v1.get(k - 1) + 1;
+      }
+      y=x - k;
+      if (doubleEnd) {
+        footstep=diff_footprint(x,y);
+        if (front && (footsteps.containsKey(footstep))) {
+          done=true;
+        }
+        if (!front) {
+          footsteps.put(footstep,d);
+        }
+      }
+      while (!done && x < text1_length && y < text2_length && text1.charAt(x) == text2.charAt(y)) {
+        x++;
+        y++;
+        if (doubleEnd) {
+          footstep=diff_footprint(x,y);
+          if (front && (footsteps.containsKey(footstep))) {
+            done=true;
+          }
+          if (!front) {
+            footsteps.put(footstep,d);
+          }
+        }
+      }
+      v1.put(k,x);
+      v_map1.get(d).add(diff_footprint(x,y));
+      if (x == text1_length && y == text2_length) {
+        return diff_path1(v_map1,text1,text2);
+      }
+ else       if (done) {
+        v_map2=v_map2.subList(0,footsteps.get(footstep) + 1);
+        LinkedList<DiffAction> a=diff_path1(v_map1,text1.substring(0,x),text2.substring(0,y));
+        a.addAll(diff_path2(v_map2,text1.substring(x),text2.substring(y)));
+        return a;
+      }
+    }
+    if (doubleEnd) {
+      v_map2.add(new HashSet<Long>());
+      for (int k=-d; k <= d; k+=2) {
+        if (k == -d || k != d && v2.get(k - 1) < v2.get(k + 1)) {
+          x=v2.get(k + 1);
+        }
+ else {
+          x=v2.get(k - 1) + 1;
+        }
+        y=x - k;
+        footstep=diff_footprint(text1_length - x,text2_length - y);
+        if (!front && (footsteps.containsKey(footstep))) {
+          done=true;
+        }
+        if (front) {
+          footsteps.put(footstep,d);
+        }
+        while (!done && x < text1_length && y < text2_length && text1.charAt(text1_length - x - 1) == text2.charAt(text2_length - y - 1)) {
+          x++;
+          y++;
+          footstep=diff_footprint(text1_length - x,text2_length - y);
+          if (!front && (footsteps.containsKey(footstep))) {
+            done=true;
+          }
+          if (front) {
+            footsteps.put(footstep,d);
+          }
+        }
+        v2.put(k,x);
+        v_map2.get(d).add(diff_footprint(x,y));
+        if (done) {
+          v_map1=v_map1.subList(0,footsteps.get(footstep) + 1);
+          LinkedList<DiffAction> a=diff_path1(v_map1,text1.substring(0,text1_length - x),text2.substring(0,text2_length - y));
+          a.addAll(diff_path2(v_map2,text1.substring(text1_length - x),text2.substring(text2_length - y)));
+          return a;
+        }
+      }
+    }
+  }
+  return null;
+}

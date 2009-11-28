@@ -1,0 +1,28 @@
+{
+  String longtext=text1.length() > text2.length() ? text1 : text2;
+  String shorttext=text1.length() > text2.length() ? text2 : text1;
+  if (longtext.length() < 10 || shorttext.length() < 1) {
+    return null;
+  }
+  String[] hm1=diff_halfMatchI(longtext,shorttext,(longtext.length() + 3) / 4);
+  String[] hm2=diff_halfMatchI(longtext,shorttext,(longtext.length() + 1) / 2);
+  String[] hm;
+  if (hm1 == null && hm2 == null) {
+    return null;
+  }
+ else   if (hm2 == null) {
+    hm=hm1;
+  }
+ else   if (hm1 == null) {
+    hm=hm2;
+  }
+ else {
+    hm=hm1[4].length() > hm2[4].length() ? hm1 : hm2;
+  }
+  if (text1.length() > text2.length()) {
+    return hm;
+  }
+ else {
+    return new String[]{hm[2],hm[3],hm[0],hm[1],hm[4]};
+  }
+}

@@ -1,0 +1,54 @@
+{
+  if (diffs.isEmpty()) {
+    return;
+  }
+  boolean changes=false;
+  Stack<DiffAction> equalities=new Stack<DiffAction>();
+  String lastequality=null;
+  ListIterator<DiffAction> pointer=diffs.listIterator();
+  int length_changes1=0;
+  int length_changes2=0;
+  DiffAction thisDiff=pointer.next();
+  while (thisDiff != null) {
+    if (thisDiff.operation == Operation.EQUAL) {
+      equalities.push(thisDiff);
+      length_changes1=length_changes2;
+      length_changes2=0;
+      lastequality=thisDiff.text;
+    }
+ else {
+      length_changes2+=thisDiff.text.length();
+      if (lastequality != null && (lastequality.length() <= length_changes1) && (lastequality.length() <= length_changes2)) {
+        while (thisDiff != equalities.lastElement()) {
+          thisDiff=pointer.previous();
+        }
+        pointer.next();
+        pointer.set(new DiffAction(Operation.DELETE,lastequality));
+        pointer.add(new DiffAction(Operation.INSERT,lastequality));
+        equalities.pop();
+        if (!equalities.empty()) {
+          equalities.pop();
+        }
+        if (equalities.empty()) {
+          while (pointer.hasPrevious()) {
+            pointer.previous();
+          }
+        }
+ else {
+          thisDiff=equalities.lastElement();
+          while (thisDiff != pointer.previous()) {
+          }
+        }
+        length_changes1=0;
+        length_changes2=0;
+        lastequality=null;
+        changes=true;
+      }
+    }
+    thisDiff=pointer.hasNext() ? pointer.next() : null;
+  }
+  if (changes) {
+    diff_cleanupMerge(diffs);
+  }
+  diff_cleanupSemanticLossless(diffs);
+}

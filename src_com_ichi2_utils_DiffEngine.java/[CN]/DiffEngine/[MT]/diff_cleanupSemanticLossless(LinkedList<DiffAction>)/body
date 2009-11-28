@@ -1,0 +1,66 @@
+{
+  String equality1, edit, equality2;
+  String commonString;
+  int commonOffset;
+  int score, bestScore;
+  String bestEquality1, bestEdit, bestEquality2;
+  ListIterator<DiffAction> pointer=diffs.listIterator();
+  DiffAction prevDiff=pointer.hasNext() ? pointer.next() : null;
+  DiffAction thisDiff=pointer.hasNext() ? pointer.next() : null;
+  DiffAction nextDiff=pointer.hasNext() ? pointer.next() : null;
+  while (nextDiff != null) {
+    if (prevDiff.operation == Operation.EQUAL && nextDiff.operation == Operation.EQUAL) {
+      equality1=prevDiff.text;
+      edit=thisDiff.text;
+      equality2=nextDiff.text;
+      commonOffset=diff_commonSuffix(equality1,edit);
+      if (commonOffset != 0) {
+        commonString=edit.substring(edit.length() - commonOffset);
+        equality1=equality1.substring(0,equality1.length() - commonOffset);
+        edit=commonString + edit.substring(0,edit.length() - commonOffset);
+        equality2=commonString + equality2;
+      }
+      bestEquality1=equality1;
+      bestEdit=edit;
+      bestEquality2=equality2;
+      bestScore=diff_cleanupSemanticScore(equality1,edit) + diff_cleanupSemanticScore(edit,equality2);
+      while (edit.length() > 0 && equality2.length() > 0 && edit.charAt(0) == equality2.charAt(0)) {
+        equality1+=edit.charAt(0);
+        edit=edit.substring(1) + equality2.charAt(0);
+        equality2=equality2.substring(1);
+        score=diff_cleanupSemanticScore(equality1,edit) + diff_cleanupSemanticScore(edit,equality2);
+        if (score >= bestScore) {
+          bestScore=score;
+          bestEquality1=equality1;
+          bestEdit=edit;
+          bestEquality2=equality2;
+        }
+      }
+      if (!prevDiff.text.equals(bestEquality1)) {
+        if (bestEquality1.length() > 0) {
+          prevDiff.text=bestEquality1;
+        }
+ else {
+          pointer.previous();
+          pointer.previous();
+          pointer.previous();
+          pointer.remove();
+          pointer.next();
+          pointer.next();
+        }
+        thisDiff.text=bestEdit;
+        if (bestEquality2.length() > 0) {
+          nextDiff.text=bestEquality2;
+        }
+ else {
+          pointer.remove();
+          nextDiff=thisDiff;
+          thisDiff=prevDiff;
+        }
+      }
+    }
+    prevDiff=thisDiff;
+    thisDiff=nextDiff;
+    nextDiff=pointer.hasNext() ? pointer.next() : null;
+  }
+}

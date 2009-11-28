@@ -1,0 +1,25 @@
+{
+  LinkedList<DiffAction> diffs;
+  if (text1.equals(text2)) {
+    diffs=new LinkedList<DiffAction>();
+    diffs.add(new DiffAction(Operation.EQUAL,text1));
+    return diffs;
+  }
+  int commonlength=diff_commonPrefix(text1,text2);
+  String commonprefix=text1.substring(0,commonlength);
+  text1=text1.substring(commonlength);
+  text2=text2.substring(commonlength);
+  commonlength=diff_commonSuffix(text1,text2);
+  String commonsuffix=text1.substring(text1.length() - commonlength);
+  text1=text1.substring(0,text1.length() - commonlength);
+  text2=text2.substring(0,text2.length() - commonlength);
+  diffs=diff_compute(text1,text2,checklines);
+  if (commonprefix.length() > 0) {
+    diffs.addFirst(new DiffAction(Operation.EQUAL,commonprefix));
+  }
+  if (commonsuffix.length() > 0) {
+    diffs.addLast(new DiffAction(Operation.EQUAL,commonsuffix));
+  }
+  diff_cleanupMerge(diffs);
+  return diffs;
+}

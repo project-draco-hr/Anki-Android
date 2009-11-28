@@ -1,0 +1,8 @@
+{
+  try {
+    return (((DiffAction)d).operation == this.operation) && (((DiffAction)d).text.equals(this.text));
+  }
+ catch (  ClassCastException e) {
+    return false;
+  }
+}
