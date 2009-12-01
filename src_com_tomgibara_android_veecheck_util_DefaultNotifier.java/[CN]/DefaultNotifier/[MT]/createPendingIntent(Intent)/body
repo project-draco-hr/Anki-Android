@@ -1,0 +1,11 @@
+{
+  Intent activityIntent;
+  if (this.activityIntent == null) {
+    activityIntent=intent;
+  }
+ else {
+    activityIntent=new Intent(this.activityIntent);
+    activityIntent.putExtra(Intent.EXTRA_INTENT,intent);
+  }
+  return super.createPendingIntent(activityIntent);
+}

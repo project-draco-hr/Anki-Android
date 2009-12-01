@@ -1,0 +1,18 @@
+{
+  handler.post(new Runnable(){
+    public void run(){
+      Log.d(LOG_TAG,"Service thread reports completion.");
+      try {
+        notifyOfResult(result);
+      }
+  finally {
+synchronized (VeecheckService.this) {
+          thread=null;
+          stopSelf();
+        }
+        Log.d(LOG_TAG,"Service stopping.");
+      }
+    }
+  }
+);
+}

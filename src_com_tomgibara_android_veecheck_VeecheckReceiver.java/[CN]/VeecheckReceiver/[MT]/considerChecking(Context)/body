@@ -1,0 +1,27 @@
+{
+  Log.d(LOG_TAG,"Considering performing check.");
+  VeecheckSettings settings=createSettings(context);
+  if (!settings.isEnabled()) {
+    syncChecking(context);
+    return;
+  }
+  Log.d(LOG_TAG,"Checking is enabled.");
+  String uri=settings.getCheckUri();
+  if (uri == null)   return;
+  Log.d(LOG_TAG,"URI is available.");
+  VeecheckState state=createState(context);
+  long now=System.currentTimeMillis();
+  long lastCheck=state.getLastCheck();
+  if (lastCheck >= 0L && lastCheck + settings.getCheckInterval() > now) {
+    return;
+  }
+  Log.d(LOG_TAG,"Last check was not too recent.");
+  int status=BatteryManager.BATTERY_STATUS_CHARGING;
+  if (status != BatteryManager.BATTERY_STATUS_CHARGING) {
+    return;
+  }
+  Intent intent=new Intent(Veecheck.getCheckAction(context),Uri.parse(uri));
+  context.startService(intent);
+  state.setLastCheckNow(now);
+  Log.d(LOG_TAG,"Last check date was updated.");
+}

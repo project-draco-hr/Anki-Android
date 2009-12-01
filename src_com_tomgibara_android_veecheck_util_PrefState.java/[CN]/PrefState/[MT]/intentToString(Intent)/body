@@ -1,0 +1,12 @@
+{
+  Bundle extras=intent.getExtras();
+  TreeSet<String> keys=new TreeSet<String>(intent.getExtras().keySet());
+  String intentString=intent.getClass() + "|" + intent.getAction()+ "|"+ intent.getDataString()+ "|"+ intent.getType()+ "|"+ intent.getCategories();
+  Iterator<String> it=keys.iterator();
+  while (it.hasNext()) {
+    String key=(String)it.next();
+    intentString+="|" + key + ":"+ extras.get(key).toString();
+  }
+  Log.i("Veecheck",intentString);
+  return intentString;
+}

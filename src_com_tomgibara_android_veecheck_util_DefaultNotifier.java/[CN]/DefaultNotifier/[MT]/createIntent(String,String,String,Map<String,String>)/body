@@ -1,0 +1,13 @@
+{
+  if (filters != null && filters.length > 0) {
+    Uri uri=data == null ? null : Uri.parse(data);
+    String scheme=uri == null ? null : uri.getScheme();
+    String resolvedType=type == null && "content".equals(scheme) ? context.getContentResolver().getType(uri) : type;
+    for (    IntentFilter filter : filters) {
+      if (filter == null)       continue;
+      int result=filter.match(action,resolvedType,scheme,uri,null,LOG_TAG);
+      if (result < 0)       return null;
+    }
+  }
+  return super.createIntent(action,data,type,extras);
+}

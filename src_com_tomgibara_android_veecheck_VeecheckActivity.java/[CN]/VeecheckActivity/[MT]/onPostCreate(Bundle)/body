@@ -1,0 +1,14 @@
+{
+  super.onPostCreate(savedInstanceState);
+  View yesButton=getYesButton();
+  View noButton=getNoButton();
+  updateIntent=getUpdateIntent();
+  if (updateIntent == null) {
+    yesButton.setEnabled(false);
+    noButton.setEnabled(false);
+  }
+ else {
+    yesButton.setOnClickListener(this);
+    noButton.setOnClickListener(this);
+  }
+}

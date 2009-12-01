@@ -4,7 +4,6 @@
   Bundle extras=getIntent().getExtras();
   SharedPreferences preferences=restorePreferences();
   initLayout(R.layout.flashcard_portrait);
-  if (updateNotifications)   checkUpdates();
   registerExternalStorageListener();
   initResourceValues();
   if (extras != null && extras.getString(OPT_DB) != null) {

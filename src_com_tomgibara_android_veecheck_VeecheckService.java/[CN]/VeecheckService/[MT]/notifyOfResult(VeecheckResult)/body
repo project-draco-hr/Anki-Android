@@ -1,0 +1,22 @@
+{
+  if (result == null)   return;
+  VeecheckNotifier notifier=createNotifier();
+  Intent intent=notifier.createIntent(result.action,result.data,result.type,result.extras);
+  if (intent == null) {
+    Log.d(LOG_TAG,"No intent generated.");
+    return;
+  }
+  if (createState().isIgnoredIntent(intent)) {
+    Log.d(LOG_TAG,"User ignoring intent.");
+    return;
+  }
+  Notification notification=notifier.createNotification(intent);
+  if (notification == null) {
+    Log.d(LOG_TAG,"Notification declined.");
+    return;
+  }
+  int id=notifier.getNotificationId();
+  NotificationManager manager=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+  manager.notify(id,notification);
+  Log.d(LOG_TAG,"Notification issued.");
+}

@@ -1,0 +1,13 @@
+{
+  Checkable stopCheckBox=getStopCheckBox();
+  boolean stop=stopCheckBox == null ? false : stopCheckBox.isChecked();
+  if (view == getYesButton()) {
+    if (stop)     createState().setIgnoredIntent(updateIntent);
+    startActivity(updateIntent);
+    finish();
+  }
+ else   if (view == getNoButton()) {
+    if (stop)     createState().setIgnoredIntent(updateIntent);
+    finish();
+  }
+}

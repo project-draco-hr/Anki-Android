@@ -1,0 +1,11 @@
+{
+  super.onCreate();
+  SharedPreferences prefs=PrefSettings.getSharedPrefs(this);
+  if (prefs.getString(PrefSettings.KEY_CHECK_URI,null) == null) {
+    Editor editor=prefs.edit();
+    editor.putString(PrefSettings.KEY_CHECK_URI,"http://ankidroid.googlecode.com/files/last_release.xml");
+    editor.commit();
+  }
+  Intent intent=new Intent(Veecheck.getRescheduleAction(this));
+  sendBroadcast(intent);
+}
