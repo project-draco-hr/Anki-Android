@@ -1,7 +1,6 @@
 {
   Log.i(TAG,"commitToDB - Saving deck to DB...");
   ContentValues values=new ContentValues();
-  values.put("id",id);
   values.put("created",created);
   values.put("modified",modified);
   values.put("description",description);

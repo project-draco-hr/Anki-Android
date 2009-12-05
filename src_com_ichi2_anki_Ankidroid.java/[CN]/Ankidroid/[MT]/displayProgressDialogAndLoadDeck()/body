@@ -4,11 +4,7 @@
   if (isSdCardMounted()) {
     if (deckFilename != null && new File(deckFilename).exists()) {
       showControls(false);
-      if (updateDialog == null || !updateDialog.isShowing()) {
-        progressDialog=ProgressDialog.show(this,"","Loading deck. Please wait...",true);
-      }
-      Thread thread=new Thread(this);
-      thread.start();
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK,mLoadDeckHandler,new DeckTask.TaskData(deckFilename));
     }
  else {
       if (deckFilename == null)       Log.i(TAG,"displayProgressDialogAndLoadDeck - SD card unmounted.");

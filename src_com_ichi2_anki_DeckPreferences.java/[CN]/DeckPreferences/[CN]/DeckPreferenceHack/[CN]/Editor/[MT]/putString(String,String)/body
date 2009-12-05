@@ -1,0 +1,5 @@
+{
+  Log.d(this.getClass().toString(),String.format("Editor.putString(key=%s, value=%s)",key,value));
+  update.put(key,value);
+  return this;
+}

@@ -1,0 +1,10 @@
+{
+  super.onCreate(icicle);
+  if (AnkidroidApp.deck() == null) {
+    Log.i(TAG,"Selected Deck is NULL");
+    finish();
+  }
+  this.pref=new DeckPreferenceHack();
+  this.pref.registerOnSharedPreferenceChangeListener(this);
+  this.addPreferencesFromResource(R.layout.deck_preferences);
+}

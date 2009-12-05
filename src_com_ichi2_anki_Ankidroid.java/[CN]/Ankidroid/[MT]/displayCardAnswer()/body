@@ -1,11 +1,13 @@
 {
   Log.i(TAG,"displayCardAnswer");
-  mTimer.stop();
+  mCardTimer.stop();
   mWhiteboard.lock();
-  mSelectRemembered.setVisibility(View.VISIBLE);
-  mSelectNotRemembered.setVisibility(View.VISIBLE);
+  mEase0.setVisibility(View.VISIBLE);
+  mEase1.setVisibility(View.VISIBLE);
+  mEase2.setVisibility(View.VISIBLE);
+  mEase3.setVisibility(View.VISIBLE);
   mAnswerField.setVisibility(View.GONE);
-  mSelectRemembered.requestFocus();
+  mEase2.requestFocus();
   if (writeAnswers) {
     if (currentCard != null) {
       String userAnswer=mAnswerField.getText().toString();

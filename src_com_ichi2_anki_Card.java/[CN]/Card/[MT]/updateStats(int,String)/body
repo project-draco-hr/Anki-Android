@@ -1,0 +1,24 @@
+{
+  reps+=1;
+  if (ease > 1)   successive+=1;
+ else   successive=0;
+  double delay=totalTime();
+  if (delay < 60) {
+    reviewTime+=delay;
+    if (averageTime != 0)     averageTime=(averageTime + delay) / 2.0;
+ else     averageTime=delay;
+  }
+  if (state == "new")   state="young";
+  String attr=state + String.format("Ease%d",ease);
+  try {
+    Field f=this.getClass().getDeclaredField(attr);
+    f.setInt(this,f.getInt(this) + 1);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+  if (ease < 2)   noCount+=1;
+ else   yesCount+=1;
+  if (firstAnswered == 0)   firstAnswered=System.currentTimeMillis() / 1000.0;
+  setModified();
+}

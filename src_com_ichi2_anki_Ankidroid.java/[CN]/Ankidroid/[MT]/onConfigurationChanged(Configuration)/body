@@ -5,8 +5,8 @@
   if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)   sdLayout.setPadding(0,50,0,0);
  else   if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT)   sdLayout.setPadding(0,100,0,0);
   int extraHeight=0;
-  if (mSelectRemembered.isShown() && mSelectNotRemembered.isShown()) {
-    extraHeight=java.lang.Math.max(mSelectRemembered.getHeight(),mSelectNotRemembered.getHeight());
+  if (mEase0.isShown() && mEase1.isShown()) {
+    extraHeight=java.lang.Math.max(mEase0.getHeight(),mEase1.getHeight());
   }
   mWhiteboard.rotate(extraHeight);
 }

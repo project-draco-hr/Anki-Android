@@ -1,0 +1,8 @@
+{
+  values.put("newCardsPDay",String.valueOf(AnkidroidApp.deck().getNewCardsPerDay()));
+  values.put("sessionQLimit",String.valueOf(AnkidroidApp.deck().getSessionRepLimit()));
+  values.put("sessionTLimit",String.valueOf(AnkidroidApp.deck().getSessionTimeLimit() / 60));
+  values.put("newCardOrder",String.valueOf(AnkidroidApp.deck().getNewCardOrder()));
+  values.put("newCardSpacing",String.valueOf(AnkidroidApp.deck().getNewCardSpacing()));
+  values.put("revCardOrder",String.valueOf(AnkidroidApp.deck().getRevCardOrder()));
+}

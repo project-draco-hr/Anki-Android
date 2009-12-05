@@ -1,0 +1,80 @@
+{
+  double now=System.currentTimeMillis() / 1000.0;
+  String oldState=cardState(card);
+  double lastDelaySecs=System.currentTimeMillis() / 1000.0 - card.combinedDue;
+  double lastDelay=lastDelaySecs / 86400.0;
+  int oldSuc=card.successive;
+  double last=card.interval;
+  card.interval=nextInterval(card,ease);
+  if (lastDelay >= 0)   card.lastInterval=last;
+  if (card.reps != 0)   card.lastDue=card.due;
+  card.due=nextDue(card,ease,oldState);
+  card.isDue=0;
+  card.lastFactor=card.factor;
+  if (lastDelay >= 0)   updateFactor(card,ease);
+  long start=System.currentTimeMillis();
+  double space, spaceFactor, minSpacing, minOfOtherCards;
+  Cursor cursor=AnkiDb.database.rawQuery("SELECT models.initialSpacing, models.spacing " + "FROM facts, models " + "WHERE facts.modelId = models.id and "+ "facts.id = "+ card.factId,null);
+  if (!cursor.moveToFirst()) {
+    minSpacing=0;
+    spaceFactor=0;
+  }
+ else {
+    minSpacing=cursor.getDouble(0);
+    spaceFactor=cursor.getDouble(1);
+  }
+  cursor.close();
+  long stop=System.currentTimeMillis();
+  Log.v(TAG,"answerCard - spacing in " + (stop - start) + " ms.");
+  start=System.currentTimeMillis();
+  cursor=AnkiDb.database.rawQuery("SELECT min(interval) " + "FROM cards " + "WHERE factId = " + card.factId + " and id != "+ card.id,null);
+  if (!cursor.moveToFirst())   minOfOtherCards=0;
+ else   minOfOtherCards=cursor.getDouble(0);
+  cursor.close();
+  stop=System.currentTimeMillis();
+  Log.v(TAG,"answerCard - minOfOtherCards in " + (stop - start) + " ms.");
+  if (minOfOtherCards != 0)   space=Math.min(minOfOtherCards,card.interval);
+ else   space=0;
+  space=space * spaceFactor * 86400f;
+  space=Math.max(minSpacing,space);
+  space+=System.currentTimeMillis() / 1000.0;
+  String extra;
+  if (this.reviewEarly)   extra="";
+ else {
+    extra="or id = " + card.id;
+  }
+  start=System.currentTimeMillis();
+  cursor=AnkiDb.database.rawQuery("SELECT type, count(type) " + "FROM cards " + "WHERE factId = " + card.factId + " and "+ "(isDue = 1 "+ extra+ ") "+ "GROUP BY type",null);
+  while (cursor.moveToNext()) {
+    if (cursor.getInt(0) == 0)     failedSoonCount-=cursor.getInt(1);
+ else     if (cursor.getInt(0) == 1)     revCount-=cursor.getInt(1);
+ else     newCount-=cursor.getInt(1);
+  }
+  cursor.close();
+  stop=System.currentTimeMillis();
+  Log.v(TAG,"answerCard - other cards for same fact in " + (stop - start) + " ms.");
+  start=System.currentTimeMillis();
+  AnkiDb.database.execSQL(String.format("UPDATE cards " + "SET spaceUntil = %f, " + "combinedDue = max(%f, due), "+ "modified = %f, "+ "isDue = 0 "+ "WHERE id != %d and factId = %d",space,space,now,card.id,card.factId));
+  stop=System.currentTimeMillis();
+  Log.v(TAG,"answerCard - space other cards for same fact in " + (stop - start) + " ms.");
+  card.spaceUntil=0;
+  if (reviewEarly && lastDelay < 0)   if (oldSuc != 0 || lastDelaySecs > delay0 || !showFailedLast())   card.priority=-1;
+  start=System.currentTimeMillis();
+  card.updateStats(ease,oldState);
+  stop=System.currentTimeMillis();
+  Log.v(TAG,"answerCard - card.updateStats in " + (stop - start) + " ms.");
+  start=System.currentTimeMillis();
+  card.toDB();
+  stop=System.currentTimeMillis();
+  Log.v(TAG,"answerCard - card.toDB in " + (stop - start) + " ms.");
+  start=System.currentTimeMillis();
+  Stats.updateAllStats(this.globalStats,this.dailyStats,card,ease,oldState);
+  stop=System.currentTimeMillis();
+  Log.v(TAG,"answerCard - Stats.updateAllStats in " + (stop - start) + " ms.");
+  start=System.currentTimeMillis();
+  CardHistoryEntry entry=new CardHistoryEntry(card,ease,lastDelay);
+  entry.writeSQL();
+  stop=System.currentTimeMillis();
+  Log.v(TAG,"answerCard - CardHistoryEntry in " + (stop - start) + " ms.");
+  modified=now;
+}

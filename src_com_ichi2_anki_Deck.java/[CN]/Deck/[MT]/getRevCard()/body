@@ -1,0 +1,10 @@
+{
+  long id;
+  try {
+    id=AnkiDb.queryScalar("SELECT id " + "FROM " + revCardTable() + "LIMIT 1");
+  }
+ catch (  Exception e) {
+    return 0;
+  }
+  return id;
+}
