@@ -1,0 +1,5 @@
+{
+  Log.i(TAG,"sdCardAvailable = " + sdCardAvailable + ", deckLoaded = "+ deckLoaded);
+  menu.findItem(MENU_DECKOPTS).setEnabled(sdCardAvailable && deckLoaded);
+  return true;
+}

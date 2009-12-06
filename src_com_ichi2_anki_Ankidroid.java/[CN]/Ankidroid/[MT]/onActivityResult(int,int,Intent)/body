@@ -22,7 +22,7 @@
   }
  else   if (requestCode == PREFERENCES_UPDATE) {
     restorePreferences();
-    if (deckLoaded) {
+    if (deckLoaded && cardsToReview) {
       showOrHideControls();
       showOrHideAnswerField();
     }

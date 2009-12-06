@@ -1,6 +1,6 @@
 {
   Log.i(TAG,"openDeckPicker - deckSelected = " + deckSelected);
-  AnkidroidApp.deck().closeDeck();
+  if (AnkidroidApp.deck() != null)   AnkidroidApp.deck().closeDeck();
   deckLoaded=false;
   Intent decksPicker=new Intent(this,DeckPicker.class);
   startActivityForResult(decksPicker,PICK_DECK_REQUEST);

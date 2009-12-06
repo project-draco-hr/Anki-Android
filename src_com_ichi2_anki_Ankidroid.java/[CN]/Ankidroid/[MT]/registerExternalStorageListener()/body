@@ -5,12 +5,14 @@
         String action=intent.getAction();
         if (action.equals(Intent.ACTION_MEDIA_EJECT)) {
           Log.i(TAG,"mUnmountReceiver - Action = Media Eject");
+          sdCardAvailable=false;
           closeExternalStorageFiles();
         }
  else         if (action.equals(Intent.ACTION_MEDIA_MOUNTED)) {
           Log.i(TAG,"mUnmountReceiver - Action = Media Mounted");
           hideSdError();
           deckSelected=false;
+          sdCardAvailable=true;
           Log.i(TAG,"mUnmountReceiver - deckSelected = " + deckSelected);
           onResume();
         }

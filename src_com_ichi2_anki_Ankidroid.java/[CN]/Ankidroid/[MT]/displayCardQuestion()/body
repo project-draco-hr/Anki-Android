@@ -10,6 +10,8 @@
     mCardTimer.setVisibility(View.GONE);
     mToggleWhiteboard.setVisibility(View.GONE);
     mWhiteboard.setVisibility(View.GONE);
+    mAnswerField.setVisibility(View.GONE);
+    cardsToReview=false;
   }
  else {
     Log.i(TAG,"displayCardQuestion - Hiding Ease buttons...");

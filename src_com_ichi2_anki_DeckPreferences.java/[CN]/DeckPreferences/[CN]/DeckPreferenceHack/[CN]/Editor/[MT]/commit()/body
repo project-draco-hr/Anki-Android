@@ -1,5 +1,5 @@
 {
-  Log.d(TAG,"commit() changes back to database");
+  Log.d(TAG,"DeckPreferences - commit() changes back to database");
   for (  Entry<String,Object> entry : update.valueSet()) {
     if (entry.getKey().equals("newCardsPDay")) {
       AnkidroidApp.deck().setNewCardsPerDay(Integer.parseInt(entry.getValue().toString()));

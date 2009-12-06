@@ -1,4 +1,5 @@
 {
+  Log.i(TAG,"DeckPreferences - CacheValues");
   values.put("newCardsPDay",String.valueOf(AnkidroidApp.deck().getNewCardsPerDay()));
   values.put("sessionQLimit",String.valueOf(AnkidroidApp.deck().getSessionRepLimit()));
   values.put("sessionTLimit",String.valueOf(AnkidroidApp.deck().getSessionTimeLimit() / 60));
