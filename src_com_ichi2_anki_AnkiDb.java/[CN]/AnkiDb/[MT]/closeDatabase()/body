@@ -1,6 +1,7 @@
 {
   if (database != null) {
     database.close();
+    Log.i(TAG,"AnkiDb - closeDatabase, database " + database.getPath() + " closed = "+ !database.isOpen());
     database=null;
   }
 }

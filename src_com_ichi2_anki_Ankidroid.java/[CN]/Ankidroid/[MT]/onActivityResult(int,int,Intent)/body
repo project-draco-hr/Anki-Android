@@ -4,6 +4,7 @@
     updateCard("");
     hideSdError();
     hideDeckErrors();
+    inDeckPicker=false;
     if (resultCode != RESULT_OK) {
       Log.e(TAG,"onActivityResult - Deck browser returned with error");
       deckSelected=false;

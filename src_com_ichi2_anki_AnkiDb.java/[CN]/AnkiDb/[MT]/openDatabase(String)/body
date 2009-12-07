@@ -3,4 +3,5 @@
     database.close();
   }
   database=SQLiteDatabase.openDatabase(ankiFilename,null,SQLiteDatabase.OPEN_READWRITE | SQLiteDatabase.NO_LOCALIZED_COLLATORS);
+  Log.i(TAG,"AnkiDb - openDatabase, database " + ankiFilename + " opened = "+ database.isOpen());
 }

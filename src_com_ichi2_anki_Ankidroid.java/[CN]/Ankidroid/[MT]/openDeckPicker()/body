@@ -3,6 +3,7 @@
   if (AnkidroidApp.deck() != null && sdCardAvailable)   AnkidroidApp.deck().closeDeck();
   deckLoaded=false;
   Intent decksPicker=new Intent(this,DeckPicker.class);
+  inDeckPicker=true;
   startActivityForResult(decksPicker,PICK_DECK_REQUEST);
   Log.i(TAG,"openDeckPicker - Ending");
 }

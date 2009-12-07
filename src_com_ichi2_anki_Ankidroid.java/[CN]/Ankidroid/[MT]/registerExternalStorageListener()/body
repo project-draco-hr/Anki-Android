@@ -14,7 +14,7 @@
           deckSelected=false;
           sdCardAvailable=true;
           Log.i(TAG,"mUnmountReceiver - deckSelected = " + deckSelected);
-          onResume();
+          if (!inDeckPicker)           onResume();
         }
       }
     }
