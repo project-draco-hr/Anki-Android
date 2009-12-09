@@ -6,5 +6,6 @@
   spacedRepetition=preferences.getBoolean("spacedRepetition",true);
   writeAnswers=preferences.getBoolean("writeAnswers",false);
   updateNotifications=preferences.getBoolean("enabled",true);
+  deckPath=preferences.getString("deckPath","/sdcard");
   return preferences;
 }

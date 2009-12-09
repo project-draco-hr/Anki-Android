@@ -1,5 +1,6 @@
 {
   Log.i(TAG,"updateCard");
+  content=Sound.extractSounds(deckFilename,content);
   String realContent=content.replaceAll("\\<br.*?\\>","               ");
   realContent=realContent.replaceAll("\\<.*?\\>","");
   realContent=realContent.replaceAll("&nbsp;"," ");
@@ -9,4 +10,5 @@
   Log.i(TAG,"content card = \n" + content);
   String card=cardTemplate.replace("::content::",content);
   mCard.loadDataWithBaseURL("",card,"text/html","utf-8",null);
+  Sound.playSounds();
 }
