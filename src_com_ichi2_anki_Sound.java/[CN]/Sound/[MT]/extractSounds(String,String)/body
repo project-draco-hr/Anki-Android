@@ -12,6 +12,7 @@
     Log.i(TAG,"getSounds - soundPath = " + soundPath);
     try {
       soundPlayer.setDataSource(soundPath);
+      soundPlayer.setVolume(AudioManager.STREAM_MUSIC,AudioManager.STREAM_MUSIC);
       soundPlayer.prepare();
       sounds.add(soundPlayer);
       if (sounds.size() > 1) {
