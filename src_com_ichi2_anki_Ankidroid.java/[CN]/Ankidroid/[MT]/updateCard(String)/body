@@ -1,6 +1,7 @@
 {
   Log.i(TAG,"updateCard");
   content=Sound.extractSounds(deckFilename,content);
+  content=Image.loadImages(deckFilename,content);
   String realContent=content.replaceAll("\\<br.*?\\>","               ");
   realContent=realContent.replaceAll("\\<.*?\\>","");
   realContent=realContent.replaceAll("&nbsp;"," ");

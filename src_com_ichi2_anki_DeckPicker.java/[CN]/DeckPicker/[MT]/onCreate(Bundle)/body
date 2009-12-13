@@ -3,7 +3,7 @@
   super.onCreate(savedInstanceState);
   registerExternalStorageListener();
   mSelf=this;
-  SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
   String deckPath=preferences.getString("deckPath","/sdcard");
   setContentView(R.layout.main);
   mDeckList=new ArrayList<HashMap<String,String>>();

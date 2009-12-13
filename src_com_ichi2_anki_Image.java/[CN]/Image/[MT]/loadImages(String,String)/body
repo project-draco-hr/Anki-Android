@@ -1,0 +1,5 @@
+{
+  Log.i(TAG,"Image - loadImages, filename = " + deckFilename);
+  String imagePath=deckFilename.replaceAll(".anki",".media/");
+  return content.replaceAll("<img src=\"","<img src=\"" + "content://com.ichi2.anki" + imagePath);
+}
