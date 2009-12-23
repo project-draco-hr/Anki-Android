@@ -1,4 +1,4 @@
 {
-  if ((Float.parseFloat(object2.get("mod")) - Float.parseFloat(object1.get("mod"))) != 0)   return (int)(Float.parseFloat(object2.get("mod")) - Float.parseFloat(object1.get("mod")));
+  if (object2.get("mod").compareToIgnoreCase(object1.get("mod")) != 0)   return object2.get("mod").compareToIgnoreCase(object1.get("mod"));
  else   return object1.get("filepath").compareToIgnoreCase(object2.get("filepath"));
 }
