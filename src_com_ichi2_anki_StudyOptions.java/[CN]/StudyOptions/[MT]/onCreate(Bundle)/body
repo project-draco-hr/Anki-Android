@@ -1,0 +1,17 @@
+{
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.studyoptions);
+  mButtonStart=(Button)findViewById(R.id.studyoptions_start);
+  mButtonMore=(Button)findViewById(R.id.studyoptions_more);
+  mTextReviewsDue=(TextView)findViewById(R.id.studyoptions_reviews_due);
+  mTextNewToday=(TextView)findViewById(R.id.studyoptions_new_today);
+  mTextNewTotal=(TextView)findViewById(R.id.studyoptions_new_total);
+  mEditNewPerDay=(EditText)findViewById(R.id.studyoptions_new_cards_per_day);
+  mEditSessionTime=(EditText)findViewById(R.id.studyoptions_session_minutes);
+  mEditSessionQuestions=(EditText)findViewById(R.id.studyoptions_session_questions);
+  mButtonStart.setOnClickListener(mButtonClickListener);
+  mButtonMore.setOnClickListener(mButtonClickListener);
+  mEditNewPerDay.setOnFocusChangeListener(mEditFocusListener);
+  mDialogMoreOptions=createDialog();
+  updateValuesFromDeck();
+}

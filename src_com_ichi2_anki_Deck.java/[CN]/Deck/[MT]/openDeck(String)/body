@@ -2,6 +2,7 @@
   Deck deck=new Deck();
   Log.i(TAG,"openDeck - Opening database " + path);
   AnkiDb.openDatabase(path);
+  deck.deckName=(new File(path)).getName().replace(".anki","");
   Cursor cursor=AnkiDb.database.rawQuery("SELECT *" + " FROM decks" + " LIMIT 1",null);
   if (cursor.isClosed())   throw new SQLException();
   cursor.moveToFirst();

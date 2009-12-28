@@ -1,0 +1,8 @@
+{
+  Deck deck=AnkidroidApp.deck();
+  mSpinnerNewCardOrder.setSelection(deck.getNewCardOrder());
+  mSpinnerNewCardSchedule.setSelection(deck.getNewCardSpacing());
+  mSpinnerRevCardOrder.setSelection(deck.getRevCardOrder());
+  mSpinnerFailCardOption.setVisibility(View.GONE);
+  mDialogMoreOptions.show();
+}

@@ -1,0 +1,11 @@
+{
+  Deck deck=AnkidroidApp.deck();
+  String unformattedTitle=getResources().getString(R.string.studyoptions_window_title);
+  setTitle(String.format(unformattedTitle,deck.deckName,deck.revCount,deck.cardCount));
+  mTextReviewsDue.setText(String.valueOf(deck.revCount));
+  mTextNewToday.setText(String.valueOf(deck.newCountToday));
+  mTextNewTotal.setText(String.valueOf(deck.newCount));
+  mEditNewPerDay.setText(String.valueOf(deck.getNewCardsPerDay()));
+  mEditSessionTime.setText(String.valueOf(deck.getSessionTimeLimit() / 60));
+  mEditSessionQuestions.setText(String.valueOf(deck.getSessionRepLimit()));
+}
