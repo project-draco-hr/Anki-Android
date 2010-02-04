@@ -1,0 +1,8 @@
+{
+  if (AnkidroidApp.deck() != null) {
+    AnkidroidApp.deck().closeDeck();
+    AnkidroidApp.setDeck(null);
+  }
+  Intent decksPicker=new Intent(this,DeckPicker.class);
+  startActivityForResult(decksPicker,PICK_DECK_REQUEST);
+}

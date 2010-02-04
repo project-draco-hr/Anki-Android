@@ -1,0 +1,18 @@
+{
+  super.onCreate(savedInstanceState);
+  if (AnkidroidApp.deck() == null) {
+    setResult(RESULT_DECK_NOT_LOADED);
+    finish();
+  }
+  getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+  requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+  restorePreferences();
+  initLayout(R.layout.flashcard_portrait);
+  updateTitle();
+  cardTemplate=getResources().getString(R.string.card_template);
+  long timelimit=AnkidroidApp.deck().getSessionTimeLimit() * 1000;
+  Log.i(TAG,"SessionTimeLimit: " + timelimit + " ms.");
+  mSessionTimeLimit=System.currentTimeMillis() + timelimit;
+  mSessionCurrReps=0;
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,AnkidroidApp.deck(),null));
+}

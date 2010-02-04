@@ -1,8 +1,9 @@
 {
   Deck deck=AnkidroidApp.deck();
+  int reviewCount=deck.revCount + deck.failedSoonCount;
   String unformattedTitle=getResources().getString(R.string.studyoptions_window_title);
-  setTitle(String.format(unformattedTitle,deck.deckName,deck.revCount,deck.cardCount));
-  mTextReviewsDue.setText(String.valueOf(deck.revCount));
+  setTitle(String.format(unformattedTitle,deck.deckName,reviewCount,deck.cardCount));
+  mTextReviewsDue.setText(String.valueOf(reviewCount));
   mTextNewToday.setText(String.valueOf(deck.newCountToday));
   mTextNewTotal.setText(String.valueOf(deck.newCount));
   mEditNewPerDay.setText(String.valueOf(deck.getNewCardsPerDay()));

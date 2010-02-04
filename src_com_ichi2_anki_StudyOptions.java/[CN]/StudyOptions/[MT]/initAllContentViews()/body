@@ -1,0 +1,27 @@
+{
+  mStudyOptionsView=getLayoutInflater().inflate(R.layout.studyoptions,null);
+  mTextTitle=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_title);
+  mButtonStart=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_start);
+  mStudyOptionsView.findViewById(R.id.studyoptions_more).setOnClickListener(mButtonClickListener);
+  mTextReviewsDue=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_reviews_due);
+  mTextNewToday=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_new_today);
+  mTextNewTotal=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_new_total);
+  mEditNewPerDay=(EditText)mStudyOptionsView.findViewById(R.id.studyoptions_new_cards_per_day);
+  mEditSessionTime=(EditText)mStudyOptionsView.findViewById(R.id.studyoptions_session_minutes);
+  mEditSessionQuestions=(EditText)mStudyOptionsView.findViewById(R.id.studyoptions_session_questions);
+  mButtonStart.setOnClickListener(mButtonClickListener);
+  mEditNewPerDay.setOnFocusChangeListener(mEditFocusListener);
+  mEditSessionTime.setOnFocusChangeListener(mEditFocusListener);
+  mEditSessionQuestions.setOnFocusChangeListener(mEditFocusListener);
+  mDialogMoreOptions=createDialog();
+  mNoDeckView=getLayoutInflater().inflate(R.layout.studyoptions_nodeck,null);
+  mTextNoDeckTitle=(TextView)mNoDeckView.findViewById(R.id.studyoptions_nodeck_title);
+  mTextNoDeckMessage=(TextView)mNoDeckView.findViewById(R.id.studyoptions_nodeck_message);
+  mNoDeckView.findViewById(R.id.studyoptions_load_sample_deck).setOnClickListener(mButtonClickListener);
+  mNoDeckView.findViewById(R.id.studyoptions_load_other_deck).setOnClickListener(mButtonClickListener);
+  mCongratsView=getLayoutInflater().inflate(R.layout.studyoptions_congrats,null);
+  mTextCongratsMessage=(TextView)mCongratsView.findViewById(R.id.studyoptions_congrats_message);
+  mButtonCongratsLearnMore=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_learnmore);
+  mButtonCongratsReviewEarly=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_reviewearly);
+  mButtonCongratsFinish=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_finish);
+}

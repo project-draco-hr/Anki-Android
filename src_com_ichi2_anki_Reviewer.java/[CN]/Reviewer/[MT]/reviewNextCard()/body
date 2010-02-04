@@ -1,0 +1,7 @@
+{
+  updateTitle();
+  mFlipCard.setChecked(false);
+  mWhiteboard.clear();
+  mCardTimer.setBase(SystemClock.elapsedRealtime());
+  mCardTimer.start();
+}

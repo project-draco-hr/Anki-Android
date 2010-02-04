@@ -1,0 +1,10 @@
+{
+  MenuItem item;
+  item=menu.add(Menu.NONE,MENU_OPEN,Menu.NONE,R.string.menu_open_deck);
+  item.setIcon(android.R.drawable.ic_menu_manage);
+  item=menu.add(Menu.NONE,MENU_PREFERENCES,Menu.NONE,R.string.menu_preferences);
+  item.setIcon(android.R.drawable.ic_menu_preferences);
+  item=menu.add(Menu.NONE,MENU_ABOUT,Menu.NONE,R.string.menu_about);
+  item.setIcon(android.R.drawable.ic_menu_info_details);
+  return true;
+}

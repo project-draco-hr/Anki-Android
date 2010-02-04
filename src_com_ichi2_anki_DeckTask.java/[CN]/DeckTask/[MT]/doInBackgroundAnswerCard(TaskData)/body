@@ -4,10 +4,11 @@
   Card oldCard=params[0].getCard();
   int ease=params[0].getInt();
   Card newCard;
+  long[] ids=new long[1];
   if (oldCard != null) {
+    ids[0]=oldCard.id;
     start=System.currentTimeMillis();
-    oldCard.temporarilySetLowestPriority();
-    deck.decreaseCounts(oldCard);
+    deck.suspendCards(ids);
     stop=System.currentTimeMillis();
     Log.v(TAG,"doInBackground - Set old card 0 priority in " + (stop - start) + " ms.");
   }
@@ -18,6 +19,7 @@
   publishProgress(new TaskData(newCard));
   if (ease != 0 && oldCard != null) {
     start=System.currentTimeMillis();
+    deck.unsuspendCards(ids);
     deck.answerCard(oldCard,ease);
     stop=System.currentTimeMillis();
     Log.v(TAG,"doInBackground - Answered old card in " + (stop - start) + " ms.");
