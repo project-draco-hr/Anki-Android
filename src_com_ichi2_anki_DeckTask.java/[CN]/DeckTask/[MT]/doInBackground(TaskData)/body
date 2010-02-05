@@ -4,6 +4,8 @@ case TASK_TYPE_LOAD_DECK:
     return doInBackgroundLoadDeck(params);
 case TASK_TYPE_ANSWER_CARD:
   return doInBackgroundAnswerCard(params);
+case TASK_TYPE_SUSPEND_CARD:
+return doInBackgroundSuspendCard(params);
 default :
 return null;
 }
