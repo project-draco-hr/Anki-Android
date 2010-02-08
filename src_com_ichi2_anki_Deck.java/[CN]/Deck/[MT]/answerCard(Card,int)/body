@@ -1,4 +1,6 @@
 {
+  String undoName="Answer Card";
+  setUndoStart(undoName);
   double now=System.currentTimeMillis() / 1000.0;
   String oldState=cardState(card);
   double lastDelaySecs=System.currentTimeMillis() / 1000.0 - card.combinedDue;
@@ -62,4 +64,5 @@
   stop=System.currentTimeMillis();
   Log.v(TAG,"answerCard - CardHistoryEntry in " + (stop - start) + " ms.");
   modified=now;
+  setUndoEnd(undoName);
 }
