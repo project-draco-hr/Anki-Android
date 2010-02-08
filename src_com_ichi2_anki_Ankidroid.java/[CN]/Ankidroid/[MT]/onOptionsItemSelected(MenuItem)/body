@@ -16,7 +16,8 @@ Intent opts=new Intent(this,DeckPreferences.class);
 startActivity(opts);
 return true;
 case MENU_SUSPEND:
-currentCard.suspend();
+mFlipCard.setChecked(true);
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SUSPEND_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,AnkidroidApp.deck(),currentCard));
 return true;
 }
 return false;
