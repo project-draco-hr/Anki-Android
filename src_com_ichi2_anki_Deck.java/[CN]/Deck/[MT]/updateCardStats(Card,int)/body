@@ -1,0 +1,7 @@
+{
+  String oldState=cardState(card);
+  long start=System.currentTimeMillis();
+  Stats.updateAllStats(this.globalStats,this.dailyStats,card,ease,oldState);
+  long stop=System.currentTimeMillis();
+  Log.v(TAG,"updateCardStats - Stats.updateAllStats in " + (stop - start) + " ms.");
+}

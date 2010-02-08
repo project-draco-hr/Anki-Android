@@ -8,6 +8,7 @@
   if (oldCard != null) {
     ids[0]=oldCard.id;
     start=System.currentTimeMillis();
+    deck.updateCardStats(oldCard,ease);
     deck.suspendCards(ids);
     stop=System.currentTimeMillis();
     Log.v(TAG,"doInBackground - Set old card 0 priority in " + (stop - start) + " ms.");

@@ -68,10 +68,6 @@
   stop=System.currentTimeMillis();
   Log.v(TAG,"answerCard - card.toDB in " + (stop - start) + " ms.");
   start=System.currentTimeMillis();
-  Stats.updateAllStats(this.globalStats,this.dailyStats,card,ease,oldState);
-  stop=System.currentTimeMillis();
-  Log.v(TAG,"answerCard - Stats.updateAllStats in " + (stop - start) + " ms.");
-  start=System.currentTimeMillis();
   CardHistoryEntry entry=new CardHistoryEntry(card,ease,lastDelay);
   entry.writeSQL();
   stop=System.currentTimeMillis();
