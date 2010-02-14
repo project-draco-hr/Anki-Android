@@ -6,6 +6,8 @@ case TASK_TYPE_ANSWER_CARD:
   return doInBackgroundAnswerCard(params);
 case TASK_TYPE_SUSPEND_CARD:
 return doInBackgroundSuspendCard(params);
+case TASK_TYPE_UPDATE_CARD:
+return doInBackgroundUpdateCard(params);
 default :
 return null;
 }
