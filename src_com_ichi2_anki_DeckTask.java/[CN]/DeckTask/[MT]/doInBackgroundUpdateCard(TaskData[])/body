@@ -1,0 +1,7 @@
+{
+  Deck deck=params[0].getDeck();
+  Card editCard=params[0].getCard();
+  deck.updateCard(editCard);
+  publishProgress(new TaskData(editCard));
+  return null;
+}
