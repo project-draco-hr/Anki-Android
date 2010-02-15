@@ -1,0 +1,6 @@
+{
+  if (!undoEnabled)   return;
+  commitToDB();
+  if (merge && !undoStack.isEmpty())   if ((undoStack.peek() != null) && (undoStack.peek().name.equals(name)))   return;
+  undoStack.push(new UndoRow(name,latestUndoRow(),null));
+}

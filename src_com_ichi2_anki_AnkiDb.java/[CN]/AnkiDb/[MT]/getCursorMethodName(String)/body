@@ -1,0 +1,8 @@
+{
+  if (typeName.equals("String"))   return "getString";
+ else   if (typeName.equals("long"))   return "getLong";
+ else   if (typeName.equals("int"))   return "getInt";
+ else   if (typeName.equals("float"))   return "getFloat";
+ else   if (typeName.equals("double"))   return "getDouble";
+ else   return null;
+}
