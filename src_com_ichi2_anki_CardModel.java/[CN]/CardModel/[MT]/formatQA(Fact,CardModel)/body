@@ -1,0 +1,18 @@
+{
+  String question=cm.qformat;
+  String answer=cm.aformat;
+  int replaceAt=question.indexOf("%(");
+  while (replaceAt != -1) {
+    question=replaceField(question,fact,replaceAt,true);
+    replaceAt=question.indexOf("%(");
+  }
+  replaceAt=answer.indexOf("%(");
+  while (replaceAt != -1) {
+    answer=replaceField(answer,fact,replaceAt,true);
+    replaceAt=answer.indexOf("%(");
+  }
+  HashMap<String,String> returnMap=new HashMap<String,String>();
+  returnMap.put("question",question);
+  returnMap.put("answer",answer);
+  return returnMap;
+}
