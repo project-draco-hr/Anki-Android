@@ -31,7 +31,7 @@
         j++;
       }
     }
-    AnkiDb.database.execSQL("UPDATE cards " + "SET priority = " + pri + extra+ "WHERE id in "+ ids2str(cs)+ " and "+ "priority != "+ pri+ " and "+ "priority >= -2");
+    AnkiDb.database.execSQL("UPDATE cards " + "SET priority = " + pri + extra+ " WHERE id in "+ ids2str(cs)+ " and "+ "priority != "+ pri+ " and "+ "priority >= -2");
   }
   ContentValues val=new ContentValues(1);
   val.put("isDue",0);
