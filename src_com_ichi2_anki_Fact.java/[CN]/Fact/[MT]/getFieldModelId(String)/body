@@ -3,8 +3,8 @@
   while (iter.hasNext()) {
     Field f=iter.next();
     if (f.fieldModel.name.equals(fieldModelName)) {
-      return f.value;
+      return f.fieldModel.id;
     }
   }
-  return null;
+  return 0;
 }

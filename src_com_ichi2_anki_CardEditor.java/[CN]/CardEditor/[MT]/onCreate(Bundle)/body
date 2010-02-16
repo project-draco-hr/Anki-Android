@@ -1,23 +1,28 @@
 {
   super.onCreate(savedInstanceState);
   setContentView(R.layout.card_editor);
-  mQuestionText=(EditText)findViewById(R.id.CardEditorQuestionEditText);
-  mAnswerText=(EditText)findViewById(R.id.CardEditorAnswerEditText);
+  fieldsLayoutContainer=(LinearLayout)findViewById(R.id.CardEditorEditFieldsLayout);
   mSave=(Button)findViewById(R.id.CardEditorSaveButton);
   mCancel=(Button)findViewById(R.id.CardEditorCancelButton);
   editorCard=Ankidroid.getEditorCard();
-  String oldQuestion=editorCard.question;
-  String oldAnswer=editorCard.answer;
-  if (oldQuestion != null) {
-    mQuestionText.setText(oldQuestion);
-  }
-  if (oldAnswer != null) {
-    mAnswerText.setText(oldAnswer);
+  Fact cardFact=editorCard.getFact();
+  TreeSet<Field> fields=cardFact.getFields();
+  editFields=new LinkedList<FieldEditText>();
+  Iterator<Field> iter=fields.iterator();
+  while (iter.hasNext()) {
+    FieldEditText newTextbox=new FieldEditText(this,iter.next());
+    TextView label=newTextbox.getLabel();
+    editFields.add(newTextbox);
+    fieldsLayoutContainer.addView(label);
+    fieldsLayoutContainer.addView(newTextbox);
   }
   mSave.setOnClickListener(new View.OnClickListener(){
     public void onClick(    View v){
-      editorCard.question=mQuestionText.getText().toString();
-      editorCard.answer=mAnswerText.getText().toString();
+      Iterator<FieldEditText> iter=editFields.iterator();
+      while (iter.hasNext()) {
+        FieldEditText current=iter.next();
+        current.updateField();
+      }
       setResult(SAVE_CARD);
       finish();
     }

@@ -1,0 +1,13 @@
+{
+  LinkedList<Card> returnList=new LinkedList<Card>();
+  Cursor cardsCursor=AnkiDb.database.rawQuery("SELECT id, factId " + "FROM cards " + "WHERE factId = "+ id,null);
+  while (cardsCursor.moveToNext()) {
+    Card newCard=new Card();
+    newCard.fromDB(cardsCursor.getLong(0));
+    HashMap<String,String> newQA=CardModel.formatQA(this,newCard.getCardModel());
+    newCard.question=newQA.get("question");
+    newCard.answer=newQA.get("answer");
+    returnList.add(newCard);
+  }
+  return returnList;
+}

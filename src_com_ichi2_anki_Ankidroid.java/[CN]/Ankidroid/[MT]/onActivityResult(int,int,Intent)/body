@@ -29,8 +29,8 @@
     }
   }
  else   if (requestCode == EDIT_CURRENT_CARD) {
-    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_CARD,mUpdateCardHandler,new DeckTask.TaskData(0,AnkidroidApp.deck(),currentCard));
-    mFlipCard.setChecked(false);
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_FACT,mUpdateCardHandler,new DeckTask.TaskData(0,AnkidroidApp.deck(),currentCard));
+    mFlipCard.setChecked(true);
     displayCardQuestion();
   }
 }
