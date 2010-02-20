@@ -1,0 +1,8 @@
+{
+  try {
+    if ((instance != null) && (instance.getStatus() != AsyncTask.Status.FINISHED))     instance.get();
+  }
+ catch (  Exception e) {
+    return;
+  }
+}
