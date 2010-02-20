@@ -3,16 +3,23 @@
   Deck deck=params[0].getDeck();
   Card oldCard=params[0].getCard();
   Card newCard;
-  if (oldCard != null) {
+  AnkiDb.database.beginTransaction();
+  try {
+    if (oldCard != null) {
+      start=System.currentTimeMillis();
+      deck.suspendCard(oldCard.id);
+      stop=System.currentTimeMillis();
+      Log.v(TAG,"doInBackgroundSuspendCard - Suspended card in " + (stop - start) + " ms.");
+    }
     start=System.currentTimeMillis();
-    deck.suspendCard(oldCard.id);
+    newCard=deck.getCard();
     stop=System.currentTimeMillis();
-    Log.v(TAG,"doInBackgroundSuspendCard - Suspended card in " + (stop - start) + " ms.");
+    Log.v(TAG,"doInBackgroundSuspendCard - Loaded new card in " + (stop - start) + " ms.");
+    publishProgress(new TaskData(newCard));
+    AnkiDb.database.setTransactionSuccessful();
   }
-  start=System.currentTimeMillis();
-  newCard=deck.getCard();
-  stop=System.currentTimeMillis();
-  Log.v(TAG,"doInBackgroundSuspendCard - Loaded new card in " + (stop - start) + " ms.");
-  publishProgress(new TaskData(newCard));
+  finally {
+    AnkiDb.database.endTransaction();
+  }
   return null;
 }
