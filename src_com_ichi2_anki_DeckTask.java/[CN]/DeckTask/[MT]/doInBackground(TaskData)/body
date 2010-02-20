@@ -1,4 +1,10 @@
 {
+  try {
+    if ((oldInstance != null) && (oldInstance.getStatus() != AsyncTask.Status.FINISHED))     oldInstance.get();
+  }
+ catch (  Exception e) {
+    Log.e(TAG,"doInBackground - Got exception while waiting for thread to finish: " + e.getMessage());
+  }
 switch (type) {
 case TASK_TYPE_LOAD_DECK:
     return doInBackgroundLoadDeck(params);
