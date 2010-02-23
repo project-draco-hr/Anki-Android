@@ -1,18 +1,21 @@
 {
   ArrayList<T> results=new ArrayList<T>();
+  Cursor cursor=null;
   try {
-    Cursor cursor=AnkiDb.database.rawQuery(query,null);
+    cursor=AnkiDb.database.rawQuery(query,null);
     cursor.moveToFirst();
     String methodName=getCursorMethodName(type.getSimpleName());
     do {
       results.add(type.cast(Cursor.class.getMethod(methodName,int.class).invoke(cursor,column)));
     }
  while (cursor.moveToNext());
-    cursor.close();
   }
  catch (  Exception e) {
     Log.e(TAG,"queryColumn: Got Exception: " + e.getMessage());
     return null;
+  }
+ finally {
+    if (cursor != null)     cursor.close();
   }
   return results;
 }

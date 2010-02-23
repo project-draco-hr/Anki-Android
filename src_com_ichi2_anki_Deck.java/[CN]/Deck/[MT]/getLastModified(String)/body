@@ -1,10 +1,15 @@
 {
   double value;
+  Cursor cursor=null;
   AnkiDb.openDatabase(deckPath);
-  Cursor cursor=AnkiDb.database.rawQuery("SELECT modified" + " FROM decks" + " LIMIT 1",null);
-  if (!cursor.moveToFirst())   value=-1;
- else   value=cursor.getDouble(0);
-  cursor.close();
+  try {
+    cursor=AnkiDb.database.rawQuery("SELECT modified" + " FROM decks" + " LIMIT 1",null);
+    if (!cursor.moveToFirst())     value=-1;
+ else     value=cursor.getDouble(0);
+  }
+  finally {
+    if (cursor != null)     cursor.close();
+  }
   AnkiDb.closeDatabase();
   return value;
 }
