@@ -1,4 +1,5 @@
 {
+  Cursor cursor=null;
   String undoName="Answer Card";
   setUndoStart(undoName);
   double now=System.currentTimeMillis() / 1000.0;
@@ -16,23 +17,31 @@
   if (lastDelay >= 0)   updateFactor(card,ease);
   long start=System.currentTimeMillis();
   double space, spaceFactor, minSpacing, minOfOtherCards;
-  Cursor cursor=AnkiDb.database.rawQuery("SELECT models.initialSpacing, models.spacing " + "FROM facts, models " + "WHERE facts.modelId = models.id and "+ "facts.id = "+ card.factId,null);
-  if (!cursor.moveToFirst()) {
-    minSpacing=0;
-    spaceFactor=0;
-  }
+  try {
+    cursor=AnkiDb.database.rawQuery("SELECT models.initialSpacing, models.spacing " + "FROM facts, models " + "WHERE facts.modelId = models.id and "+ "facts.id = "+ card.factId,null);
+    if (!cursor.moveToFirst()) {
+      minSpacing=0;
+      spaceFactor=0;
+    }
  else {
-    minSpacing=cursor.getDouble(0);
-    spaceFactor=cursor.getDouble(1);
+      minSpacing=cursor.getDouble(0);
+      spaceFactor=cursor.getDouble(1);
+    }
   }
-  cursor.close();
+  finally {
+    if (cursor != null)     cursor.close();
+  }
   long stop=System.currentTimeMillis();
   Log.v(TAG,"answerCard - spacing in " + (stop - start) + " ms.");
   start=System.currentTimeMillis();
-  cursor=AnkiDb.database.rawQuery("SELECT min(interval) " + "FROM cards " + "WHERE factId = " + card.factId + " and id != "+ card.id,null);
-  if (!cursor.moveToFirst())   minOfOtherCards=0;
- else   minOfOtherCards=cursor.getDouble(0);
-  cursor.close();
+  try {
+    cursor=AnkiDb.database.rawQuery("SELECT min(interval) " + "FROM cards " + "WHERE factId = " + card.factId + " and id != "+ card.id,null);
+    if (!cursor.moveToFirst())     minOfOtherCards=0;
+ else     minOfOtherCards=cursor.getDouble(0);
+  }
+  finally {
+    if (cursor != null)     cursor.close();
+  }
   stop=System.currentTimeMillis();
   Log.v(TAG,"answerCard - minOfOtherCards in " + (stop - start) + " ms.");
   if (minOfOtherCards != 0)   space=Math.min(minOfOtherCards,card.interval);
@@ -46,13 +55,17 @@
     extra="or id = " + card.id;
   }
   start=System.currentTimeMillis();
-  cursor=AnkiDb.database.rawQuery("SELECT type, count(type) " + "FROM cards " + "WHERE factId = " + card.factId + " and "+ "(isDue = 1 "+ extra+ ") "+ "GROUP BY type",null);
-  while (cursor.moveToNext()) {
-    if (cursor.getInt(0) == 0)     failedSoonCount-=cursor.getInt(1);
- else     if (cursor.getInt(0) == 1)     revCount-=cursor.getInt(1);
- else     newCount-=cursor.getInt(1);
+  try {
+    cursor=AnkiDb.database.rawQuery("SELECT type, count(type) " + "FROM cards " + "WHERE factId = " + card.factId + " and "+ "(isDue = 1 "+ extra+ ") "+ "GROUP BY type",null);
+    while (cursor.moveToNext()) {
+      if (cursor.getInt(0) == 0)       failedSoonCount-=cursor.getInt(1);
+ else       if (cursor.getInt(0) == 1)       revCount-=cursor.getInt(1);
+ else       newCount-=cursor.getInt(1);
+    }
   }
-  cursor.close();
+  finally {
+    if (cursor != null)     cursor.close();
+  }
   stop=System.currentTimeMillis();
   Log.v(TAG,"answerCard - other cards for same fact in " + (stop - start) + " ms.");
   start=System.currentTimeMillis();
