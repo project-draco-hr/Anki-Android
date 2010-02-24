@@ -5,6 +5,5 @@
   Log.i(TAG,"restorePreferences - timerAndWhiteboard: " + timerAndWhiteboard);
   writeAnswers=preferences.getBoolean("writeAnswers",false);
   updateNotifications=preferences.getBoolean("enabled",true);
-  deckPath=preferences.getString("deckPath","/sdcard");
   return preferences;
 }
