@@ -15,7 +15,6 @@
   card.isDue=0;
   card.lastFactor=card.factor;
   if (lastDelay >= 0)   updateFactor(card,ease);
-  long start=System.currentTimeMillis();
   double space, spaceFactor, minSpacing, minOfOtherCards;
   try {
     cursor=AnkiDb.database.rawQuery("SELECT models.initialSpacing, models.spacing " + "FROM facts, models " + "WHERE facts.modelId = models.id and "+ "facts.id = "+ card.factId,null);
@@ -31,9 +30,6 @@
   finally {
     if (cursor != null)     cursor.close();
   }
-  long stop=System.currentTimeMillis();
-  Log.v(TAG,"answerCard - spacing in " + (stop - start) + " ms.");
-  start=System.currentTimeMillis();
   try {
     cursor=AnkiDb.database.rawQuery("SELECT min(interval) " + "FROM cards " + "WHERE factId = " + card.factId + " and id != "+ card.id,null);
     if (!cursor.moveToFirst())     minOfOtherCards=0;
@@ -42,8 +38,6 @@
   finally {
     if (cursor != null)     cursor.close();
   }
-  stop=System.currentTimeMillis();
-  Log.v(TAG,"answerCard - minOfOtherCards in " + (stop - start) + " ms.");
   if (minOfOtherCards != 0)   space=Math.min(minOfOtherCards,card.interval);
  else   space=0;
   space=space * spaceFactor * 86400f;
@@ -54,7 +48,6 @@
  else {
     extra="or id = " + card.id;
   }
-  start=System.currentTimeMillis();
   try {
     cursor=AnkiDb.database.rawQuery("SELECT type, count(type) " + "FROM cards " + "WHERE factId = " + card.factId + " and "+ "(isDue = 1 "+ extra+ ") "+ "GROUP BY type",null);
     while (cursor.moveToNext()) {
@@ -66,27 +59,13 @@
   finally {
     if (cursor != null)     cursor.close();
   }
-  stop=System.currentTimeMillis();
-  Log.v(TAG,"answerCard - other cards for same fact in " + (stop - start) + " ms.");
-  start=System.currentTimeMillis();
   AnkiDb.database.execSQL(String.format("UPDATE cards " + "SET spaceUntil = %f, " + "combinedDue = max(%f, due), "+ "modified = %f, "+ "isDue = 0 "+ "WHERE id != %d and factId = %d",space,space,now,card.id,card.factId));
-  stop=System.currentTimeMillis();
-  Log.v(TAG,"answerCard - space other cards for same fact in " + (stop - start) + " ms.");
   card.spaceUntil=0;
   if (reviewEarly && lastDelay < 0)   if (oldSuc != 0 || lastDelaySecs > delay0 || !showFailedLast())   card.priority=-1;
-  start=System.currentTimeMillis();
   card.updateStats(ease,oldState);
-  stop=System.currentTimeMillis();
-  Log.v(TAG,"answerCard - card.updateStats in " + (stop - start) + " ms.");
-  start=System.currentTimeMillis();
   card.toDB();
-  stop=System.currentTimeMillis();
-  Log.v(TAG,"answerCard - card.toDB in " + (stop - start) + " ms.");
-  start=System.currentTimeMillis();
   CardHistoryEntry entry=new CardHistoryEntry(card,ease,lastDelay);
   entry.writeSQL();
-  stop=System.currentTimeMillis();
-  Log.v(TAG,"answerCard - CardHistoryEntry in " + (stop - start) + " ms.");
   modified=now;
   setUndoEnd(undoName);
 }
