@@ -64,6 +64,7 @@
   if (reviewEarly && lastDelay < 0)   if (oldSuc != 0 || lastDelaySecs > delay0 || !showFailedLast())   card.priority=-1;
   card.updateStats(ease,oldState);
   card.toDB();
+  Stats.updateAllStats(this.globalStats,this.dailyStats,card,ease,oldState);
   CardHistoryEntry entry=new CardHistoryEntry(card,ease,lastDelay);
   entry.writeSQL();
   modified=now;
