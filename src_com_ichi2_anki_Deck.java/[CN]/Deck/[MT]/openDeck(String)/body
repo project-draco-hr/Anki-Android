@@ -71,5 +71,6 @@
   }
   if ((oldCount != (deck.failedSoonCount + deck.revCount + deck.newCount)) || deck.modifiedSinceSave())   deck.commitToDB();
   Card.updateStmt=null;
+  AnkiDb.database.execSQL("CREATE TEMPORARY VIEW acqCardsRandom AS " + "SELECT * FROM cards " + "WHERE type = 2 AND isDue = 1 "+ "ORDER BY RANDOM()");
   return deck;
 }
