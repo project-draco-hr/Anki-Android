@@ -26,7 +26,4 @@
       d.put(fm.name,field);
     }
   }
-  if (updateStmt == null) {
-    updateStmt=AnkiDb.database.compileStatement("UPDATE cards " + "SET factId = ?, " + "cardModelId = ?, "+ "created = ?, "+ "modified = ?, "+ "tags = ?, "+ "ordinal = ?, "+ "question = ?, "+ "answer = ?, "+ "priority = ?, "+ "interval = ?, "+ "lastInterval = ?, "+ "due = ?, "+ "lastDue = ?, "+ "factor = ?, "+ "lastFactor = ?, "+ "firstAnswered = ?, "+ "reps = ?, "+ "successive = ?, "+ "averageTime = ?, "+ "reviewTime = ?, "+ "youngEase0 = ?, "+ "youngEase1 = ?, "+ "youngEase2 = ?, "+ "youngEase3 = ?, "+ "youngEase4 = ?, "+ "matureEase0 = ?, "+ "matureEase1 = ?, "+ "matureEase2 = ?, "+ "matureEase3 = ?, "+ "matureEase4 = ?, "+ "yesCount = ?, "+ "noCount = ?, "+ "spaceUntil = ?, "+ "relativeDelay = 0, "+ "isDue = ?, "+ "type = ?, "+ "combinedDue = ? "+ "WHERE id = ?");
-  }
 }
