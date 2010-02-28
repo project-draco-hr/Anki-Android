@@ -1,6 +1,6 @@
 {
-  double now=System.currentTimeMillis();
+  double now=System.currentTimeMillis() / 1000.0;
   if (cardIsNew(card))   return 0;
-  if (card.combinedDue <= now)   return (now - card.due) / 86400f;
- else   return (now - card.combinedDue) / 86400f;
+  if (card.combinedDue <= now)   return (now - card.due) / 86400.0;
+ else   return (now - card.combinedDue) / 86400.0;
 }

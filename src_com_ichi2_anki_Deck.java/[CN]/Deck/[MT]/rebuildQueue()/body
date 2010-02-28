@@ -23,4 +23,5 @@
   finally {
     if (cursor != null)     cursor.close();
   }
+  averageFactor=Math.max(averageFactor,minimumAverage);
 }

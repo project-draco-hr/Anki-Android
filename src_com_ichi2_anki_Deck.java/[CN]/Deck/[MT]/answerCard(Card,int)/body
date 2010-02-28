@@ -40,9 +40,10 @@
   }
   if (minOfOtherCards != 0)   space=Math.min(minOfOtherCards,card.interval);
  else   space=0;
-  space=space * spaceFactor * 86400f;
+  space=space * spaceFactor * 86400.0;
   space=Math.max(minSpacing,space);
   space+=System.currentTimeMillis() / 1000.0;
+  card.combinedDue=Math.max(card.due,space);
   String extra;
   if (this.reviewEarly)   extra="";
  else {
