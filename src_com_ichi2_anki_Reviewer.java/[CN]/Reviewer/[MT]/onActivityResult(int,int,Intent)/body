@@ -1,0 +1,8 @@
+{
+  super.onActivityResult(requestCode,resultCode,data);
+  if (requestCode == EDIT_CURRENT_CARD) {
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_FACT,mUpdateCardHandler,new DeckTask.TaskData(0,AnkidroidApp.deck(),mCurrentCard));
+    mFlipCard.setChecked(true);
+    displayCardQuestion();
+  }
+}

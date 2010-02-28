@@ -1,0 +1,14 @@
+{
+switch (item.getItemId()) {
+case MENU_SUSPEND:
+    mFlipCard.setChecked(true);
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SUSPEND_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,AnkidroidApp.deck(),mCurrentCard));
+return true;
+case MENU_EDIT:
+editorCard=mCurrentCard;
+Intent editCard=new Intent(this,CardEditor.class);
+startActivityForResult(editCard,EDIT_CURRENT_CARD);
+return true;
+}
+return false;
+}
