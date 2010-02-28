@@ -2,17 +2,22 @@
   Log.i(TAG,"Getting daily stats...");
   int type=STATS_DAY;
   Date today=genToday(deck);
-  Log.i(TAG,"Trying to get stats for " + today.toString());
-  Cursor cursor=AnkiDb.database.rawQuery("SELECT id " + "FROM stats " + "WHERE type = " + String.valueOf(type) + " and day = \""+ today.toString()+ "\"",null);
-  if (cursor.isClosed())   throw new SQLException();
-  Stats stats=new Stats();
-  if (cursor.moveToFirst()) {
-    stats.fromDB(cursor.getLong(0));
-    cursor.close();
-    return stats;
+  Stats stats=null;
+  Cursor cursor=null;
+  try {
+    Log.i(TAG,"Trying to get stats for " + today.toString());
+    cursor=AnkiDb.database.rawQuery("SELECT id " + "FROM stats " + "WHERE type = " + String.valueOf(type) + " and day = \""+ today.toString()+ "\"",null);
+    if (cursor.moveToFirst()) {
+      stats=new Stats();
+      stats.fromDB(cursor.getLong(0));
+      return stats;
+    }
   }
- else   stats.create(type,today);
-  cursor.close();
+  finally {
+    if (cursor != null)     cursor.close();
+  }
+  stats=new Stats();
+  stats.create(type,today);
   stats.type=type;
   return stats;
 }

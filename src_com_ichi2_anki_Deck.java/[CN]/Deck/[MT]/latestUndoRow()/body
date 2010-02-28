@@ -1,0 +1,10 @@
+{
+  long result;
+  try {
+    result=AnkiDb.queryScalar("SELECT MAX(rowid) FROM undoLog");
+  }
+ catch (  SQLException e) {
+    result=0;
+  }
+  return result;
+}

@@ -1,4 +1,5 @@
 {
+  Cursor cursor=null;
   Log.i(TAG,"updatePriorities - Updating priorities...");
   if (suspend != null) {
     long[] ids=tagIds(suspend);
@@ -7,31 +8,36 @@
   String limit="";
   if (cardIds.length <= 1000)   limit="and cardTags.cardId in " + ids2str(cardIds);
   String query="SELECT cardTags.cardId, " + "CASE " + "WHEN min(tags.priority) = 0 THEN 0 "+ "WHEN max(tags.priority) > 2 THEN max(tags.priority) "+ "WHEN min(tags.priority) = 1 THEN 1 "+ "ELSE 2 END "+ "FROM cardTags,tags "+ "WHERE cardTags.tagId = tags.id " + limit + " "+ "GROUP BY cardTags.cardId";
-  Cursor cursor=AnkiDb.database.rawQuery(query,null);
-  if (!cursor.moveToFirst())   throw new SQLException("No result for query: " + query);
-  int len=cursor.getCount();
-  long[][] cards=new long[len][2];
-  for (int i=0; i < len; i++) {
-    cards[i][0]=cursor.getLong(0);
-    cards[i][1]=cursor.getInt(1);
-  }
-  cursor.close();
-  String extra="";
-  if (dirty)   extra=", modified = " + String.format("%f",(double)(System.currentTimeMillis() / 1000.0));
-  for (int pri=0; pri < 5; pri++) {
-    int count=0;
-    for (int i=0; i < len; i++) {
-      if (cards[i][1] == pri)       count++;
-    }
-    long[] cs=new long[count];
-    int j=0;
-    for (int i=0; i < len; i++) {
-      if (cards[i][1] == pri) {
-        cs[j]=cards[i][0];
-        j++;
+  try {
+    cursor=AnkiDb.database.rawQuery(query,null);
+    if (cursor.moveToFirst()) {
+      int len=cursor.getCount();
+      long[][] cards=new long[len][2];
+      for (int i=0; i < len; i++) {
+        cards[i][0]=cursor.getLong(0);
+        cards[i][1]=cursor.getInt(1);
+      }
+      String extra="";
+      if (dirty)       extra=", modified = " + String.format("%f",(double)(System.currentTimeMillis() / 1000.0));
+      for (int pri=0; pri < 5; pri++) {
+        int count=0;
+        for (int i=0; i < len; i++) {
+          if (cards[i][1] == pri)           count++;
+        }
+        long[] cs=new long[count];
+        int j=0;
+        for (int i=0; i < len; i++) {
+          if (cards[i][1] == pri) {
+            cs[j]=cards[i][0];
+            j++;
+          }
+        }
+        AnkiDb.database.execSQL("UPDATE cards " + "SET priority = " + pri + extra+ " WHERE id in "+ ids2str(cs)+ " and "+ "priority != "+ pri+ " and "+ "priority >= -2");
       }
     }
-    AnkiDb.database.execSQL("UPDATE cards SET " + "priority = " + pri + extra+ " WHERE id in "+ ids2str(cs)+ " and "+ "priority != "+ pri+ " and "+ "priority >= -2");
+  }
+  finally {
+    if (cursor != null)     cursor.close();
   }
   ContentValues val=new ContentValues(1);
   val.put("isDue",0);

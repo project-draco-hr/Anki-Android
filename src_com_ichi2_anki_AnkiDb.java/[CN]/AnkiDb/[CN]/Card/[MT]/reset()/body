@@ -1,8 +1,0 @@
-{
-  double newInterval=0.3;
-  if (interval != 0)   newInterval=1.01 * interval;
-  ContentValues values=new ContentValues();
-  values.put("interval",newInterval);
-  AnkiDb.database.update("cards",values,"id='" + id + "'",null);
-  Log.d(TAG,"Reset card with interval " + newInterval);
-}

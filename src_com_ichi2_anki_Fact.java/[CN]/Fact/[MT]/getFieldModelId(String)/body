@@ -1,0 +1,10 @@
+{
+  Iterator<Field> iter=fields.iterator();
+  while (iter.hasNext()) {
+    Field f=iter.next();
+    if (f.fieldModel.name.equals(fieldModelName)) {
+      return f.fieldModel.id;
+    }
+  }
+  return 0;
+}

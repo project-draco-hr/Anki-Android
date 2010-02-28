@@ -1,0 +1,14 @@
+{
+  Deck deck=params[0].getDeck();
+  Card editCard=params[0].getCard();
+  Fact editFact=editCard.fact;
+  editFact.toDb();
+  LinkedList<Card> saveCards=editFact.getUpdatedRelatedCards();
+  Iterator<Card> iter=saveCards.iterator();
+  while (iter.hasNext()) {
+    Card modifyCard=iter.next();
+    deck.updateCard(modifyCard);
+  }
+  publishProgress(new TaskData(deck.getCurrentCard()));
+  return null;
+}
