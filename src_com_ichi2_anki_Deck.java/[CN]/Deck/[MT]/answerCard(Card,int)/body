@@ -60,7 +60,7 @@
   finally {
     if (cursor != null)     cursor.close();
   }
-  AnkiDb.database.execSQL(String.format("UPDATE cards " + "SET spaceUntil = %f, " + "combinedDue = max(%f, due), "+ "modified = %f, "+ "isDue = 0 "+ "WHERE id != %d and factId = %d",space,space,now,card.id,card.factId));
+  AnkiDb.database.execSQL(String.format(NULL_LOCALE,"UPDATE cards " + "SET spaceUntil = %f, " + "combinedDue = max(%f, due), "+ "modified = %f, "+ "isDue = 0 "+ "WHERE id != %d and factId = %d",space,space,now,card.id,card.factId));
   card.spaceUntil=0;
   if (reviewEarly && lastDelay < 0)   if (oldSuc != 0 || lastDelaySecs > delay0 || !showFailedLast())   card.priority=-1;
   card.updateStats(ease,oldState);

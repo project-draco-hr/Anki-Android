@@ -10,23 +10,23 @@
     if (table.equals("undoLog") || table.equals("sqlite_stat1"))     continue;
     ArrayList<String> columns=AnkiDb.queryColumn(String.class,"PRAGMA TABLE_INFO(" + table + ")",1);
     String sql="CREATE TEMP TRIGGER _undo_%s_it " + "AFTER INSERT ON %s BEGIN " + "INSERT INTO undoLog VALUES "+ "(null, 'DELETE FROM %s WHERE rowid = ' || new.rowid); END";
-    AnkiDb.database.execSQL(String.format(sql,table,table,table));
-    sql=String.format("CREATE TEMP TRIGGER _undo_%s_ut " + "AFTER UPDATE ON %s BEGIN " + "INSERT INTO undoLog VALUES "+ "(null, 'UPDATE %s ",table,table,table);
+    AnkiDb.database.execSQL(String.format(NULL_LOCALE,sql,table,table,table));
+    sql=String.format(NULL_LOCALE,"CREATE TEMP TRIGGER _undo_%s_ut " + "AFTER UPDATE ON %s BEGIN " + "INSERT INTO undoLog VALUES "+ "(null, 'UPDATE %s ",table,table,table);
     String sep="SET ";
     Iterator<String> columnIter=columns.iterator();
     while (columnIter.hasNext()) {
       String column=columnIter.next();
       if (column.equals("unique"))       continue;
-      sql+=String.format("%s%s=' || quote(old.%s) || '",sep,column,column);
+      sql+=String.format(NULL_LOCALE,"%s%s=' || quote(old.%s) || '",sep,column,column);
       sep=",";
     }
     sql+="WHERE rowid = ' || old.rowid); END";
     AnkiDb.database.execSQL(sql);
-    sql=String.format("CREATE TEMP TRIGGER _undo_%s_dt " + "BEFORE DELETE ON %s BEGIN " + "INSERT INTO undoLog VALUES "+ "(null, 'INSERT INTO %s (rowid",table,table,table);
+    sql=String.format(NULL_LOCALE,"CREATE TEMP TRIGGER _undo_%s_dt " + "BEFORE DELETE ON %s BEGIN " + "INSERT INTO undoLog VALUES "+ "(null, 'INSERT INTO %s (rowid",table,table,table);
     columnIter=columns.iterator();
     while (columnIter.hasNext()) {
       String column=columnIter.next();
-      sql+=String.format(",\"%s\"",column);
+      sql+=String.format(NULL_LOCALE,",\"%s\"",column);
     }
     sql+=") VALUES (' || old.rowid ||'";
     columnIter=columns.iterator();
@@ -36,7 +36,7 @@
         sql+=",1";
         continue;
       }
-      sql+=String.format(", ' || quote(old.%s) ||'",column);
+      sql+=String.format(NULL_LOCALE,", ' || quote(old.%s) ||'",column);
     }
     sql+=")'); END";
     AnkiDb.database.execSQL(sql);
