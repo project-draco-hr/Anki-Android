@@ -1,5 +1,6 @@
 {
   super(context,attrs);
+  mContext=context;
   mBackgroundColor=context.getResources().getColor(R.color.wb_bg_color);
   mForegroundColor=context.getResources().getColor(R.color.wb_fg_color);
   mPaint=new Paint();
@@ -10,7 +11,7 @@
   mPaint.setStrokeJoin(Paint.Join.ROUND);
   mPaint.setStrokeCap(Paint.Cap.ROUND);
   mPaint.setStrokeWidth(8);
-  createBitmap(854,854,Bitmap.Config.ARGB_8888);
+  createBitmap();
   mPath=new Path();
   mBitmapPaint=new Paint(Paint.DITHER_FLAG);
 }

@@ -18,7 +18,7 @@
         cards[i][1]=cursor.getInt(1);
       }
       String extra="";
-      if (dirty)       extra=", modified = " + String.format(NULL_LOCALE,"%f",(double)(System.currentTimeMillis() / 1000.0));
+      if (dirty)       extra=", modified = " + String.format(ENGLISH_LOCALE,"%f",(double)(System.currentTimeMillis() / 1000.0));
       for (int pri=0; pri < 5; pri++) {
         int count=0;
         for (int i=0; i < len; i++) {
