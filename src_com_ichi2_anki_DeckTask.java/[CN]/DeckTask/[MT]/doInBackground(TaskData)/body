@@ -1,9 +1,19 @@
 {
+  try {
+    if ((oldInstance != null) && (oldInstance.getStatus() != AsyncTask.Status.FINISHED))     oldInstance.get();
+  }
+ catch (  Exception e) {
+    Log.e(TAG,"doInBackground - Got exception while waiting for thread to finish: " + e.getMessage());
+  }
 switch (type) {
 case TASK_TYPE_LOAD_DECK:
     return doInBackgroundLoadDeck(params);
 case TASK_TYPE_ANSWER_CARD:
   return doInBackgroundAnswerCard(params);
+case TASK_TYPE_SUSPEND_CARD:
+return doInBackgroundSuspendCard(params);
+case TASK_TYPE_UPDATE_FACT:
+return doInBackgroundUpdateFact(params);
 default :
 return null;
 }

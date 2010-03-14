@@ -1,0 +1,10 @@
+{
+  if (!undoEnabled)   return;
+  commitToDB();
+  long end=latestUndoRow();
+  while (undoStack.peek() == null)   undoStack.pop();
+  UndoRow row=undoStack.peek();
+  row.end=end;
+  if (row.start == row.end)   undoStack.pop();
+ else   redoStack.clear();
+}

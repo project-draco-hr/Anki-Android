@@ -1,0 +1,17 @@
+{
+  UndoRow row;
+  commitToDB();
+  while (true) {
+    row=src.pop();
+    if (row != null)     break;
+  }
+  Long start=row.start;
+  Long end=row.end;
+  if (end == null)   end=latestUndoRow();
+  ArrayList<String> sql=AnkiDb.queryColumn(String.class,String.format(NULL_LOCALE,"SELECT sql FROM undoLog " + "WHERE seq > %d and seq <= %d " + "ORDER BY seq DESC",start,end),0);
+  Long newstart=latestUndoRow();
+  Iterator<String> iter=sql.iterator();
+  while (iter.hasNext())   AnkiDb.database.execSQL(iter.next());
+  Long newend=latestUndoRow();
+  dst.push(new UndoRow(row.name,newstart,newend));
+}

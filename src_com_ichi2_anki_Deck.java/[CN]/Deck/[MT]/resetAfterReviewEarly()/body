@@ -1,15 +1,20 @@
 {
+  Cursor cursor=null;
   long[] ids=null;
-  Cursor cursor=AnkiDb.database.rawQuery("SELECT id " + "FROM cards " + "WHERE priority = -1",null);
-  if (cursor.moveToFirst()) {
-    int count=cursor.getCount();
-    ids=new long[count];
-    for (int i=0; i < count; i++) {
-      ids[i]=cursor.getLong(0);
-      cursor.moveToNext();
+  try {
+    cursor=AnkiDb.database.rawQuery("SELECT id " + "FROM cards " + "WHERE priority = -1",null);
+    if (cursor.moveToFirst()) {
+      int count=cursor.getCount();
+      ids=new long[count];
+      for (int i=0; i < count; i++) {
+        ids[i]=cursor.getLong(0);
+        cursor.moveToNext();
+      }
     }
   }
-  cursor.close();
+  finally {
+    if (cursor != null)     cursor.close();
+  }
   if (ids != null) {
     updatePriorities(ids);
     flushMod();

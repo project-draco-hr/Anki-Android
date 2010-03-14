@@ -1,0 +1,6 @@
+{
+  AnkiDb.database.execSQL("UPDATE cards SET " + "priority = 0, " + "modified = " + String.format(NULL_LOCALE,"%f",(double)(System.currentTimeMillis() / 1000.0)) + " WHERE id IN "+ ids2str(ids));
+  updatePriorities(ids);
+  rebuildCounts(false);
+  flushMod();
+}

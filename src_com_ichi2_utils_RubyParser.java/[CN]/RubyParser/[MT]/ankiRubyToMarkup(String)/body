@@ -1,0 +1,44 @@
+{
+  int cursorIndex=0;
+  int nextRubyTextStart;
+  int nextSpacer;
+  int nextRubyTextEnd;
+  int nextHtmlTagStart;
+  StringBuilder builder=new StringBuilder();
+  while (cursorIndex < sourceText.length() - 1) {
+    nextRubyTextStart=sourceText.indexOf(RUBY_TEXT_START,cursorIndex);
+    nextSpacer=sourceText.indexOf(RUBY_SPACER_JAP_SPACE,cursorIndex);
+    if (nextSpacer == -1) {
+      nextSpacer=Math.max(nextSpacer,sourceText.indexOf(RUBY_SPACER_JAP_COMMA,cursorIndex));
+    }
+    nextHtmlTagStart=sourceText.indexOf(HTML_TAG_START,cursorIndex);
+    if (nextHtmlTagStart != -1 && (nextSpacer == -1 || nextHtmlTagStart < nextSpacer) && (nextRubyTextStart == -1 || nextHtmlTagStart < nextRubyTextStart)) {
+      int nextHtmlTagEnd=sourceText.indexOf(HTML_TAG_END,nextHtmlTagStart);
+      builder.append(sourceText.substring(cursorIndex,nextHtmlTagEnd + 1));
+      cursorIndex=nextHtmlTagEnd + 1;
+    }
+ else {
+      if (nextRubyTextStart != -1) {
+        if (nextSpacer < nextRubyTextStart && nextSpacer != -1) {
+          if (sourceText.charAt(nextSpacer) == RUBY_SPACER_JAP_SPACE) {
+            builder.append(sourceText.substring(cursorIndex,nextSpacer));
+          }
+ else {
+            builder.append(sourceText.substring(cursorIndex,nextSpacer + 1));
+          }
+          cursorIndex=nextSpacer + 1;
+        }
+ else {
+          nextRubyTextEnd=sourceText.indexOf(RUBY_TEXT_END,cursorIndex);
+          builder.append(newRubyPair(sourceText.substring(cursorIndex,nextRubyTextStart),sourceText.substring(nextRubyTextStart + 1,nextRubyTextEnd)));
+          cursorIndex=nextRubyTextEnd + 1;
+        }
+      }
+ else {
+        builder.append(sourceText.substring(cursorIndex));
+        cursorIndex=sourceText.length();
+      }
+    }
+  }
+  return builder.toString();
+}

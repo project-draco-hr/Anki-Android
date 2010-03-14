@@ -1,0 +1,12 @@
+{
+  double now=System.currentTimeMillis() / 1000.0;
+  ContentValues updateValues=new ContentValues();
+  updateValues.put("modified",now);
+  Iterator<Field> iter=fields.iterator();
+  while (iter.hasNext()) {
+    Field f=iter.next();
+    updateValues=new ContentValues();
+    updateValues.put("value",f.value);
+    AnkiDb.database.update("fields",updateValues,"id = ?",new String[]{"" + f.id});
+  }
+}

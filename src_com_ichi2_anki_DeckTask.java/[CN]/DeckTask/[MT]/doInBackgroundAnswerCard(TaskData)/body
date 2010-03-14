@@ -1,26 +1,26 @@
 {
-  long start, stop;
+  long start, start2;
   Deck deck=params[0].getDeck();
   Card oldCard=params[0].getCard();
   int ease=params[0].getInt();
   Card newCard;
-  if (oldCard != null) {
+  start2=System.currentTimeMillis();
+  AnkiDb.database.beginTransaction();
+  try {
+    if (oldCard != null) {
+      start=System.currentTimeMillis();
+      deck.answerCard(oldCard,ease);
+      Log.v(TAG,"doInBackgroundAnswerCard - Answered card in " + (System.currentTimeMillis() - start) + " ms.");
+    }
     start=System.currentTimeMillis();
-    oldCard.temporarilySetLowestPriority();
-    deck.decreaseCounts(oldCard);
-    stop=System.currentTimeMillis();
-    Log.v(TAG,"doInBackground - Set old card 0 priority in " + (stop - start) + " ms.");
+    newCard=deck.getCard();
+    Log.v(TAG,"doInBackgroundAnswerCard - Loaded new card in " + (System.currentTimeMillis() - start) + " ms.");
+    publishProgress(new TaskData(newCard));
+    AnkiDb.database.setTransactionSuccessful();
   }
-  start=System.currentTimeMillis();
-  newCard=deck.getCard();
-  stop=System.currentTimeMillis();
-  Log.v(TAG,"doInBackground - Loaded new card in " + (stop - start) + " ms.");
-  publishProgress(new TaskData(newCard));
-  if (ease != 0 && oldCard != null) {
-    start=System.currentTimeMillis();
-    deck.answerCard(oldCard,ease);
-    stop=System.currentTimeMillis();
-    Log.v(TAG,"doInBackground - Answered old card in " + (stop - start) + " ms.");
+  finally {
+    AnkiDb.database.endTransaction();
   }
+  Log.w(TAG,"doInBackgroundAnswerCard - DB operations in " + (System.currentTimeMillis() - start2) + " ms.");
   return null;
 }

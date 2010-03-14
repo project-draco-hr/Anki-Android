@@ -1,0 +1,38 @@
+{
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.card_editor);
+  fieldsLayoutContainer=(LinearLayout)findViewById(R.id.CardEditorEditFieldsLayout);
+  mSave=(Button)findViewById(R.id.CardEditorSaveButton);
+  mCancel=(Button)findViewById(R.id.CardEditorCancelButton);
+  editorCard=Ankidroid.getEditorCard();
+  Fact cardFact=editorCard.getFact();
+  TreeSet<Field> fields=cardFact.getFields();
+  editFields=new LinkedList<FieldEditText>();
+  Iterator<Field> iter=fields.iterator();
+  while (iter.hasNext()) {
+    FieldEditText newTextbox=new FieldEditText(this,iter.next());
+    TextView label=newTextbox.getLabel();
+    editFields.add(newTextbox);
+    fieldsLayoutContainer.addView(label);
+    fieldsLayoutContainer.addView(newTextbox);
+  }
+  mSave.setOnClickListener(new View.OnClickListener(){
+    public void onClick(    View v){
+      Iterator<FieldEditText> iter=editFields.iterator();
+      while (iter.hasNext()) {
+        FieldEditText current=iter.next();
+        current.updateField();
+      }
+      setResult(SAVE_CARD);
+      finish();
+    }
+  }
+);
+  mCancel.setOnClickListener(new View.OnClickListener(){
+    public void onClick(    View v){
+      setResult(CANCEL);
+      finish();
+    }
+  }
+);
+}

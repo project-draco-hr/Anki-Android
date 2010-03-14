@@ -11,19 +11,19 @@
     if (interval < hardIntervalMin)     interval=0;
   }
  else   if (interval == 0) {
-    if (ease == 2)     interval=hardIntervalMin + ((float)Math.random()) * (hardIntervalMax - hardIntervalMin);
- else     if (ease == 3)     interval=midIntervalMin + ((float)Math.random()) * (midIntervalMax - midIntervalMin);
- else     if (ease == 4)     interval=easyIntervalMin + ((float)Math.random()) * (easyIntervalMax - easyIntervalMin);
+    if (ease == 2)     interval=hardIntervalMin + ((double)Math.random()) * (hardIntervalMax - hardIntervalMin);
+ else     if (ease == 3)     interval=midIntervalMin + ((double)Math.random()) * (midIntervalMax - midIntervalMin);
+ else     if (ease == 4)     interval=easyIntervalMin + ((double)Math.random()) * (easyIntervalMax - easyIntervalMin);
   }
  else {
     if ((interval < hardIntervalMax) && (interval > 0.166)) {
       double mid=(midIntervalMin + midIntervalMax) / 2.0;
       interval=mid / factor;
     }
-    if (ease == 2)     interval=(interval + delay / 4f) * 1.2f;
- else     if (ease == 3)     interval=(interval + delay / 2f) * factor;
+    if (ease == 2)     interval=(interval + delay / 4.0) * 1.2;
+ else     if (ease == 3)     interval=(interval + delay / 2.0) * factor;
  else     if (ease == 4)     interval=(interval + delay) * factor * factorFour;
-    float fuzz=0.95f + ((float)Math.random()) * (1.05f - 0.95f);
+    double fuzz=0.95 + ((double)Math.random()) * (1.05 - 0.95);
     interval*=fuzz;
   }
   if (maxScheduleTime != 0)   interval=Math.min(interval,maxScheduleTime);
