@@ -7,8 +7,12 @@
       DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK,mLoadDeckHandler,new DeckTask.TaskData(deckFilename));
     }
  else {
-      if (deckFilename == null)       Log.i(TAG,"displayProgressDialogAndLoadDeck - SD card unmounted.");
- else       if (!new File(deckFilename).exists())       Log.i(TAG,"displayProgressDialogAndLoadDeck - The deck " + deckFilename + "does not exist.");
+      if (deckFilename == null) {
+        Log.i(TAG,"displayProgressDialogAndLoadDeck - SD card unmounted.");
+      }
+ else       if (!new File(deckFilename).exists()) {
+        Log.i(TAG,"displayProgressDialogAndLoadDeck - The deck " + deckFilename + "does not exist.");
+      }
       displayDeckNotLoaded();
     }
   }
