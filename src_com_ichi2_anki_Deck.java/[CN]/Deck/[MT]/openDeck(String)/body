@@ -48,7 +48,7 @@
   finally {
     if (cursor != null)     cursor.close();
   }
-  Log.i(TAG,String.format(NULL_LOCALE,"openDeck - modified: %f currentTime: %f",deck.modified,System.currentTimeMillis() / 1000.0));
+  Log.i(TAG,String.format(ENGLISH_LOCALE,"openDeck - modified: %f currentTime: %f",deck.modified,System.currentTimeMillis() / 1000.0));
   deck.initVars();
   deck.updateDynamicIndices();
   int oldCount=deck.failedSoonCount + deck.revCount + deck.newCount;
