@@ -1,0 +1,11 @@
+import os
+import zipfile
+languages = ['pt-PT', 'fr', 'ru', 'ca', 'es-ES', 'el']
+zip = zipfile.ZipFile('ankidroid.zip', 'r')
+for language in languages:
+    androidLanguage = language[:2]
+    valuesDirectory = (('../res/values-' + androidLanguage) + '/')
+    if (not os.path.isdir(valuesDirectory)):
+        os.mkdir(valuesDirectory)
+    file((valuesDirectory + 'arrays.xml'), 'w').write(zip.read((language + '/arrays.xml')))
+    file((valuesDirectory + 'strings.xml'), 'w').write(zip.read((language + '/strings.xml')))
