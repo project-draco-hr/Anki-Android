@@ -1,6 +1,6 @@
 {
   this.model=model;
-  this.id=Util.genID();
+  this.id=Utils.genID();
   if (model != null) {
     Iterator<FieldModel> iter=model.fieldModels.iterator();
     while (iter.hasNext()) {

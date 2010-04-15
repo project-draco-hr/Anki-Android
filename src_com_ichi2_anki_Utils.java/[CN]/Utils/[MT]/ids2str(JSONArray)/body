@@ -1,0 +1,19 @@
+{
+  String str="(";
+  int len=ids.length();
+  for (int i=0; i < len; i++) {
+    try {
+      if (i == (len - 1)) {
+        str+=ids.get(i);
+      }
+ else {
+        str+=ids.get(i) + ",";
+      }
+    }
+ catch (    JSONException e) {
+      e.printStackTrace();
+    }
+  }
+  str+=")";
+  return str;
+}
