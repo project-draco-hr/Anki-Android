@@ -4,7 +4,7 @@
   fieldsLayoutContainer=(LinearLayout)findViewById(R.id.CardEditorEditFieldsLayout);
   mSave=(Button)findViewById(R.id.CardEditorSaveButton);
   mCancel=(Button)findViewById(R.id.CardEditorCancelButton);
-  editorCard=Ankidroid.getEditorCard();
+  editorCard=AnkiDroid.getEditorCard();
   Fact cardFact=editorCard.getFact();
   TreeSet<Field> fields=cardFact.getFields();
   editFields=new LinkedList<FieldEditText>();
