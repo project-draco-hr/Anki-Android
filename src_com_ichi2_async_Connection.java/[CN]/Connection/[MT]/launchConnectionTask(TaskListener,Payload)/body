@@ -1,0 +1,16 @@
+{
+  if (!isOnline()) {
+    data.success=false;
+    listener.onDisconnected();
+    return null;
+  }
+  try {
+    if ((instance != null) && (instance.getStatus() != AsyncTask.Status.FINISHED))     instance.get();
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+  instance=new Connection();
+  instance.listener=listener;
+  return (Connection)instance.execute(data);
+}

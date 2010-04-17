@@ -1,0 +1,12 @@
+{
+  try {
+    AnkiDroidProxy.downloadSharedDeck((SharedDeck)data.data[0]);
+  }
+ catch (  Exception e) {
+    data.success=false;
+    data.exception=e;
+    Log.e(TAG,"Error downloading shared deck");
+    e.printStackTrace();
+  }
+  return data;
+}

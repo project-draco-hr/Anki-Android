@@ -1,31 +1,26 @@
 {
   List<SharedDeck> sharedDecks=new ArrayList<SharedDeck>();
-  try {
-    JSONArray jsonSharedDecks=new JSONArray(result);
-    if (jsonSharedDecks != null) {
-      Log.i(TAG,"Number of shared decks = " + jsonSharedDecks.length());
-      for (int i=0; i < jsonSharedDecks.length(); i++) {
-        JSONArray jsonSharedDeck=jsonSharedDecks.getJSONArray(i);
-        SharedDeck sharedDeck=new SharedDeck();
-        sharedDeck.setId(jsonSharedDeck.getInt(R_ID));
-        sharedDeck.setUsername(jsonSharedDeck.getString(R_USERNAME));
-        sharedDeck.setTitle(jsonSharedDeck.getString(R_TITLE));
-        sharedDeck.setDescription(jsonSharedDeck.getString(R_DESCRIPTION));
-        sharedDeck.setTags(jsonSharedDeck.getString(R_TAGS));
-        sharedDeck.setVersion(jsonSharedDeck.getInt(R_VERSION));
-        sharedDeck.setFacts(jsonSharedDeck.getInt(R_FACTS));
-        sharedDeck.setSize(jsonSharedDeck.getInt(R_SIZE));
-        sharedDeck.setCount(jsonSharedDeck.getInt(R_COUNT));
-        sharedDeck.setModified(jsonSharedDeck.getDouble(R_MODIFIED));
-        sharedDeck.setFileName(jsonSharedDeck.getString(R_FNAME));
-        Log.i(TAG,"Shared deck " + i);
-        sharedDeck.prettyLog();
-        sharedDecks.add(sharedDeck);
-      }
+  JSONArray jsonSharedDecks=new JSONArray(result);
+  if (jsonSharedDecks != null) {
+    Log.i(TAG,"Number of shared decks = " + jsonSharedDecks.length());
+    for (int i=0; i < jsonSharedDecks.length(); i++) {
+      JSONArray jsonSharedDeck=jsonSharedDecks.getJSONArray(i);
+      SharedDeck sharedDeck=new SharedDeck();
+      sharedDeck.setId(jsonSharedDeck.getInt(R_ID));
+      sharedDeck.setUsername(jsonSharedDeck.getString(R_USERNAME));
+      sharedDeck.setTitle(jsonSharedDeck.getString(R_TITLE));
+      sharedDeck.setDescription(jsonSharedDeck.getString(R_DESCRIPTION));
+      sharedDeck.setTags(jsonSharedDeck.getString(R_TAGS));
+      sharedDeck.setVersion(jsonSharedDeck.getInt(R_VERSION));
+      sharedDeck.setFacts(jsonSharedDeck.getInt(R_FACTS));
+      sharedDeck.setSize(jsonSharedDeck.getInt(R_SIZE));
+      sharedDeck.setCount(jsonSharedDeck.getInt(R_COUNT));
+      sharedDeck.setModified(jsonSharedDeck.getDouble(R_MODIFIED));
+      sharedDeck.setFileName(jsonSharedDeck.getString(R_FNAME));
+      Log.i(TAG,"Shared deck " + i);
+      sharedDeck.prettyLog();
+      sharedDecks.add(sharedDeck);
     }
-  }
- catch (  JSONException e) {
-    e.printStackTrace();
   }
   return sharedDecks;
 }

@@ -1,0 +1,11 @@
+{
+  Payload data=params[0];
+switch (data.taskType) {
+case TASK_TYPE_GET_SHARED_DECKS:
+    return doInBackgroundGetSharedDecks(data);
+case TASK_TYPE_DOWNLOAD_SHARED_DECK:
+  return doInBackgroundDownloadSharedDeck(data);
+default :
+return null;
+}
+}
