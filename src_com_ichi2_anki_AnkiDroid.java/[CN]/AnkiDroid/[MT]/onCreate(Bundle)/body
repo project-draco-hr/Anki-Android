@@ -25,8 +25,8 @@
       boolean generateSampleDeck=preferences.getBoolean("generateSampleDeck",true);
       if (generateSampleDeck) {
         Log.i(TAG,"onCreate - Generating sample deck...");
-        String SAMPLE_DECK_FILENAME="/sdcard/country-capitals.anki";
-        if (!new File("/sdcard","country-capitals.anki").exists()) {
+        String SAMPLE_DECK_FILENAME=AnkiDroidApp.getStorageDirectory() + "/country-capitals.anki";
+        if (!new File(AnkiDroidApp.getStorageDirectory(),"country-capitals.anki").exists()) {
           try {
             InputStream stream=getResources().getAssets().open("country-capitals.anki");
             boolean written=writeToFile(stream,SAMPLE_DECK_FILENAME);

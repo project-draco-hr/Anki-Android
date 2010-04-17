@@ -4,7 +4,7 @@
   registerExternalStorageListener();
   mSelf=this;
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
-  String deckPath=preferences.getString("deckPath","/sdcard");
+  String deckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory());
   setContentView(R.layout.main);
   mDeckList=new ArrayList<HashMap<String,String>>();
   mDeckListView=(ListView)findViewById(R.id.files);
