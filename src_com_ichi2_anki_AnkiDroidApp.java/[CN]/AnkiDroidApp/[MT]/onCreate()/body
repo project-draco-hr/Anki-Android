@@ -1,6 +1,7 @@
 {
   super.onCreate();
   instance=this;
+  Connection.setContext(getApplicationContext());
   SharedPreferences prefs=PrefSettings.getSharedPrefs(this);
   if (prefs.getString(PrefSettings.KEY_CHECK_URI,null) == null) {
     Editor editor=prefs.edit();
