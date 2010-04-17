@@ -2,11 +2,11 @@
   super.onCreate();
   instance=this;
   Connection.setContext(getApplicationContext());
+  storageDirectory=Environment.getExternalStorageDirectory().getAbsolutePath();
   SharedPreferences prefs=PrefSettings.getSharedPrefs(this);
   if (prefs.getString(PrefSettings.KEY_CHECK_URI,null) == null) {
     Editor editor=prefs.edit();
     editor.putString(PrefSettings.KEY_CHECK_URI,"http://ankidroid.googlecode.com/files/last_release.xml");
-    storageDirectory=Environment.getExternalStorageDirectory().getAbsolutePath();
     editor.putString("deckPath",storageDirectory);
     editor.commit();
   }

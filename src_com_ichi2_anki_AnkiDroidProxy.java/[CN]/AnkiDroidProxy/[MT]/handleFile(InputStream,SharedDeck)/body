@@ -5,17 +5,17 @@
     String title=sharedDeck.getTitle();
     title=title.replace("^","");
     title=title.substring(0,java.lang.Math.min(title.length(),40));
-    if (new File(AnkiDroidApp.getStorageDirectory() + title + ".anki").exists())     title+=System.currentTimeMillis();
+    if (new File(AnkiDroidApp.getStorageDirectory() + "/" + title+ ".anki").exists())     title+=System.currentTimeMillis();
     ZipEntry zipEntry=null;
     while ((zipEntry=zipInputStream.getNextEntry()) != null) {
       Log.i(TAG,"zipEntry = " + zipEntry.getName());
       if ("shared.anki".equalsIgnoreCase(zipEntry.getName())) {
-        writeToFile(zipInputStream,AnkiDroidApp.getStorageDirectory() + title + ".anki");
+        writeToFile(zipInputStream,AnkiDroidApp.getStorageDirectory() + "/" + title+ ".anki");
       }
  else       if (zipEntry.getName().startsWith("shared.media/",0)) {
         Log.i(TAG,"Folder created = " + new File(AnkiDroidApp.getStorageDirectory() + title + ".media/").mkdir());
-        Log.i(TAG,"Destination = " + AnkiDroidApp.getStorageDirectory() + title+ ".media/"+ zipEntry.getName().replace("shared.media/",""));
-        writeToFile(zipInputStream,AnkiDroidApp.getStorageDirectory() + title + ".media/"+ zipEntry.getName().replace("shared.media/",""));
+        Log.i(TAG,"Destination = " + AnkiDroidApp.getStorageDirectory() + "/"+ title+ ".media/"+ zipEntry.getName().replace("shared.media/",""));
+        writeToFile(zipInputStream,AnkiDroidApp.getStorageDirectory() + "/" + title+ ".media/"+ zipEntry.getName().replace("shared.media/",""));
       }
     }
     zipInputStream.close();
