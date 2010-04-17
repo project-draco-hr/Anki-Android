@@ -3,6 +3,7 @@
   Log.i(TAG,"onCreate - savedInstanceState: " + savedInstanceState);
   Bundle extras=getIntent().getExtras();
   SharedPreferences preferences=restorePreferences();
+  initAlertDialogs();
   initLayout(R.layout.flashcard_portrait);
   registerExternalStorageListener();
   initResourceValues();
