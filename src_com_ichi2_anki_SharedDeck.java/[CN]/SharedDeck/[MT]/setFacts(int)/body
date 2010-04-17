@@ -1,3 +1,9 @@
 {
   this.facts=facts;
+  if (facts == 1) {
+    put("facts",this.facts + " fact");
+  }
+ else {
+    put("facts",this.facts + " facts");
+  }
 }

@@ -8,6 +8,7 @@
   HttpResponse httpResponse=httpClient.execute(httpGet);
   Log.i(TAG,"Connection finished!");
   InputStream is=httpResponse.getEntity().getContent();
-  handleFile(is,sharedDeck);
+  String deckFilename=handleFile(is,sharedDeck);
   is.close();
+  return deckFilename;
 }

@@ -2,7 +2,6 @@
   List<SharedDeck> sharedDecks=new ArrayList<SharedDeck>();
   JSONArray jsonSharedDecks=new JSONArray(result);
   if (jsonSharedDecks != null) {
-    Log.i(TAG,"Number of shared decks = " + jsonSharedDecks.length());
     for (int i=0; i < jsonSharedDecks.length(); i++) {
       JSONArray jsonSharedDeck=jsonSharedDecks.getJSONArray(i);
       SharedDeck sharedDeck=new SharedDeck();
@@ -17,8 +16,6 @@
       sharedDeck.setCount(jsonSharedDeck.getInt(R_COUNT));
       sharedDeck.setModified(jsonSharedDeck.getDouble(R_MODIFIED));
       sharedDeck.setFileName(jsonSharedDeck.getString(R_FNAME));
-      Log.i(TAG,"Shared deck " + i);
-      sharedDeck.prettyLog();
       sharedDecks.add(sharedDeck);
     }
   }
