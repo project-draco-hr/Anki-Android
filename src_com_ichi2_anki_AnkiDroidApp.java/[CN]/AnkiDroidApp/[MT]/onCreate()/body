@@ -3,6 +3,7 @@
   instance=this;
   Connection.setContext(getApplicationContext());
   storageDirectory=Environment.getExternalStorageDirectory().getAbsolutePath();
+  res=getResources();
   SharedPreferences prefs=PrefSettings.getSharedPrefs(this);
   if (prefs.getString(PrefSettings.KEY_CHECK_URI,null) == null) {
     Editor editor=prefs.edit();

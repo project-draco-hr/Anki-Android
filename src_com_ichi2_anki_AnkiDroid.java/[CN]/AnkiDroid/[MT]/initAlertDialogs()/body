@@ -1,8 +1,9 @@
 {
+  Resources res=getResources();
   AlertDialog.Builder builder=new AlertDialog.Builder(this);
-  builder.setMessage("No Internet connection.");
-  builder.setPositiveButton("Ok",null);
+  builder.setMessage(res.getString(R.string.connection_needed));
+  builder.setPositiveButton(res.getString(R.string.ok),null);
   noConnectionAlert=builder.create();
-  builder.setMessage("The connection was unsuccessful. Check your connection settings and try again, please.");
+  builder.setMessage(res.getString(R.string.connection_unsuccessful));
   connectionFailedAlert=builder.create();
 }
