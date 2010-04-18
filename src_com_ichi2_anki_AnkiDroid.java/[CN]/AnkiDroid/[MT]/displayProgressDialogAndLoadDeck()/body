@@ -1,25 +1,3 @@
 {
-  Log.i(TAG,"displayProgressDialogAndLoadDeck - Loading deck " + deckFilename);
-  deckSelected=true;
-  if (isSdCardMounted()) {
-    if (deckFilename != null && new File(deckFilename).exists()) {
-      showControls(false);
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK,mLoadDeckHandler,new DeckTask.TaskData(deckFilename));
-    }
- else {
-      if (deckFilename == null) {
-        Log.i(TAG,"displayProgressDialogAndLoadDeck - SD card unmounted.");
-      }
- else       if (!new File(deckFilename).exists()) {
-        Log.i(TAG,"displayProgressDialogAndLoadDeck - The deck " + deckFilename + "does not exist.");
-      }
-      displayDeckNotLoaded();
-    }
-  }
- else {
-    Log.i(TAG,"displayProgressDialogAndLoadDeck - SD card unmounted.");
-    deckSelected=false;
-    Log.i(TAG,"displayProgressDialogAndLoadDeck - deckSelected = " + deckSelected);
-    displaySdError();
-  }
+  displayProgressDialogAndLoadDeck(false);
 }

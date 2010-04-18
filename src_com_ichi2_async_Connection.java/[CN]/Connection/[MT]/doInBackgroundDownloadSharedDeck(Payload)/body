@@ -5,7 +5,7 @@
  catch (  Exception e) {
     data.success=false;
     data.exception=e;
-    Log.e(TAG,"Error downloading shared deck");
+    Log.e(TAG,"Error downloading shared deck = " + e.getMessage());
     e.printStackTrace();
   }
   return data;

@@ -51,6 +51,6 @@
     deckFilename=intent.getExtras().getString(OPT_DB);
     savePreferences();
     Log.i(TAG,"onActivityResult - deckSelected = " + deckSelected);
-    displayProgressDialogAndLoadDeck();
+    displayProgressDialogAndLoadDeck(true);
   }
 }
