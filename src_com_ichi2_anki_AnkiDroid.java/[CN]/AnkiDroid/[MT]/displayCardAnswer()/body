@@ -20,6 +20,15 @@
     }
   }
  else {
-    updateCard(currentCard.answer);
+    if (true == showQuestionAnswer) {
+      StringBuffer sb=new StringBuffer();
+      sb.append(currentCard.question);
+      sb.append("<hr/>");
+      sb.append(currentCard.answer);
+      updateCard(sb.toString());
+    }
+ else {
+      updateCard(currentCard.answer);
+    }
   }
 }
