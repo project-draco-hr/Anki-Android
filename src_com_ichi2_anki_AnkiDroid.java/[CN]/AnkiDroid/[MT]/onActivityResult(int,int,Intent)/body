@@ -33,4 +33,24 @@
     mFlipCard.setChecked(true);
     displayCardQuestion();
   }
+ else   if (requestCode == GET_SHARED_DECK) {
+    updateCard("");
+    hideSdError();
+    hideDeckErrors();
+    if (resultCode != RESULT_OK) {
+      Log.e(TAG,"onActivityResult - Deck browser returned with error");
+      deckSelected=false;
+      return;
+    }
+    if (intent == null) {
+      Log.e(TAG,"onActivityResult - Deck browser returned null intent");
+      deckSelected=false;
+      return;
+    }
+    Log.i(TAG,"onActivityResult = OK");
+    deckFilename=intent.getExtras().getString(OPT_DB);
+    savePreferences();
+    Log.i(TAG,"onActivityResult - deckSelected = " + deckSelected);
+    displayProgressDialogAndLoadDeck(true);
+  }
 }

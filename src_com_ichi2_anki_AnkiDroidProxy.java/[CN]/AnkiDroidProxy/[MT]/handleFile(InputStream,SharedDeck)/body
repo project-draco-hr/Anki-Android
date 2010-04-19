@@ -1,0 +1,24 @@
+{
+  String deckFilename="";
+  ZipInputStream zipInputStream=null;
+  if (sharedDeck.getFileName().endsWith(".zip")) {
+    zipInputStream=new ZipInputStream(source);
+    String title=sharedDeck.getTitle();
+    title=title.replace("^","");
+    title=title.substring(0,java.lang.Math.min(title.length(),40));
+    if (new File(AnkiDroidApp.getStorageDirectory() + "/" + title+ ".anki").exists())     title+=System.currentTimeMillis();
+    String partialDeckPath=AnkiDroidApp.getStorageDirectory() + "/" + title;
+    deckFilename=partialDeckPath + ".anki";
+    ZipEntry zipEntry=null;
+    while ((zipEntry=zipInputStream.getNextEntry()) != null) {
+      if ("shared.anki".equalsIgnoreCase(zipEntry.getName())) {
+        writeToFile(zipInputStream,deckFilename);
+      }
+ else       if (zipEntry.getName().startsWith("shared.media/",0)) {
+        writeToFile(zipInputStream,partialDeckPath + ".media/" + zipEntry.getName().replace("shared.media/",""));
+      }
+    }
+    zipInputStream.close();
+  }
+  return deckFilename;
+}

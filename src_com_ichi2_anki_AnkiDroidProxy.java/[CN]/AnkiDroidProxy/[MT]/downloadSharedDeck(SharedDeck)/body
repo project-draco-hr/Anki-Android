@@ -1,0 +1,14 @@
+{
+  Log.i(TAG,"Downloading deck " + sharedDeck.getId());
+  HttpGet httpGet=new HttpGet("http://anki.ichi2.net/file/get?id=" + sharedDeck.getId());
+  httpGet.setHeader("Accept-Encoding","identity");
+  httpGet.setHeader("Host","anki.ichi2.net");
+  httpGet.setHeader("Connection","close");
+  DefaultHttpClient httpClient=new DefaultHttpClient();
+  HttpResponse httpResponse=httpClient.execute(httpGet);
+  Log.i(TAG,"Connection finished!");
+  InputStream is=httpResponse.getEntity().getContent();
+  String deckFilename=handleFile(is,sharedDeck);
+  is.close();
+  return deckFilename;
+}

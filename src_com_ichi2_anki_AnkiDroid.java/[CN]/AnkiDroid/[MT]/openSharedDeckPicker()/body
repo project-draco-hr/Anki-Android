@@ -1,0 +1,6 @@
+{
+  if (AnkiDroidApp.deck() != null && sdCardAvailable)   AnkiDroidApp.deck().closeDeck();
+  deckLoaded=false;
+  Intent intent=new Intent(AnkiDroid.this,SharedDeckPicker.class);
+  startActivityForResult(intent,GET_SHARED_DECK);
+}

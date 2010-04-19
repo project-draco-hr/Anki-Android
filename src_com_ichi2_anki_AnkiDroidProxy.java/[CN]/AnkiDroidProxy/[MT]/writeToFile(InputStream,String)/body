@@ -1,0 +1,17 @@
+{
+  try {
+    new File(destination).createNewFile();
+    OutputStream output=new FileOutputStream(destination);
+    byte[] buf=new byte[CHUNK_SIZE];
+    int len;
+    if (source == null)     Log.i(TAG,"source is null!");
+    while ((len=source.read(buf)) > 0) {
+      output.write(buf,0,len);
+    }
+    output.close();
+  }
+ catch (  Exception e) {
+    return false;
+  }
+  return true;
+}

@@ -1,0 +1,16 @@
+{
+  Cursor cursor=AnkiDb.database.rawQuery("SELECT id, factId " + "FROM cards",null);
+  while (cursor.moveToNext()) {
+    Card card=new Card();
+    card.fromDB(cursor.getLong(0));
+    Log.i(TAG,"Card id = " + card.id);
+    Fact fact=card.getFact();
+    HashMap<String,String> newQA=CardModel.formatQA(fact,card.getCardModel());
+    card.question=newQA.get("question");
+    Log.i(TAG,"Question = " + card.question);
+    card.answer=newQA.get("answer");
+    Log.i(TAG,"Answer = " + card.answer);
+    card.modified=System.currentTimeMillis() / 1000.0;
+    card.toDB();
+  }
+}

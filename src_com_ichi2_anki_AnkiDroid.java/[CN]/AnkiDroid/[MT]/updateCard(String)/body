@@ -2,10 +2,11 @@
   Log.i(TAG,"updateCard");
   content=Sound.extractSounds(deckFilename,content);
   content=Image.loadImages(deckFilename,content);
-  String realContent=content.replaceAll("\\<br.*?\\>","               ");
-  realContent=realContent.replaceAll("\\<.*?\\>","");
-  realContent=realContent.replaceAll("&nbsp;"," ");
   if (0 == qaFontSize) {
+    String realContent=content.replaceAll("\\<br.*?\\>","               ");
+    realContent=content.replaceAll("\\<hr.*?\\>","                              ");
+    realContent=realContent.replaceAll("\\<.*?\\>","");
+    realContent=realContent.replaceAll("&nbsp;"," ");
     int size=Math.max(MIN_QA_FONT_SIZE,MAX_QA_FONT_SIZE - (int)(realContent.length() / 5));
     mCard.getSettings().setDefaultFontSize(size);
   }
