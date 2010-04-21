@@ -1,0 +1,41 @@
+{
+  try {
+    Iterator<String> keys=jsonObject.keys();
+    TreeSet<String> orderedKeysSet=new TreeSet<String>();
+    while (keys.hasNext()) {
+      orderedKeysSet.add(keys.next());
+    }
+    Iterator<String> orderedKeys=orderedKeysSet.iterator();
+    while (orderedKeys.hasNext()) {
+      String key=orderedKeys.next();
+      try {
+        Object value=jsonObject.get(key);
+        if (value instanceof JSONObject) {
+          if (writeToFile) {
+            BufferedWriter buff=new BufferedWriter(new FileWriter("/sdcard/payloadAndroid.txt",true));
+            buff.write(indentation + " " + key+ " : ");
+            buff.newLine();
+            buff.close();
+          }
+          Log.i(TAG,"	" + indentation + key+ " : ");
+          printJSONObject((JSONObject)value,indentation + "-",writeToFile);
+        }
+ else {
+          if (writeToFile) {
+            BufferedWriter buff=new BufferedWriter(new FileWriter("/sdcard/payloadAndroid.txt",true));
+            buff.write(indentation + " " + key+ " = "+ jsonObject.get(key).toString());
+            buff.newLine();
+            buff.close();
+          }
+          Log.i(TAG,"	" + indentation + key+ " = "+ jsonObject.get(key).toString());
+        }
+      }
+ catch (      JSONException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+ catch (  IOException e1) {
+    e1.printStackTrace();
+  }
+}

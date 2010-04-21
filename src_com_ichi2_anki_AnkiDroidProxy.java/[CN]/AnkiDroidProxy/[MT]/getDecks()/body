@@ -1,0 +1,36 @@
+{
+  Log.i(TAG,"user = " + username + ", password = "+ password);
+  JSONArray decks=new JSONArray();
+  try {
+    String data="p=" + URLEncoder.encode(password,"UTF-8") + "&client=ankiqt-0.9.9.8.6&u="+ URLEncoder.encode(username,"UTF-8")+ "&d=None&sources="+ URLEncoder.encode("[]","UTF-8")+ "&libanki=0.9.9.8.6&pversion=5";
+    Log.i(TAG,"Data json = " + data);
+    HttpPost httpPost=new HttpPost(SYNC_URL + "getDecks");
+    StringEntity entity=new StringEntity(data);
+    httpPost.setEntity(entity);
+    httpPost.setHeader("Accept-Encoding","identity");
+    httpPost.setHeader("Content-type","application/x-www-form-urlencoded");
+    DefaultHttpClient httpClient=new DefaultHttpClient();
+    HttpResponse response=httpClient.execute(httpPost);
+    Log.i(TAG,"Response = " + response.toString());
+    HttpEntity entityResponse=response.getEntity();
+    Log.i(TAG,"Entity's response = " + entityResponse.toString());
+    InputStream content=entityResponse.getContent();
+    Log.i(TAG,"Content = " + content.toString());
+    decks=new JSONArray(StringUtils.convertStreamToString(new InflaterInputStream(content)));
+    Log.i(TAG,"String content = " + decks);
+  }
+ catch (  UnsupportedEncodingException e) {
+    e.printStackTrace();
+  }
+catch (  ClientProtocolException e) {
+    Log.i(TAG,"ClientProtocolException = " + e.getMessage());
+  }
+catch (  IOException e) {
+    Log.i(TAG,"IOException = " + e.getMessage());
+  }
+catch (  JSONException e) {
+    Log.i(TAG,"JSONException = " + e.getMessage());
+    e.printStackTrace();
+  }
+  return decks;
+}

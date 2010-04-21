@@ -1,0 +1,37 @@
+{
+  Log.i(TAG,"Summary Server");
+  Log.i(TAG,"user = " + username + ", password = "+ password+ ", lastSync = "+ lastSync);
+  JSONObject summaryServer=new JSONObject();
+  try {
+    String data="p=" + URLEncoder.encode(password,"UTF-8") + "&u="+ URLEncoder.encode(username,"UTF-8")+ "&d="+ URLEncoder.encode(deckName,"UTF-8")+ "&lastSync="+ URLEncoder.encode(Base64.encodeBytes(StringUtils.compress(String.format(ENGLISH_LOCALE,"%f",lastSync).getBytes())),"UTF-8")+ "&base64="+ URLEncoder.encode("true","UTF-8");
+    Log.i(TAG,"Data json = " + data);
+    HttpPost httpPost=new HttpPost(SYNC_URL + "summary");
+    StringEntity entity=new StringEntity(data);
+    httpPost.setEntity(entity);
+    httpPost.setHeader("Accept-Encoding","identity");
+    httpPost.setHeader("Content-type","application/x-www-form-urlencoded");
+    DefaultHttpClient httpClient=new DefaultHttpClient();
+    HttpResponse response=httpClient.execute(httpPost);
+    Log.i(TAG,"Response = " + response.toString());
+    HttpEntity entityResponse=response.getEntity();
+    Log.i(TAG,"Entity's response = " + entityResponse.toString());
+    InputStream content=entityResponse.getContent();
+    Log.i(TAG,"Content = " + content.toString());
+    summaryServer=new JSONObject(StringUtils.convertStreamToString(new InflaterInputStream(content)));
+    Log.i(TAG,"Summary server = ");
+    Utils.printJSONObject(summaryServer);
+  }
+ catch (  UnsupportedEncodingException e) {
+    e.printStackTrace();
+  }
+catch (  ClientProtocolException e) {
+    Log.i(TAG,"ClientProtocolException = " + e.getMessage());
+  }
+catch (  IOException e) {
+    Log.i(TAG,"IOException = " + e.getMessage());
+  }
+catch (  JSONException e) {
+    Log.i(TAG,"JSONException = " + e.getMessage());
+  }
+  return summaryServer;
+}

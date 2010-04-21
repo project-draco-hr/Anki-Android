@@ -1,0 +1,6 @@
+{
+  if (writeToFile) {
+    new File("/sdcard/payloadAndroid.txt").delete();
+  }
+  printJSONObject(jsonObject,"-",writeToFile);
+}

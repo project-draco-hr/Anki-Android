@@ -30,7 +30,8 @@
         if (!new File(AnkiDroidApp.getStorageDirectory(),"country-capitals.anki").exists()) {
           try {
             InputStream stream=getResources().getAssets().open("country-capitals.anki");
-            boolean written=writeToFile(stream,SAMPLE_DECK_FILENAME);
+            boolean written=FileUtils.writeToFile(stream,SAMPLE_DECK_FILENAME);
+            stream.close();
             if (!written) {
               openDeckPicker();
               Log.i(TAG,"onCreate - The copy of country-capitals.anki to the sd card failed.");
