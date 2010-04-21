@@ -1,0 +1,16 @@
+{
+  JSONArray jsonArray=new JSONArray();
+  while (cursor.moveToNext()) {
+    JSONArray element=new JSONArray();
+    try {
+      element.put(cursor.getLong(0));
+      element.put(cursor.getDouble(1));
+    }
+ catch (    JSONException e) {
+      Log.i(TAG,"JSONException = " + e.getMessage());
+    }
+    jsonArray.put(element);
+  }
+  cursor.close();
+  return jsonArray;
+}
