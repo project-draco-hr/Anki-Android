@@ -1,0 +1,72 @@
+{
+  URL url;
+  try {
+    Log.i(TAG,"Fullup");
+    url=new URL(SYNC_URL + "fullup");
+    HttpURLConnection conn=(HttpURLConnection)url.openConnection();
+    conn.setDoInput(true);
+    conn.setDoOutput(true);
+    conn.setUseCaches(false);
+    conn.setRequestMethod("POST");
+    conn.setRequestProperty("Connection","close");
+    conn.setRequestProperty("Charset","UTF-8");
+    conn.setRequestProperty("Content-Type","multipart/form-data;boundary=" + MIME_BOUNDARY);
+    conn.setRequestProperty("Host",SYNC_HOST);
+    DataOutputStream ds=new DataOutputStream(conn.getOutputStream());
+    Log.i(TAG,"Pass");
+    ds.writeBytes(TWO_HYPHENS + MIME_BOUNDARY + END);
+    ds.writeBytes("Content-Disposition: form-data; name=\"p\"" + END + END+ password+ END);
+    Log.i(TAG,"User");
+    ds.writeBytes(TWO_HYPHENS + MIME_BOUNDARY + END);
+    ds.writeBytes("Content-Disposition: form-data; name=\"u\"" + END + END+ username+ END);
+    Log.i(TAG,"DeckName");
+    ds.writeBytes(TWO_HYPHENS + MIME_BOUNDARY + END);
+    ds.writeBytes("Content-Disposition: form-data; name=\"d\"" + END + END+ deckName+ END);
+    Log.i(TAG,"Deck");
+    ds.writeBytes(TWO_HYPHENS + MIME_BOUNDARY + END);
+    ds.writeBytes("Content-Disposition: form-data; name=\"deck\";filename=\"deck\"" + END);
+    ds.writeBytes("Content-Type: application/octet-stream" + END);
+    ds.writeBytes(END);
+    FileInputStream fStream=new FileInputStream(deckPath);
+    byte[] buffer=new byte[CHUNK_SIZE];
+    int length=-1;
+    Deflater deflater=new Deflater(Deflater.BEST_SPEED);
+    DeflaterOutputStream dos=new DeflaterOutputStream(ds,deflater);
+    Log.i(TAG,"Writing buffer...");
+    while ((length=fStream.read(buffer)) != -1) {
+      dos.write(buffer,0,length);
+      Log.i(TAG,"Length = " + length);
+    }
+    dos.finish();
+    ds.writeBytes(END);
+    ds.writeBytes(TWO_HYPHENS + MIME_BOUNDARY + TWO_HYPHENS+ END);
+    Log.i(TAG,"Closing streams...");
+    ds.flush();
+    ds.close();
+    int responseCode=conn.getResponseCode();
+    if (responseCode != 200) {
+      Log.i(TAG,"Response code = 200");
+    }
+ else {
+      Log.i(TAG,"Response code = " + responseCode);
+    }
+    InputStream is=conn.getInputStream();
+    ByteArrayOutputStream baos=new ByteArrayOutputStream();
+    byte[] bytes=new byte[1024];
+    int bytesRead;
+    while ((bytesRead=is.read(bytes)) != -1) {
+      baos.write(bytes,0,bytesRead);
+    }
+    byte[] bytesReceived=baos.toByteArray();
+    baos.close();
+    is.close();
+    String response=new String(bytesReceived);
+    Log.i(TAG,"Finished!");
+  }
+ catch (  MalformedURLException e) {
+    e.printStackTrace();
+  }
+catch (  IOException e) {
+    e.printStackTrace();
+  }
+}
