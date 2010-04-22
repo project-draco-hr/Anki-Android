@@ -13,7 +13,7 @@
       String userAnswer=mAnswerField.getText().toString();
       String correctAnswer=(String)currentCard.answer.subSequence(currentCard.answer.indexOf(">") + 1,currentCard.answer.lastIndexOf("<"));
       DiffEngine diff=new DiffEngine();
-      updateCard(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer)) + "<br/>" + currentCard.answer);
+      updateCard(enrichWithQASpan(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer)) + "<br/>" + currentCard.answer,true));
     }
  else {
       updateCard("");
@@ -22,13 +22,13 @@
  else {
     if (true == showQuestionAnswer) {
       StringBuffer sb=new StringBuffer();
-      sb.append(currentCard.question);
+      sb.append(enrichWithQASpan(currentCard.question,false));
       sb.append("<hr/>");
-      sb.append(currentCard.answer);
+      sb.append(enrichWithQASpan(currentCard.answer,true));
       updateCard(sb.toString());
     }
  else {
-      updateCard(currentCard.answer);
+      updateCard(enrichWithQASpan(currentCard.answer,true));
     }
   }
 }
