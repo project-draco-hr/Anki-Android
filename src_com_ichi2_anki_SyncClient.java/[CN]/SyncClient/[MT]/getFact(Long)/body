@@ -1,0 +1,20 @@
+{
+  JSONArray fact=new JSONArray();
+  Cursor cursor=AnkiDb.database.rawQuery("SELECT id, modelId, created, modified, tags, spaceUntil, lastCardId FROM facts WHERE id = " + id,null);
+  if (cursor.moveToFirst()) {
+    try {
+      fact.put(cursor.getLong(0));
+      fact.put(cursor.getLong(1));
+      fact.put(cursor.getDouble(2));
+      fact.put(cursor.getDouble(3));
+      fact.put(cursor.getString(4));
+      fact.put(cursor.getDouble(5));
+      fact.put(cursor.getLong(6));
+    }
+ catch (    JSONException e) {
+      Log.i(TAG,"JSONException = " + e.getMessage());
+    }
+  }
+  cursor.close();
+  return fact;
+}

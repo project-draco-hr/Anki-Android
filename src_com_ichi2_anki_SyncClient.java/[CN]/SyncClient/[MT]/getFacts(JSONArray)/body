@@ -1,0 +1,26 @@
+{
+  Log.i(TAG,"getFacts");
+  JSONObject facts=new JSONObject();
+  JSONArray factsArray=new JSONArray();
+  JSONArray fieldsArray=new JSONArray();
+  for (int i=0; i < ids.length(); i++) {
+    try {
+      Long id=ids.getLong(i);
+      factsArray.put(getFact(id));
+      putFields(fieldsArray,id);
+    }
+ catch (    JSONException e) {
+      Log.i(TAG,"JSONException = " + e.getMessage());
+    }
+  }
+  try {
+    facts.put("facts",factsArray);
+    facts.put("fields",fieldsArray);
+  }
+ catch (  JSONException e) {
+    Log.i(TAG,"JSONException = " + e.getMessage());
+  }
+  Log.i(TAG,"facts = ");
+  Utils.printJSONObject(facts,false);
+  return facts;
+}
