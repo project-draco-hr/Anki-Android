@@ -3,10 +3,10 @@
   Log.i(TAG,"updatePriorities - Updating priorities...");
   if (suspend != null) {
     long[] ids=tagIds(suspend);
-    AnkiDb.database.execSQL("UPDATE tags " + "SET priority = 0 " + "WHERE id in "+ ids2str(ids));
+    AnkiDb.database.execSQL("UPDATE tags " + "SET priority = 0 " + "WHERE id in "+ Utils.ids2str(ids));
   }
   String limit="";
-  if (cardIds.length <= 1000)   limit="and cardTags.cardId in " + ids2str(cardIds);
+  if (cardIds.length <= 1000)   limit="and cardTags.cardId in " + Utils.ids2str(cardIds);
   String query="SELECT cardTags.cardId, " + "CASE " + "WHEN min(tags.priority) = 0 THEN 0 "+ "WHEN max(tags.priority) > 2 THEN max(tags.priority) "+ "WHEN min(tags.priority) = 1 THEN 1 "+ "ELSE 2 END "+ "FROM cardTags,tags "+ "WHERE cardTags.tagId = tags.id " + limit + " "+ "GROUP BY cardTags.cardId";
   try {
     cursor=AnkiDb.database.rawQuery(query,null);
@@ -32,7 +32,7 @@
             j++;
           }
         }
-        AnkiDb.database.execSQL("UPDATE cards " + "SET priority = " + pri + extra+ " WHERE id in "+ ids2str(cs)+ " and "+ "priority != "+ pri+ " and "+ "priority >= -2");
+        AnkiDb.database.execSQL("UPDATE cards " + "SET priority = " + pri + extra+ " WHERE id in "+ Utils.ids2str(cs)+ " and "+ "priority != "+ pri+ " and "+ "priority >= -2");
       }
     }
   }
