@@ -1,0 +1,14 @@
+{
+  if ("models".equalsIgnoreCase(key)) {
+    return getModels(ids);
+  }
+ else   if ("facts".equalsIgnoreCase(key)) {
+    return getFacts(ids);
+  }
+ else   if ("cards".equalsIgnoreCase(key)) {
+    return getCards(ids);
+  }
+ else   if ("media".equalsIgnoreCase(key)) {
+  }
+  return null;
+}

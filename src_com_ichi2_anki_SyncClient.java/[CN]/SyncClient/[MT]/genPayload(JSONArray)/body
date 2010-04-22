@@ -5,6 +5,7 @@
     String key=keys[i].name();
     try {
       JSONArray diff=diffSummary((JSONObject)summaries.get(0),(JSONObject)summaries.get(1),key);
+      payload.put("added-" + key,getObjsFromKey((JSONArray)diff.get(0),key));
       payload.put("deleted-" + key,diff.get(1));
       payload.put("missing-" + key,diff.get(2));
     }

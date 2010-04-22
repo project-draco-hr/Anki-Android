@@ -1,0 +1,21 @@
+{
+  Log.i(TAG,"prepareSync = " + String.format(ENGLISH_LOCALE,"%f",deck.lastSync));
+  localTime=deck.modified;
+  remoteTime=server.modified();
+  Log.i(TAG,"localTime = " + localTime);
+  Log.i(TAG,"remoteTime = " + remoteTime);
+  if (localTime == remoteTime)   return false;
+  double l=deck.lastSync;
+  Log.i(TAG,"lastSync local = " + String.format(ENGLISH_LOCALE,"%f",l));
+  double r=server.lastSync();
+  Log.i(TAG,"lastSync remote = " + String.format(ENGLISH_LOCALE,"%f",r));
+  if (l != r) {
+    deck.lastSync=java.lang.Math.min(l,r) - 600;
+    Log.i(TAG,"deck.lastSync = min(l,r) - 600");
+  }
+ else {
+    deck.lastSync=l;
+  }
+  Log.i(TAG,"deck.lastSync = " + deck.lastSync);
+  return true;
+}

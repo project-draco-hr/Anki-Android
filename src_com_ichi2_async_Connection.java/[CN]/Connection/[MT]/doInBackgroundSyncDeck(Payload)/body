@@ -7,12 +7,18 @@
     server.connect();
     SyncClient client=new SyncClient(deck);
     client.setServer(server);
-    JSONArray sums=client.summaries();
-    if (client.needFullSync(sums)) {
-      Log.i(TAG,"Deck needs full sync");
+    if (client.prepareSync()) {
+      JSONArray sums=client.summaries();
+      if (client.needFullSync(sums)) {
+        Log.i(TAG,"Deck needs full sync");
+      }
+ else {
+        Log.i(TAG,"Deck does not need full sync");
+        JSONObject payload=client.genPayload(sums);
+      }
     }
  else {
-      Log.i(TAG,"Deck does not need full sync");
+      Log.i(TAG,"No changes.");
     }
   }
  catch (  Exception e) {

@@ -1,0 +1,12 @@
+{
+  double lastModified=0;
+  connect();
+  try {
+    JSONArray deckInfo=decks.getJSONArray(deckName);
+    lastModified=deckInfo.getDouble(0);
+  }
+ catch (  JSONException e) {
+    Log.i(TAG,"JSONException = " + e.getMessage());
+  }
+  return lastModified;
+}
