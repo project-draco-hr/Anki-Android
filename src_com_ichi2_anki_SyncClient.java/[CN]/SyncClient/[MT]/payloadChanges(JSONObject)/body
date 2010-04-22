@@ -1,0 +1,23 @@
+{
+  Object[] h=new Object[8];
+  try {
+    h[0]=payload.getJSONObject("added-facts").getJSONArray("facts").length();
+    h[1]=payload.getJSONArray("missing-facts").length();
+    h[2]=payload.getJSONArray("added-cards").length();
+    h[3]=payload.getJSONArray("missing-cards").length();
+    h[4]=payload.getJSONArray("added-models").length();
+    h[5]=payload.getJSONArray("missing-models").length();
+    if (localTime > remoteTime) {
+      h[6]="all";
+      h[7]=0;
+    }
+ else {
+      h[6]=0;
+      h[7]="all";
+    }
+  }
+ catch (  JSONException e) {
+    Log.i(TAG,"JSONException = " + e.getMessage());
+  }
+  return h;
+}

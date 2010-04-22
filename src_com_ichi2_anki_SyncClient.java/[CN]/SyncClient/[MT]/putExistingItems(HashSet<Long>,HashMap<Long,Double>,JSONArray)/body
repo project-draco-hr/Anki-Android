@@ -1,0 +1,15 @@
+{
+  for (int i=0; i < existingItems.length(); i++) {
+    try {
+      JSONArray itemModified=existingItems.getJSONArray(i);
+      Long idItem=itemModified.getLong(0);
+      Double modTimeItem=itemModified.getDouble(1);
+      dictExistingItems.put(idItem,modTimeItem);
+      ids.add(idItem);
+    }
+ catch (    JSONException e) {
+      Log.i(TAG,"JSONException = " + e.getMessage());
+      e.printStackTrace();
+    }
+  }
+}
