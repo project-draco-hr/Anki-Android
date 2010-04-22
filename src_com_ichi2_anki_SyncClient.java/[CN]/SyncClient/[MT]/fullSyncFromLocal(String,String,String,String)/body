@@ -64,9 +64,9 @@
     Log.i(TAG,"Finished!");
   }
  catch (  MalformedURLException e) {
-    e.printStackTrace();
+    Log.i(TAG,"MalformedURLException = " + e.getMessage());
   }
 catch (  IOException e) {
-    e.printStackTrace();
+    Log.i(TAG,"IOException = " + e.getMessage());
   }
 }

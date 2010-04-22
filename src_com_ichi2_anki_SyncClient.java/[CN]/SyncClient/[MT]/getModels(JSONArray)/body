@@ -1,0 +1,12 @@
+{
+  JSONArray models=new JSONArray();
+  for (int i=0; i < ids.length(); i++) {
+    try {
+      models.put(bundleModel(ids.getLong(i)));
+    }
+ catch (    JSONException e) {
+      Log.i(TAG,"JSONException = " + e.getMessage());
+    }
+  }
+  return models;
+}

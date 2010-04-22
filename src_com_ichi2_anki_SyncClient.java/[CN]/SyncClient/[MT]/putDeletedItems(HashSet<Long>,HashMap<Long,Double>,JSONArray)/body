@@ -10,7 +10,7 @@
       ids.add(idItem);
     }
  catch (    JSONException e) {
-      e.printStackTrace();
+      Log.i(TAG,"JSONException = " + e.getMessage());
     }
   }
   return deletedIds;
