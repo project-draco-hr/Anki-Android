@@ -1,0 +1,15 @@
+{
+  Log.i(TAG,"deleteModel = " + id);
+  Cursor cursor=AnkiDb.database.rawQuery("SELECT * FROM models WHERE id = " + id,null);
+  if (cursor.moveToFirst()) {
+    ArrayList<String> cardsToDelete=AnkiDb.queryColumn(String.class,"SELECT cards.id FROM cards, facts WHERE facts.modelId = " + id + " AND facts.id = cards.factId",0);
+    deleteCards(cardsToDelete);
+    AnkiDb.database.execSQL("DELETE FROM models WHERE id = " + id);
+    ContentValues values=new ContentValues();
+    values.put("modelId",id);
+    values.put("deletedTime",System.currentTimeMillis() / 1000.0);
+    AnkiDb.database.insert("modelsDeleted",null,values);
+    flushMod();
+  }
+  cursor.close();
+}

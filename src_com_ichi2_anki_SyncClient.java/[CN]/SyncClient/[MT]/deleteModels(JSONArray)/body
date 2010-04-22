@@ -1,0 +1,12 @@
+{
+  Log.i(TAG,"deleteModels");
+  int len=ids.length();
+  for (int i=0; i < len; i++) {
+    try {
+      deck.deleteModel(ids.getString(i));
+    }
+ catch (    JSONException e) {
+      Log.i(TAG,"JSONException = " + e.getMessage());
+    }
+  }
+}

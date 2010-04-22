@@ -23,7 +23,7 @@
     summary.put("delmedia",delmedia);
   }
  catch (  JSONException e) {
-    e.printStackTrace();
+    Log.i(TAG,"JSONException = " + e.getMessage());
   }
   Log.i(TAG,"Summary Local = ");
   Utils.printJSONObject(summary,false);
