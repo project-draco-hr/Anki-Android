@@ -9,6 +9,7 @@
     return getCards(ids);
   }
  else   if ("media".equalsIgnoreCase(key)) {
+    return getMedia(ids);
   }
   return null;
 }
