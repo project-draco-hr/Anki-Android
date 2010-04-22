@@ -15,7 +15,7 @@
     Log.i(TAG,"Entity's response = " + entityResponse.toString());
     InputStream content=entityResponse.getContent();
     Log.i(TAG,"Content = " + content.toString());
-    Log.i(TAG,"String content = " + StringUtils.convertStreamToString(new InflaterInputStream(content)));
+    Log.i(TAG,"String content = " + Utils.convertStreamToString(new InflaterInputStream(content)));
   }
  catch (  UnsupportedEncodingException e) {
     e.printStackTrace();
