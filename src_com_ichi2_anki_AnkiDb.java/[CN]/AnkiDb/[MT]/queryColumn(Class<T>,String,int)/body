@@ -12,7 +12,6 @@
   }
  catch (  Exception e) {
     Log.e(TAG,"queryColumn: Got Exception: " + e.getMessage());
-    return null;
   }
  finally {
     if (cursor != null)     cursor.close();
