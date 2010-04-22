@@ -5,6 +5,8 @@ case TASK_TYPE_GET_SHARED_DECKS:
     return doInBackgroundGetSharedDecks(data);
 case TASK_TYPE_DOWNLOAD_SHARED_DECK:
   return doInBackgroundDownloadSharedDeck(data);
+case TASK_TYPE_SYNC_DECK:
+return doInBackgroundSyncDeck(data);
 default :
 return null;
 }

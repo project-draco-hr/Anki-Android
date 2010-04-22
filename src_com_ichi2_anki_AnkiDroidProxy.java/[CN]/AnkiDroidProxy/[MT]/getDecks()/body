@@ -1,6 +1,6 @@
 {
   Log.i(TAG,"user = " + username + ", password = "+ password);
-  JSONArray decks=new JSONArray();
+  String decksServer="{}";
   try {
     String data="p=" + URLEncoder.encode(password,"UTF-8") + "&client=ankiqt-0.9.9.8.6&u="+ URLEncoder.encode(username,"UTF-8")+ "&d=None&sources="+ URLEncoder.encode("[]","UTF-8")+ "&libanki=0.9.9.8.6&pversion=5";
     Log.i(TAG,"Data json = " + data);
@@ -16,7 +16,7 @@
     Log.i(TAG,"Entity's response = " + entityResponse.toString());
     InputStream content=entityResponse.getContent();
     Log.i(TAG,"Content = " + content.toString());
-    decks=new JSONArray(Utils.convertStreamToString(new InflaterInputStream(content)));
+    decksServer=Utils.convertStreamToString(new InflaterInputStream(content));
     Log.i(TAG,"String content = " + decks);
   }
  catch (  UnsupportedEncodingException e) {
@@ -28,9 +28,5 @@ catch (  ClientProtocolException e) {
 catch (  IOException e) {
     Log.i(TAG,"IOException = " + e.getMessage());
   }
-catch (  JSONException e) {
-    Log.i(TAG,"JSONException = " + e.getMessage());
-    e.printStackTrace();
-  }
-  return decks;
+  return decksServer;
 }

@@ -1,0 +1,25 @@
+{
+  try {
+    String username=(String)data.data[0];
+    String password=(String)data.data[1];
+    Deck deck=(Deck)data.data[2];
+    AnkiDroidProxy server=new AnkiDroidProxy(username,password);
+    server.connect();
+    SyncClient client=new SyncClient(deck);
+    client.setServer(server);
+    JSONArray sums=client.summaries();
+    if (client.needFullSync(sums)) {
+      Log.i(TAG,"Deck needs full sync");
+    }
+ else {
+      Log.i(TAG,"Deck does not need full sync");
+    }
+  }
+ catch (  Exception e) {
+    data.success=false;
+    data.exception=e;
+    Log.e(TAG,"Error synchronizing deck = " + e.getMessage());
+    e.printStackTrace();
+  }
+  return data;
+}

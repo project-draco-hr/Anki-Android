@@ -1,0 +1,17 @@
+{
+  if (decks == null) {
+    String decksString=getDecks();
+    try {
+      JSONObject jsonDecks=new JSONObject(decksString);
+      if ("OK".equalsIgnoreCase(jsonDecks.getString("status"))) {
+        decks=jsonDecks.getJSONObject("decks");
+        Log.i(TAG,"Server decks = " + decks.toString());
+        timestamp=jsonDecks.getDouble("timestamp");
+        Log.i(TAG,"Server timestamp = " + timestamp);
+      }
+    }
+ catch (    JSONException e) {
+      Log.i(TAG,"JSONException = " + e.getMessage());
+    }
+  }
+}
