@@ -16,6 +16,7 @@
   }
   if (localTime > remoteTime) {
     try {
+      payload.put("deck",bundleDeck());
       payload.put("stats",bundleStats());
       payload.put("history",bundleHistory());
       payload.put("sources",bundleSources());
