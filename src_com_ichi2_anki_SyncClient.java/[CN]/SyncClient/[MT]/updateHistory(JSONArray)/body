@@ -1,2 +1,27 @@
 {
+  String sql="INSERT OR IGNORE INTO reviewHistory (cardId, time, lastInterval, nextInterval, ease, delay, lastFactor, nextFactor, reps, thinkingTime, yesCount, noCount) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+  SQLiteStatement statement=AnkiDb.database.compileStatement(sql);
+  int len=history.length();
+  for (int i=0; i < len; i++) {
+    try {
+      JSONArray h=history.getJSONArray(i);
+      statement.bindLong(1,h.getLong(0));
+      statement.bindDouble(2,h.getDouble(1));
+      statement.bindDouble(3,h.getDouble(2));
+      statement.bindDouble(4,h.getDouble(3));
+      statement.bindString(5,h.getString(4));
+      statement.bindDouble(6,h.getDouble(5));
+      statement.bindDouble(7,h.getDouble(6));
+      statement.bindDouble(8,h.getDouble(7));
+      statement.bindDouble(9,h.getDouble(8));
+      statement.bindDouble(10,h.getDouble(9));
+      statement.bindDouble(11,h.getDouble(10));
+      statement.bindDouble(12,h.getDouble(11));
+      statement.execute();
+    }
+ catch (    JSONException e) {
+      Log.i(TAG,"JSONException = " + e.getMessage());
+    }
+  }
+  statement.close();
 }
