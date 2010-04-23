@@ -1,2 +1,65 @@
 {
+  int len=cards.length();
+  if (len > 0) {
+    ArrayList<String> ids=new ArrayList<String>();
+    for (int i=0; i < len; i++) {
+      try {
+        ids.add(cards.getJSONArray(i).getString(0));
+      }
+ catch (      JSONException e) {
+        Log.i(TAG,"JSONException = " + e.getMessage());
+      }
+    }
+    String idsString=Utils.ids2str(ids);
+    deck.cardCount+=len - AnkiDb.queryScalar("SELECT COUNT(*) FROM cards WHERE id IN " + idsString);
+    String sql="INSERT OR REPLACE INTO cards (id, factId, cardModelId, created, modified, tags, ordinal, priority, interval, lastInterval, due, lastDue, " + "factor, firstAnswered, reps, successive, averageTime, reviewTime, youngEase0, youngEase1, youngEase2, youngEase3, youngEase4, " + "matureEase0, matureEase1, matureEase2, matureEase3, matureEase4, yesCount, noCount, question, answer, lastFactor, spaceUntil, "+ "type, combinedDue, relativeDelay, isDue) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, 0, 0)";
+    SQLiteStatement statement=AnkiDb.database.compileStatement(sql);
+    for (int i=0; i < len; i++) {
+      try {
+        JSONArray card=cards.getJSONArray(i);
+        statement.bindLong(1,card.getLong(0));
+        statement.bindLong(2,card.getLong(1));
+        statement.bindLong(3,card.getLong(2));
+        statement.bindDouble(4,card.getDouble(3));
+        statement.bindDouble(5,card.getDouble(4));
+        statement.bindString(6,card.getString(5));
+        statement.bindString(7,card.getString(6));
+        statement.bindString(8,card.getString(7));
+        statement.bindDouble(9,card.getDouble(8));
+        statement.bindDouble(10,card.getDouble(9));
+        statement.bindDouble(11,card.getDouble(10));
+        statement.bindDouble(12,card.getDouble(11));
+        statement.bindDouble(13,card.getDouble(12));
+        statement.bindDouble(14,card.getDouble(13));
+        statement.bindString(15,card.getString(14));
+        statement.bindString(16,card.getString(15));
+        statement.bindDouble(17,card.getDouble(16));
+        statement.bindDouble(18,card.getDouble(17));
+        statement.bindString(19,card.getString(18));
+        statement.bindString(20,card.getString(19));
+        statement.bindString(21,card.getString(20));
+        statement.bindString(22,card.getString(21));
+        statement.bindString(23,card.getString(22));
+        statement.bindString(24,card.getString(23));
+        statement.bindString(25,card.getString(24));
+        statement.bindString(26,card.getString(25));
+        statement.bindString(27,card.getString(26));
+        statement.bindString(28,card.getString(27));
+        statement.bindString(29,card.getString(28));
+        statement.bindString(30,card.getString(29));
+        statement.bindString(31,card.getString(30));
+        statement.bindString(32,card.getString(31));
+        statement.bindDouble(33,card.getDouble(32));
+        statement.bindDouble(34,card.getDouble(33));
+        statement.bindString(35,card.getString(34));
+        statement.bindString(36,card.getString(35));
+        statement.execute();
+      }
+ catch (      JSONException e) {
+        Log.i(TAG,"JSONException = " + e.getMessage());
+      }
+    }
+    statement.close();
+    AnkiDb.database.execSQL("DELETE FROM cardsDeleted WHERE cardId IN " + idsString);
+  }
 }
