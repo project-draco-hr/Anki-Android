@@ -1,2 +1,55 @@
 {
+  try {
+    JSONArray meta=deckPayload.getJSONArray("meta");
+    String sqlMeta="INSERT OR REPLACE INTO deckVars (key, value) VALUES(?,?)";
+    SQLiteStatement statement=AnkiDb.database.compileStatement(sqlMeta);
+    int lenMeta=meta.length();
+    for (int i=0; i < lenMeta; i++) {
+      JSONArray deckVar=meta.getJSONArray(i);
+      statement.bindString(1,deckVar.getString(0));
+      statement.bindString(2,deckVar.getString(1));
+      statement.execute();
+    }
+    statement.close();
+    deck.averageFactor=deckPayload.getDouble("averageFactor");
+    deck.cardCount=deckPayload.getInt("cardCount");
+    deck.collapseTime=deckPayload.getDouble("collapseTime");
+    deck.created=deckPayload.getDouble("created");
+    deck.currentModelId=deckPayload.getLong("currentModelId");
+    deck.delay0=deckPayload.getDouble("delay0");
+    deck.delay1=deckPayload.getDouble("delay1");
+    deck.delay2=deckPayload.getDouble("delay2");
+    deck.description=deckPayload.getString("description");
+    deck.easyIntervalMax=deckPayload.getDouble("easyIntervalMax");
+    deck.easyIntervalMin=deckPayload.getDouble("easyIntervalMin");
+    deck.factCount=deckPayload.getInt("factCount");
+    deck.failedCardMax=deckPayload.getInt("failedCardMax");
+    deck.failedNowCount=deckPayload.getInt("failedNowCount");
+    deck.failedSoonCount=deckPayload.getInt("failedSoonCount");
+    deck.hardIntervalMax=deckPayload.getDouble("hardIntervalMax");
+    deck.hardIntervalMin=deckPayload.getDouble("hardIntervalMin");
+    deck.highPriority=deckPayload.getString("highPriority");
+    deck.id=deckPayload.getLong("id");
+    deck.lastLoaded=deckPayload.getDouble("lastLoaded");
+    deck.lastSync=deckPayload.getDouble("modified");
+    deck.lowPriority=deckPayload.getString("lowPriority");
+    deck.medPriority=deckPayload.getString("medPriority");
+    deck.midIntervalMax=deckPayload.getDouble("midIntervalMax");
+    deck.midIntervalMin=deckPayload.getDouble("midIntervalMin");
+    deck.modified=deckPayload.getDouble("modified");
+    deck.newCardModulus=deckPayload.getInt("newCardModulus");
+    deck.newCount=deckPayload.getInt("newCount");
+    deck.newCountToday=deckPayload.getInt("newCountToday");
+    deck.newEarly=deckPayload.getBoolean("newEarly");
+    deck.revCount=deckPayload.getInt("revCount");
+    deck.reviewEarly=deckPayload.getBoolean("reviewEarly");
+    deck.suspended=deckPayload.getString("suspended");
+    deck.undoEnabled=deckPayload.getBoolean("undoEnabled");
+    deck.utcOffset=deckPayload.getDouble("utcOffset");
+    deck.commitToDB();
+    deck.updateDynamicIndices();
+  }
+ catch (  JSONException e) {
+    Log.i(TAG,"JSONException = " + e.getMessage());
+  }
 }
