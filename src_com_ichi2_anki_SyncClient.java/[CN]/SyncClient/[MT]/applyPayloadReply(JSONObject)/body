@@ -1,0 +1,34 @@
+{
+  Log.i(TAG,"applyPayloadReply");
+  Keys[] keys=Keys.values();
+  for (int i=0; i < keys.length; i++) {
+    String key=keys[i].name();
+    updateObjsFromKey(payloadReply,key);
+  }
+  try {
+    if (!payloadReply.isNull("deck")) {
+      updateDeck(payloadReply.getJSONObject("deck"));
+      updateStats(payloadReply.getJSONObject("stats"));
+      updateHistory(payloadReply.getJSONArray("history"));
+      if (!payloadReply.isNull("sources")) {
+        updateSources(payloadReply.getJSONArray("sources"));
+      }
+    }
+  }
+ catch (  JSONException e) {
+    Log.i(TAG,"JSONException = " + e.getMessage());
+  }
+  deck.commitToDB();
+  try {
+    JSONArray cards=payloadReply.getJSONArray("added-cards");
+    int len=cards.length();
+    long[] cardIds=new long[len];
+    for (int i=0; i < len; i++) {
+      cardIds[i]=cards.getJSONArray(i).getLong(0);
+    }
+    deck.rebuildCounts(false);
+  }
+ catch (  JSONException e) {
+    Log.i(TAG,"JSONException = " + e.getMessage());
+  }
+}
