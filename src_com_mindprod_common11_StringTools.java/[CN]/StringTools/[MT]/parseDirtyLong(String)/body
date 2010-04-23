@@ -1,0 +1,23 @@
+{
+  numStr=numStr.trim();
+  StringBuffer b=new StringBuffer(numStr.length());
+  boolean negative=false;
+  for (int i=0, n=numStr.length(); i < n; i++) {
+    char c=numStr.charAt(i);
+    if (c == '-') {
+      negative=true;
+    }
+ else     if ('0' <= c && c <= '9') {
+      b.append(c);
+    }
+  }
+  numStr=b.toString();
+  if (numStr.length() == 0) {
+    return 0;
+  }
+  long num=Long.parseLong(numStr);
+  if (negative) {
+    num=-num;
+  }
+  return num;
+}

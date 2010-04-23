@@ -1,0 +1,10 @@
+{
+  if (c == ' ' && count <= SOMESPACES.length()) {
+    return SOMESPACES.substring(0,count);
+  }
+  char[] s=new char[count];
+  for (int i=0; i < count; i++) {
+    s[i]=c;
+  }
+  return new String(s).intern();
+}

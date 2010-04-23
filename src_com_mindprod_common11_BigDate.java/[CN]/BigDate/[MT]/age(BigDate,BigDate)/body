@@ -1,0 +1,42 @@
+{
+  if (birthDate.getOrdinal() >= asOf.getOrdinal()) {
+    if (birthDate.getOrdinal() == asOf.getOrdinal()) {
+      return new int[]{0,0,0};
+    }
+ else {
+      final BigDate temp=asOf;
+      asOf=birthDate;
+      birthDate=temp;
+    }
+  }
+  int birthYYYY=birthDate.getYYYY();
+  int birthMM=birthDate.getMM();
+  int birthDD=birthDate.getDD();
+  int asOfYYYY=asOf.getYYYY();
+  int asOfMM=asOf.getMM();
+  int asOfDD=asOf.getDD();
+  int ageInYears=asOfYYYY - birthYYYY;
+  int ageInMonths=asOfMM - birthMM;
+  int ageInDays=asOfDD - birthDD;
+  if (ageInDays < 0) {
+    ageInDays+=BigDate.daysInMonth(birthMM,birthYYYY);
+    ageInMonths--;
+  }
+  if (ageInMonths < 0) {
+    ageInMonths+=12;
+    ageInYears--;
+  }
+  if (birthYYYY < 0 && asOfYYYY > 0) {
+    ageInYears--;
+  }
+  if (ageInYears < 0) {
+    ageInYears=0;
+    ageInMonths=0;
+    ageInDays=0;
+  }
+  int[] result=new int[3];
+  result[0]=ageInYears;
+  result[1]=ageInMonths;
+  result[2]=ageInDays;
+  return result;
+}

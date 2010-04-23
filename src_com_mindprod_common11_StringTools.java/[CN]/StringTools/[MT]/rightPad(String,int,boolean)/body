@@ -1,0 +1,14 @@
+{
+  int grow=newLen - s.length();
+  if (grow <= 0) {
+    if (chop) {
+      return s.substring(0,newLen);
+    }
+ else {
+      return s;
+    }
+  }
+ else {
+    return s + spaces(grow);
+  }
+}

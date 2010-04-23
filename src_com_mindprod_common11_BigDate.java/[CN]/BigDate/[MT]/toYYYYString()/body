@@ -1,0 +1,16 @@
+{
+  if (ordinal == NULL_ORDINAL) {
+    return "";
+  }
+  StringBuffer sb=new StringBuffer(7);
+  sb.append(Integer.toString(Math.abs(yyyy)));
+  if (yyyy < 1000) {
+    if (yyyy < 0) {
+      sb.append(" BC");
+    }
+ else {
+      sb.append(" AD");
+    }
+  }
+  return sb.toString();
+}

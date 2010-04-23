@@ -1,0 +1,149 @@
+{
+  try {
+    final StringBuffer yearSB=new StringBuffer(6);
+    final int yyyy_mm_dd_length=yyyy_mm_dd.length();
+    String mm_dd="";
+    extractYearLoop:     for (int i=0; i < yyyy_mm_dd_length; i++) {
+      char c=yyyy_mm_dd.charAt(i);
+switch (c) {
+case '-':
+case '.':
+case '/':
+case '_':
+        mm_dd=yyyy_mm_dd.substring(i + 1);
+      break extractYearLoop;
+case '0':
+case '1':
+case '2':
+case '3':
+case '4':
+case '5':
+case '6':
+case '7':
+case '8':
+case '9':
+    yearSB.append(c);
+  break;
+case ' ':
+case ',':
+break;
+default :
+return null;
+}
+}
+if (!(1 <= yearSB.length() && yearSB.length() <= 6)) {
+return null;
+}
+final int yyyy=Integer.parseInt(yearSB.toString());
+final StringBuffer monthSB=new StringBuffer(2);
+final int mm_dd_length=mm_dd.length();
+String dd_ad="";
+extractMonthLoop: for (int i=0; i < mm_dd_length; i++) {
+char c=mm_dd.charAt(i);
+switch (c) {
+case '-':
+case '.':
+case '/':
+case '_':
+dd_ad=mm_dd.substring(i + 1);
+break extractMonthLoop;
+case '0':
+case '1':
+case '2':
+case '3':
+case '4':
+case '5':
+case '6':
+case '7':
+case '8':
+case '9':
+monthSB.append(c);
+break;
+case ' ':
+case ',':
+break;
+default :
+return null;
+}
+}
+if (!(1 <= monthSB.length() && monthSB.length() <= 2)) {
+return null;
+}
+final int mm=Integer.parseInt(monthSB.toString());
+final StringBuffer daySB=new StringBuffer(2);
+final int dd_ad_length=dd_ad.length();
+String ad="";
+extractDayLoop: for (int i=0; i < dd_ad_length; i++) {
+char c=dd_ad.charAt(i);
+switch (c) {
+case 'a':
+case 'A':
+case 'b':
+case 'B':
+ad=dd_ad.substring(i);
+break extractDayLoop;
+case '0':
+case '1':
+case '2':
+case '3':
+case '4':
+case '5':
+case '6':
+case '7':
+case '8':
+case '9':
+daySB.append(c);
+break;
+case ' ':
+case ',':
+break;
+default :
+return null;
+}
+}
+if (!(1 <= daySB.length() && daySB.length() <= 2)) {
+return null;
+}
+final int dd=Integer.parseInt(daySB.toString());
+if (!(1 <= dd && dd <= 31)) {
+return null;
+}
+final StringBuffer adSB=new StringBuffer(2);
+final int ad_length=ad.length();
+for (int i=0; i < ad_length; i++) {
+char c=ad.charAt(i);
+switch (c) {
+case 'A':
+case 'B':
+case 'C':
+case 'D':
+adSB.append(c);
+break;
+case 'a':
+case 'b':
+case 'c':
+case 'd':
+adSB.append(Character.toUpperCase(c));
+break;
+case ' ':
+case ',':
+break;
+default :
+return null;
+}
+}
+final String adString=adSB.toString();
+if (adString.length() == 0 || adString.equals("AD")) {
+return new int[]{yyyy,mm,dd};
+}
+ else if (adString.equals("BC")) {
+return new int[]{-yyyy,mm,dd};
+}
+ else {
+return null;
+}
+}
+ catch (NumberFormatException e) {
+return null;
+}
+}

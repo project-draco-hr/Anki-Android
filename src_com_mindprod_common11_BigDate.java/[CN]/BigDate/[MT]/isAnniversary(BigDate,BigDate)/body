@@ -1,0 +1,16 @@
+{
+  if (asOf.compareTo(birthDate) < 0) {
+    return false;
+  }
+  int asOfMM=asOf.getMM();
+  int birthMM=birthDate.getMM();
+  if (birthMM != asOfMM) {
+    return false;
+  }
+  int birthDD=birthDate.getDD();
+  int asOfDD=asOf.getDD();
+  if (birthDD == asOfDD) {
+    return true;
+  }
+  return birthDD == 29 && asOfDD == 28 && birthMM == 2 && !isLeap(asOf.getYYYY());
+}

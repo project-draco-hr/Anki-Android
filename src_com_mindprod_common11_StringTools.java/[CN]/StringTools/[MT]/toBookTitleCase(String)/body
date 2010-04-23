@@ -1,0 +1,26 @@
+{
+  char[] ca=s.toCharArray();
+  boolean changed=false;
+  boolean capitalise=true;
+  boolean firstCap=true;
+  for (int i=0; i < ca.length; i++) {
+    char oldLetter=ca[i];
+    if (oldLetter != '\'' && (oldLetter <= '/' || ':' <= oldLetter && oldLetter <= '?' || ']' <= oldLetter && oldLetter <= '`')) {
+      capitalise=true;
+    }
+ else {
+      if (capitalise && !firstCap) {
+        capitalise=!(s.substring(i,Math.min(i + 4,s.length())).equalsIgnoreCase("the ") || s.substring(i,Math.min(i + 3,s.length())).equalsIgnoreCase("of ") || s.substring(i,Math.min(i + 3,s.length())).equalsIgnoreCase("to "));
+      }
+      char newLetter=capitalise ? Character.toUpperCase(oldLetter) : Character.toLowerCase(oldLetter);
+      ca[i]=newLetter;
+      changed|=(newLetter != oldLetter);
+      capitalise=false;
+      firstCap=false;
+    }
+  }
+  if (changed) {
+    s=new String(ca);
+  }
+  return s;
+}

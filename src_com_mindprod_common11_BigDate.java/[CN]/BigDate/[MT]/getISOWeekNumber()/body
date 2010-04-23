@@ -1,0 +1,22 @@
+{
+  if (ordinal < Jan_01_Leap100RuleYear) {
+    return 0;
+  }
+  int jan04Ordinal=jan01OfYear(yyyy) + 3;
+  int jan04DayOfWeek=(jan04Ordinal + MondayIsZeroAdjustment - MIN_ORDINAL) % 7;
+  int week1StartOrdinal=jan04Ordinal - jan04DayOfWeek;
+  if (ordinal < week1StartOrdinal) {
+    jan04Ordinal=jan01OfYear(yyyy - 1) + 3;
+    jan04DayOfWeek=(jan04Ordinal + MondayIsZeroAdjustment - MIN_ORDINAL) % 7;
+    week1StartOrdinal=jan04Ordinal - jan04DayOfWeek;
+  }
+ else   if (mm == 12) {
+    jan04Ordinal=jan01OfYear(yyyy + 1) + 3;
+    jan04DayOfWeek=(jan04Ordinal + MondayIsZeroAdjustment - MIN_ORDINAL) % 7;
+    int week1StartNextOrdinal=jan04Ordinal - jan04DayOfWeek;
+    if (ordinal >= week1StartNextOrdinal) {
+      week1StartOrdinal=week1StartNextOrdinal;
+    }
+  }
+  return ((ordinal - week1StartOrdinal) / 7) + 1;
+}

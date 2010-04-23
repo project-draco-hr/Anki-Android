@@ -1,0 +1,40 @@
+{
+  if (ordinal == NULL_ORDINAL) {
+    yyyy=0;
+    mm=0;
+    dd=0;
+    return;
+  }
+  if (ordinal > MAX_ORDINAL) {
+    throw new IllegalArgumentException("invalid ordinal date: " + ordinal);
+  }
+ else   if (ordinal >= GC_firstOrdinal) {
+    yyyy=Leap400RuleYYYY + flooredMulDiv(ordinal - Jan_01_Leap400RuleYear,10000,3652425);
+  }
+ else   if (ordinal >= Jan_01_0001) {
+    yyyy=4 + flooredMulDiv(ordinal - Jan_01_0004,100,36525);
+  }
+ else   if (ordinal >= MIN_ORDINAL) {
+    yyyy=-1 + flooredMulDiv(ordinal - Jan_01_0001BC,100,36525);
+  }
+ else {
+    throw new IllegalArgumentException("invalid ordinal date: " + ordinal);
+  }
+  int aim=ordinal + 1;
+  if (GC_firstOrdinal <= ordinal && ordinal <= GC_firstDec_31) {
+    aim+=missingDays;
+  }
+  int ddd=aim - jan01OfYear(yyyy);
+  while (ddd <= 0) {
+    yyyy--;
+    ddd=aim - jan01OfYear(yyyy);
+  }
+  boolean leap=isLeap(yyyy);
+  while (ddd > (leap ? 366 : 365)) {
+    yyyy++;
+    ddd=aim - jan01OfYear(yyyy);
+    leap=isLeap(yyyy);
+  }
+  mm=dddToMM(ddd,leap);
+  dd=ddd - daysInYearPriorToMonth(mm,leap);
+}

@@ -1,0 +1,13 @@
+{
+  final char[] ca=s.toCharArray();
+  final int length=ca.length;
+  boolean changed=false;
+  for (int i=0; i < length; i++) {
+    final char c=ca[i];
+    if ('A' <= c && c <= 'Z') {
+      ca[i]=(char)(c + ('a' - 'A'));
+      changed=true;
+    }
+  }
+  return changed ? new String(ca) : s;
+}

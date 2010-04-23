@@ -1,0 +1,7 @@
+{
+  if (ordinal == NULL_ORDINAL) {
+    return NULL_TIMESTAMP;
+  }
+  int offsetInMillis=timeZone.getOffset(ordinal >= Jan_01_0001 ? 1 : 0,yyyy,mm - 1,dd,getCalendarDayOfWeek(),0);
+  return ordinal * 86400000L - offsetInMillis;
+}

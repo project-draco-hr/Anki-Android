@@ -1,0 +1,7 @@
+{
+  final int[] ymd=relaxedParse(yyyy_mm_dd);
+  if (ymd == null) {
+    throw new IllegalArgumentException("unparseable date: " + yyyy_mm_dd);
+  }
+  set(ymd[0],ymd[1],ymd[2],CHECK);
+}

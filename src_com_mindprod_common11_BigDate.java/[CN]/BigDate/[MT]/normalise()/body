@@ -1,0 +1,30 @@
+{
+  if (isValid(yyyy,mm,dd)) {
+    return;
+  }
+ else   if (mm > 12) {
+    yyyy+=(mm - 1) / 12;
+    mm=((mm - 1) % 12) + 1;
+    if (isValid(yyyy,mm,dd)) {
+      return;
+    }
+  }
+ else   if (mm <= 0) {
+    yyyy-=-mm / 12 + 1;
+    mm=12 - (-mm % 12);
+    if (isValid(yyyy,mm,dd)) {
+      return;
+    }
+  }
+  if (isValid(yyyy,mm,1)) {
+    int olddd=dd;
+    dd=1;
+    toOrdinal();
+    ordinal+=olddd - 1;
+    toGregorian();
+    if (isValid(yyyy,mm,dd)) {
+      return;
+    }
+  }
+  throw new IllegalArgumentException("date cannot be normalised: " + yyyy + "/"+ mm+ "/"+ dd);
+}

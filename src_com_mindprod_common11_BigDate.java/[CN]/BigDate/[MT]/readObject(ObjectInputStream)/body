@@ -1,0 +1,9 @@
+{
+  s.defaultReadObject();
+  try {
+    toGregorian();
+  }
+ catch (  IllegalArgumentException e) {
+    throw new java.io.IOException("bad serialized BigDate");
+  }
+}

@@ -31,11 +31,11 @@
         }
       }
  catch (      JSONException e) {
-        e.printStackTrace();
+        Log.i(TAG,"JSONException = " + e.getMessage());
       }
     }
   }
  catch (  IOException e1) {
-    e1.printStackTrace();
+    Log.i(TAG,"IOException = " + e1.getMessage());
   }
 }

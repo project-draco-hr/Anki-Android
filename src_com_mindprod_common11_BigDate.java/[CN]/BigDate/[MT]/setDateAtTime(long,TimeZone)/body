@@ -1,0 +1,5 @@
+{
+  setOrdinal((int)(utcTimestamp / 86400000L));
+  int offsetInMillis=timeZone.getOffset(getOrdinal() >= Jan_01_0001 ? 1 : 0,getYYYY(),getMM() - 1,getDD(),getCalendarDayOfWeek(),(int)(utcTimestamp % 86400000L));
+  setOrdinal((int)((utcTimestamp + offsetInMillis) / 86400000L));
+}

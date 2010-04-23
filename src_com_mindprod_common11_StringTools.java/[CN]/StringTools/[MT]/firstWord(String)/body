@@ -1,0 +1,5 @@
+{
+  s=s.trim();
+  final int place=s.indexOf(' ');
+  return (place < 0) ? s : s.substring(0,place);
+}

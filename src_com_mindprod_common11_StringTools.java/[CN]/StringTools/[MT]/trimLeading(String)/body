@@ -1,0 +1,11 @@
+{
+  if (s == null) {
+    return null;
+  }
+  int len=s.length();
+  int st=0;
+  while ((st < len) && (s.charAt(st) <= ' ')) {
+    st++;
+  }
+  return (st > 0) ? s.substring(st,len) : s;
+}

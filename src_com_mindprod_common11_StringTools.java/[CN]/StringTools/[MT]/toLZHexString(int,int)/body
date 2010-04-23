@@ -1,0 +1,12 @@
+{
+  final String s=Integer.toHexString(value);
+  if (s.length() > len) {
+    return s.substring(s.length() - len);
+  }
+ else   if (s.length() < len) {
+    return "0000000".substring(0,len - s.length()) + s;
+  }
+ else {
+    return s;
+  }
+}

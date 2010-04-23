@@ -1,0 +1,9 @@
+{
+  long result=(long)multiplicand * (long)multiplier;
+  if (result >= 0) {
+    return (int)(result / divisor);
+  }
+ else {
+    return (int)((result - divisor + 1) / divisor);
+  }
+}
