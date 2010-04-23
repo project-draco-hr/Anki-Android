@@ -1,7 +1,7 @@
 {
   Log.i(TAG,"user = " + username + ", password = "+ password);
   try {
-    String data="p=" + URLEncoder.encode(password,"UTF-8") + "&u="+ URLEncoder.encode(username,"UTF-8")+ "&d=None&name="+ URLEncoder.encode("test","UTF-8");
+    String data="p=" + URLEncoder.encode(password,"UTF-8") + "&u="+ URLEncoder.encode(username,"UTF-8")+ "&d=None&name="+ URLEncoder.encode(name,"UTF-8");
     Log.i(TAG,"Data json = " + data);
     HttpPost httpPost=new HttpPost(SYNC_URL + "createDeck");
     StringEntity entity=new StringEntity(data);

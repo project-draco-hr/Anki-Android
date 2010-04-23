@@ -1,0 +1,11 @@
+{
+  deck.lastSync=System.currentTimeMillis() / 1000.0;
+  deck.commitToDB();
+  deck.closeDeck();
+  if (localTime > remoteTime) {
+    return "fromLocal";
+  }
+ else {
+    return "fromServer";
+  }
+}
