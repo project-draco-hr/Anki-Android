@@ -1,0 +1,12 @@
+{
+  Log.i(TAG,"DeckPreferences - CacheValues");
+  String syncName=String.valueOf(AnkiDroidApp.deck().getSyncName());
+  if (!"".equalsIgnoreCase(syncName) && !"null".equalsIgnoreCase(syncName)) {
+    values.put("isSyncOn","true");
+    values.put("syncName",String.valueOf(AnkiDroidApp.deck().getSyncName()));
+  }
+ else {
+    values.put("isSyncOn","false");
+    values.put("syncName","");
+  }
+}

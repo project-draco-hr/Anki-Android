@@ -1,0 +1,18 @@
+{
+  Log.d(TAG,"DeckPreferences - commit() changes back to database");
+  for (  Entry<String,Object> entry : update.valueSet()) {
+    if (entry.getKey().equals("syncName")) {
+      AnkiDroidApp.deck().setSyncName(entry.getValue().toString());
+    }
+ else     if (entry.getKey().equals("isSyncOn")) {
+      if ("false".equalsIgnoreCase(entry.getValue().toString())) {
+        AnkiDroidApp.deck().setSyncName("");
+      }
+    }
+  }
+  cacheValues();
+  for (  OnSharedPreferenceChangeListener listener : listeners) {
+    listener.onSharedPreferenceChanged(DeckPreferenceHack.this,null);
+  }
+  return true;
+}

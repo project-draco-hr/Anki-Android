@@ -1,0 +1,13 @@
+{
+  super.onCreate(icicle);
+  if (AnkiDroidApp.deck() == null) {
+    Log.i(TAG,"DeckPreferences - Selected Deck is NULL");
+    finish();
+  }
+ else {
+    this.pref=new DeckPreferenceHack();
+    this.pref.registerOnSharedPreferenceChangeListener(this);
+    this.addPreferencesFromResource(R.layout.deck_properties);
+    this.updateSummaries();
+  }
+}
