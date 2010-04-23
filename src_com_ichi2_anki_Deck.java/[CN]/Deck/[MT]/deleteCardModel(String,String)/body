@@ -1,0 +1,8 @@
+{
+  Log.i(TAG,"deleteCardModel, modelId = " + modelId + ", fieldModelId = "+ cardModelId);
+  ArrayList<String> cardIds=AnkiDb.queryColumn(String.class,"SELECT id FROM cards WHERE cardModelId = " + cardModelId,0);
+  deleteCards(cardIds);
+  AnkiDb.database.execSQL("DELETE FROM cardModels WHERE id = " + cardModelId);
+  AnkiDb.database.execSQL("UPDATE models SET modified = " + String.format(ENGLISH_LOCALE,"%f",System.currentTimeMillis() / 1000.0) + " WHERE id = "+ modelId);
+  flushMod();
+}
