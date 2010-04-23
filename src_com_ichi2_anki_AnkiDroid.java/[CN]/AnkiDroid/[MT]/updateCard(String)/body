@@ -2,13 +2,16 @@
   Log.i(TAG,"updateCard");
   content=Sound.extractSounds(deckFilename,content);
   content=Image.loadImages(deckFilename,content);
-  String realContent=content.replaceAll("\\<br.*?\\>","               ");
-  realContent=realContent.replaceAll("\\<.*?\\>","");
-  realContent=realContent.replaceAll("&nbsp;"," ");
-  int size=Math.max(MIN_FONT_SIZE,MAX_FONT_SIZE - (int)(realContent.length() / 5));
-  mCard.getSettings().setDefaultFontSize(size);
+  int fontSize=qaFontSize;
+  if (0 == qaFontSize) {
+    fontSize=calculateDynamicFontSize(content);
+  }
+  mCard.getSettings().setDefaultFontSize(fontSize);
   content=content.replaceAll("font-weight:600;","font-weight:700;");
-  content=RubyParser.ankiRubyToMarkup(content);
+  if (useRubySupport) {
+    content=RubyParser.ankiRubyToMarkup(content);
+  }
+  content=enrichWithCSSForFontColorSize(content,fontSize,currentCard.cardModel,null);
   Log.i(TAG,"content card = \n" + content);
   String card=cardTemplate.replace("::content::",content);
   mCard.loadDataWithBaseURL("",card,"text/html","utf-8",null);

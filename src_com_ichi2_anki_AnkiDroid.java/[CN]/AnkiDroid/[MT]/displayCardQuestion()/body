@@ -24,6 +24,6 @@
       mAnswerField.setVisibility(View.VISIBLE);
     }
     mFlipCard.requestFocus();
-    updateCard(currentCard.question);
+    updateCard(enrichWithQASpan(currentCard.question,false));
   }
 }

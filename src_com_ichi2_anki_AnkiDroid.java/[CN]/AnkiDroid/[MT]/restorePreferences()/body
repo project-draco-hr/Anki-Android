@@ -4,6 +4,10 @@
   timerAndWhiteboard=preferences.getBoolean("timerAndWhiteboard",true);
   Log.i(TAG,"restorePreferences - timerAndWhiteboard: " + timerAndWhiteboard);
   writeAnswers=preferences.getBoolean("writeAnswers",false);
+  useRubySupport=preferences.getBoolean("useRubySupport",false);
+  String qaFontSizeString=preferences.getString("qaFontSize","0");
+  qaFontSize=Integer.parseInt(qaFontSizeString);
+  showQuestionAnswer=preferences.getBoolean("showQuestionAnswer",false);
   updateNotifications=preferences.getBoolean("enabled",true);
   return preferences;
 }
