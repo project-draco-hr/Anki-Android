@@ -15,6 +15,14 @@
     }
   }
   if (localTime > remoteTime) {
+    try {
+      payload.put("history",bundleHistory());
+      payload.put("sources",bundleSources());
+      deck.lastSync=deck.modified;
+    }
+ catch (    JSONException e) {
+      Log.i(TAG,"JSONException = " + e.getMessage());
+    }
   }
   Log.i(TAG,"Payload =");
   Utils.printJSONObject(payload,true);
