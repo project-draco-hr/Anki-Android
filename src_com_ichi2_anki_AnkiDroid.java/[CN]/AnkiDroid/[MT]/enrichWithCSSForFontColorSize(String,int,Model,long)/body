@@ -1,10 +1,7 @@
 {
   StringBuffer sb=new StringBuffer();
-  sb.append("<style type=\"text/css\">");
+  sb.append("<style type=\"text/css\">\n");
   CardModel myCardModel=myModel.getCardModel(myCardModelId);
-  myCardModel.lastFontColour="#FFFF00";
-  myCardModel.questionFontColour="#FF0000";
-  myCardModel.answerFontColour="#00FF00";
   if (null != myCardModel.lastFontColour && 0 < myCardModel.lastFontColour.trim().length()) {
     sb.append("body {background-color:").append(myCardModel.lastFontColour).append(";}\n");
   }
