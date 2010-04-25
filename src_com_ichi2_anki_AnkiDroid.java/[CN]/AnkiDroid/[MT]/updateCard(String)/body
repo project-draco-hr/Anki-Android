@@ -11,7 +11,7 @@
   if (useRubySupport) {
     content=RubyParser.ankiRubyToMarkup(content);
   }
-  content=enrichWithCSSForFontColorSize(content,fontSize,currentCard.cardModel,null);
+  content=enrichWithCSSForFontColorSize(content,fontSize,Model.getModel(currentCard.cardModelId,false),currentCard.cardModelId);
   Log.i(TAG,"content card = \n" + content);
   String card=cardTemplate.replace("::content::",content);
   mCard.loadDataWithBaseURL("",card,"text/html","utf-8",null);

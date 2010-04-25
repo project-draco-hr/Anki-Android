@@ -1,6 +1,6 @@
 {
-  this.fieldModels=new TreeSet<FieldModel>(new FieldModelOrdinalComparator());
-  this.cardModels=new TreeSet<CardModel>(new CardModelOrdinalComparator());
+  this.fieldModels=new TreeSet<FieldModel>();
+  this.cardModels=new TreeSet<CardModel>();
   this.name=name;
   this.id=Utils.genID();
 }

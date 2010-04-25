@@ -1,0 +1,20 @@
+{
+  StringBuffer sb=new StringBuffer();
+  sb.append("<style type=\"text/css\">");
+  CardModel myCardModel=myModel.getCardModel(myCardModelId);
+  myCardModel.lastFontColour="#FFFF00";
+  myCardModel.questionFontColour="#FF0000";
+  myCardModel.answerFontColour="#00FF00";
+  if (null != myCardModel.lastFontColour && 0 < myCardModel.lastFontColour.trim().length()) {
+    sb.append("body {background-color:").append(myCardModel.lastFontColour).append(";}\n");
+  }
+  if (null != myCardModel.questionFontColour && 0 < myCardModel.questionFontColour.trim().length()) {
+    sb.append(".").append(QUESTION_CLASS).append(" {color:").append(myCardModel.questionFontColour).append(";}\n");
+  }
+  if (null != myCardModel.answerFontColour && 0 < myCardModel.answerFontColour.trim().length()) {
+    sb.append(".").append(ANSWER_CLASS).append(" {color:").append(myCardModel.answerFontColour).append(";}\n");
+  }
+  sb.append("</style>");
+  sb.append(htmlContent);
+  return sb.toString();
+}

@@ -1,6 +1,6 @@
 {
   super.onCreate(icicle);
-  if (AnkiDroidApp.deck() == null) {
+  if (AnkiDroidApp.getDeck() == null) {
     Log.i(TAG,"DeckPreferences - Selected Deck is NULL");
     finish();
   }

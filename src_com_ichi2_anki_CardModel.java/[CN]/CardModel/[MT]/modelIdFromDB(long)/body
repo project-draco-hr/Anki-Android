@@ -1,0 +1,16 @@
+{
+  Cursor cursor=null;
+  long modelId=-1;
+  try {
+    String query="SELECT modelId FROM cardModels WHERE id = " + cardModelId;
+    cursor=AnkiDb.database.rawQuery(query,null);
+    cursor.moveToFirst();
+    modelId=cursor.getLong(0);
+  }
+  finally {
+    if (cursor != null && !cursor.isClosed()) {
+      cursor.close();
+    }
+  }
+  return modelId;
+}
