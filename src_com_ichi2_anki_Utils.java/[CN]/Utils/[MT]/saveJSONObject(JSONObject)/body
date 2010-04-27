@@ -1,0 +1,6 @@
+{
+  Log.i(TAG,"saveJSONObject");
+  BufferedWriter buff=new BufferedWriter(new FileWriter("/sdcard/jsonObjectAndroid.txt",true));
+  buff.write(jsonObject.toString());
+  buff.close();
+}

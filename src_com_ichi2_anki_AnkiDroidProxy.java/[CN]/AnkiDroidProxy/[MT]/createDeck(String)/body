@@ -1,4 +1,5 @@
 {
+  Log.i(TAG,"createDeck");
   Log.i(TAG,"user = " + username + ", password = "+ password);
   try {
     String data="p=" + URLEncoder.encode(password,"UTF-8") + "&u="+ URLEncoder.encode(username,"UTF-8")+ "&d=None&name="+ URLEncoder.encode(name,"UTF-8");

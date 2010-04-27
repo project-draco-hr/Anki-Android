@@ -31,6 +31,12 @@ return true;
 case MENU_GET_SHARED_DECKS:
 Connection.getSharedDecks(getSharedDecksListener,new Connection.Payload(new Object[]{}));
 return true;
+case MENU_SYNC:
+syncDeck();
+return true;
+case MENU_SYNC_FROM_SERVER_PAYLOAD:
+Connection.syncDeckFromPayload(syncListener,new Connection.Payload(new Object[]{AnkiDroidApp.deck(),deckFilename}));
+return true;
 }
 return false;
 }

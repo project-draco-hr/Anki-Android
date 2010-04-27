@@ -8,6 +8,7 @@
     AnkiDroidProxy server=new AnkiDroidProxy(username,password);
     server.connect();
     if (!server.hasDeck(syncName)) {
+      Log.i(TAG,"AnkiOnline does not have this deck: Creating it...");
       server.createDeck(syncName);
     }
     SyncClient client=new SyncClient(deck);

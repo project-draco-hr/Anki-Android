@@ -21,6 +21,7 @@
     Log.i(TAG,"Payload response = ");
     payloadReply=new JSONObject(contentString);
     Utils.printJSONObject(payloadReply,false);
+    Utils.saveJSONObject(payloadReply);
   }
  catch (  UnsupportedEncodingException e) {
     e.printStackTrace();

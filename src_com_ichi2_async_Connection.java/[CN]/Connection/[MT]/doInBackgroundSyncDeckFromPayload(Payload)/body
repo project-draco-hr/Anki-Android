@@ -1,0 +1,24 @@
+{
+  Log.i(TAG,"SyncDeckFromPayload");
+  Deck deck=(Deck)data.data[0];
+  SyncClient client=new SyncClient(deck);
+  BufferedReader bufPython;
+  try {
+    bufPython=new BufferedReader(new FileReader("/sdcard/jsonObjectPython.txt"));
+    JSONObject payloadReply=new JSONObject(bufPython.readLine());
+    client.applyPayloadReply(payloadReply);
+    deck.lastLoaded=deck.modified;
+    deck.commitToDB();
+  }
+ catch (  FileNotFoundException e) {
+    e.printStackTrace();
+  }
+catch (  JSONException e) {
+    e.printStackTrace();
+  }
+catch (  IOException e) {
+    e.printStackTrace();
+  }
+  Log.i(TAG,"Synchronization from payload finished!");
+  return data;
+}
