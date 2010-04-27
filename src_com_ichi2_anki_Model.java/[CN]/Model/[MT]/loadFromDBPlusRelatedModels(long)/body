@@ -2,4 +2,5 @@
   currentModel=fromDb(modelId);
   CardModel.fromDb(currentModel.id,true,currentModel.cardModelsMap);
   FieldModel.fromDb(modelId,currentModel.fieldModelsMap);
+  currentModel.prepareCSSForCardModels();
 }
