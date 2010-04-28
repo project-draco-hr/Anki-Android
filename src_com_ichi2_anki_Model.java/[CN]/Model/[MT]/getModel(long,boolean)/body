@@ -1,6 +1,6 @@
 {
   if (false == isModelId) {
-    if (null == currentModel || currentModel.cardModelsMap.containsKey(identifier)) {
+    if (null == currentModel || false == currentModel.cardModelsMap.containsKey(identifier)) {
       long myModelId=CardModel.modelIdFromDB(identifier);
       loadFromDBPlusRelatedModels(myModelId);
     }
