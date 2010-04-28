@@ -45,10 +45,10 @@
     ds.close();
     int responseCode=conn.getResponseCode();
     if (responseCode != 200) {
-      Log.i(TAG,"Response code = 200");
+      Log.i(TAG,"Response code = " + responseCode);
     }
  else {
-      Log.i(TAG,"Response code = " + responseCode);
+      Log.i(TAG,"Response code = 200");
     }
     InputStream is=conn.getInputStream();
     ByteArrayOutputStream baos=new ByteArrayOutputStream();
