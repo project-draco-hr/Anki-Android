@@ -5,9 +5,6 @@
     StringBuffer query=new StringBuffer(SELECT_STRING);
     query.append(" WHERE modelId = ");
     query.append(modelId);
-    if (active) {
-      query.append(" AND active = 1");
-    }
     cursor=AnkiDb.database.rawQuery(query.toString(),null);
     if (cursor.moveToFirst()) {
       do {
