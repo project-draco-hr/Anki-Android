@@ -7,7 +7,7 @@
   useRubySupport=preferences.getBoolean("useRubySupport",false);
   String qaFontSizeString=preferences.getString("qaFontSize","0");
   qaFontSize=Integer.parseInt(qaFontSizeString);
-  showQuestionAnswer=preferences.getBoolean("showQuestionAnswer",false);
+  hideQuestionInAnswer=Integer.parseInt(preferences.getString("hideQuestionInAnswer","0"));
   updateNotifications=preferences.getBoolean("enabled",true);
   return preferences;
 }
