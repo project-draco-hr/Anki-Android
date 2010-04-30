@@ -1,5 +1,4 @@
 {
-  CardModel returnModel=new CardModel();
-  returnModel.fromDb(cardModelId);
-  return returnModel;
+  Model myModel=Model.getModel(cardModelId,false);
+  return myModel.getCardModel(cardModelId);
 }

@@ -1,5 +1,5 @@
 {
-  if (AnkiDroidApp.deck() != null)   AnkiDroidApp.deck().closeDeck();
+  if (AnkiDroidApp.getDeck() != null)   AnkiDroidApp.getDeck().closeDeck();
   deckLoaded=false;
   displaySdError();
 }

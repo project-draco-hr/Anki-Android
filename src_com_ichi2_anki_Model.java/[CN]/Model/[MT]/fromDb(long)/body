@@ -1,0 +1,29 @@
+{
+  Cursor cursor=null;
+  Model model=null;
+  try {
+    StringBuffer query=new StringBuffer();
+    query.append("SELECT id, deckId, created, modified, tags, name, description");
+    query.append(", features, spacing, initialSpacing, source");
+    query.append(" FROM models");
+    query.append(" WHERE id = ").append(id);
+    cursor=AnkiDb.database.rawQuery(query.toString(),null);
+    cursor.moveToFirst();
+    model=new Model();
+    model.id=cursor.getLong(0);
+    model.deckId=cursor.getLong(1);
+    model.created=cursor.getDouble(2);
+    model.modified=cursor.getDouble(3);
+    model.tags=cursor.getString(4);
+    model.name=cursor.getString(5);
+    model.description=cursor.getString(6);
+    model.features=cursor.getString(7);
+    model.spacing=cursor.getDouble(8);
+    model.initialSpacing=cursor.getDouble(9);
+    model.source=cursor.getInt(10);
+  }
+  finally {
+    if (cursor != null)     cursor.close();
+  }
+  return model;
+}
