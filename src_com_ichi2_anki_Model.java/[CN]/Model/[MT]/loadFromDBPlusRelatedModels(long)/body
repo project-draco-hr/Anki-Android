@@ -2,7 +2,6 @@
   Model currentModel=fromDb(modelId);
   CardModel.fromDb(currentModel.id,currentModel.cardModelsMap);
   FieldModel.fromDb(modelId,currentModel.fieldModelsMap);
-  currentModel.prepareCSSForCardModels();
   models.put(currentModel.id,currentModel);
   CardModel myCardModel=null;
   for (  Map.Entry<Long,CardModel> entry : currentModel.cardModelsMap.entrySet()) {
