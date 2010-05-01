@@ -29,6 +29,7 @@
     sb.append("<hr/>");
     sb.append(displayString);
     displayString=sb.toString();
+    mFlipCard.setVisibility(View.GONE);
   }
   updateCard(displayString);
 }

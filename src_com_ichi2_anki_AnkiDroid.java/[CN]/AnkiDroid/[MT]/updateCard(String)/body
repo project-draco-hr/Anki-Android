@@ -6,8 +6,13 @@
   if (useRubySupport) {
     content=RubyParser.ankiRubyToMarkup(content);
   }
-  Model myModel=Model.getModel(currentCard.cardModelId,false);
-  content=myModel.getCSSForFontColorSize(currentCard.cardModelId,displayFontSize) + content;
+  if (null != currentCard) {
+    Model myModel=Model.getModel(currentCard.cardModelId,false);
+    content=myModel.getCSSForFontColorSize(currentCard.cardModelId,displayFontSize) + content;
+  }
+ else {
+    mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
+  }
   Log.i(TAG,"content card = \n" + content);
   String card=cardTemplate.replace("::content::",content);
   mCard.loadDataWithBaseURL("",card,"text/html","utf-8",null);

@@ -5,9 +5,16 @@
   Log.i(TAG,"restorePreferences - timerAndWhiteboard: " + timerAndWhiteboard);
   writeAnswers=preferences.getBoolean("writeAnswers",false);
   useRubySupport=preferences.getBoolean("useRubySupport",false);
-  String displayFontSizeString=preferences.getString("displayFontSize","100");
-  displayFontSize=Integer.parseInt(displayFontSizeString);
-  hideQuestionInAnswer=Integer.parseInt(preferences.getString("hideQuestionInAnswer","0"));
+  displayFontSize=Integer.parseInt(preferences.getString("displayFontSize","100"));
+  hideQuestionInAnswer=Integer.parseInt(preferences.getString("hideQuestionInAnswer",Integer.toString(HQIA_DO_SHOW)));
   updateNotifications=preferences.getBoolean("enabled",true);
+  if (null != mFlipCard) {
+    if (mFlipCard.isChecked()) {
+      displayCardAnswer();
+    }
+ else {
+      displayCardQuestion();
+    }
+  }
   return preferences;
 }
