@@ -1,0 +1,4 @@
+{
+  Log.i(TAG,"onUpdate");
+  context.startService(new Intent(context,UpdateService.class));
+}

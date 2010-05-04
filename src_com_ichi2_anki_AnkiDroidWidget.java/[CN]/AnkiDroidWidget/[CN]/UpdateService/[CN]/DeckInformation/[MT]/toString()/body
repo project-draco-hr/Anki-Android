@@ -1,0 +1,4 @@
+{
+  if (getDeckName().length() > 13)   return String.format("%s %d %d",getDeckName().substring(0,13),getNewCards(),getDueCards());
+ else   return String.format("%s %d %d",getDeckName(),getNewCards(),getDueCards());
+}
