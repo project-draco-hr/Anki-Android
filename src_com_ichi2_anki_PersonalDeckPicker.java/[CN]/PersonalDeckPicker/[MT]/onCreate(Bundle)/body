@@ -1,0 +1,22 @@
+{
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.main);
+  initAlertDialogs();
+  SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
+  username=pref.getString("username","");
+  password=pref.getString("password","");
+  mPersonalDecks=new ArrayList<String>();
+  mPersonalDecksAdapter=new ArrayAdapter<String>(this,R.layout.personal_deck_item,R.id.PersonalDeckTitle,mPersonalDecks);
+  mPersonalDecksListView=(ListView)findViewById(R.id.files);
+  mPersonalDecksListView.setAdapter(mPersonalDecksAdapter);
+  mPersonalDecksListView.setOnItemClickListener(new OnItemClickListener(){
+    @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
+      SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
+      deckName=mPersonalDecks.get(position);
+      deckPath=pref.getString("deckPath",AnkiDroidApp.getStorageDirectory()) + "/" + deckName+ ".anki";
+      Connection.downloadPersonalDeck(downloadSharedDeckListener,new Connection.Payload(new Object[]{username,password,deckName,deckPath}));
+    }
+  }
+);
+  Connection.getPersonalDecks(getPersonalDecksListener,new Connection.Payload(new Object[]{username,password}));
+}

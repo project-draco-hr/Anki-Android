@@ -38,6 +38,7 @@
       Log.i(TAG,"Length = " + length);
     }
     dos.finish();
+    fStream.close();
     ds.writeBytes(END);
     ds.writeBytes(TWO_HYPHENS + MIME_BOUNDARY + TWO_HYPHENS+ END);
     Log.i(TAG,"Closing streams...");

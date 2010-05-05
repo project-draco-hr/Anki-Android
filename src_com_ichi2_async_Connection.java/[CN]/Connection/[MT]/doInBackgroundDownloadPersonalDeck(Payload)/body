@@ -1,0 +1,16 @@
+{
+  try {
+    String username=(String)data.data[0];
+    String password=(String)data.data[1];
+    String deckName=(String)data.data[2];
+    String deckPath=(String)data.data[3];
+    SyncClient.fullSyncFromServer(password,username,deckName,deckPath);
+  }
+ catch (  Exception e) {
+    data.success=false;
+    data.exception=e;
+    Log.e(TAG,"Error downloading shared deck = " + e.getMessage());
+    e.printStackTrace();
+  }
+  return data;
+}

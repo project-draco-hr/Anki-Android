@@ -1,0 +1,15 @@
+{
+  try {
+    String username=(String)data.data[0];
+    String password=(String)data.data[1];
+    AnkiDroidProxy server=new AnkiDroidProxy(username,password);
+    data.result=server.getPersonalDecks();
+  }
+ catch (  Exception e) {
+    data.success=false;
+    data.exception=e;
+    Log.e(TAG,"Error getting personal decks = " + e.getMessage());
+    e.printStackTrace();
+  }
+  return data;
+}

@@ -1,4 +1,5 @@
 {
+  AnkiDb.database.beginTransaction();
   try {
     String username=(String)data.data[0];
     String password=(String)data.data[1];
@@ -20,11 +21,14 @@
         Log.i(TAG,"Deck needs full sync");
         String syncFrom=client.prepareFullSync();
         if ("fromLocal".equalsIgnoreCase(syncFrom)) {
-          client.fullSyncFromLocal(password,username,syncName,deckPath);
+          SyncClient.fullSyncFromLocal(password,username,syncName,deckPath);
         }
  else         if ("fromServer".equalsIgnoreCase(syncFrom)) {
-          client.fullSyncFromServer(password,username,syncName,deckPath);
+          SyncClient.fullSyncFromServer(password,username,syncName,deckPath);
         }
+        AnkiDb.database.setTransactionSuccessful();
+        AnkiDb.database.endTransaction();
+        deck.closeDeck();
         deck=Deck.openDeck(deckPath);
         client.setDeck(deck);
       }
@@ -35,6 +39,7 @@
         client.applyPayloadReply(payloadReply);
         deck.lastLoaded=deck.modified;
         deck.commitToDB();
+        AnkiDb.database.setTransactionSuccessful();
       }
     }
  else {
@@ -46,6 +51,11 @@
     data.exception=e;
     Log.e(TAG,"Error synchronizing deck = " + e.getMessage());
     e.printStackTrace();
+  }
+ finally {
+    if (AnkiDb.database.inTransaction()) {
+      AnkiDb.database.endTransaction();
+    }
   }
   return data;
 }
