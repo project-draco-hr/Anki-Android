@@ -1,0 +1,26 @@
+{
+  mCard.setVisibility(View.VISIBLE);
+  mEase0.setVisibility(View.VISIBLE);
+  mEase1.setVisibility(View.VISIBLE);
+  mEase2.setVisibility(View.VISIBLE);
+  mEase3.setVisibility(View.VISIBLE);
+  mFlipCard.setVisibility(View.VISIBLE);
+  if (!prefTimerAndWhiteboard) {
+    mCardTimer.setVisibility(View.GONE);
+    mToggleWhiteboard.setVisibility(View.GONE);
+    mWhiteboard.setVisibility(View.GONE);
+  }
+ else {
+    mCardTimer.setVisibility(View.VISIBLE);
+    mToggleWhiteboard.setVisibility(View.VISIBLE);
+    if (mToggleWhiteboard.isChecked()) {
+      mWhiteboard.setVisibility(View.VISIBLE);
+    }
+  }
+  if (!prefWriteAnswers) {
+    mAnswerField.setVisibility(View.GONE);
+  }
+ else {
+    mAnswerField.setVisibility(View.VISIBLE);
+  }
+}

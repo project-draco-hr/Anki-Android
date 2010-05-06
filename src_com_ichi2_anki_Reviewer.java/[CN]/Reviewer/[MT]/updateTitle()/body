@@ -1,0 +1,5 @@
+{
+  Deck deck=AnkiDroidApp.deck();
+  String unformattedTitle=getResources().getString(R.string.studyoptions_window_title);
+  setTitle(String.format(unformattedTitle,deck.deckName,deck.revCount + deck.failedSoonCount,deck.cardCount));
+}

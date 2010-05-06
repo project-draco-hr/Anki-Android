@@ -49,6 +49,7 @@
     if (cursor != null)     cursor.close();
   }
   Log.i(TAG,String.format(ENGLISH_LOCALE,"openDeck - modified: %f currentTime: %f",deck.modified,System.currentTimeMillis() / 1000.0));
+  deck.deckName=(new File(path)).getName().replace(".anki","");
   deck.initVars();
   deck.updateDynamicIndices();
   int oldCount=deck.failedSoonCount + deck.revCount + deck.newCount;

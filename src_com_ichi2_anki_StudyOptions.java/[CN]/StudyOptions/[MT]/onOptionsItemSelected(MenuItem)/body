@@ -1,0 +1,16 @@
+{
+switch (item.getItemId()) {
+case MENU_OPEN:
+    openDeckPicker();
+  return true;
+case MENU_PREFERENCES:
+Intent preferences=new Intent(this,Preferences.class);
+startActivityForResult(preferences,PREFERENCES_UPDATE);
+return true;
+case MENU_ABOUT:
+Intent about=new Intent(this,About.class);
+startActivity(about);
+return true;
+}
+return false;
+}

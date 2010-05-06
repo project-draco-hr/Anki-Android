@@ -1,0 +1,37 @@
+{
+  super.onActivityResult(requestCode,resultCode,intent);
+  if (requestCode == PICK_DECK_REQUEST) {
+    inDeckPicker=false;
+    if (resultCode != RESULT_OK) {
+      Log.e(TAG,"onActivityResult - Deck browser returned with error");
+      displayProgressDialogAndLoadDeck();
+      return;
+    }
+    if (intent == null) {
+      Log.e(TAG,"onActivityResult - Deck browser returned null intent");
+      displayProgressDialogAndLoadDeck();
+      return;
+    }
+    Log.i(TAG,"onActivityResult = OK");
+    deckFilename=intent.getExtras().getString(OPT_DB);
+    savePreferences();
+    displayProgressDialogAndLoadDeck();
+  }
+ else   if (requestCode == PREFERENCES_UPDATE) {
+    restorePreferences();
+    showContentView();
+  }
+ else   if (requestCode == REQUEST_REVIEW) {
+switch (resultCode) {
+case Reviewer.RESULT_SESSION_COMPLETED:
+      showContentView(CONTENT_SESSION_COMPLETE);
+    break;
+case Reviewer.RESULT_NO_MORE_CARDS:
+  showContentView(CONTENT_CONGRATS);
+break;
+default :
+showContentView(CONTENT_STUDY_OPTIONS);
+break;
+}
+}
+}
