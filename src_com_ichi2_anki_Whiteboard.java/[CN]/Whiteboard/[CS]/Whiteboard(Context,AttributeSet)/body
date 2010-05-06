@@ -10,7 +10,8 @@
   mPaint.setStyle(Paint.Style.STROKE);
   mPaint.setStrokeJoin(Paint.Join.ROUND);
   mPaint.setStrokeCap(Paint.Cap.ROUND);
-  mPaint.setStrokeWidth(8);
+  String wbStrokeWidth=PrefSettings.getSharedPrefs(context).getString("wbStrokeWidth","6");
+  mPaint.setStrokeWidth(Integer.parseInt(wbStrokeWidth));
   createBitmap();
   mPath=new Path();
   mBitmapPaint=new Paint(Paint.DITHER_FLAG);
