@@ -1,5 +1,6 @@
 {
   super.onCreate(savedInstanceState);
+  Log.i(TAG,"AnkiDroid Activity");
   Log.i(TAG,"onCreate - savedInstanceState: " + savedInstanceState);
   Bundle extras=getIntent().getExtras();
   SharedPreferences preferences=restorePreferences();

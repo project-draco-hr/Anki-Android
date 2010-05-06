@@ -5,13 +5,17 @@
   mEase2.setVisibility(View.VISIBLE);
   mEase3.setVisibility(View.VISIBLE);
   mFlipCard.setVisibility(View.VISIBLE);
-  if (!prefTimerAndWhiteboard) {
+  if (!prefTimer) {
     mCardTimer.setVisibility(View.GONE);
+  }
+ else {
+    mCardTimer.setVisibility(View.VISIBLE);
+  }
+  if (!prefWhiteboard) {
     mToggleWhiteboard.setVisibility(View.GONE);
     mWhiteboard.setVisibility(View.GONE);
   }
  else {
-    mCardTimer.setVisibility(View.VISIBLE);
     mToggleWhiteboard.setVisibility(View.VISIBLE);
     if (mToggleWhiteboard.isChecked()) {
       mWhiteboard.setVisibility(View.VISIBLE);

@@ -1,5 +1,6 @@
 {
   super.onCreate(savedInstanceState);
+  Log.i(TAG,"StudyOptions Activity");
   SharedPreferences preferences=restorePreferences();
   getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
   requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);

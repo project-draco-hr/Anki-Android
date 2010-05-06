@@ -3,7 +3,8 @@
   if (!sampleDeckFile.exists()) {
     try {
       InputStream stream=getResources().getAssets().open(SAMPLE_DECK_NAME);
-      boolean written=writeToFile(stream,sampleDeckFile);
+      boolean written=Utils.writeToFile(stream,sampleDeckFile.getAbsolutePath());
+      stream.close();
       if (!written) {
         openDeckPicker();
         Log.i(TAG,"onCreate - The copy of country-capitals.anki to the sd card failed.");

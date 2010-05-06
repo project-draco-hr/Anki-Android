@@ -1,7 +1,8 @@
 {
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
   prefCorporalPunishments=preferences.getBoolean("corporalPunishments",false);
-  prefTimerAndWhiteboard=preferences.getBoolean("timerAndWhiteboard",true);
+  prefTimer=preferences.getBoolean("timer",true);
+  prefWhiteboard=preferences.getBoolean("whiteboard",true);
   prefWriteAnswers=preferences.getBoolean("writeAnswers",false);
   prefDeckFilename=preferences.getString("deckFilename","");
   return preferences;
