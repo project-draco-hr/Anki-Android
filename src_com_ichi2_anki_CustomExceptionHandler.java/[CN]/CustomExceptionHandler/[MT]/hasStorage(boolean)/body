@@ -1,0 +1,18 @@
+{
+  String state=Environment.getExternalStorageState();
+  Log.i(TAG,"storage state is " + state);
+  if (Environment.MEDIA_MOUNTED.equals(state)) {
+    if (requireWriteAccess) {
+      boolean writable=checkFsWritable();
+      Log.i(TAG,"storage writable is " + writable);
+      return writable;
+    }
+ else {
+      return true;
+    }
+  }
+ else   if (!requireWriteAccess && Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+    return true;
+  }
+  return false;
+}

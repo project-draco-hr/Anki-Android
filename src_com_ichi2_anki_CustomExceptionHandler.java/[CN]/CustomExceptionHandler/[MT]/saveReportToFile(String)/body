@@ -1,0 +1,26 @@
+{
+  try {
+    Log.i(TAG,"saveReportFile");
+    int random=randomGenerator.nextInt(99999);
+    String filename=String.format("ad-%d.stacktrace",random);
+    if (hasStorage(true)) {
+      Log.i(TAG,"External storage available");
+      File f=new File(Environment.getExternalStorageDirectory().toString(),filename);
+      Log.i(TAG,String.format("Writing to: %s",f.getAbsoluteFile()));
+      f.createNewFile();
+      FileOutputStream fw=new FileOutputStream(f);
+      fw.write(reportInformation.getBytes());
+      fw.close();
+    }
+ else {
+      Log.i(TAG,"No external storage available");
+      FileOutputStream trace=curContext.openFileOutput(filename,Context.MODE_PRIVATE);
+      trace.write(reportInformation.getBytes());
+      trace.close();
+    }
+    Log.i(TAG,"report saved");
+  }
+ catch (  Exception e) {
+    Log.i(TAG,e.toString());
+  }
+}

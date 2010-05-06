@@ -1,0 +1,7 @@
+{
+  File path=Environment.getDataDirectory();
+  StatFs stat=new StatFs(path.getPath());
+  long blockSize=stat.getBlockSize();
+  long availableBlocks=stat.getAvailableBlocks();
+  return availableBlocks * blockSize;
+}
