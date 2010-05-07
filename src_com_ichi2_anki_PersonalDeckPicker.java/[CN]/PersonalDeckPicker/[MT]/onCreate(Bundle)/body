@@ -1,5 +1,6 @@
 {
   super.onCreate(savedInstanceState);
+  getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
   setContentView(R.layout.main);
   initAlertDialogs();
   SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());

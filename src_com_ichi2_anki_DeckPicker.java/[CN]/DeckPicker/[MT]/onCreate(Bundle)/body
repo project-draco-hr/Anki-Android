@@ -1,6 +1,8 @@
 {
   Log.i(TAG,"DeckPicker - onCreate");
   super.onCreate(savedInstanceState);
+  getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+  requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
   registerExternalStorageListener();
   mSelf=this;
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());

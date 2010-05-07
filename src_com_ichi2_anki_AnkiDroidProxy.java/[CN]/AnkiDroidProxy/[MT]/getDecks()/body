@@ -1,5 +1,5 @@
 {
-  Log.i(TAG,"user = " + username + ", password = "+ password);
+  Log.i(TAG,"getDecks - user = " + username + ", password = "+ password);
   String decksServer="{}";
   try {
     String data="p=" + URLEncoder.encode(password,"UTF-8") + "&client=ankidroid-0.4&u="+ URLEncoder.encode(username,"UTF-8")+ "&d=None&sources="+ URLEncoder.encode("[]","UTF-8")+ "&libanki=0.9.9.8.6&pversion=5";
@@ -17,7 +17,7 @@
     InputStream content=entityResponse.getContent();
     Log.i(TAG,"Content = " + content.toString());
     decksServer=Utils.convertStreamToString(new InflaterInputStream(content));
-    Log.i(TAG,"String content = " + decks);
+    Log.i(TAG,"String content = " + decksServer);
   }
  catch (  UnsupportedEncodingException e) {
     e.printStackTrace();
