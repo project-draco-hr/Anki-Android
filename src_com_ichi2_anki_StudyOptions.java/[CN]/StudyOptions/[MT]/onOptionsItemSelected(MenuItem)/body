@@ -3,9 +3,23 @@ switch (item.getItemId()) {
 case MENU_OPEN:
     openDeckPicker();
   return true;
+case MENU_DOWNLOAD_PERSONAL_DECK:
+Intent downloadPersonalDeck=new Intent(this,PersonalDeckPicker.class);
+startActivityForResult(downloadPersonalDeck,DOWNLOAD_PERSONAL_DECK);
+break;
+case MENU_DOWNLOAD_SHARED_DECK:
+Connection.getSharedDecks(getSharedDecksListener,new Connection.Payload(new Object[]{}));
+break;
 case MENU_PREFERENCES:
 Intent preferences=new Intent(this,Preferences.class);
 startActivityForResult(preferences,PREFERENCES_UPDATE);
+return true;
+case MENU_DECK_PROPERTIES:
+Intent deckProperties=new Intent(this,DeckProperties.class);
+startActivity(deckProperties);
+break;
+case MENU_SYNC:
+syncDeck();
 return true;
 case MENU_ABOUT:
 Intent about=new Intent(this,About.class);

@@ -1,6 +1,6 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
-  if (requestCode == PICK_DECK_REQUEST) {
+  if (requestCode == PICK_DECK_REQUEST || requestCode == DOWNLOAD_PERSONAL_DECK || requestCode == DOWNLOAD_SHARED_DECK) {
     inDeckPicker=false;
     if (resultCode != RESULT_OK) {
       Log.e(TAG,"onActivityResult - Deck browser returned with error");
@@ -15,7 +15,8 @@
     Log.i(TAG,"onActivityResult = OK");
     deckFilename=intent.getExtras().getString(OPT_DB);
     savePreferences();
-    displayProgressDialogAndLoadDeck();
+    boolean updateAllCards=(requestCode == DOWNLOAD_SHARED_DECK);
+    displayProgressDialogAndLoadDeck(updateAllCards);
   }
  else   if (requestCode == PREFERENCES_UPDATE) {
     restorePreferences();

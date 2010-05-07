@@ -1,0 +1,8 @@
+{
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+  String username=preferences.getString("username","");
+  String password=preferences.getString("password","");
+  Deck deck=AnkiDroidApp.deck();
+  Log.i(TAG,"Synchronizing deck " + deckFilename + " with username "+ username+ " and password "+ password);
+  Connection.syncDeck(syncListener,new Connection.Payload(new Object[]{username,password,deck,deckFilename}));
+}
