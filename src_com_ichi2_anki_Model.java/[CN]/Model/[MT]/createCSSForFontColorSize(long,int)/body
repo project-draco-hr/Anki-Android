@@ -1,0 +1,26 @@
+{
+  StringBuffer sb=new StringBuffer();
+  sb.append("<!-- ").append(percentage).append(" % display font size-->");
+  sb.append("<style type=\"text/css\">\n");
+  CardModel myCardModel=cardModelsMap.get(myCardModelId);
+  if (null != myCardModel.lastFontColour && 0 < myCardModel.lastFontColour.trim().length()) {
+    sb.append("body {background-color:").append(myCardModel.lastFontColour).append(";}\n");
+  }
+  sb.append(".").append(AnkiDroid.QUESTION_CLASS).append(" {\n");
+  sb.append(calculateDisplay(percentage,myCardModel.questionFontFamily,myCardModel.questionFontSize,myCardModel.questionFontColour));
+  sb.append("}\n");
+  sb.append(".").append(AnkiDroid.ANSWER_CLASS).append(" {\n");
+  sb.append(calculateDisplay(percentage,myCardModel.answerFontFamily,myCardModel.answerFontSize,myCardModel.answerFontColour));
+  sb.append("}\n");
+  FieldModel myFieldModel=null;
+  String hexId=null;
+  for (  Map.Entry<Long,FieldModel> entry : fieldModelsMap.entrySet()) {
+    myFieldModel=entry.getValue();
+    hexId="fm" + Long.toHexString(myFieldModel.id);
+    sb.append(".").append(hexId).append(" {\n");
+    sb.append(calculateDisplay(percentage,myFieldModel.quizFontFamily,myFieldModel.quizFontSize,myFieldModel.quizFontColour));
+    sb.append("}\n");
+  }
+  sb.append("</style>");
+  return sb.toString();
+}

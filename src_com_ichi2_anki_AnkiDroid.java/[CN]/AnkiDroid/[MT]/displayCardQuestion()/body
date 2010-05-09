@@ -23,7 +23,12 @@
     if (writeAnswers) {
       mAnswerField.setVisibility(View.VISIBLE);
     }
+    mFlipCard.setVisibility(View.VISIBLE);
     mFlipCard.requestFocus();
-    updateCard(enrichWithQASpan(currentCard.question,false));
+    String displayString=enrichWithQASpan(currentCard.question,false);
+    if (calculateShowQuestion()) {
+      displayString=displayString + "<hr/>";
+    }
+    updateCard(displayString);
   }
 }

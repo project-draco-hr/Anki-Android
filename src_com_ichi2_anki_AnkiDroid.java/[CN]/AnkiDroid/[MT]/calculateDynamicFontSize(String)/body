@@ -1,7 +1,7 @@
 {
-  String realContent=htmlContent.replaceAll("\\<br.*?\\>","               ");
-  realContent=realContent.replaceAll("\\<hr.*?\\>","                              ");
+  String realContent=htmlContent.replaceAll("\\<br.*?\\>"," ");
+  realContent=realContent.replaceAll("\\<hr.*?\\>"," ");
   realContent=realContent.replaceAll("\\<.*?\\>","");
   realContent=realContent.replaceAll("&nbsp;"," ");
-  return Math.max(MIN_QA_FONT_SIZE,MAX_QA_FONT_SIZE - (int)(realContent.length() / 5));
+  return Math.max(MIN_DYNAMIC_FONT_SIZE,MAX_DYNAMIC_FONT_SIZE - (int)(realContent.length() / 5));
 }
