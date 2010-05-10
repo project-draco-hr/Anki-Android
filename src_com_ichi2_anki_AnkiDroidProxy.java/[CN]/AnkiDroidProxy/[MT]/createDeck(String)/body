@@ -17,6 +17,7 @@
     InputStream content=entityResponse.getContent();
     Log.i(TAG,"Content = " + content.toString());
     Log.i(TAG,"String content = " + Utils.convertStreamToString(new InflaterInputStream(content)));
+    decks.put(name,new JSONArray("[0,0]"));
   }
  catch (  UnsupportedEncodingException e) {
     e.printStackTrace();
@@ -26,5 +27,8 @@ catch (  ClientProtocolException e) {
   }
 catch (  IOException e) {
     Log.i(TAG,"IOException = " + e.getMessage());
+  }
+catch (  JSONException e) {
+    e.printStackTrace();
   }
 }
