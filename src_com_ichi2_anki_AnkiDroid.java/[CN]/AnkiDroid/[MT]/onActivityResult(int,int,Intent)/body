@@ -53,4 +53,8 @@
     Log.i(TAG,"onActivityResult - deckSelected = " + deckSelected);
     displayProgressDialogAndLoadDeck(true);
   }
+ else   if (requestCode == REPORT_ERROR) {
+    Log.i(TAG,"onActivityResult - reporting done");
+    return;
+  }
 }
