@@ -1,0 +1,7 @@
+{
+  if (this.displayPercentage != percentage) {
+    this.displayPercentage=percentage;
+    prepareCSSForCardModels();
+  }
+  return this.cssCardModelMap.get(myCardModelId);
+}
