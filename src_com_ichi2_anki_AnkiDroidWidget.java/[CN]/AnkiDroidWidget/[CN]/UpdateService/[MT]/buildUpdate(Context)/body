@@ -1,22 +1,20 @@
 {
   Log.i(TAG,"buildUpdate");
   RemoteViews updateViews=new RemoteViews(context.getPackageName(),R.layout.ankidroid_widget_view);
-  if (AnkiDroidApp.getDeck() == null) {
-    Log.i(TAG,"Deck is null");
-    ArrayList<DeckInformation> decks=mockFetchDeckInformation();
-    StringBuilder sb=new StringBuilder();
-    for (int i=0; i < decks.size() && i < 3; i++) {
-      DeckInformation deck=decks.get(i);
-      sb.append(String.format("%s\n",deck.toString()));
-    }
-    if (sb.length() > 1) {
-      sb.substring(0,sb.length() - 1);
-    }
-    updateViews.setTextViewText(R.id.anki_droid_text,sb);
+  Deck currentDeck=AnkiDroidApp.getDeck();
+  ArrayList<DeckInformation> decks=fetchDeckInformation();
+  StringBuilder sb=new StringBuilder();
+  for (int i=0; i < decks.size() && i < 3; i++) {
+    DeckInformation deck=decks.get(i);
+    sb.append(String.format("%s\n",deck.toString()));
   }
- else {
-    Log.i(TAG,String.format("Deck is open: %s",""));
-    updateViews.setTextViewText(R.id.anki_droid_text,"deck is open");
+  if (sb.length() > 1) {
+    sb.substring(0,sb.length() - 1);
+  }
+  updateViews.setTextViewText(R.id.anki_droid_text,sb);
+  if (currentDeck != null) {
+    AnkiDroidApp.setDeck(currentDeck);
+    Deck.openDeck(currentDeck.getDeckPath());
   }
   return updateViews;
 }
