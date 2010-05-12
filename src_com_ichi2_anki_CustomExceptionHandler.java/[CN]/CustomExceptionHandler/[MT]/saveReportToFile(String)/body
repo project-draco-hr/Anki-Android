@@ -1,0 +1,16 @@
+{
+  try {
+    Log.i(TAG,"saveReportFile");
+    Date currentDate=new Date();
+    SimpleDateFormat formatter=new SimpleDateFormat("yyyyMMddHHmmss");
+    String filename=String.format("ad-%s.stacktrace",formatter.format(currentDate));
+    Log.i(TAG,"No external storage available");
+    FileOutputStream trace=curContext.openFileOutput(filename,Context.MODE_PRIVATE);
+    trace.write(reportInformation.getBytes());
+    trace.close();
+    Log.i(TAG,"report saved");
+  }
+ catch (  Exception e) {
+    Log.i(TAG,e.toString());
+  }
+}

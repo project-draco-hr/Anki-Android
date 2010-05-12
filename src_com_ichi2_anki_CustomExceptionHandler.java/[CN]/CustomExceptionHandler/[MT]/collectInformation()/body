@@ -1,0 +1,32 @@
+{
+  Log.i(TAG,"collectInformation");
+  if (curContext == null)   return;
+  try {
+    Log.i(TAG,"collecting information");
+    PackageManager pm=curContext.getPackageManager();
+    PackageInfo pi=pm.getPackageInfo(curContext.getPackageName(),0);
+    information.put("VersionName",pi.versionName);
+    information.put("PackageName",pi.packageName);
+    information.put("PhoneModel",android.os.Build.MODEL);
+    information.put("AndroidVersion",android.os.Build.VERSION.RELEASE);
+    information.put("Board",android.os.Build.BOARD);
+    information.put("Brand",android.os.Build.BRAND);
+    information.put("Device",android.os.Build.DEVICE);
+    information.put("Display",android.os.Build.DISPLAY);
+    information.put("FingerPrint",android.os.Build.FINGERPRINT);
+    information.put("Host",android.os.Build.HOST);
+    information.put("ID",android.os.Build.ID);
+    information.put("Model",android.os.Build.MODEL);
+    information.put("Product",android.os.Build.PRODUCT);
+    information.put("Tags",android.os.Build.TAGS);
+    information.put("Time",Long.toString(android.os.Build.TIME));
+    information.put("Type",android.os.Build.TYPE);
+    information.put("User",android.os.Build.USER);
+    information.put("TotalInternalMemory",Long.toString(getTotalInternalMemorySize()));
+    information.put("AvailableInternalMemory",Long.toString(getAvailableInternalMemorySize()));
+    Log.i(TAG,"Information collected");
+  }
+ catch (  Exception e) {
+    Log.i(TAG,e.toString());
+  }
+}

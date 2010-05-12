@@ -1,6 +1,11 @@
 {
   super.onCreate(savedInstanceState);
   Log.i(TAG,"onCreate - savedInstanceState: " + savedInstanceState);
+  boolean hasErrors=hasErrorFiles();
+  if (hasErrors) {
+    Intent i=new Intent(this,ErrorReporter.class);
+    startActivityForResult(i,REPORT_ERROR);
+  }
   Bundle extras=getIntent().getExtras();
   SharedPreferences preferences=restorePreferences();
   initAlertDialogs();
