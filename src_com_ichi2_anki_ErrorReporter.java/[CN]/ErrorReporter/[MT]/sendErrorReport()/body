@@ -12,7 +12,6 @@
         report.append((char)ch);
       }
       fi.close();
-      deleteFile(filename);
       report.append(String.format("--> END REPORT %d <--",count++));
     }
  catch (    Exception ex) {

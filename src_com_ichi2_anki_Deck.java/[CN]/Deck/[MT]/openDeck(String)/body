@@ -7,6 +7,7 @@
     cursor=AnkiDb.database.rawQuery("SELECT *" + " FROM decks" + " LIMIT 1",null);
     if (!cursor.moveToFirst())     return null;
     deck=new Deck();
+    deck.setDeckPath(path);
     deck.id=cursor.getLong(0);
     deck.created=cursor.getDouble(1);
     deck.modified=cursor.getDouble(2);
