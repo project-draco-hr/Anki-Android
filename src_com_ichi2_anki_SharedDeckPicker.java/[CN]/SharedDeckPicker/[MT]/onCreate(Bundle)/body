@@ -2,6 +2,7 @@
   super.onCreate(savedInstanceState);
   getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
   setContentView(R.layout.main);
+  registerExternalStorageListener();
   initAlertDialogs();
   mSharedDecks=new ArrayList<SharedDeck>();
   mSharedDecksAdapter=new SimpleAdapter(this,mSharedDecks,R.layout.shared_deck_item,new String[]{"title","facts"},new int[]{R.id.SharedDeckTitle,R.id.SharedDeckFacts});

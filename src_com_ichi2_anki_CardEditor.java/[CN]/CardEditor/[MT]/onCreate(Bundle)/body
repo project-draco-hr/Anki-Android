@@ -1,6 +1,7 @@
 {
   super.onCreate(savedInstanceState);
   getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+  registerExternalStorageListener();
   setContentView(R.layout.card_editor);
   fieldsLayoutContainer=(LinearLayout)findViewById(R.id.CardEditorEditFieldsLayout);
   mSave=(Button)findViewById(R.id.CardEditorSaveButton);
@@ -24,7 +25,7 @@
         FieldEditText current=iter.next();
         current.updateField();
       }
-      setResult(SAVE_CARD);
+      setResult(RESULT_OK);
       finish();
     }
   }

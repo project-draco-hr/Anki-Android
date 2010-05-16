@@ -1,6 +1,9 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
-  if (requestCode == PICK_DECK_REQUEST || requestCode == DOWNLOAD_PERSONAL_DECK || requestCode == DOWNLOAD_SHARED_DECK) {
+  if (resultCode == CONTENT_NO_EXTERNAL_STORAGE) {
+    showContentView(CONTENT_NO_EXTERNAL_STORAGE);
+  }
+ else   if (requestCode == PICK_DECK_REQUEST || requestCode == DOWNLOAD_PERSONAL_DECK || requestCode == DOWNLOAD_SHARED_DECK) {
     inDeckPicker=false;
     if (resultCode != RESULT_OK) {
       Log.e(TAG,"onActivityResult - Deck browser returned with error");
@@ -23,6 +26,7 @@
     showContentView();
   }
  else   if (requestCode == REQUEST_REVIEW) {
+    Log.i(TAG,"Result code = " + resultCode);
 switch (resultCode) {
 case Reviewer.RESULT_SESSION_COMPLETED:
       showContentView(CONTENT_SESSION_COMPLETE);

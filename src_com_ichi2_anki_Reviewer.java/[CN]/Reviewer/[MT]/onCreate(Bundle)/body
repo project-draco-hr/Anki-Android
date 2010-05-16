@@ -1,11 +1,13 @@
 {
   super.onCreate(savedInstanceState);
+  Log.i(TAG,"Reviewer - onCreate");
   if (AnkiDroidApp.deck() == null) {
-    setResult(RESULT_DECK_NOT_LOADED);
+    setResult(StudyOptions.CONTENT_NO_EXTERNAL_STORAGE);
     finish();
   }
   getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
   requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+  registerExternalStorageListener();
   restorePreferences();
   initLayout(R.layout.flashcard_portrait);
   updateTitle();

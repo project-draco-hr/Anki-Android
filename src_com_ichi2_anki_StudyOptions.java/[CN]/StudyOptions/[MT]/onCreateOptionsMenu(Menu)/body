@@ -2,7 +2,7 @@
   MenuItem item;
   item=menu.add(Menu.NONE,MENU_OPEN,Menu.NONE,R.string.menu_open_deck);
   item.setIcon(android.R.drawable.ic_menu_manage);
-  SubMenu downloadDeckSubMenu=menu.addSubMenu(R.string.download_deck);
+  SubMenu downloadDeckSubMenu=menu.addSubMenu(Menu.NONE,SUBMENU_DOWNLOAD,Menu.NONE,R.string.download_deck);
   downloadDeckSubMenu.setIcon(R.drawable.ic_menu_download);
   downloadDeckSubMenu.add(Menu.NONE,MENU_DOWNLOAD_PERSONAL_DECK,Menu.NONE,R.string.download_personal_deck);
   downloadDeckSubMenu.add(Menu.NONE,MENU_DOWNLOAD_SHARED_DECK,Menu.NONE,R.string.download_shared_deck);

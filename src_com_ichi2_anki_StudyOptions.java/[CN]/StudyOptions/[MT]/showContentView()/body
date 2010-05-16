@@ -27,5 +27,9 @@ case CONTENT_CONGRATS:
 updateValuesFromDeck();
 setContentView(mCongratsView);
 break;
+case CONTENT_NO_EXTERNAL_STORAGE:
+setTitle(R.string.app_name);
+setContentView(mNoExternalStorageView);
+break;
 }
 }

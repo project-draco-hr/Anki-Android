@@ -1,8 +1,6 @@
 {
-  if (AnkiDroidApp.deck() != null) {
-    AnkiDroidApp.deck().closeDeck();
-    AnkiDroidApp.setDeck(null);
-  }
+  closeOpenedDeck();
   Intent decksPicker=new Intent(this,DeckPicker.class);
+  inDeckPicker=true;
   startActivityForResult(decksPicker,PICK_DECK_REQUEST);
 }

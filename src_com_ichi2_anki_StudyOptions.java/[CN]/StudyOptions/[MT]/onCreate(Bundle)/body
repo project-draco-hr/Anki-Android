@@ -2,6 +2,7 @@
   super.onCreate(savedInstanceState);
   Log.i(TAG,"StudyOptions Activity");
   SharedPreferences preferences=restorePreferences();
+  registerExternalStorageListener();
   getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
   requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
   initAllContentViews();
@@ -15,10 +16,15 @@
     deckFilename=preferences.getString("deckFilename",null);
     Log.i(TAG,"onCreate - deckFilename from preferences: " + deckFilename);
   }
-  if (deckFilename == null || !new File(deckFilename).exists())   showContentView(CONTENT_NO_DECK);
+  if (!sdCardAvailable) {
+    showContentView(CONTENT_NO_EXTERNAL_STORAGE);
+  }
  else {
-    Intent deckLoadIntent=new Intent();
-    deckLoadIntent.putExtra(OPT_DB,deckFilename);
-    onActivityResult(PICK_DECK_REQUEST,RESULT_OK,deckLoadIntent);
+    if (deckFilename == null || !new File(deckFilename).exists()) {
+      showContentView(CONTENT_NO_DECK);
+    }
+ else {
+      loadPreviousDeck();
+    }
   }
 }

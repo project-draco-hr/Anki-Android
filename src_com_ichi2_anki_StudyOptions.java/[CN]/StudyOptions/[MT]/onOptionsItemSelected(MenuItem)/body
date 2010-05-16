@@ -1,4 +1,5 @@
 {
+  Log.i(TAG,"Item = " + item.getItemId());
 switch (item.getItemId()) {
 case MENU_OPEN:
     openDeckPicker();
@@ -16,7 +17,7 @@ startActivityForResult(preferences,PREFERENCES_UPDATE);
 return true;
 case MENU_DECK_PROPERTIES:
 Intent deckProperties=new Intent(this,DeckProperties.class);
-startActivity(deckProperties);
+startActivityForResult(deckProperties,DECK_PROPERTIES);
 break;
 case MENU_SYNC:
 syncDeck();

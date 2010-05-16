@@ -1,8 +1,14 @@
 {
   super.onActivityResult(requestCode,resultCode,data);
   if (requestCode == EDIT_CURRENT_CARD) {
-    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_FACT,mUpdateCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
-    mFlipCard.setChecked(true);
-    displayCardQuestion();
+    if (resultCode == RESULT_OK) {
+      Log.i(TAG,"Saving card...");
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_FACT,mUpdateCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
+      mFlipCard.setChecked(true);
+      displayCardQuestion();
+    }
+ else     if (resultCode == StudyOptions.CONTENT_NO_EXTERNAL_STORAGE) {
+      finishNoStorageAvailable();
+    }
   }
 }

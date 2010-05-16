@@ -1,5 +1,5 @@
 {
-  super.onStop();
-  Log.i(TAG,"DeckPicker - onStop()");
+  super.onDestroy();
+  Log.i(TAG,"Reviewer - onDestroy()");
   if (mUnmountReceiver != null)   unregisterReceiver(mUnmountReceiver);
 }

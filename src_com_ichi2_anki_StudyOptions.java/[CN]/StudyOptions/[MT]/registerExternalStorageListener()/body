@@ -1,0 +1,26 @@
+{
+  if (mUnmountReceiver == null) {
+    mUnmountReceiver=new BroadcastReceiver(){
+      @Override public void onReceive(      Context context,      Intent intent){
+        String action=intent.getAction();
+        if (action.equals(Intent.ACTION_MEDIA_EJECT)) {
+          Log.i(TAG,"mUnmountReceiver - Action = Media Eject");
+          closeOpenedDeck();
+          showContentView(CONTENT_NO_EXTERNAL_STORAGE);
+          sdCardAvailable=false;
+        }
+ else         if (action.equals(Intent.ACTION_MEDIA_MOUNTED)) {
+          Log.i(TAG,"mUnmountReceiver - Action = Media Mounted");
+          sdCardAvailable=true;
+          if (!inDeckPicker)           loadPreviousDeck();
+        }
+      }
+    }
+;
+    IntentFilter iFilter=new IntentFilter();
+    iFilter.addAction(Intent.ACTION_MEDIA_EJECT);
+    iFilter.addAction(Intent.ACTION_MEDIA_MOUNTED);
+    iFilter.addDataScheme("file");
+    registerReceiver(mUnmountReceiver,iFilter);
+  }
+}
