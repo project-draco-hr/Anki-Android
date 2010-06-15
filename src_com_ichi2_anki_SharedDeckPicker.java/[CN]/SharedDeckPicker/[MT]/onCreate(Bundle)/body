@@ -1,6 +1,8 @@
 {
   super.onCreate(savedInstanceState);
-  getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+  if (notificationBar == false) {
+    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+  }
   setContentView(R.layout.main);
   registerExternalStorageListener();
   initAlertDialogs();

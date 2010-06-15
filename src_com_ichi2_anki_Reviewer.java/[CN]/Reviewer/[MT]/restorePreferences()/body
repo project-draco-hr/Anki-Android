@@ -5,5 +5,9 @@
   prefWhiteboard=preferences.getBoolean("whiteboard",true);
   prefWriteAnswers=preferences.getBoolean("writeAnswers",false);
   prefDeckFilename=preferences.getString("deckFilename","");
+  useRubySupport=preferences.getBoolean("useRubySupport",false);
+  String qaFontSizeString=preferences.getString("qaFontSize","0");
+  qaFontSize=Integer.parseInt(qaFontSizeString);
+  notificationBar=preferences.getBoolean("notificationBar",false);
   return preferences;
 }

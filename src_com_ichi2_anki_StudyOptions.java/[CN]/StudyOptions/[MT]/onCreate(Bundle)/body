@@ -3,7 +3,9 @@
   Log.i(TAG,"StudyOptions Activity");
   SharedPreferences preferences=restorePreferences();
   registerExternalStorageListener();
-  getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+  if (notificationBar == false) {
+    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+  }
   requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
   initAllContentViews();
   initAllAlertDialogs();

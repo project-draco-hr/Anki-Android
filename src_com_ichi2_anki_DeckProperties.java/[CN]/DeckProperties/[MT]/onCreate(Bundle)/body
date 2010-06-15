@@ -5,7 +5,10 @@
     finish();
   }
  else {
-    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    restorePreferences();
+    if (notificationBar == false) {
+      getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
     registerExternalStorageListener();
     this.pref=new DeckPreferenceHack();
     this.pref.registerOnSharedPreferenceChangeListener(this);

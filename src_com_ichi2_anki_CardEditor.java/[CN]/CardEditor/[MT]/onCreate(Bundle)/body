@@ -1,6 +1,9 @@
 {
   super.onCreate(savedInstanceState);
-  getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+  restorePreferences();
+  if (notificationBar == false) {
+    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+  }
   registerExternalStorageListener();
   setContentView(R.layout.card_editor);
   fieldsLayoutContainer=(LinearLayout)findViewById(R.id.CardEditorEditFieldsLayout);

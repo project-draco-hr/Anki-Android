@@ -1,6 +1,9 @@
 {
   super.onCreate(savedInstanceState);
-  getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+  restorePreferences();
+  if (notificationBar == false) {
+    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+  }
   setContentView(R.layout.about);
   WebView webview=(WebView)findViewById(R.id.about);
   webview.loadDataWithBaseURL("",getResources().getString(R.string.about_content),"text/html","utf-8",null);

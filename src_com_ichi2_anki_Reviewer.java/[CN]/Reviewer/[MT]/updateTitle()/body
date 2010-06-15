@@ -2,4 +2,21 @@
   Deck deck=AnkiDroidApp.deck();
   String unformattedTitle=getResources().getString(R.string.studyoptions_window_title);
   setTitle(String.format(unformattedTitle,deck.deckName,deck.revCount + deck.failedSoonCount,deck.cardCount));
+  SpannableString failedSoonCount=new SpannableString(String.valueOf(deck.failedSoonCount));
+  SpannableString revCount=new SpannableString(String.valueOf(deck.revCount));
+  SpannableString newCount=new SpannableString(String.valueOf(deck.newCount));
+  int isDue=deck.getCurrentCard().isDue;
+  int type=deck.getCurrentCard().type;
+  if ((isDue == 1) && (type == 2)) {
+    newCount.setSpan(new UnderlineSpan(),0,newCount.length(),0);
+  }
+  if ((isDue == 1) && (type == 1)) {
+    revCount.setSpan(new UnderlineSpan(),0,revCount.length(),0);
+  }
+  if ((isDue == 1) && (type == 0)) {
+    failedSoonCount.setSpan(new UnderlineSpan(),0,failedSoonCount.length(),0);
+  }
+  mTextBarRed.setText(failedSoonCount);
+  mTextBarBlack.setText(revCount);
+  mTextBarBlue.setText(newCount);
 }

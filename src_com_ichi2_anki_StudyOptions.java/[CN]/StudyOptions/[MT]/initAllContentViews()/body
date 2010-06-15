@@ -1,6 +1,7 @@
 {
   mStudyOptionsView=getLayoutInflater().inflate(R.layout.studyoptions,null);
   mTextTitle=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_title);
+  mTextDeckName=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_name);
   mButtonStart=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_start);
   mStudyOptionsView.findViewById(R.id.studyoptions_more).setOnClickListener(mButtonClickListener);
   mTextReviewsDue=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_reviews_due);
@@ -25,4 +26,9 @@
   mButtonCongratsReviewEarly=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_reviewearly);
   mButtonCongratsFinish=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_finish);
   mNoExternalStorageView=getLayoutInflater().inflate(R.layout.studyoptions_nostorage,null);
+  progressDialog=new ProgressDialog(StudyOptions.this);
+  progressDialog.setCancelable(true);
+  progressDialog.setMax(100);
+  progressDialog.setProgress(0);
+  progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 }
