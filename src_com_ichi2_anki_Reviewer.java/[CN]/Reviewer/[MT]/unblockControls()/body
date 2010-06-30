@@ -3,38 +3,38 @@
 switch (mCurrentEase) {
 case 1:
     mCard.setEnabled(true);
-  mEase0.setClickable(true);
-mEase1.setEnabled(true);
+  mEase1.setClickable(true);
 mEase2.setEnabled(true);
 mEase3.setEnabled(true);
+mEase4.setEnabled(true);
 break;
 case 2:
 mCard.setEnabled(true);
-mEase0.setEnabled(true);
-mEase1.setClickable(true);
-mEase2.setEnabled(true);
-mEase3.setEnabled(true);
-break;
-case 3:
-mCard.setEnabled(true);
-mEase0.setEnabled(true);
 mEase1.setEnabled(true);
 mEase2.setClickable(true);
 mEase3.setEnabled(true);
+mEase4.setEnabled(true);
 break;
-case 4:
+case 3:
 mCard.setEnabled(true);
-mEase0.setEnabled(true);
 mEase1.setEnabled(true);
 mEase2.setEnabled(true);
 mEase3.setClickable(true);
+mEase4.setEnabled(true);
 break;
-default :
+case 4:
 mCard.setEnabled(true);
-mEase0.setEnabled(true);
 mEase1.setEnabled(true);
 mEase2.setEnabled(true);
 mEase3.setEnabled(true);
+mEase4.setClickable(true);
+break;
+default :
+mCard.setEnabled(true);
+mEase1.setEnabled(true);
+mEase2.setEnabled(true);
+mEase3.setEnabled(true);
+mEase4.setEnabled(true);
 break;
 }
 mFlipCard.setEnabled(true);

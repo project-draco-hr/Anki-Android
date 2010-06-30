@@ -2,10 +2,10 @@
   Log.i(TAG,"initLayout - Beginning");
   setContentView(layout);
   mCard=(WebView)findViewById(R.id.flashcard);
-  mEase0=(Button)findViewById(R.id.ease1);
-  mEase1=(Button)findViewById(R.id.ease2);
-  mEase2=(Button)findViewById(R.id.ease3);
-  mEase3=(Button)findViewById(R.id.ease4);
+  mEase1=(Button)findViewById(R.id.ease1);
+  mEase2=(Button)findViewById(R.id.ease2);
+  mEase3=(Button)findViewById(R.id.ease3);
+  mEase4=(Button)findViewById(R.id.ease4);
   mCardTimer=(Chronometer)findViewById(R.id.card_time);
   mFlipCard=(ToggleButton)findViewById(R.id.flip_card);
   mToggleWhiteboard=(ToggleButton)findViewById(R.id.toggle_overlay);
@@ -13,10 +13,10 @@
   mAnswerField=(EditText)findViewById(R.id.answer_field);
   showControls(false);
   mButtonReviewEarly.setOnClickListener(mButtonReviewEarlyHandler);
-  mEase0.setOnClickListener(mSelectEaseHandler);
   mEase1.setOnClickListener(mSelectEaseHandler);
   mEase2.setOnClickListener(mSelectEaseHandler);
   mEase3.setOnClickListener(mSelectEaseHandler);
+  mEase4.setOnClickListener(mSelectEaseHandler);
   mFlipCard.setChecked(true);
   mFlipCard.setOnCheckedChangeListener(mFlipCardHandler);
   mToggleWhiteboard.setOnCheckedChangeListener(mToggleOverlayHandler);

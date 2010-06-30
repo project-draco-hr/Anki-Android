@@ -1,0 +1,25 @@
+{
+  Resources res=getResources();
+  if (learningButtons()) {
+    mEase1.setText(res.getString(R.string.ease1_learning));
+    mEase2.setText(res.getString(R.string.ease2_learning));
+    mEase3.setText(res.getString(R.string.ease3_learning));
+    mEase4.setText(res.getString(R.string.ease4_learning));
+  }
+ else {
+    mEase1.setText(res.getString(R.string.ease1_successive));
+    mEase2.setText(res.getString(R.string.ease2_successive));
+    mEase3.setText(res.getString(R.string.ease3_successive));
+    mEase4.setText(res.getString(R.string.ease4_successive));
+  }
+  mEase1.setVisibility(View.VISIBLE);
+  mEase2.setVisibility(View.VISIBLE);
+  mEase3.setVisibility(View.VISIBLE);
+  mEase4.setVisibility(View.VISIBLE);
+  if (learningButtons()) {
+    mEase2.requestFocus();
+  }
+ else {
+    mEase3.requestFocus();
+  }
+}

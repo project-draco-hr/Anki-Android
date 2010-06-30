@@ -2,12 +2,12 @@
   Log.i(TAG,"displayCardAnswer");
   mCardTimer.stop();
   mWhiteboard.lock();
-  mEase0.setVisibility(View.VISIBLE);
   mEase1.setVisibility(View.VISIBLE);
   mEase2.setVisibility(View.VISIBLE);
   mEase3.setVisibility(View.VISIBLE);
+  mEase4.setVisibility(View.VISIBLE);
   mAnswerField.setVisibility(View.GONE);
-  mEase2.requestFocus();
+  mEase3.requestFocus();
   if (writeAnswers) {
     if (currentCard != null) {
       String userAnswer=mAnswerField.getText().toString();

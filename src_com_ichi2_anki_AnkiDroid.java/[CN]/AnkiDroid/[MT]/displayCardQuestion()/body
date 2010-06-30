@@ -3,10 +3,10 @@
   if (currentCard == null) {
     updateCard(getString(R.string.congratulations_finished_for_now));
     mButtonReviewEarly.setVisibility(View.VISIBLE);
-    mEase0.setVisibility(View.GONE);
     mEase1.setVisibility(View.GONE);
     mEase2.setVisibility(View.GONE);
     mEase3.setVisibility(View.GONE);
+    mEase4.setVisibility(View.GONE);
     mFlipCard.setVisibility(View.GONE);
     mCardTimer.setVisibility(View.GONE);
     mToggleWhiteboard.setVisibility(View.GONE);
@@ -16,10 +16,10 @@
   }
  else {
     Log.i(TAG,"displayCardQuestion - Hiding Ease buttons...");
-    mEase0.setVisibility(View.GONE);
     mEase1.setVisibility(View.GONE);
     mEase2.setVisibility(View.GONE);
     mEase3.setVisibility(View.GONE);
+    mEase4.setVisibility(View.GONE);
     if (writeAnswers) {
       mAnswerField.setVisibility(View.VISIBLE);
     }

@@ -1,12 +1,7 @@
 {
   Log.i(TAG,"displayCardAnswer");
   mCardTimer.stop();
-  mEase0.setVisibility(View.VISIBLE);
-  mEase1.setVisibility(View.VISIBLE);
-  mEase2.setVisibility(View.VISIBLE);
-  mEase3.setVisibility(View.VISIBLE);
   mAnswerField.setVisibility(View.GONE);
-  mEase2.requestFocus();
   if (prefWriteAnswers) {
     if (mCurrentCard != null) {
       String userAnswer=mAnswerField.getText().toString();
@@ -21,4 +16,5 @@
  else {
     updateCard(mCurrentCard.answer);
   }
+  showEaseButtons();
 }

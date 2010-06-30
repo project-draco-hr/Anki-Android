@@ -1,10 +1,7 @@
 {
   updateCard(mCurrentCard.question);
   showControls();
-  mEase0.setVisibility(View.INVISIBLE);
-  mEase1.setVisibility(View.INVISIBLE);
-  mEase2.setVisibility(View.INVISIBLE);
-  mEase3.setVisibility(View.INVISIBLE);
   if (prefWriteAnswers)   mAnswerField.setVisibility(View.VISIBLE);
+  hideEaseButtons();
   mFlipCard.requestFocus();
 }
