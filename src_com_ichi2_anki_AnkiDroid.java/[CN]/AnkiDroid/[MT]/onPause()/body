@@ -1,0 +1,6 @@
+{
+  super.onPause();
+  Log.i(TAG,"onPause - inigo");
+  if (AnkiDroidApp.getDeck() != null && sdCardAvailable)   AnkiDroidApp.getDeck().closeDeck();
+  Log.i(TAG,"onPause - Ending");
+}
