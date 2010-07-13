@@ -52,7 +52,10 @@
   Log.i(TAG,String.format(ENGLISH_LOCALE,"openDeck - modified: %f currentTime: %f",deck.modified,System.currentTimeMillis() / 1000.0));
   deck.initVars();
   deck.updateDynamicIndices();
-  int oldCount=deck.failedSoonCount + deck.revCount + deck.newCount;
+  int oldFailedNowCount=deck.failedNowCount;
+  int oldFailedSoonCount=deck.failedSoonCount;
+  int oldRevCount=deck.revCount;
+  int oldNewCount=deck.newCount;
   deck.rebuildQueue();
   try {
     cursor=AnkiDb.database.rawQuery("SELECT id " + "FROM cards " + "WHERE type in (0,1,2) and "+ "isDue = 0 and "+ "priority in (-1,-2)",null);
@@ -70,7 +73,7 @@
   finally {
     if (cursor != null)     cursor.close();
   }
-  if ((oldCount != (deck.failedSoonCount + deck.revCount + deck.newCount)) || deck.modifiedSinceSave())   deck.commitToDB();
+  if (oldFailedNowCount != deck.failedNowCount || oldFailedSoonCount != deck.failedSoonCount || oldRevCount != deck.revCount || oldNewCount != deck.newCount || deck.modifiedSinceSave())   deck.commitToDB();
   AnkiDb.database.execSQL("CREATE TEMPORARY VIEW acqCardsRandom AS " + "SELECT * FROM cards " + "WHERE type = 2 AND isDue = 1 "+ "ORDER BY RANDOM()");
   return deck;
 }
