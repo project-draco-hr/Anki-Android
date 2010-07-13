@@ -1,6 +1,6 @@
 import os
 import zipfile
-languages = ['pt-PT', 'fr', 'ru', 'ca', 'es-ES', 'el']
+languages = ['pt-PT', 'fr', 'ru', 'ca', 'es-ES', 'el', 'it', 'pl', 'de', 'ro', 'sv-SE']
 zip = zipfile.ZipFile('ankidroid.zip', 'r')
 for language in languages:
     androidLanguage = language[:2]
