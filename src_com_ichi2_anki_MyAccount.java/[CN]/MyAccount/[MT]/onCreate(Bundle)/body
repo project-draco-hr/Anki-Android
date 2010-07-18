@@ -1,0 +1,14 @@
+{
+  super.onCreate(savedInstanceState);
+  initAllContentViews();
+  initAllAlertDialogs();
+  if (isUserLoggedIn()) {
+    SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+    String username=preferences.getString("username","");
+    mUsernameLoggedIn.setText(username);
+    setContentView(mLoggedIntoMyAccountView);
+  }
+ else {
+    setContentView(mLoginToMyAccountView);
+  }
+}

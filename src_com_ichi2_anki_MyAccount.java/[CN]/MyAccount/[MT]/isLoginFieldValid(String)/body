@@ -1,0 +1,7 @@
+{
+  boolean loginFieldValid=false;
+  if (loginField.length() >= 2 && loginField.matches("[A-Za-z0-9]+")) {
+    loginFieldValid=true;
+  }
+  return loginFieldValid;
+}

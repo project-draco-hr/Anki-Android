@@ -1,0 +1,37 @@
+{
+  mLoginToMyAccountView=getLayoutInflater().inflate(R.layout.my_account,null);
+  mUsername=(EditText)mLoginToMyAccountView.findViewById(R.id.username);
+  mPassword=(EditText)mLoginToMyAccountView.findViewById(R.id.password);
+  Button loginButton=(Button)mLoginToMyAccountView.findViewById(R.id.login_button);
+  loginButton.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View v){
+      String username=mUsername.getText().toString();
+      String password=mPassword.getText().toString();
+      Log.i(TAG,"Username = " + username);
+      Log.i(TAG,"Password = " + password);
+      if (isUsernameAndPasswordValid(username,password)) {
+        Connection.login(loginListener,new Connection.Payload(new Object[]{username,password}));
+      }
+ else {
+        mInvalidUserPassAlert.show();
+      }
+    }
+  }
+);
+  Button signUpButton=(Button)mLoginToMyAccountView.findViewById(R.id.sign_up_button);
+  signUpButton.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View v){
+      startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(getResources().getString(R.string.ankionline_sign_up_url))));
+    }
+  }
+);
+  mLoggedIntoMyAccountView=getLayoutInflater().inflate(R.layout.my_account_logged_in,null);
+  mUsernameLoggedIn=(TextView)mLoggedIntoMyAccountView.findViewById(R.id.username_logged_in);
+  Button logoutButton=(Button)mLoggedIntoMyAccountView.findViewById(R.id.logout_button);
+  logoutButton.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View v){
+      logout();
+    }
+  }
+);
+}

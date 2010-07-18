@@ -1,0 +1,9 @@
+{
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+  String username=preferences.getString("username","");
+  String password=preferences.getString("password","");
+  if (!username.equalsIgnoreCase("") && !password.equalsIgnoreCase("")) {
+    return true;
+  }
+  return false;
+}

@@ -3,10 +3,12 @@
   CurrentProgress=0;
   publishProgress(CurrentProgress+=5,context.getResources().getString(R.string.determining_task));
 switch (data.taskType) {
+case TASK_TYPE_LOGIN:
+    return doInBackgroundLogin(data);
 case TASK_TYPE_GET_SHARED_DECKS:
-    return doInBackgroundGetSharedDecks(data);
+  return doInBackgroundGetSharedDecks(data);
 case TASK_TYPE_DOWNLOAD_SHARED_DECK:
-  return doInBackgroundDownloadSharedDeck(data);
+return doInBackgroundDownloadSharedDeck(data);
 case TASK_TYPE_GET_PERSONAL_DECKS:
 return doInBackgroundGetPersonalDecks(data);
 case TASK_TYPE_DOWNLOAD_PERSONAL_DECK:

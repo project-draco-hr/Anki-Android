@@ -1,0 +1,18 @@
+{
+  try {
+    String username=(String)data.data[0];
+    String password=(String)data.data[1];
+    AnkiDroidProxy server=new AnkiDroidProxy(username,password);
+    int status=server.connect();
+    if (status != AnkiDroidProxy.LOGIN_OK) {
+      data.success=false;
+      data.errorType=status;
+    }
+  }
+ catch (  Exception e) {
+    data.success=false;
+    data.exception=e;
+    Log.e(TAG,"Error trying to log in");
+  }
+  return data;
+}

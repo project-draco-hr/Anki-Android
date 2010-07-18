@@ -1,0 +1,8 @@
+{
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+  Editor editor=preferences.edit();
+  editor.putString("username","");
+  editor.putString("password","");
+  editor.commit();
+  setContentView(mLoginToMyAccountView);
+}

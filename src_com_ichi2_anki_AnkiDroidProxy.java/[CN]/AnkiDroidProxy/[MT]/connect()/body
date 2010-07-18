@@ -8,10 +8,15 @@
         Log.i(TAG,"Server decks = " + decks.toString());
         timestamp=jsonDecks.getDouble("timestamp");
         Log.i(TAG,"Server timestamp = " + timestamp);
+        return LOGIN_OK;
+      }
+ else       if ("invalidUserPass".equalsIgnoreCase(jsonDecks.getString("status"))) {
+        return LOGIN_INVALID_USER_PASS;
       }
     }
  catch (    JSONException e) {
       Log.i(TAG,"JSONException = " + e.getMessage());
     }
   }
+  return LOGIN_OK;
 }
