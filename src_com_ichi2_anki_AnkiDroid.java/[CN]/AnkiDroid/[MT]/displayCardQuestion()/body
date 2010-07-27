@@ -31,5 +31,6 @@
       displayString=displayString + "<hr/>";
     }
     updateCard(displayString);
+    mCounts.loadDataWithBaseURL("",AnkiDroidApp.getDeck().reportCounts(),"text/html","utf-8",null);
   }
 }
