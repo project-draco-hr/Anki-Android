@@ -1,0 +1,13 @@
+{
+  super.onPostExecute(result);
+  if (result.returnType == AnkiDroid.DECK_LOADED) {
+    HashMap<String,Object> results=(HashMap<String,Object>)result.result;
+    Deck deck=(Deck)results.get("deck");
+    if (deck != null) {
+      deck.closeDeck();
+    }
+    mDownloads.remove((Download)result.data[1]);
+    notifyObservers();
+    showNotification(deck.deckName);
+  }
+}

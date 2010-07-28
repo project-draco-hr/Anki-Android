@@ -1,0 +1,5 @@
+{
+  mPersonalDeckDownloads.remove(download);
+  notifyPersonalDeckObservers();
+  showNotification(download.getTitle());
+}

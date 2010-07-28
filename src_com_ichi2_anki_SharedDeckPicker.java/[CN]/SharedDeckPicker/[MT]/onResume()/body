@@ -1,0 +1,7 @@
+{
+  super.onResume();
+  mDownloadManager.registerListener(DownloadManager.SHARED_DECK_DOWNLOAD,downloadListener);
+  mSharedDeckDownloads.clear();
+  mSharedDeckDownloads.addAll(mDownloadManager.getDownloadsList(DownloadManager.SHARED_DECK_DOWNLOAD));
+  refreshSharedDecksList();
+}

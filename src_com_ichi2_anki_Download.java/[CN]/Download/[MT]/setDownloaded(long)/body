@@ -1,0 +1,25 @@
+{
+  this.downloaded=downloaded;
+  float downloadedToShow=downloaded;
+  int divs=0;
+  while (downloadedToShow > 1000) {
+    downloadedToShow=downloadedToShow / 1000;
+    divs++;
+  }
+  DecimalFormat dec=new DecimalFormat("#.##");
+switch (divs) {
+case 0:
+    put("downloaded",dec.format(downloadedToShow) + "B");
+  break;
+case 1:
+put("downloaded",dec.format(downloadedToShow) + "KB");
+break;
+case 2:
+put("downloaded",dec.format(downloadedToShow) + "MB");
+break;
+case 3:
+put("downloaded",dec.format(downloadedToShow) + "GB");
+break;
+}
+setProgress();
+}

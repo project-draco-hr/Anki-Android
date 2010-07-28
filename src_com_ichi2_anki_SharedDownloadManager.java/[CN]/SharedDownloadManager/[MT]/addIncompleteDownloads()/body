@@ -1,0 +1,16 @@
+{
+  Log.i(TAG,"Adding incomplete downloads:");
+  File[] fileList;
+  File dir=new File(mDestination);
+  fileList=dir.listFiles(new IncompleteDownloadsFilter());
+  for (int i=0; i < fileList.length; i++) {
+    File file=fileList[i];
+    String filename=file.getName();
+    if (filename.endsWith(".shared.anki.tmp")) {
+      String identifier=filename.substring(filename.length() - ".shared.anki.tmp".length() - 1,filename.length() - ".shared.anki.tmp".length());
+      mDownloads.add(new Download(filename.substring(0,filename.length() - ".shared.anki.tmp".length()),file.length()));
+      Log.i(TAG,"Incomplete download of deck = " + mDownloads.get(mDownloads.size() - 1).getTitle() + ", identifier = "+ identifier+ " downloaded = "+ mDownloads.get(mDownloads.size() - 1).getSize()+ "B");
+    }
+  }
+  notifyObservers();
+}

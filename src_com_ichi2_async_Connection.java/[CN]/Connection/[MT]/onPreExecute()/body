@@ -1,3 +1,5 @@
 {
-  listener.onPreExecute();
+  if (listener != null) {
+    listener.onPreExecute();
+  }
 }

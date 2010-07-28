@@ -1,5 +1,5 @@
 {
-  Cursor cursor=AnkiDb.database.rawQuery("SELECT id, factId " + "FROM cards",null);
+  Cursor cursor=AnkiDb.database.rawQuery("SELECT id, factId " + "FROM cards " + "ORDER BY id",null);
   while (cursor.moveToNext()) {
     Card card=new Card();
     card.fromDB(cursor.getLong(0));
@@ -13,4 +13,5 @@
     card.modified=System.currentTimeMillis() / 1000.0;
     card.toDB();
   }
+  cursor.close();
 }

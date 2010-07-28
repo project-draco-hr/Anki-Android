@@ -1,27 +1,29 @@
 {
   super.onCreate(savedInstanceState);
-  restorePreferences();
-  if (notificationBar == false) {
-    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-  }
   setContentView(R.layout.main);
   registerExternalStorageListener();
   initAlertDialogs();
   SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
   username=pref.getString("username","");
   password=pref.getString("password","");
+  mPersonalDecksDownloads=new ArrayList<Download>();
   mPersonalDecks=new ArrayList<String>();
-  mPersonalDecksAdapter=new ArrayAdapter<String>(this,R.layout.personal_deck_item,R.id.PersonalDeckTitle,mPersonalDecks);
+  mAllPersonalDecks=new ArrayList<Object>();
+  mPersonalDecksAdapter=new PersonalDecksAdapter();
   mPersonalDecksListView=(ListView)findViewById(R.id.files);
   mPersonalDecksListView.setAdapter(mPersonalDecksAdapter);
   mPersonalDecksListView.setOnItemClickListener(new OnItemClickListener(){
     @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
       SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
-      deckName=mPersonalDecks.get(position);
+      deckName=(String)mAllPersonalDecks.get(position);
       deckPath=pref.getString("deckPath",AnkiDroidApp.getStorageDirectory()) + "/" + deckName+ ".anki";
-      Connection.downloadPersonalDeck(downloadSharedDeckListener,new Connection.Payload(new Object[]{username,password,deckName,deckPath}));
+      Download personalDeckDownload=new Download(deckName);
+      mPersonalDecksDownloads.add(personalDeckDownload);
+      refreshPersonalDecksList();
+      mDownloadManager.downloadFile(personalDeckDownload);
     }
   }
 );
+  mDownloadManager=DownloadManager.getSharedInstance(getApplicationContext(),username,password,pref.getString("deckPath",AnkiDroidApp.getStorageDirectory()));
   Connection.getPersonalDecks(getPersonalDecksListener,new Connection.Payload(new Object[]{username,password}));
 }

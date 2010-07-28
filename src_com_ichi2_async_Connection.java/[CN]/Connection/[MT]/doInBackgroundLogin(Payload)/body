@@ -6,7 +6,7 @@
     int status=server.connect();
     if (status != AnkiDroidProxy.LOGIN_OK) {
       data.success=false;
-      data.errorType=status;
+      data.returnType=status;
     }
   }
  catch (  Exception e) {

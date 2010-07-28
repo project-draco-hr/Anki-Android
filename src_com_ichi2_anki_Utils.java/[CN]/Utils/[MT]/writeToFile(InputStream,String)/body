@@ -1,5 +1,6 @@
 {
   try {
+    Log.i(TAG,"Creating new file... = " + destination);
     new File(destination).createNewFile();
     OutputStream output=new FileOutputStream(destination);
     byte[] buf=new byte[CHUNK_SIZE];
@@ -7,7 +8,9 @@
     if (source == null)     Log.i(TAG,"source is null!");
     while ((len=source.read(buf)) > 0) {
       output.write(buf,0,len);
+      Log.i(TAG,"Write...");
     }
+    Log.i(TAG,"Finished writing!");
     output.close();
   }
  catch (  Exception e) {

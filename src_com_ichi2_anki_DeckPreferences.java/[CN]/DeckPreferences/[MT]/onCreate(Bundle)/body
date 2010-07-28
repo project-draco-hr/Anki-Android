@@ -5,10 +5,6 @@
     finish();
   }
  else {
-    restorePreferences();
-    if (notificationBar == false) {
-      getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-    }
     this.pref=new DeckPreferenceHack();
     this.pref.registerOnSharedPreferenceChangeListener(this);
     this.addPreferencesFromResource(R.layout.deck_preferences);

@@ -1,0 +1,6 @@
+{
+  mAllSharedDecks.clear();
+  mAllSharedDecks.addAll(mSharedDeckDownloads);
+  mAllSharedDecks.addAll(mSharedDecks);
+  mSharedDecksAdapter.notifyDataSetChanged();
+}

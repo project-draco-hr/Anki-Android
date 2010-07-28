@@ -1,0 +1,73 @@
+{
+  View row=convertView;
+  ViewWrapper wrapper=null;
+  if (row == null) {
+    row=getLayoutInflater().inflate(R.layout.download_deck_item,null);
+    wrapper=new ViewWrapper(row);
+    row.setTag(wrapper);
+  }
+ else {
+    wrapper=(ViewWrapper)row.getTag();
+  }
+  TextView headerTitle=wrapper.getHeaderTitle();
+  TextView downloadingSharedDeckTitle=wrapper.getDownloadTitle();
+  ProgressBar progressBar=wrapper.getProgressBar();
+  TextView progressText=wrapper.getProgressBarText();
+  TextView sharedDeckTitle=wrapper.getDeckTitle();
+  TextView sharedDeckFacts=wrapper.getDeckFacts();
+  Object obj=(Object)mAllSharedDecks.get(position);
+  if (obj instanceof Download) {
+    Download download=(Download)obj;
+    sharedDeckTitle.setVisibility(View.GONE);
+    sharedDeckFacts.setVisibility(View.GONE);
+    if (position == 0) {
+      headerTitle.setText("Currently downloading");
+      headerTitle.setVisibility(View.VISIBLE);
+    }
+ else {
+      headerTitle.setVisibility(View.GONE);
+    }
+    downloadingSharedDeckTitle.setText(download.getTitle());
+    downloadingSharedDeckTitle.setVisibility(View.VISIBLE);
+    progressBar.setVisibility(View.VISIBLE);
+switch (download.getStatus()) {
+case Download.START:
+      progressText.setText("Starting download...");
+    break;
+case Download.DOWNLOADING:
+  progressText.setText("Downloading...");
+break;
+case Download.PAUSED:
+progressText.setText("Paused");
+break;
+case Download.COMPLETE:
+progressText.setText("Downloaded");
+break;
+case SharedDeckDownload.UPDATE:
+progressText.setText("Updating...");
+break;
+default :
+progressText.setText("Error");
+break;
+}
+progressText.setVisibility(View.VISIBLE);
+}
+ else {
+SharedDeck sharedDeck=(SharedDeck)obj;
+if (position > 0 && (mAllSharedDecks.get(position - 1) instanceof Download)) {
+headerTitle.setText("Shared Decks");
+headerTitle.setVisibility(View.VISIBLE);
+}
+ else {
+headerTitle.setVisibility(View.GONE);
+}
+downloadingSharedDeckTitle.setVisibility(View.GONE);
+progressBar.setVisibility(View.GONE);
+progressText.setVisibility(View.GONE);
+sharedDeckTitle.setText(sharedDeck.getTitle());
+sharedDeckTitle.setVisibility(View.VISIBLE);
+sharedDeckFacts.setText(sharedDeck.getFacts() + " facts");
+sharedDeckFacts.setVisibility(View.VISIBLE);
+}
+return row;
+}

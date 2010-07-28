@@ -1,0 +1,7 @@
+{
+  super.onResume();
+  mDownloadManager.registerListener(DownloadManager.PERSONAL_DECK_DOWNLOAD,downloadListener);
+  mPersonalDecksDownloads.clear();
+  mPersonalDecksDownloads.addAll(mDownloadManager.getDownloadsList(DownloadManager.PERSONAL_DECK_DOWNLOAD));
+  refreshPersonalDecksList();
+}

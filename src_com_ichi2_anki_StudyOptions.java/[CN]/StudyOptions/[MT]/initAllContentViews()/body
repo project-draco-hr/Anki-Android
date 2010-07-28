@@ -26,9 +26,4 @@
   mButtonCongratsReviewEarly=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_reviewearly);
   mButtonCongratsFinish=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_finish);
   mNoExternalStorageView=getLayoutInflater().inflate(R.layout.studyoptions_nostorage,null);
-  progressDialog=new ProgressDialog(StudyOptions.this);
-  progressDialog.setCancelable(true);
-  progressDialog.setMax(100);
-  progressDialog.setProgress(0);
-  progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 }

@@ -1,0 +1,12 @@
+{
+  mContext=context;
+  mUsername=username;
+  mPassword=password;
+  mDestination=destination;
+  mPersonalDeckDownloads=new ArrayList<Download>();
+  mPersonalDeckListeners=new ArrayList<DownloadsListener>();
+  mSharedDeckDownloads=new ArrayList<SharedDeckDownload>();
+  mSharedDeckListeners=new ArrayList<DownloadsListener>();
+  addIncompleteDownloads();
+  resumeDownloads();
+}

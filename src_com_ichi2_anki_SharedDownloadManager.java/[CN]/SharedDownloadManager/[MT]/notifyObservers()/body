@@ -1,0 +1,6 @@
+{
+  Log.i(TAG,"Notifying observers...");
+  for (int i=0; i < mListeners.size(); i++) {
+    mListeners.get(i).onStateChanged(mDownloads);
+  }
+}

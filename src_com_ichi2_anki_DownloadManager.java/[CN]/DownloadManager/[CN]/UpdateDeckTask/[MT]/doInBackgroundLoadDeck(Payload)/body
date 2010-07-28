@@ -1,0 +1,32 @@
+{
+  Payload data=params[0];
+  String deckName=(String)data.data[0];
+  String deckFilename=mDestination + "/" + deckName+ ".anki";
+  Log.i(TAG,"doInBackgroundLoadDeck - deckFilename = " + deckFilename);
+  Log.i(TAG,"loadDeck - SD card mounted and existent file -> Loading deck...");
+  try {
+    Deck deck=Deck.openDeck(deckFilename);
+    Card card=deck.getCard();
+    Log.i(TAG,"Deck loaded!");
+    data.returnType=AnkiDroid.DECK_LOADED;
+    HashMap<String,Object> results=new HashMap<String,Object>();
+    results.put("deck",deck);
+    results.put("card",card);
+    data.result=results;
+    return data;
+  }
+ catch (  SQLException e) {
+    Log.i(TAG,"The database " + deckFilename + " could not be opened = "+ e.getMessage());
+    data.success=false;
+    data.returnType=AnkiDroid.DECK_NOT_LOADED;
+    data.exception=e;
+    return data;
+  }
+catch (  CursorIndexOutOfBoundsException e) {
+    Log.i(TAG,"The deck has no cards = " + e.getMessage());
+    data.success=false;
+    data.returnType=AnkiDroid.DECK_EMPTY;
+    data.exception=e;
+    return data;
+  }
+}

@@ -1,3 +1,5 @@
 {
-  listener.onPostExecute(data);
+  if (listener != null) {
+    listener.onPostExecute(data);
+  }
 }

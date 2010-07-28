@@ -1,0 +1,29 @@
+{
+  String deckFilename="";
+  Log.i(TAG,"Unzipping " + zipFilename + "...");
+  InputStream is=null;
+  if (zipFilename.endsWith(".zip")) {
+    ZipFile zipFile=new ZipFile(zipFilename);
+    title=title.replace("^","");
+    title=title.substring(0,java.lang.Math.min(title.length(),40));
+    if (new File(mDestination + "/" + title+ ".anki").exists())     title+=System.currentTimeMillis();
+    String partialDeckPath=mDestination + "/" + title;
+    deckFilename=partialDeckPath + ".anki";
+    ZipEntry zipEntry=null;
+    Enumeration zipEntries=zipFile.entries();
+    while (zipEntries.hasMoreElements()) {
+      zipEntry=(ZipEntry)zipEntries.nextElement();
+      is=zipFile.getInputStream(zipEntry);
+      if ("shared.anki".equalsIgnoreCase(zipEntry.getName())) {
+        Utils.writeToFile(is,deckFilename);
+      }
+ else       if (zipEntry.getName().startsWith("shared.media/",0)) {
+        Utils.writeToFile(is,partialDeckPath + ".media/" + zipEntry.getName().replace("shared.media/",""));
+      }
+    }
+    is.close();
+    new File(zipFilename).delete();
+  }
+  Log.i(TAG,"Deck unzipped!");
+  return deckFilename;
+}

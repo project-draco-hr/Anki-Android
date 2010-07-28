@@ -1,0 +1,13 @@
+{
+  super.onPostExecute(result);
+  if (result.success) {
+    HashMap<String,Object> results=(HashMap<String,Object>)result.result;
+    Deck deck=(Deck)results.get("deck");
+    if (deck != null) {
+      deck.closeDeck();
+    }
+    mSharedDeckDownloads.remove((Download)result.data[1]);
+    notifySharedDeckObservers();
+    showNotification((String)result.data[0]);
+  }
+}

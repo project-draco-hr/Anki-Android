@@ -1,3 +1,5 @@
 {
-  listener.onProgressUpdate(values);
+  if (listener != null) {
+    listener.onProgressUpdate(values);
+  }
 }

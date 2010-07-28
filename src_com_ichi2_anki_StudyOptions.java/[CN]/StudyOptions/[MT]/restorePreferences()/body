@@ -2,6 +2,5 @@
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
   prefDeckPath=preferences.getString("deckPath","/sdcard");
   prefStudyOptions=preferences.getBoolean("study_options",true);
-  notificationBar=preferences.getBoolean("notificationBar",false);
   return preferences;
 }
