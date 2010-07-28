@@ -1,6 +1,6 @@
 {
   JSONArray bundledHistory=new JSONArray();
-  Cursor cursor=AnkiDb.database.rawQuery("SELECT cardId, time, lastInterval, nextInterval, ease, delay, lastFactor, nextFactor, reps, thinkingTime, yesCount, noCount FROM reviewHistory WHERE time > " + String.format(ENGLISH_LOCALE,"%f",deck.lastSync),null);
+  Cursor cursor=AnkiDatabaseManager.getDatabase(deck.deckPath).database.rawQuery("SELECT cardId, time, lastInterval, nextInterval, ease, delay, lastFactor, nextFactor, reps, thinkingTime, yesCount, noCount FROM reviewHistory WHERE time > " + String.format(ENGLISH_LOCALE,"%f",deck.lastSync),null);
   while (cursor.moveToNext()) {
     try {
       JSONArray review=new JSONArray();

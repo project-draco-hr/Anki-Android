@@ -1,5 +1,7 @@
 {
   DeckTask.waitToFinish();
-  if (modifiedSinceSave())   commitToDB();
-  AnkiDb.closeDatabase();
+  if (modifiedSinceSave()) {
+    commitToDB();
+  }
+  AnkiDatabaseManager.closeDatabase(deckPath);
 }

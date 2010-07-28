@@ -2,14 +2,14 @@
   try {
     Stats globalStats=Stats.globalStats(deck);
     updateStat(globalStats,stats.getJSONObject("global"));
-    Stats stat=new Stats();
+    Stats stat=new Stats(deck);
     JSONArray remoteDailyStats=stats.getJSONArray("daily");
     int len=remoteDailyStats.length();
     for (int i=0; i < len; i++) {
       JSONObject remoteStat=remoteDailyStats.getJSONObject(i);
       Date dailyStatDate=Utils.ordinalToDate(remoteStat.getInt("day"));
       try {
-        Long id=AnkiDb.queryScalar("SELECT id FROM stats WHERE type = 1 AND day = \"" + dailyStatDate.toString() + "\"");
+        Long id=AnkiDatabaseManager.getDatabase(deck.deckPath).queryScalar("SELECT id FROM stats WHERE type = 1 AND day = \"" + dailyStatDate.toString() + "\"");
         stat.fromDB(id);
       }
  catch (      SQLException e) {

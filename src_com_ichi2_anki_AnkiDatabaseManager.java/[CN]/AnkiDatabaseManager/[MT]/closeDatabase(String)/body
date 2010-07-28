@@ -1,0 +1,6 @@
+{
+  AnkiDb ankiDB=mAnkiDatabases.remove(pathDB);
+  if (ankiDB != null) {
+    ankiDB.closeDatabase();
+  }
+}

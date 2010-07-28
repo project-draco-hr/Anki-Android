@@ -2,7 +2,7 @@
   if (newCardSpacing == NEW_CARDS_LAST)   return false;
   if (newCardSpacing == NEW_CARDS_FIRST)   return true;
   try {
-    AnkiDb.queryScalar("SELECT 1 " + "FROM cards " + "WHERE type = 1 and "+ "isDue = 1 and "+ "priority = 4 "+ "LIMIT 1");
+    AnkiDatabaseManager.getDatabase(deckPath).queryScalar("SELECT 1 " + "FROM cards " + "WHERE type = 1 and "+ "isDue = 1 and "+ "priority = 4 "+ "LIMIT 1");
   }
  catch (  Exception e) {
     if (newCardModulus == 0)     return false;

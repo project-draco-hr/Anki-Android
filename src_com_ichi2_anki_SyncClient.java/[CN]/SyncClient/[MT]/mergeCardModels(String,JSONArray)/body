@@ -1,7 +1,8 @@
 {
   ArrayList<String> ids=new ArrayList<String>();
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.deckPath);
   String sql="INSERT OR REPLACE INTO cardModels (id, ordinal, modelId, name, description, active, qformat, aformat, lformat, " + "qedformat, aedformat, questionInAnswer, questionFontFamily, questionFontSize, questionFontColour, questionAlign, " + "answerFontFamily, answerFontSize, answerFontColour, answerAlign, lastFontFamily, lastFontSize, lastFontColour, "+ "editQuestionFontFamily, editQuestionFontSize, editAnswerFontFamily, editAnswerFontSize, allowEmptyAnswer, typeAnswer) "+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-  SQLiteStatement statement=AnkiDb.database.compileStatement(sql);
+  SQLiteStatement statement=ankiDB.database.compileStatement(sql);
   int len=cardModels.length();
   for (int i=0; i < len; i++) {
     try {
@@ -82,7 +83,7 @@
     }
   }
   statement.close();
-  ArrayList<String> cardModelsIds=AnkiDb.queryColumn(String.class,"SELECT id FROM cardModels WHERE modelId = " + modelId,0);
+  ArrayList<String> cardModelsIds=ankiDB.queryColumn(String.class,"SELECT id FROM cardModels WHERE modelId = " + modelId,0);
   int lenCardModelsIds=cardModelsIds.size();
   for (int i=0; i < lenCardModelsIds; i++) {
     String cardModelId=cardModelsIds.get(i);

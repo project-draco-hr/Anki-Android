@@ -2,7 +2,7 @@
   Cursor cursor=null;
   long scalar;
   try {
-    cursor=AnkiDb.database.rawQuery(query,null);
+    cursor=database.rawQuery(query,null);
     if (!cursor.moveToFirst())     throw new SQLException("No result for query: " + query);
     scalar=cursor.getLong(0);
   }

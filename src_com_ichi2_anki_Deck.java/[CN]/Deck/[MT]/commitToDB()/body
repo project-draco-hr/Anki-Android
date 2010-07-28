@@ -36,5 +36,5 @@
   values.put("revCount",revCount);
   values.put("newCount",newCount);
   values.put("revCardOrder",revCardOrder);
-  AnkiDb.database.update("decks",values,"id = " + this.id,null);
+  AnkiDatabaseManager.getDatabase(deckPath).database.update("decks",values,"id = " + this.id,null);
 }

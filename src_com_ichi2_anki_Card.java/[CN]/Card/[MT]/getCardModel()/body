@@ -1,5 +1,5 @@
 {
-  CardModel returnModel=new CardModel();
+  CardModel returnModel=new CardModel(deck);
   returnModel.fromDb(cardModelId);
   return returnModel;
 }

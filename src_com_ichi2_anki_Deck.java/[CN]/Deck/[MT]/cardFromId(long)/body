@@ -1,6 +1,6 @@
 {
   if (id == 0)   return null;
-  Card card=new Card();
+  Card card=new Card(this);
   boolean result=card.fromDB(id);
   if (!result)   return null;
   card.genFuzz();

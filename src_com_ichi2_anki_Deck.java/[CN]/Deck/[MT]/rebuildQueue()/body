@@ -16,7 +16,7 @@
  else   newCardModulus=0;
   Log.i(TAG,"newCardModulus set to " + newCardModulus);
   try {
-    cursor=AnkiDb.database.rawQuery("SELECT avg(factor) " + "FROM cards " + "WHERE type = 1",null);
+    cursor=AnkiDatabaseManager.getDatabase(deckPath).database.rawQuery("SELECT avg(factor) " + "FROM cards " + "WHERE type = 1",null);
     if (!cursor.moveToFirst())     averageFactor=Deck.initialFactor;
  else     averageFactor=cursor.getDouble(0);
   }

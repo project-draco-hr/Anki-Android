@@ -12,5 +12,5 @@
   values.put("yesCount",yesCount);
   values.put("noCount",noCount);
   values.put("time",System.currentTimeMillis() / 1000.0);
-  AnkiDb.database.insert("reviewHistory",null,values);
+  AnkiDatabaseManager.getDatabase(deck.deckPath).database.insert("reviewHistory",null,values);
 }

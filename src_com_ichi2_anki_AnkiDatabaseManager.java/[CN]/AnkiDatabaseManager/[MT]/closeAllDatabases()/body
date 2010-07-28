@@ -1,0 +1,6 @@
+{
+  Set<String> databases=mAnkiDatabases.keySet();
+  for (  String pathDB : databases) {
+    AnkiDatabaseManager.closeDatabase(pathDB);
+  }
+}

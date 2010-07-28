@@ -1,15 +1,17 @@
 {
   double value;
   Cursor cursor=null;
-  AnkiDb.openDatabase(deckPath);
+  boolean dbAlreadyOpened=AnkiDatabaseManager.isDatabaseOpen(deckPath);
   try {
-    cursor=AnkiDb.database.rawQuery("SELECT modified" + " FROM decks" + " LIMIT 1",null);
+    cursor=AnkiDatabaseManager.getDatabase(deckPath).database.rawQuery("SELECT modified" + " FROM decks" + " LIMIT 1",null);
     if (!cursor.moveToFirst())     value=-1;
  else     value=cursor.getDouble(0);
   }
   finally {
     if (cursor != null)     cursor.close();
   }
-  AnkiDb.closeDatabase();
+  if (!dbAlreadyOpened) {
+    AnkiDatabaseManager.closeDatabase(deckPath);
+  }
   return value;
 }

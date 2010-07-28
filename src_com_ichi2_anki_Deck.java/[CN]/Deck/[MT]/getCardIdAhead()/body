@@ -1,7 +1,7 @@
 {
   long id=0;
   try {
-    id=AnkiDb.queryScalar("SELECT id " + "FROM cards " + "WHERE type = 1 and "+ "isDue = 0 and "+ "priority in (1,2,3,4) "+ "ORDER BY combinedDue "+ "LIMIT 1");
+    id=AnkiDatabaseManager.getDatabase(deckPath).queryScalar("SELECT id " + "FROM cards " + "WHERE type = 1 and "+ "isDue = 0 and "+ "priority in (1,2,3,4) "+ "ORDER BY combinedDue "+ "LIMIT 1");
   }
  catch (  SQLException e) {
     return 0;

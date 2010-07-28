@@ -1,0 +1,11 @@
+{
+  this.deck=deck;
+  this.model=model;
+  this.id=Utils.genID();
+  if (model != null) {
+    Iterator<FieldModel> iter=model.fieldModels.iterator();
+    while (iter.hasNext()) {
+      this.fields.add(new Field(iter.next()));
+    }
+  }
+}

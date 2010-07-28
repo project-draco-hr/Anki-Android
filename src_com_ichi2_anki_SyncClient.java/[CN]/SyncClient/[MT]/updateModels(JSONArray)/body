@@ -1,7 +1,8 @@
 {
   ArrayList<String> insertedModelsIds=new ArrayList<String>();
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.deckPath);
   String sql="INSERT OR REPLACE INTO models (id, deckId, created, modified, tags, name, description, features, spacing, initialSpacing, source) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-  SQLiteStatement statement=AnkiDb.database.compileStatement(sql);
+  SQLiteStatement statement=ankiDB.database.compileStatement(sql);
   int len=models.length();
   for (int i=0; i < len; i++) {
     try {
@@ -28,5 +29,5 @@
     }
   }
   statement.close();
-  AnkiDb.database.execSQL("DELETE FROM modelsDeleted WHERE modelId IN " + Utils.ids2str(insertedModelsIds));
+  ankiDB.database.execSQL("DELETE FROM modelsDeleted WHERE modelId IN " + Utils.ids2str(insertedModelsIds));
 }

@@ -16,7 +16,7 @@
   Iterator<Entry<String,String>> iter=entries.iterator();
   while (iter.hasNext()) {
     Entry<String,String> entry=iter.next();
-    if (required.contains(entry.getKey()))     AnkiDb.database.execSQL("CREATE INDEX IF NOT EXISTS " + "ix_cards_" + entry.getKey() + " ON cards "+ entry.getValue());
- else     AnkiDb.database.execSQL("DROP INDEX IF EXISTS " + "ix_cards_" + entry.getKey());
+    if (required.contains(entry.getKey()))     AnkiDatabaseManager.getDatabase(deckPath).database.execSQL("CREATE INDEX IF NOT EXISTS " + "ix_cards_" + entry.getKey() + " ON cards "+ entry.getValue());
+ else     AnkiDatabaseManager.getDatabase(deckPath).database.execSQL("DROP INDEX IF EXISTS " + "ix_cards_" + entry.getKey());
   }
 }

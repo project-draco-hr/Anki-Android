@@ -2,15 +2,16 @@
   undoStack=new Stack<UndoRow>();
   redoStack=new Stack<UndoRow>();
   undoEnabled=true;
-  AnkiDb.database.execSQL("CREATE TEMPORARY TABLE undoLog (seq INTEGER PRIMARY KEY NOT NULL, sql TEXT)");
-  ArrayList<String> tables=AnkiDb.queryColumn(String.class,"SELECT name FROM sqlite_master WHERE type = 'table'",0);
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
+  ankiDB.database.execSQL("CREATE TEMPORARY TABLE undoLog (seq INTEGER PRIMARY KEY NOT NULL, sql TEXT)");
+  ArrayList<String> tables=ankiDB.queryColumn(String.class,"SELECT name FROM sqlite_master WHERE type = 'table'",0);
   Iterator<String> iter=tables.iterator();
   while (iter.hasNext()) {
     String table=iter.next();
     if (table.equals("undoLog") || table.equals("sqlite_stat1"))     continue;
-    ArrayList<String> columns=AnkiDb.queryColumn(String.class,"PRAGMA TABLE_INFO(" + table + ")",1);
+    ArrayList<String> columns=ankiDB.queryColumn(String.class,"PRAGMA TABLE_INFO(" + table + ")",1);
     String sql="CREATE TEMP TRIGGER _undo_%s_it " + "AFTER INSERT ON %s BEGIN " + "INSERT INTO undoLog VALUES "+ "(null, 'DELETE FROM %s WHERE rowid = ' || new.rowid); END";
-    AnkiDb.database.execSQL(String.format(ENGLISH_LOCALE,sql,table,table,table));
+    ankiDB.database.execSQL(String.format(ENGLISH_LOCALE,sql,table,table,table));
     sql=String.format(ENGLISH_LOCALE,"CREATE TEMP TRIGGER _undo_%s_ut " + "AFTER UPDATE ON %s BEGIN " + "INSERT INTO undoLog VALUES "+ "(null, 'UPDATE %s ",table,table,table);
     String sep="SET ";
     Iterator<String> columnIter=columns.iterator();
@@ -21,7 +22,7 @@
       sep=",";
     }
     sql+="WHERE rowid = ' || old.rowid); END";
-    AnkiDb.database.execSQL(sql);
+    ankiDB.database.execSQL(sql);
     sql=String.format(ENGLISH_LOCALE,"CREATE TEMP TRIGGER _undo_%s_dt " + "BEFORE DELETE ON %s BEGIN " + "INSERT INTO undoLog VALUES "+ "(null, 'INSERT INTO %s (rowid",table,table,table);
     columnIter=columns.iterator();
     while (columnIter.hasNext()) {
@@ -39,6 +40,6 @@
       sql+=String.format(ENGLISH_LOCALE,", ' || quote(old.%s) ||'",column);
     }
     sql+=")'); END";
-    AnkiDb.database.execSQL(sql);
+    ankiDB.database.execSQL(sql);
   }
 }

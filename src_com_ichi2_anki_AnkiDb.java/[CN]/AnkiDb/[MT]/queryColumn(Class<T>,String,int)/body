@@ -2,7 +2,7 @@
   ArrayList<T> results=new ArrayList<T>();
   Cursor cursor=null;
   try {
-    cursor=AnkiDb.database.rawQuery(query,null);
+    cursor=database.rawQuery(query,null);
     cursor.moveToFirst();
     String methodName=getCursorMethodName(type.getSimpleName());
     do {

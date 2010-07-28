@@ -25,5 +25,5 @@
   values.put("matureEase2",0);
   values.put("matureEase3",0);
   values.put("matureEase4",0);
-  id=AnkiDb.database.insert("stats",null,values);
+  id=AnkiDatabaseManager.getDatabase(deck.deckPath).database.insert("stats",null,values);
 }

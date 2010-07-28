@@ -3,7 +3,8 @@
   Deck deck=params[0].getDeck();
   Card oldCard=params[0].getCard();
   Card newCard;
-  AnkiDb.database.beginTransaction();
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.deckPath);
+  ankiDB.database.beginTransaction();
   try {
     if (oldCard != null) {
       start=System.currentTimeMillis();
@@ -16,10 +17,10 @@
     stop=System.currentTimeMillis();
     Log.v(TAG,"doInBackgroundSuspendCard - Loaded new card in " + (stop - start) + " ms.");
     publishProgress(new TaskData(newCard));
-    AnkiDb.database.setTransactionSuccessful();
+    ankiDB.database.setTransactionSuccessful();
   }
   finally {
-    AnkiDb.database.endTransaction();
+    ankiDB.database.endTransaction();
   }
   return null;
 }

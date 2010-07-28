@@ -5,9 +5,9 @@
   Cursor cursor=null;
   Stats stats=null;
   try {
-    cursor=AnkiDb.database.rawQuery("SELECT id " + "FROM stats " + "WHERE type = "+ String.valueOf(type),null);
+    cursor=AnkiDatabaseManager.getDatabase(deck.deckPath).database.rawQuery("SELECT id " + "FROM stats " + "WHERE type = "+ String.valueOf(type),null);
     if (cursor.moveToFirst()) {
-      stats=new Stats();
+      stats=new Stats(deck);
       stats.fromDB(cursor.getLong(0));
       return stats;
     }
@@ -15,7 +15,7 @@
   finally {
     if (cursor != null)     cursor.close();
   }
-  stats=new Stats();
+  stats=new Stats(deck);
   stats.create(type,today);
   stats.type=type;
   return stats;

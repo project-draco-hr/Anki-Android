@@ -1,7 +1,7 @@
 {
-  Cursor cursor=AnkiDb.database.rawQuery("SELECT id, factId " + "FROM cards " + "ORDER BY id",null);
+  Cursor cursor=AnkiDatabaseManager.getDatabase(deckPath).database.rawQuery("SELECT id, factId " + "FROM cards " + "ORDER BY id",null);
   while (cursor.moveToNext()) {
-    Card card=new Card();
+    Card card=new Card(this);
     card.fromDB(cursor.getLong(0));
     Log.i(TAG,"Card id = " + card.id);
     Fact fact=card.getFact();

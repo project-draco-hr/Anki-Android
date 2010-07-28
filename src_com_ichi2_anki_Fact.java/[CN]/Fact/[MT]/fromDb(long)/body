@@ -1,8 +1,9 @@
 {
   this.id=id;
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.deckPath);
   Cursor cursor=null;
   try {
-    cursor=AnkiDb.database.rawQuery("SELECT id, modelId, created, modified, tags, spaceUntil " + "FROM facts " + "WHERE id = "+ id,null);
+    cursor=ankiDB.database.rawQuery("SELECT id, modelId, created, modified, tags, spaceUntil " + "FROM facts " + "WHERE id = "+ id,null);
     if (!cursor.moveToFirst()) {
       Log.w("anki","Fact.java (constructor): No result from query.");
       return false;
@@ -18,7 +19,7 @@
   }
   Cursor fieldsCursor=null;
   try {
-    fieldsCursor=AnkiDb.database.rawQuery("SELECT id, factId, fieldModelId, value " + "FROM fields " + "WHERE factId = "+ id,null);
+    fieldsCursor=ankiDB.database.rawQuery("SELECT id, factId, fieldModelId, value " + "FROM fields " + "WHERE factId = "+ id,null);
     fields=new TreeSet<Field>(new FieldOrdinalComparator());
     while (fieldsCursor.moveToNext()) {
       long fieldId=fieldsCursor.getLong(0);
@@ -27,7 +28,7 @@
       Cursor fieldModelCursor=null;
       FieldModel currentFieldModel=null;
       try {
-        fieldModelCursor=AnkiDb.database.rawQuery("SELECT id, ordinal, modelId, name, description " + "FROM fieldModels " + "WHERE id = "+ fieldModelId,null);
+        fieldModelCursor=ankiDB.database.rawQuery("SELECT id, ordinal, modelId, name, description " + "FROM fieldModels " + "WHERE id = "+ fieldModelId,null);
         fieldModelCursor.moveToFirst();
         currentFieldModel=new FieldModel(fieldModelCursor.getLong(0),fieldModelCursor.getInt(1),fieldModelCursor.getLong(2),fieldModelCursor.getString(3),fieldModelCursor.getString(4));
       }

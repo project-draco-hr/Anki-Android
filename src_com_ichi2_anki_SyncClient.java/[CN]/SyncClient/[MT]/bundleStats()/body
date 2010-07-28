@@ -3,9 +3,9 @@
   JSONObject bundledStats=new JSONObject();
   Date lastDay=new Date(java.lang.Math.max(0,(long)(deck.lastSync - 60 * 60 * 24) * 1000));
   Log.i(TAG,"lastDay = " + lastDay.toString());
-  ArrayList<Long> ids=AnkiDb.queryColumn(Long.class,"SELECT id FROM stats WHERE type = 1 and day >= \"" + lastDay.toString() + "\"",0);
+  ArrayList<Long> ids=AnkiDatabaseManager.getDatabase(deck.deckPath).queryColumn(Long.class,"SELECT id FROM stats WHERE type = 1 and day >= \"" + lastDay.toString() + "\"",0);
   try {
-    Stats stat=new Stats();
+    Stats stat=new Stats(deck);
     bundledStats.put("global",bundleStat(Stats.globalStats(deck)));
     JSONArray dailyStats=new JSONArray();
     int len=ids.size();

@@ -1,6 +1,6 @@
 {
   JSONArray bundledSources=new JSONArray();
-  Cursor cursor=AnkiDb.database.rawQuery("SELECT * FROM sources",null);
+  Cursor cursor=AnkiDatabaseManager.getDatabase(deck.deckPath).database.rawQuery("SELECT * FROM sources",null);
   while (cursor.moveToNext()) {
     try {
       JSONArray source=new JSONArray();

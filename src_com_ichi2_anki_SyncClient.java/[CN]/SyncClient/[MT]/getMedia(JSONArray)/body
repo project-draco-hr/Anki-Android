@@ -1,6 +1,6 @@
 {
   JSONArray media=new JSONArray();
-  Cursor cursor=AnkiDb.database.rawQuery("SELECT id, filename, size, created, originalPath, description FROM media WHERE id IN " + Utils.ids2str(ids),null);
+  Cursor cursor=AnkiDatabaseManager.getDatabase(deck.deckPath).database.rawQuery("SELECT id, filename, size, created, originalPath, description FROM media WHERE id IN " + Utils.ids2str(ids),null);
   while (cursor.moveToNext()) {
     try {
       JSONArray m=new JSONArray();

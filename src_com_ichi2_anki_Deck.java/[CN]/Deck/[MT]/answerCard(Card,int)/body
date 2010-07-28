@@ -4,6 +4,7 @@
   String undoName="Answer Card";
   setUndoStart(undoName);
   double now=System.currentTimeMillis() / 1000.0;
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
   String oldState=cardState(card);
   double lastDelaySecs=System.currentTimeMillis() / 1000.0 - card.combinedDue;
   double lastDelay=lastDelaySecs / 86400.0;
@@ -18,7 +19,7 @@
   if (lastDelay >= 0)   updateFactor(card,ease);
   double space, spaceFactor, minSpacing, minOfOtherCards;
   try {
-    cursor=AnkiDb.database.rawQuery("SELECT models.initialSpacing, models.spacing " + "FROM facts, models " + "WHERE facts.modelId = models.id and "+ "facts.id = "+ card.factId,null);
+    cursor=ankiDB.database.rawQuery("SELECT models.initialSpacing, models.spacing " + "FROM facts, models " + "WHERE facts.modelId = models.id and "+ "facts.id = "+ card.factId,null);
     if (!cursor.moveToFirst()) {
       minSpacing=0;
       spaceFactor=0;
@@ -32,7 +33,7 @@
     if (cursor != null)     cursor.close();
   }
   try {
-    cursor=AnkiDb.database.rawQuery("SELECT min(interval) " + "FROM cards " + "WHERE factId = " + card.factId + " and id != "+ card.id,null);
+    cursor=ankiDB.database.rawQuery("SELECT min(interval) " + "FROM cards " + "WHERE factId = " + card.factId + " and id != "+ card.id,null);
     if (!cursor.moveToFirst())     minOfOtherCards=0;
  else     minOfOtherCards=cursor.getDouble(0);
   }
@@ -51,7 +52,7 @@
     extra="or id = " + card.id;
   }
   try {
-    cursor=AnkiDb.database.rawQuery("SELECT type, count(type) " + "FROM cards " + "WHERE factId = " + card.factId + " and "+ "(isDue = 1 "+ extra+ ") "+ "GROUP BY type",null);
+    cursor=ankiDB.database.rawQuery("SELECT type, count(type) " + "FROM cards " + "WHERE factId = " + card.factId + " and "+ "(isDue = 1 "+ extra+ ") "+ "GROUP BY type",null);
     while (cursor.moveToNext()) {
       Log.i(TAG,"failedSoonCount before = " + failedSoonCount);
       Log.i(TAG,"revCount before = " + revCount);
@@ -67,13 +68,13 @@
   finally {
     if (cursor != null)     cursor.close();
   }
-  AnkiDb.database.execSQL(String.format(ENGLISH_LOCALE,"UPDATE cards " + "SET spaceUntil = %f, " + "combinedDue = max(%f, due), "+ "modified = %f, "+ "isDue = 0 "+ "WHERE id != %d and factId = %d",space,space,now,card.id,card.factId));
+  ankiDB.database.execSQL(String.format(ENGLISH_LOCALE,"UPDATE cards " + "SET spaceUntil = %f, " + "combinedDue = max(%f, due), "+ "modified = %f, "+ "isDue = 0 "+ "WHERE id != %d and factId = %d",space,space,now,card.id,card.factId));
   card.spaceUntil=0;
   if (reviewEarly && lastDelay < 0)   if (oldSuc != 0 || lastDelaySecs > delay0 || !showFailedLast())   card.priority=-1;
   card.updateStats(ease,oldState);
   card.toDB();
   Stats.updateAllStats(this.globalStats,this.dailyStats,card,ease,oldState);
-  CardHistoryEntry entry=new CardHistoryEntry(card,ease,lastDelay);
+  CardHistoryEntry entry=new CardHistoryEntry(this,card,ease,lastDelay);
   entry.writeSQL();
   modified=now;
   setUndoEnd(undoName);

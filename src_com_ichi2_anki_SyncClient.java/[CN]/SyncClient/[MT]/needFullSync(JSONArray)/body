@@ -22,14 +22,15 @@
       Log.i(TAG,"JSONException = " + e.getMessage());
     }
   }
-  if (AnkiDb.queryScalar("SELECT count() FROM reviewHistory WHERE time > " + deck.lastSync) > 500) {
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.deckPath);
+  if (ankiDB.queryScalar("SELECT count() FROM reviewHistory WHERE time > " + deck.lastSync) > 500) {
     Log.i(TAG,"reviewHistory since lastSync > 500");
     return true;
   }
   Date lastDay=new Date(java.lang.Math.max(0,(long)(deck.lastSync - 60 * 60 * 24) * 1000));
   Log.i(TAG,"lastDay = " + lastDay.toString() + ", lastDayInMillis = "+ lastDay.getTime());
-  Log.i(TAG,"Count stats = " + AnkiDb.queryScalar("SELECT count() FROM stats WHERE day >= \"" + lastDay.toString() + "\""));
-  if (AnkiDb.queryScalar("SELECT count() FROM stats WHERE day >= \"" + lastDay.toString() + "\"") > 100) {
+  Log.i(TAG,"Count stats = " + ankiDB.queryScalar("SELECT count() FROM stats WHERE day >= \"" + lastDay.toString() + "\""));
+  if (ankiDB.queryScalar("SELECT count() FROM stats WHERE day >= \"" + lastDay.toString() + "\"") > 100) {
     Log.i(TAG,"stats since lastDay > 100");
     return true;
   }

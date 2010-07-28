@@ -6,9 +6,9 @@
   Cursor cursor=null;
   try {
     Log.i(TAG,"Trying to get stats for " + today.toString());
-    cursor=AnkiDb.database.rawQuery("SELECT id " + "FROM stats " + "WHERE type = " + String.valueOf(type) + " and day = \""+ today.toString()+ "\"",null);
+    cursor=AnkiDatabaseManager.getDatabase(deck.deckPath).database.rawQuery("SELECT id " + "FROM stats " + "WHERE type = " + String.valueOf(type) + " and day = \""+ today.toString()+ "\"",null);
     if (cursor.moveToFirst()) {
-      stats=new Stats();
+      stats=new Stats(deck);
       stats.fromDB(cursor.getLong(0));
       return stats;
     }
@@ -16,7 +16,7 @@
   finally {
     if (cursor != null)     cursor.close();
   }
-  stats=new Stats();
+  stats=new Stats(deck);
   stats.create(type,today);
   stats.type=type;
   return stats;

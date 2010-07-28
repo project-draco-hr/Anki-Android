@@ -2,31 +2,32 @@
   Log.i(TAG,"deleteCards = " + ids.toString());
   int len=ids.size();
   if (len > 0) {
+    AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
     commitToDB();
     double now=System.currentTimeMillis() / 1000.0;
     Log.i(TAG,"Now = " + now);
     String idsString=Utils.ids2str(ids);
-    ArrayList<String> factIds=AnkiDb.queryColumn(String.class,"SELECT factId FROM cards WHERE id in " + idsString,0);
-    AnkiDb.database.execSQL("DELETE FROM cards WHERE id in " + idsString);
+    ArrayList<String> factIds=ankiDB.queryColumn(String.class,"SELECT factId FROM cards WHERE id in " + idsString,0);
+    ankiDB.database.execSQL("DELETE FROM cards WHERE id in " + idsString);
     String sqlInsert="INSERT INTO cardsDeleted values (?," + String.format(ENGLISH_LOCALE,"%f",now) + ")";
-    SQLiteStatement statement=AnkiDb.database.compileStatement(sqlInsert);
+    SQLiteStatement statement=ankiDB.database.compileStatement(sqlInsert);
     for (int i=0; i < len; i++) {
       statement.bindString(1,ids.get(i));
       statement.executeInsert();
     }
     statement.close();
-    ArrayList<String> tags=AnkiDb.queryColumn(String.class,"SELECT tagId FROM cardTags WHERE cardId in " + idsString,0);
-    AnkiDb.database.execSQL("DELETE FROM cardTags WHERE cardId in " + idsString);
+    ArrayList<String> tags=ankiDB.queryColumn(String.class,"SELECT tagId FROM cardTags WHERE cardId in " + idsString,0);
+    ankiDB.database.execSQL("DELETE FROM cardTags WHERE cardId in " + idsString);
     ArrayList<String> unusedTags=new ArrayList<String>();
     for (int i=0; i < tags.size(); i++) {
       String tagId=tags.get(i);
-      Cursor cursor=AnkiDb.database.rawQuery("SELECT * FROM cardTags WHERE tagId = " + tagId + " LIMIT 1",null);
+      Cursor cursor=ankiDB.database.rawQuery("SELECT * FROM cardTags WHERE tagId = " + tagId + " LIMIT 1",null);
       if (!cursor.moveToFirst()) {
         unusedTags.add(tagId);
       }
       cursor.close();
     }
-    AnkiDb.database.execSQL("DELETE FROM tags WHERE id in " + Utils.ids2str(unusedTags) + " and priority = 2");
+    ankiDB.database.execSQL("DELETE FROM tags WHERE id in " + Utils.ids2str(unusedTags) + " and priority = 2");
     deleteDanglingFacts();
     rebuildCounts(true);
     flushMod();

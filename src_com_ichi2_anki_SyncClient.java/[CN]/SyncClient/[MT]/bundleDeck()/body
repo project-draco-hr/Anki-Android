@@ -36,7 +36,7 @@
     bundledDeck.put("undoEnabled",deck.undoEnabled);
     bundledDeck.put("utcOffset",deck.utcOffset);
     JSONArray meta=new JSONArray();
-    Cursor cursor=AnkiDb.database.rawQuery("SELECT * FROM deckVars",null);
+    Cursor cursor=AnkiDatabaseManager.getDatabase(deck.deckPath).database.rawQuery("SELECT * FROM deckVars",null);
     while (cursor.moveToNext()) {
       JSONArray deckVar=new JSONArray();
       deckVar.put(cursor.getString(0));

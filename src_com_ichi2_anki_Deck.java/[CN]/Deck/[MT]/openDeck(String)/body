@@ -2,9 +2,9 @@
   Deck deck=null;
   Cursor cursor=null;
   Log.i(TAG,"openDeck - Opening database " + path);
-  AnkiDb.openDatabase(path);
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(path);
   try {
-    cursor=AnkiDb.database.rawQuery("SELECT *" + " FROM decks" + " LIMIT 1",null);
+    cursor=ankiDB.database.rawQuery("SELECT *" + " FROM decks" + " LIMIT 1",null);
     if (!cursor.moveToFirst())     return null;
     deck=new Deck();
     deck.id=cursor.getLong(0);
@@ -49,13 +49,14 @@
     if (cursor != null)     cursor.close();
   }
   Log.i(TAG,String.format(ENGLISH_LOCALE,"openDeck - modified: %f currentTime: %f",deck.modified,System.currentTimeMillis() / 1000.0));
+  deck.deckPath=path;
   deck.deckName=(new File(path)).getName().replace(".anki","");
   deck.initVars();
   deck.updateDynamicIndices();
   int oldCount=deck.failedSoonCount + deck.revCount + deck.newCount;
   deck.rebuildQueue();
   try {
-    cursor=AnkiDb.database.rawQuery("SELECT id " + "FROM cards " + "WHERE type in (0,1,2) and "+ "isDue = 0 and "+ "priority in (-1,-2)",null);
+    cursor=ankiDB.database.rawQuery("SELECT id " + "FROM cards " + "WHERE type in (0,1,2) and "+ "isDue = 0 and "+ "priority in (-1,-2)",null);
     if (cursor.moveToFirst()) {
       int count=cursor.getCount();
       long[] ids=new long[count];
@@ -71,6 +72,6 @@
     if (cursor != null)     cursor.close();
   }
   if ((oldCount != (deck.failedSoonCount + deck.revCount + deck.newCount)) || deck.modifiedSinceSave())   deck.commitToDB();
-  AnkiDb.database.execSQL("CREATE TEMPORARY VIEW acqCardsRandom AS " + "SELECT * FROM cards " + "WHERE type = 2 AND isDue = 1 "+ "ORDER BY RANDOM()");
+  ankiDB.database.execSQL("CREATE TEMPORARY VIEW acqCardsRandom AS " + "SELECT * FROM cards " + "WHERE type = 2 AND isDue = 1 "+ "ORDER BY RANDOM()");
   return deck;
 }

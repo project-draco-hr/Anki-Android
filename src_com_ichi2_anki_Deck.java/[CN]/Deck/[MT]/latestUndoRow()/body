@@ -1,7 +1,7 @@
 {
   long result;
   try {
-    result=AnkiDb.queryScalar("SELECT MAX(rowid) FROM undoLog");
+    result=AnkiDatabaseManager.getDatabase(deckPath).queryScalar("SELECT MAX(rowid) FROM undoLog");
   }
  catch (  SQLException e) {
     result=0;

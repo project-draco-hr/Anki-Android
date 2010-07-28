@@ -2,7 +2,7 @@
   try {
     JSONArray meta=deckPayload.getJSONArray("meta");
     String sqlMeta="INSERT OR REPLACE INTO deckVars (key, value) VALUES(?,?)";
-    SQLiteStatement statement=AnkiDb.database.compileStatement(sqlMeta);
+    SQLiteStatement statement=AnkiDatabaseManager.getDatabase(deck.deckPath).database.compileStatement(sqlMeta);
     int lenMeta=meta.length();
     for (int i=0; i < lenMeta; i++) {
       JSONArray deckVar=meta.getJSONArray(i);

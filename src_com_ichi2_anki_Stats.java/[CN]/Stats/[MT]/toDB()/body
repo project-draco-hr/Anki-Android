@@ -20,5 +20,5 @@
   values.put("matureEase2",matureEase2);
   values.put("matureEase3",matureEase3);
   values.put("matureEase4",matureEase4);
-  AnkiDb.database.update("stats",values,"id = " + id,null);
+  AnkiDatabaseManager.getDatabase(deck.deckPath).database.update("stats",values,"id = " + id,null);
 }
