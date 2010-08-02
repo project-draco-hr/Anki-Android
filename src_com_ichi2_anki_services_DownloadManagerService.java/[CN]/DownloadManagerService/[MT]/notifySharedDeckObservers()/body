@@ -1,0 +1,13 @@
+{
+  Log.i(TAG,"notifySharedDeckObservers");
+  final int numSharedDeckCallbacks=mSharedDeckCallbacks.beginBroadcast();
+  for (int i=0; i < numSharedDeckCallbacks; i++) {
+    try {
+      mSharedDeckCallbacks.getBroadcastItem(i).publishProgress(mSharedDeckDownloads);
+    }
+ catch (    RemoteException e) {
+      e.printStackTrace();
+    }
+  }
+  mSharedDeckCallbacks.finishBroadcast();
+}

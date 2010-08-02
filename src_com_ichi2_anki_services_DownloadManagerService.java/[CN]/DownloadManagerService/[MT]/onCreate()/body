@@ -1,0 +1,22 @@
+{
+  super.onCreate();
+  Log.i(TAG,"Service - onCreate");
+  Log.i(TAG,"mPersonalDeckDownloads = " + mPersonalDeckDownloads);
+  Log.i(TAG,"mSharedDeckDownloads = " + mSharedDeckDownloads);
+  mPersonalDeckDownloads=new ArrayList<Download>();
+  mSharedDeckDownloads=new ArrayList<SharedDeckDownload>();
+  SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
+  mUsername=pref.getString("username","");
+  mPassword=pref.getString("password","");
+  mDestination=pref.getString("deckPath",AnkiDroidApp.getStorageDirectory());
+  Log.i(TAG,"username = " + mUsername + ", password = "+ mPassword+ ", destination = "+ mDestination);
+  try {
+    mBinder.addIncompleteDownloads();
+    mBinder.resumeDownloads();
+  }
+ catch (  RemoteException e) {
+    e.printStackTrace();
+  }
+  serviceHandler=new Handler();
+  serviceHandler.postDelayed(new RunTask(),1000L);
+}

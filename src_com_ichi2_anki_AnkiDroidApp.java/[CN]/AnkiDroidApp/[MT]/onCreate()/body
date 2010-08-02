@@ -2,7 +2,7 @@
   super.onCreate();
   instance=this;
   Connection.setContext(getApplicationContext());
-  storageDirectory=Environment.getExternalStorageDirectory().getAbsolutePath();
+  storageDirectory=Environment.getExternalStorageDirectory().getAbsolutePath() + "/Anki";
   res=getResources();
   SharedPreferences prefs=PrefSettings.getSharedPrefs(this);
   DownloadManager.getSharedInstance(getApplicationContext(),prefs.getString("username","eduzasu"),prefs.getString("password","asrso8D0f1i8f"),prefs.getString("deckPath","/mnt/sdcard/Anki Decks"));

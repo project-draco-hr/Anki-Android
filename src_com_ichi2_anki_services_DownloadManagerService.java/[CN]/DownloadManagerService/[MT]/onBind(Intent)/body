@@ -1,0 +1,11 @@
+{
+  Log.i(TAG,"Service - onBind");
+  Bundle extras=intent.getExtras();
+  if (extras != null) {
+    mUsername=extras.getString("username");
+    mPassword=extras.getString("password");
+    mDestination=extras.getString("destination");
+    Log.i(TAG,"	Username = " + mUsername + ", Password = "+ mPassword+ ", Destination = "+ mDestination);
+  }
+  return mBinder;
+}

@@ -1,7 +1,13 @@
 {
   super.onResume();
-  mDownloadManager.registerListener(DownloadManager.PERSONAL_DECK_DOWNLOAD,downloadListener);
-  mPersonalDecksDownloads.clear();
-  mPersonalDecksDownloads.addAll(mDownloadManager.getDownloadsList(DownloadManager.PERSONAL_DECK_DOWNLOAD));
-  refreshPersonalDecksList();
+  Log.i(TAG,"onResume");
+  try {
+    if (mService != null) {
+      mService.registerPersonalDeckCallback(mCallback);
+      setPersonalDeckDownloads(mService.getPersonalDeckDownloads());
+    }
+  }
+ catch (  RemoteException e) {
+    e.printStackTrace();
+  }
 }

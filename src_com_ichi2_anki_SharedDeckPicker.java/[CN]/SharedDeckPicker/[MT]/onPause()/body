@@ -1,3 +1,11 @@
 {
   super.onPause();
+  if (mService != null) {
+    try {
+      mService.unregisterSharedDeckCallback(mCallback);
+    }
+ catch (    RemoteException e) {
+      e.printStackTrace();
+    }
+  }
 }

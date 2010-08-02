@@ -1,0 +1,16 @@
+{
+  super.onPostExecute(result);
+  if (result.success) {
+    HashMap<String,Object> results=(HashMap<String,Object>)result.result;
+    Deck deck=(Deck)results.get("deck");
+    if (deck != null) {
+      deck.closeDeck();
+    }
+    String deckName=(String)result.data[0];
+    new File(mDestination + "/" + deckName+ ".anki.updating").renameTo(new File(mDestination + "/" + deckName+ ".anki"));
+    mSharedDeckDownloads.remove((Download)result.data[1]);
+    notifySharedDeckObservers();
+    showNotification((String)result.data[0]);
+    stopIfFinished();
+  }
+}

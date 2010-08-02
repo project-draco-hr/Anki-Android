@@ -1,0 +1,7 @@
+{
+  if (mConnection != null) {
+    Log.i(TAG,"Unbinding Service...");
+    unbindService(mConnection);
+    mConnection=null;
+  }
+}

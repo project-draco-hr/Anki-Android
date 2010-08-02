@@ -1,0 +1,13 @@
+{
+  SharedDeckDownload sharedDeckDownload=new SharedDeckDownload(1,"SharedDeckDownload test " + counter,0);
+  mSharedDeckDownloads.add(sharedDeckDownload);
+  final int numSharedDeckCallbacks=mSharedDeckCallbacks.beginBroadcast();
+  for (int i=0; i < numSharedDeckCallbacks; i++) {
+    try {
+      mSharedDeckCallbacks.getBroadcastItem(i).publishProgress(mSharedDeckDownloads);
+    }
+ catch (    RemoteException e) {
+    }
+  }
+  mSharedDeckCallbacks.finishBroadcast();
+}

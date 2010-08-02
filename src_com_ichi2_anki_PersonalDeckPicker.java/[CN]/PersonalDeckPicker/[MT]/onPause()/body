@@ -1,4 +1,11 @@
 {
   super.onPause();
-  mDownloadManager.unregisterListener(downloadListener);
+  if (mService != null) {
+    try {
+      mService.unregisterPersonalDeckCallback(mCallback);
+    }
+ catch (    RemoteException e) {
+      e.printStackTrace();
+    }
+  }
 }

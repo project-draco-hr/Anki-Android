@@ -6,6 +6,12 @@
   SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
   username=pref.getString("username","");
   password=pref.getString("password","");
+  serviceIntent=new Intent(SharedDeckPicker.this,DownloadManagerService.class);
+  serviceIntent.putExtra("username",username);
+  serviceIntent.putExtra("password",password);
+  serviceIntent.putExtra("destination",pref.getString("deckPath",AnkiDroidApp.getStorageDirectory()));
+  startService(serviceIntent);
+  bindService(serviceIntent,mConnection,Context.BIND_AUTO_CREATE);
   mSharedDeckDownloads=new ArrayList<Download>();
   mSharedDecks=new ArrayList<SharedDeck>();
   mAllSharedDecks=new ArrayList<Object>();
@@ -14,16 +20,21 @@
   mSharedDecksListView.setAdapter(mSharedDecksAdapter);
   mSharedDecksListView.setOnItemClickListener(new OnItemClickListener(){
     @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
+      SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+      String deckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory());
       deckToDownload=(SharedDeck)mAllSharedDecks.get(position);
       SharedDeckDownload sharedDeckDownload=new SharedDeckDownload(deckToDownload.getId(),deckToDownload.getTitle(),deckToDownload.getFileName(),deckToDownload.getSize());
       mSharedDeckDownloads.add(sharedDeckDownload);
       refreshSharedDecksList();
-      SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
-      String deckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory());
-      mDownloadManager.downloadFile(sharedDeckDownload);
+      try {
+        startService(serviceIntent);
+        mService.downloadFile(sharedDeckDownload);
+      }
+ catch (      RemoteException e) {
+        e.printStackTrace();
+      }
     }
   }
 );
-  mDownloadManager=DownloadManager.getSharedInstance(getApplicationContext(),username,password,pref.getString("deckPath",AnkiDroidApp.getStorageDirectory()));
   Connection.getSharedDecks(getSharedDecksListener,new Connection.Payload(new Object[]{}));
 }

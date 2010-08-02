@@ -1,0 +1,7 @@
+{
+  String filename=pathname.getName();
+  if (pathname.isFile() && (filename.endsWith(".anki.tmp") || filename.endsWith(".shared.zip.tmp") || filename.endsWith(".anki.updating"))) {
+    return true;
+  }
+  return false;
+}

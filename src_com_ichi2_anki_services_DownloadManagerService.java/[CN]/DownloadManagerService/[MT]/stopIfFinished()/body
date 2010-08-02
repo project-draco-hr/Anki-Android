@@ -1,0 +1,6 @@
+{
+  if (!hasMoreWork()) {
+    Log.i(TAG,"Service stopping itself...");
+    stopSelf();
+  }
+}

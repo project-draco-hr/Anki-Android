@@ -1,7 +1,13 @@
 {
+  Log.i(TAG,"onResume");
   super.onResume();
-  mDownloadManager.registerListener(DownloadManager.SHARED_DECK_DOWNLOAD,downloadListener);
-  mSharedDeckDownloads.clear();
-  mSharedDeckDownloads.addAll(mDownloadManager.getDownloadsList(DownloadManager.SHARED_DECK_DOWNLOAD));
-  refreshSharedDecksList();
+  try {
+    if (mService != null) {
+      mService.registerSharedDeckCallback(mCallback);
+      setSharedDeckDownloads(mService.getSharedDeckDownloads());
+    }
+  }
+ catch (  RemoteException e) {
+    e.printStackTrace();
+  }
 }
