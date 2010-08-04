@@ -11,5 +11,9 @@
     sb.append((percentage * fontSize) / 100);
     sb.append("px;\n");
   }
+  sb.append("float:");
+  sb.append(align_text[align]);
+  sb.append(";\n");
+  sb.append("padding:5px;\n");
   return sb.toString();
 }
