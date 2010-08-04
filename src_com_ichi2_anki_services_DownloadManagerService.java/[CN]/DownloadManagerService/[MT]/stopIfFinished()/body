@@ -1,5 +1,7 @@
 {
   if (!hasMoreWork()) {
+    boolean deleted=new File(mDestination + "/tmp").delete();
+    Log.i(TAG,mDestination + "/tmp folder was deleted = " + deleted);
     Log.i(TAG,"Service stopping itself...");
     stopSelf();
   }

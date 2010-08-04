@@ -1,6 +1,8 @@
 {
+  if (download.getStatus() == Download.COMPLETE) {
+    showNotification(download.getTitle());
+  }
   mPersonalDeckDownloads.remove(download);
   notifyPersonalDeckObservers();
-  showNotification(download.getTitle());
   stopIfFinished();
 }

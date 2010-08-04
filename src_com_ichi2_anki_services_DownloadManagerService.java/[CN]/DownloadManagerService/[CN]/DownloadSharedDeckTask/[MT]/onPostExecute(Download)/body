@@ -4,7 +4,7 @@
   sharedDownload.setStatus(SharedDeckDownload.UPDATE);
   notifySharedDeckObservers();
   try {
-    String unzippedDeckName=unzipSharedDeckFile(mDestination + "/" + download.getTitle()+ ".zip",sharedDownload.getTitle());
+    String unzippedDeckName=unzipSharedDeckFile(mDestination + "/tmp/" + download.getTitle()+ ".zip",sharedDownload.getTitle());
     new UpdateDeckTask().execute(new Payload(new Object[]{unzippedDeckName,download}));
   }
  catch (  IOException e) {

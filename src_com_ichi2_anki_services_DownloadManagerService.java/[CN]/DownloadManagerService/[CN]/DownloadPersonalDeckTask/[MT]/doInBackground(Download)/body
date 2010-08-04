@@ -37,7 +37,7 @@
       download.setSize(contentLength);
       Log.i(TAG,"File size = " + contentLength);
     }
-    file=new RandomAccessFile(mDestination + "/" + download.getTitle()+ ".anki.tmp","rw");
+    file=new RandomAccessFile(mDestination + "/tmp/" + download.getTitle()+ ".anki.tmp","rw");
     iis=new InflaterInputStream(connection.getInputStream());
     while (download.getStatus() == Download.DOWNLOADING) {
       Log.i(TAG,"Downloading... " + download.getDownloaded());
@@ -52,7 +52,7 @@
     }
     if (download.getStatus() == Download.DOWNLOADING) {
       download.setStatus(Download.COMPLETE);
-      new File(mDestination + "/" + download.getTitle()+ ".anki.tmp").renameTo(new File(mDestination + "/" + download.getTitle()+ ".anki"));
+      new File(mDestination + "/tmp/" + download.getTitle()+ ".anki.tmp").renameTo(new File(mDestination + "/" + download.getTitle()+ ".anki"));
       publishProgress();
     }
     long finishTime=System.currentTimeMillis();

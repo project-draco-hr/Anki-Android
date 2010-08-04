@@ -7,7 +7,7 @@
     title=title.replace("^","");
     title=title.substring(0,java.lang.Math.min(title.length(),40));
     if (new File(mDestination + "/" + title+ ".anki").exists())     title+=System.currentTimeMillis();
-    String partialDeckPath=mDestination + "/" + title;
+    String partialDeckPath=mDestination + "/tmp/" + title;
     String deckFilename=partialDeckPath + ".anki.updating";
     ZipEntry zipEntry=null;
     while ((zipEntry=zipInputStream.getNextEntry()) != null) {
@@ -16,7 +16,7 @@
         Utils.writeToFile(zipInputStream,deckFilename);
       }
  else       if (zipEntry.getName().startsWith("shared.media/",0)) {
-        Log.i(TAG,"Folder created = " + new File(AnkiDroidApp.getStorageDirectory() + title + ".media/").mkdir());
+        Log.i(TAG,"Folder created = " + new File(partialDeckPath + ".media/").mkdir());
         Log.i(TAG,"Destination = " + AnkiDroidApp.getStorageDirectory() + "/"+ title+ ".media/"+ zipEntry.getName().replace("shared.media/",""));
         Utils.writeToFile(zipInputStream,partialDeckPath + ".media/" + zipEntry.getName().replace("shared.media/",""));
       }

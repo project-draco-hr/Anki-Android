@@ -1,7 +1,7 @@
 {
   Payload data=params[0];
   String deckName=(String)data.data[0];
-  String deckFilename=mDestination + "/" + deckName+ ".anki.updating";
+  String deckFilename=mDestination + "/tmp/" + deckName+ ".anki.updating";
   Log.i(TAG,"doInBackgroundLoadDeck - deckFilename = " + deckFilename);
   Log.i(TAG,"loadDeck - SD card mounted and existent file -> Loading deck...");
   try {

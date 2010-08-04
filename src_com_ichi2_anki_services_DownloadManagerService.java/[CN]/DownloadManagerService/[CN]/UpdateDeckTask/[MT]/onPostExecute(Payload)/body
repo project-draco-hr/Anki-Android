@@ -7,7 +7,8 @@
       deck.closeDeck();
     }
     String deckName=(String)result.data[0];
-    new File(mDestination + "/" + deckName+ ".anki.updating").renameTo(new File(mDestination + "/" + deckName+ ".anki"));
+    new File(mDestination + "/tmp/" + deckName+ ".anki.updating").renameTo(new File(mDestination + "/" + deckName+ ".anki"));
+    new File(mDestination + "/tmp/" + deckName+ ".media/").renameTo(new File(mDestination + "/" + deckName+ ".media/"));
     mSharedDeckDownloads.remove((Download)result.data[1]);
     notifySharedDeckObservers();
     showNotification((String)result.data[0]);

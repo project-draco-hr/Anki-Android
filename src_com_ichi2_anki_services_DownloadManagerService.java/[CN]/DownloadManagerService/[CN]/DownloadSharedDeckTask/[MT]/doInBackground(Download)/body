@@ -34,7 +34,7 @@
       download.setSize(contentLength);
       Log.i(TAG,"File size = " + contentLength);
     }
-    file=new RandomAccessFile(mDestination + "/" + download.getTitle()+ "."+ download.getId()+ ".shared.zip.tmp","rw");
+    file=new RandomAccessFile(mDestination + "/tmp/" + download.getTitle()+ "."+ download.getId()+ ".shared.zip.tmp","rw");
     is=connection.getInputStream();
     while (download.getStatus() == Download.DOWNLOADING) {
       Log.i(TAG,"Downloading... " + download.getDownloaded());
@@ -49,7 +49,7 @@
     }
     if (download.getStatus() == Download.DOWNLOADING) {
       download.setStatus(Download.COMPLETE);
-      new File(mDestination + "/" + download.getTitle()+ "."+ download.getId()+ ".shared.zip.tmp").renameTo(new File(mDestination + "/" + download.getTitle()+ ".zip"));
+      new File(mDestination + "/tmp/" + download.getTitle()+ "."+ download.getId()+ ".shared.zip.tmp").renameTo(new File(mDestination + "/tmp/" + download.getTitle()+ ".zip"));
       publishProgress();
     }
     long finishTime=System.currentTimeMillis();
