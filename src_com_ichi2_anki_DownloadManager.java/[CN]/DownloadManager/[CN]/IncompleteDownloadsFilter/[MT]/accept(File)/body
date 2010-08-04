@@ -1,6 +1,0 @@
-{
-  if (pathname.isFile() && (pathname.getName().endsWith(".anki.tmp") || pathname.getName().endsWith(".shared.zip.tmp"))) {
-    return true;
-  }
-  return false;
-}

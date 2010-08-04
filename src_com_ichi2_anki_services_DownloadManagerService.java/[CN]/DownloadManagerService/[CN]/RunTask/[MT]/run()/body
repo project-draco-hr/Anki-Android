@@ -1,7 +1,0 @@
-{
-  Log.i(TAG,"Service running...");
-  ++counter;
-  if (serviceHandler != null) {
-    serviceHandler.postDelayed(this,1000L);
-  }
-}

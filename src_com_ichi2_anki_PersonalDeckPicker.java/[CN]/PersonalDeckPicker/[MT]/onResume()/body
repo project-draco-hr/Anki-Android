@@ -1,13 +1,14 @@
 {
   super.onResume();
   Log.i(TAG,"onResume");
-  try {
-    if (mService != null) {
-      mService.registerPersonalDeckCallback(mCallback);
-      setPersonalDeckDownloads(mService.getPersonalDeckDownloads());
+  if (mDownloadManagerService != null) {
+    try {
+      mDownloadManagerService.registerPersonalDeckCallback(mCallback);
+      setPersonalDeckDownloads(mDownloadManagerService.getPersonalDeckDownloads());
     }
-  }
- catch (  RemoteException e) {
-    e.printStackTrace();
+ catch (    RemoteException e) {
+      Log.e(TAG,"RemoteException = " + e.getMessage());
+      e.printStackTrace();
+    }
   }
 }

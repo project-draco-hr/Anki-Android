@@ -1,0 +1,34 @@
+{
+  Log.i(TAG,"DownloadManagerService - Adding incomplete downloads:");
+  File dir=new File(mDestination + "/tmp/");
+  File[] fileList=dir.listFiles(new IncompleteDownloadsFilter());
+  if (fileList != null) {
+    for (int i=0; i < fileList.length; i++) {
+      File file=fileList[i];
+      String filename=file.getName();
+      Log.i(TAG,"Filename = " + filename);
+      if (filename.endsWith(".anki.tmp")) {
+        Download download=new Download(filename.substring(0,filename.length() - ".anki.tmp".length()));
+        download.setDownloaded(file.length());
+        mPersonalDeckDownloads.add(download);
+      }
+ else       if (filename.endsWith(".shared.zip.tmp")) {
+        filename=filename.substring(0,filename.length() - ".shared.zip.tmp".length());
+        int lastDotPosition=filename.lastIndexOf(".");
+        String identifier=filename.substring(lastDotPosition + 1,filename.length());
+        String title=filename.substring(0,lastDotPosition);
+        SharedDeckDownload download=new SharedDeckDownload(Integer.parseInt(identifier),title);
+        download.setDownloaded(file.length());
+        mSharedDeckDownloads.add(download);
+      }
+ else       if (filename.endsWith(".anki.updating")) {
+        String title=filename.substring(0,filename.length() - ".anki.updating".length());
+        SharedDeckDownload download=new SharedDeckDownload(title);
+        download.setStatus(SharedDeckDownload.UPDATE);
+        mSharedDeckDownloads.add(download);
+      }
+    }
+    notifyObservers();
+  }
+  stopIfFinished();
+}

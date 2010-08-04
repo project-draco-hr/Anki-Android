@@ -8,7 +8,7 @@
       DefaultHttpClient defaultHttpClient=new DefaultHttpClient();
       HttpResponse httpResponse=defaultHttpClient.execute(httpGet);
       String response=Utils.convertStreamToString(httpResponse.getEntity().getContent());
-      sharedDecks.addAll(handleResult(response));
+      sharedDecks.addAll(getSharedDecksListFromJSONArray(new JSONArray(response)));
     }
   }
  catch (  Exception e) {

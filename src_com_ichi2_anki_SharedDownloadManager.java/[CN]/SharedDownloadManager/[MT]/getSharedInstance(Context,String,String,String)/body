@@ -1,6 +1,0 @@
-{
-  if (mSharedInstance == null || !username.equalsIgnoreCase(mUsername) || !password.equalsIgnoreCase(mPassword) || !destination.equalsIgnoreCase(destination)) {
-    mSharedInstance=new SharedDownloadManager(context,username,password,destination);
-  }
-  return mSharedInstance;
-}

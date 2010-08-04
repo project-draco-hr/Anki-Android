@@ -24,11 +24,14 @@
   }
 catch (  ClientProtocolException e) {
     Log.i(TAG,"ClientProtocolException = " + e.getMessage());
+    e.printStackTrace();
   }
 catch (  IOException e) {
     Log.i(TAG,"IOException = " + e.getMessage());
+    e.printStackTrace();
   }
 catch (  JSONException e) {
+    Log.i(TAG,"JSONException = " + e.getMessage());
     e.printStackTrace();
   }
 }

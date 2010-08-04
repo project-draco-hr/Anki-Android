@@ -6,6 +6,7 @@
       mSharedDeckCallbacks.getBroadcastItem(i).publishProgress(mSharedDeckDownloads);
     }
  catch (    RemoteException e) {
+      Log.e(TAG,"RemoteException = " + e.getMessage());
       e.printStackTrace();
     }
   }

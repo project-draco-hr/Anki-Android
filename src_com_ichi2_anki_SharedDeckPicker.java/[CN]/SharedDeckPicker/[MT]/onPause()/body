@@ -1,10 +1,11 @@
 {
   super.onPause();
-  if (mService != null) {
+  if (mDownloadManagerService != null) {
     try {
-      mService.unregisterSharedDeckCallback(mCallback);
+      mDownloadManagerService.unregisterSharedDeckCallback(mCallback);
     }
  catch (    RemoteException e) {
+      Log.e(TAG,"RemoteException = " + e.getMessage());
       e.printStackTrace();
     }
   }

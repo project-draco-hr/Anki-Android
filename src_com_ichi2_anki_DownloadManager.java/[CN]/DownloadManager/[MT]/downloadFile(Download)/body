@@ -1,9 +1,0 @@
-{
-  if (download instanceof SharedDeckDownload) {
-    mSharedDeckDownloads.add((SharedDeckDownload)download);
-  }
- else {
-    mPersonalDeckDownloads.add(download);
-  }
-  resumeDownload(download);
-}

@@ -7,12 +7,8 @@ case TASK_TYPE_LOGIN:
     return doInBackgroundLogin(data);
 case TASK_TYPE_GET_SHARED_DECKS:
   return doInBackgroundGetSharedDecks(data);
-case TASK_TYPE_DOWNLOAD_SHARED_DECK:
-return doInBackgroundDownloadSharedDeck(data);
 case TASK_TYPE_GET_PERSONAL_DECKS:
 return doInBackgroundGetPersonalDecks(data);
-case TASK_TYPE_DOWNLOAD_PERSONAL_DECK:
-return doInBackgroundDownloadPersonalDeck(data);
 case TASK_TYPE_SYNC_DECK:
 return doInBackgroundSyncDeck(data);
 case TASK_TYPE_SYNC_DECK_FROM_PAYLOAD:

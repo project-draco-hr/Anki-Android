@@ -1,8 +1,0 @@
-{
-  if (download instanceof SharedDeckDownload) {
-    new DownloadSharedDeckTask().execute(download);
-  }
- else {
-    new DownloadPersonalDeckTask().execute(download);
-  }
-}

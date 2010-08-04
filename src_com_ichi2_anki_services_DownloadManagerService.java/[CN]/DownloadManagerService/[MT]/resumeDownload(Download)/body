@@ -1,0 +1,15 @@
+{
+  new File(mDestination + "/tmp/").mkdirs();
+  if (download instanceof SharedDeckDownload) {
+    SharedDeckDownload sharedDeckDownload=(SharedDeckDownload)download;
+    if (sharedDeckDownload.getStatus() == SharedDeckDownload.UPDATE) {
+      new UpdateDeckTask().execute(new Payload(new Object[]{sharedDeckDownload.getTitle(),sharedDeckDownload}));
+    }
+ else {
+      new DownloadSharedDeckTask().execute(sharedDeckDownload);
+    }
+  }
+ else {
+    new DownloadPersonalDeckTask().execute(download);
+  }
+}

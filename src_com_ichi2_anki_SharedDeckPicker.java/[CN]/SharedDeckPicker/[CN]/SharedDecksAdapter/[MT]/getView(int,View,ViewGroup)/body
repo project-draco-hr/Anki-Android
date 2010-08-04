@@ -1,13 +1,14 @@
 {
   View row=convertView;
-  ViewWrapper wrapper=null;
+  DownloadViewWrapper wrapper=null;
+  Resources res=getResources();
   if (row == null) {
     row=getLayoutInflater().inflate(R.layout.download_deck_item,null);
-    wrapper=new ViewWrapper(row);
+    wrapper=new DownloadViewWrapper(row);
     row.setTag(wrapper);
   }
  else {
-    wrapper=(ViewWrapper)row.getTag();
+    wrapper=(DownloadViewWrapper)row.getTag();
   }
   TextView headerTitle=wrapper.getHeaderTitle();
   TextView downloadingSharedDeckTitle=wrapper.getDownloadTitle();
@@ -21,7 +22,7 @@
     sharedDeckTitle.setVisibility(View.GONE);
     sharedDeckFacts.setVisibility(View.GONE);
     if (position == 0) {
-      headerTitle.setText("Currently downloading");
+      headerTitle.setText(res.getString(R.string.currently_downloading));
       headerTitle.setVisibility(View.VISIBLE);
     }
  else {
@@ -32,22 +33,22 @@
     progressBar.setVisibility(View.VISIBLE);
 switch (download.getStatus()) {
 case Download.START:
-      progressText.setText("Starting download...");
+      progressText.setText(res.getString(R.string.starting_download));
     break;
 case Download.DOWNLOADING:
-  progressText.setText("Downloading...");
+  progressText.setText(res.getString(R.string.downloading));
 break;
 case Download.PAUSED:
-progressText.setText("Paused");
+progressText.setText(res.getString(R.string.paused));
 break;
 case Download.COMPLETE:
-progressText.setText("Downloaded");
+progressText.setText(res.getString(R.string.downloaded));
 break;
 case SharedDeckDownload.UPDATE:
-progressText.setText("Updating...");
+progressText.setText(res.getString(R.string.updating));
 break;
 default :
-progressText.setText("Error");
+progressText.setText(res.getString(R.string.error));
 break;
 }
 progressText.setVisibility(View.VISIBLE);
@@ -55,7 +56,7 @@ progressText.setVisibility(View.VISIBLE);
  else {
 SharedDeck sharedDeck=(SharedDeck)obj;
 if (position > 0 && (mAllSharedDecks.get(position - 1) instanceof Download)) {
-headerTitle.setText("Shared Decks");
+headerTitle.setText(res.getString(R.string.shared_decks));
 headerTitle.setVisibility(View.VISIBLE);
 }
  else {
@@ -66,7 +67,13 @@ progressBar.setVisibility(View.GONE);
 progressText.setVisibility(View.GONE);
 sharedDeckTitle.setText(sharedDeck.getTitle());
 sharedDeckTitle.setVisibility(View.VISIBLE);
-sharedDeckFacts.setText(sharedDeck.getFacts() + " facts");
+int numFacts=sharedDeck.getFacts();
+if (numFacts == 1) {
+sharedDeckFacts.setText(numFacts + " " + res.getString(R.string.fact));
+}
+ else {
+sharedDeckFacts.setText(numFacts + " " + res.getString(R.string.facts));
+}
 sharedDeckFacts.setVisibility(View.VISIBLE);
 }
 return row;

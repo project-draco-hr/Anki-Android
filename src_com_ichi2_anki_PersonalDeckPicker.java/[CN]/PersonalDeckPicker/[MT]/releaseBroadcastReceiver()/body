@@ -1,0 +1,6 @@
+{
+  if (mUnmountReceiver != null) {
+    unregisterReceiver(mUnmountReceiver);
+    mUnmountReceiver=null;
+  }
+}

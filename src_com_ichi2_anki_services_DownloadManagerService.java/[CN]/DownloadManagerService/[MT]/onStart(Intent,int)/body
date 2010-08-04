@@ -1,11 +1,5 @@
 {
   Log.i(TAG,"Service - onStart");
   super.onStart(intent,startId);
-  Bundle extras=intent.getExtras();
-  if (extras != null) {
-    mUsername=extras.getString("username");
-    mPassword=extras.getString("password");
-    mDestination=extras.getString("destination");
-    Log.i(TAG,"	Username = " + mUsername + ", Password = "+ mPassword+ ", Destination = "+ mDestination);
-  }
+  restorePreferences();
 }

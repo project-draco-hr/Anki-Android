@@ -1,25 +1,3 @@
 {
   this.size=size;
-  float sizeToShow=size;
-  int divs=0;
-  while (sizeToShow > 1000) {
-    sizeToShow=sizeToShow / 1000;
-    divs++;
-  }
-  DecimalFormat dec=new DecimalFormat("#.##");
-switch (divs) {
-case 0:
-    put("size",dec.format(sizeToShow) + "B");
-  break;
-case 1:
-put("size",dec.format(sizeToShow) + "KB");
-break;
-case 2:
-put("size",dec.format(sizeToShow) + "MB");
-break;
-case 3:
-put("size",dec.format(sizeToShow) + "GB");
-break;
-}
-setProgress();
 }

@@ -1,0 +1,5 @@
+{
+  mDownloadManagerServiceIntent=new Intent(PersonalDeckPicker.this,DownloadManagerService.class);
+  startService(mDownloadManagerServiceIntent);
+  bindService(mDownloadManagerServiceIntent,mConnection,Context.BIND_AUTO_CREATE);
+}

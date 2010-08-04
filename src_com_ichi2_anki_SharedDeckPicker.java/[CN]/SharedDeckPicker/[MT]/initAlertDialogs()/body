@@ -3,7 +3,7 @@
   AlertDialog.Builder builder=new AlertDialog.Builder(this);
   builder.setMessage(res.getString(R.string.connection_needed));
   builder.setPositiveButton(res.getString(R.string.ok),null);
-  noConnectionAlert=builder.create();
+  mNoConnectionAlert=builder.create();
   builder.setMessage(res.getString(R.string.connection_unsuccessful));
-  connectionFailedAlert=builder.create();
+  mConnectionFailedAlert=builder.create();
 }

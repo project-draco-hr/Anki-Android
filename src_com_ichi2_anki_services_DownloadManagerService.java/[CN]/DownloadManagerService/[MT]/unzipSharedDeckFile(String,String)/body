@@ -3,26 +3,36 @@
   Log.i(TAG,"unzipSharedDeckFile");
   if (zipFilename.endsWith(".zip")) {
     Log.i(TAG,"zipFilename ends with .zip");
-    zipInputStream=new ZipInputStream(new FileInputStream(new File(zipFilename)));
-    title=title.replace("^","");
-    title=title.substring(0,java.lang.Math.min(title.length(),40));
-    if (new File(mDestination + "/" + title+ ".anki").exists())     title+=System.currentTimeMillis();
-    String partialDeckPath=mDestination + "/tmp/" + title;
-    String deckFilename=partialDeckPath + ".anki.updating";
-    ZipEntry zipEntry=null;
-    while ((zipEntry=zipInputStream.getNextEntry()) != null) {
-      Log.i(TAG,"zipEntry = " + zipEntry.getName());
-      if ("shared.anki".equalsIgnoreCase(zipEntry.getName())) {
-        Utils.writeToFile(zipInputStream,deckFilename);
+    try {
+      zipInputStream=new ZipInputStream(new FileInputStream(new File(zipFilename)));
+      title=title.replace("^","");
+      title=title.substring(0,java.lang.Math.min(title.length(),40));
+      if (new File(mDestination + "/" + title+ ".anki").exists())       title+=System.currentTimeMillis();
+      String partialDeckPath=mDestination + "/tmp/" + title;
+      String deckFilename=partialDeckPath + ".anki.updating";
+      ZipEntry zipEntry=null;
+      while ((zipEntry=zipInputStream.getNextEntry()) != null) {
+        Log.i(TAG,"zipEntry = " + zipEntry.getName());
+        if ("shared.anki".equalsIgnoreCase(zipEntry.getName())) {
+          Utils.writeToFile(zipInputStream,deckFilename);
+        }
+ else         if (zipEntry.getName().startsWith("shared.media/",0)) {
+          Log.i(TAG,"Folder created = " + new File(partialDeckPath + ".media/").mkdir());
+          Log.i(TAG,"Destination = " + AnkiDroidApp.getStorageDirectory() + "/"+ title+ ".media/"+ zipEntry.getName().replace("shared.media/",""));
+          Utils.writeToFile(zipInputStream,partialDeckPath + ".media/" + zipEntry.getName().replace("shared.media/",""));
+        }
       }
- else       if (zipEntry.getName().startsWith("shared.media/",0)) {
-        Log.i(TAG,"Folder created = " + new File(partialDeckPath + ".media/").mkdir());
-        Log.i(TAG,"Destination = " + AnkiDroidApp.getStorageDirectory() + "/"+ title+ ".media/"+ zipEntry.getName().replace("shared.media/",""));
-        Utils.writeToFile(zipInputStream,partialDeckPath + ".media/" + zipEntry.getName().replace("shared.media/",""));
-      }
+      zipInputStream.close();
+      new File(zipFilename).delete();
     }
-    zipInputStream.close();
-    new File(zipFilename).delete();
+ catch (    FileNotFoundException e) {
+      Log.e(TAG,"FileNotFoundException = " + e.getMessage());
+      e.printStackTrace();
+    }
+catch (    IOException e) {
+      Log.e(TAG,"IOException = " + e.getMessage());
+      e.printStackTrace();
+    }
   }
   return title;
 }

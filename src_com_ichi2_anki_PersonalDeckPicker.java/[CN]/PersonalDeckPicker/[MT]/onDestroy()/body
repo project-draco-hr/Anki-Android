@@ -1,9 +1,7 @@
 {
   Log.i(TAG,"onDestroy");
   super.onDestroy();
-  if (mUnmountReceiver != null) {
-    unregisterReceiver(mUnmountReceiver);
-  }
   releaseService();
-  connectionFailedAlert=null;
+  releaseBroadcastReceiver();
+  releaseAlertDialogs();
 }

@@ -1,13 +1,14 @@
 {
   Log.i(TAG,"onResume");
   super.onResume();
-  try {
-    if (mService != null) {
-      mService.registerSharedDeckCallback(mCallback);
-      setSharedDeckDownloads(mService.getSharedDeckDownloads());
+  if (mDownloadManagerService != null) {
+    try {
+      mDownloadManagerService.registerSharedDeckCallback(mCallback);
+      setSharedDeckDownloads(mDownloadManagerService.getSharedDeckDownloads());
     }
-  }
- catch (  RemoteException e) {
-    e.printStackTrace();
+ catch (    RemoteException e) {
+      Log.e(TAG,"RemoteException = " + e.getMessage());
+      e.printStackTrace();
+    }
   }
 }

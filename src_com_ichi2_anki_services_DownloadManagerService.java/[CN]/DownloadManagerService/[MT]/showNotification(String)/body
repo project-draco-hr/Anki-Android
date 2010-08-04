@@ -1,11 +1,12 @@
 {
   NotificationManager mNotificationManager=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-  Notification notification=new Notification(R.drawable.anki,"Download finished",System.currentTimeMillis());
+  Resources res=getResources();
+  Notification notification=new Notification(R.drawable.anki,res.getString(R.string.download_finished),System.currentTimeMillis());
   Intent loadDeckIntent=new Intent(this,StudyOptions.class);
   loadDeckIntent.putExtra(StudyOptions.OPT_DB,mDestination + "/" + deckTitle+ ".anki");
   loadDeckIntent.setData(Uri.parse(deckTitle));
   PendingIntent contentIntent=PendingIntent.getActivity(this,0,loadDeckIntent,0);
-  notification.setLatestEventInfo(this,deckTitle,"Deck downloaded",contentIntent);
+  notification.setLatestEventInfo(this,deckTitle,res.getString(R.string.deck_downloaded),contentIntent);
   notification.flags|=Notification.FLAG_AUTO_CANCEL;
   notification.defaults|=Notification.DEFAULT_VIBRATE;
   notification.ledARGB=0xff0000ff;
@@ -13,5 +14,5 @@
   notification.ledOffMS=1000;
   notification.flags|=Notification.FLAG_SHOW_LIGHTS;
   Log.i(TAG,"Sending notification...");
-  mNotificationManager.notify(mNotificationCounter++,notification);
+  mNotificationManager.notify(getNextNotificationId(),notification);
 }
