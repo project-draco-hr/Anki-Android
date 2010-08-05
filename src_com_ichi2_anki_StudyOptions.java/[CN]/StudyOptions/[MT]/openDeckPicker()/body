@@ -1,6 +1,6 @@
 {
   closeOpenedDeck();
-  Intent decksPicker=new Intent(this,DeckPicker.class);
+  Intent decksPicker=new Intent(StudyOptions.this,DeckPicker.class);
   inDeckPicker=true;
   startActivityForResult(decksPicker,PICK_DECK_REQUEST);
 }

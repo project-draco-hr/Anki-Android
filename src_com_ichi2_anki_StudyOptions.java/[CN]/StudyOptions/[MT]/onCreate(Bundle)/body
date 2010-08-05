@@ -6,10 +6,10 @@
   requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
   initAllContentViews();
   initAllAlertDialogs();
-  Bundle extras=getIntent().getExtras();
-  if (extras != null && extras.getString(OPT_DB) != null) {
-    deckFilename=extras.getString(OPT_DB);
-    Log.i(TAG,"onCreate - deckFilename from extras: " + deckFilename);
+  Intent intent=getIntent();
+  if ("android.intent.action.VIEW".equalsIgnoreCase(intent.getAction()) && intent.getDataString() != null) {
+    deckFilename=Uri.parse(intent.getDataString()).getPath();
+    Log.i(TAG,"onCreate - deckFilename from intent: " + deckFilename);
   }
  else   if (savedInstanceState != null) {
     deckFilename=savedInstanceState.getString("deckFilename");

@@ -5,7 +5,7 @@ case MENU_OPEN:
     openDeckPicker();
   return true;
 case MENU_DOWNLOAD_PERSONAL_DECK:
-Intent downloadPersonalDeck=new Intent(this,PersonalDeckPicker.class);
+Intent downloadPersonalDeck=new Intent(StudyOptions.this,PersonalDeckPicker.class);
 startActivityForResult(downloadPersonalDeck,DOWNLOAD_PERSONAL_DECK);
 return true;
 case MENU_DOWNLOAD_SHARED_DECK:
@@ -15,19 +15,19 @@ case MENU_SYNC:
 syncDeck();
 return true;
 case MENU_MY_ACCOUNT:
-Intent myAccount=new Intent(this,MyAccount.class);
+Intent myAccount=new Intent(StudyOptions.this,MyAccount.class);
 startActivity(myAccount);
 return true;
 case MENU_PREFERENCES:
-Intent preferences=new Intent(this,Preferences.class);
+Intent preferences=new Intent(StudyOptions.this,Preferences.class);
 startActivityForResult(preferences,PREFERENCES_UPDATE);
 return true;
 case MENU_DECK_PROPERTIES:
-Intent deckProperties=new Intent(this,DeckProperties.class);
+Intent deckProperties=new Intent(StudyOptions.this,DeckProperties.class);
 startActivityForResult(deckProperties,DECK_PROPERTIES);
 return true;
 case MENU_ABOUT:
-Intent about=new Intent(this,About.class);
+Intent about=new Intent(StudyOptions.this,About.class);
 startActivity(about);
 return true;
 default :
