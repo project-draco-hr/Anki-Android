@@ -2,11 +2,13 @@
   Log.i(TAG,"showOrHideControls - timerAndWhiteboard: " + timerAndWhiteboard);
   if (!timerAndWhiteboard) {
     mCardTimer.setVisibility(View.GONE);
+    mCounts.setVisibility(View.GONE);
     mToggleWhiteboard.setVisibility(View.GONE);
     mWhiteboard.setVisibility(View.GONE);
   }
  else {
     mCardTimer.setVisibility(View.VISIBLE);
+    mCounts.setVisibility(View.VISIBLE);
     mToggleWhiteboard.setVisibility(View.VISIBLE);
     if (mToggleWhiteboard.isChecked()) {
       mWhiteboard.setVisibility(View.VISIBLE);
