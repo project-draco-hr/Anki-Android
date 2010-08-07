@@ -7,10 +7,10 @@
     sb.append("body {background-color:").append(myCardModel.lastFontColour).append(";}\n");
   }
   sb.append(".").append(AnkiDroid.QUESTION_CLASS).append(" {\n");
-  sb.append(calculateDisplay(percentage,myCardModel.questionFontFamily,myCardModel.questionFontSize,myCardModel.questionFontColour,myCardModel.questionAlign));
+  sb.append(calculateDisplay(percentage,myCardModel.questionFontFamily,myCardModel.questionFontSize,myCardModel.questionFontColour,myCardModel.questionAlign,false));
   sb.append("}\n");
   sb.append(".").append(AnkiDroid.ANSWER_CLASS).append(" {\n");
-  sb.append(calculateDisplay(percentage,myCardModel.answerFontFamily,myCardModel.answerFontSize,myCardModel.answerFontColour,myCardModel.answerAlign));
+  sb.append(calculateDisplay(percentage,myCardModel.answerFontFamily,myCardModel.answerFontSize,myCardModel.answerFontColour,myCardModel.answerAlign,false));
   sb.append("}\n");
   FieldModel myFieldModel=null;
   String hexId=null;
@@ -18,7 +18,7 @@
     myFieldModel=entry.getValue();
     hexId="fm" + Long.toHexString(myFieldModel.id);
     sb.append(".").append(hexId).append(" {\n");
-    sb.append(calculateDisplay(percentage,myFieldModel.quizFontFamily,myFieldModel.quizFontSize,myFieldModel.quizFontColour,0));
+    sb.append(calculateDisplay(percentage,myFieldModel.quizFontFamily,myFieldModel.quizFontSize,myFieldModel.quizFontColour,0,true));
     sb.append("}\n");
   }
   sb.append("</style>");
