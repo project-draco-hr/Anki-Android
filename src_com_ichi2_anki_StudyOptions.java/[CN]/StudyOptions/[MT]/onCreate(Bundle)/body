@@ -5,7 +5,7 @@
   registerExternalStorageListener();
   requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
   initAllContentViews();
-  initAllAlertDialogs();
+  initAllDialogs();
   Intent intent=getIntent();
   if ("android.intent.action.VIEW".equalsIgnoreCase(intent.getAction()) && intent.getDataString() != null) {
     deckFilename=Uri.parse(intent.getDataString()).getPath();

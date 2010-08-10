@@ -3,7 +3,7 @@
   setContentView(R.layout.download_deck_picker);
   initDownloadManagerService();
   registerExternalStorageListener();
-  initAlertDialogs();
+  initDialogs();
   mSharedDeckDownloads=new ArrayList<Download>();
   mSharedDecks=new ArrayList<SharedDeck>();
   mAllSharedDecks=new ArrayList<Object>();

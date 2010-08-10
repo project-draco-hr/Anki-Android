@@ -3,7 +3,7 @@
   setContentView(R.layout.download_deck_picker);
   initDownloadManagerService();
   registerExternalStorageListener();
-  initAlertDialogs();
+  initDialogs();
   mPersonalDeckDownloads=new ArrayList<Download>();
   mPersonalDecks=new ArrayList<String>();
   mAllPersonalDecks=new ArrayList<Object>();
@@ -27,8 +27,5 @@
     }
   }
 );
-  SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
-  String username=pref.getString("username","");
-  String password=pref.getString("password","");
-  Connection.getPersonalDecks(getPersonalDecksListener,new Connection.Payload(new Object[]{username,password}));
+  getPersonalDecks();
 }

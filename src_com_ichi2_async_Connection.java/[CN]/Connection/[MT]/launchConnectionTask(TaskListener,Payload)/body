@@ -1,9 +1,4 @@
 {
-  if (!isOnline()) {
-    data.success=false;
-    listener.onDisconnected();
-    return null;
-  }
   try {
     if ((instance != null) && (instance.getStatus() != AsyncTask.Status.FINISHED))     instance.get();
   }

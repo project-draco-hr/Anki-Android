@@ -5,10 +5,10 @@
   mSelf=this;
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
   String deckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory());
-  setContentView(R.layout.main);
+  setContentView(R.layout.deck_picker);
   mDeckList=new ArrayList<HashMap<String,String>>();
   mDeckListView=(ListView)findViewById(R.id.files);
-  mDeckListAdapter=new SimpleAdapter(this,mDeckList,R.layout.deck_picker_list,new String[]{"name","due","new","showProgress"},new int[]{R.id.DeckPickerName,R.id.DeckPickerDue,R.id.DeckPickerNew,R.id.DeckPickerProgress});
+  mDeckListAdapter=new SimpleAdapter(this,mDeckList,R.layout.deck_item,new String[]{"name","due","new","showProgress"},new int[]{R.id.DeckPickerName,R.id.DeckPickerDue,R.id.DeckPickerNew,R.id.DeckPickerProgress});
   mDeckListAdapter.setViewBinder(new SimpleAdapter.ViewBinder(){
     public boolean setViewValue(    View view,    Object data,    String text){
       if (view instanceof ProgressBar) {

@@ -2,7 +2,7 @@
   super.onCreate(savedInstanceState);
   initAllContentViews();
   initAllAlertDialogs();
-  if (isUserLoggedIn()) {
+  if (AnkiDroidApp.isUserLoggedIn()) {
     SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
     String username=preferences.getString("username","");
     mUsernameLoggedIn.setText(username);

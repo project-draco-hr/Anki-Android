@@ -1,0 +1,7 @@
+{
+  Log.i(TAG,"getPersonalDecks");
+  SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
+  String username=pref.getString("username","");
+  String password=pref.getString("password","");
+  Connection.getPersonalDecks(getPersonalDecksListener,new Connection.Payload(new Object[]{username,password}));
+}

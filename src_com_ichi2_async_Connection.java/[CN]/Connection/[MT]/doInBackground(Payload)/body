@@ -1,7 +1,5 @@
 {
   Payload data=params[0];
-  CurrentProgress=0;
-  publishProgress(CurrentProgress+=5,context.getResources().getString(R.string.determining_task));
 switch (data.taskType) {
 case TASK_TYPE_LOGIN:
     return doInBackgroundLogin(data);

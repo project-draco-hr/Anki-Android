@@ -1,9 +1,0 @@
-{
-  Resources res=getResources();
-  AlertDialog.Builder builder=new AlertDialog.Builder(this);
-  builder.setMessage(res.getString(R.string.connection_needed));
-  builder.setPositiveButton(res.getString(R.string.ok),null);
-  mNoConnectionAlert=builder.create();
-  builder.setMessage(res.getString(R.string.connection_unsuccessful));
-  mConnectionFailedAlert=builder.create();
-}

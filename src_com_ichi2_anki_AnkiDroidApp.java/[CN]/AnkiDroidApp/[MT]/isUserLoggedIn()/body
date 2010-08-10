@@ -1,0 +1,8 @@
+{
+  String username=instance.mPreferences.getString("username","");
+  String password=instance.mPreferences.getString("password","");
+  if (!username.equalsIgnoreCase("") && !password.equalsIgnoreCase("")) {
+    return true;
+  }
+  return false;
+}
