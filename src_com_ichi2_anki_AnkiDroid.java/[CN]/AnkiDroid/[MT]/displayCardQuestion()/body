@@ -24,6 +24,7 @@
     if (writeAnswers) {
       mAnswerField.setVisibility(View.VISIBLE);
     }
+    mChronoButtonsLayout.setVisibility(View.VISIBLE);
     mFlipCard.setVisibility(View.VISIBLE);
     mFlipCard.requestFocus();
     String displayString=enrichWithQASpan(currentCard.question,false);
