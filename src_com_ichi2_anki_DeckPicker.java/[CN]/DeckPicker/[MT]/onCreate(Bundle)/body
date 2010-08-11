@@ -6,6 +6,22 @@
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
   String deckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory());
   setContentView(R.layout.deck_picker);
+  mSyncAllBar=(RelativeLayout)findViewById(R.id.sync_all_bar);
+  mSyncAllButton=(Button)findViewById(R.id.sync_all_button);
+  mSyncAllButton.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View v){
+      if (AnkiDroidApp.isUserLoggedIn()) {
+        SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+        String username=preferences.getString("username","");
+        String password=preferences.getString("password","");
+        Connection.syncAllDecks(syncAllDecksListener,new Connection.Payload(new Object[]{username,password,mDeckList}));
+      }
+ else {
+        showDialog(DIALOG_USER_NOT_LOGGED_IN);
+      }
+    }
+  }
+);
   mDeckList=new ArrayList<HashMap<String,String>>();
   mDeckListView=(ListView)findViewById(R.id.files);
   mDeckListAdapter=new SimpleAdapter(this,mDeckList,R.layout.deck_item,new String[]{"name","due","new","showProgress"},new int[]{R.id.DeckPickerName,R.id.DeckPickerDue,R.id.DeckPickerNew,R.id.DeckPickerProgress});

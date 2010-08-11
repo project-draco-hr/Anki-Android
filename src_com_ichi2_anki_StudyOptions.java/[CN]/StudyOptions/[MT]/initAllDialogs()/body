@@ -1,11 +1,11 @@
 {
   Resources res=getResources();
   AlertDialog.Builder builder=new AlertDialog.Builder(this);
+  builder.setTitle(res.getString(R.string.connection_error_title));
+  builder.setIcon(android.R.drawable.ic_dialog_alert);
   builder.setMessage(res.getString(R.string.connection_needed));
   builder.setPositiveButton(res.getString(R.string.ok),null);
-  noConnectionAlert=builder.create();
-  builder.setMessage(res.getString(R.string.connection_unsuccessful));
-  connectionFailedAlert=builder.create();
+  mNoConnectionAlert=builder.create();
   builder.setTitle(res.getString(R.string.connection_error_title));
   builder.setIcon(android.R.drawable.ic_dialog_alert);
   builder.setMessage(res.getString(R.string.no_user_password_error_message));

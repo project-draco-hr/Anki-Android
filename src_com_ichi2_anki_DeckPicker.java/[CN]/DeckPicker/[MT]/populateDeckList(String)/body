@@ -29,6 +29,7 @@
         Log.w(TAG,"DeckPicker - populateDeckList, File " + fileList[i].getName() + " is not a real anki file");
       }
     }
+    mSyncAllBar.setVisibility(View.VISIBLE);
     Thread thread=new Thread(this);
     thread.start();
   }
@@ -46,6 +47,7 @@
     data.put("mod","1");
     data.put("showProgress","false");
     tree.add(data);
+    mSyncAllBar.setVisibility(View.GONE);
   }
   mDeckList.clear();
   mDeckList.addAll(tree);

@@ -1,0 +1,12 @@
+{
+  String username=mUsername.getText().toString();
+  String password=mPassword.getText().toString();
+  Log.i(TAG,"Username = " + username);
+  Log.i(TAG,"Password = " + password);
+  if (isUsernameAndPasswordValid(username,password)) {
+    Connection.login(loginListener,new Connection.Payload(new Object[]{username,password}));
+  }
+ else {
+    mInvalidUserPassAlert.show();
+  }
+}

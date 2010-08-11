@@ -5,16 +5,7 @@
   Button loginButton=(Button)mLoginToMyAccountView.findViewById(R.id.login_button);
   loginButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View v){
-      String username=mUsername.getText().toString();
-      String password=mPassword.getText().toString();
-      Log.i(TAG,"Username = " + username);
-      Log.i(TAG,"Password = " + password);
-      if (isUsernameAndPasswordValid(username,password)) {
-        Connection.login(loginListener,new Connection.Payload(new Object[]{username,password}));
-      }
- else {
-        mInvalidUserPassAlert.show();
-      }
+      login();
     }
   }
 );
