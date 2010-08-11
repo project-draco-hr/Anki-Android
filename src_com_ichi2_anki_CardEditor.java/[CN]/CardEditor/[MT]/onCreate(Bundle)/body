@@ -23,14 +23,14 @@
         FieldEditText current=iter.next();
         current.updateField();
       }
-      setResult(SAVE_CARD);
+      setResult(RESULT_OK);
       finish();
     }
   }
 );
   mCancel.setOnClickListener(new View.OnClickListener(){
     public void onClick(    View v){
-      setResult(CANCEL);
+      setResult(RESULT_CANCELED);
       finish();
     }
   }
