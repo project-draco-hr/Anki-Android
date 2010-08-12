@@ -1,0 +1,16 @@
+{
+  SpannableStringBuilder spannableStringBuilder=new SpannableStringBuilder();
+  int len=decksChangelogs.size();
+  for (int i=0; i < len; i++) {
+    HashMap<String,String> deckChangelog=decksChangelogs.get(i);
+    String deckName=deckChangelog.get("deckName");
+    spannableStringBuilder.append(deckName);
+    spannableStringBuilder.setSpan(new UnderlineSpan(),spannableStringBuilder.length() - deckName.length(),spannableStringBuilder.length(),0);
+    spannableStringBuilder.setSpan(new StyleSpan(android.graphics.Typeface.BOLD),spannableStringBuilder.length() - deckName.length(),spannableStringBuilder.length(),0);
+    spannableStringBuilder.append("\n" + deckChangelog.get("message"));
+    if (i != (len - 1)) {
+      spannableStringBuilder.append("\n\n");
+    }
+  }
+  return spannableStringBuilder;
+}

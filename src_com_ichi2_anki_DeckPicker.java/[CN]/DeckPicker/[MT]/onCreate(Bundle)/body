@@ -1,11 +1,10 @@
 {
   Log.i(TAG,"DeckPicker - onCreate");
   super.onCreate(savedInstanceState);
-  registerExternalStorageListener();
   mSelf=this;
-  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
-  String deckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory());
   setContentView(R.layout.deck_picker);
+  registerExternalStorageListener();
+  initDialogs();
   mSyncAllBar=(RelativeLayout)findViewById(R.id.sync_all_bar);
   mSyncAllButton=(Button)findViewById(R.id.sync_all_button);
   mSyncAllButton.setOnClickListener(new OnClickListener(){
@@ -38,5 +37,6 @@
 );
   mDeckListView.setOnItemClickListener(mDeckSelHandler);
   mDeckListView.setAdapter(mDeckListAdapter);
-  populateDeckList(deckPath);
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+  populateDeckList(preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory()));
 }

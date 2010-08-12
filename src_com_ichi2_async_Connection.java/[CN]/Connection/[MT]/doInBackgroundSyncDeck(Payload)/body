@@ -1,5 +1,6 @@
 {
   Resources res=context.getResources();
+  HashMap<String,String> syncChangelog=new HashMap<String,String>();
   String username=(String)data.data[0];
   String password=(String)data.data[1];
   Deck deck=(Deck)data.data[2];
@@ -11,6 +12,7 @@
     Log.i(TAG,"syncName = *" + syncName + "*");
     deck.setSyncName(syncName);
   }
+  syncChangelog.put("deckName",syncName);
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
   ankiDB.database.beginTransaction();
   try {
@@ -40,10 +42,12 @@
         if ("fromLocal".equalsIgnoreCase(syncFrom)) {
           publishProgress(syncName,res.getString(R.string.sync_uploading_message));
           SyncClient.fullSyncFromLocal(password,username,syncName,deckPath);
+          syncChangelog.put("message",res.getString(R.string.sync_log_uploading_message));
         }
  else         if ("fromServer".equalsIgnoreCase(syncFrom)) {
           publishProgress(syncName,res.getString(R.string.sync_downloading_message));
           SyncClient.fullSyncFromServer(password,username,syncName,deckPath);
+          syncChangelog.put("message",res.getString(R.string.sync_log_downloading_message));
         }
         ankiDB.database.setTransactionSuccessful();
         ankiDB.database.endTransaction();
@@ -56,8 +60,22 @@
         Log.i(TAG,"DECK DOES NOT NEED FULL SYNC");
         publishProgress(syncName,res.getString(R.string.sync_determining_differences_message));
         JSONObject payload=client.genPayload(sums);
+        int factsAddedOnLocal=payload.getJSONArray("added-cards").length();
+        if (factsAddedOnLocal == 1) {
+          syncChangelog.put("message",res.getString(R.string.sync_log_fact_to_server_message));
+        }
+ else         if (factsAddedOnLocal > 1) {
+          syncChangelog.put("message",res.getString(R.string.sync_log_facts_to_server_message,factsAddedOnLocal));
+        }
         publishProgress(syncName,res.getString(R.string.sync_transferring_payload_message));
         JSONObject payloadReply=client.getServer().applyPayload(payload);
+        int factsAddedOnServer=payloadReply.getJSONArray("added-cards").length();
+        if (factsAddedOnServer == 1) {
+          syncChangelog.put("message",res.getString(R.string.sync_log_fact_from_server_message));
+        }
+ else         if (payloadReply.getJSONArray("added-cards").length() > 1) {
+          syncChangelog.put("message",res.getString(R.string.sync_log_facts_from_server_message,factsAddedOnServer));
+        }
         publishProgress(syncName,res.getString(R.string.sync_applying_reply_message));
         client.applyPayloadReply(payloadReply);
         deck.lastLoaded=deck.modified;
@@ -69,13 +87,15 @@
  else {
       Log.i(TAG,"NO CHANGES.");
       publishProgress(syncName,res.getString(R.string.sync_no_changes_message));
+      syncChangelog.put("message",res.getString(R.string.sync_log_no_changes_message));
     }
   }
  catch (  Exception e) {
-    data.success=false;
-    data.exception=e;
     Log.e(TAG,"Error synchronizing deck = " + e.getMessage());
     e.printStackTrace();
+    syncChangelog.put("message",res.getString(R.string.sync_log_error_message));
+    data.success=false;
+    data.exception=e;
   }
  finally {
     if (ankiDB.database != null && ankiDB.database.inTransaction()) {
@@ -85,5 +105,6 @@
       deck.closeDeck();
     }
   }
+  data.result=syncChangelog;
   return data;
 }
