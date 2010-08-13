@@ -4,7 +4,8 @@
   while (cardsCursor.moveToNext()) {
     Card newCard=new Card();
     newCard.fromDB(cardsCursor.getLong(0));
-    HashMap<String,String> newQA=CardModel.formatQA(this,newCard.getCardModel());
+    newCard.loadTags();
+    HashMap<String,String> newQA=CardModel.formatQA(this,newCard.getCardModel(),newCard.splitTags());
     newCard.question=newQA.get("question");
     newCard.answer=newQA.get("answer");
     returnList.add(newCard);
