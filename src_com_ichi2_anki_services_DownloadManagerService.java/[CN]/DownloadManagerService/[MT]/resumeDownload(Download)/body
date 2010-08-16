@@ -3,7 +3,7 @@
   if (download instanceof SharedDeckDownload) {
     SharedDeckDownload sharedDeckDownload=(SharedDeckDownload)download;
     if (sharedDeckDownload.getStatus() == SharedDeckDownload.UPDATE) {
-      new UpdateDeckTask().execute(new Payload(new Object[]{sharedDeckDownload.getTitle(),sharedDeckDownload}));
+      new UpdateDeckTask().execute(new Payload(new Object[]{sharedDeckDownload}));
     }
  else {
       new DownloadSharedDeckTask().execute(sharedDeckDownload);

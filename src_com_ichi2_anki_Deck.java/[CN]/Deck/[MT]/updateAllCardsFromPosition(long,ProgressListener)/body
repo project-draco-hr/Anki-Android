@@ -1,0 +1,21 @@
+{
+  Cursor cursor=AnkiDatabaseManager.getDatabase(deckPath).database.rawQuery("SELECT id, factId " + "FROM cards " + "ORDER BY id "+ "LIMIT " + Long.MAX_VALUE + " OFFSET "+ numUpdatedCards,null);
+  while (cursor.moveToNext()) {
+    Card card=new Card(this);
+    card.fromDB(cursor.getLong(0));
+    Log.i(TAG,"Card id = " + card.id + ", numUpdatedCards = "+ numUpdatedCards);
+    Fact fact=card.getFact();
+    HashMap<String,String> newQA=CardModel.formatQA(fact,card.getCardModel());
+    card.question=newQA.get("question");
+    Log.i(TAG,"Question = " + card.question);
+    card.answer=newQA.get("answer");
+    Log.i(TAG,"Answer = " + card.answer);
+    card.modified=System.currentTimeMillis() / 1000.0;
+    card.toDB();
+    numUpdatedCards++;
+    if (listener != null) {
+      listener.onProgressUpdate(new Object[]{deckPath,numUpdatedCards});
+    }
+  }
+  cursor.close();
+}

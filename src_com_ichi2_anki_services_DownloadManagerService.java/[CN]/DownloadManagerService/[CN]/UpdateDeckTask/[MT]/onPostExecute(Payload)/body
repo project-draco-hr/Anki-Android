@@ -6,12 +6,16 @@
     if (deck != null) {
       deck.closeDeck();
     }
-    String deckName=(String)result.data[0];
-    new File(mDestination + "/tmp/" + deckName+ ".anki.updating").renameTo(new File(mDestination + "/" + deckName+ ".anki"));
-    new File(mDestination + "/tmp/" + deckName+ ".media/").renameTo(new File(mDestination + "/" + deckName+ ".media/"));
-    mSharedDeckDownloads.remove((Download)result.data[1]);
+    SharedDeckDownload download=(SharedDeckDownload)result.data[0];
+    SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
+    Editor editor=pref.edit();
+    editor.putLong("numUpdatedCards:" + mDestination + "/tmp/"+ download.getTitle()+ ".anki.updating",0);
+    editor.commit();
+    new File(mDestination + "/tmp/" + download.getTitle()+ ".anki.updating").renameTo(new File(mDestination + "/" + download.getTitle()+ ".anki"));
+    new File(mDestination + "/tmp/" + download.getTitle()+ ".media/").renameTo(new File(mDestination + "/" + download.getTitle()+ ".media/"));
+    mSharedDeckDownloads.remove(download);
     notifySharedDeckObservers();
-    showNotification((String)result.data[0]);
+    showNotification(download.getTitle());
     stopIfFinished();
   }
 }

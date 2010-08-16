@@ -5,7 +5,10 @@
   if (prefWriteAnswers) {
     if (mCurrentCard != null) {
       String userAnswer=mAnswerField.getText().toString();
-      String correctAnswer=(String)mCurrentCard.answer.subSequence(mCurrentCard.answer.indexOf(">") + 1,mCurrentCard.answer.lastIndexOf("<"));
+      Log.i(TAG,"Current card answer = " + mCurrentCard.answer);
+      Log.i(TAG,"Index of > = " + mCurrentCard.answer.indexOf(">") + 1);
+      Log.i(TAG,"Last index of < = " + mCurrentCard.answer.lastIndexOf("<"));
+      String correctAnswer=(String)mCurrentCard.answer.subSequence(1,2);
       DiffEngine diff=new DiffEngine();
       updateCard(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer)) + "<br/>" + mCurrentCard.answer);
     }

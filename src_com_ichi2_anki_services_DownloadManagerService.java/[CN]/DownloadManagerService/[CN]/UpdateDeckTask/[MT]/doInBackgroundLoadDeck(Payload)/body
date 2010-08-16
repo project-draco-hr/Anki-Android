@@ -1,7 +1,7 @@
 {
   Payload data=params[0];
-  String deckName=(String)data.data[0];
-  String deckFilename=mDestination + "/tmp/" + deckName+ ".anki.updating";
+  SharedDeckDownload download=(SharedDeckDownload)data.data[0];
+  String deckFilename=mDestination + "/tmp/" + download.getTitle()+ ".anki.updating";
   Log.i(TAG,"doInBackgroundLoadDeck - deckFilename = " + deckFilename);
   Log.i(TAG,"loadDeck - SD card mounted and existent file -> Loading deck...");
   try {
@@ -12,6 +12,7 @@
     HashMap<String,Object> results=new HashMap<String,Object>();
     results.put("deck",deck);
     results.put("card",card);
+    results.put("position",download.getNumUpdatedCards());
     data.result=results;
     return data;
   }

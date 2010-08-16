@@ -1,0 +1,13 @@
+{
+  Log.i(TAG,"onPostExecute");
+  SharedDeckDownload sharedDownload=(SharedDeckDownload)download;
+  sharedDownload.setStatus(SharedDeckDownload.UPDATE);
+  notifySharedDeckObservers();
+  String unzippedDeckName=unzipSharedDeckFile(mDestination + "/tmp/" + download.getTitle()+ ".zip",sharedDownload.getTitle());
+  download.setTitle(unzippedDeckName);
+  SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
+  Editor editor=pref.edit();
+  editor.putLong("numUpdatedCards:" + mDestination + "/tmp/"+ download.getTitle()+ ".anki.updating",0);
+  editor.commit();
+  new UpdateDeckTask().execute(new Payload(new Object[]{download}));
+}

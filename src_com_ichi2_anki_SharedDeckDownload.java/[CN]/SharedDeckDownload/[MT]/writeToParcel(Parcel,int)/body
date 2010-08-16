@@ -2,4 +2,5 @@
   super.writeToParcel(dest,flags);
   dest.writeInt(id);
   dest.writeString(filename);
+  dest.writeInt(numUpdatedCards);
 }
