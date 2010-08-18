@@ -1,0 +1,29 @@
+{
+  Cursor cursor=null;
+  FieldModel myFieldModel=null;
+  try {
+    StringBuffer query=new StringBuffer(SELECT_STRING);
+    query.append(" WHERE modelId = ");
+    query.append(modelId);
+    cursor=AnkiDatabaseManager.getDatabase(deck.deckPath).database.rawQuery(query.toString(),null);
+    if (cursor.moveToFirst()) {
+      do {
+        myFieldModel=new FieldModel();
+        myFieldModel.id=cursor.getLong(0);
+        myFieldModel.ordinal=cursor.getInt(1);
+        myFieldModel.modelId=cursor.getLong(2);
+        myFieldModel.name=cursor.getString(3);
+        myFieldModel.description=cursor.getString(4);
+        myFieldModel.quizFontSize=cursor.getInt(5);
+        myFieldModel.quizFontColour=cursor.getString(6);
+        models.put(myFieldModel.id,myFieldModel);
+      }
+ while (cursor.moveToNext());
+    }
+  }
+  finally {
+    if (cursor != null && !cursor.isClosed()) {
+      cursor.close();
+    }
+  }
+}

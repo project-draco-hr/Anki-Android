@@ -1,15 +1,10 @@
 {
-  menu.add(MAIN_MENU,MENU_OPEN,0,getString(R.string.switch_another_deck));
-  menu.add(MAIN_MENU,MENU_PREFERENCES,1,getString(R.string.menu_preferences));
-  menu.add(MAIN_MENU,MENU_DECKOPTS,2,getString(R.string.study_options));
-  menu.add(MAIN_MENU,MENU_DECK_PROPERTIES,3,getString(R.string.menu_deck_properties));
-  SubMenu downloadDeckSubMenu=menu.addSubMenu(getString(R.string.menu_download_deck));
-  downloadDeckSubMenu.add(SUBMENU_DOWNLOAD,MENU_DOWNLOAD_PERSONAL_DECK,0,getString(R.string.menu_download_personal_deck));
-  downloadDeckSubMenu.add(SUBMENU_DOWNLOAD,MENU_DOWNLOAD_SHARED_DECK,1,getString(R.string.menu_download_shared_deck));
-  menu.add(MAIN_MENU,MENU_SYNC,5,R.string.menu_synchronize);
-  menu.add(MAIN_MENU,MENU_SYNC_FROM_SERVER_PAYLOAD,6,"Sync from payload");
-  menu.add(MAIN_MENU,MENU_EDIT,7,getString(R.string.menu_edit_card));
-  menu.add(MAIN_MENU,MENU_SUSPEND,8,getString(R.string.menu_suspend_card));
-  menu.add(MAIN_MENU,MENU_ABOUT,9,getString(R.string.menu_about));
+  menu.add(Menu.NONE,MENU_OPEN,MENU_OPEN,getString(R.string.switch_another_deck));
+  menu.add(Menu.NONE,MENU_GET_SHARED_DECKS,MENU_GET_SHARED_DECKS,getString(R.string.get_shared_deck));
+  menu.add(Menu.NONE,MENU_PREFERENCES,MENU_PREFERENCES,getString(R.string.preferences));
+  menu.add(Menu.NONE,MENU_DECKOPTS,MENU_DECKOPTS,getString(R.string.study_options));
+  menu.add(Menu.NONE,MENU_EDIT,MENU_EDIT,getString(R.string.edit_card));
+  menu.add(Menu.NONE,MENU_SUSPEND,MENU_SUSPEND,getString(R.string.suspend));
+  menu.add(Menu.NONE,MENU_ABOUT,MENU_ABOUT,getString(R.string.about));
   return true;
 }

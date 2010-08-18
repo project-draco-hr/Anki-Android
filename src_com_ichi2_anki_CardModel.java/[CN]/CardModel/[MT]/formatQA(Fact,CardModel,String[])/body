@@ -1,0 +1,31 @@
+{
+  String question=cm.qformat;
+  String answer=cm.aformat;
+  Matcher tagMatcher;
+  tagMatcher=factPattern.matcher(question);
+  question=tagMatcher.replaceAll(tags[Card.TAGS_FACT]);
+  tagMatcher=factPattern.matcher(answer);
+  answer=tagMatcher.replaceAll(tags[Card.TAGS_FACT]);
+  tagMatcher=modelPattern.matcher(question);
+  question=tagMatcher.replaceAll(tags[Card.TAGS_MODEL]);
+  tagMatcher=modelPattern.matcher(answer);
+  answer=tagMatcher.replaceAll(tags[Card.TAGS_MODEL]);
+  tagMatcher=templPattern.matcher(question);
+  question=tagMatcher.replaceAll(tags[Card.TAGS_TEMPL]);
+  tagMatcher=templPattern.matcher(answer);
+  answer=tagMatcher.replaceAll(tags[Card.TAGS_TEMPL]);
+  int replaceAt=question.indexOf("%(");
+  while (replaceAt != -1) {
+    question=replaceField(question,fact,replaceAt,true);
+    replaceAt=question.indexOf("%(");
+  }
+  replaceAt=answer.indexOf("%(");
+  while (replaceAt != -1) {
+    answer=replaceField(answer,fact,replaceAt,true);
+    replaceAt=answer.indexOf("%(");
+  }
+  HashMap<String,String> returnMap=new HashMap<String,String>();
+  returnMap.put("question",question);
+  returnMap.put("answer",answer);
+  return returnMap;
+}

@@ -1,0 +1,33 @@
+{
+  Log.i(TAG,"OnCreate");
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.email_error);
+  int noErrors=getErrorFiles().size();
+  TextView tvErrorText=(TextView)findViewById(R.id.tvErrorText);
+  Button btnOk=(Button)findViewById(R.id.btnSendEmail);
+  Button btnCancel=(Button)findViewById(R.id.btnIgnoreError);
+  btnOk.setOnClickListener(new OnClickListener(){
+    public void onClick(    View v){
+      try {
+        sendErrorReport();
+      }
+ catch (      Exception e) {
+        Log.e(TAG,e.toString());
+      }
+      deleteFiles();
+      setResult(RESULT_OK);
+      finish();
+    }
+  }
+);
+  btnCancel.setOnClickListener(new OnClickListener(){
+    public void onClick(    View v){
+      deleteFiles();
+      setResult(RESULT_OK);
+      finish();
+    }
+  }
+);
+  String errorText=String.format(getString(R.string.error_message),noErrors);
+  tvErrorText.setText(errorText);
+}

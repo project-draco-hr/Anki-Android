@@ -1,43 +1,32 @@
 {
-  Log.i(TAG,"Menu item = " + item.getItemId());
 switch (item.getItemId()) {
 case MENU_OPEN:
     openDeckPicker();
-  break;
+  return true;
+case MENU_GET_SHARED_DECKS:
+Connection.getSharedDecks(getSharedDecksListener,new Connection.Payload(new Object[]{}));
+return true;
 case MENU_PREFERENCES:
 Intent preferences=new Intent(this,Preferences.class);
 startActivityForResult(preferences,PREFERENCES_UPDATE);
-break;
-case MENU_ABOUT:
-Intent about=new Intent(this,About.class);
-startActivity(about);
-break;
+return true;
 case MENU_DECKOPTS:
 Intent opts=new Intent(this,DeckPreferences.class);
 startActivity(opts);
-break;
-case MENU_SUSPEND:
-mFlipCard.setChecked(true);
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SUSPEND_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),currentCard));
-break;
+return true;
 case MENU_EDIT:
 editorCard=currentCard;
 Intent editCard=new Intent(this,CardEditor.class);
 startActivityForResult(editCard,EDIT_CURRENT_CARD);
-break;
-case MENU_DOWNLOAD_PERSONAL_DECK:
-Intent downloadPersonalDeck=new Intent(this,PersonalDeckPicker.class);
-startActivityForResult(downloadPersonalDeck,DOWNLOAD_PERSONAL_DECK);
-break;
-case MENU_DOWNLOAD_SHARED_DECK:
-Connection.getSharedDecks(getSharedDecksListener,new Connection.Payload(new Object[]{}));
-break;
-case MENU_SYNC:
-syncDeck();
-break;
-case MENU_SYNC_FROM_SERVER_PAYLOAD:
-Connection.syncDeckFromPayload(syncListener,new Connection.Payload(new Object[]{AnkiDroidApp.deck(),deckFilename}));
-break;
+return true;
+case MENU_SUSPEND:
+mFlipCard.setChecked(true);
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SUSPEND_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),currentCard));
+return true;
+case MENU_ABOUT:
+Intent about=new Intent(this,About.class);
+startActivity(about);
+return true;
 }
-return super.onOptionsItemSelected(item);
+return false;
 }

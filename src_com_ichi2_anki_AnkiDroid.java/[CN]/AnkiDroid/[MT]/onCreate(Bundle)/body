@@ -1,7 +1,11 @@
 {
   super.onCreate(savedInstanceState);
-  Log.i(TAG,"AnkiDroid Activity");
   Log.i(TAG,"onCreate - savedInstanceState: " + savedInstanceState);
+  boolean hasErrors=hasErrorFiles();
+  if (hasErrors) {
+    Intent i=new Intent(this,ErrorReporter.class);
+    startActivityForResult(i,REPORT_ERROR);
+  }
   Bundle extras=getIntent().getExtras();
   SharedPreferences preferences=restorePreferences();
   initAlertDialogs();
@@ -31,8 +35,7 @@
         if (!new File(AnkiDroidApp.getStorageDirectory(),"country-capitals.anki").exists()) {
           try {
             InputStream stream=getResources().getAssets().open("country-capitals.anki");
-            boolean written=Utils.writeToFile(stream,SAMPLE_DECK_FILENAME);
-            stream.close();
+            boolean written=writeToFile(stream,SAMPLE_DECK_FILENAME);
             if (!written) {
               openDeckPicker();
               Log.i(TAG,"onCreate - The copy of country-capitals.anki to the sd card failed.");

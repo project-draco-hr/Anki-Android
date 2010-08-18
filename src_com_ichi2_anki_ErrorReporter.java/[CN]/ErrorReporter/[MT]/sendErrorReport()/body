@@ -1,0 +1,22 @@
+{
+  ArrayList<String> files=getErrorFiles();
+  StringBuilder report=new StringBuilder();
+  int count=1;
+  for (  String filename : files) {
+    try {
+      report.append(String.format("--> BEGIN REPORT %d <--\n",count));
+      FileInputStream fi=openFileInput(filename);
+      if (fi == null)       continue;
+      int ch;
+      while ((ch=fi.read()) != -1) {
+        report.append((char)ch);
+      }
+      fi.close();
+      report.append(String.format("--> END REPORT %d <--",count++));
+    }
+ catch (    Exception ex) {
+      Log.e(TAG,ex.toString());
+    }
+  }
+  sendEmail(report.toString());
+}

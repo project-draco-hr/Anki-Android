@@ -4,6 +4,9 @@
   Connection.setContext(getApplicationContext());
   mResources=getResources();
   mPreferences=PrefSettings.getSharedPrefs(this);
+  CustomExceptionHandler customExceptionHandler=CustomExceptionHandler.getInstance();
+  customExceptionHandler.Init(instance.getApplicationContext());
+  Thread.setDefaultUncaughtExceptionHandler(customExceptionHandler);
   storageDirectory=Environment.getExternalStorageDirectory().getAbsolutePath();
   if (mPreferences.getString(PrefSettings.KEY_CHECK_URI,null) == null) {
     Editor editor=mPreferences.edit();
@@ -12,8 +15,6 @@
     editor.putString("deckPath",storageDirectory + "/AnkiDroid");
     editor.commit();
   }
-  Log.i(TAG,"storageDirectory = " + storageDirectory);
-  Log.i(TAG,"deckPath = " + mPreferences.getString("deckPath",storageDirectory));
   Intent intent=new Intent(Veecheck.getRescheduleAction(this));
   sendBroadcast(intent);
 }

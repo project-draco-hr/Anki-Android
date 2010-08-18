@@ -2,33 +2,40 @@
   Log.i(TAG,"displayCardAnswer");
   mCardTimer.stop();
   mWhiteboard.lock();
+  mEase0.setVisibility(View.VISIBLE);
   mEase1.setVisibility(View.VISIBLE);
   mEase2.setVisibility(View.VISIBLE);
   mEase3.setVisibility(View.VISIBLE);
-  mEase4.setVisibility(View.VISIBLE);
   mAnswerField.setVisibility(View.GONE);
-  mEase3.requestFocus();
+  mEase2.requestFocus();
+  String displayString="";
   if (writeAnswers) {
     if (currentCard != null) {
       String userAnswer=mAnswerField.getText().toString();
-      String correctAnswer=(String)currentCard.answer.subSequence(currentCard.answer.indexOf(">") + 1,currentCard.answer.lastIndexOf("<"));
+      Matcher spanMatcher=spanPattern.matcher(currentCard.answer);
+      String correctAnswer=spanMatcher.replaceAll("");
+      Matcher brMatcher=brPattern.matcher(correctAnswer);
+      correctAnswer=brMatcher.replaceAll("\n");
       DiffEngine diff=new DiffEngine();
-      updateCard(enrichWithQASpan(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer)) + "<br/>" + currentCard.answer,true));
+      displayString=enrichWithQASpan(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer)) + "<br/>" + currentCard.answer,true);
     }
  else {
-      updateCard("");
+      displayString="";
     }
   }
  else {
-    if (true == showQuestionAnswer) {
-      StringBuffer sb=new StringBuffer();
-      sb.append(enrichWithQASpan(currentCard.question,false));
-      sb.append("<hr/>");
-      sb.append(enrichWithQASpan(currentCard.answer,true));
-      updateCard(sb.toString());
-    }
- else {
-      updateCard(enrichWithQASpan(currentCard.answer,true));
+    displayString=enrichWithQASpan(currentCard.answer,true);
+  }
+  if (calculateShowQuestion()) {
+    StringBuffer sb=new StringBuffer();
+    sb.append(enrichWithQASpan(currentCard.question,false));
+    sb.append("<hr/>");
+    sb.append(displayString);
+    displayString=sb.toString();
+    mFlipCard.setVisibility(View.INVISIBLE);
+    if (!timerAndWhiteboard) {
+      mChronoButtonsLayout.setVisibility(View.GONE);
     }
   }
+  updateCard(displayString);
 }

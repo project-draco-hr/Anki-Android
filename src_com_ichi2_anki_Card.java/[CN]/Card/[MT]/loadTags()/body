@@ -1,0 +1,19 @@
+{
+  Cursor cursor=null;
+  int tagSrc=0;
+  try {
+    cursor=AnkiDatabaseManager.getDatabase(deck.deckPath).database.rawQuery("SELECT tags.tag, cardTags.src " + "FROM cardTags JOIN tags ON cardTags.tagId = tags.id " + "WHERE cardTags.cardId = " + id + " AND cardTags.src in ("+ TAGS_FACT+ ", "+ TAGS_MODEL+ ","+ TAGS_TEMPL+ ") "+ "ORDER BY cardTags.id",null);
+    while (cursor.moveToNext()) {
+      tagSrc=cursor.getInt(1);
+      if (tagsBySrc[tagSrc].length() > 0) {
+        tagsBySrc[tagSrc]+=" " + cursor.getString(0);
+      }
+ else {
+        tagsBySrc[tagSrc]+=cursor.getString(0);
+      }
+    }
+  }
+  finally {
+    if (cursor != null)     cursor.close();
+  }
+}

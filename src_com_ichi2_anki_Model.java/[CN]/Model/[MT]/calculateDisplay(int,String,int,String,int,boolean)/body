@@ -1,0 +1,22 @@
+{
+  StringBuffer sb=new StringBuffer();
+  if (null != fontFamily && 0 < fontFamily.trim().length()) {
+    sb.append("font-family:\"").append(fontFamily).append("\";\n");
+  }
+  if (null != fontColour && 0 < fontColour.trim().length()) {
+    sb.append("color:").append(fontColour).append(";\n");
+  }
+  if (0 < fontSize) {
+    sb.append("font-size:");
+    sb.append((percentage * fontSize) / 100);
+    sb.append("px;\n");
+  }
+  if (!isField) {
+    sb.append("text-align:");
+    sb.append(align_text[align]);
+    sb.append(";\n");
+    sb.append("padding-left:5px;\n");
+    sb.append("padding-right:5px;\n");
+  }
+  return sb.toString();
+}

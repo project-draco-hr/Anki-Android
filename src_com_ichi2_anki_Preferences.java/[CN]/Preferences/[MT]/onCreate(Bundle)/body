@@ -1,5 +1,7 @@
 {
   super.onCreate(savedInstanceState);
-  getPreferenceManager().setSharedPreferencesName(PrefSettings.SHARED_PREFS_NAME);
+  pm=getPreferenceManager();
+  pm.setSharedPreferencesName(PrefSettings.SHARED_PREFS_NAME);
   addPreferencesFromResource(R.layout.preferences);
+  veecheckStatus=pm.getSharedPreferences().getBoolean(PrefSettings.KEY_ENABLED,PrefSettings.DEFAULT_ENABLED);
 }

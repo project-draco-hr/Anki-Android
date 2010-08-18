@@ -1,5 +1,9 @@
 {
   tags="";
+  tagsBySrc=new String[3];
+  tagsBySrc[TAGS_FACT]="";
+  tagsBySrc[TAGS_MODEL]="";
+  tagsBySrc[TAGS_TEMPL]="";
   id=Utils.genID();
   type=2;
   isDue=1;
@@ -18,13 +22,5 @@
   if (cardModel != null) {
     cardModelId=cardModel.id;
     ordinal=cardModel.ordinal;
-    HashMap<String,HashMap<Long,String>> d=new HashMap<String,HashMap<Long,String>>();
-    Iterator<FieldModel> iter=fact.model.fieldModels.iterator();
-    while (iter.hasNext()) {
-      FieldModel fm=iter.next();
-      HashMap<Long,String> field=new HashMap<Long,String>();
-      field.put(fm.id,fact.getFieldValue(fm.name));
-      d.put(fm.name,field);
-    }
   }
 }

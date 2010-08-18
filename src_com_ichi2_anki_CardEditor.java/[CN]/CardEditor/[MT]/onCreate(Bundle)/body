@@ -1,9 +1,5 @@
 {
   super.onCreate(savedInstanceState);
-  restorePreferences();
-  if (notificationBar == false) {
-    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-  }
   registerExternalStorageListener();
   setContentView(R.layout.card_editor);
   fieldsLayoutContainer=(LinearLayout)findViewById(R.id.CardEditorEditFieldsLayout);
@@ -35,7 +31,7 @@
 );
   mCancel.setOnClickListener(new View.OnClickListener(){
     public void onClick(    View v){
-      setResult(CANCEL);
+      setResult(RESULT_CANCELED);
       finish();
     }
   }

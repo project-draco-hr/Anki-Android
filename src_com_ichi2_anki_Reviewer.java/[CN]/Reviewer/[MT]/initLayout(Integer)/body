@@ -1,6 +1,8 @@
 {
   setContentView(layout);
   mCard=(WebView)findViewById(R.id.flashcard);
+  mCard.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+  mCard.setScrollbarFadingEnabled(false);
   mEase1=(Button)findViewById(R.id.ease1);
   mEase2=(Button)findViewById(R.id.ease2);
   mEase3=(Button)findViewById(R.id.ease3);
@@ -13,7 +15,8 @@
   mToggleWhiteboard=(ToggleButton)findViewById(R.id.toggle_overlay);
   mWhiteboard=(Whiteboard)findViewById(R.id.whiteboard);
   mAnswerField=(EditText)findViewById(R.id.answer_field);
-  hideControls();
+  hideEaseButtons();
+  showControls();
   mEase1.setOnClickListener(mSelectEaseHandler);
   mEase2.setOnClickListener(mSelectEaseHandler);
   mEase3.setOnClickListener(mSelectEaseHandler);

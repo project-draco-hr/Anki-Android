@@ -2,22 +2,32 @@
   Log.i(TAG,"displayCardAnswer");
   mCardTimer.stop();
   mAnswerField.setVisibility(View.GONE);
+  String displayString="";
   if (prefWriteAnswers) {
     if (mCurrentCard != null) {
       String userAnswer=mAnswerField.getText().toString();
-      Log.i(TAG,"Current card answer = " + mCurrentCard.answer);
-      Log.i(TAG,"Index of > = " + mCurrentCard.answer.indexOf(">") + 1);
-      Log.i(TAG,"Last index of < = " + mCurrentCard.answer.lastIndexOf("<"));
-      String correctAnswer=(String)mCurrentCard.answer.subSequence(1,2);
+      Matcher spanMatcher=spanPattern.matcher(mCurrentCard.answer);
+      String correctAnswer=spanMatcher.replaceAll("");
+      Matcher brMatcher=brPattern.matcher(correctAnswer);
+      correctAnswer=brMatcher.replaceAll("\n");
       DiffEngine diff=new DiffEngine();
-      updateCard(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer)) + "<br/>" + mCurrentCard.answer);
+      displayString=enrichWithQASpan(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer)) + "<br/>" + mCurrentCard.answer,true);
     }
  else {
-      updateCard("");
+      displayString="";
     }
   }
  else {
-    updateCard(mCurrentCard.answer);
+    displayString=enrichWithQASpan(mCurrentCard.answer,true);
+  }
+  if (calculateShowQuestion()) {
+    StringBuffer sb=new StringBuffer();
+    sb.append(enrichWithQASpan(mCurrentCard.question,false));
+    sb.append("<hr/>");
+    sb.append(displayString);
+    displayString=sb.toString();
+    mFlipCard.setVisibility(View.INVISIBLE);
   }
   showEaseButtons();
+  updateCard(displayString);
 }

@@ -1,13 +1,21 @@
 {
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
-  prefCorporalPunishments=preferences.getBoolean("corporalPunishments",false);
   prefTimer=preferences.getBoolean("timer",true);
   prefWhiteboard=preferences.getBoolean("whiteboard",true);
   prefWriteAnswers=preferences.getBoolean("writeAnswers",false);
-  prefDeckFilename=preferences.getString("deckFilename","");
+  deckFilename=preferences.getString("deckFilename","");
   useRubySupport=preferences.getBoolean("useRubySupport",false);
-  String qaFontSizeString=preferences.getString("qaFontSize","0");
-  qaFontSize=Integer.parseInt(qaFontSizeString);
   notificationBar=preferences.getBoolean("notificationBar",false);
+  displayFontSize=Integer.parseInt(preferences.getString("displayFontSize","100"));
+  hideQuestionInAnswer=Integer.parseInt(preferences.getString("hideQuestionInAnswer",Integer.toString(HQIA_DO_SHOW)));
+  updateNotifications=preferences.getBoolean("enabled",true);
+  if (mFlipCard != null) {
+    if (mFlipCard.isChecked()) {
+      displayCardAnswer();
+    }
+ else {
+      displayCardQuestion();
+    }
+  }
   return preferences;
 }

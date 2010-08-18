@@ -1,6 +1,6 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
-  if (requestCode == PICK_DECK_REQUEST || requestCode == DOWNLOAD_PERSONAL_DECK) {
+  if (requestCode == PICK_DECK_REQUEST) {
     updateCard("");
     hideSdError();
     hideDeckErrors();
@@ -29,11 +29,13 @@
     }
   }
  else   if (requestCode == EDIT_CURRENT_CARD) {
-    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_FACT,mUpdateCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),currentCard));
-    mFlipCard.setChecked(true);
-    displayCardQuestion();
+    if (RESULT_OK == resultCode) {
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_FACT,mUpdateCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),currentCard));
+      mFlipCard.setChecked(true);
+      displayCardQuestion();
+    }
   }
- else   if (requestCode == DOWNLOAD_SHARED_DECK) {
+ else   if (requestCode == GET_SHARED_DECK) {
     updateCard("");
     hideSdError();
     hideDeckErrors();
@@ -52,5 +54,9 @@
     savePreferences();
     Log.i(TAG,"onActivityResult - deckSelected = " + deckSelected);
     displayProgressDialogAndLoadDeck(true);
+  }
+ else   if (requestCode == REPORT_ERROR) {
+    Log.i(TAG,"onActivityResult - reporting done");
+    return;
   }
 }

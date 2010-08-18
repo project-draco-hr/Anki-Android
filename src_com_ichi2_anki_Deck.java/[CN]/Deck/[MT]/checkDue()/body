@@ -4,24 +4,28 @@
   checkDailyStats();
   ContentValues val=new ContentValues(1);
   val.put("isDue",1);
-  Log.i(TAG,"failedSoonCount before = " + failedSoonCount);
-  failedSoonCount+=ankiDB.database.update("cards",val,"type = 0 and " + "isDue = 0 and " + "priority in (1,2,3,4) and "+ String.format(ENGLISH_LOCALE,"combinedDue <= %f",(double)((System.currentTimeMillis() / 1000.0) + delay0)),null);
-  Log.i(TAG,"failedSoonCount after = " + failedSoonCount);
-  Log.i(TAG,"failedNowCount before = " + failedNowCount);
+  ankiDB.database.update("cards",val,"priority in (1,2,3,4) and " + "type in (0,1,2) and " + "isDue = 0 and "+ String.format(ENGLISH_LOCALE,"combinedDue <= %f",(double)((System.currentTimeMillis() / 1000.0) + delay0)),null);
   failedNowCount=(int)ankiDB.queryScalar("SELECT count(id) " + "FROM cards " + "WHERE type = 0 and "+ "isDue = 1 and "+ String.format(ENGLISH_LOCALE,"combinedDue <= %f",(double)(System.currentTimeMillis() / 1000.0)));
-  Log.i(TAG,"failedNowCount after = " + failedNowCount);
-  Log.i(TAG,"revCount before = " + revCount);
-  val.clear();
-  val.put("isDue",1);
-  revCount+=ankiDB.database.update("cards",val,"type = 1 and " + "isDue = 0 and " + "priority in (1,2,3,4) and "+ String.format(ENGLISH_LOCALE,"combinedDue <= %f",(double)(System.currentTimeMillis() / 1000.0)),null);
-  Log.i(TAG,"revCount after = " + revCount);
-  Log.i(TAG,"newCount before = " + newCount);
-  val.clear();
-  val.put("isDue",1);
-  newCount+=ankiDB.database.update("cards",val,"type = 2 and " + "isDue = 0 and " + "priority in (1,2,3,4) and "+ String.format(ENGLISH_LOCALE,"combinedDue <= %f",(double)(System.currentTimeMillis() / 1000.0)),null);
-  Log.i(TAG,"newCount after = " + newCount);
-  Log.i(TAG,"newCardsPerDay = " + newCardsPerDay);
-  Log.i(TAG,"newCardsToday = " + newCardsToday());
-  newCountToday=Math.max(Math.min(newCount,newCardsPerDay - newCardsToday()),0);
-  Log.i(TAG,"newCountToday = Math.max(Math.min(newCount, newCardsPerDay - newCardsToday()), 0) : " + newCountToday);
+  Cursor cursor=null;
+  try {
+    cursor=ankiDB.database.rawQuery("SELECT type, count(id) " + "FROM cards " + "WHERE priority in (1,2,3,4) and "+ "isDue = 1 "+ "GROUP BY type",null);
+    while (cursor.moveToNext()) {
+switch (cursor.getInt(0)) {
+case 0:
+        failedSoonCount=cursor.getInt(1);
+      break;
+case 1:
+    revCount=cursor.getInt(1);
+  break;
+case 2:
+newCount=cursor.getInt(1);
+break;
+}
+}
+}
+  finally {
+if (cursor != null) cursor.close();
+}
+newCountToday=Math.max(Math.min(newCount,newCardsPerDay - newCardsToday()),0);
+Log.i(TAG,"newCountToday = Math.max(Math.min(newCount, newCardsPerDay - newCardsToday()), 0) : " + newCountToday);
 }

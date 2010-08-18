@@ -1,6 +1,6 @@
 {
   Log.i(TAG,"openDeckPicker - deckSelected = " + deckSelected);
-  closeDeck();
+  if (AnkiDroidApp.deck() != null && sdCardAvailable)   AnkiDroidApp.deck().closeDeck();
   deckLoaded=false;
   Intent decksPicker=new Intent(this,DeckPicker.class);
   inDeckPicker=true;

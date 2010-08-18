@@ -5,7 +5,7 @@
   try {
     cursor=ankiDB.database.rawQuery("SELECT id, modelId, created, modified, tags, spaceUntil " + "FROM facts " + "WHERE id = "+ id,null);
     if (!cursor.moveToFirst()) {
-      Log.w("anki","Fact.java (constructor): No result from query.");
+      Log.w(TAG,"Fact.java (constructor): No result from query.");
       return false;
     }
     this.id=cursor.getLong(0);

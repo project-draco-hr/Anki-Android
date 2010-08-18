@@ -1,16 +1,19 @@
 {
   Log.i(TAG,"updateCard");
-  content=Sound.extractSounds(prefDeckFilename,content);
-  content=Image.loadImages(prefDeckFilename,content);
+  content=Sound.extractSounds(deckFilename,content);
+  content=Image.loadImages(deckFilename,content);
   content=content.replaceAll("font-weight:600;","font-weight:700;");
   if (useRubySupport) {
     content=RubyParser.ankiRubyToMarkup(content);
   }
-  int fontSize=qaFontSize;
-  if (0 == qaFontSize) {
-    fontSize=calculateDynamicFontSize(content);
+  if (mCurrentCard != null) {
+    Deck currentDeck=AnkiDroidApp.deck();
+    Model myModel=Model.getModel(currentDeck,mCurrentCard.cardModelId,false);
+    content=myModel.getCSSForFontColorSize(mCurrentCard.cardModelId,displayFontSize) + content;
   }
-  mCard.getSettings().setDefaultFontSize(fontSize);
+ else {
+    mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
+  }
   Log.i(TAG,"content card = \n" + content);
   String card=cardTemplate.replace("::content::",content);
   mCard.loadDataWithBaseURL("",card,"text/html","utf-8",null);

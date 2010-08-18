@@ -1,0 +1,9 @@
+{
+  Intent sendIntent=new Intent(Intent.ACTION_SEND);
+  String subject=String.format("Bug Report on %s",new Date());
+  sendIntent.putExtra(Intent.EXTRA_EMAIL,new String[]{getString(R.string.error_email)});
+  sendIntent.putExtra(Intent.EXTRA_TEXT,body);
+  sendIntent.putExtra(Intent.EXTRA_SUBJECT,subject);
+  sendIntent.setType("message/rfc822");
+  startActivity(Intent.createChooser(sendIntent,"Send Error Report"));
+}

@@ -1,0 +1,11 @@
+{
+  ArrayList<String> files=getErrorFiles();
+  for (  String file : files) {
+    try {
+      deleteFile(file);
+    }
+ catch (    Exception e) {
+      Log.e(TAG,String.format("Could not delete file: %s",file));
+    }
+  }
+}

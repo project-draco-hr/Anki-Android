@@ -1,10 +1,10 @@
 {
   if (show) {
     mCard.setVisibility(View.VISIBLE);
+    mEase0.setVisibility(View.VISIBLE);
     mEase1.setVisibility(View.VISIBLE);
     mEase2.setVisibility(View.VISIBLE);
     mEase3.setVisibility(View.VISIBLE);
-    mEase4.setVisibility(View.VISIBLE);
     mFlipCard.setVisibility(View.VISIBLE);
     showOrHideControls();
     showOrHideAnswerField();
@@ -13,10 +13,11 @@
  else {
     mCard.setVisibility(View.GONE);
     mButtonReviewEarly.setVisibility(View.GONE);
+    mButtonSwitchDeck.setVisibility(View.GONE);
+    mEase0.setVisibility(View.GONE);
     mEase1.setVisibility(View.GONE);
     mEase2.setVisibility(View.GONE);
     mEase3.setVisibility(View.GONE);
-    mEase4.setVisibility(View.GONE);
     mFlipCard.setVisibility(View.GONE);
     mCardTimer.setVisibility(View.GONE);
     mToggleWhiteboard.setVisibility(View.GONE);
