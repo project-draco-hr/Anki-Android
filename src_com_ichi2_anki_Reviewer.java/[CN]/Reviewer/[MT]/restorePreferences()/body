@@ -5,7 +5,7 @@
   prefWriteAnswers=preferences.getBoolean("writeAnswers",false);
   deckFilename=preferences.getString("deckFilename","");
   useRubySupport=preferences.getBoolean("useRubySupport",false);
-  notificationBar=preferences.getBoolean("notificationBar",false);
+  notificationBar=preferences.getBoolean("notificationBar",true);
   displayFontSize=Integer.parseInt(preferences.getString("displayFontSize","100"));
   hideQuestionInAnswer=Integer.parseInt(preferences.getString("hideQuestionInAnswer",Integer.toString(HQIA_DO_SHOW)));
   updateNotifications=preferences.getBoolean("enabled",true);
