@@ -7,7 +7,7 @@
     content=content.replace(contentToReplace,"");
     String sound=matcher.group(1);
     Log.i(TAG,"Sound " + matcher.groupCount() + ": "+ sound);
-    MediaPlayer soundPlayer=new MediaPlayer();
+    soundPlayer.reset();
     String soundPath=deckFilename.replaceAll(".anki","") + ".media/" + sound;
     Log.i(TAG,"getSounds - soundPath = " + soundPath);
     try {
