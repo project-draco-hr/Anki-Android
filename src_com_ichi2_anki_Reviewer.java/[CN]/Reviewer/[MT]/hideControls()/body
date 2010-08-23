@@ -10,5 +10,5 @@
     mToggleWhiteboard.setVisibility(View.GONE);
     mWhiteboard.setVisibility(View.GONE);
   }
-  mAnswerField.setVisibility(View.GONE);
+  if (prefWriteAnswers)   mAnswerField.setVisibility(View.GONE);
 }

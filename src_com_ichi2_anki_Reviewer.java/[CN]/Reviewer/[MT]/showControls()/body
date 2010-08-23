@@ -9,5 +9,5 @@
     mToggleWhiteboard.setVisibility(View.VISIBLE);
     if (mToggleWhiteboard.isChecked())     mWhiteboard.setVisibility(View.VISIBLE);
   }
-  mAnswerField.setVisibility((prefWriteAnswers) ? View.VISIBLE : View.GONE);
+  if (prefWriteAnswers)   mAnswerField.setVisibility((prefWriteAnswers) ? View.VISIBLE : View.GONE);
 }

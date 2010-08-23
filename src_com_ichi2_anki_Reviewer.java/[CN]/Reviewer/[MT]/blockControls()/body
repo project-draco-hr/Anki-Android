@@ -43,5 +43,5 @@ if (prefWhiteboard) {
 mToggleWhiteboard.setEnabled(false);
 mWhiteboard.setEnabled(false);
 }
-mAnswerField.setEnabled(false);
+if (prefWriteAnswers) mAnswerField.setEnabled(false);
 }
