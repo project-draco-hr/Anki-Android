@@ -1,7 +1,7 @@
 {
   updateCounts();
   mFlipCard.setChecked(false);
-  mWhiteboard.clear();
+  if (prefWhiteboard)   mWhiteboard.clear();
   mCardTimer.setBase(SystemClock.elapsedRealtime());
   mCardTimer.start();
 }
