@@ -4,12 +4,10 @@
   mTextBarBlack.setVisibility(View.VISIBLE);
   mTextBarBlue.setVisibility(View.VISIBLE);
   mFlipCard.setVisibility(View.VISIBLE);
-  mCardTimer.setVisibility((prefTimer) ? View.VISIBLE : View.GONE);
+  if (prefTimer)   mCardTimer.setVisibility(View.VISIBLE);
   if (prefWhiteboard) {
     mToggleWhiteboard.setVisibility(View.VISIBLE);
-    if (mToggleWhiteboard.isChecked()) {
-      mWhiteboard.setVisibility(View.VISIBLE);
-    }
+    if (mToggleWhiteboard.isChecked())     mWhiteboard.setVisibility(View.VISIBLE);
   }
   mAnswerField.setVisibility((prefWriteAnswers) ? View.VISIBLE : View.GONE);
 }
