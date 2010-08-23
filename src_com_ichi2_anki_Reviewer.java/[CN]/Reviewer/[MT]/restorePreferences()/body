@@ -4,11 +4,10 @@
   prefWhiteboard=preferences.getBoolean("whiteboard",true);
   prefWriteAnswers=preferences.getBoolean("writeAnswers",false);
   deckFilename=preferences.getString("deckFilename","");
-  useRubySupport=preferences.getBoolean("useRubySupport",false);
-  notificationBar=preferences.getBoolean("notificationBar",true);
+  prefUseRubySupport=preferences.getBoolean("useRubySupport",false);
+  prefNotificationBar=preferences.getBoolean("notificationBar",true);
   displayFontSize=Integer.parseInt(preferences.getString("displayFontSize","100"));
-  hideQuestionInAnswer=Integer.parseInt(preferences.getString("hideQuestionInAnswer",Integer.toString(HQIA_DO_SHOW)));
-  updateNotifications=preferences.getBoolean("enabled",true);
+  prefHideQuestionInAnswer=Integer.parseInt(preferences.getString("hideQuestionInAnswer",Integer.toString(HQIA_DO_SHOW)));
   if (mFlipCard != null) {
     if (mFlipCard.isChecked()) {
       displayCardAnswer();
