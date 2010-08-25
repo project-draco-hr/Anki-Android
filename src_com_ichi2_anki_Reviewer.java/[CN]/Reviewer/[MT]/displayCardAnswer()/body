@@ -1,9 +1,9 @@
 {
   Log.i(TAG,"displayCardAnswer");
-  if (prefTimer)   mCardTimer.stop();
-  if (prefWriteAnswers)   mAnswerField.setVisibility(View.GONE);
   String displayString="";
+  if (prefTimer)   mCardTimer.stop();
   if (prefWriteAnswers) {
+    mAnswerField.setVisibility(View.GONE);
     if (mCurrentCard != null) {
       String userAnswer=mAnswerField.getText().toString();
       Matcher spanMatcher=spanPattern.matcher(mCurrentCard.answer);
@@ -13,14 +13,11 @@
       DiffEngine diff=new DiffEngine();
       displayString=enrichWithQASpan(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer)) + "<br/>" + mCurrentCard.answer,true);
     }
- else {
-      displayString="";
-    }
   }
  else {
     displayString=enrichWithQASpan(mCurrentCard.answer,true);
   }
-  if (calculateShowQuestion()) {
+  if (questionIsDisplayed()) {
     StringBuffer sb=new StringBuffer();
     sb.append(enrichWithQASpan(mCurrentCard.question,false));
     sb.append("<hr/>");

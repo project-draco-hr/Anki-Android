@@ -1,9 +1,0 @@
-{
-  if (HQIA_DO_SHOW == prefHideQuestionInAnswer) {
-    return true;
-  }
-  if (HQIA_CARD_MODEL == prefHideQuestionInAnswer && Model.getModel(AnkiDroidApp.deck(),mCurrentCard.cardModelId,false).getCardModel(mCurrentCard.cardModelId).questionInAnswer == 0) {
-    return true;
-  }
-  return false;
-}

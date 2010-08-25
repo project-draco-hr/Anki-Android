@@ -6,10 +6,10 @@
   if (null != myCardModel.lastFontColour && 0 < myCardModel.lastFontColour.trim().length()) {
     sb.append("body {background-color:").append(myCardModel.lastFontColour).append(";}\n");
   }
-  sb.append(".").append(AnkiDroid.QUESTION_CLASS).append(" {\n");
+  sb.append(".").append(Reviewer.QUESTION_CLASS).append(" {\n");
   sb.append(calculateDisplay(percentage,myCardModel.questionFontFamily,myCardModel.questionFontSize,myCardModel.questionFontColour,myCardModel.questionAlign,false));
   sb.append("}\n");
-  sb.append(".").append(AnkiDroid.ANSWER_CLASS).append(" {\n");
+  sb.append(".").append(Reviewer.ANSWER_CLASS).append(" {\n");
   sb.append(calculateDisplay(percentage,myCardModel.answerFontFamily,myCardModel.answerFontSize,myCardModel.answerFontColour,myCardModel.answerAlign,false));
   sb.append("}\n");
   FieldModel myFieldModel=null;

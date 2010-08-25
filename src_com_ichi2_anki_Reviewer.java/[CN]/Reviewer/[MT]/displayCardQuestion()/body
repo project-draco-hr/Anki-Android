@@ -7,7 +7,7 @@
   mFlipCard.setVisibility(View.VISIBLE);
   mFlipCard.requestFocus();
   String displayString=enrichWithQASpan(mCurrentCard.question,false);
-  if (calculateShowQuestion()) {
+  if (questionIsDisplayed()) {
     displayString=displayString + "<hr/>";
   }
   updateCard(displayString);
