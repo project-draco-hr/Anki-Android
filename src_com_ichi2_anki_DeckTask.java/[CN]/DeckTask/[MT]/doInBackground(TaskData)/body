@@ -10,7 +10,7 @@ case TASK_TYPE_LOAD_DECK:
     return doInBackgroundLoadDeck(params);
 case TASK_TYPE_LOAD_DECK_AND_UPDATE_CARDS:
   TaskData taskData=doInBackgroundLoadDeck(params);
-if (taskData.integer == AnkiDroid.DECK_LOADED) {
+if (taskData.integer == DECK_LOADED) {
   taskData.deck.updateAllCards();
   taskData.card=taskData.deck.getCurrentCard();
 }

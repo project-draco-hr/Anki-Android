@@ -1,9 +1,0 @@
-{
-  Log.i(TAG,"onResume() - deckFilename = " + deckFilename + ", deckSelected = "+ deckSelected);
-  super.onResume();
-  if (!deckSelected) {
-    Log.i(TAG,"onResume() - No deck selected before");
-    displayProgressDialogAndLoadDeck();
-  }
-  Log.i(TAG,"onResume() - Ending");
-}

@@ -1,7 +1,0 @@
-{
-  Log.i(TAG,"onStop() - " + System.currentTimeMillis());
-  super.onStop();
-  if (deckFilename != null) {
-    savePreferences();
-  }
-}
