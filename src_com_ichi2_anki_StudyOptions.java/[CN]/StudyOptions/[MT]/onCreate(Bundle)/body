@@ -1,6 +1,10 @@
 {
   super.onCreate(savedInstanceState);
   Log.i(TAG,"StudyOptions Activity");
+  if (hasErrorFiles()) {
+    Intent i=new Intent(this,ErrorReporter.class);
+    startActivityForResult(i,REPORT_ERROR);
+  }
   SharedPreferences preferences=restorePreferences();
   registerExternalStorageListener();
   requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
