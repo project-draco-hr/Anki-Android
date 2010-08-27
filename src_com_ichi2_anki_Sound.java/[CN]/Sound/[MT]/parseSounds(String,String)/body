@@ -13,6 +13,6 @@
     mSoundPaths.add(soundPath);
   }
   mFinishTime=System.currentTimeMillis();
-  Log.i(TAG,"Sounds parsed in " + (mFinishTime - mStartTime) + " milliseconds");
+  Log.i(TAG,mSoundPaths.size() + " sounds parsed in " + (mFinishTime - mStartTime)+ " milliseconds");
   return content;
 }

@@ -11,7 +11,7 @@
         numSoundsPlayed++;
         mFinishSoundTime=System.currentTimeMillis();
         Log.i(TAG,"Sound " + numSoundsPlayed + " played in "+ (mFinishSoundTime - mStartSoundTime)+ " milliseconds");
-        if (numSoundsPlayed != mSoundPaths.size() - 1) {
+        if (numSoundsPlayed < mSoundPaths.size()) {
           playSound(numSoundsPlayed);
         }
  else {

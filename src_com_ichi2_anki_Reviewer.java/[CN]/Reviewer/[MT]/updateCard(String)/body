@@ -1,5 +1,6 @@
 {
   Log.i(TAG,"updateCard");
+  Log.i(TAG,"Initial content = \n" + content);
   content=Sound.parseSounds(deckFilename,content);
   content=Image.loadImages(deckFilename,content);
   content=content.replaceAll("font-weight:600;","font-weight:700;");
