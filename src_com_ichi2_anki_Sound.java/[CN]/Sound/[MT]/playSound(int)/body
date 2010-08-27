@@ -1,0 +1,30 @@
+{
+  mStartSoundTime=System.currentTimeMillis();
+  mMediaPlayer=new MediaPlayer();
+  try {
+    mMediaPlayer.setDataSource(mSoundPaths.get(soundToPlayIndex));
+    mMediaPlayer.setVolume(AudioManager.STREAM_MUSIC,AudioManager.STREAM_MUSIC);
+    mMediaPlayer.prepare();
+    mMediaPlayer.setOnCompletionListener(new OnCompletionListener(){
+      @Override public void onCompletion(      MediaPlayer mp){
+        releaseSound();
+        numSoundsPlayed++;
+        mFinishSoundTime=System.currentTimeMillis();
+        Log.i(TAG,"Sound " + numSoundsPlayed + " played in "+ (mFinishSoundTime - mStartSoundTime)+ " milliseconds");
+        if (numSoundsPlayed != mSoundPaths.size() - 1) {
+          playSound(numSoundsPlayed);
+        }
+ else {
+          mFinishTime=System.currentTimeMillis();
+          Log.i(TAG,numSoundsPlayed + " sounds played in " + (mFinishTime - mStartTime)+ " milliseconds");
+        }
+      }
+    }
+);
+    mMediaPlayer.start();
+  }
+ catch (  Exception e) {
+    Log.e(TAG,"playSounds - Error reproducing sound " + (soundToPlayIndex + 1) + " = "+ e.getMessage());
+    releaseSound();
+  }
+}

@@ -1,0 +1,18 @@
+{
+  mStartTime=System.currentTimeMillis();
+  Log.i(TAG,"parseSounds");
+  mSoundPaths=new ArrayList<String>();
+  Matcher matcher=mSoundPattern.matcher(content);
+  while (matcher.find()) {
+    String contentToReplace=matcher.group();
+    content=content.replace(contentToReplace,"");
+    String sound=matcher.group(1);
+    Log.i(TAG,"Sound " + matcher.groupCount() + ": "+ sound);
+    String soundPath=deckFilename.replaceAll(".anki","") + ".media/" + sound;
+    Log.i(TAG,"parseSounds - soundPath = " + soundPath);
+    mSoundPaths.add(soundPath);
+  }
+  mFinishTime=System.currentTimeMillis();
+  Log.i(TAG,"Sounds parsed in " + (mFinishTime - mStartTime) + " milliseconds");
+  return content;
+}
