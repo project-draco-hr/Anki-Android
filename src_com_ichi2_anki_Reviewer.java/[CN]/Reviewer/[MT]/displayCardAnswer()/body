@@ -4,6 +4,8 @@
   mAnswerField.setVisibility(View.GONE);
   String displayString="";
   if (prefWriteAnswers) {
+    InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+    inputMethodManager.hideSoftInputFromWindow(mAnswerField.getWindowToken(),0);
     if (mCurrentCard != null) {
       String userAnswer=mAnswerField.getText().toString();
       Matcher spanMatcher=spanPattern.matcher(mCurrentCard.answer);
