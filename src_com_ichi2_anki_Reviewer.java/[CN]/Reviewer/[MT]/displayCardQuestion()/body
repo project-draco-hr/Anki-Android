@@ -1,8 +1,9 @@
 {
-  mAnswerField.setText("");
   hideEaseButtons();
   if (prefWriteAnswers) {
     mAnswerField.setVisibility(View.VISIBLE);
+    InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+    inputMethodManager.showSoftInput(mAnswerField,InputMethodManager.SHOW_FORCED);
   }
   mFlipCard.setVisibility(View.VISIBLE);
   mFlipCard.requestFocus();
