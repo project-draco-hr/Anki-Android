@@ -1,13 +1,13 @@
 {
+  mAnswerField.setText("");
   hideEaseButtons();
   if (prefWriteAnswers) {
-    mAnswerField.setText("");
     mAnswerField.setVisibility(View.VISIBLE);
   }
   mFlipCard.setVisibility(View.VISIBLE);
   mFlipCard.requestFocus();
   String displayString=enrichWithQASpan(mCurrentCard.question,false);
-  if (questionIsDisplayed()) {
+  if (calculateShowQuestion()) {
     displayString=displayString + "<hr/>";
   }
   updateCard(displayString);
