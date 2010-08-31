@@ -1,0 +1,32 @@
+{
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
+  ArrayList<String> factTagsList=factTags(factIds);
+  long tagId=tagId(tag,true);
+  for (int i=0; i < factTagsList.size(); i++) {
+    String newTags=factTagsList.get(i);
+    if (newTags.indexOf(tag) == -1) {
+      if (newTags.length() == 0)       newTags+=tag;
+ else       newTags+="," + tag;
+    }
+    Log.i(TAG,"old tags = " + factTagsList.get(i));
+    Log.i(TAG,"new tags = " + newTags);
+    if (newTags.length() > factTagsList.get(i).length()) {
+      ankiDB.database.execSQL("update facts set " + "tags = \"" + newTags + "\", "+ "modified = "+ String.format(ENGLISH_LOCALE,"%f",(double)(System.currentTimeMillis() / 1000.0))+ " where id = "+ factIds[i]);
+    }
+  }
+  ArrayList<String> cardIdList=ankiDB.queryColumn(String.class,"select id from cards where factId in " + Utils.ids2str(factIds),0);
+  ContentValues values=new ContentValues();
+  for (int i=0; i < cardIdList.size(); i++) {
+    String cardId=cardIdList.get(i);
+    try {
+      ankiDB.queryScalar("select id from cardTags" + " where cardId = " + cardId + " and tagId = "+ tagId+ " and src = 0");
+    }
+ catch (    SQLException e) {
+      values.put("cardId",cardId);
+      values.put("tagId",tagId);
+      values.put("src","0");
+      ankiDB.database.insert("cardTags",null,values);
+    }
+  }
+  flushMod();
+}

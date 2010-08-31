@@ -1,0 +1,33 @@
+{
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
+  ArrayList<String> factTagsList=factTags(factIds);
+  long tagId=tagId(tag,false);
+  for (int i=0; i < factTagsList.size(); i++) {
+    String factTags=factTagsList.get(i);
+    String newTags=factTags;
+    int tagIdx=factTags.indexOf(tag);
+    if ((tagIdx == 0) && (factTags.length() > tag.length())) {
+      newTags=factTags.substring(tag.length() + 1,factTags.length());
+    }
+ else     if ((tagIdx > 0) && (tagIdx + tag.length() == factTags.length())) {
+      newTags=factTags.substring(0,tagIdx - 1);
+    }
+ else     if (tagIdx > 0) {
+      newTags=factTags.substring(0,tagIdx - 1) + factTags.substring(tag.length(),factTags.length());
+    }
+ else     if (tagIdx == 0) {
+      newTags="";
+    }
+    Log.i(TAG,"old tags = " + factTags);
+    Log.i(TAG,"new tags = " + newTags);
+    if (newTags.length() < factTags.length()) {
+      ankiDB.database.execSQL("update facts set " + "tags = \"" + newTags + "\", "+ "modified = "+ String.format(ENGLISH_LOCALE,"%f",(double)(System.currentTimeMillis() / 1000.0))+ " where id = "+ factIds[i]);
+    }
+  }
+  ArrayList<String> cardIdList=ankiDB.queryColumn(String.class,"select id from cards where factId in " + Utils.ids2str(factIds),0);
+  for (int i=0; i < cardIdList.size(); i++) {
+    String cardId=cardIdList.get(i);
+    ankiDB.database.execSQL("delete from cardTags" + " WHERE cardId = " + cardId + " and tagId = "+ tagId+ " and src = 0");
+  }
+  flushMod();
+}
