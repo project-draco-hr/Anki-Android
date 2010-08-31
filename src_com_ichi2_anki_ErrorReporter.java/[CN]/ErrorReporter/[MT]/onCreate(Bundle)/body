@@ -1,39 +1,62 @@
 {
   Log.i(TAG,"OnCreate");
   super.onCreate(savedInstanceState);
-  setContentView(R.layout.email_error);
-  int numErrors=getErrorFiles().size();
-  TextView tvErrorText=(TextView)findViewById(R.id.tvErrorText);
-  Button btnOk=(Button)findViewById(R.id.btnSendEmail);
-  Button btnCancel=(Button)findViewById(R.id.btnIgnoreError);
-  btnOk.setOnClickListener(new OnClickListener(){
-    public void onClick(    View v){
-      try {
-        sendErrorReport();
-      }
- catch (      Exception e) {
-        Log.e(TAG,e.toString());
-      }
-      deleteFiles();
-      setResult(RESULT_OK);
-      finish();
+  Context context=getBaseContext();
+  SharedPreferences sharedPreferences=PrefSettings.getSharedPrefs(context);
+  String reportErrorMode=sharedPreferences.getString("reportErrorMode","2");
+  if (reportErrorMode.equals("0")) {
+    try {
+      sendErrorReport();
     }
-  }
-);
-  btnCancel.setOnClickListener(new OnClickListener(){
-    public void onClick(    View v){
-      deleteFiles();
-      setResult(RESULT_OK);
-      finish();
+ catch (    Exception e) {
+      Log.e(TAG,e.toString());
     }
+    deleteFiles();
+    setResult(RESULT_OK);
+    finish();
+    return;
   }
-);
-  String errorText;
-  if (numErrors == 1) {
-    errorText=getString(R.string.error_message);
+ else   if (reportErrorMode.equals("1")) {
+    deleteFiles();
+    setResult(RESULT_OK);
+    finish();
+    return;
   }
  else {
-    errorText=String.format(getString(R.string.errors_message),numErrors);
+    setContentView(R.layout.email_error);
+    int numErrors=getErrorFiles().size();
+    TextView tvErrorText=(TextView)findViewById(R.id.tvErrorText);
+    Button btnOk=(Button)findViewById(R.id.btnSendEmail);
+    Button btnCancel=(Button)findViewById(R.id.btnIgnoreError);
+    btnOk.setOnClickListener(new OnClickListener(){
+      public void onClick(      View v){
+        try {
+          sendErrorReport();
+        }
+ catch (        Exception e) {
+          Log.e(TAG,e.toString());
+        }
+        deleteFiles();
+        setResult(RESULT_OK);
+        finish();
+      }
+    }
+);
+    btnCancel.setOnClickListener(new OnClickListener(){
+      public void onClick(      View v){
+        deleteFiles();
+        setResult(RESULT_OK);
+        finish();
+      }
+    }
+);
+    String errorText;
+    if (numErrors == 1) {
+      errorText=getString(R.string.error_message);
+    }
+ else {
+      errorText=String.format(getString(R.string.errors_message),numErrors);
+    }
+    tvErrorText.setText(errorText);
   }
-  tvErrorText.setText(errorText);
 }
