@@ -1,5 +1,6 @@
 {
   Log.i(TAG,"AnkiDroidContentProvider - openFile = " + uri.getEncodedPath() + ", "+ uri.getPath());
+  Log.i(TAG,"Open mode = " + mode);
   File file=null;
   ParcelFileDescriptor parcel=null;
   try {
