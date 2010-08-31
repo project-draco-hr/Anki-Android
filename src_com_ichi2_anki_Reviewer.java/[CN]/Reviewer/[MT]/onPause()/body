@@ -3,4 +3,5 @@
   Log.i(TAG,"Reviewer - onPause()");
   Deck deck=AnkiDroidApp.deck();
   deck.commitToDB();
+  Sound.stopSounds();
 }
