@@ -1,0 +1,26 @@
+{
+  long start, stop;
+  Deck deck=params[0].getDeck();
+  Card currentCard=params[0].getCard();
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.deckPath);
+  ankiDB.database.beginTransaction();
+  try {
+    if (currentCard != null) {
+      start=System.currentTimeMillis();
+      if (currentCard.hasTag(Deck.TAG_MARKED)) {
+        deck.deleteTag(currentCard.factId,Deck.TAG_MARKED);
+      }
+ else {
+        deck.addTag(currentCard.factId,Deck.TAG_MARKED);
+      }
+      stop=System.currentTimeMillis();
+      Log.v(TAG,"doInBackgroundMarkCard - Marked card in " + (stop - start) + " ms.");
+    }
+    publishProgress(new TaskData(currentCard));
+    ankiDB.database.setTransactionSuccessful();
+  }
+  finally {
+    ankiDB.database.endTransaction();
+  }
+  return null;
+}

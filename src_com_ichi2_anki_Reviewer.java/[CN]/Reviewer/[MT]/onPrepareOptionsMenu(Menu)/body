@@ -1,0 +1,13 @@
+{
+  MenuItem markItem=menu.findItem(MENU_MARK);
+  mCurrentCard.loadTags();
+  if (mCurrentCard.hasTag(Deck.TAG_MARKED)) {
+    markItem.setTitle(R.string.menu_marked);
+    markItem.setIcon(R.drawable.star_big_on);
+  }
+ else {
+    markItem.setTitle(R.string.menu_mark_card);
+    markItem.setIcon(R.drawable.ic_menu_star);
+  }
+  return true;
+}

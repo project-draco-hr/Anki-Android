@@ -1,3 +1,5 @@
 {
-  return tagsBySrc[TAGS_FACT] + "," + tagsBySrc[TAGS_MODEL];
+  if ((tagsBySrc[TAGS_FACT].length() > 0) && (tagsBySrc[TAGS_MODEL].length() > 0))   return tagsBySrc[TAGS_FACT] + "," + tagsBySrc[TAGS_MODEL];
+ else   if (tagsBySrc[TAGS_FACT].length() > 0)   return tagsBySrc[TAGS_FACT];
+ else   return tagsBySrc[TAGS_MODEL];
 }
