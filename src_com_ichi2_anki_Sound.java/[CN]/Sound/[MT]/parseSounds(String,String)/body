@@ -8,7 +8,7 @@
     content=content.replace(contentToReplace,"");
     String sound=matcher.group(1);
     Log.i(TAG,"Sound " + matcher.groupCount() + ": "+ sound);
-    String soundPath=deckFilename.replaceAll(".anki","") + ".media/" + sound;
+    String soundPath=deckFilename.replace(".anki",".media/") + sound;
     Log.i(TAG,"parseSounds - soundPath = " + soundPath);
     mSoundPaths.add(soundPath);
   }
