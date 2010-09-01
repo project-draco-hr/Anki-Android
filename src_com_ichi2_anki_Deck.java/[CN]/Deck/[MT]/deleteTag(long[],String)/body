@@ -29,5 +29,11 @@
     String cardId=cardIdList.get(i);
     ankiDB.database.execSQL("delete from cardTags" + " WHERE cardId = " + cardId + " and tagId = "+ tagId+ " and src = 0");
   }
+  try {
+    ankiDB.queryScalar("select id from cardTags where tagId = " + tagId + " limit 1");
+  }
+ catch (  SQLException e) {
+    ankiDB.database.execSQL("delete from tags" + " where id = " + tagId);
+  }
   flushMod();
 }
