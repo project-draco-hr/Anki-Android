@@ -3,7 +3,7 @@
   ArrayList<DeckInformation> information=new ArrayList<DeckInformation>(maxDecks);
   for (int i=0; i < maxDecks; i++) {
     String deckName=String.format("my anki deck number %d",i);
-    information.add(new DeckInformation(deckName,i * 20,i * 25));
+    information.add(new DeckInformation(deckName,i * 20,i * 25,i * 5));
   }
   Collections.sort(information,new ByDueComparator());
   Collections.reverse(information);

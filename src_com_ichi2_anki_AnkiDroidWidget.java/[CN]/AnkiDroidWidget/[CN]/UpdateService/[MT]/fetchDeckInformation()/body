@@ -14,8 +14,9 @@
       Deck deck=Deck.openDeck(absPath);
       int dueCards=deck.failedSoonCount + deck.revCount;
       int newCards=deck.newCountToday;
+      int failedCards=deck.failedSoonCount;
       deck.closeDeck();
-      information.add(new DeckInformation(deckName,newCards,dueCards));
+      information.add(new DeckInformation(deckName,newCards,dueCards,failedCards));
     }
  catch (    Exception e) {
       Log.i(TAG,"Could not open deck");
