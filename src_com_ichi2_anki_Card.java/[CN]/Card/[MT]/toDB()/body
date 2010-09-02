@@ -40,5 +40,6 @@
   values.put("type",type);
   values.put("combinedDue",Math.max(spaceUntil,due));
   values.put("relativeDelay",0.0);
-  AnkiDatabaseManager.getDatabase(deck.deckPath).database.update("cards",values,"id = " + id,null);
+  double start=System.currentTimeMillis();
+  AnkiDatabaseManager.getDatabase(deck.deckPath).database.update("cards",values,"id = ?",new String[]{new Long(id).toString()});
 }
