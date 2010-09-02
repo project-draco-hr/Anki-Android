@@ -1,9 +1,9 @@
 {
   Log.i(TAG,"displayCardAnswer");
-  mCardTimer.stop();
-  mAnswerField.setVisibility(View.GONE);
   String displayString="";
+  if (prefTimer)   mCardTimer.stop();
   if (prefWriteAnswers) {
+    mAnswerField.setVisibility(View.GONE);
     if (mCurrentCard != null) {
       String userAnswer=mAnswerField.getText().toString();
       Matcher spanMatcher=spanPattern.matcher(mCurrentCard.answer);
@@ -23,13 +23,13 @@
  else {
     displayString=enrichWithQASpan(mCurrentCard.answer,true);
   }
-  if (calculateShowQuestion()) {
+  if (questionIsDisplayed()) {
     StringBuffer sb=new StringBuffer();
     sb.append(enrichWithQASpan(mCurrentCard.question,false));
     sb.append("<hr/>");
     sb.append(displayString);
     displayString=sb.toString();
-    mFlipCard.setVisibility(View.INVISIBLE);
+    mFlipCard.setVisibility(View.GONE);
   }
   showEaseButtons();
   updateCard(displayString);

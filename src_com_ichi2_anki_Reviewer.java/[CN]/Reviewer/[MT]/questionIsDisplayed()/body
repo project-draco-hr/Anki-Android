@@ -1,0 +1,12 @@
+{
+switch (prefHideQuestionInAnswer) {
+case HQIA_DO_HIDE:
+    return false;
+case HQIA_DO_SHOW:
+  return true;
+case HQIA_CARD_MODEL:
+return (Model.getModel(AnkiDroidApp.deck(),mCurrentCard.cardModelId,false).getCardModel(mCurrentCard.cardModelId).questionInAnswer == 0);
+default :
+return true;
+}
+}

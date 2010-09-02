@@ -38,8 +38,10 @@ mEase4.setEnabled(true);
 break;
 }
 mFlipCard.setEnabled(true);
-mCardTimer.setEnabled(true);
+if (prefTimer) mCardTimer.setEnabled(true);
+if (prefWhiteboard) {
 mToggleWhiteboard.setEnabled(true);
 mWhiteboard.setEnabled(true);
-mAnswerField.setEnabled(true);
+}
+if (prefWriteAnswers) mAnswerField.setEnabled(true);
 }
