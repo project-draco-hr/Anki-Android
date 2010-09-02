@@ -29,7 +29,7 @@
     sb.append("<hr/>");
     sb.append(displayString);
     displayString=sb.toString();
-    mFlipCard.setVisibility(View.INVISIBLE);
+    mFlipCard.setVisibility(View.GONE);
   }
   showEaseButtons();
   updateCard(displayString);

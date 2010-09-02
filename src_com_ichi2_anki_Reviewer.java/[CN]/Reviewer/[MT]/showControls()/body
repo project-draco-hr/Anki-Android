@@ -11,12 +11,10 @@
     mCardTimer.setVisibility(View.VISIBLE);
   }
   if (!prefWhiteboard) {
-    mToggleWhiteboard.setVisibility(View.GONE);
     mWhiteboard.setVisibility(View.GONE);
   }
  else {
-    mToggleWhiteboard.setVisibility(View.VISIBLE);
-    if (mToggleWhiteboard.isChecked()) {
+    if (mShowWhiteboard) {
       mWhiteboard.setVisibility(View.VISIBLE);
     }
   }

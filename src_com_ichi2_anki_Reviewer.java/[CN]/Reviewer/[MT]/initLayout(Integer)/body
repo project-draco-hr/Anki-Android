@@ -11,7 +11,6 @@
   mTextBarBlue=(TextView)findViewById(R.id.blue_number);
   mCardTimer=(Chronometer)findViewById(R.id.card_time);
   mFlipCard=(ToggleButton)findViewById(R.id.flip_card);
-  mToggleWhiteboard=(ToggleButton)findViewById(R.id.toggle_overlay);
   mWhiteboard=(Whiteboard)findViewById(R.id.whiteboard);
   mAnswerField=(EditText)findViewById(R.id.answer_field);
   hideEaseButtons();
@@ -22,6 +21,5 @@
   mEase4.setOnClickListener(mSelectEaseHandler);
   mFlipCard.setChecked(true);
   mFlipCard.setOnCheckedChangeListener(mFlipCardHandler);
-  mToggleWhiteboard.setOnCheckedChangeListener(mToggleOverlayHandler);
   mCard.setFocusable(false);
 }
