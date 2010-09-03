@@ -6,7 +6,6 @@
   Card newCard;
   start2=System.currentTimeMillis();
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.deckPath);
-  ankiDB.database.beginTransaction();
   try {
     if (oldCard != null) {
       start=System.currentTimeMillis();
@@ -20,12 +19,10 @@
     publishProgress(new TaskData(newCard));
     Log.w(TAG,"doInBackgroundAnswerCard - published progress in " + (System.currentTimeMillis() - start) + " ms.");
     start=System.currentTimeMillis();
-    ankiDB.database.setTransactionSuccessful();
     Log.w(TAG,"doInBackgroundAnswerCard - set transaction successful in " + (System.currentTimeMillis() - start) + " ms.");
   }
   finally {
     start=System.currentTimeMillis();
-    ankiDB.database.endTransaction();
     Log.w(TAG,"doInBackgroundAnswerCard - end transaction in " + (System.currentTimeMillis() - start) + " ms.");
   }
   Log.e(TAG,"doInBackgroundAnswerCard - DB operations in " + (System.currentTimeMillis() - start2) + " ms.");
