@@ -1,7 +1,7 @@
 {
   Log.i(TAG,"displayCardAnswer");
-  String displayString="";
   if (prefTimer)   mCardTimer.stop();
+  String displayString="";
   if (prefWriteAnswers) {
     mAnswerField.setVisibility(View.GONE);
     if (mCurrentCard != null) {

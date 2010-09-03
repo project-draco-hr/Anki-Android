@@ -9,13 +9,9 @@
   mTextBarRed=(TextView)findViewById(R.id.red_number);
   mTextBarBlack=(TextView)findViewById(R.id.black_number);
   mTextBarBlue=(TextView)findViewById(R.id.blue_number);
-  if (prefTimer)   mCardTimer=(Chronometer)findViewById(R.id.card_time);
   mFlipCard=(ToggleButton)findViewById(R.id.flip_card);
-  if (prefWhiteboard) {
-    mWhiteboard=(Whiteboard)findViewById(R.id.whiteboard);
-    mToggleWhiteboard=(ToggleButton)findViewById(R.id.toggle_overlay);
-    mToggleWhiteboard.setOnCheckedChangeListener(mToggleOverlayHandler);
-  }
+  if (prefTimer)   mCardTimer=(Chronometer)findViewById(R.id.card_time);
+  if (prefWhiteboard)   mWhiteboard=(Whiteboard)findViewById(R.id.whiteboard);
   if (prefWriteAnswers)   mAnswerField=(EditText)findViewById(R.id.answer_field);
   hideEaseButtons();
   showControls();

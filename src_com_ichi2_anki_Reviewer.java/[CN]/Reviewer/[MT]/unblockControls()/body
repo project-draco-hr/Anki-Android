@@ -39,9 +39,6 @@ break;
 }
 mFlipCard.setEnabled(true);
 if (prefTimer) mCardTimer.setEnabled(true);
-if (prefWhiteboard) {
-mToggleWhiteboard.setEnabled(true);
-mWhiteboard.setEnabled(true);
-}
+if (prefWhiteboard) mWhiteboard.setEnabled(true);
 if (prefWriteAnswers) mAnswerField.setEnabled(true);
 }

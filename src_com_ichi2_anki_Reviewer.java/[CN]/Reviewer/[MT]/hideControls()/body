@@ -6,9 +6,6 @@
   mTextBarBlue.setVisibility(View.GONE);
   mFlipCard.setVisibility(View.GONE);
   if (prefTimer)   mCardTimer.setVisibility(View.GONE);
-  if (prefWhiteboard) {
-    mToggleWhiteboard.setVisibility(View.GONE);
-    mWhiteboard.setVisibility(View.GONE);
-  }
+  if (prefWhiteboard)   mWhiteboard.setVisibility(View.GONE);
   if (prefWriteAnswers)   mAnswerField.setVisibility(View.GONE);
 }

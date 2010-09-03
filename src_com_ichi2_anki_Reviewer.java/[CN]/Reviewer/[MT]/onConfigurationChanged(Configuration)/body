@@ -4,5 +4,5 @@
   LinearLayout sdLayout=(LinearLayout)findViewById(R.id.sd_layout);
   if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)   sdLayout.setPadding(0,50,0,0);
  else   if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT)   sdLayout.setPadding(0,100,0,0);
-  if (prefWhiteboard)   mWhiteboard.rotate();
+  mWhiteboard.rotate();
 }
