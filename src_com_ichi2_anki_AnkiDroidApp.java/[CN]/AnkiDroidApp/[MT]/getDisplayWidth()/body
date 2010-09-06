@@ -1,0 +1,4 @@
+{
+  Display display=((WindowManager)instance.getApplicationContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+  return display.getWidth();
+}
