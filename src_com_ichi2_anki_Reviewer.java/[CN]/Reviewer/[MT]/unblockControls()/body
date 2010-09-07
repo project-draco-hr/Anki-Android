@@ -38,7 +38,7 @@ mEase4.setEnabled(true);
 break;
 }
 mFlipCard.setEnabled(true);
-mCardTimer.setEnabled(true);
-mWhiteboard.setEnabled(true);
-mAnswerField.setEnabled(true);
+if (prefTimer) mCardTimer.setEnabled(true);
+if (prefWhiteboard) mWhiteboard.setEnabled(true);
+if (prefWriteAnswers) mAnswerField.setEnabled(true);
 }

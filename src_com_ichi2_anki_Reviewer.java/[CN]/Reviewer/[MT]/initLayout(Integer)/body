@@ -11,10 +11,10 @@
   mTextBarRed=(TextView)findViewById(R.id.red_number);
   mTextBarBlack=(TextView)findViewById(R.id.black_number);
   mTextBarBlue=(TextView)findViewById(R.id.blue_number);
-  mCardTimer=(Chronometer)findViewById(R.id.card_time);
   mFlipCard=(ToggleButton)findViewById(R.id.flip_card);
-  mWhiteboard=(Whiteboard)findViewById(R.id.whiteboard);
-  mAnswerField=(EditText)findViewById(R.id.answer_field);
+  if (prefTimer)   mCardTimer=(Chronometer)findViewById(R.id.card_time);
+  if (prefWhiteboard)   mWhiteboard=(Whiteboard)findViewById(R.id.whiteboard);
+  if (prefWriteAnswers)   mAnswerField=(EditText)findViewById(R.id.answer_field);
   hideEaseButtons();
   showControls();
   mEase1.setOnClickListener(mSelectEaseHandler);
