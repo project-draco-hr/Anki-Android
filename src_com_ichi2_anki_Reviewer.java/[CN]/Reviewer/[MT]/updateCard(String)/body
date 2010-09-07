@@ -4,9 +4,7 @@
   content=Sound.parseSounds(deckFilename,content);
   content=Image.scaleImages(deckFilename,content,mCard.getHeight(),mCard.getWidth(),mCard.getScale());
   content=content.replace("font-weight:600;","font-weight:700;");
-  if (prefUseRubySupport) {
-    content=RubyParser.ankiRubyToMarkup(content);
-  }
+  if (prefUseRubySupport)   content=RubyParser.ankiRubyToMarkup(content);
   if (mCurrentCard != null) {
     Deck currentDeck=AnkiDroidApp.deck();
     Model myModel=Model.getModel(currentDeck,mCurrentCard.cardModelId,false);

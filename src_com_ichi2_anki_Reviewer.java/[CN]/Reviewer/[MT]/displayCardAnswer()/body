@@ -1,7 +1,7 @@
 {
   Log.i(TAG,"displayCardAnswer");
-  if (prefTimer)   mCardTimer.stop();
   String displayString="";
+  if (prefTimer)   mCardTimer.stop();
   if (prefWriteAnswers) {
     mAnswerField.setVisibility(View.GONE);
     if (mCurrentCard != null) {
@@ -13,9 +13,6 @@
       Log.i(TAG,"correct answer = " + correctAnswer);
       DiffEngine diff=new DiffEngine();
       displayString=enrichWithQASpan(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer)) + "<br/>" + mCurrentCard.answer,true);
-    }
- else {
-      displayString="";
     }
     InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
     inputMethodManager.hideSoftInputFromWindow(mAnswerField.getWindowToken(),0);
