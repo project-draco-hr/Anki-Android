@@ -1,8 +1,9 @@
 {
   Cursor cursor=null;
-  Log.i(TAG,"rebuildQueue - Rebuilding query...");
+  Log.e(TAG,"rebuildQueue - Rebuilding query...");
   globalStats=Stats.globalStats(this);
   dailyStats=Stats.dailyStats(this);
+  AnkiDatabaseManager.getDatabase(this.deckPath).prepareStatsStatements(globalStats,dailyStats);
   checkDue();
   if (newCardSpacing == NEW_CARDS_DISTRIBUTE) {
     if (newCountToday > 0) {
