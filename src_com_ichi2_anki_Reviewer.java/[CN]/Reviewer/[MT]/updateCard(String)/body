@@ -2,8 +2,7 @@
   Log.i(TAG,"updateCard");
   Log.i(TAG,"Initial content card = \n" + content);
   content=Sound.parseSounds(deckFilename,content);
-  content=Image.loadImages(deckFilename,content);
-  content=content.replace("href=\"css/","href=\"content://com.ichi2.anki" + deckFilename.replace(".anki",".media/") + "/css/");
+  content=Image.scaleImages(deckFilename,content,mCard.getHeight(),mCard.getWidth(),mCard.getScale());
   content=content.replace("font-weight:600;","font-weight:700;");
   if (prefUseRubySupport) {
     content=RubyParser.ankiRubyToMarkup(content);
@@ -18,6 +17,6 @@
   }
   Log.i(TAG,"content card = \n" + content);
   String card=cardTemplate.replace("::content::",content);
-  mCard.loadDataWithBaseURL("",card,"text/html","utf-8",null);
+  mCard.loadDataWithBaseURL("file://" + deckFilename.replace(".anki",".media/"),card,"text/html","utf-8",null);
   Sound.playSounds();
 }
