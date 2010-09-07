@@ -1,2 +1,10 @@
 {
+  mCard.setVisibility(View.VISIBLE);
+  mTextBarRed.setVisibility(View.VISIBLE);
+  mTextBarBlack.setVisibility(View.VISIBLE);
+  mTextBarBlue.setVisibility(View.VISIBLE);
+  mFlipCard.setVisibility(View.VISIBLE);
+  if (prefTimer)   mCardTimer.setVisibility(View.VISIBLE);
+  if (prefWhiteboard && mShowWhiteboard)   mWhiteboard.setVisibility(View.VISIBLE);
+  if (prefWriteAnswers)   mAnswerField.setVisibility(View.VISIBLE);
 }
