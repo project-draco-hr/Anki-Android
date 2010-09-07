@@ -14,9 +14,6 @@
       DiffEngine diff=new DiffEngine();
       displayString=enrichWithQASpan(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer)) + "<br/>" + mCurrentCard.answer,true);
     }
- else {
-      displayString="";
-    }
     InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
     inputMethodManager.hideSoftInputFromWindow(mAnswerField.getWindowToken(),0);
   }
