@@ -2,6 +2,7 @@
   Log.i(TAG,"Image - loadImages, filename = " + deckFilename);
   Log.i(TAG,"Display height = " + displayHeight);
   Log.i(TAG,"Display width = " + displayWidth);
+  Log.i(TAG,"Scale In percent = " + scaleInPercent);
   displayWidth-=15;
   String imagePath=deckFilename.replace(".anki",".media/");
   Log.i(TAG,"Image path = " + imagePath);
@@ -28,6 +29,7 @@
         }
         imageHeight=(int)(imageHeight / scaleInPercent);
         imageWidth=(int)(imageWidth / scaleInPercent);
+        Log.i(TAG,"Final img height = " + imageHeight + ", width = "+ imageWidth);
         content=content.replaceFirst(matcher.group(),matcher.group() + " height=\"" + (imageHeight)+ "\" width=\""+ (imageWidth)+ "\"");
       }
     }
