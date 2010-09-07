@@ -3,6 +3,8 @@
   mCard=(WebView)findViewById(R.id.flashcard);
   mCard.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
   mCard.getSettings().setBuiltInZoomControls(true);
+  mCard.getSettings().setLightTouchEnabled(true);
+  mCard.setOnLongClickListener(mLongClickHandler);
   mEase1=(Button)findViewById(R.id.ease1);
   mEase2=(Button)findViewById(R.id.ease2);
   mEase3=(Button)findViewById(R.id.ease3);
@@ -22,5 +24,4 @@
   mEase4.setOnClickListener(mSelectEaseHandler);
   mFlipCard.setChecked(true);
   mFlipCard.setOnCheckedChangeListener(mFlipCardHandler);
-  mCard.setFocusable(false);
 }
