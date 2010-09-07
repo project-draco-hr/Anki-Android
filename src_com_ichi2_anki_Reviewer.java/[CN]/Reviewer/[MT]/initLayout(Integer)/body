@@ -5,6 +5,7 @@
   mCard.getSettings().setBuiltInZoomControls(true);
   if (prefTextSelection) {
     mCard.setOnLongClickListener(mLongClickHandler);
+    clipboard=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
   }
  else {
     mCard.setFocusable(false);
