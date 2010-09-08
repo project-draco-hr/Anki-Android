@@ -3,6 +3,13 @@
   mCard=(WebView)findViewById(R.id.flashcard);
   mCard.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
   mCard.getSettings().setBuiltInZoomControls(true);
+  if (prefTextSelection) {
+    mCard.setOnLongClickListener(mLongClickHandler);
+    clipboard=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+  }
+ else {
+    mCard.setFocusable(false);
+  }
   mScaleInPercent=mCard.getScale();
   mEase1=(Button)findViewById(R.id.ease1);
   mEase2=(Button)findViewById(R.id.ease2);
@@ -23,5 +30,4 @@
   mEase4.setOnClickListener(mSelectEaseHandler);
   mFlipCard.setChecked(true);
   mFlipCard.setOnCheckedChangeListener(mFlipCardHandler);
-  mCard.setFocusable(false);
 }
