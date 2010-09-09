@@ -2,7 +2,6 @@
   Log.i(TAG,"updateCard");
   Log.i(TAG,"Initial content card = \n" + content);
   content=Sound.parseSounds(deckFilename,content);
-  content=Image.scaleImages(deckFilename,content,mCard.getHeight(),mCard.getWidth(),mScaleInPercent);
   content=content.replace("font-weight:600;","font-weight:700;");
   if (prefUseRubySupport) {
     content=RubyParser.ankiRubyToMarkup(content);
