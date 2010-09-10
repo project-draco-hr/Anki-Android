@@ -11,6 +11,7 @@
     mCard.setFocusable(false);
   }
   mCard.getSettings().setJavaScriptEnabled(true);
+  mCard.setWebChromeClient(new MyWebChromeClient());
   mScaleInPercent=mCard.getScale();
   mEase1=(Button)findViewById(R.id.ease1);
   mEase2=(Button)findViewById(R.id.ease2);

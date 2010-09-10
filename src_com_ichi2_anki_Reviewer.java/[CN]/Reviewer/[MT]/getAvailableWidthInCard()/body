@@ -1,0 +1,5 @@
+{
+  int availableWidth=(int)(AnkiDroidApp.getDisplayWidth() / mScaleInPercent) - 10;
+  Log.i(TAG,"availableWidth = " + availableWidth);
+  return availableWidth;
+}
