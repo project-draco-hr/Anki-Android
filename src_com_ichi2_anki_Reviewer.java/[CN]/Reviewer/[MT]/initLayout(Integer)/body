@@ -5,6 +5,7 @@
   mCard.getSettings().setBuiltInZoomControls(true);
   mCard.getSettings().setJavaScriptEnabled(true);
   mCard.setWebChromeClient(new MyWebChromeClient());
+  mCard.addJavascriptInterface(new JavaScriptInterface(),"interface");
   mScaleInPercent=mCard.getScale();
   mEase1=(Button)findViewById(R.id.ease1);
   mEase2=(Button)findViewById(R.id.ease2);
@@ -26,5 +27,4 @@
   mEase4.setOnClickListener(mSelectEaseHandler);
   mFlipCard.setChecked(true);
   mFlipCard.setOnCheckedChangeListener(mFlipCardHandler);
-  mCard.setFocusable(false);
 }

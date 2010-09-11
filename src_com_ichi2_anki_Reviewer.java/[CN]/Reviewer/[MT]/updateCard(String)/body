@@ -14,8 +14,8 @@
  else {
     mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
   }
-  Log.i(TAG,"content card = \n" + content);
   String card=cardTemplate.replace("::content::",content);
+  Log.i(TAG,"card html = \n" + card);
   mCard.loadDataWithBaseURL("file://" + deckFilename.replace(".anki",".media/"),card,"text/html","utf-8",null);
   Sound.playSounds();
 }
