@@ -1,0 +1,6 @@
+{
+  Log.i(TAG,"js = " + soundPath);
+  Message msg=Message.obtain();
+  msg.obj=soundPath;
+  mHandler.sendMessage(msg);
+}
