@@ -1,5 +1,5 @@
 {
-  if (mSoundPaths.size() > 0) {
+  if (mSoundPaths != null && mSoundPaths.size() > 0) {
     numSoundsPlayed=0;
     mStartTime=System.currentTimeMillis();
     playSound(numSoundsPlayed);

@@ -3,7 +3,7 @@
   Cursor cursor=null;
   Log.i(TAG,"updatePriorities - Updating priorities...");
   if (suspend != null) {
-    long[] ids=tagIds(suspend);
+    long[] ids=tagIds(suspend,false);
     ankiDB.database.execSQL("UPDATE tags " + "SET priority = 0 " + "WHERE id in "+ Utils.ids2str(ids));
   }
   String limit="";

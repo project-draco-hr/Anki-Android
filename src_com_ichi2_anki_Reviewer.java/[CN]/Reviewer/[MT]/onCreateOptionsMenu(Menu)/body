@@ -1,8 +1,19 @@
 {
   MenuItem item;
+  if (prefWhiteboard) {
+    item=menu.add(Menu.NONE,MENU_WHITEBOARD,Menu.NONE,R.string.show_whiteboard);
+    item.setIcon(R.drawable.ic_menu_compose);
+    item=menu.add(Menu.NONE,MENU_CLEAR_WHITEBOARD,Menu.NONE,R.string.clear_whiteboard);
+    item.setIcon(R.drawable.ic_menu_clear_playlist);
+  }
   item=menu.add(Menu.NONE,MENU_EDIT,Menu.NONE,R.string.menu_edit_card);
   item.setIcon(android.R.drawable.ic_menu_edit);
   item=menu.add(Menu.NONE,MENU_SUSPEND,Menu.NONE,R.string.menu_suspend_card);
   item.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+  if (prefTextSelection) {
+    item=menu.add(Menu.NONE,MENU_SEARCH,Menu.NONE,R.string.menu_search);
+    item.setIcon(R.drawable.ic_menu_search);
+  }
+  item=menu.add(Menu.NONE,MENU_MARK,Menu.NONE,R.string.menu_mark_card);
   return true;
 }

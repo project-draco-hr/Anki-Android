@@ -7,7 +7,6 @@
     double now=System.currentTimeMillis() / 1000.0;
     Log.i(TAG,"Now = " + now);
     String idsString=Utils.ids2str(ids);
-    ArrayList<String> factIds=ankiDB.queryColumn(String.class,"SELECT factId FROM cards WHERE id in " + idsString,0);
     ankiDB.database.execSQL("DELETE FROM cards WHERE id in " + idsString);
     String sqlInsert="INSERT INTO cardsDeleted values (?," + String.format(ENGLISH_LOCALE,"%f",now) + ")";
     SQLiteStatement statement=ankiDB.database.compileStatement(sqlInsert);

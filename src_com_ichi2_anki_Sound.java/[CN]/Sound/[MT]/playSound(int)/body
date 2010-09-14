@@ -10,13 +10,11 @@
         releaseSound();
         numSoundsPlayed++;
         mFinishSoundTime=System.currentTimeMillis();
-        Log.i(TAG,"Sound " + numSoundsPlayed + " played in "+ (mFinishSoundTime - mStartSoundTime)+ " milliseconds");
         if (numSoundsPlayed < mSoundPaths.size()) {
           playSound(numSoundsPlayed);
         }
  else {
           mFinishTime=System.currentTimeMillis();
-          Log.i(TAG,numSoundsPlayed + " sounds played in " + (mFinishTime - mStartTime)+ " milliseconds");
         }
       }
     }

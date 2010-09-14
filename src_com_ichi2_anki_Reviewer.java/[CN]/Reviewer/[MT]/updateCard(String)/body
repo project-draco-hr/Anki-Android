@@ -1,12 +1,9 @@
 {
   Log.i(TAG,"updateCard");
-  Log.i(TAG,"Initial content = \n" + content);
+  mUpdateCardStartTime=System.currentTimeMillis();
   content=Sound.parseSounds(deckFilename,content);
-  content=Image.loadImages(deckFilename,content);
-  content=content.replaceAll("font-weight:600;","font-weight:700;");
-  if (useRubySupport) {
-    content=RubyParser.ankiRubyToMarkup(content);
-  }
+  content=content.replace("font-weight:600;","font-weight:700;");
+  if (prefUseRubySupport)   content=RubyParser.ankiRubyToMarkup(content);
   if (mCurrentCard != null) {
     Deck currentDeck=AnkiDroidApp.deck();
     Model myModel=Model.getModel(currentDeck,mCurrentCard.cardModelId,false);
@@ -15,8 +12,8 @@
  else {
     mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
   }
-  Log.i(TAG,"content card = \n" + content);
   String card=cardTemplate.replace("::content::",content);
-  mCard.loadDataWithBaseURL("",card,"text/html","utf-8",null);
+  Log.i(TAG,"card html = \n" + card);
+  mCard.loadDataWithBaseURL("file://" + deckFilename.replace(".anki",".media/"),card,"text/html","utf-8",null);
   Sound.playSounds();
 }

@@ -1,6 +1,7 @@
 {
-  String username=instance.mPreferences.getString("username","");
-  String password=instance.mPreferences.getString("password","");
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(instance);
+  String username=preferences.getString("username","");
+  String password=preferences.getString("password","");
   if (!username.equalsIgnoreCase("") && !password.equalsIgnoreCase("")) {
     return true;
   }

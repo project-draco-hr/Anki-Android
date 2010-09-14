@@ -7,13 +7,19 @@
   }
  else {
     restorePreferences();
-    if (notificationBar == false) {
+    if (prefNotificationBar == false) {
       getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
     requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
     registerExternalStorageListener();
     initLayout(R.layout.flashcard_portrait);
-    cardTemplate=getResources().getString(R.string.card_template);
+    try {
+      cardTemplate=Utils.convertStreamToString(getAssets().open("card_template.html"));
+      cardTemplate=cardTemplate.replaceFirst("var availableWidth = \\d*;","var availableWidth = " + getAvailableWidthInCard() + ";");
+    }
+ catch (    IOException e) {
+      e.printStackTrace();
+    }
     long timelimit=AnkiDroidApp.deck().getSessionTimeLimit() * 1000;
     Log.i(TAG,"SessionTimeLimit: " + timelimit + " ms.");
     mSessionTimeLimit=System.currentTimeMillis() + timelimit;

@@ -2,18 +2,30 @@
   setContentView(layout);
   mCard=(WebView)findViewById(R.id.flashcard);
   mCard.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+  mCard.getSettings().setBuiltInZoomControls(true);
+  if (prefTextSelection) {
+    mCard.setOnLongClickListener(mLongClickHandler);
+    clipboard=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+  }
+ else {
+    mCard.setFocusable(false);
+  }
+  mCard.getSettings().setJavaScriptEnabled(true);
+  mCard.setWebViewClient(new AnkiDroidWebViewClient());
+  mCard.setWebChromeClient(new AnkiDroidWebChromeClient());
+  mCard.addJavascriptInterface(new JavaScriptInterface(),"interface");
+  mScaleInPercent=mCard.getScale();
   mEase1=(Button)findViewById(R.id.ease1);
   mEase2=(Button)findViewById(R.id.ease2);
   mEase3=(Button)findViewById(R.id.ease3);
   mEase4=(Button)findViewById(R.id.ease4);
+  mFlipCard=(ToggleButton)findViewById(R.id.flip_card);
   mTextBarRed=(TextView)findViewById(R.id.red_number);
   mTextBarBlack=(TextView)findViewById(R.id.black_number);
   mTextBarBlue=(TextView)findViewById(R.id.blue_number);
-  mCardTimer=(Chronometer)findViewById(R.id.card_time);
-  mFlipCard=(ToggleButton)findViewById(R.id.flip_card);
-  mToggleWhiteboard=(ToggleButton)findViewById(R.id.toggle_overlay);
-  mWhiteboard=(Whiteboard)findViewById(R.id.whiteboard);
-  mAnswerField=(EditText)findViewById(R.id.answer_field);
+  if (prefTimer)   mCardTimer=(Chronometer)findViewById(R.id.card_time);
+  if (prefWhiteboard)   mWhiteboard=(Whiteboard)findViewById(R.id.whiteboard);
+  if (prefWriteAnswers)   mAnswerField=(EditText)findViewById(R.id.answer_field);
   hideEaseButtons();
   showControls();
   mEase1.setOnClickListener(mSelectEaseHandler);
@@ -22,6 +34,4 @@
   mEase4.setOnClickListener(mSelectEaseHandler);
   mFlipCard.setChecked(true);
   mFlipCard.setOnCheckedChangeListener(mFlipCardHandler);
-  mToggleWhiteboard.setOnCheckedChangeListener(mToggleOverlayHandler);
-  mCard.setFocusable(false);
 }
