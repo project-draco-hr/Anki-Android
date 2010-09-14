@@ -1,13 +1,18 @@
 {
-  MenuItem markItem=menu.findItem(MENU_MARK);
+  MenuItem item=menu.findItem(MENU_MARK);
   mCurrentCard.loadTags();
   if (mCurrentCard.hasTag(Deck.TAG_MARKED)) {
-    markItem.setTitle(R.string.menu_marked);
-    markItem.setIcon(R.drawable.star_big_on);
+    item.setTitle(R.string.menu_marked);
+    item.setIcon(R.drawable.star_big_on);
   }
  else {
-    markItem.setTitle(R.string.menu_mark_card);
-    markItem.setIcon(R.drawable.ic_menu_star);
+    item.setTitle(R.string.menu_mark_card);
+    item.setIcon(R.drawable.ic_menu_star);
+  }
+  if (prefTextSelection) {
+    item=menu.findItem(MENU_SEARCH);
+    boolean lookupPossible=clipboard.hasText() && Utils.isIntentAvailable(this,"sk.baka.aedict.action.ACTION_SEARCH_EDICT");
+    item.setEnabled(lookupPossible);
   }
   return true;
 }

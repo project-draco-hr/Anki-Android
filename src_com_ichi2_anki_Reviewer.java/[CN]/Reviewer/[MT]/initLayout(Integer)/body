@@ -3,6 +3,13 @@
   mCard=(WebView)findViewById(R.id.flashcard);
   mCard.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
   mCard.getSettings().setBuiltInZoomControls(true);
+  if (prefTextSelection) {
+    mCard.setOnLongClickListener(mLongClickHandler);
+    clipboard=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+  }
+ else {
+    mCard.setFocusable(false);
+  }
   mCard.getSettings().setJavaScriptEnabled(true);
   mCard.setWebViewClient(new AnkiDroidWebViewClient());
   mCard.setWebChromeClient(new AnkiDroidWebChromeClient());
@@ -16,7 +23,6 @@
   mTextBarRed=(TextView)findViewById(R.id.red_number);
   mTextBarBlack=(TextView)findViewById(R.id.black_number);
   mTextBarBlue=(TextView)findViewById(R.id.blue_number);
-  mFlipCard=(ToggleButton)findViewById(R.id.flip_card);
   if (prefTimer)   mCardTimer=(Chronometer)findViewById(R.id.card_time);
   if (prefWhiteboard)   mWhiteboard=(Whiteboard)findViewById(R.id.whiteboard);
   if (prefWriteAnswers)   mAnswerField=(EditText)findViewById(R.id.answer_field);
