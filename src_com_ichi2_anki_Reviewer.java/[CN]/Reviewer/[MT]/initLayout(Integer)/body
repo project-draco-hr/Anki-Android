@@ -4,7 +4,8 @@
   mCard.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
   mCard.getSettings().setBuiltInZoomControls(true);
   mCard.getSettings().setJavaScriptEnabled(true);
-  mCard.setWebChromeClient(new MyWebChromeClient());
+  mCard.setWebViewClient(new AnkiDroidWebViewClient());
+  mCard.setWebChromeClient(new AnkiDroidWebChromeClient());
   mCard.addJavascriptInterface(new JavaScriptInterface(),"interface");
   mScaleInPercent=mCard.getScale();
   mEase1=(Button)findViewById(R.id.ease1);

@@ -1,0 +1,6 @@
+{
+  mDisplayCardFinishTime=System.currentTimeMillis();
+  mUpdateCardFinishTime=System.currentTimeMillis();
+  Log.i(TAG,"Time spent displaying card = " + (mDisplayCardFinishTime - mDisplayCardStartTime) + " milliseconds");
+  Log.i(TAG,"Time spent updating card = " + (mUpdateCardFinishTime - mUpdateCardStartTime) + " milliseconds");
+}

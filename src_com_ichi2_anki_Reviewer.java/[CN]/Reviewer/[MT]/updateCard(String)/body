@@ -1,6 +1,6 @@
 {
   Log.i(TAG,"updateCard");
-  Log.i(TAG,"Initial content card = \n" + content);
+  mUpdateCardStartTime=System.currentTimeMillis();
   content=Sound.parseSounds(deckFilename,content);
   content=content.replace("font-weight:600;","font-weight:700;");
   if (prefUseRubySupport) {

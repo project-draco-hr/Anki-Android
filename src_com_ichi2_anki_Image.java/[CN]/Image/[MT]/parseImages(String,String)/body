@@ -1,0 +1,19 @@
+{
+  mStartTime=System.currentTimeMillis();
+  StringBuilder stringBuilder=new StringBuilder();
+  String contentLeft=content;
+  Log.i(TAG,"parseImages");
+  Matcher matcher=mImagePattern.matcher(content);
+  while (matcher.find()) {
+    String img=matcher.group(1);
+    String imgTag=matcher.group();
+    int markerStart=contentLeft.indexOf(imgTag);
+    stringBuilder.append(contentLeft.substring(0,markerStart));
+    stringBuilder.append("<img src=" + img + " onload=\"resizeImage();\">");
+    contentLeft=contentLeft.substring(markerStart + imgTag.length());
+  }
+  stringBuilder.append(contentLeft);
+  mFinishTime=System.currentTimeMillis();
+  Log.i(TAG,"Images parsed in " + (mFinishTime - mStartTime) + " milliseconds");
+  return stringBuilder.toString();
+}
