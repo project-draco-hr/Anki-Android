@@ -1,5 +1,7 @@
 {
   mStartTime=System.currentTimeMillis();
+  StringBuilder stringBuilder=new StringBuilder();
+  String contentLeft=content;
   Log.i(TAG,"parseSounds");
   mSoundPaths=new ArrayList<String>();
   Matcher matcher=mSoundPattern.matcher(content);
@@ -7,10 +9,14 @@
     String sound=matcher.group(1);
     String soundPath=deckFilename.replace(".anki",".media/") + sound;
     mSoundPaths.add(soundPath);
-    String contentToReplace=matcher.group();
-    content=content.replace(contentToReplace,"<a onclick=\"window.interface.playSound(this.title);\" title=\"" + soundPath + "\"><span style=\"padding:5px;display:inline-block; vertical-align:middle\"><img src=\"file:///android_asset/media_playback_start2.png\" /></span></a>");
+    String soundMarker=matcher.group();
+    int markerStart=contentLeft.indexOf(soundMarker);
+    stringBuilder.append(contentLeft.substring(0,markerStart));
+    stringBuilder.append("<a onclick=\"window.interface.playSound(this.title);\" title=\"" + soundPath + "\"><span style=\"padding:5px;display:inline-block; vertical-align:middle\"><img src=\"file:///android_asset/media_playback_start2.png\" /></span></a>");
+    contentLeft=contentLeft.substring(markerStart + soundMarker.length());
   }
+  stringBuilder.append(contentLeft);
   mFinishTime=System.currentTimeMillis();
   Log.i(TAG,mSoundPaths.size() + " sounds parsed in " + (mFinishTime - mStartTime)+ " milliseconds");
-  return content;
+  return stringBuilder.toString();
 }
