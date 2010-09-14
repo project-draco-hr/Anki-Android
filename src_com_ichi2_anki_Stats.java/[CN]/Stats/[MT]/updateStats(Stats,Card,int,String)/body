@@ -1,0 +1,18 @@
+{
+  stats.reps+=1;
+  double delay=card.totalTime();
+  if (delay >= 60)   stats.reviewTime+=60;
+ else {
+    stats.reviewTime+=delay;
+    stats.averageTime=(stats.reviewTime / (double)stats.reps);
+  }
+  String attr=oldState + String.format("Ease%d",ease);
+  try {
+    Field f=stats.getClass().getDeclaredField(attr);
+    f.setInt(stats,f.getInt(stats) + 1);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+  stats.toDB();
+}
