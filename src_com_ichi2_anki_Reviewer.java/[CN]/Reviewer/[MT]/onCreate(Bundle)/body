@@ -7,8 +7,9 @@
   }
  else {
     restorePreferences();
-    if (prefNotificationBar == false) {
+    if (prefFullscreenReview) {
       getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+      requestWindowFeature(Window.FEATURE_NO_TITLE);
     }
     requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
     registerExternalStorageListener();

@@ -46,6 +46,7 @@
       }
       file.write(buffer,0,read);
       download.setDownloaded(download.getDownloaded() + read);
+      publishProgress();
     }
     if (download.getStatus() == Download.DOWNLOADING) {
       download.setStatus(Download.COMPLETE);
