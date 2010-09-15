@@ -1,6 +1,7 @@
 {
   Payload data=doInBackgroundLoadDeck(args);
   if (data.returnType == DeckTask.DECK_LOADED) {
+    double now=System.currentTimeMillis();
     HashMap<String,Object> results=(HashMap<String,Object>)data.result;
     Deck deck=(Deck)results.get("deck");
     SharedDeckDownload download=(SharedDeckDownload)args[0].data[0];
@@ -18,6 +19,7 @@
       download.setNumUpdatedCards((int)updatedCards);
       publishProgress();
     }
+    Log.i(TAG,"Time to update deck = " + (System.currentTimeMillis() - now) / 1000.0 + " sec.");
   }
  else {
     data.success=false;
