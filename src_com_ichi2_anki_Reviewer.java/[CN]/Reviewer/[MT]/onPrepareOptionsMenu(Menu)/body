@@ -11,6 +11,8 @@
   }
   if (prefTextSelection) {
     item=menu.findItem(MENU_SEARCH);
+    Log.i(TAG,"Clipboard has text = " + clipboard.hasText());
+    Log.i(TAG,"Is intent available = " + Utils.isIntentAvailable(this,"sk.baka.aedict.action.ACTION_SEARCH_EDICT"));
     boolean lookupPossible=clipboard.hasText() && Utils.isIntentAvailable(this,"sk.baka.aedict.action.ACTION_SEARCH_EDICT");
     item.setEnabled(lookupPossible);
   }

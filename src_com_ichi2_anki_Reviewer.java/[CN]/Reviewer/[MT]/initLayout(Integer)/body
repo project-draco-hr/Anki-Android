@@ -3,12 +3,13 @@
   mCard=(WebView)findViewById(R.id.flashcard);
   mCard.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
   mCard.getSettings().setBuiltInZoomControls(true);
+  if (Integer.parseInt(android.os.Build.VERSION.SDK) > 7) {
+    mCard.setFocusableInTouchMode(false);
+  }
+  Log.i(TAG,"Focusable = " + mCard.isFocusable() + ", Focusable in touch mode = "+ mCard.isFocusableInTouchMode());
   if (prefTextSelection) {
     mCard.setOnLongClickListener(mLongClickHandler);
     clipboard=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
-  }
- else {
-    mCard.setFocusable(false);
   }
   mCard.getSettings().setJavaScriptEnabled(true);
   mCard.setWebViewClient(new AnkiDroidWebViewClient());
