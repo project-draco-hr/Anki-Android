@@ -1,0 +1,13 @@
+{
+  if (status == UPDATE) {
+    if (numTotalCards > 0) {
+      return (int)(((float)numUpdatedCards / numTotalCards) * 100);
+    }
+ else {
+      return 0;
+    }
+  }
+ else {
+    return super.getProgress();
+  }
+}

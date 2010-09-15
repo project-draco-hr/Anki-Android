@@ -1,5 +1,5 @@
 {
-  Cursor cursor=AnkiDatabaseManager.getDatabase(deckPath).database.rawQuery("SELECT id, factId " + "FROM cards " + "ORDER BY id "+ "LIMIT " + Long.MAX_VALUE + " OFFSET "+ numUpdatedCards,null);
+  Cursor cursor=AnkiDatabaseManager.getDatabase(deckPath).database.rawQuery("SELECT id, factId " + "FROM cards " + "ORDER BY id "+ "LIMIT " + limitCards + " OFFSET "+ numUpdatedCards,null);
   while (cursor.moveToNext()) {
     Card card=new Card(this);
     card.fromDB(cursor.getLong(0));
@@ -14,9 +14,7 @@
     card.modified=System.currentTimeMillis() / 1000.0;
     card.toDB();
     numUpdatedCards++;
-    if (listener != null) {
-      listener.onProgressUpdate(new Object[]{deckPath,numUpdatedCards});
-    }
   }
   cursor.close();
+  return numUpdatedCards;
 }
