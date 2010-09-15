@@ -6,7 +6,7 @@
   prefTextSelection=preferences.getBoolean("textSelection",false);
   deckFilename=preferences.getString("deckFilename","");
   prefUseRubySupport=preferences.getBoolean("useRubySupport",false);
-  prefNotificationBar=preferences.getBoolean("notificationBar",true);
+  prefFullscreenReview=preferences.getBoolean("fullscreenReview",true);
   displayFontSize=Integer.parseInt(preferences.getString("displayFontSize","100"));
   prefHideQuestionInAnswer=Integer.parseInt(preferences.getString("hideQuestionInAnswer",Integer.toString(HQIA_DO_SHOW)));
   if (mFlipCard != null) {
