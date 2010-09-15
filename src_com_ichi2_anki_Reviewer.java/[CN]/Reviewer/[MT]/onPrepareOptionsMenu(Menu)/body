@@ -15,6 +15,10 @@
     item.setEnabled(lookupPossible);
   }
   if (prefFullscreenReview) {
+    mTextBarRed.setVisibility(View.GONE);
+    mTextBarBlack.setVisibility(View.GONE);
+    mTextBarBlue.setVisibility(View.GONE);
+    if (prefTimer)     mCardTimer.setVisibility(View.GONE);
     getWindow().setFlags(0,WindowManager.LayoutParams.FLAG_FULLSCREEN);
   }
   return true;
