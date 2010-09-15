@@ -1,5 +1,9 @@
 {
   if (prefFullscreenReview) {
+    mTextBarRed.setVisibility(View.VISIBLE);
+    mTextBarBlack.setVisibility(View.VISIBLE);
+    mTextBarBlue.setVisibility(View.VISIBLE);
+    if (prefTimer)     mCardTimer.setVisibility(View.VISIBLE);
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
   }
 }
