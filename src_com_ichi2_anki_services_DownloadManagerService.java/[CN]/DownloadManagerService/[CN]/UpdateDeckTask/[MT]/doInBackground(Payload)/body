@@ -9,11 +9,11 @@
     String updatedCardsPref="numUpdatedCards:" + mDestination + "/tmp/"+ download.getTitle()+ ".anki.updating";
     long totalCards=deck.getCardCount();
     long updatedCards=pref.getLong(updatedCardsPref,0);
+    long batchSize=Math.max(100,totalCards / 100);
     download.setNumTotalCards((int)totalCards);
     while (updatedCards < totalCards) {
-      updatedCards=deck.updateAllCardsFromPosition(updatedCards,null,100);
+      updatedCards=deck.updateAllCardsFromPosition(updatedCards,batchSize);
       Editor editor=pref.edit();
-      Log.i(TAG,"Updating Deck, deckPath = " + download.getTitle() + " NumCards: "+ updatedCards);
       editor.putLong(updatedCardsPref,updatedCards);
       editor.commit();
       download.setNumUpdatedCards((int)updatedCards);
