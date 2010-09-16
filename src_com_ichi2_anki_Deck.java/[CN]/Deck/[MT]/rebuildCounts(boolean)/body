@@ -4,7 +4,7 @@
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
   checkDue();
   if (full) {
-    cardCount=(int)ankiDB.queryScalar("SELECT count(id) FROM cards");
+    cardCount=(int)getCardCount();
     factCount=(int)ankiDB.queryScalar("SELECT count(id) FROM facts");
   }
   failedSoonCount=(int)ankiDB.queryScalar("SELECT count(id) FROM failedCards");
