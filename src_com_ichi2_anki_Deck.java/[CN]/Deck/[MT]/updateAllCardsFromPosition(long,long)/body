@@ -15,7 +15,7 @@
       card.answer=newQA.get("answer");
       Log.i(TAG,"Answer = " + card.answer);
       card.modified=System.currentTimeMillis() / 1000.0;
-      card.toDB();
+      card.updateQAfields();
       numUpdatedCards++;
     }
     cursor.close();
