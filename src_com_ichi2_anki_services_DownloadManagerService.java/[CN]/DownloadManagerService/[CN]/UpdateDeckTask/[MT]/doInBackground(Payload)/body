@@ -9,11 +9,12 @@
     String updatedCardsPref="numUpdatedCards:" + mDestination + "/tmp/"+ download.getTitle()+ ".anki.updating";
     long totalCards=deck.getCardCount();
     long updatedCards=pref.getLong(updatedCardsPref,0);
-    long batchSize=Math.max(100,totalCards / 100);
+    long batchSize=Math.max(100,totalCards / 200);
     download.setNumTotalCards((int)totalCards);
-    recentBatchTimings=new long[runningAverageLength];
+    recentBatchTimings=new long[runningAvgLength];
     totalBatches=((double)totalCards) / batchSize;
-    int currentBatch=0;
+    int currentBatch=(int)(updatedCards / batchSize);
+    long runningAvgCount=0;
     long batchStart;
     elapsedTime=0;
     while (updatedCards < totalCards) {
@@ -24,8 +25,9 @@
       editor.commit();
       download.setNumUpdatedCards((int)updatedCards);
       publishProgress();
-      estimateTimeToCompletion(download,currentBatch,System.currentTimeMillis() - batchStart);
+      estimateTimeToCompletion(download,currentBatch,runningAvgCount,System.currentTimeMillis() - batchStart);
       currentBatch++;
+      runningAvgCount++;
     }
     Log.i(TAG,"Time to update deck = " + download.getEstTimeToCompletion() + " sec.");
   }

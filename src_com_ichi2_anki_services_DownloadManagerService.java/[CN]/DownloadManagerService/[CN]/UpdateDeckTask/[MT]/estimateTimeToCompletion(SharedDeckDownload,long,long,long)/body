@@ -1,9 +1,9 @@
 {
   double avgBatchTime=0.0;
   avgBatchTime=0;
-  recentBatchTimings[((int)currentBatch) % runningAverageLength]=lastBatchTime;
+  recentBatchTimings[((int)runningAvgCount) % runningAvgLength]=lastBatchTime;
   elapsedTime+=lastBatchTime;
-  int usedForAvg=Math.min(((int)currentBatch) + 1,runningAverageLength);
+  int usedForAvg=Math.min(((int)runningAvgCount) + 1,runningAvgLength);
   for (int i=0; i < usedForAvg; i++) {
     avgBatchTime+=recentBatchTimings[i];
   }
