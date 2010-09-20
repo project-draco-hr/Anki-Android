@@ -1,0 +1,13 @@
+{
+  double avgBatchTime=0.0;
+  avgBatchTime=0;
+  recentBatchTimings[((int)runningAvgCount) % runningAvgLength]=lastBatchTime;
+  elapsedTime+=lastBatchTime;
+  int usedForAvg=Math.min(((int)runningAvgCount) + 1,runningAvgLength);
+  for (int i=0; i < usedForAvg; i++) {
+    avgBatchTime+=recentBatchTimings[i];
+  }
+  avgBatchTime/=usedForAvg;
+  download.setEstTimeToCompletion(Math.max(0,totalBatches - currentBatch - 1) * avgBatchTime / 1000.0);
+  Log.i(TAG,"TotalBatches: " + totalBatches + " Current: "+ currentBatch+ " LastBatch: "+ lastBatchTime / 1000.0 + " RunningAvg: " + avgBatchTime / 1000.0 + " Elapsed: " + elapsedTime / 1000.0 + " TotalEstimated: " + (elapsedTime + Math.max(0,totalBatches - currentBatch - 1) * avgBatchTime) / 1000.0 + " sec");
+}
