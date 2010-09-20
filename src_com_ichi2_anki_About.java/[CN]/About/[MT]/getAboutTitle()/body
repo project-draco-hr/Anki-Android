@@ -1,0 +1,19 @@
+{
+  StringBuilder appName=new StringBuilder();
+  String pkgName="AnkiDroid";
+  String pkgVersion="?";
+  try {
+    PackageInfo pInfo=this.getPackageManager().getPackageInfo(this.getPackageName(),0);
+    pkgName=getString(pInfo.applicationInfo.labelRes);
+    pkgVersion=pInfo.versionName;
+  }
+ catch (  PackageManager.NameNotFoundException e) {
+    Log.e(TAG,"Couldn't find package named " + this.getPackageName(),e);
+  }
+  ;
+  appName.append("About ");
+  appName.append(pkgName);
+  appName.append(" v");
+  appName.append(pkgVersion);
+  return appName.toString();
+}
