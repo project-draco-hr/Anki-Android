@@ -24,7 +24,9 @@ break;
 }
 }
   finally {
-if (cursor != null) cursor.close();
+if (cursor != null) {
+cursor.close();
+}
 }
 newCountToday=Math.max(Math.min(newCount,newCardsPerDay - newCardsToday()),0);
 Log.i(TAG,"newCountToday = Math.max(Math.min(newCount, newCardsPerDay - newCardsToday()), 0) : " + newCountToday);

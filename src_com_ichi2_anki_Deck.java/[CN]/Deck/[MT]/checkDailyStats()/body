@@ -1,3 +1,5 @@
 {
-  if (!Stats.genToday(this).toString().equals(dailyStats.day.toString()))   dailyStats=Stats.dailyStats(this);
+  if (!Stats.genToday(this).toString().equals(dailyStats.day.toString())) {
+    dailyStats=Stats.dailyStats(this);
+  }
 }

@@ -5,7 +5,9 @@
     OutputStream output=new FileOutputStream(destination);
     byte[] buf=new byte[CHUNK_SIZE];
     int len;
-    if (source == null)     Log.i(TAG,"source is null!");
+    if (source == null) {
+      Log.i(TAG,"source is null!");
+    }
     while ((len=source.read(buf)) > 0) {
       output.write(buf,0,len);
       Log.i(TAG,"Write...");

@@ -1,6 +1,8 @@
 {
   Log.i(TAG,"collectInformation");
-  if (curContext == null)   return;
+  if (curContext == null) {
+    return;
+  }
   try {
     Log.i(TAG,"collecting information");
     PackageManager pm=curContext.getPackageManager();

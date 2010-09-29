@@ -3,5 +3,5 @@
   realContent=realContent.replaceAll("\\<hr.*?\\>"," ");
   realContent=realContent.replaceAll("\\<.*?\\>","");
   realContent=realContent.replaceAll("&nbsp;"," ");
-  return Math.max(MIN_DYNAMIC_FONT_SIZE,MAX_DYNAMIC_FONT_SIZE - (int)(realContent.length() / 5));
+  return Math.max(DYNAMIC_FONT_MIN_SIZE,DYNAMIC_FONT_MAX_SIZE - (int)(realContent.length() / DYNAMIC_FONT_FACTOR));
 }

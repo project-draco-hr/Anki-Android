@@ -18,7 +18,7 @@
     fieldsLayoutContainer.addView(newTextbox);
   }
   mSave.setOnClickListener(new View.OnClickListener(){
-    public void onClick(    View v){
+    @Override public void onClick(    View v){
       Iterator<FieldEditText> iter=editFields.iterator();
       while (iter.hasNext()) {
         FieldEditText current=iter.next();
@@ -30,7 +30,7 @@
   }
 );
   mCancel.setOnClickListener(new View.OnClickListener(){
-    public void onClick(    View v){
+    @Override public void onClick(    View v){
       setResult(RESULT_CANCELED);
       finish();
     }

@@ -3,9 +3,13 @@
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
   String deckPath=preferences.getString("deckPath","/sdcard");
   File dir=new File(deckPath);
-  if (dir == null)   return new ArrayList<DeckInformation>();
+  if (dir == null) {
+    return new ArrayList<DeckInformation>();
+  }
   File[] fileList=dir.listFiles(new AnkiFileFilter());
-  if (fileList == null || fileList.length == 0)   return new ArrayList<DeckInformation>();
+  if (fileList == null || fileList.length == 0) {
+    return new ArrayList<DeckInformation>();
+  }
   ArrayList<DeckInformation> information=new ArrayList<DeckInformation>(fileList.length);
   for (  File file : fileList) {
     try {

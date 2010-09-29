@@ -1,15 +1,15 @@
 {
   if (suspendEncoding) {
-    this.out.write(theByte);
+    out.write(theByte);
     return;
   }
   if (encode) {
     buffer[position++]=(byte)theByte;
     if (position >= bufferLength) {
-      this.out.write(encode3to4(b4,buffer,bufferLength,options));
+      out.write(encode3to4(b4,buffer,bufferLength,options));
       lineLength+=4;
       if (breakLines && lineLength >= MAX_LINE_LENGTH) {
-        this.out.write(NEW_LINE);
+        out.write(NEW_LINE);
         lineLength=0;
       }
       position=0;

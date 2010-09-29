@@ -5,7 +5,9 @@
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(path);
   try {
     cursor=ankiDB.database.rawQuery("SELECT *" + " FROM decks" + " LIMIT 1",null);
-    if (!cursor.moveToFirst())     return null;
+    if (!cursor.moveToFirst()) {
+      return null;
+    }
     deck=new Deck();
     deck.id=cursor.getLong(0);
     deck.created=cursor.getDouble(1);
@@ -46,7 +48,9 @@
     Log.i(TAG,"openDeck - Read " + cursor.getColumnCount() + " columns from decks table.");
   }
   finally {
-    if (cursor != null)     cursor.close();
+    if (cursor != null) {
+      cursor.close();
+    }
   }
   Log.i(TAG,String.format(ENGLISH_LOCALE,"openDeck - modified: %f currentTime: %f",deck.modified,System.currentTimeMillis() / 1000.0));
   deck.deckPath=path;
@@ -69,9 +73,13 @@
     }
   }
   finally {
-    if (cursor != null)     cursor.close();
+    if (cursor != null) {
+      cursor.close();
+    }
   }
-  if ((oldCount != (deck.failedSoonCount + deck.revCount + deck.newCount)) || deck.modifiedSinceSave())   deck.commitToDB();
+  if ((oldCount != (deck.failedSoonCount + deck.revCount + deck.newCount)) || deck.modifiedSinceSave()) {
+    deck.commitToDB();
+  }
   ankiDB.database.execSQL("CREATE TEMPORARY VIEW acqCardsRandom AS " + "SELECT * FROM cards " + "WHERE type = 2 AND isDue = 1 "+ "ORDER BY RANDOM()");
   return deck;
 }

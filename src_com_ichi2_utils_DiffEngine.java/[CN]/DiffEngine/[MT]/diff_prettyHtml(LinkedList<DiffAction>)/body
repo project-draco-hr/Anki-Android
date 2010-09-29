@@ -7,7 +7,9 @@ switch (aDiff.operation) {
 case INSERT:
       String spaces="";
     int l=text.length();
-  for (int j=0; j < l; j++)   spaces+="&nbsp;";
+  for (int j=0; j < l; j++) {
+    spaces+="&nbsp;";
+  }
 html.append("<span style=\"background:" + WRONG_COLOR + ";\">").append(spaces).append("</span>");
 break;
 case DELETE:

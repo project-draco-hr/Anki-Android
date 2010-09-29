@@ -1,8 +1,20 @@
 {
-  if (typeName.equals("String"))   return "getString";
- else   if (typeName.equals("Long"))   return "getLong";
- else   if (typeName.equals("Integer"))   return "getInt";
- else   if (typeName.equals("Float"))   return "getFloat";
- else   if (typeName.equals("Double"))   return "getDouble";
- else   return null;
+  if (typeName.equals("String")) {
+    return "getString";
+  }
+ else   if (typeName.equals("Long")) {
+    return "getLong";
+  }
+ else   if (typeName.equals("Integer")) {
+    return "getInt";
+  }
+ else   if (typeName.equals("Float")) {
+    return "getFloat";
+  }
+ else   if (typeName.equals("Double")) {
+    return "getDouble";
+  }
+ else {
+    return null;
+  }
 }

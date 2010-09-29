@@ -12,9 +12,11 @@
   modified=System.currentTimeMillis() / 1000.0;
   if (created != Double.NaN) {
     this.created=created;
-    this.due=created;
+    due=created;
   }
- else   due=modified;
+ else {
+    due=modified;
+  }
   combinedDue=due;
   this.deck=deck;
   this.fact=fact;

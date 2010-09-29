@@ -1,9 +1,11 @@
 {
-  if (prefFullscreenReview) {
+  if (mPrefFullscreenReview) {
     mTextBarRed.setVisibility(View.VISIBLE);
     mTextBarBlack.setVisibility(View.VISIBLE);
     mTextBarBlue.setVisibility(View.VISIBLE);
-    if (prefTimer)     mCardTimer.setVisibility(View.VISIBLE);
+    if (mPrefTimer) {
+      mCardTimer.setVisibility(View.VISIBLE);
+    }
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
   }
 }

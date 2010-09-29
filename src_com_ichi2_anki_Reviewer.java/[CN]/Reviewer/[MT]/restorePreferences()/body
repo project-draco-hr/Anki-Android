@@ -1,21 +1,14 @@
 {
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
-  prefTimer=preferences.getBoolean("timer",true);
-  prefWhiteboard=preferences.getBoolean("whiteboard",true);
-  prefWriteAnswers=preferences.getBoolean("writeAnswers",false);
-  prefTextSelection=preferences.getBoolean("textSelection",false);
-  deckFilename=preferences.getString("deckFilename","");
-  prefUseRubySupport=preferences.getBoolean("useRubySupport",false);
-  prefFullscreenReview=preferences.getBoolean("fullscreenReview",true);
-  displayFontSize=Integer.parseInt(preferences.getString("displayFontSize","100"));
-  prefHideQuestionInAnswer=Integer.parseInt(preferences.getString("hideQuestionInAnswer",Integer.toString(HQIA_DO_SHOW)));
-  if (mFlipCard != null) {
-    if (mFlipCard.isChecked()) {
-      displayCardAnswer();
-    }
- else {
-      displayCardQuestion();
-    }
-  }
+  mPrefTimer=preferences.getBoolean("timer",true);
+  mPrefWhiteboard=preferences.getBoolean("whiteboard",true);
+  mPrefWriteAnswers=preferences.getBoolean("writeAnswers",false);
+  mPrefTextSelection=preferences.getBoolean("textSelection",false);
+  mDeckFilename=preferences.getString("deckFilename","");
+  mPrefUseRubySupport=preferences.getBoolean("useRubySupport",false);
+  mPrefFullscreenReview=preferences.getBoolean("fullscreenReview",true);
+  mDisplayFontSize=Integer.parseInt(preferences.getString("displayFontSize","100"));
+  mPrefHideQuestionInAnswer=Integer.parseInt(preferences.getString("hideQuestionInAnswer",Integer.toString(HQIA_DO_SHOW)));
+  refreshCard();
   return preferences;
 }

@@ -4,6 +4,6 @@
   for (  Map.Entry<Long,CardModel> entry : cardModelsMap.entrySet()) {
     myCardModel=entry.getValue();
     cssString=createCSSForFontColorSize(myCardModel.id,displayPercentage);
-    this.cssCardModelMap.put(myCardModel.id,cssString);
+    cssCardModelMap.put(myCardModel.id,cssString);
   }
 }

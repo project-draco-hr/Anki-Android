@@ -17,6 +17,8 @@
     }
   }
   finally {
-    if (cursor != null)     cursor.close();
+    if (cursor != null) {
+      cursor.close();
+    }
   }
 }

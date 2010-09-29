@@ -1,8 +1,14 @@
 {
-  if (skip)   return;
-  if (!uri.equals(XML_NAMESPACE))   return;
+  if (skip) {
+    return;
+  }
+  if (!uri.equals(XML_NAMESPACE)) {
+    return;
+  }
   if (recordNext) {
-    if (!localName.equals(INTENT_TAG))     return;
+    if (!localName.equals(INTENT_TAG)) {
+      return;
+    }
     action=attrs.getValue("action");
     data=attrs.getValue("data");
     type=attrs.getValue("type");
@@ -10,7 +16,9 @@
     recordMatch(true);
   }
  else {
-    if (!localName.equals(VERSION_TAG))     return;
+    if (!localName.equals(VERSION_TAG)) {
+      return;
+    }
     VeecheckVersion version=new VeecheckVersion(attrs);
     recordNext=this.version.matches(version);
   }

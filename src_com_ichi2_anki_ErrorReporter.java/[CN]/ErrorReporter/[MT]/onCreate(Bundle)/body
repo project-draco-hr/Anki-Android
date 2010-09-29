@@ -29,7 +29,7 @@
     Button btnOk=(Button)findViewById(R.id.btnSendEmail);
     Button btnCancel=(Button)findViewById(R.id.btnIgnoreError);
     btnOk.setOnClickListener(new OnClickListener(){
-      public void onClick(      View v){
+      @Override public void onClick(      View v){
         try {
           sendErrorReport();
         }
@@ -43,7 +43,7 @@
     }
 );
     btnCancel.setOnClickListener(new OnClickListener(){
-      public void onClick(      View v){
+      @Override public void onClick(      View v){
         deleteFiles();
         setResult(RESULT_OK);
         finish();

@@ -5,8 +5,8 @@
     finish();
   }
  else {
-    this.pref=new DeckPreferenceHack();
-    this.pref.registerOnSharedPreferenceChangeListener(this);
+    pref=new DeckPreferenceHack();
+    pref.registerOnSharedPreferenceChangeListener(this);
     this.addPreferencesFromResource(R.layout.deck_preferences);
   }
 }

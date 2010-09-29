@@ -13,7 +13,9 @@
     }
   }
   finally {
-    if (cursor != null)     cursor.close();
+    if (cursor != null) {
+      cursor.close();
+    }
   }
   if (ids != null) {
     updatePriorities(ids);

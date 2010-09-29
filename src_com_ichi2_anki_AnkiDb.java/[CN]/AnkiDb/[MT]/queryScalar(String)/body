@@ -3,11 +3,15 @@
   long scalar;
   try {
     cursor=database.rawQuery(query,null);
-    if (!cursor.moveToFirst())     throw new SQLException("No result for query: " + query);
+    if (!cursor.moveToFirst()) {
+      throw new SQLException("No result for query: " + query);
+    }
     scalar=cursor.getLong(0);
   }
   finally {
-    if (cursor != null)     cursor.close();
+    if (cursor != null) {
+      cursor.close();
+    }
   }
   return scalar;
 }

@@ -17,7 +17,7 @@
   TextView estimatedText=wrapper.getEstimatedTimeText();
   TextView sharedDeckTitle=wrapper.getDeckTitle();
   TextView sharedDeckFacts=wrapper.getDeckFacts();
-  Object obj=(Object)mAllSharedDecks.get(position);
+  Object obj=mAllSharedDecks.get(position);
   if (obj instanceof Download) {
     Download download=(Download)obj;
     sharedDeckTitle.setVisibility(View.GONE);

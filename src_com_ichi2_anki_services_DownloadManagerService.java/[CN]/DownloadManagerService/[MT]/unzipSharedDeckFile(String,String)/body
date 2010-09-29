@@ -7,7 +7,9 @@
       zipInputStream=new ZipInputStream(new FileInputStream(new File(zipFilename)));
       title=title.replace("^","");
       title=title.substring(0,java.lang.Math.min(title.length(),40));
-      if (new File(mDestination + "/" + title+ ".anki").exists())       title+=System.currentTimeMillis();
+      if (new File(mDestination + "/" + title+ ".anki").exists()) {
+        title+=System.currentTimeMillis();
+      }
       String partialDeckPath=mDestination + "/tmp/" + title;
       String deckFilename=partialDeckPath + ".anki.updating";
       ZipEntry zipEntry=null;

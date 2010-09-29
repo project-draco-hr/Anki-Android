@@ -4,11 +4,15 @@
   commitToDB();
   while (true) {
     row=src.pop();
-    if (row != null)     break;
+    if (row != null) {
+      break;
+    }
   }
   Long start=row.start;
   Long end=row.end;
-  if (end == null)   end=latestUndoRow();
+  if (end == null) {
+    end=latestUndoRow();
+  }
   ArrayList<String> sql=ankiDB.queryColumn(String.class,String.format(ENGLISH_LOCALE,"SELECT sql FROM undoLog " + "WHERE seq > %d and seq <= %d " + "ORDER BY seq DESC",start,end),0);
   Long newstart=latestUndoRow();
   Iterator<String> iter=sql.iterator();

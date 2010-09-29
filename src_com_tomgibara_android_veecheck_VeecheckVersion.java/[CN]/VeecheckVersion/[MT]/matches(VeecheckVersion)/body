@@ -1,9 +1,21 @@
 {
-  if (required.packageName != null && !required.packageName.equals(this.packageName))   return false;
-  if (required.versionCode != null && !required.versionCode.equals(this.versionCode))   return false;
-  if (required.versionName != null && !required.versionName.equals(this.versionName))   return false;
-  if (required.buildBrand != null && !required.buildBrand.equals(this.buildBrand))   return false;
-  if (required.buildId != null && !required.buildId.equals(this.buildId))   return false;
-  if (required.buildModel != null && !required.buildModel.equals(this.buildModel))   return false;
+  if (required.packageName != null && !required.packageName.equals(packageName)) {
+    return false;
+  }
+  if (required.versionCode != null && !required.versionCode.equals(versionCode)) {
+    return false;
+  }
+  if (required.versionName != null && !required.versionName.equals(versionName)) {
+    return false;
+  }
+  if (required.buildBrand != null && !required.buildBrand.equals(buildBrand)) {
+    return false;
+  }
+  if (required.buildId != null && !required.buildId.equals(buildId)) {
+    return false;
+  }
+  if (required.buildModel != null && !required.buildModel.equals(buildModel)) {
+    return false;
+  }
   return true;
 }

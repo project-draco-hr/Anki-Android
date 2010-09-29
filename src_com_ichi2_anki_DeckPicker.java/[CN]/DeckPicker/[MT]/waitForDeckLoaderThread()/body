@@ -3,7 +3,9 @@
   Log.i(TAG,"DeckPicker - waitForDeckLoaderThread(), mDeckIsSelected set to true");
   mLock.lock();
   try {
-    while (!mIsFinished)     mCondFinished.await();
+    while (!mIsFinished) {
+      mCondFinished.await();
+    }
   }
  catch (  InterruptedException e) {
     e.printStackTrace();

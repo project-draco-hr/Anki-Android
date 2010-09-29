@@ -5,8 +5,12 @@
   for (int i=0; i < factTagsList.size(); i++) {
     String newTags=factTagsList.get(i);
     if (newTags.indexOf(tag) == -1) {
-      if (newTags.length() == 0)       newTags+=tag;
- else       newTags+="," + tag;
+      if (newTags.length() == 0) {
+        newTags+=tag;
+      }
+ else {
+        newTags+="," + tag;
+      }
     }
     Log.i(TAG,"old tags = " + factTagsList.get(i));
     Log.i(TAG,"new tags = " + newTags);

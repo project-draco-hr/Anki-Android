@@ -1,7 +1,13 @@
 {
-  if (skip)   return;
-  if (!uri.equals(XML_NAMESPACE))   return;
+  if (skip) {
+    return;
+  }
+  if (!uri.equals(XML_NAMESPACE)) {
+    return;
+  }
   if (localName.equals(VERSION_TAG)) {
-    if (recordNext)     recordMatch(false);
+    if (recordNext) {
+      recordMatch(false);
+    }
   }
 }

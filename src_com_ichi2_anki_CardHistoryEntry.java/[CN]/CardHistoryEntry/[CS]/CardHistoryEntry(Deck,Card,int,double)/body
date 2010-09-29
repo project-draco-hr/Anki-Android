@@ -1,6 +1,8 @@
 {
   this.deck=deck;
-  if (card == null)   return;
+  if (card == null) {
+    return;
+  }
   cardId=card.id;
   lastInterval=card.lastInterval;
   nextInterval=card.interval;

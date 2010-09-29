@@ -1,9 +1,21 @@
 {
-  if (packageName != null)   url=substitute(url,"${package.name}",packageName);
-  if (versionCode != null)   url=substitute(url,"${version.code}",versionCode);
-  if (versionName != null)   url=substitute(url,"${version.name}",versionName);
-  if (buildBrand != null)   url=substitute(url,"${build.brand}",buildBrand);
-  if (buildId != null)   url=substitute(url,"${build.id}",buildId);
-  if (buildModel != null)   url=substitute(url,"${build.model}",buildModel);
+  if (packageName != null) {
+    url=substitute(url,"${package.name}",packageName);
+  }
+  if (versionCode != null) {
+    url=substitute(url,"${version.code}",versionCode);
+  }
+  if (versionName != null) {
+    url=substitute(url,"${version.name}",versionName);
+  }
+  if (buildBrand != null) {
+    url=substitute(url,"${build.brand}",buildBrand);
+  }
+  if (buildId != null) {
+    url=substitute(url,"${build.id}",buildId);
+  }
+  if (buildModel != null) {
+    url=substitute(url,"${build.model}",buildModel);
+  }
   return url;
 }

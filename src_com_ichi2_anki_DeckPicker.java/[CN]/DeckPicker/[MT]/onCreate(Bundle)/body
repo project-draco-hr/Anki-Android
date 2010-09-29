@@ -25,10 +25,14 @@
   mDeckListView=(ListView)findViewById(R.id.files);
   mDeckListAdapter=new SimpleAdapter(this,mDeckList,R.layout.deck_item,new String[]{"name","due","new","showProgress"},new int[]{R.id.DeckPickerName,R.id.DeckPickerDue,R.id.DeckPickerNew,R.id.DeckPickerProgress});
   mDeckListAdapter.setViewBinder(new SimpleAdapter.ViewBinder(){
-    public boolean setViewValue(    View view,    Object data,    String text){
+    @Override public boolean setViewValue(    View view,    Object data,    String text){
       if (view instanceof ProgressBar) {
-        if (text.equals("true"))         view.setVisibility(View.VISIBLE);
- else         view.setVisibility(View.GONE);
+        if (text.equals("true")) {
+          view.setVisibility(View.VISIBLE);
+        }
+ else {
+          view.setVisibility(View.GONE);
+        }
         return true;
       }
       return false;
