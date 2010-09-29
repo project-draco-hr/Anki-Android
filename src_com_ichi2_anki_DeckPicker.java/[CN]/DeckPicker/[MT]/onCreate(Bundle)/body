@@ -13,7 +13,7 @@
         SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
         String username=preferences.getString("username","");
         String password=preferences.getString("password","");
-        Connection.syncAllDecks(syncAllDecksListener,new Connection.Payload(new Object[]{username,password,mDeckList}));
+        Connection.syncAllDecks(mSyncAllDecksListener,new Connection.Payload(new Object[]{username,password,mDeckList}));
       }
  else {
         showDialog(DIALOG_USER_NOT_LOGGED_IN);

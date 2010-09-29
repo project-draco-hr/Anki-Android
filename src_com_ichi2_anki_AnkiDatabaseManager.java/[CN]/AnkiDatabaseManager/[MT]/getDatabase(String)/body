@@ -1,8 +1,8 @@
 {
-  if (mAnkiDatabases.containsKey(pathDB)) {
-    return mAnkiDatabases.get(pathDB);
+  if (sAnkiDatabases.containsKey(pathDB)) {
+    return sAnkiDatabases.get(pathDB);
   }
   AnkiDb ankiDB=new AnkiDb(pathDB);
-  mAnkiDatabases.put(pathDB,ankiDB);
+  sAnkiDatabases.put(pathDB,ankiDB);
   return ankiDB;
 }

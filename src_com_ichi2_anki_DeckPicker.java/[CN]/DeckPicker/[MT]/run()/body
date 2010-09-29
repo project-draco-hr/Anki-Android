@@ -34,7 +34,7 @@
         data.putInt("new",newCards);
         Message msg=Message.obtain();
         msg.setData(data);
-        handler.sendMessage(msg);
+        mHandler.sendMessage(msg);
       }
       mIsFinished=true;
       mCondFinished.signal();
