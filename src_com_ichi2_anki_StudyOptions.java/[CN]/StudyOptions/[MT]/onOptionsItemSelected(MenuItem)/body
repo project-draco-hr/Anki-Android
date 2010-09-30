@@ -6,31 +6,29 @@ case MENU_OPEN:
   return true;
 case MENU_DOWNLOAD_PERSONAL_DECK:
 if (AnkiDroidApp.isUserLoggedIn()) {
-  Intent downloadPersonalDeck=new Intent(StudyOptions.this,PersonalDeckPicker.class);
-  startActivityForResult(downloadPersonalDeck,DOWNLOAD_PERSONAL_DECK);
+  startActivityForResult(new Intent(StudyOptions.this,PersonalDeckPicker.class),DOWNLOAD_PERSONAL_DECK);
 }
  else {
   mUserNotLoggedInAlert.show();
 }
 return true;
 case MENU_DOWNLOAD_SHARED_DECK:
-Intent downloadSharedDeck=new Intent(StudyOptions.this,SharedDeckPicker.class);
-startActivityForResult(downloadSharedDeck,DOWNLOAD_SHARED_DECK);
+startActivityForResult(new Intent(StudyOptions.this,SharedDeckPicker.class),DOWNLOAD_SHARED_DECK);
 return true;
 case MENU_SYNC:
 syncDeck();
 return true;
 case MENU_MY_ACCOUNT:
-Intent myAccount=new Intent(StudyOptions.this,MyAccount.class);
-startActivity(myAccount);
+startActivity(new Intent(StudyOptions.this,MyAccount.class));
 return true;
 case MENU_PREFERENCES:
-Intent preferences=new Intent(StudyOptions.this,Preferences.class);
-startActivityForResult(preferences,PREFERENCES_UPDATE);
+startActivityForResult(new Intent(StudyOptions.this,Preferences.class),PREFERENCES_UPDATE);
+return true;
+case MENU_ADD_FACT:
+startActivity(new Intent(this,FactAdder.class));
 return true;
 case MENU_ABOUT:
-Intent about=new Intent(StudyOptions.this,About.class);
-startActivity(about);
+startActivity(new Intent(StudyOptions.this,About.class));
 return true;
 default :
 return super.onOptionsItemSelected(item);
