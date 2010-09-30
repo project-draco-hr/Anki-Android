@@ -6,7 +6,9 @@
     try {
       report.append(String.format("--> BEGIN REPORT %d <--\n",count));
       FileInputStream fi=openFileInput(filename);
-      if (fi == null)       continue;
+      if (fi == null) {
+        continue;
+      }
       int ch;
       while ((ch=fi.read()) != -1) {
         report.append((char)ch);

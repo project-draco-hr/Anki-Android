@@ -7,21 +7,31 @@
   if (newCardSpacing == NEW_CARDS_DISTRIBUTE) {
     if (newCountToday > 0) {
       newCardModulus=(newCountToday + revCount) / newCountToday;
-      if (revCount > 0)       newCardModulus=Math.max(2,newCardModulus);
+      if (revCount > 0) {
+        newCardModulus=Math.max(2,newCardModulus);
+      }
     }
  else {
       newCardModulus=0;
     }
   }
- else   newCardModulus=0;
+ else {
+    newCardModulus=0;
+  }
   Log.i(TAG,"newCardModulus set to " + newCardModulus);
   try {
     cursor=AnkiDatabaseManager.getDatabase(deckPath).database.rawQuery("SELECT avg(factor) " + "FROM cards " + "WHERE type = 1",null);
-    if (!cursor.moveToFirst())     averageFactor=Deck.initialFactor;
- else     averageFactor=cursor.getDouble(0);
+    if (!cursor.moveToFirst()) {
+      averageFactor=Deck.initialFactor;
+    }
+ else {
+      averageFactor=cursor.getDouble(0);
+    }
   }
   finally {
-    if (cursor != null)     cursor.close();
+    if (cursor != null) {
+      cursor.close();
+    }
   }
   averageFactor=Math.max(averageFactor,minimumAverage);
 }

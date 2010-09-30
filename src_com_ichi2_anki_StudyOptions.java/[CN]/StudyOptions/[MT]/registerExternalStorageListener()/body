@@ -12,7 +12,9 @@
  else         if (action.equals(Intent.ACTION_MEDIA_MOUNTED)) {
           Log.i(TAG,"mUnmountReceiver - Action = Media Mounted");
           sdCardAvailable=true;
-          if (!inDeckPicker)           loadPreviousDeck();
+          if (!inDeckPicker) {
+            loadPreviousDeck();
+          }
         }
       }
     }

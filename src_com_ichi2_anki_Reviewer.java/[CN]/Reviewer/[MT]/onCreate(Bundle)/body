@@ -7,7 +7,7 @@
   }
  else {
     restorePreferences();
-    if (prefFullscreenReview) {
+    if (mPrefFullscreenReview) {
       getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
       requestWindowFeature(Window.FEATURE_NO_TITLE);
     }
@@ -15,8 +15,8 @@
     registerExternalStorageListener();
     initLayout(R.layout.flashcard_portrait);
     try {
-      cardTemplate=Utils.convertStreamToString(getAssets().open("card_template.html"));
-      cardTemplate=cardTemplate.replaceFirst("var availableWidth = \\d*;","var availableWidth = " + getAvailableWidthInCard() + ";");
+      mCardTemplate=Utils.convertStreamToString(getAssets().open("card_template.html"));
+      mCardTemplate=mCardTemplate.replaceFirst("var availableWidth = \\d*;","var availableWidth = " + getAvailableWidthInCard() + ";");
     }
  catch (    IOException e) {
       e.printStackTrace();

@@ -1,6 +1,6 @@
 {
   hideEaseButtons();
-  if (prefWriteAnswers) {
+  if (mPrefWriteAnswers) {
     mAnswerField.setVisibility(View.VISIBLE);
     InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
     inputMethodManager.showSoftInput(mAnswerField,InputMethodManager.SHOW_FORCED);

@@ -5,7 +5,9 @@
     return null;
   }
   try {
-    if ((instance != null) && (instance.getStatus() != AsyncTask.Status.FINISHED))     instance.get();
+    if ((instance != null) && (instance.getStatus() != AsyncTask.Status.FINISHED)) {
+      instance.get();
+    }
   }
  catch (  Exception e) {
     e.printStackTrace();

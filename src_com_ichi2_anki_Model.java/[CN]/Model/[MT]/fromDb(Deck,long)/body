@@ -23,7 +23,9 @@
     model.source=cursor.getInt(10);
   }
   finally {
-    if (cursor != null)     cursor.close();
+    if (cursor != null) {
+      cursor.close();
+    }
   }
   return model;
 }

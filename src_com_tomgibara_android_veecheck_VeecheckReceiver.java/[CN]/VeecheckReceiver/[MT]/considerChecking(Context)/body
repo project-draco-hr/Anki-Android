@@ -7,7 +7,9 @@
   }
   Log.d(LOG_TAG,"Checking is enabled.");
   String uri=settings.getCheckUri();
-  if (uri == null)   return;
+  if (uri == null) {
+    return;
+  }
   Log.d(LOG_TAG,"URI is available.");
   VeecheckState state=createState(context);
   long now=System.currentTimeMillis();

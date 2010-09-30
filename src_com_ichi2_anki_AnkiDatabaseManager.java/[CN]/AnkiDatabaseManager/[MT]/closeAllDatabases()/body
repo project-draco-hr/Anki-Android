@@ -1,5 +1,5 @@
 {
-  Set<String> databases=mAnkiDatabases.keySet();
+  Set<String> databases=sAnkiDatabases.keySet();
   for (  String pathDB : databases) {
     AnkiDatabaseManager.closeDatabase(pathDB);
   }

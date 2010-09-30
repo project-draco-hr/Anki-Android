@@ -1,5 +1,7 @@
 {
   super.onDestroy();
   Log.i(TAG,"Reviewer - onDestroy()");
-  if (mUnmountReceiver != null)   unregisterReceiver(mUnmountReceiver);
+  if (mUnmountReceiver != null) {
+    unregisterReceiver(mUnmountReceiver);
+  }
 }

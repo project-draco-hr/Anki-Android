@@ -8,7 +8,9 @@
   Iterator<String> iter=tables.iterator();
   while (iter.hasNext()) {
     String table=iter.next();
-    if (table.equals("undoLog") || table.equals("sqlite_stat1"))     continue;
+    if (table.equals("undoLog") || table.equals("sqlite_stat1")) {
+      continue;
+    }
     ArrayList<String> columns=ankiDB.queryColumn(String.class,"PRAGMA TABLE_INFO(" + table + ")",1);
     String sql="CREATE TEMP TRIGGER _undo_%s_it " + "AFTER INSERT ON %s BEGIN " + "INSERT INTO undoLog VALUES "+ "(null, 'DELETE FROM %s WHERE rowid = ' || new.rowid); END";
     ankiDB.database.execSQL(String.format(ENGLISH_LOCALE,sql,table,table,table));
@@ -17,7 +19,9 @@
     Iterator<String> columnIter=columns.iterator();
     while (columnIter.hasNext()) {
       String column=columnIter.next();
-      if (column.equals("unique"))       continue;
+      if (column.equals("unique")) {
+        continue;
+      }
       sql+=String.format(ENGLISH_LOCALE,"%s%s=' || quote(old.%s) || '",sep,column,column);
       sep=",";
     }

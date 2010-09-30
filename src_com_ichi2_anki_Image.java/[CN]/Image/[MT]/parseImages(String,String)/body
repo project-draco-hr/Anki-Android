@@ -1,9 +1,9 @@
 {
-  mStartTime=System.currentTimeMillis();
+  sStartTime=System.currentTimeMillis();
   StringBuilder stringBuilder=new StringBuilder();
   String contentLeft=content;
   Log.i(TAG,"parseImages");
-  Matcher matcher=mImagePattern.matcher(content);
+  Matcher matcher=sImagePattern.matcher(content);
   while (matcher.find()) {
     String img=matcher.group(1);
     String imgTag=matcher.group();
@@ -13,7 +13,7 @@
     contentLeft=contentLeft.substring(markerStart + imgTag.length());
   }
   stringBuilder.append(contentLeft);
-  mFinishTime=System.currentTimeMillis();
-  Log.i(TAG,"Images parsed in " + (mFinishTime - mStartTime) + " milliseconds");
+  sFinishTime=System.currentTimeMillis();
+  Log.i(TAG,"Images parsed in " + (sFinishTime - sStartTime) + " milliseconds");
   return stringBuilder.toString();
 }

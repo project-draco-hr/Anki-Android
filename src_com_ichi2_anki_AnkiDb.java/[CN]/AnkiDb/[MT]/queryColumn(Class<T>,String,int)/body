@@ -14,7 +14,9 @@
     Log.e(TAG,"queryColumn: Got Exception: " + e.getMessage());
   }
  finally {
-    if (cursor != null)     cursor.close();
+    if (cursor != null) {
+      cursor.close();
+    }
   }
   return results;
 }

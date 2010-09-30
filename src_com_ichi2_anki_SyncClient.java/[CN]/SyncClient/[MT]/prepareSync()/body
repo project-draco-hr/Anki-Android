@@ -4,7 +4,9 @@
   remoteTime=server.modified();
   Log.i(TAG,"localTime = " + localTime);
   Log.i(TAG,"remoteTime = " + remoteTime);
-  if (localTime == remoteTime)   return false;
+  if (localTime == remoteTime) {
+    return false;
+  }
   double l=deck.lastSync;
   Log.i(TAG,"lastSync local = " + String.format(ENGLISH_LOCALE,"%f",l));
   double r=server.lastSync();

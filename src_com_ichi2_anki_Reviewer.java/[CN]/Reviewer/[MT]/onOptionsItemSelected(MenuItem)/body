@@ -15,7 +15,7 @@ case MENU_CLEAR_WHITEBOARD:
 mWhiteboard.clear();
 return true;
 case MENU_EDIT:
-editorCard=mCurrentCard;
+sEditorCard=mCurrentCard;
 Intent editCard=new Intent(Reviewer.this,CardEditor.class);
 startActivityForResult(editCard,EDIT_CURRENT_CARD);
 return true;
@@ -24,11 +24,11 @@ mFlipCard.setChecked(true);
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SUSPEND_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
 return true;
 case MENU_SEARCH:
-if (prefTextSelection && clipboard.hasText() && Utils.isIntentAvailable(this,"sk.baka.aedict.action.ACTION_SEARCH_EDICT")) {
+if (mPrefTextSelection && mClipboard.hasText() && Utils.isIntentAvailable(this,"sk.baka.aedict.action.ACTION_SEARCH_EDICT")) {
 Intent aedictIntent=new Intent("sk.baka.aedict.action.ACTION_SEARCH_EDICT");
-aedictIntent.putExtra("kanjis",clipboard.getText());
+aedictIntent.putExtra("kanjis",mClipboard.getText());
 startActivity(aedictIntent);
-clipboard.setText("");
+mClipboard.setText("");
 }
 return true;
 case MENU_MARK:

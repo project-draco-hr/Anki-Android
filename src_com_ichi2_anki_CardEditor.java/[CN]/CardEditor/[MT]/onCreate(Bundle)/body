@@ -2,24 +2,24 @@
   super.onCreate(savedInstanceState);
   registerExternalStorageListener();
   setContentView(R.layout.card_editor);
-  fieldsLayoutContainer=(LinearLayout)findViewById(R.id.CardEditorEditFieldsLayout);
+  mFieldsLayoutContainer=(LinearLayout)findViewById(R.id.CardEditorEditFieldsLayout);
   mSave=(Button)findViewById(R.id.CardEditorSaveButton);
   mCancel=(Button)findViewById(R.id.CardEditorCancelButton);
-  editorCard=Reviewer.getEditorCard();
-  Fact cardFact=editorCard.getFact();
+  mEditorCard=Reviewer.getEditorCard();
+  Fact cardFact=mEditorCard.getFact();
   TreeSet<Field> fields=cardFact.getFields();
-  editFields=new LinkedList<FieldEditText>();
+  mEditFields=new LinkedList<FieldEditText>();
   Iterator<Field> iter=fields.iterator();
   while (iter.hasNext()) {
     FieldEditText newTextbox=new FieldEditText(this,iter.next());
     TextView label=newTextbox.getLabel();
-    editFields.add(newTextbox);
-    fieldsLayoutContainer.addView(label);
-    fieldsLayoutContainer.addView(newTextbox);
+    mEditFields.add(newTextbox);
+    mFieldsLayoutContainer.addView(label);
+    mFieldsLayoutContainer.addView(newTextbox);
   }
   mSave.setOnClickListener(new View.OnClickListener(){
-    public void onClick(    View v){
-      Iterator<FieldEditText> iter=editFields.iterator();
+    @Override public void onClick(    View v){
+      Iterator<FieldEditText> iter=mEditFields.iterator();
       while (iter.hasNext()) {
         FieldEditText current=iter.next();
         current.updateField();
@@ -30,7 +30,7 @@
   }
 );
   mCancel.setOnClickListener(new View.OnClickListener(){
-    public void onClick(    View v){
+    @Override public void onClick(    View v){
       setResult(RESULT_CANCELED);
       finish();
     }

@@ -10,7 +10,6 @@
  catch (  PackageManager.NameNotFoundException e) {
     Log.e(TAG,"Couldn't find package named " + this.getPackageName(),e);
   }
-  ;
   appName.append("About ");
   appName.append(pkgName);
   appName.append(" v");

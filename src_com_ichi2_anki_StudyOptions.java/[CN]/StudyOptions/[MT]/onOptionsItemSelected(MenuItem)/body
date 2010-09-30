@@ -25,7 +25,7 @@ case MENU_PREFERENCES:
 startActivityForResult(new Intent(StudyOptions.this,Preferences.class),PREFERENCES_UPDATE);
 return true;
 case MENU_ADD_FACT:
-startActivity(new Intent(this,FactAdder.class));
+startActivity(new Intent(StudyOptions.this,FactAdder.class));
 return true;
 case MENU_ABOUT:
 startActivity(new Intent(StudyOptions.this,About.class));

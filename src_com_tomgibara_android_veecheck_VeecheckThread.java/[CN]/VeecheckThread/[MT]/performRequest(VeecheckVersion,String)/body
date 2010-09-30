@@ -8,7 +8,9 @@
   HttpEntity entity=response.getEntity();
   try {
     StatusLine line=response.getStatusLine();
-    if (line.getStatusCode() != 200)     throw new IOException("Request failed: " + line.getReasonPhrase());
+    if (line.getStatusCode() != 200) {
+      throw new IOException("Request failed: " + line.getReasonPhrase());
+    }
     Header header=response.getFirstHeader(HTTP.CONTENT_TYPE);
     Encoding encoding=identityEncoding(header);
     VeecheckResult handler=new VeecheckResult(version);

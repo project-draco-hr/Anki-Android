@@ -4,9 +4,13 @@
     String[] propArr=SEMI_SPLIT.split(str);
     for (    String propStr : propArr) {
       Matcher kvMatcher=KEY_VALUE.matcher(propStr);
-      if (!kvMatcher.matches())       continue;
+      if (!kvMatcher.matches()) {
+        continue;
+      }
       String key=kvMatcher.group(1);
-      if (map.containsKey(key))       throw new IllegalArgumentException(String.format("Duplicate key: %s",key));
+      if (map.containsKey(key)) {
+        throw new IllegalArgumentException(String.format("Duplicate key: %s",key));
+      }
       String value=kvMatcher.group(2).trim();
       map.put(key,value);
     }

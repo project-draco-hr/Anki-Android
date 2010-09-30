@@ -2,7 +2,9 @@
   ArrayList<String> files=new ArrayList<String>();
   String[] errors=fileList();
   for (  String file : errors) {
-    if (file.endsWith(".stacktrace"))     files.add(file);
+    if (file.endsWith(".stacktrace")) {
+      files.add(file);
+    }
   }
   return files;
 }

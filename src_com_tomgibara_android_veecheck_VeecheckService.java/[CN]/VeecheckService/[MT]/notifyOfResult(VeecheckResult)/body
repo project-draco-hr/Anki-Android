@@ -1,5 +1,7 @@
 {
-  if (result == null)   return;
+  if (result == null) {
+    return;
+  }
   VeecheckNotifier notifier=createNotifier();
   Intent intent=notifier.createIntent(result.action,result.data,result.type,result.extras);
   if (intent == null) {

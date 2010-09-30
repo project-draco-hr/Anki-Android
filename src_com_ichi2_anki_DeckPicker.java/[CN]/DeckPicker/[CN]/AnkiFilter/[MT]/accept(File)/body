@@ -1,4 +1,6 @@
 {
-  if (pathname.isFile() && pathname.getName().endsWith(".anki"))   return true;
+  if (pathname.isFile() && pathname.getName().endsWith(".anki")) {
+    return true;
+  }
   return false;
 }

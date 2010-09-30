@@ -1,5 +1,5 @@
 {
-  SharedPreferences preferences=PrefSettings.getSharedPrefs(instance);
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(sInstance);
   String username=preferences.getString("username","");
   String password=preferences.getString("password","");
   if (!username.equalsIgnoreCase("") && !password.equalsIgnoreCase("")) {

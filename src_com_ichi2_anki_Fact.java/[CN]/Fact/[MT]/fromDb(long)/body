@@ -9,13 +9,15 @@
       return false;
     }
     this.id=cursor.getLong(0);
-    this.modelId=cursor.getLong(1);
-    this.created=cursor.getDouble(2);
-    this.modified=cursor.getDouble(3);
-    this.tags=cursor.getString(4);
+    modelId=cursor.getLong(1);
+    created=cursor.getDouble(2);
+    modified=cursor.getDouble(3);
+    tags=cursor.getString(4);
   }
   finally {
-    if (cursor != null)     cursor.close();
+    if (cursor != null) {
+      cursor.close();
+    }
   }
   Cursor fieldsCursor=null;
   try {
@@ -33,13 +35,17 @@
         currentFieldModel=new FieldModel(fieldModelCursor.getLong(0),fieldModelCursor.getInt(1),fieldModelCursor.getLong(2),fieldModelCursor.getString(3),fieldModelCursor.getString(4));
       }
   finally {
-        if (fieldModelCursor != null)         fieldModelCursor.close();
+        if (fieldModelCursor != null) {
+          fieldModelCursor.close();
+        }
       }
       fields.add(new Field(fieldId,id,currentFieldModel,fieldValue));
     }
   }
   finally {
-    if (fieldsCursor != null)     fieldsCursor.close();
+    if (fieldsCursor != null) {
+      fieldsCursor.close();
+    }
   }
   return true;
 }

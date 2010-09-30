@@ -1,4 +1,10 @@
 {
-  if (mFlipCard.isChecked())   displayCardAnswer();
- else   displayCardQuestion();
+  if (mFlipCard != null) {
+    if (mFlipCard.isChecked()) {
+      displayCardAnswer();
+    }
+ else {
+      displayCardQuestion();
+    }
+  }
 }

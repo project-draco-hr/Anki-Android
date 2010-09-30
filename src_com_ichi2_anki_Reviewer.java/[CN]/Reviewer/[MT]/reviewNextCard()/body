@@ -6,13 +6,17 @@
   mFlipCard.setChecked(false);
   Log.w(TAG,"reviewNextCard - check flipcard in " + (System.currentTimeMillis() - start) + " ms.");
   start=System.currentTimeMillis();
-  if (prefWriteAnswers)   mAnswerField.setText("");
+  if (mPrefWriteAnswers) {
+    mAnswerField.setText("");
+  }
   Log.w(TAG,"reviewNextCard - clear answer field in " + (System.currentTimeMillis() - start) + " ms.");
   start=System.currentTimeMillis();
-  if (prefWhiteboard)   mWhiteboard.clear();
+  if (mPrefWhiteboard) {
+    mWhiteboard.clear();
+  }
   Log.w(TAG,"reviewNextCard - clear whiteboard in " + (System.currentTimeMillis() - start) + " ms.");
   start=System.currentTimeMillis();
-  if (prefTimer) {
+  if (mPrefTimer) {
     mCardTimer.setBase(SystemClock.elapsedRealtime());
     mCardTimer.start();
   }

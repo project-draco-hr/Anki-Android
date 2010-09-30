@@ -16,7 +16,7 @@
   TextView progressText=wrapper.getProgressBarText();
   TextView sharedDeckTitle=wrapper.getDeckTitle();
   TextView sharedDeckFacts=wrapper.getDeckFacts();
-  Object obj=(Object)mAllPersonalDecks.get(position);
+  Object obj=mAllPersonalDecks.get(position);
   if (obj instanceof Download) {
     Download download=(Download)obj;
     sharedDeckTitle.setVisibility(View.GONE);

@@ -33,7 +33,13 @@ mEase3.setEnabled(true);
 mEase4.setEnabled(true);
 break;
 }
-if (prefTimer) mCardTimer.setEnabled(true);
-if (prefWhiteboard) mWhiteboard.setEnabled(true);
-if (prefWriteAnswers) mAnswerField.setEnabled(true);
+if (mPrefTimer) {
+mCardTimer.setEnabled(true);
+}
+if (mPrefWhiteboard) {
+mWhiteboard.setEnabled(true);
+}
+if (mPrefWriteAnswers) {
+mAnswerField.setEnabled(true);
+}
 }
