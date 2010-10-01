@@ -1,0 +1,28 @@
+{
+  Log.i(TAG,"DownloadManagerService - Removing shared preferences of completed or aborted downloads");
+  File dir=new File(mDestination + "/tmp/");
+  File[] fileList=dir.listFiles(new IncompleteDownloadsFilter());
+  HashSet<String> filenames=new HashSet();
+  if (fileList != null) {
+    for (int i=0; i < fileList.length; i++) {
+      File file=fileList[i];
+      filenames.add(file.getName());
+    }
+  }
+  SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
+  Matcher sharedPrefMatcher;
+  Editor editor=pref.edit();
+  boolean sharedPreferencesChanged=false;
+  for (  String key : pref.getAll().keySet()) {
+    sharedPrefMatcher=numUpdatedCardsPattern.matcher(key);
+    if (sharedPrefMatcher.matches() && sharedPrefMatcher.groupCount() > 0) {
+      if (!filenames.contains(sharedPrefMatcher.group(1))) {
+        editor.remove(key);
+        sharedPreferencesChanged=true;
+      }
+    }
+  }
+  if (sharedPreferencesChanged) {
+    editor.commit();
+  }
+}
