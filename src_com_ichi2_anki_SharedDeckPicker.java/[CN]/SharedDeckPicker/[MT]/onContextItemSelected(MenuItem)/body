@@ -1,0 +1,29 @@
+{
+  AdapterView.AdapterContextMenuInfo info=(AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+  Object obj=mAllSharedDecks.get(info.position);
+  if (obj instanceof Download) {
+    Download download=(Download)obj;
+switch (item.getItemId()) {
+case MENU_CANCEL:
+      break;
+case MENU_RESUME:
+    download.setStatus(SharedDeckDownload.UPDATING);
+  Log.w(TAG,"Resuming " + download.getTitle());
+try {
+  startService(mDownloadManagerServiceIntent);
+  mDownloadManagerService.resumeDownloadUpdating(download);
+}
+ catch (RemoteException e) {
+  Log.e(TAG,"RemoteException = " + e.getMessage());
+  e.printStackTrace();
+}
+break;
+case MENU_PAUSE:
+download.setStatus(Download.PAUSED);
+Log.w(TAG,"Paused " + download.getTitle());
+}
+mSharedDecksAdapter.notifyDataSetChanged();
+return true;
+}
+return super.onOptionsItemSelected(item);
+}

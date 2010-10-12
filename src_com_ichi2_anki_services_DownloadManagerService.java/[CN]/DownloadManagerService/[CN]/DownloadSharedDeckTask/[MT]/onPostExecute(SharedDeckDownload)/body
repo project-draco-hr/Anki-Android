@@ -1,7 +1,7 @@
 {
   Log.i(TAG,"onPostExecute");
   SharedDeckDownload sharedDownload=(SharedDeckDownload)download;
-  sharedDownload.setStatus(SharedDeckDownload.UPDATE);
+  sharedDownload.setStatus(SharedDeckDownload.UPDATING);
   notifySharedDeckObservers();
   String unzippedDeckName=unzipSharedDeckFile(mDestination + "/tmp/" + download.getTitle()+ ".zip",sharedDownload.getTitle());
   download.setTitle(unzippedDeckName);

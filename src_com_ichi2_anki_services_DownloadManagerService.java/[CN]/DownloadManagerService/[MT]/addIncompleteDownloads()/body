@@ -24,7 +24,14 @@
  else       if (filename.endsWith(".anki.updating")) {
         String title=filename.substring(0,filename.length() - ".anki.updating".length());
         SharedDeckDownload download=new SharedDeckDownload(title);
-        download.setStatus(SharedDeckDownload.UPDATE);
+        SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
+        String pausedPref="paused:" + mDestination + "/tmp/"+ download.getTitle()+ ".anki.updating";
+        if (pref.getBoolean(pausedPref,false)) {
+          download.setStatus(SharedDeckDownload.PAUSED);
+        }
+ else {
+          download.setStatus(SharedDeckDownload.UPDATING);
+        }
         mSharedDeckDownloads.add(download);
       }
     }

@@ -10,20 +10,24 @@
   mSharedDecksAdapter=new SharedDecksAdapter();
   mSharedDecksListView=(ListView)findViewById(R.id.list);
   mSharedDecksListView.setAdapter(mSharedDecksAdapter);
+  registerForContextMenu(mSharedDecksListView);
   mSharedDecksListView.setOnItemClickListener(new OnItemClickListener(){
     @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
-      SharedDeck selectedDeck=(SharedDeck)mAllSharedDecks.get(position);
-      SharedDeckDownload sharedDeckDownload=new SharedDeckDownload(selectedDeck.getId(),selectedDeck.getTitle());
-      sharedDeckDownload.setSize(selectedDeck.getSize());
-      mSharedDeckDownloads.add(sharedDeckDownload);
-      refreshSharedDecksList();
-      try {
-        startService(mDownloadManagerServiceIntent);
-        mDownloadManagerService.downloadFile(sharedDeckDownload);
-      }
- catch (      RemoteException e) {
-        Log.e(TAG,"RemoteException = " + e.getMessage());
-        e.printStackTrace();
+      Object obj=mAllSharedDecks.get(position);
+      if (obj instanceof SharedDeck) {
+        SharedDeck selectedDeck=(SharedDeck)obj;
+        SharedDeckDownload sharedDeckDownload=new SharedDeckDownload(selectedDeck.getId(),selectedDeck.getTitle());
+        sharedDeckDownload.setSize(selectedDeck.getSize());
+        mSharedDeckDownloads.add(sharedDeckDownload);
+        refreshSharedDecksList();
+        try {
+          startService(mDownloadManagerServiceIntent);
+          mDownloadManagerService.downloadFile(sharedDeckDownload);
+        }
+ catch (        RemoteException e) {
+          Log.e(TAG,"RemoteException = " + e.getMessage());
+          e.printStackTrace();
+        }
       }
     }
   }
