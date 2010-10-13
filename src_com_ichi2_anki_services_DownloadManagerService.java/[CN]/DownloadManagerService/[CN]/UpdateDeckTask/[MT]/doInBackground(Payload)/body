@@ -39,6 +39,10 @@
       editor.putBoolean(pausedPref,true);
       editor.commit();
       data.success=false;
+      Log.i(TAG,"pausing deck " + download.getTitle());
+    }
+ else     if (download.getStatus() == SharedDeckDownload.CANCELLED) {
+      data.success=false;
     }
   }
  else {
