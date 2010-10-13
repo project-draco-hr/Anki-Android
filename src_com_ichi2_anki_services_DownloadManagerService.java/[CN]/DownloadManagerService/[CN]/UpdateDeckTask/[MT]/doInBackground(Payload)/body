@@ -39,7 +39,6 @@
       editor.putBoolean(pausedPref,true);
       editor.commit();
       data.success=false;
-      Log.w(TAG,"updated paused " + download.getTitle() + " "+ updatedCards+ "/"+ totalCards);
     }
   }
  else {

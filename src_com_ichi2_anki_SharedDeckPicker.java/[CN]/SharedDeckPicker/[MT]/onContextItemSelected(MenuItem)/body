@@ -5,10 +5,10 @@
     Download download=(Download)obj;
 switch (item.getItemId()) {
 case MENU_CANCEL:
-      break;
+      download.setStatus(SharedDeckDownload.CANCELLED);
+    break;
 case MENU_RESUME:
-    download.setStatus(SharedDeckDownload.UPDATING);
-  Log.w(TAG,"Resuming " + download.getTitle());
+  download.setStatus(SharedDeckDownload.UPDATING);
 try {
   startService(mDownloadManagerServiceIntent);
   mDownloadManagerService.resumeDownloadUpdating(download);
@@ -20,7 +20,7 @@ try {
 break;
 case MENU_PAUSE:
 download.setStatus(Download.PAUSED);
-Log.w(TAG,"Paused " + download.getTitle());
+break;
 }
 mSharedDecksAdapter.notifyDataSetChanged();
 return true;

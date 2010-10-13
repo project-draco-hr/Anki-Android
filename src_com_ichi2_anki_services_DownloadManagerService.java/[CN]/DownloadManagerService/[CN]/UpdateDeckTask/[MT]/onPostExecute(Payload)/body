@@ -5,17 +5,37 @@
   if (deck != null) {
     deck.closeDeck();
   }
+  SharedDeckDownload download=(SharedDeckDownload)result.data[0];
+  SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
+  Editor editor=pref.edit();
   if (result.success) {
-    SharedDeckDownload download=(SharedDeckDownload)result.data[0];
-    SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
-    Editor editor=pref.edit();
     editor.putLong("numUpdatedCards:" + mDestination + "/tmp/"+ download.getTitle()+ ".anki.updating",0);
     editor.commit();
     new File(mDestination + "/tmp/" + download.getTitle()+ ".anki.updating").renameTo(new File(mDestination + "/" + download.getTitle()+ ".anki"));
     new File(mDestination + "/tmp/" + download.getTitle()+ ".media/").renameTo(new File(mDestination + "/" + download.getTitle()+ ".media/"));
     mSharedDeckDownloads.remove(download);
-    notifySharedDeckObservers();
     showNotification(download.getTitle());
-    stopIfFinished();
   }
+ else {
+    if (download.getStatus() == Download.CANCELLED) {
+      try {
+        new File(mDestination + "/tmp/" + download.getTitle()+ ".anki.updating").delete();
+        File mediaFolder=new File(mDestination + "/tmp/" + download.getTitle()+ ".media/");
+        for (        File f : mediaFolder.listFiles()) {
+          f.delete();
+        }
+        mediaFolder.delete();
+      }
+ catch (      SecurityException e) {
+        Log.e(TAG,"SecurityException = " + e.getMessage());
+        e.printStackTrace();
+      }
+      editor.remove("numUpdatedCards:" + mDestination + "/tmp/"+ download.getTitle()+ ".anki.updating");
+      editor.remove("paused:" + mDestination + "/tmp/"+ download.getTitle()+ ".anki.updating");
+      editor.commit();
+      mSharedDeckDownloads.remove(download);
+    }
+  }
+  notifySharedDeckObservers();
+  stopIfFinished();
 }

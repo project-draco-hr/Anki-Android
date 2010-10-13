@@ -53,6 +53,9 @@
       new File(mDestination + "/tmp/" + download.getTitle()+ "."+ download.getId()+ ".shared.zip.tmp").renameTo(new File(mDestination + "/tmp/" + download.getTitle()+ ".zip"));
       publishProgress();
     }
+ else     if (download.getStatus() == Download.CANCELLED) {
+      new File(mDestination + "/tmp/" + download.getTitle()+ "."+ download.getId()+ ".shared.zip.tmp").delete();
+    }
     long finishTime=System.currentTimeMillis();
     Log.i(TAG,"Finished in " + ((finishTime - startTime) / 1000) + " seconds!");
     Log.i(TAG,"Downloaded = " + download.getDownloaded());

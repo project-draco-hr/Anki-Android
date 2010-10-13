@@ -45,7 +45,6 @@ progressBar.setProgress(download.getProgress());
 break;
 case Download.PAUSED:
 progressText.setText(res.getString(R.string.paused));
-Log.w(TAG,"progress of paused " + download.getTitle() + " "+ ((SharedDeckDownload)download).getNumUpdatedCards()+ "/"+ ((SharedDeckDownload)download).getNumTotalCards());
 estimatedText.setText("");
 progressBar.setProgress(download.getProgress());
 break;
@@ -57,6 +56,11 @@ break;
 case SharedDeckDownload.UPDATING:
 progressText.setText(res.getString(R.string.updating));
 estimatedText.setText(download.getEstTimeToCompletion());
+progressBar.setProgress(download.getProgress());
+break;
+case Download.CANCELLED:
+progressText.setText(res.getString(R.string.cancelling));
+estimatedText.setText("");
 progressBar.setProgress(download.getProgress());
 break;
 default :
@@ -91,6 +95,5 @@ sharedDeckFacts.setText(numFacts + " " + res.getString(R.string.facts));
 }
 sharedDeckFacts.setVisibility(View.VISIBLE);
 }
-Log.w(TAG,"Position " + position + " "+ row.isClickable()+ " "+ row.isLongClickable()+ " "+ row.isFocused()+ " "+ row.isEnabled()+ " "+ row.isFocusable()+ " "+ row.isFocusableInTouchMode());
 return row;
 }
