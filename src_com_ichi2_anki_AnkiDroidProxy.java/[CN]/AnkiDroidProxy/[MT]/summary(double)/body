@@ -1,10 +1,8 @@
 {
   Log.i(TAG,"Summary Server");
-  Log.i(TAG,"user = " + username + ", password = "+ password+ ", lastSync = "+ lastSync);
   JSONObject summaryServer=new JSONObject();
   try {
     String data="p=" + URLEncoder.encode(password,"UTF-8") + "&u="+ URLEncoder.encode(username,"UTF-8")+ "&d="+ URLEncoder.encode(deckName,"UTF-8")+ "&lastSync="+ URLEncoder.encode(Base64.encodeBytes(Utils.compress(String.format(ENGLISH_LOCALE,"%f",lastSync).getBytes())),"UTF-8")+ "&base64="+ URLEncoder.encode("true","UTF-8");
-    Log.i(TAG,"Data json = " + data);
     HttpPost httpPost=new HttpPost(SYNC_URL + "summary");
     StringEntity entity=new StringEntity(data);
     httpPost.setEntity(entity);
