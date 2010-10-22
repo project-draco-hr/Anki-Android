@@ -1,6 +1,12 @@
 {
+  Log.i(TAG,"on post execute");
   if (download.getStatus() == Download.COMPLETE) {
     showNotification(download.getTitle());
+  }
+ else   if (download.getStatus() == Download.ERROR) {
+    Log.i(TAG,"deleting file");
+    new File(mDestination + "/tmp/" + download.getTitle()+ ".anki.tmp").delete();
+    Log.e(TAG,"Error while downloading personal deck.");
   }
   mPersonalDeckDownloads.remove(download);
   notifyPersonalDeckObservers();

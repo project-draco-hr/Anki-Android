@@ -1,5 +1,6 @@
 {
   super.onPause();
+  Log.i(TAG,"onpause kostas");
   if (mDownloadManagerService != null) {
     try {
       mDownloadManagerService.unregisterPersonalDeckCallback(mCallback);
