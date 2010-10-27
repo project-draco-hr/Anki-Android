@@ -8,16 +8,17 @@
     SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
     String updatedCardsPref="numUpdatedCards:" + mDestination + "/tmp/"+ download.getTitle()+ ".anki.updating";
     long totalCards=deck.getCardCount();
-    long updatedCards=pref.getLong(updatedCardsPref,0);
-    long batchSize=Math.max(100,totalCards / 200);
     download.setNumTotalCards((int)totalCards);
+    long updatedCards=pref.getLong(updatedCardsPref,0);
+    download.setNumUpdatedCards((int)updatedCards);
+    long batchSize=Math.max(100,totalCards / 200);
     recentBatchTimings=new long[runningAvgLength];
     totalBatches=((double)totalCards) / batchSize;
     int currentBatch=(int)(updatedCards / batchSize);
     long runningAvgCount=0;
     long batchStart;
     elapsedTime=0;
-    while (updatedCards < totalCards) {
+    while (updatedCards < totalCards && download.getStatus() == SharedDeckDownload.UPDATING) {
       batchStart=System.currentTimeMillis();
       updatedCards=deck.updateAllCardsFromPosition(updatedCards,batchSize);
       Editor editor=pref.edit();
@@ -29,7 +30,20 @@
       currentBatch++;
       runningAvgCount++;
     }
-    Log.i(TAG,"Time to update deck = " + download.getEstTimeToCompletion() + " sec.");
+    if (download.getStatus() == SharedDeckDownload.UPDATING) {
+      data.success=true;
+    }
+ else     if (download.getStatus() == SharedDeckDownload.PAUSED) {
+      Editor editor=pref.edit();
+      String pausedPref="paused:" + mDestination + "/tmp/"+ download.getTitle()+ ".anki.updating";
+      editor.putBoolean(pausedPref,true);
+      editor.commit();
+      data.success=false;
+      Log.i(TAG,"pausing deck " + download.getTitle());
+    }
+ else     if (download.getStatus() == SharedDeckDownload.CANCELLED) {
+      data.success=false;
+    }
   }
  else {
     data.success=false;

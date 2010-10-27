@@ -1,5 +1,5 @@
 {
-  if (status == UPDATE) {
+  if (status == UPDATING || status == PAUSED) {
     if (numTotalCards > 0) {
       return (int)(((float)numUpdatedCards / numTotalCards) * 100);
     }

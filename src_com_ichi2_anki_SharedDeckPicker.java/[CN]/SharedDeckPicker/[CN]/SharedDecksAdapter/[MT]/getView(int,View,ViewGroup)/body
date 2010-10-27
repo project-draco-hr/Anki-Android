@@ -46,15 +46,21 @@ break;
 case Download.PAUSED:
 progressText.setText(res.getString(R.string.paused));
 estimatedText.setText("");
+progressBar.setProgress(download.getProgress());
 break;
 case Download.COMPLETE:
 progressText.setText(res.getString(R.string.downloaded));
 estimatedText.setText("");
 progressBar.setProgress(0);
 break;
-case SharedDeckDownload.UPDATE:
+case SharedDeckDownload.UPDATING:
 progressText.setText(res.getString(R.string.updating));
 estimatedText.setText(download.getEstTimeToCompletion());
+progressBar.setProgress(download.getProgress());
+break;
+case Download.CANCELLED:
+progressText.setText(res.getString(R.string.cancelling));
+estimatedText.setText("");
 progressBar.setProgress(download.getProgress());
 break;
 default :
