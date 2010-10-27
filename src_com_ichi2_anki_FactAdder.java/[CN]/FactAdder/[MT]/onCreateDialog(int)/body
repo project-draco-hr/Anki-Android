@@ -1,0 +1,31 @@
+{
+  Dialog dialog;
+switch (id) {
+case DIALOG_MODEL_SELECT:
+    ArrayList<CharSequence> dialogItems=new ArrayList<CharSequence>();
+  final ArrayList<Long> dialogIds=new ArrayList<Long>();
+Model mModel;
+AlertDialog.Builder builder=new AlertDialog.Builder(this);
+builder.setTitle("Select Model:");
+for (Long i : models.keySet()) {
+mModel=models.get(i);
+dialogItems.add(mModel.name);
+dialogIds.add(i);
+}
+CharSequence items[]=new CharSequence[dialogItems.size()];
+dialogItems.toArray(items);
+builder.setItems(items,new DialogInterface.OnClickListener(){
+public void onClick(DialogInterface dialog,int item){
+currentSelectedModelId=dialogIds.get(item);
+modelButton.setText(models.get(currentSelectedModelId).name);
+Log.i("Debug: id: ",dialogIds.get(item).toString());
+}
+}
+);
+AlertDialog alert=builder.create();
+return alert;
+default :
+dialog=null;
+}
+return dialog;
+}
