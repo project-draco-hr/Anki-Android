@@ -10,16 +10,15 @@
     ankiDB.database.execSQL("DELETE FROM cards WHERE id in " + idsString);
     String sqlInsert="INSERT INTO cardsDeleted values (?," + String.format(ENGLISH_LOCALE,"%f",now) + ")";
     SQLiteStatement statement=ankiDB.database.compileStatement(sqlInsert);
-    for (int i=0; i < len; i++) {
-      statement.bindString(1,ids.get(i));
+    for (    String id : ids) {
+      statement.bindString(1,id);
       statement.executeInsert();
     }
     statement.close();
     ArrayList<String> tags=ankiDB.queryColumn(String.class,"SELECT tagId FROM cardTags WHERE cardId in " + idsString,0);
     ankiDB.database.execSQL("DELETE FROM cardTags WHERE cardId in " + idsString);
     ArrayList<String> unusedTags=new ArrayList<String>();
-    for (int i=0; i < tags.size(); i++) {
-      String tagId=tags.get(i);
+    for (    String tagId : tags) {
       Cursor cursor=ankiDB.database.rawQuery("SELECT * FROM cardTags WHERE tagId = " + tagId + " LIMIT 1",null);
       if (!cursor.moveToFirst()) {
         unusedTags.add(tagId);

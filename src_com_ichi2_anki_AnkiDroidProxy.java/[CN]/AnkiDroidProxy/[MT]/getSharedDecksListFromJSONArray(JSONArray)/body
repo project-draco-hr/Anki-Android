@@ -1,7 +1,8 @@
 {
   List<SharedDeck> sharedDecks=new ArrayList<SharedDeck>();
   if (jsonSharedDecks != null) {
-    for (int i=0; i < jsonSharedDecks.length(); i++) {
+    int nbDecks=jsonSharedDecks.length();
+    for (int i=0; i < nbDecks; i++) {
       JSONArray jsonSharedDeck=jsonSharedDecks.getJSONArray(i);
       SharedDeck sharedDeck=new SharedDeck();
       sharedDeck.setId(jsonSharedDeck.getInt(R_ID));

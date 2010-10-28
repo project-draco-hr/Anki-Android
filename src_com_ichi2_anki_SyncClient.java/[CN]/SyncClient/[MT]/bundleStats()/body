@@ -8,9 +8,8 @@
     Stats stat=new Stats(deck);
     bundledStats.put("global",bundleStat(Stats.globalStats(deck)));
     JSONArray dailyStats=new JSONArray();
-    int len=ids.size();
-    for (int i=0; i < len; i++) {
-      stat.fromDB(ids.get(i));
+    for (    Long id : ids) {
+      stat.fromDB(id);
       dailyStats.put(bundleStat(stat));
     }
     bundledStats.put("daily",dailyStats);

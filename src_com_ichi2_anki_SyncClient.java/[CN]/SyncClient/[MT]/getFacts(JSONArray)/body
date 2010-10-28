@@ -3,7 +3,8 @@
   JSONObject facts=new JSONObject();
   JSONArray factsArray=new JSONArray();
   JSONArray fieldsArray=new JSONArray();
-  for (int i=0; i < ids.length(); i++) {
+  int len=ids.length();
+  for (int i=0; i < len; i++) {
     try {
       Long id=ids.getLong(i);
       factsArray.put(getFact(id));

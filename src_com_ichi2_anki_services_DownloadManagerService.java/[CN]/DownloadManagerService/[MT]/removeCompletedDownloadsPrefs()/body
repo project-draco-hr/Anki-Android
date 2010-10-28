@@ -4,8 +4,7 @@
   File[] fileList=dir.listFiles(new IncompleteDownloadsFilter());
   HashSet<String> filenames=new HashSet();
   if (fileList != null) {
-    for (int i=0; i < fileList.length; i++) {
-      File file=fileList[i];
+    for (    File file : fileList) {
       filenames.add(file.getName());
     }
   }

@@ -51,9 +51,7 @@
   }
   statement.close();
   ArrayList<String> fieldModelsIds=ankiDB.queryColumn(String.class,"SELECT id FROM fieldModels WHERE modelId = " + modelId,0);
-  int lenFieldModelsIds=fieldModelsIds.size();
-  for (int i=0; i < lenFieldModelsIds; i++) {
-    String fieldModelId=fieldModelsIds.get(i);
+  for (  String fieldModelId : fieldModelsIds) {
     if (!ids.contains(fieldModelId)) {
       deck.deleteFieldModel(modelId,fieldModelId);
     }

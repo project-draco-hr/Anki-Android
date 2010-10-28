@@ -2,7 +2,8 @@
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
   ArrayList<String> factTagsList=factTags(factIds);
   long tagId=tagId(tag,false);
-  for (int i=0; i < factTagsList.size(); i++) {
+  int nbFactTags=factTagsList.size();
+  for (int i=0; i < nbFactTags; i++) {
     String factTags=factTagsList.get(i);
     String newTags=factTags;
     int tagIdx=factTags.indexOf(tag);
@@ -25,8 +26,7 @@
     }
   }
   ArrayList<String> cardIdList=ankiDB.queryColumn(String.class,"select id from cards where factId in " + Utils.ids2str(factIds),0);
-  for (int i=0; i < cardIdList.size(); i++) {
-    String cardId=cardIdList.get(i);
+  for (  String cardId : cardIdList) {
     ankiDB.database.execSQL("delete from cardTags" + " WHERE cardId = " + cardId + " and tagId = "+ tagId+ " and src = 0");
   }
   try {

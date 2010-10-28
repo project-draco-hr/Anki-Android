@@ -12,9 +12,9 @@
     ankiDB.database.execSQL("DELETE FROM fields WHERE factId in " + idsString);
     String sqlInsert="INSERT INTO factsDeleted VALUES(?," + String.format(ENGLISH_LOCALE,"%f",now) + ")";
     SQLiteStatement statement=ankiDB.database.compileStatement(sqlInsert);
-    for (int i=0; i < len; i++) {
+    for (    String id : ids) {
       Log.i(TAG,"inserting into factsDeleted");
-      statement.bindString(1,ids.get(i));
+      statement.bindString(1,id);
       statement.executeInsert();
     }
     statement.close();

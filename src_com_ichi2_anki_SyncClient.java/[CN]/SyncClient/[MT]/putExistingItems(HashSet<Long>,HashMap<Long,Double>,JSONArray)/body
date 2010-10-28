@@ -1,5 +1,6 @@
 {
-  for (int i=0; i < existingItems.length(); i++) {
+  int nbItems=existingItems.length();
+  for (int i=0; i < nbItems; i++) {
     try {
       JSONArray itemModified=existingItems.getJSONArray(i);
       Long idItem=itemModified.getLong(0);

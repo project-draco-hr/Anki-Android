@@ -4,7 +4,8 @@
     Log.i(TAG,"deck.lastSync <= 0");
     return true;
   }
-  for (int i=0; i < sums.length(); i++) {
+  int len=sums.length();
+  for (int i=0; i < len; i++) {
     try {
       JSONObject summary=sums.getJSONObject(i);
       Iterator keys=summary.keys();

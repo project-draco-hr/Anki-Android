@@ -1,6 +1,7 @@
 {
   HashMap<Long,Double> deletedIds=new HashMap<Long,Double>();
-  for (int i=0; i < deletedItems.length(); i++) {
+  int nbItems=deletedItems.length();
+  for (int i=0; i < nbItems; i++) {
     try {
       JSONArray itemModified=deletedItems.getJSONArray(i);
       Long idItem=itemModified.getLong(0);
