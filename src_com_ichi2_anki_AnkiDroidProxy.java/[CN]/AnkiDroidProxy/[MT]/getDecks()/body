@@ -1,9 +1,7 @@
 {
-  Log.i(TAG,"getDecks - user = " + username + ", password = "+ password);
   String decksServer="{}";
   try {
     String data="p=" + URLEncoder.encode(password,"UTF-8") + "&client=ankidroid-0.4&u="+ URLEncoder.encode(username,"UTF-8")+ "&d=None&sources="+ URLEncoder.encode("[]","UTF-8")+ "&libanki=0.9.9.8.6&pversion=5";
-    Log.i(TAG,"Data json = " + data);
     HttpPost httpPost=new HttpPost(SYNC_URL + "getDecks");
     StringEntity entity=new StringEntity(data);
     httpPost.setEntity(entity);

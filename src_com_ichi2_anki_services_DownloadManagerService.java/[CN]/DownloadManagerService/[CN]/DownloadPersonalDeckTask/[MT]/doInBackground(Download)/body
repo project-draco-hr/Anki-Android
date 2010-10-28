@@ -40,7 +40,7 @@
     file=new RandomAccessFile(mDestination + "/tmp/" + download.getTitle()+ ".anki.tmp","rw");
     iis=new InflaterInputStream(connection.getInputStream());
     while (download.getStatus() == Download.DOWNLOADING) {
-      Log.i(TAG,"Downloading... " + download.getDownloaded());
+      Log.v(TAG,"Downloading... " + download.getDownloaded());
       byte buffer[];
       buffer=new byte[MAX_BUFFER_SIZE];
       int read=iis.read(buffer);
@@ -54,11 +54,15 @@
     if (download.getStatus() == Download.DOWNLOADING) {
       download.setStatus(Download.COMPLETE);
       new File(mDestination + "/tmp/" + download.getTitle()+ ".anki.tmp").renameTo(new File(mDestination + "/" + download.getTitle()+ ".anki"));
-      publishProgress();
+      long finishTime=System.currentTimeMillis();
+      Log.i(TAG,"Finished in " + ((finishTime - startTime) / 1000) + " seconds!");
+      Log.i(TAG,"Downloaded = " + download.getDownloaded());
     }
-    long finishTime=System.currentTimeMillis();
-    Log.i(TAG,"Finished in " + ((finishTime - startTime) / 1000) + " seconds!");
-    Log.i(TAG,"Downloaded = " + download.getDownloaded());
+ else     if (download.getStatus() == Download.CANCELLED) {
+      new File(mDestination + "/tmp/" + download.getTitle()+ ".anki.tmp").delete();
+      Log.i(TAG,"Download cancelled.");
+    }
+    publishProgress();
     connection.disconnect();
   }
  catch (  Exception e) {
@@ -68,18 +72,24 @@
     publishProgress();
   }
  finally {
+    Log.i(TAG,"finally");
     if (file != null) {
       try {
+        Log.i(TAG,"closing file");
         file.close();
       }
  catch (      Exception e) {
+        Log.i(TAG,"exception closing file");
       }
     }
     if (iis != null) {
       try {
+        Log.i(TAG,"closing iis");
         iis.close();
+        Log.i(TAG,"closed iis");
       }
  catch (      Exception e) {
+        Log.i(TAG,"exception closing iis: " + e.getMessage());
       }
     }
   }
