@@ -1,5 +1,5 @@
 {
-  Log.i(TAG,"onPostExecute");
+  Log.i(AnkiDroidApp.TAG,"onPostExecute");
   if (download.getStatus() == Download.COMPLETE) {
     download.setStatus(SharedDeckDownload.UPDATING);
     notifySharedDeckObservers();

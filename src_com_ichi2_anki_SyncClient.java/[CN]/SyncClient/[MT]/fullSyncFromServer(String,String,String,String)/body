@@ -7,20 +7,20 @@
     httpPost.setHeader("Content-type","application/x-www-form-urlencoded");
     DefaultHttpClient httpClient=new DefaultHttpClient();
     HttpResponse response=httpClient.execute(httpPost);
-    Log.i(TAG,"Response = " + response.toString());
+    Log.i(AnkiDroidApp.TAG,"Response = " + response.toString());
     HttpEntity entityResponse=response.getEntity();
-    Log.i(TAG,"Entity's response = " + entityResponse.toString());
+    Log.i(AnkiDroidApp.TAG,"Entity's response = " + entityResponse.toString());
     InputStream content=entityResponse.getContent();
-    Log.i(TAG,"Content = " + content.toString());
+    Log.i(AnkiDroidApp.TAG,"Content = " + content.toString());
     Utils.writeToFile(new InflaterInputStream(content),deckPath);
   }
  catch (  UnsupportedEncodingException e) {
     e.printStackTrace();
   }
 catch (  ClientProtocolException e) {
-    Log.i(TAG,"ClientProtocolException = " + e.getMessage());
+    Log.i(AnkiDroidApp.TAG,"ClientProtocolException = " + e.getMessage());
   }
 catch (  IOException e) {
-    Log.i(TAG,"IOException = " + e.getMessage());
+    Log.i(AnkiDroidApp.TAG,"IOException = " + e.getMessage());
   }
 }

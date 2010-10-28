@@ -1,12 +1,12 @@
 {
-  Log.i(TAG,"Thread run - Beginning");
+  Log.i(AnkiDroidApp.TAG,"Thread run - Beginning");
   if (mFileList != null && mFileList.length > 0) {
     mLock.lock();
     try {
-      Log.i(TAG,"Thread run - Inside lock");
+      Log.i(AnkiDroidApp.TAG,"Thread run - Inside lock");
       mIsFinished=false;
       for (      File file : mFileList) {
-        Log.i(TAG,"Thread run - Before break mDeckIsSelected = " + mDeckIsSelected);
+        Log.i(AnkiDroidApp.TAG,"Thread run - Before break mDeckIsSelected = " + mDeckIsSelected);
         if (mDeckIsSelected) {
           break;
         }
@@ -16,7 +16,7 @@
           deck=Deck.openDeck(path);
         }
  catch (        SQLException e) {
-          Log.w(TAG,"Could not open database " + path);
+          Log.w(AnkiDroidApp.TAG,"Could not open database " + path);
           continue;
         }
         int dueCards=deck.failedSoonCount + deck.revCount;

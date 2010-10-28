@@ -1,5 +1,5 @@
 {
-  Log.i(TAG,"answerCard");
+  Log.i(AnkiDroidApp.TAG,"answerCard");
   Cursor cursor=null;
   String undoName="Answer Card";
   setUndoStart(undoName);
@@ -75,9 +75,9 @@
   try {
     cursor=ankiDB.database.rawQuery("SELECT type, count(type) " + "FROM cards " + "WHERE factId = " + card.factId + " and "+ "(isDue = 1 "+ extra+ ") "+ "GROUP BY type",null);
     while (cursor.moveToNext()) {
-      Log.i(TAG,"failedSoonCount before = " + failedSoonCount);
-      Log.i(TAG,"revCount before = " + revCount);
-      Log.i(TAG,"newCount before = " + newCount);
+      Log.i(AnkiDroidApp.TAG,"failedSoonCount before = " + failedSoonCount);
+      Log.i(AnkiDroidApp.TAG,"revCount before = " + revCount);
+      Log.i(AnkiDroidApp.TAG,"newCount before = " + newCount);
       if (cursor.getInt(0) == 0) {
         failedSoonCount-=cursor.getInt(1);
       }
@@ -87,9 +87,9 @@
  else {
         newCount-=cursor.getInt(1);
       }
-      Log.i(TAG,"failedSoonCount after = " + failedSoonCount);
-      Log.i(TAG,"revCount after = " + revCount);
-      Log.i(TAG,"newCount after = " + newCount);
+      Log.i(AnkiDroidApp.TAG,"failedSoonCount after = " + failedSoonCount);
+      Log.i(AnkiDroidApp.TAG,"revCount after = " + revCount);
+      Log.i(AnkiDroidApp.TAG,"newCount after = " + newCount);
     }
   }
   finally {

@@ -1,5 +1,5 @@
 {
-  Log.i(TAG,"updateCard");
+  Log.i(AnkiDroidApp.TAG,"updateCard");
   mUpdateCardStartTime=System.currentTimeMillis();
   content=Sound.parseSounds(mDeckFilename,content);
   content=content.replace("font-weight:600;","font-weight:700;");
@@ -15,7 +15,7 @@
     mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
   }
   String card=mCardTemplate.replace("::content::",content);
-  Log.i(TAG,"card html = \n" + card);
+  Log.i(AnkiDroidApp.TAG,"card html = \n" + card);
   mCard.loadDataWithBaseURL("file://" + mDeckFilename.replace(".anki",".media/"),card,"text/html","utf-8",null);
   Sound.playSounds();
 }

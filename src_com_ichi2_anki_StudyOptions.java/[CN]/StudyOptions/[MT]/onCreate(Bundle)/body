@@ -1,6 +1,6 @@
 {
   super.onCreate(savedInstanceState);
-  Log.i(TAG,"StudyOptions Activity");
+  Log.i(AnkiDroidApp.TAG,"StudyOptions Activity");
   if (hasErrorFiles()) {
     Intent i=new Intent(this,ErrorReporter.class);
     startActivityForResult(i,REPORT_ERROR);
@@ -13,16 +13,16 @@
   Intent intent=getIntent();
   if ("android.intent.action.VIEW".equalsIgnoreCase(intent.getAction()) && intent.getDataString() != null) {
     deckFilename=Uri.parse(intent.getDataString()).getPath();
-    Log.i(TAG,"onCreate - deckFilename from intent: " + deckFilename);
+    Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from intent: " + deckFilename);
   }
  else   if (savedInstanceState != null) {
     deckFilename=savedInstanceState.getString("deckFilename");
-    Log.i(TAG,"onCreate - deckFilename from savedInstanceState: " + deckFilename);
+    Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from savedInstanceState: " + deckFilename);
   }
  else {
-    Log.i(TAG,"onCreate - " + preferences.getAll().toString());
+    Log.i(AnkiDroidApp.TAG,"onCreate - " + preferences.getAll().toString());
     deckFilename=preferences.getString("deckFilename",null);
-    Log.i(TAG,"onCreate - deckFilename from preferences: " + deckFilename);
+    Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from preferences: " + deckFilename);
   }
   if (!sdCardAvailable) {
     showContentView(CONTENT_NO_EXTERNAL_STORAGE);

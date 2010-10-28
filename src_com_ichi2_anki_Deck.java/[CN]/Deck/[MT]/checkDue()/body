@@ -1,5 +1,5 @@
 {
-  Log.i(TAG,"Checking due cards...");
+  Log.i(AnkiDroidApp.TAG,"Checking due cards...");
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
   checkDailyStats();
   ContentValues val=new ContentValues(1);
@@ -29,5 +29,5 @@ cursor.close();
 }
 }
 newCountToday=Math.max(Math.min(newCount,newCardsPerDay - newCardsToday()),0);
-Log.i(TAG,"newCountToday = Math.max(Math.min(newCount, newCardsPerDay - newCardsToday()), 0) : " + newCountToday);
+Log.i(AnkiDroidApp.TAG,"newCountToday = Math.max(Math.min(newCount, newCardsPerDay - newCardsToday()), 0) : " + newCountToday);
 }

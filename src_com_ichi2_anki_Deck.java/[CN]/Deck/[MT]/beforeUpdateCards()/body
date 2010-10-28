@@ -3,5 +3,5 @@
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
   ankiDB.database.execSQL("PRAGMA synchronous=NORMAL");
   ankiDB.database.execSQL("DROP INDEX IF EXISTS ix_cards_sort");
-  Log.w(TAG,"BEFORE UPDATE = " + (System.currentTimeMillis() - now));
+  Log.w(AnkiDroidApp.TAG,"BEFORE UPDATE = " + (System.currentTimeMillis() - now));
 }

@@ -1,5 +1,5 @@
 {
-  Log.i(TAG,"deleteMedia");
+  Log.i(AnkiDroidApp.TAG,"deleteMedia");
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.deckPath);
   String idsString=Utils.ids2str(ids);
   ArrayList<String> files=ankiDB.queryColumn(String.class,"SELECT filename FROM media WHERE id IN " + idsString,0);
@@ -9,15 +9,15 @@
   int len=ids.length();
   for (int i=0; i < len; i++) {
     try {
-      Log.i(TAG,"Inserting media " + ids.getLong(i) + " into mediaDeleted");
+      Log.i(AnkiDroidApp.TAG,"Inserting media " + ids.getLong(i) + " into mediaDeleted");
       statement.bindLong(1,ids.getLong(i));
       statement.executeInsert();
     }
  catch (    JSONException e) {
-      Log.i(TAG,"JSONException = " + e.getMessage());
+      Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
     }
   }
   statement.close();
-  Log.i(TAG,"Deleting media in = " + idsString);
+  Log.i(AnkiDroidApp.TAG,"Deleting media in = " + idsString);
   ankiDB.database.execSQL("DELETE FROM media WHERE id IN " + idsString);
 }

@@ -1,6 +1,6 @@
 {
   super.onDestroy();
-  Log.i(TAG,"DeckPicker - onDestroy()");
+  Log.i(AnkiDroidApp.TAG,"DeckPicker - onDestroy()");
   if (mUnmountReceiver != null) {
     unregisterReceiver(mUnmountReceiver);
   }

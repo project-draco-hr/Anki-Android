@@ -1,5 +1,5 @@
 {
-  Log.i(TAG,"applyPayloadReply");
+  Log.i(AnkiDroidApp.TAG,"applyPayloadReply");
   Keys[] keys=Keys.values();
   for (int i=0; i < keys.length; i++) {
     String key=keys[i].name();
@@ -17,7 +17,7 @@
     }
   }
  catch (  JSONException e) {
-    Log.i(TAG,"JSONException = " + e.getMessage());
+    Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
   }
   deck.commitToDB();
   try {
@@ -31,6 +31,6 @@
     deck.rebuildCounts(false);
   }
  catch (  JSONException e) {
-    Log.i(TAG,"JSONException = " + e.getMessage());
+    Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
   }
 }

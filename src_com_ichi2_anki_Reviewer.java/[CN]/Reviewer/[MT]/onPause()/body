@@ -1,6 +1,6 @@
 {
   super.onPause();
-  Log.i(TAG,"Reviewer - onPause()");
+  Log.i(AnkiDroidApp.TAG,"Reviewer - onPause()");
   Deck deck=AnkiDroidApp.deck();
   deck.commitToDB();
   Sound.stopSounds();

@@ -1,6 +1,6 @@
 {
   super.onCreate();
-  Log.i(TAG,"Service - onCreate");
+  Log.i(AnkiDroidApp.TAG,"Service - onCreate");
   mPersonalDeckDownloads=new ArrayList<Download>();
   mSharedDeckDownloads=new ArrayList<SharedDeckDownload>();
   restorePreferences();

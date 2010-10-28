@@ -1,6 +1,6 @@
 {
   Cursor cursor=null;
-  Log.i(TAG,"rebuildQueue - Rebuilding query...");
+  Log.i(AnkiDroidApp.TAG,"rebuildQueue - Rebuilding query...");
   globalStats=Stats.globalStats(this);
   dailyStats=Stats.dailyStats(this);
   checkDue();
@@ -18,7 +18,7 @@
  else {
     newCardModulus=0;
   }
-  Log.i(TAG,"newCardModulus set to " + newCardModulus);
+  Log.i(AnkiDroidApp.TAG,"newCardModulus set to " + newCardModulus);
   try {
     cursor=AnkiDatabaseManager.getDatabase(deckPath).database.rawQuery("SELECT avg(factor) " + "FROM cards " + "WHERE type = 1",null);
     if (!cursor.moveToFirst()) {

@@ -2,7 +2,7 @@
   sStartTime=System.currentTimeMillis();
   StringBuilder stringBuilder=new StringBuilder();
   String contentLeft=content;
-  Log.i(TAG,"parseImages");
+  Log.i(AnkiDroidApp.TAG,"parseImages");
   Matcher matcher=sImagePattern.matcher(content);
   while (matcher.find()) {
     String img=matcher.group(1);
@@ -14,6 +14,6 @@
   }
   stringBuilder.append(contentLeft);
   sFinishTime=System.currentTimeMillis();
-  Log.i(TAG,"Images parsed in " + (sFinishTime - sStartTime) + " milliseconds");
+  Log.i(AnkiDroidApp.TAG,"Images parsed in " + (sFinishTime - sStartTime) + " milliseconds");
   return stringBuilder.toString();
 }

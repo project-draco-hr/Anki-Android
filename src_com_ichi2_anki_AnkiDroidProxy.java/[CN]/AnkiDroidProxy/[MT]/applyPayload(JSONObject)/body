@@ -1,5 +1,5 @@
 {
-  Log.i(TAG,"applyPayload");
+  Log.i(AnkiDroidApp.TAG,"applyPayload");
   JSONObject payloadReply=new JSONObject();
   try {
     String data="p=" + URLEncoder.encode(password,"UTF-8") + "&u="+ URLEncoder.encode(username,"UTF-8")+ "&d="+ URLEncoder.encode(deckName,"UTF-8")+ "&payload="+ URLEncoder.encode(Base64.encodeBytes(Utils.compress(payload.toString().getBytes())),"UTF-8")+ "&base64="+ URLEncoder.encode("true","UTF-8");
@@ -10,13 +10,13 @@
     httpPost.setHeader("Content-type","application/x-www-form-urlencoded");
     DefaultHttpClient httpClient=new DefaultHttpClient();
     HttpResponse response=httpClient.execute(httpPost);
-    Log.i(TAG,"Response = " + response.toString());
+    Log.i(AnkiDroidApp.TAG,"Response = " + response.toString());
     HttpEntity entityResponse=response.getEntity();
-    Log.i(TAG,"Entity's response = " + entityResponse.toString());
+    Log.i(AnkiDroidApp.TAG,"Entity's response = " + entityResponse.toString());
     InputStream content=entityResponse.getContent();
-    Log.i(TAG,"Content = " + content.toString());
+    Log.i(AnkiDroidApp.TAG,"Content = " + content.toString());
     String contentString=Utils.convertStreamToString(new InflaterInputStream(content));
-    Log.i(TAG,"Payload response = ");
+    Log.i(AnkiDroidApp.TAG,"Payload response = ");
     payloadReply=new JSONObject(contentString);
     Utils.printJSONObject(payloadReply,false);
     Utils.saveJSONObject(payloadReply);
@@ -25,13 +25,13 @@
     e.printStackTrace();
   }
 catch (  ClientProtocolException e) {
-    Log.i(TAG,"ClientProtocolException = " + e.getMessage());
+    Log.i(AnkiDroidApp.TAG,"ClientProtocolException = " + e.getMessage());
   }
 catch (  IOException e) {
-    Log.i(TAG,"IOException = " + e.getMessage());
+    Log.i(AnkiDroidApp.TAG,"IOException = " + e.getMessage());
   }
 catch (  JSONException e) {
-    Log.i(TAG,"JSONException = " + e.getMessage());
+    Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
   }
   return payloadReply;
 }

@@ -8,7 +8,7 @@
     pkgVersion=pInfo.versionName;
   }
  catch (  PackageManager.NameNotFoundException e) {
-    Log.e(TAG,"Couldn't find package named " + this.getPackageName(),e);
+    Log.e(AnkiDroidApp.TAG,"Couldn't find package named " + this.getPackageName(),e);
   }
   appName.append("About ");
   appName.append(pkgName);

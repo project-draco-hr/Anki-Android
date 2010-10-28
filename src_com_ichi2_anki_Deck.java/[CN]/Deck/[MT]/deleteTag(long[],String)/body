@@ -19,8 +19,8 @@
  else     if (tagIdx == 0) {
       newTags="";
     }
-    Log.i(TAG,"old tags = " + factTags);
-    Log.i(TAG,"new tags = " + newTags);
+    Log.i(AnkiDroidApp.TAG,"old tags = " + factTags);
+    Log.i(AnkiDroidApp.TAG,"new tags = " + newTags);
     if (newTags.length() < factTags.length()) {
       ankiDB.database.execSQL("update facts set " + "tags = \"" + newTags + "\", "+ "modified = "+ String.format(ENGLISH_LOCALE,"%f",(double)(System.currentTimeMillis() / 1000.0))+ " where id = "+ factIds[i]);
     }

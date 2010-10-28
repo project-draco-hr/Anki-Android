@@ -4,7 +4,7 @@
       @Override public void onReceive(      Context context,      Intent intent){
         String action=intent.getAction();
         if (action.equals(Intent.ACTION_MEDIA_EJECT)) {
-          Log.i(TAG,"mUnmountReceiver - Action = Media Eject");
+          Log.i(AnkiDroidApp.TAG,"mUnmountReceiver - Action = Media Eject");
           finishNoStorageAvailable();
         }
       }

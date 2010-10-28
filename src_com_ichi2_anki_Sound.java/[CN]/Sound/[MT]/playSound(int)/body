@@ -22,7 +22,7 @@
     mMediaPlayer.start();
   }
  catch (  Exception e) {
-    Log.e(TAG,"playSounds - Error reproducing sound " + (soundToPlayIndex + 1) + " = "+ e.getMessage());
+    Log.e(AnkiDroidApp.TAG,"playSounds - Error reproducing sound " + (soundToPlayIndex + 1) + " = "+ e.getMessage());
     releaseSound();
   }
 }

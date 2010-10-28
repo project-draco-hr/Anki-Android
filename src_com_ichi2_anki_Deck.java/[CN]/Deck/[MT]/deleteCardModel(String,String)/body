@@ -1,5 +1,5 @@
 {
-  Log.i(TAG,"deleteCardModel, modelId = " + modelId + ", fieldModelId = "+ cardModelId);
+  Log.i(AnkiDroidApp.TAG,"deleteCardModel, modelId = " + modelId + ", fieldModelId = "+ cardModelId);
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
   ArrayList<String> cardIds=ankiDB.queryColumn(String.class,"SELECT id FROM cards WHERE cardModelId = " + cardModelId,0);
   deleteCards(cardIds);

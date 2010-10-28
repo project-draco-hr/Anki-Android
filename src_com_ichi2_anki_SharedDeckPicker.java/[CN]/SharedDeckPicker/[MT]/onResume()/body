@@ -1,5 +1,5 @@
 {
-  Log.i(TAG,"onResume");
+  Log.i(AnkiDroidApp.TAG,"onResume");
   super.onResume();
   if (mDownloadManagerService != null) {
     try {
@@ -7,7 +7,7 @@
       setSharedDeckDownloads(mDownloadManagerService.getSharedDeckDownloads());
     }
  catch (    RemoteException e) {
-      Log.e(TAG,"RemoteException = " + e.getMessage());
+      Log.e(AnkiDroidApp.TAG,"RemoteException = " + e.getMessage());
       e.printStackTrace();
     }
   }

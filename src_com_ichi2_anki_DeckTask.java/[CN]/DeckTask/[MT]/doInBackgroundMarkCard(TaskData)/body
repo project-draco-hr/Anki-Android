@@ -14,7 +14,7 @@
         deck.addTag(currentCard.factId,Deck.TAG_MARKED);
       }
       stop=System.currentTimeMillis();
-      Log.v(TAG,"doInBackgroundMarkCard - Marked card in " + (stop - start) + " ms.");
+      Log.v(AnkiDroidApp.TAG,"doInBackgroundMarkCard - Marked card in " + (stop - start) + " ms.");
     }
     publishProgress(new TaskData(currentCard));
     ankiDB.database.setTransactionSuccessful();

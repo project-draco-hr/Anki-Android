@@ -1,5 +1,5 @@
 {
-  Log.i(TAG,"onDestroy");
+  Log.i(AnkiDroidApp.TAG,"onDestroy");
   super.onDestroy();
   releaseService();
   releaseBroadcastReceiver();

@@ -1,7 +1,7 @@
 {
-  Log.i(TAG,"needFullSync - lastSync = " + deck.lastSync);
+  Log.i(AnkiDroidApp.TAG,"needFullSync - lastSync = " + deck.lastSync);
   if (deck.lastSync <= 0) {
-    Log.i(TAG,"deck.lastSync <= 0");
+    Log.i(AnkiDroidApp.TAG,"deck.lastSync <= 0");
     return true;
   }
   int len=sums.length();
@@ -12,27 +12,27 @@
       while (keys.hasNext()) {
         String key=(String)keys.next();
         JSONArray l=(JSONArray)summary.get(key);
-        Log.i(TAG,"Key " + key + ", length = "+ l.length());
+        Log.i(AnkiDroidApp.TAG,"Key " + key + ", length = "+ l.length());
         if (l.length() > 500) {
-          Log.i(TAG,"Length of key > 500");
+          Log.i(AnkiDroidApp.TAG,"Length of key > 500");
           return true;
         }
       }
     }
  catch (    JSONException e) {
-      Log.i(TAG,"JSONException = " + e.getMessage());
+      Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
     }
   }
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.deckPath);
   if (ankiDB.queryScalar("SELECT count() FROM reviewHistory WHERE time > " + deck.lastSync) > 500) {
-    Log.i(TAG,"reviewHistory since lastSync > 500");
+    Log.i(AnkiDroidApp.TAG,"reviewHistory since lastSync > 500");
     return true;
   }
   Date lastDay=new Date(java.lang.Math.max(0,(long)(deck.lastSync - 60 * 60 * 24) * 1000));
-  Log.i(TAG,"lastDay = " + lastDay.toString() + ", lastDayInMillis = "+ lastDay.getTime());
-  Log.i(TAG,"Count stats = " + ankiDB.queryScalar("SELECT count() FROM stats WHERE day >= \"" + lastDay.toString() + "\""));
+  Log.i(AnkiDroidApp.TAG,"lastDay = " + lastDay.toString() + ", lastDayInMillis = "+ lastDay.getTime());
+  Log.i(AnkiDroidApp.TAG,"Count stats = " + ankiDB.queryScalar("SELECT count() FROM stats WHERE day >= \"" + lastDay.toString() + "\""));
   if (ankiDB.queryScalar("SELECT count() FROM stats WHERE day >= \"" + lastDay.toString() + "\"") > 100) {
-    Log.i(TAG,"stats since lastDay > 100");
+    Log.i(AnkiDroidApp.TAG,"stats since lastDay > 100");
     return true;
   }
   return false;

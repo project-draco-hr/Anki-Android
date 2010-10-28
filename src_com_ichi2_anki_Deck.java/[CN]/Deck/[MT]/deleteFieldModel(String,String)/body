@@ -1,5 +1,5 @@
 {
-  Log.i(TAG,"deleteFieldModel, modelId = " + modelId + ", fieldModelId = "+ fieldModelId);
+  Log.i(AnkiDroidApp.TAG,"deleteFieldModel, modelId = " + modelId + ", fieldModelId = "+ fieldModelId);
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
   long start, stop;
   start=System.currentTimeMillis();
@@ -32,5 +32,5 @@
   ankiDB.database.execSQL("UPDATE models SET modified = " + String.format(ENGLISH_LOCALE,"%f",System.currentTimeMillis() / 1000.0) + " WHERE id = "+ modelId);
   flushMod();
   stop=System.currentTimeMillis();
-  Log.v(TAG,"deleteFieldModel - deleted field models in " + (stop - start) + " ms.");
+  Log.v(AnkiDroidApp.TAG,"deleteFieldModel - deleted field models in " + (stop - start) + " ms.");
 }

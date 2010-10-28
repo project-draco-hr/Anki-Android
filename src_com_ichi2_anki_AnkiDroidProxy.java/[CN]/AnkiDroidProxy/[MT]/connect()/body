@@ -5,9 +5,9 @@
       JSONObject jsonDecks=new JSONObject(decksString);
       if ("OK".equalsIgnoreCase(jsonDecks.getString("status"))) {
         decks=jsonDecks.getJSONObject("decks");
-        Log.i(TAG,"Server decks = " + decks.toString());
+        Log.i(AnkiDroidApp.TAG,"Server decks = " + decks.toString());
         timestamp=jsonDecks.getDouble("timestamp");
-        Log.i(TAG,"Server timestamp = " + timestamp);
+        Log.i(AnkiDroidApp.TAG,"Server timestamp = " + timestamp);
         return LOGIN_OK;
       }
  else       if ("invalidUserPass".equalsIgnoreCase(jsonDecks.getString("status"))) {
@@ -15,7 +15,7 @@
       }
     }
  catch (    JSONException e) {
-      Log.i(TAG,"JSONException = " + e.getMessage());
+      Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
     }
   }
   return LOGIN_OK;

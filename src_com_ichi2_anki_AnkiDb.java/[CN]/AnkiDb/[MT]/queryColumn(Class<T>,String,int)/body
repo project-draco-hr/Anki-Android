@@ -11,7 +11,7 @@
  while (cursor.moveToNext());
   }
  catch (  Exception e) {
-    Log.e(TAG,"queryColumn: Got Exception: " + e.getMessage());
+    Log.e(AnkiDroidApp.TAG,"queryColumn: Got Exception: " + e.getMessage());
   }
  finally {
     if (cursor != null) {

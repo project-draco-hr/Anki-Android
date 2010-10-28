@@ -47,9 +47,9 @@
     bundledDeck.put("meta",meta);
   }
  catch (  JSONException e) {
-    Log.i(TAG,"JSONException = " + e.getMessage());
+    Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
   }
-  Log.i(TAG,"Deck =");
+  Log.i(AnkiDroidApp.TAG,"Deck =");
   Utils.printJSONObject(bundledDeck,false);
   return bundledDeck;
 }

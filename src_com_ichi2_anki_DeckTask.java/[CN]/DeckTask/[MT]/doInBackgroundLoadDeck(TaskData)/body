@@ -1,19 +1,19 @@
 {
   String deckFilename=params[0].getString();
-  Log.i(TAG,"doInBackgroundLoadDeck - deckFilename = " + deckFilename);
-  Log.i(TAG,"loadDeck - SD card mounted and existent file -> Loading deck...");
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundLoadDeck - deckFilename = " + deckFilename);
+  Log.i(AnkiDroidApp.TAG,"loadDeck - SD card mounted and existent file -> Loading deck...");
   try {
     Deck deck=Deck.openDeck(deckFilename);
     Card card=deck.getCard();
-    Log.i(TAG,"Deck loaded!");
+    Log.i(AnkiDroidApp.TAG,"Deck loaded!");
     return new TaskData(DECK_LOADED,deck,card);
   }
  catch (  SQLException e) {
-    Log.i(TAG,"The database " + deckFilename + " could not be opened = "+ e.getMessage());
+    Log.i(AnkiDroidApp.TAG,"The database " + deckFilename + " could not be opened = "+ e.getMessage());
     return new TaskData(DECK_NOT_LOADED);
   }
 catch (  CursorIndexOutOfBoundsException e) {
-    Log.i(TAG,"The deck has no cards = " + e.getMessage());
+    Log.i(AnkiDroidApp.TAG,"The deck has no cards = " + e.getMessage());
     ;
     return new TaskData(DECK_EMPTY);
   }

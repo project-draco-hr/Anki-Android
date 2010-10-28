@@ -1,7 +1,7 @@
 {
-  Log.i(TAG,"onSaveInstanceState: " + deckFilename);
+  Log.i(AnkiDroidApp.TAG,"onSaveInstanceState: " + deckFilename);
   if (deckFilename != null) {
     outState.putString("deckFilename",deckFilename);
   }
-  Log.i(TAG,"onSaveInstanceState - Ending");
+  Log.i(AnkiDroidApp.TAG,"onSaveInstanceState - Ending");
 }

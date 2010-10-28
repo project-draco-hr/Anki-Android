@@ -1,5 +1,5 @@
 {
-  Log.i(TAG,"DeckPicker - populateDeckList");
+  Log.i(AnkiDroidApp.TAG,"DeckPicker - populateDeckList");
   Resources res=getResources();
   int len=0;
   File[] fileList;
@@ -11,10 +11,10 @@
   }
   mFileList=fileList;
   if (len > 0 && fileList != null) {
-    Log.i(TAG,"DeckPicker - populateDeckList, number of anki files = " + len);
+    Log.i(AnkiDroidApp.TAG,"DeckPicker - populateDeckList, number of anki files = " + len);
     for (    File file : fileList) {
       String absPath=file.getAbsolutePath();
-      Log.i(TAG,"DeckPicker - populateDeckList, file:" + file.getName());
+      Log.i(AnkiDroidApp.TAG,"DeckPicker - populateDeckList, file:" + file.getName());
       try {
         HashMap<String,String> data=new HashMap<String,String>();
         data.put("name",file.getName().replaceAll(".anki",""));
@@ -26,7 +26,7 @@
         tree.add(data);
       }
  catch (      SQLException e) {
-        Log.w(TAG,"DeckPicker - populateDeckList, File " + file.getName() + " is not a real anki file");
+        Log.w(AnkiDroidApp.TAG,"DeckPicker - populateDeckList, File " + file.getName() + " is not a real anki file");
       }
     }
     mSyncAllBar.setVisibility(View.VISIBLE);
@@ -34,9 +34,9 @@
     thread.start();
   }
  else {
-    Log.i(TAG,"populateDeckList - No decks found.");
+    Log.i(AnkiDroidApp.TAG,"populateDeckList - No decks found.");
     if (!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-      Log.i(TAG,"populateDeckList - No sd card.");
+      Log.i(AnkiDroidApp.TAG,"populateDeckList - No sd card.");
       setTitle(R.string.deckpicker_title_nosdcard);
       showDialog(DIALOG_NO_SDCARD);
     }
@@ -53,5 +53,5 @@
   mDeckList.addAll(tree);
   mDeckListView.clearChoices();
   mDeckListAdapter.notifyDataSetChanged();
-  Log.i(TAG,"DeckPicker - populateDeckList, Ending");
+  Log.i(AnkiDroidApp.TAG,"DeckPicker - populateDeckList, Ending");
 }

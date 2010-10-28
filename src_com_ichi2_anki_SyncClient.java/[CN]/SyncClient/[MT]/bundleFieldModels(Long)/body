@@ -20,7 +20,7 @@
       fieldModel.put("editFontSize",cursor.getInt(13));
     }
  catch (    JSONException e) {
-      Log.i(TAG,"JSONException = " + e.getMessage());
+      Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
     }
     fieldModels.put(fieldModel);
   }

@@ -9,10 +9,10 @@
       mMediaPlayer.start();
     }
  catch (    Exception e) {
-      Log.e(TAG,"playSounds - Error reproducing sound " + soundPath + " = "+ e.getMessage());
+      Log.e(AnkiDroidApp.TAG,"playSounds - Error reproducing sound " + soundPath + " = "+ e.getMessage());
       releaseSound();
     }
     mFinishSoundTime=System.currentTimeMillis();
-    Log.i(TAG,"Sound " + soundPath + " played in "+ (mFinishSoundTime - mStartSoundTime)+ " milliseconds");
+    Log.i(AnkiDroidApp.TAG,"Sound " + soundPath + " played in "+ (mFinishSoundTime - mStartSoundTime)+ " milliseconds");
   }
 }

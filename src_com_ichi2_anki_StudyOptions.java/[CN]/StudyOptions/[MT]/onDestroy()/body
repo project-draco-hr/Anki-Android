@@ -1,6 +1,6 @@
 {
   super.onDestroy();
-  Log.i(TAG,"StudyOptions - onDestroy()");
+  Log.i(AnkiDroidApp.TAG,"StudyOptions - onDestroy()");
   if (mUnmountReceiver != null) {
     unregisterReceiver(mUnmountReceiver);
   }

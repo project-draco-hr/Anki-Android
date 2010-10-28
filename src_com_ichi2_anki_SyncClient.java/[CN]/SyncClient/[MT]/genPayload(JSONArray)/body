@@ -12,7 +12,7 @@
       deleteObjsFromKey((JSONArray)diff.get(3),key);
     }
  catch (    JSONException e) {
-      Log.i(TAG,"JSONException = " + e.getMessage());
+      Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
     }
   }
   if (localTime > remoteTime) {
@@ -24,10 +24,10 @@
       deck.lastSync=deck.modified;
     }
  catch (    JSONException e) {
-      Log.i(TAG,"JSONException = " + e.getMessage());
+      Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
     }
   }
-  Log.i(TAG,"Payload =");
+  Log.i(AnkiDroidApp.TAG,"Payload =");
   Utils.printJSONObject(payload,true);
   return payload;
 }

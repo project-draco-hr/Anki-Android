@@ -1,5 +1,5 @@
 {
-  Log.i(TAG,"buildUpdate");
+  Log.i(AnkiDroidApp.TAG,"buildUpdate");
   RemoteViews updateViews=new RemoteViews(context.getPackageName(),R.layout.ankidroid_widget_view);
   Deck currentDeck=AnkiDroidApp.deck();
   boolean isMounted=!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());

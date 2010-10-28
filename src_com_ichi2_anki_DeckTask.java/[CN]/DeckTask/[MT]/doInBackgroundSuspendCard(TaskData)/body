@@ -10,12 +10,12 @@
       start=System.currentTimeMillis();
       deck.suspendCard(oldCard.id);
       stop=System.currentTimeMillis();
-      Log.v(TAG,"doInBackgroundSuspendCard - Suspended card in " + (stop - start) + " ms.");
+      Log.v(AnkiDroidApp.TAG,"doInBackgroundSuspendCard - Suspended card in " + (stop - start) + " ms.");
     }
     start=System.currentTimeMillis();
     newCard=deck.getCard();
     stop=System.currentTimeMillis();
-    Log.v(TAG,"doInBackgroundSuspendCard - Loaded new card in " + (stop - start) + " ms.");
+    Log.v(AnkiDroidApp.TAG,"doInBackgroundSuspendCard - Loaded new card in " + (stop - start) + " ms.");
     publishProgress(new TaskData(newCard));
     ankiDB.database.setTransactionSuccessful();
   }

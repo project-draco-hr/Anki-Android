@@ -17,7 +17,7 @@
       report.append(String.format("--> END REPORT %d <--",count++));
     }
  catch (    Exception ex) {
-      Log.e(TAG,ex.toString());
+      Log.e(AnkiDroidApp.TAG,ex.toString());
     }
   }
   sendEmail(report.toString());

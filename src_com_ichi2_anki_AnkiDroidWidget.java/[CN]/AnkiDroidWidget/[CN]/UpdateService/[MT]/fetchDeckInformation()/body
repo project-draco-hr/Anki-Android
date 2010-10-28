@@ -1,5 +1,5 @@
 {
-  Log.i(TAG,"fetchDeckInformation");
+  Log.i(AnkiDroidApp.TAG,"fetchDeckInformation");
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
   String deckPath=preferences.getString("deckPath","/sdcard");
   File dir=new File(deckPath);
@@ -23,12 +23,12 @@
       information.add(new DeckInformation(deckName,newCards,dueCards,failedCards));
     }
  catch (    Exception e) {
-      Log.i(TAG,"Could not open deck");
-      Log.e(TAG,e.toString());
+      Log.i(AnkiDroidApp.TAG,"Could not open deck");
+      Log.e(AnkiDroidApp.TAG,e.toString());
     }
   }
   if (!information.isEmpty() && information.size() > 1) {
-    Log.i(TAG,"Sorting deck");
+    Log.i(AnkiDroidApp.TAG,"Sorting deck");
     Collections.sort(information,new ByDueComparator());
     Collections.reverse(information);
   }

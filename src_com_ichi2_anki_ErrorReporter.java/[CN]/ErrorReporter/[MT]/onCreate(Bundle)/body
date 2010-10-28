@@ -1,5 +1,5 @@
 {
-  Log.i(TAG,"OnCreate");
+  Log.i(AnkiDroidApp.TAG,"OnCreate");
   super.onCreate(savedInstanceState);
   Context context=getBaseContext();
   SharedPreferences sharedPreferences=PrefSettings.getSharedPrefs(context);
@@ -9,7 +9,7 @@
       sendErrorReport();
     }
  catch (    Exception e) {
-      Log.e(TAG,e.toString());
+      Log.e(AnkiDroidApp.TAG,e.toString());
     }
     deleteFiles();
     setResult(RESULT_OK);
@@ -34,7 +34,7 @@
           sendErrorReport();
         }
  catch (        Exception e) {
-          Log.e(TAG,e.toString());
+          Log.e(AnkiDroidApp.TAG,e.toString());
         }
         deleteFiles();
         setResult(RESULT_OK);

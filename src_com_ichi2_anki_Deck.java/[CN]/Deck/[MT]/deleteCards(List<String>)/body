@@ -1,11 +1,11 @@
 {
-  Log.i(TAG,"deleteCards = " + ids.toString());
+  Log.i(AnkiDroidApp.TAG,"deleteCards = " + ids.toString());
   int len=ids.size();
   if (len > 0) {
     AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
     commitToDB();
     double now=System.currentTimeMillis() / 1000.0;
-    Log.i(TAG,"Now = " + now);
+    Log.i(AnkiDroidApp.TAG,"Now = " + now);
     String idsString=Utils.ids2str(ids);
     ankiDB.database.execSQL("DELETE FROM cards WHERE id in " + idsString);
     String sqlInsert="INSERT INTO cardsDeleted values (?," + String.format(ENGLISH_LOCALE,"%f",now) + ")";

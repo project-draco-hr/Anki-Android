@@ -1,5 +1,5 @@
 {
-  Log.i(TAG,"uncaughtException");
+  Log.i(AnkiDroidApp.TAG,"uncaughtException");
   collectInformation();
   Date currentDate=new Date();
   SimpleDateFormat df1=new SimpleDateFormat("EEE MMM dd HH:mm:ss ",Locale.US);
@@ -25,7 +25,7 @@
   }
   reportInformation.append(String.format("End Inner exceptions"));
   printWriter.close();
-  Log.i(TAG,"report infomation string created");
+  Log.i(AnkiDroidApp.TAG,"report infomation string created");
   saveReportToFile(reportInformation.toString());
   PreviousHandler.uncaughtException(t,e);
 }

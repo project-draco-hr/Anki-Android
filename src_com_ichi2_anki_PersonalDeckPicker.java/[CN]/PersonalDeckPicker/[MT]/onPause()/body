@@ -1,12 +1,12 @@
 {
   super.onPause();
-  Log.i(TAG,"onpause kostas");
+  Log.i(AnkiDroidApp.TAG,"onpause kostas");
   if (mDownloadManagerService != null) {
     try {
       mDownloadManagerService.unregisterPersonalDeckCallback(mCallback);
     }
  catch (    RemoteException e) {
-      Log.e(TAG,"RemoteException = " + e.getMessage());
+      Log.e(AnkiDroidApp.TAG,"RemoteException = " + e.getMessage());
       e.printStackTrace();
     }
   }

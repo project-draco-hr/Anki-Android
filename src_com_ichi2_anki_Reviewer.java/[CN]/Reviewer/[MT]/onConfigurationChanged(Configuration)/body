@@ -1,6 +1,6 @@
 {
   super.onConfigurationChanged(newConfig);
-  Log.i(TAG,"onConfigurationChanged");
+  Log.i(AnkiDroidApp.TAG,"onConfigurationChanged");
   mCardTemplate=mCardTemplate.replaceFirst("var availableWidth = \\d*;","var availableWidth = " + getAvailableWidthInCard() + ";");
   refreshCard();
   if (mPrefWhiteboard) {

@@ -8,7 +8,7 @@
   SharedDeckDownload download=(SharedDeckDownload)result.data[0];
   SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
   Editor editor=pref.edit();
-  Log.i(TAG,"Finished deck " + download.getTitle() + " "+ result.success);
+  Log.i(AnkiDroidApp.TAG,"Finished deck " + download.getTitle() + " "+ result.success);
   if (result.success) {
     editor.putLong("numUpdatedCards:" + mDestination + "/tmp/"+ download.getTitle()+ ".anki.updating",0);
     editor.commit();
@@ -30,7 +30,7 @@
         }
       }
  catch (      SecurityException e) {
-        Log.e(TAG,"SecurityException = " + e.getMessage());
+        Log.e(AnkiDroidApp.TAG,"SecurityException = " + e.getMessage());
         e.printStackTrace();
       }
       editor.remove("numUpdatedCards:" + mDestination + "/tmp/"+ download.getTitle()+ ".anki.updating");

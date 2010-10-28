@@ -7,10 +7,10 @@
       stream.close();
       if (!written) {
         openDeckPicker();
-        Log.i(TAG,"onCreate - The copy of country-capitals.anki to the sd card failed.");
+        Log.i(AnkiDroidApp.TAG,"onCreate - The copy of country-capitals.anki to the sd card failed.");
         return;
       }
-      Log.i(TAG,"onCreate - The copy of country-capitals.anki to the sd card was sucessful.");
+      Log.i(AnkiDroidApp.TAG,"onCreate - The copy of country-capitals.anki to the sd card was sucessful.");
     }
  catch (    IOException e) {
       e.printStackTrace();

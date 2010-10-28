@@ -12,7 +12,7 @@
       fact.put(cursor.getLong(6));
     }
  catch (    JSONException e) {
-      Log.i(TAG,"JSONException = " + e.getMessage());
+      Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
     }
   }
   cursor.close();

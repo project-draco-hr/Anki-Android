@@ -8,7 +8,7 @@
  catch (  Exception e) {
     data.success=false;
     data.exception=e;
-    Log.e(TAG,"Error getting personal decks = " + e.getMessage());
+    Log.e(AnkiDroidApp.TAG,"Error getting personal decks = " + e.getMessage());
     e.printStackTrace();
   }
   return data;

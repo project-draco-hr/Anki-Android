@@ -5,7 +5,7 @@
       mDownloadManagerService.unregisterSharedDeckCallback(mCallback);
     }
  catch (    RemoteException e) {
-      Log.e(TAG,"RemoteException = " + e.getMessage());
+      Log.e(AnkiDroidApp.TAG,"RemoteException = " + e.getMessage());
       e.printStackTrace();
     }
   }

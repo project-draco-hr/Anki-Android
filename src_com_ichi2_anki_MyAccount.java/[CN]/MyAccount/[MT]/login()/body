@@ -3,8 +3,8 @@
   inputMethodManager.hideSoftInputFromWindow(mUsername.getWindowToken(),0);
   String username=mUsername.getText().toString();
   String password=mPassword.getText().toString();
-  Log.i(TAG,"Username = " + username);
-  Log.i(TAG,"Password = " + password);
+  Log.i(AnkiDroidApp.TAG,"Username = " + username);
+  Log.i(AnkiDroidApp.TAG,"Password = " + password);
   if (!"".equalsIgnoreCase(username) && !"".equalsIgnoreCase(password)) {
     Connection.login(loginListener,new Connection.Payload(new Object[]{username,password}));
   }

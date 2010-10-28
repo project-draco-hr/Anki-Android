@@ -1,5 +1,5 @@
 {
-  Log.i(TAG,"displayCardAnswer");
+  Log.i(AnkiDroidApp.TAG,"displayCardAnswer");
   if (mPrefTimer) {
     mCardTimer.stop();
   }
@@ -12,7 +12,7 @@
       String correctAnswer=spanMatcher.replaceAll("");
       Matcher brMatcher=brPattern.matcher(correctAnswer);
       correctAnswer=brMatcher.replaceAll("\n");
-      Log.i(TAG,"correct answer = " + correctAnswer);
+      Log.i(AnkiDroidApp.TAG,"correct answer = " + correctAnswer);
       DiffEngine diff=new DiffEngine();
       displayString=enrichWithQASpan(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer)) + "<br/>" + mCurrentCard.answer,true);
     }

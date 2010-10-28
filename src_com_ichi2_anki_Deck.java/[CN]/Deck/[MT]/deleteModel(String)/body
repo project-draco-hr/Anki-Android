@@ -1,5 +1,5 @@
 {
-  Log.i(TAG,"deleteModel = " + id);
+  Log.i(AnkiDroidApp.TAG,"deleteModel = " + id);
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
   Cursor cursor=ankiDB.database.rawQuery("SELECT * FROM models WHERE id = " + id,null);
   if (cursor.moveToFirst()) {

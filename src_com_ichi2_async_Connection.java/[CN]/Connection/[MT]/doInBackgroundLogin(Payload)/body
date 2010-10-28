@@ -12,7 +12,7 @@
  catch (  Exception e) {
     data.success=false;
     data.exception=e;
-    Log.e(TAG,"Error trying to log in");
+    Log.e(AnkiDroidApp.TAG,"Error trying to log in");
   }
   return data;
 }

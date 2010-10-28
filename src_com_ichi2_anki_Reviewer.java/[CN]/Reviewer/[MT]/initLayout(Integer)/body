@@ -10,7 +10,7 @@
   if (Integer.parseInt(android.os.Build.VERSION.SDK) > 7) {
     mCard.setFocusableInTouchMode(false);
   }
-  Log.i(TAG,"Focusable = " + mCard.isFocusable() + ", Focusable in touch mode = "+ mCard.isFocusableInTouchMode());
+  Log.i(AnkiDroidApp.TAG,"Focusable = " + mCard.isFocusable() + ", Focusable in touch mode = "+ mCard.isFocusableInTouchMode());
   if (mPrefTextSelection) {
     mCard.setOnLongClickListener(mLongClickHandler);
     mClipboard=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);

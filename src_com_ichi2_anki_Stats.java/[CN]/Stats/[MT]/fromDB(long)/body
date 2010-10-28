@@ -1,7 +1,7 @@
 {
   Cursor cursor=null;
   try {
-    Log.i(TAG,"Reading stats from DB...");
+    Log.i(AnkiDroidApp.TAG,"Reading stats from DB...");
     cursor=AnkiDatabaseManager.getDatabase(deck.deckPath).database.rawQuery("SELECT * " + "FROM stats " + "WHERE id = "+ String.valueOf(id),null);
     if (!cursor.moveToFirst()) {
       return;

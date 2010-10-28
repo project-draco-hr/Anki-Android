@@ -13,8 +13,8 @@
         newTags+="," + tag;
       }
     }
-    Log.i(TAG,"old tags = " + factTagsList.get(i));
-    Log.i(TAG,"new tags = " + newTags);
+    Log.i(AnkiDroidApp.TAG,"old tags = " + factTagsList.get(i));
+    Log.i(AnkiDroidApp.TAG,"new tags = " + newTags);
     if (newTags.length() > factTagsList.get(i).length()) {
       ankiDB.database.execSQL("update facts set " + "tags = \"" + newTags + "\", "+ "modified = "+ String.format(ENGLISH_LOCALE,"%f",(double)(System.currentTimeMillis() / 1000.0))+ " where id = "+ factIds[i]);
     }
