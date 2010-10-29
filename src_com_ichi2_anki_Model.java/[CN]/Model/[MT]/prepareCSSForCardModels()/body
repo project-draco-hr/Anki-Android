@@ -1,9 +1,9 @@
 {
   CardModel myCardModel=null;
   String cssString=null;
-  for (  Map.Entry<Long,CardModel> entry : cardModelsMap.entrySet()) {
+  for (  Map.Entry<Long,CardModel> entry : mCardModelsMap.entrySet()) {
     myCardModel=entry.getValue();
-    cssString=createCSSForFontColorSize(myCardModel.getId(),displayPercentage);
-    cssCardModelMap.put(myCardModel.getId(),cssString);
+    cssString=createCSSForFontColorSize(myCardModel.getId(),mDisplayPercentage);
+    mCssCardModelMap.put(myCardModel.getId(),cssString);
   }
 }

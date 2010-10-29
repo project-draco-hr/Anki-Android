@@ -1,13 +1,13 @@
 {
-  if (false == isModelId) {
-    if (false == cardModelToModelMap.containsKey(identifier)) {
+  if (!isModelId) {
+    if (!sCardModelToModelMap.containsKey(identifier)) {
       long myModelId=CardModel.modelIdFromDB(deck,identifier);
       loadFromDBPlusRelatedModels(deck,myModelId);
     }
-    return cardModelToModelMap.get(identifier);
+    return sCardModelToModelMap.get(identifier);
   }
-  if (false == models.containsKey(identifier)) {
+  if (!sModels.containsKey(identifier)) {
     loadFromDBPlusRelatedModels(deck,identifier);
   }
-  return models.get(identifier);
+  return sModels.get(identifier);
 }

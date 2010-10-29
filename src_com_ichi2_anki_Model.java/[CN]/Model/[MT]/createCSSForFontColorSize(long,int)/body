@@ -2,7 +2,7 @@
   StringBuffer sb=new StringBuffer();
   sb.append("<!-- ").append(percentage).append(" % display font size-->");
   sb.append("<style type=\"text/css\">\n");
-  CardModel myCardModel=cardModelsMap.get(myCardModelId);
+  CardModel myCardModel=mCardModelsMap.get(myCardModelId);
   if (null != myCardModel.getLastFontColour() && 0 < myCardModel.getLastFontColour().trim().length()) {
     sb.append("body {background-color:").append(myCardModel.getLastFontColour()).append(";}\n");
   }
@@ -14,7 +14,7 @@
   sb.append("}\n");
   FieldModel myFieldModel=null;
   String hexId=null;
-  for (  Map.Entry<Long,FieldModel> entry : fieldModelsMap.entrySet()) {
+  for (  Map.Entry<Long,FieldModel> entry : mFieldModelsMap.entrySet()) {
     myFieldModel=entry.getValue();
     hexId="fm" + Long.toHexString(myFieldModel.getId());
     sb.append(".").append(hexId).append(" {\n");

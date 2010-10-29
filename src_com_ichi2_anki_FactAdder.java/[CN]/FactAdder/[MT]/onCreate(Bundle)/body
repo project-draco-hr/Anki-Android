@@ -9,7 +9,7 @@
   Deck deck=AnkiDroidApp.deck();
   mModels=Model.getModels(deck);
   mCurrentSelectedModelId=deck.getCurrentModelId();
-  mModelButton.setText(mModels.get(mCurrentSelectedModelId).name);
+  mModelButton.setText(mModels.get(mCurrentSelectedModelId).getName());
   mAddButton.setOnClickListener(new View.OnClickListener(){
     public void onClick(    View v){
       setResult(RESULT_OK);

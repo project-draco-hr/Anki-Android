@@ -1,7 +1,7 @@
 {
-  if (displayPercentage != percentage) {
-    displayPercentage=percentage;
+  if (mDisplayPercentage != percentage) {
+    mDisplayPercentage=percentage;
     prepareCSSForCardModels();
   }
-  return cssCardModelMap.get(myCardModelId);
+  return mCssCardModelMap.get(myCardModelId);
 }

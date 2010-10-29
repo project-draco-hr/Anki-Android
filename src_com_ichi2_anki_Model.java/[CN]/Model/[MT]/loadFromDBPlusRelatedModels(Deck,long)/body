@@ -1,11 +1,11 @@
 {
   Model currentModel=fromDb(deck,modelId);
-  CardModel.fromDb(deck,currentModel.id,currentModel.cardModelsMap);
-  FieldModel.fromDb(deck,modelId,currentModel.fieldModelsMap);
-  models.put(currentModel.id,currentModel);
+  CardModel.fromDb(deck,currentModel.mId,currentModel.mCardModelsMap);
+  FieldModel.fromDb(deck,modelId,currentModel.mFieldModelsMap);
+  sModels.put(currentModel.mId,currentModel);
   CardModel myCardModel=null;
-  for (  Map.Entry<Long,CardModel> entry : currentModel.cardModelsMap.entrySet()) {
+  for (  Map.Entry<Long,CardModel> entry : currentModel.mCardModelsMap.entrySet()) {
     myCardModel=entry.getValue();
-    cardModelToModelMap.put(myCardModel.getId(),currentModel);
+    sCardModelToModelMap.put(myCardModel.getId(),currentModel);
   }
 }
