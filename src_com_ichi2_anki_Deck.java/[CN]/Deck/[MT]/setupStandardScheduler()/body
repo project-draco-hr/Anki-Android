@@ -1,0 +1,17 @@
+{
+  Class cls=this.getClass();
+  getCardIdMethod=cls.getDeclaredMethod("_getCardId",new Class[]);
+  fillFailedQueueMethod=cls.getDeclaredMethod("_fillFailedQueue",null);
+  fillRevQueueMethod=cls.getDeclaredMethod("_fillRevQueue",null);
+  fillNewQueueMethod=cls.getDeclaredMethod("_fillNewQueue",null);
+  rebuildFailedCountMethod=cls.getDeclaredMethod("_rebuildFailedCount",null);
+  rebuildRevCountMethod=cls.getDeclaredMethod("_rebuildRevCount",null);
+  rebuildNewCountMethod=cls.getDeclaredMethod("_rebuildNewCount",null);
+  requeueCardMethod=cls.getDeclaredMethod("_requeueCard",new Class[]);
+  timeForNewCardMethod=cls.getDeclaredMethod("_timeForNewCard",null);
+  updateNewCountTodayMethod=cls.getDeclaredMethod("_updateNewCountToday",null);
+  cardTypeMethod=cls.getDeclaredMethod("_cardType",new Class[]);
+  finishSchedulerMethod=null;
+  answerCardMethod=cls.getDeclaredMethod("_answerCard",new Class[]);
+  scheduler="standard";
+}

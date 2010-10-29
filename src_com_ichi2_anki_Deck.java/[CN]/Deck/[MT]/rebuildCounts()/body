@@ -1,0 +1,7 @@
+{
+  cardCount=ankiDB.database.rawQuery("SELECT count(*) from cards").getLong(0);
+  factCount=ankiDB.database.rawQuery("SELECT count(*) from facts").getLong(0);
+  rebuildFailedCount();
+  rebuildRevCount();
+  rebuildNewCount();
+}

@@ -1,0 +1,7 @@
+{
+  Cursor cur=mDB.database.rawQuery("SELECT value FROM deckVars WHERE key = '" + key + "'",null);
+  if (cur.isFirst()) {
+    return cur.getString(0);
+  }
+  return null;
+}
