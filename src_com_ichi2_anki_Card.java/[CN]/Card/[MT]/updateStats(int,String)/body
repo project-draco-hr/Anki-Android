@@ -1,4 +1,5 @@
 {
+  char[] newState=state.toCharArray();
   mReps+=1;
   if (ease > 1) {
     mSuccessive+=1;
@@ -17,15 +18,16 @@
     }
   }
   if ("new".equalsIgnoreCase(state)) {
-    state="young";
+    newState="young".toCharArray();
   }
-  String attr=state + String.format("Ease%d",ease);
+  newState[0]=Character.toUpperCase(newState[0]);
+  String attr="m" + String.valueOf(newState) + String.format("Ease%d",ease);
   try {
     Field f=this.getClass().getDeclaredField(attr);
     f.setInt(this,f.getInt(this) + 1);
   }
  catch (  Exception e) {
-    e.printStackTrace();
+    Log.e(AnkiDroidApp.TAG,"Failed to update " + attr + " : "+ e.getMessage());
   }
   if (ease < 2) {
     mNoCount+=1;
