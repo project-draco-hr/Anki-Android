@@ -9,7 +9,7 @@
   mIsDue=1;
   mTimerStarted=Double.NaN;
   mTimerStopped=Double.NaN;
-  mModified=System.currentTimeMillis() / 1000.0;
+  mModified=Utils.now();
   if (created != Double.NaN) {
     mCreated=created;
     mDue=created;

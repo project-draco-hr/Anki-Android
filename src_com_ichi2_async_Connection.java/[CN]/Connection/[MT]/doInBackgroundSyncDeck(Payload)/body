@@ -24,7 +24,7 @@
       Log.i(AnkiDroidApp.TAG,"AnkiOnline does not have this deck: Creating it...");
       server.createDeck(syncName);
     }
-    int timediff=(int)(server.getTimestamp() - (System.currentTimeMillis() / 1000));
+    int timediff=(int)(server.getTimestamp() - Utils.now());
     if (timediff > 300) {
       Log.i(AnkiDroidApp.TAG,"The clock is unsynchronized!");
     }

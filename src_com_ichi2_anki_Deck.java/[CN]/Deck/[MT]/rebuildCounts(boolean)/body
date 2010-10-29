@@ -9,7 +9,7 @@
   }
   mFailedSoonCount=(int)ankiDB.queryScalar("SELECT count(id) FROM failedCards");
   Log.i(AnkiDroidApp.TAG,"failedSoonCount = " + mFailedSoonCount);
-  mFailedNowCount=(int)ankiDB.queryScalar("SELECT count(id) " + "FROM cards " + "WHERE type = 0 and "+ "isDue = 1 and "+ "combinedDue <= "+ String.format(ENGLISH_LOCALE,"%f",(double)(System.currentTimeMillis() / 1000.0)));
+  mFailedNowCount=(int)ankiDB.queryScalar("SELECT count(id) " + "FROM cards " + "WHERE type = 0 and "+ "isDue = 1 and "+ "combinedDue <= "+ String.format(ENGLISH_LOCALE,"%f",Utils.now()));
   Log.i(AnkiDroidApp.TAG,"failedNowCount = " + mFailedNowCount);
   mRevCount=(int)ankiDB.queryScalar("SELECT count(id) " + "FROM cards " + "WHERE type = 1 and "+ "priority in (1,2,3,4) and "+ "isDue = 1");
   Log.i(AnkiDroidApp.TAG,"revCount = " + mRevCount);

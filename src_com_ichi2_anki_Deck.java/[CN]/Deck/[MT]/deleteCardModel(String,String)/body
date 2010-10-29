@@ -4,6 +4,6 @@
   ArrayList<String> cardIds=ankiDB.queryColumn(String.class,"SELECT id FROM cards WHERE cardModelId = " + cardModelId,0);
   deleteCards(cardIds);
   ankiDB.getDatabase().execSQL("DELETE FROM cardModels WHERE id = " + cardModelId);
-  ankiDB.getDatabase().execSQL("UPDATE models SET modified = " + String.format(ENGLISH_LOCALE,"%f",System.currentTimeMillis() / 1000.0) + " WHERE id = "+ modelId);
+  ankiDB.getDatabase().execSQL("UPDATE models SET modified = " + String.format(ENGLISH_LOCALE,"%f",Utils.now()) + " WHERE id = "+ modelId);
   flushMod();
 }

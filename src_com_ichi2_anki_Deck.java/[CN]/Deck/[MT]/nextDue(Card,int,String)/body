@@ -11,5 +11,5 @@
  else {
     due=card.getInterval() * 86400.0;
   }
-  return due + (System.currentTimeMillis() / 1000.0);
+  return (due + Utils.now());
 }

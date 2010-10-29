@@ -1,5 +1,5 @@
 {
-  mDeck.setLastSync(System.currentTimeMillis() / 1000.0);
+  mDeck.setLastSync(Utils.now());
   mDeck.commitToDB();
   if (mLocalTime > mRemoteTime) {
     return "fromLocal";

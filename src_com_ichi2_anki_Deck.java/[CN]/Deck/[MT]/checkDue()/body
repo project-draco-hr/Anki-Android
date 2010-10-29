@@ -4,8 +4,8 @@
   checkDailyStats();
   ContentValues val=new ContentValues(1);
   val.put("isDue",1);
-  ankiDB.getDatabase().update("cards",val,"priority in (1,2,3,4) and " + "type in (0,1,2) and " + "isDue = 0 and "+ String.format(ENGLISH_LOCALE,"combinedDue <= %f",(double)((System.currentTimeMillis() / 1000.0) + mDelay0)),null);
-  mFailedNowCount=(int)ankiDB.queryScalar("SELECT count(id) " + "FROM cards " + "WHERE type = 0 and "+ "isDue = 1 and "+ String.format(ENGLISH_LOCALE,"combinedDue <= %f",(double)(System.currentTimeMillis() / 1000.0)));
+  ankiDB.getDatabase().update("cards",val,"priority in (1,2,3,4) and " + "type in (0,1,2) and " + "isDue = 0 and "+ String.format(ENGLISH_LOCALE,"combinedDue <= %f",Utils.now() + mDelay0),null);
+  mFailedNowCount=(int)ankiDB.queryScalar("SELECT count(id) " + "FROM cards " + "WHERE type = 0 and "+ "isDue = 1 and "+ String.format(ENGLISH_LOCALE,"combinedDue <= %f",Utils.now()));
   Cursor cursor=null;
   try {
     cursor=ankiDB.getDatabase().rawQuery("SELECT type, count(id) " + "FROM cards " + "WHERE priority in (1,2,3,4) and "+ "isDue = 1 "+ "GROUP BY type",null);

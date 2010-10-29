@@ -1,5 +1,5 @@
 {
-  double now=System.currentTimeMillis() / 1000.0;
+  double now=Utils.now();
   ContentValues updateValues=new ContentValues();
   updateValues.put("question",card.getQuestion());
   updateValues.put("answer",card.getAnswer());

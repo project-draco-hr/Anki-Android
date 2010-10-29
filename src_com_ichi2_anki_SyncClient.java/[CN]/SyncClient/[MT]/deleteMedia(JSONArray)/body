@@ -3,7 +3,7 @@
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath());
   String idsString=Utils.ids2str(ids);
   ArrayList<String> files=ankiDB.queryColumn(String.class,"SELECT filename FROM media WHERE id IN " + idsString,0);
-  double now=System.currentTimeMillis() / 1000.0;
+  double now=Utils.now();
   String sqlInsert="INSERT INTO mediaDeleted SELECT id, " + String.format(ENGLISH_LOCALE,"%f",now) + " FROM media WHERE media.id = ?";
   SQLiteStatement statement=ankiDB.getDatabase().compileStatement(sqlInsert);
   int len=ids.length();

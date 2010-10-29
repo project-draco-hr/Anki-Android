@@ -1,5 +1,5 @@
 {
-  double now=System.currentTimeMillis() / 1000.0;
+  double now=Utils.now();
   if (cardIsNew(card)) {
     return 0;
   }

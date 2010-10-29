@@ -1,6 +1,6 @@
 {
   if (Double.isNaN(mTimerStopped)) {
-    return (System.currentTimeMillis() / 1000.0) - mTimerStarted;
+    return (Utils.now() - mTimerStarted);
   }
  else {
     return mTimerStopped - mTimerStarted;

@@ -8,7 +8,7 @@
     ankiDB.getDatabase().execSQL("DELETE FROM models WHERE id = " + id);
     ContentValues values=new ContentValues();
     values.put("modelId",id);
-    values.put("deletedTime",System.currentTimeMillis() / 1000.0);
+    values.put("deletedTime",Utils.now());
     ankiDB.getDatabase().insert("modelsDeleted",null,values);
     flushMod();
   }

@@ -4,7 +4,7 @@
   if (len > 0) {
     AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeckPath);
     commitToDB();
-    double now=System.currentTimeMillis() / 1000.0;
+    double now=Utils.now();
     String idsString=Utils.ids2str(ids);
     Log.i(AnkiDroidApp.TAG,"DELETE FROM facts WHERE id in " + idsString);
     ankiDB.getDatabase().execSQL("DELETE FROM facts WHERE id in " + idsString);

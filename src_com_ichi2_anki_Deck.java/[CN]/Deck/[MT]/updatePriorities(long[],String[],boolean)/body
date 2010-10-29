@@ -22,7 +22,7 @@
       }
       String extra="";
       if (dirty) {
-        extra=", modified = " + String.format(ENGLISH_LOCALE,"%f",(double)(System.currentTimeMillis() / 1000.0));
+        extra=", modified = " + String.format(ENGLISH_LOCALE,"%f",Utils.now());
       }
       for (int pri=0; pri < 5; pri++) {
         int count=0;

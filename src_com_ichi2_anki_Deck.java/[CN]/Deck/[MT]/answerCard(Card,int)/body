@@ -3,10 +3,10 @@
   Cursor cursor=null;
   String undoName="Answer Card";
   setUndoStart(undoName);
-  double now=System.currentTimeMillis() / 1000.0;
+  double now=Utils.now();
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeckPath);
   String oldState=cardState(card);
-  double lastDelaySecs=System.currentTimeMillis() / 1000.0 - card.getCombinedDue();
+  double lastDelaySecs=Utils.now() - card.getCombinedDue();
   double start=System.currentTimeMillis();
   double lastDelay=lastDelaySecs / 86400.0;
   int oldSuc=card.getSuccessive();
@@ -63,7 +63,7 @@
   }
   space=space * spaceFactor * 86400.0;
   space=Math.max(minSpacing,space);
-  space+=System.currentTimeMillis() / 1000.0;
+  space+=Utils.now();
   card.setCombinedDue(Math.max(card.getDue(),space));
   String extra;
   if (mReviewEarly) {

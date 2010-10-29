@@ -36,7 +36,7 @@
     mYesCount+=1;
   }
   if (mFirstAnswered == 0) {
-    mFirstAnswered=System.currentTimeMillis() / 1000.0;
+    mFirstAnswered=Utils.now();
   }
   setModified();
 }
