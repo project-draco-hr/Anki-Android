@@ -4,47 +4,47 @@
   Log.i(AnkiDroidApp.TAG,"openDeck - Opening database " + path);
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(path);
   try {
-    cursor=ankiDB.database.rawQuery("SELECT *" + " FROM decks" + " LIMIT 1",null);
+    cursor=ankiDB.getDatabase().rawQuery("SELECT *" + " FROM decks" + " LIMIT 1",null);
     if (!cursor.moveToFirst()) {
       return null;
     }
     deck=new Deck();
-    deck.id=cursor.getLong(0);
-    deck.created=cursor.getDouble(1);
-    deck.modified=cursor.getDouble(2);
-    deck.description=cursor.getString(3);
-    deck.version=cursor.getInt(4);
-    deck.currentModelId=cursor.getLong(5);
-    deck.syncName=cursor.getString(6);
-    deck.lastSync=cursor.getDouble(7);
-    deck.hardIntervalMin=cursor.getDouble(8);
-    deck.hardIntervalMax=cursor.getDouble(9);
-    deck.midIntervalMin=cursor.getDouble(10);
-    deck.midIntervalMax=cursor.getDouble(11);
-    deck.easyIntervalMin=cursor.getDouble(12);
-    deck.easyIntervalMax=cursor.getDouble(13);
-    deck.delay0=cursor.getDouble(14);
-    deck.delay1=cursor.getDouble(15);
-    deck.delay2=cursor.getDouble(16);
-    deck.collapseTime=cursor.getDouble(17);
-    deck.highPriority=cursor.getString(18);
-    deck.medPriority=cursor.getString(19);
-    deck.lowPriority=cursor.getString(20);
-    deck.suspended=cursor.getString(21);
-    deck.newCardOrder=cursor.getInt(22);
-    deck.newCardSpacing=cursor.getInt(23);
-    deck.failedCardMax=cursor.getInt(24);
-    deck.newCardsPerDay=cursor.getInt(25);
-    deck.sessionRepLimit=cursor.getInt(26);
-    deck.sessionTimeLimit=cursor.getInt(27);
-    deck.utcOffset=cursor.getDouble(28);
-    deck.cardCount=cursor.getInt(29);
-    deck.factCount=cursor.getInt(30);
-    deck.failedNowCount=cursor.getInt(31);
-    deck.failedSoonCount=cursor.getInt(32);
-    deck.revCount=cursor.getInt(33);
-    deck.newCount=cursor.getInt(34);
-    deck.revCardOrder=cursor.getInt(35);
+    deck.mId=cursor.getLong(0);
+    deck.mCreated=cursor.getDouble(1);
+    deck.mModified=cursor.getDouble(2);
+    deck.mDescription=cursor.getString(3);
+    deck.mVersion=cursor.getInt(4);
+    deck.mCurrentModelId=cursor.getLong(5);
+    deck.mSyncName=cursor.getString(6);
+    deck.mLastSync=cursor.getDouble(7);
+    deck.mHardIntervalMin=cursor.getDouble(8);
+    deck.mHardIntervalMax=cursor.getDouble(9);
+    deck.mMidIntervalMin=cursor.getDouble(10);
+    deck.mMidIntervalMax=cursor.getDouble(11);
+    deck.mEasyIntervalMin=cursor.getDouble(12);
+    deck.mEasyIntervalMax=cursor.getDouble(13);
+    deck.mDelay0=cursor.getDouble(14);
+    deck.mDelay1=cursor.getDouble(15);
+    deck.mDelay2=cursor.getDouble(16);
+    deck.mCollapseTime=cursor.getDouble(17);
+    deck.mHighPriority=cursor.getString(18);
+    deck.mMedPriority=cursor.getString(19);
+    deck.mLowPriority=cursor.getString(20);
+    deck.mSuspended=cursor.getString(21);
+    deck.mNewCardOrder=cursor.getInt(22);
+    deck.mNewCardSpacing=cursor.getInt(23);
+    deck.mFailedCardMax=cursor.getInt(24);
+    deck.mNewCardsPerDay=cursor.getInt(25);
+    deck.mSessionRepLimit=cursor.getInt(26);
+    deck.mSessionTimeLimit=cursor.getInt(27);
+    deck.mUtcOffset=cursor.getDouble(28);
+    deck.mCardCount=cursor.getInt(29);
+    deck.mFactCount=cursor.getInt(30);
+    deck.mFailedNowCount=cursor.getInt(31);
+    deck.mFailedSoonCount=cursor.getInt(32);
+    deck.mRevCount=cursor.getInt(33);
+    deck.mNewCount=cursor.getInt(34);
+    deck.mRevCardOrder=cursor.getInt(35);
     Log.i(AnkiDroidApp.TAG,"openDeck - Read " + cursor.getColumnCount() + " columns from decks table.");
   }
   finally {
@@ -52,15 +52,15 @@
       cursor.close();
     }
   }
-  Log.i(AnkiDroidApp.TAG,String.format(ENGLISH_LOCALE,"openDeck - modified: %f currentTime: %f",deck.modified,System.currentTimeMillis() / 1000.0));
-  deck.deckPath=path;
-  deck.deckName=(new File(path)).getName().replace(".anki","");
+  Log.i(AnkiDroidApp.TAG,String.format(ENGLISH_LOCALE,"openDeck - modified: %f currentTime: %f",deck.mModified,System.currentTimeMillis() / 1000.0));
+  deck.mDeckPath=path;
+  deck.mDeckName=(new File(path)).getName().replace(".anki","");
   deck.initVars();
   deck.updateDynamicIndices();
-  int oldCount=deck.failedSoonCount + deck.revCount + deck.newCount;
+  int oldCount=deck.mFailedSoonCount + deck.mRevCount + deck.mNewCount;
   deck.rebuildQueue();
   try {
-    cursor=ankiDB.database.rawQuery("SELECT id " + "FROM cards " + "WHERE type in (0,1,2) and "+ "isDue = 0 and "+ "priority in (-1,-2)",null);
+    cursor=ankiDB.getDatabase().rawQuery("SELECT id " + "FROM cards " + "WHERE type in (0,1,2) and "+ "isDue = 0 and "+ "priority in (-1,-2)",null);
     if (cursor.moveToFirst()) {
       int count=cursor.getCount();
       long[] ids=new long[count];
@@ -77,9 +77,9 @@
       cursor.close();
     }
   }
-  if ((oldCount != (deck.failedSoonCount + deck.revCount + deck.newCount)) || deck.modifiedSinceSave()) {
+  if ((oldCount != (deck.mFailedSoonCount + deck.mRevCount + deck.mNewCount)) || deck.modifiedSinceSave()) {
     deck.commitToDB();
   }
-  ankiDB.database.execSQL("CREATE TEMPORARY VIEW acqCardsRandom AS " + "SELECT * FROM cards " + "WHERE type = 2 AND isDue = 1 "+ "ORDER BY RANDOM()");
+  ankiDB.getDatabase().execSQL("CREATE TEMPORARY VIEW acqCardsRandom AS " + "SELECT * FROM cards " + "WHERE type = 2 AND isDue = 1 "+ "ORDER BY RANDOM()");
   return deck;
 }

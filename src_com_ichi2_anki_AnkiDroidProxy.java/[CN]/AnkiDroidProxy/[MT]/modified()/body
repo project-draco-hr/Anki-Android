@@ -2,7 +2,7 @@
   double lastModified=0;
   connect();
   try {
-    JSONArray deckInfo=decks.getJSONArray(deckName);
+    JSONArray deckInfo=mDecks.getJSONArray(mDeckName);
     lastModified=deckInfo.getDouble(0);
   }
  catch (  JSONException e) {

@@ -9,7 +9,7 @@
       JSONObject remoteStat=remoteDailyStats.getJSONObject(i);
       Date dailyStatDate=Utils.ordinalToDate(remoteStat.getInt("day"));
       try {
-        Long id=AnkiDatabaseManager.getDatabase(deck.deckPath).queryScalar("SELECT id FROM stats WHERE type = 1 AND day = \"" + dailyStatDate.toString() + "\"");
+        Long id=AnkiDatabaseManager.getDatabase(deck.getDeckPath()).queryScalar("SELECT id FROM stats WHERE type = 1 AND day = \"" + dailyStatDate.toString() + "\"");
         stat.fromDB(id);
       }
  catch (      SQLException e) {

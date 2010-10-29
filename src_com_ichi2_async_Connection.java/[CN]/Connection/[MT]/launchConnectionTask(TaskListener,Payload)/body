@@ -5,14 +5,14 @@
     return null;
   }
   try {
-    if ((instance != null) && (instance.getStatus() != AsyncTask.Status.FINISHED)) {
-      instance.get();
+    if ((sInstance != null) && (sInstance.getStatus() != AsyncTask.Status.FINISHED)) {
+      sInstance.get();
     }
   }
  catch (  Exception e) {
     e.printStackTrace();
   }
-  instance=new Connection();
-  instance.listener=listener;
-  return (Connection)instance.execute(data);
+  sInstance=new Connection();
+  sInstance.mListener=listener;
+  return (Connection)sInstance.execute(data);
 }

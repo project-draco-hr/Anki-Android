@@ -16,9 +16,9 @@
       String absPath=file.getAbsolutePath();
       String deckName=file.getName().replaceAll(".anki","");
       Deck deck=Deck.openDeck(absPath);
-      int dueCards=deck.failedSoonCount + deck.revCount;
-      int newCards=deck.newCountToday;
-      int failedCards=deck.failedSoonCount;
+      int dueCards=deck.getFailedSoonCount() + deck.getRevCount();
+      int newCards=deck.getNewCountToday();
+      int failedCards=deck.getFailedSoonCount();
       deck.closeDeck();
       information.add(new DeckInformation(deckName,newCards,dueCards,failedCards));
     }

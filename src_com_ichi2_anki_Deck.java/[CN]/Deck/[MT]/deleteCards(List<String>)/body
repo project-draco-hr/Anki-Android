@@ -2,30 +2,30 @@
   Log.i(AnkiDroidApp.TAG,"deleteCards = " + ids.toString());
   int len=ids.size();
   if (len > 0) {
-    AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
+    AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeckPath);
     commitToDB();
     double now=System.currentTimeMillis() / 1000.0;
     Log.i(AnkiDroidApp.TAG,"Now = " + now);
     String idsString=Utils.ids2str(ids);
-    ankiDB.database.execSQL("DELETE FROM cards WHERE id in " + idsString);
+    ankiDB.getDatabase().execSQL("DELETE FROM cards WHERE id in " + idsString);
     String sqlInsert="INSERT INTO cardsDeleted values (?," + String.format(ENGLISH_LOCALE,"%f",now) + ")";
-    SQLiteStatement statement=ankiDB.database.compileStatement(sqlInsert);
+    SQLiteStatement statement=ankiDB.getDatabase().compileStatement(sqlInsert);
     for (    String id : ids) {
       statement.bindString(1,id);
       statement.executeInsert();
     }
     statement.close();
     ArrayList<String> tags=ankiDB.queryColumn(String.class,"SELECT tagId FROM cardTags WHERE cardId in " + idsString,0);
-    ankiDB.database.execSQL("DELETE FROM cardTags WHERE cardId in " + idsString);
+    ankiDB.getDatabase().execSQL("DELETE FROM cardTags WHERE cardId in " + idsString);
     ArrayList<String> unusedTags=new ArrayList<String>();
     for (    String tagId : tags) {
-      Cursor cursor=ankiDB.database.rawQuery("SELECT * FROM cardTags WHERE tagId = " + tagId + " LIMIT 1",null);
+      Cursor cursor=ankiDB.getDatabase().rawQuery("SELECT * FROM cardTags WHERE tagId = " + tagId + " LIMIT 1",null);
       if (!cursor.moveToFirst()) {
         unusedTags.add(tagId);
       }
       cursor.close();
     }
-    ankiDB.database.execSQL("DELETE FROM tags WHERE id in " + Utils.ids2str(unusedTags) + " and priority = 2");
+    ankiDB.getDatabase().execSQL("DELETE FROM tags WHERE id in " + Utils.ids2str(unusedTags) + " and priority = 2");
     deleteDanglingFacts();
     rebuildCounts(true);
     flushMod();

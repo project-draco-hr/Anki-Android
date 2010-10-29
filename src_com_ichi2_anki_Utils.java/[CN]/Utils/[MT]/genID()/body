@@ -3,18 +3,18 @@
   long id;
   int rand;
   Random random=new Random();
-  if (idTree == null) {
-    idTree=new TreeSet<Integer>();
-    idTime=time;
+  if (sIdTree == null) {
+    sIdTree=new TreeSet<Integer>();
+    sIdTime=time;
   }
- else   if (idTime != time) {
-    idTime=time;
-    idTree.clear();
+ else   if (sIdTime != time) {
+    sIdTime=time;
+    sIdTree.clear();
   }
   while (true) {
     rand=random.nextInt(2 ^ 23);
-    if (!idTree.contains(new Integer(rand))) {
-      idTree.add(new Integer(rand));
+    if (!sIdTree.contains(new Integer(rand))) {
+      sIdTree.add(new Integer(rand));
       break;
     }
   }

@@ -1,6 +1,6 @@
 {
   String sql="INSERT OR IGNORE INTO reviewHistory (cardId, time, lastInterval, nextInterval, ease, delay, lastFactor, nextFactor, reps, thinkingTime, yesCount, noCount) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
-  SQLiteStatement statement=AnkiDatabaseManager.getDatabase(deck.deckPath).database.compileStatement(sql);
+  SQLiteStatement statement=AnkiDatabaseManager.getDatabase(deck.getDeckPath()).getDatabase().compileStatement(sql);
   int len=history.length();
   for (int i=0; i < len; i++) {
     try {

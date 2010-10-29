@@ -21,7 +21,7 @@
       deckName=deckName.substring(0,deckName.length() - ".anki".length());
       HashMap<String,String> deckChangelog=new HashMap<String,String>();
       deckChangelog.put("deckName",deckName);
-      deckChangelog.put("message",context.getResources().getString(R.string.sync_log_error_message));
+      deckChangelog.put("message",sContext.getResources().getString(R.string.sync_log_error_message));
       decksChangelogs.add(deckChangelog);
     }
   }

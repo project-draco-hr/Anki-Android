@@ -1,18 +1,18 @@
 {
-  String question=cm.qformat;
-  String answer=cm.aformat;
+  String question=cm.mQformat;
+  String answer=cm.mAformat;
   Matcher tagMatcher;
-  tagMatcher=factPattern.matcher(question);
+  tagMatcher=sFactPattern.matcher(question);
   question=tagMatcher.replaceAll(tags[Card.TAGS_FACT]);
-  tagMatcher=factPattern.matcher(answer);
+  tagMatcher=sFactPattern.matcher(answer);
   answer=tagMatcher.replaceAll(tags[Card.TAGS_FACT]);
-  tagMatcher=modelPattern.matcher(question);
+  tagMatcher=sModelPattern.matcher(question);
   question=tagMatcher.replaceAll(tags[Card.TAGS_MODEL]);
-  tagMatcher=modelPattern.matcher(answer);
+  tagMatcher=sModelPattern.matcher(answer);
   answer=tagMatcher.replaceAll(tags[Card.TAGS_MODEL]);
-  tagMatcher=templPattern.matcher(question);
+  tagMatcher=sTemplPattern.matcher(question);
   question=tagMatcher.replaceAll(tags[Card.TAGS_TEMPL]);
-  tagMatcher=templPattern.matcher(answer);
+  tagMatcher=sTemplPattern.matcher(answer);
   answer=tagMatcher.replaceAll(tags[Card.TAGS_TEMPL]);
   int replaceAt=question.indexOf("%(");
   while (replaceAt != -1) {

@@ -7,7 +7,7 @@
     query.append(", features, spacing, initialSpacing, source");
     query.append(" FROM models");
     query.append(" WHERE id = ").append(id);
-    cursor=AnkiDatabaseManager.getDatabase(deck.deckPath).database.rawQuery(query.toString(),null);
+    cursor=AnkiDatabaseManager.getDatabase(deck.getDeckPath()).getDatabase().rawQuery(query.toString(),null);
     cursor.moveToFirst();
     model=new Model(deck);
     model.id=cursor.getLong(0);

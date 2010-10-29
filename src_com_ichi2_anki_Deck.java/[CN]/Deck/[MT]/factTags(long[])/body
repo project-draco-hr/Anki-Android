@@ -1,3 +1,3 @@
 {
-  return AnkiDatabaseManager.getDatabase(deckPath).queryColumn(String.class,"select tags from facts WHERE id in " + Utils.ids2str(factIds),0);
+  return AnkiDatabaseManager.getDatabase(mDeckPath).queryColumn(String.class,"select tags from facts WHERE id in " + Utils.ids2str(factIds),0);
 }

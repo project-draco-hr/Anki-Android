@@ -1,18 +1,18 @@
 {
-  card.lastFactor=card.factor;
-  if (card.reps == 0) {
-    card.factor=averageFactor;
+  card.setLastFactor(card.getFactor());
+  if (card.getReps() == 0) {
+    card.setFactor(mAverageFactor);
   }
-  if (card.successive != 0 && !cardIsBeingLearnt(card)) {
+  if (card.getSuccessive() != 0 && !cardIsBeingLearnt(card)) {
     if (ease == 1) {
-      card.factor-=0.20;
+      card.setFactor(card.getFactor() - 0.20);
     }
  else     if (ease == 2) {
-      card.factor-=0.15;
+      card.setFactor(card.getFactor() - 0.15);
     }
   }
   if (ease == 4) {
-    card.factor+=0.10;
+    card.setFactor(card.getFactor() + 0.10);
   }
-  card.factor=Math.max(1.3,card.factor);
+  card.setFactor(Math.max(1.3,card.getFactor()));
 }

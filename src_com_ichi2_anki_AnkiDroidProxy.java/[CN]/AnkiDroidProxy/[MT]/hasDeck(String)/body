@@ -1,6 +1,6 @@
 {
   connect();
-  Iterator decksIterator=decks.keys();
+  Iterator decksIterator=mDecks.keys();
   while (decksIterator.hasNext()) {
     String serverDeckName=(String)decksIterator.next();
     if (name.equalsIgnoreCase(serverDeckName)) {

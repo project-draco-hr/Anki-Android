@@ -1,18 +1,18 @@
 {
   Log.i(AnkiDroidApp.TAG,"rebuildCounts - Rebuilding global and due counts...");
   Log.i(AnkiDroidApp.TAG,"Full review = " + full);
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeckPath);
   checkDue();
   if (full) {
-    cardCount=(int)getCardCount();
-    factCount=(int)ankiDB.queryScalar("SELECT count(id) FROM facts");
+    mCardCount=(int)retrieveCardCount();
+    mFactCount=(int)ankiDB.queryScalar("SELECT count(id) FROM facts");
   }
-  failedSoonCount=(int)ankiDB.queryScalar("SELECT count(id) FROM failedCards");
-  Log.i(AnkiDroidApp.TAG,"failedSoonCount = " + failedSoonCount);
-  failedNowCount=(int)ankiDB.queryScalar("SELECT count(id) " + "FROM cards " + "WHERE type = 0 and "+ "isDue = 1 and "+ "combinedDue <= "+ String.format(ENGLISH_LOCALE,"%f",(double)(System.currentTimeMillis() / 1000.0)));
-  Log.i(AnkiDroidApp.TAG,"failedNowCount = " + failedNowCount);
-  revCount=(int)ankiDB.queryScalar("SELECT count(id) " + "FROM cards " + "WHERE type = 1 and "+ "priority in (1,2,3,4) and "+ "isDue = 1");
-  Log.i(AnkiDroidApp.TAG,"revCount = " + revCount);
-  newCount=(int)ankiDB.queryScalar("SELECT count(id) " + "FROM cards " + "WHERE type = 2 and "+ "priority in (1,2,3,4) and "+ "isDue = 1");
-  Log.i(AnkiDroidApp.TAG,"newCount = " + newCount);
+  mFailedSoonCount=(int)ankiDB.queryScalar("SELECT count(id) FROM failedCards");
+  Log.i(AnkiDroidApp.TAG,"failedSoonCount = " + mFailedSoonCount);
+  mFailedNowCount=(int)ankiDB.queryScalar("SELECT count(id) " + "FROM cards " + "WHERE type = 0 and "+ "isDue = 1 and "+ "combinedDue <= "+ String.format(ENGLISH_LOCALE,"%f",(double)(System.currentTimeMillis() / 1000.0)));
+  Log.i(AnkiDroidApp.TAG,"failedNowCount = " + mFailedNowCount);
+  mRevCount=(int)ankiDB.queryScalar("SELECT count(id) " + "FROM cards " + "WHERE type = 1 and "+ "priority in (1,2,3,4) and "+ "isDue = 1");
+  Log.i(AnkiDroidApp.TAG,"revCount = " + mRevCount);
+  mNewCount=(int)ankiDB.queryScalar("SELECT count(id) " + "FROM cards " + "WHERE type = 2 and "+ "priority in (1,2,3,4) and "+ "isDue = 1");
+  Log.i(AnkiDroidApp.TAG,"newCount = " + mNewCount);
 }

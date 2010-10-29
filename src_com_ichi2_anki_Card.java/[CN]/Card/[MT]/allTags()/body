@@ -1,11 +1,11 @@
 {
-  if ((tagsBySrc[TAGS_FACT].length() > 0) && (tagsBySrc[TAGS_MODEL].length() > 0)) {
-    return tagsBySrc[TAGS_FACT] + "," + tagsBySrc[TAGS_MODEL];
+  if ((mTagsBySrc[TAGS_FACT].length() > 0) && (mTagsBySrc[TAGS_MODEL].length() > 0)) {
+    return mTagsBySrc[TAGS_FACT] + "," + mTagsBySrc[TAGS_MODEL];
   }
- else   if (tagsBySrc[TAGS_FACT].length() > 0) {
-    return tagsBySrc[TAGS_FACT];
+ else   if (mTagsBySrc[TAGS_FACT].length() > 0) {
+    return mTagsBySrc[TAGS_FACT];
   }
  else {
-    return tagsBySrc[TAGS_MODEL];
+    return mTagsBySrc[TAGS_MODEL];
   }
 }

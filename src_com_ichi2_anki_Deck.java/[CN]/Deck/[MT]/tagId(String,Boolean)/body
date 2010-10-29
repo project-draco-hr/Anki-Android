@@ -1,6 +1,6 @@
 {
   long id=0;
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeckPath);
   try {
     id=ankiDB.queryScalar("select id from tags where tag = \"" + tag + "\"");
   }
@@ -8,7 +8,7 @@
     if (create) {
       ContentValues value=new ContentValues();
       value.put("tag",tag);
-      id=ankiDB.database.insert("tags",null,value);
+      id=ankiDB.getDatabase().insert("tags",null,value);
     }
  else {
       id=0;

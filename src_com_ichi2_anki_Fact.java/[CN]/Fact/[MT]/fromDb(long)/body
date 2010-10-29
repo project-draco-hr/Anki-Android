@@ -1,18 +1,18 @@
 {
-  this.id=id;
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.deckPath);
+  mId=id;
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath());
   Cursor cursor=null;
   try {
-    cursor=ankiDB.database.rawQuery("SELECT id, modelId, created, modified, tags, spaceUntil " + "FROM facts " + "WHERE id = "+ id,null);
+    cursor=ankiDB.getDatabase().rawQuery("SELECT id, modelId, created, modified, tags, spaceUntil " + "FROM facts " + "WHERE id = "+ id,null);
     if (!cursor.moveToFirst()) {
       Log.w(AnkiDroidApp.TAG,"Fact.java (constructor): No result from query.");
       return false;
     }
-    this.id=cursor.getLong(0);
-    modelId=cursor.getLong(1);
-    created=cursor.getDouble(2);
-    modified=cursor.getDouble(3);
-    tags=cursor.getString(4);
+    mId=cursor.getLong(0);
+    mModelId=cursor.getLong(1);
+    mCreated=cursor.getDouble(2);
+    mModified=cursor.getDouble(3);
+    mTags=cursor.getString(4);
   }
   finally {
     if (cursor != null) {
@@ -21,8 +21,8 @@
   }
   Cursor fieldsCursor=null;
   try {
-    fieldsCursor=ankiDB.database.rawQuery("SELECT id, factId, fieldModelId, value " + "FROM fields " + "WHERE factId = "+ id,null);
-    fields=new TreeSet<Field>(new FieldOrdinalComparator());
+    fieldsCursor=ankiDB.getDatabase().rawQuery("SELECT id, factId, fieldModelId, value " + "FROM fields " + "WHERE factId = "+ id,null);
+    mFields=new TreeSet<Field>(new FieldOrdinalComparator());
     while (fieldsCursor.moveToNext()) {
       long fieldId=fieldsCursor.getLong(0);
       long fieldModelId=fieldsCursor.getLong(2);
@@ -30,7 +30,7 @@
       Cursor fieldModelCursor=null;
       FieldModel currentFieldModel=null;
       try {
-        fieldModelCursor=ankiDB.database.rawQuery("SELECT id, ordinal, modelId, name, description " + "FROM fieldModels " + "WHERE id = "+ fieldModelId,null);
+        fieldModelCursor=ankiDB.getDatabase().rawQuery("SELECT id, ordinal, modelId, name, description " + "FROM fieldModels " + "WHERE id = "+ fieldModelId,null);
         fieldModelCursor.moveToFirst();
         currentFieldModel=new FieldModel(fieldModelCursor.getLong(0),fieldModelCursor.getInt(1),fieldModelCursor.getLong(2),fieldModelCursor.getString(3),fieldModelCursor.getString(4));
       }
@@ -39,7 +39,7 @@
           fieldModelCursor.close();
         }
       }
-      fields.add(new Field(fieldId,id,currentFieldModel,fieldValue));
+      mFields.add(new Field(fieldId,id,currentFieldModel,fieldValue));
     }
   }
   finally {

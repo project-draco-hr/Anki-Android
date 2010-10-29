@@ -1,5 +1,5 @@
 {
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeckPath);
   UndoRow row;
   commitToDB();
   while (true) {
@@ -8,8 +8,8 @@
       break;
     }
   }
-  Long start=row.start;
-  Long end=row.end;
+  Long start=row.mStart;
+  Long end=row.mEnd;
   if (end == null) {
     end=latestUndoRow();
   }
@@ -17,8 +17,8 @@
   Long newstart=latestUndoRow();
   Iterator<String> iter=sql.iterator();
   while (iter.hasNext()) {
-    ankiDB.database.execSQL(iter.next());
+    ankiDB.getDatabase().execSQL(iter.next());
   }
   Long newend=latestUndoRow();
-  dst.push(new UndoRow(row.name,newstart,newend));
+  dst.push(new UndoRow(row.mName,newstart,newend));
 }

@@ -1,5 +1,5 @@
 {
-  PreviousHandler=Thread.getDefaultUncaughtExceptionHandler();
+  mPreviousHandler=Thread.getDefaultUncaughtExceptionHandler();
   Thread.setDefaultUncaughtExceptionHandler(this);
-  curContext=context;
+  mCurContext=context;
 }

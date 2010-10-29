@@ -5,7 +5,7 @@
     SimpleDateFormat formatter=new SimpleDateFormat("yyyyMMddHHmmss");
     String filename=String.format("ad-%s.stacktrace",formatter.format(currentDate));
     Log.i(AnkiDroidApp.TAG,"No external storage available");
-    FileOutputStream trace=curContext.openFileOutput(filename,Context.MODE_PRIVATE);
+    FileOutputStream trace=mCurContext.openFileOutput(filename,Context.MODE_PRIVATE);
     trace.write(reportInformation.getBytes());
     trace.close();
     Log.i(AnkiDroidApp.TAG,"report saved");

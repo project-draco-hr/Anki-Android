@@ -1,20 +1,20 @@
 {
   try {
-    if ((oldInstance != null) && (oldInstance.getStatus() != AsyncTask.Status.FINISHED)) {
-      oldInstance.get();
+    if ((sOldInstance != null) && (sOldInstance.getStatus() != AsyncTask.Status.FINISHED)) {
+      sOldInstance.get();
     }
   }
  catch (  Exception e) {
     Log.e(AnkiDroidApp.TAG,"doInBackground - Got exception while waiting for thread to finish: " + e.getMessage());
   }
-switch (type) {
+switch (mType) {
 case TASK_TYPE_LOAD_DECK:
     return doInBackgroundLoadDeck(params);
 case TASK_TYPE_LOAD_DECK_AND_UPDATE_CARDS:
   TaskData taskData=doInBackgroundLoadDeck(params);
-if (taskData.integer == DECK_LOADED) {
-  taskData.deck.updateAllCards();
-  taskData.card=taskData.deck.getCurrentCard();
+if (taskData.mInteger == DECK_LOADED) {
+  taskData.mDeck.updateAllCards();
+  taskData.mCard=taskData.mDeck.getCurrentCard();
 }
 return taskData;
 case TASK_TYPE_ANSWER_CARD:

@@ -1,19 +1,19 @@
 {
   Log.i(AnkiDroidApp.TAG,"deleteFieldModel, modelId = " + modelId + ", fieldModelId = "+ fieldModelId);
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeckPath);
   long start, stop;
   start=System.currentTimeMillis();
-  ankiDB.database.execSQL("DELETE FROM fields WHERE fieldModel = " + fieldModelId);
-  ankiDB.database.execSQL("UPDATE facts SET modified = " + String.format(ENGLISH_LOCALE,"%f",(System.currentTimeMillis() / 1000.0)) + " WHERE modelId = "+ modelId);
+  ankiDB.getDatabase().execSQL("DELETE FROM fields WHERE fieldModel = " + fieldModelId);
+  ankiDB.getDatabase().execSQL("UPDATE facts SET modified = " + String.format(ENGLISH_LOCALE,"%f",(System.currentTimeMillis() / 1000.0)) + " WHERE modelId = "+ modelId);
   String fieldName="";
-  Cursor cursor=ankiDB.database.rawQuery("SELECT name FROM fieldModels WHERE id = " + fieldModelId,null);
+  Cursor cursor=ankiDB.getDatabase().rawQuery("SELECT name FROM fieldModels WHERE id = " + fieldModelId,null);
   if (cursor.moveToNext()) {
     fieldName=cursor.getString(0);
   }
   cursor.close();
-  cursor=ankiDB.database.rawQuery("SELECT id, qformat, aformat FROM cardModels WHERE modelId = " + modelId,null);
+  cursor=ankiDB.getDatabase().rawQuery("SELECT id, qformat, aformat FROM cardModels WHERE modelId = " + modelId,null);
   String sql="UPDATE cardModels SET qformat = ?, aformat = ? WHERE id = ?";
-  SQLiteStatement statement=ankiDB.database.compileStatement(sql);
+  SQLiteStatement statement=ankiDB.getDatabase().compileStatement(sql);
   while (cursor.moveToNext()) {
     String id=cursor.getString(0);
     String newQFormat=cursor.getString(1);
@@ -29,7 +29,7 @@
   }
   cursor.close();
   statement.close();
-  ankiDB.database.execSQL("UPDATE models SET modified = " + String.format(ENGLISH_LOCALE,"%f",System.currentTimeMillis() / 1000.0) + " WHERE id = "+ modelId);
+  ankiDB.getDatabase().execSQL("UPDATE models SET modified = " + String.format(ENGLISH_LOCALE,"%f",System.currentTimeMillis() / 1000.0) + " WHERE id = "+ modelId);
   flushMod();
   stop=System.currentTimeMillis();
   Log.v(AnkiDroidApp.TAG,"deleteFieldModel - deleted field models in " + (stop - start) + " ms.");

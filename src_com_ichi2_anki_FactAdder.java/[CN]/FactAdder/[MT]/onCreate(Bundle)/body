@@ -2,14 +2,14 @@
   super.onCreate(savedInstanceState);
   registerExternalStorageListener();
   setContentView(R.layout.fact_adder);
-  fieldsLayoutContainer=(LinearLayout)findViewById(R.id.FactAdderEditFieldsLayout);
+  mFieldsLayoutContainer=(LinearLayout)findViewById(R.id.FactAdderEditFieldsLayout);
   addButton=(Button)findViewById(R.id.FactAdderAddButton);
   closeButton=(Button)findViewById(R.id.FactAdderCloseButton);
   modelButton=(Button)findViewById(R.id.FactAdderModelButton);
   Deck deck=AnkiDroidApp.deck();
-  models=Model.getModels(deck);
-  currentSelectedModelId=deck.currentModelId;
-  modelButton.setText(models.get(currentSelectedModelId).name);
+  mModels=Model.getModels(deck);
+  mCurrentSelectedModelId=deck.getCurrentModelId();
+  modelButton.setText(mModels.get(mCurrentSelectedModelId).name);
   addButton.setOnClickListener(new View.OnClickListener(){
     public void onClick(    View v){
       setResult(RESULT_OK);

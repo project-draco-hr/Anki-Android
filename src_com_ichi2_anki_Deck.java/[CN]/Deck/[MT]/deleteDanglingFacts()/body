@@ -1,6 +1,6 @@
 {
   Log.i(AnkiDroidApp.TAG,"deleteDanglingFacts");
-  ArrayList<String> danglingFacts=AnkiDatabaseManager.getDatabase(deckPath).queryColumn(String.class,"SELECT facts.id FROM facts WHERE facts.id NOT IN (SELECT DISTINCT factId from cards)",0);
+  ArrayList<String> danglingFacts=AnkiDatabaseManager.getDatabase(mDeckPath).queryColumn(String.class,"SELECT facts.id FROM facts WHERE facts.id NOT IN (SELECT DISTINCT factId from cards)",0);
   if (danglingFacts.size() > 0) {
     deleteFacts(danglingFacts);
   }

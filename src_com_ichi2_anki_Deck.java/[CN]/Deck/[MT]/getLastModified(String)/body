@@ -3,7 +3,7 @@
   Cursor cursor=null;
   boolean dbAlreadyOpened=AnkiDatabaseManager.isDatabaseOpen(deckPath);
   try {
-    cursor=AnkiDatabaseManager.getDatabase(deckPath).database.rawQuery("SELECT modified" + " FROM decks" + " LIMIT 1",null);
+    cursor=AnkiDatabaseManager.getDatabase(deckPath).getDatabase().rawQuery("SELECT modified" + " FROM decks" + " LIMIT 1",null);
     if (!cursor.moveToFirst()) {
       value=-1;
     }

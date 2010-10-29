@@ -5,29 +5,29 @@
     StringBuffer query=new StringBuffer(SELECT_STRING);
     query.append(" WHERE modelId = ");
     query.append(modelId);
-    cursor=AnkiDatabaseManager.getDatabase(deck.deckPath).database.rawQuery(query.toString(),null);
+    cursor=AnkiDatabaseManager.getDatabase(deck.getDeckPath()).getDatabase().rawQuery(query.toString(),null);
     if (cursor.moveToFirst()) {
       do {
         myCardModel=new CardModel();
-        myCardModel.id=cursor.getLong(0);
-        myCardModel.ordinal=cursor.getInt(1);
-        myCardModel.modelId=cursor.getLong(2);
-        myCardModel.name=cursor.getString(3);
-        myCardModel.description=cursor.getString(4);
-        myCardModel.active=cursor.getInt(5);
-        myCardModel.qformat=cursor.getString(6);
-        myCardModel.aformat=cursor.getString(7);
-        myCardModel.questionInAnswer=cursor.getInt(8);
-        myCardModel.questionFontFamily=cursor.getString(9);
-        myCardModel.questionFontSize=cursor.getInt(10);
-        myCardModel.questionFontColour=cursor.getString(11);
-        myCardModel.questionAlign=cursor.getInt(12);
-        myCardModel.answerFontFamily=cursor.getString(13);
-        myCardModel.answerFontSize=cursor.getInt(14);
-        myCardModel.answerFontColour=cursor.getString(15);
-        myCardModel.answerAlign=cursor.getInt(16);
-        myCardModel.lastFontColour=cursor.getString(17);
-        models.put(myCardModel.id,myCardModel);
+        myCardModel.mId=cursor.getLong(0);
+        myCardModel.mOrdinal=cursor.getInt(1);
+        myCardModel.mModelId=cursor.getLong(2);
+        myCardModel.mName=cursor.getString(3);
+        myCardModel.mDescription=cursor.getString(4);
+        myCardModel.mActive=cursor.getInt(5);
+        myCardModel.mQformat=cursor.getString(6);
+        myCardModel.mAformat=cursor.getString(7);
+        myCardModel.mQuestionInAnswer=cursor.getInt(8);
+        myCardModel.mQuestionFontFamily=cursor.getString(9);
+        myCardModel.mQuestionFontSize=cursor.getInt(10);
+        myCardModel.mQuestionFontColour=cursor.getString(11);
+        myCardModel.mQuestionAlign=cursor.getInt(12);
+        myCardModel.mAnswerFontFamily=cursor.getString(13);
+        myCardModel.mAnswerFontSize=cursor.getInt(14);
+        myCardModel.mAnswerFontColour=cursor.getString(15);
+        myCardModel.mAnswerAlign=cursor.getInt(16);
+        myCardModel.mLastFontColour=cursor.getString(17);
+        models.put(myCardModel.mId,myCardModel);
       }
  while (cursor.moveToNext());
     }

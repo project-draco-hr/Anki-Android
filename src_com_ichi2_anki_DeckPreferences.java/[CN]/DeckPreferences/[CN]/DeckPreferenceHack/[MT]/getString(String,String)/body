@@ -1,7 +1,7 @@
 {
   Log.d(this.getClass().toString(),String.format("getString(key=%s, defValue=%s)",key,defValue));
-  if (!values.containsKey(key)) {
+  if (!mValues.containsKey(key)) {
     return defValue;
   }
-  return values.get(key);
+  return mValues.get(key);
 }

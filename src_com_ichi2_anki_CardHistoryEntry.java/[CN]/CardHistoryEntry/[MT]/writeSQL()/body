@@ -1,16 +1,16 @@
 {
   ContentValues values=new ContentValues();
-  values.put("cardId",cardId);
-  values.put("lastInterval",lastInterval);
-  values.put("nextInterval",nextInterval);
-  values.put("ease",ease);
-  values.put("delay",delay);
-  values.put("lastFactor",lastFactor);
-  values.put("nextFactor",nextFactor);
-  values.put("reps",reps);
-  values.put("thinkingTime",thinkingTime);
-  values.put("yesCount",yesCount);
-  values.put("noCount",noCount);
+  values.put("cardId",mCardId);
+  values.put("lastInterval",mLastInterval);
+  values.put("nextInterval",mNextInterval);
+  values.put("ease",mEase);
+  values.put("delay",mDelay);
+  values.put("lastFactor",mLastFactor);
+  values.put("nextFactor",mNextFactor);
+  values.put("reps",mReps);
+  values.put("thinkingTime",mThinkingTime);
+  values.put("yesCount",mYesCount);
+  values.put("noCount",mNoCount);
   values.put("time",System.currentTimeMillis() / 1000.0);
-  AnkiDatabaseManager.getDatabase(deck.deckPath).database.insert("reviewHistory",null,values);
+  AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().insert("reviewHistory",null,values);
 }

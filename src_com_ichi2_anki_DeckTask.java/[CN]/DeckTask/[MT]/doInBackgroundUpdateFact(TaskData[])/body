@@ -1,7 +1,7 @@
 {
   Deck deck=params[0].getDeck();
   Card editCard=params[0].getCard();
-  Fact editFact=editCard.fact;
+  Fact editFact=editCard.getFact();
   editFact.toDb();
   LinkedList<Card> saveCards=editFact.getUpdatedRelatedCards();
   Iterator<Card> iter=saveCards.iterator();

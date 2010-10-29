@@ -1,17 +1,17 @@
 {
-  this.deck=deck;
+  mDeck=deck;
   if (card == null) {
     return;
   }
-  cardId=card.id;
-  lastInterval=card.lastInterval;
-  nextInterval=card.interval;
-  lastFactor=card.lastFactor;
-  nextFactor=card.factor;
-  reps=card.reps;
-  yesCount=card.yesCount;
-  noCount=card.noCount;
-  this.ease=ease;
-  this.delay=delay;
-  thinkingTime=card.thinkingTime();
+  mCardId=card.getId();
+  mLastInterval=card.getLastInterval();
+  mNextInterval=card.getInterval();
+  mLastFactor=card.getLastFactor();
+  mNextFactor=card.getFactor();
+  mReps=card.getReps();
+  mYesCount=card.getYesCount();
+  mNoCount=card.getNoCount();
+  mEase=ease;
+  mDelay=delay;
+  mThinkingTime=card.thinkingTime();
 }

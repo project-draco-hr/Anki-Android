@@ -1,7 +1,7 @@
 {
-  if (status == UPDATING || status == PAUSED) {
-    if (numTotalCards > 0) {
-      return (int)(((float)numUpdatedCards / numTotalCards) * 100);
+  if (mStatus == UPDATING || mStatus == PAUSED) {
+    if (mNumTotalCards > 0) {
+      return (int)(((float)mNumUpdatedCards / mNumTotalCards) * 100);
     }
  else {
       return 0;

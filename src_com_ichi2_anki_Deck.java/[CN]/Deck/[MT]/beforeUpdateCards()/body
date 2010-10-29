@@ -1,7 +1,7 @@
 {
   long now=System.currentTimeMillis();
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
-  ankiDB.database.execSQL("PRAGMA synchronous=NORMAL");
-  ankiDB.database.execSQL("DROP INDEX IF EXISTS ix_cards_sort");
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeckPath);
+  ankiDB.getDatabase().execSQL("PRAGMA synchronous=NORMAL");
+  ankiDB.getDatabase().execSQL("DROP INDEX IF EXISTS ix_cards_sort");
   Log.w(AnkiDroidApp.TAG,"BEFORE UPDATE = " + (System.currentTimeMillis() - now));
 }

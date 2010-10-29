@@ -1,7 +1,7 @@
 {
-  if (instance == null) {
-    instance=new CustomExceptionHandler();
+  if (sInstance == null) {
+    sInstance=new CustomExceptionHandler();
     Log.i(AnkiDroidApp.TAG,"New instance of custom exception handler");
   }
-  return instance;
+  return sInstance;
 }

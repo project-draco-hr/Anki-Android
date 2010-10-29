@@ -8,23 +8,23 @@
     mAnswerField.setVisibility(View.GONE);
     if (mCurrentCard != null) {
       String userAnswer=mAnswerField.getText().toString();
-      Matcher spanMatcher=spanPattern.matcher(mCurrentCard.answer);
+      Matcher spanMatcher=sSpanPattern.matcher(mCurrentCard.getAnswer());
       String correctAnswer=spanMatcher.replaceAll("");
-      Matcher brMatcher=brPattern.matcher(correctAnswer);
+      Matcher brMatcher=sBrPattern.matcher(correctAnswer);
       correctAnswer=brMatcher.replaceAll("\n");
       Log.i(AnkiDroidApp.TAG,"correct answer = " + correctAnswer);
       DiffEngine diff=new DiffEngine();
-      displayString=enrichWithQASpan(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer)) + "<br/>" + mCurrentCard.answer,true);
+      displayString=enrichWithQASpan(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer)) + "<br/>" + mCurrentCard.getAnswer(),true);
     }
     InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
     inputMethodManager.hideSoftInputFromWindow(mAnswerField.getWindowToken(),0);
   }
  else {
-    displayString=enrichWithQASpan(mCurrentCard.answer,true);
+    displayString=enrichWithQASpan(mCurrentCard.getAnswer(),true);
   }
   if (questionIsDisplayed()) {
     StringBuffer sb=new StringBuffer();
-    sb.append(enrichWithQASpan(mCurrentCard.question,false));
+    sb.append(enrichWithQASpan(mCurrentCard.getQuestion(),false));
     sb.append("<hr/>");
     sb.append(displayString);
     displayString=sb.toString();

@@ -1,7 +1,7 @@
 {
   ContentValues values=new ContentValues();
-  values.put("modified",modified);
-  values.put("question",question);
-  values.put("answer",answer);
-  AnkiDatabaseManager.getDatabase(deck.deckPath).database.update("cards",values,"id = " + id,null);
+  values.put("modified",mModified);
+  values.put("question",mQuestion);
+  values.put("answer",mAnswer);
+  AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().update("cards",values,"id = " + mId,null);
 }

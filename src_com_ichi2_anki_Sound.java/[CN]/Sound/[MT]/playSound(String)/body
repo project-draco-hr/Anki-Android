@@ -1,18 +1,18 @@
 {
-  if (mSoundPaths.contains(soundPath)) {
-    mStartSoundTime=System.currentTimeMillis();
-    mMediaPlayer=new MediaPlayer();
+  if (sSoundPaths.contains(soundPath)) {
+    sStartSoundTime=System.currentTimeMillis();
+    sMediaPlayer=new MediaPlayer();
     try {
-      mMediaPlayer.setDataSource(soundPath);
-      mMediaPlayer.setVolume(AudioManager.STREAM_MUSIC,AudioManager.STREAM_MUSIC);
-      mMediaPlayer.prepare();
-      mMediaPlayer.start();
+      sMediaPlayer.setDataSource(soundPath);
+      sMediaPlayer.setVolume(AudioManager.STREAM_MUSIC,AudioManager.STREAM_MUSIC);
+      sMediaPlayer.prepare();
+      sMediaPlayer.start();
     }
  catch (    Exception e) {
       Log.e(AnkiDroidApp.TAG,"playSounds - Error reproducing sound " + soundPath + " = "+ e.getMessage());
       releaseSound();
     }
-    mFinishSoundTime=System.currentTimeMillis();
-    Log.i(AnkiDroidApp.TAG,"Sound " + soundPath + " played in "+ (mFinishSoundTime - mStartSoundTime)+ " milliseconds");
+    sFinishSoundTime=System.currentTimeMillis();
+    Log.i(AnkiDroidApp.TAG,"Sound " + soundPath + " played in "+ (sFinishSoundTime - sStartSoundTime)+ " milliseconds");
   }
 }

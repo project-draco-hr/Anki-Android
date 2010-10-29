@@ -1,5 +1,5 @@
 {
-  deck.lastSync=System.currentTimeMillis() / 1000.0;
+  deck.setLastSync(System.currentTimeMillis() / 1000.0);
   deck.commitToDB();
   if (localTime > remoteTime) {
     return "fromLocal";

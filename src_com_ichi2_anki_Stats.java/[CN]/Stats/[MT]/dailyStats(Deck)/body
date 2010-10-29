@@ -6,7 +6,7 @@
   Cursor cursor=null;
   try {
     Log.i(AnkiDroidApp.TAG,"Trying to get stats for " + today.toString());
-    cursor=AnkiDatabaseManager.getDatabase(deck.deckPath).database.rawQuery("SELECT id " + "FROM stats " + "WHERE type = " + String.valueOf(type) + " and day = \""+ today.toString()+ "\"",null);
+    cursor=AnkiDatabaseManager.getDatabase(deck.getDeckPath()).getDatabase().rawQuery("SELECT id " + "FROM stats " + "WHERE type = " + String.valueOf(type) + " and day = \""+ today.toString()+ "\"",null);
     if (cursor.moveToFirst()) {
       stats=new Stats(deck);
       stats.fromDB(cursor.getLong(0));
@@ -20,6 +20,6 @@
   }
   stats=new Stats(deck);
   stats.create(type,today);
-  stats.type=type;
+  stats.mType=type;
   return stats;
 }

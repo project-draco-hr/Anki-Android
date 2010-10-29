@@ -1,12 +1,12 @@
 {
-  stats.reps+=1;
+  stats.mReps+=1;
   double delay=card.totalTime();
   if (delay >= 60) {
-    stats.reviewTime+=60;
+    stats.mReviewTime+=60;
   }
  else {
-    stats.reviewTime+=delay;
-    stats.averageTime=(stats.reviewTime / stats.reps);
+    stats.mReviewTime+=delay;
+    stats.mAverageTime=(stats.mReviewTime / stats.mReps);
   }
   String attr=oldState + String.format("Ease%d",ease);
   try {

@@ -1,7 +1,7 @@
 {
   int len=cards.length();
   if (len > 0) {
-    AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.deckPath);
+    AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
     ArrayList<String> ids=new ArrayList<String>();
     for (int i=0; i < len; i++) {
       try {
@@ -12,9 +12,9 @@
       }
     }
     String idsString=Utils.ids2str(ids);
-    deck.cardCount+=len - ankiDB.queryScalar("SELECT COUNT(*) FROM cards WHERE id IN " + idsString);
+    deck.setCardCount((int)(deck.getCardCount() + (len - ankiDB.queryScalar("SELECT COUNT(*) FROM cards WHERE id IN " + idsString))));
     String sql="INSERT OR REPLACE INTO cards (id, factId, cardModelId, created, modified, tags, ordinal, priority, interval, lastInterval, due, lastDue, " + "factor, firstAnswered, reps, successive, averageTime, reviewTime, youngEase0, youngEase1, youngEase2, youngEase3, youngEase4, " + "matureEase0, matureEase1, matureEase2, matureEase3, matureEase4, yesCount, noCount, question, answer, lastFactor, spaceUntil, "+ "type, combinedDue, relativeDelay, isDue) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, 0, 0)";
-    SQLiteStatement statement=ankiDB.database.compileStatement(sql);
+    SQLiteStatement statement=ankiDB.getDatabase().compileStatement(sql);
     for (int i=0; i < len; i++) {
       try {
         JSONArray card=cards.getJSONArray(i);
@@ -61,6 +61,6 @@
       }
     }
     statement.close();
-    ankiDB.database.execSQL("DELETE FROM cardsDeleted WHERE cardId IN " + idsString);
+    ankiDB.getDatabase().execSQL("DELETE FROM cardsDeleted WHERE cardId IN " + idsString);
   }
 }

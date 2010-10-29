@@ -1,28 +1,28 @@
 {
   JSONObject bundledStat=new JSONObject();
   try {
-    bundledStat.put("type",stat.type);
-    bundledStat.put("day",Utils.dateToOrdinal(stat.day));
-    bundledStat.put("reps",stat.reps);
-    bundledStat.put("averageTime",stat.averageTime);
-    bundledStat.put("reviewTime",stat.reviewTime);
-    bundledStat.put("distractedTime",stat.distractedTime);
-    bundledStat.put("distractedReps",stat.distractedReps);
-    bundledStat.put("newEase0",stat.newEase0);
-    bundledStat.put("newEase1",stat.newEase1);
-    bundledStat.put("newEase2",stat.newEase2);
-    bundledStat.put("newEase3",stat.newEase3);
-    bundledStat.put("newEase4",stat.newEase4);
-    bundledStat.put("youngEase0",stat.youngEase0);
-    bundledStat.put("youngEase1",stat.youngEase1);
-    bundledStat.put("youngEase2",stat.youngEase2);
-    bundledStat.put("youngEase3",stat.youngEase3);
-    bundledStat.put("youngEase4",stat.youngEase4);
-    bundledStat.put("matureEase0",stat.matureEase0);
-    bundledStat.put("matureEase1",stat.matureEase1);
-    bundledStat.put("matureEase2",stat.matureEase2);
-    bundledStat.put("matureEase3",stat.matureEase3);
-    bundledStat.put("matureEase4",stat.matureEase4);
+    bundledStat.put("type",stat.getType());
+    bundledStat.put("day",Utils.dateToOrdinal(stat.getDay()));
+    bundledStat.put("reps",stat.getReps());
+    bundledStat.put("averageTime",stat.getAverageTime());
+    bundledStat.put("reviewTime",stat.getReviewTime());
+    bundledStat.put("distractedTime",stat.getDistractedTime());
+    bundledStat.put("distractedReps",stat.getDistractedReps());
+    bundledStat.put("newEase0",stat.getNewEase0());
+    bundledStat.put("newEase1",stat.getNewEase1());
+    bundledStat.put("newEase2",stat.getNewEase2());
+    bundledStat.put("newEase3",stat.getNewEase3());
+    bundledStat.put("newEase4",stat.getNewEase4());
+    bundledStat.put("youngEase0",stat.getYoungEase0());
+    bundledStat.put("youngEase1",stat.getYoungEase1());
+    bundledStat.put("youngEase2",stat.getYoungEase2());
+    bundledStat.put("youngEase3",stat.getYoungEase3());
+    bundledStat.put("youngEase4",stat.getYoungEase4());
+    bundledStat.put("matureEase0",stat.getMatureEase0());
+    bundledStat.put("matureEase1",stat.getMatureEase1());
+    bundledStat.put("matureEase2",stat.getMatureEase2());
+    bundledStat.put("matureEase3",stat.getMatureEase3());
+    bundledStat.put("matureEase4",stat.getMatureEase4());
   }
  catch (  JSONException e) {
     Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());

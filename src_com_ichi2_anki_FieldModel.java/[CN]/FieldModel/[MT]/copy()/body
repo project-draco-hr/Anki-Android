@@ -1,15 +1,15 @@
 {
-  FieldModel fieldModel=new FieldModel(this.name,(this.required == 1) ? true : false,(this.unique == 1) ? true : false);
-  fieldModel.ordinal=this.ordinal;
-  fieldModel.modelId=this.modelId;
-  fieldModel.description=this.description;
-  fieldModel.features=this.features;
-  fieldModel.numeric=this.numeric;
-  fieldModel.quizFontFamily=this.quizFontFamily;
-  fieldModel.quizFontSize=this.quizFontSize;
-  fieldModel.quizFontColour=this.quizFontColour;
-  fieldModel.editFontFamily=this.editFontFamily;
-  fieldModel.editFontSize=this.editFontSize;
-  fieldModel.model=null;
+  FieldModel fieldModel=new FieldModel(mName,(mRequired == 1) ? true : false,(mUnique == 1) ? true : false);
+  fieldModel.mOrdinal=mOrdinal;
+  fieldModel.mModelId=mModelId;
+  fieldModel.mDescription=mDescription;
+  fieldModel.mFeatures=mFeatures;
+  fieldModel.mNumeric=mNumeric;
+  fieldModel.mQuizFontFamily=mQuizFontFamily;
+  fieldModel.mQuizFontSize=mQuizFontSize;
+  fieldModel.mQuizFontColour=mQuizFontColour;
+  fieldModel.mEditFontFamily=mEditFontFamily;
+  fieldModel.mEditFontSize=mEditFontSize;
+  fieldModel.mModel=null;
   return fieldModel;
 }

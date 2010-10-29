@@ -1,0 +1,4 @@
+{
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeckPath);
+  return ankiDB.queryScalar("SELECT count(id) FROM cards");
+}

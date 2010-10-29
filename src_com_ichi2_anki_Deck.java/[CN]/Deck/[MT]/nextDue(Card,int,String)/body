@@ -2,14 +2,14 @@
   double due;
   if (ease == 1) {
     if (oldState.equals("mature")) {
-      due=delay1;
+      due=mDelay1;
     }
  else {
-      due=delay0;
+      due=mDelay0;
     }
   }
  else {
-    due=card.interval * 86400.0;
+    due=card.getInterval() * 86400.0;
   }
   return due + (System.currentTimeMillis() / 1000.0);
 }

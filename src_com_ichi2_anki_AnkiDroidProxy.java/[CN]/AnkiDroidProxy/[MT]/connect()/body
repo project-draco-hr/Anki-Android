@@ -1,13 +1,13 @@
 {
-  if (decks == null) {
+  if (mDecks == null) {
     String decksString=getDecks();
     try {
       JSONObject jsonDecks=new JSONObject(decksString);
       if ("OK".equalsIgnoreCase(jsonDecks.getString("status"))) {
-        decks=jsonDecks.getJSONObject("decks");
-        Log.i(AnkiDroidApp.TAG,"Server decks = " + decks.toString());
-        timestamp=jsonDecks.getDouble("timestamp");
-        Log.i(AnkiDroidApp.TAG,"Server timestamp = " + timestamp);
+        mDecks=jsonDecks.getJSONObject("decks");
+        Log.i(AnkiDroidApp.TAG,"Server decks = " + mDecks.toString());
+        mTimestamp=jsonDecks.getDouble("timestamp");
+        Log.i(AnkiDroidApp.TAG,"Server timestamp = " + mTimestamp);
         return LOGIN_OK;
       }
  else       if ("invalidUserPass".equalsIgnoreCase(jsonDecks.getString("status"))) {

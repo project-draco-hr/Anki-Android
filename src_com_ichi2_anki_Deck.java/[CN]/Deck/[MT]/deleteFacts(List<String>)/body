@@ -2,16 +2,16 @@
   Log.i(AnkiDroidApp.TAG,"deleteFacts = " + ids.toString());
   int len=ids.size();
   if (len > 0) {
-    AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
+    AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeckPath);
     commitToDB();
     double now=System.currentTimeMillis() / 1000.0;
     String idsString=Utils.ids2str(ids);
     Log.i(AnkiDroidApp.TAG,"DELETE FROM facts WHERE id in " + idsString);
-    ankiDB.database.execSQL("DELETE FROM facts WHERE id in " + idsString);
+    ankiDB.getDatabase().execSQL("DELETE FROM facts WHERE id in " + idsString);
     Log.i(AnkiDroidApp.TAG,"DELETE FROM fields WHERE factId in " + idsString);
-    ankiDB.database.execSQL("DELETE FROM fields WHERE factId in " + idsString);
+    ankiDB.getDatabase().execSQL("DELETE FROM fields WHERE factId in " + idsString);
     String sqlInsert="INSERT INTO factsDeleted VALUES(?," + String.format(ENGLISH_LOCALE,"%f",now) + ")";
-    SQLiteStatement statement=ankiDB.database.compileStatement(sqlInsert);
+    SQLiteStatement statement=ankiDB.getDatabase().compileStatement(sqlInsert);
     for (    String id : ids) {
       Log.i(AnkiDroidApp.TAG,"inserting into factsDeleted");
       statement.bindString(1,id);

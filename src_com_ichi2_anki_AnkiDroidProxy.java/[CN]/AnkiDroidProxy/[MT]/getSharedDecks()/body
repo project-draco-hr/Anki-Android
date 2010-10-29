@@ -1,19 +1,19 @@
 {
   try {
-    if (sharedDecks == null) {
-      sharedDecks=new ArrayList<SharedDeck>();
+    if (sSharedDecks == null) {
+      sSharedDecks=new ArrayList<SharedDeck>();
       HttpGet httpGet=new HttpGet("http://anki.ichi2.net/file/search");
       httpGet.setHeader("Accept-Encoding","identity");
       httpGet.setHeader("Host","anki.ichi2.net");
       DefaultHttpClient defaultHttpClient=new DefaultHttpClient();
       HttpResponse httpResponse=defaultHttpClient.execute(httpGet);
       String response=Utils.convertStreamToString(httpResponse.getEntity().getContent());
-      sharedDecks.addAll(getSharedDecksListFromJSONArray(new JSONArray(response)));
+      sSharedDecks.addAll(getSharedDecksListFromJSONArray(new JSONArray(response)));
     }
   }
  catch (  Exception e) {
-    sharedDecks=null;
+    sSharedDecks=null;
     throw new Exception();
   }
-  return sharedDecks;
+  return sSharedDecks;
 }

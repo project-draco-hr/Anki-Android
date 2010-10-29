@@ -1,8 +1,8 @@
 {
-  if (Double.isNaN(timerStopped)) {
-    return (System.currentTimeMillis() / 1000.0) - timerStarted;
+  if (Double.isNaN(mTimerStopped)) {
+    return (System.currentTimeMillis() / 1000.0) - mTimerStarted;
   }
  else {
-    return timerStopped - timerStarted;
+    return mTimerStopped - mTimerStarted;
   }
 }

@@ -1,9 +1,9 @@
 {
   Log.i(AnkiDroidApp.TAG,"deleteCardModel, modelId = " + modelId + ", fieldModelId = "+ cardModelId);
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeckPath);
   ArrayList<String> cardIds=ankiDB.queryColumn(String.class,"SELECT id FROM cards WHERE cardModelId = " + cardModelId,0);
   deleteCards(cardIds);
-  ankiDB.database.execSQL("DELETE FROM cardModels WHERE id = " + cardModelId);
-  ankiDB.database.execSQL("UPDATE models SET modified = " + String.format(ENGLISH_LOCALE,"%f",System.currentTimeMillis() / 1000.0) + " WHERE id = "+ modelId);
+  ankiDB.getDatabase().execSQL("DELETE FROM cardModels WHERE id = " + cardModelId);
+  ankiDB.getDatabase().execSQL("UPDATE models SET modified = " + String.format(ENGLISH_LOCALE,"%f",System.currentTimeMillis() / 1000.0) + " WHERE id = "+ modelId);
   flushMod();
 }

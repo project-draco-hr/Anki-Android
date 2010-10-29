@@ -2,9 +2,9 @@
   Model mModel;
   HashMap<Long,Model> mModels=new HashMap<Long,Model>();
   Cursor mCursor=null;
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.deckPath);
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
   try {
-    mCursor=ankiDB.database.rawQuery("SELECT id FROM models",null);
+    mCursor=ankiDB.getDatabase().rawQuery("SELECT id FROM models",null);
     if (!mCursor.moveToFirst()) {
       return mModels;
     }

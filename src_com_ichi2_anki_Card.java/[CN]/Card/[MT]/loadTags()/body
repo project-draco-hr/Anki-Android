@@ -1,18 +1,18 @@
 {
   Cursor cursor=null;
   int tagSrc=0;
-  for (int i=0; i < tagsBySrc.length; i++) {
-    tagsBySrc[i]="";
+  for (int i=0; i < mTagsBySrc.length; i++) {
+    mTagsBySrc[i]="";
   }
   try {
-    cursor=AnkiDatabaseManager.getDatabase(deck.deckPath).database.rawQuery("SELECT tags.tag, cardTags.src " + "FROM cardTags JOIN tags ON cardTags.tagId = tags.id " + "WHERE cardTags.cardId = " + id + " AND cardTags.src in ("+ TAGS_FACT+ ", "+ TAGS_MODEL+ ","+ TAGS_TEMPL+ ") "+ "ORDER BY cardTags.id",null);
+    cursor=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().rawQuery("SELECT tags.tag, cardTags.src " + "FROM cardTags JOIN tags ON cardTags.tagId = tags.id " + "WHERE cardTags.cardId = " + mId + " AND cardTags.src in ("+ TAGS_FACT+ ", "+ TAGS_MODEL+ ","+ TAGS_TEMPL+ ") "+ "ORDER BY cardTags.id",null);
     while (cursor.moveToNext()) {
       tagSrc=cursor.getInt(1);
-      if (tagsBySrc[tagSrc].length() > 0) {
-        tagsBySrc[tagSrc]+="," + cursor.getString(0);
+      if (mTagsBySrc[tagSrc].length() > 0) {
+        mTagsBySrc[tagSrc]+="," + cursor.getString(0);
       }
  else {
-        tagsBySrc[tagSrc]+=cursor.getString(0);
+        mTagsBySrc[tagSrc]+=cursor.getString(0);
       }
     }
   }

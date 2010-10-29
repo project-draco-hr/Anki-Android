@@ -3,12 +3,12 @@
   Deck deck=params[0].getDeck();
   Card oldCard=params[0].getCard();
   Card newCard;
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.deckPath);
-  ankiDB.database.beginTransaction();
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
+  ankiDB.getDatabase().beginTransaction();
   try {
     if (oldCard != null) {
       start=System.currentTimeMillis();
-      deck.suspendCard(oldCard.id);
+      deck.suspendCard(oldCard.getId());
       stop=System.currentTimeMillis();
       Log.v(AnkiDroidApp.TAG,"doInBackgroundSuspendCard - Suspended card in " + (stop - start) + " ms.");
     }
@@ -17,10 +17,10 @@
     stop=System.currentTimeMillis();
     Log.v(AnkiDroidApp.TAG,"doInBackgroundSuspendCard - Loaded new card in " + (stop - start) + " ms.");
     publishProgress(new TaskData(newCard));
-    ankiDB.database.setTransactionSuccessful();
+    ankiDB.getDatabase().setTransactionSuccessful();
   }
   finally {
-    ankiDB.database.endTransaction();
+    ankiDB.getDatabase().endTransaction();
   }
   return null;
 }

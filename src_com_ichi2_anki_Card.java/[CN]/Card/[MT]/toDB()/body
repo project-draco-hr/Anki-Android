@@ -1,50 +1,50 @@
 {
-  if (reps == 0) {
-    type=2;
+  if (mReps == 0) {
+    mType=2;
   }
- else   if (successive != 0) {
-    type=1;
+ else   if (mSuccessive != 0) {
+    mType=1;
   }
  else {
-    type=0;
+    mType=0;
   }
   ContentValues values=new ContentValues();
-  values.put("factId",factId);
-  values.put("cardModelId",cardModelId);
-  values.put("created",created);
-  values.put("modified",modified);
-  values.put("tags",tags);
-  values.put("ordinal",ordinal);
-  values.put("question",question);
-  values.put("answer",answer);
-  values.put("priority",priority);
-  values.put("interval",interval);
-  values.put("lastInterval",lastInterval);
-  values.put("due",due);
-  values.put("lastDue",lastDue);
-  values.put("factor",factor);
-  values.put("lastFactor",lastFactor);
-  values.put("firstAnswered",firstAnswered);
-  values.put("reps",reps);
-  values.put("successive",successive);
-  values.put("averageTime",averageTime);
-  values.put("reviewTime",reviewTime);
-  values.put("youngEase0",youngEase0);
-  values.put("youngEase1",youngEase1);
-  values.put("youngEase2",youngEase2);
-  values.put("youngEase3",youngEase3);
-  values.put("youngEase4",youngEase4);
-  values.put("matureEase0",matureEase0);
-  values.put("matureEase1",matureEase1);
-  values.put("matureEase2",matureEase2);
-  values.put("matureEase3",matureEase3);
-  values.put("matureEase4",matureEase4);
-  values.put("yesCount",yesCount);
-  values.put("noCount",noCount);
-  values.put("spaceUntil",spaceUntil);
-  values.put("isDue",isDue);
-  values.put("type",type);
-  values.put("combinedDue",Math.max(spaceUntil,due));
+  values.put("factId",mFactId);
+  values.put("cardModelId",mCardModelId);
+  values.put("created",mCreated);
+  values.put("modified",mModified);
+  values.put("tags",mTags);
+  values.put("ordinal",mOrdinal);
+  values.put("question",mQuestion);
+  values.put("answer",mAnswer);
+  values.put("priority",mPriority);
+  values.put("interval",mInterval);
+  values.put("lastInterval",mLastInterval);
+  values.put("due",mDue);
+  values.put("lastDue",mLastDue);
+  values.put("factor",mFactor);
+  values.put("lastFactor",mLastFactor);
+  values.put("firstAnswered",mFirstAnswered);
+  values.put("reps",mReps);
+  values.put("successive",mSuccessive);
+  values.put("averageTime",mAverageTime);
+  values.put("reviewTime",mReviewTime);
+  values.put("youngEase0",mYoungEase0);
+  values.put("youngEase1",mYoungEase1);
+  values.put("youngEase2",mYoungEase2);
+  values.put("youngEase3",mYoungEase3);
+  values.put("youngEase4",mYoungEase4);
+  values.put("matureEase0",mMatureEase0);
+  values.put("matureEase1",mMatureEase1);
+  values.put("matureEase2",mMatureEase2);
+  values.put("matureEase3",mMatureEase3);
+  values.put("matureEase4",mMatureEase4);
+  values.put("yesCount",mYesCount);
+  values.put("noCount",mNoCount);
+  values.put("spaceUntil",mSpaceUntil);
+  values.put("isDue",mIsDue);
+  values.put("type",mType);
+  values.put("combinedDue",Math.max(mSpaceUntil,mDue));
   values.put("relativeDelay",0.0);
-  AnkiDatabaseManager.getDatabase(deck.deckPath).database.update("cards",values,"id = " + id,null);
+  AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().update("cards",values,"id = " + mId,null);
 }

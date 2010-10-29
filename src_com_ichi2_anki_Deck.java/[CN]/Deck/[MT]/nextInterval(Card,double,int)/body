@@ -1,33 +1,33 @@
 {
-  double interval=card.interval;
-  double factor=card.factor;
-  if ((delay < 0) && (card.successive != 0)) {
-    interval=Math.max(card.lastInterval,card.interval + delay);
-    if (interval < midIntervalMin) {
+  double interval=card.getInterval();
+  double factor=card.getFactor();
+  if ((delay < 0) && (card.getSuccessive() != 0)) {
+    interval=Math.max(card.getLastInterval(),card.getInterval() + delay);
+    if (interval < mMidIntervalMin) {
       interval=0;
     }
     delay=0;
   }
   if (ease == 1) {
-    interval*=delay2;
-    if (interval < hardIntervalMin) {
+    interval*=mDelay2;
+    if (interval < mHardIntervalMin) {
       interval=0;
     }
   }
  else   if (interval == 0) {
     if (ease == 2) {
-      interval=hardIntervalMin + ((double)Math.random()) * (hardIntervalMax - hardIntervalMin);
+      interval=mHardIntervalMin + ((double)Math.random()) * (mHardIntervalMax - mHardIntervalMin);
     }
  else     if (ease == 3) {
-      interval=midIntervalMin + ((double)Math.random()) * (midIntervalMax - midIntervalMin);
+      interval=mMidIntervalMin + ((double)Math.random()) * (mMidIntervalMax - mMidIntervalMin);
     }
  else     if (ease == 4) {
-      interval=easyIntervalMin + ((double)Math.random()) * (easyIntervalMax - easyIntervalMin);
+      interval=mEasyIntervalMin + ((double)Math.random()) * (mEasyIntervalMax - mEasyIntervalMin);
     }
   }
  else {
-    if ((interval < hardIntervalMax) && (interval > 0.166)) {
-      double mid=(midIntervalMin + midIntervalMax) / 2.0;
+    if ((interval < mHardIntervalMax) && (interval > 0.166)) {
+      double mid=(mMidIntervalMin + mMidIntervalMax) / 2.0;
       interval=mid / factor;
     }
     if (ease == 2) {

@@ -1,25 +1,25 @@
 {
-  mStartSoundTime=System.currentTimeMillis();
-  mMediaPlayer=new MediaPlayer();
+  sStartSoundTime=System.currentTimeMillis();
+  sMediaPlayer=new MediaPlayer();
   try {
-    mMediaPlayer.setDataSource(mSoundPaths.get(soundToPlayIndex));
-    mMediaPlayer.setVolume(AudioManager.STREAM_MUSIC,AudioManager.STREAM_MUSIC);
-    mMediaPlayer.prepare();
-    mMediaPlayer.setOnCompletionListener(new OnCompletionListener(){
+    sMediaPlayer.setDataSource(sSoundPaths.get(soundToPlayIndex));
+    sMediaPlayer.setVolume(AudioManager.STREAM_MUSIC,AudioManager.STREAM_MUSIC);
+    sMediaPlayer.prepare();
+    sMediaPlayer.setOnCompletionListener(new OnCompletionListener(){
       @Override public void onCompletion(      MediaPlayer mp){
         releaseSound();
-        numSoundsPlayed++;
-        mFinishSoundTime=System.currentTimeMillis();
-        if (numSoundsPlayed < mSoundPaths.size()) {
-          playSound(numSoundsPlayed);
+        sNumSoundsPlayed++;
+        sFinishSoundTime=System.currentTimeMillis();
+        if (sNumSoundsPlayed < sSoundPaths.size()) {
+          playSound(sNumSoundsPlayed);
         }
  else {
-          mFinishTime=System.currentTimeMillis();
+          sFinishTime=System.currentTimeMillis();
         }
       }
     }
 );
-    mMediaPlayer.start();
+    sMediaPlayer.start();
   }
  catch (  Exception e) {
     Log.e(AnkiDroidApp.TAG,"playSounds - Error reproducing sound " + (soundToPlayIndex + 1) + " = "+ e.getMessage());

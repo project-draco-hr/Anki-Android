@@ -7,19 +7,19 @@
   indices.put("dueAsc","(type, isDue, priority desc, due)");
   indices.put("dueDesc","(type, isDue, priority desc, due desc)");
   ArrayList<String> required=new ArrayList<String>();
-  if (revCardOrder == REV_CARDS_OLD_FIRST) {
+  if (mRevCardOrder == REV_CARDS_OLD_FIRST) {
     required.add("intervalDesc");
   }
-  if (revCardOrder == REV_CARDS_NEW_FIRST) {
+  if (mRevCardOrder == REV_CARDS_NEW_FIRST) {
     required.add("intervalAsc");
   }
-  if (revCardOrder == REV_CARDS_RANDOM) {
+  if (mRevCardOrder == REV_CARDS_RANDOM) {
     required.add("randomOrder");
   }
-  if (revCardOrder == REV_CARDS_DUE_FIRST || newCardOrder == NEW_CARDS_OLD_FIRST || newCardOrder == NEW_CARDS_RANDOM) {
+  if (mRevCardOrder == REV_CARDS_DUE_FIRST || mNewCardOrder == NEW_CARDS_OLD_FIRST || mNewCardOrder == NEW_CARDS_RANDOM) {
     required.add("dueAsc");
   }
-  if (newCardOrder == NEW_CARDS_NEW_FIRST) {
+  if (mNewCardOrder == NEW_CARDS_NEW_FIRST) {
     required.add("dueDesc");
   }
   Set<Entry<String,String>> entries=indices.entrySet();
@@ -27,10 +27,10 @@
   while (iter.hasNext()) {
     Entry<String,String> entry=iter.next();
     if (required.contains(entry.getKey())) {
-      AnkiDatabaseManager.getDatabase(deckPath).database.execSQL("CREATE INDEX IF NOT EXISTS " + "ix_cards_" + entry.getKey() + " ON cards "+ entry.getValue());
+      AnkiDatabaseManager.getDatabase(mDeckPath).getDatabase().execSQL("CREATE INDEX IF NOT EXISTS " + "ix_cards_" + entry.getKey() + " ON cards "+ entry.getValue());
     }
  else {
-      AnkiDatabaseManager.getDatabase(deckPath).database.execSQL("DROP INDEX IF EXISTS " + "ix_cards_" + entry.getKey());
+      AnkiDatabaseManager.getDatabase(mDeckPath).getDatabase().execSQL("DROP INDEX IF EXISTS " + "ix_cards_" + entry.getKey());
     }
   }
 }

@@ -1,5 +1,5 @@
 {
-  Resources res=context.getResources();
+  Resources res=sContext.getResources();
   HashMap<String,String> syncChangelog=new HashMap<String,String>();
   String username=(String)data.data[0];
   String password=(String)data.data[1];
@@ -14,7 +14,7 @@
   }
   syncChangelog.put("deckName",syncName);
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
-  ankiDB.database.beginTransaction();
+  ankiDB.getDatabase().beginTransaction();
   try {
     Log.i(AnkiDroidApp.TAG,"Starting sync: username = " + username + ", password = "+ password+ ", deckPath = "+ deckPath+ ", syncName = "+ syncName);
     AnkiDroidProxy server=new AnkiDroidProxy(username,password);
@@ -49,8 +49,8 @@
           SyncClient.fullSyncFromServer(password,username,syncName,deckPath);
           syncChangelog.put("message",res.getString(R.string.sync_log_downloading_message));
         }
-        ankiDB.database.setTransactionSuccessful();
-        ankiDB.database.endTransaction();
+        ankiDB.getDatabase().setTransactionSuccessful();
+        ankiDB.getDatabase().endTransaction();
         deck.closeDeck();
         deck=Deck.openDeck(deckPath);
         client.setDeck(deck);
@@ -78,9 +78,9 @@
         }
         publishProgress(syncName,res.getString(R.string.sync_applying_reply_message));
         client.applyPayloadReply(payloadReply);
-        deck.lastLoaded=deck.modified;
+        deck.setLastLoaded(deck.getModified());
         deck.commitToDB();
-        ankiDB.database.setTransactionSuccessful();
+        ankiDB.getDatabase().setTransactionSuccessful();
         publishProgress(syncName,res.getString(R.string.sync_complete_message));
       }
     }
@@ -98,8 +98,8 @@
     data.exception=e;
   }
  finally {
-    if (ankiDB.database != null && ankiDB.database.inTransaction()) {
-      ankiDB.database.endTransaction();
+    if (ankiDB.getDatabase() != null && ankiDB.getDatabase().inTransaction()) {
+      ankiDB.getDatabase().endTransaction();
     }
     if (deck != null) {
       deck.closeDeck();

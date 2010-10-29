@@ -1,9 +1,9 @@
 {
-  if (estTimeToCompletion < 0.1) {
+  if (mEstTimeToCompletion < 0.1) {
     return "";
   }
   String estTimeStr;
-  long estTime=(long)estTimeToCompletion;
+  long estTime=(long)mEstTimeToCompletion;
   long hours=estTime / 3600;
   estTime%=3600;
   long minutes=estTime / 60;

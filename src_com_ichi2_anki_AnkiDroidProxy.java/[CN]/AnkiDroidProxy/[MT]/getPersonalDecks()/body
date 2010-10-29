@@ -1,7 +1,7 @@
 {
   ArrayList<String> personalDecks=new ArrayList<String>();
   connect();
-  Iterator decksIterator=decks.keys();
+  Iterator decksIterator=mDecks.keys();
   while (decksIterator.hasNext()) {
     personalDecks.add((String)decksIterator.next());
   }

@@ -21,7 +21,7 @@
       payload.put("stats",bundleStats());
       payload.put("history",bundleHistory());
       payload.put("sources",bundleSources());
-      deck.lastSync=deck.modified;
+      deck.setLastSync(deck.getModified());
     }
  catch (    JSONException e) {
       Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());

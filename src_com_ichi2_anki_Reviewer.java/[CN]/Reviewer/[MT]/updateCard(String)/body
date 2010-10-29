@@ -8,8 +8,8 @@
   }
   if (mCurrentCard != null) {
     Deck currentDeck=AnkiDroidApp.deck();
-    Model myModel=Model.getModel(currentDeck,mCurrentCard.cardModelId,false);
-    content=myModel.getCSSForFontColorSize(mCurrentCard.cardModelId,mDisplayFontSize) + content;
+    Model myModel=Model.getModel(currentDeck,mCurrentCard.getCardModelId(),false);
+    content=myModel.getCSSForFontColorSize(mCurrentCard.getCardModelId(),mDisplayFontSize) + content;
   }
  else {
     mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));

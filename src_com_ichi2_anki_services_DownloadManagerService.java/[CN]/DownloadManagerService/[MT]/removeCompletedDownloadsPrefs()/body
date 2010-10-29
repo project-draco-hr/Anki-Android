@@ -13,14 +13,14 @@
   Editor editor=pref.edit();
   boolean sharedPreferencesChanged=false;
   for (  String key : pref.getAll().keySet()) {
-    sharedPrefMatcher=numUpdatedCardsPattern.matcher(key);
+    sharedPrefMatcher=sNumUpdatedCardsPattern.matcher(key);
     if (sharedPrefMatcher.matches() && sharedPrefMatcher.groupCount() > 0) {
       if (!filenames.contains(sharedPrefMatcher.group(1))) {
         editor.remove(key);
         sharedPreferencesChanged=true;
       }
     }
-    sharedPrefMatcher=pausedPattern.matcher(key);
+    sharedPrefMatcher=sPausedPattern.matcher(key);
     if (sharedPrefMatcher.matches() && sharedPrefMatcher.groupCount() > 0) {
       if (!filenames.contains(sharedPrefMatcher.group(1))) {
         editor.remove(key);

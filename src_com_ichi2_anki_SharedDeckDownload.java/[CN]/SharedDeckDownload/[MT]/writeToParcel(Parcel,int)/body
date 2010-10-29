@@ -1,6 +1,6 @@
 {
   super.writeToParcel(dest,flags);
-  dest.writeInt(id);
-  dest.writeString(filename);
-  dest.writeInt(numUpdatedCards);
+  dest.writeInt(mId);
+  dest.writeString(mFilename);
+  dest.writeInt(mNumUpdatedCards);
 }

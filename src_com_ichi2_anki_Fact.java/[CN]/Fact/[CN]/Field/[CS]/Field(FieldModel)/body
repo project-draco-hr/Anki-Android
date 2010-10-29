@@ -1,8 +1,8 @@
 {
   if (fieldModel != null) {
-    this.fieldModel=fieldModel;
-    ordinal=fieldModel.ordinal;
+    mFieldModel=fieldModel;
+    mOrdinal=fieldModel.getOrdinal();
   }
-  value="";
-  id=Utils.genID();
+  mValue="";
+  mFieldId=Utils.genID();
 }

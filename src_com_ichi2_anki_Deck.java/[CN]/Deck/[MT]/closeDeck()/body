@@ -3,5 +3,5 @@
   if (modifiedSinceSave()) {
     commitToDB();
   }
-  AnkiDatabaseManager.closeDatabase(deckPath);
+  AnkiDatabaseManager.closeDatabase(mDeckPath);
 }

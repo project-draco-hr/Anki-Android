@@ -1,7 +1,7 @@
 {
-  oldInstance=instance;
-  instance=new DeckTask();
-  instance.listener=listener;
-  instance.type=type;
-  return (DeckTask)instance.execute(params);
+  sOldInstance=sInstance;
+  sInstance=new DeckTask();
+  sInstance.mListener=listener;
+  sInstance.mType=type;
+  return (DeckTask)sInstance.execute(params);
 }

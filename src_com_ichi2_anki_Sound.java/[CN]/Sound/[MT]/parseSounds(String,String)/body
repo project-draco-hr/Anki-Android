@@ -1,14 +1,14 @@
 {
-  mStartTime=System.currentTimeMillis();
+  sStartTime=System.currentTimeMillis();
   StringBuilder stringBuilder=new StringBuilder();
   String contentLeft=content;
   Log.i(AnkiDroidApp.TAG,"parseSounds");
-  mSoundPaths=new ArrayList<String>();
-  Matcher matcher=mSoundPattern.matcher(content);
+  sSoundPaths=new ArrayList<String>();
+  Matcher matcher=sSoundPattern.matcher(content);
   while (matcher.find()) {
     String sound=matcher.group(1);
     String soundPath=deckFilename.replace(".anki",".media/") + sound;
-    mSoundPaths.add(soundPath);
+    sSoundPaths.add(soundPath);
     String soundMarker=matcher.group();
     int markerStart=contentLeft.indexOf(soundMarker);
     stringBuilder.append(contentLeft.substring(0,markerStart));
@@ -16,7 +16,7 @@
     contentLeft=contentLeft.substring(markerStart + soundMarker.length());
   }
   stringBuilder.append(contentLeft);
-  mFinishTime=System.currentTimeMillis();
-  Log.i(AnkiDroidApp.TAG,mSoundPaths.size() + " sounds parsed in " + (mFinishTime - mStartTime)+ " milliseconds");
+  sFinishTime=System.currentTimeMillis();
+  Log.i(AnkiDroidApp.TAG,sSoundPaths.size() + " sounds parsed in " + (sFinishTime - sStartTime)+ " milliseconds");
   return stringBuilder.toString();
 }

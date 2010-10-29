@@ -1,6 +1,6 @@
 {
   try {
-    AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.deckPath);
+    AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
     JSONArray facts=factsDict.getJSONArray("facts");
     int lenFacts=facts.length();
     if (lenFacts > 0) {
@@ -11,9 +11,9 @@
         factIds.add(facts.getJSONArray(i).getString(0));
       }
       String factIdsString=Utils.ids2str(factIds);
-      deck.factCount+=lenFacts - ankiDB.queryScalar("SELECT COUNT(*) FROM facts WHERE id IN " + factIdsString);
+      deck.setFactCount((int)(deck.getFactCount() + (lenFacts - ankiDB.queryScalar("SELECT COUNT(*) FROM facts WHERE id IN " + factIdsString))));
       String sqlFact="INSERT OR REPLACE INTO facts (id, modelId, created, modified, tags, spaceUntil, lastCardId) VALUES(?,?,?,?,?,?,?)";
-      SQLiteStatement statement=ankiDB.database.compileStatement(sqlFact);
+      SQLiteStatement statement=ankiDB.getDatabase().compileStatement(sqlFact);
       for (int i=0; i < lenFacts; i++) {
         JSONArray fact=facts.getJSONArray(i);
         statement.bindLong(1,fact.getLong(0));
@@ -31,9 +31,9 @@
         statement.execute();
       }
       statement.close();
-      ankiDB.database.execSQL("DELETE FROM fields WHERE factId IN " + factIdsString);
+      ankiDB.getDatabase().execSQL("DELETE FROM fields WHERE factId IN " + factIdsString);
       String sqlFields="INSERT INTO fields (id, factId, fieldModelId, ordinal, value) VALUES(?,?,?,?,?)";
-      statement=ankiDB.database.compileStatement(sqlFields);
+      statement=ankiDB.getDatabase().compileStatement(sqlFields);
       for (int i=0; i < lenFields; i++) {
         JSONArray field=fields.getJSONArray(i);
         statement.bindLong(1,field.getLong(0));
@@ -44,7 +44,7 @@
         statement.execute();
       }
       statement.close();
-      ankiDB.database.execSQL("DELETE FROM factsDeleted WHERE factId IN " + factIdsString);
+      ankiDB.getDatabase().execSQL("DELETE FROM factsDeleted WHERE factId IN " + factIdsString);
     }
   }
  catch (  JSONException e) {

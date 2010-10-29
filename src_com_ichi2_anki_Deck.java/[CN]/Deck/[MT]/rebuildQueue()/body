@@ -1,31 +1,31 @@
 {
   Cursor cursor=null;
   Log.i(AnkiDroidApp.TAG,"rebuildQueue - Rebuilding query...");
-  globalStats=Stats.globalStats(this);
-  dailyStats=Stats.dailyStats(this);
+  mGlobalStats=Stats.globalStats(this);
+  mDailyStats=Stats.dailyStats(this);
   checkDue();
-  if (newCardSpacing == NEW_CARDS_DISTRIBUTE) {
-    if (newCountToday > 0) {
-      newCardModulus=(newCountToday + revCount) / newCountToday;
-      if (revCount > 0) {
-        newCardModulus=Math.max(2,newCardModulus);
+  if (mNewCardSpacing == NEW_CARDS_DISTRIBUTE) {
+    if (mNewCountToday > 0) {
+      mNewCardModulus=(mNewCountToday + mRevCount) / mNewCountToday;
+      if (mRevCount > 0) {
+        mNewCardModulus=Math.max(2,mNewCardModulus);
       }
     }
  else {
-      newCardModulus=0;
+      mNewCardModulus=0;
     }
   }
  else {
-    newCardModulus=0;
+    mNewCardModulus=0;
   }
-  Log.i(AnkiDroidApp.TAG,"newCardModulus set to " + newCardModulus);
+  Log.i(AnkiDroidApp.TAG,"newCardModulus set to " + mNewCardModulus);
   try {
-    cursor=AnkiDatabaseManager.getDatabase(deckPath).database.rawQuery("SELECT avg(factor) " + "FROM cards " + "WHERE type = 1",null);
+    cursor=AnkiDatabaseManager.getDatabase(mDeckPath).getDatabase().rawQuery("SELECT avg(factor) " + "FROM cards " + "WHERE type = 1",null);
     if (!cursor.moveToFirst()) {
-      averageFactor=Deck.initialFactor;
+      mAverageFactor=Deck.initialFactor;
     }
  else {
-      averageFactor=cursor.getDouble(0);
+      mAverageFactor=cursor.getDouble(0);
     }
   }
   finally {
@@ -33,5 +33,5 @@
       cursor.close();
     }
   }
-  averageFactor=Math.max(averageFactor,minimumAverage);
+  mAverageFactor=Math.max(mAverageFactor,minimumAverage);
 }

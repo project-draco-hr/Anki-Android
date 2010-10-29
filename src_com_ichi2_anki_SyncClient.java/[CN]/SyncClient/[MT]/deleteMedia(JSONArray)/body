@@ -1,11 +1,11 @@
 {
   Log.i(AnkiDroidApp.TAG,"deleteMedia");
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.deckPath);
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
   String idsString=Utils.ids2str(ids);
   ArrayList<String> files=ankiDB.queryColumn(String.class,"SELECT filename FROM media WHERE id IN " + idsString,0);
   double now=System.currentTimeMillis() / 1000.0;
   String sqlInsert="INSERT INTO mediaDeleted SELECT id, " + String.format(ENGLISH_LOCALE,"%f",now) + " FROM media WHERE media.id = ?";
-  SQLiteStatement statement=ankiDB.database.compileStatement(sqlInsert);
+  SQLiteStatement statement=ankiDB.getDatabase().compileStatement(sqlInsert);
   int len=ids.length();
   for (int i=0; i < len; i++) {
     try {
@@ -19,5 +19,5 @@
   }
   statement.close();
   Log.i(AnkiDroidApp.TAG,"Deleting media in = " + idsString);
-  ankiDB.database.execSQL("DELETE FROM media WHERE id IN " + idsString);
+  ankiDB.getDatabase().execSQL("DELETE FROM media WHERE id IN " + idsString);
 }

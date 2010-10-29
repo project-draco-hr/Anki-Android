@@ -2,7 +2,7 @@
   Cursor cursor=null;
   long scalar;
   try {
-    cursor=database.rawQuery(query,null);
+    cursor=mDatabase.rawQuery(query,null);
     if (!cursor.moveToFirst()) {
       throw new SQLException("No result for query: " + query);
     }

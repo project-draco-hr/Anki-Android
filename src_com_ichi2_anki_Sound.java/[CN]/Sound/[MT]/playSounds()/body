@@ -1,7 +1,7 @@
 {
-  if (mSoundPaths != null && mSoundPaths.size() > 0) {
-    numSoundsPlayed=0;
-    mStartTime=System.currentTimeMillis();
-    playSound(numSoundsPlayed);
+  if (sSoundPaths != null && sSoundPaths.size() > 0) {
+    sNumSoundsPlayed=0;
+    sStartTime=System.currentTimeMillis();
+    playSound(sNumSoundsPlayed);
   }
 }

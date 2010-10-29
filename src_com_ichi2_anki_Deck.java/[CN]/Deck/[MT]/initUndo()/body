@@ -1,9 +1,9 @@
 {
-  undoStack=new Stack<UndoRow>();
-  redoStack=new Stack<UndoRow>();
-  undoEnabled=true;
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
-  ankiDB.database.execSQL("CREATE TEMPORARY TABLE undoLog (seq INTEGER PRIMARY KEY NOT NULL, sql TEXT)");
+  mUndoStack=new Stack<UndoRow>();
+  mRedoStack=new Stack<UndoRow>();
+  mUndoEnabled=true;
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeckPath);
+  ankiDB.getDatabase().execSQL("CREATE TEMPORARY TABLE undoLog (seq INTEGER PRIMARY KEY NOT NULL, sql TEXT)");
   ArrayList<String> tables=ankiDB.queryColumn(String.class,"SELECT name FROM sqlite_master WHERE type = 'table'",0);
   Iterator<String> iter=tables.iterator();
   while (iter.hasNext()) {
@@ -13,7 +13,7 @@
     }
     ArrayList<String> columns=ankiDB.queryColumn(String.class,"PRAGMA TABLE_INFO(" + table + ")",1);
     String sql="CREATE TEMP TRIGGER _undo_%s_it " + "AFTER INSERT ON %s BEGIN " + "INSERT INTO undoLog VALUES "+ "(null, 'DELETE FROM %s WHERE rowid = ' || new.rowid); END";
-    ankiDB.database.execSQL(String.format(ENGLISH_LOCALE,sql,table,table,table));
+    ankiDB.getDatabase().execSQL(String.format(ENGLISH_LOCALE,sql,table,table,table));
     sql=String.format(ENGLISH_LOCALE,"CREATE TEMP TRIGGER _undo_%s_ut " + "AFTER UPDATE ON %s BEGIN " + "INSERT INTO undoLog VALUES "+ "(null, 'UPDATE %s ",table,table,table);
     String sep="SET ";
     Iterator<String> columnIter=columns.iterator();
@@ -26,7 +26,7 @@
       sep=",";
     }
     sql+="WHERE rowid = ' || old.rowid); END";
-    ankiDB.database.execSQL(sql);
+    ankiDB.getDatabase().execSQL(sql);
     sql=String.format(ENGLISH_LOCALE,"CREATE TEMP TRIGGER _undo_%s_dt " + "BEFORE DELETE ON %s BEGIN " + "INSERT INTO undoLog VALUES "+ "(null, 'INSERT INTO %s (rowid",table,table,table);
     columnIter=columns.iterator();
     while (columnIter.hasNext()) {
@@ -44,6 +44,6 @@
       sql+=String.format(ENGLISH_LOCALE,", ' || quote(old.%s) ||'",column);
     }
     sql+=")'); END";
-    ankiDB.database.execSQL(sql);
+    ankiDB.getDatabase().execSQL(sql);
   }
 }

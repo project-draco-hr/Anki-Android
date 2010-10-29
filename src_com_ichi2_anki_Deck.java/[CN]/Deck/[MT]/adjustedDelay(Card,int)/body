@@ -3,10 +3,10 @@
   if (cardIsNew(card)) {
     return 0;
   }
-  if (card.combinedDue <= now) {
-    return (now - card.due) / 86400.0;
+  if (card.getCombinedDue() <= now) {
+    return (now - card.getDue()) / 86400.0;
   }
  else {
-    return (now - card.combinedDue) / 86400.0;
+    return (now - card.getCombinedDue()) / 86400.0;
   }
 }

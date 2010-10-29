@@ -1,6 +1,6 @@
 {
   JSONObject model=new JSONObject();
-  Cursor cursor=AnkiDatabaseManager.getDatabase(deck.deckPath).database.rawQuery("SELECT * FROM models WHERE id = " + id,null);
+  Cursor cursor=AnkiDatabaseManager.getDatabase(deck.getDeckPath()).getDatabase().rawQuery("SELECT * FROM models WHERE id = " + id,null);
   if (cursor.moveToFirst()) {
     try {
       model.put("id",cursor.getLong(0));

@@ -1,5 +1,5 @@
 {
   TextView label=new TextView(this.getContext());
-  label.setText(pairField.fieldModel.name);
+  label.setText(mPairField.getFieldModel().getName());
   return label;
 }

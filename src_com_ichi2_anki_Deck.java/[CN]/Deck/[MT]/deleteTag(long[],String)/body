@@ -1,5 +1,5 @@
 {
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeckPath);
   ArrayList<String> factTagsList=factTags(factIds);
   long tagId=tagId(tag,false);
   int nbFactTags=factTagsList.size();
@@ -22,18 +22,18 @@
     Log.i(AnkiDroidApp.TAG,"old tags = " + factTags);
     Log.i(AnkiDroidApp.TAG,"new tags = " + newTags);
     if (newTags.length() < factTags.length()) {
-      ankiDB.database.execSQL("update facts set " + "tags = \"" + newTags + "\", "+ "modified = "+ String.format(ENGLISH_LOCALE,"%f",(double)(System.currentTimeMillis() / 1000.0))+ " where id = "+ factIds[i]);
+      ankiDB.getDatabase().execSQL("update facts set " + "tags = \"" + newTags + "\", "+ "modified = "+ String.format(ENGLISH_LOCALE,"%f",(double)(System.currentTimeMillis() / 1000.0))+ " where id = "+ factIds[i]);
     }
   }
   ArrayList<String> cardIdList=ankiDB.queryColumn(String.class,"select id from cards where factId in " + Utils.ids2str(factIds),0);
   for (  String cardId : cardIdList) {
-    ankiDB.database.execSQL("delete from cardTags" + " WHERE cardId = " + cardId + " and tagId = "+ tagId+ " and src = 0");
+    ankiDB.getDatabase().execSQL("delete from cardTags" + " WHERE cardId = " + cardId + " and tagId = "+ tagId+ " and src = 0");
   }
   try {
     ankiDB.queryScalar("select id from cardTags where tagId = " + tagId + " limit 1");
   }
  catch (  SQLException e) {
-    ankiDB.database.execSQL("delete from tags" + " where id = " + tagId);
+    ankiDB.getDatabase().execSQL("delete from tags" + " where id = " + tagId);
   }
   flushMod();
 }

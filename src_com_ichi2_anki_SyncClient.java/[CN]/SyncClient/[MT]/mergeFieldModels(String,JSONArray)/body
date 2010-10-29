@@ -1,8 +1,8 @@
 {
   ArrayList<String> ids=new ArrayList<String>();
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.deckPath);
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
   String sql="INSERT OR REPLACE INTO fieldModels VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-  SQLiteStatement statement=ankiDB.database.compileStatement(sql);
+  SQLiteStatement statement=ankiDB.getDatabase().compileStatement(sql);
   int len=fieldModels.length();
   for (int i=0; i < len; i++) {
     try {

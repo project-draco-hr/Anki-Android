@@ -1,5 +1,5 @@
 {
-  for (  String key : pref.values.keySet()) {
+  for (  String key : pref.mValues.keySet()) {
     Preference pref=this.findPreference(key);
     if (pref == null) {
       continue;

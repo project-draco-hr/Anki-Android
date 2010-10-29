@@ -1,9 +1,9 @@
 {
-  if (fact != null) {
-    return fact;
+  if (mFact != null) {
+    return mFact;
   }
  else {
-    fact=new Fact(deck,factId);
-    return fact;
+    mFact=new Fact(mDeck,mFactId);
+    return mFact;
   }
 }

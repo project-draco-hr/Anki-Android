@@ -5,8 +5,8 @@
   int ease=params[0].getInt();
   Card newCard;
   start2=System.currentTimeMillis();
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.deckPath);
-  ankiDB.database.beginTransaction();
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
+  ankiDB.getDatabase().beginTransaction();
   try {
     if (oldCard != null) {
       start=System.currentTimeMillis();
@@ -17,10 +17,10 @@
     newCard=deck.getCard();
     Log.v(AnkiDroidApp.TAG,"doInBackgroundAnswerCard - Loaded new card in " + (System.currentTimeMillis() - start) + " ms.");
     publishProgress(new TaskData(newCard));
-    ankiDB.database.setTransactionSuccessful();
+    ankiDB.getDatabase().setTransactionSuccessful();
   }
   finally {
-    ankiDB.database.endTransaction();
+    ankiDB.getDatabase().endTransaction();
   }
   Log.w(AnkiDroidApp.TAG,"doInBackgroundAnswerCard - DB operations in " + (System.currentTimeMillis() - start2) + " ms.");
   return null;

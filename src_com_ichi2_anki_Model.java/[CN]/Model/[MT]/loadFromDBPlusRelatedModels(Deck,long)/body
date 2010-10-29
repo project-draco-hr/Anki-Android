@@ -6,6 +6,6 @@
   CardModel myCardModel=null;
   for (  Map.Entry<Long,CardModel> entry : currentModel.cardModelsMap.entrySet()) {
     myCardModel=entry.getValue();
-    cardModelToModelMap.put(myCardModel.id,currentModel);
+    cardModelToModelMap.put(myCardModel.getId(),currentModel);
   }
 }

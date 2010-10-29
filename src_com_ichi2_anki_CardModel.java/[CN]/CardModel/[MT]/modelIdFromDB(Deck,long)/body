@@ -3,7 +3,7 @@
   long modelId=-1;
   try {
     String query="SELECT modelId FROM cardModels WHERE id = " + cardModelId;
-    cursor=AnkiDatabaseManager.getDatabase(deck.deckPath).database.rawQuery(query,null);
+    cursor=AnkiDatabaseManager.getDatabase(deck.getDeckPath()).getDatabase().rawQuery(query,null);
     cursor.moveToFirst();
     modelId=cursor.getLong(0);
   }

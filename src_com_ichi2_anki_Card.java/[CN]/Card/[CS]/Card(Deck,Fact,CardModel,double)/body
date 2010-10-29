@@ -1,28 +1,28 @@
 {
-  tags="";
-  tagsBySrc=new String[3];
-  tagsBySrc[TAGS_FACT]="";
-  tagsBySrc[TAGS_MODEL]="";
-  tagsBySrc[TAGS_TEMPL]="";
-  id=Utils.genID();
-  type=2;
-  isDue=1;
-  timerStarted=Double.NaN;
-  timerStopped=Double.NaN;
-  modified=System.currentTimeMillis() / 1000.0;
+  mTags="";
+  mTagsBySrc=new String[3];
+  mTagsBySrc[TAGS_FACT]="";
+  mTagsBySrc[TAGS_MODEL]="";
+  mTagsBySrc[TAGS_TEMPL]="";
+  mId=Utils.genID();
+  mType=2;
+  mIsDue=1;
+  mTimerStarted=Double.NaN;
+  mTimerStopped=Double.NaN;
+  mModified=System.currentTimeMillis() / 1000.0;
   if (created != Double.NaN) {
-    this.created=created;
-    due=created;
+    mCreated=created;
+    mDue=created;
   }
  else {
-    due=modified;
+    mDue=mModified;
   }
-  combinedDue=due;
-  this.deck=deck;
-  this.fact=fact;
-  this.cardModel=cardModel;
+  mCombinedDue=mDue;
+  mDeck=deck;
+  mFact=fact;
+  mCardModel=cardModel;
   if (cardModel != null) {
-    cardModelId=cardModel.id;
-    ordinal=cardModel.ordinal;
+    mCardModelId=cardModel.getId();
+    mOrdinal=cardModel.getOrdinal();
   }
 }

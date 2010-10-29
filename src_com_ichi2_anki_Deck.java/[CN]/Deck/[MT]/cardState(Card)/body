@@ -2,7 +2,7 @@
   if (cardIsNew(card)) {
     return "new";
   }
- else   if (card.interval > MATURE_THRESHOLD) {
+ else   if (card.getInterval() > MATURE_THRESHOLD) {
     return "mature";
   }
   return "young";

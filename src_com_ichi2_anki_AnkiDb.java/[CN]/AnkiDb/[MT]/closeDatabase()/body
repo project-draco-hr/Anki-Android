@@ -1,7 +1,7 @@
 {
-  if (database != null) {
-    database.close();
-    Log.i(AnkiDroidApp.TAG,"AnkiDb - closeDatabase, database " + database.getPath() + " closed = "+ !database.isOpen());
-    database=null;
+  if (mDatabase != null) {
+    mDatabase.close();
+    Log.i(AnkiDroidApp.TAG,"AnkiDb - closeDatabase, database " + mDatabase.getPath() + " closed = "+ !mDatabase.isOpen());
+    mDatabase=null;
   }
 }

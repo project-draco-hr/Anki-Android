@@ -1,19 +1,19 @@
 {
-  reps+=1;
+  mReps+=1;
   if (ease > 1) {
-    successive+=1;
+    mSuccessive+=1;
   }
  else {
-    successive=0;
+    mSuccessive=0;
   }
   double delay=totalTime();
   if (delay < 60) {
-    reviewTime+=delay;
-    if (averageTime != 0) {
-      averageTime=(averageTime + delay) / 2.0;
+    mReviewTime+=delay;
+    if (mAverageTime != 0) {
+      mAverageTime=(mAverageTime + delay) / 2.0;
     }
  else {
-      averageTime=delay;
+      mAverageTime=delay;
     }
   }
   if ("new".equalsIgnoreCase(state)) {
@@ -28,13 +28,13 @@
     e.printStackTrace();
   }
   if (ease < 2) {
-    noCount+=1;
+    mNoCount+=1;
   }
  else {
-    yesCount+=1;
+    mYesCount+=1;
   }
-  if (firstAnswered == 0) {
-    firstAnswered=System.currentTimeMillis() / 1000.0;
+  if (mFirstAnswered == 0) {
+    mFirstAnswered=System.currentTimeMillis() / 1000.0;
   }
   setModified();
 }
