@@ -80,6 +80,11 @@
   if ((oldCount != (deck.mFailedSoonCount + deck.mRevCount + deck.mNewCount)) || deck.modifiedSinceSave()) {
     deck.commitToDB();
   }
-  ankiDB.getDatabase().execSQL("CREATE TEMPORARY VIEW acqCardsRandom AS " + "SELECT * FROM cards " + "WHERE type = 2 AND isDue = 1 "+ "ORDER BY RANDOM()");
+  try {
+    ankiDB.getDatabase().execSQL("CREATE TEMPORARY VIEW acqCardsRandom AS " + "SELECT * FROM cards " + "WHERE type = 2 AND isDue = 1 "+ "ORDER BY RANDOM()");
+  }
+ catch (  SQLException e) {
+    Log.i(AnkiDroidApp.TAG,"Failed to create temporary view: " + e.getMessage());
+  }
   return deck;
 }
