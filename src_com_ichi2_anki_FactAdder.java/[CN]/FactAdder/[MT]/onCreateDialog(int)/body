@@ -12,12 +12,12 @@ mModel=mModels.get(i);
 dialogItems.add(mModel.name);
 dialogIds.add(i);
 }
-CharSequence items[]=new CharSequence[dialogItems.size()];
+CharSequence[] items=new CharSequence[dialogItems.size()];
 dialogItems.toArray(items);
 builder.setItems(items,new DialogInterface.OnClickListener(){
 public void onClick(DialogInterface dialog,int item){
 mCurrentSelectedModelId=dialogIds.get(item);
-modelButton.setText(mModels.get(mCurrentSelectedModelId).name);
+mModelButton.setText(mModels.get(mCurrentSelectedModelId).name);
 Log.i("Debug: id: ",dialogIds.get(item).toString());
 }
 }

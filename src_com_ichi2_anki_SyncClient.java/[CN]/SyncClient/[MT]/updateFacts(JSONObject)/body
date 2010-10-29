@@ -1,6 +1,6 @@
 {
   try {
-    AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
+    AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath());
     JSONArray facts=factsDict.getJSONArray("facts");
     int lenFacts=facts.length();
     if (lenFacts > 0) {
@@ -11,8 +11,8 @@
         factIds.add(facts.getJSONArray(i).getString(0));
       }
       String factIdsString=Utils.ids2str(factIds);
-      deck.setFactCount((int)(deck.getFactCount() + (lenFacts - ankiDB.queryScalar("SELECT COUNT(*) FROM facts WHERE id IN " + factIdsString))));
-      String sqlFact="INSERT OR REPLACE INTO facts (id, modelId, created, modified, tags, spaceUntil, lastCardId) VALUES(?,?,?,?,?,?,?)";
+      mDeck.setFactCount((int)(mDeck.getFactCount() + (lenFacts - ankiDB.queryScalar("SELECT COUNT(*) FROM facts WHERE id IN " + factIdsString))));
+      String sqlFact="INSERT OR REPLACE INTO facts (id, modelId, created, modified, tags, spaceUntil, lastCardId)" + " VALUES(?,?,?,?,?,?,?)";
       SQLiteStatement statement=ankiDB.getDatabase().compileStatement(sqlFact);
       for (int i=0; i < lenFacts; i++) {
         JSONArray fact=facts.getJSONArray(i);

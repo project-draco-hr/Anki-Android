@@ -1,6 +1,6 @@
 {
   Log.i(AnkiDroidApp.TAG,"deleteMedia");
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath());
   String idsString=Utils.ids2str(ids);
   ArrayList<String> files=ankiDB.queryColumn(String.class,"SELECT filename FROM media WHERE id IN " + idsString,0);
   double now=System.currentTimeMillis() / 1000.0;

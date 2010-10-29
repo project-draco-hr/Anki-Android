@@ -1,23 +1,23 @@
 {
-  Log.i(AnkiDroidApp.TAG,"prepareSync = " + String.format(ENGLISH_LOCALE,"%f",deck.getLastSync()));
-  localTime=deck.getModified();
-  remoteTime=server.modified();
-  Log.i(AnkiDroidApp.TAG,"localTime = " + localTime);
-  Log.i(AnkiDroidApp.TAG,"remoteTime = " + remoteTime);
-  if (localTime == remoteTime) {
+  Log.i(AnkiDroidApp.TAG,"prepareSync = " + String.format(ENGLISH_LOCALE,"%f",mDeck.getLastSync()));
+  mLocalTime=mDeck.getModified();
+  mRemoteTime=mServer.modified();
+  Log.i(AnkiDroidApp.TAG,"localTime = " + mLocalTime);
+  Log.i(AnkiDroidApp.TAG,"remoteTime = " + mRemoteTime);
+  if (mLocalTime == mRemoteTime) {
     return false;
   }
-  double l=deck.getLastSync();
+  double l=mDeck.getLastSync();
   Log.i(AnkiDroidApp.TAG,"lastSync local = " + String.format(ENGLISH_LOCALE,"%f",l));
-  double r=server.lastSync();
+  double r=mServer.lastSync();
   Log.i(AnkiDroidApp.TAG,"lastSync remote = " + String.format(ENGLISH_LOCALE,"%f",r));
   if (l != r) {
-    deck.setLastSync(java.lang.Math.min(l,r) - 600);
+    mDeck.setLastSync(java.lang.Math.min(l,r) - 600);
     Log.i(AnkiDroidApp.TAG,"deck.lastSync = min(l,r) - 600");
   }
  else {
-    deck.setLastSync(l);
+    mDeck.setLastSync(l);
   }
-  Log.i(AnkiDroidApp.TAG,"deck.lastSync = " + deck.getLastSync());
+  Log.i(AnkiDroidApp.TAG,"deck.lastSync = " + mDeck.getLastSync());
   return true;
 }

@@ -1,15 +1,15 @@
 {
   try {
-    Stats globalStats=Stats.globalStats(deck);
+    Stats globalStats=Stats.globalStats(mDeck);
     updateStat(globalStats,stats.getJSONObject("global"));
-    Stats stat=new Stats(deck);
+    Stats stat=new Stats(mDeck);
     JSONArray remoteDailyStats=stats.getJSONArray("daily");
     int len=remoteDailyStats.length();
     for (int i=0; i < len; i++) {
       JSONObject remoteStat=remoteDailyStats.getJSONObject(i);
       Date dailyStatDate=Utils.ordinalToDate(remoteStat.getInt("day"));
       try {
-        Long id=AnkiDatabaseManager.getDatabase(deck.getDeckPath()).queryScalar("SELECT id FROM stats WHERE type = 1 AND day = \"" + dailyStatDate.toString() + "\"");
+        Long id=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).queryScalar("SELECT id FROM stats WHERE type = 1 AND day = \"" + dailyStatDate.toString() + "\"");
         stat.fromDB(id);
       }
  catch (      SQLException e) {

@@ -7,7 +7,7 @@
     h[3]=payload.getJSONArray("missing-cards").length();
     h[4]=payload.getJSONArray("added-models").length();
     h[5]=payload.getJSONArray("missing-models").length();
-    if (localTime > remoteTime) {
+    if (mLocalTime > mRemoteTime) {
       h[6]="all";
       h[7]=0;
     }

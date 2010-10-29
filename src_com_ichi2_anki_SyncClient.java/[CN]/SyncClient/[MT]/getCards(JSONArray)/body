@@ -1,6 +1,6 @@
 {
   JSONArray cards=new JSONArray();
-  Cursor cursor=AnkiDatabaseManager.getDatabase(deck.getDeckPath()).getDatabase().rawQuery("SELECT * FROM cards WHERE id IN " + Utils.ids2str(ids),null);
+  Cursor cursor=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().rawQuery("SELECT * FROM cards WHERE id IN " + Utils.ids2str(ids),null);
   while (cursor.moveToNext()) {
     try {
       JSONArray card=new JSONArray();

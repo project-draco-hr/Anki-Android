@@ -12,12 +12,12 @@
     long updatedCards=pref.getLong(updatedCardsPref,0);
     download.setNumUpdatedCards((int)updatedCards);
     long batchSize=Math.max(100,totalCards / 200);
-    recentBatchTimings=new long[runningAvgLength];
-    totalBatches=((double)totalCards) / batchSize;
+    mRecentBatchTimings=new long[sRunningAvgLength];
+    mTotalBatches=((double)totalCards) / batchSize;
     int currentBatch=(int)(updatedCards / batchSize);
     long runningAvgCount=0;
     long batchStart;
-    elapsedTime=0;
+    mElapsedTime=0;
     while (updatedCards < totalCards && download.getStatus() == SharedDeckDownload.UPDATING) {
       batchStart=System.currentTimeMillis();
       updatedCards=deck.updateAllCardsFromPosition(updatedCards,batchSize);

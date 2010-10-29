@@ -20,7 +20,7 @@
   }
   Log.i(AnkiDroidApp.TAG,"newCardModulus set to " + mNewCardModulus);
   try {
-    cursor=AnkiDatabaseManager.getDatabase(mDeckPath).getDatabase().rawQuery("SELECT avg(factor) " + "FROM cards " + "WHERE type = 1",null);
+    cursor=AnkiDatabaseManager.getDatabase(mDeckPath).getDatabase().rawQuery("SELECT avg(factor) " + "FROM cards WHERE type = 1",null);
     if (!cursor.moveToFirst()) {
       mAverageFactor=Deck.initialFactor;
     }

@@ -1,6 +1,6 @@
 {
   JSONArray cardModels=new JSONArray();
-  Cursor cursor=AnkiDatabaseManager.getDatabase(deck.getDeckPath()).getDatabase().rawQuery("SELECT * FROM cardModels WHERE modelId = " + id,null);
+  Cursor cursor=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().rawQuery("SELECT * FROM cardModels WHERE modelId = " + id,null);
   while (cursor.moveToNext()) {
     JSONObject cardModel=new JSONObject();
     try {

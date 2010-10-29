@@ -19,7 +19,7 @@
  catch (  JSONException e) {
     Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
   }
-  deck.commitToDB();
+  mDeck.commitToDB();
   try {
     JSONArray cards=payloadReply.getJSONArray("added-cards");
     int len=cards.length();
@@ -28,7 +28,7 @@
       cardIds[i]=cards.getJSONArray(i).getLong(0);
     }
     rebuildPriorities(cardIds);
-    deck.rebuildCounts(false);
+    mDeck.rebuildCounts(false);
   }
  catch (  JSONException e) {
     Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());

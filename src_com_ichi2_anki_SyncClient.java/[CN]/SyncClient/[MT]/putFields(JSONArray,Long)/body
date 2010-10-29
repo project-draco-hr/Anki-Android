@@ -1,5 +1,5 @@
 {
-  Cursor cursor=AnkiDatabaseManager.getDatabase(deck.getDeckPath()).getDatabase().rawQuery("SELECT * FROM fields WHERE factId = " + id,null);
+  Cursor cursor=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().rawQuery("SELECT * FROM fields WHERE factId = " + id,null);
   while (cursor.moveToNext()) {
     JSONArray field=new JSONArray();
     field.put(cursor.getLong(0));

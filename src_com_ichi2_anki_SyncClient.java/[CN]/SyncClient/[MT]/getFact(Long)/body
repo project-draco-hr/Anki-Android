@@ -1,6 +1,6 @@
 {
   JSONArray fact=new JSONArray();
-  Cursor cursor=AnkiDatabaseManager.getDatabase(deck.getDeckPath()).getDatabase().rawQuery("SELECT id, modelId, created, modified, tags, spaceUntil, lastCardId FROM facts WHERE id = " + id,null);
+  Cursor cursor=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().rawQuery("SELECT id, modelId, created, modified, tags, spaceUntil, lastCardId FROM facts WHERE id = " + id,null);
   if (cursor.moveToFirst()) {
     try {
       fact.put(cursor.getLong(0));

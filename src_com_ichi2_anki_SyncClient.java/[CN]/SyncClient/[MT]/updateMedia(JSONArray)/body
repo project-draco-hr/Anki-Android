@@ -1,7 +1,7 @@
 {
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath());
   ArrayList<String> mediaIds=new ArrayList<String>();
-  String sql="INSERT OR REPLACE INTO media (id, filename, size, created, originalPath, description) VALUES(?,?,?,?,?,?)";
+  String sql="INSERT OR REPLACE INTO media (id, filename, size, created, originalPath, description) " + "VALUES(?,?,?,?,?,?)";
   SQLiteStatement statement=ankiDB.getDatabase().compileStatement(sql);
   int len=media.length();
   for (int i=0; i < len; i++) {

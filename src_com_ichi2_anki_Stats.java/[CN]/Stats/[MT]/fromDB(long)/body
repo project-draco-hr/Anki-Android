@@ -2,7 +2,7 @@
   Cursor cursor=null;
   try {
     Log.i(AnkiDroidApp.TAG,"Reading stats from DB...");
-    cursor=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().rawQuery("SELECT * " + "FROM stats " + "WHERE id = "+ String.valueOf(id),null);
+    cursor=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().rawQuery("SELECT * " + "FROM stats WHERE id = " + String.valueOf(id),null);
     if (!cursor.moveToFirst()) {
       return;
     }

@@ -1,8 +1,8 @@
 {
   Log.i(AnkiDroidApp.TAG,"Summary Local");
-  deck.setLastSync(lastSync);
-  deck.commitToDB();
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
+  mDeck.setLastSync(lastSync);
+  mDeck.commitToDB();
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath());
   String lastSyncString=String.format(ENGLISH_LOCALE,"%f",lastSync);
   JSONArray cards=cursorToJSONArray(ankiDB.getDatabase().rawQuery("SELECT id, modified FROM cards WHERE modified > " + lastSyncString,null));
   JSONArray delcards=cursorToJSONArray(ankiDB.getDatabase().rawQuery("SELECT cardId, deletedTime FROM cardsDeleted WHERE deletedTime > " + lastSyncString,null));

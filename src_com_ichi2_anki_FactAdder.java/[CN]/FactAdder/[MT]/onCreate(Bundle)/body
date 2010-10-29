@@ -3,27 +3,27 @@
   registerExternalStorageListener();
   setContentView(R.layout.fact_adder);
   mFieldsLayoutContainer=(LinearLayout)findViewById(R.id.FactAdderEditFieldsLayout);
-  addButton=(Button)findViewById(R.id.FactAdderAddButton);
-  closeButton=(Button)findViewById(R.id.FactAdderCloseButton);
-  modelButton=(Button)findViewById(R.id.FactAdderModelButton);
+  mAddButton=(Button)findViewById(R.id.FactAdderAddButton);
+  mCloseButton=(Button)findViewById(R.id.FactAdderCloseButton);
+  mModelButton=(Button)findViewById(R.id.FactAdderModelButton);
   Deck deck=AnkiDroidApp.deck();
   mModels=Model.getModels(deck);
   mCurrentSelectedModelId=deck.getCurrentModelId();
-  modelButton.setText(mModels.get(mCurrentSelectedModelId).name);
-  addButton.setOnClickListener(new View.OnClickListener(){
+  mModelButton.setText(mModels.get(mCurrentSelectedModelId).name);
+  mAddButton.setOnClickListener(new View.OnClickListener(){
     public void onClick(    View v){
       setResult(RESULT_OK);
       finish();
     }
   }
 );
-  modelButton.setOnClickListener(new View.OnClickListener(){
+  mModelButton.setOnClickListener(new View.OnClickListener(){
     public void onClick(    View v){
       showDialog(DIALOG_MODEL_SELECT);
     }
   }
 );
-  closeButton.setOnClickListener(new View.OnClickListener(){
+  mCloseButton.setOnClickListener(new View.OnClickListener(){
     public void onClick(    View v){
       setResult(RESULT_CANCELED);
       finish();

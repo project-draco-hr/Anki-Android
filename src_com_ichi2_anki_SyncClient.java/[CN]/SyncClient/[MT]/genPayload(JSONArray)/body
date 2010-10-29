@@ -15,13 +15,13 @@
       Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
     }
   }
-  if (localTime > remoteTime) {
+  if (mLocalTime > mRemoteTime) {
     try {
       payload.put("deck",bundleDeck());
       payload.put("stats",bundleStats());
       payload.put("history",bundleHistory());
       payload.put("sources",bundleSources());
-      deck.setLastSync(deck.getModified());
+      mDeck.setLastSync(mDeck.getModified());
     }
  catch (    JSONException e) {
       Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());

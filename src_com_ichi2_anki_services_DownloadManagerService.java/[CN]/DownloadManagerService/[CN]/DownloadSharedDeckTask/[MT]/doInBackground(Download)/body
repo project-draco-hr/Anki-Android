@@ -38,7 +38,7 @@
     is=connection.getInputStream();
     while (download.getStatus() == Download.DOWNLOADING) {
       Log.i(AnkiDroidApp.TAG,"Downloading... " + download.getDownloaded());
-      byte buffer[];
+      byte[] buffer;
       buffer=new byte[MAX_BUFFER_SIZE];
       int read=is.read(buffer);
       if (read == -1) {

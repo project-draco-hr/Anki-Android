@@ -1,12 +1,12 @@
 {
   Log.i(AnkiDroidApp.TAG,"bundleStats");
   JSONObject bundledStats=new JSONObject();
-  Date lastDay=new Date(java.lang.Math.max(0,(long)(deck.getLastSync() - 60 * 60 * 24) * 1000));
+  Date lastDay=new Date(java.lang.Math.max(0,(long)(mDeck.getLastSync() - 60 * 60 * 24) * 1000));
   Log.i(AnkiDroidApp.TAG,"lastDay = " + lastDay.toString());
-  ArrayList<Long> ids=AnkiDatabaseManager.getDatabase(deck.getDeckPath()).queryColumn(Long.class,"SELECT id FROM stats WHERE type = 1 and day >= \"" + lastDay.toString() + "\"",0);
+  ArrayList<Long> ids=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).queryColumn(Long.class,"SELECT id FROM stats WHERE type = 1 and day >= \"" + lastDay.toString() + "\"",0);
   try {
-    Stats stat=new Stats(deck);
-    bundledStats.put("global",bundleStat(Stats.globalStats(deck)));
+    Stats stat=new Stats(mDeck);
+    bundledStats.put("global",bundleStat(Stats.globalStats(mDeck)));
     JSONArray dailyStats=new JSONArray();
     for (    Long id : ids) {
       stat.fromDB(id);

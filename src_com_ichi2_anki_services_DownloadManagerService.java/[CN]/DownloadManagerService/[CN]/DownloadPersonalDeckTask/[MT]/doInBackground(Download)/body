@@ -41,7 +41,7 @@
     iis=new InflaterInputStream(connection.getInputStream());
     while (download.getStatus() == Download.DOWNLOADING) {
       Log.v(AnkiDroidApp.TAG,"Downloading... " + download.getDownloaded());
-      byte buffer[];
+      byte[] buffer;
       buffer=new byte[MAX_BUFFER_SIZE];
       int read=iis.read(buffer);
       if (read == -1) {

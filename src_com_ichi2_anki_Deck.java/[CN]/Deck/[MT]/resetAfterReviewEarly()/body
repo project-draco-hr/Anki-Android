@@ -2,7 +2,7 @@
   Cursor cursor=null;
   long[] ids=null;
   try {
-    cursor=AnkiDatabaseManager.getDatabase(mDeckPath).getDatabase().rawQuery("SELECT id " + "FROM cards " + "WHERE priority = -1",null);
+    cursor=AnkiDatabaseManager.getDatabase(mDeckPath).getDatabase().rawQuery("SELECT id " + "FROM cards WHERE priority = -1",null);
     if (cursor.moveToFirst()) {
       int count=cursor.getCount();
       ids=new long[count];

@@ -1,6 +1,6 @@
 {
   try {
-    deck.updatePriorities(cardIds,null,false);
+    mDeck.updatePriorities(cardIds,null,false);
   }
  catch (  SQLException e) {
     Log.e(AnkiDroidApp.TAG,"SQLException e = " + e.getMessage());

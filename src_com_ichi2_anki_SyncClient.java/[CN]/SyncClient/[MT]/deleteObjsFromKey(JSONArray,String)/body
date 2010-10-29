@@ -3,10 +3,10 @@
     deleteModels(ids);
   }
  else   if ("facts".equalsIgnoreCase(key)) {
-    deck.deleteFacts(Utils.jsonArrayToListString(ids));
+    mDeck.deleteFacts(Utils.jsonArrayToListString(ids));
   }
  else   if ("cards".equalsIgnoreCase(key)) {
-    deck.deleteCards(Utils.jsonArrayToListString(ids));
+    mDeck.deleteCards(Utils.jsonArrayToListString(ids));
   }
  else   if ("media".equalsIgnoreCase(key)) {
     deleteMedia(ids);
