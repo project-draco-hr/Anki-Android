@@ -101,7 +101,7 @@
   card.setSpaceUntil(0);
   if (mReviewEarly && lastDelay < 0) {
     if (oldSuc != 0 || lastDelaySecs > mDelay0 || !showFailedLast()) {
-      card.setPriority(-1);
+      card.setPriority(Card.PRIORITY_REVIEW_EARLY);
     }
   }
   card.updateStats(ease,oldState);

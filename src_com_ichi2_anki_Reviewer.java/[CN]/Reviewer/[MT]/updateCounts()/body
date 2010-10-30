@@ -7,13 +7,13 @@
   SpannableString newCount=new SpannableString(String.valueOf(deck.getNewCountToday()));
   int isDue=mCurrentCard.getIsDue();
   int type=mCurrentCard.getType();
-  if ((isDue == 1) && (type == Deck.CARD_TYPE_NEW)) {
+  if ((isDue == 1) && (type == Card.TYPE_NEW)) {
     newCount.setSpan(new UnderlineSpan(),0,newCount.length(),0);
   }
-  if ((isDue == 1) && (type == Deck.CARD_TYPE_REV)) {
+  if ((isDue == 1) && (type == Card.TYPE_REV)) {
     revCount.setSpan(new UnderlineSpan(),0,revCount.length(),0);
   }
-  if ((isDue == 1) && (type == Deck.CARD_TYPE_FAILED)) {
+  if ((isDue == 1) && (type == Card.TYPE_FAILED)) {
     failedSoonCount.setSpan(new UnderlineSpan(),0,failedSoonCount.length(),0);
   }
   mTextBarRed.setText(failedSoonCount);

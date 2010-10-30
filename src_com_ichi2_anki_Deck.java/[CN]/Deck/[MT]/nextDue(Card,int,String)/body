@@ -1,6 +1,6 @@
 {
   double due;
-  if (ease == 1) {
+  if (ease == Card.EASE_FAILED) {
     if (oldState.equals("mature")) {
       due=mDelay1;
     }

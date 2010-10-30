@@ -1,5 +1,5 @@
 {
-  AnkiDatabaseManager.getDatabase(mDeckPath).getDatabase().execSQL("UPDATE cards SET " + "priority = 0, " + "modified = " + String.format(ENGLISH_LOCALE,"%f",Utils.now()) + " WHERE id IN "+ Utils.ids2str(ids));
+  AnkiDatabaseManager.getDatabase(mDeckPath).getDatabase().execSQL("UPDATE cards SET priority = " + Card.PRIORITY_NONE + ", modified = "+ String.format(ENGLISH_LOCALE,"%f",Utils.now())+ " WHERE id IN "+ Utils.ids2str(ids));
   updatePriorities(ids);
   rebuildCounts(false);
   flushMod();

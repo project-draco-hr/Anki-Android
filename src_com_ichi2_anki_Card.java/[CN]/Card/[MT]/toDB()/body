@@ -1,12 +1,12 @@
 {
   if (mReps == 0) {
-    mType=2;
+    mType=TYPE_NEW;
   }
  else   if (mSuccessive != 0) {
-    mType=1;
+    mType=TYPE_REV;
   }
  else {
-    mType=0;
+    mType=TYPE_FAILED;
   }
   ContentValues values=new ContentValues();
   values.put("factId",mFactId);

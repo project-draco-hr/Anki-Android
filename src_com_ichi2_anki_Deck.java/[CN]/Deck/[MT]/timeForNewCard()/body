@@ -6,7 +6,7 @@
     return true;
   }
   try {
-    AnkiDatabaseManager.getDatabase(mDeckPath).queryScalar("SELECT 1 " + "FROM cards " + "WHERE type = 1 and "+ "isDue = 1 and "+ "priority = 4 "+ "LIMIT 1");
+    AnkiDatabaseManager.getDatabase(mDeckPath).queryScalar("SELECT 1 FROM cards WHERE isDue = 1 and type = " + Card.TYPE_REV + " and priority = "+ Card.PRIORITY_HIGH+ " LIMIT 1");
   }
  catch (  Exception e) {
     if (mNewCardModulus == 0) {

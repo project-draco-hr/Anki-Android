@@ -27,7 +27,7 @@
   }
   ArrayList<String> cardIdList=ankiDB.queryColumn(String.class,"select id from cards where factId in " + Utils.ids2str(factIds),0);
   for (  String cardId : cardIdList) {
-    ankiDB.getDatabase().execSQL("delete from cardTags" + " WHERE cardId = " + cardId + " and tagId = "+ tagId+ " and src = 0");
+    ankiDB.getDatabase().execSQL("DELETE FROM cardTags WHERE cardId = " + cardId + " and tagId = "+ tagId+ " and src = "+ Card.TAGS_FACT);
   }
   try {
     ankiDB.queryScalar("select id from cardTags where tagId = " + tagId + " limit 1");

@@ -60,7 +60,7 @@
   int oldCount=deck.mFailedSoonCount + deck.mRevCount + deck.mNewCount;
   deck.rebuildQueue();
   try {
-    cursor=ankiDB.getDatabase().rawQuery("SELECT id " + "FROM cards " + "WHERE type in (0,1,2) and "+ "isDue = 0 and "+ "priority in (-1,-2)",null);
+    cursor=ankiDB.getDatabase().rawQuery("SELECT id FROM cards WHERE isDue = 0 and " + "type in (" + Card.TYPE_FAILED + ","+ Card.TYPE_REV+ ","+ Card.TYPE_NEW+ ") and "+ "priority in ("+ Card.PRIORITY_REVIEW_EARLY+ ","+ Card.PRIORITY_BURIED+ ")",null);
     if (cursor.moveToFirst()) {
       int count=cursor.getCount();
       long[] ids=new long[count];
@@ -81,7 +81,7 @@
     deck.commitToDB();
   }
   try {
-    ankiDB.getDatabase().execSQL("CREATE TEMPORARY VIEW acqCardsRandom AS " + "SELECT * FROM cards " + "WHERE type = 2 AND isDue = 1 "+ "ORDER BY RANDOM()");
+    ankiDB.getDatabase().execSQL("CREATE TEMPORARY VIEW acqCardsRandom AS SELECT * FROM cards " + "WHERE type = " + Card.TYPE_NEW + " AND isDue = 1 ORDER BY RANDOM()");
   }
  catch (  SQLException e) {
     Log.i(AnkiDroidApp.TAG,"Failed to create temporary view: " + e.getMessage());

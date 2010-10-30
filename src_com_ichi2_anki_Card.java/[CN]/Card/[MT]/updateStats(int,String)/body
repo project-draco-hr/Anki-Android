@@ -1,7 +1,7 @@
 {
   char[] newState=state.toCharArray();
   mReps+=1;
-  if (ease > 1) {
+  if (ease > EASE_FAILED) {
     mSuccessive+=1;
   }
  else {
@@ -17,8 +17,8 @@
       mAverageTime=delay;
     }
   }
-  if ("new".equalsIgnoreCase(state)) {
-    newState="young".toCharArray();
+  if (STATE_NEW.equalsIgnoreCase(state)) {
+    newState=STATE_YOUNG.toCharArray();
   }
   newState[0]=Character.toUpperCase(newState[0]);
   String attr="m" + String.valueOf(newState) + String.format("Ease%d",ease);
@@ -29,7 +29,7 @@
  catch (  Exception e) {
     Log.e(AnkiDroidApp.TAG,"Failed to update " + attr + " : "+ e.getMessage());
   }
-  if (ease < 2) {
+  if (ease < EASE_HARD) {
     mNoCount+=1;
   }
  else {

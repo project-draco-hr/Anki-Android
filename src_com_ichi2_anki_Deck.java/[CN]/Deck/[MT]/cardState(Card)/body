@@ -1,9 +1,9 @@
 {
   if (cardIsNew(card)) {
-    return "new";
+    return Card.STATE_NEW;
   }
  else   if (card.getInterval() > MATURE_THRESHOLD) {
-    return "mature";
+    return Card.STATE_MATURE;
   }
-  return "young";
+  return Card.STATE_YOUNG;
 }

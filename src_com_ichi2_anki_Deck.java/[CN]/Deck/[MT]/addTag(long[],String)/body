@@ -23,12 +23,12 @@
   ContentValues values=new ContentValues();
   for (  String cardId : cardIdList) {
     try {
-      ankiDB.queryScalar("select id from cardTags" + " where cardId = " + cardId + " and tagId = "+ tagId+ " and src = 0");
+      ankiDB.queryScalar("SELECT id FROM cardTags WHERE cardId = " + cardId + " and tagId = "+ tagId+ " and src = "+ Card.TAGS_FACT);
     }
  catch (    SQLException e) {
       values.put("cardId",cardId);
       values.put("tagId",tagId);
-      values.put("src","0");
+      values.put("src",String.valueOf(Card.TAGS_FACT));
       ankiDB.getDatabase().insert("cardTags",null,values);
     }
   }

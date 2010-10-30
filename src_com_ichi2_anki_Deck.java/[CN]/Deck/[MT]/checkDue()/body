@@ -4,20 +4,20 @@
   checkDailyStats();
   ContentValues val=new ContentValues(1);
   val.put("isDue",1);
-  ankiDB.getDatabase().update("cards",val,"priority in (1,2,3,4) and " + "type in (0,1,2) and " + "isDue = 0 and "+ String.format(ENGLISH_LOCALE,"combinedDue <= %f",Utils.now() + mDelay0),null);
-  mFailedNowCount=(int)ankiDB.queryScalar("SELECT count(id) " + "FROM cards " + "WHERE type = 0 and "+ "isDue = 1 and "+ String.format(ENGLISH_LOCALE,"combinedDue <= %f",Utils.now()));
+  ankiDB.getDatabase().update("cards",val,"isDue = 0" + " and type in (" + Card.TYPE_FAILED + ","+ Card.TYPE_REV+ ","+ Card.TYPE_NEW+ ")"+ " and priority in ("+ Card.PRIORITY_LOW+ ","+ Card.PRIORITY_NORMAL+ ","+ Card.PRIORITY_MEDIUM+ ","+ Card.PRIORITY_HIGH+ ")"+ " combinedDue <= "+ String.format(ENGLISH_LOCALE,"%f",Utils.now() + mDelay0),null);
+  mFailedNowCount=(int)ankiDB.queryScalar("SELECT count(id) FROM cards WHERE isDue = 1" + " and type = " + Card.TYPE_FAILED + " and combinedDue <= "+ String.format(ENGLISH_LOCALE,"%f",Utils.now()));
   Cursor cursor=null;
   try {
-    cursor=ankiDB.getDatabase().rawQuery("SELECT type, count(id) " + "FROM cards " + "WHERE priority in (1,2,3,4) and "+ "isDue = 1 "+ "GROUP BY type",null);
+    cursor=ankiDB.getDatabase().rawQuery("SELECT type, count(id) FROM cards WHERE isDue = 1" + " and priority in (" + Card.PRIORITY_LOW + ","+ Card.PRIORITY_NORMAL+ ","+ Card.PRIORITY_MEDIUM+ ","+ Card.PRIORITY_HIGH+ ")"+ " GROUP BY type",null);
     while (cursor.moveToNext()) {
 switch (cursor.getInt(0)) {
-case 0:
+case Card.TYPE_FAILED:
         mFailedSoonCount=cursor.getInt(1);
       break;
-case 1:
+case Card.TYPE_REV:
     mRevCount=cursor.getInt(1);
   break;
-case 2:
+case Card.TYPE_NEW:
 mNewCount=cursor.getInt(1);
 break;
 }

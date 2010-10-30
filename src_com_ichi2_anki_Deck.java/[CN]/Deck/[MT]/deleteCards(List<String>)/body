@@ -25,7 +25,7 @@
       }
       cursor.close();
     }
-    ankiDB.getDatabase().execSQL("DELETE FROM tags WHERE id in " + Utils.ids2str(unusedTags) + " and priority = 2");
+    ankiDB.getDatabase().execSQL("DELETE FROM tags WHERE id in " + Utils.ids2str(unusedTags) + " and priority = "+ Card.PRIORITY_NORMAL);
     deleteDanglingFacts();
     rebuildCounts(true);
     flushMod();

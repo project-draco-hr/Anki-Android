@@ -1,11 +1,11 @@
 {
   mTags="";
-  mTagsBySrc=new String[3];
+  mTagsBySrc=new String[TAGS_TEMPL + 1];
   mTagsBySrc[TAGS_FACT]="";
   mTagsBySrc[TAGS_MODEL]="";
   mTagsBySrc[TAGS_TEMPL]="";
   mId=Utils.genID();
-  mType=2;
+  mType=TYPE_NEW;
   mIsDue=1;
   mTimerStarted=Double.NaN;
   mTimerStopped=Double.NaN;

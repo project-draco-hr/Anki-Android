@@ -8,20 +8,20 @@
     }
     delay=0;
   }
-  if (ease == 1) {
+  if (ease == Card.EASE_FAILED) {
     interval*=mDelay2;
     if (interval < mHardIntervalMin) {
       interval=0;
     }
   }
  else   if (interval == 0) {
-    if (ease == 2) {
+    if (ease == Card.EASE_HARD) {
       interval=mHardIntervalMin + ((double)Math.random()) * (mHardIntervalMax - mHardIntervalMin);
     }
- else     if (ease == 3) {
+ else     if (ease == Card.EASE_MID) {
       interval=mMidIntervalMin + ((double)Math.random()) * (mMidIntervalMax - mMidIntervalMin);
     }
- else     if (ease == 4) {
+ else     if (ease == Card.EASE_EASY) {
       interval=mEasyIntervalMin + ((double)Math.random()) * (mEasyIntervalMax - mEasyIntervalMin);
     }
   }
@@ -30,13 +30,13 @@
       double mid=(mMidIntervalMin + mMidIntervalMax) / 2.0;
       interval=mid / factor;
     }
-    if (ease == 2) {
+    if (ease == Card.EASE_HARD) {
       interval=(interval + delay / 4.0) * 1.2;
     }
- else     if (ease == 3) {
+ else     if (ease == Card.EASE_MID) {
       interval=(interval + delay / 2.0) * factor;
     }
- else     if (ease == 4) {
+ else     if (ease == Card.EASE_EASY) {
       interval=(interval + delay) * factor * factorFour;
     }
     double fuzz=0.95 + ((double)Math.random()) * (1.05 - 0.95);

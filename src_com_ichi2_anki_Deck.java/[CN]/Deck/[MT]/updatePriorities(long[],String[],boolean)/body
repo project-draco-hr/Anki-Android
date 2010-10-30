@@ -4,13 +4,13 @@
   Log.i(AnkiDroidApp.TAG,"updatePriorities - Updating priorities...");
   if (suspend != null) {
     long[] ids=tagIds(suspend,false);
-    ankiDB.getDatabase().execSQL("UPDATE tags " + "SET priority = 0 " + "WHERE id in "+ Utils.ids2str(ids));
+    ankiDB.getDatabase().execSQL("UPDATE tags SET priority = " + Card.PRIORITY_NONE + " WHERE id in "+ Utils.ids2str(ids));
   }
   String limit="";
   if (cardIds.length <= 1000) {
     limit="and cardTags.cardId in " + Utils.ids2str(cardIds);
   }
-  String query="SELECT cardTags.cardId, " + "CASE " + "WHEN min(tags.priority) = 0 THEN 0 "+ "WHEN max(tags.priority) > 2 THEN max(tags.priority) "+ "WHEN min(tags.priority) = 1 THEN 1 "+ "ELSE 2 END "+ "FROM cardTags,tags "+ "WHERE cardTags.tagId = tags.id " + limit + " "+ "GROUP BY cardTags.cardId";
+  String query="SELECT cardTags.cardId, CASE WHEN min(tags.priority) = 0 THEN 0 " + "WHEN max(tags.priority) > 2 THEN max(tags.priority) " + "WHEN min(tags.priority) = 1 THEN 1 "+ "ELSE 2 END "+ "FROM cardTags,tags "+ "WHERE cardTags.tagId = tags.id " + limit + " "+ "GROUP BY cardTags.cardId";
   try {
     cursor=ankiDB.getDatabase().rawQuery(query,null);
     if (cursor.moveToFirst()) {
@@ -24,7 +24,7 @@
       if (dirty) {
         extra=", modified = " + String.format(ENGLISH_LOCALE,"%f",Utils.now());
       }
-      for (int pri=0; pri < 5; pri++) {
+      for (int pri=Card.PRIORITY_NONE; pri <= Card.PRIORITY_HIGH; pri++) {
         int count=0;
         for (int i=0; i < len; i++) {
           if (cards[i][1] == pri) {
@@ -39,7 +39,7 @@
             j++;
           }
         }
-        ankiDB.getDatabase().execSQL("UPDATE cards " + "SET priority = " + pri + extra+ " WHERE id in "+ Utils.ids2str(cs)+ " and "+ "priority != "+ pri+ " and "+ "priority >= -2");
+        ankiDB.getDatabase().execSQL("UPDATE cards SET priority = " + pri + extra+ " WHERE id in "+ Utils.ids2str(cs)+ " and priority != "+ pri+ " and priority >= "+ Card.PRIORITY_BURIED);
       }
     }
   }
@@ -50,7 +50,7 @@
   }
   ContentValues val=new ContentValues(1);
   val.put("isDue",0);
-  int cnt=ankiDB.getDatabase().update("cards",val,"type in (0,1,2) and " + "priority = 0 and " + "isDue = 1",null);
+  int cnt=ankiDB.getDatabase().update("cards",val,"isDue = 1" + " and type in (" + Card.TYPE_FAILED + ","+ Card.TYPE_REV+ ","+ Card.TYPE_NEW+ ")"+ " and priority = "+ Card.PRIORITY_NONE,null);
   if (cnt > 0) {
     rebuildCounts(false);
   }
