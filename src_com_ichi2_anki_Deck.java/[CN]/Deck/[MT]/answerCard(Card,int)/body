@@ -5,24 +5,24 @@
   setUndoStart(undoName);
   double now=Utils.now();
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeckPath);
-  String oldState=cardState(card);
+  String oldState=card.getState();
   double lastDelaySecs=Utils.now() - card.getCombinedDue();
   double start=System.currentTimeMillis();
   double lastDelay=lastDelaySecs / 86400.0;
-  int oldSuc=card.getSuccessive();
+  boolean oldIsRev=card.isRev();
   double last=card.getInterval();
   card.setInterval(nextInterval(card,ease));
   if (lastDelay >= 0) {
     card.setLastInterval(last);
   }
-  if (card.getReps() != 0) {
+  if (!card.isNew()) {
     card.setLastDue(card.getDue());
   }
   card.setDue(nextDue(card,ease,oldState));
   card.setIsDue(0);
   card.setLastFactor(card.getFactor());
   if (lastDelay >= 0) {
-    updateFactor(card,ease);
+    card.updateFactor(ease,mAverageFactor);
   }
   double space, spaceFactor, minSpacing, minOfOtherCards;
   try {
@@ -100,7 +100,7 @@
   ankiDB.getDatabase().execSQL(String.format(ENGLISH_LOCALE,"UPDATE cards " + "SET spaceUntil = %f, " + "combinedDue = max(%f, due), "+ "modified = %f, "+ "isDue = 0 "+ "WHERE id != %d and factId = %d",space,space,now,card.getId(),card.getFactId()));
   card.setSpaceUntil(0);
   if (mReviewEarly && lastDelay < 0) {
-    if (oldSuc != 0 || lastDelaySecs > mDelay0 || !showFailedLast()) {
+    if (oldIsRev || lastDelaySecs > mDelay0 || !showFailedLast()) {
       card.setPriority(Card.PRIORITY_REVIEW_EARLY);
     }
   }

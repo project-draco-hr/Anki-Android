@@ -1,40 +1,7 @@
 {
   JSONObject bundledDeck=new JSONObject();
   try {
-    bundledDeck.put("averageFactor",mDeck.getAverageFactor());
-    bundledDeck.put("cardCount",mDeck.getCardCount());
-    bundledDeck.put("collapseTime",mDeck.getCollapseTime());
-    bundledDeck.put("created",mDeck.getCreated());
-    bundledDeck.put("delay0",mDeck.getDelay0());
-    bundledDeck.put("delay1",mDeck.getDelay1());
-    bundledDeck.put("delay2",mDeck.getDelay2());
-    bundledDeck.put("description",mDeck.getDescription());
-    bundledDeck.put("easyIntervalMax",mDeck.getEasyIntervalMax());
-    bundledDeck.put("easyIntervalMin",mDeck.getEasyIntervalMin());
-    bundledDeck.put("factCount",mDeck.getFactCount());
-    bundledDeck.put("failedCardMax",mDeck.getFailedCardMax());
-    bundledDeck.put("failedNowCount",mDeck.getFailedNowCount());
-    bundledDeck.put("failedSoonCount",mDeck.getFailedSoonCount());
-    bundledDeck.put("hardIntervalMax",mDeck.getHardIntervalMax());
-    bundledDeck.put("hardIntervalMin",mDeck.getHardIntervalMin());
-    bundledDeck.put("highPriority",mDeck.getHighPriority());
-    bundledDeck.put("id",mDeck.getId());
-    bundledDeck.put("lastLoaded",mDeck.getLastLoaded());
-    bundledDeck.put("lastSync",mDeck.getLastSync());
-    bundledDeck.put("lowPriority",mDeck.getLowPriority());
-    bundledDeck.put("medPriority",mDeck.getMedPriority());
-    bundledDeck.put("midIntervalMax",mDeck.getMidIntervalMax());
-    bundledDeck.put("midIntervalMin",mDeck.getMidIntervalMin());
-    bundledDeck.put("modified",mDeck.getModified());
-    bundledDeck.put("newCardModulus",mDeck.getNewCardModulus());
-    bundledDeck.put("newCount",mDeck.getNewCount());
-    bundledDeck.put("newCountToday",mDeck.getNewCountToday());
-    bundledDeck.put("newEarly",mDeck.isNewEarly());
-    bundledDeck.put("revCount",mDeck.getRevCount());
-    bundledDeck.put("reviewEarly",mDeck.isReviewEarly());
-    bundledDeck.put("suspended",mDeck.getSuspended());
-    bundledDeck.put("undoEnabled",mDeck.isUndoEnabled());
-    bundledDeck.put("utcOffset",mDeck.getUtcOffset());
+    bundledDeck=mDeck.bundleJson(bundledDeck);
     JSONArray meta=new JSONArray();
     Cursor cursor=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().rawQuery("SELECT * FROM deckVars",null);
     while (cursor.moveToNext()) {

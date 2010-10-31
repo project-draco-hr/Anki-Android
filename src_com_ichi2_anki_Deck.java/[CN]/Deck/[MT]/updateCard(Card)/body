@@ -1,9 +1,0 @@
-{
-  double now=Utils.now();
-  ContentValues updateValues=new ContentValues();
-  updateValues.put("question",card.getQuestion());
-  updateValues.put("answer",card.getAnswer());
-  updateValues.put("modified",now);
-  AnkiDatabaseManager.getDatabase(mDeckPath).getDatabase().update("cards",updateValues,"id = ?",new String[]{"" + card.getId()});
-  Log.v(AnkiDroidApp.TAG,"Update question and answer in card id# " + card.getId());
-}

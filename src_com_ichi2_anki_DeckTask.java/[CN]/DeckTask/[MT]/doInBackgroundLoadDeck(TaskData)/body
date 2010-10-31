@@ -14,7 +14,6 @@
   }
 catch (  CursorIndexOutOfBoundsException e) {
     Log.i(AnkiDroidApp.TAG,"The deck has no cards = " + e.getMessage());
-    ;
     return new TaskData(DECK_EMPTY);
   }
 }

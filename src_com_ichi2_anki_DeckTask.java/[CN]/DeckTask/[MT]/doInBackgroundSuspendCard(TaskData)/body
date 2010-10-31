@@ -8,7 +8,7 @@
   try {
     if (oldCard != null) {
       start=System.currentTimeMillis();
-      deck.suspendCard(oldCard.getId());
+      oldCard.suspend();
       stop=System.currentTimeMillis();
       Log.v(AnkiDroidApp.TAG,"doInBackgroundSuspendCard - Suspended card in " + (stop - start) + " ms.");
     }

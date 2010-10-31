@@ -1,0 +1,18 @@
+{
+  mLastFactor=mFactor;
+  if (isNew()) {
+    mFactor=averageFactor;
+  }
+  if (isRev() && !isBeingLearnt()) {
+    if (ease == EASE_FAILED) {
+      mFactor-=0.20;
+    }
+ else     if (ease == EASE_HARD) {
+      mFactor-=0.15;
+    }
+  }
+  if (ease == EASE_EASY) {
+    mFactor+=0.10;
+  }
+  mFactor=Math.max(1.3,mFactor);
+}

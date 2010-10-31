@@ -6,11 +6,11 @@
   ArrayList<Long> ids=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).queryColumn(Long.class,"SELECT id FROM stats WHERE type = 1 and day >= \"" + lastDay.toString() + "\"",0);
   try {
     Stats stat=new Stats(mDeck);
-    bundledStats.put("global",bundleStat(Stats.globalStats(mDeck)));
+    bundledStats.put("global",Stats.globalStats(mDeck).bundleJson());
     JSONArray dailyStats=new JSONArray();
     for (    Long id : ids) {
       stat.fromDB(id);
-      dailyStats.put(bundleStat(stat));
+      dailyStats.put(stat.bundleJson());
     }
     bundledStats.put("daily",dailyStats);
   }

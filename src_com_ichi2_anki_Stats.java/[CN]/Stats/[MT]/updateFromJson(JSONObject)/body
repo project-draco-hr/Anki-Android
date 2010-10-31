@@ -1,0 +1,30 @@
+{
+  try {
+    mAverageTime=remoteStat.getDouble("averageTime");
+    mDay=Utils.ordinalToDate(remoteStat.getInt("day"));
+    mDistractedReps=remoteStat.getInt("distractedReps");
+    mDistractedTime=remoteStat.getDouble("distractedTime");
+    mMatureEase0=remoteStat.getInt("matureEase0");
+    mMatureEase1=remoteStat.getInt("matureEase1");
+    mMatureEase2=remoteStat.getInt("matureEase2");
+    mMatureEase3=remoteStat.getInt("matureEase3");
+    mMatureEase4=remoteStat.getInt("matureEase4");
+    mNewEase0=remoteStat.getInt("newEase0");
+    mNewEase1=remoteStat.getInt("newEase1");
+    mNewEase2=remoteStat.getInt("newEase2");
+    mNewEase3=remoteStat.getInt("newEase3");
+    mNewEase4=remoteStat.getInt("newEase4");
+    mReps=remoteStat.getInt("reps");
+    mReviewTime=remoteStat.getDouble("reviewTime");
+    mType=remoteStat.getInt("type");
+    mYoungEase0=remoteStat.getInt("youngEase0");
+    mYoungEase1=remoteStat.getInt("youngEase1");
+    mYoungEase2=remoteStat.getInt("youngEase2");
+    mYoungEase3=remoteStat.getInt("youngEase3");
+    mYoungEase4=remoteStat.getInt("youngEase4");
+    toDB();
+  }
+ catch (  JSONException e) {
+    Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
+  }
+}

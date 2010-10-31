@@ -1,8 +1,8 @@
 {
-  if (mReps == 0) {
+  if (isNew()) {
     mType=TYPE_NEW;
   }
- else   if (mSuccessive != 0) {
+ else   if (isRev()) {
     mType=TYPE_REV;
   }
  else {

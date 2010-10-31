@@ -1,7 +1,7 @@
 {
   try {
     Stats globalStats=Stats.globalStats(mDeck);
-    updateStat(globalStats,stats.getJSONObject("global"));
+    globalStats.updateFromJson(stats.getJSONObject("global"));
     Stats stat=new Stats(mDeck);
     JSONArray remoteDailyStats=stats.getJSONArray("daily");
     int len=remoteDailyStats.length();
@@ -15,7 +15,7 @@
  catch (      SQLException e) {
         stat.create(Stats.STATS_DAY,dailyStatDate);
       }
-      updateStat(stat,remoteStat);
+      stat.updateFromJson(remoteStat);
     }
   }
  catch (  JSONException e) {

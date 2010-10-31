@@ -1,7 +1,7 @@
 {
   double interval=card.getInterval();
   double factor=card.getFactor();
-  if ((delay < 0) && (card.getSuccessive() != 0)) {
+  if ((delay < 0) && card.isRev()) {
     interval=Math.max(card.getLastInterval(),card.getInterval() + delay);
     if (interval < mMidIntervalMin) {
       interval=0;

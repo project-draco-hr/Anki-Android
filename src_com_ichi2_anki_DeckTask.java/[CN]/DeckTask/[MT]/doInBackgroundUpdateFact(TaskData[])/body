@@ -7,7 +7,7 @@
   Iterator<Card> iter=saveCards.iterator();
   while (iter.hasNext()) {
     Card modifyCard=iter.next();
-    deck.updateCard(modifyCard);
+    modifyCard.updateQAfields();
   }
   publishProgress(new TaskData(deck.getCurrentCard()));
   return null;

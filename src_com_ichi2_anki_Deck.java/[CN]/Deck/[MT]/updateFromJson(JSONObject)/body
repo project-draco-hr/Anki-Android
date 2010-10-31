@@ -1,0 +1,44 @@
+{
+  try {
+    mAverageFactor=deckPayload.getDouble("averageFactor");
+    mCardCount=deckPayload.getInt("cardCount");
+    mCollapseTime=deckPayload.getDouble("collapseTime");
+    mCreated=deckPayload.getDouble("created");
+    mCurrentModelId=deckPayload.getLong("currentModelId");
+    mDelay0=deckPayload.getDouble("delay0");
+    mDelay1=deckPayload.getDouble("delay1");
+    mDelay2=deckPayload.getDouble("delay2");
+    mDescription=deckPayload.getString("description");
+    mEasyIntervalMax=deckPayload.getDouble("easyIntervalMax");
+    mEasyIntervalMin=deckPayload.getDouble("easyIntervalMin");
+    mFactCount=deckPayload.getInt("factCount");
+    mFailedCardMax=deckPayload.getInt("failedCardMax");
+    mFailedNowCount=deckPayload.getInt("failedNowCount");
+    mFailedSoonCount=deckPayload.getInt("failedSoonCount");
+    mHardIntervalMax=deckPayload.getDouble("hardIntervalMax");
+    mHardIntervalMin=deckPayload.getDouble("hardIntervalMin");
+    mHighPriority=deckPayload.getString("highPriority");
+    mId=deckPayload.getLong("id");
+    mLastLoaded=deckPayload.getDouble("lastLoaded");
+    mLastSync=deckPayload.getDouble("modified");
+    mLowPriority=deckPayload.getString("lowPriority");
+    mMedPriority=deckPayload.getString("medPriority");
+    mMidIntervalMax=deckPayload.getDouble("midIntervalMax");
+    mMidIntervalMin=deckPayload.getDouble("midIntervalMin");
+    mModified=deckPayload.getDouble("modified");
+    mNewCardModulus=deckPayload.getInt("newCardModulus");
+    mNewCount=deckPayload.getInt("newCount");
+    mNewCountToday=deckPayload.getInt("newCountToday");
+    mNewEarly=deckPayload.getBoolean("newEarly");
+    mRevCount=deckPayload.getInt("revCount");
+    mReviewEarly=deckPayload.getBoolean("reviewEarly");
+    mSuspended=deckPayload.getString("suspended");
+    mUndoEnabled=deckPayload.getBoolean("undoEnabled");
+    mUtcOffset=deckPayload.getDouble("utcOffset");
+    commitToDB();
+    updateDynamicIndices();
+  }
+ catch (  JSONException e) {
+    Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
+  }
+}

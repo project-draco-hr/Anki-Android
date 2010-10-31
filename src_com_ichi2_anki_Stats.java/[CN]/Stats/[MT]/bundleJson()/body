@@ -1,0 +1,31 @@
+{
+  JSONObject bundledStat=new JSONObject();
+  try {
+    bundledStat.put("type",mType);
+    bundledStat.put("day",Utils.dateToOrdinal(mDay));
+    bundledStat.put("reps",mReps);
+    bundledStat.put("averageTime",mAverageTime);
+    bundledStat.put("reviewTime",mReviewTime);
+    bundledStat.put("distractedTime",mDistractedTime);
+    bundledStat.put("distractedReps",mDistractedReps);
+    bundledStat.put("newEase0",mNewEase0);
+    bundledStat.put("newEase1",mNewEase1);
+    bundledStat.put("newEase2",mNewEase2);
+    bundledStat.put("newEase3",mNewEase3);
+    bundledStat.put("newEase4",mNewEase4);
+    bundledStat.put("youngEase0",mYoungEase0);
+    bundledStat.put("youngEase1",mYoungEase1);
+    bundledStat.put("youngEase2",mYoungEase2);
+    bundledStat.put("youngEase3",mYoungEase3);
+    bundledStat.put("youngEase4",mYoungEase4);
+    bundledStat.put("matureEase0",mMatureEase0);
+    bundledStat.put("matureEase1",mMatureEase1);
+    bundledStat.put("matureEase2",mMatureEase2);
+    bundledStat.put("matureEase3",mMatureEase3);
+    bundledStat.put("matureEase4",mMatureEase4);
+  }
+ catch (  JSONException e) {
+    Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
+  }
+  return bundledStat;
+}

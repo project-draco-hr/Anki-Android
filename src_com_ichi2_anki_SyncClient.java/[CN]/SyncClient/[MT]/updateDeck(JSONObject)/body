@@ -11,43 +11,7 @@
       statement.execute();
     }
     statement.close();
-    mDeck.setAverageFactor(deckPayload.getDouble("averageFactor"));
-    mDeck.setCardCount(deckPayload.getInt("cardCount"));
-    mDeck.setCollapseTime(deckPayload.getDouble("collapseTime"));
-    mDeck.setCreated(deckPayload.getDouble("created"));
-    mDeck.setCurrentModelId(deckPayload.getLong("currentModelId"));
-    mDeck.setDelay0(deckPayload.getDouble("delay0"));
-    mDeck.setDelay1(deckPayload.getDouble("delay1"));
-    mDeck.setDelay2(deckPayload.getDouble("delay2"));
-    mDeck.setDescription(deckPayload.getString("description"));
-    mDeck.setEasyIntervalMax(deckPayload.getDouble("easyIntervalMax"));
-    mDeck.setEasyIntervalMin(deckPayload.getDouble("easyIntervalMin"));
-    mDeck.setFactCount(deckPayload.getInt("factCount"));
-    mDeck.setFailedCardMax(deckPayload.getInt("failedCardMax"));
-    mDeck.setFailedNowCount(deckPayload.getInt("failedNowCount"));
-    mDeck.setFailedSoonCount(deckPayload.getInt("failedSoonCount"));
-    mDeck.setHardIntervalMax(deckPayload.getDouble("hardIntervalMax"));
-    mDeck.setHardIntervalMin(deckPayload.getDouble("hardIntervalMin"));
-    mDeck.setHighPriority(deckPayload.getString("highPriority"));
-    mDeck.setId(deckPayload.getLong("id"));
-    mDeck.setLastLoaded(deckPayload.getDouble("lastLoaded"));
-    mDeck.setLastSync(deckPayload.getDouble("modified"));
-    mDeck.setLowPriority(deckPayload.getString("lowPriority"));
-    mDeck.setMedPriority(deckPayload.getString("medPriority"));
-    mDeck.setMidIntervalMax(deckPayload.getDouble("midIntervalMax"));
-    mDeck.setMidIntervalMin(deckPayload.getDouble("midIntervalMin"));
-    mDeck.setModified(deckPayload.getDouble("modified"));
-    mDeck.setNewCardModulus(deckPayload.getInt("newCardModulus"));
-    mDeck.setNewCount(deckPayload.getInt("newCount"));
-    mDeck.setNewCountToday(deckPayload.getInt("newCountToday"));
-    mDeck.setNewEarly(deckPayload.getBoolean("newEarly"));
-    mDeck.setRevCount(deckPayload.getInt("revCount"));
-    mDeck.setReviewEarly(deckPayload.getBoolean("reviewEarly"));
-    mDeck.setSuspended(deckPayload.getString("suspended"));
-    mDeck.setUndoEnabled(deckPayload.getBoolean("undoEnabled"));
-    mDeck.setUtcOffset(deckPayload.getDouble("utcOffset"));
-    mDeck.commitToDB();
-    mDeck.updateDynamicIndices();
+    mDeck.updateFromJson(deckPayload);
   }
  catch (  JSONException e) {
     Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
