@@ -1,0 +1,5 @@
+{
+  Model m=Model.getModel(this,this.currentModelId,true);
+  Fact mFact=new Fact(this,m);
+  return mFact;
+}

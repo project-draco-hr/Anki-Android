@@ -18,7 +18,6 @@ builder.setItems(items,new DialogInterface.OnClickListener(){
 public void onClick(DialogInterface dialog,int item){
 currentSelectedModelId=dialogIds.get(item);
 modelButton.setText(models.get(currentSelectedModelId).name);
-Log.i("Debug: id: ",dialogIds.get(item).toString());
 }
 }
 );

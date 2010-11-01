@@ -1,0 +1,13 @@
+{
+  FieldModel mFieldModel;
+  mEditFields=new LinkedList<FieldEditText>();
+  TreeMap<Long,FieldModel> fields=models.get(currentSelectedModelId).getFieldModels();
+  for (  Long i : fields.keySet()) {
+    mFieldModel=fields.get(i);
+    FieldEditText newTextbox=new FieldEditText(this,mFieldModel);
+    TextView label=newTextbox.getLabel();
+    mEditFields.add(newTextbox);
+    mFieldsLayoutContainer.addView(label);
+    mFieldsLayoutContainer.addView(newTextbox);
+  }
+}
