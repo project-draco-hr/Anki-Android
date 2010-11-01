@@ -6,7 +6,7 @@
   while (iter.hasNext()) {
     Field f=iter.next();
     updateValues=new ContentValues();
-    updateValues.put("value",f.getValue());
+    updateValues.put("value",f.mValue);
     AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().update("fields",updateValues,"id = ?",new String[]{"" + f.mFieldId});
   }
 }

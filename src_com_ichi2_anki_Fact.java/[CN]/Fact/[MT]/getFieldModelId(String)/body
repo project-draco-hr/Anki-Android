@@ -2,8 +2,8 @@
   Iterator<Field> iter=mFields.iterator();
   while (iter.hasNext()) {
     Field f=iter.next();
-    if (f.getFieldModel().getName().equals(fieldModelName)) {
-      return f.getFieldModel().getId();
+    if (f.mFieldModel.getName().equals(fieldModelName)) {
+      return f.mFieldModel.getId();
     }
   }
   return 0;

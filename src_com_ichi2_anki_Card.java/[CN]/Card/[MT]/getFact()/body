@@ -1,9 +1,6 @@
 {
-  if (mFact != null) {
-    return mFact;
-  }
- else {
+  if (mFact == null) {
     mFact=new Fact(mDeck,mFactId);
-    return mFact;
   }
+  return mFact;
 }

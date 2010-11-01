@@ -10,5 +10,8 @@
     newCard.setAnswer(newQA.get("answer"));
     returnList.add(newCard);
   }
+  if (cardsCursor != null) {
+    cardsCursor.close();
+  }
   return returnList;
 }

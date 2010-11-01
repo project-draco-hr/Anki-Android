@@ -16,7 +16,7 @@
   builder.setMessage(res.getString(R.string.connection_error_return_message));
   builder.setPositiveButton(res.getString(R.string.retry),new OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int which){
-      Connection.getSharedDecks(getSharedDecksListener,new Connection.Payload(new Object[]{}));
+      Connection.getSharedDecks(mGetSharedDecksListener,new Connection.Payload(new Object[]{}));
     }
   }
 );
