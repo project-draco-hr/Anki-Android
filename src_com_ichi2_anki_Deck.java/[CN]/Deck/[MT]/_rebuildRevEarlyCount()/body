@@ -1,0 +1,6 @@
+{
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
+  String extraLim="";
+  String sql="SELECT count() FROM cards WHERE type = 1 AND combinedDue > " + dueCutoff + extraLim;
+  revCount=ankiDB.queryScalar(sql);
+}

@@ -1,0 +1,12 @@
+{
+  while (true) {
+    removeSpaced(queue);
+    if (!queue.isEmpty()) {
+      return true;
+    }
+    fillFunc.invoke(null);
+    if (queue.isEmpty()) {
+      return false;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  if (ease == 1) {
+    if (_cramCardType(card) != 0) {
+      failedSoonCount+=1;
+      revCount-=1;
+    }
+    requeueCard(card,0);
+    failedCramQueue.addFirst(new QueueItem(card.id,card.factId));
+  }
+ else {
+    _answerCard(card,ease);
+  }
+}

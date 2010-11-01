@@ -1,11 +1,11 @@
 {
-  if ((failedSoonCount != 0) && failedQueue.isEmpty()) {
+  if ((revCount != 0) && revQueue.isEmpty()) {
     AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(path);
-    String sql="SELECT c.id, factId, combinedDue FROM cards c WHERE type = 0 AND combinedDue < " + dueCutoff + " ORDER BY combinedDue LIMIT "+ queueLimit;
+    String sql="SELECT c.id, factId, combinedDue FROM cards c WHERE type = 1 AND combinedDue < " + dueCutoff + " ORDER BY "+ revOrder()+ " LIMIT "+ queueLimit;
     Cursor cur=ankiDB.database.rawQuery(cardLimit("revActive","revInactive",sql));
     while (cur.moveToNext()) {
       QueueItem qi=new QueueItem(cur.getLong(0),cur.getLong(1),cur.getDouble(2));
-      failedQueue.add(0,qi);
+      revQueue.add(0,qi);
     }
   }
 }

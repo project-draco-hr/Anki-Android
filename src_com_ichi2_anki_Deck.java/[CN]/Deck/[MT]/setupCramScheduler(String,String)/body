@@ -1,0 +1,16 @@
+{
+  getCardIdMethod=cls.getDeclaredMethod("_getCramCardId",new Class[]);
+  activeCramTags=active;
+  cramOrder=order;
+  rebuildFailedCountMethod=cls.getDeclaredMethod("_rebuildFailedCramCount",null);
+  rebuildRevCountMethod=cls.getDeclaredMethod("_rebuildCramCount",null);
+  rebuildNewCountMethod=cls.getDeclaredMethod("_rebuildNewCramCount",null);
+  fillFailedQueueMethod=cls.getDeclaredMethod("_fillFailedCramQueue",null);
+  fillRevQueueMethod=cls.getDeclaredMethod("_fillCramQueue",null);
+  finishSchedulerMethod=cls.getDeclaredMethod("setupStandardScheduler",null);
+  failedCramQueue.clear();
+  requeueCardMethod=cls.getDeclaredMethod("_requeueCramCard",new Class[]);
+  cardTypeMethod=cls.getDeclaredMethod("_cramCardType",new Class[]);
+  answerCardMethod=cls.getDeclaredMethod("_answerCramCard",new Class[]);
+  scheduler="cram";
+}

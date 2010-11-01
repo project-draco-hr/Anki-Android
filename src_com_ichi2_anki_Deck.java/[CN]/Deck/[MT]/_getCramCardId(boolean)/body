@@ -1,0 +1,22 @@
+{
+  checkDailyStats();
+  fillQueues();
+  if (failedSoonCount >= failedCardMax) {
+    return ((QueueItem)failedQueue.getLast()).getCardId();
+  }
+  if (revNoSpaced()) {
+    return ((QueueItem)revQueue.getLast()).getCardId();
+  }
+  if (!failedQueue.isEmpty()) {
+    return ((QueueItem)failedQueue.getLast()).getCardId();
+  }
+  if (check) {
+    updateCutoff();
+    return getCardId(false);
+  }
+  if (finishSchedulerMethod != null) {
+    finishScheduler();
+    reset();
+    return getCardId();
+  }
+}

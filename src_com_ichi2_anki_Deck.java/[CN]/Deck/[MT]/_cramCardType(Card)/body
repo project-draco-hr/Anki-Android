@@ -1,0 +1,8 @@
+{
+  if ((!revQueue.isEmpty()) && (((QueueItem)revQueue.getLast()).getCardId == card.id)) {
+    return 1;
+  }
+ else {
+    return 0;
+  }
+}

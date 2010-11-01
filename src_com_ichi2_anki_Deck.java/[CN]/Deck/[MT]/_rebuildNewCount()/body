@@ -1,4 +1,4 @@
 {
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(path);
-  newCount=ankiDB.queryScalar(cardLimit("revActive","revInactive","SELECT count(*) FROM cards c WHERE type = 2 AND combinedDue < " + dueCutoff));
+  newCount=ankiDB.queryScalar(cardLimit("newActive","newInactive","SELECT count(*) FROM cards c WHERE type = 2 AND combinedDue < " + dueCutoff));
 }
