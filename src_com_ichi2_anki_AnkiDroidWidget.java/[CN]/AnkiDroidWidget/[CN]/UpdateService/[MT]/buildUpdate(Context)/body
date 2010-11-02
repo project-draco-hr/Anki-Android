@@ -2,8 +2,7 @@
   Log.i(AnkiDroidApp.TAG,"buildUpdate");
   RemoteViews updateViews=new RemoteViews(context.getPackageName(),R.layout.ankidroid_widget_view);
   Deck currentDeck=AnkiDroidApp.deck();
-  boolean isMounted=!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
-  if (isMounted) {
+  if (!AnkiDroidApp.isSdCardMounted()) {
     updateViews.setTextViewText(R.id.anki_droid_text,context.getText(R.string.sdcard_missing_message));
     return updateViews;
   }
@@ -18,19 +17,19 @@
   SpannableStringBuilder sb=new SpannableStringBuilder();
   int totalDue=0;
   int nbDecks=decks.size();
-  for (int i=0; i < nbDecks && i < 3; i++) {
+  for (int i=0; i < nbDecks && i < MAX_DECK_NUM; i++) {
     DeckInformation deck=decks.get(i);
     sb.append(deck.getDeckText());
     sb.append('\n');
-    totalDue+=deck.getDueCards();
+    totalDue+=deck.mDueCards;
   }
   if (sb.length() > 1) {
     sb.subSequence(0,sb.length() - 1);
   }
   updateViews.setTextViewText(R.id.anki_droid_text,sb);
-  int minimumCardsDueForNotification=Integer.parseInt(PrefSettings.getSharedPrefs(context).getString("minimumCardsDueForNotification","25"));
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
+  int minimumCardsDueForNotification=Integer.parseInt(preferences.getString("minimumCardsDueForNotification","25"));
   if (totalDue >= minimumCardsDueForNotification) {
-    SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
     String ns=Context.NOTIFICATION_SERVICE;
     NotificationManager mNotificationManager=(NotificationManager)getSystemService(ns);
     int icon=R.drawable.anki;

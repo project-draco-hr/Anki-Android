@@ -1,4 +1,4 @@
 {
-  String deckName=getDeckName().length() > 13 ? getDeckName().substring(0,13) : getDeckName();
-  return String.format("%s %d %d",deckName,getNewCards(),getDueCards());
+  String deckName=formatDeckName();
+  return String.format("%s %d %d",deckName,mNewCards,mDueCards);
 }

@@ -1,13 +1,13 @@
 {
-  String deckName=getDeckName().length() > 13 ? getDeckName().substring(0,13) : getDeckName();
+  String deckName=formatDeckName();
   SpannableStringBuilder sb=new SpannableStringBuilder();
   sb.append(deckName);
   sb.append(" ");
-  SpannableString red=new SpannableString(Integer.toString(getFailedCards()));
+  SpannableString red=new SpannableString(Integer.toString(mFailedCards));
   red.setSpan(new ForegroundColorSpan(Color.RED),0,red.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-  SpannableString black=new SpannableString(Integer.toString(getDueCards()));
+  SpannableString black=new SpannableString(Integer.toString(mDueCards));
   black.setSpan(new ForegroundColorSpan(Color.BLACK),0,black.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-  SpannableString blue=new SpannableString(Integer.toString(getNewCards()));
+  SpannableString blue=new SpannableString(Integer.toString(mNewCards));
   blue.setSpan(new ForegroundColorSpan(Color.BLUE),0,blue.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
   sb.append(red);
   sb.append(" ");

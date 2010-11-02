@@ -1,9 +1,3 @@
 {
-  if (deck1.mDueCards == deck2.mDueCards) {
-    return 0;
-  }
-  if (deck1.mDueCards > deck2.mDueCards) {
-    return 1;
-  }
-  return -1;
+  return deck2.mDueCards - deck1.mDueCards;
 }

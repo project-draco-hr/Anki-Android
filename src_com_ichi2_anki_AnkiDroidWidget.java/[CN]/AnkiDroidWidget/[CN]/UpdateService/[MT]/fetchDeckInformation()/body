@@ -1,11 +1,8 @@
 {
   Log.i(AnkiDroidApp.TAG,"fetchDeckInformation");
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
-  String deckPath=preferences.getString("deckPath","/sdcard");
+  String deckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory() + "/AnkiDroid");
   File dir=new File(deckPath);
-  if (dir == null) {
-    return new ArrayList<DeckInformation>();
-  }
   File[] fileList=dir.listFiles(new AnkiFileFilter());
   if (fileList == null || fileList.length == 0) {
     return new ArrayList<DeckInformation>();
@@ -22,7 +19,7 @@
       deck.closeDeck();
       information.add(new DeckInformation(deckName,newCards,dueCards,failedCards));
     }
- catch (    Exception e) {
+ catch (    SQLException e) {
       Log.i(AnkiDroidApp.TAG,"Could not open deck");
       Log.e(AnkiDroidApp.TAG,e.toString());
     }
@@ -30,7 +27,6 @@
   if (!information.isEmpty() && information.size() > 1) {
     Log.i(AnkiDroidApp.TAG,"Sorting deck");
     Collections.sort(information,new ByDueComparator());
-    Collections.reverse(information);
   }
   return information;
 }
