@@ -1,3 +1,11 @@
 {
-  return ((Integer)cardTypeMethod.invoke(card)).intValue();
+  if (card.successive != 0) {
+    return 1;
+  }
+ else   if (card.reps != 0) {
+    return 0;
+  }
+ else {
+    return 2;
+  }
 }

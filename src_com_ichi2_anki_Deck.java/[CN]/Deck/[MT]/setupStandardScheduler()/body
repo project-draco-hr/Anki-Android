@@ -9,8 +9,15 @@
   requeueCardMethod=Deck.class.getDeclaredMethod("_requeueCard",Card.class,int.class);
   timeForNewCardMethod=Deck.class.getDeclaredMethod("_timeForNewCard");
   updateNewCountTodayMethod=Deck.class.getDeclaredMethod("_updateNewCountToday");
-  cardTypeMethod=Deck.class.getDeclaredMethod("_cardType",Card.class);
+  cardQueueMethod=Deck.class.getDeclaredMethod("_cardQueue",Card.class);
   finishSchedulerMethod=null;
   answerCardMethod=Deck.class.getDeclaredMethod("_answerCard",Card.class,int.class);
+  cardLimitMethod=Deck.class.getDeclaredMethod("_cardLimit",String.class,String.class,String.class);
+  answerPreSaveMethod=null;
   scheduler="standard";
+  try {
+    resetAfterReviewEarly();
+  }
+ catch (  Exception e) {
+  }
 }

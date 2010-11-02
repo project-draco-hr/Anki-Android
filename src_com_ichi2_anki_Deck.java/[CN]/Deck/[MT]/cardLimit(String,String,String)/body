@@ -1,18 +1,3 @@
 {
-  String[] yes=Utils.parseTags(deckVars.getVar(active));
-  String[] no=Utils.parseTags(deckVars.getVar(inactive));
-  String repl="";
-  if (yes.length > 0) {
-    long yids[]=tagIds(yes);
-    long nids[]=tagIds(no);
-    repl="c.id = ct.cardId AND tagId IN " + Utils.ids2str(yids) + " AND tagId NOT IN "+ Utils.ids2str(nids);
-  }
- else   if (no.length > 0) {
-    long nids[]=tagIds(no);
-    repl="c.id = ct.cardId AND tagId NOT IN " + Utils.ids2str(nids);
-  }
- else {
-    return sql;
-  }
-  return sql.replace("FROM cards c WHERE","FROM cards c, cardTags ct WHERE " + repl);
+  return ((String)answerCardMethod.invoke(active,inactive,sql));
 }
