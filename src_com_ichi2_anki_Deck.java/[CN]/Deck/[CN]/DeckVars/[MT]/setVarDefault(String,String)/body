@@ -1,5 +1,4 @@
 {
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(path);
   if (!hasKey(key)) {
     mDB.database.execSQL("INSERT INTO deckVars (key, value) values ('" + key + "', '"+ value+ "')");
   }

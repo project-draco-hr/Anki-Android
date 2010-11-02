@@ -1,6 +1,7 @@
 {
-  cardCount=ankiDB.database.rawQuery("SELECT count(*) from cards").getLong(0);
-  factCount=ankiDB.database.rawQuery("SELECT count(*) from facts").getLong(0);
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
+  cardCount=ankiDB.database.rawQuery("SELECT count(*) from cards",null).getInt(0);
+  factCount=ankiDB.database.rawQuery("SELECT count(*) from facts",null).getInt(0);
   rebuildFailedCount();
   rebuildRevCount();
   rebuildNewCount();

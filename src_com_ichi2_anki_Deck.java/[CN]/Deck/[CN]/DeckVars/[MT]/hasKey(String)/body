@@ -1,2 +1,3 @@
 {
+  return mDB.database.rawQuery("SELECT 1 FROM deckVars WHERE key = '" + key + "'",null).moveToNext();
 }

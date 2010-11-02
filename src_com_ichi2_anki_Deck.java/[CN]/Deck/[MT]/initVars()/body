@@ -1,2 +1,16 @@
 {
+  lastLoaded=(double)System.currentTimeMillis() / 1000.0;
+  queueLimit=200;
+  DeckVars deckVars=new DeckVars(deckPath);
+  if (!deckVars.hasKey("revInactive")) {
+    deckVars.setVarDefault("suspendLeeches","1");
+    deckVars.setVarDefault("leechFails","16");
+    deckVars.setVarDefault("perDay","1");
+    deckVars.setVarDefault("newActive","");
+    deckVars.setVarDefault("revActive","");
+    deckVars.setVarDefault("newInactive",suspended);
+    deckVars.setVarDefault("revInactive",suspended);
+  }
+  updateCutoff();
+  setupStandardScheduler();
 }
