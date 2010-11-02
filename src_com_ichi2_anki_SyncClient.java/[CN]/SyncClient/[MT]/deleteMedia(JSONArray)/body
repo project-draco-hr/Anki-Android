@@ -4,7 +4,7 @@
   String idsString=Utils.ids2str(ids);
   ArrayList<String> files=ankiDB.queryColumn(String.class,"SELECT filename FROM media WHERE id IN " + idsString,0);
   double now=Utils.now();
-  String sqlInsert="INSERT INTO mediaDeleted SELECT id, " + String.format(ENGLISH_LOCALE,"%f",now) + " FROM media WHERE media.id = ?";
+  String sqlInsert="INSERT INTO mediaDeleted SELECT id, " + String.format(Utils.ENGLISH_LOCALE,"%f",now) + " FROM media WHERE media.id = ?";
   SQLiteStatement statement=ankiDB.getDatabase().compileStatement(sqlInsert);
   int len=ids.length();
   for (int i=0; i < len; i++) {

@@ -18,7 +18,7 @@
     showNotification(download.getTitle());
   }
  else {
-    if (download.getStatus() == Download.CANCELLED) {
+    if (download.getStatus() == Download.STATUS_CANCELLED) {
       try {
         new File(mDestination + "/tmp/" + download.getTitle()+ ".anki.updating").delete();
         File mediaFolder=new File(mDestination + "/tmp/" + download.getTitle()+ ".media/");

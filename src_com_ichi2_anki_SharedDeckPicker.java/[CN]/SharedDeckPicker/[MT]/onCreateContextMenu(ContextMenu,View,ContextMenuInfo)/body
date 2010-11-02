@@ -5,10 +5,10 @@
   if (obj instanceof Download) {
     Download download=(Download)obj;
     menu.add(Menu.NONE,MENU_CANCEL,Menu.NONE,res.getString(R.string.cancel_download));
-    if (download.getStatus() == SharedDeckDownload.PAUSED) {
+    if (download.getStatus() == SharedDeckDownload.STATUS_PAUSED) {
       menu.add(Menu.NONE,MENU_RESUME,Menu.NONE,res.getString(R.string.resume_download));
     }
- else     if (download.getStatus() == SharedDeckDownload.UPDATING) {
+ else     if (download.getStatus() == SharedDeckDownload.STATUS_UPDATING) {
       menu.add(Menu.NONE,MENU_PAUSE,Menu.NONE,res.getString(R.string.pause_download));
     }
   }

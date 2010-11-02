@@ -1,19 +1,19 @@
 {
-  Log.i(AnkiDroidApp.TAG,"displayProgressDialogAndLoadDeck - Loading deck " + deckFilename);
-  if (deckFilename != null && new File(deckFilename).exists()) {
+  Log.i(AnkiDroidApp.TAG,"displayProgressDialogAndLoadDeck - Loading deck " + mDeckFilename);
+  if (mDeckFilename != null && new File(mDeckFilename).exists()) {
     if (updateAllCards) {
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK_AND_UPDATE_CARDS,mLoadDeckHandler,new DeckTask.TaskData(deckFilename));
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK_AND_UPDATE_CARDS,mLoadDeckHandler,new DeckTask.TaskData(mDeckFilename));
     }
  else {
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK,mLoadDeckHandler,new DeckTask.TaskData(deckFilename));
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK,mLoadDeckHandler,new DeckTask.TaskData(mDeckFilename));
     }
   }
  else {
-    if (deckFilename == null) {
+    if (mDeckFilename == null) {
       Log.i(AnkiDroidApp.TAG,"displayProgressDialogAndLoadDeck - SD card unmounted.");
     }
- else     if (!new File(deckFilename).exists()) {
-      Log.i(AnkiDroidApp.TAG,"displayProgressDialogAndLoadDeck - The deck " + deckFilename + " does not exist.");
+ else     if (!new File(mDeckFilename).exists()) {
+      Log.i(AnkiDroidApp.TAG,"displayProgressDialogAndLoadDeck - The deck " + mDeckFilename + " does not exist.");
     }
   }
 }

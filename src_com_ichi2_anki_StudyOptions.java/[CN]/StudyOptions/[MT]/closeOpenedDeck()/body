@@ -1,5 +1,5 @@
 {
-  if (AnkiDroidApp.deck() != null && sdCardAvailable) {
+  if (AnkiDroidApp.deck() != null && mSdCardAvailable) {
     AnkiDroidApp.deck().closeDeck();
     AnkiDroidApp.setDeck(null);
   }

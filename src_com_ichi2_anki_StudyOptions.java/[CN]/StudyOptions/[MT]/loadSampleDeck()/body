@@ -1,5 +1,5 @@
 {
-  File sampleDeckFile=new File(prefDeckPath,SAMPLE_DECK_NAME);
+  File sampleDeckFile=new File(mPrefDeckPath,SAMPLE_DECK_NAME);
   if (!sampleDeckFile.exists()) {
     try {
       InputStream stream=getResources().getAssets().open(SAMPLE_DECK_NAME);

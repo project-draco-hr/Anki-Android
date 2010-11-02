@@ -12,23 +12,23 @@
   initAllDialogs();
   Intent intent=getIntent();
   if ("android.intent.action.VIEW".equalsIgnoreCase(intent.getAction()) && intent.getDataString() != null) {
-    deckFilename=Uri.parse(intent.getDataString()).getPath();
-    Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from intent: " + deckFilename);
+    mDeckFilename=Uri.parse(intent.getDataString()).getPath();
+    Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from intent: " + mDeckFilename);
   }
  else   if (savedInstanceState != null) {
-    deckFilename=savedInstanceState.getString("deckFilename");
-    Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from savedInstanceState: " + deckFilename);
+    mDeckFilename=savedInstanceState.getString("deckFilename");
+    Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from savedInstanceState: " + mDeckFilename);
   }
  else {
     Log.i(AnkiDroidApp.TAG,"onCreate - " + preferences.getAll().toString());
-    deckFilename=preferences.getString("deckFilename",null);
-    Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from preferences: " + deckFilename);
+    mDeckFilename=preferences.getString("deckFilename",null);
+    Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from preferences: " + mDeckFilename);
   }
-  if (!sdCardAvailable) {
+  if (!mSdCardAvailable) {
     showContentView(CONTENT_NO_EXTERNAL_STORAGE);
   }
  else {
-    if (deckFilename == null || !new File(deckFilename).exists()) {
+    if (mDeckFilename == null || !new File(mDeckFilename).exists()) {
       showContentView(CONTENT_NO_DECK);
     }
  else {

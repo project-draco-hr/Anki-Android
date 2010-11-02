@@ -1,7 +1,7 @@
 {
   Log.i(AnkiDroidApp.TAG,"onPostExecute");
-  if (download.getStatus() == Download.COMPLETE) {
-    download.setStatus(SharedDeckDownload.UPDATING);
+  if (download.getStatus() == Download.STATUS_COMPLETE) {
+    download.setStatus(SharedDeckDownload.STATUS_UPDATING);
     notifySharedDeckObservers();
     String unzippedDeckName=unzipSharedDeckFile(mDestination + "/tmp/" + download.getTitle()+ ".zip",download.getTitle());
     download.setTitle(unzippedDeckName);
@@ -11,7 +11,7 @@
     editor.commit();
     new UpdateDeckTask().execute(new Payload(new Object[]{download}));
   }
- else   if (download.getStatus() == Download.CANCELLED) {
+ else   if (download.getStatus() == Download.STATUS_CANCELLED) {
     mSharedDeckDownloads.remove(download);
     notifySharedDeckObservers();
     stopIfFinished();

@@ -1,7 +1,7 @@
 {
   Log.i(AnkiDroidApp.TAG,"Getting global stats...");
   int type=STATS_LIFE;
-  Date today=genToday(deck);
+  Date today=Utils.genToday(deck.getUtcOffset());
   Cursor cursor=null;
   Stats stats=null;
   try {

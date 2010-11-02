@@ -4,7 +4,7 @@
     showContentView(CONTENT_NO_EXTERNAL_STORAGE);
   }
  else   if (requestCode == PICK_DECK_REQUEST || requestCode == DOWNLOAD_PERSONAL_DECK || requestCode == DOWNLOAD_SHARED_DECK) {
-    inDeckPicker=false;
+    mInDeckPicker=false;
     if (resultCode != RESULT_OK) {
       Log.e(AnkiDroidApp.TAG,"onActivityResult - Deck browser returned with error");
       displayProgressDialogAndLoadDeck();
@@ -16,7 +16,7 @@
       return;
     }
     Log.i(AnkiDroidApp.TAG,"onActivityResult = OK");
-    deckFilename=intent.getExtras().getString(OPT_DB);
+    mDeckFilename=intent.getExtras().getString(OPT_DB);
     savePreferences();
     boolean updateAllCards=(requestCode == DOWNLOAD_SHARED_DECK);
     displayProgressDialogAndLoadDeck(updateAllCards);

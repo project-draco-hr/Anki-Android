@@ -2,7 +2,7 @@
   new File(mDestination + "/tmp/").mkdirs();
   if (download instanceof SharedDeckDownload) {
     SharedDeckDownload sharedDeckDownload=(SharedDeckDownload)download;
-    if (sharedDeckDownload.getStatus() == SharedDeckDownload.PAUSED || sharedDeckDownload.getStatus() == SharedDeckDownload.UPDATING) {
+    if (sharedDeckDownload.getStatus() == SharedDeckDownload.STATUS_PAUSED || sharedDeckDownload.getStatus() == SharedDeckDownload.STATUS_UPDATING) {
       new UpdateDeckTask().execute(new Payload(new Object[]{sharedDeckDownload}));
     }
  else {

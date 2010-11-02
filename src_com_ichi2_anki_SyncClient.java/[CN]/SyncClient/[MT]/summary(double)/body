@@ -3,7 +3,7 @@
   mDeck.setLastSync(lastSync);
   mDeck.commitToDB();
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath());
-  String lastSyncString=String.format(ENGLISH_LOCALE,"%f",lastSync);
+  String lastSyncString=String.format(Utils.ENGLISH_LOCALE,"%f",lastSync);
   JSONArray cards=cursorToJSONArray(ankiDB.getDatabase().rawQuery("SELECT id, modified FROM cards WHERE modified > " + lastSyncString,null));
   JSONArray delcards=cursorToJSONArray(ankiDB.getDatabase().rawQuery("SELECT cardId, deletedTime FROM cardsDeleted WHERE deletedTime > " + lastSyncString,null));
   JSONArray facts=cursorToJSONArray(ankiDB.getDatabase().rawQuery("SELECT id, modified FROM facts WHERE modified > " + lastSyncString,null));

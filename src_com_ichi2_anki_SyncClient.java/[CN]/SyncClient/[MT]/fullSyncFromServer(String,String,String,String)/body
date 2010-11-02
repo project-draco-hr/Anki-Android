@@ -1,7 +1,7 @@
 {
   try {
     String data="p=" + URLEncoder.encode(password,"UTF-8") + "&u="+ URLEncoder.encode(username,"UTF-8")+ "&d="+ URLEncoder.encode(deckName,"UTF-8");
-    HttpPost httpPost=new HttpPost(SYNC_URL + "fulldown");
+    HttpPost httpPost=new HttpPost(AnkiDroidProxy.SYNC_URL + "fulldown");
     StringEntity entity=new StringEntity(data);
     httpPost.setEntity(entity);
     httpPost.setHeader("Content-type","application/x-www-form-urlencoded");

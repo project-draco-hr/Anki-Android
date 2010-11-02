@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,"summaries = " + String.format(ENGLISH_LOCALE,"%f",mDeck.getLastSync()));
+  Log.i(AnkiDroidApp.TAG,"summaries = " + String.format(Utils.ENGLISH_LOCALE,"%f",mDeck.getLastSync()));
   JSONArray summaries=new JSONArray();
   summaries.put(summary(mDeck.getLastSync()));
   summaries.put(mServer.summary(mDeck.getLastSync()));

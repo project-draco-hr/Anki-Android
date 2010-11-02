@@ -2,9 +2,9 @@
   try {
     if (sSharedDecks == null) {
       sSharedDecks=new ArrayList<SharedDeck>();
-      HttpGet httpGet=new HttpGet("http://anki.ichi2.net/file/search");
+      HttpGet httpGet=new HttpGet(SYNC_SEARCH);
       httpGet.setHeader("Accept-Encoding","identity");
-      httpGet.setHeader("Host","anki.ichi2.net");
+      httpGet.setHeader("Host",SYNC_HOST);
       DefaultHttpClient defaultHttpClient=new DefaultHttpClient();
       HttpResponse httpResponse=defaultHttpClient.execute(httpGet);
       String response=Utils.convertStreamToString(httpResponse.getEntity().getContent());

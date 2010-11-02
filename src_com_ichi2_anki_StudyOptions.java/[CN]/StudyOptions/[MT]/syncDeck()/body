@@ -4,8 +4,8 @@
   String password=preferences.getString("password","");
   if (AnkiDroidApp.isUserLoggedIn()) {
     Deck deck=AnkiDroidApp.deck();
-    Log.i(AnkiDroidApp.TAG,"Synchronizing deck " + deckFilename + " with username "+ username+ " and password "+ password);
-    Connection.syncDeck(syncListener,new Connection.Payload(new Object[]{username,password,deck,deckFilename}));
+    Log.i(AnkiDroidApp.TAG,"Synchronizing deck " + mDeckFilename + " with username "+ username+ " and password "+ password);
+    Connection.syncDeck(syncListener,new Connection.Payload(new Object[]{username,password,deck,mDeckFilename}));
   }
  else {
     mUserNotLoggedInAlert.show();

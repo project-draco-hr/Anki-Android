@@ -24,7 +24,10 @@
   if (lastDelay >= 0) {
     card.updateFactor(ease,mAverageFactor);
   }
-  double space, spaceFactor, minSpacing, minOfOtherCards;
+  double space;
+  double spaceFactor;
+  double minSpacing;
+  double minOfOtherCards;
   try {
     cursor=ankiDB.getDatabase().rawQuery("SELECT models.initialSpacing, models.spacing " + "FROM facts, models " + "WHERE facts.modelId = models.id and "+ "facts.id = "+ card.getFactId(),null);
     if (!cursor.moveToFirst()) {

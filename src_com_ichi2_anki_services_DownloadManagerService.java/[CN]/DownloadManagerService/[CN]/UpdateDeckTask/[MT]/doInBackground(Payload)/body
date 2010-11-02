@@ -18,7 +18,7 @@
     long runningAvgCount=0;
     long batchStart;
     mElapsedTime=0;
-    while (updatedCards < totalCards && download.getStatus() == SharedDeckDownload.UPDATING) {
+    while (updatedCards < totalCards && download.getStatus() == SharedDeckDownload.STATUS_UPDATING) {
       batchStart=System.currentTimeMillis();
       updatedCards=deck.updateAllCardsFromPosition(updatedCards,batchSize);
       Editor editor=pref.edit();
@@ -30,10 +30,10 @@
       currentBatch++;
       runningAvgCount++;
     }
-    if (download.getStatus() == SharedDeckDownload.UPDATING) {
+    if (download.getStatus() == SharedDeckDownload.STATUS_UPDATING) {
       data.success=true;
     }
- else     if (download.getStatus() == SharedDeckDownload.PAUSED) {
+ else     if (download.getStatus() == SharedDeckDownload.STATUS_PAUSED) {
       Editor editor=pref.edit();
       String pausedPref="paused:" + mDestination + "/tmp/"+ download.getTitle()+ ".anki.updating";
       editor.putBoolean(pausedPref,true);
@@ -41,7 +41,7 @@
       data.success=false;
       Log.i(AnkiDroidApp.TAG,"pausing deck " + download.getTitle());
     }
- else     if (download.getStatus() == SharedDeckDownload.CANCELLED) {
+ else     if (download.getStatus() == SharedDeckDownload.STATUS_CANCELLED) {
       data.success=false;
     }
   }

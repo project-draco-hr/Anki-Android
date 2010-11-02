@@ -26,10 +26,10 @@
         SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
         String pausedPref="paused:" + mDestination + "/tmp/"+ download.getTitle()+ ".anki.updating";
         if (pref.getBoolean(pausedPref,false)) {
-          download.setStatus(SharedDeckDownload.PAUSED);
+          download.setStatus(SharedDeckDownload.STATUS_PAUSED);
         }
  else {
-          download.setStatus(SharedDeckDownload.UPDATING);
+          download.setStatus(SharedDeckDownload.STATUS_UPDATING);
         }
         mSharedDeckDownloads.add(download);
       }

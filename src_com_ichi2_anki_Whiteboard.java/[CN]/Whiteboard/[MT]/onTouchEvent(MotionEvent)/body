@@ -1,21 +1,25 @@
 {
+  boolean handled=false;
   if (!mLocked) {
     float x=event.getX();
     float y=event.getY();
+    handled=true;
 switch (event.getAction()) {
 case MotionEvent.ACTION_DOWN:
-      touch_start(x,y);
+      touchStart(x,y);
     invalidate();
   break;
 case MotionEvent.ACTION_MOVE:
-touch_move(x,y);
+touchMove(x,y);
 invalidate();
 break;
 case MotionEvent.ACTION_UP:
-touch_up();
+touchUp();
 invalidate();
 break;
+default :
+handled=false;
 }
 }
-return true;
+return handled;
 }

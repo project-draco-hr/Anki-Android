@@ -2,7 +2,6 @@
   if (mEstTimeToCompletion < 0.1) {
     return "";
   }
-  String estTimeStr;
   long estTime=(long)mEstTimeToCompletion;
   long hours=estTime / 3600;
   estTime%=3600;

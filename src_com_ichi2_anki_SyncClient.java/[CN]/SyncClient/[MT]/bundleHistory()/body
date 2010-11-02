@@ -1,6 +1,6 @@
 {
   JSONArray bundledHistory=new JSONArray();
-  Cursor cursor=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().rawQuery("SELECT cardId, time, lastInterval, nextInterval, ease, delay, lastFactor, nextFactor, reps, " + "thinkingTime, yesCount, noCount FROM reviewHistory " + "WHERE time > "+ String.format(ENGLISH_LOCALE,"%f",mDeck.getLastSync()),null);
+  Cursor cursor=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().rawQuery("SELECT cardId, time, lastInterval, nextInterval, ease, delay, lastFactor, nextFactor, reps, " + "thinkingTime, yesCount, noCount FROM reviewHistory " + "WHERE time > "+ String.format(Utils.ENGLISH_LOCALE,"%f",mDeck.getLastSync()),null);
   while (cursor.moveToNext()) {
     try {
       JSONArray review=new JSONArray();
@@ -23,7 +23,7 @@
     }
   }
   cursor.close();
-  Log.i(AnkiDroidApp.TAG,"Last sync = " + String.format(ENGLISH_LOCALE,"%f",mDeck.getLastSync()));
+  Log.i(AnkiDroidApp.TAG,"Last sync = " + String.format(Utils.ENGLISH_LOCALE,"%f",mDeck.getLastSync()));
   Log.i(AnkiDroidApp.TAG,"Bundled history = " + bundledHistory.toString());
   return bundledHistory;
 }

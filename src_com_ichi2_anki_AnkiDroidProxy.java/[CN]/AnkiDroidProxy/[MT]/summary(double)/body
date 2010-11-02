@@ -2,7 +2,7 @@
   Log.i(AnkiDroidApp.TAG,"Summary Server");
   JSONObject summaryServer=new JSONObject();
   try {
-    String data="p=" + URLEncoder.encode(mPassword,"UTF-8") + "&u="+ URLEncoder.encode(mUsername,"UTF-8")+ "&d="+ URLEncoder.encode(mDeckName,"UTF-8")+ "&lastSync="+ URLEncoder.encode(Base64.encodeBytes(Utils.compress(String.format(ENGLISH_LOCALE,"%f",lastSync).getBytes())),"UTF-8")+ "&base64="+ URLEncoder.encode("true","UTF-8");
+    String data="p=" + URLEncoder.encode(mPassword,"UTF-8") + "&u="+ URLEncoder.encode(mUsername,"UTF-8")+ "&d="+ URLEncoder.encode(mDeckName,"UTF-8")+ "&lastSync="+ URLEncoder.encode(Base64.encodeBytes(Utils.compress(String.format(Utils.ENGLISH_LOCALE,"%f",lastSync).getBytes())),"UTF-8")+ "&base64="+ URLEncoder.encode("true","UTF-8");
     HttpPost httpPost=new HttpPost(SYNC_URL + "summary");
     StringEntity entity=new StringEntity(data);
     httpPost.setEntity(entity);

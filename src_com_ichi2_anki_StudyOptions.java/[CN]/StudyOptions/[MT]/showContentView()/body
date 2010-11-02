@@ -3,7 +3,7 @@ switch (mCurrentContentView) {
 case CONTENT_NO_DECK:
     setTitle(R.string.app_name);
   mTextNoDeckTitle.setText(R.string.studyoptions_nodeck_title);
-mTextNoDeckMessage.setText(String.format(getResources().getString(R.string.studyoptions_nodeck_message),prefDeckPath));
+mTextNoDeckMessage.setText(String.format(getResources().getString(R.string.studyoptions_nodeck_message),mPrefDeckPath));
 setContentView(mNoDeckView);
 break;
 case CONTENT_DECK_NOT_LOADED:

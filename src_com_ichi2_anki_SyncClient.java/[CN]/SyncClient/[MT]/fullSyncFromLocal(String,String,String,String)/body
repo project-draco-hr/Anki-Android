@@ -2,7 +2,7 @@
   URL url;
   try {
     Log.i(AnkiDroidApp.TAG,"Fullup");
-    url=new URL(SYNC_URL + "fullup");
+    url=new URL(AnkiDroidProxy.SYNC_URL + "fullup");
     HttpURLConnection conn=(HttpURLConnection)url.openConnection();
     conn.setDoInput(true);
     conn.setDoOutput(true);
@@ -11,7 +11,7 @@
     conn.setRequestProperty("Connection","close");
     conn.setRequestProperty("Charset","UTF-8");
     conn.setRequestProperty("Content-Type","multipart/form-data;boundary=" + MIME_BOUNDARY);
-    conn.setRequestProperty("Host",SYNC_HOST);
+    conn.setRequestProperty("Host",AnkiDroidProxy.SYNC_HOST);
     DataOutputStream ds=new DataOutputStream(conn.getOutputStream());
     Log.i(AnkiDroidApp.TAG,"Pass");
     ds.writeBytes(TWO_HYPHENS + MIME_BOUNDARY + END);
@@ -28,7 +28,7 @@
     ds.writeBytes("Content-Type: application/octet-stream" + END);
     ds.writeBytes(END);
     FileInputStream fStream=new FileInputStream(deckPath);
-    byte[] buffer=new byte[CHUNK_SIZE];
+    byte[] buffer=new byte[Utils.CHUNK_SIZE];
     int length=-1;
     Deflater deflater=new Deflater(Deflater.BEST_SPEED);
     DeflaterOutputStream dos=new DeflaterOutputStream(ds,deflater);

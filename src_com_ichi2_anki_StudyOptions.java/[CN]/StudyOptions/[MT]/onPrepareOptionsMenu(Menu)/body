@@ -1,7 +1,7 @@
 {
   boolean deckLoaded=AnkiDroidApp.deck() != null;
-  menu.findItem(MENU_OPEN).setEnabled(sdCardAvailable);
-  menu.findItem(SUBMENU_DOWNLOAD).setEnabled(sdCardAvailable);
-  menu.findItem(MENU_SYNC).setEnabled(deckLoaded && sdCardAvailable);
+  menu.findItem(MENU_OPEN).setEnabled(mSdCardAvailable);
+  menu.findItem(SUBMENU_DOWNLOAD).setEnabled(mSdCardAvailable);
+  menu.findItem(MENU_SYNC).setEnabled(deckLoaded && mSdCardAvailable);
   return true;
 }
