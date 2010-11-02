@@ -1,2 +1,11 @@
 {
+  if (cardIsNew(card)) {
+    return 2;
+  }
+ else   if (card.successive == 0) {
+    return 0;
+  }
+ else {
+    return 1;
+  }
 }

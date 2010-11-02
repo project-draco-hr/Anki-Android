@@ -1,8 +1,8 @@
 {
   while (!queue.isEmpty()) {
-    long fid=(QueueItem)(queue.getLast()).getFactID();
+    long fid=((QueueItem)queue.getLast()).getFactID();
     if (spacedFacts.containsKey(fid)) {
-      if (System.currentTimeMillis() / 1000.0 > spacedFacts.get(fid)) {
+      if ((double)System.currentTimeMillis() / 1000.0 > spacedFacts.get(fid)) {
         spacedFacts.remove(fid);
       }
  else {

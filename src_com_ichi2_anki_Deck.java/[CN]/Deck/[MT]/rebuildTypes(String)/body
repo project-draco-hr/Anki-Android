@@ -1,2 +1,5 @@
 {
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
+  ankiDB.database.execSQL("UPDATE cards " + "SET type = (CASE " + "WHEN successive = 0 AND reps != 0 THEN 0 -- failed "+ "WHEN successive != 0 AND reps != 0 THEN 1 -- review "+ "ELSE 2 -- new "+ "END)"+ where);
+  ankiDB.database.execSQL("UPDATE cards SET type = type + 3 WHERE priority <= 0");
 }

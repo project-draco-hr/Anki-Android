@@ -3,6 +3,6 @@
     dueCutoff=(Stats.genToday(this).getTime() + ONEDAY_MS) / 1000.0;
   }
  else {
-    dueCutoff=System.currentTimeMillis() / 1000.0;
+    dueCutoff=(double)System.currentTimeMillis() / 1000.0;
   }
 }
