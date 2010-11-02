@@ -1,25 +1,14 @@
 {
-  long start=System.currentTimeMillis();
   updateCounts();
-  Log.w(AnkiDroidApp.TAG,"reviewNextCard - update counts in " + (System.currentTimeMillis() - start) + " ms.");
-  start=System.currentTimeMillis();
   mFlipCard.setChecked(false);
-  Log.w(AnkiDroidApp.TAG,"reviewNextCard - check flipcard in " + (System.currentTimeMillis() - start) + " ms.");
-  start=System.currentTimeMillis();
   if (mPrefWriteAnswers) {
     mAnswerField.setText("");
   }
-  Log.w(AnkiDroidApp.TAG,"reviewNextCard - clear answer field in " + (System.currentTimeMillis() - start) + " ms.");
-  start=System.currentTimeMillis();
   if (mPrefWhiteboard) {
     mWhiteboard.clear();
   }
-  Log.w(AnkiDroidApp.TAG,"reviewNextCard - clear whiteboard in " + (System.currentTimeMillis() - start) + " ms.");
-  start=System.currentTimeMillis();
   if (mPrefTimer) {
     mCardTimer.setBase(SystemClock.elapsedRealtime());
     mCardTimer.start();
   }
-  Log.w(AnkiDroidApp.TAG,"reviewNextCard - reset timer in " + (System.currentTimeMillis() - start) + " ms.");
-  start=System.currentTimeMillis();
 }

@@ -7,7 +7,6 @@
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeckPath);
   String oldState=card.getState();
   double lastDelaySecs=Utils.now() - card.getCombinedDue();
-  double start=System.currentTimeMillis();
   double lastDelay=lastDelaySecs / 86400.0;
   boolean oldIsRev=card.isRev();
   double last=card.getInterval();

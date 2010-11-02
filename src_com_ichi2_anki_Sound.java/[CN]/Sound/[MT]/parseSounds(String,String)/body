@@ -1,5 +1,4 @@
 {
-  sStartTime=System.currentTimeMillis();
   StringBuilder stringBuilder=new StringBuilder();
   String contentLeft=content;
   Log.i(AnkiDroidApp.TAG,"parseSounds");
@@ -16,7 +15,5 @@
     contentLeft=contentLeft.substring(markerStart + soundMarker.length());
   }
   stringBuilder.append(contentLeft);
-  sFinishTime=System.currentTimeMillis();
-  Log.i(AnkiDroidApp.TAG,sSoundPaths.size() + " sounds parsed in " + (sFinishTime - sStartTime)+ " milliseconds");
   return stringBuilder.toString();
 }

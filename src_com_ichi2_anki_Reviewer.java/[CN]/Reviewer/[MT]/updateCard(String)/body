@@ -1,6 +1,5 @@
 {
   Log.i(AnkiDroidApp.TAG,"updateCard");
-  mUpdateCardStartTime=System.currentTimeMillis();
   content=Sound.parseSounds(mDeckFilename,content);
   content=content.replace("font-weight:600;","font-weight:700;");
   if (mPrefUseRubySupport) {

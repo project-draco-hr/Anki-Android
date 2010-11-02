@@ -1,7 +1,5 @@
 {
-  long now=System.currentTimeMillis();
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeckPath);
   ankiDB.getDatabase().execSQL("CREATE INDEX ix_cards_sort on cards (answer collate nocase)");
   ankiDB.getDatabase().execSQL("PRAGMA synchronous=FULL");
-  Log.w(AnkiDroidApp.TAG,"AFTER UPDATE = " + (System.currentTimeMillis() - now));
 }

@@ -1,5 +1,4 @@
 {
-  sStartSoundTime=System.currentTimeMillis();
   sMediaPlayer=new MediaPlayer();
   try {
     sMediaPlayer.setDataSource(sSoundPaths.get(soundToPlayIndex));
@@ -9,12 +8,8 @@
       @Override public void onCompletion(      MediaPlayer mp){
         releaseSound();
         sNumSoundsPlayed++;
-        sFinishSoundTime=System.currentTimeMillis();
         if (sNumSoundsPlayed < sSoundPaths.size()) {
           playSound(sNumSoundsPlayed);
-        }
- else {
-          sFinishTime=System.currentTimeMillis();
         }
       }
     }

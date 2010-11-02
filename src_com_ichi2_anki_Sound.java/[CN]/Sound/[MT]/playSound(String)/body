@@ -1,6 +1,5 @@
 {
   if (sSoundPaths.contains(soundPath)) {
-    sStartSoundTime=System.currentTimeMillis();
     sMediaPlayer=new MediaPlayer();
     try {
       sMediaPlayer.setDataSource(soundPath);
@@ -12,7 +11,5 @@
       Log.e(AnkiDroidApp.TAG,"playSounds - Error reproducing sound " + soundPath + " = "+ e.getMessage());
       releaseSound();
     }
-    sFinishSoundTime=System.currentTimeMillis();
-    Log.i(AnkiDroidApp.TAG,"Sound " + soundPath + " played in "+ (sFinishSoundTime - sStartSoundTime)+ " milliseconds");
   }
 }
