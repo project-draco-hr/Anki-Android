@@ -1,6 +1,6 @@
 {
-  fillRevQueueMethod=cls.getDeclaredMethod("_fillRevEarlyQueue",null);
-  rebuildRevCountMethod=cls.getDeclaredMethod("_rebuildRevEarlyCount",null);
-  finishSchedulerMethod=cls.getDeclaredMethod("_onReviewEarlyFinished",null);
+  fillRevQueueMethod=Deck.class.getDeclaredMethod("_fillRevEarlyQueue");
+  rebuildRevCountMethod=Deck.class.getDeclaredMethod("_rebuildRevEarlyCount");
+  finishSchedulerMethod=Deck.class.getDeclaredMethod("_onReviewEarlyFinished");
   scheduler="reviewEarly";
 }

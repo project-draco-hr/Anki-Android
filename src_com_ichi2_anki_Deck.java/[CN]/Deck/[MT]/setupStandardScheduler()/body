@@ -1,17 +1,16 @@
 {
-  Class cls=this.getClass();
-  getCardIdMethod=cls.getDeclaredMethod("_getCardId",boolean.class);
-  fillFailedQueueMethod=cls.getDeclaredMethod("_fillFailedQueue",null);
-  fillRevQueueMethod=cls.getDeclaredMethod("_fillRevQueue",null);
-  fillNewQueueMethod=cls.getDeclaredMethod("_fillNewQueue",null);
-  rebuildFailedCountMethod=cls.getDeclaredMethod("_rebuildFailedCount",null);
-  rebuildRevCountMethod=cls.getDeclaredMethod("_rebuildRevCount",null);
-  rebuildNewCountMethod=cls.getDeclaredMethod("_rebuildNewCount",null);
-  requeueCardMethod=cls.getDeclaredMethod("_requeueCard",Card.class,int.class);
-  timeForNewCardMethod=cls.getDeclaredMethod("_timeForNewCard",null);
-  updateNewCountTodayMethod=cls.getDeclaredMethod("_updateNewCountToday",null);
-  cardTypeMethod=cls.getDeclaredMethod("_cardType",Card.class);
+  getCardIdMethod=Deck.class.getDeclaredMethod("_getCardId",boolean.class);
+  fillFailedQueueMethod=Deck.class.getDeclaredMethod("_fillFailedQueue");
+  fillRevQueueMethod=Deck.class.getDeclaredMethod("_fillRevQueue");
+  fillNewQueueMethod=Deck.class.getDeclaredMethod("_fillNewQueue");
+  rebuildFailedCountMethod=Deck.class.getDeclaredMethod("_rebuildFailedCount");
+  rebuildRevCountMethod=Deck.class.getDeclaredMethod("_rebuildRevCount");
+  rebuildNewCountMethod=Deck.class.getDeclaredMethod("_rebuildNewCount");
+  requeueCardMethod=Deck.class.getDeclaredMethod("_requeueCard",Card.class,int.class);
+  timeForNewCardMethod=Deck.class.getDeclaredMethod("_timeForNewCard");
+  updateNewCountTodayMethod=Deck.class.getDeclaredMethod("_updateNewCountToday");
+  cardTypeMethod=Deck.class.getDeclaredMethod("_cardType",Card.class);
   finishSchedulerMethod=null;
-  answerCardMethod=cls.getDeclaredMethod("_answerCard",Card.class,int.class);
+  answerCardMethod=Deck.class.getDeclaredMethod("_answerCard",Card.class,int.class);
   scheduler="standard";
 }

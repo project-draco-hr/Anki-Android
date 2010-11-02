@@ -13,13 +13,8 @@
         tagList+=", ";
       }
     }
-    Cursor cur=ankiDB.database.rawQuery("SELECT id FROM tags WHERE tag in (" + tagList + ")",null);
-    long[] results=new long[cur.getCount()];
-    int i=0;
-    while (cur.moveToNext()) {
-      results[i++]=cur.getLong(0);
-    }
-    return results;
+    ArrayList<Long> results=ankiDB.queryColumn(long.class,"SELECT id FROM tags WHERE tag in (" + tagList + ")",0);
+    return Utils.toPrimitive((Long[])results.toArray());
   }
   return null;
 }

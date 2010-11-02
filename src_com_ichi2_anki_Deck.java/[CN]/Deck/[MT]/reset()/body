@@ -1,6 +1,6 @@
 {
-  _globalStats=globalStats();
-  _dailyStats=dailyStats();
+  globalStats=Stats.globalStats(this);
+  dailyStats=Stats.dailyStats(this);
   rebuildCounts();
   failedQueue.clear();
   revQueue.clear();

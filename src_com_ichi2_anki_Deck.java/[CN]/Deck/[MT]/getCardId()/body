@@ -1,3 +1,14 @@
 {
-  return ((Long)getCardIdMethod.invoke(true)).longValue();
+  try {
+    return ((Long)getCardIdMethod.invoke(true)).longValue();
+  }
+ catch (  IllegalArgumentException e) {
+    e.printStackTrace();
+  }
+catch (  IllegalAccessException e) {
+    e.printStackTrace();
+  }
+catch (  InvocationTargetException e) {
+    e.printStackTrace();
+  }
 }

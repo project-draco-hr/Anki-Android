@@ -2,13 +2,13 @@
   checkDailyStats();
   fillQueues();
   if (failedSoonCount >= failedCardMax) {
-    return ((QueueItem)failedQueue.getLast()).getCardId();
+    return ((QueueItem)failedQueue.getLast()).getCardID();
   }
   if (revNoSpaced()) {
-    return ((QueueItem)revQueue.getLast()).getCardId();
+    return ((QueueItem)revQueue.getLast()).getCardID();
   }
   if (!failedQueue.isEmpty()) {
-    return ((QueueItem)failedQueue.getLast()).getCardId();
+    return ((QueueItem)failedQueue.getLast()).getCardID();
   }
   if (check) {
     updateCutoff();
@@ -19,4 +19,5 @@
     reset();
     return getCardId();
   }
+  return 0L;
 }

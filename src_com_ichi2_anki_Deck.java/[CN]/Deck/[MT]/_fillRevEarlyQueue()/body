@@ -1,10 +1,10 @@
 {
   if ((revCount != 0) && revQueue.isEmpty()) {
-    AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(path);
+    AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
     String sql="SELECT id, factId FROM cards WHERE type = 1 AND combinedDue > " + dueCutoff + " ORDER BY combinedDue LIMIT "+ queueLimit;
-    Cursor cur=ankiDB.database.rawQuery(sql);
+    Cursor cur=ankiDB.database.rawQuery(sql,null);
     while (cur.moveToNext()) {
-      QueueItem qi=new QueueItem(cur.getLong(0),cur.getLong(1),0.0);
+      QueueItem qi=new QueueItem(cur.getLong(0),cur.getLong(1));
       revQueue.add(0,qi);
     }
   }
