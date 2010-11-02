@@ -52,7 +52,7 @@
       cursor.close();
     }
   }
-  Log.i(AnkiDroidApp.TAG,String.format(ENGLISH_LOCALE,"openDeck - modified: %f currentTime: %f",deck.mModified,Utils.now()));
+  Log.i(AnkiDroidApp.TAG,String.format(Utils.ENGLISH_LOCALE,"openDeck - modified: %f currentTime: %f",deck.mModified,Utils.now()));
   deck.mDeckPath=path;
   deck.mDeckName=(new File(path)).getName().replace(".anki","");
   deck.initVars();

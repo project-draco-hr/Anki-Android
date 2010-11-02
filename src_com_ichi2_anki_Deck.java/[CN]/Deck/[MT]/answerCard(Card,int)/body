@@ -100,7 +100,7 @@
       cursor.close();
     }
   }
-  ankiDB.getDatabase().execSQL(String.format(ENGLISH_LOCALE,"UPDATE cards " + "SET spaceUntil = %f, " + "combinedDue = max(%f, due), "+ "modified = %f, "+ "isDue = 0 "+ "WHERE id != %d and factId = %d",space,space,now,card.getId(),card.getFactId()));
+  ankiDB.getDatabase().execSQL(String.format(Utils.ENGLISH_LOCALE,"UPDATE cards " + "SET spaceUntil = %f, " + "combinedDue = max(%f, due), "+ "modified = %f, "+ "isDue = 0 "+ "WHERE id != %d and factId = %d",space,space,now,card.getId(),card.getFactId()));
   card.setSpaceUntil(0);
   if (mReviewEarly && lastDelay < 0) {
     if (oldIsRev || lastDelaySecs > mDelay0 || !showFailedLast()) {

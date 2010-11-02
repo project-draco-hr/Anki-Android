@@ -4,7 +4,7 @@
   long start, stop;
   start=System.currentTimeMillis();
   ankiDB.getDatabase().execSQL("DELETE FROM fields WHERE fieldModel = " + fieldModelId);
-  ankiDB.getDatabase().execSQL("UPDATE facts SET modified = " + String.format(ENGLISH_LOCALE,"%f",Utils.now()) + " WHERE modelId = "+ modelId);
+  ankiDB.getDatabase().execSQL("UPDATE facts SET modified = " + String.format(Utils.ENGLISH_LOCALE,"%f",Utils.now()) + " WHERE modelId = "+ modelId);
   String fieldName="";
   Cursor cursor=ankiDB.getDatabase().rawQuery("SELECT name FROM fieldModels WHERE id = " + fieldModelId,null);
   if (cursor.moveToNext()) {
@@ -29,7 +29,7 @@
   }
   cursor.close();
   statement.close();
-  ankiDB.getDatabase().execSQL("UPDATE models SET modified = " + String.format(ENGLISH_LOCALE,"%f",Utils.now()) + " WHERE id = "+ modelId);
+  ankiDB.getDatabase().execSQL("UPDATE models SET modified = " + String.format(Utils.ENGLISH_LOCALE,"%f",Utils.now()) + " WHERE id = "+ modelId);
   flushMod();
   stop=System.currentTimeMillis();
   Log.v(AnkiDroidApp.TAG,"deleteFieldModel - deleted field models in " + (stop - start) + " ms.");

@@ -37,13 +37,11 @@
       interval=(interval + delay / 2.0) * factor;
     }
  else     if (ease == Card.EASE_EASY) {
-      interval=(interval + delay) * factor * factorFour;
+      interval=(interval + delay) * factor * FACTOR_FOUR;
     }
     double fuzz=0.95 + ((double)Math.random()) * (1.05 - 0.95);
     interval*=fuzz;
   }
-  if (maxScheduleTime != 0) {
-    interval=Math.min(interval,maxScheduleTime);
-  }
+  interval=Math.min(interval,MAX_SCHEDULE_TIME);
   return interval;
 }

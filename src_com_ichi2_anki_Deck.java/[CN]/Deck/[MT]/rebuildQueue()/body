@@ -22,7 +22,7 @@
   try {
     cursor=AnkiDatabaseManager.getDatabase(mDeckPath).getDatabase().rawQuery("SELECT avg(factor) FROM cards WHERE type = " + Card.TYPE_REV,null);
     if (!cursor.moveToFirst()) {
-      mAverageFactor=Deck.initialFactor;
+      mAverageFactor=INITIAL_FACTOR;
     }
  else {
       mAverageFactor=cursor.getDouble(0);
@@ -33,5 +33,5 @@
       cursor.close();
     }
   }
-  mAverageFactor=Math.max(mAverageFactor,minimumAverage);
+  mAverageFactor=Math.max(mAverageFactor,MINIMUM_AVERAGE);
 }

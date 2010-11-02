@@ -10,7 +10,7 @@
     ankiDB.getDatabase().execSQL("DELETE FROM facts WHERE id in " + idsString);
     Log.i(AnkiDroidApp.TAG,"DELETE FROM fields WHERE factId in " + idsString);
     ankiDB.getDatabase().execSQL("DELETE FROM fields WHERE factId in " + idsString);
-    String sqlInsert="INSERT INTO factsDeleted VALUES(?," + String.format(ENGLISH_LOCALE,"%f",now) + ")";
+    String sqlInsert="INSERT INTO factsDeleted VALUES(?," + String.format(Utils.ENGLISH_LOCALE,"%f",now) + ")";
     SQLiteStatement statement=ankiDB.getDatabase().compileStatement(sqlInsert);
     for (    String id : ids) {
       Log.i(AnkiDroidApp.TAG,"inserting into factsDeleted");

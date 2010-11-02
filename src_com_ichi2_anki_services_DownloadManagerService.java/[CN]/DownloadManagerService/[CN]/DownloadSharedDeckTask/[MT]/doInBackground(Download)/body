@@ -4,7 +4,7 @@
   RandomAccessFile file=null;
   InputStream is=null;
   try {
-    url=new URL(ANKI_URL + "/file/get?id=" + download.getId());
+    url=new URL("http://" + AnkiDroidProxy.SYNC_HOST + "/file/get?id="+ download.getId());
     HttpURLConnection connection=(HttpURLConnection)url.openConnection();
     connection.setDoInput(true);
     connection.setDoOutput(true);
@@ -12,7 +12,7 @@
     connection.setRequestMethod("GET");
     Log.i(AnkiDroidApp.TAG,"Range = " + download.getDownloaded());
     connection.setRequestProperty("Accept-Encoding","identity");
-    connection.setRequestProperty("Host","anki.ichi2.net");
+    connection.setRequestProperty("Host",AnkiDroidProxy.SYNC_HOST);
     connection.setRequestProperty("Connection","close");
     connection.connect();
     long startTime=System.currentTimeMillis();

@@ -8,7 +8,7 @@
     Log.i(AnkiDroidApp.TAG,"Now = " + now);
     String idsString=Utils.ids2str(ids);
     ankiDB.getDatabase().execSQL("DELETE FROM cards WHERE id in " + idsString);
-    String sqlInsert="INSERT INTO cardsDeleted values (?," + String.format(ENGLISH_LOCALE,"%f",now) + ")";
+    String sqlInsert="INSERT INTO cardsDeleted values (?," + String.format(Utils.ENGLISH_LOCALE,"%f",now) + ")";
     SQLiteStatement statement=ankiDB.getDatabase().compileStatement(sqlInsert);
     for (    String id : ids) {
       statement.bindString(1,id);
