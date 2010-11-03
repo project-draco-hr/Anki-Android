@@ -1,0 +1,8 @@
+{
+  try {
+    return deck.getDB().queryScalar("SELECT count() FROM cards WHERE factId NOT IN (SELECT id FROM facts)");
+  }
+ catch (  Exception e) {
+    return 0;
+  }
+}
