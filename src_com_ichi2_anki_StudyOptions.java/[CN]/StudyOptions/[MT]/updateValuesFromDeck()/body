@@ -2,7 +2,7 @@
   Deck deck=AnkiDroidApp.deck();
   DeckTask.waitToFinish();
   if (deck != null) {
-    deck.checkDue();
+    deck.reset();
     int reviewCount=deck.revCount + deck.failedSoonCount;
     String unformattedTitle=getResources().getString(R.string.studyoptions_window_title);
     setTitle(String.format(unformattedTitle,deck.deckName,reviewCount,deck.cardCount));
