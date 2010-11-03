@@ -1,6 +1,9 @@
 {
-  checkDue();
   long id=getCardId();
-  currentCard=cardFromId(id);
-  return currentCard;
+  if (id != 0l) {
+    return cardFromId(id);
+  }
+ else {
+    return null;
+  }
 }

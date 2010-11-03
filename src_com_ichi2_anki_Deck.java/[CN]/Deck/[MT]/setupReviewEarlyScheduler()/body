@@ -2,5 +2,6 @@
   fillRevQueueMethod=Deck.class.getDeclaredMethod("_fillRevEarlyQueue");
   rebuildRevCountMethod=Deck.class.getDeclaredMethod("_rebuildRevEarlyCount");
   finishSchedulerMethod=Deck.class.getDeclaredMethod("_onReviewEarlyFinished");
+  answerPreSaveMethod=Deck.class.getDeclaredMethod("_reviewEarlyPreSave",Card.class,int.class);
   scheduler="reviewEarly";
 }

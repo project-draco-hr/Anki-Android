@@ -1,6 +1,6 @@
 {
   if (ease == 1) {
-    if (_cramCardType(card) != 0) {
+    if (cardQueue(card) != 0) {
       failedSoonCount+=1;
       revCount-=1;
     }

@@ -4,7 +4,7 @@
     String sql="SELECT c.id, factId, combinedDue FROM cards c WHERE type = 1 AND combinedDue < " + dueCutoff + " ORDER BY "+ revOrder()+ " LIMIT "+ queueLimit;
     Cursor cur=ankiDB.database.rawQuery(cardLimit("revActive","revInactive",sql),null);
     while (cur.moveToNext()) {
-      QueueItem qi=new QueueItem(cur.getLong(0),cur.getLong(1));
+      QueueItem qi=new QueueItem(cur.getLong(0),cur.getLong(1),cur.getDouble(2));
       revQueue.add(0,qi);
     }
   }

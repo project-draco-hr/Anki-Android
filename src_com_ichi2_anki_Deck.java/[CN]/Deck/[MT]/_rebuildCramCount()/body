@@ -1,0 +1,4 @@
+{
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
+  revCount=(int)ankiDB.queryScalar("SELECT count(*) FROM cards WHERE type IN (0,1,2)");
+}

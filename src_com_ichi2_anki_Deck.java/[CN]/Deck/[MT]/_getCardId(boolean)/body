@@ -1,2 +1,35 @@
 {
+  checkDailyStats();
+  fillQueues();
+  updateNewCountToday();
+  if (!failedQueue.isEmpty()) {
+    if ((delay0 != 0) && (((QueueItem)failedQueue.getLast()).getDue() < System.currentTimeMillis() / 1000)) {
+      return failedQueue.getLast().getCardID();
+    }
+    if ((failedCardMax != 0) && (failedSoonCount >= failedCardMax)) {
+      return failedQueue.getLast().getCardID();
+    }
+  }
+  if (newNoSpaced() && timeForNewCard()) {
+    return newQueue.getLast().getCardID();
+  }
+  if (revNoSpaced()) {
+    return revQueue.getLast().getCardID();
+  }
+  if (newCountToday != 0) {
+    return newQueue.getLast().getCardID();
+  }
+  if (showFailedLast() && (!failedQueue.isEmpty())) {
+    return failedQueue.getLast().getCardID();
+  }
+  if (check) {
+    updateCutoff();
+    return getCardId(false);
+  }
+  if (finishSchedulerMethod != null) {
+    finishScheduler();
+    reset();
+    return getCardId();
+  }
+  return 0l;
 }

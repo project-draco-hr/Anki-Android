@@ -10,10 +10,6 @@
   if (!failedQueue.isEmpty()) {
     return ((QueueItem)failedQueue.getLast()).getCardID();
   }
-  if (check) {
-    updateCutoff();
-    return getCardId(false);
-  }
   if (finishSchedulerMethod != null) {
     finishScheduler();
     reset();

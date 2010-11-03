@@ -1,8 +1,9 @@
 {
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
-  ArrayList<Long> ids=ankiDB.queryColumn(long.class,"SELECT id FROM cards WHERE priority = -1",0);
+  ArrayList<Long> ids=ankiDB.queryColumn(long.class,"SELECT id FROM cards WHERE type IN (6,7,8) OR priority = -1",0);
   if (ids != null) {
     updatePriorities(Utils.toPrimitive((Long[])ids.toArray()));
+    ankiDB.database.execSQL("UPDATE cards SET type = type -6 WHERE type IN (6,7,8)",null);
     flushMod();
   }
 }

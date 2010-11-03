@@ -1,5 +1,4 @@
 {
-  Calendar now=Calendar.getInstance();
-  int timezoneOffset=(now.get(Calendar.ZONE_OFFSET) + now.get(Calendar.DST_OFFSET));
-  return new Date((long)(System.currentTimeMillis() - deck.utcOffset * 1000 - timezoneOffset));
+  Date today=new Date(System.currentTimeMillis() - (long)deck.utcOffset * 1000l);
+  return today;
 }

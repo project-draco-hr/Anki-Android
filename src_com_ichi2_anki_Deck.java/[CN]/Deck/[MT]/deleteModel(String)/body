@@ -1,7 +1,6 @@
 {
   Log.i(TAG,"deleteModel = " + id);
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
-  Cursor cursor=ankiDB.database.rawQuery("SELECT * FROM models WHERE id = " + id,null);
+  Cursor cursor=getDB().database.rawQuery("SELECT * FROM models WHERE id = " + id,null);
   if (cursor.moveToFirst()) {
     ArrayList<String> cardsToDelete=ankiDB.queryColumn(String.class,"SELECT cards.id FROM cards, facts WHERE facts.modelId = " + id + " AND facts.id = cards.factId",0);
     deleteCards(cardsToDelete);

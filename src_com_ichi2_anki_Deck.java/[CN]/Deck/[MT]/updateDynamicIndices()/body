@@ -1,11 +1,11 @@
 {
   Log.i(TAG,"updateDynamicIndices - Updating indices...");
   HashMap<String,String> indices=new HashMap<String,String>();
-  indices.put("intervalDesc","(type, isDue, priority desc, interval desc)");
-  indices.put("intervalAsc","(type, isDue, priority desc, interval)");
-  indices.put("randomOrder","(type, isDue, priority desc, factId, ordinal)");
-  indices.put("dueAsc","(type, isDue, priority desc, due)");
-  indices.put("dueDesc","(type, isDue, priority desc, due desc)");
+  indices.put("intervalDesc","(type, priority desc, interval desc)");
+  indices.put("intervalAsc","(type, priority desc, interval)");
+  indices.put("randomOrder","(type, priority desc, factId, ordinal)");
+  indices.put("dueAsc","(type, priority desc, combinedDue)");
+  indices.put("dueDesc","(type, priority desc, combinedDue desc)");
   ArrayList<String> required=new ArrayList<String>();
   if (revCardOrder == REV_CARDS_OLD_FIRST) {
     required.add("intervalDesc");
@@ -27,10 +27,10 @@
   while (iter.hasNext()) {
     Entry<String,String> entry=iter.next();
     if (required.contains(entry.getKey())) {
-      AnkiDatabaseManager.getDatabase(deckPath).database.execSQL("CREATE INDEX IF NOT EXISTS " + "ix_cards_" + entry.getKey() + " ON cards "+ entry.getValue());
+      getDB().database.execSQL("CREATE INDEX IF NOT EXISTS " + "ix_cards_" + entry.getKey() + "2 ON cards "+ entry.getValue());
     }
  else {
-      AnkiDatabaseManager.getDatabase(deckPath).database.execSQL("DROP INDEX IF EXISTS " + "ix_cards_" + entry.getKey());
+      getDB().database.execSQL("DROP INDEX IF EXISTS " + "ix_cards_" + entry.getKey() + "2");
     }
   }
 }

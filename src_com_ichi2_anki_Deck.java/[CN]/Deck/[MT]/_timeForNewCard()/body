@@ -1,4 +1,7 @@
 {
+  if (newCountToday == 0) {
+    return false;
+  }
   if (newCardSpacing == NEW_CARDS_LAST) {
     return false;
   }
@@ -6,15 +9,18 @@
     return true;
   }
   try {
-    AnkiDatabaseManager.getDatabase(deckPath).queryScalar("SELECT 1 " + "FROM cards " + "WHERE type = 1 and "+ "isDue = 1 and "+ "priority = 4 "+ "LIMIT 1");
+    if (!revQueue.isEmpty()) {
+      if (getDB().queryScalar("SELECT 1 FROM cards WHERE id = " + revQueue.getLast().getCardID() + " AND priority = 4") == 1) {
+        return false;
+      }
+    }
   }
  catch (  Exception e) {
-    if (newCardModulus == 0) {
-      return false;
-    }
- else {
-      return (dailyStats.reps % newCardModulus) == 0;
-    }
   }
-  return false;
+  if (newCardModulus != 0) {
+    return (dailyStats.reps % newCardModulus == 0);
+  }
+ else {
+    return false;
+  }
 }
