@@ -1,23 +1,30 @@
 {
-  getCardIdMethod=Deck.class.getDeclaredMethod("_getCardId",boolean.class);
-  fillFailedQueueMethod=Deck.class.getDeclaredMethod("_fillFailedQueue");
-  fillRevQueueMethod=Deck.class.getDeclaredMethod("_fillRevQueue");
-  fillNewQueueMethod=Deck.class.getDeclaredMethod("_fillNewQueue");
-  rebuildFailedCountMethod=Deck.class.getDeclaredMethod("_rebuildFailedCount");
-  rebuildRevCountMethod=Deck.class.getDeclaredMethod("_rebuildRevCount");
-  rebuildNewCountMethod=Deck.class.getDeclaredMethod("_rebuildNewCount");
-  requeueCardMethod=Deck.class.getDeclaredMethod("_requeueCard",Card.class,int.class);
-  timeForNewCardMethod=Deck.class.getDeclaredMethod("_timeForNewCard");
-  updateNewCountTodayMethod=Deck.class.getDeclaredMethod("_updateNewCountToday");
-  cardQueueMethod=Deck.class.getDeclaredMethod("_cardQueue",Card.class);
-  finishSchedulerMethod=null;
-  answerCardMethod=Deck.class.getDeclaredMethod("_answerCard",Card.class,int.class);
-  cardLimitMethod=Deck.class.getDeclaredMethod("_cardLimit",String.class,String.class,String.class);
-  answerPreSaveMethod=null;
+  try {
+    getCardIdMethod=Deck.class.getDeclaredMethod("_getCardId",boolean.class);
+    fillFailedQueueMethod=Deck.class.getDeclaredMethod("_fillFailedQueue");
+    fillRevQueueMethod=Deck.class.getDeclaredMethod("_fillRevQueue");
+    fillNewQueueMethod=Deck.class.getDeclaredMethod("_fillNewQueue");
+    rebuildFailedCountMethod=Deck.class.getDeclaredMethod("_rebuildFailedCount");
+    rebuildRevCountMethod=Deck.class.getDeclaredMethod("_rebuildRevCount");
+    rebuildNewCountMethod=Deck.class.getDeclaredMethod("_rebuildNewCount");
+    requeueCardMethod=Deck.class.getDeclaredMethod("_requeueCard",Card.class,int.class);
+    timeForNewCardMethod=Deck.class.getDeclaredMethod("_timeForNewCard");
+    updateNewCountTodayMethod=Deck.class.getDeclaredMethod("_updateNewCountToday");
+    cardQueueMethod=Deck.class.getDeclaredMethod("_cardQueue",Card.class);
+    finishSchedulerMethod=null;
+    answerCardMethod=Deck.class.getDeclaredMethod("_answerCard",Card.class,int.class);
+    cardLimitMethod=Deck.class.getDeclaredMethod("_cardLimit",String.class,String.class,String.class);
+    answerPreSaveMethod=null;
+  }
+ catch (  Exception e) {
+    Log.e(TAG,"Standard scheduler: Error in overridable methods: " + e.toString());
+    return;
+  }
   scheduler="standard";
   try {
     resetAfterReviewEarly();
   }
  catch (  Exception e) {
+    return;
   }
 }

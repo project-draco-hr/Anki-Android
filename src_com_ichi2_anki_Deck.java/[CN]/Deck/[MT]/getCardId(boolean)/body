@@ -1,3 +1,9 @@
 {
-  return ((Long)getCardIdMethod.invoke(check)).longValue();
+  try {
+    return ((Long)getCardIdMethod.invoke(check)).longValue();
+  }
+ catch (  Exception e) {
+    Log.e(TAG,"Error in overridable method getCardId(boolean): " + e.toString());
+    return 0l;
+  }
 }

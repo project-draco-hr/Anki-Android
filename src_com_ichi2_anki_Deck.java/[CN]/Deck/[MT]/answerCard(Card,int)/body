@@ -1,3 +1,8 @@
 {
-  answerCardMethod.invoke(card,ease);
+  try {
+    answerCardMethod.invoke(card,ease);
+  }
+ catch (  Exception e) {
+    Log.e(TAG,"Error in overridable method answerCard(Card, int): " + e.toString());
+  }
 }

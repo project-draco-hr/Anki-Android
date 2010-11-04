@@ -1,3 +1,8 @@
 {
-  rebuildRevCountMethod.invoke(null);
+  try {
+    rebuildRevCountMethod.invoke(null);
+  }
+ catch (  Exception e) {
+    Log.e(TAG,"Error in overridable method rebuildRevCount(): " + e.toString());
+  }
 }

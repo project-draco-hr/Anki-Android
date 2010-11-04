@@ -1,3 +1,8 @@
 {
-  updateNewCountTodayMethod.invoke(null);
+  try {
+    updateNewCountTodayMethod.invoke(null);
+  }
+ catch (  Exception e) {
+    Log.e(TAG,"Error in overridable method updateNewCountToday(): " + e.toString());
+  }
 }

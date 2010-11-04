@@ -1,3 +1,8 @@
 {
-  finishSchedulerMethod.invoke(null);
+  try {
+    finishSchedulerMethod.invoke(null);
+  }
+ catch (  Exception e) {
+    Log.e(TAG,"Error in overridable method finishScheduler(): " + e.toString());
+  }
 }

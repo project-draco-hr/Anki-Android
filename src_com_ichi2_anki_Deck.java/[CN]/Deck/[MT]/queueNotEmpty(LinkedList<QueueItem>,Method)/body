@@ -4,7 +4,13 @@
     if (!queue.isEmpty()) {
       return true;
     }
-    fillFunc.invoke(fillFunc,null);
+    try {
+      fillFunc.invoke(fillFunc,null);
+    }
+ catch (    Exception e) {
+      Log.e(TAG,"queueNotEmpty: Error while invoking overridable fill method:" + e.toString());
+      return false;
+    }
     if (queue.isEmpty()) {
       return false;
     }

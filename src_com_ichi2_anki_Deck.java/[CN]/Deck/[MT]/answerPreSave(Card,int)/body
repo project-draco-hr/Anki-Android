@@ -1,3 +1,8 @@
 {
-  answerPreSaveMethod.invoke(card,ease);
+  try {
+    answerPreSaveMethod.invoke(card,ease);
+  }
+ catch (  Exception e) {
+    Log.e(TAG,"Error in overridable method answerPreSave(Card, int): " + e.toString());
+  }
 }

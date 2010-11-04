@@ -1,6 +1,12 @@
 {
-  rebuildNewCountMethod=Deck.class.getDeclaredMethod("_rebuildLearnMoreCount");
-  updateNewCountTodayMethod=Deck.class.getDeclaredMethod("_updateLearnMoreCountToday");
-  finishSchedulerMethod=Deck.class.getDeclaredMethod("setupStandardScheduler");
+  try {
+    rebuildNewCountMethod=Deck.class.getDeclaredMethod("_rebuildLearnMoreCount");
+    updateNewCountTodayMethod=Deck.class.getDeclaredMethod("_updateLearnMoreCountToday");
+    finishSchedulerMethod=Deck.class.getDeclaredMethod("setupStandardScheduler");
+  }
+ catch (  Exception e) {
+    Log.e(TAG,"Learn More scheduler: Error in overridable methods: " + e.toString());
+    return;
+  }
   scheduler="learnMore";
 }

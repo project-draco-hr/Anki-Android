@@ -1,7 +1,13 @@
 {
-  fillRevQueueMethod=Deck.class.getDeclaredMethod("_fillRevEarlyQueue");
-  rebuildRevCountMethod=Deck.class.getDeclaredMethod("_rebuildRevEarlyCount");
-  finishSchedulerMethod=Deck.class.getDeclaredMethod("_onReviewEarlyFinished");
-  answerPreSaveMethod=Deck.class.getDeclaredMethod("_reviewEarlyPreSave",Card.class,int.class);
+  try {
+    fillRevQueueMethod=Deck.class.getDeclaredMethod("_fillRevEarlyQueue");
+    rebuildRevCountMethod=Deck.class.getDeclaredMethod("_rebuildRevEarlyCount");
+    finishSchedulerMethod=Deck.class.getDeclaredMethod("_onReviewEarlyFinished");
+    answerPreSaveMethod=Deck.class.getDeclaredMethod("_reviewEarlyPreSave",Card.class,int.class);
+  }
+ catch (  Exception e) {
+    Log.e(TAG,"Review Early scheduler: Error in overridable methods: " + e.toString());
+    return;
+  }
   scheduler="reviewEarly";
 }

@@ -1,3 +1,9 @@
 {
-  return ((Integer)cardQueueMethod.invoke(card)).intValue();
+  try {
+    return ((Integer)cardQueueMethod.invoke(card)).intValue();
+  }
+ catch (  Exception e) {
+    Log.e(TAG,"Error in overridable method cardQueue(Card): " + e.toString());
+    return -1;
+  }
 }

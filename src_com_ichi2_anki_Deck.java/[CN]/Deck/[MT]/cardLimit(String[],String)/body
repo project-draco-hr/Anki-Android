@@ -1,3 +1,9 @@
 {
-  return ((String)cardLimitMethod.invoke(active,sql));
+  try {
+    return ((String)cardLimitMethod.invoke(active,sql));
+  }
+ catch (  Exception e) {
+    Log.e(TAG,"Error in overridable method cardLimit(String[], String): " + e.toString());
+    return sql;
+  }
 }

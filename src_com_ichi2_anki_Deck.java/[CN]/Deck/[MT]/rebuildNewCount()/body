@@ -1,3 +1,8 @@
 {
-  rebuildNewCountMethod.invoke(null);
+  try {
+    rebuildNewCountMethod.invoke(null);
+  }
+ catch (  Exception e) {
+    Log.e(TAG,"Error in overridable method rebuildNewCount(): " + e.toString());
+  }
 }
