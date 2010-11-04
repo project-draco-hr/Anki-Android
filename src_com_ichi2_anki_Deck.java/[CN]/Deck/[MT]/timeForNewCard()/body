@@ -2,8 +2,13 @@
   try {
     return ((Boolean)timeForNewCardMethod.invoke(null)).booleanValue();
   }
- catch (  Exception e) {
-    Log.e(TAG,"Error in overridable method timeForNewCard(): " + e.toString());
-    return false;
+ catch (  IllegalArgumentException e) {
+    throw new RuntimeException(e);
+  }
+catch (  IllegalAccessException e) {
+    throw new RuntimeException(e);
+  }
+catch (  InvocationTargetException e) {
+    throw new RuntimeException(e);
   }
 }

@@ -16,9 +16,8 @@
     cardLimitMethod=Deck.class.getDeclaredMethod("_cardLimit",String.class,String.class,String.class);
     answerPreSaveMethod=null;
   }
- catch (  Exception e) {
-    Log.e(TAG,"Standard scheduler: Error in overridable methods: " + e.toString());
-    return;
+ catch (  NoSuchMethodException e) {
+    throw new RuntimeException(e);
   }
   scheduler="standard";
   try {

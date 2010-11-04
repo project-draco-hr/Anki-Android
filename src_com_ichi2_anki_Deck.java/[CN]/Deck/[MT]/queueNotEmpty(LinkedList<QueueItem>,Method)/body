@@ -5,7 +5,7 @@
       return true;
     }
     try {
-      fillFunc.invoke(fillFunc,null);
+      fillFunc.invoke(null);
     }
  catch (    Exception e) {
       Log.e(TAG,"queueNotEmpty: Error while invoking overridable fill method:" + e.toString());

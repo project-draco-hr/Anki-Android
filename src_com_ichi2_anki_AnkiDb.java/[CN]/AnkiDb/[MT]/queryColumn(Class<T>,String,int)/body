@@ -10,7 +10,16 @@
     }
  while (cursor.moveToNext());
   }
- catch (  Exception e) {
+ catch (  NoSuchMethodException e) {
+    throw new RuntimeException(e);
+  }
+catch (  IllegalArgumentException e) {
+    throw new RuntimeException(e);
+  }
+catch (  IllegalAccessException e) {
+    throw new RuntimeException(e);
+  }
+catch (  Exception e) {
     Log.e(TAG,"queryColumn: Got Exception: " + e.getMessage());
   }
  finally {

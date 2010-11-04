@@ -2,8 +2,13 @@
   try {
     return ((Integer)cardQueueMethod.invoke(card)).intValue();
   }
- catch (  Exception e) {
-    Log.e(TAG,"Error in overridable method cardQueue(Card): " + e.toString());
-    return -1;
+ catch (  IllegalArgumentException e) {
+    throw new RuntimeException(e);
+  }
+catch (  IllegalAccessException e) {
+    throw new RuntimeException(e);
+  }
+catch (  InvocationTargetException e) {
+    throw new RuntimeException(e);
   }
 }

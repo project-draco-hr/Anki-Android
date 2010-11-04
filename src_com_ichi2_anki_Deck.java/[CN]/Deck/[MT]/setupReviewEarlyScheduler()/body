@@ -5,9 +5,8 @@
     finishSchedulerMethod=Deck.class.getDeclaredMethod("_onReviewEarlyFinished");
     answerPreSaveMethod=Deck.class.getDeclaredMethod("_reviewEarlyPreSave",Card.class,int.class);
   }
- catch (  Exception e) {
-    Log.e(TAG,"Review Early scheduler: Error in overridable methods: " + e.toString());
-    return;
+ catch (  NoSuchMethodException e) {
+    throw new RuntimeException(e);
   }
   scheduler="reviewEarly";
 }

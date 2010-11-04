@@ -2,7 +2,13 @@
   try {
     rebuildFailedCountMethod.invoke(null);
   }
- catch (  Exception e) {
-    Log.e(TAG,"Error in overridable method rebuildFailedCount(): " + e.toString());
+ catch (  IllegalArgumentException e) {
+    throw new RuntimeException(e);
+  }
+catch (  IllegalAccessException e) {
+    throw new RuntimeException(e);
+  }
+catch (  InvocationTargetException e) {
+    throw new RuntimeException(e);
   }
 }

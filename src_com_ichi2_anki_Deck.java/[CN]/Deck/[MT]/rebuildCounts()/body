@@ -1,7 +1,13 @@
 {
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
-  cardCount=ankiDB.database.rawQuery("SELECT count(*) from cards",null).getInt(0);
-  factCount=ankiDB.database.rawQuery("SELECT count(*) from facts",null).getInt(0);
+  try {
+    cardCount=(int)getDB().queryScalar("SELECT count(*) from cards");
+    factCount=(int)getDB().queryScalar("SELECT count(*) from facts");
+  }
+ catch (  SQLException e) {
+    Log.e(TAG,"rebuildCounts: Error while getting global counts: " + e.toString());
+    cardCount=0;
+    factCount=0;
+  }
   rebuildFailedCount();
   rebuildRevCount();
   rebuildNewCount();
