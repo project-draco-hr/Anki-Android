@@ -1,0 +1,16 @@
+{
+  int no=card.noCount;
+  int fmax=0;
+  try {
+    fmax=deckVars.getInt("leechFails");
+  }
+ catch (  SQLException e) {
+    return false;
+  }
+  if ((card.successive != 0) && (no >= fmax) && ((fmax - no) % Math.max(fmax / 2,1) == 0)) {
+    return true;
+  }
+ else {
+    return false;
+  }
+}

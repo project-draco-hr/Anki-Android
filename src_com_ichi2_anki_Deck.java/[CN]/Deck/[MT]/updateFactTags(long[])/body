@@ -1,0 +1,3 @@
+{
+  updateCardTags(getDB().queryColumn(long.class,"SELECT id FROM cards WHERE factId IN " + Utils.ids2str(factIds),0));
+}

@@ -1,13 +1,11 @@
 {
   Log.i(TAG,"answerCard");
-  Cursor cursor=null;
   String undoName="Answer Card";
   setUndoStart(undoName);
   double now=System.currentTimeMillis() / 1000.0;
   String oldState=cardState(card);
   int oldQueue=cardQueue(card);
   double lastDelaySecs=System.currentTimeMillis() / 1000.0 - card.combinedDue;
-  double start=System.currentTimeMillis();
   double lastDelay=lastDelaySecs / 86400.0;
   int oldSuc=card.successive;
   double last=card.interval;
@@ -25,7 +23,7 @@
     updateFactor(card,ease);
   }
   double space=spaceUntilTime(card);
-  spaceCards(card,ease);
+  spaceCards(card,space);
   if (oldQueue == 0) {
     if (ease != 1) {
       failedSoonCount-=1;
@@ -48,5 +46,8 @@
   entry.writeSQL();
   modified=now;
   requeueCard(card,oldSuc);
+  if (isLeech(card)) {
+    handleLeech(card);
+  }
   setUndoEnd(undoName);
 }
