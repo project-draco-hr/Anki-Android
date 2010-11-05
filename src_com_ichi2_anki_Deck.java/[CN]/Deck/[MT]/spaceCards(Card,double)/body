@@ -1,32 +1,14 @@
 {
-  Cursor cursor=null;
   try {
-    cursor=getDB().database.rawQuery("SELECT type, count(type) FROM cards WHERE factId = " + card.factId + " AND combinedDue < "+ dueCutoff+ " id != "+ card.id+ ") GROUP BY type",null);
-    while (cursor.moveToNext()) {
-      Log.i(TAG,"failedSoonCount before = " + failedSoonCount);
-      Log.i(TAG,"revCount before = " + revCount);
-      Log.i(TAG,"newCount before = " + newCount);
-      int type=cursor.getInt(0);
-      int count=cursor.getInt(1);
-      if (type == 0) {
-        failedSoonCount-=count;
-      }
- else       if (type == 1) {
-        revCount-=count;
-      }
- else       if (type == 2) {
-        newCount-=count;
-      }
-      Log.i(TAG,"failedSoonCount after = " + failedSoonCount);
-      Log.i(TAG,"revCount after = " + revCount);
-      Log.i(TAG,"newCount after = " + newCount);
-    }
+    spaceCardsMethod.invoke(card,space);
   }
-  finally {
-    if (cursor != null) {
-      cursor.close();
-    }
+ catch (  IllegalArgumentException e) {
+    throw new RuntimeException(e);
   }
-  getDB().database.execSQL(String.format(ENGLISH_LOCALE,"UPDATE cards SET spaceUntil = %f, " + "combinedDue = max(%f, due), modified = %f, isDue = 0 WHERE id != %ld and factId = %ld",space,space,((double)System.currentTimeMillis() / 1000.0),card.id,card.factId));
-  spacedFacts.put(card.factId,space);
+catch (  IllegalAccessException e) {
+    throw new RuntimeException(e);
+  }
+catch (  InvocationTargetException e) {
+    throw new RuntimeException(e);
+  }
 }

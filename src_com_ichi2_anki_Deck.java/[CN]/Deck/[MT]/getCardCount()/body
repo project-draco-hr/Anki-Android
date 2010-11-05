@@ -1,0 +1,3 @@
+{
+  return getDB().queryScalar("SELECT count(*) from cards");
+}

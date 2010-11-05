@@ -4,7 +4,7 @@
   tags=Utils.addTags("Leech",tags);
   scard.getFact().tags=Utils.canonifyTags(tags);
   scard.getFact().setModified(true);
-  updateFactTags(scard.fact.id);
+  updateFactTags(new long[]{scard.fact.id});
   scard.toDB();
   if (deckVars.getBool("suspendLeeches")) {
     suspendCards(new long[]{card.id});

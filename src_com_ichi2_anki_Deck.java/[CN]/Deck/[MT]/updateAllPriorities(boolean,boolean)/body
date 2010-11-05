@@ -1,0 +1,23 @@
+{
+  HashMap<Long,Integer> newPriorities=updateTagPriorities();
+  if (!partial) {
+    newPriorities.clear();
+    Cursor cur=null;
+    try {
+      cur=getDB().database.rawQuery("SELECT id, priority AS pri FROM tags",null);
+      while (cur.moveToNext()) {
+        newPriorities.put(cur.getLong(0),cur.getInt(1));
+      }
+    }
+ catch (    SQLException e) {
+      Log.e(TAG,"updateAllPriorities: Error while getting all tags: " + e.toString());
+    }
+ finally {
+      if (cur != null) {
+        cur.close();
+      }
+    }
+    ArrayList<Long> cids=getDB().queryColumn(long.class,"SELECT DISTINCT cardId FROM cardTags WHERE tagId in " + Utils.ids2str(Utils.toPrimitive(newPriorities.keySet())),0);
+    updatePriorities(Utils.toPrimitive(cids),null,dirty);
+  }
+}

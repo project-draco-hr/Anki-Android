@@ -1,8 +1,3 @@
 {
-  try {
-    deck.updatePriorities(cardIds,null,false);
-  }
- catch (  SQLException e) {
-    Log.e(TAG,"SQLException e = " + e.getMessage());
-  }
+  rebuildPriorities(cardIds,null);
 }

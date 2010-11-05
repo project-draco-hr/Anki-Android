@@ -1,11 +1,23 @@
 {
-  if (card.reps == 1) {
-    newQueue.removeLast();
-  }
- else   if (oldSuc == 0) {
-    failedQueue.removeLast();
-  }
+  try {
+    if (card.reps == 1) {
+      newQueue.removeLast();
+    }
+ else     if (oldSuc == 0) {
+      failedQueue.removeLast();
+    }
  else {
-    revQueue.removeLast();
+      revQueue.removeLast();
+    }
+  }
+ catch (  Exception e) {
+    int type=1;
+    if (card.reps != 0) {
+      type=2;
+    }
+ else     if (oldSuc == 0) {
+      type=0;
+    }
+    throw new RuntimeException("requeueCard() failed. Counts: " + failedSoonCount + " "+ revCount+ " "+ newCountToday+ ", Queue: "+ failedQueue.size()+ " "+ revQueue.size()+ " "+ newQueue.size()+ " "+ type);
   }
 }

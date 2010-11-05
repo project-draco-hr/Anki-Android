@@ -24,6 +24,7 @@
   }
   if (check) {
     updateCutoff();
+    reset();
     return getCardId(false);
   }
   if (finishSchedulerMethod != null) {
