@@ -11,13 +11,6 @@
     }
   }
  catch (  Exception e) {
-    int type=1;
-    if (card.reps != 0) {
-      type=2;
-    }
- else     if (oldSuc == 0) {
-      type=0;
-    }
-    throw new RuntimeException("requeueCard() failed. Counts: " + failedSoonCount + " "+ revCount+ " "+ newCountToday+ ", Queue: "+ failedQueue.size()+ " "+ revQueue.size()+ " "+ newQueue.size()+ " "+ type);
+    throw new RuntimeException("requeueCard() failed. Counts: " + failedSoonCount + " "+ revCount+ " "+ newCountToday+ ", Queue: "+ failedQueue.size()+ " "+ revQueue.size()+ " "+ newQueue.size()+ ", Card info: "+ card.reps+ " "+ card.successive+ " "+ oldSuc);
   }
 }
