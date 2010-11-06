@@ -1,7 +1,9 @@
 {
   long[] results=new long[array.length];
-  for (int i=0; i < array.length; i++) {
-    results[i]=array[i].longValue();
+  if (array != null) {
+    for (int i=0; i < array.length; i++) {
+      results[i]=array[i].longValue();
+    }
   }
   return results;
 }

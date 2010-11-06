@@ -1,8 +1,7 @@
 {
   if ((failedSoonCount != 0) && failedQueue.isEmpty()) {
-    AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
     String sql="SELECT c.id, factId, combinedDue FROM cards c WHERE type = 0 AND combinedDue < " + dueCutoff + " ORDER BY combinedDue LIMIT "+ queueLimit;
-    Cursor cur=ankiDB.database.rawQuery(cardLimit("revActive","revInactive",sql),null);
+    Cursor cur=getDB().database.rawQuery(cardLimit("revActive","revInactive",sql),null);
     while (cur.moveToNext()) {
       QueueItem qi=new QueueItem(cur.getLong(0),cur.getLong(1),cur.getDouble(2));
       failedQueue.add(0,qi);

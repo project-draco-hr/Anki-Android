@@ -1,14 +1,13 @@
 {
   long id=0;
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
   try {
-    id=ankiDB.queryScalar("select id from tags where tag = \"" + tag + "\"");
+    id=getDB().queryScalar("select id from tags where tag = \"" + tag + "\"");
   }
  catch (  SQLException e) {
     if (create) {
       ContentValues value=new ContentValues();
       value.put("tag",tag);
-      id=ankiDB.database.insert("tags",null,value);
+      id=getDB().database.insert("tags",null,value);
     }
  else {
       id=0;

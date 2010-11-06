@@ -1,5 +1,4 @@
 {
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
   UndoRow row;
   commitToDB();
   while (true) {
@@ -13,11 +12,12 @@
   if (end == null) {
     end=latestUndoRow();
   }
-  ArrayList<String> sql=ankiDB.queryColumn(String.class,String.format(ENGLISH_LOCALE,"SELECT sql FROM undoLog " + "WHERE seq > %d and seq <= %d " + "ORDER BY seq DESC",start,end),0);
+  ArrayList<String> sql=getDB().queryColumn(String.class,String.format(ENGLISH_LOCALE,"SELECT sql FROM undoLog " + "WHERE seq > %d and seq <= %d " + "ORDER BY seq DESC",start,end),0);
   Long newstart=latestUndoRow();
-  Iterator<String> iter=sql.iterator();
-  while (iter.hasNext()) {
-    ankiDB.database.execSQL(iter.next());
+  if (sql != null) {
+    for (    String s : sql) {
+      getDB().database.execSQL(s);
+    }
   }
   Long newend=latestUndoRow();
   dst.push(new UndoRow(row.name,newstart,newend));

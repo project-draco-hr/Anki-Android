@@ -1,4 +1,3 @@
 {
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
-  failedSoonCount=(int)ankiDB.queryScalar(cardLimit("revActive","revInactive","SELECT count(*) FROM cards c WHERE type = 0 AND combinedDue < " + dueCutoff));
+  failedSoonCount=(int)getDB().queryScalar(cardLimit("revActive","revInactive","SELECT count(*) FROM cards c WHERE type = 0 AND combinedDue < " + dueCutoff));
 }

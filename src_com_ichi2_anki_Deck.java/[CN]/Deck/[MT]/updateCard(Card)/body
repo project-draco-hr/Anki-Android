@@ -4,6 +4,6 @@
   updateValues.put("question",card.question);
   updateValues.put("answer",card.answer);
   updateValues.put("modified",now);
-  AnkiDatabaseManager.getDatabase(deckPath).database.update("cards",updateValues,"id = ?",new String[]{"" + card.id});
+  getDB().database.update("cards",updateValues,"id = ?",new String[]{"" + card.id});
   Log.v(TAG,"Update question and answer in card id# " + card.id);
 }

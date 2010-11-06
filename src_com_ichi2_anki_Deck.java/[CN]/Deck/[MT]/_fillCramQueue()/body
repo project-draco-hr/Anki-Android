@@ -1,8 +1,7 @@
 {
   if ((revCount != 0) && revQueue.isEmpty()) {
-    AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
     String sql="SELECT id, factId FROM cards WHERE type IN (0,1,2) ORDER BY " + cramOrder + " LIMIT "+ queueLimit;
-    Cursor cur=ankiDB.database.rawQuery(cardLimit(activeCramTags,sql),null);
+    Cursor cur=getDB().database.rawQuery(cardLimit(activeCramTags,sql),null);
     while (cur.moveToNext()) {
       QueueItem qi=new QueueItem(cur.getLong(0),cur.getLong(1));
       revQueue.add(0,qi);

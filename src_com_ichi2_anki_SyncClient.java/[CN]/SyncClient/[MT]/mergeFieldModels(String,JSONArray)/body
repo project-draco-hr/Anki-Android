@@ -1,8 +1,7 @@
 {
   ArrayList<String> ids=new ArrayList<String>();
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.deckPath);
   String sql="INSERT OR REPLACE INTO fieldModels VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-  SQLiteStatement statement=ankiDB.database.compileStatement(sql);
+  SQLiteStatement statement=deck.getDB().database.compileStatement(sql);
   int len=fieldModels.length();
   for (int i=0; i < len; i++) {
     try {
@@ -50,12 +49,12 @@
     }
   }
   statement.close();
-  ArrayList<String> fieldModelsIds=ankiDB.queryColumn(String.class,"SELECT id FROM fieldModels WHERE modelId = " + modelId,0);
-  int lenFieldModelsIds=fieldModelsIds.size();
-  for (int i=0; i < lenFieldModelsIds; i++) {
-    String fieldModelId=fieldModelsIds.get(i);
-    if (!ids.contains(fieldModelId)) {
-      deck.deleteFieldModel(modelId,fieldModelId);
+  ArrayList<String> fieldModelsIds=deck.getDB().queryColumn(String.class,"SELECT id FROM fieldModels WHERE modelId = " + modelId,0);
+  if (fieldModelsIds != null) {
+    for (    String fieldModelId : fieldModelsIds) {
+      if (!ids.contains(fieldModelId)) {
+        deck.deleteFieldModel(modelId,fieldModelId);
+      }
     }
   }
 }

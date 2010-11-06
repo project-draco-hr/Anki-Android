@@ -1,9 +1,8 @@
 {
   Log.i(TAG,"deleteCardModel, modelId = " + modelId + ", fieldModelId = "+ cardModelId);
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
-  ArrayList<String> cardIds=ankiDB.queryColumn(String.class,"SELECT id FROM cards WHERE cardModelId = " + cardModelId,0);
+  ArrayList<String> cardIds=getDB().queryColumn(String.class,"SELECT id FROM cards WHERE cardModelId = " + cardModelId,0);
   deleteCards(cardIds);
-  ankiDB.database.execSQL("DELETE FROM cardModels WHERE id = " + cardModelId);
-  ankiDB.database.execSQL("UPDATE models SET modified = " + String.format(ENGLISH_LOCALE,"%f",System.currentTimeMillis() / 1000.0) + " WHERE id = "+ modelId);
+  getDB().database.execSQL("DELETE FROM cardModels WHERE id = " + cardModelId);
+  getDB().database.execSQL("UPDATE models SET modified = " + String.format(ENGLISH_LOCALE,"%f",System.currentTimeMillis() / 1000.0) + " WHERE id = "+ modelId);
   flushMod();
 }

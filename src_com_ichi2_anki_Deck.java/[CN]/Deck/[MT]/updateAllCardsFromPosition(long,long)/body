@@ -1,7 +1,6 @@
 {
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
-  Cursor cursor=ankiDB.database.rawQuery("SELECT id, factId " + "FROM cards " + "ORDER BY factId, id "+ "LIMIT " + limitCards + " OFFSET "+ numUpdatedCards,null);
-  ankiDB.database.beginTransaction();
+  Cursor cursor=getDB().database.rawQuery("SELECT id, factId " + "FROM cards " + "ORDER BY factId, id "+ "LIMIT " + limitCards + " OFFSET "+ numUpdatedCards,null);
+  getDB().database.beginTransaction();
   try {
     while (cursor.moveToNext()) {
       Card card=new Card(this);
@@ -19,10 +18,10 @@
       numUpdatedCards++;
     }
     cursor.close();
-    ankiDB.database.setTransactionSuccessful();
+    getDB().database.setTransactionSuccessful();
   }
   finally {
-    ankiDB.database.endTransaction();
+    getDB().database.endTransaction();
   }
   return numUpdatedCards;
 }
