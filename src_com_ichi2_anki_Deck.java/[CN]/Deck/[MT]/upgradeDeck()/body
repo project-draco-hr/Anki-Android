@@ -32,7 +32,7 @@
     commitToDB();
   }
   if (version < 48) {
-    updateFieldCache(Utils.toPrimitive(getDB().queryColumn(long.class,"SELECT id FROM facts",0)));
+    updateFieldCache(Utils.toPrimitive(getDB().queryColumn(Long.class,"SELECT id FROM facts",0)));
     version=48;
     commitToDB();
   }
