@@ -17,7 +17,7 @@
         cur.close();
       }
     }
-    ArrayList<Long> cids=getDB().queryColumn(long.class,"SELECT DISTINCT cardId FROM cardTags WHERE tagId in " + Utils.ids2str(Utils.toPrimitive(newPriorities.keySet())),0);
+    ArrayList<Long> cids=getDB().queryColumn(Long.class,"SELECT DISTINCT cardId FROM cardTags WHERE tagId in " + Utils.ids2str(Utils.toPrimitive(newPriorities.keySet())),0);
     updatePriorities(Utils.toPrimitive(cids),null,dirty);
   }
 }

@@ -2,7 +2,7 @@
   int no=card.noCount;
   int fmax=0;
   try {
-    fmax=deckVars.getInt("leechFails");
+    fmax=getInt("leechFails");
   }
  catch (  SQLException e) {
     return false;

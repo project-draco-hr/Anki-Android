@@ -1,6 +1,7 @@
 {
   try {
-    fillFailedQueueMethod.invoke(null);
+    fillFailedQueueMethod.invoke(Deck.this);
+    Log.e(TAG,"made it!");
   }
  catch (  IllegalArgumentException e) {
     throw new RuntimeException(e);

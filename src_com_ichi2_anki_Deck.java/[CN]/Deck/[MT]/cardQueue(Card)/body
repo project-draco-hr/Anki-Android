@@ -1,6 +1,6 @@
 {
   try {
-    return ((Integer)cardQueueMethod.invoke(card)).intValue();
+    return ((Integer)cardQueueMethod.invoke(Deck.this,card)).intValue();
   }
  catch (  IllegalArgumentException e) {
     throw new RuntimeException(e);

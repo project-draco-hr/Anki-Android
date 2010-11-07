@@ -19,6 +19,7 @@
   card.due=nextDue(card,ease,oldState);
   card.isDue=0;
   card.lastFactor=card.factor;
+  card.spaceUntil=0;
   if (lastDelay >= 0) {
     updateFactor(card,ease);
   }
@@ -37,6 +38,7 @@
   }
   card.updateStats(ease,oldState);
   card.type=cardType(card);
+  card.due=Math.max(card.due,dueCutoff + 1);
   if (answerPreSaveMethod != null) {
     answerPreSave(card,ease);
   }

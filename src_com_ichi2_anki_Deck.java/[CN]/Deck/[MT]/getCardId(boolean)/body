@@ -1,6 +1,6 @@
 {
   try {
-    return ((Long)getCardIdMethod.invoke(check)).longValue();
+    return ((Long)getCardIdMethod.invoke(Deck.this,check)).longValue();
   }
  catch (  IllegalArgumentException e) {
     throw new RuntimeException(e);

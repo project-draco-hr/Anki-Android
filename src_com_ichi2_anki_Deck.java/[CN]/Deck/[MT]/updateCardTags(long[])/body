@@ -9,7 +9,7 @@
   }
  else {
     getDB().database.execSQL("DELETE FROM cardTags WHERE cardId IN " + Utils.ids2str(cardIds));
-    String fids=Utils.ids2str(Utils.toPrimitive(getDB().queryColumn(long.class,"SELECT factId FROM cards WHERE id IN " + Utils.ids2str(cardIds),0)));
+    String fids=Utils.ids2str(Utils.toPrimitive(getDB().queryColumn(Long.class,"SELECT factId FROM cards WHERE id IN " + Utils.ids2str(cardIds),0)));
     tids=tagIds(allTags_("WHERE id IN " + fids));
     rows=splitTagsList("AND facts.id IN " + fids);
   }

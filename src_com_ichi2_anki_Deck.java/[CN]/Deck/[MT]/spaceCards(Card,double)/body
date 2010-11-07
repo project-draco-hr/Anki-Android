@@ -1,6 +1,6 @@
 {
   try {
-    spaceCardsMethod.invoke(card,space);
+    spaceCardsMethod.invoke(Deck.this,card,space);
   }
  catch (  IllegalArgumentException e) {
     throw new RuntimeException(e);

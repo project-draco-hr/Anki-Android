@@ -1,6 +1,6 @@
 {
   try {
-    return ((Boolean)timeForNewCardMethod.invoke(null)).booleanValue();
+    return ((Boolean)timeForNewCardMethod.invoke(Deck.this)).booleanValue();
   }
  catch (  IllegalArgumentException e) {
     throw new RuntimeException(e);

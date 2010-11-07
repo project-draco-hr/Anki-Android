@@ -1,6 +1,6 @@
 {
   try {
-    answerCardMethod.invoke(card,ease);
+    answerCardMethod.invoke(Deck.this,card,ease);
   }
  catch (  IllegalArgumentException e) {
     throw new RuntimeException(e);

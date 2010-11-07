@@ -1,6 +1,6 @@
 {
   try {
-    return ((String)cardLimitMethod.invoke(active,sql));
+    return ((String)cardLimitMethod.invoke(Deck.this,active,sql));
   }
  catch (  IllegalArgumentException e) {
     throw new RuntimeException(e);

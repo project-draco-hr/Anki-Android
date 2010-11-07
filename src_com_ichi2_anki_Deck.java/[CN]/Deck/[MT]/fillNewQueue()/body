@@ -1,6 +1,6 @@
 {
   try {
-    fillNewQueueMethod.invoke(null);
+    fillNewQueueMethod.invoke(Deck.this);
   }
  catch (  IllegalArgumentException e) {
     throw new RuntimeException(e);

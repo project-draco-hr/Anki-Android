@@ -1,6 +1,6 @@
 {
   try {
-    rebuildRevCountMethod.invoke(null);
+    rebuildRevCountMethod.invoke(Deck.this);
   }
  catch (  IllegalArgumentException e) {
     throw new RuntimeException(e);

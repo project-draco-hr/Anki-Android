@@ -1,6 +1,6 @@
 {
-  String[] yes=Utils.parseTags(deckVars.getVar(active));
-  String[] no=Utils.parseTags(deckVars.getVar(inactive));
+  String[] yes=Utils.parseTags(getVar(active));
+  String[] no=Utils.parseTags(getVar(inactive));
   if (yes.length > 0) {
     long yids[]=Utils.toPrimitive(tagIds(yes).values());
     long nids[]=Utils.toPrimitive(tagIds(no).values());

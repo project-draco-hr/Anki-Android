@@ -1,6 +1,6 @@
 {
   try {
-    rebuildNewCountMethod.invoke(null);
+    rebuildNewCountMethod.invoke(Deck.this);
   }
  catch (  IllegalArgumentException e) {
     throw new RuntimeException(e);

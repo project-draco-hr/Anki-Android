@@ -1,6 +1,6 @@
 {
   try {
-    updateNewCountTodayMethod.invoke(null);
+    updateNewCountTodayMethod.invoke(Deck.this);
   }
  catch (  IllegalArgumentException e) {
     throw new RuntimeException(e);

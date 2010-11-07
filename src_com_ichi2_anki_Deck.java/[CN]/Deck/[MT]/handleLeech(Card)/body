@@ -6,7 +6,7 @@
   scard.getFact().setModified(true);
   updateFactTags(new long[]{scard.fact.id});
   scard.toDB();
-  if (deckVars.getBool("suspendLeeches")) {
+  if (getBool("suspendLeeches")) {
     suspendCards(new long[]{card.id});
   }
 }

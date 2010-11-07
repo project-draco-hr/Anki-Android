@@ -1,0 +1,7 @@
+{
+  Cursor cur=getDB().database.rawQuery("SELECT value FROM deckVars WHERE key = '" + key + "'",null);
+  if (cur.moveToFirst()) {
+    return (cur.getInt(0) != 0);
+  }
+  return false;
+}

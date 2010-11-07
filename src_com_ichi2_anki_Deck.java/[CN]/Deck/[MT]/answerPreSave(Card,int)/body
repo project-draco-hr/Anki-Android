@@ -1,6 +1,6 @@
 {
   try {
-    answerPreSaveMethod.invoke(card,ease);
+    answerPreSaveMethod.invoke(Deck.this,card,ease);
   }
  catch (  IllegalArgumentException e) {
     throw new RuntimeException(e);

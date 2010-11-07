@@ -1,6 +1,6 @@
 {
   try {
-    requeueCardMethod.invoke(card,oldSuc);
+    requeueCardMethod.invoke(Deck.this,card,oldSuc);
   }
  catch (  IllegalArgumentException e) {
     throw new RuntimeException(e);

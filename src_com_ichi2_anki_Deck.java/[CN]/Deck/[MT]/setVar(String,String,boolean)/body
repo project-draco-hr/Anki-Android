@@ -1,0 +1,14 @@
+{
+  Cursor cur=getDB().database.rawQuery("SELECT value FROM deckVars WHERE key = '" + key + "'",null);
+  if (cur.isFirst()) {
+    if (cur.getString(0).equals(value)) {
+      return;
+    }
+ else {
+      getDB().database.execSQL("update deckVars set value='" + value + "' where key = '"+ key+ "'",null);
+    }
+  }
+ else {
+    getDB().database.execSQL("insert into deckVars (key, value) values ('" + value + "', '"+ key+ "')",null);
+  }
+}
