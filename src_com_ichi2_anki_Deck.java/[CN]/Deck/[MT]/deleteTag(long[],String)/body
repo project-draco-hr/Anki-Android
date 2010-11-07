@@ -1,36 +1,32 @@
 {
   ArrayList<String> factTagsList=factTags(factIds);
   long tagId=tagId(tag,false);
-  if (factTagsList != null) {
-    for (int i=0; i < factTagsList.size(); i++) {
-      String factTags=factTagsList.get(i);
-      String newTags=factTags;
-      int tagIdx=factTags.indexOf(tag);
-      if ((tagIdx == 0) && (factTags.length() > tag.length())) {
-        newTags=factTags.substring(tag.length() + 1,factTags.length());
-      }
- else       if ((tagIdx > 0) && (tagIdx + tag.length() == factTags.length())) {
-        newTags=factTags.substring(0,tagIdx - 1);
-      }
- else       if (tagIdx > 0) {
-        newTags=factTags.substring(0,tagIdx - 1) + factTags.substring(tag.length(),factTags.length());
-      }
- else       if (tagIdx == 0) {
-        newTags="";
-      }
-      Log.i(TAG,"old tags = " + factTags);
-      Log.i(TAG,"new tags = " + newTags);
-      if (newTags.length() < factTags.length()) {
-        getDB().database.execSQL("update facts set " + "tags = \"" + newTags + "\", "+ "modified = "+ String.format(ENGLISH_LOCALE,"%f",(double)(System.currentTimeMillis() / 1000.0))+ " where id = "+ factIds[i]);
-      }
+  for (int i=0; i < factTagsList.size(); i++) {
+    String factTags=factTagsList.get(i);
+    String newTags=factTags;
+    int tagIdx=factTags.indexOf(tag);
+    if ((tagIdx == 0) && (factTags.length() > tag.length())) {
+      newTags=factTags.substring(tag.length() + 1,factTags.length());
+    }
+ else     if ((tagIdx > 0) && (tagIdx + tag.length() == factTags.length())) {
+      newTags=factTags.substring(0,tagIdx - 1);
+    }
+ else     if (tagIdx > 0) {
+      newTags=factTags.substring(0,tagIdx - 1) + factTags.substring(tag.length(),factTags.length());
+    }
+ else     if (tagIdx == 0) {
+      newTags="";
+    }
+    Log.i(TAG,"old tags = " + factTags);
+    Log.i(TAG,"new tags = " + newTags);
+    if (newTags.length() < factTags.length()) {
+      getDB().database.execSQL("update facts set " + "tags = \"" + newTags + "\", "+ "modified = "+ String.format(ENGLISH_LOCALE,"%f",(double)(System.currentTimeMillis() / 1000.0))+ " where id = "+ factIds[i]);
     }
   }
   ArrayList<String> cardIdList=getDB().queryColumn(String.class,"select id from cards where factId in " + Utils.ids2str(factIds),0);
-  if (cardIdList != null) {
-    for (int i=0; i < cardIdList.size(); i++) {
-      String cardId=cardIdList.get(i);
-      getDB().database.execSQL("delete from cardTags" + " WHERE cardId = " + cardId + " and tagId = "+ tagId+ " and src = 0");
-    }
+  for (int i=0; i < cardIdList.size(); i++) {
+    String cardId=cardIdList.get(i);
+    getDB().database.execSQL("delete from cardTags" + " WHERE cardId = " + cardId + " and tagId = "+ tagId+ " and src = 0");
   }
   try {
     getDB().queryScalar("select id from cardTags where tagId = " + tagId + " limit 1");

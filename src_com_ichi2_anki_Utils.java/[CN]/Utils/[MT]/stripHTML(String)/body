@@ -1,0 +1,6 @@
+{
+  s.replaceAll("(?s)<style.*?>.*?</style>","");
+  s.replaceAll("(?s)<script.*?>.*?</script>","");
+  s.replaceAll("<.*?>","");
+  return s;
+}

@@ -1,0 +1,20 @@
+{
+  getDB().database.execSQL("CREATE INDEX IF NOT EXISTS ix_cards_typeCombined ON cards (type, combinedDue)");
+  getDB().database.execSQL("CREATE INDEX IF NOT EXISTS ix_cards_duePriority " + "ON cards (type, isDue, combinedDue, priority)");
+  getDB().database.execSQL("CREATE INDEX IF NOT EXISTS ix_cards_priorityDue " + "ON cards (type, isDue, priority, combinedDue)");
+  getDB().database.execSQL("CREATE INDEX IF NOT EXISTS ix_cards_factor ON cards (type, factor)");
+  getDB().database.execSQL("CREATE INDEX IF NOT EXISTS ix_cards_factId ON cards (factId)");
+  getDB().database.execSQL("CREATE INDEX IF NOT EXISTS ix_stats_typeDay ON stats (type, day)");
+  getDB().database.execSQL("CREATE INDEX IF NOT EXISTS ix_fields_factId ON fields (factId)");
+  getDB().database.execSQL("CREATE INDEX IF NOT EXISTS ix_fields_fieldModelId ON fields (fieldModelId)");
+  getDB().database.execSQL("CREATE INDEX IF NOT EXISTS ix_fields_value ON fields (value)");
+  getDB().database.execSQL("CREATE INDEX IF NOT EXISTS ix_media_filename ON media (filename)");
+  getDB().database.execSQL("CREATE INDEX IF NOT EXISTS ix_media_originalPath ON media (originalPath)");
+  getDB().database.execSQL("CREATE INDEX IF NOT EXISTS ix_cardsDeleted_cardId ON cardsDeleted (cardId)");
+  getDB().database.execSQL("CREATE INDEX IF NOT EXISTS ix_modelsDeleted_modelId ON modelsDeleted (modelId)");
+  getDB().database.execSQL("CREATE INDEX IF NOT EXISTS ix_factsDeleted_factId ON factsDeleted (factId)");
+  getDB().database.execSQL("CREATE INDEX IF NOT EXISTS ix_mediaDeleted_factId ON mediaDeleted (mediaId)");
+  getDB().database.execSQL("CREATE INDEX IF NOT EXISTS ix_tags_tag ON tags (tag)");
+  getDB().database.execSQL("CREATE INDEX IF NOT EXISTS ix_cardTags_tagCard ON cardTags (tagId, cardId)");
+  getDB().database.execSQL("CREATE INDEX IF NOT EXISTS ix_cardTags_cardId ON cardTags (cardId)");
+}

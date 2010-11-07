@@ -1,0 +1,53 @@
+{
+  if (version < 39) {
+    return false;
+  }
+  if (version < 40) {
+    getDB().database.execSQL("UPDATE models SET features = ''");
+    version=40;
+    commitToDB();
+  }
+  if (version < 42) {
+    version=42;
+    commitToDB();
+  }
+  if (version < 43) {
+    getDB().database.execSQL("UPDATE fieldModels SET features = ''");
+    version=43;
+    commitToDB();
+  }
+  if (version < 44) {
+    getDB().database.execSQL("DROP INDEX IF EXISTS ix_cards_factId");
+    addIndices();
+    hardIntervalMin=1.0;
+    hardIntervalMax=1.1;
+    version=44;
+    commitToDB();
+  }
+  if (version < 47) {
+    addIndices();
+    updateDynamicIndices();
+    getDB().database.execSQL("ANALYZE");
+    version=47;
+    commitToDB();
+  }
+  if (version < 48) {
+    updateFieldCache(Utils.toPrimitive(getDB().queryColumn(long.class,"SELECT id FROM facts",0)));
+    version=48;
+    commitToDB();
+  }
+  if (version < 49) {
+    rebuildTypes();
+    version=49;
+    commitToDB();
+  }
+  if (getInt("pageSize") != 4096) {
+    commitToDB();
+    getDB().database.execSQL("PRAGMA page_size = 4096");
+    getDB().database.execSQL("PRAGMA legacy_file_format = 0");
+    getDB().database.execSQL("VACUUM");
+    setVar("pageSize","4096",false);
+    commitToDB();
+  }
+  return true;
+}

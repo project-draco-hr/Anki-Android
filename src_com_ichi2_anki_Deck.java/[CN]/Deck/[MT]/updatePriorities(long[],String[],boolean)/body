@@ -1,7 +1,7 @@
 {
   Cursor cursor=null;
   Log.i(TAG,"updatePriorities - Updating priorities...");
-  if (suspend != null) {
+  if (suspend != null && suspend.length > 0) {
     long ids[]=Utils.toPrimitive(tagIds(suspend,false).values());
     getDB().database.execSQL("UPDATE tags SET priority = 0 WHERE id in " + Utils.ids2str(ids));
   }
@@ -9,7 +9,7 @@
   if (cardIds.length <= 1000) {
     limit="and cardTags.cardId in " + Utils.ids2str(cardIds);
   }
-  String query="SELECT cardTags.cardId, " + "CASE " + "WHEN max(tags.priority) > 2 THEN max(tags.priority) "+ "WHEN min(tags.priority) = 1 THEN 1 "+ "ELSE 2 END "+ "FROM cardTags,tags "+ "WHERE cardTags.tagId = tags.id " + limit + " "+ "GROUP BY cardTags.cardId";
+  String query="SELECT cardTags.cardId, CASE WHEN max(tags.priority) > 2 THEN max(tags.priority) " + "WHEN min(tags.priority) = 1 THEN 1 ELSE 2 END FROM cardTags,tags " + "WHERE cardTags.tagId = tags.id " + limit + " GROUP BY cardTags.cardId";
   try {
     cursor=getDB().database.rawQuery(query,null);
     if (cursor.moveToFirst()) {

@@ -4,47 +4,39 @@
   undoEnabled=true;
   getDB().database.execSQL("CREATE TEMPORARY TABLE undoLog (seq INTEGER PRIMARY KEY NOT NULL, sql TEXT)");
   ArrayList<String> tables=getDB().queryColumn(String.class,"SELECT name FROM sqlite_master WHERE type = 'table'",0);
-  if (tables != null) {
-    Iterator<String> iter=tables.iterator();
-    while (iter.hasNext()) {
-      String table=iter.next();
-      if (table.equals("undoLog") || table.equals("sqlite_stat1")) {
+  Iterator<String> iter=tables.iterator();
+  while (iter.hasNext()) {
+    String table=iter.next();
+    if (table.equals("undoLog") || table.equals("sqlite_stat1")) {
+      continue;
+    }
+    ArrayList<String> columns=getDB().queryColumn(String.class,"PRAGMA TABLE_INFO(" + table + ")",1);
+    String sql="CREATE TEMP TRIGGER _undo_%s_it " + "AFTER INSERT ON %s BEGIN " + "INSERT INTO undoLog VALUES "+ "(null, 'DELETE FROM %s WHERE rowid = ' || new.rowid); END";
+    getDB().database.execSQL(String.format(ENGLISH_LOCALE,sql,table,table,table));
+    sql=String.format(ENGLISH_LOCALE,"CREATE TEMP TRIGGER _undo_%s_ut " + "AFTER UPDATE ON %s BEGIN " + "INSERT INTO undoLog VALUES "+ "(null, 'UPDATE %s ",table,table,table);
+    String sep="SET ";
+    for (    String column : columns) {
+      if (column.equals("unique")) {
         continue;
       }
-      ArrayList<String> columns=getDB().queryColumn(String.class,"PRAGMA TABLE_INFO(" + table + ")",1);
-      String sql="CREATE TEMP TRIGGER _undo_%s_it " + "AFTER INSERT ON %s BEGIN " + "INSERT INTO undoLog VALUES "+ "(null, 'DELETE FROM %s WHERE rowid = ' || new.rowid); END";
-      getDB().database.execSQL(String.format(ENGLISH_LOCALE,sql,table,table,table));
-      sql=String.format(ENGLISH_LOCALE,"CREATE TEMP TRIGGER _undo_%s_ut " + "AFTER UPDATE ON %s BEGIN " + "INSERT INTO undoLog VALUES "+ "(null, 'UPDATE %s ",table,table,table);
-      String sep="SET ";
-      if (columns != null) {
-        for (        String column : columns) {
-          if (column.equals("unique")) {
-            continue;
-          }
-          sql+=String.format(ENGLISH_LOCALE,"%s%s=' || quote(old.%s) || '",sep,column,column);
-          sep=",";
-        }
-      }
-      sql+="WHERE rowid = ' || old.rowid); END";
-      getDB().database.execSQL(sql);
-      sql=String.format(ENGLISH_LOCALE,"CREATE TEMP TRIGGER _undo_%s_dt " + "BEFORE DELETE ON %s BEGIN " + "INSERT INTO undoLog VALUES "+ "(null, 'INSERT INTO %s (rowid",table,table,table);
-      if (columns != null) {
-        for (        String column : columns) {
-          sql+=String.format(ENGLISH_LOCALE,",\"%s\"",column);
-        }
-      }
-      sql+=") VALUES (' || old.rowid ||'";
-      if (columns != null) {
-        for (        String column : columns) {
-          if (column.equals("unique")) {
-            sql+=",1";
-            continue;
-          }
-          sql+=String.format(ENGLISH_LOCALE,", ' || quote(old.%s) ||'",column);
-        }
-      }
-      sql+=")'); END";
-      getDB().database.execSQL(sql);
+      sql+=String.format(ENGLISH_LOCALE,"%s%s=' || quote(old.%s) || '",sep,column,column);
+      sep=",";
     }
+    sql+="WHERE rowid = ' || old.rowid); END";
+    getDB().database.execSQL(sql);
+    sql=String.format(ENGLISH_LOCALE,"CREATE TEMP TRIGGER _undo_%s_dt " + "BEFORE DELETE ON %s BEGIN " + "INSERT INTO undoLog VALUES "+ "(null, 'INSERT INTO %s (rowid",table,table,table);
+    for (    String column : columns) {
+      sql+=String.format(ENGLISH_LOCALE,",\"%s\"",column);
+    }
+    sql+=") VALUES (' || old.rowid ||'";
+    for (    String column : columns) {
+      if (column.equals("unique")) {
+        sql+=",1";
+        continue;
+      }
+      sql+=String.format(ENGLISH_LOCALE,", ' || quote(old.%s) ||'",column);
+    }
+    sql+=")'); END";
+    getDB().database.execSQL(sql);
   }
 }

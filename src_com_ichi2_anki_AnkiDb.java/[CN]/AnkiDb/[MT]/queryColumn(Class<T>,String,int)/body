@@ -1,9 +1,9 @@
 {
-  ArrayList<T> results=null;
+  ArrayList<T> results=new ArrayList<T>();
+  ;
   Cursor cursor=null;
   try {
     cursor=database.rawQuery(query,null);
-    results=new ArrayList<T>();
     String methodName=getCursorMethodName(type.getSimpleName());
     while (cursor.moveToFirst()) {
       results.add(type.cast(Cursor.class.getMethod(methodName,int.class).invoke(cursor,column)));

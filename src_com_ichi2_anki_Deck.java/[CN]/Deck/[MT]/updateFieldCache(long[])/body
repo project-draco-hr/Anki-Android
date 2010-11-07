@@ -1,0 +1,7 @@
+{
+  Cursor cur=getDB().database.rawQuery("SELECT factId, group_concat(value, ' ') FROM fields " + "WHERE factId IN " + Utils.ids2str(fids) + "GROUP BY factId",null);
+  while (cur.moveToNext()) {
+    getDB().database.execSQL("UPDATE facts SET spaceUntil='" + Utils.stripHTMLMedia(cur.getString(1)) + "' WHERE id ="+ cur.getLong(0));
+  }
+  cur.close();
+}
