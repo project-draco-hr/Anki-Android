@@ -1,0 +1,16 @@
+{
+  String t="";
+  String fam=row.getString(1);
+  int siz=row.getInt(2);
+  String col=row.getString(3);
+  int align=row.getInt(4);
+  String rtl=row.getString(5);
+  if (fam != null) {
+    t+="font-family:\"" + toPlatformFont(fam) + "\";";
+  }
+  if (siz != null) {
+    t+="font-size:" + siz + "px;";
+  }
+  if (col != null) {
+  }
+}

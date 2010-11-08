@@ -4,8 +4,11 @@
   try {
     cur=getDB().database.rawQuery("SELECT factId, group_concat(value, ' ') FROM fields " + "WHERE factId IN " + Utils.ids2str(fids) + " GROUP BY factId",null);
     while (cur.moveToNext()) {
-      String stripped=Utils.stripHTMLMedia(cur.getString(1));
-      r.put(cur.getLong(0),stripped);
+      String values=cur.getString(1);
+      if (values.charAt(0) == ' ') {
+        values=values.substring(1);
+      }
+      r.put(cur.getLong(0),Utils.stripHTMLMedia(values));
     }
   }
  catch (  SQLException e) {
