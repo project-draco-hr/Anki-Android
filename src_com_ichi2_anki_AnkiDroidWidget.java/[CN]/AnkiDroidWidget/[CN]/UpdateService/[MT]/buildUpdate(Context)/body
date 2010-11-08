@@ -1,6 +1,6 @@
 {
   Log.i(AnkiDroidApp.TAG,"buildUpdate");
-  RemoteViews updateViews=new RemoteViews(context.getPackageName(),R.layout.ankidroid_widget_view);
+  RemoteViews updateViews=new RemoteViews(context.getPackageName(),R.layout.widget);
   Deck currentDeck=AnkiDroidApp.deck();
   if (!AnkiDroidApp.isSdCardMounted()) {
     updateViews.setTextViewText(R.id.anki_droid_text,context.getText(R.string.sdcard_missing_message));
