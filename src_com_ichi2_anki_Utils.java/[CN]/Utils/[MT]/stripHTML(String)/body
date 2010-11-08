@@ -1,6 +1,9 @@
 {
-  s.replaceAll("(?s)<style.*?>.*?</style>","");
-  s.replaceAll("(?s)<script.*?>.*?</script>","");
-  s.replaceAll("<.*?>","");
+  Matcher styleMatcher=stylePattern.matcher(s);
+  s=styleMatcher.replaceAll("");
+  Matcher scriptMatcher=scriptPattern.matcher(s);
+  s=scriptMatcher.replaceAll("");
+  Matcher tagMatcher=tagPattern.matcher(s);
+  s=tagMatcher.replaceAll("");
   return s;
 }

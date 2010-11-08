@@ -1,4 +1,4 @@
 {
   Matcher imgMatcher=imgPattern.matcher(s);
-  return stripHTML(imgMatcher.replaceAll("$1"));
+  return stripHTML(imgMatcher.replaceAll(" $1 "));
 }
