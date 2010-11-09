@@ -1,0 +1,36 @@
+{
+  String t="";
+  long id=row.getLong(0);
+  String fam=row.getString(1);
+  int siz=row.getInt(2);
+  String col=row.getString(3);
+  int align=row.getInt(4);
+  String rtl=row.getString(5);
+  if (fam != null) {
+    t+="font-family:\"" + fam + "\";";
+  }
+  if (siz != 0) {
+    t+="font-size:" + siz + "px;";
+  }
+  if (col != null) {
+    t+="color:" + col + ";";
+  }
+  if (rtl != null && rtl.compareTo("rtl") == 0) {
+    t+="direction:rtl;unicode-bidi:embed;";
+  }
+  if (align != -1) {
+    if (align == 0) {
+      t+="text-align:center;";
+    }
+ else     if (align == 1) {
+      t+="text-align:left;";
+    }
+ else {
+      t+="text-align:right;";
+    }
+  }
+  if (t.length() > 0) {
+    t=prefix + Utils.hexifyID(id) + " {"+ t+ "}\n";
+  }
+  return t;
+}

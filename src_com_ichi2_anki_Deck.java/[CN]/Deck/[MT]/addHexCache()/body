@@ -1,0 +1,14 @@
+{
+  ArrayList<Long> ids=getDB().queryColumn(Long.class,"SELECT id FROM fieldModels UNION SELECT id FROM cardModels UNION SELECT id FROM models",0);
+  JSONObject jsonObject=new JSONObject();
+  for (  Long id : ids) {
+    try {
+      jsonObject.put(id.toString(),Utils.hexifyID(id.longValue()));
+    }
+ catch (    JSONException e) {
+      Log.e(TAG,"addHexCache: Error while generating JSONObject: " + e.toString());
+      throw new RuntimeException(e);
+    }
+  }
+  setVar("hexCache",jsonObject.toString(),false);
+}

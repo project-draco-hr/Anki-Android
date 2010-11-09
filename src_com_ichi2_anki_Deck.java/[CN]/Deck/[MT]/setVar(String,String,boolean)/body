@@ -1,14 +1,26 @@
 {
-  Cursor cur=getDB().database.rawQuery("SELECT value FROM deckVars WHERE key = '" + key + "'",null);
-  if (cur.isFirst()) {
-    if (cur.getString(0).equals(value)) {
-      return;
+  Cursor cur=null;
+  try {
+    cur=getDB().database.rawQuery("SELECT value FROM deckVars WHERE key = '" + key + "'",null);
+    if (cur.moveToNext()) {
+      if (cur.getString(0).equals(value)) {
+        return;
+      }
+ else {
+        getDB().database.execSQL("UPDATE deckVars SET value='" + value + "' WHERE key = '"+ key+ "'");
+      }
     }
  else {
-      getDB().database.execSQL("update deckVars set value='" + value + "' where key = '"+ key+ "'",null);
+      getDB().database.execSQL("INSERT INTO deckVars (key, value) VALUES ('" + key + "', '"+ value+ "')");
     }
   }
- else {
-    getDB().database.execSQL("insert into deckVars (key, value) values ('" + value + "', '"+ key+ "')",null);
+ catch (  SQLException e) {
+    Log.e(TAG,"setVar: " + e.toString());
+    throw new RuntimeException(e);
+  }
+ finally {
+    if (cur != null) {
+      cur.close();
+    }
   }
 }
