@@ -5,5 +5,5 @@
   s=scriptMatcher.replaceAll("");
   Matcher tagMatcher=tagPattern.matcher(s);
   s=tagMatcher.replaceAll("");
-  return s;
+  return entsToTxt(s);
 }
