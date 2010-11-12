@@ -14,7 +14,6 @@
     mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
   }
   String card=mCardTemplate.replace("::content::",content);
-  Log.i(AnkiDroidApp.TAG,"card html = \n" + card);
   mCard.loadDataWithBaseURL("file://" + mDeckFilename.replace(".anki",".media/"),card,"text/html","utf-8",null);
   Sound.playSounds();
 }

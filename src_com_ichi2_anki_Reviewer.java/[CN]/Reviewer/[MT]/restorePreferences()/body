@@ -9,6 +9,5 @@
   mPrefFullscreenReview=preferences.getBoolean("fullscreenReview",true);
   mDisplayFontSize=Integer.parseInt(preferences.getString("displayFontSize",Integer.toString(CardModel.DEFAULT_FONT_SIZE_RATIO)));
   mPrefHideQuestionInAnswer=Integer.parseInt(preferences.getString("hideQuestionInAnswer",Integer.toString(HQIA_DO_SHOW)));
-  refreshCard();
   return preferences;
 }

@@ -1,6 +1,5 @@
 {
   updateCounts();
-  mFlipCard.setChecked(false);
   if (mPrefWriteAnswers) {
     mAnswerField.setText("");
   }
@@ -11,4 +10,5 @@
     mCardTimer.setBase(SystemClock.elapsedRealtime());
     mCardTimer.start();
   }
+  displayCardQuestion();
 }
