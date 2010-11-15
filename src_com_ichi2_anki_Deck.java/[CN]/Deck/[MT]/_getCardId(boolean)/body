@@ -4,7 +4,7 @@
   updateNewCountToday();
   if (!failedQueue.isEmpty()) {
     if (delay0 != 0l) {
-      if ((long)((QueueItem)failedQueue.getLast()).getDue() < System.currentTimeMillis() / 1000 + delay0) {
+      if ((long)((QueueItem)failedQueue.getLast()).getDue() + delay0 < System.currentTimeMillis() / 1000) {
         return failedQueue.getLast().getCardID();
       }
     }
