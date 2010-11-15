@@ -10,6 +10,21 @@
   requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
   initAllContentViews();
   initAllDialogs();
+  if (deck.hasFinishScheduler()) {
+    mEditNewPerDay.setEnabled(false);
+    mEditSessionTime.setEnabled(false);
+    mEditSessionQuestions.setEnabled(false);
+    mStudyOptionsView.findViewById(R.id.studyoptions_more).setEnabled(false);
+  }
+ else {
+    mEditNewPerDay.setEnabled(true);
+    mEditSessionTime.setEnabled(true);
+    mEditSessionQuestions.setEnabled(true);
+    mStudyOptionsView.findViewById(R.id.studyoptions_more).setEnabled(true);
+  }
+  if (deck.hasFinishScheduler()) {
+    deck.finishScheduler();
+  }
   Intent intent=getIntent();
   if ("android.intent.action.VIEW".equalsIgnoreCase(intent.getAction()) && intent.getDataString() != null) {
     deckFilename=Uri.parse(intent.getDataString()).getPath();
