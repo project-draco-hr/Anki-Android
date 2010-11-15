@@ -3,6 +3,7 @@
   mTextTitle=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_title);
   mTextDeckName=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_name);
   mButtonStart=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_start);
+  mToggleCram=(ToggleButton)mStudyOptionsView.findViewById(R.id.studyoptions_cram);
   mStudyOptionsView.findViewById(R.id.studyoptions_more).setOnClickListener(mButtonClickListener);
   mTextReviewsDue=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_reviews_due);
   mTextNewToday=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_new_today);
@@ -11,6 +12,7 @@
   mEditSessionTime=(EditText)mStudyOptionsView.findViewById(R.id.studyoptions_session_minutes);
   mEditSessionQuestions=(EditText)mStudyOptionsView.findViewById(R.id.studyoptions_session_questions);
   mButtonStart.setOnClickListener(mButtonClickListener);
+  mToggleCram.setOnClickListener(mButtonClickListener);
   mEditNewPerDay.setOnFocusChangeListener(mEditFocusListener);
   mEditSessionTime.setOnFocusChangeListener(mEditFocusListener);
   mEditSessionQuestions.setOnFocusChangeListener(mEditFocusListener);
