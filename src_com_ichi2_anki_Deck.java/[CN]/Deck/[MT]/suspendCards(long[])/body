@@ -1,5 +1,5 @@
 {
-  getDB().database.execSQL("UPDATE cards SET type = (CASE " + "WHEN successive = 0 THEN -2 WHEN reps THEN -3 ELSE -1 END), " + "priority = -3, modified = " + String.format(ENGLISH_LOCALE,"%f",(double)(System.currentTimeMillis() / 1000.0)) + ", isDue = 0 WHERE type >= 0 AND id IN "+ Utils.ids2str(ids));
+  getDB().database.execSQL("UPDATE cards SET type = relativeDelay -3, priority = -3, modified = " + String.format(ENGLISH_LOCALE,"%f",(double)(System.currentTimeMillis() / 1000.0)) + ", isDue = 0 WHERE type >= 0 AND id IN "+ Utils.ids2str(ids));
   flushMod();
   reset();
 }

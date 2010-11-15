@@ -2,10 +2,10 @@
   double due;
   if (ease == 1) {
     if (oldState.equals("mature")) {
-      due=delay1;
+      due=delay1 * 86400.0;
     }
  else {
-      due=delay0;
+      due=0.0;
     }
   }
  else {

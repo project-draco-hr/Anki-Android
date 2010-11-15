@@ -3,8 +3,10 @@
   fillQueues();
   updateNewCountToday();
   if (!failedQueue.isEmpty()) {
-    if ((delay0 != 0) && (((QueueItem)failedQueue.getLast()).getDue() < System.currentTimeMillis() / 1000)) {
-      return failedQueue.getLast().getCardID();
+    if (delay0 != 0l) {
+      if ((long)((QueueItem)failedQueue.getLast()).getDue() < System.currentTimeMillis() / 1000 + delay0) {
+        return failedQueue.getLast().getCardID();
+      }
     }
     if ((failedCardMax != 0) && (failedSoonCount >= failedCardMax)) {
       return failedQueue.getLast().getCardID();

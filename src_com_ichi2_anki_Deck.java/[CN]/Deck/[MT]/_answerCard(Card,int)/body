@@ -38,7 +38,10 @@
   }
   card.updateStats(ease,oldState);
   card.type=cardType(card);
-  card.due=Math.max(card.due,dueCutoff + 1);
+  card.relativeDelay=card.type;
+  if (ease != 1) {
+    card.due=Math.max(card.due,dueCutoff + 1);
+  }
   if (answerPreSaveMethod != null) {
     answerPreSave(card,ease);
   }

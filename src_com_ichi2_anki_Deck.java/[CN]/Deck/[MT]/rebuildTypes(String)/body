@@ -6,6 +6,6 @@
  else {
     where=" WHERE " + lim;
   }
-  getDB().database.execSQL("UPDATE cards SET type = (CASE " + "WHEN successive = 0 AND reps != 0 THEN 0 " + "WHEN successive != 0 AND reps != 0 THEN 1 "+ "ELSE 2 "+ "END)"+ where);
+  getDB().database.execSQL("UPDATE cards SET " + "type = (CASE " + "WHEN successive THEN 1 WHEN reps THEN 0 ELSE 2 END), "+ "relativeDelay = (CASE "+ "WHEN successive THEN 1 WHEN reps THEN 0 ELSE 2 END)");
   getDB().database.execSQL("UPDATE cards SET type = type - 3 WHERE priority = 0 AND type >= 0");
 }

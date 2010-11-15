@@ -1,2 +1,22 @@
 {
+  Calendar cal=Calendar.getInstance();
+  cal.add(Calendar.SECOND,(int)-utcOffset + 86400);
+  cal.set(Calendar.HOUR,0);
+  cal.set(Calendar.MINUTE,0);
+  cal.set(Calendar.SECOND,0);
+  cal.set(Calendar.MILLISECOND,0);
+  int newday=(int)utcOffset - (cal.get(Calendar.ZONE_OFFSET) + cal.get(Calendar.DST_OFFSET)) / 1000;
+  Log.d(TAG,"New day happening at " + newday + " sec after 00:00 UTC");
+  cal.add(Calendar.SECOND,newday);
+  long cutoff=cal.getTimeInMillis() / 1000;
+  while (cutoff < System.currentTimeMillis() / 1000) {
+    cutoff+=86400.0;
+  }
+  cutoff=Math.min(System.currentTimeMillis() / 1000 + 86400,cutoff);
+  if (getBool("perDay")) {
+    dueCutoff=(double)cutoff;
+  }
+ else {
+    dueCutoff=(double)System.currentTimeMillis() / 1000.0;
+  }
 }

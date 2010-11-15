@@ -11,7 +11,6 @@
         factIds.add(facts.getJSONArray(i).getString(0));
       }
       String factIdsString=Utils.ids2str(factIds);
-      deck.factCount+=lenFacts - ankiDB.queryScalar("SELECT COUNT(*) FROM facts WHERE id IN " + factIdsString);
       String sqlFact="INSERT OR REPLACE INTO facts (id, modelId, created, modified, tags, spaceUntil, lastCardId) VALUES(?,?,?,?,?,?,?)";
       SQLiteStatement statement=ankiDB.database.compileStatement(sqlFact);
       for (int i=0; i < lenFacts; i++) {
