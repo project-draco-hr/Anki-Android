@@ -25,18 +25,12 @@
   mEase4.setOnClickListener(mSelectEaseHandler);
   mFlipCard=(Button)findViewById(R.id.flip_card);
   mFlipCard.setOnClickListener(mFlipCardListener);
+  mFlipCard.setText(getResources().getString(R.string.show_answer));
   mTextBarRed=(TextView)findViewById(R.id.red_number);
   mTextBarBlack=(TextView)findViewById(R.id.black_number);
   mTextBarBlue=(TextView)findViewById(R.id.blue_number);
-  if (mPrefTimer) {
-    mCardTimer=(Chronometer)findViewById(R.id.card_time);
-  }
-  if (mPrefWhiteboard) {
-    mWhiteboard=(Whiteboard)findViewById(R.id.whiteboard);
-  }
-  if (mPrefWriteAnswers) {
-    mAnswerField=(EditText)findViewById(R.id.answer_field);
-  }
-  hideEaseButtons();
-  showControls();
+  mCardTimer=(Chronometer)findViewById(R.id.card_time);
+  mWhiteboard=(Whiteboard)findViewById(R.id.whiteboard);
+  mAnswerField=(EditText)findViewById(R.id.answer_field);
+  initControls();
 }

@@ -23,7 +23,7 @@
  else {
     displayString=enrichWithQASpan(mCurrentCard.getAnswer(),true);
   }
-  if (questionIsDisplayed()) {
+  if (isQuestionDisplayed()) {
     StringBuffer sb=new StringBuffer();
     sb.append(enrichWithQASpan(mCurrentCard.getQuestion(),false));
     sb.append("<hr/>");

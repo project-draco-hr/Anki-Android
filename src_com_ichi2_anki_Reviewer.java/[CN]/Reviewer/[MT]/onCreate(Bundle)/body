@@ -13,7 +13,7 @@
     }
     requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
     registerExternalStorageListener();
-    initLayout(R.layout.flashcard_portrait);
+    initLayout(R.layout.flashcard);
     try {
       mCardTemplate=Utils.convertStreamToString(getAssets().open("card_template.html"));
       mCardTemplate=mCardTemplate.replaceFirst("var availableWidth = \\d*;","var availableWidth = " + getAvailableWidthInCard() + ";");

@@ -1,8 +1,19 @@
 {
   super.onConfigurationChanged(newConfig);
   Log.i(AnkiDroidApp.TAG,"onConfigurationChanged");
+  long savedTimer=mCardTimer.getBase();
+  CharSequence savedAnswerField=mAnswerField.getText();
+  initLayout(R.layout.flashcard);
   mCardTemplate=mCardTemplate.replaceFirst("var availableWidth = \\d*;","var availableWidth = " + getAvailableWidthInCard() + ";");
   refreshCard();
+  updateScreenCounts();
+  if (mPrefTimer) {
+    mCardTimer.setBase(savedTimer);
+    mCardTimer.start();
+  }
+  if (mPrefWriteAnswers) {
+    mAnswerField.setText(savedAnswerField);
+  }
   if (mPrefWhiteboard) {
     mWhiteboard.rotate();
   }
