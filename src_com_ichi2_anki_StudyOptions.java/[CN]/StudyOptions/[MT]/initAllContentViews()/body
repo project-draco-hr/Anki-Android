@@ -16,7 +16,7 @@
   mEditNewPerDay.setOnFocusChangeListener(mEditFocusListener);
   mEditSessionTime.setOnFocusChangeListener(mEditFocusListener);
   mEditSessionQuestions.setOnFocusChangeListener(mEditFocusListener);
-  mDialogMoreOptions=createDialog();
+  mDialogMoreOptions=createMoreOptionsDialog();
   mNoDeckView=getLayoutInflater().inflate(R.layout.studyoptions_nodeck,null);
   mTextNoDeckTitle=(TextView)mNoDeckView.findViewById(R.id.studyoptions_nodeck_title);
   mTextNoDeckMessage=(TextView)mNoDeckView.findViewById(R.id.studyoptions_nodeck_message);

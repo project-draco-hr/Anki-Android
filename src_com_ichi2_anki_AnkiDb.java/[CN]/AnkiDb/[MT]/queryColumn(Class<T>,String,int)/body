@@ -7,7 +7,6 @@
     String methodName=getCursorMethodName(type.getSimpleName());
     while (cursor.moveToNext()) {
       results.add(type.cast(Cursor.class.getMethod(methodName,int.class).invoke(cursor,column)));
-      Log.i(TAG,"results num: " + results.size());
     }
   }
  catch (  NoSuchMethodException e) {

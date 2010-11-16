@@ -1,7 +1,7 @@
 {
   Cursor cursor=null;
   try {
-    cursor=getDB().database.rawQuery("SELECT type, count(type) FROM cards WHERE factId = " + card.factId + " AND combinedDue < "+ dueCutoff+ " id != "+ card.id+ ") GROUP BY type",null);
+    cursor=getDB().database.rawQuery("SELECT type, count(type) FROM cards WHERE factId = " + card.factId + " AND combinedDue < "+ dueCutoff+ " AND id != "+ card.id+ ") GROUP BY type",null);
     while (cursor.moveToNext()) {
       Log.i(TAG,"failedSoonCount before = " + failedSoonCount);
       Log.i(TAG,"revCount before = " + revCount);

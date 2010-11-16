@@ -1,7 +1,6 @@
 {
   try {
     rebuildFailedCountMethod.invoke(Deck.this);
-    Log.e(TAG,"aaaaa");
   }
  catch (  IllegalArgumentException e) {
     throw new RuntimeException(e);
