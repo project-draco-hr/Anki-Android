@@ -9,10 +9,14 @@
     mAnswerField.setVisibility(View.GONE);
     if (mCurrentCard != null) {
       String userAnswer=mAnswerField.getText().toString();
-      Matcher spanMatcher=sSpanPattern.matcher(mCurrentCard.getAnswer());
-      String correctAnswer=spanMatcher.replaceAll("");
-      Matcher brMatcher=sBrPattern.matcher(correctAnswer);
-      correctAnswer=brMatcher.replaceAll("\n");
+      Matcher matcher=sSpanPattern.matcher(mCurrentCard.getAnswer());
+      String correctAnswer=matcher.replaceAll("");
+      matcher=sBrPattern.matcher(correctAnswer);
+      correctAnswer=matcher.replaceAll("\n");
+      matcher=Sound.sSoundPattern.matcher(correctAnswer);
+      correctAnswer=matcher.replaceAll("");
+      matcher=Image.sImagePattern.matcher(correctAnswer);
+      correctAnswer=matcher.replaceAll("");
       Log.i(AnkiDroidApp.TAG,"correct answer = " + correctAnswer);
       DiffEngine diff=new DiffEngine();
       displayString=enrichWithQASpan(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer)) + "<br/>" + mCurrentCard.getAnswer(),true);
