@@ -1,0 +1,8 @@
+{
+  AnkiDroidApp.deck().setupCramScheduler(activeCramTags.toArray(new String[activeCramTags.size()]),cramOrder);
+  mEditNewPerDay.setEnabled(false);
+  mEditSessionTime.setEnabled(false);
+  mEditSessionQuestions.setEnabled(false);
+  mStudyOptionsView.findViewById(R.id.studyoptions_more).setEnabled(false);
+  updateValuesFromDeck();
+}

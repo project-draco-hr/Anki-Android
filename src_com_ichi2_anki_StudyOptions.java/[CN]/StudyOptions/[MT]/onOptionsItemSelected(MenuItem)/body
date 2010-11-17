@@ -1,0 +1,36 @@
+{
+  Log.i(TAG,"Item = " + item.getItemId());
+switch (item.getItemId()) {
+case MENU_OPEN:
+    openDeckPicker();
+  return true;
+case MENU_DOWNLOAD_PERSONAL_DECK:
+if (AnkiDroidApp.isUserLoggedIn()) {
+  startActivityForResult(new Intent(StudyOptions.this,PersonalDeckPicker.class),DOWNLOAD_PERSONAL_DECK);
+}
+ else {
+  mUserNotLoggedInAlert.show();
+}
+return true;
+case MENU_DOWNLOAD_SHARED_DECK:
+startActivityForResult(new Intent(StudyOptions.this,SharedDeckPicker.class),DOWNLOAD_SHARED_DECK);
+return true;
+case MENU_SYNC:
+syncDeck();
+return true;
+case MENU_MY_ACCOUNT:
+startActivity(new Intent(StudyOptions.this,MyAccount.class));
+return true;
+case MENU_PREFERENCES:
+startActivityForResult(new Intent(StudyOptions.this,Preferences.class),PREFERENCES_UPDATE);
+return true;
+case MENU_ADD_FACT:
+startActivity(new Intent(StudyOptions.this,FactAdder.class));
+return true;
+case MENU_ABOUT:
+startActivity(new Intent(StudyOptions.this,About.class));
+return true;
+default :
+return super.onOptionsItemSelected(item);
+}
+}

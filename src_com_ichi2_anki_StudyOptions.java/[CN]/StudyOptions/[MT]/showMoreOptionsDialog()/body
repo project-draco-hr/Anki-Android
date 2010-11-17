@@ -1,0 +1,9 @@
+{
+  Deck deck=AnkiDroidApp.deck();
+  mSpinnerNewCardOrder.setSelection(deck.getNewCardOrder());
+  mSpinnerNewCardSchedule.setSelection(deck.getNewCardSpacing());
+  mSpinnerRevCardOrder.setSelection(deck.getRevCardOrder());
+  mSpinnerFailCardOption.setVisibility(View.GONE);
+  mCheckBoxPerDay.setChecked(deck.getPerDay());
+  mDialogMoreOptions.show();
+}

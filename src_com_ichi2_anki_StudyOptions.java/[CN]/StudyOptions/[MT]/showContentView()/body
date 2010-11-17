@@ -1,0 +1,37 @@
+{
+switch (mCurrentContentView) {
+case CONTENT_NO_DECK:
+    setTitle(R.string.app_name);
+  mTextNoDeckTitle.setText(R.string.studyoptions_nodeck_title);
+mTextNoDeckMessage.setText(String.format(getResources().getString(R.string.studyoptions_nodeck_message),prefDeckPath));
+setContentView(mNoDeckView);
+break;
+case CONTENT_DECK_NOT_LOADED:
+setTitle(R.string.app_name);
+mTextNoDeckTitle.setText(R.string.studyoptions_deck_not_loaded_title);
+mTextNoDeckMessage.setText(R.string.studyoptions_deck_not_loaded_message);
+setContentView(mNoDeckView);
+break;
+case CONTENT_STUDY_OPTIONS:
+updateValuesFromDeck();
+mButtonStart.setText(R.string.studyoptions_start);
+mToggleCram.setChecked(false);
+mTextTitle.setText(R.string.studyoptions_title);
+setContentView(mStudyOptionsView);
+break;
+case CONTENT_SESSION_COMPLETE:
+updateValuesFromDeck();
+mButtonStart.setText(R.string.studyoptions_continue);
+mTextTitle.setText(R.string.studyoptions_well_done);
+setContentView(mStudyOptionsView);
+break;
+case CONTENT_CONGRATS:
+updateValuesFromDeck();
+setContentView(mCongratsView);
+break;
+case CONTENT_NO_EXTERNAL_STORAGE:
+setTitle(R.string.app_name);
+setContentView(mNoExternalStorageView);
+break;
+}
+}

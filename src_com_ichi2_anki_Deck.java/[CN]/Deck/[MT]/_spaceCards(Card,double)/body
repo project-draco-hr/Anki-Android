@@ -1,7 +1,7 @@
 {
   Cursor cursor=null;
   try {
-    cursor=getDB().database.rawQuery("SELECT type, count(type) FROM cards WHERE factId = " + card.factId + " AND combinedDue < "+ dueCutoff+ " AND id != "+ card.id+ ") GROUP BY type",null);
+    cursor=getDB().database.rawQuery("SELECT type, count(type) FROM cards WHERE factId = " + card.factId + " AND combinedDue < "+ dueCutoff+ " AND id != "+ card.id+ " GROUP BY type",null);
     while (cursor.moveToNext()) {
       Log.i(TAG,"failedSoonCount before = " + failedSoonCount);
       Log.i(TAG,"revCount before = " + revCount);
@@ -27,6 +27,6 @@
       cursor.close();
     }
   }
-  getDB().database.execSQL(String.format(ENGLISH_LOCALE,"UPDATE cards SET spaceUntil = %f, " + "combinedDue = max(%f, due), modified = %f, isDue = 0 WHERE id != %ld and factId = %ld",space,space,((double)System.currentTimeMillis() / 1000.0),card.id,card.factId));
+  getDB().database.execSQL(String.format(ENGLISH_LOCALE,"UPDATE cards SET spaceUntil = %f, " + "combinedDue = max(%f, due), modified = %f, isDue = 0 WHERE id != %d and factId = %d",space,space,((double)System.currentTimeMillis() / 1000.0),card.id,card.factId));
   spacedFacts.put(card.factId,space);
 }
