@@ -1,0 +1,3 @@
+{
+  newCount=(int)getDB().queryScalar("SELECT count() FROM cards WHERE type = 2 AND combinedDue < " + dueCutoff);
+}

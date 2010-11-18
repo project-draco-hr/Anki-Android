@@ -1,0 +1,10 @@
+{
+  if ((newCount != 0) && newQueue.isEmpty()) {
+    String sql="SELECT c.id, factId, combinedDue FROM cards c WHERE type = 2 AND combinedDue < " + dueCutoff + " ORDER BY "+ newOrder()+ " LIMIT "+ queueLimit;
+    Cursor cur=getDB().database.rawQuery(cardLimit("newActive","newInactive",sql),null);
+    while (cur.moveToNext()) {
+      QueueItem qi=new QueueItem(cur.getLong(0),cur.getLong(1),cur.getDouble(2));
+      newQueue.addFirst(qi);
+    }
+  }
+}

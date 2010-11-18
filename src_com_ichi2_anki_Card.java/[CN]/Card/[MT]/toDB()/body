@@ -1,13 +1,4 @@
 {
-  if (isNew()) {
-    mType=TYPE_NEW;
-  }
- else   if (isRev()) {
-    mType=TYPE_REV;
-  }
- else {
-    mType=TYPE_FAILED;
-  }
   ContentValues values=new ContentValues();
   values.put("factId",mFactId);
   values.put("cardModelId",mCardModelId);
@@ -42,7 +33,7 @@
   values.put("yesCount",mYesCount);
   values.put("noCount",mNoCount);
   values.put("spaceUntil",mSpaceUntil);
-  values.put("isDue",mIsDue);
+  values.put("isDue",0);
   values.put("type",mType);
   values.put("combinedDue",Math.max(mSpaceUntil,mDue));
   values.put("relativeDelay",0.0);

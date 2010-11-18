@@ -1,14 +1,8 @@
 {
-  String str="(";
-  int len=ids.length;
-  for (int i=0; i < len; i++) {
-    if (i == (len - 1)) {
-      str+=ids[i];
-    }
- else {
-      str+=ids[i] + ",";
-    }
+  String str="()";
+  if (ids != null) {
+    str=Arrays.toString(ids);
+    str="(" + str.substring(1,str.length() - 1) + ")";
   }
-  str+=")";
   return str;
 }

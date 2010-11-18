@@ -1,0 +1,11 @@
+{
+  try {
+    rebuildNewCountMethod=Deck.class.getDeclaredMethod("_rebuildLearnMoreCount");
+    updateNewCountTodayMethod=Deck.class.getDeclaredMethod("_updateLearnMoreCountToday");
+    finishSchedulerMethod=Deck.class.getDeclaredMethod("setupStandardScheduler");
+  }
+ catch (  NoSuchMethodException e) {
+    throw new RuntimeException(e);
+  }
+  scheduler="learnMore";
+}

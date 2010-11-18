@@ -1,0 +1,4 @@
+{
+  getDB().database.execSQL("UPDATE cards SET " + "type = (CASE " + "WHEN successive THEN 1 WHEN reps THEN 0 ELSE 2 END), "+ "relativeDelay = (CASE "+ "WHEN successive THEN 1 WHEN reps THEN 0 ELSE 2 END) "+ "WHERE type >= 0");
+  getDB().database.execSQL("UPDATE cards SET type = type - 3 WHERE priority = -3 AND type >= 0");
+}

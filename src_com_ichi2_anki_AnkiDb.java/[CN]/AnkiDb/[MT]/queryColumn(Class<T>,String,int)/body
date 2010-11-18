@@ -1,17 +1,25 @@
 {
   ArrayList<T> results=new ArrayList<T>();
+  ;
   Cursor cursor=null;
   try {
     cursor=mDatabase.rawQuery(query,null);
-    cursor.moveToFirst();
     String methodName=getCursorMethodName(type.getSimpleName());
-    do {
+    while (cursor.moveToNext()) {
       results.add(type.cast(Cursor.class.getMethod(methodName,int.class).invoke(cursor,column)));
     }
- while (cursor.moveToNext());
   }
- catch (  Exception e) {
-    Log.e(AnkiDroidApp.TAG,"queryColumn: Got Exception: " + e.getMessage());
+ catch (  NoSuchMethodException e) {
+    throw new RuntimeException(e);
+  }
+catch (  IllegalArgumentException e) {
+    throw new RuntimeException(e);
+  }
+catch (  IllegalAccessException e) {
+    throw new RuntimeException(e);
+  }
+catch (  InvocationTargetException e) {
+    throw new RuntimeException(e);
   }
  finally {
     if (cursor != null) {

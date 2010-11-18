@@ -1,10 +1,2 @@
 {
-  long id=0;
-  try {
-    id=AnkiDatabaseManager.getDatabase(mDeckPath).queryScalar("SELECT id FROM cards WHERE isDue = 0 and type = " + Card.TYPE_REV + " and priority in ("+ Card.PRIORITY_LOW+ ","+ Card.PRIORITY_NORMAL+ ","+ Card.PRIORITY_MEDIUM+ ","+ Card.PRIORITY_HIGH+ ")"+ " ORDER BY combinedDue LIMIT 1");
-  }
- catch (  SQLException e) {
-    return 0;
-  }
-  return id;
 }

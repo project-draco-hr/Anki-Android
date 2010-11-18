@@ -5,8 +5,8 @@
     mCollapseTime=deckPayload.getDouble("collapseTime");
     mCreated=deckPayload.getDouble("created");
     mCurrentModelId=deckPayload.getLong("currentModelId");
-    mDelay0=deckPayload.getDouble("delay0");
-    mDelay1=deckPayload.getDouble("delay1");
+    mDelay0=deckPayload.getLong("delay0");
+    mDelay1=deckPayload.getLong("delay1");
     mDelay2=deckPayload.getDouble("delay2");
     mDescription=deckPayload.getString("description");
     mEasyIntervalMax=deckPayload.getDouble("easyIntervalMax");

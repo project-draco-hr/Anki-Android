@@ -1,0 +1,4 @@
+{
+  Matcher imgMatcher=imgPattern.matcher(s);
+  return stripHTML(imgMatcher.replaceAll(" $1 "));
+}

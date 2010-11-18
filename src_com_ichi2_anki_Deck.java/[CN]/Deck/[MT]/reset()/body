@@ -1,0 +1,24 @@
+{
+  globalStats=Stats.globalStats(this);
+  dailyStats=Stats.dailyStats(this);
+  rebuildCounts();
+  failedQueue.clear();
+  revQueue.clear();
+  newQueue.clear();
+  spacedFacts.clear();
+  if (newCardSpacing == NEW_CARDS_DISTRIBUTE) {
+    if (newCountToday != 0) {
+      newCardModulus=(newCountToday + revCount) / newCountToday;
+      if (revCount != 0) {
+        newCardModulus=Math.max(2,newCardModulus);
+      }
+    }
+ else {
+      newCardModulus=0;
+    }
+  }
+ else {
+    newCardModulus=0;
+  }
+  rebuildCSS();
+}

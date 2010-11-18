@@ -1,0 +1,8 @@
+{
+  if (tags != null && tags.length() != 0) {
+    return tags.split(" +|, *");
+  }
+ else {
+    return new String[]{};
+  }
+}

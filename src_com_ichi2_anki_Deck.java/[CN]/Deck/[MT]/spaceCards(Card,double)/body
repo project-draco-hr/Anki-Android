@@ -1,0 +1,14 @@
+{
+  try {
+    spaceCardsMethod.invoke(Deck.this,card,space);
+  }
+ catch (  IllegalArgumentException e) {
+    throw new RuntimeException(e);
+  }
+catch (  IllegalAccessException e) {
+    throw new RuntimeException(e);
+  }
+catch (  InvocationTargetException e) {
+    throw new RuntimeException(e);
+  }
+}

@@ -1,0 +1,12 @@
+{
+  double now=System.currentTimeMillis() / 1000.0;
+  if (cardIsNew(card)) {
+    return 0;
+  }
+  if (card.combinedDue <= now) {
+    return (now - card.due) / 86400.0;
+  }
+ else {
+    return (now - card.combinedDue) / 86400.0;
+  }
+}

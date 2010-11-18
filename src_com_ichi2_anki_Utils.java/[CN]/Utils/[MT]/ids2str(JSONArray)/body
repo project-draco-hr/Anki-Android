@@ -1,17 +1,19 @@
 {
   String str="(";
-  int len=ids.length();
-  for (int i=0; i < len; i++) {
-    try {
-      if (i == (len - 1)) {
-        str+=ids.get(i);
-      }
+  if (ids != null) {
+    int len=ids.length();
+    for (int i=0; i < len; i++) {
+      try {
+        if (i == (len - 1)) {
+          str+=ids.get(i);
+        }
  else {
-        str+=ids.get(i) + ",";
+          str+=ids.get(i) + ",";
+        }
       }
-    }
- catch (    JSONException e) {
-      Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
+ catch (      JSONException e) {
+        Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
+      }
     }
   }
   str+=")";

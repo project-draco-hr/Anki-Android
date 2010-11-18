@@ -15,6 +15,7 @@ break;
 case CONTENT_STUDY_OPTIONS:
 updateValuesFromDeck();
 mButtonStart.setText(R.string.studyoptions_start);
+mToggleCram.setChecked(false);
 mTextTitle.setText(R.string.studyoptions_title);
 setContentView(mStudyOptionsView);
 break;

@@ -6,7 +6,7 @@
   mTagsBySrc[TAGS_TEMPL]="";
   mId=Utils.genID();
   mType=TYPE_NEW;
-  mIsDue=1;
+  mRelativeDelay=mType;
   mTimerStarted=Double.NaN;
   mTimerStopped=Double.NaN;
   mModified=Utils.now();

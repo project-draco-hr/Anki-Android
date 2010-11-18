@@ -1,15 +1,2 @@
 {
-  double due;
-  if (ease == Card.EASE_FAILED) {
-    if (oldState.equals(Card.STATE_MATURE)) {
-      due=mDelay1;
-    }
- else {
-      due=mDelay0;
-    }
-  }
- else {
-    due=card.getInterval() * 86400.0;
-  }
-  return (due + Utils.now());
 }

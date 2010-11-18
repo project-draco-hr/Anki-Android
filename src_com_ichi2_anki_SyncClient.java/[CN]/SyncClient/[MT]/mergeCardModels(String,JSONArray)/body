@@ -1,8 +1,7 @@
 {
   ArrayList<String> ids=new ArrayList<String>();
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath());
   String sql="INSERT OR REPLACE INTO cardModels (id, ordinal, modelId, name, description, active, qformat, " + "aformat, lformat, qedformat, aedformat, questionInAnswer, questionFontFamily, questionFontSize, " + "questionFontColour, questionAlign, answerFontFamily, answerFontSize, answerFontColour, answerAlign, "+ "lastFontFamily, lastFontSize, lastFontColour, editQuestionFontFamily, editQuestionFontSize, "+ "editAnswerFontFamily, editAnswerFontSize, allowEmptyAnswer, typeAnswer) "+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-  SQLiteStatement statement=ankiDB.getDatabase().compileStatement(sql);
+  SQLiteStatement statement=mDeck.getDB().getDatabase().compileStatement(sql);
   int len=cardModels.length();
   for (int i=0; i < len; i++) {
     try {
@@ -83,10 +82,12 @@
     }
   }
   statement.close();
-  ArrayList<String> cardModelsIds=ankiDB.queryColumn(String.class,"SELECT id FROM cardModels WHERE modelId = " + modelId,0);
-  for (  String cardModelId : cardModelsIds) {
-    if (!ids.contains(cardModelId)) {
-      mDeck.deleteCardModel(modelId,cardModelId);
+  ArrayList<String> cardModelsIds=mDeck.getDB().queryColumn(String.class,"SELECT id FROM cardModels WHERE modelId = " + modelId,0);
+  if (cardModelsIds != null) {
+    for (    String cardModelId : cardModelsIds) {
+      if (!ids.contains(cardModelId)) {
+        mDeck.deleteCardModel(modelId,cardModelId);
+      }
     }
   }
 }

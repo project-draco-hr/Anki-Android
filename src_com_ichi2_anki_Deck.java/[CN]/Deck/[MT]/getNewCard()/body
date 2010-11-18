@@ -1,10 +1,2 @@
 {
-  long id;
-  try {
-    id=AnkiDatabaseManager.getDatabase(mDeckPath).queryScalar("SELECT id " + "FROM " + newCardTable() + "LIMIT 1");
-  }
- catch (  Exception e) {
-    return 0;
-  }
-  return id;
 }

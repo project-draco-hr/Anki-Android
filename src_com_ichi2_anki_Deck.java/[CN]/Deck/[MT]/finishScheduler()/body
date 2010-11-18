@@ -1,0 +1,14 @@
+{
+  try {
+    finishSchedulerMethod.invoke(Deck.this);
+  }
+ catch (  IllegalArgumentException e) {
+    throw new RuntimeException(e);
+  }
+catch (  IllegalAccessException e) {
+    throw new RuntimeException(e);
+  }
+catch (  InvocationTargetException e) {
+    throw new RuntimeException(e);
+  }
+}

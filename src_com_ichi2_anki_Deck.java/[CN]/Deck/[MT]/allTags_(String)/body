@@ -1,0 +1,11 @@
+{
+  ArrayList<String> t=new ArrayList<String>();
+  t.addAll(getDB().queryColumn(String.class,"SELECT tags FROM facts " + where,0));
+  t.addAll(getDB().queryColumn(String.class,"SELECT tags FROM models",0));
+  t.addAll(getDB().queryColumn(String.class,"SELECT name FROM cardModels",0));
+  String joined=Utils.joinTags(t);
+  String[] parsed=Utils.parseTags(joined);
+  List<String> joinedList=Arrays.asList(parsed);
+  TreeSet<String> joinedSet=new TreeSet<String>(joinedList);
+  return joinedSet.toArray(new String[joinedSet.size()]);
+}

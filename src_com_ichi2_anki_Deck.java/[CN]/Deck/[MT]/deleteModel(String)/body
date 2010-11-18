@@ -1,16 +1,2 @@
 {
-  Log.i(AnkiDroidApp.TAG,"deleteModel = " + id);
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeckPath);
-  Cursor cursor=ankiDB.getDatabase().rawQuery("SELECT * FROM models WHERE id = " + id,null);
-  if (cursor.moveToFirst()) {
-    ArrayList<String> cardsToDelete=ankiDB.queryColumn(String.class,"SELECT cards.id FROM cards, facts WHERE facts.modelId = " + id + " AND facts.id = cards.factId",0);
-    deleteCards(cardsToDelete);
-    ankiDB.getDatabase().execSQL("DELETE FROM models WHERE id = " + id);
-    ContentValues values=new ContentValues();
-    values.put("modelId",id);
-    values.put("deletedTime",Utils.now());
-    ankiDB.getDatabase().insert("modelsDeleted",null,values);
-    flushMod();
-  }
-  cursor.close();
 }

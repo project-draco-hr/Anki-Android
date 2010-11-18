@@ -1,0 +1,62 @@
+{
+  for (  String s : new String[]{lowPriority,medPriority,highPriority,suspended}) {
+    tagIds(Utils.parseTags(s));
+  }
+  HashMap<Long,Integer> newPriorities=new HashMap<Long,Integer>();
+  Cursor cur=null;
+  ArrayList<String> tagNames=null;
+  ArrayList<Long> tagIdList=null;
+  ArrayList<Integer> tagPriorities=null;
+  try {
+    tagNames=new ArrayList<String>();
+    tagIdList=new ArrayList<Long>();
+    tagPriorities=new ArrayList<Integer>();
+    cur=getDB().database.rawQuery("SELECT tag, id, priority FROM tags",null);
+    while (cur.moveToNext()) {
+      tagNames.add(cur.getString(0).toLowerCase());
+      tagIdList.add(cur.getLong(1));
+      tagPriorities.add(cur.getInt(2));
+    }
+  }
+ catch (  SQLException e) {
+    Log.e(TAG,"updateTagPriorities: Error while tag priorities: " + e.toString());
+  }
+ finally {
+    if (cur != null) {
+      cur.close();
+    }
+  }
+  HashMap<String,Integer> typeAndPriorities=new HashMap<String,Integer>();
+  typeAndPriorities.put(lowPriority,1);
+  typeAndPriorities.put(medPriority,3);
+  typeAndPriorities.put(highPriority,4);
+  HashMap<String,Integer> up=new HashMap<String,Integer>();
+  for (  String type : typeAndPriorities.keySet()) {
+    for (    String tag : Utils.parseTags(type.toLowerCase())) {
+      up.put(tag,typeAndPriorities.get(type));
+    }
+  }
+  String tag=null;
+  long tagId=0l;
+  for (int i=0; i < tagNames.size(); i++) {
+    tag=tagNames.get(i);
+    tagId=tagIdList.get(i).longValue();
+    if (up.containsKey(tag) && (up.get(tag).compareTo(tagPriorities.get(i)) == 0)) {
+      newPriorities.put(tagId,up.get(tag));
+    }
+ else     if ((!up.containsKey(tag)) && (tagPriorities.get(i).intValue() != 2)) {
+      newPriorities.put(tagId,2);
+    }
+ else {
+      continue;
+    }
+    try {
+      getDB().database.execSQL("UPDATE tags SET priority = " + newPriorities.get(tagId) + " WHERE id = "+ tagId);
+    }
+ catch (    SQLException e) {
+      Log.e(TAG,"updatePriorities: Error while updating tag priorities for tag " + tag + ": "+ e.toString());
+      continue;
+    }
+  }
+  return newPriorities;
+}

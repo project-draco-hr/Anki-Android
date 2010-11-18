@@ -35,7 +35,10 @@
       mIsFinished=true;
       mCondFinished.signal();
     }
-  finally {
+ catch (    Exception e) {
+      throw new RuntimeException(e);
+    }
+ finally {
       mLock.unlock();
     }
   }
