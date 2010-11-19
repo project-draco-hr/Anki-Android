@@ -2,6 +2,9 @@
   double now=System.currentTimeMillis() / 1000.0;
   ContentValues updateValues=new ContentValues();
   updateValues.put("modified",now);
+  updateValues.put("tags",tags);
+  updateValues.put("spaceUntil",spaceUntil);
+  AnkiDatabaseManager.getDatabase(deck.deckPath).database.update("facts",updateValues,"id = ?",new String[]{"" + id});
   Iterator<Field> iter=fields.iterator();
   while (iter.hasNext()) {
     Field f=iter.next();

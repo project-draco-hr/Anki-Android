@@ -8,21 +8,33 @@
     rows=splitTagsList();
   }
  else {
+    Log.i(TAG,"updateCardTags cardIds: " + Arrays.toString(cardIds));
     getDB().database.execSQL("DELETE FROM cardTags WHERE cardId IN " + Utils.ids2str(cardIds));
     String fids=Utils.ids2str(Utils.toPrimitive(getDB().queryColumn(Long.class,"SELECT factId FROM cards WHERE id IN " + Utils.ids2str(cardIds),0)));
+    Log.i(TAG,"updateCardTags fids: " + fids);
     tids=tagIds(allTags_("WHERE id IN " + fids));
+    Log.i(TAG,"updateCardTags tids keys: " + Arrays.toString(tids.keySet().toArray(new String[tids.size()])));
+    Log.i(TAG,"updateCardTags tids values: " + Arrays.toString(tids.values().toArray(new Long[tids.size()])));
     rows=splitTagsList("AND facts.id IN " + fids);
+    Log.i(TAG,"updateCardTags rows keys: " + Arrays.toString(rows.keySet().toArray(new Long[rows.size()])));
+    for (    List<String> l : rows.values()) {
+      Log.i(TAG,"updateCardTags rows values: ");
+      for (      String v : l) {
+        Log.i(TAG,"updateCardTags row item: " + v);
+      }
+    }
   }
   ArrayList<HashMap<String,Long>> d=new ArrayList<HashMap<String,Long>>();
   for (  Long id : rows.keySet()) {
     for (int src=0; src < 3; src++) {
-      HashMap<String,Long> ditem=new HashMap<String,Long>();
       for (      String tag : Utils.parseTags(rows.get(id).get(src))) {
+        HashMap<String,Long> ditem=new HashMap<String,Long>();
         ditem.put("cardId",id);
         ditem.put("tagId",tids.get(tag.toLowerCase()));
         ditem.put("src",new Long(src));
+        Log.i(TAG,"populating ditem " + src + " "+ tag);
+        d.add(ditem);
       }
-      d.add(ditem);
     }
   }
   for (  HashMap<String,Long> ditem : d) {

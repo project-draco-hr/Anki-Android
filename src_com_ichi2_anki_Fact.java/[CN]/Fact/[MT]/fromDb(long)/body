@@ -13,6 +13,7 @@
     created=cursor.getDouble(2);
     modified=cursor.getDouble(3);
     tags=cursor.getString(4);
+    spaceUntil=cursor.getString(5);
   }
   finally {
     if (cursor != null) {
