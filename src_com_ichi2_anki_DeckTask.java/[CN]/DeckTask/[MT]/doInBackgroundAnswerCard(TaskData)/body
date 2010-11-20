@@ -18,7 +18,7 @@
     newCard=deck.getCard();
     Log.v(TAG,"doInBackgroundAnswerCard - Loaded new card in " + (System.currentTimeMillis() - start) + " ms.");
     if (oldCard != null) {
-      publishProgress(new TaskData(newCard,oldCard.getLeechFlag()));
+      publishProgress(new TaskData(newCard,oldCard.getLeechFlag(),oldCard.getSuspendedFlag()));
     }
  else {
       publishProgress(new TaskData(newCard));
