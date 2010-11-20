@@ -1,3 +1,4 @@
 {
-  revCount=(int)getDB().queryScalar(cardLimit("revActive","revInactive","SELECT count(*) FROM cards c WHERE type = 1 AND combinedDue < " + dueCutoff));
+  String sql=String.format(ENGLISH_LOCALE,"SELECT count(*) FROM cards c WHERE type = 1 AND combinedDue < %f",dueCutoff);
+  revCount=(int)getDB().queryScalar(cardLimit("revActive","revInactive",sql));
 }

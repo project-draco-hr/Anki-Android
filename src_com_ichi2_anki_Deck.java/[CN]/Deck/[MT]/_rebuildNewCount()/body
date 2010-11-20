@@ -1,4 +1,5 @@
 {
-  newCount=(int)getDB().queryScalar(cardLimit("newActive","newInactive","SELECT count(*) FROM cards c WHERE type = 2 AND combinedDue < " + dueCutoff));
+  String sql=String.format(ENGLISH_LOCALE,"SELECT count(*) FROM cards c WHERE type = 2 AND combinedDue < %f",dueCutoff);
+  newCount=(int)getDB().queryScalar(cardLimit("newActive","newInactive",sql));
   updateNewCountToday();
 }
