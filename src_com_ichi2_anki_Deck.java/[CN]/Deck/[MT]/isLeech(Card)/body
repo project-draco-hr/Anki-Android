@@ -1,5 +1,5 @@
 {
-  int no=card.noCount;
+  int no=card.getNoCount();
   int fmax=0;
   try {
     fmax=getInt("leechFails");
@@ -7,7 +7,7 @@
  catch (  SQLException e) {
     return false;
   }
-  if ((card.successive != 0) && (no >= fmax) && ((fmax - no) % Math.max(fmax / 2,1) == 0)) {
+  if (card.isRev() && (no >= fmax) && ((fmax - no) % Math.max(fmax / 2,1) == 0)) {
     return true;
   }
  else {

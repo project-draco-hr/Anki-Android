@@ -1,2 +1,9 @@
 {
+  long id=getCardId();
+  if (id != 0l) {
+    return cardFromId(id);
+  }
+ else {
+    return null;
+  }
 }

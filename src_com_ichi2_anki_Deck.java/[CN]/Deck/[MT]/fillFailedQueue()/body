@@ -1,7 +1,7 @@
 {
   try {
     fillFailedQueueMethod.invoke(Deck.this);
-    Log.e(TAG,"made it!");
+    Log.e(AnkiDroidApp.TAG,"made it!");
   }
  catch (  IllegalArgumentException e) {
     throw new RuntimeException(e);

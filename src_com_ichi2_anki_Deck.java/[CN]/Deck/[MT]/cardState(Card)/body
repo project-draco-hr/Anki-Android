@@ -1,9 +1,0 @@
-{
-  if (cardIsNew(card)) {
-    return "new";
-  }
- else   if (card.interval > MATURE_THRESHOLD) {
-    return "mature";
-  }
-  return "young";
-}

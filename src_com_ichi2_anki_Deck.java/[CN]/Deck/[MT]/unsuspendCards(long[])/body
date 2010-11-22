@@ -1,0 +1,6 @@
+{
+  getDB().getDatabase().execSQL("UPDATE cards SET type = relativeDelay, priority = 0, " + "modified = " + String.format(Utils.ENGLISH_LOCALE,"%f",(double)(System.currentTimeMillis() / 1000.0)) + " WHERE type < 0 AND id IN "+ Utils.ids2str(ids));
+  updatePriorities(ids);
+  flushMod();
+  reset();
+}

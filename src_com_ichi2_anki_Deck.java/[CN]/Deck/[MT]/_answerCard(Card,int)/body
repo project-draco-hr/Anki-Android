@@ -1,2 +1,61 @@
 {
+  Log.i(AnkiDroidApp.TAG,"answerCard");
+  String undoName="Answer Card";
+  setUndoStart(undoName);
+  double now=Utils.now();
+  String oldState=card.getState();
+  int oldQueue=cardQueue(card);
+  double lastDelaySecs=Utils.now() - card.getCombinedDue();
+  double lastDelay=lastDelaySecs / 86400.0;
+  boolean oldIsRev=card.isRev();
+  double last=card.getInterval();
+  card.setInterval(nextInterval(card,ease));
+  if (lastDelay >= 0) {
+    card.setLastInterval(last);
+  }
+  if (!card.isNew()) {
+    card.setLastDue(card.getDue());
+  }
+  card.setDue(nextDue(card,ease,oldState));
+  card.setIsDue(0);
+  card.setLastFactor(card.getFactor());
+  card.setSpaceUntil(0);
+  if (lastDelay >= 0) {
+    card.updateFactor(ease,mAverageFactor);
+  }
+  double space=spaceUntilTime(card);
+  spaceCards(card,space);
+  if (ease == 1) {
+    if (!(oldState.compareTo("mature") == 0 && mDelay1 != 0)) {
+      mFailedSoonCount+=1;
+    }
+  }
+  if (oldQueue == 0) {
+    mFailedSoonCount-=1;
+  }
+ else   if (oldQueue == 1) {
+    mRevCount-=1;
+  }
+ else {
+    mNewCount-=1;
+  }
+  card.updateStats(ease,oldState);
+  card.setType(cardType(card));
+  card.setRelativeDelay(card.getType());
+  if (ease != 1) {
+    card.setDue(Math.max(card.getDue(),dueCutoff + 1));
+  }
+  if (answerPreSaveMethod != null) {
+    answerPreSave(card,ease);
+  }
+  card.toDB();
+  Stats.updateAllStats(mGlobalStats,mDailyStats,card,ease,oldState);
+  CardHistoryEntry entry=new CardHistoryEntry(this,card,ease,lastDelay);
+  entry.writeSQL();
+  mModified=now;
+  requeueCard(card,oldIsRev);
+  if (isLeech(card)) {
+    handleLeech(card);
+  }
+  setUndoEnd(undoName);
 }

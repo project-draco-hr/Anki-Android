@@ -1,12 +1,12 @@
 {
   Calendar cal=Calendar.getInstance();
-  cal.add(Calendar.SECOND,(int)-utcOffset + 86400);
+  cal.add(Calendar.SECOND,(int)-mUtcOffset + 86400);
   cal.set(Calendar.HOUR,0);
   cal.set(Calendar.MINUTE,0);
   cal.set(Calendar.SECOND,0);
   cal.set(Calendar.MILLISECOND,0);
-  int newday=(int)utcOffset - (cal.get(Calendar.ZONE_OFFSET) + cal.get(Calendar.DST_OFFSET)) / 1000;
-  Log.d(TAG,"New day happening at " + newday + " sec after 00:00 UTC");
+  int newday=(int)mUtcOffset - (cal.get(Calendar.ZONE_OFFSET) + cal.get(Calendar.DST_OFFSET)) / 1000;
+  Log.d(AnkiDroidApp.TAG,"New day happening at " + newday + " sec after 00:00 UTC");
   cal.add(Calendar.SECOND,newday);
   long cutoff=cal.getTimeInMillis() / 1000;
   while (cutoff < System.currentTimeMillis() / 1000) {

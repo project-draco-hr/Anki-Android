@@ -1,2 +1,36 @@
 {
+  Log.i(AnkiDroidApp.TAG,"updateDynamicIndices - Updating indices...");
+  HashMap<String,String> indices=new HashMap<String,String>();
+  indices.put("intervalDesc","(type, priority desc, interval desc)");
+  indices.put("intervalAsc","(type, priority desc, interval)");
+  indices.put("randomOrder","(type, priority desc, factId, ordinal)");
+  indices.put("dueAsc","(type, priority desc, combinedDue)");
+  indices.put("dueDesc","(type, priority desc, combinedDue desc)");
+  ArrayList<String> required=new ArrayList<String>();
+  if (mRevCardOrder == REV_CARDS_OLD_FIRST) {
+    required.add("intervalDesc");
+  }
+  if (mRevCardOrder == REV_CARDS_NEW_FIRST) {
+    required.add("intervalAsc");
+  }
+  if (mRevCardOrder == REV_CARDS_RANDOM) {
+    required.add("randomOrder");
+  }
+  if (mRevCardOrder == REV_CARDS_DUE_FIRST || mNewCardOrder == NEW_CARDS_OLD_FIRST || mNewCardOrder == NEW_CARDS_RANDOM) {
+    required.add("dueAsc");
+  }
+  if (mNewCardOrder == NEW_CARDS_NEW_FIRST) {
+    required.add("dueDesc");
+  }
+  Set<Entry<String,String>> entries=indices.entrySet();
+  Iterator<Entry<String,String>> iter=entries.iterator();
+  while (iter.hasNext()) {
+    Entry<String,String> entry=iter.next();
+    if (required.contains(entry.getKey())) {
+      getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS " + "ix_cards_" + entry.getKey() + "2 ON cards "+ entry.getValue());
+    }
+ else {
+      getDB().getDatabase().execSQL("DROP INDEX IF EXISTS " + "ix_cards_" + entry.getKey() + "2");
+    }
+  }
 }

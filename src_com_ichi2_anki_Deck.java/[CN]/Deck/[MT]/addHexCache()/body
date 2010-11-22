@@ -6,7 +6,7 @@
       jsonObject.put(id.toString(),Utils.hexifyID(id.longValue()));
     }
  catch (    JSONException e) {
-      Log.e(TAG,"addHexCache: Error while generating JSONObject: " + e.toString());
+      Log.e(AnkiDroidApp.TAG,"addHexCache: Error while generating JSONObject: " + e.toString());
       throw new RuntimeException(e);
     }
   }

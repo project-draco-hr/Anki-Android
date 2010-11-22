@@ -1,5 +1,5 @@
 {
   if (!hasKey(key)) {
-    getDB().database.execSQL("INSERT INTO deckVars (key, value) values ('" + key + "', '"+ value+ "')");
+    getDB().getDatabase().execSQL("INSERT INTO deckVars (key, value) values ('" + key + "', '"+ value+ "')");
   }
 }

@@ -1,5 +1,0 @@
-{
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeckPath);
-  ankiDB.getDatabase().execSQL("PRAGMA synchronous=NORMAL");
-  ankiDB.getDatabase().execSQL("DROP INDEX IF EXISTS ix_cards_sort");
-}

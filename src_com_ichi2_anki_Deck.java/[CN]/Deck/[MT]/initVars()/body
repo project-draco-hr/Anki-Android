@@ -1,5 +1,5 @@
 {
-  lastLoaded=(double)System.currentTimeMillis() / 1000.0;
+  mLastLoaded=Utils.now();
   queueLimit=200;
   if (!hasKey("revInactive")) {
     setVarDefault("suspendLeeches","1");
@@ -7,8 +7,8 @@
     setVarDefault("perDay","1");
     setVarDefault("newActive","");
     setVarDefault("revActive","");
-    setVarDefault("newInactive",suspended);
-    setVarDefault("revInactive",suspended);
+    setVarDefault("newInactive",mSuspended);
+    setVarDefault("revInactive",mSuspended);
   }
   updateCutoff();
   setupStandardScheduler();

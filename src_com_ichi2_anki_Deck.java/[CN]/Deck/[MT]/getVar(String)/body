@@ -1,13 +1,13 @@
 {
   Cursor cur=null;
   try {
-    cur=getDB().database.rawQuery("SELECT value FROM deckVars WHERE key = '" + key + "'",null);
+    cur=getDB().getDatabase().rawQuery("SELECT value FROM deckVars WHERE key = '" + key + "'",null);
     if (cur.moveToFirst()) {
       return cur.getString(0);
     }
   }
  catch (  SQLException e) {
-    Log.e(TAG,"getVar: " + e.toString());
+    Log.e(AnkiDroidApp.TAG,"getVar: " + e.toString());
     throw new RuntimeException(e);
   }
  finally {

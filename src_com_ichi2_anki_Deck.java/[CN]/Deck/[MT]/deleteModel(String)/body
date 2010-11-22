@@ -1,2 +1,24 @@
 {
+  Log.i(AnkiDroidApp.TAG,"deleteModel = " + id);
+  Cursor cursor=null;
+  boolean modelExists=false;
+  try {
+    cursor=getDB().getDatabase().rawQuery("SELECT * FROM models WHERE id = " + id,null);
+    if (cursor.moveToFirst()) {
+      modelExists=true;
+    }
+  }
+  finally {
+    cursor.close();
+  }
+  if (modelExists) {
+    ArrayList<String> cardsToDelete=getDB().queryColumn(String.class,"SELECT cards.id FROM cards, facts WHERE facts.modelId = " + id + " AND facts.id = cards.factId",0);
+    deleteCards(cardsToDelete);
+    getDB().getDatabase().execSQL("DELETE FROM models WHERE id = " + id);
+    ContentValues values=new ContentValues();
+    values.put("modelId",id);
+    values.put("deletedTime",Utils.now());
+    getDB().getDatabase().insert("modelsDeleted",null,values);
+    flushMod();
+  }
 }

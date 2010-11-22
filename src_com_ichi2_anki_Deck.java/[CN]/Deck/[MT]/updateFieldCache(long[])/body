@@ -2,7 +2,7 @@
   HashMap<Long,String> r=new HashMap<Long,String>();
   Cursor cur=null;
   try {
-    cur=getDB().database.rawQuery("SELECT factId, group_concat(value, ' ') FROM fields " + "WHERE factId IN " + Utils.ids2str(fids) + " GROUP BY factId",null);
+    cur=getDB().getDatabase().rawQuery("SELECT factId, group_concat(value, ' ') FROM fields " + "WHERE factId IN " + Utils.ids2str(fids) + " GROUP BY factId",null);
     while (cur.moveToNext()) {
       String values=cur.getString(1);
       values=values.replaceFirst("^ *","");
@@ -18,14 +18,14 @@
     }
   }
   if (r.size() > 0) {
-    getDB().database.beginTransaction();
-    SQLiteStatement st=getDB().database.compileStatement("UPDATE facts SET spaceUntil=? WHERE id=?");
+    getDB().getDatabase().beginTransaction();
+    SQLiteStatement st=getDB().getDatabase().compileStatement("UPDATE facts SET spaceUntil=? WHERE id=?");
     for (    Long fid : r.keySet()) {
       st.bindString(1,r.get(fid));
       st.bindLong(2,fid.longValue());
       st.execute();
     }
-    getDB().database.setTransactionSuccessful();
-    getDB().database.endTransaction();
+    getDB().getDatabase().setTransactionSuccessful();
+    getDB().getDatabase().endTransaction();
   }
 }

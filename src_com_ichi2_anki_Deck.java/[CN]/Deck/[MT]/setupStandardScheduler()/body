@@ -21,7 +21,7 @@
     throw new RuntimeException(e);
   }
   scheduler="standard";
-  if (version == DECK_VERSION) {
+  if (mVersion == DECK_VERSION) {
     resetAfterReviewEarly();
   }
 }

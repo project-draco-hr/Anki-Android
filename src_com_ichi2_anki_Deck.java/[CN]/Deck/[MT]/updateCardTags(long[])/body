@@ -1,2 +1,32 @@
 {
+  HashMap<String,Long> tids=new HashMap<String,Long>();
+  HashMap<Long,List<String>> rows=new HashMap<Long,List<String>>();
+  if (cardIds == null) {
+    getDB().getDatabase().execSQL("DELETE FROM cardTags");
+    getDB().getDatabase().execSQL("DELETE FROM tags");
+    tids=tagIds(allTags_());
+    rows=splitTagsList();
+  }
+ else {
+    getDB().getDatabase().execSQL("DELETE FROM cardTags WHERE cardId IN " + Utils.ids2str(cardIds));
+    String fids=Utils.ids2str(Utils.toPrimitive(getDB().queryColumn(Long.class,"SELECT factId FROM cards WHERE id IN " + Utils.ids2str(cardIds),0)));
+    tids=tagIds(allTags_("WHERE id IN " + fids));
+    rows=splitTagsList("AND facts.id IN " + fids);
+  }
+  ArrayList<HashMap<String,Long>> d=new ArrayList<HashMap<String,Long>>();
+  for (  Long id : rows.keySet()) {
+    for (int src=0; src < 3; src++) {
+      HashMap<String,Long> ditem=new HashMap<String,Long>();
+      for (      String tag : Utils.parseTags(rows.get(id).get(src))) {
+        ditem.put("cardId",id);
+        ditem.put("tagId",tids.get(tag.toLowerCase()));
+        ditem.put("src",new Long(src));
+      }
+      d.add(ditem);
+    }
+  }
+  for (  HashMap<String,Long> ditem : d) {
+    getDB().getDatabase().execSQL("INSERT INTO cardTags (cardId, tagId, src) VALUES " + "(" + ditem.get("cardId") + ", "+ ditem.get("tagId")+ ", "+ ditem.get("src")+ ")");
+  }
+  getDB().getDatabase().execSQL("DELETE FROM tags WHERE priority = 2 AND id NOT IN " + "(SELECT DISTINCT tagId FROM cardTags)");
 }

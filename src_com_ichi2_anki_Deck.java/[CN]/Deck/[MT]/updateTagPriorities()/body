@@ -1,5 +1,5 @@
 {
-  for (  String s : new String[]{lowPriority,medPriority,highPriority,suspended}) {
+  for (  String s : new String[]{mLowPriority,mMedPriority,mHighPriority,mSuspended}) {
     tagIds(Utils.parseTags(s));
   }
   HashMap<Long,Integer> newPriorities=new HashMap<Long,Integer>();
@@ -11,7 +11,7 @@
     tagNames=new ArrayList<String>();
     tagIdList=new ArrayList<Long>();
     tagPriorities=new ArrayList<Integer>();
-    cur=getDB().database.rawQuery("SELECT tag, id, priority FROM tags",null);
+    cur=getDB().getDatabase().rawQuery("SELECT tag, id, priority FROM tags",null);
     while (cur.moveToNext()) {
       tagNames.add(cur.getString(0).toLowerCase());
       tagIdList.add(cur.getLong(1));
@@ -19,7 +19,7 @@
     }
   }
  catch (  SQLException e) {
-    Log.e(TAG,"updateTagPriorities: Error while tag priorities: " + e.toString());
+    Log.e(AnkiDroidApp.TAG,"updateTagPriorities: Error while tag priorities: " + e.toString());
   }
  finally {
     if (cur != null) {
@@ -27,9 +27,9 @@
     }
   }
   HashMap<String,Integer> typeAndPriorities=new HashMap<String,Integer>();
-  typeAndPriorities.put(lowPriority,1);
-  typeAndPriorities.put(medPriority,3);
-  typeAndPriorities.put(highPriority,4);
+  typeAndPriorities.put(mLowPriority,1);
+  typeAndPriorities.put(mMedPriority,3);
+  typeAndPriorities.put(mHighPriority,4);
   HashMap<String,Integer> up=new HashMap<String,Integer>();
   for (  String type : typeAndPriorities.keySet()) {
     for (    String tag : Utils.parseTags(type.toLowerCase())) {
@@ -51,10 +51,10 @@
       continue;
     }
     try {
-      getDB().database.execSQL("UPDATE tags SET priority = " + newPriorities.get(tagId) + " WHERE id = "+ tagId);
+      getDB().getDatabase().execSQL("UPDATE tags SET priority = " + newPriorities.get(tagId) + " WHERE id = "+ tagId);
     }
  catch (    SQLException e) {
-      Log.e(TAG,"updatePriorities: Error while updating tag priorities for tag " + tag + ": "+ e.toString());
+      Log.e(AnkiDroidApp.TAG,"updatePriorities: Error while updating tag priorities for tag " + tag + ": "+ e.toString());
       continue;
     }
   }

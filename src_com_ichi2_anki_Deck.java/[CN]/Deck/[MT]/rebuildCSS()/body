@@ -1,22 +1,22 @@
 {
   String css="";
   Cursor cur=null;
-  cur=getDB().database.rawQuery("SELECT id, quizFontFamily, quizFontSize, quizFontColour, -1, features FROM fieldModels",null);
+  cur=getDB().getDatabase().rawQuery("SELECT id, quizFontFamily, quizFontSize, quizFontColour, -1, features FROM fieldModels",null);
   while (cur.moveToNext()) {
     css+=_genCSS(".fm",cur);
   }
   cur.close();
-  cur=getDB().database.rawQuery("SELECT id, questionFontFamily, questionFontSize, questionFontColour, " + "questionAlign, 0 FROM cardModels",null);
+  cur=getDB().getDatabase().rawQuery("SELECT id, questionFontFamily, questionFontSize, questionFontColour, " + "questionAlign, 0 FROM cardModels",null);
   while (cur.moveToNext()) {
     css+=_genCSS("#cmq",cur);
   }
   cur.close();
-  cur=getDB().database.rawQuery("SELECT id, answerFontFamily, answerFontSize, answerFontColour, " + "answerAlign, 0 FROM cardModels",null);
+  cur=getDB().getDatabase().rawQuery("SELECT id, answerFontFamily, answerFontSize, answerFontColour, " + "answerAlign, 0 FROM cardModels",null);
   while (cur.moveToNext()) {
     css+=_genCSS("#cma",cur);
   }
   cur.close();
-  cur=getDB().database.rawQuery("SELECT id, lastFontColour FROM cardModels",null);
+  cur=getDB().getDatabase().rawQuery("SELECT id, lastFontColour FROM cardModels",null);
   while (cur.moveToNext()) {
     css+=".cmb" + Utils.hexifyID(cur.getLong(0)) + " {background:"+ cur.getString(1)+ ";}\n";
   }

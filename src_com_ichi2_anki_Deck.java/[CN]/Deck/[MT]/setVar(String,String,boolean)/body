@@ -1,2 +1,26 @@
 {
+  Cursor cur=null;
+  try {
+    cur=getDB().getDatabase().rawQuery("SELECT value FROM deckVars WHERE key = '" + key + "'",null);
+    if (cur.moveToNext()) {
+      if (cur.getString(0).equals(value)) {
+        return;
+      }
+ else {
+        getDB().getDatabase().execSQL("UPDATE deckVars SET value='" + value + "' WHERE key = '"+ key+ "'");
+      }
+    }
+ else {
+      getDB().getDatabase().execSQL("INSERT INTO deckVars (key, value) VALUES ('" + key + "', '"+ value+ "')");
+    }
+  }
+ catch (  SQLException e) {
+    Log.e(AnkiDroidApp.TAG,"setVar: " + e.toString());
+    throw new RuntimeException(e);
+  }
+ finally {
+    if (cur != null) {
+      cur.close();
+    }
+  }
 }

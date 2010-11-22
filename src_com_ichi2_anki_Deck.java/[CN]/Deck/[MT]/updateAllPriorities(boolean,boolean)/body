@@ -4,13 +4,13 @@
     newPriorities.clear();
     Cursor cur=null;
     try {
-      cur=getDB().database.rawQuery("SELECT id, priority AS pri FROM tags",null);
+      cur=getDB().getDatabase().rawQuery("SELECT id, priority AS pri FROM tags",null);
       while (cur.moveToNext()) {
         newPriorities.put(cur.getLong(0),cur.getInt(1));
       }
     }
  catch (    SQLException e) {
-      Log.e(TAG,"updateAllPriorities: Error while getting all tags: " + e.toString());
+      Log.e(AnkiDroidApp.TAG,"updateAllPriorities: Error while getting all tags: " + e.toString());
     }
  finally {
       if (cur != null) {

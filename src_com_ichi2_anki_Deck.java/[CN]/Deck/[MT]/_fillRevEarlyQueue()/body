@@ -1,7 +1,7 @@
 {
-  if ((revCount != 0) && revQueue.isEmpty()) {
+  if ((mRevCount != 0) && revQueue.isEmpty()) {
     String sql="SELECT id, factId FROM cards WHERE type = 1 AND combinedDue > " + dueCutoff + " ORDER BY combinedDue LIMIT "+ queueLimit;
-    Cursor cur=getDB().database.rawQuery(sql,null);
+    Cursor cur=getDB().getDatabase().rawQuery(sql,null);
     while (cur.moveToNext()) {
       QueueItem qi=new QueueItem(cur.getLong(0),cur.getLong(1));
       revQueue.add(0,qi);

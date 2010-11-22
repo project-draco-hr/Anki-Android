@@ -1,2 +1,51 @@
 {
+  Cursor cursor=null;
+  Log.i(AnkiDroidApp.TAG,"updatePriorities - Updating priorities...");
+  if (suspend != null && suspend.length > 0) {
+    long ids[]=Utils.toPrimitive(tagIds(suspend,false).values());
+    getDB().getDatabase().execSQL("UPDATE tags SET priority = 0 WHERE id in " + Utils.ids2str(ids));
+  }
+  String limit="";
+  if (cardIds.length <= 1000) {
+    limit="and cardTags.cardId in " + Utils.ids2str(cardIds);
+  }
+  String query="SELECT cardTags.cardId, CASE WHEN max(tags.priority) > 2 THEN max(tags.priority) " + "WHEN min(tags.priority) = 1 THEN 1 ELSE 2 END FROM cardTags,tags " + "WHERE cardTags.tagId = tags.id " + limit + " GROUP BY cardTags.cardId";
+  try {
+    cursor=getDB().getDatabase().rawQuery(query,null);
+    if (cursor.moveToFirst()) {
+      int len=cursor.getCount();
+      long[][] cards=new long[len][2];
+      for (int i=0; i < len; i++) {
+        cards[i][0]=cursor.getLong(0);
+        cards[i][1]=cursor.getInt(1);
+      }
+      String extra="";
+      if (dirty) {
+        extra=", modified = " + String.format(Utils.ENGLISH_LOCALE,"%f",Utils.now());
+      }
+      for (int pri=Card.PRIORITY_NONE; pri <= Card.PRIORITY_HIGH; pri++) {
+        int count=0;
+        for (int i=0; i < len; i++) {
+          if (cards[i][1] == pri) {
+            count++;
+          }
+        }
+        long[] cs=new long[count];
+        int j=0;
+        for (int i=0; i < len; i++) {
+          if (cards[i][1] == pri) {
+            cs[j]=cards[i][0];
+            j++;
+          }
+        }
+        getDB().getDatabase().execSQL("UPDATE cards " + "SET priority = " + pri + extra+ " WHERE id in "+ Utils.ids2str(cs)+ " and "+ "priority != "+ pri+ " and "+ "priority >= -2");
+      }
+    }
+  }
+  finally {
+    if (cursor != null) {
+      cursor.close();
+    }
+  }
+  reset();
 }

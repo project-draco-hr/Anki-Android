@@ -1,2 +1,10 @@
 {
+  long result;
+  try {
+    result=getDB().queryScalar("SELECT MAX(rowid) FROM undoLog");
+  }
+ catch (  SQLException e) {
+    result=0;
+  }
+  return result;
 }

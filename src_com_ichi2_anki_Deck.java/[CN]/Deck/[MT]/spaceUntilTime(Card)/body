@@ -1,2 +1,39 @@
 {
+  Cursor cursor=null;
+  double space, spaceFactor, minSpacing, minOfOtherCards;
+  try {
+    cursor=getDB().getDatabase().rawQuery("SELECT models.initialSpacing, models.spacing " + "FROM facts, models WHERE facts.modelId = models.id and facts.id = " + card.getFactId(),null);
+    if (!cursor.moveToFirst()) {
+      minSpacing=0;
+      spaceFactor=0;
+    }
+ else {
+      minSpacing=cursor.getDouble(0);
+      spaceFactor=cursor.getDouble(1);
+    }
+  }
+  finally {
+    if (cursor != null) {
+      cursor.close();
+    }
+  }
+  try {
+    minOfOtherCards=getDB().queryScalar("SELECT min(interval) FROM cards WHERE factId = " + card.getFactId() + " AND id != "+ card.getId());
+  }
+  finally {
+    minOfOtherCards=0;
+    if (cursor != null) {
+      cursor.close();
+    }
+  }
+  if (minOfOtherCards != 0) {
+    space=Math.min(minOfOtherCards,card.getInterval());
+  }
+ else {
+    space=0;
+  }
+  space=space * spaceFactor * 86400.0;
+  space=Math.max(minSpacing,space);
+  space+=Utils.now();
+  return space;
 }

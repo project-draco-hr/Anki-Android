@@ -1,2 +1,17 @@
 {
+  long id=0;
+  try {
+    id=getDB().queryScalar("select id from tags where tag = \"" + tag + "\"");
+  }
+ catch (  SQLException e) {
+    if (create) {
+      ContentValues value=new ContentValues();
+      value.put("tag",tag);
+      id=getDB().getDatabase().insert("tags",null,value);
+    }
+ else {
+      id=0;
+    }
+  }
+  return id;
 }

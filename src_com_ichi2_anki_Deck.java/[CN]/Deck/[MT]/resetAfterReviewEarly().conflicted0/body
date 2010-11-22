@@ -1,6 +1,0 @@
-{
-  ArrayList<Long> ids=getDB().queryColumn(Long.class,"SELECT id FROM cards WHERE type BETWEEN 6 AND 8 OR priority = -1",0);
-  updatePriorities(Utils.toPrimitive(ids));
-  getDB().database.execSQL("UPDATE cards SET type = type -6 WHERE type BETWEEN 6 AND 8");
-  flushMod();
-}
