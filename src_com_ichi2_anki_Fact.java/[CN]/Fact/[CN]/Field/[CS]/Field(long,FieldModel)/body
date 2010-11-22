@@ -1,0 +1,10 @@
+{
+  if (fieldModel != null) {
+    mFieldModel=fieldModel;
+    mOrdinal=fieldModel.getOrdinal();
+  }
+  mFactId=factId;
+  mFieldModelId=fieldModel.getId();
+  mValue="";
+  mFieldId=Utils.genID();
+}

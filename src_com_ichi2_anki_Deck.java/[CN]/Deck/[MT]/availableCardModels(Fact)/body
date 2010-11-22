@@ -1,0 +1,12 @@
+{
+  TreeMap<Long,CardModel> cardModels=new TreeMap<Long,CardModel>();
+  TreeMap<Long,CardModel> availableCardModels=new TreeMap<Long,CardModel>();
+  CardModel.fromDb(this,fact.getModelId(),cardModels);
+  for (  Map.Entry<Long,CardModel> entry : cardModels.entrySet()) {
+    CardModel cardmodel=entry.getValue();
+    if (cardmodel.isActive()) {
+      availableCardModels.put(cardmodel.getId(),cardmodel);
+    }
+  }
+  return availableCardModels;
+}

@@ -1,11 +1,10 @@
 {
-  FieldModel mFieldModel;
   mFieldsLayoutContainer.removeAllViews();
   mEditFields=new LinkedList<FieldEditText>();
-  TreeMap<Long,FieldModel> fields=mModels.get(mCurrentSelectedModelId).getFieldModels();
-  for (  Long i : fields.keySet()) {
-    mFieldModel=fields.get(i);
-    FieldEditText newTextbox=new FieldEditText(this,mFieldModel);
+  TreeSet<Field> fields=mNewFact.getFields();
+  Iterator<Field> iter=fields.iterator();
+  while (iter.hasNext()) {
+    FieldEditText newTextbox=new FieldEditText(this,iter.next());
     TextView label=newTextbox.getLabel();
     mEditFields.add(newTextbox);
     mFieldsLayoutContainer.addView(label);

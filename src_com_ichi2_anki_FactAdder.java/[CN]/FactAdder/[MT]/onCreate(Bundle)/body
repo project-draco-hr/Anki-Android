@@ -10,11 +10,17 @@
   mModels=Model.getModels(deck);
   mCurrentSelectedModelId=deck.getCurrentModelId();
   mModelButton.setText(mModels.get(mCurrentSelectedModelId).getName());
+  mNewFact=deck.newFact();
   populateEditFields();
   mAddButton.setOnClickListener(new View.OnClickListener(){
     public void onClick(    View v){
-      Fact f=deck.newFact();
-      Log.i("Debug",Long.toString(f.getId()));
+      Log.i("Debug",Long.toString(mNewFact.getId()));
+      Iterator<FieldEditText> iter=mEditFields.iterator();
+      while (iter.hasNext()) {
+        FieldEditText current=iter.next();
+        current.updateField();
+      }
+      deck.addFact(mNewFact);
       setResult(RESULT_OK);
       finish();
     }
