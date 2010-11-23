@@ -23,6 +23,10 @@
   mEase3.setOnClickListener(mSelectEaseHandler);
   mEase4=(Button)findViewById(R.id.ease4);
   mEase4.setOnClickListener(mSelectEaseHandler);
+  mNext1=(TextView)findViewById(R.id.nextTime1);
+  mNext2=(TextView)findViewById(R.id.nextTime2);
+  mNext3=(TextView)findViewById(R.id.nextTime3);
+  mNext4=(TextView)findViewById(R.id.nextTime4);
   mFlipCard=(Button)findViewById(R.id.flip_card);
   mFlipCard.setOnClickListener(mFlipCardListener);
   mFlipCard.setText(getResources().getString(R.string.show_answer));
