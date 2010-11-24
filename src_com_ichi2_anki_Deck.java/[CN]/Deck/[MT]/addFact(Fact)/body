@@ -7,33 +7,29 @@
   values.put("modified",now);
   values.put("tags","");
   values.put("spaceUntil",0);
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeckPath);
-  ankiDB.getDatabase().insert("facts",null,values);
+  getDB().getDatabase().insert("facts",null,values);
   TreeMap<Long,CardModel> availableCardModels=availableCardModels(fact);
   if (availableCardModels.isEmpty()) {
-    Log.e("Ankidroid","Error while adding fact: No cardmodels for the new fact");
+    Log.e(AnkiDroidApp.TAG,"Error while adding fact: No cardmodels for the new fact");
     return null;
   }
-  mFactCount=mFactCount + 1;
-  TreeSet<Field> fields=fact.getFields();
-  Iterator<Field> iter=fields.iterator();
-  while (iter.hasNext()) {
-    Field f=iter.next();
-    ContentValues fieldValues=new ContentValues();
-    fieldValues.put("value",f.getValue());
-    fieldValues.put("id",f.getId());
-    fieldValues.put("factId",f.getFactId());
-    fieldValues.put("fieldModelId",f.getFieldModelId());
-    fieldValues.put("ordinal",f.getOrdinal());
-    AnkiDatabaseManager.getDatabase(mDeckPath).getDatabase().insert("fields",null,fieldValues);
+  mFactCount++;
+  for (  Field f : fact.getFields()) {
+    values.clear();
+    values.put("value",f.getValue());
+    values.put("id",f.getId());
+    values.put("factId",f.getFactId());
+    values.put("fieldModelId",f.getFieldModelId());
+    values.put("ordinal",f.getOrdinal());
+    AnkiDatabaseManager.getDatabase(mDeckPath).getDatabase().insert("fields",null,values);
   }
   for (  Map.Entry<Long,CardModel> entry : availableCardModels.entrySet()) {
     CardModel cardModel=entry.getValue();
     Card newCard=new Card(this,fact,cardModel,Utils.now());
     newCard.addToDb();
-    mCardCount=mCardCount + 1;
-    mNewCount=mNewCount + 1;
-    Log.i("debug",entry.getKey().toString());
+    mCardCount++;
+    mNewCount++;
+    Log.i(AnkiDroidApp.TAG,entry.getKey().toString());
   }
   commitToDB();
   return fact;

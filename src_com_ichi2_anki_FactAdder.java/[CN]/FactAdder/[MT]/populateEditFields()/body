@@ -2,9 +2,8 @@
   mFieldsLayoutContainer.removeAllViews();
   mEditFields=new LinkedList<FieldEditText>();
   TreeSet<Field> fields=mNewFact.getFields();
-  Iterator<Field> iter=fields.iterator();
-  while (iter.hasNext()) {
-    FieldEditText newTextbox=new FieldEditText(this,iter.next());
+  for (  Field f : fields) {
+    FieldEditText newTextbox=new FieldEditText(this,f);
     TextView label=newTextbox.getLabel();
     mEditFields.add(newTextbox);
     mFieldsLayoutContainer.addView(label);

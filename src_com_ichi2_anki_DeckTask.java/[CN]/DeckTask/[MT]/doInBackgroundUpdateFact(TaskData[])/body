@@ -3,10 +3,7 @@
   Card editCard=params[0].getCard();
   Fact editFact=editCard.getFact();
   editFact.toDb();
-  LinkedList<Card> saveCards=editFact.getUpdatedRelatedCards();
-  Iterator<Card> iter=saveCards.iterator();
-  while (iter.hasNext()) {
-    Card modifyCard=iter.next();
+  for (  Card modifyCard : editFact.getUpdatedRelatedCards()) {
     modifyCard.updateQAfields();
   }
   publishProgress(new TaskData(deck.getCurrentCard()));

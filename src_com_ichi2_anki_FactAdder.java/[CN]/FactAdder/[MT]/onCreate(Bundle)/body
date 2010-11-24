@@ -6,21 +6,18 @@
   mAddButton=(Button)findViewById(R.id.FactAdderAddButton);
   mCloseButton=(Button)findViewById(R.id.FactAdderCloseButton);
   mModelButton=(Button)findViewById(R.id.FactAdderModelButton);
-  deck=AnkiDroidApp.deck();
-  mModels=Model.getModels(deck);
-  mCurrentSelectedModelId=deck.getCurrentModelId();
+  mDeck=AnkiDroidApp.deck();
+  mModels=Model.getModels(mDeck);
+  mCurrentSelectedModelId=mDeck.getCurrentModelId();
   mModelButton.setText(mModels.get(mCurrentSelectedModelId).getName());
-  mNewFact=deck.newFact();
+  mNewFact=mDeck.newFact();
   populateEditFields();
   mAddButton.setOnClickListener(new View.OnClickListener(){
     public void onClick(    View v){
-      Log.i("Debug",Long.toString(mNewFact.getId()));
-      Iterator<FieldEditText> iter=mEditFields.iterator();
-      while (iter.hasNext()) {
-        FieldEditText current=iter.next();
+      for (      FieldEditText current : mEditFields) {
         current.updateField();
       }
-      deck.addFact(mNewFact);
+      mDeck.addFact(mNewFact);
       setResult(RESULT_OK);
       finish();
     }
