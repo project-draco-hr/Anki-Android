@@ -1,12 +1,41 @@
 {
   Resources res=getResources();
-  int nextInt=(int)Math.ceil(mCurrentCard.nextInterval(mCurrentCard,ease));
-  String str;
-  if (nextInt == 1) {
-    str=String.valueOf(nextInt) + " " + res.getString(R.string.day_s);
+  if (ease=1) {
+    return res.getString(R.string.soon);
   }
  else {
-    str=String.valueOf(nextInt) + " " + res.getString(R.string.day_p);
-  }
-  return str;
+    double nextInt=mCurrentCard.nextInterval(mCurrentCard,ease);
+    double adInt;
+    int period=optimalPeriod(nextInt);
+switch (period) {
+case 0:
+      adInt=Math.max(1,Math.round(nextInt * 24));
+    break;
+case 1:
+  adInt=Math.round(nextInt);
+break;
+case 2:
+adInt=Math.round(nextInt / 3) / 10;
+break;
+case 3:
+adInt=Math.round(nextInt / 36.5) / 10;
+break;
+}
+if (adInt == 1) {
+if (period <= 1) {
+return String.valueOf((int)adInt) + " " + res.getString(R.string.next_review_s[period]);
+}
+ else {
+return String.valueOf(adInt) + " " + res.getString(R.string.next_review_s[period]);
+}
+}
+ else {
+if (period <= 1) {
+return String.valueOf((int)adInt) + " " + res.getString(R.string.next_review_p[period]);
+}
+ else {
+return String.valueOf(adInt) + " " + res.getString(R.string.next_review_p[period]);
+}
+}
+}
 }
