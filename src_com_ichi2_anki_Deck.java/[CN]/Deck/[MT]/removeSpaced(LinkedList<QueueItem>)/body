@@ -1,9 +1,9 @@
 {
   while (!queue.isEmpty()) {
     long fid=((QueueItem)queue.getLast()).getFactID();
-    if (spacedFacts.containsKey(fid)) {
-      if (Utils.now() > spacedFacts.get(fid)) {
-        spacedFacts.remove(fid);
+    if (mSpacedFacts.containsKey(fid)) {
+      if (Utils.now() > mSpacedFacts.get(fid)) {
+        mSpacedFacts.remove(fid);
       }
  else {
         queue.removeLast();

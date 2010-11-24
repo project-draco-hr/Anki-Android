@@ -43,7 +43,7 @@
   card.setType(cardType(card));
   card.setRelativeDelay(card.getType());
   if (ease != 1) {
-    card.setDue(Math.max(card.getDue(),dueCutoff + 1));
+    card.setDue(Math.max(card.getDue(),mDueCutoff + 1));
   }
   if (answerPreSaveMethod != null) {
     answerPreSave(card,ease);

@@ -9,8 +9,8 @@
     return true;
   }
   try {
-    if (!revQueue.isEmpty()) {
-      if (getDB().queryScalar("SELECT 1 FROM cards WHERE id = " + revQueue.getLast().getCardID() + " AND priority = 4") == 1) {
+    if (!mRevQueue.isEmpty()) {
+      if (getDB().queryScalar("SELECT 1 FROM cards WHERE id = " + mRevQueue.getLast().getCardID() + " AND priority = 4") == 1) {
         return false;
       }
     }

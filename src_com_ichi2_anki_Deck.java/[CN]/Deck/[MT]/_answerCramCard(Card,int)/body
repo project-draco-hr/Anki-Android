@@ -5,7 +5,7 @@
       mRevCount-=1;
     }
     requeueCard(card,false);
-    failedCramQueue.addFirst(new QueueItem(card.getId(),card.getFactId()));
+    mFailedCramQueue.addFirst(new QueueItem(card.getId(),card.getFactId()));
   }
  else {
     _answerCard(card,ease);

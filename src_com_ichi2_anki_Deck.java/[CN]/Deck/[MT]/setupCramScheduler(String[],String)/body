@@ -1,16 +1,16 @@
 {
   try {
     getCardIdMethod=Deck.class.getDeclaredMethod("_getCramCardId",boolean.class);
-    activeCramTags=active;
-    cramOrder=order;
+    mActiveCramTags=active;
+    mCramOrder=order;
     rebuildFailedCountMethod=Deck.class.getDeclaredMethod("_rebuildFailedCramCount");
     rebuildRevCountMethod=Deck.class.getDeclaredMethod("_rebuildCramCount");
     rebuildNewCountMethod=Deck.class.getDeclaredMethod("_rebuildNewCramCount");
     fillFailedQueueMethod=Deck.class.getDeclaredMethod("_fillFailedCramQueue");
     fillRevQueueMethod=Deck.class.getDeclaredMethod("_fillCramQueue");
     finishSchedulerMethod=Deck.class.getDeclaredMethod("setupStandardScheduler");
-    failedCramQueue.clear();
-    requeueCardMethod=Deck.class.getDeclaredMethod("_requeueCramCard",Card.class,int.class);
+    mFailedCramQueue.clear();
+    requeueCardMethod=Deck.class.getDeclaredMethod("_requeueCramCard",Card.class,boolean.class);
     cardQueueMethod=Deck.class.getDeclaredMethod("_cramCardQueue",Card.class);
     answerCardMethod=Deck.class.getDeclaredMethod("_answerCramCard",Card.class,int.class);
     spaceCardsMethod=Deck.class.getDeclaredMethod("_spaceCramCards",Card.class,double.class);
@@ -20,5 +20,5 @@
  catch (  NoSuchMethodException e) {
     throw new RuntimeException(e);
   }
-  scheduler="cram";
+  mScheduler="cram";
 }

@@ -1,16 +1,16 @@
 {
   try {
     if (card.getReps() == 1) {
-      newQueue.removeLast();
+      mNewQueue.removeLast();
     }
  else     if (!oldIsRev) {
-      failedQueue.removeLast();
+      mFailedQueue.removeLast();
     }
  else {
-      revQueue.removeLast();
+      mRevQueue.removeLast();
     }
   }
  catch (  Exception e) {
-    throw new RuntimeException("requeueCard() failed. Counts: " + mFailedSoonCount + " "+ mRevCount+ " "+ mNewCountToday+ ", Queue: "+ failedQueue.size()+ " "+ revQueue.size()+ " "+ newQueue.size()+ ", Card info: "+ card.getReps()+ " "+ card.isRev()+ " "+ oldIsRev);
+    throw new RuntimeException("requeueCard() failed. Counts: " + mFailedSoonCount + " "+ mRevCount+ " "+ mNewCountToday+ ", Queue: "+ mFailedQueue.size()+ " "+ mRevQueue.size()+ " "+ mNewQueue.size()+ ", Card info: "+ card.getReps()+ " "+ card.isRev()+ " "+ oldIsRev);
   }
 }

@@ -1,7 +1,7 @@
 {
   Cursor cursor=null;
   try {
-    cursor=getDB().getDatabase().rawQuery("SELECT type, count(type) FROM cards WHERE factId = " + card.getFactId() + " AND combinedDue < "+ dueCutoff+ " AND id != "+ card.getId()+ " GROUP BY type",null);
+    cursor=getDB().getDatabase().rawQuery("SELECT type, count(type) FROM cards WHERE factId = " + card.getFactId() + " AND combinedDue < "+ mDueCutoff+ " AND id != "+ card.getId()+ " GROUP BY type",null);
     while (cursor.moveToNext()) {
       Log.i(AnkiDroidApp.TAG,"failedSoonCount before = " + mFailedSoonCount);
       Log.i(AnkiDroidApp.TAG,"revCount before = " + mRevCount);
@@ -28,5 +28,5 @@
     }
   }
   getDB().getDatabase().execSQL(String.format(Utils.ENGLISH_LOCALE,"UPDATE cards SET spaceUntil = %f, " + "combinedDue = max(%f, due), modified = %f, isDue = 0 WHERE id != %d and factId = %d",space,space,Utils.now(),card.getId(),card.getFactId()));
-  spacedFacts.put(card.getFactId(),space);
+  mSpacedFacts.put(card.getFactId(),space);
 }

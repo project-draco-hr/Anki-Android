@@ -13,11 +13,11 @@
     cutoff+=86400.0;
   }
   cutoff=Math.min(System.currentTimeMillis() / 1000 + 86400,cutoff);
-  failedCutoff=cutoff;
+  mFailedCutoff=cutoff;
   if (getBool("perDay")) {
-    dueCutoff=(double)cutoff;
+    mDueCutoff=(double)cutoff;
   }
  else {
-    dueCutoff=(double)System.currentTimeMillis() / 1000.0;
+    mDueCutoff=(double)Utils.now();
   }
 }

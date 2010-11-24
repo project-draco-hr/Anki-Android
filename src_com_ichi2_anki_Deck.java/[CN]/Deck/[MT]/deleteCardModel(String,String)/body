@@ -3,6 +3,6 @@
   ArrayList<String> cardIds=getDB().queryColumn(String.class,"SELECT id FROM cards WHERE cardModelId = " + cardModelId,0);
   deleteCards(cardIds);
   getDB().getDatabase().execSQL("DELETE FROM cardModels WHERE id = " + cardModelId);
-  getDB().getDatabase().execSQL("UPDATE models SET modified = " + String.format(Utils.ENGLISH_LOCALE,"%f",System.currentTimeMillis() / 1000.0) + " WHERE id = "+ modelId);
+  getDB().getDatabase().execSQL("UPDATE models SET modified = " + String.format(Utils.ENGLISH_LOCALE,"%f",Utils.now()) + " WHERE id = "+ modelId);
   flushMod();
 }

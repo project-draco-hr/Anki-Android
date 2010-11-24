@@ -1,5 +1,5 @@
 {
-  if ((!revQueue.isEmpty()) && (((QueueItem)revQueue.getLast()).getCardID() == card.getId())) {
+  if ((!mRevQueue.isEmpty()) && (((QueueItem)mRevQueue.getLast()).getCardID() == card.getId())) {
     return 1;
   }
  else {

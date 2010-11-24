@@ -7,7 +7,7 @@
     rebuildFailedCountMethod=Deck.class.getDeclaredMethod("_rebuildFailedCount");
     rebuildRevCountMethod=Deck.class.getDeclaredMethod("_rebuildRevCount");
     rebuildNewCountMethod=Deck.class.getDeclaredMethod("_rebuildNewCount");
-    requeueCardMethod=Deck.class.getDeclaredMethod("_requeueCard",Card.class,int.class);
+    requeueCardMethod=Deck.class.getDeclaredMethod("_requeueCard",Card.class,boolean.class);
     timeForNewCardMethod=Deck.class.getDeclaredMethod("_timeForNewCard");
     updateNewCountTodayMethod=Deck.class.getDeclaredMethod("_updateNewCountToday");
     cardQueueMethod=Deck.class.getDeclaredMethod("_cardQueue",Card.class);
@@ -20,7 +20,7 @@
  catch (  NoSuchMethodException e) {
     throw new RuntimeException(e);
   }
-  scheduler="standard";
+  mScheduler="standard";
   if (mVersion == DECK_VERSION) {
     resetAfterReviewEarly();
   }

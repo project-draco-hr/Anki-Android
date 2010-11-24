@@ -1,7 +1,7 @@
 {
   Log.i(AnkiDroidApp.TAG,"deleteFieldModel, modelId = " + modelId + ", fieldModelId = "+ fieldModelId);
   getDB().getDatabase().execSQL("DELETE FROM fields WHERE fieldModel = " + fieldModelId);
-  getDB().getDatabase().execSQL("UPDATE facts SET modified = " + String.format(Utils.ENGLISH_LOCALE,"%f",(System.currentTimeMillis() / 1000.0)) + " WHERE modelId = "+ modelId);
+  getDB().getDatabase().execSQL("UPDATE facts SET modified = " + String.format(Utils.ENGLISH_LOCALE,"%f",Utils.now()) + " WHERE modelId = "+ modelId);
   String fieldName="";
   Cursor cursor=getDB().getDatabase().rawQuery("SELECT name FROM fieldModels WHERE id = " + fieldModelId,null);
   if (cursor.moveToNext()) {
@@ -26,6 +26,6 @@
   }
   cursor.close();
   statement.close();
-  getDB().getDatabase().execSQL("UPDATE models SET modified = " + String.format(Utils.ENGLISH_LOCALE,"%f",System.currentTimeMillis() / 1000.0) + " WHERE id = "+ modelId);
+  getDB().getDatabase().execSQL("UPDATE models SET modified = " + String.format(Utils.ENGLISH_LOCALE,"%f",Utils.now()) + " WHERE id = "+ modelId);
   flushMod();
 }

@@ -2,13 +2,13 @@
   checkDailyStats();
   fillQueues();
   if (mFailedSoonCount >= mFailedCardMax) {
-    return ((QueueItem)failedQueue.getLast()).getCardID();
+    return ((QueueItem)mFailedQueue.getLast()).getCardID();
   }
   if (revNoSpaced()) {
-    return ((QueueItem)revQueue.getLast()).getCardID();
+    return ((QueueItem)mRevQueue.getLast()).getCardID();
   }
-  if (!failedQueue.isEmpty()) {
-    return ((QueueItem)failedQueue.getLast()).getCardID();
+  if (!mFailedQueue.isEmpty()) {
+    return ((QueueItem)mFailedQueue.getLast()).getCardID();
   }
   if (check) {
     reset();
