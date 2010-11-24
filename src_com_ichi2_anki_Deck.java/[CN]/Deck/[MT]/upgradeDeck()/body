@@ -1,7 +1,7 @@
 {
-  upgradeNotes="";
+  upgradeNotes=new ArrayList<Integer>();
   if (version < 39) {
-    upgradeNotes=res.getString(R.deck_upgrade_too_old_version);
+    upgradeNotes.add(com.ichi2.anki.R.string.deck_upgrade_too_old_version);
     return false;
   }
   if (version < 40) {
@@ -48,10 +48,8 @@
     commitToDB();
   }
   if (version < 52) {
-    String dname=deck.name();
-    String sname=deck.syncName;
-    if (!dname.equals(sname)) {
-      upgradeNotes=upgradeNotes.concat(String.format(res.getString(R.string.deck_upgrade_52_note),dname,sname));
+    if (!deckName.equals(syncName)) {
+      upgradeNotes.add(com.ichi2.anki.R.string.deck_upgrade_52_note);
       disableSyncing();
     }
  else {
