@@ -16,7 +16,7 @@ CharSequence[] items=new CharSequence[dialogItems.size()];
 dialogItems.toArray(items);
 builder.setItems(items,new DialogInterface.OnClickListener(){
 public void onClick(DialogInterface dialog,int item){
-Long oldModelId=mCurrentSelectedModelId;
+long oldModelId=mCurrentSelectedModelId;
 mCurrentSelectedModelId=dialogIds.get(item);
 mModelButton.setText(mModels.get(mCurrentSelectedModelId).getName());
 if (oldModelId != mCurrentSelectedModelId) {
