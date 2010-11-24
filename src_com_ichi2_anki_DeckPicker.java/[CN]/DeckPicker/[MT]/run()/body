@@ -24,7 +24,6 @@
           Log.w(TAG,"Could not open database " + path);
           continue;
         }
-        AnkiDatabaseManager.closeDatabase(path);
         if (version < Deck.DECK_VERSION) {
           Bundle data=new Bundle();
           data.putString("absPath",path);
@@ -58,13 +57,14 @@
           int dueCards=deck.failedSoonCount + deck.revCount;
           int totalCards=deck.cardCount;
           int newCards=deck.newCountToday;
+          String upgradeNotes=deck.upgradeNotesToMessages(deck,getResources());
           deck.closeDeck();
           data.putString("absPath",path);
           data.putInt("msgtype",MSG_UPGRADE_SUCCESS);
           data.putInt("due",dueCards);
           data.putInt("total",totalCards);
           data.putInt("new",newCards);
-          data.putString("notes",Deck.upgradeNotesToMessages(deck,getResources()));
+          data.putString("notes",upgradeNotes);
           msg.setData(data);
           mHandler.sendMessage(msg);
         }

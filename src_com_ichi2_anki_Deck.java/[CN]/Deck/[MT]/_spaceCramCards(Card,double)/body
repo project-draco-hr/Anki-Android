@@ -1,5 +1,5 @@
 {
-  if (space > System.currentTimeMillis()) {
-    spacedFacts.put(card.factId,System.currentTimeMillis() + 600.0);
+  if (space > System.currentTimeMillis() / 1000.0) {
+    spacedFacts.put(card.factId,System.currentTimeMillis() / 1000.0 + 600.0);
   }
 }
