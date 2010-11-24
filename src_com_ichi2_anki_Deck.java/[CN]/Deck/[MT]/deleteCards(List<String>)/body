@@ -27,6 +27,5 @@
     getDB().database.execSQL("DELETE FROM tags WHERE id in " + Utils.ids2str(unusedTags) + " and priority = 2");
     deleteDanglingFacts();
     flushMod();
-    reset();
   }
 }

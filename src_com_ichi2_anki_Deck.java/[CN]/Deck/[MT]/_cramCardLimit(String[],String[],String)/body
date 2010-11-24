@@ -1,6 +1,6 @@
 {
   if (active.length > 1) {
-    return sql.replace("WHERE ","WHERE +c.id IN " + Utils.ids2str(new ArrayList<String>(Arrays.asList(active))));
+    return sql.replace("WHERE ","WHERE +c.id IN " + Utils.ids2str(new ArrayList<String>(Arrays.asList(active))) + " AND");
   }
  else   if (active.length == 1) {
     String[] yes=Utils.parseTags(active[0]);

@@ -26,7 +26,7 @@
   double space=spaceUntilTime(card);
   spaceCards(card,space);
   if (ease == 1) {
-    if (!(oldState.compareTo("mature") == 0 && delay1 != 0)) {
+    if (card.due < failedCutoff) {
       failedSoonCount+=1;
     }
   }

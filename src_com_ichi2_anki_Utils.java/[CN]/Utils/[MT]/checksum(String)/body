@@ -1,0 +1,13 @@
+{
+  String result="";
+  if (data != null) {
+    MessageDigest md=MessageDigest.getInstance("MD5");
+    byte[] digest=md.digest(data.getBytes("UTF-8"));
+    BigInteger biginteger=new BigInteger(1,digest);
+    result=biginteger.toString(16);
+    if (result.length() < 32) {
+      result="00000000000000000000000000000000".substring(0,32 - result.length()) + result;
+    }
+  }
+  return result;
+}

@@ -1,5 +1,7 @@
 {
+  upgradeNotes="";
   if (version < 39) {
+    upgradeNotes=res.getString(R.deck_upgrade_too_old_version);
     return false;
   }
   if (version < 40) {
@@ -19,8 +21,6 @@
   if (version < 44) {
     getDB().database.execSQL("DROP INDEX IF EXISTS ix_cards_factId");
     addIndices();
-    hardIntervalMin=1.0;
-    hardIntervalMax=1.1;
     version=44;
     commitToDB();
   }
@@ -45,6 +45,19 @@
     rebuildTypes();
     addIndices();
     version=50;
+    commitToDB();
+  }
+  if (version < 52) {
+    String dname=deck.name();
+    String sname=deck.syncName;
+    if (!dname.equals(sname)) {
+      upgradeNotes=upgradeNotes.concat(String.format(res.getString(R.string.deck_upgrade_52_note),dname,sname));
+      disableSyncing();
+    }
+ else {
+      enableSyncing();
+    }
+    version=52;
     commitToDB();
   }
   if (getInt("pageSize") != 4096) {
