@@ -2,9 +2,7 @@
   double now=Utils.now();
   ContentValues updateValues=new ContentValues();
   updateValues.put("modified",now);
-  Iterator<Field> iter=mFields.iterator();
-  while (iter.hasNext()) {
-    Field f=iter.next();
+  for (  Field f : mFields) {
     updateValues=new ContentValues();
     updateValues.put("value",f.mValue);
     AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().update("fields",updateValues,"id = ?",new String[]{"" + f.mFieldId});
