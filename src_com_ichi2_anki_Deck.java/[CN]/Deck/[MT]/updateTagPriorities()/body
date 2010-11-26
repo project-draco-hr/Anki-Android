@@ -1,5 +1,5 @@
 {
-  for (  String s : new String[]{lowPriority,medPriority,highPriority,suspended}) {
+  for (  String s : new String[]{lowPriority,medPriority,highPriority}) {
     tagIds(Utils.parseTags(s));
   }
   HashMap<Long,Integer> newPriorities=new HashMap<Long,Integer>();

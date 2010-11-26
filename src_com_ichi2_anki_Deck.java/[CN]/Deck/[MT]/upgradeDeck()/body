@@ -58,6 +58,16 @@
     version=52;
     commitToDB();
   }
+  if (version < 53) {
+    if (getBool("perDay")) {
+      if (Math.abs(hardIntervalMin - 0.333) < 0.001) {
+        hardIntervalMin=Math.max(1.0,hardIntervalMin);
+        hardIntervalMax=Math.max(1.1,hardIntervalMax);
+      }
+    }
+    version=53;
+    commitToDB();
+  }
   if (getInt("pageSize") != 4096) {
     commitToDB();
     getDB().database.execSQL("PRAGMA page_size = 4096");
