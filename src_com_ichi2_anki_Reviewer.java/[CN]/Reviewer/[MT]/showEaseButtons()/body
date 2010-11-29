@@ -29,11 +29,11 @@
   if (mCurrentCard.isRev()) {
     mEase3.requestFocus();
     mNext2.setTextColor(Color.BLACK);
-    mNext3.setTextColor(Color.GREEN);
+    mNext3.setTextColor(Color.parseColor("#007700"));
   }
  else {
     mEase2.requestFocus();
-    mNext2.setTextColor(Color.GREEN);
+    mNext2.setTextColor(Color.parseColor("#007700"));
     mNext3.setTextColor(Color.BLACK);
   }
 }
