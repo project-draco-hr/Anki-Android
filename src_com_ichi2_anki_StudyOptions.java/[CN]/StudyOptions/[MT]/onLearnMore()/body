@@ -1,0 +1,7 @@
+{
+  Deck deck=AnkiDroidApp.deck();
+  if (deck != null) {
+    deck.setupLearnMoreScheduler();
+    deck.reset();
+  }
+}

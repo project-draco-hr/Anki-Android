@@ -13,16 +13,26 @@ mTextNoDeckMessage.setText(R.string.studyoptions_deck_not_loaded_message);
 setContentView(mNoDeckView);
 break;
 case CONTENT_STUDY_OPTIONS:
-updateValuesFromDeck();
-mButtonStart.setText(R.string.studyoptions_start);
-mToggleCram.setChecked(false);
-mTextTitle.setText(R.string.studyoptions_title);
-setContentView(mStudyOptionsView);
-break;
 case CONTENT_SESSION_COMPLETE:
+if (AnkiDroidApp.deck().name().equals("cram")) {
+mToggleCram.setChecked(false);
+mEditNewPerDay.setEnabled(true);
+mEditSessionTime.setEnabled(true);
+mEditSessionQuestions.setEnabled(true);
+mStudyOptionsView.findViewById(R.id.studyoptions_more).setEnabled(true);
+}
+if ((AnkiDroidApp.deck() != null) && (AnkiDroidApp.deck().hasFinishScheduler())) {
+AnkiDroidApp.deck().finishScheduler();
+}
 updateValuesFromDeck();
+if (mCurrentContentView == CONTENT_STUDY_OPTIONS) {
+mButtonStart.setText(R.string.studyoptions_start);
+mTextTitle.setText(R.string.studyoptions_title);
+}
+ else {
 mButtonStart.setText(R.string.studyoptions_continue);
 mTextTitle.setText(R.string.studyoptions_well_done);
+}
 setContentView(mStudyOptionsView);
 break;
 case CONTENT_CONGRATS:
