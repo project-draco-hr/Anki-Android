@@ -3,4 +3,8 @@
   builder.setTitle(getResources().getString(R.string.sync_log_tite));
   builder.setPositiveButton(getResources().getString(R.string.ok),null);
   mSyncLogAlert=builder.create();
+  builder=new AlertDialog.Builder(this);
+  builder.setTitle(getResources().getString(R.string.deckpicker_upgrade_notes_title));
+  builder.setPositiveButton(getResources().getString(R.string.ok),null);
+  mUpgradeNotesAlert=builder.create();
 }

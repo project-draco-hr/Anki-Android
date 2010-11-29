@@ -1,7 +1,10 @@
 {
   if ((mRevCount != 0) && mRevQueue.isEmpty()) {
-    String sql="SELECT id, factId FROM cards c WHERE type BETWEEN 0 AND 2 ORDER BY " + mCramOrder + " LIMIT "+ mQueueLimit;
-    Cursor cur=getDB().getDatabase().rawQuery(cardLimit(mActiveCramTags,null,sql),null);
+    Log.i(TAG,"fill cram queue: " + activeCramTags + " "+ cramOrder+ " "+ queueLimit);
+    String sql="SELECT id, factId FROM cards c WHERE type BETWEEN 0 AND 2 ORDER BY " + cramOrder + " LIMIT "+ mQueueLimit;
+    sql=cardLimit(activeCramTags,null,sql);
+    Log.i(TAG,"SQL: " + sql);
+    Cursor cur=getDB().database.rawQuery(sql,null);
     while (cur.moveToNext()) {
       QueueItem qi=new QueueItem(cur.getLong(0),cur.getLong(1));
       mRevQueue.add(0,qi);

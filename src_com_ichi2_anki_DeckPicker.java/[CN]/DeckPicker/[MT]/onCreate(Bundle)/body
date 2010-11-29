@@ -23,7 +23,7 @@
 );
   mDeckList=new ArrayList<HashMap<String,String>>();
   mDeckListView=(ListView)findViewById(R.id.files);
-  mDeckListAdapter=new SimpleAdapter(this,mDeckList,R.layout.deck_item,new String[]{"name","due","new","showProgress"},new int[]{R.id.DeckPickerName,R.id.DeckPickerDue,R.id.DeckPickerNew,R.id.DeckPickerProgress});
+  mDeckListAdapter=new SimpleAdapter(this,mDeckList,R.layout.deck_item,new String[]{"name","due","new","showProgress","notes"},new int[]{R.id.DeckPickerName,R.id.DeckPickerDue,R.id.DeckPickerNew,R.id.DeckPickerProgress,R.id.DeckPickerUpgradeNotesButton});
   mDeckListAdapter.setViewBinder(new SimpleAdapter.ViewBinder(){
     @Override public boolean setViewValue(    View view,    Object data,    String text){
       if (view instanceof ProgressBar) {
@@ -32,6 +32,27 @@
         }
  else {
           view.setVisibility(View.GONE);
+        }
+        return true;
+      }
+      if (view.getId() == R.id.DeckPickerUpgradeNotesButton) {
+        if (text.equals("")) {
+          view.setVisibility(View.GONE);
+        }
+ else {
+          view.setVisibility(View.VISIBLE);
+          view.setTag(text);
+          view.setOnClickListener(new OnClickListener(){
+            @Override public void onClick(            View v){
+              String tag=(String)v.getTag();
+              if (tag == null) {
+                tag="";
+              }
+              mUpgradeNotesAlert.setMessage(tag);
+              mUpgradeNotesAlert.show();
+            }
+          }
+);
         }
         return true;
       }

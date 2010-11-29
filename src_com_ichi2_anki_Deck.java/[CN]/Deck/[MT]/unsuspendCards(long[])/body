@@ -2,5 +2,4 @@
   getDB().getDatabase().execSQL("UPDATE cards SET type = relativeDelay, priority = 0, " + "modified = " + String.format(Utils.ENGLISH_LOCALE,"%f",Utils.now()) + " WHERE type < 0 AND id IN "+ Utils.ids2str(ids));
   updatePriorities(ids);
   flushMod();
-  reset();
 }

@@ -1,7 +1,11 @@
 {
   boolean deckLoaded=AnkiDroidApp.deck() != null;
+  boolean syncingEnabled=false;
+  if (deckLoaded) {
+    syncingEnabled=AnkiDroidApp.deck().syncingEnabled();
+  }
   menu.findItem(MENU_OPEN).setEnabled(mSdCardAvailable);
   menu.findItem(SUBMENU_DOWNLOAD).setEnabled(mSdCardAvailable);
-  menu.findItem(MENU_SYNC).setEnabled(deckLoaded && mSdCardAvailable);
+  menu.findItem(MENU_SYNC).setEnabled(deckLoaded && mSdCardAvailable && syncingEnabled);
   return true;
 }

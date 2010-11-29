@@ -1,3 +1,4 @@
 {
-  return mTagsBySrc;
+  String[] tags=new String[]{getFact().tags,Model.getModel(deck,getFact().modelId,true).tags,getCardModel().name};
+  return tags;
 }

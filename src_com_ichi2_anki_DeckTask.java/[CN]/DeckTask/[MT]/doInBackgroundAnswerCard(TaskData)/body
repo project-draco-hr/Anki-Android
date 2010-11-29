@@ -8,9 +8,15 @@
   try {
     if (oldCard != null) {
       deck.answerCard(oldCard,ease);
+      Log.i(TAG,"leech flag: " + oldCard.getLeechFlag());
     }
     newCard=deck.getCard();
-    publishProgress(new TaskData(newCard));
+    if (oldCard != null) {
+      publishProgress(new TaskData(newCard,oldCard.getLeechFlag(),oldCard.getSuspendedFlag()));
+    }
+ else {
+      publishProgress(new TaskData(newCard));
+    }
     ankiDB.getDatabase().setTransactionSuccessful();
   }
   finally {

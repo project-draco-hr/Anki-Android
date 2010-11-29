@@ -7,7 +7,8 @@
  catch (  SQLException e) {
     return false;
   }
-  if (card.isRev() && (no >= fmax) && ((fmax - no) % Math.max(fmax / 2,1) == 0)) {
+  Log.i(TAG,"leech handling: " + card.successive + " successive fails and "+ no+ " total fails, threshold at "+ fmax);
+  if (!card.isRev() && (no >= fmax) && ((fmax - no) % Math.max(fmax / 2,1) == 0)) {
     return true;
   }
  else {

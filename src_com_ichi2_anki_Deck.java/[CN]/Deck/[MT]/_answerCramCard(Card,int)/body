@@ -1,13 +1,6 @@
 {
+  _answerCard(card,ease);
   if (ease == 1) {
-    if (cardQueue(card) != 0) {
-      mFailedSoonCount+=1;
-      mRevCount-=1;
-    }
-    requeueCard(card,false);
     mFailedCramQueue.addFirst(new QueueItem(card.getId(),card.getFactId()));
-  }
- else {
-    _answerCard(card,ease);
   }
 }

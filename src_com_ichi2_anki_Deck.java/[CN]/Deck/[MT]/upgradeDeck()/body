@@ -1,5 +1,7 @@
 {
+  upgradeNotes=new ArrayList<Integer>();
   if (mVersion < 39) {
+    upgradeNotes.add(com.ichi2.anki.R.string.deck_upgrade_too_old_version);
     return false;
   }
   if (mVersion < 40) {
@@ -19,8 +21,6 @@
   if (mVersion < 44) {
     getDB().getDatabase().execSQL("DROP INDEX IF EXISTS ix_cards_factId");
     addIndices();
-    mHardIntervalMin=1.0;
-    mHardIntervalMax=1.1;
     mVersion=44;
     commitToDB();
   }
@@ -45,6 +45,29 @@
     rebuildTypes();
     addIndices();
     mVersion=50;
+    commitToDB();
+  }
+  if (version < 52) {
+    if ((syncName != null) && !syncName.equals("")) {
+      if (!deckName.equals(syncName)) {
+        upgradeNotes.add(com.ichi2.anki.R.string.deck_upgrade_52_note);
+        disableSyncing();
+      }
+ else {
+        enableSyncing();
+      }
+    }
+    version=52;
+    commitToDB();
+  }
+  if (version < 53) {
+    if (getBool("perDay")) {
+      if (Math.abs(hardIntervalMin - 0.333) < 0.001) {
+        hardIntervalMin=Math.max(1.0,hardIntervalMin);
+        hardIntervalMax=Math.max(1.1,hardIntervalMax);
+      }
+    }
+    version=53;
     commitToDB();
   }
   if (getInt("pageSize") != 4096) {
