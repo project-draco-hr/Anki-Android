@@ -9,7 +9,7 @@
   getDB().database.execSQL("CREATE INDEX IF NOT EXISTS ix_fields_factId ON fields (factId)");
   getDB().database.execSQL("CREATE INDEX IF NOT EXISTS ix_fields_fieldModelId ON fields (fieldModelId)");
   getDB().database.execSQL("CREATE INDEX IF NOT EXISTS ix_fields_value ON fields (value)");
-  getDB().database.execSQL("CREATE INDEX IF NOT EXISTS ix_media_filename ON media (filename)");
+  getDB().database.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS ix_media_filename ON media (filename)");
   getDB().database.execSQL("CREATE INDEX IF NOT EXISTS ix_media_originalPath ON media (originalPath)");
   getDB().database.execSQL("CREATE INDEX IF NOT EXISTS ix_cardsDeleted_cardId ON cardsDeleted (cardId)");
   getDB().database.execSQL("CREATE INDEX IF NOT EXISTS ix_modelsDeleted_modelId ON modelsDeleted (modelId)");

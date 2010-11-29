@@ -1,4 +1,8 @@
 {
-  Date today=new Date(System.currentTimeMillis() - (long)deck.utcOffset * 1000l);
+  SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+  df.setTimeZone(TimeZone.getTimeZone("GMT"));
+  Calendar cal=new GregorianCalendar(TimeZone.getTimeZone("GMT"));
+  cal.setTimeInMillis(System.currentTimeMillis() - (long)deck.utcOffset * 1000l);
+  Date today=Date.valueOf(df.format(cal.getTime()));
   return today;
 }

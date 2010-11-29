@@ -48,12 +48,14 @@
     commitToDB();
   }
   if (version < 52) {
-    if ((syncName != null) && !syncName.equals("") && !deckName.equals(syncName)) {
-      upgradeNotes.add(com.ichi2.anki.R.string.deck_upgrade_52_note);
-      disableSyncing();
-    }
+    if ((syncName != null) && !syncName.equals("")) {
+      if (!deckName.equals(syncName)) {
+        upgradeNotes.add(com.ichi2.anki.R.string.deck_upgrade_52_note);
+        disableSyncing();
+      }
  else {
-      enableSyncing();
+        enableSyncing();
+      }
     }
     version=52;
     commitToDB();
