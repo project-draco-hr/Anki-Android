@@ -8,11 +8,11 @@
       digest=md.digest(data.getBytes("UTF-8"));
     }
  catch (    NoSuchAlgorithmException e) {
-      Log.e(TAG,"Utils.checksum: No such algorithm. " + e.getMessage());
+      Log.e(AnkiDroidApp.TAG,"Utils.checksum: No such algorithm. " + e.getMessage());
       throw new RuntimeException(e);
     }
 catch (    UnsupportedEncodingException e) {
-      Log.e(TAG,"Utils.checksum: " + e.getMessage());
+      Log.e(AnkiDroidApp.TAG,"Utils.checksum: " + e.getMessage());
       e.printStackTrace();
     }
     BigInteger biginteger=new BigInteger(1,digest);

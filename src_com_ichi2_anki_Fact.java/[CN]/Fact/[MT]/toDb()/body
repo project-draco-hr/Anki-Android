@@ -2,9 +2,9 @@
   double now=Utils.now();
   ContentValues updateValues=new ContentValues();
   updateValues.put("modified",now);
-  updateValues.put("tags",tags);
-  updateValues.put("spaceUntil",spaceUntil);
-  AnkiDatabaseManager.getDatabase(deck.deckPath).database.update("facts",updateValues,"id = ?",new String[]{"" + id});
+  updateValues.put("tags",mTags);
+  updateValues.put("spaceUntil",mSpaceUntil);
+  AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().update("facts",updateValues,"id = ?",new String[]{"" + mId});
   for (  Field f : mFields) {
     updateValues=new ContentValues();
     updateValues.put("value",f.mValue);

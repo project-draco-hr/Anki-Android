@@ -26,8 +26,8 @@
   double space=spaceUntilTime(card);
   spaceCards(card,space);
   if (ease == 1) {
-    if (card.due < failedCutoff) {
-      failedSoonCount+=1;
+    if (card.getDue() < mFailedCutoff) {
+      mFailedSoonCount+=1;
     }
   }
   if (oldQueue == 0) {
@@ -48,7 +48,7 @@
   if (answerPreSaveMethod != null) {
     answerPreSave(card,ease);
   }
-  card.combinedDue=card.due;
+  card.setCombinedDue(card.getDue());
   card.toDB();
   Stats.updateAllStats(mGlobalStats,mDailyStats,card,ease,oldState);
   CardHistoryEntry entry=new CardHistoryEntry(this,card,ease,lastDelay);
@@ -56,7 +56,7 @@
   mModified=now;
   requeueCard(card,oldIsRev);
   if (isLeech(card)) {
-    Log.i(TAG,"card is leech!");
+    Log.i(AnkiDroidApp.TAG,"card is leech!");
     handleLeech(card);
   }
   setUndoEnd(undoName);

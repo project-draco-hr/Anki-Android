@@ -47,9 +47,9 @@
     mVersion=50;
     commitToDB();
   }
-  if (version < 52) {
-    if ((syncName != null) && !syncName.equals("")) {
-      if (!deckName.equals(syncName)) {
+  if (mVersion < 52) {
+    if ((mSyncName != null) && !mSyncName.equals("")) {
+      if (!mDeckName.equals(mSyncName)) {
         upgradeNotes.add(com.ichi2.anki.R.string.deck_upgrade_52_note);
         disableSyncing();
       }
@@ -57,17 +57,17 @@
         enableSyncing();
       }
     }
-    version=52;
+    mVersion=52;
     commitToDB();
   }
-  if (version < 53) {
+  if (mVersion < 53) {
     if (getBool("perDay")) {
-      if (Math.abs(hardIntervalMin - 0.333) < 0.001) {
-        hardIntervalMin=Math.max(1.0,hardIntervalMin);
-        hardIntervalMax=Math.max(1.1,hardIntervalMax);
+      if (Math.abs(mHardIntervalMin - 0.333) < 0.001) {
+        mHardIntervalMin=Math.max(1.0,mHardIntervalMin);
+        mHardIntervalMax=Math.max(1.1,mHardIntervalMax);
       }
     }
-    version=53;
+    mVersion=53;
     commitToDB();
   }
   if (getInt("pageSize") != 4096) {

@@ -1,4 +1,4 @@
 {
-  String sql=String.format(ENGLISH_LOCALE,"SELECT count(*) FROM cards c WHERE type = 0 AND combinedDue < %f",failedCutoff);
-  failedSoonCount=(int)getDB().queryScalar(cardLimit("revActive","revInactive",sql));
+  String sql=String.format(Utils.ENGLISH_LOCALE,"SELECT count(*) FROM cards c WHERE type = 0 AND combinedDue < %f",mFailedCutoff);
+  mFailedSoonCount=(int)getDB().queryScalar(cardLimit("revActive","revInactive",sql));
 }

@@ -6,7 +6,7 @@
       mSpaceUntil+=f.getValue() + " ";
     }
     mSpaceUntil.substring(0,mSpaceUntil.length() - 1);
-    spaceUntil=Utils.stripHTMLMedia(spaceUntil.substring(0,spaceUntil.length() - 1));
+    mSpaceUntil=Utils.stripHTMLMedia(mSpaceUntil.substring(0,mSpaceUntil.length() - 1));
     Log.d(AnkiDroidApp.TAG,"spaceUntil = " + mSpaceUntil);
     for (    Card card : getUpdatedRelatedCards()) {
       card.setModified();
