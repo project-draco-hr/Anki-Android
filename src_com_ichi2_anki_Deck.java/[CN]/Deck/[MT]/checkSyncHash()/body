@@ -1,5 +1,5 @@
 {
-  if ((mSyncName != null) && !mSyncName.equals(Utils.checksum(mDeckName))) {
+  if ((mSyncName != null) && !mSyncName.equals(Utils.checksum(mDeckPath))) {
     disableSyncing();
   }
 }
