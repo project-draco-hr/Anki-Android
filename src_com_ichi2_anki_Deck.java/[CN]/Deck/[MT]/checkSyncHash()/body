@@ -1,5 +1,5 @@
 {
-  if ((syncName != null) && !syncName.equals(Utils.checksum(deckName))) {
+  if ((syncName != null) && !syncName.equals(Utils.checksum(deckPath))) {
     disableSyncing();
   }
 }
