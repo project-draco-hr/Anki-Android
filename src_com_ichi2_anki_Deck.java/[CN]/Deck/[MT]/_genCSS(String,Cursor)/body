@@ -6,6 +6,7 @@
   String col=row.getString(3);
   int align=row.getInt(4);
   String rtl=row.getString(5);
+  int pre=row.getInt(4);
   if (fam != null) {
     t+="font-family:\"" + fam + "\";";
   }
@@ -17,6 +18,9 @@
   }
   if (rtl != null && rtl.compareTo("rtl") == 0) {
     t+="direction:rtl;unicode-bidi:embed;";
+  }
+  if (pre != 0) {
+    t+="white-space:pre-wrap;";
   }
   if (align != -1) {
     if (align == 0) {
