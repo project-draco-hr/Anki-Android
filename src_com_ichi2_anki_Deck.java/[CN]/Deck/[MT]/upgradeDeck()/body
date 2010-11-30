@@ -48,15 +48,6 @@
     commitToDB();
   }
   if (mVersion < 52) {
-    if ((mSyncName != null) && !mSyncName.equals("")) {
-      if (!mDeckName.equals(mSyncName)) {
-        upgradeNotes.add(com.ichi2.anki.R.string.deck_upgrade_52_note);
-        disableSyncing();
-      }
- else {
-        enableSyncing();
-      }
-    }
     mVersion=52;
     commitToDB();
   }

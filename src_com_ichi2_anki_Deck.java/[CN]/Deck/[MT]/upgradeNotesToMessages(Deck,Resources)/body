@@ -4,9 +4,6 @@
     if (note == com.ichi2.anki.R.string.deck_upgrade_too_old_version) {
       notes=notes.concat(res.getString(note.intValue()));
     }
- else     if (note == com.ichi2.anki.R.string.deck_upgrade_52_note) {
-      notes=notes.concat(String.format(res.getString(note.intValue()),deck.getDeckName(),deck.getSyncName()));
-    }
   }
   return notes;
 }
