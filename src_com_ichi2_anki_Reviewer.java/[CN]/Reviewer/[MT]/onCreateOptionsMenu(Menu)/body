@@ -7,9 +7,9 @@
     item.setIcon(R.drawable.ic_menu_clear_playlist);
   }
   item=menu.add(Menu.NONE,MENU_EDIT,Menu.NONE,R.string.menu_edit_card);
-  item.setIcon(android.R.drawable.ic_menu_edit);
+  item.setIcon(R.drawable.ic_menu_edit);
   item=menu.add(Menu.NONE,MENU_SUSPEND,Menu.NONE,R.string.menu_suspend_card);
-  item.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+  item.setIcon(R.drawable.ic_menu_close_clear_cancel);
   if (mPrefTextSelection) {
     item=menu.add(Menu.NONE,MENU_SEARCH,Menu.NONE,R.string.menu_search);
     item.setIcon(R.drawable.ic_menu_search);

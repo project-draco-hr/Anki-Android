@@ -21,6 +21,9 @@ return true;
 case MENU_MY_ACCOUNT:
 startActivity(new Intent(StudyOptions.this,MyAccount.class));
 return true;
+case MENU_MORE_OPTIONS:
+showMoreOptionsDialog();
+return true;
 case MENU_PREFERENCES:
 startActivityForResult(new Intent(StudyOptions.this,Preferences.class),PREFERENCES_UPDATE);
 return true;

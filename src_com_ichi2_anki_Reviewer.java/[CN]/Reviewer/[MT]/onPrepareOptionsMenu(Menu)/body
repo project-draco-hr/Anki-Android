@@ -1,13 +1,16 @@
 {
   MenuItem item=menu.findItem(MENU_MARK);
+  if (mCurrentCard == null) {
+    return false;
+  }
   mCurrentCard.loadTags();
   if (mCurrentCard.hasTag(Deck.TAG_MARKED)) {
     item.setTitle(R.string.menu_marked);
-    item.setIcon(R.drawable.star_big_on);
+    item.setIcon(R.drawable.ic_menu_star_on);
   }
  else {
     item.setTitle(R.string.menu_mark_card);
-    item.setIcon(R.drawable.ic_menu_star);
+    item.setIcon(R.drawable.ic_menu_star_off);
   }
   if (mPrefTextSelection) {
     item=menu.findItem(MENU_SEARCH);

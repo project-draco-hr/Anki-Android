@@ -19,7 +19,6 @@ mToggleCram.setChecked(false);
 mEditNewPerDay.setEnabled(true);
 mEditSessionTime.setEnabled(true);
 mEditSessionQuestions.setEnabled(true);
-mStudyOptionsView.findViewById(R.id.studyoptions_more).setEnabled(true);
 }
 if ((AnkiDroidApp.deck() != null) && (AnkiDroidApp.deck().hasFinishScheduler())) {
 AnkiDroidApp.deck().finishScheduler();

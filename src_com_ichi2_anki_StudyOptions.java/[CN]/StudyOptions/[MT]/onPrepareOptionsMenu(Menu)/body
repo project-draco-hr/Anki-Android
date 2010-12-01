@@ -3,5 +3,6 @@
   menu.findItem(MENU_OPEN).setEnabled(mSdCardAvailable);
   menu.findItem(SUBMENU_DOWNLOAD).setEnabled(mSdCardAvailable);
   menu.findItem(MENU_SYNC).setEnabled(deckLoaded && mSdCardAvailable);
+  menu.findItem(MENU_MORE_OPTIONS).setEnabled(!mToggleCram.isChecked());
   return true;
 }
