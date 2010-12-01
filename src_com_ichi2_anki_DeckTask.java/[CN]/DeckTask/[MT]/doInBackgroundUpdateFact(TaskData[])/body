@@ -6,7 +6,6 @@
   for (  Card modifyCard : editFact.getUpdatedRelatedCards()) {
     modifyCard.updateQAfields();
   }
-  deck.reset();
   publishProgress(new TaskData(deck.getCurrentCard()));
   return null;
 }
