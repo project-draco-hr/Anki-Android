@@ -1,0 +1,9 @@
+{
+  int endIndex=replaceFrom.indexOf(")",replaceAt);
+  String fieldName=replaceFrom.substring(replaceAt + 7,endIndex);
+  char fieldType=replaceFrom.charAt(endIndex + 1);
+  String replace="%(text:" + fieldName + ")"+ fieldType;
+  String with=fact.getFieldValue(fieldName);
+  replaceFrom=replaceFrom.replace(replace,with);
+  return replaceFrom;
+}
