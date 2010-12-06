@@ -1,5 +1,5 @@
 {
-  if ((mNewCount != 0) && mNewQueue.isEmpty()) {
+  if ((mNewCountToday != 0) && mNewQueue.isEmpty() && mSpacedCards.isEmpty()) {
     String sql="SELECT c.id, factId, combinedDue FROM cards c WHERE type = 2 AND combinedDue < " + mDueCutoff + " ORDER BY "+ newOrder()+ " LIMIT "+ mQueueLimit;
     Cursor cur=getDB().getDatabase().rawQuery(cardLimit("newActive","newInactive",sql),null);
     while (cur.moveToNext()) {

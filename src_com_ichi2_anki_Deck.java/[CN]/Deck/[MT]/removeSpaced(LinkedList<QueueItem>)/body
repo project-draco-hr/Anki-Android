@@ -1,16 +1,3 @@
 {
-  while (!queue.isEmpty()) {
-    long fid=((QueueItem)queue.getLast()).getFactID();
-    if (mSpacedFacts.containsKey(fid)) {
-      if (Utils.now() > mSpacedFacts.get(fid)) {
-        mSpacedFacts.remove(fid);
-      }
- else {
-        queue.removeLast();
-      }
-    }
- else {
-      return;
-    }
-  }
+  removeSpaced(queue,false);
 }

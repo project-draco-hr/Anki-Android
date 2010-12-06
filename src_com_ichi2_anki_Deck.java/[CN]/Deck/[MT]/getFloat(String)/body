@@ -1,0 +1,9 @@
+{
+  Cursor cur=getDB().getDatabase().rawQuery("SELECT value FROM deckVars WHERE key = '" + key + "'",null);
+  if (cur.moveToFirst()) {
+    return cur.getFloat(0);
+  }
+ else {
+    throw new SQLException("DeckVars.getFloat: could not retrieve value for " + key);
+  }
+}

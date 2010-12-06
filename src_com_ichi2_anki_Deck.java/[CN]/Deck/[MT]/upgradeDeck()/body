@@ -61,6 +61,16 @@
     mVersion=53;
     commitToDB();
   }
+  if (mVersion < 54) {
+    getDB().getDatabase().execSQL("UPDATE fieldModels SET editFontFamily = 1");
+    mVersion=54;
+    commitToDB();
+  }
+  if (mVersion < 55) {
+    getDB().getDatabase().execSQL("UPDATE fieldModels SET quizFontFamily = 'Arial' " + "WHERE NOT quizFontFamily OR quizFontFamily IS null");
+    mVersion=55;
+    commitToDB();
+  }
   if (getInt("pageSize") != 4096) {
     commitToDB();
     getDB().getDatabase().execSQL("PRAGMA page_size = 4096");

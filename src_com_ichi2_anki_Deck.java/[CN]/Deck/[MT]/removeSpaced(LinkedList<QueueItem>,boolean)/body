@@ -1,0 +1,20 @@
+{
+  ArrayList<Long> popped=new ArrayList<Long>();
+  double delay=0.0;
+  while (!queue.isEmpty()) {
+    long fid=((QueueItem)queue.getLast()).getFactID();
+    if (mSpacedFacts.containsKey(fid)) {
+      long id=queue.remove().getCardID();
+      if (_new && (mNewSpacing < (double)mQueueLimit * 6.0)) {
+        popped.add(id);
+        delay=mSpacedFacts.get(fid);
+      }
+    }
+ else {
+      if (!popped.isEmpty()) {
+        mSpacedCards.add(new SpacedCardsItem(delay,popped));
+      }
+      return;
+    }
+  }
+}

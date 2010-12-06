@@ -15,7 +15,7 @@
     answerCardMethod=Deck.class.getDeclaredMethod("_answerCard",Card.class,int.class);
     cardLimitMethod=Deck.class.getDeclaredMethod("_cardLimit",String.class,String.class,String.class);
     answerPreSaveMethod=null;
-    spaceCardsMethod=Deck.class.getDeclaredMethod("_spaceCards",Card.class,double.class);
+    spaceCardsMethod=Deck.class.getDeclaredMethod("_spaceCards",Card.class);
   }
  catch (  NoSuchMethodException e) {
     throw new RuntimeException(e);

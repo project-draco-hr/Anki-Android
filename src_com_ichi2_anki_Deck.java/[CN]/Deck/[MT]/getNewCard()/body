@@ -1,0 +1,8 @@
+{
+  if (mNewQueue.isEmpty() || (!mSpacedCards.isEmpty() && mSpacedCards.get(0).getSpace() < Utils.now())) {
+    mNewFromCache=true;
+    return mSpacedCards.get(0).getCards().get(0);
+  }
+  mNewFromCache=false;
+  return mNewQueue.getLast().getCardID();
+}
