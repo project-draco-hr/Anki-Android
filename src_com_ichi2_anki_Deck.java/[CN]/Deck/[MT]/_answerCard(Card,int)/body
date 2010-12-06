@@ -17,14 +17,14 @@
     card.setLastDue(card.getDue());
   }
   card.setDue(nextDue(card,ease,oldState));
+  card.setCombinedDue(card.getDue());
   card.setIsDue(0);
   card.setLastFactor(card.getFactor());
   card.setSpaceUntil(0);
   if (lastDelay >= 0) {
     card.updateFactor(ease,mAverageFactor);
   }
-  double space=spaceUntilTime(card);
-  spaceCards(card,space);
+  spaceCards(card);
   if (ease == 1) {
     if (card.getDue() < mFailedCutoff) {
       mFailedSoonCount+=1;

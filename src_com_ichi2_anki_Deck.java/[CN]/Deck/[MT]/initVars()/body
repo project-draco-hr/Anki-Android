@@ -1,7 +1,7 @@
 {
   mLastLoaded=Utils.now();
   mQueueLimit=200;
-  if (!hasKey("revInactive")) {
+  if (!hasKey("newSpacing")) {
     setVarDefault("suspendLeeches","1");
     setVarDefault("leechFails","16");
     setVarDefault("perDay","1");
@@ -9,6 +9,7 @@
     setVarDefault("revActive","");
     setVarDefault("newInactive",mSuspended);
     setVarDefault("revInactive",mSuspended);
+    setVarDefault("newSpacing","60");
   }
   updateCutoff();
   setupStandardScheduler();

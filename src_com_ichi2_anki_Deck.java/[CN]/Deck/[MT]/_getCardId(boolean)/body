@@ -13,13 +13,13 @@
     }
   }
   if (newNoSpaced() && timeForNewCard()) {
-    return mNewQueue.getLast().getCardID();
+    return getNewCard();
   }
   if (revNoSpaced()) {
     return mRevQueue.getLast().getCardID();
   }
   if (mNewCountToday != 0) {
-    return mNewQueue.getLast().getCardID();
+    return getNewCard();
   }
   if (showFailedLast() && (!mFailedQueue.isEmpty())) {
     return mFailedQueue.getLast().getCardID();
