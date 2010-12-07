@@ -1,9 +1,17 @@
 {
-  Cursor cur=getDB().getDatabase().rawQuery("SELECT value FROM deckVars WHERE key = '" + key + "'",null);
-  if (cur.moveToFirst()) {
-    return cur.getInt(0);
-  }
+  Cursor cur=null;
+  try {
+    cur=getDB().getDatabase().rawQuery("SELECT value FROM deckVars WHERE key = '" + key + "'",null);
+    if (cur.moveToFirst()) {
+      return cur.getInt(0);
+    }
  else {
-    throw new SQLException("DeckVars.getInt: could not retrieve value for " + key);
+      throw new SQLException("DeckVars.getInt: could not retrieve value for " + key);
+    }
+  }
+  finally {
+    if (cur != null) {
+      cur.close();
+    }
   }
 }

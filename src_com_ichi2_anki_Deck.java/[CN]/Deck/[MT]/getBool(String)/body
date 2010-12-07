@@ -1,7 +1,15 @@
 {
-  Cursor cur=getDB().getDatabase().rawQuery("SELECT value FROM deckVars WHERE key = '" + key + "'",null);
-  if (cur.moveToFirst()) {
-    return (cur.getInt(0) != 0);
+  Cursor cur=null;
+  try {
+    cur=getDB().getDatabase().rawQuery("SELECT value FROM deckVars WHERE key = '" + key + "'",null);
+    if (cur.moveToFirst()) {
+      return (cur.getInt(0) != 0);
+    }
+  }
+  finally {
+    if (cur != null) {
+      cur.close();
+    }
   }
   return false;
 }
