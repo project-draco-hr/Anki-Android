@@ -22,7 +22,7 @@
       sql+=String.format(Utils.ENGLISH_LOCALE,"%s%s=' || quote(old.%s) || '",sep,column,column);
       sep=",";
     }
-    sql+="WHERE rowid = ' || old.rowid); END";
+    sql+=" WHERE rowid = ' || old.rowid); END";
     getDB().getDatabase().execSQL(sql);
     sql=String.format(Utils.ENGLISH_LOCALE,"CREATE TEMP TRIGGER _undo_%s_dt " + "BEFORE DELETE ON %s BEGIN " + "INSERT INTO undoLog VALUES "+ "(null, 'INSERT INTO %s (rowid",table,table,table);
     for (    String column : columns) {

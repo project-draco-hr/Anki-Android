@@ -25,6 +25,10 @@ case TASK_TYPE_MARK_CARD:
 return doInBackgroundMarkCard(params);
 case TASK_TYPE_UPDATE_FACT:
 return doInBackgroundUpdateFact(params);
+case TASK_TYPE_UNDO:
+return doInBackgroundUndo(params);
+case TASK_TYPE_REDO:
+return doInBackgroundRedo(params);
 default :
 return null;
 }

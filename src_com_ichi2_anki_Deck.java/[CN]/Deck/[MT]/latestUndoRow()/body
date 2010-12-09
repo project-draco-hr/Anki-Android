@@ -1,10 +1,10 @@
 {
-  long result;
+  long result=0;
   try {
     result=getDB().queryScalar("SELECT MAX(rowid) FROM undoLog");
   }
  catch (  SQLException e) {
-    result=0;
+    Log.i(AnkiDroidApp.TAG,e.getMessage());
   }
   return result;
 }

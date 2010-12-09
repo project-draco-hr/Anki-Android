@@ -1,0 +1,16 @@
+{
+  Deck deck=params[0].getDeck();
+  Card newCard;
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
+  ankiDB.getDatabase().beginTransaction();
+  try {
+    deck.undo();
+    newCard=deck.getCard();
+    publishProgress(new TaskData(newCard));
+    ankiDB.getDatabase().setTransactionSuccessful();
+  }
+  finally {
+    ankiDB.getDatabase().endTransaction();
+  }
+  return null;
+}
