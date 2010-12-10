@@ -9,7 +9,7 @@
     mAnswerField.setVisibility(View.GONE);
     if (mCurrentCard != null) {
       String userAnswer=mAnswerField.getText().toString();
-      Matcher matcher=sSpanPattern.matcher(mCurrentCard.getAnswer());
+      Matcher matcher=sSpanPattern.matcher(Utils.stripHTMLMedia(mCurrentCard.getAnswer()));
       String correctAnswer=matcher.replaceAll("");
       matcher=sBrPattern.matcher(correctAnswer);
       correctAnswer=matcher.replaceAll("\n");
