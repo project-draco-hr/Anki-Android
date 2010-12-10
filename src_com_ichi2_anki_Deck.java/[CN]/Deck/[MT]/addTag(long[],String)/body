@@ -1,6 +1,6 @@
 {
   ArrayList<String> factTagsList=factTags(factIds);
-  String undoName="Add Card";
+  String undoName="Add Tag";
   setUndoStart(undoName);
   long tagId=tagId(tag,true);
   int nbFactTags=factTagsList.size();
