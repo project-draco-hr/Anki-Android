@@ -2,10 +2,13 @@
   Deck deck=params[0].getDeck();
   Card editCard=params[0].getCard();
   Fact editFact=editCard.getFact();
+  String undoName="Update Fact";
+  deck.setUndoStart(undoName);
   editFact.toDb();
   for (  Card modifyCard : editFact.getUpdatedRelatedCards()) {
     modifyCard.updateQAfields();
   }
+  deck.setUndoEnd(undoName);
   publishProgress(new TaskData(deck.getCurrentCard()));
   return null;
 }
