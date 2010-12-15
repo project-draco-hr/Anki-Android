@@ -9,7 +9,9 @@
     }
   }
   finally {
-    cursor.close();
+    if (cursor != null) {
+      cursor.close();
+    }
   }
   if (modelExists) {
     ArrayList<String> cardsToDelete=getDB().queryColumn(String.class,"SELECT cards.id FROM cards, facts WHERE facts.modelId = " + id + " AND facts.id = cards.factId",0);
