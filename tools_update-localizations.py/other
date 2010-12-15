@@ -1,11 +1,25 @@
 import os
 import zipfile
-languages = ['pt-PT', 'fr', 'ru', 'ca', 'es-ES', 'el', 'it', 'pl', 'de', 'ro', 'sv-SE']
-zip = zipfile.ZipFile('ankidroid.zip', 'r')
+import urllib
+languages = ['pt-PT', 'fr', 'ru', 'ca', 'es-ES', 'el', 'it', 'pl', 'de', 'ro', 'sv-SE', 'zh-CN', 'zh-TW']
+zipname = 'ankidroid.zip'
+print 'downloading crowdin-file'
+req = urllib.urlopen('http://crowdin.net/api/project/ankidroidv0-5/download/all.zip?key=0e54d112854fd69514d6e25856234621')
+file(zipname, 'w').write(req.read())
+req.close()
+zip = zipfile.ZipFile(zipname, 'r')
 for language in languages:
-    androidLanguage = language[:2]
+    if (language == 'zh-TW'):
+        androidLanguage = 'zh-rTW'
+    elif (language == 'zh-CN'):
+        androidLanguage = 'zh-rCN'
+    else:
+        androidLanguage = language[:2]
+    print ('updating language files for: ' + androidLanguage)
     valuesDirectory = (('../res/values-' + androidLanguage) + '/')
     if (not os.path.isdir(valuesDirectory)):
         os.mkdir(valuesDirectory)
     file((valuesDirectory + 'arrays.xml'), 'w').write(zip.read((language + '/arrays.xml')))
     file((valuesDirectory + 'strings.xml'), 'w').write(zip.read((language + '/strings.xml')))
+print 'removing crowdin-file'
+os.remove(zipname)
