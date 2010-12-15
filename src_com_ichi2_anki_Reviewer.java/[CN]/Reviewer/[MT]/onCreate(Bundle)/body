@@ -1,5 +1,7 @@
 {
   super.onCreate(savedInstanceState);
+  mNextTimeTextColor=getResources().getColor(R.color.next_time_usual_color);
+  mNextTimeTextRecomColor=getResources().getColor(R.color.next_time_recommended_color);
   Log.i(AnkiDroidApp.TAG,"Reviewer - onCreate");
   if (AnkiDroidApp.deck() == null) {
     setResult(StudyOptions.CONTENT_NO_EXTERNAL_STORAGE);
