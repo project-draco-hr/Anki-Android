@@ -1,10 +1,9 @@
 {
   long time=System.currentTimeMillis();
   long id;
-  int rand;
-  Random random=new Random();
+  long rand;
   if (sIdTree == null) {
-    sIdTree=new TreeSet<Integer>();
+    sIdTree=new TreeSet<Long>();
     sIdTime=time;
   }
  else   if (sIdTime != time) {
@@ -12,9 +11,9 @@
     sIdTree.clear();
   }
   while (true) {
-    rand=random.nextInt(2 ^ 23);
-    if (!sIdTree.contains(new Integer(rand))) {
-      sIdTree.add(new Integer(rand));
+    rand=UUID.randomUUID().getMostSignificantBits();
+    if (!sIdTree.contains(new Long(rand))) {
+      sIdTree.add(new Long(rand));
       break;
     }
   }
