@@ -28,12 +28,12 @@
   }
   if (mCurrentCard.isRev()) {
     mEase3.requestFocus();
-    mNext2.setTextColor(Color.BLACK);
-    mNext3.setTextColor(Color.parseColor("#007700"));
+    mNext2.setTextColor(mNextTimeTextColor);
+    mNext3.setTextColor(mNextTimeTextRecomColor);
   }
  else {
     mEase2.requestFocus();
-    mNext2.setTextColor(Color.parseColor("#007700"));
-    mNext3.setTextColor(Color.BLACK);
+    mNext2.setTextColor(mNextTimeTextRecomColor);
+    mNext3.setTextColor(mNextTimeTextColor);
   }
 }
