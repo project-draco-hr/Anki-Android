@@ -1,0 +1,43 @@
+{
+  StringBuilder stringBuilder=new StringBuilder();
+  String contentLeft=content;
+  Log.i(AnkiDroidApp.TAG,"parseLaTeX");
+  Matcher matcher=sStandardPattern.matcher(contentLeft);
+  while (matcher.find()) {
+    String img=mungeLatex(matcher.group(1));
+    img="latex-" + Utils.checksum(img) + ".png";
+    String imgTag=matcher.group();
+    int markerStart=contentLeft.indexOf(imgTag);
+    stringBuilder.append(contentLeft.substring(0,markerStart));
+    stringBuilder.append("<img src=" + img + ">");
+    contentLeft=contentLeft.substring(markerStart + imgTag.length());
+  }
+  stringBuilder.append(contentLeft);
+  contentLeft=stringBuilder.toString();
+  stringBuilder=new StringBuilder();
+  matcher=sExpressionPattern.matcher(contentLeft);
+  while (matcher.find()) {
+    String img="$" + mungeLatex(matcher.group(1)) + "$";
+    img="latex-" + Utils.checksum(img) + ".png";
+    String imgTag=matcher.group();
+    int markerStart=contentLeft.indexOf(imgTag);
+    stringBuilder.append(contentLeft.substring(0,markerStart));
+    stringBuilder.append("<img src=" + img + ">");
+    contentLeft=contentLeft.substring(markerStart + imgTag.length());
+  }
+  stringBuilder.append(contentLeft);
+  contentLeft=stringBuilder.toString();
+  stringBuilder=new StringBuilder();
+  matcher=sMathPattern.matcher(contentLeft);
+  while (matcher.find()) {
+    String img="\\begin{displaymath}" + mungeLatex(matcher.group(1)) + "\\end{displaymath}";
+    img="latex-" + Utils.checksum(img) + ".png";
+    String imgTag=matcher.group();
+    int markerStart=contentLeft.indexOf(imgTag);
+    stringBuilder.append(contentLeft.substring(0,markerStart));
+    stringBuilder.append("<img src=" + img + ">");
+    contentLeft=contentLeft.substring(markerStart + imgTag.length());
+  }
+  stringBuilder.append(contentLeft);
+  return stringBuilder.toString();
+}
