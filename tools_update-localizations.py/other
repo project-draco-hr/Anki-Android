@@ -1,6 +1,7 @@
 import os
 import zipfile
 import urllib
+import string
 languages = ['pt-PT', 'fr', 'ru', 'ca', 'es-ES', 'el', 'it', 'pl', 'de', 'ro', 'sv-SE', 'zh-CN', 'zh-TW']
 zipname = 'ankidroid.zip'
 print 'downloading crowdin-file'
@@ -15,11 +16,15 @@ for language in languages:
         androidLanguage = 'zh-rCN'
     else:
         androidLanguage = language[:2]
-    print ('updating language files for: ' + androidLanguage)
+    print ('copying language files for: ' + androidLanguage)
     valuesDirectory = (('../res/values-' + androidLanguage) + '/')
     if (not os.path.isdir(valuesDirectory)):
         os.mkdir(valuesDirectory)
-    file((valuesDirectory + 'arrays.xml'), 'w').write(zip.read((language + '/arrays.xml')))
-    file((valuesDirectory + 'strings.xml'), 'w').write(zip.read((language + '/strings.xml')))
+    newfile = (valuesDirectory + 'arrays.xml')
+    file(newfile, 'w').write(zip.read((language + '/arrays.xml')))
+    replacechars(newfile)
+    newfile = (valuesDirectory + 'strings.xml')
+    file(newfile, 'w').write(zip.read((language + '/strings.xml')))
+    replacechars(newfile)
 print 'removing crowdin-file'
 os.remove(zipname)

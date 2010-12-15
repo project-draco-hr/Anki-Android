@@ -1,0 +1,15 @@
+def replacechars(filename):
+    s = open(filename, 'r+')
+    newfilename = (filename + '.tmp')
+    fin = open(newfilename, 'w')
+    for line in s.readlines():
+        if line.startswith('<?xml'):
+            line = '<?xml version="1.0" encoding="utf-8"?> \n <!-- \n ~ Copyright (c) 2009 Andrew <andrewdubya@gmail> \n ~ Copyright (c) 2009 Edu Zamora <edu.zasu@gmail.com> \n ~ Copyright (c) 2009 Daniel Svaerd <daniel.svard@gmail.com> \n ~ Copyright (c) 2009 Nicolas Raoul <nicolas.raoul@gmail.com> \n ~ This program is free software; you can redistribute it and/or modify it under \n ~ the terms of the GNU General Public License as published by the Free Software \n ~ Foundation; either version 3 of the License, or (at your option) any later \n ~ version. \n ~ \n ~ This program is distributed in the hope that it will be useful, but WITHOUT ANY \n ~ WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A \n ~ PARTICULAR PURPOSE. See the GNU General Public License for more details. \n ~ \n ~ You should have received a copy of the GNU General Public License along with \n ~ this program.  If not, see <http://www.gnu.org/licenses/>. \n --> \n \n'
+        else:
+            line = string.replace(line, "'", "\\'")
+            line = string.replace(line, "\\\\'", "\\'")
+        print line
+        fin.write(line)
+    s.close()
+    fin.close()
+    os.rename(newfilename, filename)

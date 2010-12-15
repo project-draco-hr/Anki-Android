@@ -1,7 +1,8 @@
 {
-  Cursor cursor=getDB().getDatabase().rawQuery("SELECT id, factId " + "FROM cards " + "ORDER BY factId, id "+ "LIMIT " + limitCards + " OFFSET "+ numUpdatedCards,null);
-  getDB().getDatabase().beginTransaction();
+  Cursor cursor=null;
   try {
+    cursor=getDB().getDatabase().rawQuery("SELECT id, factId " + "FROM cards " + "ORDER BY factId, id "+ "LIMIT " + limitCards + " OFFSET "+ numUpdatedCards,null);
+    getDB().getDatabase().beginTransaction();
     while (cursor.moveToNext()) {
       Card card=new Card(this);
       card.fromDB(cursor.getLong(0));
@@ -16,11 +17,13 @@
       card.updateQAfields();
       numUpdatedCards++;
     }
-    cursor.close();
     getDB().getDatabase().setTransactionSuccessful();
   }
   finally {
     getDB().getDatabase().endTransaction();
+    if (cursor != null) {
+      cursor.close();
+    }
   }
   return numUpdatedCards;
 }
