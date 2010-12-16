@@ -62,6 +62,7 @@
 );
   mDeckListView.setOnItemClickListener(mDeckSelHandler);
   mDeckListView.setAdapter(mDeckListAdapter);
+  registerForContextMenu(mDeckListView);
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
   populateDeckList(preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory()));
 }
