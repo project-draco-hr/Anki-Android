@@ -2,10 +2,10 @@
   AdapterContextMenuInfo info=(AdapterContextMenuInfo)item.getMenuInfo();
 switch (item.getItemId()) {
 case R.id.delete_deck:
-    mRemoveDeckFilename=null;
+    mRemoveDeckPath=null;
   waitForDeckLoaderThread();
 @SuppressWarnings("unchecked") HashMap<String,String> data=(HashMap<String,String>)mDeckListAdapter.getItem(info.position);
-mRemoveDeckFilename=data.get("filepath");
+mRemoveDeckPath=data.get("filepath");
 showDialog(DIALOG_DELETE_DECK);
 return true;
 default :
