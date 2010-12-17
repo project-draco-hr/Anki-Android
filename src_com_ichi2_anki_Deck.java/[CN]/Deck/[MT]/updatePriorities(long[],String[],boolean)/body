@@ -43,7 +43,7 @@
     }
   }
   finally {
-    if (cursor != null) {
+    if (cursor != null && !cursor.isClosed()) {
       cursor.close();
     }
   }

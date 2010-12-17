@@ -1,7 +1,7 @@
 {
-  String result="";
+  StringBuilder result=new StringBuilder(128);
   for (  String tag : tags) {
-    result+=tag + " ";
+    result.append(tag).append(" ");
   }
-  return result.trim();
+  return result.toString().trim();
 }

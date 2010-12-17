@@ -1,5 +1,5 @@
 {
-  String t="";
+  StringBuilder t=new StringBuilder(256);
   long id=row.getLong(0);
   String fam=row.getString(1);
   int siz=row.getInt(2);
@@ -8,33 +8,33 @@
   String rtl=row.getString(5);
   int pre=row.getInt(6);
   if (fam != null) {
-    t+="font-family:\"" + fam + "\";";
+    t.append("font-family:\"").append(fam).append("\";");
   }
   if (siz != 0) {
-    t+="font-size:" + siz + "px;";
+    t.append("font-size:").append(siz).append("px;");
   }
   if (col != null) {
-    t+="color:" + col + ";";
+    t.append("color:").append(col).append(";");
   }
   if (rtl != null && rtl.compareTo("rtl") == 0) {
-    t+="direction:rtl;unicode-bidi:embed;";
+    t.append("direction:rtl;unicode-bidi:embed;");
   }
   if (pre != 0) {
-    t+="white-space:pre-wrap;";
+    t.append("white-space:pre-wrap;");
   }
   if (align != -1) {
     if (align == 0) {
-      t+="text-align:center;";
+      t.append("text-align:center;");
     }
  else     if (align == 1) {
-      t+="text-align:left;";
+      t.append("text-align:left;");
     }
  else {
-      t+="text-align:right;";
+      t.append("text-align:right;");
     }
   }
   if (t.length() > 0) {
-    t=prefix + Utils.hexifyID(id) + " {"+ t+ "}\n";
+    t.insert(0,prefix + Utils.hexifyID(id) + " {").append("}\n");
   }
-  return t;
+  return t.toString();
 }

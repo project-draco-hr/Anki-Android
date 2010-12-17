@@ -13,7 +13,7 @@
       Log.e(AnkiDroidApp.TAG,"updateAllPriorities: Error while getting all tags: " + e.toString());
     }
  finally {
-      if (cur != null) {
+      if (cur != null && !cur.isClosed()) {
         cur.close();
       }
     }

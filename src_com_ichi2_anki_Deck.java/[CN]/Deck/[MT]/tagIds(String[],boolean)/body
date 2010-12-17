@@ -6,18 +6,25 @@
     }
   }
   if (tags.length != 0) {
-    String tagList="";
+    StringBuilder tagList=new StringBuilder(128);
     for (int i=0; i < tags.length; i++) {
-      tagList+="'" + tags[i] + "'";
+      tagList.append("'").append(tags[i]).append("'");
       if (i < tags.length - 1) {
-        tagList+=", ";
+        tagList.append(", ");
       }
     }
-    Cursor cur=getDB().getDatabase().rawQuery("SELECT tag, id FROM tags WHERE tag in (" + tagList + ")",null);
-    while (cur.moveToNext()) {
-      results.put(cur.getString(0).toLowerCase(),cur.getLong(1));
+    Cursor cur=null;
+    try {
+      cur=getDB().getDatabase().rawQuery("SELECT tag, id FROM tags WHERE tag in (" + tagList.toString() + ")",null);
+      while (cur.moveToNext()) {
+        results.put(cur.getString(0).toLowerCase(),cur.getLong(1));
+      }
     }
-    cur.close();
+  finally {
+      if (cur != null && !cur.isClosed()) {
+        cur.close();
+      }
+    }
   }
   return results;
 }

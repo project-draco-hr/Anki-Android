@@ -19,7 +19,7 @@
     throw new RuntimeException(e);
   }
  finally {
-    if (cur != null) {
+    if (cur != null && !cur.isClosed()) {
       cur.close();
     }
   }

@@ -22,7 +22,7 @@
     Log.e(AnkiDroidApp.TAG,"updateTagPriorities: Error while tag priorities: " + e.toString());
   }
  finally {
-    if (cur != null) {
+    if (cur != null && !cur.isClosed()) {
       cur.close();
     }
   }

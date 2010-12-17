@@ -1,25 +1,31 @@
 {
-  String css="";
+  StringBuilder css=new StringBuilder(512);
   Cursor cur=null;
-  cur=getDB().getDatabase().rawQuery("SELECT id, quizFontFamily, quizFontSize, quizFontColour, -1, " + "features, editFontFamily FROM fieldModels",null);
-  while (cur.moveToNext()) {
-    css+=_genCSS(".fm",cur);
+  try {
+    cur=getDB().getDatabase().rawQuery("SELECT id, quizFontFamily, quizFontSize, quizFontColour, -1, " + "features, editFontFamily FROM fieldModels",null);
+    while (cur.moveToNext()) {
+      css.append(_genCSS(".fm",cur));
+    }
+    cur.close();
+    cur=getDB().getDatabase().rawQuery("SELECT id, null, null, null, questionAlign, 0, 0 FROM cardModels",null);
+    StringBuilder cssAnswer=new StringBuilder(512);
+    while (cur.moveToNext()) {
+      css.append(_genCSS("#cmq",cur));
+      cssAnswer.append(_genCSS("#cma",cur));
+    }
+    css.append(cssAnswer.toString());
+    cur.close();
+    cur=getDB().getDatabase().rawQuery("SELECT id, lastFontColour FROM cardModels",null);
+    while (cur.moveToNext()) {
+      css.append(".cmb").append(Utils.hexifyID(cur.getLong(0))).append(" {background:").append(cur.getString(1)).append(";}\n");
+    }
   }
-  cur.close();
-  cur=getDB().getDatabase().rawQuery("SELECT id, null, null, null, questionAlign, 0, 0 FROM cardModels",null);
-  String cssAnswer="";
-  while (cur.moveToNext()) {
-    css+=_genCSS("#cmq",cur);
-    cssAnswer+=_genCSS("#cma",cur);
+  finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
   }
-  css+=cssAnswer;
-  cur.close();
-  cur=getDB().getDatabase().rawQuery("SELECT id, lastFontColour FROM cardModels",null);
-  while (cur.moveToNext()) {
-    css+=".cmb" + Utils.hexifyID(cur.getLong(0)) + " {background:"+ cur.getString(1)+ ";}\n";
-  }
-  cur.close();
-  setVar("cssCache",css,false);
+  setVar("cssCache",css.toString(),false);
   addHexCache();
-  return css;
+  return css.toString();
 }

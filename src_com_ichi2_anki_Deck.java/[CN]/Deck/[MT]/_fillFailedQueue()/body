@@ -10,7 +10,7 @@
       }
     }
   finally {
-      if (cur != null) {
+      if (cur != null && !cur.isClosed()) {
         cur.close();
       }
     }
