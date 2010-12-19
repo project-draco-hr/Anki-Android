@@ -62,6 +62,8 @@
           data.putInt("new",newCards);
           data.putString("notes",upgradeNotes);
           msg.setData(data);
+          mTotalDueCards+=dueCards;
+          mTotalCards+=totalCards;
           mHandler.sendMessage(msg);
         }
       }

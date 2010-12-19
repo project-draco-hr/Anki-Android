@@ -8,6 +8,8 @@ def replacechars(filename):
         else:
             if line.startswith('  <string name="error_email">report@example.org'):
                 line = '  <string name="error_email">ankidroid@gmail.com</string>\n'
+            if line.startswith('    <item>0 </item>'):
+                line = '    <item>0</item>\n'
             line = string.replace(line, "'", "\\'")
             line = string.replace(line, "\\\\'", "\\'")
         print line

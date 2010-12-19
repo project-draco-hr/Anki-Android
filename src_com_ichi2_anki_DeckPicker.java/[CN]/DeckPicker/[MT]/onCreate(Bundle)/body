@@ -1,6 +1,7 @@
 {
   Log.i(AnkiDroidApp.TAG,"DeckPicker - onCreate");
   super.onCreate(savedInstanceState);
+  setTitleText();
   mSelf=this;
   setContentView(R.layout.deck_picker);
   registerExternalStorageListener();

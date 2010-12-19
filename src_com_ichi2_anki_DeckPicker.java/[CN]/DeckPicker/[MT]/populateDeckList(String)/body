@@ -1,5 +1,8 @@
 {
   Log.i(AnkiDroidApp.TAG,"DeckPicker - populateDeckList");
+  mTotalDueCards=0;
+  mTotalCards=0;
+  setTitleText();
   Resources res=getResources();
   int len=0;
   File[] fileList;
