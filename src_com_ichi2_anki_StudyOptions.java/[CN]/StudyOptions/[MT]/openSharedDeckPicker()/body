@@ -3,6 +3,5 @@
     AnkiDroidApp.deck().closeDeck();
     AnkiDroidApp.setDeck(null);
   }
-  Intent intent=new Intent(StudyOptions.this,SharedDeckPicker.class);
-  startActivityForResult(intent,DOWNLOAD_SHARED_DECK);
+  startActivityForResult(new Intent(StudyOptions.this,SharedDeckPicker.class),DOWNLOAD_SHARED_DECK);
 }

@@ -1,0 +1,12 @@
+{
+  if (AnkiDroidApp.isUserLoggedIn()) {
+    if (AnkiDroidApp.deck() != null) {
+      AnkiDroidApp.deck().closeDeck();
+      AnkiDroidApp.setDeck(null);
+    }
+    startActivityForResult(new Intent(StudyOptions.this,PersonalDeckPicker.class),DOWNLOAD_PERSONAL_DECK);
+  }
+ else {
+    mUserNotLoggedInAlert.show();
+  }
+}
