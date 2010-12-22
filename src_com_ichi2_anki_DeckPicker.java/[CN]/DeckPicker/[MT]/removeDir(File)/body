@@ -1,0 +1,9 @@
+{
+  if (dir.isDirectory()) {
+    File[] files=dir.listFiles();
+    for (    File aktFile : files) {
+      removeDir(aktFile);
+    }
+  }
+  return dir.delete();
+}
