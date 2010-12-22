@@ -2,7 +2,9 @@
   setContentView(layout);
   mCard=(WebView)findViewById(R.id.flashcard);
   mCard.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-  mCard.getSettings().setBuiltInZoomControls(true);
+  if (mZoomEnabled) {
+    mCard.getSettings().setBuiltInZoomControls(true);
+  }
   mCard.getSettings().setJavaScriptEnabled(true);
   mCard.setWebChromeClient(new AnkiDroidWebChromeClient());
   mCard.addJavascriptInterface(new JavaScriptInterface(),"interface");

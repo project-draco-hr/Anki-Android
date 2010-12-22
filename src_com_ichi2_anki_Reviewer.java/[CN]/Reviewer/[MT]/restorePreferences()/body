@@ -8,6 +8,7 @@
   mPrefUseRubySupport=preferences.getBoolean("useRubySupport",false);
   mPrefFullscreenReview=preferences.getBoolean("fullscreenReview",true);
   mshowNextReviewTime=preferences.getBoolean("showNextReviewTime",true);
+  mZoomEnabled=preferences.getBoolean("zoom",true);
   mDisplayFontSize=Integer.parseInt(preferences.getString("displayFontSize",Integer.toString(CardModel.DEFAULT_FONT_SIZE_RATIO)));
   mPrefHideQuestionInAnswer=Integer.parseInt(preferences.getString("hideQuestionInAnswer",Integer.toString(HQIA_DO_SHOW)));
   return preferences;
