@@ -1,6 +1,10 @@
 {
   Log.i(AnkiDroidApp.TAG,"displayProgressDialogAndLoadDeck - Loading deck " + mDeckFilename);
   if (mDeckFilename != null && new File(mDeckFilename).exists()) {
+    mToggleCram.setChecked(false);
+    mEditNewPerDay.setEnabled(true);
+    mEditSessionTime.setEnabled(true);
+    mEditSessionQuestions.setEnabled(true);
     if (updateAllCards) {
       DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK_AND_UPDATE_CARDS,mLoadDeckHandler,new DeckTask.TaskData(mDeckFilename));
     }
