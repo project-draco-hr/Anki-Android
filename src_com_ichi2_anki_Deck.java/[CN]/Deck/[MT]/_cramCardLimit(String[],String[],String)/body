@@ -1,16 +1,7 @@
 {
-  if (active.length > 1) {
-    return sql.replace("WHERE ","WHERE +c.id IN " + Utils.ids2str(new ArrayList<String>(Arrays.asList(active))) + " AND");
-  }
- else   if (active.length == 1) {
-    String[] yes=Utils.parseTags(active[0]);
-    if (yes.length > 0) {
-      long yids[]=Utils.toPrimitive(tagIds(yes).values());
-      return sql.replace("WHERE ","WHERE +c.id IN (SELECT cardId FROM cardTags WHERE " + "tagId IN " + Utils.ids2str(yids) + ") AND ");
-    }
- else {
-      return sql;
-    }
+  if (active.length > 0) {
+    long yids[]=Utils.toPrimitive(tagIds(active).values());
+    return sql.replace("WHERE ","WHERE +c.id IN (SELECT cardId FROM cardTags WHERE " + "tagId IN " + Utils.ids2str(yids) + ") AND ");
   }
  else {
     return sql;
