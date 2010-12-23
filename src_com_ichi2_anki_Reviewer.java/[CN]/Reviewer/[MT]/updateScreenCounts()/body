@@ -5,7 +5,7 @@
   SpannableString failedSoonCount=new SpannableString(String.valueOf(deck.getFailedSoonCount()));
   SpannableString revCount=new SpannableString(String.valueOf(deck.getRevCount()));
   SpannableString newCount=new SpannableString(String.valueOf(deck.getNewCountToday()));
-  boolean isDue=mCurrentCard.isDue();
+  boolean isDue=true;
   int type=mCurrentCard.getType();
   if (isDue && (type == Card.TYPE_NEW)) {
     newCount.setSpan(new UnderlineSpan(),0,newCount.length(),0);
