@@ -1,7 +1,9 @@
 {
   String decksServer="{}";
+  PackageManager pm=mCurContext.getPackageManager();
+  PackageInfo pi=pm.getPackageInfo(mCurContext.getPackageName(),0);
   try {
-    String data="p=" + URLEncoder.encode(mPassword,"UTF-8") + "&client=ankidroid-0.4&u="+ URLEncoder.encode(mUsername,"UTF-8")+ "&d=None&sources="+ URLEncoder.encode("[]","UTF-8")+ "&libanki=0.9.9.8.6&pversion=5";
+    String data="p=" + URLEncoder.encode(mPassword,"UTF-8") + "&client="+ URLEncoder("ankidroid-" + pi.versionName,"UTF-8")+ "&u="+ URLEncoder.encode(mUsername,"UTF-8")+ "&v="+ URLEncoder.encode(SYNC_VERSION,"UTF-8")+ "&d=None&sources="+ URLEncoder.encode("[]","UTF-8")+ "&libanki="+ URLEncoder(AnkiDroidApp.LIBANKI_VERSION,"UTF-8")+ "&pversion=5";
     HttpPost httpPost=new HttpPost(SYNC_URL + "getDecks");
     StringEntity entity=new StringEntity(data);
     httpPost.setEntity(entity);

@@ -36,7 +36,6 @@
     mUndoEnabled=deckPayload.getBoolean("undoEnabled");
     mUtcOffset=deckPayload.getDouble("utcOffset");
     commitToDB();
-    updateDynamicIndices();
   }
  catch (  JSONException e) {
     Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
