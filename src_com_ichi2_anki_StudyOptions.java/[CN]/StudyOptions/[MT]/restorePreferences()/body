@@ -2,5 +2,6 @@
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
   mPrefDeckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory());
   mPrefStudyOptions=preferences.getBoolean("study_options",true);
+  mShowDeckPickerOnStartup=preferences.getBoolean("show_deckpicker_on_startup",false);
   return preferences;
 }
