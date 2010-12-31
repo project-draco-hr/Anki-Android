@@ -1,0 +1,11 @@
+{
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+  Editor editor=preferences.edit();
+  if (str == "deckFilename") {
+    editor.putString("deckFilename",mDeckFilename);
+  }
+ else   if (str == "lastOpened") {
+    editor.putLong("lastTimeOpened",System.currentTimeMillis());
+  }
+  editor.commit();
+}

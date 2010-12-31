@@ -22,7 +22,7 @@
     }
     Log.i(AnkiDroidApp.TAG,"onActivityResult = OK");
     mDeckFilename=intent.getExtras().getString(OPT_DB);
-    savePreferences();
+    savePreferences("deckFilename");
     boolean updateAllCards=(requestCode == DOWNLOAD_SHARED_DECK);
     displayProgressDialogAndLoadDeck(updateAllCards);
   }
