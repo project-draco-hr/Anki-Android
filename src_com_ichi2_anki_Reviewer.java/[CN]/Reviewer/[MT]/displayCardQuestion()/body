@@ -1,6 +1,14 @@
 {
   sDisplayAnswer=false;
   hideEaseButtons();
+  if (mButtonHeight == 0 && mRelativeButtonSize != 100) {
+    mButtonHeight=mFlipCard.getHeight() * mRelativeButtonSize / 100;
+    mFlipCard.setHeight(mButtonHeight);
+    mEase1.setHeight(mButtonHeight);
+    mEase2.setHeight(mButtonHeight);
+    mEase3.setHeight(mButtonHeight);
+    mEase4.setHeight(mButtonHeight);
+  }
   if (mPrefWriteAnswers) {
     mAnswerField.setVisibility(View.VISIBLE);
     InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);

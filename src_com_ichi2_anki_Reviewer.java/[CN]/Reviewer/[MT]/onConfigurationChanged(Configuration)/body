@@ -4,6 +4,13 @@
   long savedTimer=mCardTimer.getBase();
   CharSequence savedAnswerField=mAnswerField.getText();
   initLayout(R.layout.flashcard);
+  if (mRelativeButtonSize != 100) {
+    mFlipCard.setHeight(mButtonHeight);
+    mEase1.setHeight(mButtonHeight);
+    mEase2.setHeight(mButtonHeight);
+    mEase3.setHeight(mButtonHeight);
+    mEase4.setHeight(mButtonHeight);
+  }
   mCardTemplate=mCardTemplate.replaceFirst("var availableWidth = \\d*;","var availableWidth = " + getAvailableWidthInCard() + ";");
   refreshCard();
   updateScreenCounts();
