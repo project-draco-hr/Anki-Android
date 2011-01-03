@@ -28,10 +28,5 @@
   if (cardModel != null) {
     mCardModelId=cardModel.getId();
     mOrdinal=cardModel.getOrdinal();
-    if (fact != null) {
-      HashMap<String,String> qa=CardModel.formatQA(fact,cardModel,splitTags());
-      mQuestion=qa.get("question");
-      mAnswer=qa.get("answer");
-    }
   }
 }
