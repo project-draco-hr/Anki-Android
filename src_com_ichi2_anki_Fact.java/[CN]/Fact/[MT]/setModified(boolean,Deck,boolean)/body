@@ -1,0 +1,18 @@
+{
+  mModified=Utils.now();
+  if (textChanged) {
+    assert(deck != null);
+    mSpaceUntil="";
+    StringBuilder str=new StringBuilder(1024);
+    for (    Field f : getFields()) {
+      str.append(f.getValue()).append(" ");
+    }
+    mSpaceUntil=str.toString();
+    mSpaceUntil.substring(0,mSpaceUntil.length() - 1);
+    mSpaceUntil=Utils.stripHTMLMedia(mSpaceUntil);
+    Log.d(AnkiDroidApp.TAG,"spaceUntil = " + mSpaceUntil);
+    for (    Card card : getUpdatedRelatedCards()) {
+      card.rebuildQA(deck);
+    }
+  }
+}
