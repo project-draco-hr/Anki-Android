@@ -1,0 +1,14 @@
+{
+  byte[] bytes=null;
+  File file=new File(path);
+  if (file != null && file.isFile()) {
+    bytes=new byte[file.length()];
+    FileInputStream fin=new FileInputStream(file);
+    fin.read(bytes);
+  }
+  if (bytes == null) {
+    Log.w(AnkiDroidApp.TAG,"Media file " + path + " appears to be empty");
+    return "";
+  }
+  return checksum(new String(bytes));
+}

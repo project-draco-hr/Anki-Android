@@ -1,7 +1,7 @@
 {
   boolean isLocal=false;
   ArrayList<String> l=new ArrayList<String>();
-  for (  String reg : mMediaRegexps) {
+  for (  Pattern reg : mMediaRegexps) {
     Matcher m=reg.matcher(string);
     while (m.find()) {
       isLocal=m.group(2).toLowerCase.matches("(https?|ftp)://.*");
