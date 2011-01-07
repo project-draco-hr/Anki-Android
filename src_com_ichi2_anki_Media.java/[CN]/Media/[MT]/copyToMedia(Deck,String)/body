@@ -2,7 +2,7 @@
   String newpath=null;
   Cursor cursor=null;
   try {
-    cursor=deck.getDB().getDatabase().rawQuery("SELECT filename FROM media WHERE originalPath = " + Utils.fileChecksum(path),null);
+    cursor=deck.getDB().getDatabase().rawQuery("SELECT filename FROM media WHERE originalPath = '" + Utils.fileChecksum(path) + "'",null);
     if (cursor.moveToNext()) {
       newpath=cursor.getString(0);
     }
@@ -16,7 +16,7 @@
     File file=new File(path);
     String base=file.getName();
     String mdir=deck.mediaDir(true);
-    newpath=uniquePAth(mdir,base);
+    newpath=uniquePath(mdir,base);
     if (!file.renameTo(new File(newpath))) {
       Log.e(AnkiDroidApp.TAG,"Couldn't move media file " + path + " to "+ newpath);
     }

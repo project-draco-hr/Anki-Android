@@ -2,7 +2,7 @@
   byte[] bytes=null;
   File file=new File(path);
   if (file != null && file.isFile()) {
-    bytes=new byte[file.length()];
+    bytes=new byte[(int)file.length()];
     FileInputStream fin=new FileInputStream(file);
     fin.read(bytes);
   }
