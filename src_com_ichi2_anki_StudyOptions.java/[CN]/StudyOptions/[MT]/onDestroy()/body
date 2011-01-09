@@ -2,4 +2,8 @@
   super.onDestroy();
   Log.i(AnkiDroidApp.TAG,"StudyOptions - onDestroy()");
   closeOpenedDeck();
+  if (mUnmountReceiver != null) {
+    unregisterReceiver(mUnmountReceiver);
+  }
+  savePreferences("lastOpened");
 }
