@@ -6,6 +6,7 @@
     }
     try {
       fillFunc.invoke(Deck.this);
+      mSpacedFacts.clear();
     }
  catch (    Exception e) {
       Log.e(AnkiDroidApp.TAG,"queueNotEmpty: Error while invoking overridable fill method:" + e.toString());

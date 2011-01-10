@@ -36,7 +36,12 @@
       showContentView(CONTENT_NO_DECK);
     }
  else {
-      loadPreviousDeck();
+      if (showDeckPickerOnStartup()) {
+        openDeckPicker();
+      }
+ else {
+        loadPreviousDeck();
+      }
     }
   }
 }

@@ -12,9 +12,75 @@
   mEditSessionQuestions=(EditText)mStudyOptionsView.findViewById(R.id.studyoptions_session_questions);
   mButtonStart.setOnClickListener(mButtonClickListener);
   mToggleCram.setOnClickListener(mButtonClickListener);
-  mEditNewPerDay.setOnFocusChangeListener(mEditFocusListener);
-  mEditSessionTime.setOnFocusChangeListener(mEditFocusListener);
-  mEditSessionQuestions.setOnFocusChangeListener(mEditFocusListener);
+  mEditNewPerDay.addTextChangedListener(new TextWatcher(){
+    public void afterTextChanged(    Editable s){
+      Deck deck=AnkiDroidApp.deck();
+      String inputText=mEditNewPerDay.getText().toString();
+      if (!inputText.equals(Integer.toString(deck.getNewCardsPerDay()))) {
+        if (inputText.equals("")) {
+          deck.setNewCardsPerDay(0);
+        }
+ else         if (isValidInt(inputText)) {
+          deck.setNewCardsPerDay(Integer.parseInt(inputText));
+        }
+ else {
+          mEditNewPerDay.setText("0");
+        }
+        updateValuesFromDeck();
+      }
+    }
+    public void beforeTextChanged(    CharSequence s,    int start,    int count,    int after){
+    }
+    public void onTextChanged(    CharSequence s,    int start,    int before,    int count){
+    }
+  }
+);
+  mEditSessionTime.addTextChangedListener(new TextWatcher(){
+    public void afterTextChanged(    Editable s){
+      Deck deck=AnkiDroidApp.deck();
+      String inputText=mEditSessionTime.getText().toString();
+      if (!inputText.equals(Long.toString(deck.getSessionTimeLimit() / 60))) {
+        if (inputText.equals("")) {
+          deck.setSessionTimeLimit(0);
+        }
+ else         if (isValidLong(inputText)) {
+          deck.setSessionTimeLimit(Long.parseLong(inputText) * 60);
+        }
+ else {
+          mEditSessionTime.setText("0");
+        }
+        updateValuesFromDeck();
+      }
+    }
+    public void beforeTextChanged(    CharSequence s,    int start,    int count,    int after){
+    }
+    public void onTextChanged(    CharSequence s,    int start,    int before,    int count){
+    }
+  }
+);
+  mEditSessionQuestions.addTextChangedListener(new TextWatcher(){
+    public void afterTextChanged(    Editable s){
+      Deck deck=AnkiDroidApp.deck();
+      String inputText=mEditSessionQuestions.getText().toString();
+      if (!inputText.equals(Long.toString(deck.getSessionRepLimit()))) {
+        if (inputText.equals("")) {
+          deck.setSessionRepLimit(0);
+        }
+ else         if (isValidLong(inputText)) {
+          deck.setSessionRepLimit(Long.parseLong(inputText));
+        }
+ else {
+          mEditSessionQuestions.setText("0");
+        }
+        updateValuesFromDeck();
+      }
+    }
+    public void beforeTextChanged(    CharSequence s,    int start,    int count,    int after){
+    }
+    public void onTextChanged(    CharSequence s,    int start,    int before,    int count){
+    }
+  }
+);
   mDialogMoreOptions=createMoreOptionsDialog();
   mNoDeckView=getLayoutInflater().inflate(R.layout.studyoptions_nodeck,null);
   mTextNoDeckTitle=(TextView)mNoDeckView.findViewById(R.id.studyoptions_nodeck_title);

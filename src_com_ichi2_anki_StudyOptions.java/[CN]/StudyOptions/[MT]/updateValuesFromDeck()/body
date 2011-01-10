@@ -10,8 +10,14 @@
     mTextReviewsDue.setText(String.valueOf(reviewCount));
     mTextNewToday.setText(String.valueOf(deck.getNewCountToday()));
     mTextNewTotal.setText(String.valueOf(deck.getNewCount()));
-    mEditNewPerDay.setText(String.valueOf(deck.getNewCardsPerDay()));
-    mEditSessionTime.setText(String.valueOf(deck.getSessionTimeLimit() / 60));
-    mEditSessionQuestions.setText(String.valueOf(deck.getSessionRepLimit()));
+    if (!mEditNewPerDay.getText().toString().equals(String.valueOf(deck.getNewCardsPerDay())) && !mEditNewPerDay.getText().toString().equals("")) {
+      mEditNewPerDay.setText(String.valueOf(deck.getNewCardsPerDay()));
+    }
+    if (!mEditSessionTime.getText().toString().equals(String.valueOf(deck.getSessionTimeLimit() / 60)) && !mEditSessionTime.getText().toString().equals("")) {
+      mEditSessionTime.setText(String.valueOf(deck.getSessionTimeLimit() / 60));
+    }
+    if (!mEditSessionQuestions.getText().toString().equals(String.valueOf(deck.getSessionRepLimit())) && !mEditSessionQuestions.getText().toString().equals("")) {
+      mEditSessionQuestions.setText(String.valueOf(deck.getSessionRepLimit()));
+    }
   }
 }

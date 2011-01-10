@@ -61,5 +61,6 @@
     }
   }
 );
+  getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
   Connection.getSharedDecks(mGetSharedDecksListener,new Connection.Payload(new Object[]{}));
 }
