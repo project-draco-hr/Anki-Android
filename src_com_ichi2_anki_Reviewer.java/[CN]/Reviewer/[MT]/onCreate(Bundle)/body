@@ -19,17 +19,19 @@
 switch (mDictionary) {
 case DICTIONARY_AEDICT:
       mDictionaryAction="sk.baka.aedict.action.ACTION_SEARCH_EDICT";
+    break;
 case DICTIONARY_LEO:
-    mDictionaryAction="android.intent.action.VIEW";
+  mDictionaryAction="android.intent.action.VIEW";
+break;
 }
 mIsDictionaryAvailable=Utils.isIntentAvailable(this,mDictionaryAction);
 Log.i(AnkiDroidApp.TAG,"Is intent available = " + mIsDictionaryAvailable);
 try {
-  mCardTemplate=Utils.convertStreamToString(getAssets().open("card_template.html"));
-  mCardTemplate=mCardTemplate.replaceFirst("var availableWidth = \\d*;","var availableWidth = " + getAvailableWidthInCard() + ";");
+mCardTemplate=Utils.convertStreamToString(getAssets().open("card_template.html"));
+mCardTemplate=mCardTemplate.replaceFirst("var availableWidth = \\d*;","var availableWidth = " + getAvailableWidthInCard() + ";");
 }
  catch (IOException e) {
-  e.printStackTrace();
+e.printStackTrace();
 }
 long timelimit=AnkiDroidApp.deck().getSessionTimeLimit() * 1000;
 Log.i(AnkiDroidApp.TAG,"SessionTimeLimit: " + timelimit + " ms.");
