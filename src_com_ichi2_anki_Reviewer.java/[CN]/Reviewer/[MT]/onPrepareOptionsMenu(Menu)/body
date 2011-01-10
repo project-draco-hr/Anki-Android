@@ -15,8 +15,7 @@
   if (mPrefTextSelection) {
     item=menu.findItem(MENU_SEARCH);
     Log.i(AnkiDroidApp.TAG,"Clipboard has text = " + mClipboard.hasText());
-    Log.i(AnkiDroidApp.TAG,"Is intent available = " + Utils.isIntentAvailable(this,"sk.baka.aedict.action.ACTION_SEARCH_EDICT"));
-    boolean lookupPossible=mClipboard.hasText() && Utils.isIntentAvailable(this,"sk.baka.aedict.action.ACTION_SEARCH_EDICT");
+    boolean lookupPossible=mClipboard.hasText() && mIsDictionaryAvailable;
     item.setEnabled(lookupPossible);
   }
   if (mPrefFullscreenReview) {
