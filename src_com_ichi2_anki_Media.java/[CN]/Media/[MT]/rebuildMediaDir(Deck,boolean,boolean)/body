@@ -5,16 +5,16 @@
   String txt=null;
   Map<String,Integer> refs=new HashMap<String,Integer>();
   try {
-    cursor=deck.getDB().getDatabase().rawQuery("SELECT question, answer FROM cards");
+    cursor=deck.getDB().getDatabase().rawQuery("SELECT question, answer FROM cards",null);
     while (cursor.moveToNext()) {
       for (int i=0; i < 2; i++) {
         txt=cursor.getString(i);
         for (        String f : mediaFiles(txt)) {
           if (refs.containsKey(f)) {
-            refs.setValue(f,refs.getValue(f) + 1);
+            refs.put(f,refs.get(f) + 1);
           }
  else {
-            refs.setValue(f,1);
+            refs.put(f,1);
           }
         }
       }
@@ -26,9 +26,9 @@
     }
   }
   for (  String fname : refs.keySet()) {
-    updateMediaCount(deck,fname,refs.getValue(fname));
+    updateMediaCount(deck,fname,refs.get(fname));
   }
-  Set<String> unused=new Set<String>();
+  Set<String> unused=new HashSet<String>();
   File mdirfile=new File(mdir);
   String fname=null;
   for (  File f : mdirfile.listFiles()) {
@@ -44,25 +44,27 @@
     for (    String fn : unused) {
       File file=new File(mdir + "/" + fn);
       try {
-        file.delete();
+        if (!file.delete()) {
+          Log.e(AnkiDroidApp.TAG,"Couldn't delete unused media file " + mdir + "/"+ fn);
+        }
       }
- catch (      IOException e) {
-        Log.e(AnkiDroidApp.TAG,"Couldn't delete unused media file " + mdir + "/"+ fn);
+ catch (      SecurityException e) {
+        Log.e(AnkiDroidApp.TAG,"Security exception while deleting unused media file " + mdir + "/"+ fn);
       }
     }
   }
   removeUnusedMedia(deck);
   cursor=null;
   String path=null;
-  String fname=null;
+  fname=null;
   String md5=null;
   deck.getDB().getDatabase().beginTransaction();
   try {
-    cursor=deck.getDB().getDatabase().rawQuery("SELECT filename, created, originalPath FROM media");
+    cursor=deck.getDB().getDatabase().rawQuery("SELECT filename, created, originalPath FROM media",null);
     while (cursor.moveToNext()) {
       fname=cursor.getString(0);
       md5=cursor.getString(2);
-      String path=mdir + "/" + fname;
+      path=mdir + "/" + fname;
       File file=new File(path);
       if (!file.exists()) {
         if (!md5.equals("")) {

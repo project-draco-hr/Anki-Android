@@ -1,7 +1,6 @@
 {
   for (  Pattern reg : mMediaRegexps) {
-    Matcher m=reg.matcher(string);
-    txt=replaceAll("");
+    txt=reg.matcher(txt).replaceAll("");
   }
   return txt;
 }

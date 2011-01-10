@@ -63,8 +63,12 @@
     is.close();
     String response=new String(bytesReceived);
     if (response.substring(0,2).equals("OK")) {
-      mDeck.getDB().getDatabase().execSQL("UPDATE decks SET lastSync = " + response.substring(3,response.length() - 3));
-      mDeck.commitToDB();
+      boolean wasDbOpen=AnkiDatabaseManager.isDatabaseOpen(deckPath);
+      AnkiDb db=AnkiDatabaseManager.getDatabase(deckPath);
+      AnkiDatabaseManager.getDatabase(deckPath).getDatabase().execSQL("UPDATE decks SET lastSync = " + response.substring(3,response.length() - 3));
+      if (!wasDbOpen) {
+        AnkiDatabaseManager.closeDatabase(deckPath);
+      }
     }
     Log.i(AnkiDroidApp.TAG,"Finished!");
   }
