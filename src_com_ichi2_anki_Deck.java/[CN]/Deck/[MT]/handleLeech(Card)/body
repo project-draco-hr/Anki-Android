@@ -4,7 +4,7 @@
   tags=Utils.addTags("Leech",tags);
   scard.getFact().setTags(Utils.canonifyTags(tags));
   scard.getFact().toDb();
-  scard.getFact().setModified(true);
+  scard.getFact().setModified(true,this);
   scard.getFact().toDb();
   updateFactTags(new long[]{scard.getFact().getId()});
   card.setLeechFlag(true);

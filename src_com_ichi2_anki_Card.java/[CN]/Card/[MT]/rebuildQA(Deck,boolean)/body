@@ -1,0 +1,38 @@
+{
+  if (mFact != null && mCardModel != null) {
+    HashMap<String,String> qa=CardModel.formatQA(mFact,mCardModel,splitTags());
+    if (media) {
+      HashMap<String,Integer> files=new HashMap<String,Integer>();
+      ArrayList<String> filesFromQA=Media.mediaFiles(mQuestion);
+      filesFromQA.addAll(Media.mediaFiles(mAnswer));
+      for (      String f : filesFromQA) {
+        if (files.containsKey(f)) {
+          files.put(f,files.get(f) - 1);
+        }
+ else {
+          files.put(f,-1);
+        }
+      }
+      mQuestion=qa.get("question");
+      mAnswer=qa.get("answer");
+      filesFromQA=Media.mediaFiles(mQuestion);
+      filesFromQA.addAll(Media.mediaFiles(mAnswer));
+      for (      String f : filesFromQA) {
+        if (files.containsKey(f)) {
+          files.put(f,files.get(f) + 1);
+        }
+ else {
+          files.put(f,1);
+        }
+      }
+      for (      String f : files.keySet()) {
+        Media.updateMediaCount(deck,f,files.get(f));
+      }
+    }
+ else {
+      mQuestion=qa.get("question");
+      mAnswer=qa.get("answer");
+    }
+    setModified();
+  }
+}

@@ -1,4 +1,5 @@
 {
+  double oldmod=mModified;
   upgradeNotes=new ArrayList<Integer>();
   if (mVersion < 39) {
     upgradeNotes.add(com.ichi2.anki.R.string.deck_upgrade_too_old_version);
@@ -71,6 +72,24 @@
     mVersion=55;
     commitToDB();
   }
+  if (mVersion < 57) {
+    addIndices();
+    getDB().getDatabase().execSQL("ANALYZE");
+    mVersion=57;
+    commitToDB();
+  }
+  if (mVersion < 58) {
+    if (mNewCardOrder != 0) {
+      getDB().getDatabase().execSQL("UPDATE cards SET due = created, combinedDue = created " + "WHERE relativeDelay = 2");
+    }
+    mVersion=58;
+    commitToDB();
+  }
+  if (mVersion < 60) {
+    Media.rebuildMediaDir(this,false);
+    mVersion=60;
+    commitToDB();
+  }
   if (getInt("pageSize") != 4096) {
     commitToDB();
     getDB().getDatabase().execSQL("PRAGMA page_size = 4096");
@@ -79,5 +98,6 @@
     setVar("pageSize","4096",false);
     commitToDB();
   }
+  assert(mModified == oldmod);
   return true;
 }

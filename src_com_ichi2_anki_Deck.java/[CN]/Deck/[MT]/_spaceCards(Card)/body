@@ -3,6 +3,7 @@
   if (_new > mDueCutoff) {
     mNewCount-=getDB().queryScalar(String.format(Utils.ENGLISH_LOCALE,"SELECT count() FROM cards WHERE factId = %d AND id != %d " + "AND combinedDue < %f AND type = 2",card.getFactId(),card.getId(),mDueCutoff));
   }
+  mRevCount-=getDB().queryScalar(String.format(Utils.ENGLISH_LOCALE,"SELECT count() FROM cards WHERE factId = %d AND id != %d " + "AND combinedDue < %f AND type = 1",card.getFactId(),card.getId(),mDueCutoff));
   getDB().getDatabase().execSQL(String.format(Utils.ENGLISH_LOCALE,"UPDATE cards SET " + "combinedDue = (CASE " + "WHEN type = 1 THEN %f "+ "WHEN type = 2 THEN %f "+ "END), "+ "modified = %f, isDue = 0 "+ "WHERE id != %d AND factId = %d "+ "AND combinedDue < %f "+ "AND type BETWEEN 1 AND 2",mDueCutoff - 1.0,_new,Utils.now(),card.getId(),card.getFactId(),mDueCutoff));
   mSpacedFacts.put(card.getFactId(),Utils.now() + mNewSpacing);
 }
