@@ -1,5 +1,5 @@
 {
-  getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS ix_cards_typeCombined ON cards (type, combinedDue)");
+  getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS ix_cards_typeCombined ON cards (type, " + "combinedDue, factId)");
   getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS ix_cards_relativeDelay ON cards (relativeDelay)");
   getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS ix_cards_modified ON cards (modified)");
   getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS ix_facts_modified ON facts (modified)");

@@ -7,15 +7,13 @@
  else {
     mSuccessive=0;
   }
-  double delay=totalTime();
-  if (delay < 60) {
-    mReviewTime+=delay;
-    if (mAverageTime != 0) {
-      mAverageTime=(mAverageTime + delay) / 2.0;
-    }
+  double delay=Math.min(totalTime(),MAX_TIMER);
+  mReviewTime+=delay;
+  if (mAverageTime != 0) {
+    mAverageTime=(mAverageTime + delay) / 2.0;
+  }
  else {
-      mAverageTime=delay;
-    }
+    mAverageTime=delay;
   }
   if (STATE_NEW.equalsIgnoreCase(state)) {
     newState=STATE_YOUNG.toCharArray();
