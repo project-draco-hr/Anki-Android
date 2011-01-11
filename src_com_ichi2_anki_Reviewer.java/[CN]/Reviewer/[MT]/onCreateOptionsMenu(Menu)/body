@@ -1,5 +1,6 @@
 {
   MenuItem item;
+  Resources res=getResources();
   if (mPrefWhiteboard) {
     item=menu.add(Menu.NONE,MENU_WHITEBOARD,Menu.NONE,R.string.show_whiteboard);
     item.setIcon(R.drawable.ic_menu_compose);
@@ -11,7 +12,7 @@
   item=menu.add(Menu.NONE,MENU_SUSPEND,Menu.NONE,R.string.menu_suspend_card);
   item.setIcon(R.drawable.ic_menu_close_clear_cancel);
   if (mPrefTextSelection) {
-    item=menu.add(Menu.NONE,MENU_SEARCH,Menu.NONE,R.string.menu_search);
+    item=menu.add(Menu.NONE,MENU_SEARCH,Menu.NONE,String.format(getString(R.string.menu_search),res.getStringArray(R.array.dictionary_labels)[mDictionary]));
     item.setIcon(R.drawable.ic_menu_search);
   }
   item=menu.add(Menu.NONE,MENU_MARK,Menu.NONE,R.string.menu_mark_card);

@@ -12,5 +12,6 @@
   mDisplayFontSize=Integer.parseInt(preferences.getString("displayFontSize",Integer.toString(CardModel.DEFAULT_FONT_SIZE_RATIO)));
   mRelativeButtonSize=Integer.parseInt(preferences.getString("buttonSize","100"));
   mPrefHideQuestionInAnswer=Integer.parseInt(preferences.getString("hideQuestionInAnswer",Integer.toString(HQIA_DO_SHOW)));
+  mDictionary=Integer.parseInt(preferences.getString("dictionary",Integer.toString(DICTIONARY_AEDICT)));
   return preferences;
 }
