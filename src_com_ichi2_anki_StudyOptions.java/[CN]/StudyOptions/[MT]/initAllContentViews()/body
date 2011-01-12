@@ -86,6 +86,7 @@
   mTextNoDeckTitle=(TextView)mNoDeckView.findViewById(R.id.studyoptions_nodeck_title);
   mTextNoDeckMessage=(TextView)mNoDeckView.findViewById(R.id.studyoptions_nodeck_message);
   mNoDeckView.findViewById(R.id.studyoptions_load_sample_deck).setOnClickListener(mButtonClickListener);
+  mNoDeckView.findViewById(R.id.studyoptions_download_deck).setOnClickListener(mButtonClickListener);
   mNoDeckView.findViewById(R.id.studyoptions_load_other_deck).setOnClickListener(mButtonClickListener);
   mCongratsView=getLayoutInflater().inflate(R.layout.studyoptions_congrats,null);
   mTextCongratsMessage=(TextView)mCongratsView.findViewById(R.id.studyoptions_congrats_message);
