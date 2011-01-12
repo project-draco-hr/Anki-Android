@@ -1,7 +1,7 @@
 {
   checkDailyStats();
   fillQueues();
-  if (mFailedSoonCount >= mFailedCardMax) {
+  if ((mFailedCardMax != 0) && (mFailedSoonCount >= mFailedCardMax)) {
     return ((QueueItem)mFailedQueue.getLast()).getCardID();
   }
   if (revNoSpaced()) {

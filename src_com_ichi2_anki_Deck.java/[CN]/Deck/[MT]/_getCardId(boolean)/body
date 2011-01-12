@@ -13,7 +13,10 @@
     }
   }
   if (newNoSpaced() && timeForNewCard()) {
-    return getNewCard();
+    long id=getNewCard();
+    if (id != 0L) {
+      return id;
+    }
   }
   if (revNoSpaced()) {
     return mRevQueue.getLast().getCardID();
