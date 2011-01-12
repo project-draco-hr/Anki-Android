@@ -50,6 +50,7 @@
         }
         ankiDB.getDatabase().setTransactionSuccessful();
         ankiDB.getDatabase().endTransaction();
+        deck.closeDeck();
         deck=Deck.openDeck(deckPath);
         client.setDeck(deck);
         publishProgress(syncName,res.getString(R.string.sync_complete_message));
