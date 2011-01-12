@@ -75,6 +75,12 @@
     mVersion=62;
     commitToDB();
   }
+  if (mVersion < 63) {
+    getDB().getDatabase().execSQL("UPDATE fieldModels SET quizFontSize = 20 WHERE quizFontSize = ''" + "OR quizFontSize IS NULL");
+    getDB().getDatabase().execSQL("UPDATE fieldModels SET editFontSize = 20 WHERE editFontSize = ''" + "OR editFontSize IS NULL");
+    mVersion=63;
+    commitToDB();
+  }
   if (getInt("pageSize") != 4096) {
     commitToDB();
     getDB().getDatabase().execSQL("PRAGMA page_size = 4096");
