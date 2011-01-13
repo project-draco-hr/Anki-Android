@@ -7,6 +7,7 @@
         mDecks=jsonDecks.getJSONObject("decks");
         Log.i(AnkiDroidApp.TAG,"Server decks = " + mDecks.toString());
         mTimestamp=jsonDecks.getDouble("timestamp");
+        mTimediff=Math.abs(mTimestamp - Utils.now());
         Log.i(AnkiDroidApp.TAG,"Server timestamp = " + mTimestamp);
         return LOGIN_OK;
       }

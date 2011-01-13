@@ -1,5 +1,9 @@
 {
   JSONObject bundledDeck=new JSONObject();
+  if ((mServer != null) && (mServer.getTimestamp() != 0.0)) {
+    mDeck.setModified(Math.min(mDeck.getModified(),mServer.getTimestamp()));
+  }
+  mDeck.setLastSync(Math.max(Utils.now(),mDeck.getModified() + 1));
   try {
     bundledDeck=mDeck.bundleJson(bundledDeck);
     JSONArray meta=new JSONArray();

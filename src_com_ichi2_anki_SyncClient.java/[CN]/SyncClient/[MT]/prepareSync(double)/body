@@ -11,13 +11,7 @@
   Log.i(AnkiDroidApp.TAG,"lastSync local = " + String.format(Utils.ENGLISH_LOCALE,"%f",l));
   double r=mServer.lastSync();
   Log.i(AnkiDroidApp.TAG,"lastSync remote = " + String.format(Utils.ENGLISH_LOCALE,"%f",r));
-  if (l != r) {
-    mDeck.setLastSync(java.lang.Math.min(l,r) - 600);
-    Log.i(AnkiDroidApp.TAG,"deck.lastSync = min(l,r) - 600");
-  }
- else {
-    mDeck.setLastSync(l);
-  }
+  mDeck.setLastSync(Math.min(l,r) - timediff - 10);
   Log.i(AnkiDroidApp.TAG,"deck.lastSync = " + mDeck.getLastSync());
   return true;
 }

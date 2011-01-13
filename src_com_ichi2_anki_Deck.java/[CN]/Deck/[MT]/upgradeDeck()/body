@@ -10,10 +10,6 @@
     mVersion=40;
     commitToDB();
   }
-  if (mVersion < 42) {
-    mVersion=42;
-    commitToDB();
-  }
   if (mVersion < 43) {
     getDB().getDatabase().execSQL("UPDATE fieldModels SET features = ''");
     mVersion=43;
@@ -21,15 +17,7 @@
   }
   if (mVersion < 44) {
     getDB().getDatabase().execSQL("DROP INDEX IF EXISTS ix_cards_factId");
-    addIndices();
     mVersion=44;
-    commitToDB();
-  }
-  if (mVersion < 47) {
-    addIndices();
-    updateDynamicIndices();
-    getDB().getDatabase().execSQL("ANALYZE");
-    mVersion=47;
     commitToDB();
   }
   if (mVersion < 48) {
@@ -37,14 +25,8 @@
     mVersion=48;
     commitToDB();
   }
-  if (mVersion < 49) {
-    rebuildTypes();
-    mVersion=49;
-    commitToDB();
-  }
   if (mVersion < 50) {
     rebuildTypes();
-    addIndices();
     mVersion=50;
     commitToDB();
   }
@@ -73,21 +55,30 @@
     commitToDB();
   }
   if (mVersion < 57) {
-    addIndices();
-    getDB().getDatabase().execSQL("ANALYZE");
     mVersion=57;
     commitToDB();
   }
-  if (mVersion < 58) {
-    if (mNewCardOrder != 0) {
-      getDB().getDatabase().execSQL("UPDATE cards SET due = created, combinedDue = created " + "WHERE relativeDelay = 2");
-    }
-    mVersion=58;
+  if (mVersion < 61) {
+    Media.rebuildMediaDir(this,false);
+    mVersion=61;
     commitToDB();
   }
-  if (mVersion < 60) {
-    Media.rebuildMediaDir(this,false);
-    mVersion=60;
+  if (mVersion < 62) {
+    String[] indices={"intervalDesc","intervalAsc","randomOrder","dueAsc","dueDesc"};
+    for (    String d : indices) {
+      getDB().getDatabase().execSQL("DROP INDEX IF EXISTS ix_cards_" + d + "2");
+    }
+    getDB().getDatabase().execSQL("DROP INDEX IF EXISTS ix_cards_typeCombined");
+    addIndices();
+    updateDynamicIndices();
+    getDB().getDatabase().execSQL("VACUUM");
+    mVersion=62;
+    commitToDB();
+  }
+  if (mVersion < 63) {
+    getDB().getDatabase().execSQL("UPDATE fieldModels SET quizFontSize = 20 WHERE quizFontSize = ''" + "OR quizFontSize IS NULL");
+    getDB().getDatabase().execSQL("UPDATE fieldModels SET editFontSize = 20 WHERE editFontSize = ''" + "OR editFontSize IS NULL");
+    mVersion=63;
     commitToDB();
   }
   if (getInt("pageSize") != 4096) {

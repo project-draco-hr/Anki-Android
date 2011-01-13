@@ -1,0 +1,7 @@
+{
+  mSyncName=Utils.checksum(mDeckPath);
+  if (ls) {
+    mLastSync=0;
+  }
+  commitToDB();
+}

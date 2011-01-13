@@ -13,7 +13,10 @@
     }
   }
   if (newNoSpaced() && timeForNewCard()) {
-    return getNewCard();
+    long id=getNewCard();
+    if (id != 0L) {
+      return id;
+    }
   }
   if (revNoSpaced()) {
     return mRevQueue.getLast().getCardID();
@@ -21,13 +24,13 @@
   if (mNewCountToday != 0) {
     return getNewCard();
   }
-  if (showFailedLast() && (!mFailedQueue.isEmpty())) {
-    return mFailedQueue.getLast().getCardID();
-  }
   if (check) {
     updateCutoff();
     reset();
     return getCardId(false);
+  }
+  if ((!check) && showFailedLast() && (!mFailedQueue.isEmpty())) {
+    return mFailedQueue.getLast().getCardID();
   }
   if (finishSchedulerMethod != null) {
     finishScheduler();

@@ -1,7 +1,7 @@
 {
   Log.i(AnkiDroidApp.TAG,"updateCard");
   content=Sound.parseSounds(mDeckFilename,content);
-  content=LaTeX.parseLaTeX(mDeckFilename,content);
+  content=LaTeX.parseLaTeX(AnkiDroidApp.deck(),content);
   content=content.replace("font-weight:600;","font-weight:700;");
   if (mPrefUseRubySupport) {
     content=RubyParser.ankiRubyToMarkup(content);

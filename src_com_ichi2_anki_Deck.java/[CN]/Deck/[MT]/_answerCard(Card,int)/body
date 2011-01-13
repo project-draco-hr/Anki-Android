@@ -17,7 +17,6 @@
     card.setLastDue(card.getDue());
   }
   card.setDue(nextDue(card,ease,oldState));
-  card.setCombinedDue(card.getDue());
   card.setIsDue(0);
   card.setLastFactor(card.getFactor());
   card.setSpaceUntil(0);

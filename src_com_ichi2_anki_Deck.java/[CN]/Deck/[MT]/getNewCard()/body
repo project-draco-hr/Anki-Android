@@ -1,8 +1,23 @@
 {
-  if (mNewQueue.isEmpty() || (!mSpacedCards.isEmpty() && mSpacedCards.get(0).getSpace() < Utils.now())) {
+  int src=0;
+  if ((!mSpacedCards.isEmpty()) && (mSpacedCards.get(0).getSpace() < Utils.now())) {
+    src=0;
+  }
+ else   if (!mNewQueue.isEmpty()) {
+    src=1;
+  }
+ else   if (!mSpacedCards.isEmpty()) {
+    src=0;
+  }
+ else {
+    return 0L;
+  }
+  if (src == 0) {
     mNewFromCache=true;
     return mSpacedCards.get(0).getCards().get(0);
   }
-  mNewFromCache=false;
-  return mNewQueue.getLast().getCardID();
+ else {
+    mNewFromCache=false;
+    return mNewQueue.getLast().getCardID();
+  }
 }
