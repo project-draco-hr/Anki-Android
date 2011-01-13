@@ -16,17 +16,19 @@
     public void afterTextChanged(    Editable s){
       Deck deck=AnkiDroidApp.deck();
       String inputText=mEditNewPerDay.getText().toString();
-      if (!inputText.equals(Integer.toString(deck.getNewCardsPerDay()))) {
-        if (inputText.equals("")) {
-          deck.setNewCardsPerDay(0);
-        }
- else         if (isValidInt(inputText)) {
-          deck.setNewCardsPerDay(Integer.parseInt(inputText));
-        }
+      if (deck != null) {
+        if (!inputText.equals(Integer.toString(deck.getNewCardsPerDay()))) {
+          if (inputText.equals("")) {
+            deck.setNewCardsPerDay(0);
+          }
+ else           if (isValidInt(inputText)) {
+            deck.setNewCardsPerDay(Integer.parseInt(inputText));
+          }
  else {
-          mEditNewPerDay.setText("0");
+            mEditNewPerDay.setText("0");
+          }
+          updateValuesFromDeck();
         }
-        updateValuesFromDeck();
       }
     }
     public void beforeTextChanged(    CharSequence s,    int start,    int count,    int after){
@@ -39,17 +41,19 @@
     public void afterTextChanged(    Editable s){
       Deck deck=AnkiDroidApp.deck();
       String inputText=mEditSessionTime.getText().toString();
-      if (!inputText.equals(Long.toString(deck.getSessionTimeLimit() / 60))) {
-        if (inputText.equals("")) {
-          deck.setSessionTimeLimit(0);
-        }
- else         if (isValidLong(inputText)) {
-          deck.setSessionTimeLimit(Long.parseLong(inputText) * 60);
-        }
+      if (deck != null) {
+        if (!inputText.equals(Long.toString(deck.getSessionTimeLimit() / 60))) {
+          if (inputText.equals("")) {
+            deck.setSessionTimeLimit(0);
+          }
+ else           if (isValidLong(inputText)) {
+            deck.setSessionTimeLimit(Long.parseLong(inputText) * 60);
+          }
  else {
-          mEditSessionTime.setText("0");
+            mEditSessionTime.setText("0");
+          }
+          updateValuesFromDeck();
         }
-        updateValuesFromDeck();
       }
     }
     public void beforeTextChanged(    CharSequence s,    int start,    int count,    int after){
@@ -62,17 +66,19 @@
     public void afterTextChanged(    Editable s){
       Deck deck=AnkiDroidApp.deck();
       String inputText=mEditSessionQuestions.getText().toString();
-      if (!inputText.equals(Long.toString(deck.getSessionRepLimit()))) {
-        if (inputText.equals("")) {
-          deck.setSessionRepLimit(0);
-        }
- else         if (isValidLong(inputText)) {
-          deck.setSessionRepLimit(Long.parseLong(inputText));
-        }
+      if (deck != null) {
+        if (!inputText.equals(Long.toString(deck.getSessionRepLimit()))) {
+          if (inputText.equals("")) {
+            deck.setSessionRepLimit(0);
+          }
+ else           if (isValidLong(inputText)) {
+            deck.setSessionRepLimit(Long.parseLong(inputText));
+          }
  else {
-          mEditSessionQuestions.setText("0");
+            mEditSessionQuestions.setText("0");
+          }
+          updateValuesFromDeck();
         }
-        updateValuesFromDeck();
       }
     }
     public void beforeTextChanged(    CharSequence s,    int start,    int count,    int after){
