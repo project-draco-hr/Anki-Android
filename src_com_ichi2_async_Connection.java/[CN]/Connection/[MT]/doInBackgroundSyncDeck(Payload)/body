@@ -14,23 +14,43 @@
     AnkiDroidProxy server=new AnkiDroidProxy(username,password);
     publishProgress(syncName,res.getString(R.string.sync_connecting_message));
     server.connect();
+    boolean deckCreated=false;
     if (!server.hasDeck(syncName)) {
       Log.i(AnkiDroidApp.TAG,"AnkiOnline does not have this deck: Creating it...");
       server.createDeck(syncName);
-    }
-    if (server.getTimediff() > 300) {
-      Log.i(AnkiDroidApp.TAG,"The clock is unsynchronized!");
+      deckCreated=true;
     }
     publishProgress(syncName,res.getString(R.string.sync_syncing_message,new Object[]{syncName}));
     SyncClient client=new SyncClient(deck);
     client.setServer(server);
     server.setDeckName(syncName);
+    boolean changes=false;
+    String conflictResolution=null;
     if (client.prepareSync(server.getTimediff())) {
+      if (deck.getLastSync() <= 0) {
+        if (client.getRemoteTime() > client.getLocalTime()) {
+          conflictResolution="keepRemote";
+        }
+ else {
+          conflictResolution="keepLocal";
+        }
+      }
+      changes=true;
       publishProgress(syncName,res.getString(R.string.sync_summary_from_server_message));
-      JSONArray sums=client.summaries();
-      if (client.needFullSync(sums)) {
+      JSONArray sums=null;
+      if (conflictResolution == null) {
+        sums=client.summaries();
+      }
+      if ((conflictResolution != null) || client.needFullSync(sums)) {
         Log.i(AnkiDroidApp.TAG,"DECK NEEDS FULL SYNC");
         publishProgress(syncName,res.getString(R.string.sync_preparing_full_sync_message));
+        if (conflictResolution.equals("keepLocal")) {
+          client.setRemoteTime(0.0);
+        }
+ else         if (conflictResolution.equals("keepRemote")) {
+          client.setLocalTime(0.0);
+        }
+        double lastSync=deck.getLastSync();
         String syncFrom=client.prepareFullSync();
         if ("fromLocal".equalsIgnoreCase(syncFrom)) {
           publishProgress(syncName,res.getString(R.string.sync_uploading_message));
