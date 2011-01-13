@@ -1,0 +1,28 @@
+{
+  Resources res=getResources();
+  AlertDialog.Builder builder=new AlertDialog.Builder(this);
+  builder.setTitle(res.getString(R.string.menu_download_deck));
+  CharSequence[] items;
+  if (mSyncEnabled) {
+    items=new CharSequence[2];
+    items[0]=res.getString(R.string.menu_download_personal_deck);
+    items[1]=res.getString(R.string.menu_download_shared_deck);
+  }
+ else {
+    items=new CharSequence[1];
+    items[0]=res.getString(R.string.menu_download_shared_deck);
+  }
+  builder.setItems(items,new DialogInterface.OnClickListener(){
+    public void onClick(    DialogInterface dialog,    int item){
+      if (item == 0 && mSyncEnabled) {
+        openPersonalDeckPicker();
+      }
+ else {
+        openSharedDeckPicker();
+      }
+    }
+  }
+);
+  AlertDialog alert=builder.create();
+  alert.show();
+}
