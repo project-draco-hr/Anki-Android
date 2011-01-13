@@ -4,6 +4,12 @@
   menu.findItem(SUBMENU_DOWNLOAD).setEnabled(mSdCardAvailable);
   menu.findItem(MENU_ADD_FACT).setEnabled(deckChangable);
   menu.findItem(MENU_MORE_OPTIONS).setEnabled(deckChangable);
-  menu.findItem(MENU_SYNC).setEnabled(deckChangable);
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+  if (preferences.getBoolean("syncEnabled",false)) {
+    MenuItem item=menu.findItem(MENU_SYNC);
+    if (item != null) {
+      item.setEnabled(deckChangable);
+    }
+  }
   return true;
 }
