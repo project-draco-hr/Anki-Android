@@ -4,5 +4,6 @@
   mPrefStudyOptions=preferences.getBoolean("study_options",true);
   mStartupMode=Integer.parseInt(preferences.getString("startup_mode",Integer.toString(SUM_DECKPICKER_ON_FIRST_START)));
   mLastTimeOpened=preferences.getLong("lastTimeOpened",0);
+  mSyncEnabled=preferences.getBoolean("syncEnabled",false);
   return preferences;
 }
