@@ -29,4 +29,18 @@
 );
   builder.setNegativeButton(res.getString(R.string.cancel),null);
   mConnectionErrorAlert=builder.create();
+  AlertDialog.Builder itemDialogBuilder=new AlertDialog.Builder(this);
+  itemDialogBuilder.setTitle(res.getString(R.string.menu_download_deck));
+  itemDialogBuilder.setItems(new CharSequence[]{res.getString(R.string.menu_download_personal_deck),res.getString(R.string.menu_download_shared_deck)},new DialogInterface.OnClickListener(){
+    public void onClick(    DialogInterface dialog,    int item){
+      if (item == 0) {
+        openPersonalDeckPicker();
+      }
+ else {
+        openSharedDeckPicker();
+      }
+    }
+  }
+);
+  mDownloadDeckAlert=itemDialogBuilder.create();
 }
