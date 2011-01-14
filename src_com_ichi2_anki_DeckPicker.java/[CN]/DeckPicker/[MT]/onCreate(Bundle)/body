@@ -66,4 +66,15 @@
   registerForContextMenu(mDeckListView);
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
   populateDeckList(preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory()));
+  mSwipeEnabled=preferences.getBoolean("swipe",false);
+  gestureDetector=new GestureDetector(new MyGestureDetector());
+  mDeckListView.setOnTouchListener(new View.OnTouchListener(){
+    public boolean onTouch(    View v,    MotionEvent event){
+      if (gestureDetector.onTouchEvent(event)) {
+        return true;
+      }
+      return false;
+    }
+  }
+);
 }
