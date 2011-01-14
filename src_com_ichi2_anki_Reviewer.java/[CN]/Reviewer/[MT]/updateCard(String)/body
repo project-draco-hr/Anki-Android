@@ -1,6 +1,11 @@
 {
   Log.i(AnkiDroidApp.TAG,"updateCard");
-  content=Sound.parseSounds(mDeckFilename,content);
+  if (sDisplayAnswer && isQuestionDisplayed() && (content.indexOf("<hr/>") != -1)) {
+    content=Sound.parseSounds(mDeckFilename,content.substring(0,content.indexOf("<hr/>") - 1),true) + Sound.parseSounds(mDeckFilename,content.substring(content.indexOf("<hr/>"),content.length()),false);
+  }
+ else {
+    content=Sound.parseSounds(mDeckFilename,content,false);
+  }
   content=LaTeX.parseLaTeX(AnkiDroidApp.deck(),content);
   content=content.replace("font-weight:600;","font-weight:700;");
   if (mPrefUseRubySupport) {
@@ -20,5 +25,7 @@
   String card=mCardTemplate.replace("::content::",content);
   Log.i(AnkiDroidApp.TAG,"base url = " + baseUrl);
   mCard.loadDataWithBaseURL(baseUrl,card,"text/html","utf-8",null);
-  Sound.playSounds();
+  if (!mConfigurationChanged) {
+    Sound.playSounds();
+  }
 }
