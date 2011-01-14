@@ -1,0 +1,45 @@
+{
+  double now=Utils.now();
+  ContentValues values=new ContentValues();
+  values.put("id",fact.getId());
+  values.put("modelId",fact.getModelId());
+  values.put("created",now);
+  values.put("modified",now);
+  values.put("tags","");
+  values.put("spaceUntil",0);
+  getDB().getDatabase().insert("facts",null,values);
+  TreeMap<Long,CardModel> availableCardModels=availableCardModels(fact);
+  if (availableCardModels.isEmpty()) {
+    Log.e(AnkiDroidApp.TAG,"Error while adding fact: No cardmodels for the new fact");
+    return null;
+  }
+  mFactCount++;
+  for (  Field f : fact.getFields()) {
+    values.clear();
+    values.put("value",f.getValue());
+    values.put("id",f.getId());
+    values.put("factId",f.getFactId());
+    values.put("fieldModelId",f.getFieldModelId());
+    values.put("ordinal",f.getOrdinal());
+    AnkiDatabaseManager.getDatabase(mDeckPath).getDatabase().insert("fields",null,values);
+  }
+  ArrayList<Long> newCardIds=new ArrayList<Long>();
+  for (  Map.Entry<Long,CardModel> entry : availableCardModels.entrySet()) {
+    CardModel cardModel=entry.getValue();
+    Card newCard=new Card(this,fact,cardModel,Utils.now());
+    newCard.addToDb();
+    newCardIds.add(newCard.getId());
+    mCardCount++;
+    mNewCount++;
+    Log.i(AnkiDroidApp.TAG,entry.getKey().toString());
+  }
+  commitToDB();
+  fact.setModified(true,this);
+  updateFactTags(new long[]{fact.getId()});
+  updatePriorities(Utils.toPrimitive(newCardIds));
+  flushMod();
+  if (reset) {
+    reset();
+  }
+  return fact;
+}
