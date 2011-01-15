@@ -3,9 +3,7 @@
   getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS ix_cards_relativeDelay ON cards (relativeDelay)");
   getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS ix_cards_modified ON cards (modified)");
   getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS ix_facts_modified ON facts (modified)");
-  getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS ix_cards_duePriority " + "ON cards (type, isDue, combinedDue, priority)");
   getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS ix_cards_priority ON cards (priority)");
-  getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS ix_cards_priorityDue " + "ON cards (type, isDue, priority, combinedDue)");
   getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS ix_cards_factor ON cards (type, factor)");
   getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS ix_cards_factId ON cards (factId)");
   getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS ix_stats_typeDay ON stats (type, day)");

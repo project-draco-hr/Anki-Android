@@ -81,6 +81,19 @@
     mVersion=63;
     commitToDB();
   }
+  if (mVersion < 64) {
+    String[] oldStaticIndices={"ix_cards_duePriority","ix_cards_priorityDue"};
+    for (    String d : oldStaticIndices) {
+      getDB().getDatabase().execSQL("DROP INDEX IF EXISTS " + d);
+    }
+    String[] oldDynamicIndices={"intervalDesc","intervalAsc","randomOrder","dueAsc","dueDesc"};
+    for (    String d : oldDynamicIndices) {
+      getDB().getDatabase().execSQL("DROP INDEX IF EXISTS ix_cards_" + d);
+    }
+    getDB().getDatabase().execSQL("ANALYZE");
+    mVersion=64;
+    commitToDB();
+  }
   if (getInt("pageSize") != 4096) {
     commitToDB();
     getDB().getDatabase().execSQL("PRAGMA page_size = 4096");
