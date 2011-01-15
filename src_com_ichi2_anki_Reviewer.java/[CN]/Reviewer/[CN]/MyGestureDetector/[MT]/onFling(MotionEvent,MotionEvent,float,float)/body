@@ -1,0 +1,39 @@
+{
+  if (mSwipeEnabled) {
+    try {
+      if (e2.getY() - e1.getY() > StudyOptions.SWIPE_MIN_DISTANCE && Math.abs(velocityY) > StudyOptions.SWIPE_THRESHOLD_VELOCITY && Math.abs(e1.getX() - e2.getX()) < StudyOptions.SWIPE_MAX_OFF_PATH) {
+        if (sDisplayAnswer) {
+          answerCard(Card.EASE_FAILED);
+        }
+ else {
+          displayCardAnswer();
+        }
+      }
+ else       if (e1.getY() - e2.getY() > StudyOptions.SWIPE_MIN_DISTANCE && Math.abs(velocityY) > StudyOptions.SWIPE_THRESHOLD_VELOCITY && Math.abs(e1.getX() - e2.getX()) < StudyOptions.SWIPE_MAX_OFF_PATH) {
+        if (mCurrentCard.isRev()) {
+          if (sDisplayAnswer) {
+            answerCard(Card.EASE_MID);
+          }
+ else {
+            displayCardAnswer();
+          }
+        }
+ else {
+          if (sDisplayAnswer) {
+            answerCard(Card.EASE_HARD);
+          }
+ else {
+            displayCardAnswer();
+          }
+        }
+      }
+ else       if (e2.getX() - e1.getX() > StudyOptions.SWIPE_MIN_DISTANCE && Math.abs(velocityX) > StudyOptions.SWIPE_THRESHOLD_VELOCITY && Math.abs(e1.getY() - e2.getY()) < StudyOptions.SWIPE_MAX_OFF_PATH) {
+        finish();
+      }
+    }
+ catch (    Exception e) {
+      Log.e(AnkiDroidApp.TAG,"onFling Exception = " + e.getMessage());
+    }
+  }
+  return false;
+}
