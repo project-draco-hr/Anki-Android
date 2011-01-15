@@ -12,11 +12,18 @@
     mCard.setFocusableInTouchMode(false);
   }
   Log.i(AnkiDroidApp.TAG,"Focusable = " + mCard.isFocusable() + ", Focusable in touch mode = "+ mCard.isFocusableInTouchMode());
+  gestureDetector=new GestureDetector(new MyGestureDetector());
   if (mPrefTextSelection) {
     mClipboard=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
     final Handler mTimerHandler=new Handler();
     mCard.setOnTouchListener(new View.OnTouchListener(){
       @Override public boolean onTouch(      View v,      MotionEvent event){
+        if (event.getAction() == MotionEvent.ACTION_UP && mSelectionStarted != 0) {
+          mSelectionStarted--;
+        }
+ else         if (gestureDetector.onTouchEvent(event)) {
+          return true;
+        }
 switch (event.getAction()) {
 case MotionEvent.ACTION_DOWN:
           mTimerHandler.removeCallbacks(copyTextAfterDelay);
@@ -33,6 +40,18 @@ return false;
 }
 }
 );
+}
+ else {
+mCard.setOnTouchListener(new View.OnTouchListener(){
+@Override public boolean onTouch(View v,MotionEvent event){
+if (gestureDetector.onTouchEvent(event)) {
+return true;
+}
+return false;
+}
+}
+);
+mCard.setOnTouchListener(gestureListener);
 }
 mScaleInPercent=mCard.getScale();
 mEase1=(Button)findViewById(R.id.ease1);
@@ -55,6 +74,18 @@ mTextBarBlack=(TextView)findViewById(R.id.black_number);
 mTextBarBlue=(TextView)findViewById(R.id.blue_number);
 mCardTimer=(Chronometer)findViewById(R.id.card_time);
 mWhiteboard=(Whiteboard)findViewById(R.id.whiteboard);
+mWhiteboard.setOnTouchListener(new View.OnTouchListener(){
+@Override public boolean onTouch(View v,MotionEvent event){
+if (mWhiteboard.getVisibility() == View.VISIBLE) {
+return false;
+}
+if (gestureDetector.onTouchEvent(event)) {
+return true;
+}
+return false;
+}
+}
+);
 mAnswerField=(EditText)findViewById(R.id.answer_field);
 initControls();
 }
