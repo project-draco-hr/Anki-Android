@@ -1,7 +1,6 @@
 {
   Log.i(AnkiDroidApp.TAG,"deleteMedia");
   String idsString=Utils.ids2str(ids);
-  ArrayList<String> files=mDeck.getDB().queryColumn(String.class,"SELECT filename FROM media WHERE id IN " + idsString,0);
   double now=Utils.now();
   String sqlInsert="INSERT INTO mediaDeleted SELECT id, " + String.format(Utils.ENGLISH_LOCALE,"%f",now) + " FROM media WHERE media.id = ?";
   SQLiteStatement statement=mDeck.getDB().getDatabase().compileStatement(sqlInsert);

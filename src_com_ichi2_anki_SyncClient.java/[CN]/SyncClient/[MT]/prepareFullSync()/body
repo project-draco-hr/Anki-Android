@@ -1,5 +1,4 @@
 {
-  double t=Utils.now();
   mDeck.setModified(Math.min(mDeck.getModified(),mServer.getTimestamp()));
   mDeck.commitToDB();
   if (mLocalTime > mRemoteTime) {
