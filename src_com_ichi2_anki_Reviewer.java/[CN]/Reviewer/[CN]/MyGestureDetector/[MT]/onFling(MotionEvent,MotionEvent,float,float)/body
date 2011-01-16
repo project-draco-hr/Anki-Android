@@ -26,7 +26,7 @@
         }
       }
  else       if (e2.getX() - e1.getX() > StudyOptions.SWIPE_MIN_DISTANCE && Math.abs(velocityX) > StudyOptions.SWIPE_THRESHOLD_VELOCITY && Math.abs(e1.getY() - e2.getY()) < StudyOptions.SWIPE_MAX_OFF_PATH) {
-        finish();
+        closeReviewer();
       }
     }
  catch (    Exception e) {

@@ -2,6 +2,7 @@
   if (mSwipeEnabled) {
     try {
       if (e1.getX() - e2.getX() > StudyOptions.SWIPE_MIN_DISTANCE && Math.abs(velocityX) > StudyOptions.SWIPE_THRESHOLD_VELOCITY && Math.abs(e1.getY() - e2.getY()) < StudyOptions.SWIPE_MAX_OFF_PATH) {
+        closeDeckPicker();
       }
     }
  catch (    Exception e) {

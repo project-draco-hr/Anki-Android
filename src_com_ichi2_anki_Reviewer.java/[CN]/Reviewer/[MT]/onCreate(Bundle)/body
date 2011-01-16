@@ -5,7 +5,7 @@
   Log.i(AnkiDroidApp.TAG,"Reviewer - onCreate");
   if (AnkiDroidApp.deck() == null) {
     setResult(StudyOptions.CONTENT_NO_EXTERNAL_STORAGE);
-    finish();
+    closeReviewer();
   }
  else {
     restorePreferences();

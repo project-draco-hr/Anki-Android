@@ -5,6 +5,7 @@
         openReviewer();
       }
  else       if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(e1.getY() - e2.getY()) < SWIPE_MAX_OFF_PATH) {
+        openDeckPicker();
       }
     }
  catch (    Exception e) {

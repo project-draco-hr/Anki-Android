@@ -8,6 +8,6 @@
     Intent intent=this.getIntent();
     intent.putExtra(StudyOptions.OPT_DB,deckFilename);
     setResult(RESULT_OK,intent);
-    finish();
+    closeDeckPicker();
   }
 }
