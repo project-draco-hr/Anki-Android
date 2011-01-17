@@ -1,0 +1,11 @@
+{
+  finish();
+  if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+    if (mShowCongrats) {
+      MyAnimation.slide(this,MyAnimation.FADE);
+    }
+ else {
+      MyAnimation.slide(this,MyAnimation.RIGHT);
+    }
+  }
+}

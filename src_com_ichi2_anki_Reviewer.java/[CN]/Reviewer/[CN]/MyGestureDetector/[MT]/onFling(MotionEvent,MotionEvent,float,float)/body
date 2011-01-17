@@ -1,6 +1,9 @@
 {
   if (mSwipeEnabled) {
     try {
+      if (mSelectionStarted != 0) {
+        return false;
+      }
       if (e2.getY() - e1.getY() > StudyOptions.SWIPE_MIN_DISTANCE && Math.abs(velocityY) > StudyOptions.SWIPE_THRESHOLD_VELOCITY && Math.abs(e1.getX() - e2.getX()) < StudyOptions.SWIPE_MAX_OFF_PATH) {
         if (sDisplayAnswer) {
           answerCard(Card.EASE_FAILED);
@@ -10,25 +13,20 @@
         }
       }
  else       if (e1.getY() - e2.getY() > StudyOptions.SWIPE_MIN_DISTANCE && Math.abs(velocityY) > StudyOptions.SWIPE_THRESHOLD_VELOCITY && Math.abs(e1.getX() - e2.getX()) < StudyOptions.SWIPE_MAX_OFF_PATH) {
-        if (mCurrentCard.isRev()) {
-          if (sDisplayAnswer) {
+        if (sDisplayAnswer) {
+          if (mCurrentCard.isRev()) {
             answerCard(Card.EASE_MID);
           }
  else {
-            displayCardAnswer();
+            answerCard(Card.EASE_HARD);
           }
         }
  else {
-          if (sDisplayAnswer) {
-            answerCard(Card.EASE_HARD);
-          }
- else {
-            displayCardAnswer();
-          }
+          displayCardAnswer();
         }
       }
  else       if (e2.getX() - e1.getX() > StudyOptions.SWIPE_MIN_DISTANCE && Math.abs(velocityX) > StudyOptions.SWIPE_THRESHOLD_VELOCITY && Math.abs(e1.getY() - e2.getY()) < StudyOptions.SWIPE_MAX_OFF_PATH) {
-        finish();
+        closeReviewer();
       }
     }
  catch (    Exception e) {

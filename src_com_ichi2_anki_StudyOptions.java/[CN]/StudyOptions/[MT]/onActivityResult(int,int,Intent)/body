@@ -5,6 +5,9 @@
   }
  else   if (requestCode == PICK_DECK_REQUEST || requestCode == DOWNLOAD_PERSONAL_DECK || requestCode == DOWNLOAD_SHARED_DECK) {
     mInDeckPicker=false;
+    if (requestCode == PICK_DECK_REQUEST && mCurrentContentView == CONTENT_CONGRATS) {
+      setContentView(mStudyOptionsView);
+    }
     if (resultCode != RESULT_OK) {
       Log.e(AnkiDroidApp.TAG,"onActivityResult - Deck browser returned with error");
       boolean mFileNotDeleted=mDeckFilename != null && new File(mDeckFilename).exists();
