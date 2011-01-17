@@ -1,4 +1,5 @@
 {
+  Sound.stopSounds();
   mCurrentEase=ease;
   mSessionCurrReps++;
   DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(mCurrentEase,AnkiDroidApp.deck(),mCurrentCard));
