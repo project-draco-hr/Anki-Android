@@ -16,7 +16,7 @@
   getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS ix_modelsDeleted_modelId ON modelsDeleted (modelId)");
   getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS ix_factsDeleted_factId ON factsDeleted (factId)");
   getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS ix_mediaDeleted_factId ON mediaDeleted (mediaId)");
-  getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS ix_tags_tag ON tags (tag)");
+  getDB().getDatabase().execSQL("CREATE UNIQUE INDEX IF NOT EXISTS ix_tags_tag ON tags (tag)");
   getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS ix_cardTags_tagCard ON cardTags (tagId, cardId)");
   getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS ix_cardTags_cardId ON cardTags (cardId)");
 }

@@ -27,6 +27,7 @@
     ds.writeBytes("Content-Disposition: form-data; name=\"deck\";filename=\"deck\"" + END);
     ds.writeBytes("Content-Type: application/octet-stream" + END);
     ds.writeBytes(END);
+    String deckPath=deck.getDeckPath();
     FileInputStream fStream=new FileInputStream(deckPath);
     byte[] buffer=new byte[Utils.CHUNK_SIZE];
     int length=-1;
@@ -63,11 +64,9 @@
     is.close();
     String response=new String(bytesReceived);
     if (response.substring(0,2).equals("OK")) {
-      boolean wasDbOpen=AnkiDatabaseManager.isDatabaseOpen(deckPath);
-      AnkiDatabaseManager.getDatabase(deckPath).getDatabase().execSQL("UPDATE decks SET lastSync = " + response.substring(3,response.length() - 3));
-      if (!wasDbOpen) {
-        AnkiDatabaseManager.closeDatabase(deckPath);
-      }
+      deck.setLastSync(Double.parseDouble(response.substring(3,response.length() - 3)));
+      deck.commitToDB();
+      deck.setLastLoaded(deck.getModified());
     }
     Log.i(AnkiDroidApp.TAG,"Finished!");
   }
