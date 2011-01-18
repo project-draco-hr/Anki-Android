@@ -94,6 +94,11 @@
     mVersion=64;
     commitToDB();
   }
+  if (mVersion < 65) {
+    rebuildTypes();
+    mVersion=65;
+    commitToDB();
+  }
   if (getInt("pageSize") != 4096) {
     commitToDB();
     getDB().getDatabase().execSQL("PRAGMA page_size = 4096");
