@@ -1,11 +1,11 @@
 {
-  if (row.length() > 37) {
-    return row.getString(37);
+  if (row.length() >= 37) {
+    return row.getString(36);
   }
   if (row.getInt(15) != 0) {
     return "1";
   }
- else   if (row.getString(14).compareTo("0") != 0) {
+ else   if (row.getInt(14) != 0) {
     return "0";
   }
   return "2";

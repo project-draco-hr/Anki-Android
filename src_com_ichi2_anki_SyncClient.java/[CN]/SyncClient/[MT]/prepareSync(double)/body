@@ -8,10 +8,9 @@
     return false;
   }
   double l=mDeck.getLastSync();
-  Log.i(AnkiDroidApp.TAG,"lastSync local = " + String.format(Utils.ENGLISH_LOCALE,"%f",l));
+  Log.i(AnkiDroidApp.TAG,"lastSync local = " + l);
   double r=mServer.lastSync();
-  Log.i(AnkiDroidApp.TAG,"lastSync remote = " + String.format(Utils.ENGLISH_LOCALE,"%f",r));
+  Log.i(AnkiDroidApp.TAG,"lastSync remote = " + r);
   mDeck.setLastSync(Math.min(l,r) - timediff - 10);
-  Log.i(AnkiDroidApp.TAG,"deck.lastSync = " + mDeck.getLastSync());
   return true;
 }

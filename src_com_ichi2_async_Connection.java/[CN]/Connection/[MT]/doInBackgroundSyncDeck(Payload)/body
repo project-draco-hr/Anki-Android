@@ -10,21 +10,28 @@
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
   ankiDB.getDatabase().beginTransaction();
   try {
-    Log.i(AnkiDroidApp.TAG,"Starting sync: username = " + username + ", password = "+ password+ ", deckPath = "+ deckPath+ ", syncName = "+ syncName);
     AnkiDroidProxy server=new AnkiDroidProxy(username,password);
     publishProgress(syncName,res.getString(R.string.sync_connecting_message));
-    server.connect();
-    boolean deckCreated=false;
+    int connectResult=server.connect();
+    if (connectResult != AnkiDroidProxy.LOGIN_OK) {
+      if (connectResult == AnkiDroidProxy.LOGIN_INVALID_USER_PASS) {
+        syncChangelog.put("message",res.getString(R.string.invalid_username_password));
+      }
+ else       if (connectResult == AnkiDroidProxy.LOGIN_CLOCKS_UNSYNCED) {
+        syncChangelog.put("message",String.format(res.getString(R.string.sync_log_clocks_unsynchronized),(new Double(server.getTimediff())).longValue()));
+      }
+      data.result=syncChangelog;
+      data.success=false;
+      return data;
+    }
     if (!server.hasDeck(syncName)) {
       Log.i(AnkiDroidApp.TAG,"AnkiOnline does not have this deck: Creating it...");
       server.createDeck(syncName);
-      deckCreated=true;
     }
     publishProgress(syncName,res.getString(R.string.sync_syncing_message,new Object[]{syncName}));
     SyncClient client=new SyncClient(deck);
     client.setServer(server);
     server.setDeckName(syncName);
-    boolean changes=false;
     String conflictResolution=null;
     if (client.prepareSync(server.getTimediff())) {
       if (deck.getLastSync() <= 0) {
@@ -35,7 +42,6 @@
           conflictResolution="keepLocal";
         }
       }
-      changes=true;
       JSONArray sums=null;
       if (conflictResolution == null) {
         publishProgress(syncName,res.getString(R.string.sync_summary_from_server_message));
