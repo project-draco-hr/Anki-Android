@@ -3,8 +3,6 @@
   ArrayList<HashMap<String,String>> decksChangelogs=new ArrayList<HashMap<String,String>>();
   String username=(String)data.data[0];
   String password=(String)data.data[1];
-  Log.i(AnkiDroidApp.TAG,"username = " + username);
-  Log.i(AnkiDroidApp.TAG,"password = " + password);
   ArrayList<HashMap<String,String>> decksToSync=(ArrayList<HashMap<String,String>>)data.data[2];
   for (  HashMap<String,String> deckToSync : decksToSync) {
     Log.i(AnkiDroidApp.TAG,"Synchronizing deck");
