@@ -5,6 +5,7 @@
   if (mPrefTimer) {
     mCardTimer.stop();
   }
+  int mAnswerPosition=(int)(mCard.getContentHeight() + mCard.getHeight() / 2);
   String displayString="";
   if (mPrefWriteAnswers) {
     mAnswerField.setVisibility(View.GONE);
@@ -38,4 +39,7 @@
   mFlipCard.setVisibility(View.GONE);
   showEaseButtons();
   updateCard(displayString);
+  if (isQuestionDisplayed()) {
+    mCard.scrollTo(0,mAnswerPosition);
+  }
 }
