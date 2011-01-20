@@ -1,5 +1,5 @@
 {
-  if (mSelectionStarted == 0 && sDisplayAnswer) {
+  if (mSwipeEnabled && mSelectionStarted == 0 && sDisplayAnswer) {
     if (mCurrentCard.isRev()) {
       answerCard(Card.EASE_EASY);
     }
