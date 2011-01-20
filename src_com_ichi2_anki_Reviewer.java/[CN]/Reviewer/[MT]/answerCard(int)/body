@@ -1,7 +1,22 @@
 {
-  Sound.stopSounds();
-  mCurrentEase=ease;
-  mSessionCurrReps++;
-  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(mCurrentEase,AnkiDroidApp.deck(),mCurrentCard));
-  mAnsweringCard=false;
+switch (ease) {
+case Card.EASE_FAILED:
+    mChoosenAnswer.setText(mEase1.getText());
+  break;
+case Card.EASE_HARD:
+mChoosenAnswer.setText(mEase2.getText());
+break;
+case Card.EASE_MID:
+mChoosenAnswer.setText(mEase3.getText());
+break;
+case Card.EASE_EASY:
+mChoosenAnswer.setText(mEase4.getText());
+break;
+}
+mTimerHandler.postDelayed(removeChoosenAnswerText,mShowChoosenAnswerLength);
+Sound.stopSounds();
+mCurrentEase=ease;
+mSessionCurrReps++;
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(mCurrentEase,AnkiDroidApp.deck(),mCurrentCard));
+mAnsweringCard=false;
 }
