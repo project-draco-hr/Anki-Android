@@ -15,7 +15,6 @@
   gestureDetector=new GestureDetector(new MyGestureDetector());
   if (mPrefTextSelection) {
     mClipboard=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
-    final Handler mTimerHandler=new Handler();
     mCard.setOnTouchListener(new View.OnTouchListener(){
       @Override public boolean onTouch(      View v,      MotionEvent event){
         if (event.getAction() == MotionEvent.ACTION_UP && mSelectionStarted != 0) {
@@ -24,68 +23,56 @@
  else         if (gestureDetector.onTouchEvent(event)) {
           return true;
         }
-switch (event.getAction()) {
-case MotionEvent.ACTION_DOWN:
-          mTimerHandler.removeCallbacks(copyTextAfterDelay);
-        mTimerHandler.postDelayed(copyTextAfterDelay,1000);
-      break;
-case MotionEvent.ACTION_UP:
-    mTimerHandler.removeCallbacks(copyTextAfterDelay);
-  break;
-case MotionEvent.ACTION_MOVE:
-mTimerHandler.removeCallbacks(copyTextAfterDelay);
-break;
-}
-return false;
-}
-}
+        return false;
+      }
+    }
 );
-}
+  }
  else {
-mCard.setOnTouchListener(new View.OnTouchListener(){
-@Override public boolean onTouch(View v,MotionEvent event){
-if (gestureDetector.onTouchEvent(event)) {
-return true;
-}
-return false;
-}
-}
+    mCard.setOnTouchListener(new View.OnTouchListener(){
+      @Override public boolean onTouch(      View v,      MotionEvent event){
+        if (gestureDetector.onTouchEvent(event)) {
+          return true;
+        }
+        return false;
+      }
+    }
 );
-mCard.setOnTouchListener(gestureListener);
-}
-mScaleInPercent=mCard.getScale();
-mEase1=(Button)findViewById(R.id.ease1);
-mEase1.setOnClickListener(mSelectEaseHandler);
-mEase2=(Button)findViewById(R.id.ease2);
-mEase2.setOnClickListener(mSelectEaseHandler);
-mEase3=(Button)findViewById(R.id.ease3);
-mEase3.setOnClickListener(mSelectEaseHandler);
-mEase4=(Button)findViewById(R.id.ease4);
-mEase4.setOnClickListener(mSelectEaseHandler);
-mNext1=(TextView)findViewById(R.id.nextTime1);
-mNext2=(TextView)findViewById(R.id.nextTime2);
-mNext3=(TextView)findViewById(R.id.nextTime3);
-mNext4=(TextView)findViewById(R.id.nextTime4);
-mFlipCard=(Button)findViewById(R.id.flip_card);
-mFlipCard.setOnClickListener(mFlipCardListener);
-mFlipCard.setText(getResources().getString(R.string.show_answer));
-mTextBarRed=(TextView)findViewById(R.id.red_number);
-mTextBarBlack=(TextView)findViewById(R.id.black_number);
-mTextBarBlue=(TextView)findViewById(R.id.blue_number);
-mCardTimer=(Chronometer)findViewById(R.id.card_time);
-mWhiteboard=(Whiteboard)findViewById(R.id.whiteboard);
-mWhiteboard.setOnTouchListener(new View.OnTouchListener(){
-@Override public boolean onTouch(View v,MotionEvent event){
-if (mWhiteboard.getVisibility() == View.VISIBLE) {
-return false;
-}
-if (gestureDetector.onTouchEvent(event)) {
-return true;
-}
-return false;
-}
-}
+    mCard.setOnTouchListener(gestureListener);
+  }
+  mScaleInPercent=mCard.getScale();
+  mEase1=(Button)findViewById(R.id.ease1);
+  mEase1.setOnClickListener(mSelectEaseHandler);
+  mEase2=(Button)findViewById(R.id.ease2);
+  mEase2.setOnClickListener(mSelectEaseHandler);
+  mEase3=(Button)findViewById(R.id.ease3);
+  mEase3.setOnClickListener(mSelectEaseHandler);
+  mEase4=(Button)findViewById(R.id.ease4);
+  mEase4.setOnClickListener(mSelectEaseHandler);
+  mNext1=(TextView)findViewById(R.id.nextTime1);
+  mNext2=(TextView)findViewById(R.id.nextTime2);
+  mNext3=(TextView)findViewById(R.id.nextTime3);
+  mNext4=(TextView)findViewById(R.id.nextTime4);
+  mFlipCard=(Button)findViewById(R.id.flip_card);
+  mFlipCard.setOnClickListener(mFlipCardListener);
+  mFlipCard.setText(getResources().getString(R.string.show_answer));
+  mTextBarRed=(TextView)findViewById(R.id.red_number);
+  mTextBarBlack=(TextView)findViewById(R.id.black_number);
+  mTextBarBlue=(TextView)findViewById(R.id.blue_number);
+  mCardTimer=(Chronometer)findViewById(R.id.card_time);
+  mWhiteboard=(Whiteboard)findViewById(R.id.whiteboard);
+  mWhiteboard.setOnTouchListener(new View.OnTouchListener(){
+    @Override public boolean onTouch(    View v,    MotionEvent event){
+      if (mWhiteboard.getVisibility() == View.VISIBLE) {
+        return false;
+      }
+      if (gestureDetector.onTouchEvent(event)) {
+        return true;
+      }
+      return false;
+    }
+  }
 );
-mAnswerField=(EditText)findViewById(R.id.answer_field);
-initControls();
+  mAnswerField=(EditText)findViewById(R.id.answer_field);
+  initControls();
 }

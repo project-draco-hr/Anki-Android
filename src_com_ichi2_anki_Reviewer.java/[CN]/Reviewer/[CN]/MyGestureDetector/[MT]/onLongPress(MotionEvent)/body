@@ -1,0 +1,8 @@
+{
+  if (!mAnsweringCard) {
+    mSelectionStarted=2;
+    Vibrator vibratorManager=(Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+    vibratorManager.vibrate(50);
+    selectAndCopyText();
+  }
+}
