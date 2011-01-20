@@ -15,31 +15,19 @@
   gestureDetector=new GestureDetector(new MyGestureDetector());
   if (mPrefTextSelection) {
     mClipboard=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
-    mCard.setOnTouchListener(new View.OnTouchListener(){
-      @Override public boolean onTouch(      View v,      MotionEvent event){
-        if (event.getAction() == MotionEvent.ACTION_UP && mSelectionStarted != 0) {
-          mSelectionStarted--;
-        }
- else         if (gestureDetector.onTouchEvent(event)) {
-          return true;
-        }
-        return false;
-      }
-    }
-);
   }
- else {
-    mCard.setOnTouchListener(new View.OnTouchListener(){
-      @Override public boolean onTouch(      View v,      MotionEvent event){
-        if (gestureDetector.onTouchEvent(event)) {
-          return true;
-        }
-        return false;
+  mCard.setOnTouchListener(new View.OnTouchListener(){
+    @Override public boolean onTouch(    View v,    MotionEvent event){
+      if (event.getAction() == MotionEvent.ACTION_UP && mSelectionStarted != 0) {
+        mSelectionStarted--;
       }
+ else       if (gestureDetector.onTouchEvent(event)) {
+        return true;
+      }
+      return false;
     }
-);
-    mCard.setOnTouchListener(gestureListener);
   }
+);
   mScaleInPercent=mCard.getScale();
   mEase1=(Button)findViewById(R.id.ease1);
   mEase1.setOnClickListener(mSelectEaseHandler);
