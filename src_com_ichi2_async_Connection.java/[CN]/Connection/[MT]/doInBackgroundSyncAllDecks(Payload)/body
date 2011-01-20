@@ -9,7 +9,7 @@
     String deckPath=deckToSync.get("filepath");
     try {
       Deck deck=Deck.openDeck(deckPath);
-      Payload syncDeckData=new Payload(new Object[]{username,password,deck,deckPath});
+      Payload syncDeckData=new Payload(new Object[]{username,password,deck,deckPath,null});
       syncDeckData=doInBackgroundSyncDeck(syncDeckData);
       decksChangelogs.add((HashMap<String,String>)syncDeckData.result);
     }

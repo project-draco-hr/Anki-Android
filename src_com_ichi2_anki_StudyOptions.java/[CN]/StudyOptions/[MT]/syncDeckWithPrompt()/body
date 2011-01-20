@@ -1,0 +1,15 @@
+{
+  if (AnkiDroidApp.isUserLoggedIn()) {
+    Deck deck=AnkiDroidApp.deck();
+    if (deck != null) {
+      if (mProgressDialog != null && mProgressDialog.isShowing()) {
+        mProgressDialog.dismiss();
+      }
+      mSyncConflictResolutionAlert.setMessage(String.format(getResources().getString(R.string.sync_conflict_message),deck.getDeckName()));
+      mSyncConflictResolutionAlert.show();
+    }
+  }
+ else {
+    mUserNotLoggedInAlert.show();
+  }
+}
