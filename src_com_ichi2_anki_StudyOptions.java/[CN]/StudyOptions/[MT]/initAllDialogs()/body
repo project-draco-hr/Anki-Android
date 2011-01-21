@@ -26,7 +26,7 @@
   builder.setMessage(res.getString(R.string.connection_error_message));
   builder.setPositiveButton(res.getString(R.string.retry),new OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int which){
-      syncDeck();
+      syncDeck(null);
     }
   }
 );
