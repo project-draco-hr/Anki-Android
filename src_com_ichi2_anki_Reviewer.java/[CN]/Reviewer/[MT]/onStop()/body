@@ -1,0 +1,6 @@
+{
+  if (mShakeEnabled) {
+    mSensorManager.unregisterListener(mSensorListener);
+  }
+  super.onStop();
+}
