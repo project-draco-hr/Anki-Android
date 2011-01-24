@@ -16,5 +16,6 @@
   mSwipeEnabled=preferences.getBoolean("swipe",true);
   mShakeEnabled=preferences.getBoolean("shake",false);
   mShakeIntensity=Integer.parseInt(preferences.getString("shakeIntensity","45"));
+  mPrefFixHebrew=preferences.getBoolean("fixHebrewText",false);
   return preferences;
 }

@@ -18,19 +18,7 @@
   mFlipCard.requestFocus();
   String question=mCurrentCard.getQuestion();
   Log.i(AnkiDroidApp.TAG,"question: '" + question + "'");
-  Matcher m=sHebrewPattern.matcher(question);
-  StringBuffer sb=new StringBuffer();
-  while (m.find()) {
-    StringBuffer sbg=new StringBuffer(m.group());
-    for (int i=0; i < sbg.length(); i++) {
-      Log.i(AnkiDroidApp.TAG,"hquestion: " + sbg.codePointAt(i));
-    }
-    sbg.reverse();
-    m.appendReplacement(sb,sbg.toString());
-  }
-  m.appendTail(sb);
-  Log.i(AnkiDroidApp.TAG,"altered question: '" + sb.toString() + "'");
-  String displayString=enrichWithQASpan(sb.toString(),false);
+  String displayString=enrichWithQASpan(question,false);
   if (isQuestionDisplayed()) {
     displayString=displayString + "<hr/>";
   }
