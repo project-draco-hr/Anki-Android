@@ -15,6 +15,6 @@
   mDictionary=Integer.parseInt(preferences.getString("dictionary",Integer.toString(DICTIONARY_AEDICT)));
   mSwipeEnabled=preferences.getBoolean("swipe",true);
   mShakeEnabled=preferences.getBoolean("shake",false);
-  mShakeIntensity=Integer.parseInt(preferences.getString("shakeIntensity","5"));
+  mShakeIntensity=Integer.parseInt(preferences.getString("shakeIntensity","45"));
   return preferences;
 }
