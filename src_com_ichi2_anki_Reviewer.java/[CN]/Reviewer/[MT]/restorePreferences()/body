@@ -14,5 +14,6 @@
   mPrefHideQuestionInAnswer=Integer.parseInt(preferences.getString("hideQuestionInAnswer",Integer.toString(HQIA_DO_SHOW)));
   mDictionary=Integer.parseInt(preferences.getString("dictionary",Integer.toString(DICTIONARY_AEDICT)));
   mSwipeEnabled=preferences.getBoolean("swipe",true);
+  mPrefFixHebrew=preferences.getBoolean("fixHebrewText",false);
   return preferences;
 }

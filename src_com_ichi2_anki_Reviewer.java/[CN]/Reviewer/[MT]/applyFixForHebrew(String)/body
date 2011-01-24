@@ -1,0 +1,21 @@
+{
+  Matcher m=sHebrewPattern.matcher(text);
+  StringBuffer sb=new StringBuffer();
+  while (m.find()) {
+    String hebrewText=m.group();
+    for (int i=0; i < hebrewText.length(); i++) {
+      Log.i(AnkiDroidApp.TAG,"original: " + hebrewText.codePointAt(i));
+    }
+    Matcher mv=sHebrewVowelsPattern.matcher(hebrewText);
+    hebrewText=mv.replaceAll("");
+    for (int i=0; i < hebrewText.length(); i++) {
+      Log.i(AnkiDroidApp.TAG,"no vowels: " + hebrewText.codePointAt(i));
+    }
+    for (int i=0; i < hebrewText.length(); i++) {
+      Log.i(AnkiDroidApp.TAG,"processedl: " + hebrewText.codePointAt(i));
+    }
+    m.appendReplacement(sb,hebrewText);
+  }
+  m.appendTail(sb);
+  return sb.toString();
+}
