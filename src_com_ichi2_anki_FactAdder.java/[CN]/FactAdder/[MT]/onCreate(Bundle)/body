@@ -16,7 +16,7 @@
       for (      FieldEditText current : mEditFields) {
         current.updateField();
       }
-      mDeck.addFact(mNewFact);
+      mDeck.addFact(mNewFact,mCardModels);
       setResult(RESULT_OK);
       finish();
     }

@@ -1,12 +1,17 @@
 {
   mNewFact=mDeck.newFact(mCurrentSelectedModelId);
+  mCardModels=mDeck.availableCardModels(mNewFact);
   mModelButton.setText(mModels.get(mCurrentSelectedModelId).getName());
-  String templates=mModels.get(mCurrentSelectedModelId).getCardModelNames();
-  if (templates.indexOf(", ") == -1) {
-    mCardTemplates.setText(getResources().getString(R.string.card) + " " + templates);
+  String cardModelNames="";
+  for (  Map.Entry<Long,CardModel> entry : mCardModels.entrySet()) {
+    cardModelNames=cardModelNames + entry.getValue().getName() + ", ";
+  }
+  cardModelNames=cardModelNames.substring(0,cardModelNames.length() - 2);
+  if (mCardModels.size() == 1) {
+    mCardTemplates.setText(getResources().getString(R.string.card) + " " + cardModelNames);
   }
  else {
-    mCardTemplates.setText(getResources().getString(R.string.cards) + " " + templates);
+    mCardTemplates.setText(getResources().getString(R.string.cards) + " " + cardModelNames);
   }
   populateEditFields();
 }

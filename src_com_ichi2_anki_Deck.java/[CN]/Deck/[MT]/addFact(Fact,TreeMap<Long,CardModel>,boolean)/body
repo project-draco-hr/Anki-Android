@@ -8,8 +8,7 @@
   values.put("tags","");
   values.put("spaceUntil",0);
   getDB().getDatabase().insert("facts",null,values);
-  TreeMap<Long,CardModel> availableCardModels=availableCardModels(fact);
-  if (availableCardModels.isEmpty()) {
+  if (cardModels.isEmpty()) {
     Log.e(AnkiDroidApp.TAG,"Error while adding fact: No cardmodels for the new fact");
     return null;
   }
@@ -24,7 +23,7 @@
     AnkiDatabaseManager.getDatabase(mDeckPath).getDatabase().insert("fields",null,values);
   }
   ArrayList<Long> newCardIds=new ArrayList<Long>();
-  for (  Map.Entry<Long,CardModel> entry : availableCardModels.entrySet()) {
+  for (  Map.Entry<Long,CardModel> entry : cardModels.entrySet()) {
     CardModel cardModel=entry.getValue();
     Card newCard=new Card(this,fact,cardModel,Utils.now());
     newCard.addToDb();
