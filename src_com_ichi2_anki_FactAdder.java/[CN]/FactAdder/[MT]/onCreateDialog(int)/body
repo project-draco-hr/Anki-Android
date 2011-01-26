@@ -18,9 +18,16 @@ builder.setItems(items,new DialogInterface.OnClickListener(){
 public void onClick(DialogInterface dialog,int item){
 long oldModelId=mCurrentSelectedModelId;
 mCurrentSelectedModelId=dialogIds.get(item);
-mModelButton.setText(mModels.get(mCurrentSelectedModelId).getName());
 if (oldModelId != mCurrentSelectedModelId) {
-populateEditFields();
+int size=mEditFields.size();
+String[] oldValues=new String[size];
+for (int i=0; i < size; i++) {
+oldValues[i]=mEditFields.get(i).getText().toString();
+}
+modelChanged();
+for (int i=0; i < Math.min(size,mEditFields.size()); i++) {
+mEditFields.get(i).setText(oldValues[i]);
+}
 }
 }
 }
