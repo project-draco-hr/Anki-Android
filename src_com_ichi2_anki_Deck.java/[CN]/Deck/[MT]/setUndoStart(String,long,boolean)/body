@@ -8,5 +8,5 @@
       return;
     }
   }
-  mUndoStack.push(new UndoRow(name,latestUndoRow(),null));
+  mUndoStack.push(new UndoRow(name,cardId,latestUndoRow(),null));
 }

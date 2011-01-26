@@ -18,5 +18,6 @@
     getDB().getDatabase().execSQL(s);
   }
   Long newend=latestUndoRow();
-  dst.push(new UndoRow(row.mName,newstart,newend));
+  dst.push(new UndoRow(row.mName,oldCardId,newstart,newend));
+  return row.mCardId;
 }

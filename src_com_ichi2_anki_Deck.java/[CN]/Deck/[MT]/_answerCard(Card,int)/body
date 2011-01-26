@@ -1,7 +1,7 @@
 {
   Log.i(AnkiDroidApp.TAG,"answerCard");
   String undoName="Answer Card";
-  setUndoStart(undoName);
+  setUndoStart(undoName,card.getId());
   double now=Utils.now();
   String oldState=card.getState();
   int oldQueue=cardQueue(card);
