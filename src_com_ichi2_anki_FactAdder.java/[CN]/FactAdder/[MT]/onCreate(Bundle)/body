@@ -6,6 +6,7 @@
   mAddButton=(Button)findViewById(R.id.FactAdderAddButton);
   mCloseButton=(Button)findViewById(R.id.FactAdderCloseButton);
   mModelButton=(Button)findViewById(R.id.FactAdderModelButton);
+  mCardModelButton=(Button)findViewById(R.id.FactAdderCardModelButton);
   mCardTemplates=(TextView)findViewById(R.id.FactAdderTemplates);
   mDeck=AnkiDroidApp.deck();
   mModels=Model.getModels(mDeck);
@@ -16,7 +17,7 @@
       for (      FieldEditText current : mEditFields) {
         current.updateField();
       }
-      mDeck.addFact(mNewFact,mCardModels);
+      mDeck.addFact(mNewFact,mSelectedCardModels);
       setResult(RESULT_OK);
       finish();
     }
@@ -25,6 +26,12 @@
   mModelButton.setOnClickListener(new View.OnClickListener(){
     public void onClick(    View v){
       showDialog(DIALOG_MODEL_SELECT);
+    }
+  }
+);
+  mCardModelButton.setOnClickListener(new View.OnClickListener(){
+    public void onClick(    View v){
+      recreateCardModelDialog();
     }
   }
 );

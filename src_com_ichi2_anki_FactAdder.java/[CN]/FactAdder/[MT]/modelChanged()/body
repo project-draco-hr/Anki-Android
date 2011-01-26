@@ -1,13 +1,13 @@
 {
   mNewFact=mDeck.newFact(mCurrentSelectedModelId);
-  mCardModels=mDeck.availableCardModels(mNewFact);
+  mSelectedCardModels=mDeck.availableCardModels(mNewFact);
   mModelButton.setText(mModels.get(mCurrentSelectedModelId).getName());
   String cardModelNames="";
-  for (  Map.Entry<Long,CardModel> entry : mCardModels.entrySet()) {
+  for (  Map.Entry<Long,CardModel> entry : mSelectedCardModels.entrySet()) {
     cardModelNames=cardModelNames + entry.getValue().getName() + ", ";
   }
   cardModelNames=cardModelNames.substring(0,cardModelNames.length() - 2);
-  if (mCardModels.size() == 1) {
+  if (mSelectedCardModels.size() == 1) {
     mCardTemplates.setText(getResources().getString(R.string.card) + " " + cardModelNames);
   }
  else {

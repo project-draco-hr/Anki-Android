@@ -1,0 +1,60 @@
+{
+  Resources res=getResources();
+  mCardModels=mDeck.cardModels(mNewFact);
+  String[] dialogItems=new String[mCardModels.size()];
+  final ArrayList<Long> dialogIds=new ArrayList<Long>();
+  int i=0;
+  for (  Map.Entry<Long,CardModel> entry : mCardModels.entrySet()) {
+    dialogItems[i]=entry.getValue().getName();
+    dialogIds.set(i,entry.getKey());
+    i++;
+  }
+  View contentView=getLayoutInflater().inflate(R.layout.fact_adder_card_model_list,null);
+  mCardModelListView=(ListView)contentView.findViewById(R.id.card_model_list);
+  mCardModelListView.setAdapter(new ArrayAdapter<String>(this,R.layout.studyoptions_cram_dialog_item,dialogItems));
+  mCardModelListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+    @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
+      if (((CheckedTextView)view).isChecked()) {
+        mSelectedCardModels.put(dialogIds.get(position),mCardModels.get(dialogIds.get(position)));
+      }
+ else {
+        mSelectedCardModels.remove(dialogIds.get(position));
+      }
+    }
+  }
+);
+  mCardModelListView.setItemsCanFocus(false);
+  AlertDialog.Builder builder=new AlertDialog.Builder(this);
+  builder.setTitle("Select Card Model");
+  builder.setPositiveButton("Select",new OnClickListener(){
+    @Override public void onClick(    DialogInterface dialog,    int which){
+      String cardModelNames="";
+      for (      Map.Entry<Long,CardModel> entry : mSelectedCardModels.entrySet()) {
+        cardModelNames=cardModelNames + entry.getValue().getName() + ", ";
+      }
+      cardModelNames=cardModelNames.substring(0,cardModelNames.length() - 2);
+      if (mSelectedCardModels.size() == 1) {
+        mCardTemplates.setText(getResources().getString(R.string.card) + " " + cardModelNames);
+      }
+ else {
+        mCardTemplates.setText(getResources().getString(R.string.cards) + " " + cardModelNames);
+      }
+    }
+  }
+);
+  builder.setNegativeButton(res.getString(R.string.cancel),new OnClickListener(){
+    @Override public void onClick(    DialogInterface dialog,    int which){
+      mCardModelDialog.dismiss();
+    }
+  }
+);
+  builder.setOnCancelListener(new DialogInterface.OnCancelListener(){
+    @Override public void onCancel(    DialogInterface dialog){
+      mCardModelDialog.dismiss();
+    }
+  }
+);
+  builder.setView(contentView);
+  mCardModelDialog=builder.create();
+  mCardModelDialog.show();
+}
