@@ -30,7 +30,7 @@ namePeriod=res.getStringArray(R.array.next_review_s);
  else {
 namePeriod=res.getStringArray(R.array.next_review_p);
 }
-if (period <= 1) {
+if (period <= 1 || (adInt * 10) % 10 == 0) {
 return String.valueOf((int)adInt) + " " + namePeriod[period];
 }
  else {

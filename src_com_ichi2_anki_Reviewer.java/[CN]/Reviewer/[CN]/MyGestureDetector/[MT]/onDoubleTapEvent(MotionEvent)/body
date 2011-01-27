@@ -1,0 +1,12 @@
+{
+  if (mSwipeEnabled && mSelectionStarted == 0 && sDisplayAnswer) {
+    if (mCurrentCard.isRev()) {
+      answerCard(Card.EASE_EASY);
+    }
+ else {
+      answerCard(Card.EASE_MID);
+    }
+    mAnsweringCard=true;
+  }
+  return false;
+}

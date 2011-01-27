@@ -18,6 +18,9 @@
  else       if ("invalidUserPass".equalsIgnoreCase(jsonDecks.getString("status"))) {
         return LOGIN_INVALID_USER_PASS;
       }
+ else       if ("oldVersion".equalsIgnoreCase(jsonDecks.getString("status"))) {
+        return LOGIN_OLD_VERSION;
+      }
     }
  catch (    JSONException e) {
       Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());

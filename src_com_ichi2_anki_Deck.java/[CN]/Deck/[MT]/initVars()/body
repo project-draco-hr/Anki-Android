@@ -12,8 +12,9 @@
     setVarDefault("revInactive",mSuspended);
     setVarDefault("newSpacing","60");
     setVarDefault("mediaURL","");
-    setVarDefault("latexPre","\\documentclass[12pt]{article}\n" + "\\special{papersize=3in,5in}\n" + "\\usepackage[utf8]{inputenc}\n"+ "\\usepackage{amssymb,amsmath}\n"+ "\\pagestyle{empty}\n"+ "\\begin{document}");
+    setVarDefault("latexPre","\\documentclass[12pt]{article}\n" + "\\special{papersize=3in,5in}\n" + "\\usepackage[utf8]{inputenc}\n"+ "\\usepackage{amssymb,amsmath}\n"+ "\\pagestyle{empty}\n"+ "\\begin{document}\n");
     setVarDefault("latexPost","\\end{document}");
+    setVarDefault("mediaLocation","");
   }
   updateCutoff();
   setupStandardScheduler();

@@ -1,6 +1,5 @@
 {
   try {
-    mAverageFactor=deckPayload.getDouble("averageFactor");
     mCardCount=deckPayload.getInt("cardCount");
     mCollapseTime=deckPayload.getDouble("collapseTime");
     mCreated=deckPayload.getDouble("created");
@@ -9,6 +8,7 @@
     mDelay1=deckPayload.getLong("delay1");
     mDelay2=deckPayload.getDouble("delay2");
     mDescription=deckPayload.getString("description");
+    mDueCutoff=deckPayload.getDouble("dueCutoff");
     mEasyIntervalMax=deckPayload.getDouble("easyIntervalMax");
     mEasyIntervalMin=deckPayload.getDouble("easyIntervalMin");
     mFactCount=deckPayload.getInt("factCount");
@@ -23,15 +23,20 @@
     mLastSync=deckPayload.getDouble("lastSync");
     mLowPriority=deckPayload.getString("lowPriority");
     mMedPriority=deckPayload.getString("medPriority");
+    mMediaPrefix=deckPayload.getString("mediaPrefix");
     mMidIntervalMax=deckPayload.getDouble("midIntervalMax");
     mMidIntervalMin=deckPayload.getDouble("midIntervalMin");
     mModified=deckPayload.getDouble("modified");
-    mNewCardModulus=deckPayload.getInt("newCardModulus");
+    mNewCardOrder=deckPayload.getInt("newCardOrder");
+    mNewCardSpacing=deckPayload.getInt("newCardSpacing");
+    mNewCardsPerDay=deckPayload.getInt("newCardsPerDay");
     mNewCount=deckPayload.getInt("newCount");
-    mNewCountToday=deckPayload.getInt("newCountToday");
-    mNewEarly=deckPayload.getBoolean("newEarly");
+    mQueueLimit=deckPayload.getInt("queueLimit");
+    mRevCardOrder=deckPayload.getInt("revCardOrder");
     mRevCount=deckPayload.getInt("revCount");
-    mReviewEarly=deckPayload.getBoolean("reviewEarly");
+    mScheduler=deckPayload.getString("scheduler");
+    mSessionRepLimit=deckPayload.getInt("sessionRepLimit");
+    mSessionTimeLimit=deckPayload.getInt("sessionTimeLimit");
     mSuspended=deckPayload.getString("suspended");
     mUndoEnabled=deckPayload.getBoolean("undoEnabled");
     mUtcOffset=deckPayload.getDouble("utcOffset");

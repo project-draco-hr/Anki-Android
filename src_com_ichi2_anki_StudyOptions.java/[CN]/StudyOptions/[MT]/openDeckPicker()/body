@@ -3,4 +3,7 @@
   Intent decksPicker=new Intent(StudyOptions.this,DeckPicker.class);
   mInDeckPicker=true;
   startActivityForResult(decksPicker,PICK_DECK_REQUEST);
+  if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+    MyAnimation.slide(this,MyAnimation.RIGHT);
+  }
 }

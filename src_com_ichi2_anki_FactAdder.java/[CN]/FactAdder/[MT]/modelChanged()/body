@@ -1,0 +1,12 @@
+{
+  mNewFact=mDeck.newFact(mCurrentSelectedModelId);
+  mModelButton.setText(mModels.get(mCurrentSelectedModelId).getName());
+  String templates=mModels.get(mCurrentSelectedModelId).getCardModelNames();
+  if (templates.indexOf(", ") == -1) {
+    mCardTemplates.setText(getResources().getString(R.string.card) + " " + templates);
+  }
+ else {
+    mCardTemplates.setText(getResources().getString(R.string.cards) + " " + templates);
+  }
+  populateEditFields();
+}

@@ -14,8 +14,9 @@
         myFieldModel.mModelId=cursor.getLong(2);
         myFieldModel.mName=cursor.getString(3);
         myFieldModel.mDescription=cursor.getString(4);
-        myFieldModel.mQuizFontSize=cursor.getInt(5);
-        myFieldModel.mQuizFontColour=cursor.getString(6);
+        myFieldModel.mQuizFontFamily=cursor.getString(5);
+        myFieldModel.mQuizFontSize=cursor.getInt(6);
+        myFieldModel.mQuizFontColour=cursor.getString(7);
         models.put(myFieldModel.mId,myFieldModel);
       }
  while (cursor.moveToNext());

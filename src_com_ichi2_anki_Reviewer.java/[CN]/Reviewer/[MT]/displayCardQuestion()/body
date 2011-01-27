@@ -16,7 +16,9 @@
   }
   mFlipCard.setVisibility(View.VISIBLE);
   mFlipCard.requestFocus();
-  String displayString=enrichWithQASpan(mCurrentCard.getQuestion(),false);
+  String question=mCurrentCard.getQuestion();
+  Log.i(AnkiDroidApp.TAG,"question: '" + question + "'");
+  String displayString=enrichWithQASpan(question,false);
   if (isQuestionDisplayed()) {
     displayString=displayString + "<hr/>";
   }

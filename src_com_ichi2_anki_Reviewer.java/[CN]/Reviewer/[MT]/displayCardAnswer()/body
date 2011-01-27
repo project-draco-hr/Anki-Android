@@ -1,6 +1,7 @@
 {
   Log.i(AnkiDroidApp.TAG,"displayCardAnswer");
   sDisplayAnswer=true;
+  Sound.stopSounds();
   if (mPrefTimer) {
     mCardTimer.stop();
   }
@@ -30,7 +31,7 @@
   if (isQuestionDisplayed()) {
     StringBuffer sb=new StringBuffer();
     sb.append(enrichWithQASpan(mCurrentCard.getQuestion(),false));
-    sb.append("<hr/>");
+    sb.append("<a name=\"question\"></a><hr/>");
     sb.append(displayString);
     displayString=sb.toString();
   }

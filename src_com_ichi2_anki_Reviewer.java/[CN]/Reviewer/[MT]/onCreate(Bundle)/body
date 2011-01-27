@@ -5,7 +5,7 @@
   Log.i(AnkiDroidApp.TAG,"Reviewer - onCreate");
   if (AnkiDroidApp.deck() == null) {
     setResult(StudyOptions.CONTENT_NO_EXTERNAL_STORAGE);
-    finish();
+    closeReviewer();
   }
  else {
     restorePreferences();
@@ -37,19 +37,6 @@ long timelimit=AnkiDroidApp.deck().getSessionTimeLimit() * 1000;
 Log.i(AnkiDroidApp.TAG,"SessionTimeLimit: " + timelimit + " ms.");
 mSessionTimeLimit=System.currentTimeMillis() + timelimit;
 mSessionCurrReps=0;
-gestureDetector=new GestureDetector(new MyGestureDetector());
-gestureListener=new View.OnTouchListener(){
-public boolean onTouch(View v,MotionEvent event){
-Log.e("erkannt","");
-if (gestureDetector.onTouchEvent(event)) {
-  return true;
-}
-return false;
-}
-}
-;
-mCard.setOnTouchListener(gestureListener);
-mWhiteboard.setOnTouchListener(gestureListener);
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),null));
 }
 }

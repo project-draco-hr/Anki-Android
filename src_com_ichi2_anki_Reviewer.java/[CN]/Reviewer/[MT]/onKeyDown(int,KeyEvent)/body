@@ -1,0 +1,8 @@
+{
+  if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+    Log.i(AnkiDroidApp.TAG,"Reviewer - onBackPressed()");
+    closeReviewer();
+    return true;
+  }
+  return super.onKeyDown(keyCode,event);
+}

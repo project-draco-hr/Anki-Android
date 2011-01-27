@@ -17,11 +17,10 @@
   }
   if (mLocalTime > mRemoteTime) {
     try {
-      payload.put("deck",bundleDeck());
       payload.put("stats",bundleStats());
       payload.put("history",bundleHistory());
       payload.put("sources",bundleSources());
-      mDeck.setLastSync(mDeck.getModified());
+      payload.put("deck",bundleDeck());
     }
  catch (    JSONException e) {
       Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());

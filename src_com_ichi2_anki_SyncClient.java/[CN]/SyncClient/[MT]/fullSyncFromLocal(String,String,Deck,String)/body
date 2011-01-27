@@ -1,0 +1,79 @@
+{
+  URL url;
+  try {
+    Log.i(AnkiDroidApp.TAG,"Fullup");
+    url=new URL(AnkiDroidProxy.SYNC_URL + "fullup?v=2");
+    HttpURLConnection conn=(HttpURLConnection)url.openConnection();
+    conn.setDoInput(true);
+    conn.setDoOutput(true);
+    conn.setUseCaches(false);
+    conn.setRequestMethod("POST");
+    conn.setRequestProperty("Connection","close");
+    conn.setRequestProperty("Charset","UTF-8");
+    conn.setRequestProperty("Content-Type","multipart/form-data;boundary=" + MIME_BOUNDARY);
+    conn.setRequestProperty("Host",AnkiDroidProxy.SYNC_HOST);
+    DataOutputStream ds=new DataOutputStream(conn.getOutputStream());
+    Log.i(AnkiDroidApp.TAG,"Pass");
+    ds.writeBytes(TWO_HYPHENS + MIME_BOUNDARY + END);
+    ds.writeBytes("Content-Disposition: form-data; name=\"p\"" + END + END+ password+ END);
+    Log.i(AnkiDroidApp.TAG,"User");
+    ds.writeBytes(TWO_HYPHENS + MIME_BOUNDARY + END);
+    ds.writeBytes("Content-Disposition: form-data; name=\"u\"" + END + END+ username+ END);
+    Log.i(AnkiDroidApp.TAG,"DeckName");
+    ds.writeBytes(TWO_HYPHENS + MIME_BOUNDARY + END);
+    ds.writeBytes("Content-Disposition: form-data; name=\"d\"" + END + END+ deckName+ END);
+    Log.i(AnkiDroidApp.TAG,"Deck");
+    ds.writeBytes(TWO_HYPHENS + MIME_BOUNDARY + END);
+    ds.writeBytes("Content-Disposition: form-data; name=\"deck\";filename=\"deck\"" + END);
+    ds.writeBytes("Content-Type: application/octet-stream" + END);
+    ds.writeBytes(END);
+    String deckPath=deck.getDeckPath();
+    FileInputStream fStream=new FileInputStream(deckPath);
+    byte[] buffer=new byte[Utils.CHUNK_SIZE];
+    int length=-1;
+    Deflater deflater=new Deflater(Deflater.BEST_SPEED);
+    DeflaterOutputStream dos=new DeflaterOutputStream(ds,deflater);
+    Log.i(AnkiDroidApp.TAG,"Writing buffer...");
+    while ((length=fStream.read(buffer)) != -1) {
+      dos.write(buffer,0,length);
+      Log.i(AnkiDroidApp.TAG,"Length = " + length);
+    }
+    dos.finish();
+    fStream.close();
+    ds.writeBytes(END);
+    ds.writeBytes(TWO_HYPHENS + MIME_BOUNDARY + TWO_HYPHENS+ END);
+    Log.i(AnkiDroidApp.TAG,"Closing streams...");
+    ds.flush();
+    ds.close();
+    int responseCode=conn.getResponseCode();
+    if (responseCode != 200) {
+      Log.i(AnkiDroidApp.TAG,"Response code = " + responseCode);
+    }
+ else {
+      Log.i(AnkiDroidApp.TAG,"Response code = 200");
+    }
+    InputStream is=conn.getInputStream();
+    ByteArrayOutputStream baos=new ByteArrayOutputStream();
+    byte[] bytes=new byte[1024];
+    int bytesRead;
+    while ((bytesRead=is.read(bytes)) != -1) {
+      baos.write(bytes,0,bytesRead);
+    }
+    byte[] bytesReceived=baos.toByteArray();
+    baos.close();
+    is.close();
+    String response=new String(bytesReceived);
+    if (response.substring(0,2).equals("OK")) {
+      deck.setLastSync(Double.parseDouble(response.substring(3,response.length() - 3)));
+      deck.commitToDB();
+      deck.setLastLoaded(deck.getModified());
+    }
+    Log.i(AnkiDroidApp.TAG,"Finished!");
+  }
+ catch (  MalformedURLException e) {
+    Log.i(AnkiDroidApp.TAG,"MalformedURLException = " + e.getMessage());
+  }
+catch (  IOException e) {
+    Log.i(AnkiDroidApp.TAG,"IOException = " + e.getMessage());
+  }
+}

@@ -1,7 +1,10 @@
 {
   if (mSwipeEnabled) {
     try {
-      if (e2.getY() - e1.getY() > StudyOptions.SWIPE_MIN_DISTANCE && Math.abs(velocityY) > StudyOptions.SWIPE_THRESHOLD_VELOCITY && Math.abs(e1.getX() - e2.getX()) < StudyOptions.SWIPE_MAX_OFF_PATH) {
+      if (mSelectionStarted != 0) {
+        return false;
+      }
+      if (e2.getY() - e1.getY() > StudyOptions.SWIPE_MIN_DISTANCE && Math.abs(velocityY) > StudyOptions.SWIPE_THRESHOLD_VELOCITY && Math.abs(e1.getX() - e2.getX()) < StudyOptions.SWIPE_MAX_OFF_PATH && !mIsYScrolling) {
         if (sDisplayAnswer) {
           answerCard(Card.EASE_FAILED);
         }
@@ -9,27 +12,24 @@
           displayCardAnswer();
         }
       }
- else       if (e1.getY() - e2.getY() > StudyOptions.SWIPE_MIN_DISTANCE && Math.abs(velocityY) > StudyOptions.SWIPE_THRESHOLD_VELOCITY && Math.abs(e1.getX() - e2.getX()) < StudyOptions.SWIPE_MAX_OFF_PATH) {
-        if (mCurrentCard.isRev()) {
-          if (sDisplayAnswer) {
+ else       if (e1.getY() - e2.getY() > StudyOptions.SWIPE_MIN_DISTANCE && Math.abs(velocityY) > StudyOptions.SWIPE_THRESHOLD_VELOCITY && Math.abs(e1.getX() - e2.getX()) < StudyOptions.SWIPE_MAX_OFF_PATH && !mIsYScrolling) {
+        if (sDisplayAnswer) {
+          if (mCurrentCard.isRev()) {
             answerCard(Card.EASE_MID);
           }
  else {
-            displayCardAnswer();
-          }
-        }
- else {
-          if (sDisplayAnswer) {
             answerCard(Card.EASE_HARD);
           }
+        }
  else {
-            displayCardAnswer();
-          }
+          displayCardAnswer();
         }
       }
- else       if (e2.getX() - e1.getX() > StudyOptions.SWIPE_MIN_DISTANCE && Math.abs(velocityX) > StudyOptions.SWIPE_THRESHOLD_VELOCITY && Math.abs(e1.getY() - e2.getY()) < StudyOptions.SWIPE_MAX_OFF_PATH) {
-        finish();
+ else       if (e2.getX() - e1.getX() > StudyOptions.SWIPE_MIN_DISTANCE && Math.abs(velocityX) > StudyOptions.SWIPE_THRESHOLD_VELOCITY && Math.abs(e1.getY() - e2.getY()) < StudyOptions.SWIPE_MAX_OFF_PATH && !mIsXScrolling) {
+        closeReviewer();
       }
+      mIsXScrolling=false;
+      mIsYScrolling=false;
     }
  catch (    Exception e) {
       Log.e(AnkiDroidApp.TAG,"onFling Exception = " + e.getMessage());

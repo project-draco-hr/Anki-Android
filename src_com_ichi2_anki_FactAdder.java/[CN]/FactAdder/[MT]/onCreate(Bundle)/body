@@ -1,6 +1,5 @@
 {
   super.onCreate(savedInstanceState);
-  Resources res=getResources();
   registerExternalStorageListener();
   setContentView(R.layout.fact_adder);
   mFieldsLayoutContainer=(LinearLayout)findViewById(R.id.FactAdderEditFieldsLayout);
@@ -11,16 +10,7 @@
   mDeck=AnkiDroidApp.deck();
   mModels=Model.getModels(mDeck);
   mCurrentSelectedModelId=mDeck.getCurrentModelId();
-  mModelButton.setText(mModels.get(mCurrentSelectedModelId).getName());
-  String templates=mModels.get(mCurrentSelectedModelId).getCardModelNames();
-  if (templates.indexOf(", ") == -1) {
-    mCardTemplates.setText(res.getString(R.string.card) + " " + templates);
-  }
- else {
-    mCardTemplates.setText(res.getString(R.string.cards) + " " + templates);
-  }
-  mNewFact=mDeck.newFact();
-  populateEditFields();
+  modelChanged();
   mAddButton.setOnClickListener(new View.OnClickListener(){
     public void onClick(    View v){
       for (      FieldEditText current : mEditFields) {

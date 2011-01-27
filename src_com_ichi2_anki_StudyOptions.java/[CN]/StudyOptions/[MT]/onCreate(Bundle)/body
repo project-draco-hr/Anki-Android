@@ -24,7 +24,6 @@
     Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from savedInstanceState: " + mDeckFilename);
   }
  else {
-    Log.i(AnkiDroidApp.TAG,"onCreate - " + preferences.getAll().toString());
     mDeckFilename=preferences.getString("deckFilename",null);
     Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from preferences: " + mDeckFilename);
   }
@@ -36,7 +35,7 @@
       showContentView(CONTENT_NO_DECK);
     }
  else {
-      if (showDeckPickerOnStartup()) {
+      if (showDeckPickerOnStartup() && !hasErrorFiles()) {
         openDeckPicker();
       }
  else {

@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"Item = " + item.getItemId());
 switch (item.getItemId()) {
 case MENU_OPEN:
     openDeckPicker();
@@ -11,7 +10,7 @@ case MENU_DOWNLOAD_SHARED_DECK:
 openSharedDeckPicker();
 return true;
 case MENU_SYNC:
-syncDeck();
+syncDeck(null);
 return true;
 case MENU_MY_ACCOUNT:
 startActivity(new Intent(StudyOptions.this,MyAccount.class));
