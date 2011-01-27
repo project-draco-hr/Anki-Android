@@ -1,0 +1,5 @@
+{
+  if (!name1.equals(name2)) {
+    throw new MustacheException("Section close tag with mismatched open tag " + "[line=" + line + ", expected="+ name1+ ", got="+ name2+ "]");
+  }
+}

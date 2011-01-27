@@ -1,0 +1,28 @@
+{
+  Object value=tmpl.getValue(ctx,_name,_line);
+  if (value == null) {
+    executeSegs(tmpl,ctx,out);
+  }
+  if (value instanceof Iterable<?>) {
+    Iterable<?> iable=(Iterable<?>)value;
+    if (!iable.iterator().hasNext()) {
+      executeSegs(tmpl,ctx,out);
+    }
+  }
+ else   if (value instanceof Boolean) {
+    if (!(Boolean)value) {
+      executeSegs(tmpl,ctx,out);
+    }
+  }
+ else   if (value.getClass().isArray()) {
+    if (Array.getLength(value) == 0) {
+      executeSegs(tmpl,ctx,out);
+    }
+  }
+ else   if (value instanceof Iterator<?>) {
+    Iterator<?> iter=(Iterator<?>)value;
+    if (!iter.hasNext()) {
+      executeSegs(tmpl,ctx,out);
+    }
+  }
+}

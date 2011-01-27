@@ -1,0 +1,6 @@
+{
+  for (  String[] escape : ATTR_ESCAPES) {
+    text=text.replace(escape[0],escape[1]);
+  }
+  return text;
+}
