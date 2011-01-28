@@ -1,0 +1,53 @@
+{
+  final Accumulator outer=this;
+  String tag=accum.toString().trim();
+  final String tag1=tag.substring(1).trim();
+  accum.setLength(0);
+switch (tag.charAt(0)) {
+case '#':
+    requireNoNewlines(tag,tagLine);
+  return new Accumulator(_compiler){
+    @Override public boolean skipNewline(){
+      return (_segs.size() == 0) || super.skipNewline();
+    }
+    @Override public Template.Segment[] finish(){
+      throw new MustacheException("Section missing close tag " + "[line=" + tagLine + ", tag="+ tag1+ "]");
+    }
+    @Override protected Accumulator addCloseSectionSegment(    String itag,    int line){
+      requireSameName(tag1,itag,line);
+      outer._segs.add(new SectionSegment(itag,super.finish(),tagLine));
+      return outer;
+    }
+  }
+;
+case '^':
+requireNoNewlines(tag,tagLine);
+return new Accumulator(_compiler){
+@Override public boolean skipNewline(){
+  return (_segs.size() == 0) || super.skipNewline();
+}
+@Override public Template.Segment[] finish(){
+  throw new MustacheException("Inverted section missing close tag " + "[line=" + tagLine + ", tag="+ tag1+ "]");
+}
+@Override protected Accumulator addCloseSectionSegment(String itag,int line){
+  requireSameName(tag1,itag,line);
+  outer._segs.add(new InvertedSectionSegment(itag,super.finish(),tagLine));
+  return outer;
+}
+}
+;
+case '/':
+requireNoNewlines(tag,tagLine);
+return addCloseSectionSegment(tag1,tagLine);
+case '!':
+return this;
+case '{':
+requireNoNewlines(tag,tagLine);
+_segs.add(new VariableSegment(tag,_compiler.stripSpan,tagLine));
+return this;
+default :
+requireNoNewlines(tag,tagLine);
+_segs.add(new VariableSegment(tag1,false,tagLine));
+return this;
+}
+}
