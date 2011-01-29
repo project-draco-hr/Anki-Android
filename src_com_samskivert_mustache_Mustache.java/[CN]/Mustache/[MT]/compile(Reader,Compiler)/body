@@ -5,6 +5,7 @@
   StringBuilder text=new StringBuilder();
   int line=1;
   boolean skipNewline=false;
+  boolean skippedExtraBracket=false;
   while (true) {
     char c;
     try {
@@ -57,13 +58,17 @@ case MATCHING_START:
 break;
 case TAG:
 if (c == end1) {
-if (end2 == -1) {
+if (!skippedExtraBracket && text.charAt(0) == '{') {
+  skippedExtraBracket=true;
+}
+ else if (end2 == -1) {
   if (text.charAt(0) == '=') {
   }
  else {
     sanityCheckTag(text,line,start1,start2);
     accum=accum.addTagSegment(text,line);
     skipNewline=accum.skipNewline();
+    skippedExtraBracket=false;
   }
   state=TEXT;
 }
@@ -83,6 +88,7 @@ if (text.charAt(0) == '=') {
 sanityCheckTag(text,line,start1,start2);
 accum=accum.addTagSegment(text,line);
 skipNewline=accum.skipNewline();
+skippedExtraBracket=false;
 }
 state=TEXT;
 }
