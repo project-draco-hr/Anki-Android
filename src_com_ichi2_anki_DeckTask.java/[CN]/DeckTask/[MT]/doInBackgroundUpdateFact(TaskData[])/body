@@ -4,10 +4,9 @@
   Fact editFact=editCard.getFact();
   String undoName="Update Fact";
   deck.setUndoStart(undoName);
+  editFact.setModified(true,deck,false);
   editFact.toDb();
-  for (  Card modifyCard : editFact.getUpdatedRelatedCards()) {
-    modifyCard.updateQAfields();
-  }
+  deck.flushMod();
   deck.setUndoEnd(undoName);
   publishProgress(new TaskData(deck.getCurrentCard()));
   return null;

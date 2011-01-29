@@ -1,0 +1,6 @@
+{
+  if (text.length() > 0) {
+    _segs.add(new StringSegment(text.toString()));
+    text.setLength(0);
+  }
+}

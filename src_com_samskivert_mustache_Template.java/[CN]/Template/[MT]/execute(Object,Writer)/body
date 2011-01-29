@@ -1,0 +1,6 @@
+{
+  Context ctx=new Context(context,null,0,Mode.OTHER);
+  for (  Segment seg : _segs) {
+    seg.execute(this,ctx,out);
+  }
+}

@@ -9,6 +9,7 @@
   Fact cardFact=mEditorCard.getFact();
   TreeSet<Field> fields=cardFact.getFields();
   mEditFields=new LinkedList<FieldEditText>();
+  mModified=false;
   Iterator<Field> iter=fields.iterator();
   while (iter.hasNext()) {
     FieldEditText newTextbox=new FieldEditText(this,iter.next());
@@ -22,9 +23,14 @@
       Iterator<FieldEditText> iter=mEditFields.iterator();
       while (iter.hasNext()) {
         FieldEditText current=iter.next();
-        current.updateField();
+        mModified|=current.updateField();
       }
-      setResult(RESULT_OK);
+      if (mModified) {
+        setResult(RESULT_OK);
+      }
+ else {
+        setResult(RESULT_CANCELED);
+      }
       finish();
     }
   }
