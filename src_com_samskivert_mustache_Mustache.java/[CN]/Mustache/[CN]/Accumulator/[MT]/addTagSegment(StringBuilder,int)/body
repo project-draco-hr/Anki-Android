@@ -42,8 +42,8 @@ return addCloseSectionSegment(tag1,tagLine);
 case '!':
 return this;
 case '{':
-requireNoNewlines(tag,tagLine);
-_segs.add(new VariableSegment(tag,_compiler.stripSpan,tagLine));
+requireNoNewlines(tag1,tagLine);
+_segs.add(new VariableSegment(tag1,_compiler.stripSpan,tagLine));
 return this;
 default :
 requireNoNewlines(tag,tagLine);
