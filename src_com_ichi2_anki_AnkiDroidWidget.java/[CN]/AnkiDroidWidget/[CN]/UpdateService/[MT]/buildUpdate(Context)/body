@@ -3,7 +3,9 @@
   RemoteViews updateViews=new RemoteViews(context.getPackageName(),R.layout.widget);
   Deck currentDeck=AnkiDroidApp.deck();
   if (!AnkiDroidApp.isSdCardMounted()) {
-    updateViews.setTextViewText(R.id.anki_droid_text,context.getText(R.string.sdcard_missing_message));
+    updateViews.setTextViewText(R.id.anki_droid_title,context.getText(R.string.sdcard_missing_message));
+    updateViews.setTextViewText(R.id.anki_droid_name,"");
+    updateViews.setTextViewText(R.id.anki_droid_status,"");
     return updateViews;
   }
   if (currentDeck != null) {
@@ -14,19 +16,44 @@
     AnkiDroidApp.setDeck(currentDeck);
     Deck.openDeck(currentDeck.getDeckPath());
   }
-  SpannableStringBuilder sb=new SpannableStringBuilder();
   int totalDue=0;
   int nbDecks=decks.size();
-  for (int i=0; i < nbDecks && i < MAX_DECK_NUM; i++) {
+  if (nbDecks == 0) {
+    updateViews.setTextViewText(R.id.anki_droid_name,"");
+    updateViews.setTextViewText(R.id.anki_droid_status,"");
+  }
+ else {
+    DeckInformation deck=decks.get(0);
+    updateViews.setTextViewText(R.id.anki_droid_name,deck.mDeckName);
+    updateViews.setTextViewText(R.id.anki_droid_status,deck.getDeckStatus());
+  }
+  int hasDueCount=0;
+  for (int i=0; i < nbDecks; i++) {
     DeckInformation deck=decks.get(i);
-    sb.append(deck.getDeckText());
-    sb.append('\n');
-    totalDue+=deck.mDueCards;
+    if (deck.mDueCards > 0) {
+      hasDueCount++;
+      totalDue+=deck.mDueCards;
+    }
   }
-  if (sb.length() > 1) {
-    sb.subSequence(0,sb.length() - 1);
+  CharSequence cardsText=getText(R.string.widget_cards);
+  if (totalDue == 1) {
+    cardsText=getText(R.string.widget_card);
   }
-  updateViews.setTextViewText(R.id.anki_droid_text,sb);
+  CharSequence decksText=getText(R.string.widget_decks);
+  if (totalDue == 1) {
+    decksText=getText(R.string.widget_deck);
+  }
+  if (totalDue > 0) {
+    updateViews.setTextViewText(R.id.anki_droid_title,context.getString(R.string.widget_cards_in_decks_due,totalDue,cardsText,hasDueCount,decksText));
+  }
+ else {
+    updateViews.setTextViewText(R.id.anki_droid_title,context.getString(R.string.widget_no_cards_due));
+  }
+  Intent ankiDroidIntent=new Intent(context,StudyOptions.class);
+  ankiDroidIntent.setAction(Intent.ACTION_MAIN);
+  ankiDroidIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+  PendingIntent pendingAnkiDroidIntent=PendingIntent.getActivity(context,0,ankiDroidIntent,0);
+  updateViews.setOnClickPendingIntent(R.id.anki_droid_logo,pendingAnkiDroidIntent);
   SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
   int minimumCardsDueForNotification=Integer.parseInt(preferences.getString("minimumCardsDueForNotification","25"));
   if (totalDue >= minimumCardsDueForNotification) {
@@ -44,10 +71,7 @@
     }
     Context appContext=getApplicationContext();
     CharSequence contentTitle=getText(R.string.widget_minimum_cards_due_notification_ticker_title);
-    String contentText=sb.toString();
-    Intent notificationIntent=new Intent(this,AnkiDroidApp.class);
-    PendingIntent contentIntent=PendingIntent.getActivity(this,0,notificationIntent,0);
-    notification.setLatestEventInfo(appContext,contentTitle,contentText,contentIntent);
+    notification.setLatestEventInfo(appContext,contentTitle,tickerText,pendingAnkiDroidIntent);
     final int WIDGET_NOTIFY_ID=1;
     mNotificationManager.notify(WIDGET_NOTIFY_ID,notification);
   }

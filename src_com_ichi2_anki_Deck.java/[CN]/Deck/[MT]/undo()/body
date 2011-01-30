@@ -1,7 +1,0 @@
-{
-  if (!mUndoStack.isEmpty()) {
-    undoredo(mUndoStack,mRedoStack);
-    commitToDB();
-    reset();
-  }
-}

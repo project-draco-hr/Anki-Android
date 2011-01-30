@@ -1,0 +1,5 @@
+{
+  TreeMap<Long,CardModel> cardModels=new TreeMap<Long,CardModel>();
+  CardModel.fromDb(this,fact.getModelId(),cardModels);
+  return cardModels;
+}
