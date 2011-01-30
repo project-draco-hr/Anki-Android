@@ -1,41 +1,20 @@
 {
-  String question=cm.mQformat;
-  String answer=cm.mAformat;
-  Matcher tagMatcher;
-  tagMatcher=sFactPattern.matcher(question);
-  question=tagMatcher.replaceAll(tags[Card.TAGS_FACT]);
-  tagMatcher=sFactPattern.matcher(answer);
-  answer=tagMatcher.replaceAll(tags[Card.TAGS_FACT]);
-  tagMatcher=sModelPattern.matcher(question);
-  question=tagMatcher.replaceAll(tags[Card.TAGS_MODEL]);
-  tagMatcher=sModelPattern.matcher(answer);
-  answer=tagMatcher.replaceAll(tags[Card.TAGS_MODEL]);
-  tagMatcher=sTemplPattern.matcher(question);
-  question=tagMatcher.replaceAll(tags[Card.TAGS_TEMPL]);
-  tagMatcher=sTemplPattern.matcher(answer);
-  answer=tagMatcher.replaceAll(tags[Card.TAGS_TEMPL]);
-  int replaceAt=question.indexOf("%(");
-  while (replaceAt != -1) {
-    if (question.substring(replaceAt,replaceAt + 7).equals("%(text:")) {
-      question=replaceHtmlField(question,fact,replaceAt);
+  Map<String,String> fields=new HashMap<String,String>();
+  for (  Fact.Field f : fact.getFields()) {
+    fields.put("text:" + f.getFieldModel().getName(),Utils.stripHTML(f.getValue()));
+    if (!f.getValue().equals("")) {
+      fields.put(f.getFieldModel().getName(),String.format("<span class=\"fm%s\">%s</span>",Utils.hexifyID(f.getFieldModelId()),f.getValue()));
     }
  else {
-      question=replaceField(question,fact,replaceAt,true);
+      fields.put(f.getFieldModel().getName(),"");
     }
-    replaceAt=question.indexOf("%(");
   }
-  replaceAt=answer.indexOf("%(");
-  while (replaceAt != -1) {
-    if (answer.substring(replaceAt,replaceAt + 7).equals("%(text:")) {
-      answer=replaceHtmlField(answer,fact,replaceAt);
-    }
- else {
-      answer=replaceField(answer,fact,replaceAt,true);
-    }
-    replaceAt=answer.indexOf("%(");
-  }
-  HashMap<String,String> returnMap=new HashMap<String,String>();
-  returnMap.put("question",question);
-  returnMap.put("answer",answer);
-  return returnMap;
+  fields.put("tags",tags[Card.TAGS_FACT]);
+  fields.put("Tags",tags[Card.TAGS_FACT]);
+  fields.put("modelTags",tags[Card.TAGS_MODEL]);
+  fields.put("cardModel",tags[Card.TAGS_TEMPL]);
+  HashMap<String,String> d=new HashMap<String,String>();
+  d.put("question",cm.mQTemplate.execute(fields));
+  d.put("answer",cm.mATemplate.execute(fields));
+  return d;
 }

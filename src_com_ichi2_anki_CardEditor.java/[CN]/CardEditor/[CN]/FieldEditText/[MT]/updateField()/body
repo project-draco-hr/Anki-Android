@@ -1,3 +1,8 @@
 {
-  mPairField.setValue(this.getText().toString());
+  String newValue=this.getText().toString();
+  if (!mPairField.getValue().equals(newValue)) {
+    mPairField.setValue(newValue);
+    return true;
+  }
+  return false;
 }

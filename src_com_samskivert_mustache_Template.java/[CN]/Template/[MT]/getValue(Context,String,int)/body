@@ -26,5 +26,6 @@
     }
     ctx=ctx.parent;
   }
-  throw new MustacheException("No key, method or field with name '" + name + "' on line "+ line);
+  Log.e(TAG,"No key, method or field with name '" + name + "' on line "+ line);
+  return new String("{unknown field " + name + "}");
 }
