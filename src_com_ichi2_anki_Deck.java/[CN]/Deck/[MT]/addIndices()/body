@@ -16,7 +16,14 @@
   getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS ix_modelsDeleted_modelId ON modelsDeleted (modelId)");
   getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS ix_factsDeleted_factId ON factsDeleted (factId)");
   getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS ix_mediaDeleted_factId ON mediaDeleted (mediaId)");
-  getDB().getDatabase().execSQL("CREATE UNIQUE INDEX IF NOT EXISTS ix_tags_tag ON tags (tag)");
+  String txt="CREATE UNIQUE INDEX IF NOT EXISTS ix_tags_tag on tags (tag)";
+  try {
+    getDB().getDatabase().execSQL(txt);
+  }
+ catch (  SQLException e) {
+    getDB().getDatabase().execSQL("DELETE FROM tags WHERE EXISTS (SELECT 1 FROM tags t2 " + "WHERE tags.tag = t2.tag AND tags.rowid > t2.rowid)");
+    getDB().getDatabase().execSQL(txt);
+  }
   getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS ix_cardTags_tagCard ON cardTags (tagId, cardId)");
   getDB().getDatabase().execSQL("CREATE INDEX IF NOT EXISTS ix_cardTags_cardId ON cardTags (cardId)");
 }

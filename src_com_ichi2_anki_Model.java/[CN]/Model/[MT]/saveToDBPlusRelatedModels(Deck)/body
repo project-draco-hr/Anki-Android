@@ -1,0 +1,9 @@
+{
+  for (  CardModel cm : mCardModelsMap.values()) {
+    cm.toDB(deck);
+  }
+  for (  FieldModel fm : mFieldModelsMap.values()) {
+    fm.toDB(deck);
+  }
+  toDB(deck);
+}

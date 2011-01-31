@@ -1,5 +1,9 @@
 {
   double _new=Utils.now() + mNewSpacing;
-  getDB().getDatabase().execSQL(String.format(Utils.ENGLISH_LOCALE,"UPDATE cards SET " + "combinedDue = (CASE " + "WHEN type = 1 THEN %f "+ "WHEN type = 2 THEN %f "+ "END), "+ "modified = %f, isDue = 0 "+ "WHERE id != %d AND factId = %d "+ "AND combinedDue < %f "+ "AND type BETWEEN 1 AND 2",mDueCutoff,_new,Utils.now(),card.getId(),card.getFactId(),mDueCutoff));
+  String lim="= 2";
+  if (mNewSpacing % 60 == 0) {
+    lim="BETWEEN 1 AND 2";
+  }
+  getDB().getDatabase().execSQL(String.format(Utils.ENGLISH_LOCALE,"UPDATE cards SET combinedDue = (CASE WHEN type = 1 THEN %f " + "WHEN type = 2 THEN %f END), modified = %f, isDue = 0 WHERE id != %d AND factId = %d " + "AND combinedDue < %f AND type %s",mDueCutoff,_new,Utils.now(),card.getId(),card.getFactId(),mDueCutoff,lim));
   mSpacedFacts.put(card.getFactId(),_new);
 }

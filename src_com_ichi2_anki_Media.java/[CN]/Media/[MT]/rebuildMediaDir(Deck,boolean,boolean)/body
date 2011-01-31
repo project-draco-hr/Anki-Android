@@ -1,9 +1,13 @@
 {
-  String mdir=deck.mediaDir(true);
+  String mdir=deck.mediaDir();
+  if (mdir == null) {
+    return;
+  }
   deck.getDB().getDatabase().execSQL("UPDATE media SET size = 0");
   Cursor cursor=null;
   String txt=null;
   Map<String,Integer> refs=new HashMap<String,Integer>();
+  Set<String> normrefs=new HashSet<String>();
   try {
     cursor=deck.getDB().getDatabase().rawQuery("SELECT question, answer FROM cards",null);
     while (cursor.moveToNext()) {
@@ -15,6 +19,7 @@
           }
  else {
             refs.put(f,1);
+            normrefs.add(Normalizer.normalize(f,Normalizer.Form.NFC));
           }
         }
       }
@@ -32,14 +37,16 @@
   if (mdir != null) {
     Set<String> unused=new HashSet<String>();
     File mdirfile=new File(mdir);
-    fname=null;
-    for (    File f : mdirfile.listFiles()) {
-      if (!f.isFile()) {
-        continue;
-      }
-      fname=f.getName();
-      if (!refs.containsKey(fname)) {
-        unused.add(fname);
+    if (mdirfile.exists()) {
+      fname=null;
+      for (      File f : mdirfile.listFiles()) {
+        if (!f.isFile()) {
+          continue;
+        }
+        fname=Normalizer.normalize(f.getName(),Normalizer.Form.NFC);
+        if (!normrefs.contains(fname)) {
+          unused.add(fname);
+        }
       }
     }
     if (delete) {
