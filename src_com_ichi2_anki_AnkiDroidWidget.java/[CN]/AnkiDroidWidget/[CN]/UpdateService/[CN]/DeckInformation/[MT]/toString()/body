@@ -1,3 +1,4 @@
 {
-  return String.format("%s %d %d",mDeckName,mNewCards,mDueCards);
+  String deckName=formatDeckName();
+  return String.format("%s %d %d",deckName,mNewCards,mDueCards);
 }

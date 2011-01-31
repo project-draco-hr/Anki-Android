@@ -1,5 +1,8 @@
 {
+  String deckName=formatDeckName();
   SpannableStringBuilder sb=new SpannableStringBuilder();
+  sb.append(deckName);
+  sb.append(" ");
   SpannableString red=new SpannableString(Integer.toString(mFailedCards));
   red.setSpan(new ForegroundColorSpan(Color.RED),0,red.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
   SpannableString black=new SpannableString(Integer.toString(mDueCards));
