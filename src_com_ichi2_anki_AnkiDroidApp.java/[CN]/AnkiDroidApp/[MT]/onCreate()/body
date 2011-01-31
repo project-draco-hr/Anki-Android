@@ -11,7 +11,7 @@
     editor.putString(PrefSettings.KEY_CHECK_URI,"http://ankidroid.googlecode.com/files/last_release.xml");
     new File(getStorageDirectory() + "/AnkiDroid").mkdir();
     editor.putString("deckPath",getStorageDirectory() + "/AnkiDroid");
-    editor.commit();
+    editor.apply();
   }
   Intent intent=new Intent(Veecheck.getRescheduleAction(this));
   sendBroadcast(intent);
