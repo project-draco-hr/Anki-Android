@@ -1,0 +1,12 @@
+{
+  ContentValues values=new ContentValues();
+  values.put("id",mId);
+  values.put("ordinal",mOrdinal);
+  values.put("modelId",mModelId);
+  values.put("name",mName);
+  values.put("description",mDescription);
+  values.put("quizFontFamily",mQuizFontFamily);
+  values.put("quizFontSize",mQuizFontSize);
+  values.put("quizFontColour",mQuizFontColour);
+  deck.getDB().getDatabase().update("fieldModels",values,"id = " + mId,null);
+}
