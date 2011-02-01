@@ -11,6 +11,7 @@
   mSyncAllButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View v){
       if (AnkiDroidApp.isUserLoggedIn()) {
+        mSyncAllButton.setClickable(false);
         SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
         String username=preferences.getString("username","");
         String password=preferences.getString("password","");
