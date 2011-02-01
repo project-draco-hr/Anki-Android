@@ -1,0 +1,22 @@
+{
+  ContentValues values=new ContentValues();
+  values.put("id",mId);
+  values.put("ordinal",mOrdinal);
+  values.put("modelId",mModelId);
+  values.put("name",mName);
+  values.put("description",mDescription);
+  values.put("active",mActive);
+  values.put("qformat",mQformat);
+  values.put("aformat",mAformat);
+  values.put("questionInAnswer",mQuestionInAnswer);
+  values.put("questionFontFamily",mQuestionFontFamily);
+  values.put("questionFontSize",mQuestionFontSize);
+  values.put("questionFontColour",mQuestionFontColour);
+  values.put("questionAlign",mQuestionAlign);
+  values.put("answerFontFamily",mAnswerFontFamily);
+  values.put("answerFontSize",mAnswerFontSize);
+  values.put("answerFontColour",mAnswerFontColour);
+  values.put("answerAlign",mAnswerAlign);
+  values.put("lastFontColour",mLastFontColour);
+  deck.getDB().getDatabase().update("cardModels",values,"id = " + mId,null);
+}
