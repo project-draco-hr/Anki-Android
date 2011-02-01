@@ -53,10 +53,10 @@
   CardHistoryEntry entry=new CardHistoryEntry(this,card,ease,lastDelay);
   entry.writeSQL();
   mModified=now;
+  setUndoEnd(undoName);
   requeueCard(card,oldIsRev);
   if (isLeech(card)) {
     Log.i(AnkiDroidApp.TAG,"card is leech!");
     handleLeech(card);
   }
-  setUndoEnd(undoName);
 }
