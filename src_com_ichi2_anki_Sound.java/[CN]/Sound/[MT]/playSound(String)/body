@@ -1,5 +1,8 @@
 {
-  if (sSoundPaths.contains(soundPath)) {
+  if (soundPath.substring(0,3).equals("tts")) {
+    ReadText.textToSpeech(soundPath.substring(4,soundPath.length()),null);
+  }
+ else   if (sSoundPaths.contains(soundPath)) {
     sMediaPlayer=new MediaPlayer();
     try {
       sMediaPlayer.setDataSource(soundPath);

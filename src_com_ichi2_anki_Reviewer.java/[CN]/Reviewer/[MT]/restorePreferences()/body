@@ -18,5 +18,6 @@
   mShakeIntensity=preferences.getInt("minShakeIntensity",70);
   mPrefFixHebrew=preferences.getBoolean("fixHebrewText",false);
   mSpeakText=preferences.getBoolean("tts",false);
+  mPlaySoundsAtStart=preferences.getBoolean("playSoundsAtStart",true);
   return preferences;
 }

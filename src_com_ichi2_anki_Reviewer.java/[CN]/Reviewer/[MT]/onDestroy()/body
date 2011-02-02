@@ -5,6 +5,6 @@
     unregisterReceiver(mUnmountReceiver);
   }
   if (mSpeakText && Integer.valueOf(android.os.Build.VERSION.SDK) > 3) {
-    ReadText.stopTts();
+    ReadText.releaseTts();
   }
 }
