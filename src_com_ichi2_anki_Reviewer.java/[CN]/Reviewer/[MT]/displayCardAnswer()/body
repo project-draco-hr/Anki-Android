@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"displayCardAnswer");
   sDisplayAnswer=true;
   Sound.stopSounds();
   if (mPrefTimer) {
@@ -18,7 +17,6 @@
       correctAnswer=matcher.replaceAll("");
       matcher=Image.sImagePattern.matcher(correctAnswer);
       correctAnswer=matcher.replaceAll("");
-      Log.i(AnkiDroidApp.TAG,"correct answer = " + correctAnswer);
       DiffEngine diff=new DiffEngine();
       displayString=enrichWithQASpan(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer)) + "<br/>" + mCurrentCard.getAnswer(),true);
     }

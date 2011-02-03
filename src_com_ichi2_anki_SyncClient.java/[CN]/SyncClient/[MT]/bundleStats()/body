@@ -1,8 +1,6 @@
 {
-  Log.i(AnkiDroidApp.TAG,"bundleStats");
   JSONObject bundledStats=new JSONObject();
   Date lastDay=new Date(java.lang.Math.max(0,(long)(mDeck.getLastSync() - 60 * 60 * 24) * 1000));
-  Log.i(AnkiDroidApp.TAG,"lastDay = " + lastDay.toString());
   ArrayList<Long> ids=mDeck.getDB().queryColumn(Long.class,"SELECT id FROM stats WHERE type = 1 and day >= \"" + lastDay.toString() + "\"",0);
   try {
     Stats stat=new Stats(mDeck);
@@ -17,12 +15,9 @@
     bundledStats.put("daily",dailyStats);
   }
  catch (  SQLException e) {
-    Log.i(AnkiDroidApp.TAG,"SQLException = " + e.getMessage());
   }
 catch (  JSONException e) {
-    Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
   }
-  Log.i(AnkiDroidApp.TAG,"Stats =");
   Utils.printJSONObject(bundledStats,false);
   return bundledStats;
 }

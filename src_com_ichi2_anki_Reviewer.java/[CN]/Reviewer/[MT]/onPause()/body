@@ -1,6 +1,5 @@
 {
   super.onPause();
-  Log.i(AnkiDroidApp.TAG,"Reviewer - onPause()");
   Deck deck=AnkiDroidApp.deck();
   deck.commitToDB();
   if (mShakeEnabled) {

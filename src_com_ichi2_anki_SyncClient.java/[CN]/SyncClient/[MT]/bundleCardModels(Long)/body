@@ -35,7 +35,6 @@
       cardModel.put("typeAnswer",cursor.getString(28));
     }
  catch (    JSONException e) {
-      Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
     }
     cardModels.put(cardModel);
   }

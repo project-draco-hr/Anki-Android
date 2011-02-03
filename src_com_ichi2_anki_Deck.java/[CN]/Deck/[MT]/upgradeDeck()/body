@@ -66,9 +66,6 @@
       TreeMap<Long,FieldModel> fieldModels=m.getFieldModels();
       for (      FieldModel fm : fieldModels.values()) {
         changed=false;
-        Log.i(AnkiDroidApp.TAG,"family: '" + fm.getQuizFontFamily() + "'");
-        Log.i(AnkiDroidApp.TAG,"family: " + fm.getQuizFontSize());
-        Log.i(AnkiDroidApp.TAG,"family: '" + fm.getQuizFontColour() + "'");
         if ((fm.getQuizFontFamily() != null && !fm.getQuizFontFamily().equals("")) || fm.getQuizFontSize() != 0 || (fm.getQuizFontColour() != null && fm.getQuizFontColour().equals(""))) {
         }
  else {

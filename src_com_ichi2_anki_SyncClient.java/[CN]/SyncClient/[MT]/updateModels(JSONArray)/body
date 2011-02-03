@@ -25,7 +25,6 @@
       mergeCardModels(id,model.getJSONArray("cardModels"));
     }
  catch (    JSONException e) {
-      Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
     }
   }
   statement.close();

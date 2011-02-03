@@ -2,10 +2,8 @@
   JSONObject bundledDeck=new JSONObject();
   if ((mServer != null) && (mServer.getTimestamp() != 0.0)) {
     mDeck.setModified(Math.min(mDeck.getModified(),mServer.getTimestamp()));
-    Log.i(AnkiDroidApp.TAG,String.format(Utils.ENGLISH_LOCALE,"Modified: %f",mDeck.getModified()));
   }
   mDeck.setLastSync(Math.max(Utils.now(),mDeck.getModified() + 1));
-  Log.i(AnkiDroidApp.TAG,String.format(Utils.ENGLISH_LOCALE,"LastSync: %f",mDeck.getLastSync()));
   try {
     bundledDeck=mDeck.bundleJson(bundledDeck);
     JSONArray meta=new JSONArray();
@@ -20,9 +18,7 @@
     bundledDeck.put("meta",meta);
   }
  catch (  JSONException e) {
-    Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
   }
-  Log.i(AnkiDroidApp.TAG,"Deck =");
   Utils.printJSONObject(bundledDeck,false);
   return bundledDeck;
 }

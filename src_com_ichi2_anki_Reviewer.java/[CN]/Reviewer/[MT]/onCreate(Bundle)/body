@@ -2,7 +2,6 @@
   super.onCreate(savedInstanceState);
   mNextTimeTextColor=getResources().getColor(R.color.next_time_usual_color);
   mNextTimeTextRecomColor=getResources().getColor(R.color.next_time_recommended_color);
-  Log.i(AnkiDroidApp.TAG,"Reviewer - onCreate");
   if (AnkiDroidApp.deck() == null) {
     setResult(StudyOptions.CONTENT_NO_EXTERNAL_STORAGE);
     closeReviewer();
@@ -25,7 +24,6 @@ case DICTIONARY_LEO:
 break;
 }
 mIsDictionaryAvailable=Utils.isIntentAvailable(this,mDictionaryAction);
-Log.i(AnkiDroidApp.TAG,"Is intent available = " + mIsDictionaryAvailable);
 try {
 mCardTemplate=Utils.convertStreamToString(getAssets().open("card_template.html"));
 mCardTemplate=mCardTemplate.replaceFirst("var availableWidth = \\d*;","var availableWidth = " + getAvailableWidthInCard() + ";");
@@ -34,7 +32,6 @@ mCardTemplate=mCardTemplate.replaceFirst("var availableWidth = \\d*;","var avail
 e.printStackTrace();
 }
 long timelimit=AnkiDroidApp.deck().getSessionTimeLimit() * 1000;
-Log.i(AnkiDroidApp.TAG,"SessionTimeLimit: " + timelimit + " ms.");
 mSessionTimeLimit=System.currentTimeMillis() + timelimit;
 mSessionCurrReps=0;
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),null));

@@ -12,7 +12,6 @@
       deleteObjsFromKey((JSONArray)diff.get(3),key);
     }
  catch (    JSONException e) {
-      Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
     }
   }
   if (mLocalTime > mRemoteTime) {
@@ -23,10 +22,8 @@
       payload.put("deck",bundleDeck());
     }
  catch (    JSONException e) {
-      Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
     }
   }
-  Log.i(AnkiDroidApp.TAG,"Payload =");
   Utils.printJSONObject(payload,true);
   return payload;
 }

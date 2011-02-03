@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"answerCard");
   String undoName="Answer Card";
   setUndoStart(undoName);
   double now=Utils.now();
@@ -55,7 +54,6 @@
   mModified=now;
   requeueCard(card,oldIsRev);
   if (isLeech(card)) {
-    Log.i(AnkiDroidApp.TAG,"card is leech!");
     handleLeech(card);
   }
   setUndoEnd(undoName);

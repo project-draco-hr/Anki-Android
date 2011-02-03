@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"DeckPicker - populateDeckList");
   mTotalDueCards=0;
   mTotalCards=0;
   setTitleText();
@@ -14,10 +13,8 @@
   }
   mFileList=fileList;
   if (len > 0 && fileList != null) {
-    Log.i(AnkiDroidApp.TAG,"DeckPicker - populateDeckList, number of anki files = " + len);
     for (    File file : fileList) {
       String absPath=file.getAbsolutePath();
-      Log.i(AnkiDroidApp.TAG,"DeckPicker - populateDeckList, file:" + file.getName());
       try {
         HashMap<String,String> data=new HashMap<String,String>();
         data.put("name",file.getName().replaceAll(".anki",""));
@@ -33,7 +30,6 @@
       }
     }
     SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
-    Log.d(AnkiDroidApp.TAG,"syncEnabled=" + preferences.getBoolean("syncEnabled",false));
     if (preferences.getBoolean("syncEnabled",false)) {
       mSyncAllBar.setVisibility(View.VISIBLE);
     }
@@ -41,9 +37,7 @@
     thread.start();
   }
  else {
-    Log.i(AnkiDroidApp.TAG,"populateDeckList - No decks found.");
     if (!AnkiDroidApp.isSdCardMounted()) {
-      Log.i(AnkiDroidApp.TAG,"populateDeckList - No sd card.");
       setTitle(R.string.deckpicker_title_nosdcard);
       showDialog(DIALOG_NO_SDCARD);
     }
@@ -60,5 +54,4 @@
   mDeckList.addAll(tree);
   mDeckListView.clearChoices();
   mDeckListAdapter.notifyDataSetChanged();
-  Log.i(AnkiDroidApp.TAG,"DeckPicker - populateDeckList, Ending");
 }

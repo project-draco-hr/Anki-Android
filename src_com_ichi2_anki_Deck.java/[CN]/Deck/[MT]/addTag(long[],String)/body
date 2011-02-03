@@ -14,8 +14,6 @@
         newTags+="," + tag;
       }
     }
-    Log.i(AnkiDroidApp.TAG,"old tags = " + factTagsList.get(i));
-    Log.i(AnkiDroidApp.TAG,"new tags = " + newTags);
     if (newTags.length() > factTagsList.get(i).length()) {
       getDB().getDatabase().execSQL("update facts set " + "tags = \"" + newTags + "\", "+ "modified = "+ String.format(Utils.ENGLISH_LOCALE,"%f",Utils.now())+ " where id = "+ factIds[i]);
     }

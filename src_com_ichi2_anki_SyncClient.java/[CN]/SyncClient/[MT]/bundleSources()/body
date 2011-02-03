@@ -12,10 +12,8 @@
       bundledSources.put(source);
     }
  catch (    JSONException e) {
-      Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
     }
   }
   cursor.close();
-  Log.i(AnkiDroidApp.TAG,"Bundled sources = " + bundledSources);
   return bundledSources;
 }

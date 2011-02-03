@@ -8,7 +8,6 @@
         ids.add(cards.getJSONArray(i).getString(0));
       }
  catch (      JSONException e) {
-        Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
       }
     }
     String idsString=Utils.ids2str(ids);
@@ -57,7 +56,6 @@
         statement.execute();
       }
  catch (      JSONException e) {
-        Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
       }
     }
     statement.close();

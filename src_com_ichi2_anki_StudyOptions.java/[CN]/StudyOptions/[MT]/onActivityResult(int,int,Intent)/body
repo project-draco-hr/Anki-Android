@@ -23,7 +23,6 @@
       displayProgressDialogAndLoadDeck();
       return;
     }
-    Log.i(AnkiDroidApp.TAG,"onActivityResult = OK");
     mDeckFilename=intent.getExtras().getString(OPT_DB);
     savePreferences("deckFilename");
     boolean updateAllCards=(requestCode == DOWNLOAD_SHARED_DECK);
@@ -34,7 +33,6 @@
     showContentView();
   }
  else   if (requestCode == REQUEST_REVIEW) {
-    Log.i(AnkiDroidApp.TAG,"Result code = " + resultCode);
     AnkiDroidApp.deck().updateCutoff();
     AnkiDroidApp.deck().reset();
 switch (resultCode) {

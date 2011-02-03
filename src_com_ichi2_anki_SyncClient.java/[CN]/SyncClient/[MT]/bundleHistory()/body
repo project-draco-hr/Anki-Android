@@ -19,11 +19,8 @@
       bundledHistory.put(review);
     }
  catch (    JSONException e) {
-      Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
     }
   }
   cursor.close();
-  Log.i(AnkiDroidApp.TAG,"Last sync = " + String.format(Utils.ENGLISH_LOCALE,"%f",mDeck.getLastSync()));
-  Log.i(AnkiDroidApp.TAG,"Bundled history = " + bundledHistory.toString());
   return bundledHistory;
 }

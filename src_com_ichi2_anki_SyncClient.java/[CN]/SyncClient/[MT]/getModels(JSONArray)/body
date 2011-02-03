@@ -6,7 +6,6 @@
       models.put(bundleModel(ids.getLong(i)));
     }
  catch (    JSONException e) {
-      Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
     }
   }
   return models;

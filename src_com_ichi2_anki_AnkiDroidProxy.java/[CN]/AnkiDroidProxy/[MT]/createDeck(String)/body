@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"createDeck");
   try {
     String data="p=" + URLEncoder.encode(mPassword,"UTF-8") + "&u="+ URLEncoder.encode(mUsername,"UTF-8")+ "&v="+ URLEncoder.encode(SYNC_VERSION,"UTF-8")+ "&d=None&name="+ URLEncoder.encode(name,"UTF-8");
     HttpPost httpPost=new HttpPost(SYNC_URL + "createDeck");
@@ -11,22 +10,18 @@
     HttpResponse response=httpClient.execute(httpPost);
     HttpEntity entityResponse=response.getEntity();
     InputStream content=entityResponse.getContent();
-    Log.i(AnkiDroidApp.TAG,"String content = " + Utils.convertStreamToString(new InflaterInputStream(content)));
     mDecks.put(name,new JSONArray("[0,0]"));
   }
  catch (  UnsupportedEncodingException e) {
     e.printStackTrace();
   }
 catch (  ClientProtocolException e) {
-    Log.i(AnkiDroidApp.TAG,"ClientProtocolException = " + e.getMessage());
     e.printStackTrace();
   }
 catch (  IOException e) {
-    Log.i(AnkiDroidApp.TAG,"IOException = " + e.getMessage());
     e.printStackTrace();
   }
 catch (  JSONException e) {
-    Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
     e.printStackTrace();
   }
 }

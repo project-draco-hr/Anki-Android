@@ -14,7 +14,6 @@
   }
   if (mPrefTextSelection) {
     item=menu.findItem(MENU_SEARCH);
-    Log.i(AnkiDroidApp.TAG,"Clipboard has text = " + mClipboard.hasText());
     boolean lookupPossible=mClipboard.hasText() && mIsDictionaryAvailable;
     item.setEnabled(lookupPossible);
   }

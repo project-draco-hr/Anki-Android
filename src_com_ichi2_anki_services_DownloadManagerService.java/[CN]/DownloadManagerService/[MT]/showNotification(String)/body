@@ -11,6 +11,5 @@
   notification.ledOnMS=500;
   notification.ledOffMS=1000;
   notification.flags|=Notification.FLAG_SHOW_LIGHTS;
-  Log.i(AnkiDroidApp.TAG,"Sending notification...");
   mNotificationManager.notify(getNextNotificationId(),notification);
 }
