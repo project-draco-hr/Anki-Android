@@ -54,6 +54,10 @@
     commitToDB();
   }
   if (mVersion < 61) {
+    if (hasLaTeX()) {
+      upgradeNotes.add(com.ichi2.anki.R.string.deck_upgrade_version_61_has_latex);
+      return false;
+    }
     String txt="<span style=\"font-family: %s; font-size: %spx; color: %s; white-space: pre-wrap;\">%s</span>";
     Map<Long,Model> models=Model.getModels(this);
     Set<String> unstyled=new HashSet<String>();
