@@ -2,7 +2,9 @@
   super.onPause();
   Log.i(AnkiDroidApp.TAG,"Reviewer - onPause()");
   Deck deck=AnkiDroidApp.deck();
-  deck.commitToDB();
+  if (deck != null) {
+    deck.commitToDB();
+  }
   if (mShakeEnabled) {
     mSensorManager.unregisterListener(mSensorListener);
   }

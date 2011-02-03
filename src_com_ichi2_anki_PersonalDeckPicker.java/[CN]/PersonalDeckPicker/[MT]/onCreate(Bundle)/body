@@ -12,7 +12,11 @@
   mPersonalDecksListView.setAdapter(mPersonalDecksAdapter);
   mPersonalDecksListView.setOnItemClickListener(new OnItemClickListener(){
     @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
-      String deckName=(String)mAllPersonalDecks.get(position);
+      Object deckNameObject=mAllPersonalDecks.get(position);
+      String deckName="bug 378";
+      if (deckNameObject instanceof String) {
+        deckName=(String)mAllPersonalDecks.get(position);
+      }
       Download personalDeckDownload=new Download(deckName);
       mPersonalDeckDownloads.add(personalDeckDownload);
       refreshPersonalDecksList();
