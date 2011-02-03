@@ -55,7 +55,7 @@
           int newCards=deck.getNewCountToday();
           int totalNewCards=deck.getNewCount();
           int matureCards=deck.getMatureCardCount();
-          String upgradeNotes=deck.upgradeNotesToMessages(deck,getResources());
+          String upgradeNotes=Deck.upgradeNotesToMessages(deck,getResources());
           deck.closeDeck();
           data.putString("absPath",path);
           data.putInt("msgtype",MSG_UPGRADE_SUCCESS);
