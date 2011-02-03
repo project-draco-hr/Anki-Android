@@ -65,8 +65,12 @@ if (!skippedExtraBracket && text.charAt(0) == '{') {
   if (text.charAt(0) == '=') {
   }
  else {
-    sanityCheckTag(text,line,start1,start2);
-    accum=accum.addTagSegment(text,line);
+    if (sanityCheckTag(text,line,start1,start2)) {
+      accum=accum.addTagSegment(text,line);
+    }
+ else {
+      text.setLength(0);
+    }
     skipNewline=accum.skipNewline();
     skippedExtraBracket=false;
   }
@@ -85,8 +89,12 @@ if (c == end2) {
 if (text.charAt(0) == '=') {
 }
  else {
-sanityCheckTag(text,line,start1,start2);
+if (sanityCheckTag(text,line,start1,start2)) {
 accum=accum.addTagSegment(text,line);
+}
+ else {
+text.setLength(0);
+}
 skipNewline=accum.skipNewline();
 skippedExtraBracket=false;
 }
@@ -115,7 +123,10 @@ text.append(end1);
 accum.addTextSegment(text);
 break;
 case TAG:
-throw new MustacheException("Template ended while parsing a tag TODO");
+Log.e(AnkiDroidApp.TAG,"Template ended while parsing a tag [line=" + line + ", tag="+ text+ "]");
+text.append(end1);
+accum.addTextSegment(text);
+break;
 }
 return new Template(accum.finish());
 }
