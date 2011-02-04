@@ -8,5 +8,8 @@
     editor.putLong("lastTimeOpened",System.currentTimeMillis());
     editor.putString("lastVersion",getVersion());
   }
+ else   if (str == "invertedColors") {
+    editor.putBoolean("invertedColors",mInvertedColors);
+  }
   editor.commit();
 }

@@ -7,6 +7,17 @@
   mTextReviewsDue=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_reviews_due);
   mTextNewToday=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_new_today);
   mTextNewTotal=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_new_total);
+  mNightMode=(CheckBox)mStudyOptionsView.findViewById(R.id.studyoptions_night_mode);
+  mNightMode.setChecked(mInvertedColors);
+  mNightMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+    @Override public void onCheckedChanged(    CompoundButton buttonView,    boolean isChecked){
+      if (mInvertedColors != isChecked) {
+        mInvertedColors=isChecked;
+        savePreferences("invertedColors");
+      }
+    }
+  }
+);
   mEditNewPerDay=(EditText)mStudyOptionsView.findViewById(R.id.studyoptions_new_cards_per_day);
   mEditSessionTime=(EditText)mStudyOptionsView.findViewById(R.id.studyoptions_session_minutes);
   mEditSessionQuestions=(EditText)mStudyOptionsView.findViewById(R.id.studyoptions_session_questions);

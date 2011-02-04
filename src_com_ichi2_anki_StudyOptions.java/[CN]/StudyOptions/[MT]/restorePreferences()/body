@@ -16,5 +16,6 @@
     mNewVersion=true;
     mNewVersionAlert=builder.create();
   }
+  mInvertedColors=preferences.getBoolean("invertedColors",false);
   return preferences;
 }
