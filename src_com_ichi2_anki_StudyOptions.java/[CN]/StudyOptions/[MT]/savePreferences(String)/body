@@ -4,8 +4,9 @@
   if (str == "deckFilename") {
     editor.putString("deckFilename",mDeckFilename);
   }
- else   if (str == "lastOpened") {
+ else   if (str == "close") {
     editor.putLong("lastTimeOpened",System.currentTimeMillis());
+    editor.putString("lastVersion",getVersion());
   }
   editor.commit();
 }
