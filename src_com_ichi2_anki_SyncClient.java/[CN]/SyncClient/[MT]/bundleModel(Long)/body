@@ -18,9 +18,11 @@
       model.put("cardModels",bundleCardModels(id));
     }
  catch (    JSONException e) {
+      Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
     }
   }
   cursor.close();
+  Log.i(AnkiDroidApp.TAG,"Model = ");
   Utils.printJSONObject(model,false);
   return model;
 }

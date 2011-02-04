@@ -6,6 +6,7 @@
     getDB().getDatabase().execSQL("CREATE TEMPORARY TABLE undoLog (seq INTEGER PRIMARY KEY NOT NULL, sql TEXT)");
   }
  catch (  SQLException e) {
+    Log.i(AnkiDroidApp.TAG,"Failed to create temporary table: " + e.getMessage());
   }
   ArrayList<String> tables=getDB().queryColumn(String.class,"SELECT name FROM sqlite_master WHERE type = 'table'",0);
   Iterator<String> iter=tables.iterator();

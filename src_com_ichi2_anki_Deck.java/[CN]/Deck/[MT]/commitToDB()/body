@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"commitToDB - Saving deck to DB...");
   ContentValues values=new ContentValues();
   values.put("created",mCreated);
   values.put("modified",mModified);

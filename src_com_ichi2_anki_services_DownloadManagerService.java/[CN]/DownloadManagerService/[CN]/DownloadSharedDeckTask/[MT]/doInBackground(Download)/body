@@ -10,6 +10,7 @@
     connection.setDoOutput(true);
     connection.setUseCaches(false);
     connection.setRequestMethod("GET");
+    Log.i(AnkiDroidApp.TAG,"Range = " + download.getDownloaded());
     connection.setRequestProperty("Accept-Encoding","identity");
     connection.setRequestProperty("Host",AnkiDroidProxy.SYNC_HOST);
     connection.setRequestProperty("Connection","close");
@@ -23,15 +24,20 @@
       download.setStatus(Download.STATUS_DOWNLOADING);
       publishProgress();
     }
+    Log.i(AnkiDroidApp.TAG,"Response code = " + connection.getResponseCode());
+    Log.i(AnkiDroidApp.TAG,"Connection length = " + connection.getContentLength());
     int contentLength=connection.getContentLength();
     if (contentLength < 1) {
+      Log.i(AnkiDroidApp.TAG,"Content Length = -1");
     }
     if (download.getSize() == -1 && contentLength != -1) {
       download.setSize(contentLength);
+      Log.i(AnkiDroidApp.TAG,"File size = " + contentLength);
     }
     file=new RandomAccessFile(mDestination + "/tmp/" + download.getTitle()+ "."+ download.getId()+ ".shared.zip.tmp","rw");
     is=connection.getInputStream();
     while (download.getStatus() == Download.STATUS_DOWNLOADING) {
+      Log.i(AnkiDroidApp.TAG,"Downloading... " + download.getDownloaded());
       byte[] buffer;
       buffer=new byte[MAX_BUFFER_SIZE];
       int read=is.read(buffer);
@@ -46,15 +52,19 @@
       download.setStatus(Download.STATUS_COMPLETE);
       new File(mDestination + "/tmp/" + download.getTitle()+ "."+ download.getId()+ ".shared.zip.tmp").renameTo(new File(mDestination + "/tmp/" + download.getTitle()+ ".zip"));
       long finishTime=System.currentTimeMillis();
+      Log.i(AnkiDroidApp.TAG,"Finished in " + ((finishTime - startTime) / 1000) + " seconds!");
+      Log.i(AnkiDroidApp.TAG,"Downloaded = " + download.getDownloaded());
     }
  else     if (download.getStatus() == Download.STATUS_CANCELLED) {
       new File(mDestination + "/tmp/" + download.getTitle()+ "."+ download.getId()+ ".shared.zip.tmp").delete();
+      Log.i(AnkiDroidApp.TAG,"Download cancelled.");
     }
     publishProgress();
     connection.disconnect();
   }
  catch (  Exception e) {
     e.printStackTrace();
+    Log.i(AnkiDroidApp.TAG,"Exception Error = " + e.getMessage());
     download.setStatus(Download.STATUS_ERROR);
     publishProgress();
   }

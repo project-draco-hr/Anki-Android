@@ -12,13 +12,16 @@
     HttpEntity entityResponse=response.getEntity();
     InputStream content=entityResponse.getContent();
     decksServer=Utils.convertStreamToString(new InflaterInputStream(content));
+    Log.i(AnkiDroidApp.TAG,"getDecks response = " + decksServer);
   }
  catch (  UnsupportedEncodingException e) {
     e.printStackTrace();
   }
 catch (  ClientProtocolException e) {
+    Log.i(AnkiDroidApp.TAG,"ClientProtocolException = " + e.getMessage());
   }
 catch (  IOException e) {
+    Log.i(AnkiDroidApp.TAG,"IOException = " + e.getMessage());
   }
   return decksServer;
 }

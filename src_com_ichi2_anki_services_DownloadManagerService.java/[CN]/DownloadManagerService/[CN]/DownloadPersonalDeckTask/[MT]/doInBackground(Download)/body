@@ -16,6 +16,7 @@
     DataOutputStream ds=new DataOutputStream(connection.getOutputStream());
     String data="p=" + URLEncoder.encode(mPassword,"UTF-8") + "&u="+ URLEncoder.encode(mUsername,"UTF-8")+ "&d="+ URLEncoder.encode(download.getTitle(),"UTF-8");
     ds.writeBytes(data);
+    Log.i(AnkiDroidApp.TAG,"Closing streams...");
     ds.flush();
     ds.close();
     if (connection.getResponseCode() / 100 != 2) {
@@ -26,15 +27,20 @@
       download.setStatus(Download.STATUS_DOWNLOADING);
       publishProgress();
     }
+    Log.i(AnkiDroidApp.TAG,"Response code = " + connection.getResponseCode());
+    Log.i(AnkiDroidApp.TAG,"Connection length = " + connection.getContentLength());
     int contentLength=connection.getContentLength();
     if (contentLength < 1) {
+      Log.i(AnkiDroidApp.TAG,"Content Length = -1");
     }
     if (download.getSize() == -1 && contentLength != -1) {
       download.setSize(contentLength);
+      Log.i(AnkiDroidApp.TAG,"File size = " + contentLength);
     }
     file=new RandomAccessFile(mDestination + "/tmp/" + download.getTitle()+ ".anki.tmp","rw");
     iis=new InflaterInputStream(connection.getInputStream());
     while (download.getStatus() == Download.STATUS_DOWNLOADING) {
+      Log.v(AnkiDroidApp.TAG,"Downloading... " + download.getDownloaded());
       byte[] buffer;
       buffer=new byte[MAX_BUFFER_SIZE];
       int read=iis.read(buffer);
@@ -49,31 +55,41 @@
       download.setStatus(Download.STATUS_COMPLETE);
       new File(mDestination + "/tmp/" + download.getTitle()+ ".anki.tmp").renameTo(new File(mDestination + "/" + download.getTitle()+ ".anki"));
       long finishTime=System.currentTimeMillis();
+      Log.i(AnkiDroidApp.TAG,"Finished in " + ((finishTime - startTime) / 1000) + " seconds!");
+      Log.i(AnkiDroidApp.TAG,"Downloaded = " + download.getDownloaded());
     }
  else     if (download.getStatus() == Download.STATUS_CANCELLED) {
       new File(mDestination + "/tmp/" + download.getTitle()+ ".anki.tmp").delete();
+      Log.i(AnkiDroidApp.TAG,"Download cancelled.");
     }
     publishProgress();
     connection.disconnect();
   }
  catch (  Exception e) {
     e.printStackTrace();
+    Log.i(AnkiDroidApp.TAG,"Exception Error = " + e.getMessage());
     download.setStatus(Download.STATUS_ERROR);
     publishProgress();
   }
  finally {
+    Log.i(AnkiDroidApp.TAG,"finally");
     if (file != null) {
       try {
+        Log.i(AnkiDroidApp.TAG,"closing file");
         file.close();
       }
  catch (      Exception e) {
+        Log.i(AnkiDroidApp.TAG,"exception closing file");
       }
     }
     if (iis != null) {
       try {
+        Log.i(AnkiDroidApp.TAG,"closing iis");
         iis.close();
+        Log.i(AnkiDroidApp.TAG,"closed iis");
       }
  catch (      Exception e) {
+        Log.i(AnkiDroidApp.TAG,"exception closing iis: " + e.getMessage());
       }
     }
   }

@@ -1,6 +1,7 @@
 {
   HashMap<Long,String> r=new HashMap<Long,String>();
   Cursor cur=null;
+  Log.i(AnkiDroidApp.TAG,"updatefieldCache fids: " + Utils.ids2str(fids));
   try {
     cur=getDB().getDatabase().rawQuery("SELECT factId, group_concat(value, ' ') FROM fields " + "WHERE factId IN " + Utils.ids2str(fids) + " GROUP BY factId",null);
     while (cur.moveToNext()) {

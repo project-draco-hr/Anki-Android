@@ -1,6 +1,7 @@
 {
   StringBuilder stringBuilder=new StringBuilder();
   String contentLeft=content;
+  Log.i(AnkiDroidApp.TAG,"parseSounds");
   sSoundPaths=new ArrayList<String>();
   Matcher matcher=sSoundPattern.matcher(content);
   while (matcher.find()) {

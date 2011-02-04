@@ -11,6 +11,7 @@
   if (Integer.parseInt(android.os.Build.VERSION.SDK) > 7) {
     mCard.setFocusableInTouchMode(false);
   }
+  Log.i(AnkiDroidApp.TAG,"Focusable = " + mCard.isFocusable() + ", Focusable in touch mode = "+ mCard.isFocusableInTouchMode());
   gestureDetector=new GestureDetector(new MyGestureDetector());
   if (mShakeEnabled) {
     mSensorManager=(SensorManager)getSystemService(Context.SENSOR_SERVICE);

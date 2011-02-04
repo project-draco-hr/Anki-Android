@@ -13,6 +13,7 @@
       media.put(m);
     }
  catch (    JSONException e) {
+      Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
     }
   }
   cursor.close();

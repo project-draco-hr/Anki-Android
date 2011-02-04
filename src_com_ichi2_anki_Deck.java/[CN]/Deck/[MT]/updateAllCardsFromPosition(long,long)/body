@@ -6,11 +6,14 @@
     while (cursor.moveToNext()) {
       Card card=new Card(this);
       card.fromDB(cursor.getLong(0));
+      Log.i(AnkiDroidApp.TAG,"Card id = " + card.getId() + ", numUpdatedCards = "+ numUpdatedCards);
       card.loadTags();
       Fact fact=card.getFact();
       HashMap<String,String> newQA=CardModel.formatQA(fact,card.getCardModel(),card.splitTags());
       card.setQuestion(newQA.get("question"));
+      Log.i(AnkiDroidApp.TAG,"Question = " + card.getQuestion());
       card.setAnswer(newQA.get("answer"));
+      Log.i(AnkiDroidApp.TAG,"Answer = " + card.getAnswer());
       card.updateQAfields();
       numUpdatedCards++;
     }

@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"applyPayload");
   JSONObject payloadReply=new JSONObject();
   try {
     String data="p=" + URLEncoder.encode(mPassword,"UTF-8") + "&u="+ URLEncoder.encode(mUsername,"UTF-8")+ "&v="+ URLEncoder.encode(SYNC_VERSION,"UTF-8")+ "&d="+ URLEncoder.encode(mDeckName,"UTF-8")+ "&payload="+ URLEncoder.encode(Base64.encodeBytes(Utils.compress(payload.toString().getBytes())),"UTF-8")+ "&base64="+ URLEncoder.encode("true","UTF-8");
@@ -12,6 +13,7 @@
     HttpEntity entityResponse=response.getEntity();
     InputStream content=entityResponse.getContent();
     String contentString=Utils.convertStreamToString(new InflaterInputStream(content));
+    Log.i(AnkiDroidApp.TAG,"Payload response = ");
     payloadReply=new JSONObject(contentString);
     Utils.printJSONObject(payloadReply,false);
     Utils.saveJSONObject(payloadReply);
@@ -20,10 +22,13 @@
     e.printStackTrace();
   }
 catch (  ClientProtocolException e) {
+    Log.i(AnkiDroidApp.TAG,"ClientProtocolException = " + e.getMessage());
   }
 catch (  IOException e) {
+    Log.i(AnkiDroidApp.TAG,"IOException = " + e.getMessage());
   }
 catch (  JSONException e) {
+    Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
   }
   return payloadReply;
 }

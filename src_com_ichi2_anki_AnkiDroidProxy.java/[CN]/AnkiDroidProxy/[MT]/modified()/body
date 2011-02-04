@@ -6,6 +6,7 @@
     lastModified=deckInfo.getDouble(0);
   }
  catch (  JSONException e) {
+    Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
   }
   return lastModified;
 }

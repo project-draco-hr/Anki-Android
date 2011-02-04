@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"Summary Local");
   mDeck.setLastSync(lastSync);
   mDeck.commitToDB();
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath());
@@ -23,7 +24,9 @@
     summary.put("delmedia",delmedia);
   }
  catch (  JSONException e) {
+    Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
   }
+  Log.i(AnkiDroidApp.TAG,"Summary Local = ");
   Utils.printJSONObject(summary,false);
   return summary;
 }

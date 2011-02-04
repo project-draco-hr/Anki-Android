@@ -1,8 +1,10 @@
 {
+  Log.i(AnkiDroidApp.TAG,"collectInformation");
   if (mCurContext == null) {
     return;
   }
   try {
+    Log.i(AnkiDroidApp.TAG,"collecting information");
     PackageManager pm=mCurContext.getPackageManager();
     PackageInfo pi=pm.getPackageInfo(mCurContext.getPackageName(),0);
     mInformation.put("VersionName",pi.versionName);
@@ -24,7 +26,9 @@
     mInformation.put("User",android.os.Build.USER);
     mInformation.put("TotalInternalMemory",Long.toString(getTotalInternalMemorySize()));
     mInformation.put("AvailableInternalMemory",Long.toString(getAvailableInternalMemorySize()));
+    Log.i(AnkiDroidApp.TAG,"Information collected");
   }
  catch (  Exception e) {
+    Log.i(AnkiDroidApp.TAG,e.toString());
   }
 }
