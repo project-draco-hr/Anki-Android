@@ -1,5 +1,6 @@
 {
   setContentView(layout);
+  mMainLayout=findViewById(R.id.main_layout);
   mCard=(WebView)findViewById(R.id.flashcard);
   mCard.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
   if (mZoomEnabled) {
@@ -73,5 +74,10 @@
   }
 );
   mAnswerField=(EditText)findViewById(R.id.answer_field);
+  mNextTimeTextColor=getResources().getColor(R.color.next_time_usual_color);
+  mNextTimeTextRecomColor=getResources().getColor(R.color.next_time_recommended_color);
+  if (mInvertedColors) {
+    invertColors();
+  }
   initControls();
 }

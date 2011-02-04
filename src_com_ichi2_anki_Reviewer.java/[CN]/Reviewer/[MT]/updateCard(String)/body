@@ -22,7 +22,7 @@
     Deck currentDeck=AnkiDroidApp.deck();
     Model myModel=Model.getModel(currentDeck,mCurrentCard.getCardModelId(),false);
     baseUrl=Utils.getBaseUrl(myModel,mDeckFilename);
-    content=myModel.getCSSForFontColorSize(mCurrentCard.getCardModelId(),mDisplayFontSize) + content;
+    content=myModel.getCSSForFontColorSize(mCurrentCard.getCardModelId(),mDisplayFontSize,mInvertedColors) + content;
   }
  else {
     mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
