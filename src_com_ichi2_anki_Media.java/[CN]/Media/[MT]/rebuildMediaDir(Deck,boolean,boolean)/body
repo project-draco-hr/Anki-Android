@@ -19,7 +19,7 @@
           }
  else {
             refs.put(f,1);
-            normrefs.add(Normalizer.normalize(f,Normalizer.Form.NFC));
+            normrefs.add(f);
           }
         }
       }
@@ -43,7 +43,7 @@
         if (!f.isFile()) {
           continue;
         }
-        fname=Normalizer.normalize(f.getName(),Normalizer.Form.NFC);
+        fname=f.getName();
         if (!normrefs.contains(fname)) {
           unused.add(fname);
         }
