@@ -1,6 +1,7 @@
 {
   int result=mTts.setLanguage(new Locale(loc));
   if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+    Log.e(AnkiDroidApp.TAG,"Error loading locale " + loc.toString());
   }
  else {
     mTts.speak(mTextToSpeak,TextToSpeech.QUEUE_FLUSH,null);

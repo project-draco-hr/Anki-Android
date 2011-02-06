@@ -3,14 +3,18 @@
   int questionStartsAt=content.indexOf("<a name=\"question\"></a><hr/>");
   if (isQuestionDisplayed()) {
     if (sDisplayAnswer && (questionStartsAt != -1)) {
-      content=Sound.parseSounds(mDeckFilename,content.substring(0,questionStartsAt),mSpeakText) + Sound.parseSounds(mDeckFilename,content.substring(questionStartsAt,content.length()),mSpeakText);
+      content=Sound.parseSounds(mDeckFilename,content.substring(0,questionStartsAt),mSpeakText,MetaDB.LANGUAGE_QUESTION) + Sound.parseSounds(mDeckFilename,content.substring(questionStartsAt,content.length()),mSpeakText,MetaDB.LANGUAGE_ANSWER);
     }
  else {
-      content=Sound.parseSounds(mDeckFilename,content.substring(0,content.length() - 5),mSpeakText) + "<hr/>";
+      content=Sound.parseSounds(mDeckFilename,content.substring(0,content.length() - 5),mSpeakText,MetaDB.LANGUAGE_QUESTION) + "<hr/>";
     }
   }
  else {
-    content=Sound.parseSounds(mDeckFilename,content,mSpeakText);
+    int qa=MetaDB.LANGUAGE_QUESTION;
+    if (sDisplayAnswer) {
+      qa=MetaDB.LANGUAGE_ANSWER;
+    }
+    content=Sound.parseSounds(mDeckFilename,content,mSpeakText,qa);
   }
   content=LaTeX.parseLaTeX(AnkiDroidApp.deck(),content);
   content=content.replace("font-weight:600;","font-weight:700;");
@@ -34,15 +38,18 @@
   String card=mCardTemplate.replace("::content::",content);
   Log.i(AnkiDroidApp.TAG,"base url = " + baseUrl);
   mCard.loadDataWithBaseURL(baseUrl,card,"text/html","utf-8",null);
+  if (!mSpeakText && Integer.valueOf(android.os.Build.VERSION.SDK) > 3) {
+    ReadText.setLanguageInformation(Model.getModel(AnkiDroidApp.deck(),mCurrentCard.getCardModelId(),false).getId(),mCurrentCard.getCardModelId());
+  }
   if (!mConfigurationChanged && mPlaySoundsAtStart) {
     if (!mSpeakText) {
-      Sound.playSounds(null,null);
+      Sound.playSounds(null,0);
     }
  else     if (!sDisplayAnswer) {
-      Sound.playSounds(Utils.stripHTML(mCurrentCard.getQuestion()),"de");
+      Sound.playSounds(Utils.stripHTML(mCurrentCard.getQuestion()),MetaDB.LANGUAGE_QUESTION);
     }
  else {
-      Sound.playSounds(Utils.stripHTML(mCurrentCard.getAnswer()),"fr");
+      Sound.playSounds(Utils.stripHTML(mCurrentCard.getAnswer()),MetaDB.LANGUAGE_ANSWER);
     }
   }
 }

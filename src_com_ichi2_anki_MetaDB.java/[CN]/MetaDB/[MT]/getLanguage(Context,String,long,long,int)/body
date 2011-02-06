@@ -1,0 +1,23 @@
+{
+  if (mMetaDb == null || !mMetaDb.isOpen()) {
+    openDB(context);
+  }
+  String language="";
+  Cursor cur=null;
+  try {
+    cur=mMetaDb.rawQuery("SELECT language FROM languages" + " WHERE deckpath = \'" + deckPath + "\' AND modelid = "+ modelId+ " AND cardmodelid = "+ cardModelId+ " AND qa = "+ qa+ " LIMIT 1",null);
+    Log.i(AnkiDroidApp.TAG,"SELECT language FROM languages" + " WHERE deckpath = \'" + deckPath + "\' AND modelid = "+ modelId+ " AND cardmodelid = "+ cardModelId+ " AND qa = "+ qa+ " LIMIT 1");
+    if (cur.moveToNext()) {
+      language=cur.getString(0);
+    }
+  }
+ catch (  Exception e) {
+    Log.e("Error","Error fetching language ",e);
+  }
+ finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+  return language;
+}
