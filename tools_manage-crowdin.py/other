@@ -1,0 +1,39 @@
+import pycurl
+import StringIO
+import sys
+CROWDIN_KEY = 'insert your Crowdin API key here'
+path = '../res/values/'
+sel = raw_input('update (m)aster file, update (t)ranslation or (r)efresh builds? ')
+if (sel == 'm'):
+    selu = raw_input('update (s)rings.xml or (a)rrays.xml? ')
+    if (selu == 's'):
+        filename = 'strings.xml'
+    elif (selu == 'a'):
+        filename = 'arrays.xml'
+    else:
+        filename = ''
+        print 'nothing to do'
+    if filename:
+        print ('Update of Master File ' + filename)
+        c = pycurl.Curl()
+        fields = [((('files[' + filename) + ']'), (c.FORM_FILE, (path + filename)))]
+        c.setopt(pycurl.URL, ('http://crowdin.net/api/project/ankidroidv0-6/update-file?key=' + CROWDIN_KEY))
+        c.setopt(pycurl.HTTPPOST, fields)
+        b = StringIO.StringIO()
+        c.setopt(pycurl.WRITEFUNCTION, b.write)
+        c.perform()
+        c.close()
+        print b.getvalue()
+elif (sel == 't'):
+    print 'still problems with crowding here'
+elif (sel == 'r'):
+    print 'Force translation export'
+    c = pycurl.Curl()
+    c.setopt(pycurl.URL, ('http://crowdin.net/api/project/ankidroidv0-6/export?&key=' + CROWDIN_KEY))
+    b = StringIO.StringIO()
+    c.setopt(pycurl.WRITEFUNCTION, b.write)
+    c.perform()
+    c.close()
+    print b.getvalue()
+else:
+    print 'nothing to do'
