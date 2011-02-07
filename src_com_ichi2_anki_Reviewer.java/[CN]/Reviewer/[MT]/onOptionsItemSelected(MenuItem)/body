@@ -37,23 +37,34 @@ Intent aedictSearchIntent=new Intent(mDictionaryAction);
 aedictSearchIntent.putExtra("kanjis",mClipboard.getText());
 startActivity(aedictSearchIntent);
 mClipboard.setText("");
-break;
+return true;
 case DICTIONARY_LEO:
-final CharSequence[] itemValues={"ende","frde","esde","itde","chde","rude"};
+final CharSequence[] itemValues={"en","fr","es","it","ch","ru"};
+String language=getLanguage(MetaDB.LANGUAGE_UNDEFINED);
+for (int i=0; i < itemValues.length; i++) {
+if (language.equals(itemValues[i])) {
+Intent leoSearchIntent=new Intent(mDictionaryAction,Uri.parse("http://pda.leo.org/?lp=" + language + "de&search="+ mClipboard.getText()));
+startActivity(leoSearchIntent);
+mClipboard.setText("");
+return true;
+}
+}
 final CharSequence[] items={"Englisch","Franz??sisch","Spanisch","Italienisch","Chinesisch","Russisch"};
 AlertDialog.Builder builder=new AlertDialog.Builder(this);
 builder.setTitle("\"" + mClipboard.getText() + "\" nachschlagen");
 builder.setItems(items,new DialogInterface.OnClickListener(){
 public void onClick(DialogInterface dialog,int item){
-Intent leoSearchIntent=new Intent(mDictionaryAction,Uri.parse("http://pda.leo.org/?lp=" + itemValues[item] + "&search="+ mClipboard.getText()));
+String language=itemValues[item].toString();
+Intent leoSearchIntent=new Intent(mDictionaryAction,Uri.parse("http://pda.leo.org/?lp=" + language + "de&search="+ mClipboard.getText()));
 startActivity(leoSearchIntent);
 mClipboard.setText("");
+storeLanguage(language,MetaDB.LANGUAGE_UNDEFINED);
 }
 }
 );
 AlertDialog alert=builder.create();
 alert.show();
-break;
+return true;
 }
 }
 return true;

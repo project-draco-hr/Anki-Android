@@ -1,12 +1,15 @@
 {
   AdapterContextMenuInfo info=(AdapterContextMenuInfo)item.getMenuInfo();
+  waitForDeckLoaderThread();
+  @SuppressWarnings("unchecked") HashMap<String,String> data=(HashMap<String,String>)mDeckListAdapter.getItem(info.position);
 switch (item.getItemId()) {
 case R.id.delete_deck:
     mRemoveDeckPath=null;
-  waitForDeckLoaderThread();
-@SuppressWarnings("unchecked") HashMap<String,String> data=(HashMap<String,String>)mDeckListAdapter.getItem(info.position);
-mRemoveDeckPath=data.get("filepath");
+  mRemoveDeckPath=data.get("filepath");
 showDialog(DIALOG_DELETE_DECK);
+return true;
+case R.id.reset_language:
+resetDeckLanguages(data.get("filepath"));
 return true;
 default :
 return super.onContextItemSelected(item);

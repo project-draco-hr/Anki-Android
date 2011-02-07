@@ -36,7 +36,7 @@ Log.i(AnkiDroidApp.TAG,"SessionTimeLimit: " + timelimit + " ms.");
 mSessionTimeLimit=System.currentTimeMillis() + timelimit;
 mSessionCurrReps=0;
 if (mSpeakText && Integer.valueOf(android.os.Build.VERSION.SDK) > 3) {
-ReadText.initializeTts(this);
+ReadText.initializeTts(this,mDeckFilename);
 }
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),null));
 }
