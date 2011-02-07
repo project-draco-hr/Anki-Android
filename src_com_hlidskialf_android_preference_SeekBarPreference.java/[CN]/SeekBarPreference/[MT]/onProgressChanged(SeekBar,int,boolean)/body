@@ -1,0 +1,5 @@
+{
+  mValue=(value * mInterval) + mMin;
+  String t=String.valueOf(mValue);
+  mValueText.setText(mSuffix == null ? t : t.concat(mSuffix));
+}

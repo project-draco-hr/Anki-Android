@@ -1,0 +1,22 @@
+{
+  LinearLayout.LayoutParams params;
+  LinearLayout layout=new LinearLayout(mContext);
+  layout.setOrientation(LinearLayout.VERTICAL);
+  layout.setPadding(6,6,6,6);
+  mValueText=new TextView(mContext);
+  mValueText.setGravity(Gravity.CENTER_HORIZONTAL);
+  mValueText.setTextSize(32);
+  params=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+  layout.addView(mValueText,params);
+  mSeekBar=new SeekBar(mContext);
+  mSeekBar.setOnSeekBarChangeListener(this);
+  layout.addView(mSeekBar,new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
+  if (shouldPersist()) {
+    mValue=getPersistedInt(mDefault);
+  }
+  mSeekBar.setMax((int)((mMax - mMin) / mInterval));
+  mSeekBar.setProgress((int)((mValue - mMin) / mInterval));
+  String t=String.valueOf(mValue);
+  mValueText.setText(mSuffix == null ? t : t.concat(mSuffix));
+  return layout;
+}

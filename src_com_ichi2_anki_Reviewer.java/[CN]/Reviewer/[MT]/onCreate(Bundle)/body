@@ -1,7 +1,5 @@
 {
   super.onCreate(savedInstanceState);
-  mNextTimeTextColor=getResources().getColor(R.color.next_time_usual_color);
-  mNextTimeTextRecomColor=getResources().getColor(R.color.next_time_recommended_color);
   Log.i(AnkiDroidApp.TAG,"Reviewer - onCreate");
   if (AnkiDroidApp.deck() == null) {
     setResult(StudyOptions.CONTENT_NO_EXTERNAL_STORAGE);
@@ -37,6 +35,9 @@ long timelimit=AnkiDroidApp.deck().getSessionTimeLimit() * 1000;
 Log.i(AnkiDroidApp.TAG,"SessionTimeLimit: " + timelimit + " ms.");
 mSessionTimeLimit=System.currentTimeMillis() + timelimit;
 mSessionCurrReps=0;
+if (mSpeakText && Integer.valueOf(android.os.Build.VERSION.SDK) > 3) {
+ReadText.initializeTts(this);
+}
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),null));
 }
 }

@@ -1,6 +1,11 @@
 {
   String undoName="Suspend Card";
-  setUndoStart(undoName);
+  if (ids.length == 1) {
+    setUndoStart(undoName,ids[0]);
+  }
+ else {
+    setUndoStart(undoName);
+  }
   getDB().getDatabase().execSQL("UPDATE cards SET type = relativeDelay -3, priority = -3, modified = " + String.format(Utils.ENGLISH_LOCALE,"%f",Utils.now()) + ", isDue = 0 WHERE type >= 0 AND id IN "+ Utils.ids2str(ids));
   setUndoEnd(undoName);
   flushMod();

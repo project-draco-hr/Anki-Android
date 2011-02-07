@@ -1,0 +1,9 @@
+{
+  if (sSoundPaths != null && sSoundPaths.size() > 0) {
+    sNumSoundsPlayed=0;
+    playSound(sNumSoundsPlayed);
+  }
+ else   if (text != null && Integer.valueOf(android.os.Build.VERSION.SDK) > 3) {
+    ReadText.textToSpeech(text,loc);
+  }
+}

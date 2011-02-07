@@ -27,5 +27,8 @@
   if (mPrefWhiteboard) {
     mWhiteboard.rotate();
   }
+  if (mInvertedColors) {
+    invertColors();
+  }
   mConfigurationChanged=false;
 }

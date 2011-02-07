@@ -2,6 +2,7 @@
   Deck deck=params[0].getDeck();
   Card oldCard=params[0].getCard();
   int ease=params[0].getInt();
+  boolean lastCardInQueue=params[0].isLastCardInQueue();
   Card newCard;
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
   ankiDB.getDatabase().beginTransaction();
@@ -12,7 +13,7 @@
     }
     newCard=deck.getCard();
     if (oldCard != null) {
-      publishProgress(new TaskData(newCard,oldCard.getLeechFlag(),oldCard.getSuspendedFlag()));
+      publishProgress(new TaskData(newCard,oldCard.getLeechFlag(),oldCard.getSuspendedFlag(),lastCardInQueue));
     }
  else {
       publishProgress(new TaskData(newCard));

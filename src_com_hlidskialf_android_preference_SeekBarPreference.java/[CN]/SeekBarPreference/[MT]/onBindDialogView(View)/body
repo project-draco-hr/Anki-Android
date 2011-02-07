@@ -1,0 +1,5 @@
+{
+  super.onBindDialogView(v);
+  mSeekBar.setMax((int)((mMax - mMin) / mInterval));
+  mSeekBar.setProgress((int)((mValue - mMin) / mInterval));
+}

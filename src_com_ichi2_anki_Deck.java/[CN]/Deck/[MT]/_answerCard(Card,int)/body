@@ -1,7 +1,7 @@
 {
   Log.i(AnkiDroidApp.TAG,"answerCard");
   String undoName="Answer Card";
-  setUndoStart(undoName);
+  setUndoStart(undoName,card.getId());
   double now=Utils.now();
   String oldState=card.getState();
   int oldQueue=cardQueue(card);
@@ -53,10 +53,10 @@
   CardHistoryEntry entry=new CardHistoryEntry(this,card,ease,lastDelay);
   entry.writeSQL();
   mModified=now;
+  setUndoEnd(undoName);
   requeueCard(card,oldIsRev);
   if (isLeech(card)) {
     Log.i(AnkiDroidApp.TAG,"card is leech!");
     handleLeech(card);
   }
-  setUndoEnd(undoName);
 }

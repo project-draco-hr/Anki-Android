@@ -1,0 +1,10 @@
+{
+  super.onSetInitialValue(restore,defaultValue);
+  mValue=getPersistedInt(mDefault);
+  if (restore) {
+    mValue=shouldPersist() ? getPersistedInt(mDefault) : 0;
+  }
+ else {
+    mValue=(Integer)defaultValue;
+  }
+}
