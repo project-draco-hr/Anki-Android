@@ -1,0 +1,5 @@
+{
+  Intent cardBrowser=new Intent(StudyOptions.this,CardBrowser.class);
+  cardBrowser.putExtra("deckFilename",mDeckFilename);
+  startActivityForResult(cardBrowser,BROWSE_CARDS);
+}

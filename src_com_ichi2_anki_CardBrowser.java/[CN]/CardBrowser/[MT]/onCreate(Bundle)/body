@@ -1,0 +1,42 @@
+{
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.card_browser);
+  mCards=new ArrayList<HashMap<String,String>>();
+  mAllCards=new ArrayList<HashMap<String,String>>();
+  mCardsListView=(ListView)findViewById(R.id.card_browser_list);
+  mCardsAdapter=new SimpleAdapter(this,mCards,R.layout.card_item,new String[]{"question","answer"},new int[]{R.id.card_question,R.id.card_answer});
+  mCardsAdapter.setViewBinder(new SimpleAdapter.ViewBinder(){
+    @Override public boolean setViewValue(    View arg0,    Object arg1,    String arg2){
+      return false;
+    }
+  }
+);
+  mCardsListView.setAdapter(mCardsAdapter);
+  mCardsListView.setOnItemClickListener(new OnItemClickListener(){
+    @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
+      Intent editCard=new Intent(CardBrowser.this,CardEditor.class);
+      editCard.putExtra("card",Long.parseLong(mCards.get(position).get("id")));
+      startActivityForResult(editCard,0);
+    }
+  }
+);
+  mSearchEditText=(EditText)findViewById(R.id.card_browser_search);
+  mSearchEditText.addTextChangedListener(new TextWatcher(){
+    public void afterTextChanged(    Editable s){
+      mCards.clear();
+      for (int i=0; i < mAllCards.size(); i++) {
+        if (mAllCards.get(i).get("question").toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1 || mAllCards.get(i).get("answer").toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1) {
+          mCards.add(mAllCards.get(i));
+        }
+      }
+      mCardsAdapter.notifyDataSetChanged();
+    }
+    public void beforeTextChanged(    CharSequence s,    int start,    int count,    int after){
+    }
+    public void onTextChanged(    CharSequence s,    int start,    int before,    int count){
+    }
+  }
+);
+  getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+  getCards();
+}

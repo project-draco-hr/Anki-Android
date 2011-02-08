@@ -21,8 +21,8 @@ cramEditWarning.show();
 return false;
 }
  else {
-sEditorCard=mCurrentCard;
 Intent editCard=new Intent(Reviewer.this,CardEditor.class);
+editCard.putExtra("card",mCurrentCard.getId());
 startActivityForResult(editCard,EDIT_CURRENT_CARD);
 return true;
 }
