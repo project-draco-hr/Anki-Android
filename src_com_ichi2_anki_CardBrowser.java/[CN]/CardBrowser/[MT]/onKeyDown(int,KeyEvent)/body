@@ -1,0 +1,12 @@
+{
+  if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+    Log.i(AnkiDroidApp.TAG,"CardBrowser - onBackPressed()");
+    setResult(RESULT_OK);
+    finish();
+    if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+      MyAnimation.slide(CardBrowser.this,MyAnimation.RIGHT);
+    }
+    return true;
+  }
+  return super.onKeyDown(keyCode,event);
+}

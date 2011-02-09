@@ -1,0 +1,4 @@
+{
+  mCardsAdapter.notifyDataSetChanged();
+  setTitle(String.format(getResources().getString(R.string.card_browser_title),mDeck.getDeckName(),mCards.size(),mAllCards.size()));
+}

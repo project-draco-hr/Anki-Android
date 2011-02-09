@@ -29,8 +29,10 @@ case TASK_TYPE_UNDO:
 return doInBackgroundUndo(params);
 case TASK_TYPE_REDO:
 return doInBackgroundRedo(params);
-case TASK_LOAD_CARDS:
+case TASK_TYPE_LOAD_CARDS:
 return doInBackgroundLoadCards(params);
+case TASK_TYPE_DELETE_CARD:
+return doInBackgroundDeleteCard(params);
 default :
 return null;
 }
