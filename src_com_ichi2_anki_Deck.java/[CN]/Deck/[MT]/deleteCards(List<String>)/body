@@ -1,5 +1,12 @@
 {
   Log.i(AnkiDroidApp.TAG,"deleteCards = " + ids.toString());
+  String undoName="delete Cards";
+  if (ids.size() == 1) {
+    setUndoStart(undoName,Long.parseLong(ids.get(0)));
+  }
+ else {
+    setUndoStart(undoName);
+  }
   if (ids != null && ids.size() > 0) {
     commitToDB();
     double now=Utils.now();
@@ -32,6 +39,7 @@
     }
     getDB().getDatabase().execSQL("DELETE FROM tags WHERE id in " + Utils.ids2str(unusedTags) + " and priority = "+ Card.PRIORITY_NORMAL);
     deleteDanglingFacts();
+    setUndoEnd(undoName);
     flushMod();
   }
 }

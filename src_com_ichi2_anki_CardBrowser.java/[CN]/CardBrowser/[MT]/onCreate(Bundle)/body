@@ -1,12 +1,28 @@
 {
   super.onCreate(savedInstanceState);
   setContentView(R.layout.card_browser);
+  mDeck=AnkiDroidApp.deck();
+  markedColor=getResources().getColor(R.color.card_browser_marked);
+  suspendedColor=getResources().getColor(R.color.card_browser_suspended);
+  backgroundColor=getResources().getColor(R.color.card_browser_background);
   mCards=new ArrayList<HashMap<String,String>>();
   mAllCards=new ArrayList<HashMap<String,String>>();
   mCardsListView=(ListView)findViewById(R.id.card_browser_list);
-  mCardsAdapter=new SimpleAdapter(this,mCards,R.layout.card_item,new String[]{"question","answer"},new int[]{R.id.card_question,R.id.card_answer});
+  mCardsAdapter=new SimpleAdapter(this,mCards,R.layout.card_item,new String[]{"question","answer","marSus"},new int[]{R.id.card_question,R.id.card_answer,R.id.card_item});
   mCardsAdapter.setViewBinder(new SimpleAdapter.ViewBinder(){
-    @Override public boolean setViewValue(    View arg0,    Object arg1,    String arg2){
+    @Override public boolean setViewValue(    View view,    Object arg1,    String text){
+      if (view.getId() == R.id.card_item) {
+        if (text.substring(1,2).equals("1")) {
+          view.setBackgroundColor(suspendedColor);
+        }
+ else         if (text.substring(0,1).equals("1")) {
+          view.setBackgroundColor(markedColor);
+        }
+ else {
+          view.setBackgroundColor(backgroundColor);
+        }
+        return true;
+      }
       return false;
     }
   }
@@ -15,11 +31,18 @@
   mCardsListView.setOnItemClickListener(new OnItemClickListener(){
     @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
       Intent editCard=new Intent(CardBrowser.this,CardEditor.class);
-      editCard.putExtra("card",Long.parseLong(mCards.get(position).get("id")));
-      startActivityForResult(editCard,0);
+      mPositionInCardsList=position;
+      mSelectedCard=mDeck.cardFromId(Long.parseLong(mCards.get(mPositionInCardsList).get("id")));
+      sEditorCard=mSelectedCard;
+      editCard.putExtra("callfromcardbrowser",true);
+      startActivityForResult(editCard,EDIT_CARD);
+      if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+        MyAnimation.slide(CardBrowser.this,MyAnimation.LEFT);
+      }
     }
   }
 );
+  registerForContextMenu(mCardsListView);
   mSearchEditText=(EditText)findViewById(R.id.card_browser_search);
   mSearchEditText.addTextChangedListener(new TextWatcher(){
     public void afterTextChanged(    Editable s){
@@ -29,7 +52,7 @@
           mCards.add(mAllCards.get(i));
         }
       }
-      mCardsAdapter.notifyDataSetChanged();
+      updateList();
     }
     public void beforeTextChanged(    CharSequence s,    int start,    int count,    int after){
     }
@@ -38,5 +61,6 @@
   }
 );
   getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-  getCards();
+  setTitle(mDeck.getDeckName());
+  getCards(Deck.ORDER_BY_ANSWER);
 }

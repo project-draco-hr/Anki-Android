@@ -1,0 +1,8 @@
+{
+  Card card=params[0].getCard();
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundDeleteCard");
+  Long id=card.getId();
+  card.delete();
+  publishProgress(new TaskData(String.valueOf(id)));
+  return null;
+}

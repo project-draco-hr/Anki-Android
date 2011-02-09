@@ -1,7 +1,11 @@
 {
   Deck deck=params[0].getDeck();
   Card newCard;
-  long currentCardId=params[0].getCard().getId();
+  Card oldCard=params[0].getCard();
+  long currentCardId=0;
+  if (oldCard != null) {
+    currentCardId=params[0].getCard().getId();
+  }
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
   ankiDB.getDatabase().beginTransaction();
   try {

@@ -1,0 +1,3 @@
+{
+  return (getDB().queryScalar("SELECT count(*) from cards WHERE id = " + id + " AND priority = -3") == 1);
+}

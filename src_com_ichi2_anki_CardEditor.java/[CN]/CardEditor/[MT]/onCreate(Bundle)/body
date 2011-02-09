@@ -5,7 +5,12 @@
   mFieldsLayoutContainer=(LinearLayout)findViewById(R.id.CardEditorEditFieldsLayout);
   mSave=(Button)findViewById(R.id.CardEditorSaveButton);
   mCancel=(Button)findViewById(R.id.CardEditorCancelButton);
-  mEditorCard=AnkiDroidApp.deck().cardFromId(getIntent().getExtras().getLong("card"));
+  if (getIntent().getBooleanExtra("callfromcardbrowser",false)) {
+    mEditorCard=CardBrowser.getEditorCard();
+  }
+ else {
+    mEditorCard=Reviewer.getEditorCard();
+  }
   Fact cardFact=mEditorCard.getFact();
   TreeSet<Field> fields=cardFact.getFields();
   mEditFields=new LinkedList<FieldEditText>();
@@ -38,7 +43,7 @@
   mCancel.setOnClickListener(new View.OnClickListener(){
     @Override public void onClick(    View v){
       setResult(RESULT_CANCELED);
-      finish();
+      closeCardEditor();
     }
   }
 );
