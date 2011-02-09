@@ -1,10 +1,10 @@
 {
 switch (item.getItemId()) {
 case MENU_UNDO:
-    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mUndoRedoHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mSelectedCard));
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mUndoRedoHandler,new DeckTask.TaskData(0,mDeck,mSelectedCard));
   return true;
 case MENU_REDO:
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REDO,mUndoRedoHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mSelectedCard));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REDO,mUndoRedoHandler,new DeckTask.TaskData(0,mDeck,mSelectedCard));
 return true;
 }
 return false;
