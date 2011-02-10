@@ -3,8 +3,8 @@
   super.onCreate(savedInstanceState);
   Context context=getBaseContext();
   SharedPreferences sharedPreferences=PrefSettings.getSharedPrefs(context);
-  String reportErrorMode=sharedPreferences.getString("reportErrorMode","2");
-  if (reportErrorMode.equals("0")) {
+  String reportErrorMode=sharedPreferences.getString("reportErrorMode",REPORT_ASK);
+  if (reportErrorMode.equals(REPORT_ALWAYS)) {
     try {
       sendErrorReport();
     }
@@ -16,7 +16,7 @@
     finish();
     return;
   }
- else   if (reportErrorMode.equals("1")) {
+ else   if (reportErrorMode.equals(REPORT_NEVER)) {
     deleteFiles();
     setResult(RESULT_OK);
     finish();
