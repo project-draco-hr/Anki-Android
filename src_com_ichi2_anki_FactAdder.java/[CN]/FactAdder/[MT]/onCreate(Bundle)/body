@@ -20,7 +20,7 @@
       }
       mDeck.addFact(mNewFact,mSelectedCardModels);
       setResult(RESULT_OK);
-      finish();
+      closeFactAdder();
     }
   }
 );
@@ -40,7 +40,7 @@
   mCloseButton.setOnClickListener(new View.OnClickListener(){
     public void onClick(    View v){
       setResult(RESULT_CANCELED);
-      finish();
+      closeFactAdder();
     }
   }
 );

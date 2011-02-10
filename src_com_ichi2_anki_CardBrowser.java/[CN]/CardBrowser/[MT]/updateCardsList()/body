@@ -1,4 +1,6 @@
 {
+  mShowOnlyMarSus=false;
+  mSearchEditText.setHint(R.string.downloaddeck_search);
   mCards.clear();
   if (mSearchEditText.getText().length() == 0) {
     mCards.addAll(mAllCards);

@@ -8,5 +8,6 @@
       return;
     }
   }
+  Log.e("cardID","" + cardId);
   mUndoStack.push(new UndoRow(name,cardId,latestUndoRow(),null));
 }

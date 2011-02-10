@@ -1,0 +1,15 @@
+{
+  Resources res=getResources();
+  AlertDialog.Builder builder=new AlertDialog.Builder(this);
+  builder.setTitle(res.getString(R.string.card_browser_change_display_order_title));
+  builder.setIcon(android.R.drawable.ic_menu_sort_by_size);
+  builder.setSingleChoiceItems(getResources().getStringArray(R.array.card_browser_order_labels),mSelectedOrder,new DialogInterface.OnClickListener(){
+    public void onClick(    DialogInterface dialog,    int whichButton){
+      mSelectedOrder=whichButton;
+      mSelectOrderDialog.dismiss();
+      getCards();
+    }
+  }
+);
+  mSelectOrderDialog=builder.create();
+}

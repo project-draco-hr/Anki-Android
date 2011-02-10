@@ -56,5 +56,6 @@
 );
   getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
   setTitle(mDeck.getDeckName());
-  getCards(Deck.ORDER_BY_ANSWER);
+  initAllDialogs();
+  getCards();
 }

@@ -6,6 +6,37 @@ case MENU_UNDO:
 case MENU_REDO:
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REDO,mUndoRedoHandler,new DeckTask.TaskData(0,mDeck,mSelectedCard));
 return true;
+case MENU_ADD_FACT:
+startActivityForResult(new Intent(CardBrowser.this,FactAdder.class),ADD_FACT);
+if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+MyAnimation.slide(CardBrowser.this,MyAnimation.LEFT);
+}
+return true;
+case MENU_SHOW_MARKED:
+mShowOnlyMarSus=true;
+mSearchEditText.setHint(R.string.card_browser_show_marked);
+mCards.clear();
+for (int i=0; i < mAllCards.size(); i++) {
+if ((mAllCards.get(i).get("question").toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1 || mAllCards.get(i).get("answer").toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1) && mAllCards.get(i).get("marSus").subSequence(0,1).equals("1")) {
+mCards.add(mAllCards.get(i));
+}
+}
+updateList();
+return true;
+case MENU_SHOW_SUSPENDED:
+mShowOnlyMarSus=true;
+mSearchEditText.setHint(R.string.card_browser_show_suspended);
+mCards.clear();
+for (int i=0; i < mAllCards.size(); i++) {
+if ((mAllCards.get(i).get("question").toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1 || mAllCards.get(i).get("answer").toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1) && mAllCards.get(i).get("marSus").subSequence(1,2).equals("1")) {
+mCards.add(mAllCards.get(i));
+}
+}
+updateList();
+return true;
+case MENU_CHANGE_ORDER:
+mSelectOrderDialog.show();
+return true;
 }
 return false;
 }
