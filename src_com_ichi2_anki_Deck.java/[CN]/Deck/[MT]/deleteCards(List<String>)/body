@@ -1,6 +1,6 @@
 {
   Log.i(AnkiDroidApp.TAG,"deleteCards = " + ids.toString());
-  String undoName="delete Cards";
+  String undoName=UNDO_TYPE_DELETE_CARD;
   if (ids.size() == 1) {
     setUndoStart(undoName,Long.parseLong(ids.get(0)));
   }

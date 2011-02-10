@@ -1,7 +1,5 @@
 {
   ArrayList<String> factTagsList=factTags(factIds);
-  String undoName="Add Tag";
-  setUndoStart(undoName);
   long tagId=tagId(tag,true);
   int nbFactTags=factTagsList.size();
   for (int i=0; i < nbFactTags; i++) {
@@ -34,5 +32,4 @@
     }
   }
   flushMod();
-  setUndoEnd(undoName);
 }

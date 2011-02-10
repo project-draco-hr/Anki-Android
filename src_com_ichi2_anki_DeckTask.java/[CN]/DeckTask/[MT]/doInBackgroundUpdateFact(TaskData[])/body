@@ -2,8 +2,8 @@
   Deck deck=params[0].getDeck();
   Card editCard=params[0].getCard();
   Fact editFact=editCard.getFact();
-  String undoName="Update Fact";
-  deck.setUndoStart(undoName);
+  String undoName=Deck.UNDO_TYPE_EDIT_CARD;
+  deck.setUndoStart(undoName,editCard.getId());
   editFact.setModified(true,deck,false);
   editFact.toDb();
   deck.flushMod();

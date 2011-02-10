@@ -17,6 +17,7 @@
   for (  String s : sql) {
     getDB().getDatabase().execSQL(s);
   }
+  mCurrentUndoRedoType=row.mName;
   Long newend=latestUndoRow();
   dst.push(new UndoRow(row.mName,oldCardId,newstart,newend));
   return row.mCardId;

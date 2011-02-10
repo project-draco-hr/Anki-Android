@@ -1,10 +1,15 @@
 {
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
     Log.i(AnkiDroidApp.TAG,"CardBrowser - onBackPressed()");
-    setResult(RESULT_OK);
-    finish();
-    if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-      MyAnimation.slide(CardBrowser.this,MyAnimation.RIGHT);
+    if (mSearchEditText.getText().length() == 0) {
+      setResult(RESULT_OK);
+      finish();
+      if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+        MyAnimation.slide(CardBrowser.this,MyAnimation.RIGHT);
+      }
+    }
+ else {
+      mSearchEditText.setText("");
     }
     return true;
   }

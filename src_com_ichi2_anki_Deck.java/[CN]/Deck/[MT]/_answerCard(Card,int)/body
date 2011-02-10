@@ -1,6 +1,6 @@
 {
   Log.i(AnkiDroidApp.TAG,"answerCard");
-  String undoName="Answer Card";
+  String undoName=UNDO_TYPE_ANSWER_CARD;
   setUndoStart(undoName,card.getId());
   double now=Utils.now();
   String oldState=card.getState();

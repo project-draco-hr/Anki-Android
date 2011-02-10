@@ -6,6 +6,8 @@
   ankiDB.getDatabase().beginTransaction();
   try {
     if (oldCard != null) {
+      String undoName=Deck.UNDO_TYPE_SUSPEND_CARD;
+      deck.setUndoStart(undoName,oldCard.getId());
       if (oldCard.getSuspendedState()) {
         oldCard.unsuspend();
         newCard=oldCard;
@@ -14,6 +16,7 @@
         oldCard.suspend();
         newCard=deck.getCard();
       }
+      deck.setUndoEnd(undoName);
     }
     publishProgress(new TaskData(newCard));
     ankiDB.getDatabase().setTransactionSuccessful();

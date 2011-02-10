@@ -1,0 +1,14 @@
+{
+  mCards.clear();
+  if (mSearchEditText.getText().length() == 0) {
+    mCards.addAll(mAllCards);
+  }
+ else {
+    for (int i=0; i < mAllCards.size(); i++) {
+      if (mAllCards.get(i).get("question").toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1 || mAllCards.get(i).get("answer").toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1) {
+        mCards.add(mAllCards.get(i));
+      }
+    }
+  }
+  updateList();
+}

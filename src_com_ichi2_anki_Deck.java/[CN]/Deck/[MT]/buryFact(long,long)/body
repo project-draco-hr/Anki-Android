@@ -1,5 +1,5 @@
 {
-  String undoName="Bury Fact";
+  String undoName=UNDO_TYPE_BURY_CARD;
   setUndoStart(undoName,cardId);
   getDB().getDatabase().execSQL("UPDATE cards SET type = priority = -2, isDue = 0, type = type + 3 WHERE type >= 0 AND type <= 3 AND factId = " + factId);
   setUndoEnd(undoName);

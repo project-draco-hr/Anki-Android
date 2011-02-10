@@ -5,12 +5,15 @@
   ankiDB.getDatabase().beginTransaction();
   try {
     if (currentCard != null) {
+      String undoName=Deck.UNDO_TYPE_MARK_CARD;
+      deck.setUndoStart(undoName,currentCard.getId());
       if (currentCard.hasTag(Deck.TAG_MARKED)) {
         deck.deleteTag(currentCard.getFactId(),Deck.TAG_MARKED);
       }
  else {
         deck.addTag(currentCard.getFactId(),Deck.TAG_MARKED);
       }
+      deck.setUndoEnd(undoName);
     }
     publishProgress(new TaskData(currentCard));
     ankiDB.getDatabase().setTransactionSuccessful();

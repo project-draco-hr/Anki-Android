@@ -16,5 +16,5 @@
   finally {
     ankiDB.getDatabase().endTransaction();
   }
-  return null;
+  return new TaskData(deck.getUndoType());
 }
