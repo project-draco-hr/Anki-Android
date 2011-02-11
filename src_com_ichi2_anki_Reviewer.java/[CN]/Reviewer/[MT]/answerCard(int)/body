@@ -1,27 +1,26 @@
 {
   Deck deck=AnkiDroidApp.deck();
-  boolean lastCard=false;
 switch (ease) {
 case Card.EASE_FAILED:
-    mChoosenAnswer.setText(mEase1.getText());
+    mChosenAnswer.setText(mEase1.getText());
   if ((deck.getDueCount() + deck.getNewCountToday()) == 1) {
-    lastCard=true;
+    mIsLastCard=true;
   }
 break;
 case Card.EASE_HARD:
-mChoosenAnswer.setText(mEase2.getText());
+mChosenAnswer.setText(mEase2.getText());
 break;
 case Card.EASE_MID:
-mChoosenAnswer.setText(mEase3.getText());
+mChosenAnswer.setText(mEase3.getText());
 break;
 case Card.EASE_EASY:
-mChoosenAnswer.setText(mEase4.getText());
+mChosenAnswer.setText(mEase4.getText());
 break;
 }
-mTimerHandler.postDelayed(removeChoosenAnswerText,mShowChoosenAnswerLength);
+mTimerHandler.postDelayed(removeChosenAnswerText,mShowChosenAnswerLength);
 Sound.stopSounds();
 mCurrentEase=ease;
 mSessionCurrReps++;
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(mCurrentEase,deck,lastCard,mCurrentCard));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(mCurrentEase,deck,mCurrentCard));
 mAnsweringCard=false;
 }

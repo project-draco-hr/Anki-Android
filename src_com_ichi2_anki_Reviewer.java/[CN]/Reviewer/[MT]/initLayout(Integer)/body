@@ -58,8 +58,8 @@
   mCardTimer=(Chronometer)findViewById(R.id.card_time);
   float headTextSize=(float)(mCardTimer.getTextSize() * 0.63);
   mCardTimer.setTextSize(headTextSize);
-  mChoosenAnswer=(TextView)findViewById(R.id.choosen_answer);
-  mChoosenAnswer.setTextSize((float)(headTextSize * 1.1));
+  mChosenAnswer=(TextView)findViewById(R.id.choosen_answer);
+  mChosenAnswer.setTextSize((float)(headTextSize * 1.1));
   mWhiteboard=(Whiteboard)findViewById(R.id.whiteboard);
   mWhiteboard.setOnTouchListener(new View.OnTouchListener(){
     @Override public boolean onTouch(    View v,    MotionEvent event){

@@ -1,10 +1,10 @@
 {
 switch (item.getItemId()) {
 case MENU_UNDO:
-    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mUndoRedoHandler,new DeckTask.TaskData(0,mDeck,mSelectedCard));
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mUndoRedoHandler,new DeckTask.TaskData(0,mDeck,0,true));
   return true;
 case MENU_REDO:
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REDO,mUndoRedoHandler,new DeckTask.TaskData(0,mDeck,mSelectedCard));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REDO,mUndoRedoHandler,new DeckTask.TaskData(0,mDeck,0,true));
 return true;
 case MENU_ADD_FACT:
 startActivityForResult(new Intent(CardBrowser.this,FactAdder.class),ADD_FACT);
