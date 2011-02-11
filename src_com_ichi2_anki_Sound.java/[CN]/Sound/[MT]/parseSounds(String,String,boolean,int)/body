@@ -1,0 +1,26 @@
+{
+  boolean soundAvailable=false;
+  StringBuilder stringBuilder=new StringBuilder();
+  String contentLeft=content;
+  Log.i(AnkiDroidApp.TAG,"parseSounds");
+  sSoundPaths=new ArrayList<String>();
+  Matcher matcher=sSoundPattern.matcher(content);
+  while (matcher.find()) {
+    soundAvailable=true;
+    String sound=matcher.group(1);
+    String soundPath=deckFilename.replace(".anki",".media/") + sound;
+    sSoundPaths.add(soundPath);
+    String soundMarker=matcher.group();
+    int markerStart=contentLeft.indexOf(soundMarker);
+    stringBuilder.append(contentLeft.substring(0,markerStart));
+    stringBuilder.append("<a onclick=\"window.interface.playSound(this.title);\" title=\"" + soundPath + "\"><span style=\"padding:5px;display:inline-block;vertical-align:middle\"><img src=\"file:///android_asset/media_playback_start2.png\" /></span></a>");
+    contentLeft=contentLeft.substring(markerStart + soundMarker.length());
+  }
+  if (!soundAvailable && ttsEnabled) {
+    stringBuilder.append(content.substring(0,content.length() - 9));
+    stringBuilder.append("<a onclick=\"window.interface.playSound(this.title);\" title=\"tts" + Integer.toString(qa) + Utils.stripHTML(content)+ "\"><span style=\"padding:5px;display:inline-block;vertical-align:middle\"><img src=\"file:///android_asset/media_playback_start2.png\" /></span></a>");
+    contentLeft="</p>";
+  }
+  stringBuilder.append(contentLeft);
+  return stringBuilder.toString();
+}

@@ -1,9 +1,7 @@
 {
   String notes="";
   for (  Integer note : deck.upgradeNotes) {
-    if (note == com.ichi2.anki.R.string.deck_upgrade_too_old_version) {
-      notes=notes.concat(res.getString(note.intValue()));
-    }
+    notes=notes.concat(res.getString(note.intValue()) + "\n");
   }
   return notes;
 }

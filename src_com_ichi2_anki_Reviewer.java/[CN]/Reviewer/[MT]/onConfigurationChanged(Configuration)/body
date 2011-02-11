@@ -13,8 +13,10 @@
     mEase4.setHeight(mButtonHeight);
   }
   mCardTemplate=mCardTemplate.replaceFirst("var availableWidth = \\d*;","var availableWidth = " + getAvailableWidthInCard() + ";");
-  refreshCard();
-  updateScreenCounts();
+  if (mCurrentCard != null) {
+    refreshCard();
+    updateScreenCounts();
+  }
   if (mPrefTimer) {
     mCardTimer.setBase(savedTimer);
     mCardTimer.start();
@@ -24,6 +26,9 @@
   }
   if (mPrefWhiteboard) {
     mWhiteboard.rotate();
+  }
+  if (mInvertedColors) {
+    invertColors();
   }
   mConfigurationChanged=false;
 }

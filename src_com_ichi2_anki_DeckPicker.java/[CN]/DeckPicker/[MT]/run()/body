@@ -53,7 +53,9 @@
           int dueCards=deck.getDueCount();
           int totalCards=deck.getCardCount();
           int newCards=deck.getNewCountToday();
-          String upgradeNotes=deck.upgradeNotesToMessages(deck,getResources());
+          int totalNewCards=deck.getNewCount();
+          int matureCards=deck.getMatureCardCount();
+          String upgradeNotes=Deck.upgradeNotesToMessages(deck,getResources());
           deck.closeDeck();
           data.putString("absPath",path);
           data.putInt("msgtype",MSG_UPGRADE_SUCCESS);
@@ -61,6 +63,8 @@
           data.putInt("total",totalCards);
           data.putInt("new",newCards);
           data.putString("notes",upgradeNotes);
+          data.putInt("rateOfCompletitionMat",(matureCards * 100) / totalCards);
+          data.putInt("rateOfCompletitionAll",((totalCards - totalNewCards - matureCards) * 100) / totalCards);
           msg.setData(data);
           mTotalDueCards+=dueCards;
           mTotalCards+=totalCards;

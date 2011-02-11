@@ -1,0 +1,12 @@
+{
+  if (mMetaDb == null || !mMetaDb.isOpen()) {
+    openDB(context);
+  }
+  try {
+    mMetaDb.execSQL("INSERT INTO languages (deckpath, modelid, cardmodelid, qa, language) VALUES (\'" + deckPath + "\', "+ modelId+ ", "+ cardModelId+ ", "+ qa+ ", \'"+ language+ "\');");
+    Log.i(AnkiDroidApp.TAG,"Store language for deck " + deckPath);
+  }
+ catch (  Exception e) {
+    Log.e("Error","Error storing language in MetaDB ",e);
+  }
+}

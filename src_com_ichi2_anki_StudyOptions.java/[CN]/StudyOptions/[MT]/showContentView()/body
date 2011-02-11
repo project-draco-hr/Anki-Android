@@ -14,7 +14,7 @@ setContentView(mNoDeckView);
 break;
 case CONTENT_STUDY_OPTIONS:
 case CONTENT_SESSION_COMPLETE:
-if (AnkiDroidApp.deck().name().equals("cram")) {
+if ((AnkiDroidApp.deck() != null) && (AnkiDroidApp.deck().name().equals("cram"))) {
 mToggleCram.setChecked(false);
 mEditNewPerDay.setEnabled(true);
 mEditSessionTime.setEnabled(true);

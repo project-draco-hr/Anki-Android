@@ -1,0 +1,39 @@
+{
+  mTextToSpeak=text;
+  mQuestionAnswer=qa;
+  String language=MetaDB.getLanguage(mReviewer,mDeckFilename,mModelId,mCardModelId,mQuestionAnswer);
+  if (availableTtsLocales.isEmpty()) {
+    Locale[] systemLocales=Locale.getAvailableLocales();
+    for (    Locale loc : systemLocales) {
+      if (mTts.isLanguageAvailable(loc) == TextToSpeech.LANG_COUNTRY_AVAILABLE) {
+        availableTtsLocales.add(new String[]{loc.getISO3Language(),loc.getDisplayName()});
+      }
+    }
+  }
+  for (int i=0; i < availableTtsLocales.size(); i++) {
+    String tu=availableTtsLocales.get(i)[0];
+    if (language.equals(availableTtsLocales.get(i)[0])) {
+      speak(language);
+      return;
+    }
+  }
+  ArrayList<CharSequence> dialogItems=new ArrayList<CharSequence>();
+  final ArrayList<String> dialogIds=new ArrayList<String>();
+  AlertDialog.Builder builder=new AlertDialog.Builder(mReviewer);
+  builder.setTitle(R.string.select_locale_title);
+  for (int i=0; i < availableTtsLocales.size(); i++) {
+    dialogItems.add(availableTtsLocales.get(i)[1]);
+    dialogIds.add(availableTtsLocales.get(i)[0]);
+  }
+  CharSequence[] items=new CharSequence[dialogItems.size()];
+  dialogItems.toArray(items);
+  builder.setItems(items,new DialogInterface.OnClickListener(){
+    @Override public void onClick(    DialogInterface dialog,    int which){
+      MetaDB.storeLanguage(mReviewer,mDeckFilename,mModelId,mCardModelId,mQuestionAnswer,dialogIds.get(which));
+      speak(dialogIds.get(which));
+    }
+  }
+);
+  AlertDialog alert=builder.create();
+  alert.show();
+}

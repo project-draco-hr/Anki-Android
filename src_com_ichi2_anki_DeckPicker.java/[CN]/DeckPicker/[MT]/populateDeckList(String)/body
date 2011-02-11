@@ -26,6 +26,8 @@
         data.put("mod",String.format("%f",Deck.getLastModified(absPath)));
         data.put("filepath",absPath);
         data.put("showProgress","true");
+        data.put("rateOfCompletitionMat","0");
+        data.put("rateOfCompletitionAll","0");
         tree.add(data);
       }
  catch (      SQLException e) {
@@ -53,6 +55,8 @@
     data.put("due","");
     data.put("mod","1");
     data.put("showProgress","false");
+    data.put("rateOfCompletitionMat","0");
+    data.put("rateOfCompletitionAll","0");
     tree.add(data);
     mSyncAllBar.setVisibility(View.GONE);
   }

@@ -5,6 +5,7 @@
   mPrefWriteAnswers=preferences.getBoolean("writeAnswers",false);
   mPrefTextSelection=preferences.getBoolean("textSelection",false);
   mDeckFilename=preferences.getString("deckFilename","");
+  mInvertedColors=preferences.getBoolean("invertedColors",false);
   mPrefUseRubySupport=preferences.getBoolean("useRubySupport",false);
   mPrefFullscreenReview=preferences.getBoolean("fullscreenReview",true);
   mshowNextReviewTime=preferences.getBoolean("showNextReviewTime",true);
@@ -17,5 +18,7 @@
   mShakeEnabled=preferences.getBoolean("shake",false);
   mShakeIntensity=preferences.getInt("minShakeIntensity",70);
   mPrefFixHebrew=preferences.getBoolean("fixHebrewText",false);
+  mSpeakText=preferences.getBoolean("tts",false);
+  mPlaySoundsAtStart=preferences.getBoolean("playSoundsAtStart",true);
   return preferences;
 }
