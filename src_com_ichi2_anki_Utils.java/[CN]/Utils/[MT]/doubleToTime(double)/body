@@ -1,0 +1,13 @@
+{
+  int time=(int)Math.round(value);
+  int seconds=time % 60;
+  int minutes=(time - seconds) / 60;
+  String formattedTime;
+  if (seconds < 10) {
+    formattedTime=Integer.toString(minutes) + ":0" + Integer.toString(seconds);
+  }
+ else {
+    formattedTime=Integer.toString(minutes) + ":" + Integer.toString(seconds);
+  }
+  return formattedTime;
+}

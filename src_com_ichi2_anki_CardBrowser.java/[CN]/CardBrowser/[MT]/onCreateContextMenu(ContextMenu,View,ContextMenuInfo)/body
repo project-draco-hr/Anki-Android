@@ -23,5 +23,6 @@
     mIsSuspended=false;
   }
   item=menu.add(Menu.NONE,CONTEXT_MENU_DELETE,Menu.NONE,res.getString(R.string.card_browser_delete_card));
+  item=menu.add(Menu.NONE,CONTEXT_MENU_DETAILS,Menu.NONE,res.getString(R.string.card_browser_card_details));
   menu.setHeaderTitle(mCards.get(selectedPosition).get("question"));
 }

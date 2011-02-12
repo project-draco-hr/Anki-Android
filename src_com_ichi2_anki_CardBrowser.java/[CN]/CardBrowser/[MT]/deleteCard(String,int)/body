@@ -8,7 +8,7 @@
       data.put("id",mAllCards.get(i).get("id"));
       data.put("question",mAllCards.get(i).get("question"));
       data.put("answer",mAllCards.get(i).get("answer"));
-      data.put("marSus",mAllCards.get(i).get("id"));
+      data.put("marSus",mAllCards.get(i).get("marSus"));
       data.put("allCardPos",Integer.toString(i));
       mDeletedCards.add(data);
       mAllCards.remove(i);
