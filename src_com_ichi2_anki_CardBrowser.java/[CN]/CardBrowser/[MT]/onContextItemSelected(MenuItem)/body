@@ -27,6 +27,10 @@ builder.setNegativeButton(res.getString(R.string.no),null);
 dialog=builder.create();
 dialog.show();
 return true;
+case CONTEXT_MENU_DETAILS:
+mAboutWebView.loadDataWithBaseURL("",mSelectedCard.getCardDetails(this),"text/html","utf-8",null);
+mDetailsDialog.show();
+return true;
 default :
 return super.onContextItemSelected(item);
 }

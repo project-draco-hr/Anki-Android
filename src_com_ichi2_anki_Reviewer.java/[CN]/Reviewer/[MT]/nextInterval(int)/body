@@ -4,37 +4,6 @@
     return res.getString(R.string.soon);
   }
  else {
-    double nextInt=mCurrentCard.nextInterval(mCurrentCard,ease);
-    double adInt=0;
-    int period=optimalPeriod(nextInt);
-    String[] namePeriod;
-switch (period) {
-case 0:
-      adInt=Math.max(1,Math.round(nextInt * 24));
-    break;
-case 1:
-  adInt=Math.round(nextInt);
-break;
-case 2:
-adInt=Math.round(nextInt / 3);
-adInt=adInt / 10;
-break;
-case 3:
-adInt=Math.round(nextInt / 36.5);
-adInt=adInt / 10;
-break;
-}
-if (adInt == 1) {
-namePeriod=res.getStringArray(R.array.next_review_s);
-}
- else {
-namePeriod=res.getStringArray(R.array.next_review_p);
-}
-if (period <= 1 || (adInt * 10) % 10 == 0) {
-return String.valueOf((int)adInt) + " " + namePeriod[period];
-}
- else {
-return String.valueOf(adInt) + " " + namePeriod[period];
-}
-}
+    return Utils.getReadableInterval(this,mCurrentCard.nextInterval(mCurrentCard,ease));
+  }
 }
