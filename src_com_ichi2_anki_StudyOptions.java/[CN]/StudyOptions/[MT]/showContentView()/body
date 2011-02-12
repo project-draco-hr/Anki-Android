@@ -5,6 +5,10 @@ case CONTENT_NO_DECK:
   mTextNoDeckTitle.setText(R.string.studyoptions_nodeck_title);
 mTextNoDeckMessage.setText(String.format(getResources().getString(R.string.studyoptions_nodeck_message),mPrefDeckPath));
 setContentView(mNoDeckView);
+if (mNewVersion) {
+mNewVersionAlert.show();
+mNewVersion=false;
+}
 break;
 case CONTENT_DECK_NOT_LOADED:
 setTitle(R.string.app_name);

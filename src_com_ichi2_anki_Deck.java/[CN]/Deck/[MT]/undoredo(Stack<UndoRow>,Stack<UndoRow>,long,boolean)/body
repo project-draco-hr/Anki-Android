@@ -19,6 +19,11 @@
   }
   mCurrentUndoRedoType=row.mName;
   Long newend=latestUndoRow();
-  dst.push(new UndoRow(row.mName,oldCardId,newstart,newend));
+  if (inReview) {
+    dst.push(new UndoRow(row.mName,row.mCardId,newstart,newend));
+  }
+ else {
+    dst.push(new UndoRow(row.mName,oldCardId,newstart,newend));
+  }
   return row.mCardId;
 }
