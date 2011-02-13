@@ -1,0 +1,17 @@
+{
+  Date value=Utils.genToday(getUtcOffset() - (86400 * day));
+  Cursor cur=null;
+  int count=0;
+  try {
+    cur=getDB().getDatabase().rawQuery(String.format(Utils.ENGLISH_LOCALE,"SELECT reps FROM stats WHERE day = \'%tF\' AND reps > 0",value),null);
+    while (cur.moveToNext()) {
+      count=cur.getInt(0);
+    }
+  }
+  finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+  return count;
+}

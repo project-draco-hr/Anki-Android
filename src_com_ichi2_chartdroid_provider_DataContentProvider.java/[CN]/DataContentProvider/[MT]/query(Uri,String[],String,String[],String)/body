@@ -2,8 +2,8 @@
   if (ColumnSchema.Aspect.DATASET_ASPECT_AXES.equals(uri.getQueryParameter(ColumnSchema.DATASET_ASPECT_PARAMETER))) {
     MatrixCursor c=new MatrixCursor(new String[]{BaseColumns._ID,ColumnSchema.Aspect.Axes.COLUMN_AXIS_LABEL});
     int row_index=0;
-    for (int i=0; i < Statistics.axesLabels.length; i++) {
-      c.newRow().add(row_index).add(Statistics.axesLabels[i]);
+    for (int i=0; i < Statistics.axisLabels.length; i++) {
+      c.newRow().add(row_index).add(Statistics.axisLabels[i]);
       row_index++;
     }
     return c;

@@ -1,0 +1,4 @@
+{
+  String sql=String.format(Utils.ENGLISH_LOCALE,"SELECT count(*) FROM cards c WHERE type = 0 OR type = 1 AND interval BETWEEN %d AND %d",interval,interval + 1);
+  return (int)getDB().queryScalar(cardLimit("revActive","revInactive",sql));
+}
