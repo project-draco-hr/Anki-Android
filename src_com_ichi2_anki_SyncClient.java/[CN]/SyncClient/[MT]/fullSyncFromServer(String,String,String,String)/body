@@ -1,4 +1,6 @@
 {
+  HashMap<String,String> result=new HashMap<String,String>();
+  Throwable exc=null;
   try {
     String data="p=" + URLEncoder.encode(password,"UTF-8") + "&u="+ URLEncoder.encode(username,"UTF-8")+ "&d="+ URLEncoder.encode(deckName,"UTF-8");
     HttpPost httpPost=new HttpPost(AnkiDroidProxy.SYNC_URL + "fulldown");
@@ -9,15 +11,44 @@
     HttpResponse response=httpClient.execute(httpPost);
     HttpEntity entityResponse=response.getEntity();
     InputStream content=entityResponse.getContent();
-    Utils.writeToFile(new InflaterInputStream(content),deckPath);
+    int responseCode=response.getStatusLine().getStatusCode();
+    String tempDeckPath=deckPath + ".tmp";
+    if (responseCode == 200) {
+      Utils.writeToFile(new InflaterInputStream(content),tempDeckPath);
+      File newFile=new File(tempDeckPath);
+      if (newFile.renameTo(new File(deckPath))) {
+        result.put("code","200");
+      }
+ else {
+        result.put("code","PermissionError");
+        result.put("message","Can't overwrite old deck with downloaded from server");
+      }
+    }
+ else {
+      result.put("code",String.valueOf(responseCode));
+      result.put("message",Utils.convertStreamToString(content));
+    }
   }
  catch (  UnsupportedEncodingException e) {
-    e.printStackTrace();
+    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
+    result.put("code","UnsupportedEncodingException");
+    exc=e;
   }
 catch (  ClientProtocolException e) {
-    Log.i(AnkiDroidApp.TAG,"ClientProtocolException = " + e.getMessage());
+    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
+    result.put("code","ClientProtocolException");
+    exc=e;
   }
 catch (  IOException e) {
-    Log.i(AnkiDroidApp.TAG,"IOException = " + e.getMessage());
+    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
+    result.put("code","IOException");
+    exc=e;
   }
+  if (exc != null) {
+    while (exc.getMessage() == null && exc.getCause() != null) {
+      exc=exc.getCause();
+    }
+    result.put("message",exc.getMessage());
+  }
+  return result;
 }
