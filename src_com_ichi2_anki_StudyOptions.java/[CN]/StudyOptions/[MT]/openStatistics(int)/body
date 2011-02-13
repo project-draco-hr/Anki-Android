@@ -1,0 +1,16 @@
+{
+  Resources res=getResources();
+  Intent i=new Intent(Intent.ACTION_VIEW,DataContentProvider.PROVIDER_URI);
+  i.addCategory(IntentConstants.CATEGORY_XY_CHART);
+  i.setClassName("com.googlecode.chartdroid","org.achartengine.activity.BarChartActivity");
+  i.putExtra("com.googlecode.chartdroid.intent.extra.SERIES_COLORS",new int[]{res.getColor(R.color.statistics_all_cards),res.getColor(R.color.statistics_mature_cards)});
+  if (Market.isIntentAvailable(this,i)) {
+    i.putExtra(Intent.EXTRA_TITLE,res.getStringArray(R.array.statistics_type_labels)[sStatisticType]);
+    if (Statistics.refreshStatistics(this,sStatisticType,Integer.parseInt(res.getStringArray(R.array.statistics_period_values)[period]))) {
+      startActivity(i);
+    }
+  }
+ else {
+    mDownloadChartDroidAlert.show();
+  }
+}
