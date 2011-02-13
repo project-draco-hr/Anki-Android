@@ -19,17 +19,17 @@
     adjustedInterval/=10;
     type=3;
   }
-  if (adjustedInterval == 1) {
-    if (inFormat) {
+  if (!inFormat) {
+    if (adjustedInterval == 1) {
       return formatDouble(type,adjustedInterval) + " " + context.getResources().getStringArray(R.array.next_review_s)[type];
     }
  else {
-      return String.format(context.getResources().getStringArray(R.array.next_review_in_s)[type],formatDouble(type,adjustedInterval));
+      return formatDouble(type,adjustedInterval) + " " + context.getResources().getStringArray(R.array.next_review_p)[type];
     }
   }
  else {
-    if (inFormat) {
-      return formatDouble(type,adjustedInterval) + " " + context.getResources().getStringArray(R.array.next_review_p)[type];
+    if (adjustedInterval == 1) {
+      return String.format(context.getResources().getStringArray(R.array.next_review_in_s)[type],formatDouble(type,adjustedInterval));
     }
  else {
       return String.format(context.getResources().getStringArray(R.array.next_review_in_p)[type],formatDouble(type,adjustedInterval));
