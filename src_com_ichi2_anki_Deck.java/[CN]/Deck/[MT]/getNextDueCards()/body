@@ -1,4 +1,0 @@
-{
-  String sql=String.format(Utils.ENGLISH_LOCALE,"SELECT count(*) FROM cards c WHERE type = 0 OR type = 1 AND combinedDue < %f",mDueCutoff + 86400);
-  return (int)getDB().queryScalar(cardLimit("revActive","revInactive",sql));
-}
