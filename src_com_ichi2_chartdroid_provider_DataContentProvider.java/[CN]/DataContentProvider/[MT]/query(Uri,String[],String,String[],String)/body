@@ -1,0 +1,35 @@
+{
+  if (ColumnSchema.Aspect.DATASET_ASPECT_AXES.equals(uri.getQueryParameter(ColumnSchema.DATASET_ASPECT_PARAMETER))) {
+    MatrixCursor c=new MatrixCursor(new String[]{BaseColumns._ID,ColumnSchema.Aspect.Axes.COLUMN_AXIS_LABEL});
+    int row_index=0;
+    for (int i=0; i < Statistics.AXES_LABELS.length; i++) {
+      c.newRow().add(row_index).add(Statistics.AXES_LABELS[i]);
+      row_index++;
+    }
+    return c;
+  }
+ else   if (ColumnSchema.Aspect.DATASET_ASPECT_SERIES.equals(uri.getQueryParameter(ColumnSchema.DATASET_ASPECT_PARAMETER))) {
+    MatrixCursor c=new MatrixCursor(new String[]{BaseColumns._ID,ColumnSchema.Aspect.Series.COLUMN_SERIES_LABEL});
+    int row_index=0;
+    for (int i=0; i < Statistics.Titles.length; i++) {
+      c.newRow().add(row_index).add(Statistics.Titles[i]);
+      row_index++;
+    }
+    return c;
+  }
+ else {
+    MatrixCursor c=new MatrixCursor(new String[]{BaseColumns._ID,ColumnSchema.Aspect.Data.COLUMN_AXIS_INDEX,ColumnSchema.Aspect.Data.COLUMN_SERIES_INDEX,ColumnSchema.Aspect.Data.COLUMN_DATUM_VALUE,ColumnSchema.Aspect.Data.COLUMN_DATUM_LABEL});
+    int row_index=0;
+    for (int i=0; i < Statistics.xAxisData().length; i++) {
+      c.newRow().add(row_index).add(ColumnSchema.X_AXIS_INDEX).add(0).add(Statistics.xAxisData()[i]).add(null);
+      row_index++;
+    }
+    for (int i=0; i < Statistics.SeriesList.length; i++) {
+      for (int j=0; j < Statistics.SeriesList[i].length; j++) {
+        c.newRow().add(row_index).add(ColumnSchema.Y_AXIS_INDEX).add(i).add(Statistics.SeriesList[i][j]).add(null);
+        row_index++;
+      }
+    }
+    return c;
+  }
+}

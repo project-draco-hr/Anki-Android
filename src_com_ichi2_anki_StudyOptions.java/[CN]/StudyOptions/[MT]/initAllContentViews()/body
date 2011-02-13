@@ -5,6 +5,7 @@
   mButtonStart=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_start);
   mToggleCram=(ToggleButton)mStudyOptionsView.findViewById(R.id.studyoptions_cram);
   mCardBrowser=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_card_browser);
+  mStatisticsButton=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_statistics);
   mTextReviewsDue=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_reviews_due);
   mTextNewToday=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_new_today);
   mTextNewTotal=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_new_total);
@@ -25,6 +26,7 @@
   mButtonStart.setOnClickListener(mButtonClickListener);
   mToggleCram.setOnClickListener(mButtonClickListener);
   mCardBrowser.setOnClickListener(mButtonClickListener);
+  mStatisticsButton.setOnClickListener(mButtonClickListener);
   mEditNewPerDay.addTextChangedListener(new TextWatcher(){
     public void afterTextChanged(    Editable s){
       Deck deck=AnkiDroidApp.deck();

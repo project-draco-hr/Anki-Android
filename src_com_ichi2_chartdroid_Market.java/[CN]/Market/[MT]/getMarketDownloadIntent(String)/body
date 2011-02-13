@@ -1,0 +1,4 @@
+{
+  Uri market_uri=Uri.parse(MARKET_PACKAGE_DETAILS_PREFIX + package_name);
+  return new Intent(Intent.ACTION_VIEW,market_uri);
+}
