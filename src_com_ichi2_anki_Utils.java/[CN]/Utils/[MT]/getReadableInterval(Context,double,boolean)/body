@@ -1,0 +1,38 @@
+{
+  double adjustedInterval;
+  int type;
+  if (numberOfDays < 1) {
+    adjustedInterval=Math.max(1,Math.round(numberOfDays * 24));
+    type=0;
+  }
+ else   if (numberOfDays < 30) {
+    adjustedInterval=Math.round(numberOfDays);
+    type=1;
+  }
+ else   if (numberOfDays < 360) {
+    adjustedInterval=Math.round(numberOfDays / 3);
+    adjustedInterval/=10;
+    type=2;
+  }
+ else {
+    adjustedInterval=Math.round(numberOfDays / 36.5);
+    adjustedInterval/=10;
+    type=3;
+  }
+  if (adjustedInterval == 1) {
+    if (inFormat) {
+      return formatDouble(type,adjustedInterval) + " " + context.getResources().getStringArray(R.array.next_review_s)[type];
+    }
+ else {
+      return String.format(context.getResources().getStringArray(R.array.next_review_in_s)[type],formatDouble(type,adjustedInterval));
+    }
+  }
+ else {
+    if (inFormat) {
+      return formatDouble(type,adjustedInterval) + " " + context.getResources().getStringArray(R.array.next_review_p)[type];
+    }
+ else {
+      return String.format(context.getResources().getStringArray(R.array.next_review_in_p)[type],formatDouble(type,adjustedInterval));
+    }
+  }
+}

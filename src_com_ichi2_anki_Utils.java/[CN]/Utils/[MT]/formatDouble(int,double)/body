@@ -1,0 +1,8 @@
+{
+  if (type == 0 || (adjustedInterval * 10) % 10 == 0) {
+    return String.valueOf((int)adjustedInterval);
+  }
+ else {
+    return String.valueOf(adjustedInterval);
+  }
+}

@@ -1,26 +1,41 @@
 {
   Resources res=context.getResources();
-  axesLabels[0]=res.getString(R.string.statistics_period_x_axis);
-  axesLabels[1]=res.getString(R.string.statistics_period_y_axis);
-  Titles[0]=res.getString(R.string.statistics_all_cards);
-  Titles[1]=res.getString(R.string.statistics_mature_cards);
-  xAxisData=xAxisData(period);
-  SeriesList=new double[2][period];
+  axisLabels[0]=res.getString(R.string.statistics_period_x_axis);
+  axisLabels[1]=res.getString(R.string.statistics_period_y_axis);
+  if (type <= StudyOptions.STATISTICS_CUMULATIVE_DUE) {
+    Titles=new String[2];
+    Titles[0]=res.getString(R.string.statistics_all_cards);
+    Titles[1]=res.getString(R.string.statistics_mature_cards);
+    SeriesList=new double[2][period];
+    xAxisData=xAxisData(period,false);
+  }
+ else {
+    Titles=new String[2];
+    Titles[0]=res.getString(R.string.statistics_all_cards);
+    SeriesList=new double[2][period];
+  }
 switch (type) {
 case StudyOptions.STATISTICS_DUE:
-    SeriesList[0]=getAllCards(period,false,false);
-  SeriesList[1]=getAllCards(period,true,false);
+    SeriesList[0]=getCardsByDue(period,false,false);
+  SeriesList[1]=getCardsByDue(period,true,false);
 return true;
 case StudyOptions.STATISTICS_CUMULATIVE_DUE:
-SeriesList[0]=getAllCards(period,false,true);
-SeriesList[1]=getAllCards(period,true,true);
+SeriesList[0]=getCardsByDue(period,false,true);
+SeriesList[1]=getCardsByDue(period,true,true);
 return true;
 case StudyOptions.STATISTICS_INTERVALS:
-return false;
+xAxisData=xAxisData(period,false);
+SeriesList[0]=getCardsByInterval(period);
+return true;
 case StudyOptions.STATISTICS_REVIEWS:
-return false;
+xAxisData=xAxisData(period,true);
+SeriesList[0]=getReviews(period);
+return true;
 case StudyOptions.STATISTICS_REVIEWING_TIME:
-return false;
+xAxisData=xAxisData(period,true);
+axisLabels[1]=res.getString(R.string.statistics_period_x_axis_minutes);
+SeriesList[0]=getReviewTime(period);
+return true;
 default :
 return false;
 }

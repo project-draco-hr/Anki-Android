@@ -1,0 +1,8 @@
+{
+  Deck deck=AnkiDroidApp.deck();
+  double series[]=new double[length];
+  for (int i=0; i < length; i++) {
+    series[i]=deck.getCardsByInterval(i);
+  }
+  return series;
+}
