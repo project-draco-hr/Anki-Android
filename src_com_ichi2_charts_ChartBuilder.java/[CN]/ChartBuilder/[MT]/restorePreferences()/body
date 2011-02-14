@@ -1,0 +1,5 @@
+{
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+  mFullScreen=preferences.getBoolean("fullScreen",false);
+  return preferences;
+}

@@ -1,0 +1,33 @@
+{
+  super.onCreate(savedInstanceState);
+  restorePreferences();
+  if (mFullScreen) {
+    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    requestWindowFeature(Window.FEATURE_NO_TITLE);
+  }
+  setContentView(R.layout.statistics);
+  mTitle=(TextView)findViewById(R.id.statistics_title);
+  if (mChartView == null) {
+    if (mFullScreen) {
+      mTitle.setText(Statistics.sTitle);
+    }
+    setTitle(Statistics.sTitle);
+    for (int i=0; i < Statistics.SeriesList.length; i++) {
+      setDataset(i);
+      setRenderer(i);
+    }
+    mRenderer.setLegendTextSize(17);
+    mRenderer.setAxisTitleTextSize(17);
+    mRenderer.setLabelsTextSize(17);
+    mRenderer.setXAxisMin(Statistics.xAxisData[0] - 1);
+    mRenderer.setXAxisMax(Statistics.xAxisData[Statistics.xAxisData.length - 1] + 1);
+    mRenderer.setXTitle(Statistics.axisLabels[0]);
+    mRenderer.setYTitle(Statistics.axisLabels[1]);
+    mChartView=ChartFactory.getBarChartView(this,mDataset,mRenderer,BarChart.Type.STACKED);
+    LinearLayout layout=(LinearLayout)findViewById(R.id.chart);
+    layout.addView(mChartView,new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
+  }
+ else {
+    mChartView.repaint();
+  }
+}

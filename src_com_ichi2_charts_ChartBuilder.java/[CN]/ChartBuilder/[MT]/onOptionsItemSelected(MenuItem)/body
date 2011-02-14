@@ -1,0 +1,18 @@
+{
+switch (item.getItemId()) {
+case MENU_FULLSCREEN:
+    SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+  Editor editor=preferences.edit();
+editor.putBoolean("fullScreen",!mFullScreen);
+editor.commit();
+finish();
+Intent intent=new Intent(this,com.ichi2.charts.ChartBuilder.class);
+startActivity(intent);
+if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+MyAnimation.slide(this,MyAnimation.FADE);
+}
+return true;
+default :
+return super.onOptionsItemSelected(item);
+}
+}

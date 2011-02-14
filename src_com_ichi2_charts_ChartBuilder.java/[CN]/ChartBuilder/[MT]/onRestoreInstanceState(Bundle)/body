@@ -1,0 +1,5 @@
+{
+  super.onRestoreInstanceState(savedState);
+  mDataset=(XYMultipleSeriesDataset)savedState.getSerializable("dataset");
+  mRenderer=(XYMultipleSeriesRenderer)savedState.getSerializable("renderer");
+}
