@@ -1,0 +1,19 @@
+{
+  EditText etFeedbackText=(EditText)findViewById(R.id.etFeedbackText);
+  String text=etFeedbackText.getText().toString().trim();
+  if (text.equals(""))   return false;
+  Date ts=new Date();
+  TimeZone tz=TimeZone.getDefault();
+  SimpleDateFormat df1=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS",Locale.US);
+  SimpleDateFormat df2=new SimpleDateFormat("Z",Locale.US);
+  df1.setTimeZone(TimeZone.getTimeZone("UTC"));
+  String feedbacksentutc=String.format("%s",df1.format(ts));
+  String feedbacksenttzoffset=String.format("%s",df2.format(ts));
+  String feedbacksenttz=String.format("%s",tz.getID());
+  List<NameValuePair> pairs=new ArrayList<NameValuePair>();
+  pairs.add(new BasicNameValuePair("feedbacksentutc",feedbacksentutc));
+  pairs.add(new BasicNameValuePair("feedbacksenttzoffset",feedbacksenttzoffset));
+  pairs.add(new BasicNameValuePair("feedbacksenttzoffset",feedbacksenttz));
+  pairs.add(new BasicNameValuePair("feedback",text));
+  return HttpUtility.postReport(getString(R.string.feedback_post_url),pairs);
+}
