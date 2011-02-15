@@ -12,6 +12,16 @@ if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
 MyAnimation.slide(this,MyAnimation.FADE);
 }
 return true;
+case MENU_ZOOM_IN:
+zoom+=1;
+zoom();
+return true;
+case MENU_ZOOM_OUT:
+if (zoom > 1) {
+zoom-=1;
+}
+zoom();
+return true;
 default :
 return super.onOptionsItemSelected(item);
 }

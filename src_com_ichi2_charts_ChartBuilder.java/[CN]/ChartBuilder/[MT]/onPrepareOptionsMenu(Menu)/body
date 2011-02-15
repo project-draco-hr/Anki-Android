@@ -1,0 +1,5 @@
+{
+  menu.findItem(MENU_ZOOM_IN).setEnabled(zoom < 10);
+  menu.findItem(MENU_ZOOM_OUT).setEnabled(zoom > 0);
+  return true;
+}

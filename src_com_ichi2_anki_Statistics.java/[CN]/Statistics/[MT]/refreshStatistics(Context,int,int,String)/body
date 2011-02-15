@@ -30,10 +30,10 @@ case StudyOptions.STATISTICS_CUMULATIVE_DUE:
 SeriesList[0]=getCardsByDue(period,false,true);
 SeriesList[1]=getCardsByDue(period,true,true);
 SeriesList[2]=getFailedCardsByDue(period,true);
-SeriesList[0][0]+=SeriesList[2][0];
-SeriesList[0][1]+=SeriesList[2][1];
-SeriesList[1][0]+=SeriesList[2][0];
-SeriesList[1][1]+=SeriesList[2][1];
+for (int i=0; i < period; i++) {
+SeriesList[0][i]+=SeriesList[2][i];
+SeriesList[1][i]+=SeriesList[2][i];
+}
 return true;
 case StudyOptions.STATISTICS_INTERVALS:
 xAxisData=xAxisData(period,false);
