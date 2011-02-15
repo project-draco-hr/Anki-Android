@@ -12,9 +12,10 @@
 switch (response.getStatusLine().getStatusCode()) {
 case 200:
       data.success=true;
-    break;
+    data.result=Utils.convertStreamToString(response.getEntity().getContent());
+  break;
 default :
-  Log.e(AnkiDroidApp.TAG,String.format("%d: %s",response.getStatusLine().getStatusCode(),response.getStatusLine().getReasonPhrase()));
+Log.e(AnkiDroidApp.TAG,String.format("%d: %s",response.getStatusLine().getStatusCode(),response.getStatusLine().getReasonPhrase()));
 data.success=false;
 data.result=new String(response.getStatusLine().getReasonPhrase());
 break;
