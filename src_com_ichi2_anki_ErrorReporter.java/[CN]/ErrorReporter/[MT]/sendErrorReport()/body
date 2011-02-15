@@ -32,7 +32,6 @@
         pairs.add(new BasicNameValuePair(key,value));
       }
       br.close();
-      postReport(pairs);
     }
  catch (    Exception ex) {
       Log.e(AnkiDroidApp.TAG,ex.toString());
