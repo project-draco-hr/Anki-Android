@@ -4,10 +4,11 @@
   List<NameValuePair> values=(List<NameValuePair>)data.data[1];
   HttpClient httpClient=new DefaultHttpClient();
   HttpPost httpPost=new HttpPost(url);
+  httpPost.addHeader("User-Agent","AnkiDroid");
   try {
     httpPost.setEntity(new UrlEncodedFormEntity(values));
     HttpResponse response=httpClient.execute(httpPost);
-    Log.e(AnkiDroidApp.TAG,String.format("bug report posted to %s",url));
+    Log.e(AnkiDroidApp.TAG,String.format("Bug report posted to %s",url));
 switch (response.getStatusLine().getStatusCode()) {
 case 200:
       data.success=true;
