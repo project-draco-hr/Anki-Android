@@ -27,9 +27,6 @@ if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
 MyAnimation.slide(StudyOptions.this,MyAnimation.LEFT);
 }
 return true;
-case MENU_ABOUT:
-startActivity(new Intent(StudyOptions.this,About.class));
-return true;
 default :
 return super.onOptionsItemSelected(item);
 }

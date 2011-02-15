@@ -1,0 +1,8 @@
+{
+  MenuItem item;
+  item=menu.add(Menu.NONE,MENU_CREATE_DECK,Menu.NONE,R.string.menu_create_deck);
+  item.setIcon(R.drawable.ic_menu_add);
+  item=menu.add(Menu.NONE,MENU_ABOUT,Menu.NONE,R.string.menu_about);
+  item.setIcon(R.drawable.ic_menu_info_details);
+  return true;
+}

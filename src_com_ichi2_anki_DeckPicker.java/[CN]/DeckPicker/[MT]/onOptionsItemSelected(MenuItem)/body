@@ -1,0 +1,13 @@
+{
+switch (item.getItemId()) {
+case MENU_CREATE_DECK:
+    startActivity(new Intent(DeckPicker.this,DeckCreator.class));
+  ;
+return true;
+case MENU_ABOUT:
+startActivity(new Intent(DeckPicker.this,About.class));
+return true;
+default :
+return super.onOptionsItemSelected(item);
+}
+}
