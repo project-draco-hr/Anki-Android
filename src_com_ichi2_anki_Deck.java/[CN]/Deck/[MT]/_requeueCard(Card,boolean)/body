@@ -18,11 +18,6 @@
     mFailedQueue.removeLast();
   }
  else {
-    try {
-      mRevQueue.removeLast();
-    }
- catch (    NoSuchElementException e) {
-      Log.w(AnkiDroidApp.TAG,"mRevQueue empty");
-    }
+    mRevQueue.removeLast();
   }
 }
