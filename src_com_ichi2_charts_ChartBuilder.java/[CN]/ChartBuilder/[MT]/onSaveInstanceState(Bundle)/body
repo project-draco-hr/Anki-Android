@@ -1,0 +1,5 @@
+{
+  super.onSaveInstanceState(outState);
+  outState.putSerializable("dataset",mDataset);
+  outState.putSerializable("renderer",mRenderer);
+}
