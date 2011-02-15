@@ -1,9 +1,26 @@
 {
   super.onCreate(savedInstanceState);
   Resources res=getResources();
-  setTitle(getAboutTitle());
-  setContentView(R.layout.about);
-  WebView webview=(WebView)findViewById(R.id.about);
-  String text=String.format("deck creator");
-  webview.loadDataWithBaseURL("",text,"text/html","utf-8",null);
+  setTitle(res.getString(R.string.menu_create_deck));
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+  mPrefDeckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory());
+  setContentView(R.layout.deck_creator);
+  mCreate=(Button)findViewById(R.id.DeckCreatorOKButton);
+  mCancel=(Button)findViewById(R.id.DeckCreatorCancelButton);
+  mFilename=(EditText)findViewById(R.id.DeckCreatorFilename);
+  mCreate.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      String filename=mFilename.getText().toString();
+      createDeck(filename);
+      closeDeckCreator();
+    }
+  }
+);
+  mCancel.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      setResult(RESULT_CANCELED);
+      closeDeckCreator();
+    }
+  }
+);
 }
