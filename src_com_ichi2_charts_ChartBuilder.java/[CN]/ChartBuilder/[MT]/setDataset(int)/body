@@ -1,7 +1,11 @@
 {
   XYSeries series=new XYSeries(Statistics.Titles[row]);
   for (int i=0; i < Statistics.xAxisData.length; i++) {
-    series.add(Statistics.xAxisData[i],Statistics.SeriesList[row][i]);
+    double yValue=Statistics.SeriesList[row][i];
+    if (yValue > mYAxisMax) {
+      mYAxisMax=yValue;
+    }
+    series.add(Statistics.xAxisData[i],yValue);
   }
   mDataset.addSeries(series);
 }
