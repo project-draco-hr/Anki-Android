@@ -4,20 +4,10 @@
   for (int i=0; i < length; i++) {
     int count=0;
     if (!matureCards) {
-      if (i == 0) {
-        count=deck.getNextDueCards(i,true);
-      }
- else {
-        count=deck.getNextDueCards(i,false);
-      }
+      count=deck.getNextDueCards(i);
     }
  else {
-      if (i == 0) {
-        count=deck.getNextDueMatureCards(i,true);
-      }
- else {
-        count=deck.getNextDueMatureCards(i,false);
-      }
+      count=deck.getNextDueMatureCards(i);
     }
     if (i > 0 && cumulative) {
       series[i]=count + series[i - 1];
@@ -25,6 +15,9 @@
  else {
       series[i]=count;
     }
+  }
+  if (deck.getDueCount() < series[0]) {
+    series[0]=deck.getDueCount();
   }
   return series;
 }

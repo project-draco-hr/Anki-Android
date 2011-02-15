@@ -1,0 +1,10 @@
+{
+  Deck deck=AnkiDroidApp.deck();
+  double series[]=new double[length];
+  series[0]=deck.getFailedSoonCount();
+  series[1]=deck.getFailedDelayedCount();
+  if (cumulative) {
+    series[1]+=series[0];
+  }
+  return series;
+}
