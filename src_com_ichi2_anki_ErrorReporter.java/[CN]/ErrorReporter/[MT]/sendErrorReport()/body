@@ -1,5 +1,6 @@
 {
   ArrayList<String> files=getErrorFiles();
+  final String url=getString(R.string.error_post_url);
   for (  String filename : files) {
     try {
       Date ts=new Date();
@@ -32,6 +33,7 @@
         pairs.add(new BasicNameValuePair(key,value));
       }
       br.close();
+      HttpUtility.postReport(url,pairs);
     }
  catch (    Exception ex) {
       Log.e(AnkiDroidApp.TAG,ex.toString());
