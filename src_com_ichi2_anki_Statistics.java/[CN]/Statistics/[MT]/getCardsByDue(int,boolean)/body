@@ -1,15 +1,9 @@
 {
-  Deck deck=AnkiDroidApp.deck();
   double series[]=new double[length];
-  series[0]=deck.getDueCount();
+  series[0]=mDeck.getDueCount();
   for (int i=1; i < length; i++) {
     int count=0;
-    if (!matureCards) {
-      count=deck.getNextDueCards(i);
-    }
- else {
-      count=deck.getNextDueMatureCards(i);
-    }
+    count=mDeck.getNextDueCards(i);
     if (cumulative) {
       series[i]=count + series[i - 1];
     }

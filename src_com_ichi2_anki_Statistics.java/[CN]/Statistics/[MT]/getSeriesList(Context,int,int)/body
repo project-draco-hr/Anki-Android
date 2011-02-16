@@ -1,0 +1,37 @@
+{
+  double[][] seriesList;
+switch (type) {
+case StudyOptions.STATISTICS_DUE:
+    seriesList=new double[3][period];
+  seriesList[0]=getCardsByDue(period,false);
+seriesList[1]=getMatureCardsByDue(period,false);
+seriesList[2]=getFailedCardsByDue(period,false);
+seriesList[0][1]+=seriesList[2][1];
+seriesList[1][1]+=seriesList[2][1];
+return seriesList;
+case StudyOptions.STATISTICS_CUMULATIVE_DUE:
+seriesList=new double[3][period];
+seriesList[0]=getCardsByDue(period,true);
+seriesList[1]=getMatureCardsByDue(period,true);
+seriesList[2]=getFailedCardsByDue(period,true);
+for (int i=1; i < period; i++) {
+seriesList[0][i]+=seriesList[2][i];
+seriesList[1][i]+=seriesList[2][i];
+}
+return seriesList;
+case StudyOptions.STATISTICS_INTERVALS:
+seriesList=new double[1][period];
+seriesList[0]=getCardsByInterval(period);
+return seriesList;
+case StudyOptions.STATISTICS_REVIEWS:
+seriesList=new double[1][period];
+seriesList[0]=getReviews(period);
+return seriesList;
+case StudyOptions.STATISTICS_REVIEWING_TIME:
+seriesList=new double[1][period];
+seriesList[0]=getReviewTime(period);
+return seriesList;
+default :
+return null;
+}
+}
