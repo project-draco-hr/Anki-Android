@@ -68,6 +68,7 @@
           msg.setData(data);
           mTotalDueCards+=dueCards;
           mTotalCards+=totalCards;
+          mLoadingFinished--;
           mHandler.sendMessage(msg);
         }
       }

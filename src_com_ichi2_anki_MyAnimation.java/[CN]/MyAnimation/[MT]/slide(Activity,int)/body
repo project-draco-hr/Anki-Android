@@ -8,4 +8,10 @@
  else   if (direction == FADE) {
     activity.overridePendingTransition(R.anim.fade_out,R.anim.fade_in);
   }
+ else   if (direction == UP) {
+    activity.overridePendingTransition(R.anim.slide_up_in,R.anim.slide_up_out);
+  }
+ else   if (direction == DOWN) {
+    activity.overridePendingTransition(R.anim.slide_down_in,R.anim.slide_down_out);
+  }
 }

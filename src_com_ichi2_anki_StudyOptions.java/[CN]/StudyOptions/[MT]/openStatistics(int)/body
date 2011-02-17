@@ -4,6 +4,6 @@
   Intent intent=new Intent(this,com.ichi2.charts.ChartBuilder.class);
   startActivity(intent);
   if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-    MyAnimation.slide(StudyOptions.this,MyAnimation.LEFT);
+    MyAnimation.slide(StudyOptions.this,MyAnimation.DOWN);
   }
 }
