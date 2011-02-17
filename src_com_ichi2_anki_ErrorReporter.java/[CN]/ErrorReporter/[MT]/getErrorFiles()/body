@@ -1,10 +1,13 @@
 {
-  ArrayList<String> files=new ArrayList<String>();
+  mErrorReports=new ArrayList<HashMap<String,String>>();
   String[] errors=fileList();
   for (  String file : errors) {
     if (file.endsWith(".stacktrace")) {
-      files.add(file);
+      HashMap<String,String> error=new HashMap<String,String>();
+      error.put("name",file);
+      error.put("state",STATE_WAITING);
+      error.put("result","");
+      mErrorReports.add(error);
     }
   }
-  return files;
 }

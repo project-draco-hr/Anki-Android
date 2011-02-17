@@ -1,8 +1,8 @@
 {
-  ArrayList<String> files=getErrorFiles();
   final String url=getString(R.string.error_post_url);
-  for (  String filename : files) {
+  for (  HashMap<String,String> error : mErrorReports) {
     try {
+      String filename=error.get("name");
       Date ts=new Date();
       TimeZone tz=TimeZone.getDefault();
       String singleLine;
@@ -33,7 +33,7 @@
         pairs.add(new BasicNameValuePair(key,value));
       }
       br.close();
-      HttpUtility.postReport(url,pairs);
+      postReport(pairs);
     }
  catch (    Exception ex) {
       Log.e(AnkiDroidApp.TAG,ex.toString());

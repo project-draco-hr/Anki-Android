@@ -1,0 +1,11 @@
+{
+  for (int i=(keepLatest ? 1 : 0); i < mErrorReports.size(); ) {
+    try {
+      deleteFile(mErrorReports.get(i).get("name"));
+      mErrorReports.remove(i);
+    }
+ catch (    Exception e) {
+      Log.e(AnkiDroidApp.TAG,String.format("Could not delete file: %s",mErrorReports.get(i)));
+    }
+  }
+}
