@@ -19,5 +19,6 @@
     Log.e(AnkiDroidApp.TAG,"onCreate - The copy of empty.anki to the SD card failed.");
     return false;
   }
+  Deck.initializeEmptyDeck(mPrefDeckPath + filename + ".anki");
   return true;
 }

@@ -1,0 +1,13 @@
+{
+  AnkiDb db=AnkiDatabaseManager.getDatabase(deckPath);
+  long modelId=Utils.genID();
+  db.getDatabase().execSQL("UPDATE models SET id=" + modelId);
+  db.getDatabase().execSQL("UPDATE cardModels SET id=" + Utils.genID() + " where ordinal=0;");
+  db.getDatabase().execSQL("UPDATE cardModels SET id=" + Utils.genID() + " where ordinal=1;");
+  db.getDatabase().execSQL("UPDATE fieldModels SET id=" + Utils.genID() + " where ordinal=0;");
+  db.getDatabase().execSQL("UPDATE fieldModels SET id=" + Utils.genID() + " where ordinal=1;");
+  db.getDatabase().execSQL("UPDATE fieldModels SET modelId=" + modelId);
+  db.getDatabase().execSQL("UPDATE cardModels SET modelId=" + modelId);
+  db.getDatabase().execSQL("UPDATE decks SET currentModelId=" + modelId);
+  db.getDatabase().execSQL("UPDATE decks SET utcOffset=" + Utils.utcOffset());
+}
