@@ -15,11 +15,11 @@
       setTitle(Statistics.sTitle);
       mTitle.setVisibility(View.GONE);
     }
-    for (int i=0; i < Statistics.mSeriesList.length; i++) {
+    for (int i=0; i < Statistics.sSeriesList.length; i++) {
       setDataset(i);
-      setRenderer(i);
+      setRenderer(Statistics.sType,i);
     }
-    if (Statistics.mSeriesList.length == 1) {
+    if (Statistics.sSeriesList.length == 1) {
       mRenderer.setShowLegend(false);
     }
     mPan=new double[]{Statistics.xAxisData[0] - 1,Statistics.xAxisData[Statistics.xAxisData.length - 1] + 1};
@@ -33,7 +33,7 @@
     mRenderer.setXTitle(Statistics.axisLabels[0]);
     mRenderer.setYTitle(Statistics.axisLabels[1]);
     mRenderer.setZoomEnabled(false,false);
-    if (Statistics.mSeriesList[0][0] > 100 || Statistics.mSeriesList[0][1] > 100 || Statistics.mSeriesList[0][Statistics.mSeriesList[0].length - 1] > 100) {
+    if (Statistics.sSeriesList[0][0] > 100 || Statistics.sSeriesList[0][1] > 100 || Statistics.sSeriesList[0][Statistics.sSeriesList[0].length - 1] > 100) {
       mRenderer.setMargins(new int[]{15,50,25,0});
     }
  else {

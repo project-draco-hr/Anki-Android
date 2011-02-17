@@ -1,7 +1,7 @@
 {
   XYSeries series=new XYSeries(Statistics.Titles[row]);
   for (int i=0; i < Statistics.xAxisData.length; i++) {
-    series.add(Statistics.xAxisData[i],Statistics.mSeriesList[row][i]);
+    series.add(Statistics.xAxisData[i],Statistics.sSeriesList[row][i]);
   }
   mDataset.addSeries(series);
 }

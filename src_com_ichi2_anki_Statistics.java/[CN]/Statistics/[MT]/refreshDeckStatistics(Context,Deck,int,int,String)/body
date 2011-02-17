@@ -1,8 +1,8 @@
 {
   initVariables(context,type,period,title);
-  mDeck=deck;
-  mSeriesList=getSeriesList(context,type,period);
-  if (mSeriesList != null) {
+  sDeck=deck;
+  sSeriesList=getSeriesList(context,type,period);
+  if (sSeriesList != null) {
     return true;
   }
  else {

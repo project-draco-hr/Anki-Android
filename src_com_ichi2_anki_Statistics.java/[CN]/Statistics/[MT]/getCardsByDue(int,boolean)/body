@@ -1,9 +1,9 @@
 {
   double series[]=new double[length];
-  series[0]=mDeck.getDueCount();
+  series[0]=sDeck.getDueCount();
   for (int i=1; i < length; i++) {
     int count=0;
-    count=mDeck.getNextDueCards(i);
+    count=sDeck.getNextDueCards(i);
     if (cumulative) {
       series[i]=count + series[i - 1];
     }
