@@ -33,6 +33,8 @@ case TASK_TYPE_LOAD_CARDS:
 return doInBackgroundLoadCards(params);
 case TASK_TYPE_DELETE_CARD:
 return doInBackgroundDeleteCard(params);
+case TASK_TYPE_LOAD_STATISTICS:
+return doInBackgroundLoadStatistics(params);
 default :
 return null;
 }

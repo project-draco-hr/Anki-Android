@@ -1,9 +1,3 @@
 {
-  Resources res=getResources();
-  Statistics.refreshDeckStatistics(this,AnkiDroidApp.deck(),sStatisticType,Integer.parseInt(res.getStringArray(R.array.statistics_period_values)[period]),res.getStringArray(R.array.statistics_type_labels)[sStatisticType]);
-  Intent intent=new Intent(this,com.ichi2.charts.ChartBuilder.class);
-  startActivity(intent);
-  if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-    MyAnimation.slide(StudyOptions.this,MyAnimation.DOWN);
-  }
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_STATISTICS,mLoadStatisticsHandler,new DeckTask.TaskData(this,new String[]{""},mStatisticType,period));
 }

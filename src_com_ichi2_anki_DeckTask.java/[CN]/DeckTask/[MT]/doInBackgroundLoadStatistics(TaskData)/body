@@ -1,0 +1,18 @@
+{
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundLoadStatistics");
+  int type=params[0].getType();
+  int period=params[0].getInt();
+  Context context=params[0].getContext();
+  String[] deckList=params[0].getDeckList();
+  ;
+  boolean result=false;
+  Resources res=context.getResources();
+  if (deckList.length == 1 && deckList[0].equals("") && AnkiDroidApp.deck() != null) {
+    result=Statistics.refreshDeckStatistics(context,AnkiDroidApp.deck(),type,Integer.parseInt(res.getStringArray(R.array.statistics_period_values)[period]),res.getStringArray(R.array.statistics_type_labels)[type]);
+  }
+ else {
+    result=Statistics.refreshAllDeckStatistics(context,deckList,type,Integer.parseInt(res.getStringArray(R.array.statistics_period_values)[period]),res.getStringArray(R.array.statistics_type_labels)[type] + " " + res.getString(R.string.statistics_all_decks));
+  }
+  publishProgress(new TaskData(result));
+  return new TaskData(result);
+}
