@@ -11,20 +11,22 @@
  catch (    Exception e) {
       Log.e(AnkiDroidApp.TAG,e.toString());
     }
+    deleteFiles(true,false);
     setResult(RESULT_OK);
     finish();
     return;
   }
  else   if (reportErrorMode.equals(REPORT_NEVER)) {
+    deleteFiles(false,false);
     setResult(RESULT_OK);
     finish();
     return;
   }
  else {
     setContentView(R.layout.feedback);
-    Button btnSendAll=(Button)findViewById(R.id.btnSendAll);
-    Button btnSendMostRecent=(Button)findViewById(R.id.btnSendMostRecent);
-    Button btnClearAll=(Button)findViewById(R.id.btnClearAll);
+    Button btnSendAll=(Button)findViewById(R.id.btnFeedbackSendAll);
+    Button btnSendMostRecent=(Button)findViewById(R.id.btnFeedbackSendLatest);
+    Button btnClearAll=(Button)findViewById(R.id.btnFeedbackClearAll);
     ListView mErrorListView=(ListView)findViewById(R.id.lvErrorList);
     getErrorFiles();
     int numErrors=mErrorReports.size();
@@ -38,7 +40,7 @@
       if (numErrors == 1) {
         btnSendMostRecent.setVisibility(View.GONE);
       }
-      mErrorAdapter=new SimpleAdapter(this,mErrorReports,R.layout.error_item,new String[]{"title","state","state"},new int[]{R.id.error_item_text,R.id.error_item_icon,error_item_progress});
+      mErrorAdapter=new SimpleAdapter(this,mErrorReports,R.layout.error_item,new String[]{"name","state"},new int[]{R.id.error_item_text,R.id.error_item_progress});
       mErrorAdapter.setViewBinder(new SimpleAdapter.ViewBinder(){
         @Override public boolean setViewValue(        View view,        Object arg1,        String text){
           if (view.getId() == R.id.error_item_progress) {
@@ -65,18 +67,31 @@
  catch (        Exception e) {
           Log.e(AnkiDroidApp.TAG,e.toString());
         }
-        setResult(RESULT_OK);
-        finish();
+        refreshErrorListView();
+      }
+    }
+);
+    btnSendMostRecent.setOnClickListener(new OnClickListener(){
+      @Override public void onClick(      View v){
+        try {
+          deleteFiles(false,true);
+          refreshErrorListView();
+          sendErrorReport();
+        }
+ catch (        Exception e) {
+          Log.e(AnkiDroidApp.TAG,e.toString());
+        }
+        refreshErrorListView();
       }
     }
 );
     btnClearAll.setOnClickListener(new OnClickListener(){
       @Override public void onClick(      View v){
-        deleteFiles(false);
-        setResult(RESULT_OK);
-        finish();
+        deleteFiles(false,false);
+        refreshErrorListView();
       }
     }
 );
+    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
   }
 }

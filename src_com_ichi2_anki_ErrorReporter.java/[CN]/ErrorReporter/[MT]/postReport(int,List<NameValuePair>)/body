@@ -1,0 +1,5 @@
+{
+  final String url=getString(R.string.error_post_url);
+  mErrorReports.get(index).put("state",STATE_UPLOADING);
+  Connection.sendErrorReport(sendListener,new Connection.Payload(new Object[]{url,index,values}));
+}
