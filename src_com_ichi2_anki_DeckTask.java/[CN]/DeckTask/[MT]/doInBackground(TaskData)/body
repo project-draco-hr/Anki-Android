@@ -35,6 +35,8 @@ case TASK_TYPE_DELETE_CARD:
 return doInBackgroundDeleteCard(params);
 case TASK_TYPE_LOAD_STATISTICS:
 return doInBackgroundLoadStatistics(params);
+case TASK_TYPE_OPTIMIZE_DECK:
+return doInBackgroundOptimizeDeck(params);
 default :
 return null;
 }

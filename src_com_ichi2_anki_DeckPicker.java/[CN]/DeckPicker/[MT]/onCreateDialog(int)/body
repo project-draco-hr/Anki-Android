@@ -69,6 +69,12 @@ builder.setIcon(android.R.drawable.ic_menu_sort_by_size);
 builder.setSingleChoiceItems(getResources().getStringArray(R.array.statistics_period_labels),0,mStatisticListener);
 dialog=builder.create();
 break;
+case DIALOG_OPTIMIZE_DATABASE:
+builder.setTitle(res.getString(R.string.optimize_deck_title));
+builder.setPositiveButton(res.getString(R.string.ok),null);
+builder.setIcon(android.R.drawable.ic_dialog_alert);
+dialog=builder.create();
+break;
 default :
 dialog=null;
 }

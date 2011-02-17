@@ -11,6 +11,11 @@ return true;
 case R.id.reset_language:
 resetDeckLanguages(data.get("filepath"));
 return true;
+case R.id.optimize_deck:
+String deckPath=data.get("filepath");
+Deck deck=Deck.openDeck(deckPath);
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_OPTIMIZE_DECK,mOptimizeDeckHandler,new DeckTask.TaskData(deck,null));
+return true;
 default :
 return super.onContextItemSelected(item);
 }
