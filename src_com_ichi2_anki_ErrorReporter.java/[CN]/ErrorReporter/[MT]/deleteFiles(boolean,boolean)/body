@@ -1,0 +1,17 @@
+{
+  for (int i=(keepLatest ? 1 : 0); i < mErrorReports.size(); ) {
+    try {
+      String errorState=mErrorReports.get(i).get("state");
+      if (!onlyProcessed || errorState.equals(STATE_SUCCESSFUL)) {
+        deleteFile(mErrorReports.get(i).get("name"));
+        mErrorReports.remove(i);
+      }
+ else {
+        i++;
+      }
+    }
+ catch (    Exception e) {
+      Log.e(AnkiDroidApp.TAG,String.format("Could not delete file: %s",mErrorReports.get(i)));
+    }
+  }
+}
