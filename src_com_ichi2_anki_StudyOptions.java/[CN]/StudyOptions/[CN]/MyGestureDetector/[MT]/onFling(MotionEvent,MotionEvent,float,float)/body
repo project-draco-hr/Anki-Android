@@ -7,6 +7,10 @@
  else       if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(e1.getY() - e2.getY()) < SWIPE_MAX_OFF_PATH) {
         openDeckPicker();
       }
+ else       if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(e1.getX() - e2.getX()) < SWIPE_MAX_OFF_PATH) {
+        mStatisticType=0;
+        openStatistics(0);
+      }
     }
  catch (    Exception e) {
       Log.e(AnkiDroidApp.TAG,"onFling Exception = " + e.getMessage());

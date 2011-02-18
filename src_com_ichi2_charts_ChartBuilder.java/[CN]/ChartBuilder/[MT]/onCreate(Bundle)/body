@@ -50,4 +50,14 @@
  else {
     mChartView.repaint();
   }
+  gestureDetector=new GestureDetector(new MyGestureDetector());
+  mChartView.setOnTouchListener(new View.OnTouchListener(){
+    public boolean onTouch(    View v,    MotionEvent event){
+      if (gestureDetector.onTouchEvent(event)) {
+        return true;
+      }
+      return false;
+    }
+  }
+);
 }
