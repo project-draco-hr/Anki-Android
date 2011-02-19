@@ -1,5 +1,6 @@
 {
   if (key.equals("swipe")) {
     zoomCheckboxPreference.setChecked(false);
+    zoomCheckboxPreference.setEnabled(!swipeCheckboxPreference.isChecked());
   }
 }

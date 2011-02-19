@@ -5,5 +5,7 @@
   addPreferencesFromResource(R.xml.preferences);
   mVeecheckStatus=mPrefMan.getSharedPreferences().getBoolean(PrefSettings.KEY_ENABLED,PrefSettings.DEFAULT_ENABLED);
   getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+  swipeCheckboxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("swipe");
   zoomCheckboxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("zoom");
+  zoomCheckboxPreference.setEnabled(!swipeCheckboxPreference.isChecked());
 }
