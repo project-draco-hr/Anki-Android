@@ -1,0 +1,24 @@
+{
+  ArrayList<CharSequence> dialogItems=new ArrayList<CharSequence>();
+  ArrayList<String> dialogIds=new ArrayList<String>();
+  dialogItems.add(getResources().getString(R.string.language_system));
+  dialogIds.add("");
+  for (  String localeCode : mAppLanguages) {
+    Locale loc;
+    if (localeCode.length() > 2) {
+      loc=new Locale(localeCode.substring(0,2),localeCode.substring(3,5));
+    }
+ else {
+      loc=new Locale(localeCode);
+    }
+    dialogItems.add(loc.getDisplayName());
+    dialogIds.add(loc.toString());
+  }
+  mLanguageDialogLabels=new CharSequence[dialogItems.size()];
+  mLanguageDialogValues=new CharSequence[dialogItems.size()];
+  dialogItems.toArray(mLanguageDialogLabels);
+  dialogIds.toArray(mLanguageDialogValues);
+  mLanguageSelection=(ListPreference)getPreferenceScreen().findPreference("language");
+  mLanguageSelection.setEntries(mLanguageDialogLabels);
+  mLanguageSelection.setEntryValues(mLanguageDialogValues);
+}

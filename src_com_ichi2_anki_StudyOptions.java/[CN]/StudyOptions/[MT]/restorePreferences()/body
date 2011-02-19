@@ -24,11 +24,12 @@
     mNewVersionAlert=builder.create();
     mNewVersion=true;
   }
-  SWIPE_MIN_DISTANCE=preferences.getInt("swipe_sensibility",100);
-  if (SWIPE_MIN_DISTANCE != 100) {
-    SWIPE_MAX_OFF_PATH=(int)(SWIPE_MIN_DISTANCE * 100 / 70);
-    SWIPE_THRESHOLD_VELOCITY=(int)(SWIPE_MIN_DISTANCE * 2);
+  sSwipeMinDistance=preferences.getInt("swipe_sensibility",100);
+  if (sSwipeMinDistance != 100) {
+    sSwipeMaxOffPath=(int)(sSwipeMinDistance * 100 / 70);
+    sSwipeThresholdVelocity=(int)(sSwipeMinDistance * 2);
   }
   mInvertedColors=preferences.getBoolean("invertedColors",false);
+  setLanguage(preferences.getString("language",""));
   return preferences;
 }
