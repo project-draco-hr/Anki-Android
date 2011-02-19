@@ -7,6 +7,9 @@
  else   if (str == "close") {
     editor.putLong("lastTimeOpened",System.currentTimeMillis());
   }
+ else   if (str == "welcome") {
+    editor.putBoolean("welcome",mShowWelcomeScreen);
+  }
  else   if (str == "invertedColors") {
     editor.putBoolean("invertedColors",mInvertedColors);
   }

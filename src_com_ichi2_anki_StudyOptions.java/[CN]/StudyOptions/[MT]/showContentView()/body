@@ -2,13 +2,22 @@
 switch (mCurrentContentView) {
 case CONTENT_NO_DECK:
     setTitle(R.string.app_name);
-  mTextNoDeckTitle.setText(R.string.studyoptions_nodeck_title);
+  if (mNewVersion) {
+    mShowWelcomeScreen=true;
+    savePreferences("welcome");
+    mNewVersionAlert.show();
+    mNewVersion=false;
+  }
+mShowWelcomeScreen=PrefSettings.getSharedPrefs(getBaseContext()).getBoolean("welcome",false);
+if (!mShowWelcomeScreen) {
+mTextNoDeckTitle.setText(R.string.studyoptions_nodeck_title);
 mTextNoDeckMessage.setText(String.format(getResources().getString(R.string.studyoptions_nodeck_message),mPrefDeckPath));
-setContentView(mNoDeckView);
-if (mNewVersion) {
-mNewVersionAlert.show();
-mNewVersion=false;
 }
+ else {
+mTextNoDeckTitle.setText(R.string.studyoptions_welcome_title);
+mTextNoDeckMessage.setText(String.format(getResources().getString(R.string.studyoptions_welcome_message),mPrefDeckPath));
+}
+setContentView(mNoDeckView);
 break;
 case CONTENT_DECK_NOT_LOADED:
 setTitle(R.string.app_name);
