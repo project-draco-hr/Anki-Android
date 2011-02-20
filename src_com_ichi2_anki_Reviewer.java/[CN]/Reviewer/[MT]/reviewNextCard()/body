@@ -1,5 +1,8 @@
 {
   updateScreenCounts();
+  if (mShowProgressBars) {
+    updateStatisticBars();
+  }
   if (mPrefWriteAnswers) {
     mAnswerField.setText("");
   }

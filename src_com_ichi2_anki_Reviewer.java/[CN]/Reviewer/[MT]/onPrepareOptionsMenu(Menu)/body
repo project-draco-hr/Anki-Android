@@ -26,6 +26,9 @@
     if (mPrefTimer) {
       mCardTimer.setVisibility(View.GONE);
     }
+    if (mShowProgressBars) {
+      mProgressBars.setVisibility(View.GONE);
+    }
     getWindow().setFlags(0,WindowManager.LayoutParams.FLAG_FULLSCREEN);
   }
   menu.findItem(MENU_UNDO).setEnabled(AnkiDroidApp.deck().undoAvailable());

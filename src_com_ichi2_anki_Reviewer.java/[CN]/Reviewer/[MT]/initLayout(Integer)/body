@@ -55,6 +55,11 @@
   mTextBarRed=(TextView)findViewById(R.id.red_number);
   mTextBarBlack=(TextView)findViewById(R.id.black_number);
   mTextBarBlue=(TextView)findViewById(R.id.blue_number);
+  if (mShowProgressBars) {
+    mDailyBar=(View)findViewById(R.id.daily_bar);
+    mGlobalBar=(View)findViewById(R.id.global_bar);
+    mProgressBars=(LinearLayout)findViewById(R.id.progress_bars);
+  }
   mCardTimer=(Chronometer)findViewById(R.id.card_time);
   float headTextSize=(float)(mCardTimer.getTextSize() * 0.63);
   mCardTimer.setTextSize(headTextSize);
