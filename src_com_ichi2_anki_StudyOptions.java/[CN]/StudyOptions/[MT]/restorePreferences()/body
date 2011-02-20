@@ -24,7 +24,7 @@
     mNewVersionAlert=builder.create();
     mNewVersion=true;
   }
-  sSwipeMinDistance=preferences.getInt("swipe_sensibility",100);
+  sSwipeMinDistance=preferences.getInt("swipeSensibility",100);
   if (sSwipeMinDistance != 100) {
     sSwipeMaxOffPath=(int)(sSwipeMinDistance * 100 / 70);
     sSwipeThresholdVelocity=(int)(sSwipeMinDistance * 2);
