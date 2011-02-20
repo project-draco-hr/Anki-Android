@@ -7,6 +7,9 @@
     if (mPrefTimer) {
       mCardTimer.setVisibility(View.VISIBLE);
     }
+    if (mShowProgressBars) {
+      mProgressBars.setVisibility(View.GONE);
+    }
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
   }
 }

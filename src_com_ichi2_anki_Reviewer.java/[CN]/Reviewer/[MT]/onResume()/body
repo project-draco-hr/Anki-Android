@@ -3,4 +3,11 @@
   if (mShakeEnabled) {
     mSensorManager.registerListener(mSensorListener,mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_NORMAL);
   }
+  if (mCurrentCard != null) {
+    mCurrentCard.resumeTimer();
+  }
+  if (mPrefTimer && mSavedTimer != 0) {
+    mCardTimer.setBase(SystemClock.elapsedRealtime() - mSavedTimer);
+    mCardTimer.start();
+  }
 }

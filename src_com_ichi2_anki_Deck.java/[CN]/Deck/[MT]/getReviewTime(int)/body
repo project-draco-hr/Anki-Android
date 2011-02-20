@@ -3,7 +3,7 @@
   Cursor cur=null;
   int count=0;
   try {
-    cur=getDB().getDatabase().rawQuery(String.format(Utils.ENGLISH_LOCALE,"SELECT reviewTime FROM stats WHERE day = \'%tF\' AND reps > 0",value),null);
+    cur=getDB().getDatabase().rawQuery(String.format(Utils.ENGLISH_LOCALE,"SELECT reviewTime FROM stats WHERE day = \'%tF\' AND reps > 0 AND id > 1",value),null);
     while (cur.moveToNext()) {
       count=cur.getInt(0);
     }

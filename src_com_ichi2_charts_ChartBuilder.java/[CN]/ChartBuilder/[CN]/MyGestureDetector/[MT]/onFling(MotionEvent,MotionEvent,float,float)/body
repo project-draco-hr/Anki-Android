@@ -1,0 +1,13 @@
+{
+  if (mSwipeEnabled) {
+    try {
+      if (e1.getY() - e2.getY() > StudyOptions.sSwipeMinDistance && Math.abs(velocityY) > StudyOptions.sSwipeThresholdVelocity && Math.abs(e1.getX() - e2.getX()) < StudyOptions.sSwipeMaxOffPath) {
+        closeChartBuilder();
+      }
+    }
+ catch (    Exception e) {
+      Log.e(AnkiDroidApp.TAG,"onFling Exception = " + e.getMessage());
+    }
+  }
+  return false;
+}

@@ -1,11 +1,3 @@
 {
-  DeckTask.waitToFinish();
-  if (finishSchedulerMethod != null) {
-    finishScheduler();
-    reset();
-  }
-  if (modifiedSinceSave()) {
-    commitToDB();
-  }
-  AnkiDatabaseManager.closeDatabase(mDeckPath);
+  closeDeck(true);
 }

@@ -8,6 +8,7 @@
   mStatisticsButton=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_statistics);
   mTextReviewsDue=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_reviews_due);
   mTextNewToday=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_new_today);
+  mTextETA=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_eta);
   mTextNewTotal=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_new_total);
   mNightMode=(CheckBox)mStudyOptionsView.findViewById(R.id.studyoptions_night_mode);
   mNightMode.setChecked(mInvertedColors);
@@ -20,38 +21,12 @@
     }
   }
 );
-  mEditNewPerDay=(EditText)mStudyOptionsView.findViewById(R.id.studyoptions_new_cards_per_day);
   mEditSessionTime=(EditText)mStudyOptionsView.findViewById(R.id.studyoptions_session_minutes);
   mEditSessionQuestions=(EditText)mStudyOptionsView.findViewById(R.id.studyoptions_session_questions);
   mButtonStart.setOnClickListener(mButtonClickListener);
   mToggleCram.setOnClickListener(mButtonClickListener);
   mCardBrowser.setOnClickListener(mButtonClickListener);
   mStatisticsButton.setOnClickListener(mButtonClickListener);
-  mEditNewPerDay.addTextChangedListener(new TextWatcher(){
-    public void afterTextChanged(    Editable s){
-      Deck deck=AnkiDroidApp.deck();
-      String inputText=mEditNewPerDay.getText().toString();
-      if (deck != null) {
-        if (!inputText.equals(Integer.toString(deck.getNewCardsPerDay()))) {
-          if (inputText.equals("")) {
-            deck.setNewCardsPerDay(0);
-          }
- else           if (isValidInt(inputText)) {
-            deck.setNewCardsPerDay(Integer.parseInt(inputText));
-          }
- else {
-            mEditNewPerDay.setText("0");
-          }
-          updateValuesFromDeck();
-        }
-      }
-    }
-    public void beforeTextChanged(    CharSequence s,    int start,    int count,    int after){
-    }
-    public void onTextChanged(    CharSequence s,    int start,    int before,    int count){
-    }
-  }
-);
   mEditSessionTime.addTextChangedListener(new TextWatcher(){
     public void afterTextChanged(    Editable s){
       Deck deck=AnkiDroidApp.deck();
@@ -106,11 +81,13 @@
   mNoDeckView=getLayoutInflater().inflate(R.layout.studyoptions_nodeck,null);
   mTextNoDeckTitle=(TextView)mNoDeckView.findViewById(R.id.studyoptions_nodeck_title);
   mTextNoDeckMessage=(TextView)mNoDeckView.findViewById(R.id.studyoptions_nodeck_message);
+  mTextNoDeckMessage.setOnClickListener(mButtonClickListener);
   mNoDeckView.findViewById(R.id.studyoptions_load_sample_deck).setOnClickListener(mButtonClickListener);
   mNoDeckView.findViewById(R.id.studyoptions_download_deck).setOnClickListener(mButtonClickListener);
   mNoDeckView.findViewById(R.id.studyoptions_load_other_deck).setOnClickListener(mButtonClickListener);
   mCongratsView=getLayoutInflater().inflate(R.layout.studyoptions_congrats,null);
   mTextCongratsMessage=(TextView)mCongratsView.findViewById(R.id.studyoptions_congrats_message);
+  mTextCongratsMessage.setOnClickListener(mButtonClickListener);
   mButtonCongratsLearnMore=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_learnmore);
   mButtonCongratsReviewEarly=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_reviewearly);
   mButtonCongratsOpenOtherDeck=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_open_other_deck);

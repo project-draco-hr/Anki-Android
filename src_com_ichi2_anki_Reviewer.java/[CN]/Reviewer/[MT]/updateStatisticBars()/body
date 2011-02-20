@@ -1,0 +1,19 @@
+{
+  if (mStatisticBarsMax == 0) {
+    View view=findViewById(R.id.daily_bar_max);
+    mStatisticBarsMax=view.getWidth();
+    mStatisticBarsHeight=view.getHeight();
+  }
+  Deck deck=AnkiDroidApp.deck();
+  double[] values=deck.getStats(Stats.TYPE_YES_SHARES);
+  FrameLayout.LayoutParams lparam=new FrameLayout.LayoutParams(0,0);
+  lparam.height=mStatisticBarsHeight;
+  lparam.width=(int)(mStatisticBarsMax * values[0]);
+  mDailyBar.setLayoutParams(lparam);
+  updateColors(mDailyBar,values[0]);
+  FrameLayout.LayoutParams lparamg=new FrameLayout.LayoutParams(0,0);
+  lparamg.height=mStatisticBarsHeight;
+  lparamg.width=(int)(mStatisticBarsMax * values[1]);
+  mGlobalBar.setLayoutParams(lparamg);
+  updateColors(mGlobalBar,values[1]);
+}

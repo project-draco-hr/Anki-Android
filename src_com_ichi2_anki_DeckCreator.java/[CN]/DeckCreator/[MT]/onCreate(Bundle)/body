@@ -1,0 +1,26 @@
+{
+  super.onCreate(savedInstanceState);
+  Resources res=getResources();
+  setTitle(res.getString(R.string.menu_create_deck));
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+  mPrefDeckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory());
+  setContentView(R.layout.deck_creator);
+  mCreate=(Button)findViewById(R.id.DeckCreatorOKButton);
+  mCancel=(Button)findViewById(R.id.DeckCreatorCancelButton);
+  mFilename=(EditText)findViewById(R.id.DeckCreatorFilename);
+  mCreate.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      String filename=mFilename.getText().toString();
+      createDeck(filename);
+      closeDeckCreator();
+    }
+  }
+);
+  mCancel.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      setResult(RESULT_CANCELED);
+      closeDeckCreator();
+    }
+  }
+);
+}

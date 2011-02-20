@@ -1,0 +1,12 @@
+{
+  double series[]=new double[length];
+  series[0]=sDeck.getFailedSoonCount();
+  series[1]=sDeck.getFailedDelayedCount();
+  if (cumulative) {
+    series[1]+=series[0];
+    for (int i=2; i < length; i++) {
+      series[i]=series[1];
+    }
+  }
+  return series;
+}

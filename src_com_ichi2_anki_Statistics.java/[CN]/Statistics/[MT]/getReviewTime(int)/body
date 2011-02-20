@@ -1,8 +1,7 @@
 {
-  Deck deck=AnkiDroidApp.deck();
   double series[]=new double[length];
   for (int i=0; i < length; i++) {
-    series[i]=deck.getReviewTime(i - length) / 60;
+    series[i]=sDeck.getReviewTime(i - length + 1) / 60;
   }
   return series;
 }

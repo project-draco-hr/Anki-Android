@@ -2,7 +2,7 @@
   double series[]=new double[length];
   if (backwards) {
     for (int i=0; i < length; i++) {
-      series[i]=i - length;
+      series[i]=i - length + 1;
     }
   }
  else {

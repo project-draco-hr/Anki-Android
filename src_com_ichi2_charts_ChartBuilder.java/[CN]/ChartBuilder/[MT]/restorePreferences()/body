@@ -1,0 +1,6 @@
+{
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+  mFullScreen=preferences.getBoolean("fullScreen",false);
+  mSwipeEnabled=preferences.getBoolean("swipe",false);
+  return preferences;
+}

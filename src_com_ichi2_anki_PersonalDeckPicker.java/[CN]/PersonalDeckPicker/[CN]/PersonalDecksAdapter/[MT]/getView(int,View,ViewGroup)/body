@@ -44,6 +44,7 @@ estimatedText.setText(String.valueOf(downloaded / 1024) + " kB");
 break;
 case Download.STATUS_COMPLETE:
 progressText.setText(res.getString(R.string.downloaded));
+mDownloadSuccessful=true;
 break;
 default :
 progressText.setText(res.getString(R.string.error));

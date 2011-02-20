@@ -1,0 +1,4 @@
+{
+  Intent feedbackReporter=new Intent(StudyOptions.this,ErrorReporter.class);
+  startActivityForResult(feedbackReporter,REPORT_FEEDBACK);
+}

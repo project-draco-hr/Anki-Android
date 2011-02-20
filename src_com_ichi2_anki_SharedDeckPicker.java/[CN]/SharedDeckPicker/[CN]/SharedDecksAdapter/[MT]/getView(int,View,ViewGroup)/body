@@ -53,6 +53,7 @@ case Download.STATUS_COMPLETE:
 progressText.setText(res.getString(R.string.downloaded));
 estimatedText.setText("");
 progressBar.setProgress(0);
+mDownloadSuccessful=true;
 break;
 case SharedDeckDownload.STATUS_UPDATING:
 progressText.setText(res.getString(R.string.updating));
