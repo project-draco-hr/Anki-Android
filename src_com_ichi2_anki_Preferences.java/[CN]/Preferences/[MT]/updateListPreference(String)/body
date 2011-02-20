@@ -1,0 +1,16 @@
+{
+  ListPreference listpref=(ListPreference)getPreferenceScreen().findPreference(key);
+  if (mListsToUpdate.containsKey(key)) {
+    listpref.setSummary(replaceString(mListsToUpdate.get(key),listpref.getEntry().toString()));
+  }
+ else {
+    String oldsum=(String)listpref.getSummary();
+    if (oldsum.contains("XXX")) {
+      mListsToUpdate.put(key,oldsum);
+      listpref.setSummary(replaceString(oldsum,listpref.getEntry().toString()));
+    }
+ else {
+      listpref.setSummary(listpref.getEntry());
+    }
+  }
+}

@@ -9,4 +9,10 @@
   zoomCheckboxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("zoom");
   zoomCheckboxPreference.setEnabled(!swipeCheckboxPreference.isChecked());
   initializeLanguageDialog();
+  for (  String key : mShowValueInSummList) {
+    updateListPreference(key);
+  }
+  for (  String key : mShowValueInSummSeek) {
+    updateSeekBarPreference(key);
+  }
 }
