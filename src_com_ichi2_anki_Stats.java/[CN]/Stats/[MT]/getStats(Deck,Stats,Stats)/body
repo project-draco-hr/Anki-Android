@@ -3,6 +3,7 @@
   stats[STATSARRAY_DAILY_AVERAGE_TIME]=dailyStats.mAverageTime;
   stats[STATSARRAY_GLOBAL_AVERAGE_TIME]=globalStats.mAverageTime;
   stats[STATSARRAY_TIME_LEFT]=0;
+  stats[STATSARRAY_DAILY_REPS]=dailyStats.mReps;
   double globalYoungNo=globalStats.mYoungEase0 + globalStats.mYoungEase1;
   double globalYoungTotal=globalYoungNo + globalStats.mYoungEase2 + globalStats.mYoungEase3+ globalStats.mYoungEase4;
   if (globalYoungTotal != 0) {

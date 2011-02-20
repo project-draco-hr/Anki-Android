@@ -8,4 +8,10 @@
     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     startActivity(i);
   }
+ else   if (Arrays.asList(mShowValueInSummList).contains(key)) {
+    updateListPreference(key);
+  }
+ else   if (Arrays.asList(mShowValueInSummSeek).contains(key)) {
+    updateSeekBarPreference(key);
+  }
 }
