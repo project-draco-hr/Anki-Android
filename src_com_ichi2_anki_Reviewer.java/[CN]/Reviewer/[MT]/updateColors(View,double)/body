@@ -1,0 +1,14 @@
+{
+  if (progress < 0.5) {
+    view.setBackgroundColor(getResources().getColor(R.color.progressbar_1));
+  }
+ else   if (progress < 0.65) {
+    view.setBackgroundColor(getResources().getColor(R.color.progressbar_2));
+  }
+ else   if (progress < 0.75) {
+    view.setBackgroundColor(getResources().getColor(R.color.progressbar_3));
+  }
+ else {
+    view.setBackgroundColor(getResources().getColor(R.color.progressbar_4));
+  }
+}

@@ -1,7 +1,7 @@
 {
   Resources res=getResources();
   int position=((AdapterContextMenuInfo)menuInfo).position;
-  Object obj=mAllSharedDecks.get(position);
+  Object obj=getSharedDeckFromList(position);
   if (obj instanceof Download) {
     Download download=(Download)obj;
     menu.setHeaderTitle(download.getTitle());

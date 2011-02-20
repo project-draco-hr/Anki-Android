@@ -2,7 +2,6 @@
   double[] stats=new double[STATSARRAY_SIZE];
   stats[STATSARRAY_DAILY_AVERAGE_TIME]=dailyStats.mAverageTime;
   stats[STATSARRAY_GLOBAL_AVERAGE_TIME]=globalStats.mAverageTime;
-  stats[STATSARRAY_TIME_LEFT]=0;
   stats[STATSARRAY_DAILY_REPS]=dailyStats.mReps;
   double globalYoungNo=globalStats.mYoungEase0 + globalStats.mYoungEase1;
   double globalYoungTotal=globalYoungNo + globalStats.mYoungEase2 + globalStats.mYoungEase3+ globalStats.mYoungEase4;
@@ -12,5 +11,8 @@
  else {
     stats[STATSARRAY_GLOBAL_YOUNG_NO_SHARE]=0;
   }
+  stats[STATSARRAY_DAILY_NO]=dailyStats.mNewEase0 + dailyStats.mNewEase1 + dailyStats.mYoungEase0+ dailyStats.mYoungEase1+ dailyStats.mMatureEase0+ dailyStats.mMatureEase1;
+  stats[STATSARRAY_GLOBAL_MATURE_YES]=globalStats.mMatureEase2 + globalStats.mMatureEase3 + globalStats.mMatureEase4;
+  stats[STATSARRAY_GLOBAL_MATURE_NO]=globalStats.mMatureEase0 + globalStats.mMatureEase1;
   return stats;
 }

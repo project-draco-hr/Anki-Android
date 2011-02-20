@@ -1,0 +1,8 @@
+{
+  if (position < mSharedDeckDownloads.size()) {
+    return mSharedDeckDownloads.get(position);
+  }
+ else {
+    return mFoundSharedDecks.get(position - mSharedDeckDownloads.size());
+  }
+}

@@ -1,0 +1,15 @@
+{
+  if (mSearchEditText.getText().length() == 0) {
+    mFoundSharedDecks=mSharedDecks;
+  }
+ else {
+    List<SharedDeck> foundDecks=new ArrayList<SharedDeck>();
+    for (    SharedDeck sharedDeck : mSharedDecks) {
+      if (sharedDeck.get("title").toString().toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1) {
+        foundDecks.add(sharedDeck);
+      }
+    }
+    mFoundSharedDecks=foundDecks;
+  }
+  refreshSharedDecksList();
+}
