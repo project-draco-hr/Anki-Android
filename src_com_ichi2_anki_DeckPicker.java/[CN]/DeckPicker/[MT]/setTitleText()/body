@@ -1,3 +1,5 @@
 {
-  setTitle(getResources().getQuantityString(R.plurals.deckpicker_title,mTotalDueCards,mTotalDueCards,mTotalCards));
+  Resources res=getResources();
+  String time=res.getQuantityString(R.plurals.deckpicker_title_minutes,mTotalTime,mTotalTime);
+  setTitle(res.getQuantityString(R.plurals.deckpicker_title,mTotalDueCards,mTotalDueCards,mTotalCards,time));
 }

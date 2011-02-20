@@ -12,10 +12,4 @@
   }
 );
   mSelectOrderDialog=builder.create();
-  builder.setPositiveButton(getResources().getString(R.string.ok),null);
-  View contentView=getLayoutInflater().inflate(R.layout.about,null);
-  mAboutWebView=(WebView)contentView.findViewById(R.id.about);
-  mAboutWebView.setBackgroundColor(res.getColor(R.color.card_browser_background));
-  builder.setView(contentView);
-  mDetailsDialog=builder.create();
 }

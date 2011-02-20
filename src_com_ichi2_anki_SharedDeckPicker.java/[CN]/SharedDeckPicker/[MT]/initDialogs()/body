@@ -6,7 +6,7 @@
   builder.setMessage(res.getString(R.string.connection_needed));
   builder.setPositiveButton(res.getString(R.string.ok),new OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int which){
-      finish();
+      closeSharedDeckPicker();
     }
   }
 );
@@ -22,7 +22,7 @@
 );
   builder.setNegativeButton(res.getString(R.string.cancel),new OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int which){
-      SharedDeckPicker.this.finish();
+      closeSharedDeckPicker();
     }
   }
 );
