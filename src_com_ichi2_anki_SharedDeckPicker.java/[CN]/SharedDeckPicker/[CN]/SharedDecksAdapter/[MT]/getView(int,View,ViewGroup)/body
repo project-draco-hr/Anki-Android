@@ -18,7 +18,7 @@
   TextView sharedDeckTitle=wrapper.getDeckTitle();
   TextView sharedDeckFacts=wrapper.getDeckFacts();
   progressBar.setIndeterminate(false);
-  Object obj=mAllSharedDecks.get(position);
+  Object obj=getSharedDeckFromList(position);
   if (obj instanceof Download) {
     Download download=(Download)obj;
     sharedDeckTitle.setVisibility(View.GONE);
@@ -75,7 +75,7 @@ estimatedText.setVisibility(View.VISIBLE);
 }
  else {
 SharedDeck sharedDeck=(SharedDeck)obj;
-if (position > 0 && (mAllSharedDecks.get(position - 1) instanceof Download)) {
+if (position > 0 && (getSharedDeckFromList(position - 1) instanceof Download)) {
 headerTitle.setText(res.getString(R.string.shared_decks));
 headerTitle.setVisibility(View.VISIBLE);
 }
