@@ -1,6 +1,5 @@
 {
   mStudyOptionsView=getLayoutInflater().inflate(R.layout.studyoptions,null);
-  mTextTitle=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_title);
   mTextDeckName=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_name);
   mButtonStart=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_start);
   mToggleCram=(ToggleButton)mStudyOptionsView.findViewById(R.id.studyoptions_cram);
@@ -21,6 +20,8 @@
     }
   }
 );
+  mHelp=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_help);
+  mHelp.setOnClickListener(mButtonClickListener);
   mEditSessionTime=(EditText)mStudyOptionsView.findViewById(R.id.studyoptions_session_minutes);
   mEditSessionQuestions=(EditText)mStudyOptionsView.findViewById(R.id.studyoptions_session_questions);
   mButtonStart.setOnClickListener(mButtonClickListener);
