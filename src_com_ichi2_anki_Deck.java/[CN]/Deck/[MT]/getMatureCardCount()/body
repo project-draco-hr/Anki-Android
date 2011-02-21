@@ -1,3 +1,0 @@
-{
-  return (int)(getDB().queryScalar("SELECT count(*) from cards WHERE interval >= " + Card.MATURE_THRESHOLD));
-}
