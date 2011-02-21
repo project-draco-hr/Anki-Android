@@ -38,9 +38,11 @@ AnkiDroidApp.deck().finishScheduler();
 updateValuesFromDeck();
 if (mCurrentContentView == CONTENT_STUDY_OPTIONS) {
 mButtonStart.setText(R.string.studyoptions_start);
+mTextTitle.setText(R.string.studyoptions_title);
 }
  else {
 mButtonStart.setText(R.string.studyoptions_continue);
+mTextTitle.setText(R.string.studyoptions_well_done);
 }
 setContentView(mStudyOptionsView);
 break;

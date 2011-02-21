@@ -2,9 +2,6 @@
   Log.i(AnkiDroidApp.TAG,"displayCardAnswer");
   sDisplayAnswer=true;
   Sound.stopSounds();
-  if (mPrefTimer) {
-    mCardTimer.stop();
-  }
   String displayString="";
   if (mPrefWriteAnswers) {
     mAnswerField.setVisibility(View.GONE);
