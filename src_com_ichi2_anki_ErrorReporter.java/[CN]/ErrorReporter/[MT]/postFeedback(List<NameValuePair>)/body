@@ -1,4 +1,0 @@
-{
-  final String url=getString(R.string.feedback_post_url);
-  Connection.sendErrorReport(sendListener,new Connection.Payload(new Object[]{url,values}));
-}

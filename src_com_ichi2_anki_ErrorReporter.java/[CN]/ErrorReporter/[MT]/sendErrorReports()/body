@@ -4,20 +4,13 @@
     HashMap<String,String> error=mErrorReports.get(i);
     try {
       String filename=error.get("name");
-      Date ts=new Date();
-      TimeZone tz=TimeZone.getDefault();
       String singleLine;
-      SimpleDateFormat df1=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS",Locale.US);
-      SimpleDateFormat df2=new SimpleDateFormat("Z",Locale.US);
-      df1.setTimeZone(TimeZone.getTimeZone("UTC"));
-      String reportsentutc=String.format("%s",df1.format(ts));
-      String reportsenttzoffset=String.format("%s",df2.format(ts));
-      String reportsenttz=String.format("%s",tz.getID());
       BufferedReader br=new BufferedReader(new InputStreamReader(openFileInput(filename)));
       List<NameValuePair> pairs=new ArrayList<NameValuePair>();
-      pairs.add(new BasicNameValuePair("reportsentutc",reportsentutc));
-      pairs.add(new BasicNameValuePair("reportsenttzoffset",reportsenttzoffset));
-      pairs.add(new BasicNameValuePair("reportsenttz",reportsenttz));
+      pairs.add(new BasicNameValuePair("type","crash-stacktrace"));
+      pairs.add(new BasicNameValuePair("groupid",String.valueOf(mNonce)));
+      pairs.add(new BasicNameValuePair("id",String.valueOf(i)));
+      addTimestamp(pairs);
       while ((singleLine=br.readLine()) != null) {
         int indexOfEquals=singleLine.indexOf('=');
         if (indexOfEquals == -1)         continue;
@@ -34,7 +27,8 @@
         pairs.add(new BasicNameValuePair(key,value));
       }
       br.close();
-      postReport(i,pairs);
+      postReport(TYPE_STACKTRACE,i,pairs);
+      Log.i(AnkiDroidApp.TAG,"posting error report " + i);
     }
  catch (    Exception ex) {
       Log.e(AnkiDroidApp.TAG,ex.toString());
