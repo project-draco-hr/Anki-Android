@@ -1,7 +1,7 @@
 {
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
   mPrefTimer=preferences.getBoolean("timer",true);
-  mPrefWhiteboard=preferences.getBoolean("whiteboard",true);
+  mPrefWhiteboard=preferences.getBoolean("whiteboard",false);
   mPrefWriteAnswers=preferences.getBoolean("writeAnswers",false);
   mPrefTextSelection=preferences.getBoolean("textSelection",false);
   mDeckFilename=preferences.getString("deckFilename","");

@@ -65,19 +65,21 @@
   mCardTimer.setTextSize(headTextSize);
   mChosenAnswer=(TextView)findViewById(R.id.choosen_answer);
   mChosenAnswer.setTextSize((float)(headTextSize * 1.1));
-  mWhiteboard=(Whiteboard)findViewById(R.id.whiteboard);
-  mWhiteboard.setOnTouchListener(new View.OnTouchListener(){
-    @Override public boolean onTouch(    View v,    MotionEvent event){
-      if (mWhiteboard.getVisibility() == View.VISIBLE) {
+  if (mPrefWhiteboard) {
+    mWhiteboard=(Whiteboard)findViewById(R.id.whiteboard);
+    mWhiteboard.setOnTouchListener(new View.OnTouchListener(){
+      @Override public boolean onTouch(      View v,      MotionEvent event){
+        if (mWhiteboard.getVisibility() == View.VISIBLE) {
+          return false;
+        }
+        if (gestureDetector.onTouchEvent(event)) {
+          return true;
+        }
         return false;
       }
-      if (gestureDetector.onTouchEvent(event)) {
-        return true;
-      }
-      return false;
     }
-  }
 );
+  }
   mAnswerField=(EditText)findViewById(R.id.answer_field);
   mNextTimeTextColor=getResources().getColor(R.color.next_time_usual_color);
   mNextTimeTextRecomColor=getResources().getColor(R.color.next_time_recommended_color);
