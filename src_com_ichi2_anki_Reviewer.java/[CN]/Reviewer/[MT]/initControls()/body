@@ -9,6 +9,8 @@
   if (mShowProgressBars) {
     mProgressBars.setVisibility(View.VISIBLE);
   }
-  mWhiteboard.setVisibility((mPrefWhiteboard && mShowWhiteboard) ? View.VISIBLE : View.GONE);
+  if (mPrefWhiteboard) {
+    mWhiteboard.setVisibility(mShowWhiteboard ? View.VISIBLE : View.GONE);
+  }
   mAnswerField.setVisibility((mPrefWriteAnswers) ? View.VISIBLE : View.GONE);
 }
