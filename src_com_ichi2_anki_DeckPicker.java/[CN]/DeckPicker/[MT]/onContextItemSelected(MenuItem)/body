@@ -2,6 +2,8 @@
   AdapterContextMenuInfo info=(AdapterContextMenuInfo)item.getMenuInfo();
   waitForDeckLoaderThread();
   @SuppressWarnings("unchecked") HashMap<String,String> data=(HashMap<String,String>)mDeckListAdapter.getItem(info.position);
+  String deckPath=null;
+  Deck deck=null;
 switch (item.getItemId()) {
 case R.id.delete_deck:
     mRemoveDeckPath=null;
@@ -12,9 +14,15 @@ case R.id.reset_language:
 resetDeckLanguages(data.get("filepath"));
 return true;
 case R.id.optimize_deck:
-String deckPath=data.get("filepath");
-Deck deck=Deck.openDeck(deckPath);
+deckPath=data.get("filepath");
+deck=Deck.openDeck(deckPath);
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_OPTIMIZE_DECK,mOptimizeDeckHandler,new DeckTask.TaskData(deck,null));
+return true;
+case R.id.download_missing_media:
+deckPath=data.get("filepath");
+deck=Deck.openDeck(deckPath);
+Reviewer.setupMedia(deck);
+Connection.downloadMissingMedia(mDownloadMediaListener,new Connection.Payload(new Object[]{deck}));
 return true;
 default :
 return super.onContextItemSelected(item);

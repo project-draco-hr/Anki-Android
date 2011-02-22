@@ -1,0 +1,13 @@
+{
+  String base=model.getFeatures().trim();
+  if (deck.getBool("remoteImages") && base.length() != 0 && !base.equalsIgnoreCase("null")) {
+    return base;
+  }
+ else {
+    base=mediaDir;
+    if (base != null) {
+      base="file://" + base + "/";
+    }
+  }
+  return base;
+}

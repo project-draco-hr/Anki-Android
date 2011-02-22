@@ -1,12 +1,23 @@
 {
   Log.i(AnkiDroidApp.TAG,"updateCard");
+  String baseUrl="";
+  if (mCurrentCard != null) {
+    Deck currentDeck=AnkiDroidApp.deck();
+    Model myModel=Model.getModel(currentDeck,mCurrentCard.getCardModelId(),false);
+    baseUrl=Utils.getBaseUrl(mMediaDir,myModel,currentDeck);
+    content=myModel.getCSSForFontColorSize(mCurrentCard.getCardModelId(),mDisplayFontSize,mInvertedColors) + content;
+  }
+ else {
+    mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
+    baseUrl="file://" + mDeckFilename.replace(".anki",".media/");
+  }
   int questionStartsAt=content.indexOf("<a name=\"question\"></a><hr/>");
   if (isQuestionDisplayed()) {
     if (sDisplayAnswer && (questionStartsAt != -1)) {
-      content=Sound.parseSounds(mDeckFilename,content.substring(0,questionStartsAt),mSpeakText,MetaDB.LANGUAGE_QUESTION) + Sound.parseSounds(mDeckFilename,content.substring(questionStartsAt,content.length()),mSpeakText,MetaDB.LANGUAGE_ANSWER);
+      content=Sound.parseSounds(baseUrl,content.substring(0,questionStartsAt),mSpeakText,MetaDB.LANGUAGE_QUESTION) + Sound.parseSounds(baseUrl,content.substring(questionStartsAt,content.length()),mSpeakText,MetaDB.LANGUAGE_ANSWER);
     }
  else {
-      content=Sound.parseSounds(mDeckFilename,content.substring(0,content.length() - 5),mSpeakText,MetaDB.LANGUAGE_QUESTION) + "<hr/>";
+      content=Sound.parseSounds(baseUrl,content.substring(0,content.length() - 5),mSpeakText,MetaDB.LANGUAGE_QUESTION) + "<hr/>";
     }
   }
  else {
@@ -14,23 +25,12 @@
     if (sDisplayAnswer) {
       qa=MetaDB.LANGUAGE_ANSWER;
     }
-    content=Sound.parseSounds(mDeckFilename,content,mSpeakText,qa);
+    content=Sound.parseSounds(baseUrl,content,mSpeakText,qa);
   }
   content=LaTeX.parseLaTeX(AnkiDroidApp.deck(),content);
   content=content.replace("font-weight:600;","font-weight:700;");
   if (mPrefUseRubySupport) {
     content=RubyParser.ankiRubyToMarkup(content);
-  }
-  String baseUrl="";
-  if (mCurrentCard != null) {
-    Deck currentDeck=AnkiDroidApp.deck();
-    Model myModel=Model.getModel(currentDeck,mCurrentCard.getCardModelId(),false);
-    baseUrl=Utils.getBaseUrl(myModel,mDeckFilename);
-    content=myModel.getCSSForFontColorSize(mCurrentCard.getCardModelId(),mDisplayFontSize,mInvertedColors) + content;
-  }
- else {
-    mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
-    baseUrl="file://" + mDeckFilename.replace(".anki",".media/");
   }
   if (isHebrewFixEnabled()) {
     content=applyFixForHebrew(content);

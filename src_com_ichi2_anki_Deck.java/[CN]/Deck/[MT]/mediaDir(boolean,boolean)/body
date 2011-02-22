@@ -1,5 +1,6 @@
 {
   String dir=null;
+  File mediaDir=null;
   if (mDeckPath != null && !mDeckPath.equals("")) {
     if (mMediaPrefix != null) {
       dir=mMediaPrefix + "/" + mDeckName+ ".media";
@@ -10,7 +11,7 @@
     if (rename) {
       return dir;
     }
-    File mediaDir=new File(dir);
+    mediaDir=new File(dir);
     if (!mediaDir.exists() && create) {
       try {
         if (!mediaDir.mkdir()) {
@@ -28,7 +29,6 @@
     return null;
   }
  else {
-    File mediaDir=new File(dir);
     if (!mediaDir.exists() || !mediaDir.isDirectory()) {
       return null;
     }
