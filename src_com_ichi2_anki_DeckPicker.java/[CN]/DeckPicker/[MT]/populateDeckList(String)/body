@@ -1,5 +1,8 @@
 {
   Log.i(AnkiDroidApp.TAG,"DeckPicker - populateDeckList");
+  if (!location.equals(mPrefDeckPath)) {
+    mPrefDeckPath=location;
+  }
   mTotalDueCards=0;
   mTotalCards=0;
   setTitleText();
@@ -7,7 +10,7 @@
   int len=0;
   File[] fileList;
   TreeSet<HashMap<String,String>> tree=new TreeSet<HashMap<String,String>>(new HashMapCompare());
-  File dir=new File(location);
+  File dir=new File(mPrefDeckPath);
   fileList=dir.listFiles(new AnkiFilter());
   if (dir.exists() && dir.isDirectory() && fileList != null) {
     len=fileList.length;
@@ -60,7 +63,6 @@
     data.put("rateOfCompletionMat","0");
     data.put("rateOfCompletionAll","0");
     tree.add(data);
-    mSyncAllBar.setVisibility(View.GONE);
   }
   mDeckList.clear();
   mDeckList.addAll(tree);

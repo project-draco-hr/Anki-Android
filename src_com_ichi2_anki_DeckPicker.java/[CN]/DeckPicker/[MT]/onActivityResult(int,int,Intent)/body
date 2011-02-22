@@ -1,0 +1,10 @@
+{
+  super.onActivityResult(requestCode,resultCode,intent);
+  if (requestCode == PREFERENCES_UPDATE) {
+    SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+    String newPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory());
+    if (!mPrefDeckPath.equals(newPath)) {
+      populateDeckList(newPath);
+    }
+  }
+}

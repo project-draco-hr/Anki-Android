@@ -13,8 +13,7 @@
  else {
         Log.e(AnkiDroidApp.TAG,"Error: Could not delete " + mediaDir);
       }
-      SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
-      populateDeckList(preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory()));
+      populateDeckList(mPrefDeckPath);
     }
  else {
       Log.e(AnkiDroidApp.TAG,"Error: Could not delete " + deckFilename);

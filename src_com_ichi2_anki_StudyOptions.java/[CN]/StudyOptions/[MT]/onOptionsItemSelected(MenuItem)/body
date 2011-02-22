@@ -3,17 +3,8 @@ switch (item.getItemId()) {
 case MENU_OPEN:
     openDeckPicker();
   return true;
-case MENU_DOWNLOAD_PERSONAL_DECK:
-openPersonalDeckPicker();
-return true;
-case MENU_DOWNLOAD_SHARED_DECK:
-openSharedDeckPicker();
-return true;
 case MENU_SYNC:
 syncDeck(null);
-return true;
-case MENU_MY_ACCOUNT:
-startActivity(new Intent(StudyOptions.this,MyAccount.class));
 return true;
 case MENU_MORE_OPTIONS:
 showMoreOptionsDialog();

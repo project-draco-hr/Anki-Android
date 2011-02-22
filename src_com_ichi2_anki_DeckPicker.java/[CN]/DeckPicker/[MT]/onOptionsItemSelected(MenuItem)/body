@@ -10,6 +10,18 @@ return true;
 case MENU_ABOUT:
 startActivity(new Intent(DeckPicker.this,About.class));
 return true;
+case MENU_DOWNLOAD_PERSONAL_DECK:
+openPersonalDeckPicker();
+return true;
+case MENU_DOWNLOAD_SHARED_DECK:
+openSharedDeckPicker();
+return true;
+case MENU_MY_ACCOUNT:
+startActivity(new Intent(DeckPicker.this,MyAccount.class));
+return true;
+case MENU_PREFERENCES:
+startActivityForResult(new Intent(DeckPicker.this,Preferences.class),PREFERENCES_UPDATE);
+return true;
 default :
 return super.onOptionsItemSelected(item);
 }

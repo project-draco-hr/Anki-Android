@@ -6,7 +6,6 @@
   setContentView(R.layout.deck_picker);
   registerExternalStorageListener();
   initDialogs();
-  mSyncAllBar=(LinearLayout)findViewById(R.id.sync_all_bar);
   mSyncAllButton=(Button)findViewById(R.id.sync_all_button);
   mSyncAllButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View v){
@@ -81,7 +80,8 @@
   mDeckListView.setAdapter(mDeckListAdapter);
   registerForContextMenu(mDeckListView);
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
-  populateDeckList(preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory()));
+  mPrefDeckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory());
+  populateDeckList(mPrefDeckPath);
   mSwipeEnabled=preferences.getBoolean("swipe",false);
   gestureDetector=new GestureDetector(new MyGestureDetector());
   mDeckListView.setOnTouchListener(new View.OnTouchListener(){

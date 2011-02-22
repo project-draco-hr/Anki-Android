@@ -1,0 +1,51 @@
+{
+  View contentView=getLayoutInflater().inflate(R.layout.studyoptions_limit_dialog_contents,null);
+  mEditSessionTime=(EditText)contentView.findViewById(R.id.studyoptions_session_minutes);
+  mEditSessionQuestions=(EditText)contentView.findViewById(R.id.studyoptions_session_questions);
+  mSessionLimitCheckBox=(CheckBox)contentView.findViewById(R.id.studyoptions_limit_session_check);
+  mSessionLimitCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+    @Override public void onCheckedChanged(    CompoundButton buttonView,    boolean isChecked){
+      mEditSessionTime.setEnabled(isChecked);
+      mEditSessionQuestions.setEnabled(isChecked);
+      if (!isChecked) {
+        mEditSessionTime.setText("");
+        mEditSessionQuestions.setText("");
+      }
+    }
+  }
+);
+  AlertDialog.Builder builder=new AlertDialog.Builder(this);
+  builder.setTitle(R.string.studyoptions_limit_dialog_title);
+  builder.setPositiveButton(R.string.studyoptions_more_save,new DialogInterface.OnClickListener(){
+    @Override public void onClick(    DialogInterface dialog,    int which){
+      mToggleLimit.setChecked(mSessionLimitCheckBox.isChecked());
+      Deck deck=AnkiDroidApp.deck();
+      boolean changed=false;
+      String text=mEditSessionTime.getText().toString();
+      if (!text.equals(Long.toString(deck.getSessionTimeLimit() / 60))) {
+        if (text.equals("")) {
+          deck.setSessionTimeLimit(0);
+        }
+ else         if (isValidLong(text)) {
+          deck.setSessionTimeLimit(Long.parseLong(text) * 60);
+        }
+      }
+      text=mEditSessionQuestions.getText().toString();
+      if (!text.equals(Long.toString(deck.getSessionRepLimit()))) {
+        if (text.equals("")) {
+          deck.setSessionRepLimit(0);
+        }
+ else         if (isValidLong(text)) {
+          deck.setSessionRepLimit(Long.parseLong(text));
+        }
+        changed=true;
+      }
+      if (changed) {
+        updateValuesFromDeck();
+      }
+    }
+  }
+);
+  builder.setView(contentView);
+  return builder.create();
+}

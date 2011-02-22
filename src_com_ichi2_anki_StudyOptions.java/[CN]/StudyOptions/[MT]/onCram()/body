@@ -1,6 +1,5 @@
 {
   AnkiDroidApp.deck().setupCramScheduler(activeCramTags.toArray(new String[activeCramTags.size()]),cramOrder);
-  mEditSessionTime.setEnabled(false);
-  mEditSessionQuestions.setEnabled(false);
+  mToggleLimit.setEnabled(false);
   updateValuesFromDeck();
 }

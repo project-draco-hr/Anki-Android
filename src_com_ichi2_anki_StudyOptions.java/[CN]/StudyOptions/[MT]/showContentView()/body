@@ -29,8 +29,7 @@ case CONTENT_STUDY_OPTIONS:
 case CONTENT_SESSION_COMPLETE:
 if ((AnkiDroidApp.deck() != null) && (AnkiDroidApp.deck().name().equals("cram"))) {
 mToggleCram.setChecked(false);
-mEditSessionTime.setEnabled(true);
-mEditSessionQuestions.setEnabled(true);
+mToggleLimit.setEnabled(true);
 }
 if ((AnkiDroidApp.deck() != null) && (AnkiDroidApp.deck().hasFinishScheduler())) {
 AnkiDroidApp.deck().finishScheduler();

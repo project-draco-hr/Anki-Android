@@ -16,11 +16,5 @@
     }
     mTextETA.setText(etastr);
     mTextNewTotal.setText(String.valueOf(deck.getNewCount()));
-    if (!mEditSessionTime.getText().toString().equals(String.valueOf(deck.getSessionTimeLimit() / 60)) && !mEditSessionTime.getText().toString().equals("")) {
-      mEditSessionTime.setText(String.valueOf(deck.getSessionTimeLimit() / 60));
-    }
-    if (!mEditSessionQuestions.getText().toString().equals(String.valueOf(deck.getSessionRepLimit())) && !mEditSessionQuestions.getText().toString().equals("")) {
-      mEditSessionQuestions.setText(String.valueOf(deck.getSessionRepLimit()));
-    }
   }
 }

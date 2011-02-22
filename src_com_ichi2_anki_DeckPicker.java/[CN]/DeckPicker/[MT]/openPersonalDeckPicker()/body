@@ -1,0 +1,15 @@
+{
+  if (AnkiDroidApp.isUserLoggedIn()) {
+    if (AnkiDroidApp.deck() != null) {
+      AnkiDroidApp.deck().closeDeck();
+      AnkiDroidApp.setDeck(null);
+    }
+    startActivity(new Intent(this,PersonalDeckPicker.class));
+    if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+      MyAnimation.slide(this,MyAnimation.RIGHT);
+    }
+  }
+ else {
+    showDialog(DIALOG_USER_NOT_LOGGED_IN);
+  }
+}

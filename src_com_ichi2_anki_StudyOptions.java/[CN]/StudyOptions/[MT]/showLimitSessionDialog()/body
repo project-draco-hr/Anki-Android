@@ -1,0 +1,13 @@
+{
+  Deck deck=AnkiDroidApp.deck();
+  long timeLimit=deck.getSessionTimeLimit() / 60;
+  long repLimit=deck.getSessionRepLimit();
+  mSessionLimitCheckBox.setChecked(timeLimit + repLimit > 0);
+  if (timeLimit != 0) {
+    mEditSessionTime.setText(String.valueOf(timeLimit));
+  }
+  if (repLimit != 0) {
+    mEditSessionTime.setText(String.valueOf(repLimit));
+  }
+  mLimitSessionDialog.show();
+}
