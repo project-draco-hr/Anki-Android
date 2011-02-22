@@ -1,0 +1,7 @@
+{
+  File f=new File(AnkiDroidApp.getStorageDirectory() + DROPBOX_PUBLIC_DIR);
+  if (f.exists() && f.isDirectory()) {
+    return f.getAbsolutePath();
+  }
+  return null;
+}

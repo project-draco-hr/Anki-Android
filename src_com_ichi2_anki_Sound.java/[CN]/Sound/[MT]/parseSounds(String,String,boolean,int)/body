@@ -8,7 +8,7 @@
   while (matcher.find()) {
     soundAvailable=true;
     String sound=matcher.group(1);
-    String soundPath=deckFilename.replace(".anki",".media/") + sound;
+    String soundPath=soundDir + sound;
     sSoundPaths.add(soundPath);
     String soundMarker=matcher.group();
     int markerStart=contentLeft.indexOf(soundMarker);

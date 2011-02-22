@@ -1,7 +1,0 @@
-{
-  String base=model.getFeatures().trim();
-  if (base.length() == 0) {
-    base="file://" + deckFileName.replace(".anki",".media/");
-  }
-  return base;
-}

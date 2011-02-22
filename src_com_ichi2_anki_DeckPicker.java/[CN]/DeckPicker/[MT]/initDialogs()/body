@@ -7,4 +7,13 @@
   builder.setTitle(getResources().getString(R.string.deckpicker_upgrade_notes_title));
   builder.setPositiveButton(getResources().getString(R.string.ok),null);
   mUpgradeNotesAlert=builder.create();
+  builder=new AlertDialog.Builder(this);
+  builder.setTitle(getResources().getString(R.string.deckpicker_download_missing_title));
+  builder.setPositiveButton(getResources().getString(R.string.ok),null);
+  mMissingMediaAlert=builder.create();
+  mProgressDialog=new ProgressDialog(DeckPicker.this);
+  mProgressDialog.setTitle(R.string.deckpicker_download_missing_title);
+  mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+  mProgressDialog.setMax(100);
+  mProgressDialog.setCancelable(false);
 }

@@ -1,13 +1,15 @@
 {
   super.onCreate(savedInstanceState);
   Log.i(AnkiDroidApp.TAG,"Reviewer - onCreate");
-  if (AnkiDroidApp.deck() == null) {
+  Deck deck=AnkiDroidApp.deck();
+  if (deck == null) {
     setResult(StudyOptions.CONTENT_NO_EXTERNAL_STORAGE);
     closeReviewer();
   }
  else {
+    mMediaDir=setupMedia(deck);
     restorePreferences();
-    AnkiDroidApp.deck().resetUndo();
+    deck.resetUndo();
     if (mPrefFullscreenReview) {
       getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
       requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -32,13 +34,13 @@ mCardTemplate=mCardTemplate.replaceFirst("var availableWidth = \\d*;","var avail
  catch (IOException e) {
 e.printStackTrace();
 }
-long timelimit=AnkiDroidApp.deck().getSessionTimeLimit() * 1000;
+long timelimit=deck.getSessionTimeLimit() * 1000;
 Log.i(AnkiDroidApp.TAG,"SessionTimeLimit: " + timelimit + " ms.");
 mSessionTimeLimit=System.currentTimeMillis() + timelimit;
 mSessionCurrReps=0;
 if (mSpeakText && Integer.valueOf(android.os.Build.VERSION.SDK) > 3) {
 ReadText.initializeTts(this,mDeckFilename);
 }
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),null));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,deck,null));
 }
 }

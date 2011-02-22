@@ -1,5 +1,6 @@
 {
   String dir=null;
+  File mediaDir=null;
   if (mDeckPath != null && !mDeckPath.equals("")) {
     if (mMediaPrefix != null) {
       dir=mMediaPrefix + "/" + mDeckName+ ".media";
@@ -10,19 +11,17 @@
     if (rename) {
       return dir;
     }
- else {
-      File mediaDir=new File(dir);
-      if (!mediaDir.exists() && create) {
-        try {
-          if (!mediaDir.mkdir()) {
-            Log.e(AnkiDroidApp.TAG,"Couldn't create media directory " + dir);
-            return null;
-          }
-        }
- catch (        SecurityException e) {
-          Log.e(AnkiDroidApp.TAG,"Security restriction: Couldn't create media directory " + dir);
+    mediaDir=new File(dir);
+    if (!mediaDir.exists() && create) {
+      try {
+        if (!mediaDir.mkdir()) {
+          Log.e(AnkiDroidApp.TAG,"Couldn't create media directory " + dir);
           return null;
         }
+      }
+ catch (      SecurityException e) {
+        Log.e(AnkiDroidApp.TAG,"Security restriction: Couldn't create media directory " + dir);
+        return null;
       }
     }
   }
@@ -30,7 +29,6 @@
     return null;
   }
  else {
-    File mediaDir=new File(dir);
     if (!mediaDir.exists() || !mediaDir.isDirectory()) {
       return null;
     }

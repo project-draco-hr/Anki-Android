@@ -18,5 +18,20 @@ catch (  IOException e) {
     Log.w(AnkiDroidApp.TAG,"File " + path + " appears to be empty");
     return "";
   }
-  return checksum(new String(bytes));
+  MessageDigest md=null;
+  byte[] digest=null;
+  try {
+    md=MessageDigest.getInstance("MD5");
+    digest=md.digest(bytes);
+  }
+ catch (  NoSuchAlgorithmException e) {
+    Log.e(AnkiDroidApp.TAG,"Utils.checksum: No such algorithm. " + e.getMessage());
+    throw new RuntimeException(e);
+  }
+  BigInteger biginteger=new BigInteger(1,digest);
+  String result=biginteger.toString(16);
+  if (result.length() < 32) {
+    result="00000000000000000000000000000000".substring(0,32 - result.length()) + result;
+  }
+  return result;
 }

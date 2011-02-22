@@ -1,0 +1,10 @@
+{
+  String mediaLoc=deck.getVar("mediaLocation");
+  if (mediaLoc != null) {
+    mediaLoc=mediaLoc.replace("\\","/");
+    if (mediaLoc.contains("/Dropbox/Public/Anki")) {
+      deck.setMediaPrefix(AnkiDroidApp.getDropboxDir());
+    }
+  }
+  return deck.mediaDir();
+}
