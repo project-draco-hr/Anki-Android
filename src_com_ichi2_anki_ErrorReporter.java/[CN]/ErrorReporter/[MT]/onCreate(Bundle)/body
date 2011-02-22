@@ -6,7 +6,7 @@
   mNonce=UUID.randomUUID().getMostSignificantBits();
   if (reportErrorMode.equals(REPORT_ALWAYS)) {
     try {
-      sendErrorReport();
+      sendErrorReports();
     }
  catch (    Exception e) {
       Log.e(AnkiDroidApp.TAG,e.toString());
@@ -35,10 +35,16 @@
       btnSendMostRecent.setVisibility(View.GONE);
       btnClearAll.setVisibility(View.GONE);
       btnSendAll.setText("Send us your feedback");
+      btnSendAll.setVisibility(View.VISIBLE);
     }
  else {
+      btnClearAll.setVisibility(View.VISIBLE);
+      btnSendAll.setVisibility(View.VISIBLE);
       if (numErrors == 1) {
         btnSendMostRecent.setVisibility(View.GONE);
+      }
+ else {
+        btnSendMostRecent.setVisibility(View.VISIBLE);
       }
       mErrorAdapter=new SimpleAdapter(this,mErrorReports,R.layout.error_item,new String[]{"name","state"},new int[]{R.id.error_item_text,R.id.error_item_progress});
       mErrorAdapter.setViewBinder(new SimpleAdapter.ViewBinder(){
@@ -62,7 +68,17 @@
     btnSendAll.setOnClickListener(new OnClickListener(){
       @Override public void onClick(      View v){
         try {
-          sendErrorReport();
+          sendErrorReports();
+          EditText etFeedbackText=(EditText)findViewById(R.id.etFeedbackText);
+          String feedback=etFeedbackText.getText().toString();
+          if (feedback.length() > 0) {
+            if (mErrorReports.size() == 0) {
+              sendFeedback(TYPE_FEEDBACK,feedback);
+            }
+ else {
+              sendFeedback(TYPE_ERROR_FEEDBACK,feedback);
+            }
+          }
         }
  catch (        Exception e) {
           Log.e(AnkiDroidApp.TAG,e.toString());
@@ -76,7 +92,12 @@
         try {
           deleteFiles(false,true);
           refreshErrorListView();
-          sendErrorReport();
+          sendErrorReports();
+          EditText etFeedbackText=(EditText)findViewById(R.id.etFeedbackText);
+          String feedback=etFeedbackText.getText().toString();
+          if (feedback.length() > 0) {
+            sendFeedback(TYPE_ERROR_FEEDBACK,feedback);
+          }
         }
  catch (        Exception e) {
           Log.e(AnkiDroidApp.TAG,e.toString());
@@ -92,6 +113,6 @@
       }
     }
 );
-    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
   }
 }
