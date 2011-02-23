@@ -66,7 +66,11 @@
   mChosenAnswer=(TextView)findViewById(R.id.choosen_answer);
   mChosenAnswer.setTextSize((float)(headTextSize * 1.1));
   if (mPrefWhiteboard) {
-    mWhiteboard=(Whiteboard)findViewById(R.id.whiteboard);
+    mWhiteboard=new Whiteboard(this,null);
+    FrameLayout.LayoutParams lp2=new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT);
+    mWhiteboard.setLayoutParams(lp2);
+    FrameLayout fl=(FrameLayout)findViewById(R.id.whiteboard);
+    fl.addView(mWhiteboard);
     mWhiteboard.setOnTouchListener(new View.OnTouchListener(){
       @Override public boolean onTouch(      View v,      MotionEvent event){
         if (mWhiteboard.getVisibility() == View.VISIBLE) {
