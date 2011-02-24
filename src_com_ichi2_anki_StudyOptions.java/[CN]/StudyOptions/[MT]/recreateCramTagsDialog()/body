@@ -36,21 +36,11 @@
   builder.setPositiveButton(res.getString(R.string.begin_cram),new OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int which){
       onCram();
+      mToggleCram.setChecked(true);
     }
   }
 );
-  builder.setNegativeButton(res.getString(R.string.cancel),new OnClickListener(){
-    @Override public void onClick(    DialogInterface dialog,    int which){
-      mToggleCram.setChecked(false);
-    }
-  }
-);
-  builder.setOnCancelListener(new DialogInterface.OnCancelListener(){
-    @Override public void onCancel(    DialogInterface dialog){
-      mToggleCram.setChecked(false);
-    }
-  }
-);
+  builder.setNegativeButton(res.getString(R.string.cancel),null);
   builder.setView(contentView);
   mCramTagsDialog=builder.create();
 }

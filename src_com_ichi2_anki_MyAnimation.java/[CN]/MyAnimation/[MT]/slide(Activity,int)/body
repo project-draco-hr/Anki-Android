@@ -14,4 +14,7 @@
  else   if (direction == DOWN) {
     activity.overridePendingTransition(R.anim.slide_down_in,R.anim.slide_down_out);
   }
+ else   if (direction == NONE) {
+    activity.overridePendingTransition(R.anim.none,R.anim.none);
+  }
 }

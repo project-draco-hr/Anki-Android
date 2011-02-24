@@ -1,0 +1,49 @@
+{
+  Resources res=getResources();
+  selectedTags.clear();
+  if (allTags.length == 0) {
+    allTags=AnkiDroidApp.deck().allTags_();
+    Log.i(AnkiDroidApp.TAG,"all tags: " + Arrays.toString(allTags));
+  }
+  View contentView=getLayoutInflater().inflate(R.layout.studyoptions_tags_dialog_contents,null);
+  mTagsListView=(ListView)contentView.findViewById(R.id.tags_list);
+  mTagsListView.setAdapter(new ArrayAdapter<String>(this,R.layout.dialog_check_item,allTags));
+  mTagsListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+    @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
+      String tag=allTags[position];
+      if (((CheckedTextView)view).isChecked()) {
+        Log.i(AnkiDroidApp.TAG,"unchecked tag: " + tag);
+        selectedTags.remove(tag);
+      }
+ else {
+        Log.i(AnkiDroidApp.TAG,"checked tag: " + tag);
+        selectedTags.add(tag);
+      }
+    }
+  }
+);
+  mTagsListView.setItemsCanFocus(false);
+  AlertDialog.Builder builder=new AlertDialog.Builder(this);
+  builder.setTitle(R.string.studyoptions_limit_select_tags);
+  builder.setPositiveButton(res.getString(R.string.select),new OnClickListener(){
+    @Override public void onClick(    DialogInterface dialog,    int which){
+      String readableText=selectedTags.toString();
+      updateLimitTagText(mSelectedLimitTagText,readableText.substring(1,readableText.length() - 1));
+    }
+  }
+);
+  builder.setNegativeButton(res.getString(R.string.cancel),new OnClickListener(){
+    @Override public void onClick(    DialogInterface dialog,    int which){
+      updateLimitTagText(mSelectedLimitTagText,"");
+    }
+  }
+);
+  builder.setOnCancelListener(new OnCancelListener(){
+    @Override public void onCancel(    DialogInterface dialog){
+      updateLimitTagText(mSelectedLimitTagText,"");
+    }
+  }
+);
+  builder.setView(contentView);
+  mTagsDialog=builder.create();
+}

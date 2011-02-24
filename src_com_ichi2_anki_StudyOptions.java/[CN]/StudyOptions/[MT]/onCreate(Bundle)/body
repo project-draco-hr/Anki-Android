@@ -9,6 +9,7 @@
   registerExternalStorageListener();
   requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
   activeCramTags=new HashSet<String>();
+  selectedTags=new HashSet<String>();
   initAllContentViews();
   initAllDialogs();
   if ((AnkiDroidApp.deck() != null) && (AnkiDroidApp.deck().hasFinishScheduler())) {
