@@ -28,7 +28,7 @@
       }
       br.close();
       postReport(TYPE_STACKTRACE,i,pairs);
-      Log.i(AnkiDroidApp.TAG,"posting error report " + i);
+      Log.i(AnkiDroidApp.TAG,"Posting error report " + i);
     }
  catch (    Exception ex) {
       Log.e(AnkiDroidApp.TAG,ex.toString());
