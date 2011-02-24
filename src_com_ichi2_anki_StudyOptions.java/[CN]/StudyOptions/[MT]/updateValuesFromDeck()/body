@@ -4,10 +4,11 @@
   DeckTask.waitToFinish();
   if (deck != null) {
     deck.reset();
-    int reviewCount=deck.getDueCount();
-    setTitle(res.getQuantityString(R.plurals.studyoptions_window_title,reviewCount,deck.getDeckName(),reviewCount,deck.getCardCount()));
+    int dueCount=deck.getDueCount();
+    int cardsCount=deck.getCardCount();
+    setTitle(res.getQuantityString(R.plurals.studyoptions_window_title,dueCount,deck.getDeckName(),dueCount,cardsCount));
     mTextDeckName.setText(deck.getDeckName());
-    mTextReviewsDue.setText(String.valueOf(reviewCount));
+    mTextReviewsDue.setText(String.valueOf(dueCount));
     mTextNewToday.setText(String.valueOf(deck.getNewCountToday()));
     String etastr="-";
     int eta=(int)deck.getStats(Stats.TYPE_ETA)[0];
@@ -15,6 +16,15 @@
       etastr=Integer.toString(eta / 60);
     }
     mTextETA.setText(etastr);
-    mTextNewTotal.setText(String.valueOf(deck.getNewCount(false)));
+    int totalNewCount=deck.getNewCount(false);
+    mTextNewTotal.setText(String.valueOf(totalNewCount));
+    double[] values=deck.getStats(Stats.TYPE_YES_SHARES);
+    mProgressTodayYes=values[0];
+    mProgressMatureYes=values[1];
+    double mature=deck.getMatureCardCount(false);
+    mProgressMature=mature / cardsCount;
+    double seen=cardsCount - totalNewCount;
+    mProgressAll=seen / cardsCount;
+    updateStatisticBars();
   }
 }
