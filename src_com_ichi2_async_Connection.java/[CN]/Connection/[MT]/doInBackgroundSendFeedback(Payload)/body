@@ -1,0 +1,42 @@
+{
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundSendFeedback");
+  String feedbackUrl=(String)data.data[0];
+  String errorUrl=(String)data.data[1];
+  String feedback=(String)data.data[2];
+  ArrayList<HashMap<String,String>> errors=(ArrayList<HashMap<String,String>>)data.data[3];
+  String groupId=((Long)data.data[4]).toString();
+  Application app=(Application)data.data[5];
+  String postType=null;
+  if (feedback.length() > 0) {
+    if (errors.size() > 0) {
+      postType=Feedback.TYPE_ERROR_FEEDBACK;
+    }
+ else {
+      postType=Feedback.TYPE_FEEDBACK;
+    }
+    publishProgress(postType,0,Feedback.STATE_UPLOADING);
+    Payload reply=Feedback.postFeedback(feedbackUrl,postType,feedback,groupId,0,null);
+    if (reply.success) {
+      publishProgress(postType,0,Feedback.STATE_SUCCESSFUL,reply.returnType,reply.result);
+    }
+ else {
+      publishProgress(postType,0,Feedback.STATE_FAILED,reply.returnType,reply.result);
+    }
+  }
+  for (int i=0; i < errors.size(); i++) {
+    HashMap<String,String> error=errors.get(i);
+    if (error.containsKey("state") && error.get("state").equals(Feedback.STATE_WAITING)) {
+      postType=Feedback.TYPE_STACKTRACE;
+      publishProgress(postType,i,Feedback.STATE_UPLOADING);
+      Payload reply=Feedback.postFeedback(errorUrl,postType,error.get("name"),groupId,i,app);
+      if (reply.success) {
+        publishProgress(postType,i,Feedback.STATE_SUCCESSFUL,reply.returnType,reply.result);
+      }
+ else {
+        publishProgress(postType,i,Feedback.STATE_FAILED,reply.returnType,reply.result);
+      }
+    }
+  }
+  app=null;
+  return data;
+}

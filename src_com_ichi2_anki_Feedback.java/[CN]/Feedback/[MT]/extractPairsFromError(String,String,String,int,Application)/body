@@ -1,0 +1,36 @@
+{
+  List<NameValuePair> pairs=new ArrayList<NameValuePair>();
+  pairs.add(new BasicNameValuePair("type","crash-stacktrace"));
+  pairs.add(new BasicNameValuePair("groupid",groupId));
+  pairs.add(new BasicNameValuePair("id",String.valueOf(index)));
+  addTimestamp(pairs);
+  String singleLine=null;
+  try {
+    BufferedReader br=new BufferedReader(new InputStreamReader(app.openFileInput(errorFile)));
+    while ((singleLine=br.readLine()) != null) {
+      int indexOfEquals=singleLine.indexOf('=');
+      if (indexOfEquals == -1)       continue;
+      String key=singleLine.substring(0,indexOfEquals).toLowerCase();
+      String value=singleLine.substring(indexOfEquals + 1,singleLine.length());
+      if (key.equals("stacktrace")) {
+        StringBuilder sb=new StringBuilder(value);
+        while ((singleLine=br.readLine()) != null) {
+          sb.append(singleLine);
+          sb.append("\n");
+        }
+        value=sb.toString();
+      }
+      pairs.add(new BasicNameValuePair(key,value));
+    }
+    br.close();
+  }
+ catch (  FileNotFoundException e) {
+    Log.w(AnkiDroidApp.TAG,"Couldn't open crash report " + errorFile);
+    return null;
+  }
+catch (  IOException e) {
+    Log.w(AnkiDroidApp.TAG,"Couldn't read crash report " + errorFile);
+    return null;
+  }
+  return pairs;
+}

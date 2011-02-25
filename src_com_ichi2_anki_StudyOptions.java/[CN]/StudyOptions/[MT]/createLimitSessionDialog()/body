@@ -16,6 +16,10 @@
   mLimitTagTv4=(TextView)contentView.findViewById(R.id.studyoptions_limit_tag_tv4);
   mLimitTagTv5=(TextView)contentView.findViewById(R.id.studyoptions_limit_tag_tv5);
   mLimitTagTv6=(TextView)contentView.findViewById(R.id.studyoptions_limit_tag_tv6);
+  mLimitTagTv2.setOnClickListener(mButtonClickListener);
+  mLimitTagTv3.setOnClickListener(mButtonClickListener);
+  mLimitTagTv5.setOnClickListener(mButtonClickListener);
+  mLimitTagTv6.setOnClickListener(mButtonClickListener);
   mSessionLimitCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
     @Override public void onCheckedChanged(    CompoundButton buttonView,    boolean isChecked){
       mEditSessionTime.setEnabled(isChecked);
