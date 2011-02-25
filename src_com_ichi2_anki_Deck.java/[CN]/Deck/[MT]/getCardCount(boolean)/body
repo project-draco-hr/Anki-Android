@@ -1,8 +1,0 @@
-{
-  if (restrictToActive) {
-    return (int)getDB().queryScalar(cardLimit("revActive","revInactive","SELECT count(*) from cards c WHERE id != 0"));
-  }
- else {
-    return getCardCount();
-  }
-}

@@ -55,7 +55,8 @@
           int newCards=deck.getNewCountToday();
           int totalNewCards=deck.getNewCount(mCompletionBarRestrictToActive);
           int matureCards=deck.getMatureCardCount(mCompletionBarRestrictToActive);
-          int totalCardsCompletionBar=deck.getCardCount(mCompletionBarRestrictToActive);
+          int totalRevCards=deck.getTotalRevFailedCount(mCompletionBarRestrictToActive);
+          int totalCardsCompletionBar=totalRevCards + totalNewCards;
           String upgradeNotes=Deck.upgradeNotesToMessages(deck,getResources());
           deck.closeDeck();
           data.putString("absPath",path);
@@ -68,7 +69,7 @@
           int rateOfCompletionAll;
           if (totalCardsCompletionBar != 0) {
             rateOfCompletionMat=(matureCards * 100) / totalCardsCompletionBar;
-            rateOfCompletionAll=((totalCardsCompletionBar - totalNewCards) * 100) / totalCardsCompletionBar;
+            rateOfCompletionAll=(totalRevCards * 100) / totalCardsCompletionBar;
           }
  else {
             rateOfCompletionMat=0;
