@@ -2,14 +2,14 @@
   super.onCreate(savedInstanceState);
   Log.i(AnkiDroidApp.TAG,"StudyOptions Activity");
   if (hasErrorFiles()) {
-    Intent i=new Intent(this,ErrorReporter.class);
+    Intent i=new Intent(this,Feedback.class);
     startActivityForResult(i,REPORT_ERROR);
   }
   SharedPreferences preferences=restorePreferences();
   registerExternalStorageListener();
   requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
   activeCramTags=new HashSet<String>();
-  selectedTags=new HashSet<String>();
+  mSelectedTags=new HashSet<String>();
   initAllContentViews();
   initAllDialogs();
   if ((AnkiDroidApp.deck() != null) && (AnkiDroidApp.deck().hasFinishScheduler())) {
