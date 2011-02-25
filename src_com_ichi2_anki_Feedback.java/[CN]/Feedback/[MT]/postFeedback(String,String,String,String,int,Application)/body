@@ -1,0 +1,52 @@
+{
+  Payload result=new Payload(null);
+  List<NameValuePair> pairs=null;
+  if (!isErrorType(type)) {
+    pairs=new ArrayList<NameValuePair>();
+    pairs.add(new BasicNameValuePair("type",type));
+    pairs.add(new BasicNameValuePair("groupid",groupId));
+    pairs.add(new BasicNameValuePair("id","0"));
+    pairs.add(new BasicNameValuePair("message",feedback));
+    addTimestamp(pairs);
+  }
+ else {
+    pairs=Feedback.extractPairsFromError(type,feedback,groupId,index,app);
+    if (pairs == null) {
+      result.success=false;
+      result.result=null;
+    }
+  }
+  HttpClient httpClient=new DefaultHttpClient();
+  HttpPost httpPost=new HttpPost(url);
+  httpPost.addHeader("User-Agent","AnkiDroid");
+  try {
+    httpPost.setEntity(new UrlEncodedFormEntity(pairs));
+    HttpResponse response=httpClient.execute(httpPost);
+    Log.e(AnkiDroidApp.TAG,String.format("Bug report posted to %s",url));
+    int respCode=response.getStatusLine().getStatusCode();
+switch (respCode) {
+case 200:
+      result.success=true;
+    result.returnType=respCode;
+  result.result=Utils.convertStreamToString(response.getEntity().getContent());
+break;
+default :
+Log.e(AnkiDroidApp.TAG,String.format("doInBackgroundSendCrashReport failure: %d - %s",response.getStatusLine().getStatusCode(),response.getStatusLine().getReasonPhrase()));
+result.success=false;
+result.returnType=respCode;
+result.result=response.getStatusLine().getReasonPhrase();
+break;
+}
+}
+ catch (ClientProtocolException ex) {
+Log.e(AnkiDroidApp.TAG,ex.toString());
+result.success=false;
+result.result=new String(ex.toString());
+}
+catch (IOException ex) {
+Log.e(AnkiDroidApp.TAG,ex.toString());
+result.success=false;
+result.result=new String(ex.toString());
+}
+return result;
+}
