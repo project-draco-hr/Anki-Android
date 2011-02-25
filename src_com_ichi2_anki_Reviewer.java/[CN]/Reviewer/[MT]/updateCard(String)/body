@@ -1,11 +1,14 @@
 {
   Log.i(AnkiDroidApp.TAG,"updateCard");
   String baseUrl="";
+  Boolean isJapaneseModel=false;
   if (mCurrentCard != null) {
+    final String japaneseModelTag="Japanese";
     Deck currentDeck=AnkiDroidApp.deck();
     Model myModel=Model.getModel(currentDeck,mCurrentCard.getCardModelId(),false);
     baseUrl=Utils.getBaseUrl(mMediaDir,myModel,currentDeck);
     content=myModel.getCSSForFontColorSize(mCurrentCard.getCardModelId(),mDisplayFontSize,mInvertedColors) + content;
+    isJapaneseModel=myModel.hasTag(japaneseModelTag);
   }
  else {
     mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
@@ -29,7 +32,7 @@
   }
   content=LaTeX.parseLaTeX(AnkiDroidApp.deck(),content);
   content=content.replace("font-weight:600;","font-weight:700;");
-  if (mPrefUseRubySupport) {
+  if (mPrefUseRubySupport && isJapaneseModel) {
     content=RubyParser.ankiRubyToMarkup(content);
   }
   if (isHebrewFixEnabled()) {
