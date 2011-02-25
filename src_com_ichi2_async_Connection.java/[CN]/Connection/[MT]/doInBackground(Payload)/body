@@ -14,7 +14,7 @@ return doInBackgroundSyncDeck(data);
 case TASK_TYPE_SYNC_DECK_FROM_PAYLOAD:
 return doInBackgroundSyncDeckFromPayload(data);
 case TASK_TYPE_SEND_CRASH_REPORT:
-return doInBackgroundSendCrashReport(data);
+return doInBackgroundSendFeedback(data);
 case TASK_TYPE_DOWNLOAD_MEDIA:
 return doInBackgroundDownloadMissingMedia(data);
 default :

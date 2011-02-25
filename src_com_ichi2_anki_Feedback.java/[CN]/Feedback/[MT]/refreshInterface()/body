@@ -1,0 +1,38 @@
+{
+  Resources res=getResources();
+  Button btnSend=(Button)findViewById(R.id.btnFeedbackSend);
+  Button btnKeepLatest=(Button)findViewById(R.id.btnFeedbackKeepLatest);
+  Button btnClearAll=(Button)findViewById(R.id.btnFeedbackClearAll);
+  ProgressBar pbSpinner=(ProgressBar)findViewById(R.id.pbFeedbackSpinner);
+  Log.i(AnkiDroidApp.TAG,"refreshing UI");
+  int numErrors=mErrorReports.size();
+  if (numErrors == 0) {
+    mLvErrorList.setVisibility(View.GONE);
+    btnKeepLatest.setVisibility(View.GONE);
+    btnClearAll.setVisibility(View.GONE);
+    btnSend.setText(res.getString(R.string.feedback_send_feedback));
+  }
+ else {
+    mLvErrorList.setVisibility(View.VISIBLE);
+    btnKeepLatest.setVisibility(View.VISIBLE);
+    btnClearAll.setVisibility(View.VISIBLE);
+    btnSend.setText(res.getString(R.string.feedback_send_feedback_and_errors));
+    refreshErrorListView();
+    if (numErrors == 1) {
+      btnKeepLatest.setEnabled(false);
+    }
+ else {
+      btnKeepLatest.setEnabled(true);
+    }
+  }
+  if (mPostingFeedback) {
+    btnSend.setVisibility(View.GONE);
+    pbSpinner.setVisibility(View.VISIBLE);
+    mEtFeedbackText.setEnabled(false);
+  }
+ else {
+    btnSend.setVisibility(View.VISIBLE);
+    pbSpinner.setVisibility(View.GONE);
+    mEtFeedbackText.setEnabled(true);
+  }
+}
