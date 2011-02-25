@@ -1,5 +1,12 @@
 {
   mStudyOptionsView=getLayoutInflater().inflate(R.layout.studyoptions,null);
+  ViewTreeObserver vto=mStudyOptionsView.getViewTreeObserver();
+  vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener(){
+    @Override public void onGlobalLayout(){
+      updateStatisticBars();
+    }
+  }
+);
   mStudyOptionsMain=(View)mStudyOptionsView.findViewById(R.id.studyoptions_main);
   mTextTitle=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_title);
   mTextDeckName=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_name);
@@ -8,6 +15,10 @@
   mToggleLimit=(ToggleButton)mStudyOptionsView.findViewById(R.id.studyoptions_limit);
   mCardBrowser=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_card_browser);
   mStatisticsButton=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_statistics);
+  mDailyBar=(View)mStudyOptionsView.findViewById(R.id.studyoptions_daily_bar);
+  mMatureBar=(View)mStudyOptionsView.findViewById(R.id.studyoptions_mature_bar);
+  mGlobalBar=(View)mStudyOptionsView.findViewById(R.id.studyoptions_global_bar);
+  mGlobalMatBar=(View)mStudyOptionsView.findViewById(R.id.studyoptions_global_mat_bar);
   mTextReviewsDue=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_reviews_due);
   mTextNewToday=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_new_today);
   mTextETA=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_eta);

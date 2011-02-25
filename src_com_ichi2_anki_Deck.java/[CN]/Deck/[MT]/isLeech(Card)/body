@@ -1,10 +1,10 @@
 {
   int no=card.getNoCount();
   int fmax=0;
-  try {
+  if (hasKey("leechFails")) {
     fmax=getInt("leechFails");
   }
- catch (  SQLException e) {
+ else {
     return false;
   }
   Log.i(AnkiDroidApp.TAG,"leech handling: " + card.getSuccessive() + " successive fails and "+ no+ " total fails, threshold at "+ fmax);

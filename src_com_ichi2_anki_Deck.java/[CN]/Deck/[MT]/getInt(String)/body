@@ -1,17 +1,14 @@
 {
-  Cursor cur=null;
-  try {
-    cur=getDB().getDatabase().rawQuery("SELECT value FROM deckVars WHERE key = '" + key + "'",null);
-    if (cur.moveToFirst()) {
-      return cur.getInt(0);
+  if (mDeckVars.containsKey(key)) {
+    try {
+      return Integer.parseInt(mDeckVars.get(key));
     }
- else {
-      throw new SQLException("DeckVars.getInt: could not retrieve value for " + key);
+ catch (    NumberFormatException e) {
+      Log.w(AnkiDroidApp.TAG,"NumberFormatException: Converting deckvar to int failed, key: \"" + key + "\", value: \""+ mDeckVars.get(key)+ "\"");
+      return 0;
     }
   }
-  finally {
-    if (cur != null && !cur.isClosed()) {
-      cur.close();
-    }
+ else {
+    return 0;
   }
 }

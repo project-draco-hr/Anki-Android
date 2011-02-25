@@ -1,12 +1,3 @@
 {
-  Cursor cur=null;
-  try {
-    cur=getDB().getDatabase().rawQuery("SELECT 1 FROM deckVars WHERE key = '" + key + "'",null);
-    return cur.moveToNext();
-  }
-  finally {
-    if (cur != null && !cur.isClosed()) {
-      cur.close();
-    }
-  }
+  return mDeckVars.containsKey(key);
 }

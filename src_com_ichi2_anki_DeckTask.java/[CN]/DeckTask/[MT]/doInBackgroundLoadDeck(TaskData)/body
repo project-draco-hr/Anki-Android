@@ -4,9 +4,8 @@
   Log.i(AnkiDroidApp.TAG,"loadDeck - SD card mounted and existent file -> Loading deck...");
   try {
     Deck deck=Deck.openDeck(deckFilename);
-    Card card=deck.getCard();
     Log.i(AnkiDroidApp.TAG,"Deck loaded!");
-    return new TaskData(DECK_LOADED,deck,card);
+    return new TaskData(DECK_LOADED,deck,null);
   }
  catch (  SQLException e) {
     Log.i(AnkiDroidApp.TAG,"The database " + deckFilename + " could not be opened = "+ e.getMessage());
