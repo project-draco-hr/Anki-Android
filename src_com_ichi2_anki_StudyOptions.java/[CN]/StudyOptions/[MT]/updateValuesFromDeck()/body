@@ -20,12 +20,24 @@
     mTextNewTotal.setText(String.valueOf(totalNewCount));
     if (mDailyBar != null) {
       double[] values=deck.getStats(Stats.TYPE_YES_SHARES);
+      double totalCardsCount=cardsCount;
       mProgressTodayYes=values[0];
       mProgressMatureYes=values[1];
       double mature=deck.getMatureCardCount(false);
-      mProgressMature=mature / cardsCount;
-      double seen=cardsCount - totalNewCount;
-      mProgressAll=seen / cardsCount;
+      mProgressMature=mature / totalCardsCount;
+      double allRev=deck.getTotalRevFailedCount(false);
+      mProgressAll=allRev / totalCardsCount;
+      if (deck.isLimitedByTag()) {
+        mGlobalLimitFrame.setVisibility(View.VISIBLE);
+        mature=deck.getMatureCardCount(true);
+        allRev=deck.getTotalRevFailedCount(true);
+        totalCardsCount=allRev + deck.getNewCount(true);
+        mProgressMatureLimit=mature / totalCardsCount;
+        mProgressAllLimit=allRev / totalCardsCount;
+      }
+ else {
+        mGlobalLimitFrame.setVisibility(View.GONE);
+      }
       updateStatisticBars();
     }
   }

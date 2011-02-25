@@ -1,21 +1,12 @@
 {
   if (mStatisticBarsMax == 0) {
-    View view=mStudyOptionsView.findViewById(R.id.studyoptions_bars_max);
-    view.requestLayout();
-    view.invalidate();
-    mStatisticBarsMax=view.getWidth();
-    mStatisticBarsHeight=view.getHeight();
+    mStatisticBarsMax=mBarsMax.getWidth();
+    mStatisticBarsHeight=mBarsMax.getHeight();
   }
-  if (mProgressTodayYes != 0) {
-    Utils.updateProgressBars(this,mDailyBar,mProgressTodayYes,mStatisticBarsMax,mStatisticBarsHeight,true);
-  }
-  if (mProgressMatureYes != 0) {
-    Utils.updateProgressBars(this,mMatureBar,mProgressMatureYes,mStatisticBarsMax,mStatisticBarsHeight,true);
-  }
-  if (mProgressMature != 0) {
-    Utils.updateProgressBars(this,mGlobalMatBar,mProgressMature,mStatisticBarsMax,mStatisticBarsHeight,false);
-  }
-  if (mProgressMature != mProgressAll) {
-    Utils.updateProgressBars(this,mGlobalBar,mProgressAll - mProgressMature,mStatisticBarsMax,mStatisticBarsHeight,false);
-  }
+  Utils.updateProgressBars(this,mDailyBar,mProgressTodayYes,mStatisticBarsMax,mStatisticBarsHeight,true);
+  Utils.updateProgressBars(this,mMatureBar,mProgressMatureYes,mStatisticBarsMax,mStatisticBarsHeight,true);
+  Utils.updateProgressBars(this,mGlobalMatLimitBar,mProgressMatureLimit,mStatisticBarsMax,mStatisticBarsHeight,false);
+  Utils.updateProgressBars(this,mGlobalLimitBar,(mProgressAllLimit == 1.0) ? 1.0 : mProgressAllLimit - mProgressMatureLimit,mStatisticBarsMax,mStatisticBarsHeight,false);
+  Utils.updateProgressBars(this,mGlobalMatBar,mProgressMature,mStatisticBarsMax,mStatisticBarsHeight,false);
+  Utils.updateProgressBars(this,mGlobalBar,(mProgressAll == 1.0) ? 1.0 : mProgressAll - mProgressMature,mStatisticBarsMax,mStatisticBarsHeight,false);
 }
