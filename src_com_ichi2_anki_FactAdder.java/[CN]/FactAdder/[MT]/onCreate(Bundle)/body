@@ -50,8 +50,10 @@
   mSelectedTags=new HashSet<String>();
   mTags.setOnClickListener(new View.OnClickListener(){
     @Override public void onClick(    View v){
-      tagsDialog().show();
+      recreateTagsDialog();
+      mTagsDialog.show();
     }
   }
 );
+  initDialogs();
 }

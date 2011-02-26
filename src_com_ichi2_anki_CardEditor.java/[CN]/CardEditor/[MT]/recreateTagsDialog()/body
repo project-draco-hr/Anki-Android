@@ -1,8 +1,13 @@
 {
   Resources res=getResources();
   if (allTags.length == 0) {
-    allTags=AnkiDroidApp.deck().allUserTags();
-    Log.i(AnkiDroidApp.TAG,"all tags: " + Arrays.toString(allTags));
+    String[] oldTags=AnkiDroidApp.deck().allUserTags();
+    Log.i(AnkiDroidApp.TAG,"all tags: " + Arrays.toString(oldTags));
+    allTags=new String[oldTags.length + 1];
+    allTags[0]=res.getString(R.string.add_new_tag);
+    for (int i=0; i < oldTags.length; i++) {
+      allTags[i + 1]=oldTags[i];
+    }
   }
   mSelectedTags.clear();
   List<String> selectedList=Arrays.asList(Utils.parseTags(mFactTags));
@@ -19,14 +24,21 @@
   builder.setTitle(R.string.studyoptions_limit_select_tags);
   builder.setMultiChoiceItems(allTags,checked,new DialogInterface.OnMultiChoiceClickListener(){
     public void onClick(    DialogInterface dialog,    int whichButton,    boolean isChecked){
-      String tag=allTags[whichButton];
-      if (!isChecked) {
-        Log.i(AnkiDroidApp.TAG,"unchecked tag: " + tag);
-        mSelectedTags.remove(tag);
+      if (whichButton == 0) {
+        dialog.dismiss();
+        mNewTagEditText.setText("");
+        mAddNewTag.show();
       }
  else {
-        Log.i(AnkiDroidApp.TAG,"checked tag: " + tag);
-        mSelectedTags.add(tag);
+        String tag=allTags[whichButton];
+        if (!isChecked) {
+          Log.i(AnkiDroidApp.TAG,"unchecked tag: " + tag);
+          mSelectedTags.remove(tag);
+        }
+ else {
+          Log.i(AnkiDroidApp.TAG,"checked tag: " + tag);
+          mSelectedTags.add(tag);
+        }
       }
     }
   }
@@ -40,5 +52,5 @@
   }
 );
   builder.setNegativeButton(res.getString(R.string.cancel),null);
-  return builder.create();
+  mTagsDialog=builder.create();
 }
