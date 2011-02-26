@@ -5,14 +5,15 @@
   mFieldsLayoutContainer=(LinearLayout)findViewById(R.id.CardEditorEditFieldsLayout);
   mSave=(Button)findViewById(R.id.CardEditorSaveButton);
   mCancel=(Button)findViewById(R.id.CardEditorCancelButton);
+  mTags=(Button)findViewById(R.id.CardEditorTagButton);
   if (getIntent().getBooleanExtra("callfromcardbrowser",false)) {
     mEditorCard=CardBrowser.getEditorCard();
   }
  else {
     mEditorCard=Reviewer.getEditorCard();
   }
-  Fact cardFact=mEditorCard.getFact();
-  TreeSet<Field> fields=cardFact.getFields();
+  mEditorFact=mEditorCard.getFact();
+  TreeSet<Field> fields=mEditorFact.getFields();
   mEditFields=new LinkedList<FieldEditText>();
   mModified=false;
   Iterator<Field> iter=fields.iterator();
@@ -23,12 +24,26 @@
     mFieldsLayoutContainer.addView(label);
     mFieldsLayoutContainer.addView(newTextbox);
   }
+  mFactTags=mEditorFact.getTags();
+  mTags.setText(getResources().getString(R.string.CardEditorTags,mFactTags));
+  mTags.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      tagsDialog().show();
+    }
+  }
+);
+  allTags=new String[0];
+  mSelectedTags=new HashSet<String>();
   mSave.setOnClickListener(new View.OnClickListener(){
     @Override public void onClick(    View v){
       Iterator<FieldEditText> iter=mEditFields.iterator();
       while (iter.hasNext()) {
         FieldEditText current=iter.next();
         mModified|=current.updateField();
+      }
+      if (!mEditorFact.getTags().equals(mFactTags)) {
+        mEditorFact.setTags(mFactTags);
+        mModified=true;
       }
       if (mModified) {
         setResult(RESULT_OK);
