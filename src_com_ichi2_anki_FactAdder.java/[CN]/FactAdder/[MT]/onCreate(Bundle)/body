@@ -7,6 +7,8 @@
   mCloseButton=(Button)findViewById(R.id.FactAdderCloseButton);
   mModelButton=(Button)findViewById(R.id.FactAdderModelButton);
   mCardModelButton=(Button)findViewById(R.id.FactAdderCardModelButton);
+  mTags=(Button)findViewById(R.id.FactAdderTagButton);
+  mTags.setText(getResources().getString(R.string.CardEditorTags,mFactTags));
   mDeck=AnkiDroidApp.deck();
   mModels=Model.getModels(mDeck);
   mCurrentSelectedModelId=mDeck.getCurrentModelId();
@@ -41,6 +43,14 @@
     public void onClick(    View v){
       setResult(RESULT_CANCELED);
       closeFactAdder();
+    }
+  }
+);
+  allTags=new String[0];
+  mSelectedTags=new HashSet<String>();
+  mTags.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      tagsDialog().show();
     }
   }
 );
