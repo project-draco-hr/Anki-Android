@@ -28,8 +28,8 @@
   mTags.setText(getResources().getString(R.string.CardEditorTags,mFactTags));
   mTags.setOnClickListener(new View.OnClickListener(){
     @Override public void onClick(    View v){
+      recreateTagsDialog();
       if (!mTagsDialog.isShowing()) {
-        recreateTagsDialog();
         mTagsDialog.show();
       }
     }
