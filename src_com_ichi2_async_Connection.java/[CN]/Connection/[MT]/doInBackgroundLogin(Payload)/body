@@ -3,7 +3,7 @@
     String username=(String)data.data[0];
     String password=(String)data.data[1];
     AnkiDroidProxy server=new AnkiDroidProxy(username,password);
-    int status=server.connect();
+    int status=server.connect(false);
     if (status != AnkiDroidProxy.LOGIN_OK) {
       data.success=false;
       data.returnType=status;

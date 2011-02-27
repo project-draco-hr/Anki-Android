@@ -1,6 +1,6 @@
 {
   double lastSync=0;
-  connect();
+  connect(false);
   try {
     JSONArray deckInfo=mDecks.getJSONArray(mDeckName);
     lastSync=deckInfo.getDouble(1);

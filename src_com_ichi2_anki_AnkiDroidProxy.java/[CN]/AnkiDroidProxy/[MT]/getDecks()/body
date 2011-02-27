@@ -15,13 +15,13 @@
     Log.i(AnkiDroidApp.TAG,"getDecks response = " + decksServer);
   }
  catch (  UnsupportedEncodingException e) {
-    e.printStackTrace();
+    Log.e(AnkiDroidApp.TAG,"getDecks - " + Log.getStackTraceString(e));
   }
 catch (  ClientProtocolException e) {
-    Log.i(AnkiDroidApp.TAG,"ClientProtocolException = " + e.getMessage());
+    Log.e(AnkiDroidApp.TAG,"getDecks - ClientProtocolException = " + e.getMessage());
   }
 catch (  IOException e) {
-    Log.i(AnkiDroidApp.TAG,"IOException = " + e.getMessage());
+    Log.e(AnkiDroidApp.TAG,"getDecks - IOException = " + e.getMessage());
   }
   return decksServer;
 }

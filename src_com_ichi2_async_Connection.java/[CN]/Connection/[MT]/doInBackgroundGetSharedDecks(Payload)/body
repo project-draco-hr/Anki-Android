@@ -5,8 +5,8 @@
  catch (  Exception e) {
     data.success=false;
     data.exception=e;
-    Log.e(AnkiDroidApp.TAG,"Error getting shared decks = " + e.getMessage());
-    e.printStackTrace();
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundGetSharedDecks - Error getting shared decks = " + e.getMessage());
+    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
   }
   return data;
 }

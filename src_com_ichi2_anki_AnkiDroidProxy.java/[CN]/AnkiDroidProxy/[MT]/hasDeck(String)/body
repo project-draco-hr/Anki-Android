@@ -1,5 +1,5 @@
 {
-  connect();
+  connect(false);
   Iterator decksIterator=mDecks.keys();
   while (decksIterator.hasNext()) {
     String serverDeckName=(String)decksIterator.next();
