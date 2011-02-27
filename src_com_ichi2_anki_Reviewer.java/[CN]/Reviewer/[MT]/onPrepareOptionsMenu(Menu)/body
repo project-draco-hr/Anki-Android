@@ -33,7 +33,5 @@
   }
   menu.findItem(MENU_UNDO).setEnabled(AnkiDroidApp.deck().undoAvailable());
   menu.findItem(MENU_REDO).setEnabled(AnkiDroidApp.deck().redoAvailable());
-  item=menu.findItem(MENU_REMOVE_BURY);
-  item.setEnabled(false);
   return true;
 }
