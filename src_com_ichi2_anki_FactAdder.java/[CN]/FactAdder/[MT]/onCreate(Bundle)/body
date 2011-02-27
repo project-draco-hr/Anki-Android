@@ -20,6 +20,7 @@
       for (      FieldEditText current : mEditFields) {
         current.updateField();
       }
+      mNewFact.setTags(mFactTags);
       mDeck.addFact(mNewFact,mSelectedCardModels);
       setResult(RESULT_OK);
       closeFactAdder();
