@@ -1,13 +1,19 @@
 {
   mShowOnlyMarSus=false;
-  mSearchEditText.setHint(R.string.downloaddeck_search);
+  if (mSelectedTags.size() == 0) {
+    mSearchEditText.setHint(R.string.downloaddeck_search);
+  }
+ else {
+    String tags=mSelectedTags.toString();
+    mSearchEditText.setHint(getResources().getString(R.string.card_browser_tags_shown,tags.substring(1,tags.length() - 1)));
+  }
   mCards.clear();
-  if (mSearchEditText.getText().length() == 0) {
+  if (mSearchEditText.getText().length() == 0 && mSelectedTags.size() == 0 && mSelectedTags.size() == 0) {
     mCards.addAll(mAllCards);
   }
  else {
     for (int i=0; i < mAllCards.size(); i++) {
-      if (mAllCards.get(i).get("question").toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1 || mAllCards.get(i).get("answer").toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1) {
+      if ((mAllCards.get(i).get("question").toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1 || mAllCards.get(i).get("answer").toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1) && Arrays.asList(Utils.parseTags(mAllCards.get(i).get("tags"))).containsAll(mSelectedTags)) {
         mCards.add(mAllCards.get(i));
       }
     }

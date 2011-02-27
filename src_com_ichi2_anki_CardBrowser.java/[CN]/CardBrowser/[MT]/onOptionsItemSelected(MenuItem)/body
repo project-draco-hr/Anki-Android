@@ -23,7 +23,7 @@ mCards.add(mAllCards.get(i));
 }
 updateList();
 return true;
-case MENU_SHOW_SUSPENDED:
+case MENU_SELECT_SUSPENDED:
 mShowOnlyMarSus=true;
 mSearchEditText.setHint(R.string.card_browser_show_suspended);
 mCards.clear();
@@ -33,6 +33,10 @@ mCards.add(mAllCards.get(i));
 }
 }
 updateList();
+return true;
+case MENU_SELECT_TAG:
+recreateTagsDialog();
+mTagsDialog.show();
 return true;
 case MENU_CHANGE_ORDER:
 mSelectOrderDialog.show();

@@ -1,7 +1,7 @@
 {
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
     Log.i(AnkiDroidApp.TAG,"CardBrowser - onBackPressed()");
-    if (mSearchEditText.getText().length() == 0 && !mShowOnlyMarSus) {
+    if (mSearchEditText.getText().length() == 0 && !mShowOnlyMarSus && mSelectedTags.size() == 0) {
       setResult(RESULT_OK);
       finish();
       if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
@@ -10,6 +10,11 @@
     }
  else {
       mSearchEditText.setText("");
+      mSearchEditText.setHint(R.string.downloaddeck_search);
+      mSelectedTags.clear();
+      mCards.clear();
+      mCards.addAll(mAllCards);
+      updateList();
     }
     return true;
   }
