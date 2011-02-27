@@ -9,6 +9,7 @@
   try {
     id=card.getId();
     card.delete();
+    deck.reset();
     newCard=deck.getCard();
     publishProgress(new TaskData(newCard));
     ankiDB.getDatabase().setTransactionSuccessful();
