@@ -26,9 +26,13 @@
     }
   }
   if (mPostingFeedback) {
+    int buttonHeight=btnSend.getHeight();
     btnSend.setVisibility(View.GONE);
     pbSpinner.setVisibility(View.VISIBLE);
+    LinearLayout topLine=(LinearLayout)findViewById(R.id.llFeedbackTopLine);
+    topLine.setMinimumHeight(buttonHeight);
     mEtFeedbackText.setEnabled(false);
+    mImm.hideSoftInputFromWindow(mEtFeedbackText.getWindowToken(),0);
   }
  else {
     btnSend.setVisibility(View.VISIBLE);

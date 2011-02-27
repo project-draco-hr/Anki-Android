@@ -7,7 +7,9 @@
   mNonce=UUID.randomUUID().getMostSignificantBits();
   mFeedbackUrl=res.getString(R.string.feedback_post_url);
   mErrorUrl=res.getString(R.string.error_post_url);
+  mImm=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
   mPostingFeedback=false;
+  initAllAlertDialogs();
   getErrorFiles();
   if (reportErrorMode.equals(REPORT_ALWAYS)) {
     try {
@@ -77,5 +79,5 @@
   }
 );
   refreshInterface();
-  getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+  getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 }

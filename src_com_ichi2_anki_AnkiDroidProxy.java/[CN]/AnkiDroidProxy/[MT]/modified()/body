@@ -1,6 +1,6 @@
 {
   double lastModified=0;
-  connect();
+  connect(false);
   try {
     JSONArray deckInfo=mDecks.getJSONArray(mDeckName);
     lastModified=deckInfo.getDouble(0);

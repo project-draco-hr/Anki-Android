@@ -13,7 +13,7 @@
   try {
     AnkiDroidProxy server=new AnkiDroidProxy(username,password);
     publishProgress(syncName,res.getString(R.string.sync_connecting_message));
-    int connectResult=server.connect();
+    int connectResult=server.connect(true);
     if (connectResult != AnkiDroidProxy.LOGIN_OK) {
       if (connectResult == AnkiDroidProxy.LOGIN_INVALID_USER_PASS) {
         syncChangelog.put("message",res.getString(R.string.invalid_username_password));
