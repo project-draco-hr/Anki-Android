@@ -24,7 +24,8 @@
     summary.put("delmedia",delmedia);
   }
  catch (  JSONException e) {
-    Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
+    Log.e(AnkiDroidApp.TAG,"SyncClient.summary - JSONException = " + e.getMessage());
+    return null;
   }
   Log.i(AnkiDroidApp.TAG,"Summary Local = ");
   Utils.printJSONObject(summary,false);

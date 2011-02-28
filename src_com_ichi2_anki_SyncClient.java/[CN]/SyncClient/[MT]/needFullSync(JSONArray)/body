@@ -6,21 +6,16 @@
   }
   int len=sums.length();
   for (int i=0; i < len; i++) {
-    try {
-      JSONObject summary=sums.getJSONObject(i);
-      Iterator keys=summary.keys();
-      while (keys.hasNext()) {
-        String key=(String)keys.next();
-        JSONArray l=(JSONArray)summary.get(key);
-        Log.i(AnkiDroidApp.TAG,"Key " + key + ", length = "+ l.length());
-        if (l.length() > 500) {
-          Log.i(AnkiDroidApp.TAG,"Length of key > 500");
-          return true;
-        }
+    JSONObject summary=sums.getJSONObject(i);
+    Iterator keys=summary.keys();
+    while (keys.hasNext()) {
+      String key=(String)keys.next();
+      JSONArray l=(JSONArray)summary.get(key);
+      Log.i(AnkiDroidApp.TAG,"Key " + key + ", length = "+ l.length());
+      if (l.length() > 500) {
+        Log.i(AnkiDroidApp.TAG,"Length of key > 500");
+        return true;
       }
-    }
- catch (    JSONException e) {
-      Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
     }
   }
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath());

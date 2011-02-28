@@ -9,17 +9,29 @@
     DefaultHttpClient httpClient=new DefaultHttpClient();
     HttpResponse response=httpClient.execute(httpPost);
     HttpEntity entityResponse=response.getEntity();
+    int respCode=response.getStatusLine().getStatusCode();
+    if (respCode != 200) {
+      Log.e(AnkiDroidApp.TAG,"AnkiDroidProxy.finish error: " + respCode + " "+ response.getStatusLine().getReasonPhrase());
+      return false;
+    }
     InputStream content=entityResponse.getContent();
     String contentString=Utils.convertStreamToString(new InflaterInputStream(content));
     Log.i(AnkiDroidApp.TAG,"finish: " + contentString);
+    return true;
   }
  catch (  UnsupportedEncodingException e) {
-    e.printStackTrace();
+    Log.e(AnkiDroidApp.TAG,"UnsupportedEncodingException = " + e.getMessage());
+    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
+    return false;
   }
 catch (  ClientProtocolException e) {
-    Log.i(AnkiDroidApp.TAG,"ClientProtocolException = " + e.getMessage());
+    Log.e(AnkiDroidApp.TAG,"ClientProtocolException = " + e.getMessage());
+    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
+    return false;
   }
 catch (  IOException e) {
-    Log.i(AnkiDroidApp.TAG,"IOException = " + e.getMessage());
+    Log.e(AnkiDroidApp.TAG,"IOException = " + e.getMessage());
+    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
+    return false;
   }
 }
