@@ -1,6 +1,6 @@
 {
   Resources res=getResources();
-  if (allTags.length == 0) {
+  if (allTags == null) {
     allTags=AnkiDroidApp.deck().allTags_();
     Log.i(AnkiDroidApp.TAG,"all tags: " + Arrays.toString(allTags));
   }
