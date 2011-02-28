@@ -24,6 +24,9 @@
  else       if (connectResult == AnkiDroidProxy.LOGIN_OLD_VERSION) {
         syncChangelog.put("message",String.format(res.getString(R.string.sync_log_old_version),res.getString(R.string.link_ankidroid)));
       }
+ else {
+        syncChangelog.put("message",res.getString(R.string.login_generic_error));
+      }
       data.result=syncChangelog;
       data.success=false;
       ankiDB.getDatabase().endTransaction();

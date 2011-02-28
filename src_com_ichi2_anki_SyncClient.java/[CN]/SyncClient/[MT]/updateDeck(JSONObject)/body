@@ -1,19 +1,14 @@
 {
-  try {
-    JSONArray meta=deckPayload.getJSONArray("meta");
-    String sqlMeta="INSERT OR REPLACE INTO deckVars (key, value) VALUES(?,?)";
-    SQLiteStatement statement=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().compileStatement(sqlMeta);
-    int lenMeta=meta.length();
-    for (int i=0; i < lenMeta; i++) {
-      JSONArray deckVar=meta.getJSONArray(i);
-      statement.bindString(1,deckVar.getString(0));
-      statement.bindString(2,deckVar.getString(1));
-      statement.execute();
-    }
-    statement.close();
-    mDeck.updateFromJson(deckPayload);
+  JSONArray meta=deckPayload.getJSONArray("meta");
+  String sqlMeta="INSERT OR REPLACE INTO deckVars (key, value) VALUES(?,?)";
+  SQLiteStatement statement=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().compileStatement(sqlMeta);
+  int lenMeta=meta.length();
+  for (int i=0; i < lenMeta; i++) {
+    JSONArray deckVar=meta.getJSONArray(i);
+    statement.bindString(1,deckVar.getString(0));
+    statement.bindString(2,deckVar.getString(1));
+    statement.execute();
   }
- catch (  JSONException e) {
-    Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
-  }
+  statement.close();
+  mDeck.updateFromJson(deckPayload);
 }

@@ -5,28 +5,23 @@
   SQLiteStatement statement=ankiDB.getDatabase().compileStatement(sql);
   int len=models.length();
   for (int i=0; i < len; i++) {
-    try {
-      JSONObject model=models.getJSONObject(i);
-      String id=model.getString("id");
-      statement.bindString(1,id);
-      statement.bindLong(2,model.getLong("deckId"));
-      statement.bindDouble(3,model.getDouble("created"));
-      statement.bindDouble(4,model.getDouble("modified"));
-      statement.bindString(5,model.getString("tags"));
-      statement.bindString(6,model.getString("name"));
-      statement.bindString(7,model.getString("name"));
-      statement.bindString(8,model.getString("features"));
-      statement.bindDouble(9,model.getDouble("spacing"));
-      statement.bindDouble(10,model.getDouble("initialSpacing"));
-      statement.bindLong(11,model.getLong("source"));
-      statement.execute();
-      insertedModelsIds.add(id);
-      mergeFieldModels(id,model.getJSONArray("fieldModels"));
-      mergeCardModels(id,model.getJSONArray("cardModels"));
-    }
- catch (    JSONException e) {
-      Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
-    }
+    JSONObject model=models.getJSONObject(i);
+    String id=model.getString("id");
+    statement.bindString(1,id);
+    statement.bindLong(2,model.getLong("deckId"));
+    statement.bindDouble(3,model.getDouble("created"));
+    statement.bindDouble(4,model.getDouble("modified"));
+    statement.bindString(5,model.getString("tags"));
+    statement.bindString(6,model.getString("name"));
+    statement.bindString(7,model.getString("name"));
+    statement.bindString(8,model.getString("features"));
+    statement.bindDouble(9,model.getDouble("spacing"));
+    statement.bindDouble(10,model.getDouble("initialSpacing"));
+    statement.bindLong(11,model.getLong("source"));
+    statement.execute();
+    insertedModelsIds.add(id);
+    mergeFieldModels(id,model.getJSONArray("fieldModels"));
+    mergeCardModels(id,model.getJSONArray("cardModels"));
   }
   statement.close();
   ankiDB.getDatabase().execSQL("DELETE FROM modelsDeleted WHERE modelId IN " + Utils.ids2str(insertedModelsIds));
