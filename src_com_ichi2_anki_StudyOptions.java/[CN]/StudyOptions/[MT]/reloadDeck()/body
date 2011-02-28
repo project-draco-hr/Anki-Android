@@ -1,6 +1,7 @@
 {
   Deck deck=AnkiDroidApp.deck();
   if (deck != null) {
+    allTags.clear();
     deck.closeDeck();
     AnkiDroidApp.setDeck(null);
   }
