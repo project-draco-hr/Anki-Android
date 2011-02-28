@@ -1,21 +1,28 @@
 {
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath());
   ArrayList<String> mediaIds=new ArrayList<String>();
+  HashMap<String,String> mediaFiles=new HashMap<String,String>();
   String sql="INSERT OR REPLACE INTO media (id, filename, size, created, originalPath, description) " + "VALUES(?,?,?,?,?,?)";
   SQLiteStatement statement=ankiDB.getDatabase().compileStatement(sql);
   int len=media.length();
+  String filename=null;
+  String sum=null;
   for (int i=0; i < len; i++) {
     JSONArray m=media.getJSONArray(i);
     String id=m.getString(0);
     mediaIds.add(id);
     statement.bindString(1,id);
-    statement.bindString(2,m.getString(1));
+    filename=m.getString(1);
+    statement.bindString(2,filename);
     statement.bindString(3,m.getString(2));
     statement.bindDouble(4,m.getDouble(3));
-    statement.bindString(5,m.getString(4));
+    sum=m.getString(4);
+    statement.bindString(5,sum);
     statement.bindString(6,m.getString(5));
     statement.execute();
+    mediaFiles.put(filename,sum);
   }
   statement.close();
   ankiDB.getDatabase().execSQL("DELETE FROM mediaDeleted WHERE mediaId IN " + Utils.ids2str(mediaIds));
+  return mediaFiles;
 }

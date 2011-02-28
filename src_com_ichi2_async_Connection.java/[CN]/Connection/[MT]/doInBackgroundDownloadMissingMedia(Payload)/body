@@ -1,6 +1,13 @@
 {
   Log.i(AnkiDroidApp.TAG,"DownloadMissingMedia");
+  HashMap<String,String> missingPaths=new HashMap<String,String>();
+  HashMap<String,String> missingSums=new HashMap<String,String>();
   Deck deck=(Deck)data.data[0];
+  String syncName=deck.getDeckName();
+  HashMap<String,String> syncedMedia=null;
+  if (data.data.length == 2) {
+    syncedMedia=(HashMap<String,String>)data.data[1];
+  }
   data.success=false;
   data.data=new Integer[]{0,0,0};
   if (!deck.hasKey("mediaURL")) {
@@ -16,28 +23,40 @@
   int totalMissing=0;
   int missing=0;
   int grabbed=0;
-  HashMap<String,String> missingPaths=new HashMap<String,String>();
-  HashMap<String,String> missingSums=new HashMap<String,String>();
-  Cursor cursor=null;
-  try {
-    cursor=deck.getDB().getDatabase().rawQuery("SELECT filename, originalPath FROM media",null);
+  if (syncedMedia != null) {
     String path=null;
-    String f=null;
-    while (cursor.moveToNext()) {
-      f=cursor.getString(0);
+    for (    String f : syncedMedia.keySet()) {
       path=mdir + "/" + f;
       File file=new File(path);
       if (!file.exists()) {
         missingPaths.put(f,path);
-        missingSums.put(f,cursor.getString(1));
+        missingSums.put(f,syncedMedia.get(f));
         Log.i(AnkiDroidApp.TAG,"Missing file: " + f);
       }
     }
   }
+ else {
+    Cursor cursor=null;
+    try {
+      cursor=deck.getDB().getDatabase().rawQuery("SELECT filename, originalPath FROM media",null);
+      String path=null;
+      String f=null;
+      while (cursor.moveToNext()) {
+        f=cursor.getString(0);
+        path=mdir + "/" + f;
+        File file=new File(path);
+        if (!file.exists()) {
+          missingPaths.put(f,path);
+          missingSums.put(f,cursor.getString(1));
+          Log.i(AnkiDroidApp.TAG,"Missing file: " + f);
+        }
+      }
+    }
   finally {
-    deck.closeDeck();
-    if (cursor != null) {
-      cursor.close();
+      deck.closeDeck();
+      if (cursor != null) {
+        cursor.close();
+      }
     }
   }
   totalMissing=missingPaths.size();
@@ -46,7 +65,7 @@
     data.success=true;
     return data;
   }
-  publishProgress(Boolean.FALSE,new Integer(totalMissing),new Integer(0));
+  publishProgress(Boolean.FALSE,new Integer(totalMissing),new Integer(0),syncName);
   URL url=null;
   HttpURLConnection connection=null;
   String path=null;
@@ -126,7 +145,7 @@ catch (    IOException e) {
         connection.disconnect();
       }
     }
-    publishProgress(Boolean.TRUE,new Integer(totalMissing),new Integer(grabbed + missing));
+    publishProgress(Boolean.TRUE,new Integer(totalMissing),new Integer(grabbed + missing),syncName);
   }
   data.data[1]=new Integer(grabbed);
   data.data[2]=new Integer(missing);
