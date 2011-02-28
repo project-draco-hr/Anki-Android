@@ -10,23 +10,32 @@
     httpPost.setHeader("Content-type","application/x-www-form-urlencoded");
     DefaultHttpClient httpClient=new DefaultHttpClient();
     HttpResponse response=httpClient.execute(httpPost);
+    int respCode=response.getStatusLine().getStatusCode();
+    if (respCode != 200) {
+      Log.e(AnkiDroidApp.TAG,"Error getting server summary: " + respCode + " "+ response.getStatusLine().getReasonPhrase());
+      return null;
+    }
     HttpEntity entityResponse=response.getEntity();
     InputStream content=entityResponse.getContent();
     summaryServer=new JSONObject(Utils.convertStreamToString(new InflaterInputStream(content)));
     Log.i(AnkiDroidApp.TAG,"Summary server = ");
     Utils.printJSONObject(summaryServer);
+    return summaryServer;
   }
  catch (  UnsupportedEncodingException e) {
-    e.printStackTrace();
+    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
   }
 catch (  ClientProtocolException e) {
-    Log.i(AnkiDroidApp.TAG,"ClientProtocolException = " + e.getMessage());
+    Log.e(AnkiDroidApp.TAG,"ClientProtocolException = " + e.getMessage());
+    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
   }
 catch (  IOException e) {
-    Log.i(AnkiDroidApp.TAG,"IOException = " + e.getMessage());
+    Log.e(AnkiDroidApp.TAG,"IOException = " + e.getMessage());
+    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
   }
 catch (  JSONException e) {
-    Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
+    Log.e(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
+    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
   }
-  return summaryServer;
+  return null;
 }

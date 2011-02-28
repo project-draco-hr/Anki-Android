@@ -3,18 +3,13 @@
   SQLiteStatement statement=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().compileStatement(sql);
   int len=sources.length();
   for (int i=0; i < len; i++) {
-    try {
-      JSONArray source=sources.getJSONArray(i);
-      statement.bindLong(1,source.getLong(0));
-      statement.bindString(2,source.getString(1));
-      statement.bindDouble(3,source.getDouble(2));
-      statement.bindDouble(4,source.getDouble(3));
-      statement.bindString(5,source.getString(4));
-      statement.execute();
-    }
- catch (    JSONException e) {
-      Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
-    }
+    JSONArray source=sources.getJSONArray(i);
+    statement.bindLong(1,source.getLong(0));
+    statement.bindString(2,source.getString(1));
+    statement.bindDouble(3,source.getDouble(2));
+    statement.bindDouble(4,source.getDouble(3));
+    statement.bindString(5,source.getString(4));
+    statement.execute();
   }
   statement.close();
 }

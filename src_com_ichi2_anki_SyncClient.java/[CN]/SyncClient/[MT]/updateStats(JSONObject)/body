@@ -1,24 +1,19 @@
 {
-  try {
-    Stats globalStats=Stats.globalStats(mDeck);
-    globalStats.updateFromJson(stats.getJSONObject("global"));
-    Stats stat=new Stats(mDeck);
-    JSONArray remoteDailyStats=stats.getJSONArray("daily");
-    int len=remoteDailyStats.length();
-    for (int i=0; i < len; i++) {
-      JSONObject remoteStat=remoteDailyStats.getJSONObject(i);
-      Date dailyStatDate=Utils.ordinalToDate(remoteStat.getInt("day"));
-      try {
-        Long id=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).queryScalar("SELECT id FROM stats WHERE type = 1 AND day = \"" + dailyStatDate.toString() + "\"");
-        stat.fromDB(id);
-      }
- catch (      SQLException e) {
-        stat.create(Stats.STATS_DAY,dailyStatDate);
-      }
-      stat.updateFromJson(remoteStat);
+  Stats globalStats=Stats.globalStats(mDeck);
+  globalStats.updateFromJson(stats.getJSONObject("global"));
+  Stats stat=new Stats(mDeck);
+  JSONArray remoteDailyStats=stats.getJSONArray("daily");
+  int len=remoteDailyStats.length();
+  for (int i=0; i < len; i++) {
+    JSONObject remoteStat=remoteDailyStats.getJSONObject(i);
+    Date dailyStatDate=Utils.ordinalToDate(remoteStat.getInt("day"));
+    try {
+      Long id=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).queryScalar("SELECT id FROM stats WHERE type = 1 AND day = \"" + dailyStatDate.toString() + "\"");
+      stat.fromDB(id);
     }
-  }
- catch (  JSONException e) {
-    Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
+ catch (    SQLException e) {
+      stat.create(Stats.STATS_DAY,dailyStatDate);
+    }
+    stat.updateFromJson(remoteStat);
   }
 }

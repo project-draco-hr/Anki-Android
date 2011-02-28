@@ -2,12 +2,7 @@
   JSONArray models=new JSONArray();
   int nbIds=ids.length();
   for (int i=0; i < nbIds; i++) {
-    try {
-      models.put(bundleModel(ids.getLong(i)));
-    }
- catch (    JSONException e) {
-      Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
-    }
+    models.put(bundleModel(ids.getLong(i)));
   }
   return models;
 }

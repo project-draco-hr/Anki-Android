@@ -24,6 +24,7 @@
     }
  catch (    JSONException e) {
       Log.e(AnkiDroidApp.TAG,"connect - JSONException = " + e.getMessage());
+      return LOGIN_ERROR;
     }
   }
   return LOGIN_OK;

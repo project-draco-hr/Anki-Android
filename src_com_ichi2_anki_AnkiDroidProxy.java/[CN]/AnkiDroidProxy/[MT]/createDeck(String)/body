@@ -1,5 +1,6 @@
 {
   Log.i(AnkiDroidApp.TAG,"createDeck");
+  Payload result=new Payload();
   try {
     String data="p=" + URLEncoder.encode(mPassword,"UTF-8") + "&u="+ URLEncoder.encode(mUsername,"UTF-8")+ "&v="+ URLEncoder.encode(SYNC_VERSION,"UTF-8")+ "&d=None&name="+ URLEncoder.encode(name,"UTF-8");
     HttpPost httpPost=new HttpPost(SYNC_URL + "createDeck");
@@ -9,24 +10,46 @@
     httpPost.setHeader("Content-type","application/x-www-form-urlencoded");
     DefaultHttpClient httpClient=new DefaultHttpClient();
     HttpResponse response=httpClient.execute(httpPost);
+    int respCode=response.getStatusLine().getStatusCode();
     HttpEntity entityResponse=response.getEntity();
     InputStream content=entityResponse.getContent();
-    Log.i(AnkiDroidApp.TAG,"String content = " + Utils.convertStreamToString(new InflaterInputStream(content)));
-    mDecks.put(name,new JSONArray("[0,0]"));
+    if (respCode != 200) {
+      String reason=response.getStatusLine().getReasonPhrase();
+      Log.i(AnkiDroidApp.TAG,"Failed to create Deck: " + respCode + " "+ reason);
+      result.success=false;
+      result.returnType=respCode;
+      result.result=reason;
+      return result;
+    }
+ else {
+      Log.i(AnkiDroidApp.TAG,"createDeck - response = " + Utils.convertStreamToString(new InflaterInputStream(content)));
+      result.success=true;
+      result.returnType=200;
+      mDecks.put(name,new JSONArray("[0,0]"));
+      return result;
+    }
   }
  catch (  UnsupportedEncodingException e) {
-    e.printStackTrace();
+    Log.e(AnkiDroidApp.TAG,"createDeck - UnsupportedEncodingException = " + e.getMessage());
+    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
+    result.result=e.getMessage();
   }
 catch (  ClientProtocolException e) {
-    Log.i(AnkiDroidApp.TAG,"ClientProtocolException = " + e.getMessage());
-    e.printStackTrace();
+    Log.e(AnkiDroidApp.TAG,"createDeck - ClientProtocolException = " + e.getMessage());
+    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
+    result.result=e.getMessage();
   }
 catch (  IOException e) {
-    Log.i(AnkiDroidApp.TAG,"IOException = " + e.getMessage());
-    e.printStackTrace();
+    Log.e(AnkiDroidApp.TAG,"createDeck - IOException = " + e.getMessage());
+    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
+    result.result=e.getMessage();
   }
 catch (  JSONException e) {
-    Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
-    e.printStackTrace();
+    Log.e(AnkiDroidApp.TAG,"createDeck - JSONException = " + e.getMessage());
+    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
+    result.result=e.getMessage();
   }
+  result.success=false;
+  result.returnType=-1;
+  return result;
 }

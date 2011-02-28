@@ -1,26 +1,24 @@
 {
+  double delay=0.0;
   JSONArray bundledHistory=new JSONArray();
   Cursor cursor=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().rawQuery("SELECT cardId, time, lastInterval, nextInterval, ease, delay, lastFactor, nextFactor, reps, " + "thinkingTime, yesCount, noCount FROM reviewHistory " + "WHERE time > "+ String.format(Utils.ENGLISH_LOCALE,"%f",mDeck.getLastSync()),null);
   while (cursor.moveToNext()) {
-    try {
-      JSONArray review=new JSONArray();
-      review.put(cursor.getLong(0));
-      review.put(cursor.getDouble(1));
-      review.put(cursor.getDouble(2));
-      review.put(cursor.getDouble(3));
-      review.put(cursor.getInt(4));
-      review.put(cursor.getDouble(5));
-      review.put(cursor.getDouble(6));
-      review.put(cursor.getDouble(7));
-      review.put(cursor.getDouble(8));
-      review.put(cursor.getDouble(9));
-      review.put(cursor.getDouble(10));
-      review.put(cursor.getDouble(11));
-      bundledHistory.put(review);
-    }
- catch (    JSONException e) {
-      Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
-    }
+    JSONArray review=new JSONArray();
+    review.put(cursor.getLong(0));
+    review.put(cursor.getDouble(1));
+    review.put(cursor.getDouble(2));
+    review.put(cursor.getDouble(3));
+    review.put(cursor.getInt(4));
+    delay=cursor.getDouble(5);
+    review.put(delay);
+    review.put(cursor.getDouble(6));
+    review.put(cursor.getDouble(7));
+    review.put(cursor.getDouble(8));
+    review.put(cursor.getDouble(9));
+    review.put(cursor.getDouble(10));
+    review.put(cursor.getDouble(11));
+    Log.i(AnkiDroidApp.TAG,String.format(Utils.ENGLISH_LOCALE,"Debugging issue 372: delay = %f, review = %s",delay,review.toString()));
+    bundledHistory.put(review);
   }
   cursor.close();
   Log.i(AnkiDroidApp.TAG,"Last sync = " + String.format(Utils.ENGLISH_LOCALE,"%f",mDeck.getLastSync()));

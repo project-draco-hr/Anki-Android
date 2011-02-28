@@ -2,18 +2,13 @@
   JSONArray bundledSources=new JSONArray();
   Cursor cursor=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().rawQuery("SELECT * FROM sources",null);
   while (cursor.moveToNext()) {
-    try {
-      JSONArray source=new JSONArray();
-      source.put(cursor.getLong(0));
-      source.put(cursor.getString(1));
-      source.put(cursor.getDouble(2));
-      source.put(cursor.getDouble(3));
-      source.put(cursor.getInt(4));
-      bundledSources.put(source);
-    }
- catch (    JSONException e) {
-      Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
-    }
+    JSONArray source=new JSONArray();
+    source.put(cursor.getLong(0));
+    source.put(cursor.getString(1));
+    source.put(cursor.getDouble(2));
+    source.put(cursor.getDouble(3));
+    source.put(cursor.getInt(4));
+    bundledSources.put(source);
   }
   cursor.close();
   Log.i(AnkiDroidApp.TAG,"Bundled sources = " + bundledSources);

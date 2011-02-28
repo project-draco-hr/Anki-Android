@@ -4,27 +4,17 @@
   Keys[] keys=Keys.values();
   for (int i=0; i < keys.length; i++) {
     String key=keys[i].name();
-    try {
-      JSONArray diff=diffSummary((JSONObject)summaries.get(0),(JSONObject)summaries.get(1),key);
-      payload.put("added-" + key,getObjsFromKey((JSONArray)diff.get(0),key));
-      payload.put("deleted-" + key,diff.get(1));
-      payload.put("missing-" + key,diff.get(2));
-      deleteObjsFromKey((JSONArray)diff.get(3),key);
-    }
- catch (    JSONException e) {
-      Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
-    }
+    JSONArray diff=diffSummary((JSONObject)summaries.get(0),(JSONObject)summaries.get(1),key);
+    payload.put("added-" + key,getObjsFromKey((JSONArray)diff.get(0),key));
+    payload.put("deleted-" + key,diff.get(1));
+    payload.put("missing-" + key,diff.get(2));
+    deleteObjsFromKey((JSONArray)diff.get(3),key);
   }
   if (mLocalTime > mRemoteTime) {
-    try {
-      payload.put("stats",bundleStats());
-      payload.put("history",bundleHistory());
-      payload.put("sources",bundleSources());
-      payload.put("deck",bundleDeck());
-    }
- catch (    JSONException e) {
-      Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
-    }
+    payload.put("stats",bundleStats());
+    payload.put("history",bundleHistory());
+    payload.put("sources",bundleSources());
+    payload.put("deck",bundleDeck());
   }
   Log.i(AnkiDroidApp.TAG,"Payload =");
   Utils.printJSONObject(payload,true);

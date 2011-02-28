@@ -1,12 +1,15 @@
 {
   double lastModified=0;
-  connect(false);
+  if (connect(false) != LOGIN_OK) {
+    return -1.0;
+  }
   try {
     JSONArray deckInfo=mDecks.getJSONArray(mDeckName);
     lastModified=deckInfo.getDouble(0);
   }
  catch (  JSONException e) {
-    Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
+    Log.e(AnkiDroidApp.TAG,"modified - JSONException = " + e.getMessage());
+    return -1.0;
   }
   return lastModified;
 }

@@ -1,6 +1,14 @@
 {
   JSONArray summaries=new JSONArray();
-  summaries.put(summary(mDeck.getLastSync()));
-  summaries.put(mServer.summary(mDeck.getLastSync()));
+  JSONObject sum=summary(mDeck.getLastSync());
+  if (sum == null) {
+    return null;
+  }
+  summaries.put(sum);
+  sum=mServer.summary(mDeck.getLastSync());
+  summaries.put(sum);
+  if (sum == null) {
+    return null;
+  }
   return summaries;
 }
