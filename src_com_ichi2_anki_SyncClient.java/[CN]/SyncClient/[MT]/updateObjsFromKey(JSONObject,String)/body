@@ -1,4 +1,5 @@
 {
+  HashMap<String,String> updatedMedia=null;
   if ("models".equalsIgnoreCase(key)) {
     Log.i(AnkiDroidApp.TAG,"updateModels");
     updateModels(payloadReply.getJSONArray("added-models"));
@@ -13,6 +14,7 @@
   }
  else   if ("media".equalsIgnoreCase(key)) {
     Log.i(AnkiDroidApp.TAG,"updateMedia");
-    updateMedia(payloadReply.getJSONArray("added-media"));
+    updatedMedia=updateMedia(payloadReply.getJSONArray("added-media"));
   }
+  return updatedMedia;
 }
