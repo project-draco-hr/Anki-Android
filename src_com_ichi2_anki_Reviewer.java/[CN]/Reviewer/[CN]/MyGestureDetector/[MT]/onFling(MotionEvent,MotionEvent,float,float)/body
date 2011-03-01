@@ -1,9 +1,6 @@
 {
   if (mSwipeEnabled) {
     try {
-      if (mSelectionStarted != 0) {
-        return false;
-      }
       if (e2.getY() - e1.getY() > StudyOptions.sSwipeMinDistance && Math.abs(velocityY) > StudyOptions.sSwipeThresholdVelocity && Math.abs(e1.getX() - e2.getX()) < StudyOptions.sSwipeMaxOffPath && !mIsYScrolling) {
         if (sDisplayAnswer) {
           answerCard(Card.EASE_FAILED);
