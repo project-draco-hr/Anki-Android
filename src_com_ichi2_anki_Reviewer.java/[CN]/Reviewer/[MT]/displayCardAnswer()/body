@@ -32,6 +32,7 @@
     sb.append(displayString);
     displayString=sb.toString();
   }
+  mIsSelecting=false;
   mFlipCard.setVisibility(View.GONE);
   showEaseButtons();
   updateCard(displayString);
