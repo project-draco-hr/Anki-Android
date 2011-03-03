@@ -3,11 +3,8 @@
   HashMap<String,String> missingPaths=new HashMap<String,String>();
   HashMap<String,String> missingSums=new HashMap<String,String>();
   Deck deck=(Deck)data.data[0];
+  data.result=deck;
   String syncName=deck.getDeckName();
-  HashMap<String,String> syncedMedia=null;
-  if (data.data.length == 2) {
-    syncedMedia=(HashMap<String,String>)data.data[1];
-  }
   data.success=false;
   data.data=new Integer[]{0,0,0};
   if (!deck.hasKey("mediaURL")) {
@@ -23,40 +20,25 @@
   int totalMissing=0;
   int missing=0;
   int grabbed=0;
-  if (syncedMedia != null) {
+  Cursor cursor=null;
+  try {
+    cursor=deck.getDB().getDatabase().rawQuery("SELECT filename, originalPath FROM media",null);
     String path=null;
-    for (    String f : syncedMedia.keySet()) {
+    String f=null;
+    while (cursor.moveToNext()) {
+      f=cursor.getString(0);
       path=mdir + "/" + f;
       File file=new File(path);
       if (!file.exists()) {
         missingPaths.put(f,path);
-        missingSums.put(f,syncedMedia.get(f));
+        missingSums.put(f,cursor.getString(1));
         Log.i(AnkiDroidApp.TAG,"Missing file: " + f);
       }
     }
   }
- else {
-    Cursor cursor=null;
-    try {
-      cursor=deck.getDB().getDatabase().rawQuery("SELECT filename, originalPath FROM media",null);
-      String path=null;
-      String f=null;
-      while (cursor.moveToNext()) {
-        f=cursor.getString(0);
-        path=mdir + "/" + f;
-        File file=new File(path);
-        if (!file.exists()) {
-          missingPaths.put(f,path);
-          missingSums.put(f,cursor.getString(1));
-          Log.i(AnkiDroidApp.TAG,"Missing file: " + f);
-        }
-      }
-    }
   finally {
-      deck.closeDeck();
-      if (cursor != null) {
-        cursor.close();
-      }
+    if (cursor != null) {
+      cursor.close();
     }
   }
   totalMissing=missingPaths.size();
