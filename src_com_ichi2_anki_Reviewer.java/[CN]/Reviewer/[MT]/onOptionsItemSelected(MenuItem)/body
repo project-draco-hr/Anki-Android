@@ -40,6 +40,7 @@ showDeleteCardDialog();
 return true;
 case MENU_SEARCH:
 if (mPrefTextSelection && mClipboard.hasText() && mIsDictionaryAvailable) {
+mIsSelecting=false;
 switch (mDictionary) {
 case DICTIONARY_AEDICT:
 Intent aedictSearchIntent=new Intent(mDictionaryAction);
