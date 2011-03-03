@@ -12,4 +12,12 @@
       }
     }
   }
+ else   if (requestCode == CREATE_DECK && resultCode == RESULT_OK) {
+    finish();
+    Intent i=new Intent(DeckPicker.this,DeckPicker.class);
+    startActivity(i);
+    if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+      MyAnimation.slide(this,MyAnimation.NONE);
+    }
+  }
 }
