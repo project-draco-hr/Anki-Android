@@ -160,12 +160,10 @@
           syncChangelog.put("message",res.getString(R.string.sync_log_facts_from_server_message,factsAddedOnServer));
         }
         publishProgress(syncName,res.getString(R.string.sync_applying_reply_message));
-        HashMap<String,String> updatedMedia=client.applyPayloadReply(payloadReply);
+        client.applyPayloadReply(payloadReply);
         deck.initDeckvarsCache();
         Reviewer.setupMedia(deck);
-        if (updatedMedia != null) {
-          doInBackgroundDownloadMissingMedia(new Payload(new Object[]{deck,updatedMedia}));
-        }
+        doInBackgroundDownloadMissingMedia(new Payload(new Object[]{deck}));
         if (!client.getServer().finish()) {
           data.success=false;
           syncChangelog.put("message",res.getString(R.string.sync_log_finish_error));
