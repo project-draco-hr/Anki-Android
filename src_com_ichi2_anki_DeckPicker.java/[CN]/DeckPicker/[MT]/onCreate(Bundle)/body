@@ -45,7 +45,7 @@
         return true;
       }
       if (view.getId() == R.id.DeckPickerCompletionMat || view.getId() == R.id.DeckPickerCompletionAll) {
-        if (!text.equals("0")) {
+        if (!text.equals("-1")) {
           Utils.updateProgressBars(DeckPicker.this,view,Double.parseDouble(text) / 100.0,mDeckListView.getWidth(),2,false);
         }
       }

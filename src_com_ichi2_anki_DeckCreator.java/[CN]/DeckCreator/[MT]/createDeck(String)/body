@@ -5,7 +5,7 @@
   if (!decksDirectory.isDirectory()) {
     decksDirectory.mkdirs();
   }
-  File destinationFile=new File(mPrefDeckPath,filename + ".anki");
+  File destinationFile=new File(mPrefDeckPath,filename);
   if (destinationFile.exists()) {
     return false;
   }
@@ -19,6 +19,6 @@
     Log.e(AnkiDroidApp.TAG,"onCreate - The copy of empty.anki to the SD card failed.");
     return false;
   }
-  Deck.initializeEmptyDeck(mPrefDeckPath + filename + ".anki");
+  Deck.initializeEmptyDeck(mPrefDeckPath + "/" + filename);
   return true;
 }
