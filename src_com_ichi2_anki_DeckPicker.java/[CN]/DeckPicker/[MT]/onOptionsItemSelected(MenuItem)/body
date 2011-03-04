@@ -1,7 +1,7 @@
 {
 switch (item.getItemId()) {
 case MENU_CREATE_DECK:
-    startActivity(new Intent(DeckPicker.this,DeckCreator.class));
+    startActivityForResult(new Intent(DeckPicker.this,DeckCreator.class),CREATE_DECK);
   ;
 if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
   MyAnimation.slide(DeckPicker.this,MyAnimation.RIGHT);

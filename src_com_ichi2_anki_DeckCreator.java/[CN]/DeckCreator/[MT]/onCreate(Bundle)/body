@@ -11,7 +11,11 @@
   mCreate.setOnClickListener(new View.OnClickListener(){
     @Override public void onClick(    View v){
       String filename=mFilename.getText().toString();
-      createDeck(filename);
+      if (!filename.equals("")) {
+        if (createDeck(filename) == true) {
+          setResult(RESULT_OK);
+        }
+      }
       closeDeckCreator();
     }
   }
