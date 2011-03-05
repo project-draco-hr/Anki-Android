@@ -5,8 +5,6 @@
     Log.i(AnkiDroidApp.TAG,"zipFilename ends with .zip");
     try {
       zipInputStream=new ZipInputStream(new FileInputStream(new File(zipFilename)));
-      title=title.replace("^","");
-      title=title.substring(0,java.lang.Math.min(title.length(),40));
       if (new File(mDestination + "/" + title+ ".anki").exists()) {
         title+=System.currentTimeMillis();
       }

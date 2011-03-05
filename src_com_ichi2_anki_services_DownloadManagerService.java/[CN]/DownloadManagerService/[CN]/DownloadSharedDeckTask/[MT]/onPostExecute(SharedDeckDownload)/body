@@ -3,11 +3,11 @@
   if (download.getStatus() == Download.STATUS_COMPLETE) {
     download.setStatus(SharedDeckDownload.STATUS_UPDATING);
     notifySharedDeckObservers();
-    String unzippedDeckName=unzipSharedDeckFile(mDestination + "/tmp/" + download.getTitle()+ ".zip",download.getTitle());
+    String unzippedDeckName=unzipSharedDeckFile(mDestination + "/tmp/" + download.getFilename()+ ".zip",download.getFilename());
     download.setTitle(unzippedDeckName);
     SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
     Editor editor=pref.edit();
-    editor.putLong("numUpdatedCards:" + mDestination + "/tmp/"+ download.getTitle()+ ".anki.updating",0);
+    editor.putLong("numUpdatedCards:" + mDestination + "/tmp/"+ download.getFilename()+ ".anki.updating",0);
     editor.commit();
     new UpdateDeckTask().execute(new Payload(new Object[]{download}));
   }

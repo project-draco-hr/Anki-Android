@@ -1,7 +1,7 @@
 {
   Payload data=params[0];
   SharedDeckDownload download=(SharedDeckDownload)data.data[0];
-  String deckFilename=mDestination + "/tmp/" + download.getTitle()+ ".anki.updating";
+  String deckFilename=mDestination + "/tmp/" + download.getFilename()+ ".anki.updating";
   Log.i(AnkiDroidApp.TAG,"doInBackgroundLoadDeck - deckFilename = " + deckFilename);
   Log.i(AnkiDroidApp.TAG,"loadDeck - SD card mounted and existent file -> Loading deck...");
   try {

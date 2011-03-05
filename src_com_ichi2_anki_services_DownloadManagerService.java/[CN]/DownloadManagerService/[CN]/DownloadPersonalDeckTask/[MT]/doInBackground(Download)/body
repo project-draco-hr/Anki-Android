@@ -37,7 +37,7 @@
       download.setSize(contentLength);
       Log.i(AnkiDroidApp.TAG,"File size = " + contentLength);
     }
-    file=new RandomAccessFile(mDestination + "/tmp/" + download.getTitle()+ ".anki.tmp","rw");
+    file=new RandomAccessFile(mDestination + "/tmp/" + download.getFilename()+ ".anki.tmp","rw");
     iis=new InflaterInputStream(connection.getInputStream());
     int phase=0;
     while (download.getStatus() == Download.STATUS_DOWNLOADING) {
@@ -58,13 +58,13 @@
     }
     if (download.getStatus() == Download.STATUS_DOWNLOADING) {
       download.setStatus(Download.STATUS_COMPLETE);
-      new File(mDestination + "/tmp/" + download.getTitle()+ ".anki.tmp").renameTo(new File(mDestination + "/" + download.getTitle()+ ".anki"));
+      new File(mDestination + "/tmp/" + download.getFilename()+ ".anki.tmp").renameTo(new File(mDestination + "/" + download.getFilename()+ ".anki"));
       long finishTime=System.currentTimeMillis();
       Log.i(AnkiDroidApp.TAG,"Finished in " + ((finishTime - startTime) / 1000) + " seconds!");
       Log.i(AnkiDroidApp.TAG,"Downloaded = " + download.getDownloaded());
     }
  else     if (download.getStatus() == Download.STATUS_CANCELLED) {
-      new File(mDestination + "/tmp/" + download.getTitle()+ ".anki.tmp").delete();
+      new File(mDestination + "/tmp/" + download.getFilename()+ ".anki.tmp").delete();
       Log.i(AnkiDroidApp.TAG,"Download cancelled.");
     }
     publishProgress();
