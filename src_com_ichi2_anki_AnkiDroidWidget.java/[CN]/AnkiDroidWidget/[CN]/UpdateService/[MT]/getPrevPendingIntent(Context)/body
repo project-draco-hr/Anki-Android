@@ -1,6 +1,5 @@
 {
-  Intent ankiDroidIntent=new Intent(context,StudyOptions.class);
-  ankiDroidIntent.setAction(Intent.ACTION_MAIN);
-  ankiDroidIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-  return PendingIntent.getActivity(context,0,ankiDroidIntent,0);
+  Intent ankiDroidIntent=new Intent(context,UpdateService.class);
+  ankiDroidIntent.setAction(ACTION_PREV);
+  return PendingIntent.getService(context,0,ankiDroidIntent,0);
 }

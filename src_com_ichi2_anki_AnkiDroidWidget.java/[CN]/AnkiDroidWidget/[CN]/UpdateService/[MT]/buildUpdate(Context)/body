@@ -35,7 +35,9 @@
     String decksText=resources.getQuantityString(R.plurals.widget_decks,dueDecks.size(),dueDecks.size());
     String text=resources.getQuantityString(R.plurals.widget_cards_in_decks_due,totalDue,totalDue,decksText);
     updateViews.setTextViewText(R.id.anki_droid_title,text);
-    int currentDueDeck=0;
+    if (currentDueDeck < 0 || currentDueDeck > dueDecks.size() - 1) {
+      currentDueDeck=0;
+    }
     DeckInformation deckInformation=dueDecks.get(currentDueDeck);
     updateViews.setTextViewText(R.id.anki_droid_name,deckInformation.mDeckName);
     updateViews.setTextViewText(R.id.anki_droid_status,deckInformation.getDeckStatus());
