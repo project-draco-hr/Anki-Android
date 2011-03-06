@@ -9,7 +9,6 @@
     PackageInfo pi=pm.getPackageInfo(mCurContext.getPackageName(),0);
     mInformation.put("VersionName",pi.versionName);
     mInformation.put("PackageName",pi.packageName);
-    mInformation.put("PhoneModel",android.os.Build.MODEL);
     mInformation.put("AndroidVersion",android.os.Build.VERSION.RELEASE);
     mInformation.put("Board",android.os.Build.BOARD);
     mInformation.put("Brand",android.os.Build.BRAND);
