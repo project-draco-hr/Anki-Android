@@ -29,55 +29,65 @@
   Button btnClearAll=(Button)findViewById(R.id.btnFeedbackClearAll);
   mEtFeedbackText=(EditText)findViewById(R.id.etFeedbackText);
   mLvErrorList=(ListView)findViewById(R.id.lvFeedbackErrorList);
-  mErrorAdapter=new SimpleAdapter(this,mErrorReports,R.layout.error_item,new String[]{"name","state"},new int[]{R.id.error_item_text,R.id.error_item_progress});
+  mErrorAdapter=new SimpleAdapter(this,mErrorReports,R.layout.error_item,new String[]{"name","state","result"},new int[]{R.id.error_item_text,R.id.error_item_progress,R.id.error_item_status});
   mErrorAdapter.setViewBinder(new SimpleAdapter.ViewBinder(){
     @Override public boolean setViewValue(    View view,    Object arg1,    String text){
-      if (view.getId() == R.id.error_item_progress) {
+switch (view.getId()) {
+case R.id.error_item_progress:
         if (text.equals(STATE_UPLOADING)) {
           view.setVisibility(View.VISIBLE);
         }
  else {
           view.setVisibility(View.GONE);
         }
-        return true;
-      }
+      return true;
+case R.id.error_item_status:
+    if (text.length() == 0) {
+      view.setVisibility(View.GONE);
+      return true;
+    }
+ else {
+      view.setVisibility(View.VISIBLE);
       return false;
     }
-  }
+}
+return false;
+}
+}
 );
-  btnClearAll.setOnClickListener(new OnClickListener(){
-    @Override public void onClick(    View v){
-      deleteFiles(false,false);
-      refreshErrorListView();
-      refreshInterface();
-    }
-  }
+btnClearAll.setOnClickListener(new OnClickListener(){
+@Override public void onClick(View v){
+deleteFiles(false,false);
+refreshErrorListView();
+refreshInterface();
+}
+}
 );
-  mLvErrorList.setAdapter(mErrorAdapter);
-  btnSend.setOnClickListener(new OnClickListener(){
-    @Override public void onClick(    View v){
-      if (!mPostingFeedback) {
-        String feedback=mEtFeedbackText.getText().toString();
-        Connection.sendFeedback(mSendListener,new Payload(new Object[]{mFeedbackUrl,mErrorUrl,feedback,mErrorReports,mNonce,getApplication()}));
-        if (mErrorReports.size() > 0) {
-          mPostingFeedback=true;
-        }
-        if (feedback.length() > 0) {
-          mPostingFeedback=true;
-        }
-        refreshInterface();
-      }
-    }
+mLvErrorList.setAdapter(mErrorAdapter);
+btnSend.setOnClickListener(new OnClickListener(){
+@Override public void onClick(View v){
+if (!mPostingFeedback) {
+  String feedback=mEtFeedbackText.getText().toString();
+  Connection.sendFeedback(mSendListener,new Payload(new Object[]{mFeedbackUrl,mErrorUrl,feedback,mErrorReports,mNonce,getApplication()}));
+  if (mErrorReports.size() > 0) {
+    mPostingFeedback=true;
   }
-);
-  btnKeepLatest.setOnClickListener(new OnClickListener(){
-    @Override public void onClick(    View v){
-      deleteFiles(false,true);
-      refreshErrorListView();
-      refreshInterface();
-    }
+  if (feedback.length() > 0) {
+    mPostingFeedback=true;
   }
-);
   refreshInterface();
-  getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+}
+}
+}
+);
+btnKeepLatest.setOnClickListener(new OnClickListener(){
+@Override public void onClick(View v){
+deleteFiles(false,true);
+refreshErrorListView();
+refreshInterface();
+}
+}
+);
+refreshInterface();
+getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 }

@@ -2,7 +2,7 @@
   List<NameValuePair> pairs=new ArrayList<NameValuePair>();
   pairs.add(new BasicNameValuePair("type","crash-stacktrace"));
   pairs.add(new BasicNameValuePair("groupid",groupId));
-  pairs.add(new BasicNameValuePair("id",String.valueOf(index)));
+  pairs.add(new BasicNameValuePair("index",String.valueOf(index)));
   addTimestamp(pairs);
   String singleLine=null;
   try {

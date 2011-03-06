@@ -2,7 +2,7 @@
   NotificationManager mNotificationManager=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
   Resources res=getResources();
   Notification notification=new Notification(R.drawable.anki,res.getString(R.string.download_finished),System.currentTimeMillis());
-  Intent loadDeckIntent=new Intent(Intent.ACTION_VIEW,Uri.parse(mDestination + "/" + deckTitle+ ".anki"),DownloadManagerService.this,StudyOptions.class);
+  Intent loadDeckIntent=new Intent(Intent.ACTION_VIEW,Uri.parse(mDestination + "/" + deckFilename+ ".anki"),DownloadManagerService.this,StudyOptions.class);
   PendingIntent contentIntent=PendingIntent.getActivity(this,0,loadDeckIntent,0);
   notification.setLatestEventInfo(this,deckTitle,res.getString(R.string.deck_downloaded),contentIntent);
   notification.flags|=Notification.FLAG_AUTO_CANCEL;

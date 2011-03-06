@@ -4,7 +4,6 @@
   Button btnKeepLatest=(Button)findViewById(R.id.btnFeedbackKeepLatest);
   Button btnClearAll=(Button)findViewById(R.id.btnFeedbackClearAll);
   ProgressBar pbSpinner=(ProgressBar)findViewById(R.id.pbFeedbackSpinner);
-  Log.i(AnkiDroidApp.TAG,"refreshing UI");
   int numErrors=mErrorReports.size();
   if (numErrors == 0) {
     mLvErrorList.setVisibility(View.GONE);
