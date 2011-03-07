@@ -68,7 +68,7 @@
   builder.setPositiveButton(R.string.studyoptions_more_save,new DialogInterface.OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int which){
       Deck deck=AnkiDroidApp.deck();
-      int changed=0;
+      boolean changed=false;
       String textTime=mEditSessionTime.getText().toString();
       if (!textTime.equals(Long.toString(deck.getSessionTimeLimit() / 60))) {
         if (textTime.equals("")) {
@@ -86,28 +86,25 @@
  else         if (isValidLong(textReps)) {
           deck.setSessionRepLimit(Long.parseLong(textReps));
         }
-        changed=1;
+        changed=true;
       }
       if (!deck.getVar("newActive").equals(mLimitNewActive)) {
         deck.setVar("newActive",mLimitNewActive);
-        changed=2;
+        changed=true;
       }
       if (!deck.getVar("newInactive").equals(mLimitNewInactive)) {
         deck.setVar("newInactive",mLimitNewInactive);
-        changed=2;
+        changed=true;
       }
       if (!deck.getVar("revActive").equals(mLimitRevActive)) {
         deck.setVar("revActive",mLimitRevActive);
-        changed=2;
+        changed=true;
       }
       if (!deck.getVar("revInactive").equals(mLimitRevInactive)) {
         deck.setVar("revInactive",mLimitRevInactive);
-        changed=2;
+        changed=true;
       }
-      if (changed == 2) {
-        reloadDeck();
-      }
- else       if (changed == 1) {
+      if (changed) {
         updateValuesFromDeck();
       }
       mToggleLimit.setChecked((mSessionLimitCheckBox.isChecked() && !(textTime.length() == 0 && textReps.length() == 0)) || (mLimitTagsCheckBox.isChecked() && (mLimitTagNewActiveCheckBox.isChecked() || mLimitTagNewInactiveCheckBox.isChecked() || mLimitTagRevActiveCheckBox.isChecked()|| mLimitTagRevInactiveCheckBox.isChecked())));

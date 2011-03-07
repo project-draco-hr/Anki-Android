@@ -12,7 +12,7 @@
       }
     }
   }
- else   if (requestCode == CREATE_DECK && resultCode == RESULT_OK) {
+ else   if ((requestCode == CREATE_DECK || requestCode == DOWNLOAD_PERSONAL_DECK || requestCode == DOWNLOAD_SHARED_DECK) && resultCode == RESULT_OK) {
     finish();
     Intent i=new Intent(DeckPicker.this,DeckPicker.class);
     startActivity(i);

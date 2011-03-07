@@ -15,7 +15,7 @@ resetDeckLanguages(data.get("filepath"));
 return true;
 case R.id.optimize_deck:
 deckPath=data.get("filepath");
-deck=Deck.openDeck(deckPath);
+deck=Deck.openDeck(deckPath,false);
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_OPTIMIZE_DECK,mOptimizeDeckHandler,new DeckTask.TaskData(deck,null));
 return true;
 case R.id.download_missing_media:

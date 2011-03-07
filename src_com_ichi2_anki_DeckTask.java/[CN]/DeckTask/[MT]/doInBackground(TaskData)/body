@@ -10,11 +10,13 @@
 switch (mType) {
 case TASK_TYPE_LOAD_DECK:
     return doInBackgroundLoadDeck(params);
+case TASK_TYPE_UNLOAD_DECK:
+  return doInBackgroundUnloadDeck(params);
 case TASK_TYPE_LOAD_DECK_AND_UPDATE_CARDS:
-  TaskData taskData=doInBackgroundLoadDeck(params);
+TaskData taskData=doInBackgroundLoadDeck(params);
 if (taskData.mInteger == DECK_LOADED) {
-  taskData.mDeck.updateAllCards();
-  taskData.mCard=taskData.mDeck.getCurrentCard();
+taskData.mDeck.updateAllCards();
+taskData.mCard=taskData.mDeck.getCurrentCard();
 }
 return taskData;
 case TASK_TYPE_ANSWER_CARD:
