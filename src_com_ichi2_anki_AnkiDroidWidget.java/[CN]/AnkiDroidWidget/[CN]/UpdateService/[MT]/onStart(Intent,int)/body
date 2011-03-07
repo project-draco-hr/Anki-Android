@@ -10,6 +10,9 @@
       currentDueDeck--;
       updateDueDecksNow=false;
     }
+ else     if (ACTION_IGNORE.equals(intent.getAction())) {
+      updateDueDecksNow=false;
+    }
   }
   RemoteViews updateViews=buildUpdate(this,updateDueDecksNow);
   ComponentName thisWidget=new ComponentName(this,AnkiDroidWidget.class);
