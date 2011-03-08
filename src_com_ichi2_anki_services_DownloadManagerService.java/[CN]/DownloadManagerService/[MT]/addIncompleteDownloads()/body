@@ -24,7 +24,7 @@
         String title=filename.substring(0,filename.length() - ".anki.updating".length());
         SharedDeckDownload download=new SharedDeckDownload(title);
         SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
-        String pausedPref="paused:" + mDestination + "/tmp/"+ download.getTitle()+ ".anki.updating";
+        String pausedPref="paused:" + mDestination + "/tmp/"+ download.getFilename()+ ".anki.updating";
         if (pref.getBoolean(pausedPref,false)) {
           download.setStatus(SharedDeckDownload.STATUS_PAUSED);
         }

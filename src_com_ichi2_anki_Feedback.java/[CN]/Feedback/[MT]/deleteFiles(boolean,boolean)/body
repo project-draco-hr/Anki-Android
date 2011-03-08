@@ -3,7 +3,7 @@
     try {
       String errorState=mErrorReports.get(i).get("state");
       if (!onlyProcessed || errorState.equals(STATE_SUCCESSFUL)) {
-        deleteFile(mErrorReports.get(i).get("name"));
+        deleteFile(mErrorReports.get(i).get("filename"));
         mErrorReports.remove(i);
       }
  else {

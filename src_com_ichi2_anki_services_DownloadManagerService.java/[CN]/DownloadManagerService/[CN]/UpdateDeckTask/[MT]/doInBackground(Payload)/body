@@ -10,7 +10,7 @@
     }
     SharedDeckDownload download=(SharedDeckDownload)args[0].data[0];
     SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
-    String updatedCardsPref="numUpdatedCards:" + mDestination + "/tmp/"+ download.getTitle()+ ".anki.updating";
+    String updatedCardsPref="numUpdatedCards:" + mDestination + "/tmp/"+ download.getFilename()+ ".anki.updating";
     long totalCards=deck.retrieveCardCount();
     download.setNumTotalCards((int)totalCards);
     long updatedCards=pref.getLong(updatedCardsPref,0);
@@ -39,11 +39,11 @@
     }
  else     if (download.getStatus() == SharedDeckDownload.STATUS_PAUSED) {
       Editor editor=pref.edit();
-      String pausedPref="paused:" + mDestination + "/tmp/"+ download.getTitle()+ ".anki.updating";
+      String pausedPref="paused:" + mDestination + "/tmp/"+ download.getFilename()+ ".anki.updating";
       editor.putBoolean(pausedPref,true);
       editor.commit();
       data.success=false;
-      Log.i(AnkiDroidApp.TAG,"pausing deck " + download.getTitle());
+      Log.i(AnkiDroidApp.TAG,"pausing deck " + download.getFilename());
     }
  else     if (download.getStatus() == SharedDeckDownload.STATUS_CANCELLED) {
       data.success=false;

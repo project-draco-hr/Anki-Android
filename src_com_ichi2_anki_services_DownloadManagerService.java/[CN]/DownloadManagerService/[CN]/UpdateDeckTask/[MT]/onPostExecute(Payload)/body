@@ -8,20 +8,20 @@
   SharedDeckDownload download=(SharedDeckDownload)result.data[0];
   SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
   Editor editor=pref.edit();
-  Log.i(AnkiDroidApp.TAG,"Finished deck " + download.getTitle() + " "+ result.success);
+  Log.i(AnkiDroidApp.TAG,"Finished deck " + download.getFilename() + " "+ result.success);
   if (result.success) {
-    editor.putLong("numUpdatedCards:" + mDestination + "/tmp/"+ download.getTitle()+ ".anki.updating",0);
+    editor.putLong("numUpdatedCards:" + mDestination + "/tmp/"+ download.getFilename()+ ".anki.updating",0);
     editor.commit();
-    new File(mDestination + "/tmp/" + download.getTitle()+ ".anki.updating").renameTo(new File(mDestination + "/" + download.getTitle()+ ".anki"));
-    new File(mDestination + "/tmp/" + download.getTitle()+ ".media/").renameTo(new File(mDestination + "/" + download.getTitle()+ ".media/"));
+    new File(mDestination + "/tmp/" + download.getFilename()+ ".anki.updating").renameTo(new File(mDestination + "/" + download.getFilename()+ ".anki"));
+    new File(mDestination + "/tmp/" + download.getFilename()+ ".media/").renameTo(new File(mDestination + "/" + download.getFilename()+ ".media/"));
     mSharedDeckDownloads.remove(download);
-    showNotification(download.getTitle());
+    showNotification(download.getTitle(),download.getFilename());
   }
  else {
     if (download.getStatus() == Download.STATUS_CANCELLED) {
       try {
-        new File(mDestination + "/tmp/" + download.getTitle()+ ".anki.updating").delete();
-        File mediaFolder=new File(mDestination + "/tmp/" + download.getTitle()+ ".media/");
+        new File(mDestination + "/tmp/" + download.getFilename()+ ".anki.updating").delete();
+        File mediaFolder=new File(mDestination + "/tmp/" + download.getFilename()+ ".media/");
         if (mediaFolder != null && mediaFolder.listFiles() != null) {
           for (          File f : mediaFolder.listFiles()) {
             f.delete();
@@ -33,8 +33,8 @@
         Log.e(AnkiDroidApp.TAG,"SecurityException = " + e.getMessage());
         e.printStackTrace();
       }
-      editor.remove("numUpdatedCards:" + mDestination + "/tmp/"+ download.getTitle()+ ".anki.updating");
-      editor.remove("paused:" + mDestination + "/tmp/"+ download.getTitle()+ ".anki.updating");
+      editor.remove("numUpdatedCards:" + mDestination + "/tmp/"+ download.getFilename()+ ".anki.updating");
+      editor.remove("paused:" + mDestination + "/tmp/"+ download.getFilename()+ ".anki.updating");
       editor.commit();
       mSharedDeckDownloads.remove(download);
     }

@@ -6,7 +6,7 @@
   data.result=deck;
   String syncName=deck.getDeckName();
   data.success=false;
-  data.data=new Integer[]{0,0,0};
+  data.data=new Object[]{0,0,0};
   if (!deck.hasKey("mediaURL")) {
     data.success=true;
     return data;
@@ -89,7 +89,7 @@
         }
  else {
           data.success=false;
-          data.data[0]=file;
+          data.data=new Object[]{file};
           return data;
         }
       }
@@ -106,7 +106,7 @@ catch (    MalformedURLException e) {
       }
  else {
         data.success=false;
-        data.data[0]=file;
+        data.data=new Object[]{file};
         return data;
       }
     }
@@ -118,7 +118,7 @@ catch (    IOException e) {
       }
  else {
         data.success=false;
-        data.data[0]=file;
+        data.data=new Object[]{file};
         return data;
       }
     }

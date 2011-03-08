@@ -17,18 +17,19 @@
     String value=mInformation.get(key);
     reportInformation.append(String.format("%s=%s\n",key.toLowerCase(),value));
   }
-  reportInformation.append(String.format("stacktrace="));
+  reportInformation.append("stacktrace=\nBegin Stacktrace\n");
   final Writer result=new StringWriter();
   final PrintWriter printWriter=new PrintWriter(result);
   e.printStackTrace(printWriter);
   reportInformation.append(String.format("%s\n",result.toString()));
-  reportInformation.append(String.format("End Stacktrace\n\nBegin Inner exceptions\n\n"));
+  reportInformation.append("End Stacktrace\n\nBegin Inner exceptions\n");
   Throwable cause=e.getCause();
   while (cause != null) {
     cause.printStackTrace(printWriter);
     reportInformation.append(String.format("%s\n",result.toString()));
     cause=cause.getCause();
   }
+  reportInformation.append("End Inner exceptions");
   printWriter.close();
   Log.i(AnkiDroidApp.TAG,"report infomation string created");
   saveReportToFile(reportInformation.toString());

@@ -5,7 +5,7 @@
     pairs=new ArrayList<NameValuePair>();
     pairs.add(new BasicNameValuePair("type",type));
     pairs.add(new BasicNameValuePair("groupid",groupId));
-    pairs.add(new BasicNameValuePair("id","0"));
+    pairs.add(new BasicNameValuePair("index","0"));
     pairs.add(new BasicNameValuePair("message",feedback));
     addTimestamp(pairs);
   }
@@ -29,6 +29,7 @@ case 200:
       result.success=true;
     result.returnType=respCode;
   result.result=Utils.convertStreamToString(response.getEntity().getContent());
+Log.i(AnkiDroidApp.TAG,String.format("postFeedback OK: %s",result.result));
 break;
 default :
 Log.e(AnkiDroidApp.TAG,String.format("postFeedback failure: %d - %s",response.getStatusLine().getStatusCode(),response.getStatusLine().getReasonPhrase()));
@@ -39,12 +40,12 @@ break;
 }
 }
  catch (ClientProtocolException ex) {
-Log.e(AnkiDroidApp.TAG,"net1: " + ex.toString());
+Log.e(AnkiDroidApp.TAG,"ClientProtocolException: " + ex.toString());
 result.success=false;
 result.result=new String(ex.toString());
 }
 catch (IOException ex) {
-Log.e(AnkiDroidApp.TAG,"net2: " + ex.toString());
+Log.e(AnkiDroidApp.TAG,"IOException: " + ex.toString());
 result.success=false;
 result.result=new String(ex.toString());
 }

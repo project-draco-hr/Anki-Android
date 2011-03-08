@@ -31,11 +31,11 @@
         }
       }
  catch (      JSONException e) {
-        Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
+        Log.e(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
       }
     }
   }
  catch (  IOException e1) {
-    Log.i(AnkiDroidApp.TAG,"IOException = " + e1.getMessage());
+    Log.e(AnkiDroidApp.TAG,"IOException = " + e1.getMessage());
   }
 }

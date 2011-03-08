@@ -4,6 +4,7 @@
   for (  String file : errors) {
     if (file.endsWith(".stacktrace")) {
       HashMap<String,String> error=new HashMap<String,String>();
+      error.put("filename",file);
       error.put("name",file);
       error.put("state",STATE_WAITING);
       error.put("result","");
