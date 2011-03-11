@@ -20,12 +20,17 @@
 switch (mDictionary) {
 case DICTIONARY_AEDICT:
       mDictionaryAction="sk.baka.aedict.action.ACTION_SEARCH_EDICT";
-    break;
-case DICTIONARY_LEO:
-  mDictionaryAction="android.intent.action.VIEW";
+    mIsDictionaryAvailable=Utils.isIntentAvailable(this,mDictionaryAction);
+  break;
+case DICTIONARY_LEO_WEB:
+mDictionaryAction="android.intent.action.VIEW";
+mIsDictionaryAvailable=Utils.isIntentAvailable(this,mDictionaryAction);
+break;
+case DICTIONARY_LEO_APP:
+mDictionaryAction="android.intent.action.SEND";
+mIsDictionaryAvailable=Utils.isIntentAvailable(this,mDictionaryAction,new ComponentName("org.leo.android.dict","org.leo.android.dict.LeoDict"));
 break;
 }
-mIsDictionaryAvailable=Utils.isIntentAvailable(this,mDictionaryAction);
 Log.i(AnkiDroidApp.TAG,"Is intent available = " + mIsDictionaryAvailable);
 try {
 mCardTemplate=Utils.convertStreamToString(getAssets().open("card_template.html"));
