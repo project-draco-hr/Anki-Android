@@ -63,8 +63,6 @@ reloadDeck();
  else if (requestCode == BROWSE_CARDS && resultCode == RESULT_OK) {
 reloadDeck();
 }
- else if (requestCode == REPORT_FEEDBACK && resultCode == RESULT_OK) {
-}
  else if (requestCode == STATISTICS && mCurrentContentView == CONTENT_CONGRATS) {
 showContentView(CONTENT_STUDY_OPTIONS);
 }
