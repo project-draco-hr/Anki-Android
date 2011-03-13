@@ -22,6 +22,9 @@ return true;
 case MENU_PREFERENCES:
 startActivityForResult(new Intent(DeckPicker.this,Preferences.class),PREFERENCES_UPDATE);
 return true;
+case MENU_FEEDBACK:
+startActivityForResult(new Intent(DeckPicker.this,Feedback.class),REPORT_FEEDBACK);
+return true;
 default :
 return super.onOptionsItemSelected(item);
 }
