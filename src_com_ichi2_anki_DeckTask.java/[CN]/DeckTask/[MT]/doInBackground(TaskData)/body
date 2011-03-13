@@ -19,6 +19,8 @@ taskData.mDeck.updateAllCards();
 taskData.mCard=taskData.mDeck.getCurrentCard();
 }
 return taskData;
+case TASK_TYPE_SAVE_DECK:
+return doInBackgroundSaveDeck(params);
 case TASK_TYPE_ANSWER_CARD:
 return doInBackgroundAnswerCard(params);
 case TASK_TYPE_SUSPEND_CARD:
