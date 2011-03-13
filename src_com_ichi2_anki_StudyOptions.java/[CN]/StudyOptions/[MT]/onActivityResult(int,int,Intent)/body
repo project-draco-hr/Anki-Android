@@ -52,6 +52,7 @@ case Reviewer.RESULT_SESSION_COMPLETED:
     break;
 case Reviewer.RESULT_NO_MORE_CARDS:
   mCurrentContentView=CONTENT_CONGRATS;
+setContentView(mCongratsView);
 break;
 default :
 mCurrentContentView=CONTENT_STUDY_OPTIONS;

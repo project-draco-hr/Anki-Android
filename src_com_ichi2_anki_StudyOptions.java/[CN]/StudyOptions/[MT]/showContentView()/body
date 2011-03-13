@@ -40,8 +40,8 @@ mButtonStart.setText(R.string.studyoptions_continue);
 setContentView(mStudyOptionsView);
 break;
 case CONTENT_CONGRATS:
-setContentView(mCongratsView);
 setCongratsMessage();
+setContentView(mCongratsView);
 break;
 case CONTENT_NO_EXTERNAL_STORAGE:
 setTitle(R.string.app_name);
