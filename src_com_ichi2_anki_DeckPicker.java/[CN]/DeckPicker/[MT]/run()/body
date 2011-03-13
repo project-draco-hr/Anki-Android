@@ -31,7 +31,7 @@
           mHandler.sendMessage(msg);
         }
         try {
-          deck=Deck.openDeck(path);
+          deck=Deck.openDeck(path,false);
           version=deck.getVersion();
         }
  catch (        SQLException e) {
@@ -45,7 +45,7 @@
           data.putInt("msgtype",MSG_UPGRADE_FAILURE);
           data.putInt("version",version);
           data.putString("notes",Deck.upgradeNotesToMessages(deck,getResources()));
-          deck.closeDeck();
+          deck.closeDeck(false);
           msg.setData(data);
           mHandler.sendMessage(msg);
         }
@@ -58,7 +58,7 @@
           int totalRevCards=deck.getTotalRevFailedCount(mCompletionBarRestrictToActive);
           int totalCardsCompletionBar=totalRevCards + totalNewCards;
           String upgradeNotes=Deck.upgradeNotesToMessages(deck,getResources());
-          deck.closeDeck();
+          deck.closeDeck(false);
           data.putString("absPath",path);
           data.putInt("msgtype",MSG_UPGRADE_SUCCESS);
           data.putInt("due",dueCards);

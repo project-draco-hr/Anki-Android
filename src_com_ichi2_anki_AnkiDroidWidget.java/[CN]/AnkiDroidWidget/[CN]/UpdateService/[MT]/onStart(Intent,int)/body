@@ -1,6 +1,20 @@
 {
   Log.i(AnkiDroidApp.TAG,"OnStart");
-  RemoteViews updateViews=buildUpdate(this);
+  boolean updateDueDecksNow=true;
+  if (intent != null) {
+    if (ACTION_NEXT.equals(intent.getAction())) {
+      currentDueDeck++;
+      updateDueDecksNow=false;
+    }
+ else     if (ACTION_PREV.equals(intent.getAction())) {
+      currentDueDeck--;
+      updateDueDecksNow=false;
+    }
+ else     if (ACTION_IGNORE.equals(intent.getAction())) {
+      updateDueDecksNow=false;
+    }
+  }
+  RemoteViews updateViews=buildUpdate(this,updateDueDecksNow);
   ComponentName thisWidget=new ComponentName(this,AnkiDroidWidget.class);
   AppWidgetManager manager=AppWidgetManager.getInstance(this);
   manager.updateAppWidget(thisWidget,updateViews);

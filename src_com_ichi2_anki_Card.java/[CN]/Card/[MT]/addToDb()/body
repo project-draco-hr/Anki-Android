@@ -9,6 +9,7 @@
     mType=TYPE_FAILED;
   }
   ContentValues values=new ContentValues();
+  values.put("id",mId);
   values.put("factId",mFactId);
   values.put("cardModelId",mCardModelId);
   values.put("created",mCreated);

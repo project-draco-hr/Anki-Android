@@ -1,7 +1,6 @@
 {
   Log.i(AnkiDroidApp.TAG,"buildUpdate");
   RemoteViews updateViews=new RemoteViews(context.getPackageName(),R.layout.widget);
-  Deck currentDeck=AnkiDroidApp.deck();
   Intent ankiDroidIntent=new Intent(context,StudyOptions.class);
   ankiDroidIntent.setAction(Intent.ACTION_MAIN);
   ankiDroidIntent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -13,49 +12,49 @@
     updateViews.setTextViewText(R.id.anki_droid_status,"");
     return updateViews;
   }
-  if (currentDeck != null) {
-    currentDeck.closeDeck();
+  if (dueDecks == null || updateDueDecksNow) {
+    updateDueDecks();
   }
-  ArrayList<DeckInformation> decks=fetchDeckInformation();
-  if (currentDeck != null) {
-    AnkiDroidApp.setDeck(currentDeck);
-    Deck.openDeck(currentDeck.getDeckPath());
-  }
-  int totalDue=0;
-  int nbDecks=decks.size();
-  if (nbDecks == 0) {
-    updateViews.setTextViewText(R.id.anki_droid_name,"");
-    updateViews.setTextViewText(R.id.anki_droid_status,"");
-  }
- else {
-    DeckInformation deck=decks.get(0);
-    updateViews.setTextViewText(R.id.anki_droid_name,deck.mDeckName);
-    updateViews.setTextViewText(R.id.anki_droid_status,deck.getDeckStatus());
-  }
-  int hasDueCount=0;
-  for (int i=0; i < nbDecks; i++) {
-    DeckInformation deck=decks.get(i);
-    if (deck.mDueCards > 0) {
-      hasDueCount++;
-      totalDue+=deck.mDueCards;
-    }
-  }
-  if (totalDue > 0) {
+  if (dueCardsCount > 0) {
     Resources resources=getResources();
-    String decksText=resources.getQuantityString(R.plurals.widget_decks,hasDueCount,hasDueCount);
-    String text=resources.getQuantityString(R.plurals.widget_cards_in_decks_due,totalDue,totalDue,decksText);
+    String decksText=resources.getQuantityString(R.plurals.widget_decks,dueDecks.size(),dueDecks.size());
+    String text=resources.getQuantityString(R.plurals.widget_cards_in_decks_due,dueCardsCount,dueCardsCount,decksText);
     updateViews.setTextViewText(R.id.anki_droid_title,text);
+    if (currentDueDeck < 0 || currentDueDeck > dueDecks.size() - 1) {
+      currentDueDeck=0;
+    }
+    DeckInformation deckInformation=dueDecks.get(currentDueDeck);
+    updateViews.setTextViewText(R.id.anki_droid_name,deckInformation.mDeckName);
+    updateViews.setTextViewText(R.id.anki_droid_status,deckInformation.getDeckStatus());
+    if (currentDueDeck > 0) {
+      updateViews.setImageViewResource(R.id.anki_droid_prev,R.drawable.widget_left_arrow);
+      updateViews.setOnClickPendingIntent(R.id.anki_droid_prev,getPrevPendingIntent(context));
+    }
+ else {
+      updateViews.setImageViewResource(R.id.anki_droid_prev,R.drawable.widget_left_arrow_disabled);
+      updateViews.setOnClickPendingIntent(R.id.anki_droid_prev,getIgnoredPendingIntent(context));
+    }
+    if (currentDueDeck < dueDecks.size() - 1) {
+      updateViews.setImageViewResource(R.id.anki_droid_next,R.drawable.widget_right_arrow);
+      updateViews.setOnClickPendingIntent(R.id.anki_droid_next,getNextPendingIntent(context));
+    }
+ else {
+      updateViews.setImageViewResource(R.id.anki_droid_next,R.drawable.widget_right_arrow_disabled);
+      updateViews.setOnClickPendingIntent(R.id.anki_droid_next,getIgnoredPendingIntent(context));
+    }
   }
  else {
     updateViews.setTextViewText(R.id.anki_droid_title,context.getString(R.string.widget_no_cards_due));
+    updateViews.setTextViewText(R.id.anki_droid_name,"");
+    updateViews.setTextViewText(R.id.anki_droid_status,"");
   }
   SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
   int minimumCardsDueForNotification=Integer.parseInt(preferences.getString("minimumCardsDueForNotification","25"));
-  if (totalDue >= minimumCardsDueForNotification) {
+  if (dueCardsCount >= minimumCardsDueForNotification) {
     String ns=Context.NOTIFICATION_SERVICE;
     NotificationManager mNotificationManager=(NotificationManager)getSystemService(ns);
     int icon=R.drawable.anki;
-    CharSequence tickerText=String.format(getString(R.string.widget_minimum_cards_due_notification_ticker_text),totalDue);
+    CharSequence tickerText=String.format(getString(R.string.widget_minimum_cards_due_notification_ticker_text),dueCardsCount);
     long when=System.currentTimeMillis();
     Notification notification=new Notification(icon,tickerText,when);
     if (preferences.getBoolean("widgetVibrate",false)) {

@@ -48,7 +48,7 @@ aedictSearchIntent.putExtra("kanjis",mClipboard.getText());
 startActivity(aedictSearchIntent);
 mClipboard.setText("");
 return true;
-case DICTIONARY_LEO:
+case DICTIONARY_LEO_WEB:
 final CharSequence[] itemValues={"en","fr","es","it","ch","ru"};
 String language=getLanguage(MetaDB.LANGUAGE_UNDEFINED);
 for (int i=0; i < itemValues.length; i++) {
@@ -74,6 +74,13 @@ storeLanguage(language,MetaDB.LANGUAGE_UNDEFINED);
 );
 AlertDialog alert=builder.create();
 alert.show();
+return true;
+case DICTIONARY_LEO_APP:
+Intent leoSearchIntent=new Intent(mDictionaryAction);
+leoSearchIntent.putExtra(Intent.EXTRA_TEXT,mClipboard.getText());
+leoSearchIntent.setComponent(new ComponentName("org.leo.android.dict","org.leo.android.dict.LeoDict"));
+startActivity(leoSearchIntent);
+mClipboard.setText("");
 return true;
 }
 }
