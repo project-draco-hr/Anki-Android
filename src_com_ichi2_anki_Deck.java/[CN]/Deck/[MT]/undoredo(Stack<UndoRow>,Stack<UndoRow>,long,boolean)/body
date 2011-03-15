@@ -1,24 +1,24 @@
 {
   UndoRow row;
-  commitToDB();
   while (true) {
     row=src.pop();
     if (row != null) {
       break;
     }
   }
-  Long start=row.mStart;
-  Long end=row.mEnd;
-  if (end == null) {
+  int start=row.mStart;
+  int end=row.mEnd;
+  if (end == 0) {
     end=latestUndoRow();
   }
-  ArrayList<String> sql=getDB().queryColumn(String.class,String.format(Utils.ENGLISH_LOCALE,"SELECT sql FROM undoLog " + "WHERE seq > %d and seq <= %d " + "ORDER BY seq DESC",start,end),0);
-  Long newstart=latestUndoRow();
+  ArrayList<String> sql=new ArrayList<String>();
+  sql.addAll(mUndoCommands.subList(start,end));
+  int newstart=latestUndoRow();
   for (  String s : sql) {
     getDB().getDatabase().execSQL(s);
   }
   mCurrentUndoRedoType=row.mName;
-  Long newend=latestUndoRow();
+  int newend=latestUndoRow();
   if (inReview) {
     dst.push(new UndoRow(row.mName,row.mCardId,newstart,newend));
   }

@@ -1,7 +1,12 @@
 {
   String undoName=UNDO_TYPE_BURY_CARD;
   setUndoStart(undoName,cardId);
-  getDB().getDatabase().execSQL("UPDATE cards SET type = priority = -2, isDue = 0, type = type + 3 WHERE type >= 0 AND type <= 3 AND factId = " + factId);
+  ContentValues values=new ContentValues();
+  values.put("type","type + 3");
+  values.put("priority",-2);
+  values.put("modified",String.format(Utils.ENGLISH_LOCALE,"%f",Utils.now()));
+  values.put("isDue",0);
+  getDB().update(this,"cards",values,"type >= 0 AND type <= 3 AND factId = " + factId,null);
   setUndoEnd(undoName);
   flushMod();
 }

@@ -7,7 +7,7 @@
   values.put("modified",now);
   values.put("tags",fact.getTags());
   values.put("spaceUntil",0);
-  getDB().getDatabase().insert("facts",null,values);
+  getDB().insert(this,"facts",null,values);
   if (cardModels.isEmpty()) {
     Log.e(AnkiDroidApp.TAG,"Error while adding fact: No cardmodels for the new fact");
     return null;
@@ -20,7 +20,7 @@
     values.put("factId",f.getFactId());
     values.put("fieldModelId",f.getFieldModelId());
     values.put("ordinal",f.getOrdinal());
-    AnkiDatabaseManager.getDatabase(mDeckPath).getDatabase().insert("fields",null,values);
+    getDB().insert(this,"fields",null,values);
   }
   ArrayList<Long> newCardIds=new ArrayList<Long>();
   for (  Map.Entry<Long,CardModel> entry : cardModels.entrySet()) {

@@ -16,11 +16,11 @@
   if (modelExists) {
     ArrayList<String> cardsToDelete=getDB().queryColumn(String.class,"SELECT cards.id FROM cards, facts WHERE facts.modelId = " + id + " AND facts.id = cards.factId",0);
     deleteCards(cardsToDelete);
-    getDB().getDatabase().execSQL("DELETE FROM models WHERE id = " + id);
+    getDB().delete(this,"models","id = " + id,null);
     ContentValues values=new ContentValues();
     values.put("modelId",id);
     values.put("deletedTime",Utils.now());
-    getDB().getDatabase().insert("modelsDeleted",null,values);
+    getDB().insert(this,"modelsDeleted",null,values);
     flushMod();
   }
 }

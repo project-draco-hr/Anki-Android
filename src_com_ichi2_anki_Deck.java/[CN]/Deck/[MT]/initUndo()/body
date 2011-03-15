@@ -2,49 +2,5 @@
   mUndoStack=new Stack<UndoRow>();
   mRedoStack=new Stack<UndoRow>();
   mUndoEnabled=true;
-  try {
-    getDB().getDatabase().execSQL("CREATE TEMPORARY TABLE IF NOT EXISTS undoLog (seq INTEGER PRIMARY KEY NOT NULL, sql TEXT)");
-  }
- catch (  SQLException e) {
-    Log.i(AnkiDroidApp.TAG,"Failed to create temporary table: " + e.getMessage());
-  }
-  ArrayList<String> tables=getDB().queryColumn(String.class,"SELECT name FROM sqlite_master WHERE type = 'table'",0);
-  Iterator<String> iter=tables.iterator();
-  while (iter.hasNext()) {
-    String table=iter.next();
-    if (table.equals("undoLog") || table.equals("sqlite_stat1")) {
-      continue;
-    }
-    ArrayList<String> columns=getDB().queryColumn(String.class,"PRAGMA TABLE_INFO(" + table + ")",1);
-    StringBuilder sql=new StringBuilder(512);
-    sql.append("CREATE TEMP TRIGGER IF NOT EXISTS _undo_").append(table).append("_it AFTER INSERT ON ").append(table).append(" BEGIN INSERT INTO undoLog VALUES (null, 'DELETE FROM ").append(table).append(" WHERE rowid = ' || new.rowid); END");
-    getDB().getDatabase().execSQL(sql.toString());
-    sql=new StringBuilder(512);
-    sql.append("CREATE TEMP TRIGGER IF NOT EXISTS _undo_").append(table).append("_ut AFTER UPDATE ON ").append(table).append(" BEGIN INSERT INTO undoLog VALUES (null, 'UPDATE ").append(table).append(" ");
-    String sep="SET ";
-    for (    String column : columns) {
-      if (column.equals("unique")) {
-        continue;
-      }
-      sql.append(sep).append(column).append("=' || quote(old.").append(column).append(") || '");
-      sep=",";
-    }
-    sql.append(" WHERE rowid = ' || old.rowid); END");
-    getDB().getDatabase().execSQL(sql.toString());
-    sql=new StringBuilder(512);
-    sql.append("CREATE TEMP TRIGGER IF NOT EXISTS _undo_").append(table).append("_dt BEFORE DELETE ON ").append(table).append(" BEGIN INSERT INTO undoLog VALUES (null, 'INSERT INTO ").append(table).append(" (rowid");
-    for (    String column : columns) {
-      sql.append(",\"").append(column).append("\"");
-    }
-    sql.append(") VALUES (' || old.rowid ||'");
-    for (    String column : columns) {
-      if (column.equals("unique")) {
-        sql.append(",1");
-        continue;
-      }
-      sql.append(", ' || quote(old.").append(column).append(") ||'");
-    }
-    sql.append(")'); END");
-    getDB().getDatabase().execSQL(sql.toString());
-  }
+  mUndoCommands=new ArrayList<String>();
 }
