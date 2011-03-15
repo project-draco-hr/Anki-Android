@@ -1,0 +1,12 @@
+{
+  String base;
+  File mediaDirFile=new File(mediaDir);
+  try {
+    base=Uri.fromFile(mediaDirFile).toString() + "/";
+  }
+ catch (  Exception ex) {
+    Log.e(AnkiDroidApp.TAG,"Building media base URL");
+    throw new RuntimeException(ex);
+  }
+  return base;
+}

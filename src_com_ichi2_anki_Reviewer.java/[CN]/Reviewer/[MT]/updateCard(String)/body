@@ -12,7 +12,7 @@
   }
  else {
     mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
-    baseUrl="file://" + mDeckFilename.replace(".anki",".media/");
+    baseUrl=Utils.urlEncodeMediaDir(mDeckFilename.replace(".anki",".media/"));
   }
   int questionStartsAt=content.indexOf("<a name=\"question\"></a><hr/>");
   if (isQuestionDisplayed()) {
