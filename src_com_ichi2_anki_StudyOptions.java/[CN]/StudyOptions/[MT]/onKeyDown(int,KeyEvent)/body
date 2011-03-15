@@ -1,8 +1,8 @@
 {
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
     Log.i(AnkiDroidApp.TAG,"StudyOptions - onBackPressed()");
-    closeOpenedDeck();
-    MetaDB.closeDB();
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNLOAD_DECK,mUnloadDeckHandler,new DeckTask.TaskData(mDeckFilename));
+    return true;
   }
   return super.onKeyDown(keyCode,event);
 }

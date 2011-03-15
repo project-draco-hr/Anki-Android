@@ -2,7 +2,7 @@
   mMediaPrefix=null;
   mLastLoaded=Utils.now();
   mQueueLimit=200;
-  if (!hasKey("latexPost")) {
+  if (!hasKey("revSpacing")) {
     setVarDefault("suspendLeeches","1");
     setVarDefault("leechFails","16");
     setVarDefault("perDay","1");
@@ -14,6 +14,7 @@
     setVarDefault("mediaURL","");
     setVarDefault("latexPre","\\documentclass[12pt]{article}\n" + "\\special{papersize=3in,5in}\n" + "\\usepackage[utf8]{inputenc}\n"+ "\\usepackage{amssymb,amsmath}\n"+ "\\pagestyle{empty}\n"+ "\\begin{document}\n");
     setVarDefault("latexPost","\\end{document}");
+    setVarDefault("revSpacing","0.1");
   }
   updateCutoff();
   setupStandardScheduler();

@@ -1,0 +1,25 @@
+{
+  Deck currentDeck=AnkiDroidApp.deck();
+  if (currentDeck != null) {
+    currentDeck.closeDeck();
+  }
+  ArrayList<DeckInformation> decks=fetchDeckInformation();
+  if (currentDeck != null) {
+    AnkiDroidApp.setDeck(currentDeck);
+    Deck.openDeck(currentDeck.getDeckPath());
+  }
+  if (dueDecks == null) {
+    dueDecks=new ArrayList<DeckInformation>();
+  }
+ else {
+    dueDecks.clear();
+  }
+  dueCardsCount=0;
+  for (int i=0; i < decks.size(); i++) {
+    DeckInformation deck=decks.get(i);
+    if (deck.mDueCards > 0) {
+      dueCardsCount+=deck.mDueCards;
+      dueDecks.add(deck);
+    }
+  }
+}
