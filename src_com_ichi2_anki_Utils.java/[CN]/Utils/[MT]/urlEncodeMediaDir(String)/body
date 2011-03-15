@@ -1,11 +1,8 @@
 {
   String base;
   File mediaDirFile=new File(mediaDir);
-  File parentFile=mediaDirFile.getParentFile();
-  String mediaDirName=mediaDirFile.getName();
   try {
-    mediaDirName=URLEncoder.encode(mediaDirName,"UTF-8");
-    base=parentFile.toURL().toExternalForm() + mediaDirName + "/";
+    base=Uri.fromFile(mediaDirFile).toString() + "/";
   }
  catch (  Exception ex) {
     Log.e(AnkiDroidApp.TAG,"Building media base URL");
