@@ -1,3 +1,7 @@
 {
-  return insert(deck,table,nullColumnHack,values,true);
+  long rowid=mDatabase.insert(table,nullColumnHack,values);
+  if (rowid != -1 && deck.recordUndoInformation()) {
+    deck.addUndoCommand("DEL",table,null,"rowid = " + rowid);
+  }
+  return rowid;
 }

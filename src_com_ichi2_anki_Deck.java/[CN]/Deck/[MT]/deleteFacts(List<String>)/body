@@ -14,7 +14,7 @@
       values.put("factId",id);
       values.put("deletedTime",String.format(Utils.ENGLISH_LOCALE,"%f",now));
       Log.i(AnkiDroidApp.TAG,"inserting into factsDeleted");
-      getDB().insert(this,"fields",null,values);
+      getDB().insert(this,"factsDeleted",null,values);
     }
     setModified();
   }

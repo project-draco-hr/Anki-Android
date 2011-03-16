@@ -1,5 +1,5 @@
 {
-  if (saveUndoInformation) {
+  if (deck.recordUndoInformation()) {
     ArrayList<String> ar=new ArrayList<String>();
     for (    Entry<String,Object> entry : values.valueSet()) {
       ar.add(entry.getKey());
@@ -10,16 +10,13 @@
     columns[len]="rowid";
     Cursor cursor=null;
     try {
-      cursor=mDatabase.query(table,columns,whereClause,null,null,null,null);
+      cursor=mDatabase.query(table,columns,whereClause,whereArgs,null,null,null);
       while (cursor.moveToNext()) {
-        StringBuilder sb=new StringBuilder();
-        sb.append("UPDATE ").append(table).append(" SET ");
-        for (int i=0; i < len - 1; i++) {
-          sb.append(columns[i]).append(" = \'").append(cursor.getString(i)).append("\', ");
+        ContentValues oldvalues=new ContentValues();
+        for (int i=0; i < len; i++) {
+          oldvalues.put(columns[i],cursor.getString(i));
         }
-        sb.append(columns[len - 1]).append(" = \'").append(cursor.getString(len - 1)).append("\'");
-        sb.append(" WHERE rowid = ").append(cursor.getString(len));
-        deck.mUndoCommands.add(sb.toString());
+        deck.addUndoCommand("UPD",table,oldvalues,"rowid = " + cursor.getString(len));
       }
     }
   finally {
@@ -28,5 +25,22 @@
       }
     }
   }
-  mDatabase.update(table,values,whereClause,whereArgs);
+  if (onlyFixedValues) {
+    mDatabase.update(table,values,whereClause,whereArgs);
+  }
+ else {
+    StringBuilder sb=new StringBuilder();
+    sb.append("UPDATE ").append(table).append(" SET ");
+    for (    Entry<String,Object> entry : values.valueSet()) {
+      sb.append(entry.getKey()).append(" = ").append(entry.getValue()).append(", ");
+    }
+    sb.deleteCharAt(sb.length() - 2);
+    if (whereArgs != null) {
+      for (int i=0; i < whereArgs.length; i++) {
+        whereClause=whereClause.replaceFirst("?",whereArgs[i]);
+      }
+    }
+    sb.append("WHERE ").append(whereClause);
+    mDatabase.execSQL(sb.toString());
+  }
 }

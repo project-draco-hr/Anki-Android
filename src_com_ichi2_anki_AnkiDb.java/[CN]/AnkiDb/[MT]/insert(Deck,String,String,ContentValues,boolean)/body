@@ -1,7 +1,0 @@
-{
-  long rowid=mDatabase.insert(table,nullColumnHack,values);
-  if (rowid != -1 && saveUndoInformation) {
-    deck.mUndoCommands.add(new StringBuilder().append("DELETE FROM ").append(table).append(" WHERE rowid = ").append(rowid).toString());
-  }
-  return rowid;
-}

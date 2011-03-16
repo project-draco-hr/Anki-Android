@@ -11,11 +11,11 @@
   if (end == 0) {
     end=latestUndoRow();
   }
-  ArrayList<String> sql=new ArrayList<String>();
-  sql.addAll(mUndoCommands.subList(start,end));
+  LinkedList<UndoCommand> commands=new LinkedList<UndoCommand>();
+  commands.addAll(mUndoCommands.subList(start,end));
   int newstart=latestUndoRow();
-  for (  String s : sql) {
-    getDB().getDatabase().execSQL(s);
+  for (  UndoCommand u : commands) {
+    getDB().execSQL(this,u.mCommand,u.mTable,u.mValues,u.mWhereClause);
   }
   mCurrentUndoRedoType=row.mName;
   int newend=latestUndoRow();

@@ -8,4 +8,5 @@
     }
   }
   mUndoStack.push(new UndoRow(name,cardId,latestUndoRow(),0));
+  mRecordUndoInformation=true;
 }
