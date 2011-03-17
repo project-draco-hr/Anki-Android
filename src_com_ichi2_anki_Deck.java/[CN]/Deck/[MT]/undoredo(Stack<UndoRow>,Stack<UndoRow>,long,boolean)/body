@@ -11,19 +11,23 @@
   if (end == 0) {
     end=latestUndoRow();
   }
-  LinkedList<UndoCommand> commands=new LinkedList<UndoCommand>();
+  ArrayList<UndoCommand> commands=new ArrayList<UndoCommand>();
   commands.addAll(mUndoCommands.subList(start,end));
   int newstart=latestUndoRow();
+  mRecordUndoInformation=true;
   for (  UndoCommand u : commands) {
     getDB().execSQL(this,u.mCommand,u.mTable,u.mValues,u.mWhereClause);
   }
+  mRecordUndoInformation=false;
   mCurrentUndoRedoType=row.mName;
   int newend=latestUndoRow();
-  if (inReview) {
-    dst.push(new UndoRow(row.mName,row.mCardId,newstart,newend));
-  }
+  if (newstart != newend) {
+    if (inReview) {
+      dst.push(new UndoRow(row.mName,row.mCardId,newstart,newend));
+    }
  else {
-    dst.push(new UndoRow(row.mName,oldCardId,newstart,newend));
+      dst.push(new UndoRow(row.mName,oldCardId,newstart,newend));
+    }
   }
   return row.mCardId;
 }

@@ -1,13 +1,15 @@
 {
   Log.i(AnkiDroidApp.TAG,"answerCard");
-  String undoName=UNDO_TYPE_ANSWER_CARD;
-  setUndoStart(undoName,card.getId());
   double now=Utils.now();
+  long id=card.getId();
+  String undoName=UNDO_TYPE_ANSWER_CARD;
+  setUndoStart(undoName,id);
   String oldState=card.getState();
   int oldQueue=cardQueue(card);
   double lastDelaySecs=Utils.now() - card.getCombinedDue();
   double lastDelay=lastDelaySecs / 86400.0;
   boolean oldIsRev=card.isRev();
+  ContentValues oldvalues=card.getAnswerValues();
   double last=card.getInterval();
   card.setInterval(nextInterval(card,ease));
   if (lastDelay >= 0) {
@@ -48,7 +50,7 @@
     answerPreSave(card,ease);
   }
   card.setCombinedDue(card.getDue());
-  card.toDB();
+  getDB().update(this,"cards",card.getAnswerValues(),"id = " + id,null,true,new ContentValues[]{oldvalues},new String[]{"id = " + id});
   Stats.updateAllStats(mGlobalStats,mDailyStats,card,ease,oldState);
   CardHistoryEntry entry=new CardHistoryEntry(this,card,ease,lastDelay);
   entry.writeSQL();
