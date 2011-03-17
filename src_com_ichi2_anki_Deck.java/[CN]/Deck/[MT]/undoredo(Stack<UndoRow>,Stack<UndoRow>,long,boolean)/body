@@ -14,11 +14,18 @@
   ArrayList<UndoCommand> commands=new ArrayList<UndoCommand>();
   commands.addAll(mUndoCommands.subList(start,end));
   int newstart=latestUndoRow();
-  mRecordUndoInformation=true;
-  for (  UndoCommand u : commands) {
-    getDB().execSQL(this,u.mCommand,u.mTable,u.mValues,u.mWhereClause);
+  getDB().getDatabase().beginTransaction();
+  try {
+    mRecordUndoInformation=true;
+    for (    UndoCommand u : commands) {
+      getDB().execSQL(this,u.mCommand,u.mTable,u.mValues,u.mWhereClause);
+    }
+    mRecordUndoInformation=false;
+    getDB().getDatabase().setTransactionSuccessful();
   }
-  mRecordUndoInformation=false;
+  finally {
+    getDB().getDatabase().endTransaction();
+  }
   mCurrentUndoRedoType=row.mName;
   int newend=latestUndoRow();
   if (newstart != newend) {
