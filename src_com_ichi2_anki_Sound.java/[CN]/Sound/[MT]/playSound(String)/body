@@ -5,6 +5,8 @@
  else   if (sSoundPaths.contains(soundPath)) {
     sMediaPlayer=new MediaPlayer();
     try {
+      URI soundURI=new URI(soundPath);
+      soundPath=new File(soundURI).getAbsolutePath();
       sMediaPlayer.setDataSource(soundPath);
       sMediaPlayer.setVolume(AudioManager.STREAM_MUSIC,AudioManager.STREAM_MUSIC);
       sMediaPlayer.prepare();
