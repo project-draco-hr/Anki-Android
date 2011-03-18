@@ -7,6 +7,9 @@
       return;
     }
   }
-  mUndoStack.push(new UndoRow(name,cardId,latestUndoRow(),0));
-  mRecordUndoInformation=true;
+  mUndoStack.push(new UndoRow(name,cardId));
+  if (mUndoStack.size() > 20) {
+    mUndoStack.removeElement(0);
+  }
+  mUndoReStackToRecord=mUndoStack;
 }

@@ -6,35 +6,27 @@
       break;
     }
   }
-  int start=row.mStart;
-  int end=row.mEnd;
-  if (end == 0) {
-    end=latestUndoRow();
+  if (inReview) {
+    dst.push(new UndoRow(row.mName,row.mCardId));
   }
-  ArrayList<UndoCommand> commands=new ArrayList<UndoCommand>();
-  commands.addAll(mUndoCommands.subList(start,end));
-  int newstart=latestUndoRow();
+ else {
+    dst.push(new UndoRow(row.mName,oldCardId));
+  }
+  mUndoReStackToRecord=mRedoStack;
   getDB().getDatabase().beginTransaction();
   try {
-    mRecordUndoInformation=true;
-    for (    UndoCommand u : commands) {
+    for (    UndoCommand u : row.mUndoCommands) {
       getDB().execSQL(this,u.mCommand,u.mTable,u.mValues,u.mWhereClause);
     }
-    mRecordUndoInformation=false;
     getDB().getDatabase().setTransactionSuccessful();
   }
   finally {
+    mUndoReStackToRecord=null;
     getDB().getDatabase().endTransaction();
   }
-  mCurrentUndoRedoType=row.mName;
-  int newend=latestUndoRow();
-  if (newstart != newend) {
-    if (inReview) {
-      dst.push(new UndoRow(row.mName,row.mCardId,newstart,newend));
-    }
- else {
-      dst.push(new UndoRow(row.mName,oldCardId,newstart,newend));
-    }
+  if (row.mUndoCommands.size() == 0) {
+    dst.pop();
   }
+  mCurrentUndoRedoType=row.mName;
   return row.mCardId;
 }
