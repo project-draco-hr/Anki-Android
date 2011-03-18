@@ -2,17 +2,15 @@
   if (!mUndoEnabled) {
     return;
   }
-  int end=latestUndoRow();
   while (mUndoStack.peek() == null) {
     mUndoStack.pop();
   }
   UndoRow row=mUndoStack.peek();
-  row.mEnd=end;
-  if (row.mStart == row.mEnd) {
+  if (row.mUndoCommands.size() == 0) {
     mUndoStack.pop();
   }
  else {
     mRedoStack.clear();
   }
-  mRecordUndoInformation=false;
+  mUndoReStackToRecord=null;
 }
