@@ -51,7 +51,9 @@
       continue;
     }
     try {
-      getDB().getDatabase().execSQL("UPDATE tags SET priority = " + newPriorities.get(tagId) + " WHERE id = "+ tagId);
+      ContentValues values=new ContentValues();
+      values.put("priority",newPriorities.get(tagId));
+      getDB().update(this,"tags",values,"id = " + tagId,null);
     }
  catch (    SQLException e) {
       Log.e(AnkiDroidApp.TAG,"updatePriorities: Error while updating tag priorities for tag " + tag + ": "+ e.toString());

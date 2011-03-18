@@ -36,5 +36,5 @@
   values.put("revCount",mRevCount);
   values.put("newCount",mNewCount);
   values.put("revCardOrder",mRevCardOrder);
-  getDB().getDatabase().update("decks",values,"id = " + mId,null);
+  getDB().update(this,"decks",values,"id = " + mId,null);
 }

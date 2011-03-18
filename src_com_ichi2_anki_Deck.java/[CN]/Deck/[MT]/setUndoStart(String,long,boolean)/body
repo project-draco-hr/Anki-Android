@@ -2,11 +2,11 @@
   if (!mUndoEnabled) {
     return;
   }
-  commitToDB();
   if (merge && !mUndoStack.isEmpty()) {
     if ((mUndoStack.peek() != null) && (mUndoStack.peek().mName.equals(name))) {
       return;
     }
   }
-  mUndoStack.push(new UndoRow(name,cardId,latestUndoRow(),null));
+  mUndoStack.push(new UndoRow(name,cardId,latestUndoRow(),0));
+  mRecordUndoInformation=true;
 }

@@ -21,18 +21,21 @@
     Log.i(AnkiDroidApp.TAG,"old tags = " + factTags);
     Log.i(AnkiDroidApp.TAG,"new tags = " + newTags);
     if (newTags.length() < factTags.length()) {
-      getDB().getDatabase().execSQL("update facts set " + "tags = \"" + newTags + "\", "+ "modified = "+ String.format(Utils.ENGLISH_LOCALE,"%f",Utils.now())+ " where id = "+ factIds[i]);
+      ContentValues values=new ContentValues();
+      values.put("tags",newTags);
+      values.put("modified",String.format(Utils.ENGLISH_LOCALE,"%f",Utils.now()));
+      getDB().update(this,"facts",values,"id = " + factIds[i],null);
     }
   }
   ArrayList<String> cardIdList=getDB().queryColumn(String.class,"select id from cards where factId in " + Utils.ids2str(factIds),0);
   for (  String cardId : cardIdList) {
-    getDB().getDatabase().execSQL("DELETE FROM cardTags WHERE cardId = " + cardId + " and tagId = "+ tagId+ " and src = "+ Card.TAGS_FACT);
+    getDB().delete(this,"cardTags","cardId = " + cardId + " and tagId = "+ tagId+ " and src = "+ Card.TAGS_FACT,null);
   }
   try {
     getDB().queryScalar("select id from cardTags where tagId = " + tagId + " limit 1");
   }
  catch (  SQLException e) {
-    getDB().getDatabase().execSQL("delete from tags" + " where id = " + tagId);
+    getDB().delete(this,"tags","id = " + tagId,null);
   }
   flushMod();
 }

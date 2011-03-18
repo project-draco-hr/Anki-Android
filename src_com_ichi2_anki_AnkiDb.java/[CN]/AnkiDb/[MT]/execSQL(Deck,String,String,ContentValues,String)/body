@@ -1,0 +1,14 @@
+{
+  if (command.equals("INS")) {
+    insert(deck,table,null,values);
+  }
+ else   if (command.equals("UPD")) {
+    update(deck,table,values,whereClause,null);
+  }
+ else   if (command.equals("DEL")) {
+    delete(deck,table,whereClause,null);
+  }
+ else {
+    Log.i(AnkiDroidApp.TAG,"wrong command. no action performed");
+  }
+}

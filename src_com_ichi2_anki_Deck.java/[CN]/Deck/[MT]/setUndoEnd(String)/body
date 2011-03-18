@@ -2,8 +2,7 @@
   if (!mUndoEnabled) {
     return;
   }
-  commitToDB();
-  long end=latestUndoRow();
+  int end=latestUndoRow();
   while (mUndoStack.peek() == null) {
     mUndoStack.pop();
   }
@@ -15,4 +14,5 @@
  else {
     mRedoStack.clear();
   }
+  mRecordUndoInformation=false;
 }
