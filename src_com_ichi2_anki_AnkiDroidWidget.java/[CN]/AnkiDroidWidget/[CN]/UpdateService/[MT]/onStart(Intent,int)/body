@@ -13,6 +13,15 @@
  else     if (ACTION_IGNORE.equals(intent.getAction())) {
       updateDueDecksNow=false;
     }
+ else     if (ACTION_OPEN.equals(intent.getAction())) {
+      if (currentDueDeck >= 0 && currentDueDeck < dueDecks.size()) {
+        Intent openDeckIntent=new Intent(this,StudyOptions.class);
+        openDeckIntent.setAction(Intent.ACTION_MAIN);
+        openDeckIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        startActivity(openDeckIntent);
+      }
+      updateDueDecksNow=false;
+    }
   }
   RemoteViews updateViews=buildUpdate(this,updateDueDecksNow);
   ComponentName thisWidget=new ComponentName(this,AnkiDroidWidget.class);
