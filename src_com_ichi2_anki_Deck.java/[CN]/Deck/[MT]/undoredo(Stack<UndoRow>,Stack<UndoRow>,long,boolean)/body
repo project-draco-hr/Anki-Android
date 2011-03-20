@@ -12,7 +12,7 @@
  else {
     dst.push(new UndoRow(row.mName,oldCardId));
   }
-  mUndoReStackToRecord=mRedoStack;
+  mUndoRedoStackToRecord=dst;
   getDB().getDatabase().beginTransaction();
   try {
     for (    UndoCommand u : row.mUndoCommands) {
@@ -21,7 +21,7 @@
     getDB().getDatabase().setTransactionSuccessful();
   }
   finally {
-    mUndoReStackToRecord=null;
+    mUndoRedoStackToRecord=null;
     getDB().getDatabase().endTransaction();
   }
   if (row.mUndoCommands.size() == 0) {

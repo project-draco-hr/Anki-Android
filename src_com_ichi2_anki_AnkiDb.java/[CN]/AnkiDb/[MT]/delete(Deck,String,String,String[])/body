@@ -1,10 +1,21 @@
 {
   if (deck.recordUndoInformation()) {
-    ArrayList<String> ar=queryColumn(String.class,"PRAGMA TABLE_INFO(" + table + ")",1);
-    int len=ar.size();
-    String[] columns=new String[len + 1];
-    ar.toArray(columns);
+    ArrayList<String> columnsNames=new ArrayList<String>();
     Cursor cursor=null;
+    try {
+      cursor=mDatabase.rawQuery("PRAGMA TABLE_INFO(" + table + ")",null);
+      while (cursor.moveToNext()) {
+        columnsNames.add(cursor.getString(1));
+      }
+    }
+  finally {
+      if (cursor != null) {
+        cursor.close();
+      }
+    }
+    int len=columnsNames.size();
+    String[] columns=new String[len];
+    columnsNames.toArray(columns);
     try {
       cursor=mDatabase.query(table,columns,whereClause,whereArgs,null,null,null);
       while (cursor.moveToNext()) {
