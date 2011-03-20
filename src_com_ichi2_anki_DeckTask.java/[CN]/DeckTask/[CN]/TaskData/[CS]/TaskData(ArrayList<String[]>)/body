@@ -1,4 +1,6 @@
 {
-  mAllCards=new ArrayList<String[]>();
-  mAllCards.addAll(allCards);
+  if (allCards != null) {
+    mAllCards=new ArrayList<String[]>();
+    mAllCards.addAll(allCards);
+  }
 }

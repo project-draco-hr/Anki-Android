@@ -47,5 +47,5 @@
   values.put("type",mType);
   values.put("combinedDue",Math.max(mSpaceUntil,mDue));
   values.put("relativeDelay",0.0);
-  AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().insert("cards",null,values);
+  AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).insert(mDeck,"cards",null,values);
 }

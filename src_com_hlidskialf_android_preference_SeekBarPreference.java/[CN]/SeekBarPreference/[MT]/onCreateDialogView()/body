@@ -14,8 +14,8 @@
   if (shouldPersist()) {
     mValue=getPersistedInt(mDefault);
   }
-  mSeekBar.setProgress((int)((mValue - mMin) / mInterval));
   mSeekBar.setMax((int)((mMax - mMin) / mInterval));
+  mSeekBar.setProgress((int)((mValue - mMin) / mInterval));
   String t=String.valueOf(mValue);
   mValueText.setText(mSuffix == null ? t : t.concat(mSuffix));
   return layout;

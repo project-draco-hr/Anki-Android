@@ -12,7 +12,7 @@
   }
  else {
     mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
-    baseUrl="file://" + mDeckFilename.replace(".anki",".media/");
+    baseUrl=Utils.urlEncodeMediaDir(mDeckFilename.replace(".anki",".media/"));
   }
   int questionStartsAt=content.indexOf("<a name=\"question\"></a><hr/>");
   if (isQuestionDisplayed()) {
@@ -38,6 +38,7 @@
   if (isHebrewFixEnabled()) {
     content=applyFixForHebrew(content);
   }
+  Log.i(AnkiDroidApp.TAG,"content card = \n" + content);
   String card=mCardTemplate.replace("::content::",content);
   Log.i(AnkiDroidApp.TAG,"base url = " + baseUrl);
   mCard.loadDataWithBaseURL(baseUrl,card,"text/html","utf-8",null);

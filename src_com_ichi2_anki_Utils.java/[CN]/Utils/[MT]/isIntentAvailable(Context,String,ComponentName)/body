@@ -1,0 +1,7 @@
+{
+  final PackageManager packageManager=context.getPackageManager();
+  final Intent intent=new Intent(action);
+  intent.setComponent(componentName);
+  List<ResolveInfo> list=packageManager.queryIntentActivities(intent,PackageManager.MATCH_DEFAULT_ONLY);
+  return list.size() > 0;
+}

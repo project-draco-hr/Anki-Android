@@ -12,5 +12,7 @@
   item.setIcon(R.drawable.ic_menu_home);
   item=menu.add(Menu.NONE,MENU_ABOUT,Menu.NONE,R.string.menu_about);
   item.setIcon(R.drawable.ic_menu_info_details);
+  item=menu.add(Menu.NONE,MENU_FEEDBACK,Menu.NONE,R.string.studyoptions_feedback);
+  item.setIcon(R.drawable.ic_menu_send);
   return true;
 }

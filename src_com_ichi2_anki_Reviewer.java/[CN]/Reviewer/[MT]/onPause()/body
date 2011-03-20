@@ -8,8 +8,10 @@
   if (mCurrentCard != null) {
     mCurrentCard.stopTimer();
   }
-  Deck deck=AnkiDroidApp.deck();
-  deck.commitToDB();
+  if (!mClosing) {
+    Deck deck=AnkiDroidApp.deck();
+    deck.commitToDB();
+  }
   if (mShakeEnabled) {
     mSensorManager.unregisterListener(mSensorListener);
   }

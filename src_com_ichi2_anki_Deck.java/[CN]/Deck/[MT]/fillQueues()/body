@@ -2,13 +2,4 @@
   fillFailedQueue();
   fillRevQueue();
   fillNewQueue();
-  for (  QueueItem i : mFailedQueue) {
-    Log.i(AnkiDroidApp.TAG,"failed queue: cid: " + i.getCardID() + " fid: "+ i.getFactID()+ " cd: "+ i.getDue());
-  }
-  for (  QueueItem i : mRevQueue) {
-    Log.i(AnkiDroidApp.TAG,"rev queue: cid: " + i.getCardID() + " fid: "+ i.getFactID());
-  }
-  for (  QueueItem i : mNewQueue) {
-    Log.i(AnkiDroidApp.TAG,"new queue: cid: " + i.getCardID() + " fid: "+ i.getFactID());
-  }
 }

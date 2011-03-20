@@ -1,0 +1,25 @@
+{
+  if (deck.recordUndoInformation()) {
+    ArrayList<String> ar=queryColumn(String.class,"PRAGMA TABLE_INFO(" + table + ")",1);
+    int len=ar.size();
+    String[] columns=new String[len + 1];
+    ar.toArray(columns);
+    Cursor cursor=null;
+    try {
+      cursor=mDatabase.query(table,columns,whereClause,whereArgs,null,null,null);
+      while (cursor.moveToNext()) {
+        ContentValues oldvalues=new ContentValues();
+        for (int i=0; i < len; i++) {
+          oldvalues.put(columns[i],cursor.getString(i));
+        }
+        deck.addUndoCommand("INS",table,oldvalues,null);
+      }
+    }
+  finally {
+      if (cursor != null) {
+        cursor.close();
+      }
+    }
+  }
+  mDatabase.delete(table,whereClause,whereArgs);
+}
