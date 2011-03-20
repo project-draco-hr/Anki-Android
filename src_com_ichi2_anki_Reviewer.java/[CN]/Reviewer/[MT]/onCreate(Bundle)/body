@@ -12,7 +12,9 @@
     deck.resetUndo();
     if (mPrefFullscreenReview) {
       getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-      requestWindowFeature(Window.FEATURE_NO_TITLE);
+      if (Integer.valueOf(android.os.Build.VERSION.SDK) < 11) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+      }
     }
     requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
     registerExternalStorageListener();
