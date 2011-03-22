@@ -105,7 +105,7 @@
         changed=true;
       }
       if (changed) {
-        updateValuesFromDeck();
+        resetAndUpdateValuesFromDeck();
       }
       mToggleLimit.setChecked((mSessionLimitCheckBox.isChecked() && !(textTime.length() == 0 && textReps.length() == 0)) || (mLimitTagsCheckBox.isChecked() && (mLimitTagNewActiveCheckBox.isChecked() || mLimitTagNewInactiveCheckBox.isChecked() || mLimitTagRevActiveCheckBox.isChecked()|| mLimitTagRevInactiveCheckBox.isChecked())));
     }

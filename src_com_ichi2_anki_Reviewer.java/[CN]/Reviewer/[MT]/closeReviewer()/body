@@ -1,12 +1,4 @@
 {
   mClosing=true;
-  finish();
-  if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-    if (mShowCongrats) {
-      MyAnimation.slide(this,MyAnimation.FADE);
-    }
- else {
-      MyAnimation.slide(this,MyAnimation.RIGHT);
-    }
-  }
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SAVE_DECK,mSaveAndResetDeckHandler,new DeckTask.TaskData(AnkiDroidApp.deck(),""));
 }

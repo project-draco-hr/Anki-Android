@@ -7,6 +7,7 @@
     if (AnkiDroidApp.deck().hasFinishScheduler()) {
       AnkiDroidApp.deck().finishScheduler();
     }
+    deck.reset();
   }
   return null;
 }

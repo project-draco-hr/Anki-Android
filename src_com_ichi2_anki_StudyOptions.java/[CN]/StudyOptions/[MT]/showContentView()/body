@@ -37,10 +37,12 @@ mButtonStart.setText(R.string.studyoptions_start);
  else {
 mButtonStart.setText(R.string.studyoptions_continue);
 }
+updateValuesFromDeck();
 setContentView(mStudyOptionsView);
 break;
 case CONTENT_CONGRATS:
 setCongratsMessage();
+updateValuesFromDeck();
 setContentView(mCongratsView);
 break;
 case CONTENT_NO_EXTERNAL_STORAGE:
