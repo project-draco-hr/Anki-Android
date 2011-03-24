@@ -11,13 +11,14 @@
     stats.mAverageTime=(stats.mReviewTime / stats.mReps);
   }
   newState[0]=Character.toUpperCase(newState[0]);
-  String attr="m" + String.valueOf(newState) + String.format("Ease%d",ease);
+  StringBuilder attr=new StringBuilder();
+  attr.append("m").append(String.valueOf(newState)).append(String.format("Ease%d",ease));
   try {
-    Field f=stats.getClass().getDeclaredField(attr);
+    Field f=stats.getClass().getDeclaredField(attr.toString());
     f.setInt(stats,f.getInt(stats) + 1);
   }
  catch (  Exception e) {
-    Log.e(AnkiDroidApp.TAG,"Failed to update " + attr + " : "+ e.getMessage());
+    Log.e(AnkiDroidApp.TAG,"Failed to update " + attr.toString() + " : "+ e.getMessage());
   }
   stats.toDB(oldValues);
 }

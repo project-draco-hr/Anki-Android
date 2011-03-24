@@ -2,16 +2,13 @@
   Resources res=getResources();
   Deck deck=AnkiDroidApp.deck();
   if (deck != null) {
-    int revCards=deck.getNextDueCards(1) + deck.getFailedDelayedCount();
+    int failedCards=deck.getFailedDelayedCount();
+    int revCards=deck.getNextDueCards(1);
+    int revFailedCards=failedCards + revCards;
     int newCards=deck.getNextNewCards();
-    String revca=res.getString(R.string.studyoptions_congrats_cards);
-    String newca=res.getString(R.string.studyoptions_congrats_cards);
-    if (revCards == 1) {
-      revca=res.getString(R.string.studyoptions_congrats_card);
-    }
-    if (newCards == 1) {
-      newca=res.getString(R.string.studyoptions_congrats_card);
-    }
-    mTextCongratsMessage.setText(String.format(res.getString(R.string.studyoptions_congrats_message),revCards,revca,newCards,newca));
+    int eta=deck.getETA(failedCards,revCards,newCards);
+    String newCardsText=res.getQuantityString(R.plurals.studyoptions_congrats_new_cards,newCards,newCards);
+    String etaText=res.getQuantityString(R.plurals.studyoptions_congrats_eta,eta,eta);
+    mTextCongratsMessage.setText(res.getQuantityString(R.plurals.studyoptions_congrats_message,revFailedCards,revFailedCards,newCardsText,etaText));
   }
 }

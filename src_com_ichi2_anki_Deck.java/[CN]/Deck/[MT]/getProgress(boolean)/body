@@ -1,0 +1,8 @@
+{
+  if (global) {
+    return mGlobalStats.getMatureYesShare();
+  }
+ else {
+    return mDailyStats.getYesShare();
+  }
+}
