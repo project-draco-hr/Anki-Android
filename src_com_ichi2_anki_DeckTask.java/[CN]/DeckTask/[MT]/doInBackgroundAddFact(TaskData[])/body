@@ -1,0 +1,15 @@
+{
+  Deck deck=params[0].getDeck();
+  Fact editFact=params[0].getFact();
+  LinkedHashMap<Long,CardModel> cardModels=params[0].getCardModels();
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
+  ankiDB.getDatabase().beginTransaction();
+  try {
+    publishProgress(new TaskData(deck.addFact(editFact,cardModels) != null));
+    ankiDB.getDatabase().setTransactionSuccessful();
+  }
+  finally {
+    ankiDB.getDatabase().endTransaction();
+  }
+  return null;
+}

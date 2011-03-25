@@ -25,6 +25,8 @@ case TASK_TYPE_SUSPEND_CARD:
 return doInBackgroundSuspendCard(params);
 case TASK_TYPE_MARK_CARD:
 return doInBackgroundMarkCard(params);
+case TASK_TYPE_ADD_FACT:
+return doInBackgroundAddFact(params);
 case TASK_TYPE_UPDATE_FACT:
 return doInBackgroundUpdateFact(params);
 case TASK_TYPE_UNDO:

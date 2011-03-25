@@ -21,10 +21,7 @@
         current.updateField();
       }
       mNewFact.setTags(mFactTags);
-      if (mDeck.addFact(mNewFact,mSelectedCardModels) != null) {
-        setResult(RESULT_OK);
-      }
-      closeFactAdder();
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ADD_FACT,mSaveFactHandler,new DeckTask.TaskData(mDeck,mNewFact,mSelectedCardModels));
     }
   }
 );
@@ -43,7 +40,6 @@
 );
   mCloseButton.setOnClickListener(new View.OnClickListener(){
     public void onClick(    View v){
-      setResult(RESULT_CANCELED);
       closeFactAdder();
     }
   }
