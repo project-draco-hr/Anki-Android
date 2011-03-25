@@ -12,7 +12,7 @@
   mDeck=AnkiDroidApp.deck();
   mModels=Model.getModels(mDeck);
   mCurrentSelectedModelId=mDeck.getCurrentModelId();
-  mNewSelectedCardModels=new TreeMap<Long,CardModel>();
+  mNewSelectedCardModels=new LinkedHashMap<Long,CardModel>();
   cardModelIds=new ArrayList<Long>();
   modelChanged();
   mAddButton.setOnClickListener(new View.OnClickListener(){

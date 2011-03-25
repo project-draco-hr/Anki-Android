@@ -5,6 +5,7 @@
     StringBuffer query=new StringBuffer(SELECT_STRING);
     query.append(" WHERE modelId = ");
     query.append(modelId);
+    query.append(" ORDER BY ordinal");
     cursor=AnkiDatabaseManager.getDatabase(deck.getDeckPath()).getDatabase().rawQuery(query.toString(),null);
     if (cursor.moveToFirst()) {
       do {
