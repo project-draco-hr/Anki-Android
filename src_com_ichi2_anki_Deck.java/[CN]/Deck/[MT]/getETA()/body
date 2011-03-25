@@ -1,3 +1,11 @@
 {
-  return getETA(mFailedSoonCount,mRevCount,mNewCountToday);
+  if (mDailyStats.getReps() >= 10 && mDailyStats.getAverageTime() > 0) {
+    return getETA(mFailedSoonCount,mRevCount,mNewCountToday,false);
+  }
+ else   if (mGlobalStats.getAverageTime() > 0) {
+    return getETA(mFailedSoonCount,mRevCount,mNewCountToday,true);
+  }
+ else {
+    return -1;
+  }
 }

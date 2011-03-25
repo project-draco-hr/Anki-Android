@@ -2,14 +2,11 @@
   double left;
   double count;
   double averageTime;
-  if (mDailyStats.getReps() >= 10 && mDailyStats.getAverageTime() > 0) {
-    averageTime=mDailyStats.getAverageTime();
-  }
- else   if (mGlobalStats.getAverageTime() > 0) {
-    averageTime=mDailyStats.getAverageTime();
+  if (global) {
+    averageTime=mGlobalStats.getAverageTime();
   }
  else {
-    return -1;
+    averageTime=mDailyStats.getAverageTime();
   }
   double globalYoungNoShare=mGlobalStats.getYoungNoShare();
   count=newCards + revCards;
