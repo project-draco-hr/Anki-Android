@@ -18,15 +18,15 @@
       }
       String deckName=(String)deckNameObject;
       Download personalDeckDownload=new Download(deckName);
-      mPersonalDeckDownloads.add(personalDeckDownload);
-      refreshPersonalDecksList();
-      try {
-        startService(mDownloadManagerServiceIntent);
-        mDownloadManagerService.downloadFile(personalDeckDownload);
+      mDestination=PrefSettings.getSharedPrefs(getBaseContext()).getString("deckPath",AnkiDroidApp.getStorageDirectory());
+      if (new File(mDestination + "/" + deckName+ ".anki").exists()) {
+        mSyncDublicateAlert.setMessage(String.format(getResources().getString(R.string.sync_dublicate_message),deckName));
+        mSyncDublicateAlert.show();
+        Log.d(AnkiDroidApp.TAG,"Download Deck already exists");
       }
- catch (      RemoteException e) {
-        Log.e(AnkiDroidApp.TAG,"RemoteException = " + e.getMessage());
-        e.printStackTrace();
+ else {
+        downloadPersonalDeck(personalDeckDownload);
+        Log.d(AnkiDroidApp.TAG,"Download Deck not exists");
       }
     }
   }
