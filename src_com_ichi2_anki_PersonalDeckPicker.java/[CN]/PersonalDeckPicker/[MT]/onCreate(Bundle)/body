@@ -19,6 +19,7 @@
       String deckName=(String)deckNameObject;
       Download personalDeckDownload=new Download(deckName);
       mDestination=PrefSettings.getSharedPrefs(getBaseContext()).getString("deckPath",AnkiDroidApp.getStorageDirectory());
+      setmDeckToDownload(personalDeckDownload);
       if (new File(mDestination + "/" + deckName+ ".anki").exists()) {
         mSyncDublicateAlert.setMessage(String.format(getResources().getString(R.string.sync_dublicate_message),deckName));
         mSyncDublicateAlert.show();
