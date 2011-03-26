@@ -8,7 +8,7 @@
   while (matcher.find()) {
     soundAvailable=true;
     String sound=matcher.group(1);
-    String soundPath=soundDir + sound;
+    String soundPath=soundDir + Uri.encode(sound);
     sSoundPaths.add(soundPath);
     String soundMarker=matcher.group();
     int markerStart=contentLeft.indexOf(soundMarker);
