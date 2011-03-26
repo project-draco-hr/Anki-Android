@@ -27,12 +27,17 @@
       double allRev=deck.getTotalRevFailedCount(false);
       mProgressAll=allRev / totalCardsCount;
       if (deck.isLimitedByTag()) {
-        mGlobalLimitFrame.setVisibility(View.VISIBLE);
-        mature=deck.getMatureCardCount(true);
-        allRev=deck.getTotalRevFailedCount(true);
-        totalCardsCount=allRev + deck.getNewCount(true);
-        mProgressMatureLimit=mature / totalCardsCount;
-        mProgressAllLimit=allRev / totalCardsCount;
+        if (mToggleCram.isChecked()) {
+          mGlobalLimitFrame.setVisibility(View.GONE);
+        }
+ else {
+          mGlobalLimitFrame.setVisibility(View.VISIBLE);
+          mature=deck.getMatureCardCount(true);
+          allRev=deck.getTotalRevFailedCount(true);
+          totalCardsCount=allRev + deck.getNewCount(true);
+          mProgressMatureLimit=mature / totalCardsCount;
+          mProgressAllLimit=allRev / totalCardsCount;
+        }
       }
  else {
         mGlobalLimitFrame.setVisibility(View.GONE);

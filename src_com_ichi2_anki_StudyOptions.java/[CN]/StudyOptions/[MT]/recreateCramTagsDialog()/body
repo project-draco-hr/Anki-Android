@@ -35,8 +35,8 @@
   builder.setTitle(R.string.studyoptions_cram_dialog_title);
   builder.setPositiveButton(res.getString(R.string.begin_cram),new OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int which){
-      onCram();
       mToggleCram.setChecked(true);
+      onCram();
     }
   }
 );
