@@ -39,11 +39,6 @@
         Log.w(AnkiDroidApp.TAG,"DeckPicker - populateDeckList, File " + file.getName() + " is not a real anki file");
       }
     }
-    SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
-    Log.d(AnkiDroidApp.TAG,"syncEnabled=" + preferences.getBoolean("syncEnabled",false));
-    if (!preferences.getBoolean("syncEnabled",false)) {
-      mSyncAllButton.setVisibility(View.GONE);
-    }
     Thread thread=new Thread(this);
     thread.start();
   }
