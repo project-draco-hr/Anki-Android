@@ -10,6 +10,18 @@
       sMediaPlayer.setDataSource(soundPath);
       sMediaPlayer.setVolume(AudioManager.STREAM_MUSIC,AudioManager.STREAM_MUSIC);
       sMediaPlayer.prepare();
+      if (playAll) {
+        sMediaPlayer.setOnCompletionListener(new OnCompletionListener(){
+          @Override public void onCompletion(          MediaPlayer mp){
+            releaseSound();
+            sNumSoundsPlayed++;
+            if (sNumSoundsPlayed < sSoundPaths.size()) {
+              playSound(sNumSoundsPlayed);
+            }
+          }
+        }
+);
+      }
       sMediaPlayer.start();
     }
  catch (    Exception e) {
