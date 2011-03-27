@@ -4,6 +4,6 @@
   menu.findItem(MENU_ADD_FACT).setEnabled(deckChangeable);
   menu.findItem(MENU_MORE_OPTIONS).setEnabled(deckChangeable);
   menu.findItem(MENU_SYNC).setEnabled(deckChangeable);
-  menu.findItem(MENU_SYNC).setVisible(mSyncEnabled);
+  menu.findItem(MENU_SYNC).setVisible(true);
   return true;
 }
