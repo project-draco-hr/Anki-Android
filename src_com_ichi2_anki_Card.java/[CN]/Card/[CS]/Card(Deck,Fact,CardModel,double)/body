@@ -10,7 +10,7 @@
   mTimerStarted=Double.NaN;
   mTimerStopped=Double.NaN;
   mModified=Utils.now();
-  if (created != Double.NaN) {
+  if (Double.isNaN(created)) {
     mCreated=created;
     mDue=created;
   }

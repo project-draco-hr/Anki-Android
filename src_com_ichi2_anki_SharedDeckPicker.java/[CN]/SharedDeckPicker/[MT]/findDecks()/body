@@ -4,8 +4,9 @@
   }
  else {
     List<SharedDeck> foundDecks=new ArrayList<SharedDeck>();
+    String searchText=mSearchEditText.getText().toString().toLowerCase();
     for (    SharedDeck sharedDeck : mSharedDecks) {
-      if (sharedDeck.get("title").toString().toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1) {
+      if (sharedDeck.matchesLowerCaseFilter(searchText)) {
         foundDecks.add(sharedDeck);
       }
     }

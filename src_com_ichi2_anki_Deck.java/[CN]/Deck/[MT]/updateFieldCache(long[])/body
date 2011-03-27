@@ -18,9 +18,9 @@
   if (r.size() > 0) {
     getDB().getDatabase().beginTransaction();
     SQLiteStatement st=getDB().getDatabase().compileStatement("UPDATE facts SET spaceUntil=? WHERE id=?");
-    for (    Long fid : r.keySet()) {
-      st.bindString(1,r.get(fid));
-      st.bindLong(2,fid.longValue());
+    for (    Entry<Long,String> entry : r.entrySet()) {
+      st.bindString(1,entry.getValue());
+      st.bindLong(2,entry.getKey().longValue());
       st.execute();
     }
     getDB().getDatabase().setTransactionSuccessful();
