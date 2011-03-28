@@ -4,9 +4,10 @@
       return -Integer.valueOf(object1.get("dueInt")).compareTo(Integer.valueOf(object2.get("dueInt")));
     }
  else     if (mPrefDeckOrder == ORDER_BY_TOTAL_CARDS) {
-      Log.e(object1.get("filepath"),object1.get("total"));
-      Log.e(object2.get("filepath"),object2.get("total"));
       return -Integer.valueOf(object1.get("total")).compareTo(Integer.valueOf(object2.get("total")));
+    }
+ else     if (mPrefDeckOrder == ORDER_BY_REMAINING_NEW_CARDS) {
+      return -Integer.valueOf(object1.get("totalNew")).compareTo(Integer.valueOf(object2.get("totalNew")));
     }
  else {
       return 0;
