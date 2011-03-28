@@ -31,9 +31,9 @@
   typeAndPriorities.put(mMedPriority,3);
   typeAndPriorities.put(mHighPriority,4);
   HashMap<String,Integer> up=new HashMap<String,Integer>();
-  for (  String type : typeAndPriorities.keySet()) {
-    for (    String tag : Utils.parseTags(type.toLowerCase())) {
-      up.put(tag,typeAndPriorities.get(type));
+  for (  Entry<String,Integer> entry : typeAndPriorities.entrySet()) {
+    for (    String tag : Utils.parseTags(entry.getKey().toLowerCase())) {
+      up.put(tag,entry.getValue());
     }
   }
   String tag=null;

@@ -25,9 +25,10 @@
     }
   }
   ArrayList<HashMap<String,Long>> d=new ArrayList<HashMap<String,Long>>();
-  for (  Long id : rows.keySet()) {
+  for (  Entry<Long,List<String>> entry : rows.entrySet()) {
+    Long id=entry.getKey();
     for (int src=0; src < 3; src++) {
-      for (      String tag : Utils.parseTags(rows.get(id).get(src))) {
+      for (      String tag : Utils.parseTags(entry.getValue().get(src))) {
         HashMap<String,Long> ditem=new HashMap<String,Long>();
         ditem.put("cardId",id);
         ditem.put("tagId",tids.get(tag.toLowerCase()));

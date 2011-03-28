@@ -1,16 +1,16 @@
 {
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
   Editor editor=preferences.edit();
-  if (str == "deckFilename") {
+  if (str.equals("deckFilename")) {
     editor.putString("deckFilename",mDeckFilename);
   }
- else   if (str == "close") {
+ else   if (str.equals("close")) {
     editor.putLong("lastTimeOpened",System.currentTimeMillis());
   }
- else   if (str == "welcome") {
+ else   if (str.equals("welcome")) {
     editor.putBoolean("welcome",mShowWelcomeScreen);
   }
- else   if (str == "invertedColors") {
+ else   if (str.equals("invertedColors")) {
     editor.putBoolean("invertedColors",mInvertedColors);
   }
   editor.commit();

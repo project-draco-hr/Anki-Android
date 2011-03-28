@@ -30,8 +30,8 @@
       cursor.close();
     }
   }
-  for (  String fname : refs.keySet()) {
-    updateMediaCount(deck,fname,refs.get(fname));
+  for (  Entry<String,Integer> entry : refs.entrySet()) {
+    updateMediaCount(deck,entry.getKey(),entry.getValue());
   }
   String fname=null;
   if (mdir != null) {

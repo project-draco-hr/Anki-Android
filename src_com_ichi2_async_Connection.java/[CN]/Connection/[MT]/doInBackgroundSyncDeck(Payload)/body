@@ -146,11 +146,8 @@
         publishProgress(syncName,res.getString(R.string.sync_determining_differences_message));
         JSONObject payload=client.genPayload(sums);
         int factsAddedOnLocal=payload.getJSONArray("added-cards").length();
-        if (factsAddedOnLocal == 1) {
-          syncChangelog.put("message",res.getString(R.string.sync_log_fact_to_server_message));
-        }
- else         if (factsAddedOnLocal > 1) {
-          syncChangelog.put("message",res.getString(R.string.sync_log_facts_to_server_message,factsAddedOnLocal));
+        if (factsAddedOnLocal > 0) {
+          syncChangelog.put("message",res.getQuantityString(R.plurals.sync_log_facts_to_server_message,factsAddedOnLocal,factsAddedOnLocal));
         }
         publishProgress(syncName,res.getString(R.string.sync_transferring_payload_message));
         JSONObject payloadReply=client.getServer().applyPayload(payload);
@@ -162,17 +159,20 @@
           return data;
         }
         int factsAddedOnServer=payloadReply.getJSONArray("added-cards").length();
-        if (factsAddedOnServer == 1) {
-          syncChangelog.put("message",res.getString(R.string.sync_log_fact_from_server_message));
+        if (factsAddedOnLocal == 0 && factsAddedOnServer == 0) {
+          syncChangelog.put("message",res.getString(R.string.sync_log_zero_facts));
         }
- else         if (payloadReply.getJSONArray("added-cards").length() > 1) {
-          syncChangelog.put("message",res.getString(R.string.sync_log_facts_from_server_message,factsAddedOnServer));
+ else         if (factsAddedOnServer > 0) {
+          syncChangelog.put("message",res.getQuantityString(R.plurals.sync_log_facts_from_server_message,factsAddedOnServer,factsAddedOnServer));
         }
         publishProgress(syncName,res.getString(R.string.sync_applying_reply_message));
         client.applyPayloadReply(payloadReply);
         deck.initDeckvarsCache();
         Reviewer.setupMedia(deck);
-        doInBackgroundDownloadMissingMedia(new Payload(new Object[]{deck}));
+        SharedPreferences preferences=PrefSettings.getSharedPrefs(sContext);
+        if (preferences.getBoolean("syncFetchMedia",true)) {
+          doInBackgroundDownloadMissingMedia(new Payload(new Object[]{deck}));
+        }
         if (!client.getServer().finish()) {
           data.success=false;
           syncChangelog.put("message",res.getString(R.string.sync_log_finish_error));

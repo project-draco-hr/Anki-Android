@@ -25,8 +25,8 @@
           files.put(f,1);
         }
       }
-      for (      String f : files.keySet()) {
-        Media.updateMediaCount(deck,f,files.get(f));
+      for (      Entry<String,Integer> entry : files.entrySet()) {
+        Media.updateMediaCount(deck,entry.getKey(),entry.getValue());
       }
     }
  else {

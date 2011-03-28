@@ -1,0 +1,12 @@
+{
+  mPersonalDeckDownloads.add(personalDeck);
+  refreshPersonalDecksList();
+  try {
+    startService(mDownloadManagerServiceIntent);
+    mDownloadManagerService.downloadFile(personalDeck);
+  }
+ catch (  RemoteException e) {
+    Log.e(AnkiDroidApp.TAG,"RemoteException = " + e.getMessage());
+    e.printStackTrace();
+  }
+}

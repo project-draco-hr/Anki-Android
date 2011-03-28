@@ -42,12 +42,12 @@ break;
  catch (ClientProtocolException ex) {
 Log.e(AnkiDroidApp.TAG,"ClientProtocolException: " + ex.toString());
 result.success=false;
-result.result=new String(ex.toString());
+result.result=ex.toString();
 }
 catch (IOException ex) {
 Log.e(AnkiDroidApp.TAG,"IOException: " + ex.toString());
 result.success=false;
-result.result=new String(ex.toString());
+result.result=ex.toString();
 }
 return result;
 }
