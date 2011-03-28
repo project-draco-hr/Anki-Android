@@ -1,8 +1,18 @@
 {
-  if (object2.get("mod").compareToIgnoreCase(object1.get("mod")) != 0) {
-    return object2.get("mod").compareToIgnoreCase(object1.get("mod"));
-  }
+  try {
+    if (mPrefDeckOrder == ORDER_BY_DUE_CARDS) {
+      return -Integer.valueOf(object1.get("dueInt")).compareTo(Integer.valueOf(object2.get("dueInt")));
+    }
+ else     if (mPrefDeckOrder == ORDER_BY_TOTAL_CARDS) {
+      Log.e(object1.get("filepath"),object1.get("total"));
+      Log.e(object2.get("filepath"),object2.get("total"));
+      return -Integer.valueOf(object1.get("total")).compareTo(Integer.valueOf(object2.get("total")));
+    }
  else {
-    return object1.get("filepath").compareToIgnoreCase(object2.get("filepath"));
+      return 0;
+    }
+  }
+ catch (  Exception e) {
+    return 0;
   }
 }

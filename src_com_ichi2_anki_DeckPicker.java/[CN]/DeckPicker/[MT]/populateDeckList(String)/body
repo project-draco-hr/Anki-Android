@@ -9,7 +9,7 @@
   Resources res=getResources();
   int len=0;
   File[] fileList;
-  TreeSet<HashMap<String,String>> tree=new TreeSet<HashMap<String,String>>(new HashMapCompare());
+  TreeSet<HashMap<String,String>> tree=new TreeSet<HashMap<String,String>>(new HashMapCompareLoad());
   File dir=new File(mPrefDeckPath);
   fileList=dir.listFiles(new AnkiFilter());
   if (dir.exists() && dir.isDirectory() && fileList != null) {
