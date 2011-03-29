@@ -43,4 +43,8 @@ ReadText.initializeTts(this,mDeckFilename);
 }
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,deck,null));
 }
+controller=new Controller(Controller.CONTROLLER_1);
+controller.addButtonListener(this);
+controllerUi=new ControllerAndroidUi(this,controller);
+controllerUi.startConnectionProcess();
 }
