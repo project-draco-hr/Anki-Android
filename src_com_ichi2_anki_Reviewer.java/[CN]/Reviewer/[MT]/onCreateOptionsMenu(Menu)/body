@@ -2,7 +2,12 @@
   MenuItem item;
   Resources res=getResources();
   if (mPrefWhiteboard) {
-    Utils.addMenuItemInActionBar(menu,Menu.NONE,MENU_WHITEBOARD,Menu.NONE,R.string.show_whiteboard,R.drawable.ic_menu_compose);
+    if (mShowWhiteboard) {
+      Utils.addMenuItemInActionBar(menu,Menu.NONE,MENU_WHITEBOARD,Menu.NONE,R.string.hide_whiteboard,R.drawable.ic_menu_compose);
+    }
+ else {
+      Utils.addMenuItemInActionBar(menu,Menu.NONE,MENU_WHITEBOARD,Menu.NONE,R.string.show_whiteboard,R.drawable.ic_menu_compose);
+    }
     Utils.addMenuItemInActionBar(menu,Menu.NONE,MENU_CLEAR_WHITEBOARD,Menu.NONE,R.string.clear_whiteboard,R.drawable.ic_menu_clear_playlist);
   }
   Utils.addMenuItem(menu,Menu.NONE,MENU_EDIT,Menu.NONE,R.string.menu_edit_card,R.drawable.ic_menu_edit);

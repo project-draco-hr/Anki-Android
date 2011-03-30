@@ -51,6 +51,10 @@ mSessionCurrReps=0;
 if (mSpeakText && Integer.valueOf(android.os.Build.VERSION.SDK) > 3) {
 ReadText.initializeTts(this,mDeckFilename);
 }
+if (mPrefWhiteboard && MetaDB.getWhiteboardState(this,mDeckFilename) == 1) {
+mShowWhiteboard=true;
+mWhiteboard.setVisibility(View.VISIBLE);
+}
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,deck,null));
 }
 }

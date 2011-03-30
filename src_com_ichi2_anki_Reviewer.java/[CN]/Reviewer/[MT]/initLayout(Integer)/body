@@ -71,7 +71,7 @@
     fl.addView(mWhiteboard);
     mWhiteboard.setOnTouchListener(new View.OnTouchListener(){
       @Override public boolean onTouch(      View v,      MotionEvent event){
-        if (mWhiteboard.getVisibility() == View.VISIBLE) {
+        if (mShowWhiteboard) {
           return false;
         }
         if (gestureDetector.onTouchEvent(event)) {

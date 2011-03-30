@@ -4,7 +4,8 @@
   }
   try {
     mMetaDb.execSQL("DROP TABLE IF EXISTS languages;");
-    mMetaDb.execSQL("CREATE TABLE IF NOT EXISTS languages (_id INTEGER PRIMARY KEY AUTOINCREMENT, " + "deckpath TEXT NOT NULL, modelid INTEGER NOT NULL, cardmodelid INTEGER NOT NULL, qa INTEGER, language TEXT)");
+    mMetaDb.execSQL("DROP TABLE IF EXISTS whiteboardState;");
+    openDB(context);
     Log.i(AnkiDroidApp.TAG,"Resetting all language assignment");
     return true;
   }
