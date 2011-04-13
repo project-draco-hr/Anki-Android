@@ -2,5 +2,9 @@
   if (mShakeEnabled) {
     mSensorManager.unregisterListener(mSensorListener);
   }
+  if (AnkiDroidApp.zeemoteController() != null) {
+    Log.d("Zeemote","Removing listener in onStop");
+    AnkiDroidApp.zeemoteController().removeButtonListener(this);
+  }
   super.onStop();
 }

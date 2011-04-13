@@ -1,8 +1,8 @@
 {
-  Log.d(AnkiDroidApp.TAG,"Button released, id: " + arg0.getButtonID());
-switch (arg0.getButtonID()) {
-case 0:
-    answerCard(Card.EASE_MID);
-  break;
-}
+  Log.d("Zeemote","Button released, id: " + arg0.getButtonID());
+  Message msg=Message.obtain();
+  msg.what=MSG_ZEEMOTE_BUTTON_A + arg0.getButtonID();
+  if ((msg.what >= MSG_ZEEMOTE_BUTTON_A) && (msg.what <= MSG_ZEEMOTE_BUTTON_D)) {
+    this.ZeemoteHandler.sendMessage(msg);
+  }
 }
