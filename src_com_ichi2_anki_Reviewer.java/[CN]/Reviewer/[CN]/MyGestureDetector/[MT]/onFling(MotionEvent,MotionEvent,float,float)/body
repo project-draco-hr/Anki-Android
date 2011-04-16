@@ -1,29 +1,17 @@
 {
-  if (mSwipeEnabled) {
+  if (mGesturesEnabled) {
     try {
       if (e2.getY() - e1.getY() > StudyOptions.sSwipeMinDistance && Math.abs(velocityY) > StudyOptions.sSwipeThresholdVelocity && Math.abs(e1.getX() - e2.getX()) < StudyOptions.sSwipeMaxOffPath && !mIsYScrolling) {
-        if (sDisplayAnswer) {
-          answerCard(Card.EASE_FAILED);
-        }
- else {
-          displayCardAnswer();
-        }
+        executeCommand(mGestureSwipeDown);
       }
  else       if (e1.getY() - e2.getY() > StudyOptions.sSwipeMinDistance && Math.abs(velocityY) > StudyOptions.sSwipeThresholdVelocity && Math.abs(e1.getX() - e2.getX()) < StudyOptions.sSwipeMaxOffPath && !mIsYScrolling) {
-        if (sDisplayAnswer) {
-          if (mCurrentCard.isRev()) {
-            answerCard(Card.EASE_MID);
-          }
- else {
-            answerCard(Card.EASE_HARD);
-          }
-        }
- else {
-          displayCardAnswer();
-        }
+        executeCommand(mGestureSwipeUp);
       }
  else       if (e2.getX() - e1.getX() > StudyOptions.sSwipeMinDistance && Math.abs(velocityX) > StudyOptions.sSwipeThresholdVelocity && Math.abs(e1.getY() - e2.getY()) < StudyOptions.sSwipeMaxOffPath && !mIsXScrolling && !mIsSelecting) {
-        closeReviewer();
+        executeCommand(mGestureSwipeRight);
+      }
+ else       if (e1.getX() - e2.getX() > StudyOptions.sSwipeMinDistance && Math.abs(velocityX) > StudyOptions.sSwipeThresholdVelocity && Math.abs(e1.getY() - e2.getY()) < StudyOptions.sSwipeMaxOffPath && !mIsXScrolling && !mIsSelecting) {
+        executeCommand(mGestureSwipeLeft);
       }
       mIsXScrolling=false;
       mIsYScrolling=false;

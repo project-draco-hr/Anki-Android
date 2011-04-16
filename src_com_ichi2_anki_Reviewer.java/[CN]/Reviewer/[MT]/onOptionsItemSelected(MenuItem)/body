@@ -17,20 +17,7 @@ case MENU_CLEAR_WHITEBOARD:
 mWhiteboard.clear();
 return true;
 case MENU_EDIT:
-if (isCramming()) {
-Toast cramEditWarning=Toast.makeText(Reviewer.this,getResources().getString(R.string.cram_edit_warning),Toast.LENGTH_SHORT);
-cramEditWarning.show();
-return false;
-}
- else {
-Intent editCard=new Intent(Reviewer.this,CardEditor.class);
-sEditorCard=mCurrentCard;
-startActivityForResult(editCard,EDIT_CURRENT_CARD);
-if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-MyAnimation.slide(Reviewer.this,MyAnimation.LEFT);
-}
-return true;
-}
+return editCard();
 case MENU_REMOVE_BURY:
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_BURY_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
 return true;
@@ -41,52 +28,7 @@ case MENU_REMOVE_DELETE:
 showDeleteCardDialog();
 return true;
 case MENU_SEARCH:
-if (mPrefTextSelection && mClipboard.hasText() && mIsDictionaryAvailable) {
-mIsSelecting=false;
-switch (mDictionary) {
-case DICTIONARY_AEDICT:
-Intent aedictSearchIntent=new Intent(mDictionaryAction);
-aedictSearchIntent.putExtra("kanjis",mClipboard.getText());
-startActivity(aedictSearchIntent);
-mClipboard.setText("");
-return true;
-case DICTIONARY_LEO_WEB:
-final CharSequence[] itemValues={"en","fr","es","it","ch","ru"};
-String language=getLanguage(MetaDB.LANGUAGE_UNDEFINED);
-for (int i=0; i < itemValues.length; i++) {
-if (language.equals(itemValues[i])) {
-Intent leoSearchIntent=new Intent(mDictionaryAction,Uri.parse("http://pda.leo.org/?lp=" + language + "de&search="+ mClipboard.getText()));
-startActivity(leoSearchIntent);
-mClipboard.setText("");
-return true;
-}
-}
-final CharSequence[] items={"Englisch","Franz??sisch","Spanisch","Italienisch","Chinesisch","Russisch"};
-AlertDialog.Builder builder=new AlertDialog.Builder(this);
-builder.setTitle("\"" + mClipboard.getText() + "\" nachschlagen");
-builder.setItems(items,new DialogInterface.OnClickListener(){
-public void onClick(DialogInterface dialog,int item){
-String language=itemValues[item].toString();
-Intent leoSearchIntent=new Intent(mDictionaryAction,Uri.parse("http://pda.leo.org/?lp=" + language + "de&search="+ mClipboard.getText()));
-startActivity(leoSearchIntent);
-mClipboard.setText("");
-storeLanguage(language,MetaDB.LANGUAGE_UNDEFINED);
-}
-}
-);
-AlertDialog alert=builder.create();
-alert.show();
-return true;
-case DICTIONARY_LEO_APP:
-Intent leoSearchIntent=new Intent(mDictionaryAction);
-leoSearchIntent.putExtra(Intent.EXTRA_TEXT,mClipboard.getText());
-leoSearchIntent.setComponent(new ComponentName("org.leo.android.dict","org.leo.android.dict.LeoDict"));
-startActivity(leoSearchIntent);
-mClipboard.setText("");
-return true;
-}
-}
-return true;
+return lookUp();
 case MENU_MARK:
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_MARK_CARD,mMarkCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
 return true;
