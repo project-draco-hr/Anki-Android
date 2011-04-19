@@ -3,7 +3,7 @@
   Resources res=getResources();
   Context context=getBaseContext();
   SharedPreferences sharedPreferences=PrefSettings.getSharedPrefs(context);
-  String reportErrorMode=sharedPreferences.getString("reportErrorMode",REPORT_ASK);
+  mReportErrorMode=sharedPreferences.getString("reportErrorMode",REPORT_ASK);
   mNonce=UUID.randomUUID().getMostSignificantBits();
   mFeedbackUrl=res.getString(R.string.feedback_post_url);
   mErrorUrl=res.getString(R.string.error_post_url);
@@ -11,16 +11,26 @@
   mPostingFeedback=false;
   initAllAlertDialogs();
   getErrorFiles();
-  if (reportErrorMode.equals(REPORT_ALWAYS)) {
+  if (mReportErrorMode.equals(REPORT_ALWAYS)) {
     try {
+      String feedback="Automatically sent";
+      Connection.sendFeedback(mSendListener,new Payload(new Object[]{mFeedbackUrl,mErrorUrl,feedback,mErrorReports,mNonce,getApplication()}));
+      if (mErrorReports.size() > 0) {
+        mPostingFeedback=true;
+      }
+      if (feedback.length() > 0) {
+        mPostingFeedback=true;
+      }
     }
  catch (    Exception e) {
       Log.e(AnkiDroidApp.TAG,e.toString());
     }
     deleteFiles(true,false);
+    setResult(RESULT_OK);
+    finish();
     return;
   }
- else   if (reportErrorMode.equals(REPORT_NEVER)) {
+ else   if (mReportErrorMode.equals(REPORT_NEVER)) {
     deleteFiles(false,false);
   }
   setContentView(R.layout.feedback);
