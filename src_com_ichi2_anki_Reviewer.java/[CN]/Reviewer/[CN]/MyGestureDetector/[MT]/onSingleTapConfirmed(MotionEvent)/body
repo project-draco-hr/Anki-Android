@@ -1,5 +1,5 @@
 {
-  if (mGesturesEnabled) {
+  if (mGesturesEnabled && !mIsSelecting) {
     int height=mCard.getHeight();
     int width=mCard.getWidth();
     float posX=e.getX();
@@ -20,6 +20,9 @@
         executeCommand(mGestureTapLeft);
       }
     }
+  }
+ else {
+    mIsSelecting=false;
   }
   return false;
 }

@@ -62,7 +62,7 @@
   float headTextSize=(float)(mCardTimer.getTextSize() * 0.63);
   mCardTimer.setTextSize(headTextSize);
   mChosenAnswer=(TextView)findViewById(R.id.choosen_answer);
-  mChosenAnswer.setTextSize((float)(headTextSize * 1.1));
+  mChosenAnswer.setTextSize((float)(headTextSize * 1.02));
   if (mPrefWhiteboard) {
     mWhiteboard=new Whiteboard(this,null);
     FrameLayout.LayoutParams lp2=new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT);
