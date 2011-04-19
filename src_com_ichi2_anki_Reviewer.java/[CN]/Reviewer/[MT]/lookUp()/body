@@ -42,6 +42,12 @@ leoSearchIntent.setComponent(new ComponentName("org.leo.android.dict","org.leo.a
 startActivity(leoSearchIntent);
 mClipboard.setText("");
 return true;
+case DICTIONARY_COLORDICT:
+Intent colordictSearchIntent=new Intent(mDictionaryAction);
+colordictSearchIntent.putExtra("EXTRA_QUERY",mClipboard.getText());
+startActivity(colordictSearchIntent);
+mClipboard.setText("");
+return true;
 }
 }
 return true;

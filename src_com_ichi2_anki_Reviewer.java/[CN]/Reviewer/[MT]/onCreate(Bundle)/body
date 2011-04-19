@@ -32,6 +32,10 @@ case DICTIONARY_LEO_APP:
 mDictionaryAction="android.intent.action.SEND";
 mIsDictionaryAvailable=Utils.isIntentAvailable(this,mDictionaryAction,new ComponentName("org.leo.android.dict","org.leo.android.dict.LeoDict"));
 break;
+case DICTIONARY_COLORDICT:
+mDictionaryAction="colordict.intent.action.SEARCH";
+mIsDictionaryAvailable=Utils.isIntentAvailable(this,mDictionaryAction);
+break;
 default :
 mIsDictionaryAvailable=false;
 break;
