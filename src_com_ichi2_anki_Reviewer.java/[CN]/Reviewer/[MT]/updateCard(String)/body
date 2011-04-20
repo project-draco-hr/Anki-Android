@@ -40,7 +40,8 @@
     content=applyFixForHebrew(content);
   }
   Log.i(AnkiDroidApp.TAG,"content card = \n" + content);
-  String card=mCardTemplate.replace("::content::",content);
+  String style=getCustomFontsStyle();
+  String card=mCardTemplate.replace("::content::",content).replace("::style::",style);
   Log.i(AnkiDroidApp.TAG,"base url = " + baseUrl);
   mCard.loadDataWithBaseURL(baseUrl,card,"text/html","utf-8",null);
   if (!mConfigurationChanged && mPlaySoundsAtStart) {

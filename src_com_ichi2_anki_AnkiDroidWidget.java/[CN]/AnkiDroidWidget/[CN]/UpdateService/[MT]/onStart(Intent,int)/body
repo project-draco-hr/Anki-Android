@@ -18,6 +18,7 @@
         Intent openDeckIntent=new Intent(this,StudyOptions.class);
         openDeckIntent.setAction(Intent.ACTION_MAIN);
         openDeckIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        openDeckIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(openDeckIntent);
       }
       updateDueDecksNow=false;
