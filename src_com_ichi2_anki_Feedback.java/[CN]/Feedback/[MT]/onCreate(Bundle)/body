@@ -32,6 +32,8 @@
   }
  else   if (mReportErrorMode.equals(REPORT_NEVER)) {
     deleteFiles(false,false);
+    setResult(RESULT_OK);
+    finish();
   }
   setContentView(R.layout.feedback);
   Button btnSend=(Button)findViewById(R.id.btnFeedbackSend);
