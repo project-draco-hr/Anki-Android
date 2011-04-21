@@ -39,8 +39,10 @@
     content=applyFixForHebrew(content);
   }
   Log.i(AnkiDroidApp.TAG,"content card = \n" + content);
-  String style=getCustomFontsStyle();
-  String card=mCardTemplate.replace("::content::",content).replace("::style::",style);
+  StringBuilder style=new StringBuilder();
+  style.append(getCustomFontsStyle());
+  style.append(getDeckStyle(mCurrentCard.mDeck.getDeckPath()));
+  String card=mCardTemplate.replace("::content::",content).replace("::style::",style.toString());
   Log.i(AnkiDroidApp.TAG,"base url = " + baseUrl);
   mCard.loadDataWithBaseURL(baseUrl,card,"text/html","utf-8",null);
   if (!mConfigurationChanged && mPlaySoundsAtStart) {

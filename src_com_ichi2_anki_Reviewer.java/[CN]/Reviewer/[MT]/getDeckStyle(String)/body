@@ -1,0 +1,23 @@
+{
+  File styleFile=new File(removeExtension(deckPath) + ".css");
+  if (!styleFile.exists() || !styleFile.canRead()) {
+    return "";
+  }
+  StringBuilder style=new StringBuilder();
+  try {
+    BufferedReader styleReader=new BufferedReader(new InputStreamReader(new FileInputStream(styleFile)));
+    while (true) {
+      String line=styleReader.readLine();
+      if (line == null) {
+        break;
+      }
+      style.append(line);
+      style.append('\n');
+    }
+  }
+ catch (  IOException e) {
+    Log.e(AnkiDroidApp.TAG,"Error reading style file: " + styleFile.getAbsolutePath(),e);
+    return "";
+  }
+  return style.toString();
+}
