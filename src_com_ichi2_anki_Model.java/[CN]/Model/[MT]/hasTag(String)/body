@@ -1,5 +1,5 @@
 {
   if (mTags == null || mTags.equals(""))   return false;
   if (mTags.equals(tag))   return true;
-  return Arrays.asList(mTags.split(", ")).contains(tag);
+  return Arrays.asList(mTags.split(" ")).contains(tag);
 }
