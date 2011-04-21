@@ -9,6 +9,7 @@
     baseUrl=Utils.getBaseUrl(mMediaDir,myModel,currentDeck);
     content=myModel.getCSSForFontColorSize(mCurrentCard.getCardModelId(),mDisplayFontSize,mInvertedColors) + content;
     isJapaneseModel=myModel.hasTag(japaneseModelTag);
+    mMainLayout.setBackgroundColor(Color.parseColor(myModel.getBackgroundColor(mCurrentCard.getCardModelId(),mInvertedColors)));
   }
  else {
     mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
