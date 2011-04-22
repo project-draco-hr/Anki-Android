@@ -25,7 +25,7 @@
     }
     DeckInformation deckInformation=dueDecks.get(currentDueDeck);
     updateViews.setTextViewText(R.id.anki_droid_name,deckInformation.mDeckName);
-    updateViews.setTextViewText(R.id.anki_droid_status,deckInformation.getDeckStatus());
+    updateViews.setTextViewText(R.id.anki_droid_status,getDeckStatus(deckInformation));
     PendingIntent openPendingIntent=getOpenPendingIntent(context);
     updateViews.setOnClickPendingIntent(R.id.anki_droid_name,openPendingIntent);
     updateViews.setOnClickPendingIntent(R.id.anki_droid_status,openPendingIntent);
