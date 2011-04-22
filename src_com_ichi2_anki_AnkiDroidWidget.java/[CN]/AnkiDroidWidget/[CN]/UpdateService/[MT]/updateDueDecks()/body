@@ -3,7 +3,7 @@
   if (currentDeck != null) {
     currentDeck.closeDeck();
   }
-  ArrayList<DeckStatus> decks=fetchDeckStatus();
+  ArrayList<DeckStatus> decks=WidgetStatus.fetch(getBaseContext());
   if (currentDeck != null) {
     AnkiDroidApp.setDeck(currentDeck);
     Deck.openDeck(currentDeck.getDeckPath());
