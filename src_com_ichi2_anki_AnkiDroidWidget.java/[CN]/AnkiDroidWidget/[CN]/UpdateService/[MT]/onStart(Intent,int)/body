@@ -23,6 +23,9 @@
       }
       updateDueDecksNow=false;
     }
+ else     if (ACTION_UPDATE.equals(intent.getAction())) {
+      Log.d(AnkiDroidApp.TAG,"AnkiDroidWidget.UpdateService: UPDATE");
+    }
   }
   RemoteViews updateViews=buildUpdate(this,updateDueDecksNow);
   ComponentName thisWidget=new ComponentName(this,AnkiDroidWidget.class);
