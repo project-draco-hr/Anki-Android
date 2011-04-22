@@ -1,13 +1,13 @@
 {
-  Log.i(AnkiDroidApp.TAG,"fetchDeckInformation");
+  Log.i(AnkiDroidApp.TAG,"fetchDeckStatus");
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
   String deckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory() + "/AnkiDroid");
   File dir=new File(deckPath);
   File[] fileList=dir.listFiles(new AnkiFileFilter());
   if (fileList == null || fileList.length == 0) {
-    return new ArrayList<DeckInformation>();
+    return new ArrayList<DeckStatus>();
   }
-  ArrayList<DeckInformation> information=new ArrayList<DeckInformation>(fileList.length);
+  ArrayList<DeckStatus> information=new ArrayList<DeckStatus>(fileList.length);
   for (  File file : fileList) {
     try {
       String absPath=file.getAbsolutePath();
@@ -17,7 +17,7 @@
       int newCards=deck.getNewCountToday();
       int failedCards=deck.getFailedSoonCount();
       deck.closeDeck();
-      information.add(new DeckInformation(deckName,newCards,dueCards,failedCards));
+      information.add(new DeckStatus(deckName,newCards,dueCards,failedCards));
     }
  catch (    SQLException e) {
       Log.i(AnkiDroidApp.TAG,"Could not open deck");

@@ -23,9 +23,9 @@
     if (currentDueDeck < 0 || currentDueDeck > dueDecks.size() - 1) {
       currentDueDeck=0;
     }
-    DeckInformation deckInformation=dueDecks.get(currentDueDeck);
-    updateViews.setTextViewText(R.id.anki_droid_name,deckInformation.mDeckName);
-    updateViews.setTextViewText(R.id.anki_droid_status,getDeckStatus(deckInformation));
+    DeckStatus deckStatus=dueDecks.get(currentDueDeck);
+    updateViews.setTextViewText(R.id.anki_droid_name,deckStatus.mDeckName);
+    updateViews.setTextViewText(R.id.anki_droid_status,getDeckStatusString(deckStatus));
     PendingIntent openPendingIntent=getOpenPendingIntent(context);
     updateViews.setOnClickPendingIntent(R.id.anki_droid_name,openPendingIntent);
     updateViews.setOnClickPendingIntent(R.id.anki_droid_status,openPendingIntent);
