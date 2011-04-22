@@ -5,9 +5,9 @@
   File dir=new File(deckPath);
   File[] fileList=dir.listFiles(new AnkiFileFilter());
   if (fileList == null || fileList.length == 0) {
-    return new ArrayList<DeckStatus>();
+    return EMPTY_DECK_STATUS;
   }
-  ArrayList<DeckStatus> information=new ArrayList<DeckStatus>(fileList.length);
+  ArrayList<DeckStatus> decks=new ArrayList<DeckStatus>(fileList.length);
   for (  File file : fileList) {
     try {
       String absPath=file.getAbsolutePath();
@@ -17,16 +17,16 @@
       int newCards=deck.getNewCountToday();
       int failedCards=deck.getFailedSoonCount();
       deck.closeDeck();
-      information.add(new DeckStatus(deckName,newCards,dueCards,failedCards));
+      decks.add(new DeckStatus(deckName,newCards,dueCards,failedCards));
     }
  catch (    SQLException e) {
       Log.i(AnkiDroidApp.TAG,"Could not open deck");
       Log.e(AnkiDroidApp.TAG,e.toString());
     }
   }
-  if (!information.isEmpty() && information.size() > 1) {
+  if (!decks.isEmpty() && decks.size() > 1) {
     Log.i(AnkiDroidApp.TAG,"Sorting deck");
-    Collections.sort(information,new ByDueComparator());
+    Collections.sort(decks,new ByDueComparator());
   }
-  return information;
+  return decks.toArray(EMPTY_DECK_STATUS);
 }
