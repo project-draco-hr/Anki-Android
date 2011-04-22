@@ -3,7 +3,7 @@
   Cursor cur=null;
   int[] count={0,0,0};
   try {
-    cur=getDB().getDatabase().rawQuery(String.format(Utils.ENGLISH_LOCALE,"SELECT reps, (matureease1 + matureease2 + matureease3 + matureease4 +  youngease1 + youngease2 + youngease3 + youngease4), " + "(matureease1 + matureease2 + matureease3 + matureease4)  FROM stats WHERE day = \'%tF\' AND reps > 0 AND id > 1",value),null);
+    cur=getDB().getDatabase().rawQuery(String.format(Utils.ENGLISH_LOCALE,"SELECT reps, (matureease1 + matureease2 + matureease3 + matureease4 +  youngease1 + youngease2 + youngease3 + youngease4), " + "(matureease1 + matureease2 + matureease3 + matureease4) FROM stats WHERE day = \'%tF\' AND type = %d",value,Stats.STATS_DAY),null);
     while (cur.moveToNext()) {
       count[0]=cur.getInt(0);
       count[1]=cur.getInt(1);

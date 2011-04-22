@@ -1,0 +1,21 @@
+{
+  double left;
+  double count;
+  double averageTime;
+  if (global) {
+    averageTime=mGlobalStats.getAverageTime();
+  }
+ else {
+    averageTime=mDailyStats.getAverageTime();
+  }
+  double globalYoungNoShare=mGlobalStats.getYoungNoShare();
+  count=newCards + revCards;
+  count*=1 + globalYoungNoShare;
+  left=count * averageTime;
+  double failedBaseMulti=1.5;
+  double failedMod=0.07;
+  double failedBaseCount=20;
+  double factor=(failedBaseMulti + (failedMod * (failedCards - failedBaseCount)));
+  left+=failedCards * averageTime * factor;
+  return (int)(left / 60);
+}

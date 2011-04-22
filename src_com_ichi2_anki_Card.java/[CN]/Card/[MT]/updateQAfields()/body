@@ -4,5 +4,5 @@
   values.put("modified",mModified);
   values.put("question",mQuestion);
   values.put("answer",mAnswer);
-  AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().update("cards",values,"id = " + mId,null);
+  AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).update(mDeck,"cards",values,"id = " + mId,null);
 }

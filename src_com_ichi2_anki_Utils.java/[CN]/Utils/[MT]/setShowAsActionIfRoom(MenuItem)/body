@@ -1,0 +1,21 @@
+{
+  try {
+    Field showAsActionIfRoom=item.getClass().getField("SHOW_AS_ACTION_IF_ROOM");
+    Method setShowAsAction=item.getClass().getMethod("setShowAsAction",int.class);
+    setShowAsAction.invoke(item,showAsActionIfRoom.get(null));
+  }
+ catch (  SecurityException e) {
+  }
+catch (  NoSuchMethodException e) {
+  }
+catch (  NoSuchFieldException e) {
+  }
+catch (  IllegalArgumentException e) {
+  }
+catch (  IllegalAccessException e) {
+  }
+catch (  InvocationTargetException e) {
+  }
+catch (  NullPointerException e) {
+  }
+}

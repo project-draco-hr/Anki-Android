@@ -9,6 +9,7 @@
     baseUrl=Utils.getBaseUrl(mMediaDir,myModel,currentDeck);
     content=myModel.getCSSForFontColorSize(mCurrentCard.getCardModelId(),mDisplayFontSize,mInvertedColors) + content;
     isJapaneseModel=myModel.hasTag(japaneseModelTag);
+    mMainLayout.setBackgroundColor(Color.parseColor(myModel.getBackgroundColor(mCurrentCard.getCardModelId(),mInvertedColors)));
   }
  else {
     mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
@@ -39,7 +40,8 @@
     content=applyFixForHebrew(content);
   }
   Log.i(AnkiDroidApp.TAG,"content card = \n" + content);
-  String card=mCardTemplate.replace("::content::",content);
+  String style=getCustomFontsStyle();
+  String card=mCardTemplate.replace("::content::",content).replace("::style::",style);
   Log.i(AnkiDroidApp.TAG,"base url = " + baseUrl);
   mCard.loadDataWithBaseURL(baseUrl,card,"text/html","utf-8",null);
   if (!mConfigurationChanged && mPlaySoundsAtStart) {

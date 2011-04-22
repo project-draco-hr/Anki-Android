@@ -1,5 +1,5 @@
 {
-  TreeMap<Long,CardModel> cardModels=new TreeMap<Long,CardModel>();
+  LinkedHashMap<Long,CardModel> cardModels=new LinkedHashMap<Long,CardModel>();
   CardModel.fromDb(this,fact.getModelId(),cardModels);
   return cardModels;
 }

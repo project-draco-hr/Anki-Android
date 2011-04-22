@@ -1,0 +1,24 @@
+{
+  ContentValues values=new ContentValues();
+  values.put("type",mType);
+  values.put("day",mDay.toString());
+  values.put("reps",mReps);
+  values.put("averageTime",mAverageTime);
+  values.put("reviewTime",mReviewTime);
+  values.put("newEase0",mNewEase0);
+  values.put("newEase1",mNewEase1);
+  values.put("newEase2",mNewEase2);
+  values.put("newEase3",mNewEase3);
+  values.put("newEase4",mNewEase4);
+  values.put("youngEase0",mYoungEase0);
+  values.put("youngEase1",mYoungEase1);
+  values.put("youngEase2",mYoungEase2);
+  values.put("youngEase3",mYoungEase3);
+  values.put("youngEase4",mYoungEase4);
+  values.put("matureEase0",mMatureEase0);
+  values.put("matureEase1",mMatureEase1);
+  values.put("matureEase2",mMatureEase2);
+  values.put("matureEase3",mMatureEase3);
+  values.put("matureEase4",mMatureEase4);
+  return values;
+}

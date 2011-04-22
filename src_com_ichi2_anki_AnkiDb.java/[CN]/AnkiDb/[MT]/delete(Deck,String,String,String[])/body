@@ -1,0 +1,36 @@
+{
+  if (deck.recordUndoInformation()) {
+    ArrayList<String> columnsNames=new ArrayList<String>();
+    Cursor cursor=null;
+    try {
+      cursor=mDatabase.rawQuery("PRAGMA TABLE_INFO(" + table + ")",null);
+      while (cursor.moveToNext()) {
+        columnsNames.add(cursor.getString(1));
+      }
+    }
+  finally {
+      if (cursor != null) {
+        cursor.close();
+      }
+    }
+    int len=columnsNames.size();
+    String[] columns=new String[len];
+    columnsNames.toArray(columns);
+    try {
+      cursor=mDatabase.query(table,columns,whereClause,whereArgs,null,null,null);
+      while (cursor.moveToNext()) {
+        ContentValues oldvalues=new ContentValues();
+        for (int i=0; i < len; i++) {
+          oldvalues.put(columns[i],cursor.getString(i));
+        }
+        deck.addUndoCommand("INS",table,oldvalues,null);
+      }
+    }
+  finally {
+      if (cursor != null) {
+        cursor.close();
+      }
+    }
+  }
+  mDatabase.delete(table,whereClause,whereArgs);
+}

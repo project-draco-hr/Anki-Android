@@ -1,0 +1,17 @@
+{
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+  String deckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory() + "/AnkiDroid");
+  String fontsPath=deckPath + "/fonts/";
+  File fontsDir=new File(fontsPath);
+  if (!fontsDir.exists() || !fontsDir.isDirectory()) {
+    return "";
+  }
+  StringBuilder builder=new StringBuilder();
+  for (  File fontFile : fontsDir.listFiles()) {
+    String fontFace=String.format("@font-face {font-family: \"%s\"; src: url(\"file://%s\");}",removeExtension(fontFile.getName()),fontFile.getAbsolutePath());
+    Log.d(AnkiDroidApp.TAG,"adding to style: " + fontFace);
+    builder.append(fontFace);
+    builder.append('\n');
+  }
+  return builder.toString();
+}

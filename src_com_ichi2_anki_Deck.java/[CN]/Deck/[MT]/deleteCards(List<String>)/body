@@ -12,16 +12,15 @@
     double now=Utils.now();
     Log.i(AnkiDroidApp.TAG,"Now = " + now);
     String idsString=Utils.ids2str(ids);
-    getDB().getDatabase().execSQL("DELETE FROM cards WHERE id in " + idsString);
-    String sqlInsert="INSERT INTO cardsDeleted values (?," + String.format(Utils.ENGLISH_LOCALE,"%f",now) + ")";
-    SQLiteStatement statement=getDB().getDatabase().compileStatement(sqlInsert);
+    getDB().delete(this,"cards","id IN " + idsString,null);
     for (    String id : ids) {
-      statement.bindString(1,id);
-      statement.executeInsert();
+      ContentValues values=new ContentValues();
+      values.put("cardId",id);
+      values.put("deletedTime",String.format(Utils.ENGLISH_LOCALE,"%f",now));
+      getDB().insert(this,"cardsDeleted",null,values);
     }
-    statement.close();
     ArrayList<String> tags=getDB().queryColumn(String.class,"SELECT tagId FROM cardTags WHERE cardId in " + idsString,0);
-    getDB().getDatabase().execSQL("DELETE FROM cardTags WHERE cardId in " + idsString);
+    getDB().delete(this,"cardTags","cardId IN " + idsString,null);
     ArrayList<String> unusedTags=new ArrayList<String>();
     for (    String tagId : tags) {
       Cursor cursor=null;
@@ -37,7 +36,7 @@
         }
       }
     }
-    getDB().getDatabase().execSQL("DELETE FROM tags WHERE id in " + Utils.ids2str(unusedTags) + " and priority = "+ Card.PRIORITY_NORMAL);
+    getDB().delete(this,"tags","id in " + Utils.ids2str(unusedTags) + " and priority = "+ Card.PRIORITY_NORMAL,null);
     deleteDanglingFacts();
     setUndoEnd(undoName);
     flushMod();

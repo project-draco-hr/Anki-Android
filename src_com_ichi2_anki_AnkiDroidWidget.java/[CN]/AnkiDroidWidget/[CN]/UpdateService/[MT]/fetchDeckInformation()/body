@@ -17,7 +17,7 @@
       int newCards=deck.getNewCountToday();
       int failedCards=deck.getFailedSoonCount();
       deck.closeDeck();
-      information.add(new DeckInformation(deckName,newCards,dueCards,failedCards));
+      information.add(new DeckInformation(deckName,absPath,newCards,dueCards,failedCards));
     }
  catch (    SQLException e) {
       Log.i(AnkiDroidApp.TAG,"Could not open deck");

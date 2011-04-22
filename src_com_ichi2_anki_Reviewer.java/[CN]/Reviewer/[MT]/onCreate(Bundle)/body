@@ -12,7 +12,9 @@
     deck.resetUndo();
     if (mPrefFullscreenReview) {
       getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-      requestWindowFeature(Window.FEATURE_NO_TITLE);
+      if (Integer.valueOf(android.os.Build.VERSION.SDK) < 11) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+      }
     }
     requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
     registerExternalStorageListener();
@@ -20,12 +22,24 @@
 switch (mDictionary) {
 case DICTIONARY_AEDICT:
       mDictionaryAction="sk.baka.aedict.action.ACTION_SEARCH_EDICT";
-    break;
-case DICTIONARY_LEO:
-  mDictionaryAction="android.intent.action.VIEW";
+    mIsDictionaryAvailable=Utils.isIntentAvailable(this,mDictionaryAction);
+  break;
+case DICTIONARY_LEO_WEB:
+mDictionaryAction="android.intent.action.VIEW";
+mIsDictionaryAvailable=Utils.isIntentAvailable(this,mDictionaryAction);
+break;
+case DICTIONARY_LEO_APP:
+mDictionaryAction="android.intent.action.SEND";
+mIsDictionaryAvailable=Utils.isIntentAvailable(this,mDictionaryAction,new ComponentName("org.leo.android.dict","org.leo.android.dict.LeoDict"));
+break;
+case DICTIONARY_COLORDICT:
+mDictionaryAction="colordict.intent.action.SEARCH";
+mIsDictionaryAvailable=Utils.isIntentAvailable(this,mDictionaryAction);
+break;
+default :
+mIsDictionaryAvailable=false;
 break;
 }
-mIsDictionaryAvailable=Utils.isIntentAvailable(this,mDictionaryAction);
 Log.i(AnkiDroidApp.TAG,"Is intent available = " + mIsDictionaryAvailable);
 try {
 mCardTemplate=Utils.convertStreamToString(getAssets().open("card_template.html"));
@@ -40,6 +54,10 @@ mSessionTimeLimit=System.currentTimeMillis() + timelimit;
 mSessionCurrReps=0;
 if (mSpeakText && Integer.valueOf(android.os.Build.VERSION.SDK) > 3) {
 ReadText.initializeTts(this,mDeckFilename);
+}
+if (mPrefWhiteboard && MetaDB.getWhiteboardState(this,mDeckFilename) == 1) {
+mShowWhiteboard=true;
+mWhiteboard.setVisibility(View.VISIBLE);
 }
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,deck,null));
 }

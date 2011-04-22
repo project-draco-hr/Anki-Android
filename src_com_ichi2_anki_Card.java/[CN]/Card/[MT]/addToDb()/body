@@ -9,6 +9,7 @@
     mType=TYPE_FAILED;
   }
   ContentValues values=new ContentValues();
+  values.put("id",mId);
   values.put("factId",mFactId);
   values.put("cardModelId",mCardModelId);
   values.put("created",mCreated);
@@ -46,5 +47,5 @@
   values.put("type",mType);
   values.put("combinedDue",Math.max(mSpaceUntil,mDue));
   values.put("relativeDelay",0.0);
-  AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().insert("cards",null,values);
+  AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).insert(mDeck,"cards",null,values);
 }

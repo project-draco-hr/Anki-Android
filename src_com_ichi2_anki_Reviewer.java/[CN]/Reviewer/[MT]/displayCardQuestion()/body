@@ -1,6 +1,5 @@
 {
   sDisplayAnswer=false;
-  hideEaseButtons();
   if (mButtonHeight == 0 && mRelativeButtonSize != 100) {
     mButtonHeight=mFlipCard.getHeight() * mRelativeButtonSize / 100;
     mFlipCard.setHeight(mButtonHeight);
@@ -26,4 +25,5 @@
     ReadText.setLanguageInformation(Model.getModel(AnkiDroidApp.deck(),mCurrentCard.getCardModelId(),false).getId(),mCurrentCard.getCardModelId());
   }
   updateCard(displayString);
+  hideEaseButtons();
 }

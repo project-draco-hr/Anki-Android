@@ -5,7 +5,6 @@
     mStatisticBarsHeight=view.getHeight();
   }
   Deck deck=AnkiDroidApp.deck();
-  double[] values=deck.getStats(Stats.TYPE_YES_SHARES);
-  Utils.updateProgressBars(this,mDailyBar,values[0],mStatisticBarsMax,mStatisticBarsHeight,true);
-  Utils.updateProgressBars(this,mGlobalBar,values[1],mStatisticBarsMax,mStatisticBarsHeight,true);
+  Utils.updateProgressBars(this,mDailyBar,deck.getProgress(false),mStatisticBarsMax,mStatisticBarsHeight,true);
+  Utils.updateProgressBars(this,mGlobalBar,deck.getProgress(true),mStatisticBarsMax,mStatisticBarsHeight,true);
 }

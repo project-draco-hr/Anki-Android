@@ -1,0 +1,12 @@
+{
+  if (mColorCardModelMap.size() == 0) {
+    prepareColorForCardModels(invertedColors);
+  }
+  String color=mColorCardModelMap.get(myCardModelId);
+  if (color != null) {
+    return color;
+  }
+ else {
+    return "#FFFFFF";
+  }
+}

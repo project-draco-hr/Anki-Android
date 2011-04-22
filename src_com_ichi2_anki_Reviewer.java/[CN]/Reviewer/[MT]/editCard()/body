@@ -1,0 +1,16 @@
+{
+  if (isCramming()) {
+    Toast cramEditWarning=Toast.makeText(Reviewer.this,getResources().getString(R.string.cram_edit_warning),Toast.LENGTH_SHORT);
+    cramEditWarning.show();
+    return false;
+  }
+ else {
+    Intent editCard=new Intent(Reviewer.this,CardEditor.class);
+    sEditorCard=mCurrentCard;
+    startActivityForResult(editCard,EDIT_CURRENT_CARD);
+    if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+      MyAnimation.slide(Reviewer.this,MyAnimation.LEFT);
+    }
+    return true;
+  }
+}
