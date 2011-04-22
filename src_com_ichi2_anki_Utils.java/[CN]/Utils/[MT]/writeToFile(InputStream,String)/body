@@ -17,6 +17,7 @@
   Log.i(AnkiDroidApp.TAG,"Finished writing!");
   long durationSeconds=(endTimeMillis - startTimeMillis) / 1000;
   long sizeKb=sizeBytes / 1024;
-  Log.d(AnkiDroidApp.TAG,"Utils.writeToFile: " + "Size: " + sizeKb + "Kb, "+ "Duration: "+ durationSeconds+ "s, "+ "Speed: "+ (sizeKb / durationSeconds)+ "Kb/s");
+  long speedKbSec=sizeKb * 1000 / (endTimeMillis - startTimeMillis);
+  Log.d(AnkiDroidApp.TAG,"Utils.writeToFile: " + "Size: " + sizeKb + "Kb, "+ "Duration: "+ durationSeconds+ "s, "+ "Speed: "+ speedKbSec+ "Kb/s");
   output.close();
 }
