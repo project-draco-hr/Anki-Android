@@ -1,5 +1,6 @@
 {
   Intent ankiDroidIntent=new Intent(context,UpdateService.class);
   ankiDroidIntent.setAction(ACTION_OPEN);
+  ankiDroidIntent.setData(Uri.parse("file://" + deckPath));
   return PendingIntent.getService(context,0,ankiDroidIntent,0);
 }
