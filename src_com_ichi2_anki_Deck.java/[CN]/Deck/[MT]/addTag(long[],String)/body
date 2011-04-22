@@ -15,20 +15,23 @@
     Log.i(AnkiDroidApp.TAG,"old tags = " + factTagsList.get(i));
     Log.i(AnkiDroidApp.TAG,"new tags = " + newTags);
     if (newTags.length() > factTagsList.get(i).length()) {
-      getDB().getDatabase().execSQL("update facts set " + "tags = \"" + newTags + "\", "+ "modified = "+ String.format(Utils.ENGLISH_LOCALE,"%f",Utils.now())+ " where id = "+ factIds[i]);
+      ContentValues values=new ContentValues();
+      values.put("tags",newTags);
+      values.put("modified",String.format(Utils.ENGLISH_LOCALE,"%f",Utils.now()));
+      getDB().update(this,"facts",values,"id = " + factIds[i],null);
     }
   }
   ArrayList<String> cardIdList=getDB().queryColumn(String.class,"select id from cards where factId in " + Utils.ids2str(factIds),0);
-  ContentValues values=new ContentValues();
   for (  String cardId : cardIdList) {
     try {
       getDB().queryScalar("SELECT id FROM cardTags WHERE cardId = " + cardId + " and tagId = "+ tagId+ " and src = "+ Card.TAGS_FACT);
     }
  catch (    SQLException e) {
+      ContentValues values=new ContentValues();
       values.put("cardId",cardId);
       values.put("tagId",tagId);
       values.put("src",String.valueOf(Card.TAGS_FACT));
-      getDB().getDatabase().insert("cardTags",null,values);
+      getDB().insert(this,"cardTags",null,values);
     }
   }
   flushMod();

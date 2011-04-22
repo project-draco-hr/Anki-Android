@@ -6,10 +6,12 @@
   markedColor=getResources().getColor(R.color.card_browser_marked);
   suspendedColor=getResources().getColor(R.color.card_browser_suspended);
   backgroundColor=getResources().getColor(R.color.card_browser_background);
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+  mrelativeBrowserFontSize=preferences.getInt("relativeCardBrowserFontSize",DEFAULT_FONT_SIZE_RATIO);
   mCards=new ArrayList<HashMap<String,String>>();
   mAllCards=new ArrayList<HashMap<String,String>>();
   mCardsListView=(ListView)findViewById(R.id.card_browser_list);
-  mCardsAdapter=new SimpleAdapter(this,mCards,R.layout.card_item,new String[]{"question","answer","marSus"},new int[]{R.id.card_question,R.id.card_answer,R.id.card_item});
+  mCardsAdapter=new SizeControlledListAdapter(this,mCards,R.layout.card_item,new String[]{"question","answer","marSus"},new int[]{R.id.card_question,R.id.card_answer,R.id.card_item},mrelativeBrowserFontSize);
   mCardsAdapter.setViewBinder(new SimpleAdapter.ViewBinder(){
     @Override public boolean setViewValue(    View view,    Object arg1,    String text){
       if (view.getId() == R.id.card_item) {

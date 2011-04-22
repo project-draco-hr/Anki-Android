@@ -31,22 +31,19 @@ if ((AnkiDroidApp.deck() != null) && (AnkiDroidApp.deck().name().equals("cram"))
 mToggleCram.setChecked(false);
 mToggleLimit.setEnabled(true);
 }
-if ((AnkiDroidApp.deck() != null) && (AnkiDroidApp.deck().hasFinishScheduler())) {
-AnkiDroidApp.deck().finishScheduler();
-}
-updateValuesFromDeck();
 if (mCurrentContentView == CONTENT_STUDY_OPTIONS) {
 mButtonStart.setText(R.string.studyoptions_start);
 }
  else {
 mButtonStart.setText(R.string.studyoptions_continue);
 }
+updateValuesFromDeck();
 setContentView(mStudyOptionsView);
 break;
 case CONTENT_CONGRATS:
+setCongratsMessage();
 updateValuesFromDeck();
 setContentView(mCongratsView);
-setCongratsMessage();
 break;
 case CONTENT_NO_EXTERNAL_STORAGE:
 setTitle(R.string.app_name);

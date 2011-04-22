@@ -2,6 +2,7 @@
   try {
     mMetaDb=context.openOrCreateDatabase(DATENBANK_NAME,0,null);
     mMetaDb.execSQL("CREATE TABLE IF NOT EXISTS languages (_id INTEGER PRIMARY KEY AUTOINCREMENT, " + "deckpath TEXT NOT NULL, modelid INTEGER NOT NULL, cardmodelid INTEGER NOT NULL, qa INTEGER, language TEXT)");
+    mMetaDb.execSQL("CREATE TABLE IF NOT EXISTS whiteboardState (_id INTEGER PRIMARY KEY AUTOINCREMENT, " + "deckpath TEXT NOT NULL, state INTEGER)");
     Log.i(AnkiDroidApp.TAG,"Opening MetaDB");
   }
  catch (  Exception e) {

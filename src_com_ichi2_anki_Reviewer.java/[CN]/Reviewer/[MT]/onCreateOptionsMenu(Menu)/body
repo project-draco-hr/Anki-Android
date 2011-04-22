@@ -2,13 +2,15 @@
   MenuItem item;
   Resources res=getResources();
   if (mPrefWhiteboard) {
-    item=menu.add(Menu.NONE,MENU_WHITEBOARD,Menu.NONE,R.string.show_whiteboard);
-    item.setIcon(R.drawable.ic_menu_compose);
-    item=menu.add(Menu.NONE,MENU_CLEAR_WHITEBOARD,Menu.NONE,R.string.clear_whiteboard);
-    item.setIcon(R.drawable.ic_menu_clear_playlist);
+    if (mShowWhiteboard) {
+      Utils.addMenuItemInActionBar(menu,Menu.NONE,MENU_WHITEBOARD,Menu.NONE,R.string.hide_whiteboard,R.drawable.ic_menu_compose);
+    }
+ else {
+      Utils.addMenuItemInActionBar(menu,Menu.NONE,MENU_WHITEBOARD,Menu.NONE,R.string.show_whiteboard,R.drawable.ic_menu_compose);
+    }
+    Utils.addMenuItemInActionBar(menu,Menu.NONE,MENU_CLEAR_WHITEBOARD,Menu.NONE,R.string.clear_whiteboard,R.drawable.ic_menu_clear_playlist);
   }
-  item=menu.add(Menu.NONE,MENU_EDIT,Menu.NONE,R.string.menu_edit_card);
-  item.setIcon(R.drawable.ic_menu_edit);
+  Utils.addMenuItem(menu,Menu.NONE,MENU_EDIT,Menu.NONE,R.string.menu_edit_card,R.drawable.ic_menu_edit);
   SubMenu removeDeckSubMenu=menu.addSubMenu(Menu.NONE,MENU_REMOVE,Menu.NONE,R.string.menu_remove_card);
   removeDeckSubMenu.setIcon(R.drawable.ic_menu_stop);
   removeDeckSubMenu.add(Menu.NONE,MENU_REMOVE_BURY,Menu.NONE,R.string.menu_bury_card);
@@ -19,9 +21,7 @@
     item.setIcon(R.drawable.ic_menu_search);
   }
   item=menu.add(Menu.NONE,MENU_MARK,Menu.NONE,R.string.menu_mark_card);
-  item=menu.add(Menu.NONE,MENU_UNDO,Menu.NONE,R.string.undo);
-  item.setIcon(R.drawable.ic_menu_revert);
-  item=menu.add(Menu.NONE,MENU_REDO,Menu.NONE,R.string.redo);
-  item.setIcon(R.drawable.ic_menu_redo);
+  Utils.addMenuItemInActionBar(menu,Menu.NONE,MENU_UNDO,Menu.NONE,R.string.undo,R.drawable.ic_menu_revert);
+  Utils.addMenuItemInActionBar(menu,Menu.NONE,MENU_REDO,Menu.NONE,R.string.redo,R.drawable.ic_menu_redo);
   return true;
 }

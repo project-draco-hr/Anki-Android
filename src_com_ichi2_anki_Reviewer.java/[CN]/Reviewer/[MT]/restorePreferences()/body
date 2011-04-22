@@ -14,12 +14,26 @@
   mRelativeButtonSize=preferences.getInt("answerButtonSize",100);
   mPrefHideQuestionInAnswer=Integer.parseInt(preferences.getString("hideQuestionInAnswer",Integer.toString(HQIA_DO_SHOW)));
   mDictionary=Integer.parseInt(preferences.getString("dictionary",Integer.toString(DICTIONARY_AEDICT)));
-  mSwipeEnabled=preferences.getBoolean("swipe",false);
-  mShakeEnabled=preferences.getBoolean("shake",false);
-  mShakeIntensity=preferences.getInt("minShakeIntensity",70);
   mPrefFixHebrew=preferences.getBoolean("fixHebrewText",false);
   mSpeakText=preferences.getBoolean("tts",false);
   mPlaySoundsAtStart=preferences.getBoolean("playSoundsAtStart",true);
   mShowProgressBars=preferences.getBoolean("progressBars",true);
+  mGesturesEnabled=preferences.getBoolean("swipe",false);
+  if (mGesturesEnabled) {
+    mGestureShake=Integer.parseInt(preferences.getString("gestureShake","0"));
+    if (mGestureShake != 0) {
+      mShakeEnabled=true;
+    }
+    mShakeIntensity=preferences.getInt("minShakeIntensity",70);
+    mGestureSwipeUp=Integer.parseInt(preferences.getString("gestureSwipeUp","0"));
+    mGestureSwipeDown=Integer.parseInt(preferences.getString("gestureSwipeDown","0"));
+    mGestureSwipeLeft=Integer.parseInt(preferences.getString("gestureSwipeLeft","13"));
+    mGestureSwipeRight=Integer.parseInt(preferences.getString("gestureSwipeRight","0"));
+    mGestureDoubleTap=Integer.parseInt(preferences.getString("gestureDoubleTap","0"));
+    mGestureTapLeft=Integer.parseInt(preferences.getString("gestureTapLeft","0"));
+    mGestureTapRight=Integer.parseInt(preferences.getString("gestureTapRight","0"));
+    mGestureTapTop=Integer.parseInt(preferences.getString("gestureTapTop","0"));
+    mGestureTapBottom=Integer.parseInt(preferences.getString("gestureTapBottom","0"));
+  }
   return preferences;
 }

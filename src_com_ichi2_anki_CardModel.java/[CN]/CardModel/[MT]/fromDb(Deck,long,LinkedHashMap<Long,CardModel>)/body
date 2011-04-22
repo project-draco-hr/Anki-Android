@@ -1,0 +1,42 @@
+{
+  Cursor cursor=null;
+  CardModel myCardModel=null;
+  try {
+    StringBuffer query=new StringBuffer(SELECT_STRING);
+    query.append(" WHERE modelId = ");
+    query.append(modelId);
+    query.append(" ORDER BY ordinal");
+    cursor=AnkiDatabaseManager.getDatabase(deck.getDeckPath()).getDatabase().rawQuery(query.toString(),null);
+    if (cursor.moveToFirst()) {
+      do {
+        myCardModel=new CardModel();
+        myCardModel.mId=cursor.getLong(0);
+        myCardModel.mOrdinal=cursor.getInt(1);
+        myCardModel.mModelId=cursor.getLong(2);
+        myCardModel.mName=cursor.getString(3);
+        myCardModel.mDescription=cursor.getString(4);
+        myCardModel.mActive=cursor.getInt(5);
+        myCardModel.mQformat=cursor.getString(6);
+        myCardModel.mAformat=cursor.getString(7);
+        myCardModel.mQuestionInAnswer=cursor.getInt(8);
+        myCardModel.mQuestionFontFamily=cursor.getString(9);
+        myCardModel.mQuestionFontSize=cursor.getInt(10);
+        myCardModel.mQuestionFontColour=cursor.getString(11);
+        myCardModel.mQuestionAlign=cursor.getInt(12);
+        myCardModel.mAnswerFontFamily=cursor.getString(13);
+        myCardModel.mAnswerFontSize=cursor.getInt(14);
+        myCardModel.mAnswerFontColour=cursor.getString(15);
+        myCardModel.mAnswerAlign=cursor.getInt(16);
+        myCardModel.mLastFontColour=cursor.getString(17);
+        myCardModel.refreshTemplates();
+        models.put(myCardModel.mId,myCardModel);
+      }
+ while (cursor.moveToNext());
+    }
+  }
+  finally {
+    if (cursor != null && !cursor.isClosed()) {
+      cursor.close();
+    }
+  }
+}

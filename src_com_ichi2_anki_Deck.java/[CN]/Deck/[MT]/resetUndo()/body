@@ -1,9 +1,4 @@
 {
-  try {
-    getDB().getDatabase().execSQL("delete from undoLog");
-  }
- catch (  SQLException e) {
-  }
   mUndoStack.clear();
   mRedoStack.clear();
 }

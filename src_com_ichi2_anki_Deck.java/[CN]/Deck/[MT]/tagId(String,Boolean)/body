@@ -7,7 +7,7 @@
     if (create) {
       ContentValues value=new ContentValues();
       value.put("tag",tag);
-      id=getDB().getDatabase().insert("tags",null,value);
+      id=getDB().insert(this,"tags",null,value);
     }
  else {
       id=0;

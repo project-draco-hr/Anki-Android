@@ -61,10 +61,12 @@
   mTextCongratsMessage.setOnClickListener(mButtonClickListener);
   mButtonCongratsLearnMore=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_learnmore);
   mButtonCongratsReviewEarly=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_reviewearly);
+  mButtonCongratsSyncDeck=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_syncdeck);
   mButtonCongratsOpenOtherDeck=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_open_other_deck);
   mButtonCongratsFinish=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_finish);
   mButtonCongratsLearnMore.setOnClickListener(mButtonClickListener);
   mButtonCongratsReviewEarly.setOnClickListener(mButtonClickListener);
+  mButtonCongratsSyncDeck.setOnClickListener(mButtonClickListener);
   mButtonCongratsOpenOtherDeck.setOnClickListener(mButtonClickListener);
   mButtonCongratsFinish.setOnClickListener(mButtonClickListener);
   mNoExternalStorageView=getLayoutInflater().inflate(R.layout.studyoptions_nostorage,null);

@@ -9,7 +9,7 @@
   }
  else {
     Log.i(AnkiDroidApp.TAG,"updateCardTags cardIds: " + Arrays.toString(cardIds));
-    getDB().getDatabase().execSQL("DELETE FROM cardTags WHERE cardId IN " + Utils.ids2str(cardIds));
+    getDB().delete(this,"cardTags","cardId IN " + Utils.ids2str(cardIds),null);
     String fids=Utils.ids2str(Utils.toPrimitive(getDB().queryColumn(Long.class,"SELECT factId FROM cards WHERE id IN " + Utils.ids2str(cardIds),0)));
     Log.i(AnkiDroidApp.TAG,"updateCardTags fids: " + fids);
     tids=tagIds(allTags_("WHERE id IN " + fids));
@@ -39,7 +39,11 @@
     }
   }
   for (  HashMap<String,Long> ditem : d) {
-    getDB().getDatabase().execSQL("INSERT INTO cardTags (cardId, tagId, src) VALUES " + "(" + ditem.get("cardId") + ", "+ ditem.get("tagId")+ ", "+ ditem.get("src")+ ")");
+    ContentValues values=new ContentValues();
+    values.put("cardId",ditem.get("cardId"));
+    values.put("tagId",ditem.get("tagId"));
+    values.put("src",ditem.get("src"));
+    getDB().insert(this,"cardTags",null,values);
   }
-  getDB().getDatabase().execSQL("DELETE FROM tags WHERE priority = 2 AND id NOT IN " + "(SELECT DISTINCT tagId FROM cardTags)");
+  getDB().delete(this,"tags","priority = 2 AND id NOT IN (SELECT DISTINCT tagId FROM cardTags)",null);
 }

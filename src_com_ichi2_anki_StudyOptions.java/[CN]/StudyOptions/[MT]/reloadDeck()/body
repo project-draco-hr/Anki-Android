@@ -1,8 +1,0 @@
-{
-  Deck deck=AnkiDroidApp.deck();
-  if (deck != null) {
-    deck.closeDeck();
-    AnkiDroidApp.setDeck(null);
-  }
-  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK,mLoadDeckHandler,new DeckTask.TaskData(mDeckFilename));
-}

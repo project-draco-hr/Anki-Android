@@ -10,6 +10,7 @@
     limitBarVisibility=mGlobalLimitFrame.getVisibility();
   }
   initAllContentViews();
+  updateValuesFromDeck();
   showContentView();
   mToggleCram.setChecked(cramChecked);
   mToggleLimit.setChecked(limitChecked);

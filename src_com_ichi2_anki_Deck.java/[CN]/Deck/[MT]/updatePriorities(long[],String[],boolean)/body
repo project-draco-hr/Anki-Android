@@ -3,7 +3,9 @@
   Log.i(AnkiDroidApp.TAG,"updatePriorities - Updating priorities...");
   if (suspend != null && suspend.length > 0) {
     long ids[]=Utils.toPrimitive(tagIds(suspend,false).values());
-    getDB().getDatabase().execSQL("UPDATE tags SET priority = 0 WHERE id in " + Utils.ids2str(ids));
+    ContentValues values=new ContentValues();
+    values.put("priority",0);
+    getDB().update(this,"tags",values,"id in " + Utils.ids2str(ids),null);
   }
   String limit="";
   if (cardIds.length <= 1000) {
@@ -38,7 +40,9 @@
             j++;
           }
         }
-        getDB().getDatabase().execSQL("UPDATE cards " + "SET priority = " + pri + extra+ " WHERE id in "+ Utils.ids2str(cs)+ " and "+ "priority != "+ pri+ " and "+ "priority >= -2");
+        ContentValues values=new ContentValues();
+        values.put("priority",pri + extra);
+        getDB().update(this,"cards",values,"id IN " + Utils.ids2str(cs) + " AND priority != "+ pri+ " AND "+ "priority >= -2",null);
       }
     }
   }

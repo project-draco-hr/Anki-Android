@@ -1,0 +1,3 @@
+{
+  AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).update(mDeck,"stats",getValues(),"id = " + mId,null,true,new ContentValues[]{oldValues},new String[]{"id = " + mId});
+}
