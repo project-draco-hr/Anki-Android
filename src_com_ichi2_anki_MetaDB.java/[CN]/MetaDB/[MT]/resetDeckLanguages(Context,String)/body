@@ -4,7 +4,6 @@
   }
   try {
     mMetaDb.execSQL("DELETE FROM languages WHERE deckpath = \'" + deckPath + "\';");
-    Log.i(AnkiDroidApp.TAG,"Resetting language assignment for deck " + deckPath);
     return true;
   }
  catch (  Exception e) {

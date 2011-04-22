@@ -2,7 +2,6 @@
   StringBuilder stringBuilder=new StringBuilder();
   String contentLeft=content;
   String latex;
-  Log.i(AnkiDroidApp.TAG,"parseLaTeX");
   Matcher matcher=sStandardPattern.matcher(contentLeft);
   while (matcher.find()) {
     latex=matcher.group(1);

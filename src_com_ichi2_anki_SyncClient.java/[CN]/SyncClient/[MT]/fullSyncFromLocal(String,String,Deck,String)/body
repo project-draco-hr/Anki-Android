@@ -2,13 +2,11 @@
   HashMap<String,String> result=new HashMap<String,String>();
   Throwable exc=null;
   try {
-    Log.i(AnkiDroidApp.TAG,"Fullup");
     String tmpPath=(new File(deck.getDeckPath())).getParent();
     File tmpFile=new File(tmpPath + "/fulluploadPayload.tmp");
     if (tmpFile.exists()) {
       tmpFile.delete();
     }
-    Log.i(AnkiDroidApp.TAG,"Writing temporary payload file...");
     tmpFile.createNewFile();
     DataOutputStream tmp=new DataOutputStream(new BufferedOutputStream(new FileOutputStream(tmpFile)));
     tmp.writeBytes(TWO_HYPHENS + MIME_BOUNDARY + END);
@@ -31,7 +29,6 @@
     DeflaterOutputStream dos=new DeflaterOutputStream(tmp,deflater);
     while ((length=fStream.read(buffer)) != -1) {
       dos.write(buffer,0,length);
-      Log.i(AnkiDroidApp.TAG,"Length = " + length);
     }
     dos.finish();
     fStream.close();
@@ -39,7 +36,6 @@
     tmp.writeBytes(TWO_HYPHENS + MIME_BOUNDARY + TWO_HYPHENS+ END+ END);
     tmp.flush();
     tmp.close();
-    Log.i(AnkiDroidApp.TAG,"Payload file ready, size: " + tmpFile.length());
     HttpPost httpPost=new HttpPost(AnkiDroidProxy.SYNC_URL + "fullup?v=" + URLEncoder.encode(AnkiDroidProxy.SYNC_VERSION,"UTF-8"));
     httpPost.setHeader("Content-type","multipart/form-data; boundary=" + MIME_BOUNDARY);
     httpPost.addHeader("Host",AnkiDroidProxy.SYNC_HOST);
@@ -48,14 +44,12 @@
     HttpResponse resp=httpClient.execute(httpPost);
     String response=Utils.convertStreamToString(resp.getEntity().getContent());
     int responseCode=resp.getStatusLine().getStatusCode();
-    Log.i(AnkiDroidApp.TAG,"Response code = " + responseCode);
     if (response.substring(0,2).equals("OK")) {
       deck.setLastSync(Double.parseDouble(response.substring(3,response.length() - 3)));
       deck.commitToDB();
       deck.setLastLoaded(deck.getModified());
       tmpFile.delete();
     }
-    Log.i(AnkiDroidApp.TAG,"Finished!");
     result.put("code",String.valueOf(responseCode));
     result.put("message",response);
   }

@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"deleteCards = " + ids.toString());
   String undoName=UNDO_TYPE_DELETE_CARD;
   if (ids.size() == 1) {
     setUndoStart(undoName,Long.parseLong(ids.get(0)));
@@ -10,7 +9,6 @@
   if (ids != null && ids.size() > 0) {
     commitToDB();
     double now=Utils.now();
-    Log.i(AnkiDroidApp.TAG,"Now = " + now);
     String idsString=Utils.ids2str(ids);
     getDB().getDatabase().execSQL("DELETE FROM cards WHERE id in " + idsString);
     String sqlInsert="INSERT INTO cardsDeleted values (?," + String.format(Utils.ENGLISH_LOCALE,"%f",now) + ")";

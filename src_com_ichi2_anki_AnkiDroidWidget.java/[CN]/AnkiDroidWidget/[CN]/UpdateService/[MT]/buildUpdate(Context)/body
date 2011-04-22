@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"buildUpdate");
   RemoteViews updateViews=new RemoteViews(context.getPackageName(),R.layout.widget);
   Deck currentDeck=AnkiDroidApp.deck();
   Intent ankiDroidIntent=new Intent(context,StudyOptions.class);

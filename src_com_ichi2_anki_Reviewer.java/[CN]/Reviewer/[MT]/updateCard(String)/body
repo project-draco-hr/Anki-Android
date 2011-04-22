@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"updateCard");
   String baseUrl="";
   Boolean isJapaneseModel=false;
   if (mCurrentCard != null) {
@@ -38,9 +37,7 @@
   if (isHebrewFixEnabled()) {
     content=applyFixForHebrew(content);
   }
-  Log.i(AnkiDroidApp.TAG,"content card = \n" + content);
   String card=mCardTemplate.replace("::content::",content);
-  Log.i(AnkiDroidApp.TAG,"base url = " + baseUrl);
   mCard.loadDataWithBaseURL(baseUrl,card,"text/html","utf-8",null);
   if (!mConfigurationChanged && mPlaySoundsAtStart) {
     if (!mSpeakText) {

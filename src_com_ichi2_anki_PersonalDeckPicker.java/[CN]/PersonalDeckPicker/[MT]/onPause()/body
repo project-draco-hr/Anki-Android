@@ -1,6 +1,5 @@
 {
   super.onPause();
-  Log.i(AnkiDroidApp.TAG,"onpause kostas");
   if (mDownloadManagerService != null) {
     try {
       mDownloadManagerService.unregisterPersonalDeckCallback(mCallback);
