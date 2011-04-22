@@ -1,5 +1,6 @@
 {
   super.onPause();
+  Log.i(AnkiDroidApp.TAG,"Reviewer - onPause()");
   if (mPrefTimer) {
     mSavedTimer=SystemClock.elapsedRealtime() - mCardTimer.getBase();
     mCardTimer.stop();

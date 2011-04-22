@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundSendFeedback");
   String feedbackUrl=(String)data.data[0];
   String errorUrl=(String)data.data[1];
   String feedback=(String)data.data[2];

@@ -1,5 +1,6 @@
 {
   super.onCreate(savedInstanceState);
+  Log.i(AnkiDroidApp.TAG,"Reviewer - onCreate");
   Deck deck=AnkiDroidApp.deck();
   if (deck == null) {
     setResult(StudyOptions.CONTENT_NO_EXTERNAL_STORAGE);
@@ -25,6 +26,7 @@ case DICTIONARY_LEO:
 break;
 }
 mIsDictionaryAvailable=Utils.isIntentAvailable(this,mDictionaryAction);
+Log.i(AnkiDroidApp.TAG,"Is intent available = " + mIsDictionaryAvailable);
 try {
 mCardTemplate=Utils.convertStreamToString(getAssets().open("card_template.html"));
 mCardTemplate=mCardTemplate.replaceFirst("var availableWidth = \\d*;","var availableWidth = " + getAvailableWidthInCard() + ";");
@@ -33,6 +35,7 @@ mCardTemplate=mCardTemplate.replaceFirst("var availableWidth = \\d*;","var avail
 e.printStackTrace();
 }
 long timelimit=deck.getSessionTimeLimit() * 1000;
+Log.i(AnkiDroidApp.TAG,"SessionTimeLimit: " + timelimit + " ms.");
 mSessionTimeLimit=System.currentTimeMillis() + timelimit;
 mSessionCurrReps=0;
 if (mSpeakText && Integer.valueOf(android.os.Build.VERSION.SDK) > 3) {

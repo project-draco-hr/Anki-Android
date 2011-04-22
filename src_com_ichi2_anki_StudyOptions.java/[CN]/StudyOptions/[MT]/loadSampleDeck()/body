@@ -9,6 +9,7 @@
       InputStream stream=getResources().getAssets().open(SAMPLE_DECK_NAME);
       Utils.writeToFile(stream,sampleDeckFile.getAbsolutePath());
       stream.close();
+      Log.i(AnkiDroidApp.TAG,"onCreate - The copy of country-capitals.anki to the sd card was sucessful.");
     }
  catch (    IOException e) {
       Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));

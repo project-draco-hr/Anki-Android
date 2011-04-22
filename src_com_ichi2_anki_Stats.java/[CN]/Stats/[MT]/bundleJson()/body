@@ -25,6 +25,7 @@
     bundledStat.put("matureEase4",mMatureEase4);
   }
  catch (  JSONException e) {
+    Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
   }
   return bundledStat;
 }

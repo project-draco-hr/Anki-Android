@@ -1,4 +1,5 @@
 {
+  Log.d(AnkiDroidApp.TAG,"Creating deck: " + filename);
   filename=filename + ".anki";
   File decksDirectory=new File(mPrefDeckPath);
   if (!decksDirectory.isDirectory()) {

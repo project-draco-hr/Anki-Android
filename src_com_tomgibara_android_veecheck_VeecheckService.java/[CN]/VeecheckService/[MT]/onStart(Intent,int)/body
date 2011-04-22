@@ -1,11 +1,14 @@
 {
   super.onStart(intent,startId);
+  Log.d(LOG_TAG,"Service started");
   String action=intent.getAction();
   Uri data=intent.getData();
+  Log.v(LOG_TAG,"Service received action: " + action);
   String checkAction=Veecheck.getCheckAction(this);
   if (!checkAction.equals(action) || data == null) {
 synchronized (this) {
       if (thread == null) {
+        Log.d(LOG_TAG,"Stopping service due to invalid action.");
         stopSelf(startId);
       }
     }
@@ -13,10 +16,12 @@ synchronized (this) {
   }
 synchronized (this) {
     if (thread == null) {
+      Log.d(LOG_TAG,"Starting service thread.");
       thread=new VeecheckThread(this,data);
       thread.start();
     }
  else {
+      Log.d(LOG_TAG,"Not checking due to check in progress.");
     }
   }
 }

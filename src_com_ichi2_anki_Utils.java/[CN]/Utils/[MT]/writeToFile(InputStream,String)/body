@@ -1,12 +1,16 @@
 {
+  Log.i(AnkiDroidApp.TAG,"Creating new file... = " + destination);
   new File(destination).createNewFile();
   OutputStream output=new BufferedOutputStream(new FileOutputStream(destination));
   byte[] buf=new byte[CHUNK_SIZE];
   int len;
   if (source == null) {
+    Log.i(AnkiDroidApp.TAG,"source is null!");
   }
   while ((len=source.read(buf)) > 0) {
     output.write(buf,0,len);
+    Log.i(AnkiDroidApp.TAG,"Write...");
   }
+  Log.i(AnkiDroidApp.TAG,"Finished writing!");
   output.close();
 }
