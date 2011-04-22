@@ -1,0 +1,22 @@
+{
+  openDBIfClosed(context);
+  Cursor cursor=null;
+  try {
+    cursor=mMetaDb.query("widgetStatus",new String[]{"deckName","newCards","dueCards","failedCards"},null,null,null,null,"deckName");
+    int count=cursor.getCount();
+    DeckStatus[] decks=new DeckStatus[count];
+    for (int index=0; index < count; ++index) {
+      if (!cursor.moveToNext()) {
+        throw new SQLiteException("cursor count was incorrect");
+      }
+      decks[index]=new DeckStatus(cursor.getString(cursor.getColumnIndex("deckName")),cursor.getInt(cursor.getColumnIndex("newCards")),cursor.getInt(cursor.getColumnIndex("dueCards")),cursor.getInt(cursor.getColumnIndex("failedCards")));
+    }
+    return decks;
+  }
+ catch (  SQLiteException e) {
+    if (cursor != null && !cursor.isClosed()) {
+      cursor.close();
+    }
+  }
+  return new DeckStatus[0];
+}

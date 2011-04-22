@@ -1,0 +1,15 @@
+{
+  openDBIfClosed(context);
+  mMetaDb.beginTransaction();
+  mMetaDb.execSQL("DELETE FROM widgetStatus");
+  try {
+    for (    DeckStatus deck : decks) {
+      mMetaDb.execSQL("INSERT INTO widgetStatus(deckName, newCards, dueCards, failedCards) " + "VALUES (?, ?, ?, ?)",new Object[]{deck.mDeckName,deck.mNewCards,deck.mDueCards,deck.mFailedCards});
+    }
+    mMetaDb.setTransactionSuccessful();
+  }
+ catch (  SQLiteException e) {
+    Log.e(AnkiDroidApp.TAG,"MetaDB.storeWidgetStatus: failed",e);
+  }
+  mMetaDb.endTransaction();
+}
