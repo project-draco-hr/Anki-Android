@@ -1,32 +1,3 @@
 {
-  Log.i(AnkiDroidApp.TAG,"fetchDeckStatus");
-  SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
-  String deckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory() + "/AnkiDroid");
-  File dir=new File(deckPath);
-  File[] fileList=dir.listFiles(new AnkiFileFilter());
-  if (fileList == null || fileList.length == 0) {
-    return EMPTY_DECK_STATUS;
-  }
-  ArrayList<DeckStatus> decks=new ArrayList<DeckStatus>(fileList.length);
-  for (  File file : fileList) {
-    try {
-      String absPath=file.getAbsolutePath();
-      String deckName=file.getName().replaceAll(".anki","");
-      Deck deck=Deck.openDeck(absPath);
-      int dueCards=deck.getDueCount();
-      int newCards=deck.getNewCountToday();
-      int failedCards=deck.getFailedSoonCount();
-      deck.closeDeck();
-      decks.add(new DeckStatus(deckName,newCards,dueCards,failedCards));
-    }
- catch (    SQLException e) {
-      Log.i(AnkiDroidApp.TAG,"Could not open deck");
-      Log.e(AnkiDroidApp.TAG,e.toString());
-    }
-  }
-  if (!decks.isEmpty() && decks.size() > 1) {
-    Log.i(AnkiDroidApp.TAG,"Sorting deck");
-    Collections.sort(decks,new ByDueComparator());
-  }
-  return decks.toArray(EMPTY_DECK_STATUS);
+  return MetaDB.getWidgetStatus(context);
 }
