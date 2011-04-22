@@ -1,7 +1,5 @@
 {
-  if (mMetaDb == null || !mMetaDb.isOpen()) {
-    openDB(context);
-  }
+  openDBIfClosed(context);
   Cursor cur=null;
   try {
     cur=mMetaDb.rawQuery("SELECT state FROM whiteboardState" + " WHERE deckpath = \'" + deckPath + "\'",null);
