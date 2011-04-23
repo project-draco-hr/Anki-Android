@@ -1,13 +1,5 @@
 {
-  Deck currentDeck=AnkiDroidApp.deck();
-  if (currentDeck != null) {
-    currentDeck.closeDeck();
-  }
   DeckStatus[] decks=WidgetStatus.fetch(getBaseContext());
-  if (currentDeck != null) {
-    AnkiDroidApp.setDeck(currentDeck);
-    Deck.openDeck(currentDeck.getDeckPath());
-  }
   if (dueDecks == null) {
     dueDecks=new ArrayList<DeckStatus>();
   }

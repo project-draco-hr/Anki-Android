@@ -15,11 +15,14 @@
       String absPath=file.getAbsolutePath();
       String deckName=file.getName().replaceAll(".anki","");
       Log.i(AnkiDroidApp.TAG,"Found deck: " + absPath);
-      Deck deck=Deck.openDeck(absPath);
+      Deck deck=Deck.openDeck(absPath,false);
       int dueCards=deck.getDueCount();
       int newCards=deck.getNewCountToday();
       int failedCards=deck.getFailedSoonCount();
-      deck.closeDeck();
+      Deck currentDeck=AnkiDroidApp.deck();
+      if (currentDeck != null && currentDeck.getDB() != deck.getDB()) {
+        deck.closeDeck();
+      }
       decks.add(new DeckStatus(absPath,deckName,newCards,dueCards,failedCards));
     }
  catch (    SQLException e) {
