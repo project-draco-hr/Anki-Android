@@ -1,0 +1,10 @@
+{
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
+  String deckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory() + "/AnkiDroid");
+  String fontsPath=deckPath + "/fonts/";
+  File fontsDir=new File(fontsPath);
+  if (!fontsDir.exists() || !fontsDir.isDirectory()) {
+    return new File[0];
+  }
+  return fontsDir.listFiles();
+}
