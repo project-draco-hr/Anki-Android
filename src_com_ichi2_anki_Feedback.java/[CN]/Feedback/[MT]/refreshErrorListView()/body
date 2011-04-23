@@ -1,3 +1,5 @@
 {
-  mErrorAdapter.notifyDataSetChanged();
+  if (mReportErrorMode.equals(REPORT_ASK)) {
+    mErrorAdapter.notifyDataSetChanged();
+  }
 }

@@ -14,13 +14,9 @@
       updateDueDecksNow=false;
     }
  else     if (ACTION_OPEN.equals(intent.getAction())) {
-      if (currentDueDeck >= 0 && currentDueDeck < dueDecks.size()) {
-        Intent openDeckIntent=new Intent(this,StudyOptions.class);
-        openDeckIntent.setAction(Intent.ACTION_MAIN);
-        openDeckIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-        openDeckIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(openDeckIntent);
-      }
+      Intent loadDeckIntent=new Intent(Intent.ACTION_VIEW,intent.getData(),this,StudyOptions.class);
+      loadDeckIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      startActivity(loadDeckIntent);
       updateDueDecksNow=false;
     }
  else     if (ACTION_UPDATE.equals(intent.getAction())) {
