@@ -14,12 +14,7 @@
       updateDueDecksNow=false;
     }
  else     if (ACTION_OPEN.equals(intent.getAction())) {
-      Intent loadDeckIntent=new Intent(this,StudyOptions.class);
-      loadDeckIntent.setAction(Intent.ACTION_MAIN);
-      loadDeckIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-      loadDeckIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-      loadDeckIntent.putExtra(StudyOptions.EXTRA_DECK,intent.getData().getPath());
-      startActivity(loadDeckIntent);
+      startActivity(StudyOptions.getLoadDeckIntent(this,intent.getData().getPath()));
       updateDueDecksNow=false;
     }
   }
