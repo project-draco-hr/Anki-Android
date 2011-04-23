@@ -1,0 +1,8 @@
+{
+  Intent loadDeckIntent=new Intent(context,StudyOptions.class);
+  loadDeckIntent.setAction(Intent.ACTION_MAIN);
+  loadDeckIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+  loadDeckIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+  loadDeckIntent.putExtra(StudyOptions.EXTRA_DECK,deckPath);
+  return loadDeckIntent;
+}
