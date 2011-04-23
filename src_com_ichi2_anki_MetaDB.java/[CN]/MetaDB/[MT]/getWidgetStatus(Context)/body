@@ -9,7 +9,7 @@
       if (!cursor.moveToNext()) {
         throw new SQLiteException("cursor count was incorrect");
       }
-      decks[index]=new DeckStatus(cursor.getString(cursor.getColumnIndex("deckName")),cursor.getInt(cursor.getColumnIndex("newCards")),cursor.getInt(cursor.getColumnIndex("dueCards")),cursor.getInt(cursor.getColumnIndex("failedCards")));
+      decks[index]=new DeckStatus(cursor.getString(cursor.getColumnIndex("deckPath")),cursor.getString(cursor.getColumnIndex("deckName")),cursor.getInt(cursor.getColumnIndex("newCards")),cursor.getInt(cursor.getColumnIndex("dueCards")),cursor.getInt(cursor.getColumnIndex("failedCards")));
     }
     return decks;
   }

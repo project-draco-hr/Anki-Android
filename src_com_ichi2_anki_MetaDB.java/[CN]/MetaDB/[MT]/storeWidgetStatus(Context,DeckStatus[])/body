@@ -4,7 +4,7 @@
   mMetaDb.execSQL("DELETE FROM widgetStatus");
   try {
     for (    DeckStatus deck : decks) {
-      mMetaDb.execSQL("INSERT INTO widgetStatus(deckName, newCards, dueCards, failedCards) " + "VALUES (?, ?, ?, ?)",new Object[]{deck.mDeckName,deck.mNewCards,deck.mDueCards,deck.mFailedCards});
+      mMetaDb.execSQL("INSERT INTO widgetStatus(deckPath, deckName, newCards, dueCards, failedCards) " + "VALUES (?, ?, ?, ?)",new Object[]{deck.mDeckPath,deck.mDeckName,deck.mNewCards,deck.mDueCards,deck.mFailedCards});
     }
     mMetaDb.setTransactionSuccessful();
   }
