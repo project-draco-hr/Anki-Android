@@ -16,9 +16,13 @@
     AnkiDroidApp.deck().finishScheduler();
   }
   Intent intent=getIntent();
-  if ("android.intent.action.VIEW".equalsIgnoreCase(intent.getAction()) && intent.getDataString() != null) {
+  if (Intent.ACTION_VIEW.equalsIgnoreCase(intent.getAction()) && intent.getDataString() != null) {
     mDeckFilename=Uri.parse(intent.getDataString()).getPath();
-    Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from intent: " + mDeckFilename);
+    Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from VIEW intent: " + mDeckFilename);
+  }
+ else   if (Intent.ACTION_MAIN.equalsIgnoreCase(intent.getAction()) && intent.hasExtra(EXTRA_DECK)) {
+    mDeckFilename=intent.getStringExtra(EXTRA_DECK);
+    Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from MAIN intent: " + mDeckFilename);
   }
  else   if (savedInstanceState != null) {
     mDeckFilename=savedInstanceState.getString("deckFilename");
