@@ -1,0 +1,8 @@
+{
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+  String defaultFont=preferences.getString("customFonts",null);
+  if (defaultFont == null) {
+    return "";
+  }
+  return "BODY { font-family: '" + defaultFont + "' }\n";
+}
