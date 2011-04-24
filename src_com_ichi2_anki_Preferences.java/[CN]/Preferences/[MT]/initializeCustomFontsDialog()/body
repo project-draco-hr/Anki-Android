@@ -1,0 +1,5 @@
+{
+  ListPreference customFontsPreference=(ListPreference)getPreferenceScreen().findPreference("defaultFont");
+  customFontsPreference.setEntries(getCustomFonts("System default"));
+  customFontsPreference.setEntryValues(getCustomFonts(""));
+}

@@ -1,5 +1,5 @@
 {
-  File styleFile=new File(removeExtension(deckPath) + ".css");
+  File styleFile=new File(Utils.removeExtension(deckPath) + ".css");
   if (!styleFile.exists() || !styleFile.canRead()) {
     return "";
   }

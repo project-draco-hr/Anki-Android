@@ -9,6 +9,7 @@
   zoomCheckboxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("zoom");
   zoomCheckboxPreference.setEnabled(!swipeCheckboxPreference.isChecked());
   initializeLanguageDialog();
+  initializeCustomFontsDialog();
   for (  String key : mShowValueInSummList) {
     updateListPreference(key);
   }
