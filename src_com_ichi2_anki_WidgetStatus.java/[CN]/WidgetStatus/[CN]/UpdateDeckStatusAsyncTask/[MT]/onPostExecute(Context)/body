@@ -1,0 +1,7 @@
+{
+  Log.d(AnkiDroidApp.TAG,"WidgetStatus.UpdateDeckStatusAsyncTask.onPostExecute()");
+  MetaDB.storeWidgetStatus(context,mDecks);
+  Intent intent=new Intent(context,AnkiDroidWidget.UpdateService.class);
+  intent.setAction(AnkiDroidWidget.UpdateService.ACTION_UPDATE);
+  context.startService(intent);
+}
