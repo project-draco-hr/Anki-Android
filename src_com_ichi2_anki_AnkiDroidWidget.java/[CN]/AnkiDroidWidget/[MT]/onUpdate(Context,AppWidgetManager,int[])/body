@@ -1,4 +1,4 @@
 {
   Log.i(AnkiDroidApp.TAG,"onUpdate");
-  context.startService(new Intent(context,UpdateService.class));
+  WidgetStatus.update(context);
 }

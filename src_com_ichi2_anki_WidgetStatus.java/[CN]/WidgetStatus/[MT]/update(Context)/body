@@ -1,0 +1,5 @@
+{
+  Log.d(AnkiDroidApp.TAG,"WidgetStatus.update()");
+  AsyncTask<Context,Void,Context> updateDeckStatusAsyncTask=new UpdateDeckStatusAsyncTask();
+  updateDeckStatusAsyncTask.execute(context);
+}
