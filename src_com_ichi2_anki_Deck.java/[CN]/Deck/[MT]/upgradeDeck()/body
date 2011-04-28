@@ -1,19 +1,9 @@
 {
   double oldmod=mModified;
   upgradeNotes=new ArrayList<Integer>();
-  if (mVersion < 39) {
+  if (mVersion < 43) {
     upgradeNotes.add(com.ichi2.anki.R.string.deck_upgrade_too_old_version);
     return false;
-  }
-  if (mVersion < 40) {
-    getDB().getDatabase().execSQL("UPDATE models SET features = ''");
-    mVersion=40;
-    commitToDB();
-  }
-  if (mVersion < 43) {
-    getDB().getDatabase().execSQL("UPDATE fieldModels SET features = ''");
-    mVersion=43;
-    commitToDB();
   }
   if (mVersion < 44) {
     getDB().getDatabase().execSQL("DROP INDEX IF EXISTS ix_cards_factId");
@@ -23,11 +13,6 @@
   if (mVersion < 48) {
     updateFieldCache(Utils.toPrimitive(getDB().queryColumn(Long.class,"SELECT id FROM facts",0)));
     mVersion=48;
-    commitToDB();
-  }
-  if (mVersion < 50) {
-    rebuildTypes();
-    mVersion=50;
     commitToDB();
   }
   if (mVersion < 52) {
@@ -47,10 +32,6 @@
   if (mVersion < 54) {
     getDB().getDatabase().execSQL("UPDATE fieldModels SET editFontFamily = 1");
     mVersion=54;
-    commitToDB();
-  }
-  if (mVersion < 57) {
-    mVersion=57;
     commitToDB();
   }
   if (mVersion < 61) {
@@ -113,14 +94,8 @@
     commitToDB();
   }
   if (mVersion < 62) {
-    String[] indices={"intervalDesc","intervalAsc","randomOrder","dueAsc","dueDesc"};
-    for (    String d : indices) {
-      getDB().getDatabase().execSQL("DROP INDEX IF EXISTS ix_cards_" + d + "2");
-    }
     getDB().getDatabase().execSQL("DROP INDEX IF EXISTS ix_cards_typeCombined");
     addIndices();
-    updateDynamicIndices();
-    getDB().getDatabase().execSQL("VACUUM");
     mVersion=62;
     commitToDB();
   }
@@ -129,17 +104,25 @@
     for (    String d : oldStaticIndices) {
       getDB().getDatabase().execSQL("DROP INDEX IF EXISTS " + d);
     }
-    String[] oldDynamicIndices={"intervalDesc","intervalAsc","randomOrder","dueAsc","dueDesc"};
-    for (    String d : oldDynamicIndices) {
-      getDB().getDatabase().execSQL("DROP INDEX IF EXISTS ix_cards_" + d);
-    }
-    getDB().getDatabase().execSQL("ANALYZE");
     mVersion=64;
     commitToDB();
   }
   if (mVersion < 65) {
     rebuildTypes();
     mVersion=65;
+    commitToDB();
+  }
+  if (mVersion < 70) {
+    String[] oldDynamicIndices={"intervalDesc","intervalAsc","randomOrder","dueAsc","dueDesc"};
+    for (    String d : oldDynamicIndices) {
+      getDB().getDatabase().execSQL("DROP INDEX IF EXISTS ix_cards_" + d + "2");
+      getDB().getDatabase().execSQL("DROP INDEX IF EXISTS ix_cards_" + d);
+    }
+    updateDynamicIndices();
+    getDB().getDatabase().execSQL("VACUUM");
+    getDB().getDatabase().execSQL("ANALYZE");
+    rebuildTypes();
+    mVersion=70;
     commitToDB();
   }
   if ((!hasKey("pageSize")) || (getInt("pageSize") != 4096)) {

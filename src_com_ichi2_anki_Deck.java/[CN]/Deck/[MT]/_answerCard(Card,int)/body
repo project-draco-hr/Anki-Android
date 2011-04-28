@@ -12,9 +12,7 @@
   ContentValues oldvalues=card.getAnswerValues();
   double last=card.getInterval();
   card.setInterval(nextInterval(card,ease));
-  if (lastDelay >= 0) {
-    card.setLastInterval(last);
-  }
+  card.setLastInterval(last);
   if (!card.isNew()) {
     card.setLastDue(card.getDue());
   }
@@ -22,7 +20,7 @@
   card.setIsDue(0);
   card.setLastFactor(card.getFactor());
   card.setSpaceUntil(0);
-  if (lastDelay >= 0) {
+  if (!hasFinishScheduler()) {
     card.updateFactor(ease,mAverageFactor);
   }
   spaceCards(card);

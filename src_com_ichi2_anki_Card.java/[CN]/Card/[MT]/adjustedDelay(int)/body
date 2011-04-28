@@ -1,12 +1,16 @@
 {
   double now=Utils.now();
+  double dueCutoff=mDeck.getDueCutoff();
   if (isNew()) {
     return 0;
   }
-  if (mCombinedDue <= now) {
-    return (now - mDue) / 86400.0;
+  if (mReps != 0 && mSuccessive == 0) {
+    return 0;
+  }
+  if (mCombinedDue <= dueCutoff) {
+    return (dueCutoff - mDue) / 86400.0;
   }
  else {
-    return (now - mCombinedDue) / 86400.0;
+    return (dueCutoff - mCombinedDue) / 86400.0;
   }
 }

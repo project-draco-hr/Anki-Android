@@ -45,5 +45,5 @@
     values.put("src",ditem.get("src"));
     getDB().insert(this,"cardTags",null,values);
   }
-  getDB().delete(this,"tags","priority = 2 AND id NOT IN (SELECT DISTINCT tagId FROM cardTags)",null);
+  deleteUnusedTags();
 }

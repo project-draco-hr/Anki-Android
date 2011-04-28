@@ -1,5 +1,5 @@
 {
-  checkDailyStats();
+  checkDay();
   fillQueues();
   if ((mFailedCardMax != 0) && (mFailedSoonCount >= mFailedCardMax)) {
     return ((QueueItem)mFailedQueue.getLast()).getCardID();

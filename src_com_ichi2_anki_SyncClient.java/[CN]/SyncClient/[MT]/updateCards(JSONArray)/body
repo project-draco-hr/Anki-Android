@@ -47,7 +47,7 @@
       statement.bindDouble(34,card.getDouble(33));
       statement.bindLong(35,card.getInt(34));
       statement.bindDouble(36,card.getDouble(35));
-      statement.bindString(37,genType(card));
+      statement.bindLong(37,card.getInt(36));
       statement.execute();
     }
     statement.close();

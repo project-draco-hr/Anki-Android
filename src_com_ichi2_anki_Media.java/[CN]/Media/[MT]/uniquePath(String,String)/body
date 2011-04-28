@@ -1,5 +1,5 @@
 {
-  base=base.replaceAll("[][<>:/\\","");
+  base=base.replaceAll("[][<>:/\\&","");
   int extensionOffset=base.lastIndexOf(".");
   String root=base.substring(0,extensionOffset);
   String ext=base.substring(extensionOffset);

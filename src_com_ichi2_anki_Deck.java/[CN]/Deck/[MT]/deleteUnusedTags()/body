@@ -1,0 +1,3 @@
+{
+  getDB().delete(this,"tags","id NOT IN (SELECT DISTINCT tagId FROM cardTags)",null);
+}

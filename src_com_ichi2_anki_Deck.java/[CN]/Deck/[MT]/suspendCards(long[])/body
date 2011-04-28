@@ -1,9 +1,7 @@
 {
   ContentValues values=new ContentValues();
-  values.put("type","relativeDelay -3");
-  values.put("priority",-3);
+  values.put("type","relativeDelay - 3");
   values.put("modified",String.format(Utils.ENGLISH_LOCALE,"%f",Utils.now()));
-  values.put("isDue",0);
   getDB().update(this,"cards",values,"type >= 0 AND id IN " + Utils.ids2str(ids),null,false);
   Log.i(AnkiDroidApp.TAG,"Cards suspended");
   flushMod();

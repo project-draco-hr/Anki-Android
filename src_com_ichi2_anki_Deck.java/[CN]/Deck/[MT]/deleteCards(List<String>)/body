@@ -36,7 +36,7 @@
         }
       }
     }
-    getDB().delete(this,"tags","id in " + Utils.ids2str(unusedTags) + " and priority = "+ Card.PRIORITY_NORMAL,null);
+    deleteUnusedTags();
     deleteDanglingFacts();
     setUndoEnd(undoName);
     flushMod();

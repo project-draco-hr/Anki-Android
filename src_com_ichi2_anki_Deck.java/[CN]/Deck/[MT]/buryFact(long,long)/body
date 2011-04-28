@@ -3,9 +3,7 @@
   setUndoStart(undoName,cardId);
   ContentValues values=new ContentValues();
   values.put("type","type + 3");
-  values.put("priority",-2);
   values.put("modified",String.format(Utils.ENGLISH_LOCALE,"%f",Utils.now()));
-  values.put("isDue",0);
   getDB().update(this,"cards",values,"type >= 0 AND type <= 3 AND factId = " + factId,null,false);
   setUndoEnd(undoName);
   flushMod();
