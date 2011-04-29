@@ -1,14 +1,9 @@
 {
-  mTags="";
   mTagsBySrc=new String[TAGS_TEMPL + 1];
   mTagsBySrc[TAGS_FACT]="";
   mTagsBySrc[TAGS_MODEL]="";
   mTagsBySrc[TAGS_TEMPL]="";
   mId=Utils.genID();
-  mType=TYPE_NEW;
-  mRelativeDelay=mType;
-  mTimerStarted=Double.NaN;
-  mTimerStopped=Double.NaN;
   mModified=Utils.now();
   if (Double.isNaN(created)) {
     mCreated=created;
@@ -18,7 +13,7 @@
     mDue=mModified;
   }
   isLeechSuspended=false;
-  mCombinedDue=mDue;
+  mPosition=mDue;
   mDeck=deck;
   mFact=fact;
   if (fact != null) {
@@ -29,4 +24,5 @@
     mCardModelId=cardModel.getId();
     mOrdinal=cardModel.getOrdinal();
   }
+  mTimerStarted=Double.NaN;
 }

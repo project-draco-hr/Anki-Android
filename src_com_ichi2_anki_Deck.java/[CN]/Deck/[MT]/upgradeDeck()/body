@@ -118,11 +118,21 @@
       getDB().getDatabase().execSQL("DROP INDEX IF EXISTS ix_cards_" + d + "2");
       getDB().getDatabase().execSQL("DROP INDEX IF EXISTS ix_cards_" + d);
     }
+    rebuildTypes();
+    mVersion=70;
+    commitToDB();
+  }
+  if (mVersion < 71) {
+    getDB().getDatabase().execSQL("DROP INDEX IF EXISTS ix_fields_value");
+    mVersion=71;
+    commitToDB();
+  }
+  if (mVersion < 72) {
+    getDB().getDatabase().execSQL("DROP INDEX IF EXISTS ix_cards_factor");
+    mVersion=72;
     updateDynamicIndices();
     getDB().getDatabase().execSQL("VACUUM");
     getDB().getDatabase().execSQL("ANALYZE");
-    rebuildTypes();
-    mVersion=70;
     commitToDB();
   }
   if ((!hasKey("pageSize")) || (getInt("pageSize") != 4096)) {

@@ -1,6 +1,6 @@
 {
   if (mFact != null && mCardModel != null) {
-    HashMap<String,String> qa=CardModel.formatQA(mFact,mCardModel,splitTags());
+    HashMap<String,String> qa=CardModel.formatQA(mFact,mCardModel,_splitTags());
     if (media) {
       HashMap<String,Integer> files=new HashMap<String,Integer>();
       ArrayList<String> filesFromQA=Media.mediaFiles(mQuestion);
