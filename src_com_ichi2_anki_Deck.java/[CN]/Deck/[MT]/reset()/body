@@ -1,14 +1,12 @@
 {
-  mGlobalStats=Stats.globalStats(this);
-  mDailyStats=Stats.dailyStats(this);
   rebuildCounts();
   mFailedQueue.clear();
   mRevQueue.clear();
   mNewQueue.clear();
   mSpacedFacts.clear();
   if (mNewCardSpacing == NEW_CARDS_DISTRIBUTE) {
-    if (mNewCountToday != 0) {
-      mNewCardModulus=(mNewCountToday + mRevCount) / mNewCountToday;
+    if (mNewCount != 0) {
+      mNewCardModulus=(mNewCount + mRevCount) / mNewCount;
       if (mRevCount != 0) {
         mNewCardModulus=Math.max(2,mNewCardModulus);
       }

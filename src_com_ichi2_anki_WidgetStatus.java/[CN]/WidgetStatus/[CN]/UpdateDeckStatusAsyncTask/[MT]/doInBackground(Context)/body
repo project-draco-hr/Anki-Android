@@ -17,7 +17,7 @@
       Log.i(AnkiDroidApp.TAG,"Found deck: " + absPath);
       Deck deck=Deck.openDeck(absPath,false);
       int dueCards=deck.getDueCount();
-      int newCards=deck.getNewCountToday();
+      int newCards=deck.getNewCount();
       int failedCards=deck.getFailedSoonCount();
       Deck currentDeck=AnkiDroidApp.deck();
       if (currentDeck != null && currentDeck.getDB() != deck.getDB()) {

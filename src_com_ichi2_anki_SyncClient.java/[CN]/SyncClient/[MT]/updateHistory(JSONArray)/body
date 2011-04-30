@@ -1,21 +1,18 @@
 {
-  String sql="INSERT OR IGNORE INTO reviewHistory (cardId, time, lastInterval, nextInterval, ease, delay, " + "lastFactor, nextFactor, reps, thinkingTime, yesCount, noCount) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+  String sql="INSERT OR IGNORE INTO revlog VALUES (time, cardId, ease, rep, lastInterval, interval, factor, userTime, flags) " + "VALUES(?,?,?,?,?,?,?,?,?)";
   SQLiteStatement statement=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().compileStatement(sql);
   int len=history.length();
   for (int i=0; i < len; i++) {
     JSONArray h=history.getJSONArray(i);
     statement.bindLong(1,h.getLong(0));
-    statement.bindDouble(2,h.getDouble(1));
-    statement.bindDouble(3,h.getDouble(2));
-    statement.bindDouble(4,h.getDouble(3));
-    statement.bindString(5,h.getString(4));
+    statement.bindLong(2,h.getLong(1));
+    statement.bindString(3,h.getString(2));
+    statement.bindString(4,h.getString(3));
+    statement.bindDouble(5,h.getDouble(4));
     statement.bindDouble(6,h.getDouble(5));
     statement.bindDouble(7,h.getDouble(6));
-    statement.bindDouble(8,h.getDouble(7));
-    statement.bindDouble(9,h.getDouble(8));
-    statement.bindDouble(10,h.getDouble(9));
-    statement.bindDouble(11,h.getDouble(10));
-    statement.bindDouble(12,h.getDouble(11));
+    statement.bindLong(8,h.getLong(7));
+    statement.bindString(8,h.getString(8));
     statement.execute();
   }
   statement.close();

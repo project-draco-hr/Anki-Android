@@ -1,116 +1,9 @@
 {
   double oldmod=mModified;
   upgradeNotes=new ArrayList<Integer>();
-  if (mVersion < 43) {
+  if (mVersion < 65) {
     upgradeNotes.add(com.ichi2.anki.R.string.deck_upgrade_too_old_version);
     return false;
-  }
-  if (mVersion < 44) {
-    getDB().getDatabase().execSQL("DROP INDEX IF EXISTS ix_cards_factId");
-    mVersion=44;
-    commitToDB();
-  }
-  if (mVersion < 48) {
-    updateFieldCache(Utils.toPrimitive(getDB().queryColumn(Long.class,"SELECT id FROM facts",0)));
-    mVersion=48;
-    commitToDB();
-  }
-  if (mVersion < 52) {
-    mVersion=52;
-    commitToDB();
-  }
-  if (mVersion < 53) {
-    if (getBool("perDay")) {
-      if (Math.abs(mHardIntervalMin - 0.333) < 0.001) {
-        mHardIntervalMin=Math.max(1.0,mHardIntervalMin);
-        mHardIntervalMax=Math.max(1.1,mHardIntervalMax);
-      }
-    }
-    mVersion=53;
-    commitToDB();
-  }
-  if (mVersion < 54) {
-    getDB().getDatabase().execSQL("UPDATE fieldModels SET editFontFamily = 1");
-    mVersion=54;
-    commitToDB();
-  }
-  if (mVersion < 61) {
-    if (hasLaTeX()) {
-      upgradeNotes.add(com.ichi2.anki.R.string.deck_upgrade_version_61_has_latex);
-      return false;
-    }
-    String txt="<span style=\"font-family: %s; font-size: %spx; color: %s; white-space: pre-wrap;\">%s</span>";
-    Map<Long,Model> models=Model.getModels(this);
-    Set<String> unstyled=new HashSet<String>();
-    boolean changed=false;
-    for (    Model m : models.values()) {
-      TreeMap<Long,FieldModel> fieldModels=m.getFieldModels();
-      for (      FieldModel fm : fieldModels.values()) {
-        changed=false;
-        Log.i(AnkiDroidApp.TAG,"family: '" + fm.getQuizFontFamily() + "'");
-        Log.i(AnkiDroidApp.TAG,"family: " + fm.getQuizFontSize());
-        Log.i(AnkiDroidApp.TAG,"family: '" + fm.getQuizFontColour() + "'");
-        if ((fm.getQuizFontFamily() != null && !fm.getQuizFontFamily().equals("")) || fm.getQuizFontSize() != 0 || (fm.getQuizFontColour() != null && fm.getQuizFontColour().equals(""))) {
-        }
- else {
-          unstyled.add(fm.getName());
-        }
-        if (fm.getQuizFontFamily() == null || fm.getQuizFontFamily().equals("")) {
-          fm.setQuizFontFamily("Arial");
-          changed=true;
-        }
-        if (fm.getQuizFontSize() == 0) {
-          fm.setQuizFontSize(20);
-          changed=true;
-        }
-        if (fm.getQuizFontColour() == null || fm.getQuizFontColour().equals("")) {
-          fm.setQuizFontColour("#000000");
-          changed=true;
-        }
-        if (fm.getEditFontSize() == 0) {
-          fm.setEditFontSize(20);
-          changed=true;
-        }
-        if (changed) {
-          fm.toDB(this);
-        }
-      }
-      for (      CardModel cm : m.getCardModels()) {
-        String format=cm.getQFormat();
-        cm.setQFormat(String.format(txt,cm.getQuestionFontFamily(),cm.getQuestionFontSize(),cm.getQuestionFontColour(),format));
-        format=cm.getAFormat();
-        cm.setAFormat(String.format(txt,cm.getAnswerFontFamily(),cm.getAnswerFontSize(),cm.getAnswerFontColour(),format));
-        for (        String un : unstyled) {
-          String oldStyle="%(" + un + ")s";
-          String newStyle="{{{" + un + "}}}";
-          cm.setQFormat(cm.getQFormat().replace(oldStyle,newStyle));
-          cm.setAFormat(cm.getAFormat().replace(oldStyle,newStyle));
-        }
-        cm.toDB(this);
-      }
-    }
-    Media.rebuildMediaDir(this,false);
-    mVersion=61;
-    commitToDB();
-  }
-  if (mVersion < 62) {
-    getDB().getDatabase().execSQL("DROP INDEX IF EXISTS ix_cards_typeCombined");
-    addIndices();
-    mVersion=62;
-    commitToDB();
-  }
-  if (mVersion < 64) {
-    String[] oldStaticIndices={"ix_cards_duePriority","ix_cards_priorityDue"};
-    for (    String d : oldStaticIndices) {
-      getDB().getDatabase().execSQL("DROP INDEX IF EXISTS " + d);
-    }
-    mVersion=64;
-    commitToDB();
-  }
-  if (mVersion < 65) {
-    rebuildTypes();
-    mVersion=65;
-    commitToDB();
   }
   if (mVersion < 70) {
     String[] oldDynamicIndices={"intervalDesc","intervalAsc","randomOrder","dueAsc","dueDesc"};
@@ -133,6 +26,45 @@
     updateDynamicIndices();
     getDB().getDatabase().execSQL("VACUUM");
     getDB().getDatabase().execSQL("ANALYZE");
+    commitToDB();
+  }
+  if (mVersion < 73) {
+    getDB().getDatabase().execSQL("DROP TABLE IF EXISTS stats");
+    mVersion=73;
+    commitToDB();
+  }
+  if (mVersion < 74) {
+    getDB().getDatabase().execSQL("INSERT INTO revlog SELECT CAST(time * 1000 AS INT), cardId, ease, reps, lastInterval, nextInterval, nextFactor, CAST(MIN(thinkingTime, 60) * 1000 AS INT), 0 FROM reviewHistory");
+    getDB().getDatabase().execSQL("DROP TABLE reviewHistory");
+    getDB().getDatabase().execSQL("UPDATE revlog SET ease = 1 WHERE ease = 0");
+    getDB().getDatabase().execSQL("DROP INDEX IF EXISTS ix_cards_priority");
+    mVersion=74;
+    commitToDB();
+  }
+  if (mVersion < 75) {
+    Cursor cursor=null;
+    String sql="";
+    try {
+      cursor=getDB().getDatabase().rawQuery("SELECT sql FROM sqlite_master WHERE name = \'cards\'",null);
+      while (cursor.moveToNext()) {
+        sql=cursor.getString(0);
+      }
+    }
+  finally {
+      if (cursor != null) {
+        cursor.close();
+      }
+    }
+    getDB().getDatabase().execSQL(sql.replace("TABLE cards","temporary table cards2"));
+    getDB().getDatabase().execSQL("INSERT INTO cards2 SELECT * FROM cards");
+    getDB().getDatabase().execSQL("DROP TABLE cards");
+    getDB().getDatabase().execSQL("INSERT INTO cards SELECT id, factId, cardModelId, created, modified, " + "question, answer, 0, ordinal, 0, relativeDelay, type, lastInterval, interval, " + "due, factor, reps, successive, noCount FROM cards2");
+    getDB().getDatabase().execSQL("DROP TABLE cards2");
+    getDB().getDatabase().execSQL("UPDATE cards SET queue -1 WHERE queue BETWEEN -3 AND -1");
+    getDB().getDatabase().execSQL("UPDATE cards SET queue -2 WHERE queue BETWEEN 3 AND 5");
+    getDB().getDatabase().execSQL("UPDATE cards SET queue -3 WHERE queue BETWEEN 6 AND 8");
+    addIndices();
+    mVersion=74;
     commitToDB();
   }
   if ((!hasKey("pageSize")) || (getInt("pageSize") != 4096)) {

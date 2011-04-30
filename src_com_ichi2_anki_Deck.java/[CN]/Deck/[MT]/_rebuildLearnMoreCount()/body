@@ -1,4 +1,4 @@
 {
-  mNewCount=(int)getDB().queryScalar(cardLimit("newActive","newInactive",String.format(Utils.ENGLISH_LOCALE,"SELECT count(*) FROM cards c WHERE type = 2 AND combinedDue < %f",mDueCutoff)));
+  mNewAvail=(int)getDB().queryScalar(cardLimit("newActive","newInactive",String.format(Utils.ENGLISH_LOCALE,"SELECT count(*) FROM cards c WHERE queue = 2 AND due < %f",mDueCutoff)));
   mSpacedCards.clear();
 }

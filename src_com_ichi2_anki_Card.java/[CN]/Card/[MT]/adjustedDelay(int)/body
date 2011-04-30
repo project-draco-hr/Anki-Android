@@ -3,13 +3,10 @@
   if (isNew()) {
     return 0;
   }
-  if (mReps != 0 && mSuccessive == 0) {
-    return 0;
-  }
-  if (mCombinedDue <= dueCutoff) {
+  if (mDue <= dueCutoff) {
     return (dueCutoff - mDue) / 86400.0;
   }
  else {
-    return (dueCutoff - mCombinedDue) / 86400.0;
+    return (dueCutoff - mDue) / 86400.0;
   }
 }

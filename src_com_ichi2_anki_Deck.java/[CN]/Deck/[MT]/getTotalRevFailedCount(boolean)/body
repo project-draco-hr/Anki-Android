@@ -1,6 +1,6 @@
 {
   if (restrictToActive) {
-    return (int)getDB().queryScalar(cardLimit("revActive","revInactive","SELECT count(*) from cards c WHERE (type = 1 OR type = 0)"));
+    return (int)getDB().queryScalar(cardLimit("revActive","revInactive","SELECT count(*) from cards c WHERE (queue = 1 OR queue = 0)"));
   }
  else {
     return getCardCount() - getNewCount(false);

@@ -1,4 +1,4 @@
 {
-  getDB().getDatabase().execSQL("UPDATE cards SET " + "relativeDelay = (CASE WHEN successive THEN 1 WHEN reps THEN 0 ELSE 2 END)");
-  getDB().getDatabase().execSQL("UPDATE cards SET " + "type = (CASE WHEN type >= 0 THEN relativeDelay ELSE relativeDelay - 3 END)");
+  getDB().getDatabase().execSQL("UPDATE cards SET type = (CASE WHEN successive THEN 1 WHEN reps THEN 0 ELSE 2 END)");
+  getDB().getDatabase().execSQL("UPDATE cards SET type = queue WHEN queue != -1");
 }

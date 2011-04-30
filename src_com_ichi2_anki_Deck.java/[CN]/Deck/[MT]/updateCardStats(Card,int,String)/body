@@ -1,0 +1,11 @@
+{
+  card.setReps(card.getReps() + 1);
+  if (ease == 1) {
+    card.setSuccessive(0);
+    card.setLapses(card.getLapses() + 1);
+  }
+ else {
+    card.setSuccessive(card.getSuccessive() + 1);
+  }
+  card.setModified();
+}

@@ -1,3 +1,9 @@
 {
-  return (allTags().indexOf(tag) != -1);
+  long id=tagId(mDeck,tag,false);
+  if (id != 0) {
+    return (AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).queryScalar("SELECT count(*) from FROM cardTags WHERE cardId = " + mId + "tagId = "+ id+ " LIMIT 1") != 0);
+  }
+ else {
+    return false;
+  }
 }

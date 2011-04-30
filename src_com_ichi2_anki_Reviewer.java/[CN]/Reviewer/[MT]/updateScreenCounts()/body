@@ -9,7 +9,7 @@
   }
   int _failedSoonCount=deck.getFailedSoonCount();
   int _revCount=deck.getRevCount();
-  int _newCount=deck.getNewCountToday();
+  int _newCount=deck.getNewCount();
   SpannableString failedSoonCount=new SpannableString(String.valueOf(_failedSoonCount));
   SpannableString revCount=new SpannableString(String.valueOf(_revCount));
   SpannableString newCount=new SpannableString(String.valueOf(_newCount));

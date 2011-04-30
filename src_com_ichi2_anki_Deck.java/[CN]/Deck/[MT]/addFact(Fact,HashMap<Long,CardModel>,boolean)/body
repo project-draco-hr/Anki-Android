@@ -29,7 +29,7 @@
     newCard.addToDb();
     newCardIds.add(newCard.getId());
     mCardCount++;
-    mNewCount++;
+    mNewAvail++;
     Log.i(AnkiDroidApp.TAG,entry.getKey().toString());
   }
   commitToDB();

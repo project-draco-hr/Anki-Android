@@ -1,3 +1,3 @@
 {
-  getDB().getDatabase().execSQL("UPDATE cards SET type = type -6 WHERE type BETWEEN 6 AND 8");
+  getDB().getDatabase().execSQL("UPDATE cards SET queue = type WHERE queue = -3");
 }

@@ -21,7 +21,7 @@
   if (revNoSpaced()) {
     return mRevQueue.getLast().getCardID();
   }
-  if (mNewCountToday != 0) {
+  if (mNewCount != 0) {
     return getNewCard();
   }
   if (check) {

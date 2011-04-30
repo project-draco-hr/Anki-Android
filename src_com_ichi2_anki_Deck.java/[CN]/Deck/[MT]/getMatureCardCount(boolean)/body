@@ -1,5 +1,5 @@
 {
-  String sql=String.format(Utils.ENGLISH_LOCALE,"SELECT count(*) from cards c WHERE (type = 1 OR TYPE = 0) AND interval >= %d",Card.MATURE_THRESHOLD);
+  String sql=String.format(Utils.ENGLISH_LOCALE,"SELECT count(*) from cards c WHERE (queue = 1 OR queue = 0) AND interval >= %d",Card.MATURE_THRESHOLD);
   if (restrictToActive) {
     return (int)getDB().queryScalar(cardLimit("revActive","revInactive",sql));
   }

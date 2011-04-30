@@ -2,9 +2,9 @@
   String undoName=UNDO_TYPE_BURY_CARD;
   setUndoStart(undoName,cardId);
   ContentValues values=new ContentValues();
-  values.put("type","type + 3");
+  values.put("queue","-2");
   values.put("modified",String.format(Utils.ENGLISH_LOCALE,"%f",Utils.now()));
-  getDB().update(this,"cards",values,"type >= 0 AND type <= 3 AND factId = " + factId,null,false);
+  getDB().update(this,"cards",values,"queue >= 0 AND queue <= 2 AND factId = " + factId,null,false);
   setUndoEnd(undoName);
   flushMod();
 }

@@ -34,7 +34,6 @@
   values.put("failedNowCount",mFailedNowCount);
   values.put("failedSoonCount",mFailedSoonCount);
   values.put("revCount",mRevCount);
-  values.put("newCount",mNewCount);
   values.put("revCardOrder",mRevCardOrder);
   getDB().update(this,"decks",values,"id = " + mId,null);
 }

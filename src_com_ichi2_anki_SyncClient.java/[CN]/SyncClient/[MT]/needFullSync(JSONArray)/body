@@ -19,8 +19,8 @@
     }
   }
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath());
-  if (ankiDB.queryScalar("SELECT count() FROM reviewHistory WHERE time > " + mDeck.getLastSync()) > 500) {
-    Log.i(AnkiDroidApp.TAG,"reviewHistory since lastSync > 500");
+  if (ankiDB.queryScalar("SELECT count() FROM revlog WHERE time > " + mDeck.getLastSync()) > 500) {
+    Log.i(AnkiDroidApp.TAG,"revlog since lastSync > 500");
     return true;
   }
   Date lastDay=new Date(java.lang.Math.max(0,(long)(mDeck.getLastSync() - 60 * 60 * 24) * 1000));

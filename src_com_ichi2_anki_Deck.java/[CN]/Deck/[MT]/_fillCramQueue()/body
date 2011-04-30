@@ -3,7 +3,7 @@
     Cursor cur=null;
     try {
       Log.i(AnkiDroidApp.TAG,"fill cram queue: " + Arrays.toString(mActiveCramTags) + " "+ mCramOrder+ " "+ mQueueLimit);
-      String sql="SELECT id, factId FROM cards c WHERE type BETWEEN 0 AND 2 ORDER BY " + mCramOrder + " LIMIT "+ mQueueLimit;
+      String sql="SELECT id, factId FROM cards c WHERE queue BETWEEN 0 AND 2 ORDER BY " + mCramOrder + " LIMIT "+ mQueueLimit;
       sql=cardLimit(mActiveCramTags,null,sql);
       Log.i(AnkiDroidApp.TAG,"SQL: " + sql);
       cur=getDB().getDatabase().rawQuery(sql,null);

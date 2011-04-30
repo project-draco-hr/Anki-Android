@@ -1,5 +1,5 @@
 {
-  if (mNewCountToday == 0) {
+  if (mNewCount == 0) {
     return false;
   }
   if (mNewCardSpacing == NEW_CARDS_LAST) {
@@ -9,7 +9,7 @@
     return true;
   }
   if (mNewCardModulus != 0) {
-    return (mDailyStats.getReps() % mNewCardModulus == 0);
+    return (mRepsToday % mNewCardModulus == 0);
   }
  else {
     return false;

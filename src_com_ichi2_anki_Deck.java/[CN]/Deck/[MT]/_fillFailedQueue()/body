@@ -2,7 +2,7 @@
   if ((mFailedSoonCount != 0) && mFailedQueue.isEmpty()) {
     Cursor cur=null;
     try {
-      String sql="SELECT c.id, factId, combinedDue FROM cards c WHERE type = 0 AND combinedDue < " + mFailedCutoff + " ORDER BY combinedDue LIMIT "+ mQueueLimit;
+      String sql="SELECT c.id, factId, due FROM cards c WHERE queue = 0 AND due < " + mFailedCutoff + " ORDER BY due LIMIT "+ mQueueLimit;
       cur=getDB().getDatabase().rawQuery(cardLimit("revActive","revInactive",sql),null);
       while (cur.moveToNext()) {
         QueueItem qi=new QueueItem(cur.getLong(0),cur.getLong(1),cur.getDouble(2));

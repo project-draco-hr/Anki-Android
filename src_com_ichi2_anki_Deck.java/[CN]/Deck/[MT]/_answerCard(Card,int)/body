@@ -6,7 +6,7 @@
   setUndoStart(undoName,id);
   String oldState=card.getState();
   int oldQueue=cardQueue(card);
-  double lastDelaySecs=Utils.now() - card.getCombinedDue();
+  double lastDelaySecs=Utils.now() - card.getDue();
   double lastDelay=lastDelaySecs / 86400.0;
   boolean oldIsRev=card.isRev();
   ContentValues oldvalues=card.getAnswerValues();
@@ -17,8 +17,6 @@
     card.setLastDue(card.getDue());
   }
   card.setDue(nextDue(card,ease,oldState));
-  card.setIsDue(0);
-  card.setLastFactor(card.getFactor());
   card.setSpaceUntil(0);
   if (!hasFinishScheduler()) {
     card.updateFactor(ease,mAverageFactor);
@@ -36,22 +34,20 @@
     mRevCount-=1;
   }
  else {
-    mNewCount-=1;
+    mNewAvail-=1;
   }
-  card.updateStats(ease,oldState);
+  updateCardStats(card,ease,oldState);
   card.setType(cardType(card));
-  card.setRelativeDelay(card.getType());
+  card.setQueue(card.getType());
   if (ease != 1) {
     card.setDue(Math.max(card.getDue(),mDueCutoff + 1));
   }
   if (answerPreSaveMethod != null) {
     answerPreSave(card,ease);
   }
-  card.setCombinedDue(card.getDue());
+  card.setDue(card.getDue());
   getDB().update(this,"cards",card.getAnswerValues(),"id = " + id,null,true,new ContentValues[]{oldvalues},new String[]{"id = " + id});
-  Stats.updateAllStats(mGlobalStats,mDailyStats,card,ease,oldState);
-  CardHistoryEntry entry=new CardHistoryEntry(this,card,ease,lastDelay);
-  entry.writeSQL();
+  RevLog.logReview(this,card,ease,0);
   mModified=now;
   setUndoEnd(undoName);
   requeueCard(card,oldIsRev);

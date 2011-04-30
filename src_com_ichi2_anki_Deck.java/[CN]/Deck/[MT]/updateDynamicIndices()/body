@@ -1,11 +1,11 @@
 {
   Log.i(AnkiDroidApp.TAG,"updateDynamicIndices - Updating indices...");
   HashMap<String,String> indices=new HashMap<String,String>();
-  indices.put("intervalDesc","(type, interval desc, factId, combinedDue)");
-  indices.put("intervalAsc","(type, interval, factId, combinedDue)");
-  indices.put("randomOrder","(type, factId, ordinal, combinedDue)");
-  indices.put("dueAsc","(type, due, factId, combinedDue)");
-  indices.put("dueDesc","(type, due desc, factId, combinedDue)");
+  indices.put("intervalDesc","(queue, interval desc, factId, due)");
+  indices.put("intervalAsc","(queue, interval, factId, due)");
+  indices.put("randomOrder","(queue, factId, ordinal, due)");
+  indices.put("dueAsc","(queue, due, factId, due)");
+  indices.put("dueDesc","(queue, due desc, factId, due)");
   ArrayList<String> required=new ArrayList<String>();
   if (mRevCardOrder == REV_CARDS_OLD_FIRST) {
     required.add("intervalDesc");

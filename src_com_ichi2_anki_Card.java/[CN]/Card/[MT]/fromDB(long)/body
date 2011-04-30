@@ -1,7 +1,7 @@
 {
   Cursor cursor=null;
   try {
-    cursor=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().rawQuery("SELECT id, factId, cardModelId, created, modified, tags, " + "ordinal, question, answer, interval, lastInterval, " + "due, lastDue, factor, lastFactor, firstAnswered, reps, "+ "successive, averageTime, reviewTime, youngEase0, youngEase1, "+ "youngEase2, youngEase3, youngEase4, matureEase0, matureEase1, "+ "matureEase2, matureEase3, matureEase4, yesCount, noCount, "+ "spaceUntil, isDue, type, combinedDue, relativeDelay "+ "FROM cards "+ "WHERE id = "+ id,null);
+    cursor=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).getDatabase().rawQuery("SELECT id, factId, cardModelId, created, modified, " + "question, answer, flags, ordinal, position, type, queue, " + "lastInterval, interval, due, factor, reps, "+ "successive, lapses "+ "FROM cards "+ "WHERE id = "+ id,null);
     if (!cursor.moveToFirst()) {
       Log.w(AnkiDroidApp.TAG,"Card.java (fromDB(id)): No result from query.");
       return false;
@@ -11,38 +11,20 @@
     mCardModelId=cursor.getLong(2);
     mCreated=cursor.getDouble(3);
     mModified=cursor.getDouble(4);
-    mTags=cursor.getString(5);
-    mOrdinal=cursor.getInt(6);
-    mQuestion=cursor.getString(7);
-    mAnswer=cursor.getString(8);
-    mInterval=cursor.getDouble(9);
-    mLastInterval=cursor.getDouble(10);
-    mDue=cursor.getDouble(11);
-    mLastDue=cursor.getDouble(12);
-    mFactor=cursor.getDouble(13);
-    mLastFactor=cursor.getDouble(14);
-    mFirstAnswered=cursor.getDouble(15);
+    mQuestion=cursor.getString(5);
+    mAnswer=cursor.getString(6);
+    mFlags=cursor.getInt(7);
+    mOrdinal=cursor.getInt(8);
+    mPosition=cursor.getInt(9);
+    mType=cursor.getInt(10);
+    mQueue=cursor.getInt(11);
+    mLastInterval=cursor.getDouble(12);
+    mInterval=cursor.getDouble(13);
+    mDue=cursor.getDouble(14);
+    mFactor=cursor.getDouble(15);
     mReps=cursor.getInt(16);
     mSuccessive=cursor.getInt(17);
-    mAverageTime=cursor.getDouble(18);
-    mReviewTime=cursor.getDouble(19);
-    mYoungEase0=cursor.getInt(20);
-    mYoungEase1=cursor.getInt(21);
-    mYoungEase2=cursor.getInt(22);
-    mYoungEase3=cursor.getInt(23);
-    mYoungEase4=cursor.getInt(24);
-    mMatureEase0=cursor.getInt(25);
-    mMatureEase1=cursor.getInt(26);
-    mMatureEase2=cursor.getInt(27);
-    mMatureEase3=cursor.getInt(28);
-    mMatureEase4=cursor.getInt(29);
-    mYesCount=cursor.getInt(30);
-    mNoCount=cursor.getInt(31);
-    mSpaceUntil=cursor.getDouble(32);
-    mIsDue=cursor.getInt(33);
-    mType=cursor.getInt(34);
-    mCombinedDue=cursor.getDouble(35);
-    mRelativeDelay=cursor.getDouble(36);
+    mLapses=cursor.getInt(18);
   }
   finally {
     if (cursor != null) {

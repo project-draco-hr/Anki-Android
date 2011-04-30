@@ -1,0 +1,13 @@
+{
+  ContentValues values=new ContentValues();
+  values.put("time",Utils.now() * 1000);
+  values.put("cardId",card.getId());
+  values.put("ease",ease);
+  values.put("rep",card.getReps());
+  values.put("lastInterval",card.getLastInterval());
+  values.put("Interval",card.getInterval());
+  values.put("factor",card.getFactor());
+  values.put("userTime",card.userTime() * 1000);
+  values.put("flags",flags);
+  AnkiDatabaseManager.getDatabase(deck.getDeckPath()).insert(deck,"revlog",null,values);
+}

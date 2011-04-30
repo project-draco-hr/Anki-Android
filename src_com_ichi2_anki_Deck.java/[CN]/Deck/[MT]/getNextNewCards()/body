@@ -1,4 +1,4 @@
 {
-  String sql=String.format(Utils.ENGLISH_LOCALE,"SELECT count(*) FROM cards c WHERE type = 2 AND combinedDue < %f",mDueCutoff + 86400);
+  String sql=String.format(Utils.ENGLISH_LOCALE,"SELECT count(*) FROM cards c WHERE queue = 2 AND due < %f",mDueCutoff + 86400);
   return Math.min((int)getDB().queryScalar(cardLimit("newActive","newInactive",sql)),mNewCardsPerDay);
 }

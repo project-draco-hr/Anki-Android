@@ -4,7 +4,7 @@
 switch (ease) {
 case Card.EASE_FAILED:
     mChosenAnswer.setText(mEase1.getText());
-  if ((deck.getDueCount() + deck.getNewCountToday()) == 1) {
+  if ((deck.getDueCount() + deck.getNewCount()) == 1) {
     mIsLastCard=true;
   }
 break;
