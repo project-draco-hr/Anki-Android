@@ -2,7 +2,7 @@
   Cursor cur=null;
   HashMap<Long,List<String>> results=new HashMap<Long,List<String>>();
   try {
-    cur=getDB().getDatabase().rawQuery("SELECT cards.id, facts.tags, models.tags, cardModels.name " + "FROM cards, facts, models, cardModels " + "WHERE cards.factId == facts.id AND facts.modelId == models.id "+ "AND cards.cardModelId = cardModels.id "+ where,null);
+    cur=getDB().getDatabase().rawQuery("SELECT cards.id, facts.tags, models.name, cardModels.name " + "FROM cards, facts, models, cardModels " + "WHERE cards.factId == facts.id AND facts.modelId == models.id "+ "AND cards.cardModelId = cardModels.id "+ where,null);
     while (cur.moveToNext()) {
       ArrayList<String> tags=new ArrayList<String>();
       tags.add(cur.getString(1));

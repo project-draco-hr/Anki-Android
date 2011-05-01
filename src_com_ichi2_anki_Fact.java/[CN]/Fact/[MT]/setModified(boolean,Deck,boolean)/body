@@ -2,15 +2,15 @@
   mModified=Utils.now();
   if (textChanged) {
     assert(deck != null);
-    mSpaceUntil="";
+    mCache="";
     StringBuilder str=new StringBuilder(1024);
     for (    Field f : getFields()) {
       str.append(f.getValue()).append(" ");
     }
-    mSpaceUntil=str.toString();
-    mSpaceUntil.substring(0,mSpaceUntil.length() - 1);
-    mSpaceUntil=Utils.stripHTMLMedia(mSpaceUntil);
-    Log.d(AnkiDroidApp.TAG,"spaceUntil = " + mSpaceUntil);
+    mCache=str.toString();
+    mCache.substring(0,mCache.length() - 1);
+    mCache=Utils.stripHTMLMedia(mCache);
+    Log.d(AnkiDroidApp.TAG,"cache = " + mCache);
     for (    Card card : getUpdatedRelatedCards()) {
       card.setModified();
       card.toDB();

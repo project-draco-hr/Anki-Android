@@ -1,4 +1,0 @@
-{
-  String sql=String.format(Utils.ENGLISH_LOCALE,"SELECT count(*) FROM cards c WHERE queue = 0 AND due < %f",mFailedCutoff);
-  mFailedSoonCount=(int)getDB().queryScalar(cardLimit("revActive","revInactive",sql));
-}

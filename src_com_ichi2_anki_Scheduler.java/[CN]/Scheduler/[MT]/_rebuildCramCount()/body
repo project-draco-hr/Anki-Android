@@ -1,0 +1,3 @@
+{
+  mRevCount=(int)mDb.queryScalar(cardLimit(mActiveCramTags,null,"SELECT count(*) FROM cards c WHERE queue BETWEEN 0 AND 2"));
+}

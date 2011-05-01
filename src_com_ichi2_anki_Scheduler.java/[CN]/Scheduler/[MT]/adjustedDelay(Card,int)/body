@@ -1,0 +1,11 @@
+{
+  if (cardIsNew(card)) {
+    return 0;
+  }
+  if (card.getDue() <= mDayCutoff) {
+    return (mDayCutoff - card.getDue()) / 86400.0;
+  }
+ else {
+    return (mDayCutoff - card.getDue()) / 86400.0;
+  }
+}

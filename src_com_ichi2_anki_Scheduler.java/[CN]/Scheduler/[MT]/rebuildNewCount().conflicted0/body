@@ -1,0 +1,6 @@
+{
+  String sql=String.format(Utils.ENGLISH_LOCALE,"SELECT count(*) FROM cards c WHERE queue = 2 AND due < %f",mDueCutoff);
+  mNewAvail=(int)mDb.queryScalar(cardLimit("newActive","newInactive",sql));
+  updateNewCountToday();
+  mSpacedCards.clear();
+}

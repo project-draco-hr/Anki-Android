@@ -3,7 +3,7 @@
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath());
   Cursor cursor=null;
   try {
-    cursor=ankiDB.getDatabase().rawQuery("SELECT id, modelId, created, modified, tags, spaceUntil " + "FROM facts " + "WHERE id = "+ id,null);
+    cursor=ankiDB.getDatabase().rawQuery("SELECT id, modelId, created, modified, tags, cache " + "FROM facts " + "WHERE id = "+ id,null);
     if (!cursor.moveToFirst()) {
       Log.w(AnkiDroidApp.TAG,"Fact.java (constructor): No result from query.");
       return false;
@@ -13,7 +13,7 @@
     mCreated=cursor.getDouble(2);
     mModified=cursor.getDouble(3);
     mTags=cursor.getString(4);
-    mSpaceUntil=cursor.getString(5);
+    mCache=cursor.getString(5);
   }
   finally {
     if (cursor != null) {

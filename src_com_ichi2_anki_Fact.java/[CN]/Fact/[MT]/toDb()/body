@@ -3,7 +3,7 @@
   ContentValues updateValues=new ContentValues();
   updateValues.put("modified",now);
   updateValues.put("tags",mTags);
-  updateValues.put("spaceUntil",mSpaceUntil);
+  updateValues.put("cache",mCache);
   AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).update(mDeck,"facts",updateValues,"id = ?",new String[]{"" + mId});
   for (  Field f : mFields) {
     updateValues=new ContentValues();

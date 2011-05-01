@@ -1,0 +1,23 @@
+{
+  checkDay();
+  fillQueues();
+  if ((mLrnCardMax != 0) && (mLrnCount >= mLrnCardMax)) {
+    return ((QueueItem)mLrnQueue.getLast()).getCardID();
+  }
+  if (revNoSpaced()) {
+    return ((QueueItem)mRevQueue.getLast()).getCardID();
+  }
+  if (!mLrnQueue.isEmpty()) {
+    return ((QueueItem)mLrnQueue.getLast()).getCardID();
+  }
+  if (check) {
+    reset();
+    return getCardId(false);
+  }
+  if (finishSchedulerMethod != null) {
+    finishScheduler();
+    reset();
+    return getCardId();
+  }
+  return 0l;
+}

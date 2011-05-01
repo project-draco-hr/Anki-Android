@@ -1,0 +1,23 @@
+{
+  rebuildCounts();
+  mFailedQueue.clear();
+  mRevQueue.clear();
+  mNewQueue.clear();
+  mSpacedFacts.clear();
+  if (mNewCardSpacing == NEW_CARDS_DISTRIBUTE) {
+    if (mNewCount != 0) {
+      mNewCardModulus=(mNewCount + mRevCount) / mNewCount;
+      if (mRevCount != 0) {
+        mNewCardModulus=Math.max(2,mNewCardModulus);
+      }
+    }
+ else {
+      mNewCardModulus=0;
+    }
+  }
+ else {
+    mNewCardModulus=0;
+  }
+  mNewSpacing=0;
+  mRevSpacing=0;
+}

@@ -1,0 +1,9 @@
+{
+  mCurrentCardId=getCardId();
+  if (mCurrentCardId != 0l) {
+    return cardFromId(mCurrentCardId);
+  }
+ else {
+    return null;
+  }
+}

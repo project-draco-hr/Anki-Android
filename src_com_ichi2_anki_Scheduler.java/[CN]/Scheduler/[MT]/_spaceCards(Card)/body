@@ -1,0 +1,8 @@
+{
+  double _new=Utils.now() + mNewSpacing;
+  ContentValues values=new ContentValues();
+  values.put("due",String.format(Utils.ENGLISH_LOCALE,"(CASE WHEN queue = 1 THEN " + "due + 86400 * (CASE WHEN interval*%f < 1 THEN 0 ELSE interval*%f END) " + "WHEN queue = 2 THEN %f END)",mRevSpacing,mRevSpacing,_new));
+  values.put("modified",String.format(Utils.ENGLISH_LOCALE,"%f",Utils.now()));
+  mDb.update(mDeck,"cards",values,String.format(Utils.ENGLISH_LOCALE,"id != %d AND factId = %d " + "AND due < %f AND queue BETWEEN 1 AND 2",card.getId(),card.getFactId(),mDayCutoff),null,false);
+  mSpacedFacts.put(card.getFactId(),_new);
+}

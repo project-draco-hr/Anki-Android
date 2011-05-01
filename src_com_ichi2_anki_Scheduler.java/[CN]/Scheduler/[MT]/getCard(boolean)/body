@@ -1,0 +1,27 @@
+{
+  checkDay();
+  long id=getLearnCard();
+  if (id != 0L) {
+    return id;
+  }
+  if (newNoSpaced() && timeForNewCard()) {
+    return getNewCard();
+  }
+  if (revNoSpaced()) {
+    return mRevQueue.getLast().getCardID();
+  }
+  if (mNewCount != 0) {
+    id=getNewCard();
+    if (id != 0L) {
+      return id;
+    }
+  }
+  if ((!check) && showFailedLast() && (!mFailedQueue.isEmpty())) {
+    return mFailedQueue.getLast().getCardID();
+  }
+  if (finishSchedulerMethod != null) {
+    finishScheduler();
+    reset();
+    return getCardId();
+  }
+}

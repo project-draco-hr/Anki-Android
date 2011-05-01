@@ -1,4 +1,4 @@
 {
-  String[] tags=new String[]{getFact().getTags(),Model.getModel(mDeck,getFact().getModelId(),true).getTags(),getCardModel().getName()};
+  String[] tags=new String[]{getFact().getTags(),Model.getModel(mDeck,getFact().getModelId(),true).getName(),getCardModel().getName()};
   return tags;
 }

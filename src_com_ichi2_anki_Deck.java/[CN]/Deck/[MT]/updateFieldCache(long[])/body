@@ -17,7 +17,7 @@
   }
   if (r.size() > 0) {
     getDB().getDatabase().beginTransaction();
-    SQLiteStatement st=getDB().getDatabase().compileStatement("UPDATE facts SET spaceUntil=? WHERE id=?");
+    SQLiteStatement st=getDB().getDatabase().compileStatement("UPDATE facts SET cache=? WHERE id=?");
     for (    Entry<Long,String> entry : r.entrySet()) {
       st.bindString(1,entry.getValue());
       st.bindLong(2,entry.getKey().longValue());

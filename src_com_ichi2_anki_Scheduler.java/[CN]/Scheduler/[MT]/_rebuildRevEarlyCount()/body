@@ -1,0 +1,3 @@
+{
+  mRevCount=(int)mDb.queryScalar(cardLimit("revActive","revInactive",String.format(Utils.ENGLISH_LOCALE,"SELECT count() FROM cards c WHERE queue = 1 AND due > %f",mDayCutoff)));
+}
