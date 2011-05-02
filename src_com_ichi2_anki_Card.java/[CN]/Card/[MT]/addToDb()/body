@@ -11,22 +11,23 @@
   ContentValues values=new ContentValues();
   values.put("id",mId);
   values.put("factId",mFactId);
+  values.put("modelId",mModelId);
   values.put("cardModelId",mCardModelId);
   values.put("created",mCreated);
   values.put("modified",mModified);
   values.put("question",mQuestion);
   values.put("answer",mAnswer);
-  values.put("flags",mFlags);
   values.put("ordinal",mOrdinal);
-  values.put("position",mPosition);
+  values.put("flags",mFlags);
   values.put("type",mType);
   values.put("queue",mQueue);
-  values.put("lastInterval",mLastInterval);
-  values.put("interval",mInterval);
   values.put("due",mDue);
+  values.put("interval",mInterval);
   values.put("factor",mFactor);
   values.put("reps",mReps);
-  values.put("successive",mSuccessive);
+  values.put("streak",mStreak);
   values.put("lapses",mLapses);
+  values.put("grade",mGrade);
+  values.put("cycles",mCycles);
   AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).insert(mDeck,"cards",null,values);
 }
