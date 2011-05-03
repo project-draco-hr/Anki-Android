@@ -3,7 +3,8 @@
     String decksString=getDecks();
     try {
       JSONObject jsonDecks=new JSONObject(decksString);
-      if ("OK".equalsIgnoreCase(jsonDecks.getString("status"))) {
+      String status=jsonDecks.getString("status");
+      if (ANKIWEB_STATUS_OK.equalsIgnoreCase(status)) {
         mDecks=jsonDecks.getJSONObject("decks");
         Log.i(AnkiDroidApp.TAG,"Server decks = " + mDecks.toString());
         mTimestamp=jsonDecks.getDouble("timestamp");
@@ -15,11 +16,18 @@
         }
         return LOGIN_OK;
       }
- else       if ("invalidUserPass".equalsIgnoreCase(jsonDecks.getString("status"))) {
+ else       if (ANKIWEB_STATUS_INVALID_USER_PASS.equalsIgnoreCase(status)) {
         return LOGIN_INVALID_USER_PASS;
       }
- else       if ("oldVersion".equalsIgnoreCase(jsonDecks.getString("status"))) {
+ else       if (ANKIWEB_STATUS_OLD_VERSION.equalsIgnoreCase(status)) {
         return LOGIN_OLD_VERSION;
+      }
+ else       if (ANKIWEB_STATUS_TOO_BUSY.equalsIgnoreCase(status)) {
+        return LOGIN_TOO_BUSY;
+      }
+ else {
+        Log.e(AnkiDroidApp.TAG,"connect - unexpected status: " + status);
+        return LOGIN_ERROR;
       }
     }
  catch (    JSONException e) {

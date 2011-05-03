@@ -33,6 +33,9 @@
  else       if (connectResult == AnkiDroidProxy.LOGIN_OLD_VERSION) {
         syncChangelog.put("message",String.format(res.getString(R.string.sync_log_old_version),res.getString(R.string.link_ankidroid)));
       }
+ else       if (connectResult == AnkiDroidProxy.LOGIN_TOO_BUSY) {
+        syncChangelog.put("message",res.getString(R.string.sync_too_busy));
+      }
  else {
         syncChangelog.put("message",res.getString(R.string.login_generic_error));
       }
