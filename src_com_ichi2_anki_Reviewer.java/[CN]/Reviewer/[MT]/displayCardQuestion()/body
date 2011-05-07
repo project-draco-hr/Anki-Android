@@ -22,7 +22,7 @@
     displayString=displayString + "<hr/>";
   }
   if (mSpeakText && Integer.valueOf(android.os.Build.VERSION.SDK) > 3) {
-    ReadText.setLanguageInformation(Model.getModel(AnkiDroidApp.deck(),mCurrentCard.getCardModelId(),false).getId(),mCurrentCard.getCardModelId());
+    ReadText.setLanguageInformation(mCurrentCard.getOrd(),mCurrentCard.getOrd());
   }
   updateCard(displayString);
   hideEaseButtons();

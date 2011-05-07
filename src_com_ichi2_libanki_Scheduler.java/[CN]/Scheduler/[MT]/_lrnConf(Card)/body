@@ -1,0 +1,14 @@
+{
+  JSONObject conf=_cardConf(card);
+  try {
+    if (card.getType() == 2) {
+      return conf.getJSONObject("lapse");
+    }
+ else {
+      return conf.getJSONObject("new");
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

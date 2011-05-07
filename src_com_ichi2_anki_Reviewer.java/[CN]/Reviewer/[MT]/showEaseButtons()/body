@@ -1,6 +1,6 @@
 {
   Resources res=getResources();
-  if (mCurrentCard.isRev()) {
+  if (true) {
     mEase1.setText(res.getString(R.string.ease1_successive));
     mEase2.setText(res.getString(R.string.ease2_successive));
     mEase3.setText(res.getString(R.string.ease3_successive));
@@ -26,7 +26,7 @@
     mNext3.setVisibility(View.VISIBLE);
     mNext4.setVisibility(View.VISIBLE);
   }
-  if (mCurrentCard.isRev()) {
+  if (true) {
     mEase3.requestFocus();
     mNext2.setTextColor(mNextTimeTextColor);
     mNext3.setTextColor(mNextTimeTextRecomColor);

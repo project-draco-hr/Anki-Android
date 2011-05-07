@@ -5,7 +5,12 @@ case HQIA_DO_HIDE:
 case HQIA_DO_SHOW:
   return true;
 case HQIA_CARD_MODEL:
-return (Model.getModel(AnkiDroidApp.deck(),mCurrentCard.getCardModelId(),false).getCardModel(mCurrentCard.getCardModelId()).isQuestionInAnswer());
+try {
+  return !mCurrentCard.getTemplate().getString("hideQ").equals("true");
+}
+ catch (JSONException e) {
+  throw new RuntimeException(e);
+}
 default :
 return true;
 }

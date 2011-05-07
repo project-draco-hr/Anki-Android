@@ -1,0 +1,23 @@
+{
+  mDeck=deck;
+  mId=id;
+  if (mId != 0) {
+    fromDb(id);
+  }
+ else {
+    mModel=model;
+    try {
+      mGId=mDeck.defaultGroup(model.getConf().getInt("gid"));
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+    mMId=model.getId();
+    mCrt=Utils.intNow();
+    mMod=mCrt;
+    mTags=new ArrayList<String>();
+    mFields=new String[mModel.fieldMap().size()];
+    mData="";
+    mFMap=mModel.fieldMap();
+  }
+}

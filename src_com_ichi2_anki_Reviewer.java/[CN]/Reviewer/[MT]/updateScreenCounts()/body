@@ -1,30 +1,3 @@
 {
   Deck deck=AnkiDroidApp.deck();
-  int eta=deck.getETA();
-  if (deck.hasFinishScheduler() || eta < 1) {
-    setTitle(deck.getDeckName());
-  }
- else {
-    setTitle(getResources().getQuantityString(R.plurals.reviewer_window_title,eta,deck.getDeckName(),eta));
-  }
-  int _failedSoonCount=deck.getFailedSoonCount();
-  int _revCount=deck.getRevCount();
-  int _newCount=deck.getNewCount();
-  SpannableString failedSoonCount=new SpannableString(String.valueOf(_failedSoonCount));
-  SpannableString revCount=new SpannableString(String.valueOf(_revCount));
-  SpannableString newCount=new SpannableString(String.valueOf(_newCount));
-  boolean isDue=true;
-  int type=mCurrentCard.getType();
-  if (isDue && (type == Card.TYPE_NEW)) {
-    newCount.setSpan(new UnderlineSpan(),0,newCount.length(),0);
-  }
-  if (isDue && (type == Card.TYPE_REV)) {
-    revCount.setSpan(new UnderlineSpan(),0,revCount.length(),0);
-  }
-  if (isDue && (type == Card.TYPE_FAILED)) {
-    failedSoonCount.setSpan(new UnderlineSpan(),0,failedSoonCount.length(),0);
-  }
-  mTextBarRed.setText(failedSoonCount);
-  mTextBarBlack.setText(revCount);
-  mTextBarBlue.setText(newCount);
 }

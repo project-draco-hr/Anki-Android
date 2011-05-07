@@ -2,19 +2,20 @@
   mIsSelecting=false;
   Deck deck=AnkiDroidApp.deck();
 switch (ease) {
-case Card.EASE_FAILED:
+case EASE_FAILED:
     mChosenAnswer.setText(mEase1.getText());
-  if ((deck.getDueCount() + deck.getNewCount()) == 1) {
-    mIsLastCard=true;
-  }
+  int[] counts=deck.getSched().counts();
+if (counts[0] + counts[1] + counts[2] == 1) {
+  mIsLastCard=true;
+}
 break;
-case Card.EASE_HARD:
+case EASE_HARD:
 mChosenAnswer.setText(mEase2.getText());
 break;
-case Card.EASE_MID:
+case EASE_MID:
 mChosenAnswer.setText(mEase3.getText());
 break;
-case Card.EASE_EASY:
+case EASE_EASY:
 mChosenAnswer.setText(mEase4.getText());
 break;
 }

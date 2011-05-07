@@ -1,0 +1,24 @@
+{
+  StringBuffer sb=new StringBuffer();
+  sb.append("<!-- ").append(percentage).append(" % display font size-->");
+  sb.append("<style type=\"text/css\">\n");
+  JSONObject template=getTemplate(ord);
+  try {
+    for (    Map.Entry<String,Integer> entry : mFieldMap.entrySet()) {
+      JSONObject fconf;
+      fconf=mFields.getJSONObject(entry.getValue());
+      sb.append(_fieldCSS(percentage,String.format(".fm%s-%s",Utils.hexifyID(mId),Utils.hexifyID(entry.getValue())),fconf.getString("font"),fconf.getInt("qsize"),invertColor(fconf.getString("qcol"),night),fconf.getString("rtl").equals("true"),fconf.getString("pre").equals("true")));
+    }
+    for (int i=0; i < mTemplates.length(); i++) {
+      JSONObject tmpl=mTemplates.getJSONObject(i);
+      sb.append(String.format(".cm%s-%s {text-align:%s;background:%s;",Utils.hexifyID(mId),Utils.hexifyID(tmpl.getInt("ord")),align_text[template.getInt("align")],invertColor(tmpl.getString("bg"),night)));
+      sb.append("padding-left:5px;");
+      sb.append("padding-right:5px;}\n");
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  sb.append("</style>");
+  return sb.toString();
+}

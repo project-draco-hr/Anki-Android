@@ -1,0 +1,15 @@
+{
+  Template[] template=new Template[2];
+  try {
+    String string=mTemplates.getJSONObject(ord).getString("qfmt");
+    Log.i(AnkiDroidApp.TAG,"Compiling question template \"" + string + "\"");
+    template[0]=Mustache.compiler().compile(string);
+    string=mTemplates.getJSONObject(ord).getString("afmt");
+    Log.i(AnkiDroidApp.TAG,"Compiling answer template \"" + string + "\"");
+    template[1]=Mustache.compiler().compile(string);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  return template;
+}

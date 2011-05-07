@@ -1,0 +1,25 @@
+{
+  Cursor cursor=null;
+  try {
+    cursor=mDeck.getDB().getDatabase().rawQuery("SELECT mid, gid, crt, mod, tags, flds, data FROM facts WHERE id = " + id,null);
+    if (!cursor.moveToFirst()) {
+      Log.w(AnkiDroidApp.TAG,"Fact.java (constructor): No result from query.");
+      return false;
+    }
+    mId=cursor.getInt(0);
+    mMId=cursor.getInt(1);
+    mGId=cursor.getInt(2);
+    mCrt=cursor.getInt(3);
+    mMod=cursor.getInt(4);
+    mTags=Arrays.asList(Utils.parseTags(cursor.getString(5)));
+    mFields=Utils.splitFields(cursor.getString(6));
+    mData=cursor.getString(7);
+  }
+  finally {
+    if (cursor != null) {
+      cursor.close();
+    }
+  }
+  mFMap=mModel.fieldMap();
+  return true;
+}

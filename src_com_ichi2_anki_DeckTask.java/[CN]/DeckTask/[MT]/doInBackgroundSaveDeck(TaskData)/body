@@ -3,10 +3,6 @@
   Log.i(AnkiDroidApp.TAG,"doInBackgroundSaveAndResetDeck");
   if (deck != null) {
     deck.commitToDB();
-    deck.updateCutoff();
-    if (AnkiDroidApp.deck().hasFinishScheduler()) {
-      AnkiDroidApp.deck().finishScheduler();
-    }
     deck.reset();
   }
   return null;

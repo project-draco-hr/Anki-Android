@@ -1,0 +1,22 @@
+{
+  mMod=Utils.intNow();
+  StringBuilder sb=new StringBuilder();
+  sb.append("INSERT OR REPLACE INTO cards VALUES (");
+  sb.append(mId).append(", ");
+  sb.append(mFId).append(", ");
+  sb.append(mGId).append(", ");
+  sb.append(mOrd).append(", ");
+  sb.append(mMod).append(", ");
+  sb.append(mType).append(", ");
+  sb.append(mQueue).append(", ");
+  sb.append(mIvl).append(", ");
+  sb.append(mIvl).append(", ");
+  sb.append(mFactor).append(", ");
+  sb.append(mReps).append(", ");
+  sb.append(mLapses).append(", ");
+  sb.append(mGrade).append(", ");
+  sb.append(mCycles).append(", ");
+  sb.append(mEDue).append(", ");
+  sb.append(mData).append(")");
+  mDeck.getDB().getDatabase().execSQL(sb.toString());
+}

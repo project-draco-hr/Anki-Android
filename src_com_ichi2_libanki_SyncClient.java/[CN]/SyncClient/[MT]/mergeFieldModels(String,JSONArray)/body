@@ -1,0 +1,54 @@
+{
+  ArrayList<String> ids=new ArrayList<String>();
+  String sql="INSERT OR REPLACE INTO fieldModels VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  SQLiteStatement statement=mDeck.getDB().getDatabase().compileStatement(sql);
+  int len=fieldModels.length();
+  for (int i=0; i < len; i++) {
+    JSONObject fieldModel=fieldModels.getJSONObject(i);
+    String id=fieldModel.getString("id");
+    statement.bindString(1,id);
+    statement.bindString(2,fieldModel.getString("ordinal"));
+    statement.bindLong(3,fieldModel.getLong("modelId"));
+    statement.bindString(4,fieldModel.getString("name"));
+    statement.bindString(5,fieldModel.getString("description"));
+    statement.bindString(6,fieldModel.getString("features"));
+    statement.bindLong(7,Utils.booleanToInt(fieldModel.getBoolean("required")));
+    statement.bindLong(8,Utils.booleanToInt(fieldModel.getBoolean("unique")));
+    statement.bindLong(9,Utils.booleanToInt(fieldModel.getBoolean("numeric")));
+    if (fieldModel.isNull("quizFontFamily")) {
+      statement.bindNull(10);
+    }
+ else {
+      statement.bindString(10,fieldModel.getString("quizFontFamily"));
+    }
+    if (fieldModel.isNull("quizFontSize")) {
+      statement.bindNull(11);
+    }
+ else {
+      statement.bindString(11,fieldModel.getString("quizFontSize"));
+    }
+    if (fieldModel.isNull("quizFontColour")) {
+      statement.bindNull(12);
+    }
+ else {
+      statement.bindString(12,fieldModel.getString("quizFontColour"));
+    }
+    if (fieldModel.isNull("editFontFamily")) {
+      statement.bindNull(13);
+    }
+ else {
+      statement.bindString(13,fieldModel.getString("editFontFamily"));
+    }
+    statement.bindString(14,fieldModel.getString("editFontSize"));
+    statement.execute();
+    ids.add(id);
+  }
+  statement.close();
+  ArrayList<String> fieldModelsIds=mDeck.getDB().queryColumn(String.class,"SELECT id FROM fieldModels WHERE modelId = " + modelId,0);
+  if (fieldModelsIds != null) {
+    for (    String fieldModelId : fieldModelsIds) {
+      if (!ids.contains(fieldModelId)) {
+      }
+    }
+  }
+}

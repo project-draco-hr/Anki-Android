@@ -1,0 +1,23 @@
+{
+  Cursor cur=null;
+  try {
+    cur=getDB().getDatabase().rawQuery("SELECT id FROM groups WHERE name = \'" + name + "\'",null);
+    if (cur.moveToNext()) {
+      return cur.getInt(0);
+    }
+ else {
+      cur=getDB().getDatabase().rawQuery("INSERT INTO groups VALUES (" + nextID("gid") + ", "+ Utils.intNow()+ ", "+ name+ ", 1, "+ defaultGroupData,null);
+      if (cur.moveToLast()) {
+        return cur.getInt(0);
+      }
+ else {
+        throw new RuntimeException();
+      }
+    }
+  }
+  finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+}

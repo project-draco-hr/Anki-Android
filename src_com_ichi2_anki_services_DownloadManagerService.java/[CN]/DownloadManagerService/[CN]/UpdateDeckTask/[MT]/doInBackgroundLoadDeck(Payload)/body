@@ -6,12 +6,10 @@
   Log.i(AnkiDroidApp.TAG,"loadDeck - SD card mounted and existent file -> Loading deck...");
   try {
     Deck deck=Deck.openDeck(deckFilename);
-    Card card=deck.getCard();
     Log.i(AnkiDroidApp.TAG,"Deck loaded!");
     data.returnType=DeckTask.DECK_LOADED;
     HashMap<String,Object> results=new HashMap<String,Object>();
     results.put("deck",deck);
-    results.put("card",card);
     results.put("position",download.getNumUpdatedCards());
     data.result=results;
     return data;

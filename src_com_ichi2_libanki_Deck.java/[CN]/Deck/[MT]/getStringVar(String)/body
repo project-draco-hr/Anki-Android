@@ -1,0 +1,8 @@
+{
+  try {
+    return mConf.getString(name);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

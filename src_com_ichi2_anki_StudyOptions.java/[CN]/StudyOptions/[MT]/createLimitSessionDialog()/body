@@ -65,52 +65,6 @@
   mLimitTagRevInactiveCheckBox.setOnCheckedChangeListener(mLimitTagCheckedChangeListener);
   AlertDialog.Builder builder=new AlertDialog.Builder(this);
   builder.setTitle(R.string.studyoptions_limit_dialog_title);
-  builder.setPositiveButton(R.string.studyoptions_more_save,new DialogInterface.OnClickListener(){
-    @Override public void onClick(    DialogInterface dialog,    int which){
-      Deck deck=AnkiDroidApp.deck();
-      boolean changed=false;
-      String textTime=mEditSessionTime.getText().toString();
-      if (!textTime.equals(Long.toString(deck.getSessionTimeLimit() / 60))) {
-        if (textTime.equals("")) {
-          deck.setSessionTimeLimit(0);
-        }
- else         if (isValidLong(textTime)) {
-          deck.setSessionTimeLimit(Long.parseLong(textTime) * 60);
-        }
-      }
-      String textReps=mEditSessionQuestions.getText().toString();
-      if (!textReps.equals(Long.toString(deck.getSessionRepLimit()))) {
-        if (textReps.equals("")) {
-          deck.setSessionRepLimit(0);
-        }
- else         if (isValidLong(textReps)) {
-          deck.setSessionRepLimit(Long.parseLong(textReps));
-        }
-        changed=true;
-      }
-      if (!deck.getVar("newActive").equals(mLimitNewActive)) {
-        deck.setVar("newActive",mLimitNewActive);
-        changed=true;
-      }
-      if (!deck.getVar("newInactive").equals(mLimitNewInactive)) {
-        deck.setVar("newInactive",mLimitNewInactive);
-        changed=true;
-      }
-      if (!deck.getVar("revActive").equals(mLimitRevActive)) {
-        deck.setVar("revActive",mLimitRevActive);
-        changed=true;
-      }
-      if (!deck.getVar("revInactive").equals(mLimitRevInactive)) {
-        deck.setVar("revInactive",mLimitRevInactive);
-        changed=true;
-      }
-      if (changed) {
-        resetAndUpdateValuesFromDeck();
-      }
-      mToggleLimit.setChecked((mSessionLimitCheckBox.isChecked() && !(textTime.length() == 0 && textReps.length() == 0)) || (mLimitTagsCheckBox.isChecked() && (mLimitTagNewActiveCheckBox.isChecked() || mLimitTagNewInactiveCheckBox.isChecked() || mLimitTagRevActiveCheckBox.isChecked()|| mLimitTagRevInactiveCheckBox.isChecked())));
-    }
-  }
-);
   builder.setView(contentView);
   return builder.create();
 }

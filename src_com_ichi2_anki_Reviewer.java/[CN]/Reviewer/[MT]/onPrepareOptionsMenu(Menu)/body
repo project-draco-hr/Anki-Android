@@ -3,14 +3,6 @@
   if (mCurrentCard == null) {
     return false;
   }
-  if (mCurrentCard.isMarked()) {
-    item.setTitle(R.string.menu_marked);
-    item.setIcon(R.drawable.ic_menu_star_on);
-  }
- else {
-    item.setTitle(R.string.menu_mark_card);
-    item.setIcon(R.drawable.ic_menu_star_off);
-  }
   if (mPrefTextSelection) {
     item=menu.findItem(MENU_SEARCH);
     Log.i(AnkiDroidApp.TAG,"Clipboard has text = " + mClipboard.hasText());

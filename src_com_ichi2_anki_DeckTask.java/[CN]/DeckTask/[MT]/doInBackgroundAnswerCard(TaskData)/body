@@ -7,12 +7,10 @@
   ankiDB.getDatabase().beginTransaction();
   try {
     if (oldCard != null) {
-      deck.answerCard(oldCard,ease);
-      Log.i(AnkiDroidApp.TAG,"leech flag: " + oldCard.getLeechFlag());
+      deck.getSched().answerCard(oldCard,ease);
     }
-    newCard=deck.getCard();
+    newCard=deck.getSched().getCard();
     if (oldCard != null) {
-      publishProgress(new TaskData(newCard,oldCard.getLeechFlag(),oldCard.getSuspendedFlag()));
     }
  else {
       publishProgress(new TaskData(newCard));

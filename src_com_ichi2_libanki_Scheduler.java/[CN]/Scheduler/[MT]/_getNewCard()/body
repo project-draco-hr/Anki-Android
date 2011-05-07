@@ -1,0 +1,23 @@
+{
+  if (!mNewQueue.isEmpty()) {
+    int[] item=mNewQueue.remove();
+    try {
+      if (mDeck.getQconf().getInt("newTodayOrder") == NEW_TODAY_ORD) {
+        int n=mNewQueue.size();
+        while (!mNewQueue.isEmpty() && mNewQueue.getFirst()[1] == item[1]) {
+          mNewQueue.add(mNewQueue.remove());
+          n-=1;
+          if (n == 0) {
+            break;
+          }
+        }
+      }
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+    mNewCount-=1;
+    return item[0];
+  }
+  return 0;
+}

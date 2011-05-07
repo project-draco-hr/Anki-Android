@@ -1,9 +1,0 @@
-{
-  CardModel myCardModel=null;
-  String color=null;
-  for (  Map.Entry<Long,CardModel> entry : mCardModelsMap.entrySet()) {
-    myCardModel=entry.getValue();
-    color=invertColor(myCardModel.getLastFontColour(),invertedColors);
-    mColorCardModelMap.put(myCardModel.getId(),color);
-  }
-}

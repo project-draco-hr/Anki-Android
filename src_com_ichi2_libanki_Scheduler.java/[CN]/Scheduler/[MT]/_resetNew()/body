@@ -1,0 +1,17 @@
+{
+  int lim=Math.min(mQueueLimit,mNewCount);
+  Cursor cur=null;
+  mNewQueue.clear();
+  try {
+    cur=mDb.getDatabase().rawQuery("SELECT id, due FROM cards WHERE queue = 0 " + _groupLimit() + " ORDER BY due LIMIT "+ lim,null);
+    while (cur.moveToNext()) {
+      mNewQueue.add(new int[]{cur.getInt(0),cur.getInt(1)});
+    }
+  }
+  finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+  _updateNewCardRatio();
+}

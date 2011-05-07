@@ -1,8 +1,0 @@
-{
-  ContentValues values=new ContentValues();
-  values.put("queue","-1");
-  values.put("modified",String.format(Utils.ENGLISH_LOCALE,"%f",Utils.now()));
-  getDB().update(this,"cards",values,"id IN " + Utils.ids2str(ids),null,false);
-  Log.i(AnkiDroidApp.TAG,"Cards suspended");
-  flushMod();
-}

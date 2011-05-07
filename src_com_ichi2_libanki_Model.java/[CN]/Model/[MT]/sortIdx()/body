@@ -1,0 +1,8 @@
+{
+  try {
+    return mConf.getInt("sortf");
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

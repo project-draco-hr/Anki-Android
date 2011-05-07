@@ -1,0 +1,16 @@
+{
+  ArrayList<String> names=new ArrayList<String>();
+  Cursor cur=null;
+  try {
+    cur=getDB().getDatabase().rawQuery("SELECT name FROM groups ORDER BY name",null);
+    while (cur.moveToNext()) {
+      names.add(cur.getString(0));
+    }
+  }
+  finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+  return (String[])names.toArray();
+}

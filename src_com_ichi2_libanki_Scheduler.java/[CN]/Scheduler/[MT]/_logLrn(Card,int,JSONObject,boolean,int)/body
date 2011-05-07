@@ -1,0 +1,18 @@
+{
+  int taken;
+  try {
+    taken=Math.min(card.timeTaken(),_cardConf(card).getInt("maxTaken") * 1000);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  int lastIvl=-(_delayForGrade(conf,Math.max(0,card.getGrade() - 1)));
+  int ivl;
+  if (leaving) {
+    ivl=card.getIvl();
+  }
+ else {
+    ivl=-_delayForGrade(conf,card.getGrade());
+  }
+  mDb.getDatabase().execSQL("INSERT INTO revlog VALUES (" + (int)(Utils.now() * 1000) + ", "+ card.getId()+ ", "+ ease+ ", "+ ivl+ ", "+ lastIvl+ ", "+ card.getFactor()+ ", "+ taken+ ", "+ type+ ")");
+}

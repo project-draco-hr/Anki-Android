@@ -1,0 +1,23 @@
+{
+  if (card.getType() == 2) {
+    return card.getIvl();
+  }
+  int ideal;
+  JSONArray ja;
+  try {
+    ja=conf.getJSONArray("ints");
+    if (!early) {
+      ideal=ja.getInt(0);
+    }
+ else     if (card.getCycles() != 0) {
+      ideal=ja.getInt(2);
+    }
+ else {
+      ideal=ja.getInt(1);
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  return _adjRevIvl(card,ideal);
+}

@@ -1,0 +1,23 @@
+{
+  JSONObject model=new JSONObject();
+  Cursor cursor=mDeck.getDB().getDatabase().rawQuery("SELECT * FROM models WHERE id = " + id,null);
+  if (cursor.moveToFirst()) {
+    model.put("id",cursor.getLong(0));
+    model.put("deckId",cursor.getInt(1));
+    model.put("created",cursor.getDouble(2));
+    model.put("modified",cursor.getDouble(3));
+    model.put("tags",cursor.getString(4));
+    model.put("name",cursor.getString(5));
+    model.put("description",cursor.getString(6));
+    model.put("features",cursor.getDouble(7));
+    model.put("spacing",cursor.getDouble(8));
+    model.put("initialSpacing",cursor.getDouble(9));
+    model.put("source",cursor.getInt(10));
+    model.put("fieldModels",bundleFieldModels(id));
+    model.put("cardModels",bundleCardModels(id));
+  }
+  cursor.close();
+  Log.i(AnkiDroidApp.TAG,"Model = ");
+  Utils.printJSONObject(model,false);
+  return model;
+}

@@ -1,0 +1,4 @@
+{
+  mMod=Utils.intNow();
+  mDeck.getDB().getDatabase().update("cards",getSchedValues(),"id = " + mId,null);
+}

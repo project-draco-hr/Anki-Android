@@ -1,0 +1,19 @@
+{
+  Deck deck=new Deck();
+  Log.i(AnkiDroidApp.TAG,"openDeck - Opening database " + path);
+  if (!deck.loadFromDB(AnkiDatabaseManager.getDatabase(path))) {
+    return null;
+  }
+  Log.i(AnkiDroidApp.TAG,String.format(Utils.ENGLISH_LOCALE,"openDeck - modified: %d currentTime: %d",deck.mMod,Utils.intNow()));
+  deck.mDeckPath=path;
+  deck.mDeckName=(new File(path)).getName().replace(".anki","");
+  if (deck.mCrt == 0) {
+  }
+  deck.mModelCache=new TreeMap<Integer,Model>();
+  deck.mSessionStartReps=0;
+  deck.mSessionStartTime=0;
+  deck.mLastSessionStart=0;
+  deck.mStdSched=new Scheduler(deck);
+  deck.mSched=deck.mStdSched;
+  return deck;
+}

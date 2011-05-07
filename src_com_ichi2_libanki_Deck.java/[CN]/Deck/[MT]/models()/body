@@ -1,0 +1,17 @@
+{
+  Cursor cursor=null;
+  LinkedHashMap<Integer,Model> mods=new LinkedHashMap<Integer,Model>();
+  try {
+    cursor=getDB().getDatabase().rawQuery("SELECT id FROM models",null);
+    while (cursor.moveToNext()) {
+      int id=cursor.getInt(0);
+      mods.put(id,getModel(id));
+    }
+  }
+  finally {
+    if (cursor != null) {
+      cursor.close();
+    }
+  }
+  return mods;
+}

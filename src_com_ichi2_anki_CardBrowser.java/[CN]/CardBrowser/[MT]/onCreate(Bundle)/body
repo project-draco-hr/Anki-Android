@@ -35,7 +35,7 @@
     @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
       Intent editCard=new Intent(CardBrowser.this,CardEditor.class);
       mPositionInCardsList=position;
-      mSelectedCard=mDeck.cardFromId(Long.parseLong(mCards.get(mPositionInCardsList).get("id")));
+      mSelectedCard=mDeck.getCard(Integer.parseInt(mCards.get(mPositionInCardsList).get("id")));
       sEditorCard=mSelectedCard;
       editCard.putExtra("callfromcardbrowser",true);
       startActivityForResult(editCard,EDIT_CARD);

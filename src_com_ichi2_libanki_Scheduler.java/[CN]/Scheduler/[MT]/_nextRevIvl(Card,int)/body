@@ -1,0 +1,21 @@
+{
+  int delay=_daysLate(card);
+  double interval=0;
+  JSONObject conf=_cardConf(card);
+  double fct=card.getFactor() / 1000.0;
+  if (ease == 2) {
+    interval=(card.getIvl() + delay / 4) * 1.2;
+  }
+ else   if (ease == 3) {
+    interval=(card.getIvl() + delay / 2) * fct;
+  }
+ else   if (ease == 4) {
+    try {
+      interval=(card.getIvl() + delay) * fct * conf.getJSONObject("rev").getInt("ease4");
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  return Math.max(card.getIvl() + ease == 4 ? 2 : 1,(int)interval);
+}

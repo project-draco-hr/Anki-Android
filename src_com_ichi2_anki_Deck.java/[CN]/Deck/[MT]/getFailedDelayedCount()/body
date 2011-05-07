@@ -1,4 +1,0 @@
-{
-  String sql=String.format(Utils.ENGLISH_LOCALE,"SELECT count(*) FROM cards c WHERE queue = 0 AND due >= " + mFailedCutoff + " AND PRIORITY > -1");
-  return (int)getDB().queryScalar(cardLimit("revActive","revInactive",sql));
-}

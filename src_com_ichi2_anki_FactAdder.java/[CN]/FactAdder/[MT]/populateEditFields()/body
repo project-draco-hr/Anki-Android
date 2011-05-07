@@ -1,12 +1,2 @@
 {
-  mFieldsLayoutContainer.removeAllViews();
-  mEditFields=new LinkedList<FieldEditText>();
-  TreeSet<Field> fields=mNewFact.getFields();
-  for (  Field f : fields) {
-    FieldEditText newTextbox=new FieldEditText(this,f);
-    TextView label=newTextbox.getLabel();
-    mEditFields.add(newTextbox);
-    mFieldsLayoutContainer.addView(label);
-    mFieldsLayoutContainer.addView(newTextbox);
-  }
 }

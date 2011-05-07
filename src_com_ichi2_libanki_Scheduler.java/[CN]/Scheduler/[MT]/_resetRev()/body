@@ -1,0 +1,23 @@
+{
+  Cursor cur=null;
+  mRevQueue.clear();
+  try {
+    cur=mDb.getDatabase().rawQuery("SELECT id FROM cards WHERE queue = 2 " + _groupLimit() + " AND due <= "+ mToday+ " ORDER BY "+ _revOrder()+ " LIMIT "+ mQueueLimit,null);
+    while (cur.moveToNext()) {
+      mRevQueue.add(new int[]{cur.getInt(0)});
+    }
+  }
+  finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+  try {
+    if (mDeck.getQconf().getInt("revOrder") == REV_CARDS_RANDOM) {
+      Collections.shuffle(mRevQueue,new Random());
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

@@ -1,0 +1,18 @@
+{
+  int id=_getLrnCard();
+  if (id != 0) {
+    return id;
+  }
+  if (_timeForNewCard()) {
+    return _getNewCard();
+  }
+  id=_getRevCard();
+  if (id != 0) {
+    return id;
+  }
+  id=_getNewCard();
+  if (id != 0) {
+    return id;
+  }
+  return _getLrnCard(true);
+}

@@ -1,0 +1,35 @@
+{
+  Map<String,String> fields=new HashMap<String,String>();
+  for (  Map.Entry<String,Integer> f : model.fieldMap().entrySet()) {
+    fields.put(f.getKey(),flist[f.getValue()]);
+    if (fields.get(f.getKey()).length() != 0) {
+      fields.put(f.getKey(),String.format("<span class=\"fm%s-%s\">%s</span>",Utils.hexifyID(model.getId()),Utils.hexifyID(f.getValue()),fields.get(f.getKey())));
+    }
+ else {
+      fields.put(f.getKey(),"");
+    }
+  }
+  fields.put("Tags",tags);
+  fields.put("Model",model.getName());
+  fields.put("Group",gname);
+  JSONObject template=model.getTemplate(ord);
+  try {
+    fields.put("Template",template.getString("name"));
+    HashMap<String,String> d=new HashMap<String,String>();
+    String format=template.getString("qfmt");
+    format=format.replace("cloze","cq:");
+    d.put("q",model.getCmpldTemplate(ord)[0].execute(fields));
+    format=template.getString("afmt");
+    if (model.getConf().getInt("clozectx") != 0) {
+      format=format.replace("cloze:","cactx:");
+    }
+ else {
+      format=format.replace("cloze:","ca:");
+    }
+    d.put("a",model.getCmpldTemplate(ord)[1].execute(fields));
+    return d;
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

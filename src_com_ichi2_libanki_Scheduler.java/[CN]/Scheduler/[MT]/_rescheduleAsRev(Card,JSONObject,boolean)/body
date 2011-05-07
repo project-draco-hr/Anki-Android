@@ -1,0 +1,10 @@
+{
+  if (card.getType() == 2) {
+    card.setDue(card.getEDue());
+  }
+ else {
+    _rescheduleNew(card,conf,early);
+  }
+  card.setQueue(2);
+  card.setType(2);
+}

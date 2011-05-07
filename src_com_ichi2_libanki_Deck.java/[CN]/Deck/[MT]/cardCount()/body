@@ -1,0 +1,3 @@
+{
+  return (int)getDB().queryScalar("SELECT count() FROM cards WHERE crt != 0");
+}

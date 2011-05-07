@@ -1,0 +1,17 @@
+{
+  Card card=new Card(this,fact);
+  card.setId(nextID("cid"));
+  card.setFId(fact.getId());
+  try {
+    card.setOrd(template.getInt("ord"));
+    card.setGId(defaultGroup(template.getInt("gid")));
+  }
+ catch (  JSONException e) {
+    new RuntimeException(e);
+  }
+  card.setDue(due);
+  if (flush) {
+    card.flush();
+  }
+  return card;
+}

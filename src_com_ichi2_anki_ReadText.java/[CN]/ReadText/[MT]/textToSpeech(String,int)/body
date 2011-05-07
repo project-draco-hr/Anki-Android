@@ -41,7 +41,7 @@
     dialogItems.toArray(items);
     builder.setItems(items,new DialogInterface.OnClickListener(){
       @Override public void onClick(      DialogInterface dialog,      int which){
-        MetaDB.storeLanguage(mReviewer,mDeckFilename,mModelId,mCardModelId,mQuestionAnswer,dialogIds.get(which));
+        MetaDB.storeLanguage(mReviewer,mDeckFilename,mModelId,mTemplate,mQuestionAnswer,dialogIds.get(which));
         speak(dialogIds.get(which));
       }
     }

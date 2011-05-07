@@ -1,0 +1,8 @@
+{
+  try {
+    return (int)(card.getIvl() * conf.getInt("mult")) + 1;
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

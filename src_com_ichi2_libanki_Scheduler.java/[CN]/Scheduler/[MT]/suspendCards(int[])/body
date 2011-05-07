@@ -1,0 +1,4 @@
+{
+  removeFailed(ids);
+  mDb.getDatabase().execSQL("UPDATE cards SET queue = -1, mod = " + Utils.intNow() + " WHERE id IN "+ Utils.ids2str(ids));
+}

@@ -1,0 +1,26 @@
+{
+  mMod=Utils.intNow();
+  StringBuilder sb=new StringBuilder();
+  sb.append("INSERT OR REPLACE INTO facts VALUES (");
+  sb.append(mId).append(", ");
+  sb.append(mMId).append(", ");
+  sb.append(mGId).append(", ");
+  sb.append(mCrt).append(", ");
+  sb.append(mMod).append(", ");
+  sb.append(stringTags()).append(", ");
+  sb.append(joinedFields()).append(", ");
+  sb.append(mFields[mModel.sortIdx()]).append(", ");
+  sb.append(mData).append(")");
+  Cursor cur=null;
+  try {
+    cur=mDeck.getDB().getDatabase().rawQuery(sb.toString(),null);
+    if (!cur.moveToFirst()) {
+      mId=cur.getInt(0);
+    }
+  }
+  finally {
+    if (cur != null) {
+      cur.close();
+    }
+  }
+}

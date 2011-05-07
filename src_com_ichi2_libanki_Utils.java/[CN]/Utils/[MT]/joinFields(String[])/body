@@ -1,0 +1,7 @@
+{
+  StringBuilder result=new StringBuilder(128);
+  for (  String l : list) {
+    result.append(l).append("\\x1f");
+  }
+  return result.toString();
+}

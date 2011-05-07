@@ -1,4 +1,4 @@
 {
-  String language=MetaDB.getLanguage(this,mDeckFilename,Model.getModel(AnkiDroidApp.deck(),mCurrentCard.getCardModelId(),false).getId(),mCurrentCard.getCardModelId(),questionAnswer);
+  String language=MetaDB.getLanguage(this,mDeckFilename,mCurrentCard.getModel().getId(),mCurrentCard.getOrd(),questionAnswer);
   return language;
 }

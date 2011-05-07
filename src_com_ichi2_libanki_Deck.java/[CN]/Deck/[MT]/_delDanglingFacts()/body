@@ -1,0 +1,18 @@
+{
+  Cursor cursor=null;
+  int ids[];
+  try {
+    cursor=getDB().getDatabase().rawQuery("SELECT id FROM facts WHERE id NOT IN " + "(SELECT DISTINCT fid FROM cards)",null);
+    ids=new int[cursor.getCount()];
+    while (cursor.moveToNext()) {
+      ids[cursor.getPosition()]=cursor.getInt(0);
+    }
+  }
+  finally {
+    if (cursor != null) {
+      cursor.close();
+    }
+  }
+  _delFacts(ids);
+  return ids;
+}

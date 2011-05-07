@@ -1,21 +1,3 @@
 {
-  Deck deck=params[0].getDeck();
-  Card card=params[0].getCard();
-  Card newCard=null;
-  Long id=0l;
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundDeleteCard");
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
-  ankiDB.getDatabase().beginTransaction();
-  try {
-    id=card.getId();
-    card.delete();
-    deck.reset();
-    newCard=deck.getCard();
-    publishProgress(new TaskData(newCard));
-    ankiDB.getDatabase().setTransactionSuccessful();
-  }
-  finally {
-    ankiDB.getDatabase().endTransaction();
-  }
-  return new TaskData(String.valueOf(id));
+  return null;
 }

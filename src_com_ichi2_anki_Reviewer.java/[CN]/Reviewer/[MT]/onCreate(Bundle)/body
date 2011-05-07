@@ -48,9 +48,6 @@ mCardTemplate=mCardTemplate.replaceFirst("var availableWidth = \\d*;","var avail
  catch (IOException e) {
 e.printStackTrace();
 }
-long timelimit=deck.getSessionTimeLimit() * 1000;
-Log.i(AnkiDroidApp.TAG,"SessionTimeLimit: " + timelimit + " ms.");
-mSessionTimeLimit=System.currentTimeMillis() + timelimit;
 mSessionCurrReps=0;
 if (mSpeakText && Integer.valueOf(android.os.Build.VERSION.SDK) > 3) {
 ReadText.initializeTts(this,mDeckFilename);

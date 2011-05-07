@@ -1,5 +1,5 @@
 {
-  String mediaLoc=deck.getVar("mediaLocation");
+  String mediaLoc=deck.getStringVar("mediaURL");
   if (mediaLoc != null) {
     mediaLoc=mediaLoc.replace("\\","/");
     if (mediaLoc.contains("/Dropbox/Public/Anki")) {

@@ -4,7 +4,7 @@ case GESTURE_NOTHING:
     break;
 case GESTURE_ANSWER_EASE1:
   if (sDisplayAnswer) {
-    answerCard(Card.EASE_FAILED);
+    answerCard(EASE_FAILED);
   }
  else {
     displayCardAnswer();
@@ -12,7 +12,7 @@ case GESTURE_ANSWER_EASE1:
 break;
 case GESTURE_ANSWER_EASE2:
 if (sDisplayAnswer) {
-answerCard(Card.EASE_HARD);
+answerCard(EASE_HARD);
 }
  else {
 displayCardAnswer();
@@ -20,7 +20,7 @@ displayCardAnswer();
 break;
 case GESTURE_ANSWER_EASE3:
 if (sDisplayAnswer) {
-answerCard(Card.EASE_MID);
+answerCard(EASE_MID);
 }
  else {
 displayCardAnswer();
@@ -28,7 +28,7 @@ displayCardAnswer();
 break;
 case GESTURE_ANSWER_EASE4:
 if (sDisplayAnswer) {
-answerCard(Card.EASE_EASY);
+answerCard(EASE_EASY);
 }
  else {
 displayCardAnswer();
@@ -36,11 +36,11 @@ displayCardAnswer();
 break;
 case GESTURE_ANSWER_RECOMMENDED:
 if (sDisplayAnswer) {
-if (mCurrentCard.isRev()) {
-answerCard(Card.EASE_MID);
+if (true) {
+answerCard(EASE_MID);
 }
  else {
-answerCard(Card.EASE_HARD);
+answerCard(EASE_HARD);
 }
 }
  else {
@@ -49,11 +49,11 @@ displayCardAnswer();
 break;
 case GESTURE_ANSWER_BETTER_THAN_RECOMMENDED:
 if (sDisplayAnswer) {
-if (mCurrentCard.isRev()) {
-answerCard(Card.EASE_EASY);
+if (true) {
+answerCard(EASE_EASY);
 }
  else {
-answerCard(Card.EASE_MID);
+answerCard(EASE_MID);
 }
 }
 break;

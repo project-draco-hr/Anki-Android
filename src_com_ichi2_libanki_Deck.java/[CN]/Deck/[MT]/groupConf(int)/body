@@ -1,0 +1,18 @@
+{
+  Cursor cur=null;
+  try {
+    cur=getDB().getDatabase().rawQuery("SELECT conf FROM gconf WHERE id = " + gcid,null);
+    if (cur.moveToFirst()) {
+      return new JSONObject(cur.getString(0));
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+ finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+  return null;
+}

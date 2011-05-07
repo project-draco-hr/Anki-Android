@@ -1,0 +1,8 @@
+{
+  try {
+    mLrnCount=(int)mDb.queryScalar("SELECT count() FROM (SELECT id FROM cards WHERE queue = 1 " + _groupLimit() + " AND due < "+ (Utils.intNow() + mDeck.getQconf().getInt("collapseTime"))+ " LIMIT "+ mReportLimit);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

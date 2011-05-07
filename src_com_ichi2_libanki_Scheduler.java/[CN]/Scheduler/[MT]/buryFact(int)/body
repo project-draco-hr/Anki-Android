@@ -1,0 +1,19 @@
+{
+  mDeck.setDirty();
+  int[] cids;
+  Cursor cur=null;
+  try {
+    cur=mDb.getDatabase().rawQuery("SELECT id FROM cards WHERE fid = " + fid,null);
+    cids=new int[cur.getCount()];
+    while (cur.moveToNext()) {
+      cids[cur.getPosition()]=cur.getInt(0);
+    }
+  }
+  finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+  removeFailed(cids);
+  mDb.getDatabase().execSQL("UPDATE cards SET queue = -2 WHERE fidid = " + fid);
+}

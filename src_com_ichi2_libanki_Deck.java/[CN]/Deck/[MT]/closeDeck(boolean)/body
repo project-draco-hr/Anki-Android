@@ -1,0 +1,8 @@
+{
+  if (wait) {
+    DeckTask.waitToFinish();
+  }
+  cleanup();
+  commitToDB();
+  AnkiDatabaseManager.closeDatabase(mDeckPath);
+}

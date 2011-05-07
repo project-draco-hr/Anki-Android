@@ -1,0 +1,12 @@
+{
+  TreeMap<String,Integer> map=new TreeMap<String,Integer>();
+  for (int i=0; i < mFields.length(); i++) {
+    try {
+      map.put(mFields.getJSONObject(i).getString("name"),mFields.getJSONObject(i).getInt("ord"));
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  return map;
+}

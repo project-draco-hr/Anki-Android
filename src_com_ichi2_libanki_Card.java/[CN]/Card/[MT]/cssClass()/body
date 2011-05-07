@@ -1,0 +1,8 @@
+{
+  try {
+    return "cm" + Utils.hexifyID(getModel().getId()) + "-"+ Utils.hexifyID(getTemplate().getInt("ord"));
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

@@ -1,0 +1,10 @@
+{
+  card.setIvl(_graduatingIvl(card,conf,early));
+  card.setDue(mToday + card.getIvl());
+  try {
+    card.setFactor(conf.getInt("initalFactor"));
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

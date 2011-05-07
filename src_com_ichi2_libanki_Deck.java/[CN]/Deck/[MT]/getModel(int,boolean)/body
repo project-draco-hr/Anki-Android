@@ -1,0 +1,10 @@
+{
+  if (cache && mModelCache.containsKey(mid)) {
+    return mModelCache.get(mid);
+  }
+  Model m=new Model(this,mid);
+  if (cache) {
+    mModelCache.put(mid,m);
+  }
+  return m;
+}

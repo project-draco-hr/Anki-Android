@@ -2,6 +2,6 @@
   Log.i(AnkiDroidApp.TAG,"doInBackgroundOptimizeDeck");
   Deck deck=params[0].getDeck();
   long result=0;
-  result=deck.optimizeDeck();
+  result=deck.optimize();
   return new TaskData(deck,result);
 }

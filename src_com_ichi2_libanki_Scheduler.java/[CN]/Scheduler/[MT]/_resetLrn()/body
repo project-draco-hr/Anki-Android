@@ -1,0 +1,15 @@
+{
+  Cursor cur=null;
+  mLrnQueue.clear();
+  try {
+    cur=mDb.getDatabase().rawQuery("SELECT due, id FROM cards WHERE queue = 1 " + _groupLimit() + " AND due < "+ mDayCutoff+ " ORDER BY due LIMIT "+ mReportLimit,null);
+    while (cur.moveToNext()) {
+      mLrnQueue.add(new int[]{cur.getInt(0),cur.getInt(1)});
+    }
+  }
+  finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+}

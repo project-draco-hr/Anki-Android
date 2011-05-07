@@ -1,0 +1,11 @@
+{
+  if (mRevCount != 0) {
+    if (mRevQueue.isEmpty()) {
+      _resetRev();
+    }
+    return !mRevQueue.isEmpty();
+  }
+ else {
+    return false;
+  }
+}

@@ -1,0 +1,23 @@
+{
+  StringBuffer sb=new StringBuffer();
+  sb.append(prefix).append(" {");
+  if (null != fontFamily && 0 < fontFamily.trim().length()) {
+    sb.append("font-family:\"").append(fontFamily).append("\";\n");
+  }
+  if (0 < fontSize) {
+    sb.append("font-size:");
+    sb.append((percentage * fontSize) / 100);
+    sb.append("px;\n");
+  }
+  if (null != fontColour && 0 < fontColour.trim().length()) {
+    sb.append("color:").append(fontColour).append(";\n");
+  }
+  if (rtl) {
+    sb.append("direction:rtl;unicode-bidi:embed;\n");
+  }
+  if (rtl) {
+    sb.append("white-space:pre-wrap;\n");
+  }
+  sb.append("}\n");
+  return sb.toString();
+}

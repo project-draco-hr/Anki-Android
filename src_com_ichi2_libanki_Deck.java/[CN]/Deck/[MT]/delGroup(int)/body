@@ -1,0 +1,5 @@
+{
+  getDB().getDatabase().execSQL("UPDATE cards SET gid = 1 WHERE gid = " + gid);
+  getDB().getDatabase().execSQL("UPDATE facts SET gid = 1 WHERE gid = " + gid);
+  getDB().getDatabase().execSQL("DELETE FROM groups WHERE gid = " + gid);
+}

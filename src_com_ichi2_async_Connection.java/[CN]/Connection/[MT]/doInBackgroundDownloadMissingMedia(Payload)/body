@@ -4,14 +4,10 @@
   HashMap<String,String> missingSums=new HashMap<String,String>();
   Deck deck=(Deck)data.data[0];
   data.result=deck;
-  String syncName=deck.getDeckName();
+  String syncName="";
   data.success=false;
   data.data=new Object[]{0,0,0};
-  if (!deck.hasKey("mediaURL")) {
-    data.success=true;
-    return data;
-  }
-  String urlbase=deck.getVar("mediaURL");
+  String urlbase="";
   if (urlbase.equals("")) {
     data.success=true;
     return data;

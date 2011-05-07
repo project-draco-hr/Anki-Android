@@ -4,14 +4,10 @@
     double now=System.currentTimeMillis();
     HashMap<String,Object> results=(HashMap<String,Object>)data.result;
     Deck deck=(Deck)results.get("deck");
-    if (!deck.isUnpackNeeded()) {
-      data.success=true;
-      return data;
-    }
     SharedDeckDownload download=(SharedDeckDownload)args[0].data[0];
     SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
     String updatedCardsPref="numUpdatedCards:" + mDestination + "/tmp/"+ download.getFilename()+ ".anki.updating";
-    long totalCards=deck.retrieveCardCount();
+    long totalCards=deck.cardCount();
     download.setNumTotalCards((int)totalCards);
     long updatedCards=pref.getLong(updatedCardsPref,0);
     download.setNumUpdatedCards((int)updatedCards);
@@ -24,7 +20,6 @@
     mElapsedTime=0;
     while (updatedCards < totalCards && download.getStatus() == SharedDeckDownload.STATUS_UPDATING) {
       batchStart=System.currentTimeMillis();
-      updatedCards=deck.updateAllCardsFromPosition(updatedCards,batchSize);
       Editor editor=pref.edit();
       editor.putLong(updatedCardsPref,updatedCards);
       editor.commit();

@@ -1,4 +1,0 @@
-{
-  mNewAvail=(int)mDb.queryScalar(cardLimit("newActive","newInactive",String.format(Utils.ENGLISH_LOCALE,"SELECT count(*) FROM cards c WHERE queue = 2 AND due < %f",mDayCutoff)));
-  mSpacedCards.clear();
-}

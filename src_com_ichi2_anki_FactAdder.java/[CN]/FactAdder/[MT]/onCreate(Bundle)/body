@@ -10,18 +10,9 @@
   mTags=(Button)findViewById(R.id.FactAdderTagButton);
   mTags.setText(getResources().getString(R.string.CardEditorTags,mFactTags));
   mDeck=AnkiDroidApp.deck();
-  mModels=Model.getModels(mDeck);
-  mCurrentSelectedModelId=mDeck.getCurrentModelId();
-  mNewSelectedCardModels=new LinkedHashMap<Long,CardModel>();
-  cardModelIds=new ArrayList<Long>();
   modelChanged();
   mAddButton.setOnClickListener(new View.OnClickListener(){
     public void onClick(    View v){
-      for (      FieldEditText current : mEditFields) {
-        current.updateField();
-      }
-      mNewFact.setTags(mFactTags);
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ADD_FACT,mSaveFactHandler,new DeckTask.TaskData(mDeck,mNewFact,mSelectedCardModels));
     }
   }
 );

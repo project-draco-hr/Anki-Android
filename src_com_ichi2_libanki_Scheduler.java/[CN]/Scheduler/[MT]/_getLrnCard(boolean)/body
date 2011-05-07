@@ -1,0 +1,19 @@
+{
+  if (!mLrnQueue.isEmpty()) {
+    double cutoff=Utils.now();
+    if (collapse) {
+      try {
+        cutoff+=mDeck.getQconf().getInt("collapseTime");
+      }
+ catch (      JSONException e) {
+        throw new RuntimeException(e);
+      }
+    }
+    if (mLrnQueue.getLast()[0] < cutoff) {
+      int id=mLrnQueue.remove()[1];
+      mLrnCount-=1;
+      return id;
+    }
+  }
+  return 0;
+}

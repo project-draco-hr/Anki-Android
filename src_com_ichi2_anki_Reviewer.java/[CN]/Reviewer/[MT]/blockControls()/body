@@ -2,25 +2,25 @@
   mCard.setEnabled(false);
   mFlipCard.setEnabled(false);
 switch (mCurrentEase) {
-case Card.EASE_FAILED:
+case EASE_FAILED:
     mEase1.setClickable(false);
   mEase2.setEnabled(false);
 mEase3.setEnabled(false);
 mEase4.setEnabled(false);
 break;
-case Card.EASE_HARD:
+case EASE_HARD:
 mEase1.setEnabled(false);
 mEase2.setClickable(false);
 mEase3.setEnabled(false);
 mEase4.setEnabled(false);
 break;
-case Card.EASE_MID:
+case EASE_MID:
 mEase1.setEnabled(false);
 mEase2.setEnabled(false);
 mEase3.setClickable(false);
 mEase4.setEnabled(false);
 break;
-case Card.EASE_EASY:
+case EASE_EASY:
 mEase1.setEnabled(false);
 mEase2.setEnabled(false);
 mEase3.setEnabled(false);

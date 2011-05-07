@@ -1,0 +1,18 @@
+{
+  mDeck=deck;
+  mDb=mDeck.getDB();
+  mId=id;
+  if (id != 0) {
+    fromDB(id);
+  }
+ else {
+    try {
+      mFields=new JSONArray(defaultField);
+      mTemplates=new JSONArray(defaultTemplate);
+      mConf=new JSONObject(defaultConf);
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
+}
