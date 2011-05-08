@@ -1,0 +1,20 @@
+{
+  try {
+    if (card.getQueue() == 0 || card.getQueue() == 1) {
+      return _nextLrnIvl(card,ease);
+    }
+ else     if (ease == 1) {
+      JSONObject conf=_cardConf(card).getJSONObject("lapse");
+      if (conf.getString("relearn").equals("True")) {
+        return conf.getJSONArray("delays").getInt(0) * 60;
+      }
+      return _nextLapseIvl(card,conf) * 86400;
+    }
+ else {
+      return _nextRevIvl(card,ease) * 86400;
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

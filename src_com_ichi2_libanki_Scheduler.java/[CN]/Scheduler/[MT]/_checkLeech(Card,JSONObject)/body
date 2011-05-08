@@ -9,9 +9,10 @@
       Fact f=card.getFact();
       f.addTag("leech");
       f.flush();
-      int a=conf.getInt("leechAction");
-      if (a == 0) {
+      card.setLeechFlag(true);
+      if (conf.getInt("leechAction") == LEECH_ACTION_SUSPEND) {
         suspendCards(new int[]{card.getId()});
+        card.setSuspendedFlag(true);
       }
     }
   }

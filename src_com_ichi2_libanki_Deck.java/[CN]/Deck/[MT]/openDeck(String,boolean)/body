@@ -15,5 +15,11 @@
   deck.mLastSessionStart=0;
   deck.mStdSched=new Scheduler(deck);
   deck.mSched=deck.mStdSched;
+  if (rebuild) {
+    deck.mSched.reset();
+  }
+ else {
+    deck.mSched._resetCounts();
+  }
   return deck;
 }

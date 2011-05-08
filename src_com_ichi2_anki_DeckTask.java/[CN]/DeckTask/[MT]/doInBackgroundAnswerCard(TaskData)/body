@@ -11,6 +11,7 @@
     }
     newCard=deck.getSched().getCard();
     if (oldCard != null) {
+      publishProgress(new TaskData(newCard,oldCard.getLeechFlag(),oldCard.getSuspendedFlag()));
     }
  else {
       publishProgress(new TaskData(newCard));

@@ -19,7 +19,7 @@
  catch (    JSONException e) {
       throw new RuntimeException(e);
     }
-    Log.i(AnkiDroidApp.TAG,"openDeck - Read " + cursor.getColumnCount() + " columns from decks table.");
+    Log.i(AnkiDroidApp.TAG,"openDeck - Read " + cursor.getColumnCount() + " columns from deck table.");
     return true;
   }
   finally {

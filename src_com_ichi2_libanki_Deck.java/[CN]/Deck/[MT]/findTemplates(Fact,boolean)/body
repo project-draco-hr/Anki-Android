@@ -3,13 +3,13 @@
   for (  Map.Entry<Integer,JSONObject> t : fact.getModel().getTemplates().entrySet()) {
     JSONObject template=t.getValue();
     try {
-      if (template.getString("actv").equals("true") || !checkActive) {
+      if (template.getString("actv").equals("True") || !checkActive) {
         HashMap<String,String> now=_renderQA(fact.getModel(),t.getKey(),fact.getFields(),null,null);
         HashMap<String,String> empty=_renderQA(fact.getModel(),t.getKey(),new String[fact.getFields().length],null,null);
         if (now.get("q").equals(empty.get("q"))) {
           continue;
         }
-        if (!template.getString("emptyAns").equals("true")) {
+        if (!template.getString("emptyAns").equals("True")) {
           if (now.get("a").equals(empty.get("a"))) {
             continue;
           }

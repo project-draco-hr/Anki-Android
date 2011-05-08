@@ -14,5 +14,11 @@
  else {
     ivl=-_delayForGrade(conf,card.getGrade());
   }
-  mDb.getDatabase().execSQL("INSERT INTO revlog VALUES (" + (int)(Utils.now() * 1000) + ", "+ card.getId()+ ", "+ ease+ ", "+ ivl+ ", "+ lastIvl+ ", "+ card.getFactor()+ ", "+ taken+ ", "+ type+ ")");
+  int time=(int)(Utils.now() * 1000);
+  try {
+    log(time,card.getId(),ease,ivl,lastIvl,card.getFactor(),taken,type);
+  }
+ catch (  SQLiteConstraintException e) {
+    log(time + 10,card.getId(),ease,ivl,lastIvl,card.getFactor(),taken,type);
+  }
 }

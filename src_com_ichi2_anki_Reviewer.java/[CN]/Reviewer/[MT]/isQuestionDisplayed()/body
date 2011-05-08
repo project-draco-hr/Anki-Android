@@ -6,7 +6,7 @@ case HQIA_DO_SHOW:
   return true;
 case HQIA_CARD_MODEL:
 try {
-  return !mCurrentCard.getTemplate().getString("hideQ").equals("true");
+  return !mCurrentCard.getTemplate().getString("hideQ").equals("True");
 }
  catch (JSONException e) {
   throw new RuntimeException(e);

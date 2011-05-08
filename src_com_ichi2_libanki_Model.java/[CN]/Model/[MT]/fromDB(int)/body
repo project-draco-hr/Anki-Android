@@ -23,7 +23,7 @@
     }
   }
   mTemplateMap=new TreeMap<Integer,JSONObject>();
-  for (int i=0; i < mFields.length(); i++) {
+  for (int i=0; i < mTemplates.length(); i++) {
     try {
       mTemplateMap.put(mTemplates.getJSONObject(i).getInt("ord"),mTemplates.getJSONObject(i));
     }

@@ -7,7 +7,7 @@
     card.setIvl(_nextLapseIvl(card,conf));
     card.setFactor(Math.max(1300,card.getFactor() - 200));
     card.setDue(mToday + card.getIvl());
-    if (conf.getInt("relearn") == 1) {
+    if (conf.getString("relearn").equals("True")) {
       card.setEDue(card.getDue());
       card.setDue((int)(_delayForGrade(conf,0) + Utils.now()));
       card.setQueue(1);

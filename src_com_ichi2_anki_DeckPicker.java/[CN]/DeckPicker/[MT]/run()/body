@@ -40,7 +40,7 @@
         }
         Bundle data=new Bundle();
         Message msg=Message.obtain();
-        if (version < Deck.DECK_VERSION) {
+        if (false) {
           data.putString("absPath",path);
           data.putInt("msgtype",MSG_UPGRADE_FAILURE);
           data.putInt("version",version);
@@ -49,14 +49,13 @@
           mHandler.sendMessage(msg);
         }
  else {
-          int[] counts=deck.getSched().counts();
+          int[] counts=deck.getSched().allCounts();
           int dueCards=counts[Scheduler.COUNTS_REV] + counts[Scheduler.COUNTS_LRN];
           int totalCards=deck.cardCount();
           int newCards=counts[Scheduler.COUNTS_NEW];
-          int totalNewCards=deck.getTotalNewCount();
-          int matureCards=0;
-          int totalRevCards=0;
-          int totalCardsCompletionBar=totalRevCards + totalNewCards;
+          int totalNewCards=deck.getSched().totalNewCardCount();
+          int matureCards=deck.getSched().matureCardCount();
+          String upgradeNotes="";
           deck.closeDeck(false);
           data.putString("absPath",path);
           data.putInt("msgtype",MSG_UPGRADE_SUCCESS);
@@ -64,11 +63,12 @@
           data.putInt("total",totalCards);
           data.putInt("new",newCards);
           data.putInt("totalNew",totalNewCards);
+          data.putString("notes",upgradeNotes);
           int rateOfCompletionMat;
           int rateOfCompletionAll;
-          if (totalCardsCompletionBar != 0) {
-            rateOfCompletionMat=(matureCards * 100) / totalCardsCompletionBar;
-            rateOfCompletionAll=(totalRevCards * 100) / totalCardsCompletionBar;
+          if (totalCards != 0) {
+            rateOfCompletionMat=(matureCards * 100) / totalCards;
+            rateOfCompletionAll=((totalCards - totalNewCards) * 100) / totalCards;
           }
  else {
             rateOfCompletionMat=0;
@@ -79,6 +79,7 @@
           msg.setData(data);
           mTotalDueCards+=dueCards;
           mTotalCards+=totalCards;
+          mTotalTime+=deck.getSched().eta() / 60;
           mLoadingFinished--;
           mHandler.sendMessage(msg);
         }

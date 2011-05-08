@@ -1,0 +1,44 @@
+{
+  int type;
+  int unit=99;
+  int point=0;
+  if (Math.abs(time) < 60 || unit < 1) {
+    type=TIME_SECONDS;
+  }
+ else   if (Math.abs(time) < 3599 || unit < 2) {
+    type=TIME_MINUTES;
+  }
+ else   if (Math.abs(time) < 60 * 60 * 24 || unit < 3) {
+    type=TIME_HOURS;
+  }
+ else   if (Math.abs(time) < 60 * 60 * 24* 30 || unit < 4) {
+    type=TIME_DAYS;
+  }
+ else   if (Math.abs(time) < 60 * 60 * 24* 365 || unit < 5) {
+    type=TIME_MONTHS;
+    point+=1;
+  }
+ else {
+    type=TIME_YEARS;
+    point+=1;
+  }
+  time=convertSecondsTo(time,type);
+  time=Math.round(time * (10 ^ point)) / (10 ^ point);
+  Resources res=AnkiDroidApp.getAppResources();
+  if (!inFormat) {
+    if (time == 1) {
+      return res.getStringArray(R.array.next_review_s)[type];
+    }
+ else {
+      return String.format(res.getStringArray(R.array.next_review_p)[type],formatDouble(type,time));
+    }
+  }
+ else {
+    if (time == 1) {
+      return res.getStringArray(R.array.next_review_in_s)[type];
+    }
+ else {
+      return String.format(res.getStringArray(R.array.next_review_in_p)[type],formatDouble(type,time));
+    }
+  }
+}

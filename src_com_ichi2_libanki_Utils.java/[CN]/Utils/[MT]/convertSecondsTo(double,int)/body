@@ -1,0 +1,18 @@
+{
+switch (type) {
+case TIME_SECONDS:
+    return seconds;
+case TIME_MINUTES:
+  return seconds / 60.0;
+case TIME_HOURS:
+return seconds / 3600.0;
+case TIME_DAYS:
+return seconds / 86400.0;
+case TIME_MONTHS:
+return seconds / 2592000.0;
+case TIME_YEARS:
+return seconds / 31536000.0;
+default :
+return 0;
+}
+}

@@ -6,5 +6,11 @@
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
-  mDb.getDatabase().execSQL("INSERT INTO revlog VALUES (" + (int)(Utils.now() * 1000) + ", "+ card.getId()+ ", "+ ease+ ", "+ card.getIvl()+ ", "+ card.getLastIvl()+ ", "+ card.getFactor()+ ", "+ taken+ ", "+ 1+ ")");
+  int time=(int)(Utils.now() * 1000);
+  try {
+    log(time,card.getId(),ease,card.getId(),card.getLastIvl(),card.getFactor(),taken,1);
+  }
+ catch (  SQLiteConstraintException e) {
+    log(time + 10,card.getId(),ease,card.getId(),card.getLastIvl(),card.getFactor(),taken,1);
+  }
 }
