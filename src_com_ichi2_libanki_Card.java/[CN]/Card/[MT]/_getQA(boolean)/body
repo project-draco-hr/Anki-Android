@@ -1,9 +1,10 @@
 {
   if (mQA == null || reload) {
+    mQA=new HashMap<String,String>();
     Cursor cursor=null;
     String gname="";
     try {
-      cursor=mDeck.getDB().getDatabase().rawQuery("SELECT name FROM groups WHERE id " + mGId,null);
+      cursor=mDeck.getDB().getDatabase().rawQuery("SELECT name FROM groups WHERE id = " + mGId,null);
       while (cursor.moveToNext()) {
         gname=cursor.getString(0);
       }
@@ -13,7 +14,7 @@
         cursor.close();
       }
     }
-    mQA=mDeck._renderQA(mModel,mOrd,getFact().getFields(),gname,getFact().stringTags());
+    mQA=mDeck._renderQA(getModel(),mOrd,getFact().getFields(),gname,getFact().stringTags());
   }
   return mQA;
 }

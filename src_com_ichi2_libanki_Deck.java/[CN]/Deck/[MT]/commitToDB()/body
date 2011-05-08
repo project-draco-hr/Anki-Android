@@ -10,5 +10,5 @@
   values.put("qconf",mQconf.toString());
   values.put("conf",mConf.toString());
   values.put("data",mData.toString());
-  getDB().getDatabase().update("decks",values,null,null);
+  getDB().getDatabase().update("deck",values,null,null);
 }

@@ -1,7 +1,7 @@
 {
   Cursor cursor=null;
   try {
-    cursor=mDb.getDatabase().rawQuery("SELECT crt, mod, name, flds, tmpls, conf, css FROM cards WHERE id = " + id,null);
+    cursor=mDb.getDatabase().rawQuery("SELECT crt, mod, name, flds, tmpls, conf, css FROM models WHERE id = " + id,null);
     if (!cursor.moveToFirst()) {
       Log.w(AnkiDroidApp.TAG,"Card.java (fromDB(id)): No result from query.");
       return false;

@@ -20,7 +20,7 @@
     format=format.replace("cloze","cq:");
     d.put("q",model.getCmpldTemplate(ord)[0].execute(fields));
     format=template.getString("afmt");
-    if (model.getConf().getInt("clozectx") != 0) {
+    if (model.getConf().getString("clozectx").equals("true")) {
       format=format.replace("cloze:","cactx:");
     }
  else {

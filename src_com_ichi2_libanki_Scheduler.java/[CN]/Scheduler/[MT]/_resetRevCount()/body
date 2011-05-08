@@ -1,3 +1,3 @@
 {
-  mRevCount=(int)mDb.queryScalar("SELECT count() FROM (SELECT id FROM cards " + "WHERE queue = 2 " + _groupLimit() + " AND due <= "+ mToday+ "LIMIT "+ mReportLimit+ ")");
+  mRevCount=(int)mDb.queryScalar("SELECT count() FROM (SELECT id FROM cards " + "WHERE queue = 2 " + _groupLimit() + " AND due <= "+ mToday+ " LIMIT "+ mReportLimit+ ")");
 }
