@@ -5,6 +5,5 @@
       other.add(t);
     }
   }
-  mTags.clear();
-  mTags.addAll(other);
+  mTags=(String[])other.toArray();
 }

@@ -11,11 +11,11 @@
   }
  else   if (ease == 4) {
     try {
-      interval=(card.getIvl() + delay) * fct * conf.getJSONObject("rev").getInt("ease4");
+      interval=(card.getIvl() + delay) * fct * conf.getJSONObject("rev").getDouble("ease4");
     }
  catch (    JSONException e) {
       throw new RuntimeException(e);
     }
   }
-  return Math.max(card.getIvl() + ease == 4 ? 2 : 1,(int)interval);
+  return Math.max(card.getIvl() + (ease == 4 ? 2 : 1),(int)interval);
 }

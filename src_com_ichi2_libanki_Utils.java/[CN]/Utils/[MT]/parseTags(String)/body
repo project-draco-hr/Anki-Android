@@ -1,6 +1,6 @@
 {
   if (tags != null && tags.length() != 0) {
-    return tags.split(" +|, *");
+    return tags.split("\\s");
   }
  else {
     return new String[]{};

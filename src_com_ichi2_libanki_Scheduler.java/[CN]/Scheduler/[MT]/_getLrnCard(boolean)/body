@@ -9,7 +9,7 @@
         throw new RuntimeException(e);
       }
     }
-    if (mLrnQueue.getLast()[0] < cutoff) {
+    if (mLrnQueue.getFirst()[0] < cutoff) {
       int id=mLrnQueue.remove()[1];
       mLrnCount-=1;
       return id;

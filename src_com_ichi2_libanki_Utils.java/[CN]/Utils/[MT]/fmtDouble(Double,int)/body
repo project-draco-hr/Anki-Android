@@ -1,0 +1,7 @@
+{
+  if (mCurrentNumberFormat == null) {
+    mCurrentNumberFormat=NumberFormat.getInstance(Locale.getDefault());
+  }
+  mCurrentNumberFormat.setMaximumFractionDigits(point);
+  return mCurrentNumberFormat.format(value);
+}

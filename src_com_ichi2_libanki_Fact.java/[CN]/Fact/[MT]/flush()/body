@@ -7,14 +7,14 @@
   sb.append(mGId).append(", ");
   sb.append(mCrt).append(", ");
   sb.append(mMod).append(", ");
-  sb.append(stringTags()).append(", ");
-  sb.append(joinedFields()).append(", ");
-  sb.append(mFields[mModel.sortIdx()]).append(", ");
-  sb.append(mData).append(")");
+  sb.append("\"").append(stringTags()).append("\", ");
+  sb.append("\"").append(joinedFields()).append("\", ");
+  sb.append("\"").append(mFields[mModel.sortIdx()]).append("\", ");
+  sb.append("\"").append(mData).append("\")");
   Cursor cur=null;
   try {
     cur=mDeck.getDB().getDatabase().rawQuery(sb.toString(),null);
-    if (!cur.moveToFirst()) {
+    if (cur.moveToFirst()) {
       mId=cur.getInt(0);
     }
   }

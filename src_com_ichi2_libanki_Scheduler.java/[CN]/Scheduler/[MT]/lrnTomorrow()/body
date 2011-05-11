@@ -1,0 +1,3 @@
+{
+  return (int)mDb.queryScalar("SELECT count() FROM cards WHERE queue = 1 AND due < " + mDayCutoff + 86400);
+}

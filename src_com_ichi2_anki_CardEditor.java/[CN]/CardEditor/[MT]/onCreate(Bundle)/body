@@ -6,43 +6,83 @@
   mSave=(Button)findViewById(R.id.CardEditorSaveButton);
   mCancel=(Button)findViewById(R.id.CardEditorCancelButton);
   mTags=(Button)findViewById(R.id.CardEditorTagButton);
-  if (getIntent().getBooleanExtra("callfromcardbrowser",false)) {
-    mEditorCard=CardBrowser.getEditorCard();
-  }
+  mTags=(Button)findViewById(R.id.CardEditorTagButton);
+  mModelButtons=(LinearLayout)findViewById(R.id.CardEditorSelectModelLayout);
+  mModelButton=(Button)findViewById(R.id.CardEditorModelButton);
+  mTemplateButton=(Button)findViewById(R.id.CardEditorTemplateButton);
+  mDeck=AnkiDroidApp.deck();
+  mModels=mDeck.models();
+  mCurrentModel=mDeck.currentModel();
+switch (getIntent().getIntExtra(CARD_EDITOR_ACTION,ADD_CARD)) {
+case EDIT_REVIEWER_CARD:
+    mEditorFact=Reviewer.getEditorCard().getFact();
+  break;
+case EDIT_BROWSER_CARD:
+mEditorFact=CardBrowser.getEditorCard().getFact();
+break;
+case ADD_CARD:
+mEditorFact=new Fact(mDeck,mCurrentModel);
+mModelButtons.setVisibility(View.VISIBLE);
+mAddFact=true;
+mModelButton.setOnClickListener(new View.OnClickListener(){
+public void onClick(View v){
+showDialog(DIALOG_MODEL_SELECT);
+}
+}
+);
+mTemplateButton.setOnClickListener(new View.OnClickListener(){
+public void onClick(View v){
+templatesDialog().show();
+}
+}
+);
+break;
+}
+mFields=mEditorFact.getFields();
+mEditFields=new LinkedList<FieldEditText>();
+mModified=false;
+mFactTags=mEditorFact.stringTags();
+mTags.setText(getResources().getString(R.string.CardEditorTags,mFactTags));
+mTags.setOnClickListener(new View.OnClickListener(){
+@Override public void onClick(View v){
+recreateTagsDialog();
+if (!mTagsDialog.isShowing()) {
+mTagsDialog.show();
+}
+}
+}
+);
+mSave.setOnClickListener(new View.OnClickListener(){
+@Override public void onClick(View v){
+for (FieldEditText f : mEditFields) {
+mModified|=f.updateField();
+}
+if (!mEditorFact.stringTags().equals(mFactTags)) {
+mEditorFact.setTags(mFactTags);
+mModified=true;
+}
+if (mModified) {
+if (mAddFact) {
+AnkiDroidApp.deck().addFact(mEditorFact);
+}
  else {
-    mEditorCard=Reviewer.getEditorCard();
-  }
-  mEditorFact=mEditorCard.getFact();
-  mTags.setText(getResources().getString(R.string.CardEditorTags,mFactTags));
-  mTags.setOnClickListener(new View.OnClickListener(){
-    @Override public void onClick(    View v){
-      recreateTagsDialog();
-      if (!mTagsDialog.isShowing()) {
-        mTagsDialog.show();
-      }
-    }
-  }
-);
-  allTags=null;
-  mSelectedTags=new HashSet<String>();
-  mSave.setOnClickListener(new View.OnClickListener(){
-    @Override public void onClick(    View v){
-      if (mModified) {
-        setResult(RESULT_OK);
-      }
+mEditorFact.flush();
+}
+setResult(RESULT_OK);
+}
  else {
-        setResult(RESULT_CANCELED);
-      }
-      closeCardEditor();
-    }
-  }
+setResult(RESULT_CANCELED);
+}
+}
+}
 );
-  mCancel.setOnClickListener(new View.OnClickListener(){
-    @Override public void onClick(    View v){
-      setResult(RESULT_CANCELED);
-      closeCardEditor();
-    }
-  }
+mCancel.setOnClickListener(new View.OnClickListener(){
+@Override public void onClick(View v){
+setResult(RESULT_CANCELED);
+closeCardEditor();
+}
+}
 );
-  initDialogs();
+initDialogs();
+modelChanged();
 }

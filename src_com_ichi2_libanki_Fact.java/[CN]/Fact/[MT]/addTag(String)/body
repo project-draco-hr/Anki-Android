@@ -1,3 +1,8 @@
 {
-  mTags.add(tag);
+  String[] oldtags=mTags;
+  mTags=new String[oldtags.length + 1];
+  for (int i=0; i < mTags.length - 1; i++) {
+    mTags[i]=oldtags[i];
+  }
+  mTags[mTags.length - 1]=tag;
 }

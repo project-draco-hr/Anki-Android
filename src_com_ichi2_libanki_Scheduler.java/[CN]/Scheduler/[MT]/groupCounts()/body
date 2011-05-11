@@ -1,18 +1,15 @@
 {
   Cursor cur=null;
   TreeMap<String,int[]> counts=new TreeMap<String,int[]>();
-  int[][] gids;
+  TreeMap<Integer,String> gids=new TreeMap<Integer,String>();
   try {
-    cur=mDb.getDatabase().rawQuery("SELECT gid, count(), " + "sum(CASE WHEN queue = 2 AND due <= " + mToday + " THEN 1 ELSE 0 END), "+ "sum(CASE WHEN queue = 0 THEN 1 ELSE 0 END) FROM cards GROUP BY gid",null);
-    gids=new int[cur.getCount()][3];
-    while (cur.moveToNext()) {
-      gids[cur.getInt(0)][0]=cur.getInt(1);
-      gids[cur.getInt(0)][1]=cur.getInt(2);
-      gids[cur.getInt(0)][2]=cur.getInt(3);
-    }
     cur=mDb.getDatabase().rawQuery("SELECT id, name FROM groups ORDER BY name",null);
     while (cur.moveToNext()) {
-      counts.put(cur.getString(1),gids[cur.getInt(0)]);
+      gids.put(cur.getInt(0),cur.getString(1));
+    }
+    cur=mDb.getDatabase().rawQuery("SELECT gid, count(), " + "sum(CASE WHEN queue = 2 AND due <= " + mToday + " THEN 1 ELSE 0 END), "+ "sum(CASE WHEN queue = 0 THEN 1 ELSE 0 END) FROM cards GROUP BY gid",null);
+    while (cur.moveToNext()) {
+      counts.put(gids.get(cur.getInt(0)),new int[]{cur.getInt(1),cur.getInt(2),cur.getInt(3)});
     }
   }
   finally {

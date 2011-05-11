@@ -1,0 +1,10 @@
+{
+  super(context);
+  mFact=fact;
+  mFieldOrd=fieldOrd;
+  String content=mFact.getFields()[fieldOrd];
+  if (content == null) {
+    content="";
+  }
+  this.setText(content);
+}

@@ -1,5 +1,6 @@
 {
   Log.i(AnkiDroidApp.TAG,"answerCard");
+  mDeck.markReview(card);
   mReps+=1;
   card.setReps(card.getReps() + 1);
   if (card.getQueue() == 0) {

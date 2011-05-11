@@ -1,3 +1,6 @@
 {
+  Deck deck=params[0].getDeck();
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundLoadCards");
+  publishProgress(new TaskData(deck.renderQA(null,"all",false)));
   return null;
 }

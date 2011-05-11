@@ -1,0 +1,18 @@
+{
+  Card card=mUndoQueue.removeLast().mCard;
+  card.flushSched();
+  Cursor cur=null;
+  int last=0;
+  try {
+    cur=getDB().getDatabase().rawQuery("SELECT time FROM revlog WHERE id = " + card.getId() + " ORDER BY time DESC LIMIT 1",null);
+    if (cur.moveToFirst()) {
+      last=cur.getInt(0);
+    }
+  }
+  finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+  getDB().getDatabase().execSQL("DELETE FROM revlog WHERE time = " + last);
+}

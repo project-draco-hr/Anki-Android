@@ -14,7 +14,7 @@
         cursor.close();
       }
     }
-    mQA=mDeck._renderQA(getModel(),mOrd,getFact().getFields(),gname,getFact().stringTags());
+    mQA=mDeck._renderQA(getModel(),gname,mDeck.new QAData(mId,mFId,getModel().getId(),mGId,mOrd,getFact().stringTags(),getFact().joinedFields()));
   }
   return mQA;
 }

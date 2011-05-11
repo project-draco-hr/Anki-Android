@@ -36,12 +36,7 @@ displayCardAnswer();
 break;
 case GESTURE_ANSWER_RECOMMENDED:
 if (sDisplayAnswer) {
-if (true) {
-answerCard(EASE_MID);
-}
- else {
-answerCard(EASE_HARD);
-}
+answerCard(mCurrentScheduler.recButton(mCurrentCard));
 }
  else {
 displayCardAnswer();
@@ -49,12 +44,7 @@ displayCardAnswer();
 break;
 case GESTURE_ANSWER_BETTER_THAN_RECOMMENDED:
 if (sDisplayAnswer) {
-if (true) {
-answerCard(EASE_EASY);
-}
- else {
-answerCard(EASE_MID);
-}
+answerCard(mCurrentScheduler.recButton(mCurrentCard) + 1);
 }
 break;
 case GESTURE_EXIT:

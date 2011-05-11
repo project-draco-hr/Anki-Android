@@ -18,9 +18,6 @@
       Deck deck=Deck.openDeck(absPath,false);
       int[] counts=deck.getSched().counts();
       Deck currentDeck=AnkiDroidApp.deck();
-      if (currentDeck != null && currentDeck.getDB() != deck.getDB()) {
-        deck.closeDeck();
-      }
       decks.add(new DeckStatus(absPath,deckName,counts[Scheduler.COUNTS_NEW],counts[Scheduler.COUNTS_REV],counts[Scheduler.COUNTS_LRN]));
     }
  catch (    SQLException e) {

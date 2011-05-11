@@ -4,7 +4,7 @@
   if (mId != 0) {
     fromDb(id);
   }
- else {
+ else   if (model != null) {
     mModel=model;
     try {
       mGId=mDeck.defaultGroup(model.getConf().getInt("gid"));
@@ -15,8 +15,9 @@
     mMId=model.getId();
     mCrt=Utils.intNow();
     mMod=mCrt;
-    mFields=new String[mModel.fieldMap().size()];
-    mData="";
+    mTags=new String[]{""};
     mFMap=mModel.fieldMap();
+    mFields=new String[mFMap.size()];
+    mData="";
   }
 }

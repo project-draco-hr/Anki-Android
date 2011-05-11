@@ -1,0 +1,8 @@
+{
+  String newValue=this.getText().toString();
+  if (!mFact.getFields()[mFieldOrd].equals(newValue)) {
+    mFact.getFields()[mFieldOrd]=newValue;
+    return true;
+  }
+  return false;
+}

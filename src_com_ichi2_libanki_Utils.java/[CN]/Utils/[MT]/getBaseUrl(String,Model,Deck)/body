@@ -1,7 +1,18 @@
 {
-  String base="";
-  if (mediaDir != null) {
-    base=urlEncodeMediaDir(mediaDir);
+  String base;
+  try {
+    base=deck.getConf().getString("mediaURL");
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  if (base.length() != 0 && !base.equalsIgnoreCase("null")) {
+    return base;
+  }
+ else {
+    if (mediaDir != null) {
+      base=urlEncodeMediaDir(mediaDir);
+    }
   }
   return base;
 }

@@ -1,7 +1,13 @@
 {
-  StringBuilder result=new StringBuilder(128);
-  for (  String tag : tags) {
-    result.append(tag).append(" ");
+  if (tags == null || tags.size() == 0) {
+    return "";
   }
-  return result.toString().trim();
+ else {
+    StringBuilder result=new StringBuilder(128);
+    result.append(" ");
+    for (    String tag : tags) {
+      result.append(tag).append(" ");
+    }
+    return result.toString();
+  }
 }

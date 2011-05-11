@@ -1,15 +1,18 @@
 {
   ArrayList<JSONObject> ok=new ArrayList<JSONObject>();
+  Model model=fact.getModel();
   for (  Map.Entry<Integer,JSONObject> t : fact.getModel().getTemplates().entrySet()) {
     JSONObject template=t.getValue();
     try {
-      if (template.getString("actv").equals("True") || !checkActive) {
-        HashMap<String,String> now=_renderQA(fact.getModel(),t.getKey(),fact.getFields(),null,null);
-        HashMap<String,String> empty=_renderQA(fact.getModel(),t.getKey(),new String[fact.getFields().length],null,null);
+      if (template.getString("actv").toLowerCase().equals("true") || !checkActive) {
+        QAData data=new QAData(1,1,model.getId(),1,template.getInt("ord"),"",fact.joinedFields());
+        HashMap<String,String> now=_renderQA(model,null,data);
+        data.mFields="";
+        HashMap<String,String> empty=_renderQA(model,null,data);
         if (now.get("q").equals(empty.get("q"))) {
           continue;
         }
-        if (!template.getString("emptyAns").equals("True")) {
+        if (!template.getString("emptyAns").toLowerCase().toLowerCase().equals("true")) {
           if (now.get("a").equals(empty.get("a"))) {
             continue;
           }

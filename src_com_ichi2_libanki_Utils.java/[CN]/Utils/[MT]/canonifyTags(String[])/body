@@ -1,0 +1,8 @@
+{
+  for (int i=0; i < tags.length; i++) {
+    if (tags[i].startsWith(":")) {
+      tags[i].replace("^:+","");
+    }
+  }
+  return joinTags(new TreeSet<String>(Arrays.asList(tags)));
+}

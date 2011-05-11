@@ -16,21 +16,20 @@
   }
  else   if (Math.abs(time) < 60 * 60 * 24* 365 || unit < 5) {
     type=TIME_MONTHS;
-    point+=1;
+    point=1;
   }
  else {
     type=TIME_YEARS;
-    point+=1;
+    point=1;
   }
   time=convertSecondsTo(time,type);
-  time=Math.round(time * (10 ^ point)) / (10 ^ point);
   Resources res=AnkiDroidApp.getAppResources();
   if (!inFormat) {
     if (time == 1) {
       return res.getStringArray(R.array.next_review_s)[type];
     }
  else {
-      return String.format(res.getStringArray(R.array.next_review_p)[type],formatDouble(type,time));
+      return String.format(res.getStringArray(R.array.next_review_p)[type],fmtDouble(time,point));
     }
   }
  else {
@@ -38,7 +37,7 @@
       return res.getStringArray(R.array.next_review_in_s)[type];
     }
  else {
-      return String.format(res.getStringArray(R.array.next_review_in_p)[type],formatDouble(type,time));
+      return String.format(res.getStringArray(R.array.next_review_in_p)[type],fmtDouble(time,point));
     }
   }
 }

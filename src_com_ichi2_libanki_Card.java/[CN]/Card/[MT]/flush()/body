@@ -17,6 +17,6 @@
   sb.append(mGrade).append(", ");
   sb.append(mCycles).append(", ");
   sb.append(mEDue).append(", ");
-  sb.append(mData).append(")");
+  sb.append("\"").append(mData).append("\")");
   mDeck.getDB().getDatabase().execSQL(sb.toString());
 }

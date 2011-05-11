@@ -1,0 +1,41 @@
+{
+  Dialog dialog;
+switch (id) {
+case DIALOG_MODEL_SELECT:
+    ArrayList<CharSequence> dialogItems=new ArrayList<CharSequence>();
+  final ArrayList<Integer> dialogIds=new ArrayList<Integer>();
+Model mModel;
+AlertDialog.Builder builder=new AlertDialog.Builder(this);
+builder.setTitle(R.string.select_model);
+for (int i : mModels.keySet()) {
+mModel=mModels.get(i);
+dialogItems.add(mModel.getName());
+dialogIds.add(i);
+}
+CharSequence[] items=new CharSequence[dialogItems.size()];
+dialogItems.toArray(items);
+builder.setItems(items,new DialogInterface.OnClickListener(){
+public void onClick(DialogInterface dialog,int item){
+int oldModelId=mCurrentModel.getId();
+mCurrentModel=mDeck.getModel(dialogIds.get(item));
+if (oldModelId != dialogIds.get(item)) {
+int size=mEditFields.size();
+String[] oldValues=new String[size];
+for (int i=0; i < size; i++) {
+oldValues[i]=mEditFields.get(i).getText().toString();
+}
+modelChanged();
+for (int i=0; i < Math.min(size,mEditFields.size()); i++) {
+mEditFields.get(i).setText(oldValues[i]);
+}
+}
+}
+}
+);
+AlertDialog alert=builder.create();
+return alert;
+default :
+dialog=null;
+}
+return dialog;
+}
