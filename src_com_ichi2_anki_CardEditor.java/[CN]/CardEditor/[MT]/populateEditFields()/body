@@ -1,4 +1,5 @@
 {
+  mFieldsLayoutContainer.removeAllViews();
   for (int i=0; i < mFields.length; i++) {
     FieldEditText newTextbox=new FieldEditText(this,mEditorFact,i);
     TextView label=newTextbox.getLabel();

@@ -41,11 +41,7 @@ templatesDialog().show();
 );
 break;
 }
-mFields=mEditorFact.getFields();
-mEditFields=new LinkedList<FieldEditText>();
-mModified=false;
-mFactTags=mEditorFact.stringTags();
-mTags.setText(getResources().getString(R.string.CardEditorTags,mFactTags));
+initializeFactVariables();
 mTags.setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
 recreateTagsDialog();

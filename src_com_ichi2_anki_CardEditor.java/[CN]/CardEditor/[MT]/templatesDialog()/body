@@ -1,7 +1,6 @@
 {
   Resources res=getResources();
   mTemplates=mCurrentModel.getTemplates();
-  mSelectedTemplates.clear();
   int length=mTemplates.size();
   boolean[] checked=new boolean[length];
   String[] templates=new String[length];
@@ -9,9 +8,8 @@
     for (int i=0; i < length; i++) {
       JSONObject template=mTemplates.get(i);
       templates[i]=template.getString("name");
-      if (template.getString("actv").toLowerCase().equals("true")) {
+      if (mSelectedTemplates.containsKey(i)) {
         checked[i]=true;
-        mSelectedTemplates.put(i,template);
       }
     }
   }
@@ -22,13 +20,10 @@
   builder.setTitle(R.string.select_card_model);
   builder.setMultiChoiceItems(templates,checked,new DialogInterface.OnMultiChoiceClickListener(){
     public void onClick(    DialogInterface dialog,    int whichButton,    boolean isChecked){
-      String tag=allTags[whichButton];
       if (!isChecked) {
-        Log.i(AnkiDroidApp.TAG,"unchecked tag: " + tag);
         mSelectedTemplates.remove(whichButton);
       }
  else {
-        Log.i(AnkiDroidApp.TAG,"checked tag: " + tag);
         mSelectedTemplates.put(whichButton,mTemplates.get(whichButton));
       }
     }

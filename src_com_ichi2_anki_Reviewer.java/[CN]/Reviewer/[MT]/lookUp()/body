@@ -1,2 +1,46 @@
 {
+  if (mPrefTextSelection && mClipboard.hasText() && mIsDictionaryAvailable) {
+    mIsSelecting=false;
+switch (mDictionary) {
+case DICTIONARY_AEDICT:
+      Intent aedictSearchIntent=new Intent(mDictionaryAction);
+    aedictSearchIntent.putExtra("kanjis",mClipboard.getText());
+  startActivity(aedictSearchIntent);
+mClipboard.setText("");
+return true;
+case DICTIONARY_LEO_WEB:
+case DICTIONARY_LEO_APP:
+final CharSequence[] itemValues={"en","fr","es","it","ch","ru"};
+String language=getLanguage(MetaDB.LANGUAGE_UNDEFINED);
+for (int i=0; i < itemValues.length; i++) {
+if (language.equals(itemValues[i])) {
+lookupLeo(language,mClipboard.getText());
+mClipboard.setText("");
+return true;
+}
+}
+final CharSequence[] items={"Englisch","Franz??sisch","Spanisch","Italienisch","Chinesisch","Russisch"};
+AlertDialog.Builder builder=new AlertDialog.Builder(this);
+builder.setTitle("\"" + mClipboard.getText() + "\" nachschlagen");
+builder.setItems(items,new DialogInterface.OnClickListener(){
+public void onClick(DialogInterface dialog,int item){
+String language=itemValues[item].toString();
+lookupLeo(language,mClipboard.getText());
+mClipboard.setText("");
+storeLanguage(language,MetaDB.LANGUAGE_UNDEFINED);
+}
+}
+);
+AlertDialog alert=builder.create();
+alert.show();
+return true;
+case DICTIONARY_COLORDICT:
+Intent colordictSearchIntent=new Intent(mDictionaryAction);
+colordictSearchIntent.putExtra("EXTRA_QUERY",mClipboard.getText());
+startActivity(colordictSearchIntent);
+mClipboard.setText("");
+return true;
+}
+}
+return true;
 }

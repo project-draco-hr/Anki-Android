@@ -1,0 +1,16 @@
+{
+switch (mDictionary) {
+case DICTIONARY_LEO_WEB:
+    Intent leoSearchIntent=new Intent(mDictionaryAction,Uri.parse("http://pda.leo.org/?lp=" + language + "de&search="+ text));
+  startActivity(leoSearchIntent);
+break;
+case DICTIONARY_LEO_APP:
+Intent leoAppSearchIntent=new Intent(mDictionaryAction);
+leoAppSearchIntent.putExtra("org.leo.android.dict.DICTIONARY",language + "de");
+leoAppSearchIntent.putExtra(Intent.EXTRA_TEXT,mClipboard.getText());
+leoAppSearchIntent.setComponent(new ComponentName("org.leo.android.dict","org.leo.android.dict.LeoDict"));
+startActivity(leoAppSearchIntent);
+break;
+default :
+}
+}
