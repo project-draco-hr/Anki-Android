@@ -4,6 +4,7 @@
   mSpinnerNewCardSchedule.setSelection(deck.getNewCardSpacing());
   mSpinnerRevCardOrder.setSelection(deck.getRevCardOrder());
   mSpinnerFailCardOption.setVisibility(View.GONE);
+  mEditMaxFailCard.setText(String.valueOf(deck.getFailedCardMax()));
   mEditNewPerDay.setText(String.valueOf(deck.getNewCardsPerDay()));
   mCheckBoxPerDay.setChecked(deck.getPerDay());
   mCheckBoxSuspendLeeches.setChecked(deck.getSuspendLeeches());
