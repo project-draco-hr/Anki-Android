@@ -6,6 +6,7 @@
   }
  else {
     Intent editCard=new Intent(Reviewer.this,CardEditor.class);
+    editCard.putExtra(CardEditor.CARD_EDITOR_ACTION,CardEditor.EDIT_REVIEWER_CARD);
     sEditorCard=mCurrentCard;
     startActivityForResult(editCard,EDIT_CURRENT_CARD);
     if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {

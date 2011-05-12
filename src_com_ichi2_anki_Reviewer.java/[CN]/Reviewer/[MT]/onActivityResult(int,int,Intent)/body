@@ -3,6 +3,7 @@
   if (requestCode == EDIT_CURRENT_CARD) {
     if (resultCode == RESULT_OK) {
       Log.i(AnkiDroidApp.TAG,"Saving card...");
+      mCurrentCard._getQA(true);
       displayCardQuestion();
     }
  else     if (resultCode == StudyOptions.CONTENT_NO_EXTERNAL_STORAGE) {

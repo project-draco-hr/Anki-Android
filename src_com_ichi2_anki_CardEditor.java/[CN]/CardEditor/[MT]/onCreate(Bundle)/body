@@ -21,9 +21,12 @@ case EDIT_BROWSER_CARD:
 mEditorFact=CardBrowser.getEditorCard().getFact();
 break;
 case ADD_CARD:
+mAddFact=true;
 mEditorFact=new Fact(mDeck,mCurrentModel);
 mModelButtons.setVisibility(View.VISIBLE);
-mAddFact=true;
+Resources res=getResources();
+mSave.setText(res.getString(R.string.add));
+mCancel.setText(res.getString(R.string.close));
 mModelButton.setOnClickListener(new View.OnClickListener(){
 public void onClick(View v){
 showDialog(DIALOG_MODEL_SELECT);
@@ -67,8 +70,9 @@ AnkiDroidApp.deck().addFact(mEditorFact);
 }
  else {
 mEditorFact.flush();
-}
 setResult(RESULT_OK);
+finish();
+}
 }
  else {
 setResult(RESULT_CANCELED);
