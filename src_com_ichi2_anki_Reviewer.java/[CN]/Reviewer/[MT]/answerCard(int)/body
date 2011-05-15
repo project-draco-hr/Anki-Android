@@ -1,24 +1,30 @@
 {
   mIsSelecting=false;
   Deck deck=AnkiDroidApp.deck();
+  mChosenAnswer.setText("\u2022");
 switch (ease) {
 case EASE_FAILED:
-    mChosenAnswer.setText(mEase1.getText());
-  int[] counts=deck.getSched().counts();
+    mChosenAnswer.setText("\u2022");
+  mChosenAnswer.setTextColor(mNext1.getTextColors());
+int[] counts=deck.getSched().counts();
 if (counts[0] + counts[1] + counts[2] == 1) {
-  mIsLastCard=true;
+mIsLastCard=true;
 }
 break;
 case EASE_HARD:
-mChosenAnswer.setText(mEase2.getText());
+mChosenAnswer.setText("\u2022\u2022");
+mChosenAnswer.setTextColor(mNext2.getTextColors());
 break;
 case EASE_MID:
-mChosenAnswer.setText(mEase3.getText());
+mChosenAnswer.setText("\u2022\u2022\u2022");
+mChosenAnswer.setTextColor(mNext3.getTextColors());
 break;
 case EASE_EASY:
-mChosenAnswer.setText(mEase4.getText());
+mChosenAnswer.setText("\u2022\u2022\u2022\u2022");
+mChosenAnswer.setTextColor(mNext4.getTextColors());
 break;
 }
+mTimerHandler.removeCallbacks(removeChosenAnswerText);
 mTimerHandler.postDelayed(removeChosenAnswerText,mShowChosenAnswerLength);
 Sound.stopSounds();
 mCurrentEase=ease;
