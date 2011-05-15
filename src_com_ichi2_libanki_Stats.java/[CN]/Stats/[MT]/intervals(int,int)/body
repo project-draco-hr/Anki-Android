@@ -1,0 +1,16 @@
+{
+  ArrayList<int[]> ivls=new ArrayList<int[]>();
+  Cursor cur=null;
+  try {
+    cur=mDeck.getDB().getDatabase().rawQuery("SELECT ivl / " + chunk + " AS grp, count() FROM cards "+ "WHERE queue = 2 "+ _limit()+ " AND grp <= "+ limit+ " GROUP BY grp ORDER BY grp",null);
+    while (cur.moveToNext()) {
+      ivls.add(new int[]{cur.getInt(0),cur.getInt(1)});
+    }
+  }
+  finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+  return (int[][])ivls.toArray(new int[ivls.size()][ivls.get(0).length]);
+}

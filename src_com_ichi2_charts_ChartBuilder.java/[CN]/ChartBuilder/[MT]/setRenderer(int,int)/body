@@ -12,6 +12,10 @@ break;
 case 2:
 renderer.setColor(res.getColor(R.color.statistics_due_failed_cards));
 break;
+case 3:
+renderer.setColor(res.getColor(R.color.statistics_due_average_line));
+renderer.setLineWidth(2f);
+break;
 }
 }
  else if (type == Statistics.TYPE_REVIEWS) {

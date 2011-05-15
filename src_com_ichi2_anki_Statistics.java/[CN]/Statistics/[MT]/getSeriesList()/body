@@ -1,0 +1,47 @@
+{
+  double[][] seriesList;
+  Stats stats=new Stats(mDeck);
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath());
+  ankiDB.getDatabase().beginTransaction();
+  try {
+switch (sType) {
+case TYPE_DUE:
+case TYPE_CUMULATIVE_DUE:
+      seriesList=stripXAxisData(stats.due(sStart,sEnd * sChunk,sChunk),2);
+    seriesList[2][0]=mDeck.getSched().counts()[1];
+  seriesList[0][0]+=seriesList[2][0];
+seriesList[1][0]+=seriesList[2][0];
+if (sChunk == 1) {
+seriesList[2][1]=mDeck.getSched().lrnTomorrow() - seriesList[2][0];
+seriesList[0][1]+=seriesList[2][1];
+seriesList[1][1]+=seriesList[2][1];
+}
+double average=0;
+for (double d : seriesList[0]) {
+average+=d;
+}
+average/=seriesList[1].length;
+for (int i=0; i < seriesList[3].length; i++) {
+seriesList[3][i]=average;
+}
+if (sType == TYPE_CUMULATIVE_DUE) {
+for (int i=1; i < seriesList[0].length; i++) {
+seriesList[0][i]+=seriesList[0][i - 1];
+seriesList[1][i]+=seriesList[1][i - 1];
+seriesList[2][i]+=seriesList[2][i - 1];
+}
+}
+break;
+case TYPE_INTERVALS:
+seriesList=stripXAxisData(stats.intervals(sEnd * sChunk,sChunk),0);
+break;
+default :
+seriesList=null;
+}
+ankiDB.getDatabase().setTransactionSuccessful();
+}
+  finally {
+ankiDB.getDatabase().endTransaction();
+}
+return seriesList;
+}

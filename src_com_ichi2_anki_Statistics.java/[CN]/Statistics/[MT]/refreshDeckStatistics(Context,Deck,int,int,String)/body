@@ -1,0 +1,11 @@
+{
+  initVariables(context,type,period,title);
+  mDeck=deck;
+  sSeriesList=getSeriesList();
+  if (sSeriesList != null) {
+    return true;
+  }
+ else {
+    return false;
+  }
+}

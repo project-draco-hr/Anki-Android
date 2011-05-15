@@ -19,9 +19,7 @@
       setDataset(i);
       setRenderer(Statistics.sType,i);
     }
-    if (Statistics.sSeriesList.length == 1) {
-      mRenderer.setShowLegend(false);
-    }
+    mRenderer.setShowLegend(false);
     mPan=new double[]{Statistics.xAxisData[0] - 1,Statistics.xAxisData[Statistics.xAxisData.length - 1] + 1};
     mRenderer.setLegendTextSize(17);
     mRenderer.setLegendHeight(60);
@@ -32,6 +30,7 @@
     mRenderer.setYAxisMin(0);
     mRenderer.setXTitle(Statistics.axisLabels[0]);
     mRenderer.setYTitle(Statistics.axisLabels[1]);
+    mRenderer.setBarSpacing(0.4);
     mRenderer.setZoomEnabled(false,false);
     if (Statistics.sSeriesList[0][0] > 100 || Statistics.sSeriesList[0][1] > 100 || Statistics.sSeriesList[0][Statistics.sSeriesList[0].length - 1] > 100) {
       mRenderer.setMargins(new int[]{15,50,25,0});
@@ -43,7 +42,7 @@
     mRenderer.setPanLimits(mPan);
     mRenderer.setXLabelsAlign(Align.CENTER);
     mRenderer.setYLabelsAlign(Align.RIGHT);
-    mChartView=ChartFactory.getBarChartView(this,mDataset,mRenderer,BarChart.Type.STACKED);
+    mChartView=ChartFactory.getCombinedXYChartView(this,mDataset,mRenderer,new String[]{BarChart.TYPE,BarChart.TYPE,BarChart.TYPE,LineChart.TYPE});
     LinearLayout layout=(LinearLayout)findViewById(R.id.chart);
     layout.addView(mChartView,new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
   }

@@ -1,0 +1,11 @@
+{
+  xAxisData=new int[inputStream.length];
+  double[][] result=new double[inputStream[0].length - 1 + extraRows][inputStream.length];
+  for (int i=0; i < inputStream.length; i++) {
+    xAxisData[i]=inputStream[i][0];
+    for (int j=0; j < inputStream[0].length - 1; j++) {
+      result[j][i]=inputStream[i][j + 1];
+    }
+  }
+  return result;
+}
