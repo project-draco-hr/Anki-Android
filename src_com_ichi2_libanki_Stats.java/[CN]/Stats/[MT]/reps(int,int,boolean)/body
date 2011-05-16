@@ -1,0 +1,34 @@
+{
+  long interval=(mDeck.getSched().getDayCutoff() - (num * chunk * 86400));
+  interval*=1000;
+  String lim="WHERE time > " + interval + _revlogLimit();
+  String tk;
+  String td;
+  if (time) {
+    tk="taken/1000";
+    if (chunk < 30) {
+      td="/60.0";
+    }
+ else {
+      td="/3600.0";
+    }
+  }
+ else {
+    tk="1";
+    td="";
+  }
+  ArrayList<int[]> reps=new ArrayList<int[]>();
+  Cursor cur=null;
+  try {
+    cur=mDeck.getDB().getDatabase().rawQuery("SELECT (cast((time/1000 - " + mDeck.getSched().getDayCutoff() + ") / 86400.0 AS INT))/"+ chunk+ " AS day, "+ "sum("+ tk+ ")"+ td+ ", "+ "sum(CASE WHEN type < 3 THEN "+ tk+ " ELSE 0 END)"+ td+ ", "+ "sum(CASE WHEN type BETWEEN 1 AND 2 THEN "+ tk+ " ELSE 0 END)"+ td+ ", "+ "sum(CASE WHEN type = 1 THEN "+ tk+ " ELSE 0 END)"+ td+ ", "+ "sum(CASE WHEN type = 1 AND lastIvl >= 21 THEN "+ tk+ " ELSE 0 END)"+ td+ " FROM revlog "+ lim+ " GROUP BY day ORDER BY day",null);
+    while (cur.moveToNext()) {
+      reps.add(new int[]{cur.getInt(0),cur.getInt(1),cur.getInt(2),cur.getInt(3),cur.getInt(4),cur.getInt(5)});
+    }
+  }
+  finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+  return (int[][])reps.toArray(new int[reps.size()][reps.get(0).length]);
+}

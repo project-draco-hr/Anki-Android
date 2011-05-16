@@ -1,8 +1,5 @@
 {
-  String lim="";
-  if (start != 10000) {
-    lim+=" AND due - " + mDeck.getSched().getToday() + " >= "+ start;
-  }
+  String lim=" AND due - " + mDeck.getSched().getToday() + " >= "+ start;
   if (end != 10000) {
     lim+=" AND day < " + end;
   }
