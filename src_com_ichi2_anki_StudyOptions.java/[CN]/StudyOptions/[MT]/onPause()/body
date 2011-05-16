@@ -1,4 +1,6 @@
 {
   super.onPause();
-  WidgetStatus.update(getBaseContext());
+  if (!mInDeckPicker) {
+    WidgetStatus.update(getBaseContext());
+  }
 }

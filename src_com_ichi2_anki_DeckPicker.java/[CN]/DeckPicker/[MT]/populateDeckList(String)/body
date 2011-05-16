@@ -14,7 +14,6 @@
   fileList=dir.listFiles(new AnkiFilter());
   if (dir.exists() && dir.isDirectory() && fileList != null) {
     len=fileList.length;
-    mLoadingFinished=len;
     enableButtons(false);
   }
   mFileList=fileList;

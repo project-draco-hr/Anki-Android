@@ -5,7 +5,9 @@
     try {
       Log.i(AnkiDroidApp.TAG,"Thread run - Inside lock");
       mIsFinished=false;
+      int i=0;
       for (      File file : mFileList) {
+        i++;
         Log.i(AnkiDroidApp.TAG,"Thread run - Before break mDeckIsSelected = " + mDeckIsSelected);
         if (mDeckIsSelected) {
           break;
@@ -77,15 +79,21 @@
           }
           data.putInt("rateOfCompletionMat",rateOfCompletionMat);
           data.putInt("rateOfCompletionAll",Math.max(0,rateOfCompletionAll - rateOfCompletionMat));
+          if (i == mFileList.length) {
+            data.putBoolean("lastDeck",true);
+          }
+ else {
+            data.putBoolean("lastDeck",false);
+          }
           msg.setData(data);
           mTotalDueCards+=dueCards;
           mTotalCards+=totalCards;
           mTotalTime+=eta;
-          mLoadingFinished--;
           mHandler.sendMessage(msg);
         }
       }
       mIsFinished=true;
+      mHandler.sendEmptyMessage(0);
       mCondFinished.signal();
     }
  catch (    Exception e) {
