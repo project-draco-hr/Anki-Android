@@ -4,7 +4,7 @@
   mSize=-1;
   mDownloaded=0;
   mStatus=STATUS_STARTED;
-  mFilename=mTitle.replaceAll("[^A-Za-z0-9???????? ()\\-]","");
+  mFilename=mTitle.replaceAll(":/\\\\","");
   if (mFilename.length() > 40) {
     mFilename=mFilename.substring(0,40);
   }

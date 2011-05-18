@@ -1,5 +1,5 @@
 {
-  connect(false);
+  if (mDecks == null)   throw new IllegalStateException("Should have called connect first");
   Iterator decksIterator=mDecks.keys();
   while (decksIterator.hasNext()) {
     String serverDeckName=(String)decksIterator.next();
