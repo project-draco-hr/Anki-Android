@@ -10,4 +10,8 @@
     mCardTimer.setBase(SystemClock.elapsedRealtime() - mSavedTimer);
     mCardTimer.start();
   }
+  if (AnkiDroidApp.zeemoteController() != null) {
+    Log.d("Zeemote","Adding listener in onResume");
+    AnkiDroidApp.zeemoteController().addButtonListener(this);
+  }
 }
