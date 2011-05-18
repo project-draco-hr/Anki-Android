@@ -16,12 +16,15 @@
     baseUrl=Utils.urlEncodeMediaDir(mDeckFilename.replace(".anki",".media/"));
   }
   int questionStartsAt=content.indexOf("<a name=\"question\"></a><hr/>");
+  String question="";
+  String answer="";
   if (isQuestionDisplayed()) {
     if (sDisplayAnswer && (questionStartsAt != -1)) {
-      content=Sound.parseSounds(baseUrl,content.substring(0,questionStartsAt),mSpeakText,MetaDB.LANGUAGE_QUESTION) + Sound.parseSounds(baseUrl,content.substring(questionStartsAt,content.length()),mSpeakText,MetaDB.LANGUAGE_ANSWER);
+      question=Sound.parseSounds(baseUrl,content.substring(0,questionStartsAt),mSpeakText,MetaDB.LANGUAGE_QUESTION);
+      answer=Sound.parseSounds(baseUrl,content.substring(questionStartsAt,content.length()),mSpeakText,MetaDB.LANGUAGE_ANSWER);
     }
  else {
-      content=Sound.parseSounds(baseUrl,content.substring(0,content.length() - 5),mSpeakText,MetaDB.LANGUAGE_QUESTION) + "<hr/>";
+      question=Sound.parseSounds(baseUrl,content.substring(0,content.length() - 5),mSpeakText,MetaDB.LANGUAGE_QUESTION) + "<hr/>";
     }
   }
  else {
@@ -29,13 +32,17 @@
     if (sDisplayAnswer) {
       qa=MetaDB.LANGUAGE_ANSWER;
     }
-    content=Sound.parseSounds(baseUrl,content,mSpeakText,qa);
+    answer=Sound.parseSounds(baseUrl,content,mSpeakText,qa);
   }
-  content=LaTeX.parseLaTeX(AnkiDroidApp.deck(),content);
-  content=content.replace("font-weight:600;","font-weight:700;");
+  question=LaTeX.parseLaTeX(AnkiDroidApp.deck(),question);
+  answer=LaTeX.parseLaTeX(AnkiDroidApp.deck(),answer);
   if (mPrefUseRubySupport && isJapaneseModel) {
-    content=RubyParser.ankiRubyToMarkup(content);
+    content=RubyParser.ankiStripKanji(question) + RubyParser.ankiRubyToMarkup(answer);
   }
+ else {
+    content=question + answer;
+  }
+  content=content.replace("font-weight:600;","font-weight:700;");
   if (isHebrewFixEnabled()) {
     content=applyFixForHebrew(content);
   }
