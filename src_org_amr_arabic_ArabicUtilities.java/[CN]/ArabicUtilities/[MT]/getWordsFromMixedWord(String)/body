@@ -1,0 +1,27 @@
+{
+  ArrayList finalWords=new ArrayList();
+  String tempWord="";
+  for (int i=0; i < word.length(); i++) {
+    if (isArabicCharacter(word.charAt(i))) {
+      if (!tempWord.equals("") && !isArabicWord(tempWord)) {
+        finalWords.add(tempWord);
+        tempWord="" + word.charAt(i);
+      }
+ else {
+        tempWord+=word.charAt(i);
+      }
+    }
+ else {
+      if (!tempWord.equals("") && isArabicWord(tempWord)) {
+        finalWords.add(tempWord);
+        tempWord="" + word.charAt(i);
+      }
+ else {
+        tempWord+=word.charAt(i);
+      }
+    }
+  }
+  String[] theWords=new String[finalWords.size()];
+  theWords=(String[])finalWords.toArray(theWords);
+  return theWords;
+}

@@ -1,0 +1,8 @@
+{
+  for (int n=0; n < ARABIC_GLPHIES.length; n++) {
+    if (ARABIC_GLPHIES[n][0] == target) {
+      return ARABIC_GLPHIES[n][location];
+    }
+  }
+  return target;
+}

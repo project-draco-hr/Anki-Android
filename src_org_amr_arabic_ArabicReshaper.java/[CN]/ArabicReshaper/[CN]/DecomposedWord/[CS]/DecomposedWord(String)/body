@@ -1,0 +1,27 @@
+{
+  int wordLength=unshapedWord.length();
+  int harakatesCount=0;
+  for (int index=0; index < wordLength; index++) {
+    if (isHaraka(unshapedWord.charAt(index))) {
+      harakatesCount++;
+    }
+  }
+  harakatesPositions=new int[harakatesCount];
+  stripedHarakates=new char[harakatesCount];
+  lettersPositions=new int[wordLength - harakatesCount];
+  stripedRegularLetters=new char[wordLength - harakatesCount];
+  harakatesCount=0;
+  int letterCount=0;
+  for (int index=0; index < unshapedWord.length(); index++) {
+    if (isHaraka(unshapedWord.charAt(index))) {
+      harakatesPositions[harakatesCount]=index;
+      stripedHarakates[harakatesCount]=unshapedWord.charAt(index);
+      harakatesCount++;
+    }
+ else {
+      lettersPositions[letterCount]=index;
+      stripedRegularLetters[letterCount]=unshapedWord.charAt(index);
+      letterCount++;
+    }
+  }
+}

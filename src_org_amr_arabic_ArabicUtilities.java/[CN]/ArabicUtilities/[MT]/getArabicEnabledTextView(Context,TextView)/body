@@ -1,0 +1,8 @@
+{
+  if (face == null) {
+    face=Typeface.createFromAsset(context.getAssets(),FONTS_LOCATION_PATH);
+  }
+  targetTextView.setTypeface(face);
+  targetTextView.setGravity(Gravity.RIGHT);
+  return targetTextView;
+}

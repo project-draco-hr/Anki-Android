@@ -1,0 +1,9 @@
+{
+  for (int i=0; i < ArabicReshaper.ARABIC_GLPHIES.length; i++) {
+    if (ArabicReshaper.ARABIC_GLPHIES[i][0] == target)     return true;
+  }
+  for (int i=0; i < ArabicReshaper.HARAKATE.length; i++) {
+    if (ArabicReshaper.HARAKATE[i] == target)     return true;
+  }
+  return false;
+}
