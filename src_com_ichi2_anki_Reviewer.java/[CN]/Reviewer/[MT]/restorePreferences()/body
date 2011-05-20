@@ -16,6 +16,7 @@
   mPrefHideQuestionInAnswer=Integer.parseInt(preferences.getString("hideQuestionInAnswer",Integer.toString(HQIA_DO_SHOW)));
   mDictionary=Integer.parseInt(preferences.getString("dictionary",Integer.toString(DICTIONARY_AEDICT)));
   mPrefFixHebrew=preferences.getBoolean("fixHebrewText",false);
+  mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
   mSpeakText=preferences.getBoolean("tts",false);
   mPlaySoundsAtStart=preferences.getBoolean("playSoundsAtStart",true);
   mShowProgressBars=preferences.getBoolean("progressBars",true);
