@@ -16,6 +16,9 @@
   TreeSet<Field> fields=mEditorFact.getFields();
   mEditFields=new LinkedList<FieldEditText>();
   mModified=false;
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+  mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
+  mSave.setEnabled(!mPrefFixArabic);
   Iterator<Field> iter=fields.iterator();
   while (iter.hasNext()) {
     FieldEditText newTextbox=new FieldEditText(this,iter.next());
