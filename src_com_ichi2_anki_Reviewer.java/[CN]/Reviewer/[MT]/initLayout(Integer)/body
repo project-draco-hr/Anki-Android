@@ -83,10 +83,13 @@
 );
   }
   mAnswerField=(EditText)findViewById(R.id.answer_field);
-  mNextTimeTextColor=getResources().getColor(R.color.next_time_usual_color);
-  mNextTimeTextRecomColor=getResources().getColor(R.color.next_time_recommended_color);
   if (mInvertedColors) {
     invertColors();
+  }
+ else {
+    mNextTimeTextColor=getResources().getColor(R.color.next_time_usual_color);
+    mNextTimeTextRecomColor=getResources().getColor(R.color.next_time_recommended_color);
+    mForegroundColor=getResources().getColor(R.color.next_time_usual_color);
   }
   initControls();
 }
