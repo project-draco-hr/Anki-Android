@@ -16,6 +16,9 @@
   mFlipCard.setVisibility(View.VISIBLE);
   mFlipCard.requestFocus();
   String question=mCurrentCard.getQuestion();
+  if (mPrefFixArabic) {
+    question=ArabicUtilities.reshapeSentence(question);
+  }
   Log.i(AnkiDroidApp.TAG,"question: '" + question + "'");
   String displayString=enrichWithQASpan(question,false);
   if (isQuestionDisplayed()) {

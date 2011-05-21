@@ -19,7 +19,7 @@ mClipboard.setText("");
 return true;
 }
 }
-final CharSequence[] items={"Englisch","Franz??sisch","Spanisch","Italienisch","Chinesisch","Russisch"};
+final CharSequence[] items={"Englisch","Franz??????sisch","Spanisch","Italienisch","Chinesisch","Russisch"};
 AlertDialog.Builder builder=new AlertDialog.Builder(this);
 builder.setTitle("\"" + mClipboard.getText() + "\" nachschlagen");
 builder.setItems(items,new DialogInterface.OnClickListener(){
