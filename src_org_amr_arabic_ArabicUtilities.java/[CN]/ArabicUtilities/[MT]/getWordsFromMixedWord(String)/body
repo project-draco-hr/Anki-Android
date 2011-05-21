@@ -21,6 +21,9 @@
       }
     }
   }
+  if (!"".equals(tempWord)) {
+    finalWords.add(tempWord);
+  }
   String[] theWords=new String[finalWords.size()];
   theWords=(String[])finalWords.toArray(theWords);
   return theWords;
