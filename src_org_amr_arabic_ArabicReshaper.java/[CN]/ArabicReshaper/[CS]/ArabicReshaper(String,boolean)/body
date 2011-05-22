@@ -6,7 +6,7 @@
   }
   _returnString=decomposedWord.reconstructWord(_returnString);
   if (forWebView) {
-    if (decomposedWord.stripedHarakates.length != 0) {
+    if (decomposedWord.stripedHarakates.length != 0 || _returnString.indexOf('\u0627') != -1) {
       _returnString=(new StringBuilder(_returnString)).reverse().toString();
     }
   }
