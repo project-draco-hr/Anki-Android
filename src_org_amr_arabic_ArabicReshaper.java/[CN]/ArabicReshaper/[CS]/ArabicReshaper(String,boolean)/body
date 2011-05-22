@@ -1,0 +1,13 @@
+{
+  unshapedWord=replaceLamAlef(unshapedWord);
+  DecomposedWord decomposedWord=new DecomposedWord(unshapedWord);
+  if (decomposedWord.stripedRegularLetters.length > 0) {
+    _returnString=reshapeIt(new String(decomposedWord.stripedRegularLetters));
+  }
+  _returnString=decomposedWord.reconstructWord(_returnString);
+  if (forWebView) {
+    if (decomposedWord.stripedHarakates.length != 0) {
+      _returnString=(new StringBuilder(_returnString)).reverse().toString();
+    }
+  }
+}

@@ -5,8 +5,8 @@
   String displayString="";
   String answer=mCurrentCard.getAnswer(), question=mCurrentCard.getQuestion();
   if (mPrefFixArabic) {
-    answer=ArabicUtilities.reshapeSentence(answer);
-    question=ArabicUtilities.reshapeSentence(question);
+    answer=ArabicUtilities.reshapeSentence(answer,true);
+    question=ArabicUtilities.reshapeSentence(question,true);
   }
   if (mPrefWriteAnswers) {
     mAnswerField.setVisibility(View.GONE);

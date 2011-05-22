@@ -1,24 +1,3 @@
 {
-  String[] words=getWords(sentence);
-  StringBuffer reshapedText=new StringBuffer("");
-  for (int i=0; i < words.length; i++) {
-    if (hasArabicLetters(words[i])) {
-      if (isArabicWord(words[i])) {
-        ArabicReshaper arabicReshaper=new ArabicReshaper(words[i]);
-        reshapedText.append(arabicReshaper.getReshapedWord());
-      }
- else {
-        String[] mixedWords=getWordsFromMixedWord(words[i]);
-        for (int j=0; j < mixedWords.length; j++) {
-          ArabicReshaper arabicReshaper=new ArabicReshaper(mixedWords[j]);
-          reshapedText.append(arabicReshaper.getReshapedWord());
-        }
-      }
-    }
- else {
-      reshapedText.append(words[i]);
-    }
-    reshapedText.append(" ");
-  }
-  return reshapedText.toString();
+  return reshapeSentence(sentence,false);
 }
