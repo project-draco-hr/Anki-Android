@@ -20,6 +20,8 @@
   mSpeakText=preferences.getBoolean("tts",false);
   mPlaySoundsAtStart=preferences.getBoolean("playSoundsAtStart",true);
   mShowProgressBars=preferences.getBoolean("progressBars",true);
+  mPrefUseTimer=preferences.getBoolean("timeoutAnswer",false);
+  mWaitSecond=preferences.getInt("timeoutAnswerSeconds",20);
   mGesturesEnabled=preferences.getBoolean("swipe",false);
   if (mGesturesEnabled) {
     mGestureShake=Integer.parseInt(preferences.getString("gestureShake","0"));

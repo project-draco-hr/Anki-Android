@@ -29,4 +29,7 @@
   }
   updateCard(displayString);
   hideEaseButtons();
+  if (mPrefUseTimer) {
+    Log.i(AnkiDroidApp.TAG,"using timer '" + mWaitSecond + "'");
+  }
 }
