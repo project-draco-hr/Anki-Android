@@ -30,6 +30,7 @@
   updateCard(displayString);
   hideEaseButtons();
   if (mPrefUseTimer) {
-    Log.i(AnkiDroidApp.TAG,"using timer '" + mWaitSecond + "'");
+    mTimeoutHandler.removeCallbacks(mShowAnswerTask);
+    mTimeoutHandler.postDelayed(mShowAnswerTask,mWaitSecond * 1000);
   }
 }
