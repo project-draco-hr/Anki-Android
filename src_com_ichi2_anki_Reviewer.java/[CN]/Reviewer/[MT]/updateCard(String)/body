@@ -55,15 +55,6 @@
   String card=mCardTemplate.replace("::content::",content).replace("::style::",style.toString());
   Log.i(AnkiDroidApp.TAG,"base url = " + baseUrl);
   mCard.loadDataWithBaseURL(baseUrl,card,"text/html","utf-8",null);
-  try {
-    PrintWriter w=new PrintWriter(new File(mDeckFilename + ".card.html"));
-    w.write(card);
-    w.close();
-    Log.d(AnkiDroidApp.TAG,"Card HTML saved");
-  }
- catch (  FileNotFoundException e) {
-    Log.d(AnkiDroidApp.TAG,"Could not save card HTML");
-  }
   if (!mConfigurationChanged && mPlaySoundsAtStart) {
     if (!mSpeakText) {
       Sound.playSounds(null,0);
