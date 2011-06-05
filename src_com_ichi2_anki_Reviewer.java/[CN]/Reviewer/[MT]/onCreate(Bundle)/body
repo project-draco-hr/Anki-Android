@@ -1,6 +1,7 @@
 {
   super.onCreate(savedInstanceState);
   Log.i(AnkiDroidApp.TAG,"Reviewer - onCreate");
+  setVolumeControlStream(AudioManager.STREAM_MUSIC);
   Deck deck=AnkiDroidApp.deck();
   if (deck == null) {
     setResult(StudyOptions.CONTENT_NO_EXTERNAL_STORAGE);
