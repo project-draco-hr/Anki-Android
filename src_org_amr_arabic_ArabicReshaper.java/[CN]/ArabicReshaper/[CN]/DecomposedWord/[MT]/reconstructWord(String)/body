@@ -7,5 +7,8 @@
   for (int index=0; index < harakatesPositions.length; index++) {
     wordWithHarakates[harakatesPositions[index]]=stripedHarakates[index];
   }
+  if (isHaraka(wordWithHarakates[wordWithHarakates.length - 1])) {
+    return new String(wordWithHarakates,0,wordWithHarakates.length - 1);
+  }
   return new String(wordWithHarakates);
 }
