@@ -3,7 +3,27 @@
     return;
   }
   String sids=Utils.ids2str(ids);
+  ArrayList<Integer> list=getDB().queryColumn(Integer.class,"SELECT fid FROM cards WHERE id in " + sids,0);
+  int[] fids=new int[list.size()];
+  int i=0;
+  for (  int l : list) {
+    fids[i++]=l;
+  }
+  _logDels(ids,Scheduler.DEL_CARD);
   getDB().getDatabase().execSQL("DELETE FROM cards WHERE id IN " + sids);
   getDB().getDatabase().execSQL("DELETE FROM revlog WHERE cid IN " + sids);
-  _delDanglingFacts();
+  Cursor cursor=null;
+  try {
+    cursor=getDB().getDatabase().rawQuery("SELECT id FROM facts WHERE id IN " + Utils.ids2str(fids) + " AND id NOT IN (SELECT fid FROM cards)",null);
+    fids=new int[cursor.getCount()];
+    while (cursor.moveToNext()) {
+      fids[cursor.getPosition()]=cursor.getInt(0);
+    }
+  }
+  finally {
+    if (cursor != null) {
+      cursor.close();
+    }
+  }
+  _delFacts(fids);
 }

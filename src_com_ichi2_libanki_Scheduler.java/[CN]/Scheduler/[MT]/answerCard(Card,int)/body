@@ -6,6 +6,18 @@
   if (card.getQueue() == 0) {
     card.setQueue(1);
     card.setType(1);
+    try {
+      JSONArray ja=mDeck.getQconf().getJSONArray("newToday");
+      int today=ja.getInt(0);
+      int cnt=ja.getInt(1);
+      ja=new JSONArray();
+      ja.put(today);
+      ja.put(cnt + 1);
+      mDeck.getQconf().put("newToday",ja);
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
   }
   if (card.getQueue() == 1) {
     _answerLrnCard(card,ease);

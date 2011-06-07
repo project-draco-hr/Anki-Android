@@ -1,6 +1,7 @@
 {
   if (ids != null) {
     String strids=Utils.ids2str(ids);
+    _logDels(ids,Scheduler.DEL_FACT);
     getDB().getDatabase().execSQL("DELETE FROM facts WHERE id IN " + strids);
     getDB().getDatabase().execSQL("DELETE FROM fsums WHERE id IN " + strids);
   }

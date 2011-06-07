@@ -1,0 +1,15 @@
+{
+  if (!syncingEnabled()) {
+    return;
+  }
+  String tbl=type == Scheduler.DEL_CARD ? "cards" : "facts";
+  ArrayList<Integer> list=getDB().queryColumn(Integer.class,"SELECT id FROM " + tbl + " WHERE crt < "+ mLastSync+ " AND id IN "+ Utils.ids2str(ids),0);
+  ids=new int[list.size()];
+  int i=0;
+  for (  int l : list) {
+    ids[i++]=l;
+  }
+  for (  int id : ids) {
+    getDB().getDatabase().execSQL("INSERT INTO graves VALUES (" + Utils.intNow() + ", "+ id+ ", "+ type+ ")");
+  }
+}

@@ -1,0 +1,9 @@
+{
+  ArrayList<Integer> list=getDB().queryColumn(Integer.class,"SELECT id FROM cards WHERE fid in " + Utils.ids2str(ids),0);
+  int[] cids=new int[list.size()];
+  int i=0;
+  for (  int l : list) {
+    cids[i++]=l;
+  }
+  delCards(cids);
+}
