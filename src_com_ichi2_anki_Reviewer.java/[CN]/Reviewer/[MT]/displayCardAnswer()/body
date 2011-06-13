@@ -22,17 +22,17 @@
       correctAnswer=matcher.replaceAll("");
       Log.i(AnkiDroidApp.TAG,"correct answer = " + correctAnswer);
       DiffEngine diff=new DiffEngine();
-      displayString=enrichWithQASpan(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer)) + "<br/>" + answer,true);
+      displayString=enrichWithQADiv(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer)) + "<br/>" + answer,true);
     }
     InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
     inputMethodManager.hideSoftInputFromWindow(mAnswerField.getWindowToken(),0);
   }
  else {
-    displayString=enrichWithQASpan(answer,true);
+    displayString=enrichWithQADiv(answer,true);
   }
   if (isQuestionDisplayed()) {
     StringBuffer sb=new StringBuffer();
-    sb.append(enrichWithQASpan(question,false));
+    sb.append(enrichWithQADiv(question,false));
     sb.append("<a name=\"question\"></a><hr/>");
     sb.append(displayString);
     displayString=sb.toString();

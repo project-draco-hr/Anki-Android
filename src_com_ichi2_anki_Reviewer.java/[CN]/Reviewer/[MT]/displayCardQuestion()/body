@@ -20,7 +20,7 @@
     question=ArabicUtilities.reshapeSentence(question,true);
   }
   Log.i(AnkiDroidApp.TAG,"question: '" + question + "'");
-  String displayString=enrichWithQASpan(question,false);
+  String displayString=enrichWithQADiv(question,false);
   if (isQuestionDisplayed()) {
     displayString=displayString + "<hr/>";
   }
