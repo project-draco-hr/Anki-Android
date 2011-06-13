@@ -1,0 +1,35 @@
+{
+  if (null == content || 0 == content.trim().length()) {
+    return "";
+  }
+  StringBuilder sb=new StringBuilder(content);
+  boolean foundNext=true;
+  int start=0;
+  int posFontSize=0;
+  int posPx=0;
+  int relativeSize;
+  while (foundNext) {
+    posFontSize=sb.indexOf("font-size:",start);
+    posPx=sb.indexOf("px;",start);
+    if (-1 == posFontSize) {
+      foundNext=false;
+    }
+ else     if (15 < (posPx - posFontSize)) {
+      start=posFontSize + 10;
+      continue;
+    }
+ else {
+      try {
+        relativeSize=Integer.parseInt(sb.substring(posFontSize + 10,posPx).trim());
+      }
+ catch (      NumberFormatException e) {
+        start=posFontSize + 10;
+        continue;
+      }
+      relativeSize=relativeSize * percentage / 100;
+      sb.replace(posFontSize + 10,posPx,Integer.toString(relativeSize));
+      start=posPx;
+    }
+  }
+  return sb.toString();
+}
