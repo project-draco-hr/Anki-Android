@@ -10,7 +10,7 @@
   sb.append(calculateDisplay(percentage,myCardModel.getQuestionFontFamily(),myCardModel.getQuestionFontSize(),myCardModel.getQuestionFontColour(),myCardModel.getQuestionAlign(),false,invertedColors));
   sb.append("}\n");
   sb.append(".").append(Reviewer.ANSWER_CLASS).append(" {\n");
-  sb.append(calculateDisplay(percentage,myCardModel.getAnswerFontFamily(),myCardModel.getAnswerFontSize(),myCardModel.getAnswerFontColour(),myCardModel.getAnswerAlign(),false,invertedColors));
+  sb.append(calculateDisplay(percentage,myCardModel.getAnswerFontFamily(),myCardModel.getAnswerFontSize(),myCardModel.getAnswerFontColour(),myCardModel.getQuestionAlign(),false,invertedColors));
   sb.append("}\n");
   FieldModel myFieldModel=null;
   String hexId=null;
