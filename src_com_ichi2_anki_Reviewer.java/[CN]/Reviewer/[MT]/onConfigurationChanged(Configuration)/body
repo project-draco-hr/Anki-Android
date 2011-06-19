@@ -21,7 +21,7 @@
     mCardTimer.setBase(savedTimer);
     mCardTimer.start();
   }
-  if (mPrefWriteAnswers) {
+  if (typeAnswer()) {
     mAnswerField.setText(savedAnswerField);
   }
   if (mPrefWhiteboard) {

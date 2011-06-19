@@ -12,5 +12,5 @@
   if (mPrefWhiteboard) {
     mWhiteboard.setVisibility(mShowWhiteboard ? View.VISIBLE : View.GONE);
   }
-  mAnswerField.setVisibility((mPrefWriteAnswers) ? View.VISIBLE : View.GONE);
+  mAnswerField.setVisibility((typeAnswer()) ? View.VISIBLE : View.GONE);
 }
