@@ -3,7 +3,7 @@
   if (mShowProgressBars) {
     updateStatisticBars();
   }
-  if (mPrefWriteAnswers) {
+  if (typeAnswer()) {
     mAnswerField.setText("");
   }
   if (mPrefWhiteboard) {

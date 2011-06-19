@@ -28,6 +28,7 @@
         myCardModel.mAnswerFontColour=cursor.getString(15);
         myCardModel.mAnswerAlign=cursor.getInt(16);
         myCardModel.mLastFontColour=cursor.getString(17);
+        myCardModel.mTypeAnswer=cursor.getString(18);
         myCardModel.refreshTemplates();
         models.put(myCardModel.mId,myCardModel);
       }
