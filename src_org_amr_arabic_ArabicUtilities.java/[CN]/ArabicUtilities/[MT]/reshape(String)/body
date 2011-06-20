@@ -1,0 +1,14 @@
+{
+  if (allText != null) {
+    StringBuffer result=new StringBuffer();
+    String[] sentences=allText.split("\n");
+    for (int i=0; i < sentences.length; i++) {
+      result.append(reshapeSentence(sentences[i]));
+      result.append("\n");
+    }
+    return result.toString();
+  }
+ else {
+    return null;
+  }
+}

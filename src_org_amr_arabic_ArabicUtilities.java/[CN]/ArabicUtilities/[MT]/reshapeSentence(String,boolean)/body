@@ -1,0 +1,40 @@
+{
+  String[] words=getWords(sentence);
+  StringBuffer reshapedText=new StringBuffer("");
+  StringBuffer arabicText=new StringBuffer("");
+  for (int i=0; i < words.length; i++) {
+    if (hasArabicLetters(words[i])) {
+      if (isArabicWord(words[i])) {
+        ArabicReshaper arabicReshaper=new ArabicReshaper(words[i]);
+        arabicText.append(arabicReshaper.getReshapedWord());
+      }
+ else {
+        String[] mixedWords=getWordsFromMixedWord(words[i]);
+        for (int j=0; j < mixedWords.length; j++) {
+          if (isArabicWord(mixedWords[j])) {
+            ArabicReshaper arabicReshaper=new ArabicReshaper(mixedWords[j]);
+            arabicText.append(arabicReshaper.getReshapedWord());
+          }
+ else {
+            reshapedText.append(manualRTL(arabicText,forWebView));
+            arabicText=new StringBuffer("");
+            reshapedText.append(mixedWords[j]);
+          }
+        }
+      }
+    }
+ else {
+      reshapedText.append(manualRTL(arabicText,forWebView));
+      arabicText=new StringBuffer("");
+      reshapedText.append(words[i]);
+    }
+    if (arabicText.length() > 0) {
+      arabicText.append(" ");
+    }
+ else {
+      reshapedText.append(" ");
+    }
+  }
+  reshapedText.append(manualRTL(arabicText,forWebView));
+  return reshapedText.toString();
+}

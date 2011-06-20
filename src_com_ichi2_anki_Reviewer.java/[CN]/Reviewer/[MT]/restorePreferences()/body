@@ -11,13 +11,17 @@
   mshowNextReviewTime=preferences.getBoolean("showNextReviewTime",true);
   mZoomEnabled=preferences.getBoolean("zoom",false);
   mDisplayFontSize=preferences.getInt("relativeDisplayFontSize",100);
+  mZeemoteEnabled=preferences.getBoolean("zeemote",false);
   mRelativeButtonSize=preferences.getInt("answerButtonSize",100);
   mPrefHideQuestionInAnswer=Integer.parseInt(preferences.getString("hideQuestionInAnswer",Integer.toString(HQIA_DO_SHOW)));
   mDictionary=Integer.parseInt(preferences.getString("dictionary",Integer.toString(DICTIONARY_AEDICT)));
   mPrefFixHebrew=preferences.getBoolean("fixHebrewText",false);
+  mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
   mSpeakText=preferences.getBoolean("tts",false);
   mPlaySoundsAtStart=preferences.getBoolean("playSoundsAtStart",true);
   mShowProgressBars=preferences.getBoolean("progressBars",true);
+  mPrefUseTimer=preferences.getBoolean("timeoutAnswer",false);
+  mWaitSecond=preferences.getInt("timeoutAnswerSeconds",20);
   mGesturesEnabled=preferences.getBoolean("swipe",false);
   if (mGesturesEnabled) {
     mGestureShake=Integer.parseInt(preferences.getString("gestureShake","0"));

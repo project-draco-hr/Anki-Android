@@ -62,8 +62,6 @@
   SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
   int minimumCardsDueForNotification=Integer.parseInt(preferences.getString("minimumCardsDueForNotification","25"));
   if (dueCardsCount >= minimumCardsDueForNotification) {
-    String ns=Context.NOTIFICATION_SERVICE;
-    NotificationManager mNotificationManager=(NotificationManager)getSystemService(ns);
     int icon=R.drawable.anki;
     CharSequence tickerText=String.format(getString(R.string.widget_minimum_cards_due_notification_ticker_text),dueCardsCount);
     long when=System.currentTimeMillis();
@@ -77,8 +75,10 @@
     Context appContext=getApplicationContext();
     CharSequence contentTitle=getText(R.string.widget_minimum_cards_due_notification_ticker_title);
     notification.setLatestEventInfo(appContext,contentTitle,tickerText,pendingAnkiDroidIntent);
-    final int WIDGET_NOTIFY_ID=1;
     mNotificationManager.notify(WIDGET_NOTIFY_ID,notification);
+  }
+ else {
+    mNotificationManager.cancel(WIDGET_NOTIFY_ID);
   }
   return updateViews;
 }

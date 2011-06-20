@@ -1,0 +1,14 @@
+{
+  char[] wordWithHarakates=null;
+  wordWithHarakates=new char[reshapedWord.length() + stripedHarakates.length];
+  for (int index=0; index < lettersPositions.length; index++) {
+    wordWithHarakates[lettersPositions[index]]=reshapedWord.charAt(index);
+  }
+  for (int index=0; index < harakatesPositions.length; index++) {
+    wordWithHarakates[harakatesPositions[index]]=stripedHarakates[index];
+  }
+  if (isHaraka(wordWithHarakates[wordWithHarakates.length - 1])) {
+    return new String(wordWithHarakates,0,wordWithHarakates.length - 1);
+  }
+  return new String(wordWithHarakates);
+}

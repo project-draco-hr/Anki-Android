@@ -1,6 +1,7 @@
 {
   super.onCreate(savedInstanceState);
   Log.i(AnkiDroidApp.TAG,"Reviewer - onCreate");
+  setVolumeControlStream(AudioManager.STREAM_MUSIC);
   Deck deck=AnkiDroidApp.deck();
   if (deck == null) {
     setResult(StudyOptions.CONTENT_NO_EXTERNAL_STORAGE);
@@ -10,6 +11,14 @@
     mCurrentScheduler=deck.getSched();
     mMediaDir=setupMedia(deck);
     restorePreferences();
+    if (mZeemoteEnabled) {
+      if (AnkiDroidApp.zeemoteController() == null)       AnkiDroidApp.setZeemoteController(new Controller(Controller.CONTROLLER_1));
+      controllerUi=new ControllerAndroidUi(this,AnkiDroidApp.zeemoteController());
+      if (!AnkiDroidApp.zeemoteController().isConnected()) {
+        Log.d("Zeemote","starting connection in onCreate");
+        controllerUi.startConnectionProcess();
+      }
+    }
     deck.resetUndo();
     if (mPrefFullscreenReview) {
       getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);

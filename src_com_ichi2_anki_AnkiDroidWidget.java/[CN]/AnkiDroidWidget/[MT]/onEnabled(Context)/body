@@ -1,0 +1,5 @@
+{
+  super.onEnabled(context);
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
+  preferences.edit().putBoolean("widgetEnabled",true).commit();
+}

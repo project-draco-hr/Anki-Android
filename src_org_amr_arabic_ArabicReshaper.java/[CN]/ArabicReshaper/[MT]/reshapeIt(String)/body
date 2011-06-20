@@ -1,0 +1,25 @@
+{
+  StringBuffer reshapedWord=new StringBuffer("");
+  int wordLength=unshapedWord.length();
+  char[] wordLetters=new char[wordLength];
+  unshapedWord.getChars(0,wordLength,wordLetters,0);
+  reshapedWord.append(getReshapedGlphy(wordLetters[0],2));
+  for (int i=1; i < wordLength - 1; i++) {
+    int beforeLast=i - 1;
+    if (getGlphyType(wordLetters[beforeLast]) == 2) {
+      reshapedWord.append(getReshapedGlphy(wordLetters[i],2));
+    }
+ else {
+      reshapedWord.append(getReshapedGlphy(wordLetters[i],3));
+    }
+  }
+  if (wordLength >= 2) {
+    if (getGlphyType(wordLetters[wordLength - 2]) == 2) {
+      reshapedWord.append(getReshapedGlphy(wordLetters[wordLength - 1],1));
+    }
+ else {
+      reshapedWord.append(getReshapedGlphy(wordLetters[wordLength - 1],4));
+    }
+  }
+  return reshapedWord.toString();
+}

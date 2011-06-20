@@ -16,6 +16,9 @@
   mFlipCard.setVisibility(View.VISIBLE);
   mFlipCard.requestFocus();
   String question=mCurrentCard.getQuestion();
+  if (mPrefFixArabic) {
+    question=ArabicUtilities.reshapeSentence(question,true);
+  }
   Log.i(AnkiDroidApp.TAG,"question: '" + question + "'");
   String displayString=enrichWithQASpan(question,false);
   if (isQuestionDisplayed()) {
@@ -26,4 +29,8 @@
   }
   updateCard(displayString);
   hideEaseButtons();
+  if (mPrefUseTimer) {
+    mTimeoutHandler.removeCallbacks(mShowAnswerTask);
+    mTimeoutHandler.postDelayed(mShowAnswerTask,mWaitSecond * 1000);
+  }
 }

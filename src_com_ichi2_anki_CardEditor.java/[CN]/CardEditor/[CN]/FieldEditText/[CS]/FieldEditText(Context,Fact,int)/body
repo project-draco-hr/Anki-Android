@@ -6,5 +6,10 @@
   if (content == null) {
     content="";
   }
-  this.setText(content);
+  if (mPrefFixArabic) {
+    this.setText(ArabicUtilities.reshapeSentence(content));
+  }
+ else {
+    this.setText(content);
+  }
 }

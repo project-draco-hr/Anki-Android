@@ -1,0 +1,6 @@
+{
+  if (wakeLock != null) {
+    wakeLock.release();
+    wakeLock=null;
+  }
+}

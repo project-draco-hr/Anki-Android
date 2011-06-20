@@ -16,6 +16,17 @@
       String deckName=file.getName().replaceAll(".anki","");
       Log.i(AnkiDroidApp.TAG,"Found deck: " + absPath);
       Deck deck=Deck.openDeck(absPath,false);
+      if (deck == null) {
+        Log.e(AnkiDroidApp.TAG,"Skipping null deck: " + absPath);
+        for (        DeckStatus deckStatus : mDecks) {
+          if (absPath.equals(deckStatus.mDeckPath)) {
+            Log.d(AnkiDroidApp.TAG,"Using previous value");
+            decks.add(deckStatus);
+            break;
+          }
+        }
+        continue;
+      }
       int[] counts=deck.getSched().counts();
       Deck currentDeck=AnkiDroidApp.deck();
       decks.add(new DeckStatus(absPath,deckName,counts[Scheduler.COUNTS_NEW],counts[Scheduler.COUNTS_REV],counts[Scheduler.COUNTS_LRN]));

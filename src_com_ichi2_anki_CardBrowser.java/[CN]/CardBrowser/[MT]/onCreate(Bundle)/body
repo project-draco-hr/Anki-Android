@@ -8,6 +8,7 @@
   backgroundColor=getResources().getColor(R.color.card_browser_background);
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
   mrelativeBrowserFontSize=preferences.getInt("relativeCardBrowserFontSize",DEFAULT_FONT_SIZE_RATIO);
+  mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
   mCards=new ArrayList<HashMap<String,String>>();
   mAllCards=new ArrayList<HashMap<String,String>>();
   mCardsListView=(ListView)findViewById(R.id.card_browser_list);

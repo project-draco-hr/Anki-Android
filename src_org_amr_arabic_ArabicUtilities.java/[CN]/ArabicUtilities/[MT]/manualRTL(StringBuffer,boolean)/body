@@ -1,0 +1,8 @@
+{
+  if (forWebView) {
+    if (patternBreakingWebView.matcher(arabicText).find()) {
+      return arabicText.reverse().toString();
+    }
+  }
+  return arabicText.toString();
+}

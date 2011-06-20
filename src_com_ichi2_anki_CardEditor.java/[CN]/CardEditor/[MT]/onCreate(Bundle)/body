@@ -41,6 +41,9 @@ templatesDialog().show();
 );
 break;
 }
+SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
+mSave.setEnabled(!mPrefFixArabic);
 initializeFactVariables();
 mTags.setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){

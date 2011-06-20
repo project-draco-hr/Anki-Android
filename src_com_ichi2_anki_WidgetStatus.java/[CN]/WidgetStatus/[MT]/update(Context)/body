@@ -1,5 +1,11 @@
 {
-  Log.d(AnkiDroidApp.TAG,"WidgetStatus.update()");
-  AsyncTask<Context,Void,Context> updateDeckStatusAsyncTask=new UpdateDeckStatusAsyncTask();
-  updateDeckStatusAsyncTask.execute(context);
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
+  if (preferences.getBoolean("widgetEnabled",false)) {
+    Log.d(AnkiDroidApp.TAG,"WidgetStatus.update(): updating");
+    AsyncTask<Context,Void,Context> updateDeckStatusAsyncTask=new UpdateDeckStatusAsyncTask();
+    updateDeckStatusAsyncTask.execute(context);
+  }
+ else {
+    Log.d(AnkiDroidApp.TAG,"WidgetStatus.update(): not enabled");
+  }
 }
