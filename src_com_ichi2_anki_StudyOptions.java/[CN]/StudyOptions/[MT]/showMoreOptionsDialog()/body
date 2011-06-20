@@ -5,6 +5,6 @@
   mSpinnerRevCardOrder.setSelection(deck.getIntVar("revOrder"));
   mSpinnerFailCardOption.setVisibility(View.GONE);
   mEditNewPerDay.setText(String.valueOf(deck.getIntVar("newPerDay")));
-  mEditMaxFailCard.setText(String.valueOf(deck.getFailedCardMax()));
+  mEditMaxFailCard.setText("asdf");
   mDialogMoreOptions.show();
 }

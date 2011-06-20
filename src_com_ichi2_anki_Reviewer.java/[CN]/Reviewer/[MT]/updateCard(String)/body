@@ -31,8 +31,6 @@
     }
     answer=Sound.parseSounds(baseUrl,content,mSpeakText,qa);
   }
-  question=LaTeX.parseLaTeX(AnkiDroidApp.deck(),question);
-  answer=LaTeX.parseLaTeX(AnkiDroidApp.deck(),answer);
   if (mPrefUseRubySupport && isJapaneseModel) {
     content=RubyParser.ankiStripKanji(question) + RubyParser.ankiRubyToMarkup(answer);
   }
