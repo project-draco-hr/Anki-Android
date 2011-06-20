@@ -8,7 +8,7 @@
     mEase3.setHeight(mButtonHeight);
     mEase4.setHeight(mButtonHeight);
   }
-  if (mPrefWriteAnswers) {
+  if (typeAnswer()) {
     mAnswerField.setVisibility(View.VISIBLE);
     InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
     inputMethodManager.showSoftInput(mAnswerField,InputMethodManager.SHOW_FORCED);
@@ -20,7 +20,7 @@
     question=ArabicUtilities.reshapeSentence(question,true);
   }
   Log.i(AnkiDroidApp.TAG,"question: '" + question + "'");
-  String displayString=enrichWithQASpan(question,false);
+  String displayString=enrichWithQADiv(question,false);
   if (isQuestionDisplayed()) {
     displayString=displayString + "<hr/>";
   }

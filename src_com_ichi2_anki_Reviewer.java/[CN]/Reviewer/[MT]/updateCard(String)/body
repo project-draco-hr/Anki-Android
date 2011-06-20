@@ -2,6 +2,7 @@
   Log.i(AnkiDroidApp.TAG,"updateCard");
   String baseUrl="";
   Boolean isJapaneseModel=false;
+  content=recalculateHardCodedFontSize(content,mDisplayFontSize);
   if (mCurrentCard != null) {
     final String japaneseModelTag="Japanese";
     Deck currentDeck=AnkiDroidApp.deck();

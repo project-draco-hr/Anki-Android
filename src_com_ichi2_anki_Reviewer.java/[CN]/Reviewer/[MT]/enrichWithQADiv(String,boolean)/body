@@ -1,6 +1,6 @@
 {
   StringBuffer sb=new StringBuffer();
-  sb.append("<p class=\"");
+  sb.append("<div class=\"");
   if (isAnswer) {
     sb.append(ANSWER_CLASS);
   }
@@ -9,6 +9,6 @@
   }
   sb.append("\">");
   sb.append(content);
-  sb.append("</p>");
+  sb.append("</div>");
   return sb.toString();
 }
