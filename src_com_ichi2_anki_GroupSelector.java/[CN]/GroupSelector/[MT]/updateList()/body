@@ -1,0 +1,19 @@
+{
+  mGroups.clear();
+  for (int i=0; i < mAllGroups.size(); i++) {
+    HashMap<String,String> map=mAllGroups.get(i);
+    Boolean[] status=mGroupStatus.get(map.get("fullname"));
+    if (status[STATUS_VISIBLE]) {
+      if (status[STATUS_HAS_CHILDREN]) {
+        if (status[STATUS_OPENED]) {
+          changeCaption(map,ARROW_DOWN);
+        }
+ else {
+          changeCaption(map,ARROW_UP);
+        }
+      }
+      mGroups.add(map);
+    }
+  }
+  mGroupsAdapter.notifyDataSetChanged();
+}

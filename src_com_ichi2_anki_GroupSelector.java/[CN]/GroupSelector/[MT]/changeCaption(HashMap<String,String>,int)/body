@@ -1,0 +1,17 @@
+{
+  String oldname=map.remove("name");
+  String newname=oldname;
+switch (action) {
+case ARROW_DOWN:
+    newname=oldname.replace("\u25b3","\u25bd");
+  break;
+case ARROW_UP:
+newname=oldname.replace("\u25bd","\u25b3");
+break;
+case ARROW_NONE:
+newname=oldname.replace("\u25bd","    ");
+newname=newname.replace("\u25b3","    ");
+break;
+}
+map.put("name",newname);
+}

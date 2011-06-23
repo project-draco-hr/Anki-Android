@@ -1,0 +1,24 @@
+{
+  JSONArray ja=new JSONArray();
+  for (int i=0; i < mAllGroups.size(); i++) {
+    String name=mAllGroups.get(i).get("fullname");
+    boolean checked=mGroupStatus.get(name)[STATUS_CHECKED];
+    if (checked) {
+      Integer gid=Integer.parseInt(mAllGroups.get(i).get("gid"));
+      if (gid != 0) {
+        ja.put(gid);
+      }
+    }
+    Log.e(AnkiDroidApp.TAG,"Group " + name + " activated: "+ checked);
+  }
+  try {
+    mDeck.getQconf().put("groups",ja);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  finish();
+  if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+    MyAnimation.slide(GroupSelector.this,MyAnimation.DOWN);
+  }
+}

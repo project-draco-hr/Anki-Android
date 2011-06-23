@@ -11,6 +11,9 @@
         mStatisticType=0;
         openStatistics(0);
       }
+ else       if (e1.getY() - e2.getY() > sSwipeMinDistance && Math.abs(velocityY) > sSwipeThresholdVelocity && Math.abs(e1.getX() - e2.getX()) < sSwipeMaxOffPath) {
+        openGroupSelection();
+      }
     }
  catch (    Exception e) {
       Log.e(AnkiDroidApp.TAG,"onFling Exception = " + e.getMessage());

@@ -1,0 +1,6 @@
+{
+  startActivityForResult(new Intent(StudyOptions.this,GroupSelector.class),GROUP_SELECTOR);
+  if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+    MyAnimation.slide(StudyOptions.this,MyAnimation.UP);
+  }
+}
