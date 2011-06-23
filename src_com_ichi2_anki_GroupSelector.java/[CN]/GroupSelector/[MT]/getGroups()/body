@@ -34,11 +34,11 @@
   for (int i=0; i < mGroups.size(); i++) {
     String fullname=mGroups.get(i).get("fullname");
     if (i < mGroups.size() - 1 && mGroups.get(i + 1).get("fullname").startsWith(fullname + "::")) {
-      mGroupStatus.put(fullname,new Boolean[]{true,true,true,selectedGroups.contains(Integer.parseInt(mGroups.get(i).get("gid")))});
+      mGroupStatus.put(fullname,new Boolean[]{true,true,true,selectedGroups.isEmpty() || selectedGroups.contains(Integer.parseInt(mGroups.get(i).get("gid")))});
     }
  else {
       changeCaption(mGroups.get(i),ARROW_NONE);
-      mGroupStatus.put(fullname,new Boolean[]{true,false,false,selectedGroups.contains(Integer.parseInt(mGroups.get(i).get("gid")))});
+      mGroupStatus.put(fullname,new Boolean[]{true,false,false,selectedGroups.isEmpty() || selectedGroups.contains(Integer.parseInt(mGroups.get(i).get("gid")))});
     }
   }
   mAllGroups.addAll(mGroups);

@@ -35,6 +35,10 @@
     }
   }
 );
+  mSessionTimeLimit=(EditText)findViewById(R.id.session_minutes);
+  mSessionRepLimit=(EditText)findViewById(R.id.session_questions);
+  mSessionTimeLimit.setText(mDeck.getStringVar("sessionTimeLimit"));
+  mSessionRepLimit.setText(mDeck.getStringVar("sessionRepLimit"));
   prepareDialogs();
   getGroups();
 }

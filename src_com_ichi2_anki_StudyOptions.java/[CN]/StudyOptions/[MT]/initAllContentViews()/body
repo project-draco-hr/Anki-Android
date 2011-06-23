@@ -59,7 +59,6 @@
   mCardBrowser.setOnClickListener(mButtonClickListener);
   mStatisticsButton.setOnClickListener(mButtonClickListener);
   mDialogMoreOptions=createMoreOptionsDialog();
-  mLimitSessionDialog=createLimitSessionDialog();
   mNoDeckView=getLayoutInflater().inflate(R.layout.studyoptions_nodeck,null);
   mTextNoDeckTitle=(TextView)mNoDeckView.findViewById(R.id.studyoptions_nodeck_title);
   mTextNoDeckMessage=(TextView)mNoDeckView.findViewById(R.id.studyoptions_nodeck_message);

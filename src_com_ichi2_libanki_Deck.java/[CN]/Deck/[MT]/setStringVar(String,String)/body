@@ -1,0 +1,9 @@
+{
+  try {
+    mConf.put(name,string);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  flushMod();
+}

@@ -65,4 +65,12 @@ resetAndUpdateValuesFromDeck();
  else if (requestCode == STATISTICS && mCurrentContentView == CONTENT_CONGRATS) {
 showContentView(CONTENT_STUDY_OPTIONS);
 }
+ else if (requestCode == GROUP_SELECTOR) {
+if (resultCode == RESULT_OK) {
+mToggleLimit.setChecked(true);
+}
+ else {
+mToggleLimit.setChecked(false);
+}
+}
 }

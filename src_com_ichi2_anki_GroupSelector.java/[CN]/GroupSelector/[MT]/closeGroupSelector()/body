@@ -1,21 +1,54 @@
 {
   JSONArray ja=new JSONArray();
+  boolean limited=false;
   for (int i=0; i < mAllGroups.size(); i++) {
-    String name=mAllGroups.get(i).get("fullname");
+    HashMap<String,String> map=mAllGroups.get(i);
+    String name=map.get("fullname");
     boolean checked=mGroupStatus.get(name)[STATUS_CHECKED];
+    int gid=Integer.parseInt(map.get("gid"));
     if (checked) {
-      Integer gid=Integer.parseInt(mAllGroups.get(i).get("gid"));
       if (gid != 0) {
         ja.put(gid);
       }
     }
+ else     if (gid != 0) {
+      limited=true;
+    }
     Log.e(AnkiDroidApp.TAG,"Group " + name + " activated: "+ checked);
+  }
+  if (!limited) {
+    ja=new JSONArray();
+  }
+  if (ja.length() == 0) {
+    limited=false;
   }
   try {
     mDeck.getQconf().put("groups",ja);
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);
+  }
+  String limit=mSessionTimeLimit.getText().toString();
+  if (isValidInt(limit) && !limit.equals("0")) {
+    mDeck.setStringVar("sessionTimeLimit",limit);
+    limited=true;
+  }
+ else {
+    mDeck.setStringVar("sessionTimeLimit","0");
+  }
+  limit=mSessionRepLimit.getText().toString();
+  if (isValidInt(limit) && !limit.equals("0")) {
+    mDeck.setStringVar("sessionRepLimit",limit);
+    limited=true;
+  }
+ else   if (isValidInt(limit)) {
+    mDeck.setStringVar("sessionRepLimit","0");
+  }
+  if (limited) {
+    setResult(RESULT_OK,this.getIntent());
+  }
+ else {
+    setResult(RESULT_CANCELED,this.getIntent());
   }
   finish();
   if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
