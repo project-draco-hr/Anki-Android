@@ -55,10 +55,10 @@
       Sound.playSounds(null,0);
     }
  else     if (!sDisplayAnswer) {
-      Sound.playSounds(Utils.stripHTML(mCurrentCard.getQuestion()),MetaDB.LANGUAGE_QUESTION);
+      Sound.playSounds(Utils.stripHTML(getQuestion()),MetaDB.LANGUAGE_QUESTION);
     }
  else {
-      Sound.playSounds(Utils.stripHTML(mCurrentCard.getAnswer()),MetaDB.LANGUAGE_ANSWER);
+      Sound.playSounds(Utils.stripHTML(getAnswer()),MetaDB.LANGUAGE_ANSWER);
     }
   }
 }

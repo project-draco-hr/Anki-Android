@@ -37,6 +37,7 @@
     sSwipeMaxOffPath=(int)(SWIPE_MAX_OFF_PATH_DIP * gestureScale + 0.5f);
   }
   mInvertedColors=preferences.getBoolean("invertedColors",false);
+  mSwap=preferences.getBoolean("swapqa",false);
   setLanguage(preferences.getString("language",""));
   return preferences;
 }

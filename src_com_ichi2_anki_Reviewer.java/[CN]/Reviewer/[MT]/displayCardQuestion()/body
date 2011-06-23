@@ -15,7 +15,7 @@
   }
   mFlipCard.setVisibility(View.VISIBLE);
   mFlipCard.requestFocus();
-  String question=mCurrentCard.getQuestion();
+  String question=getQuestion();
   if (mPrefFixArabic) {
     question=ArabicUtilities.reshapeSentence(question,true);
   }
