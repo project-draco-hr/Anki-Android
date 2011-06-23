@@ -10,6 +10,7 @@
   if (deck.mCrt == 0) {
   }
   deck.mModelCache=new TreeMap<Integer,Model>();
+  deck.mGroupConfCache=new TreeMap<Integer,JSONObject>();
   deck.mSessionStartReps=0;
   deck.mSessionStartTime=0;
   deck.mLastSessionStart=0;

@@ -19,7 +19,7 @@
         int newpos=name.indexOf("::",pos + 1);
         String subname=name.substring(0,name.indexOf("::",newpos));
         if (!subset.containsKey(subname)) {
-          subset.put(subname,new int[]{0,0,0,0});
+          subset.put(subname,new int[]{0,0,0,0,0});
         }
         pos=newpos;
       }

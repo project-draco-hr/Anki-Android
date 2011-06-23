@@ -1,0 +1,11 @@
+{
+  AdapterContextMenuInfo info=(AdapterContextMenuInfo)item.getMenuInfo();
+  mCurrentSelectedGroup=mGroups.get(info.position);
+switch (item.getItemId()) {
+case CONTEXT_MENU_SELECT_CONF:
+    mConfDialog.show();
+  return true;
+default :
+return super.onContextItemSelected(item);
+}
+}

@@ -18,6 +18,11 @@
     }
   }
 );
+  mGroupListView.setOnItemClickListener(new OnItemClickListener(){
+    @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
+    }
+  }
+);
   mGroupListView.setAdapter(mGroupsAdapter);
   registerForContextMenu(mGroupListView);
   gestureDetector=new GestureDetector(new MyGestureDetector());
@@ -30,5 +35,6 @@
     }
   }
 );
+  prepareDialogs();
   getGroups();
 }

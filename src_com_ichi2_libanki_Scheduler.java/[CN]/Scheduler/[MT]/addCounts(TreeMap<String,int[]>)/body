@@ -8,9 +8,9 @@
   if (children.size() != 0) {
     for (    Map.Entry<String,int[]> c : _groupChildren(children).entrySet()) {
       if (c.getKey().split("::").length == subset.firstKey().split("::").length) {
-        subset.get(subset.firstKey())[1]+=c.getValue()[1];
         subset.get(subset.firstKey())[2]+=c.getValue()[2];
         subset.get(subset.firstKey())[3]+=c.getValue()[3];
+        subset.get(subset.firstKey())[4]+=c.getValue()[4];
       }
     }
   }

@@ -10,11 +10,15 @@
     sb.append("\u25bd ").append(name[name.length - 1]);
     map.put("name",sb.toString());
     map.put("fullname",g.getKey());
-    map.put("conf","nix");
-    map.put("all",Integer.toString(g.getValue()[1]));
-    map.put("due",Integer.toString(g.getValue()[2]));
-    map.put("new",Integer.toString(g.getValue()[3]));
+    map.put("all",Integer.toString(g.getValue()[2]));
+    map.put("due",Integer.toString(g.getValue()[3]));
+    map.put("new",Integer.toString(g.getValue()[4]));
     map.put("gid",Integer.toString(g.getValue()[0]));
+    int gcid=g.getValue()[1];
+    map.put("gcid",Integer.toString(gcid));
+    if (gcid != 0) {
+      map.put("conf","(" + mConfs.get(gcid) + ")");
+    }
     mGroups.add(map);
   }
   ArrayList<Integer> selectedGroups=new ArrayList<Integer>();
