@@ -1,0 +1,7 @@
+{
+  String lim="";
+  if (limit) {
+    lim=getSched()._groupLimit();
+  }
+  return (int)getDB().queryScalar("SELECT count() FROM cards WHERE queue = 0" + lim);
+}

@@ -1,0 +1,4 @@
+{
+  int[] counts=yesCounts();
+  return new double[]{1 - (double)counts[1] / counts[0],1 - (double)counts[3] / counts[2]};
+}

@@ -1,8 +1,3 @@
 {
-  try {
-    return mConf.getString(name);
-  }
- catch (  JSONException e) {
-    throw new RuntimeException(e);
-  }
+  return getStringVar(name,"");
 }

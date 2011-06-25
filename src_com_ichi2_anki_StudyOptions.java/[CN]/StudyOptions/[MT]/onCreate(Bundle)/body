@@ -8,7 +8,6 @@
   SharedPreferences preferences=restorePreferences();
   registerExternalStorageListener();
   activeCramTags=new HashSet<String>();
-  mSelectedTags=new HashSet<String>();
   initAllContentViews();
   initAllDialogs();
   Intent intent=getIntent();

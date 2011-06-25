@@ -1,0 +1,8 @@
+{
+  int dayStart=(getSched().mDayCutoff - 86400) * 10000;
+  int todayAnswers=(int)getDB().queryScalar("SELECT count() FROM revlog WHERE time >= " + dayStart);
+  int todayNoAnswers=(int)getDB().queryScalar("SELECT count() FROM revlog WHERE time >= " + dayStart + " AND ease = 1");
+  int matureAnswers=(int)getDB().queryScalar("SELECT count() FROM revlog WHERE lastivl >= 21");
+  int matureNoAnswers=(int)getDB().queryScalar("SELECT count() FROM revlog WHERE lastivl >= 21 AND ease = 1");
+  return new int[]{todayAnswers,todayNoAnswers,matureAnswers,matureNoAnswers};
+}

@@ -33,9 +33,11 @@ case MENU_MARK:
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_MARK_CARD,mMarkCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
 return true;
 case MENU_UNDO:
+mReloadStatistics=true;
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mUpdateCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard.getId(),false));
 return true;
 case MENU_REDO:
+mReloadStatistics=true;
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REDO,mUpdateCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard.getId(),false));
 return true;
 }

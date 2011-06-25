@@ -2,6 +2,7 @@
   mIsSelecting=false;
   Deck deck=AnkiDroidApp.deck();
   mChosenAnswer.setText("\u2022");
+  boolean mature=mCurrentCard.getIvl() >= 21;
 switch (ease) {
 case EASE_FAILED:
     mChosenAnswer.setText("\u2022");
@@ -9,6 +10,10 @@ case EASE_FAILED:
 int[] counts=deck.getSched().counts();
 if (counts[0] + counts[1] + counts[2] == 1) {
 mIsLastCard=true;
+}
+mStatisticsTodaysNoCount++;
+if (mature) {
+mStatisticsMatureNoCount++;
 }
 break;
 case EASE_HARD:
@@ -23,6 +28,10 @@ case EASE_EASY:
 mChosenAnswer.setText("\u2022\u2022\u2022\u2022");
 mChosenAnswer.setTextColor(mNext4.getTextColors());
 break;
+}
+mStatisticsTodaysCount++;
+if (mature) {
+mStatisticsMatureCount++;
 }
 mTimerHandler.removeCallbacks(removeChosenAnswerText);
 mTimerHandler.postDelayed(removeChosenAnswerText,mShowChosenAnswerLength);
