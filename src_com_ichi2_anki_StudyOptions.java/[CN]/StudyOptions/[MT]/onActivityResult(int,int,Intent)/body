@@ -41,6 +41,12 @@
  else   if (requestCode == PREFERENCES_UPDATE) {
     restorePreferences();
     showContentView();
+    if (resultCode == RESULT_OK) {
+      Intent i=getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
+      i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+      closeStudyOptions();
+      startActivity(i);
+    }
   }
  else   if (requestCode == REQUEST_REVIEW) {
     Log.i(AnkiDroidApp.TAG,"Result code = " + resultCode);

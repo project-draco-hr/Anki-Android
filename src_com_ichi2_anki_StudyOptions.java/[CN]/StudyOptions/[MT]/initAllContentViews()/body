@@ -1,5 +1,6 @@
 {
   mStudyOptionsView=getLayoutInflater().inflate(R.layout.studyoptions,null);
+  Themes.changeContentColors(mStudyOptionsView,Themes.CALLER_STUDYOPTIONS);
   mStudyOptionsMain=(View)mStudyOptionsView.findViewById(R.id.studyoptions_main);
   mTextDeckName=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_name);
   mButtonStart=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_start);

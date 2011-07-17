@@ -4,9 +4,15 @@
     zoomCheckboxPreference.setEnabled(!swipeCheckboxPreference.isChecked());
   }
  else   if (key.equals("language")) {
-    Intent i=getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
-    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-    startActivity(i);
+    Intent intent=this.getIntent();
+    setResult(RESULT_OK,intent);
+    finish();
+  }
+ else   if (key.equals("theme")) {
+    Themes.resetTheme();
+    Intent intent=this.getIntent();
+    setResult(RESULT_OK,intent);
+    finish();
   }
  else   if (Arrays.asList(mShowValueInSummList).contains(key)) {
     updateListPreference(key);

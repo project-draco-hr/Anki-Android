@@ -1,6 +1,7 @@
 {
   setContentView(layout);
   mMainLayout=findViewById(R.id.main_layout);
+  Themes.changeContentColors(mMainLayout,Themes.CALLER_REVIEWER);
   mCard=(WebView)findViewById(R.id.flashcard);
   mCard.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
   if (mZoomEnabled) {

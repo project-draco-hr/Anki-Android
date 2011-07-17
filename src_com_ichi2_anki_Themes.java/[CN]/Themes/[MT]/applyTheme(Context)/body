@@ -1,0 +1,31 @@
+{
+  if (mCurrentTheme == -1) {
+    SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
+    mCurrentTheme=Integer.parseInt(preferences.getString("theme","0"));
+switch (mCurrentTheme) {
+case THEME_ANDROID_LIGHT:
+      mProgressbarsBackgroundColor=R.color.studyoptions_progressbar_background_light;
+    mProgressbarsFrameColor=R.color.studyoptions_progressbar_frame_light;
+  mProgressbarsMatureColor=R.color.studyoptions_progressbar_mature_light;
+mProgressbarsYoungColor=R.color.studyoptions_progressbar_young_light;
+break;
+case THEME_BLUE:
+mProgressbarsBackgroundColor=R.color.studyoptions_progressbar_background_blue;
+mProgressbarsFrameColor=R.color.studyoptions_progressbar_frame_light;
+mProgressbarsMatureColor=R.color.studyoptions_progressbar_mature_light;
+mProgressbarsYoungColor=R.color.studyoptions_progressbar_young_blue;
+mButtonStyle=R.drawable.blue_btn_default;
+mListColors=new int[]{R.color.deckpicker_listview_color1_blue,R.color.deckpicker_listview_color2_blue};
+mDeckpickerBackground=R.color.deckpicker_background;
+break;
+}
+}
+switch (mCurrentTheme) {
+case THEME_DEFAULT:
+break;
+case THEME_ANDROID_LIGHT:
+case THEME_BLUE:
+context.setTheme(android.R.style.Theme_Light);
+break;
+}
+}
