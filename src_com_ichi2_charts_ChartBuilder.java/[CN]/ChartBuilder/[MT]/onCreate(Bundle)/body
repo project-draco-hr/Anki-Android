@@ -5,7 +5,8 @@
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
     requestWindowFeature(Window.FEATURE_NO_TITLE);
   }
-  setContentView(R.layout.statistics);
+  View mainView=getLayoutInflater().inflate(R.layout.statistics,null);
+  setContentView(mainView);
   mTitle=(TextView)findViewById(R.id.statistics_title);
   if (mChartView == null) {
     if (mFullScreen) {

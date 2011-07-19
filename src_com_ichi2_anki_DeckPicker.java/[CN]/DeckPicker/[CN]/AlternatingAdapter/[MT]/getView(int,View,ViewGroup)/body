@@ -1,5 +1,5 @@
 {
   View view=super.getView(position,convertView,parent);
-  Themes.changeContentColors(view,Themes.CALLER_DECKPICKER_DECK);
+  Themes.setContentStyle(view,Themes.CALLER_DECKPICKER_DECK);
   return view;
 }

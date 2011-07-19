@@ -1,0 +1,42 @@
+{
+  if (mCurrentTheme == THEME_DEFAULT) {
+    return;
+  }
+switch (caller) {
+case CALLER_STUDYOPTIONS:
+    ((View)view.findViewById(R.id.studyoptions_progressbar1_border)).setBackgroundResource(mProgressbarsFrameColor);
+  ((View)view.findViewById(R.id.studyoptions_progressbar2_border)).setBackgroundResource(mProgressbarsFrameColor);
+((View)view.findViewById(R.id.studyoptions_global_limit_bars)).setBackgroundResource(mProgressbarsFrameColor);
+((View)view.findViewById(R.id.studyoptions_progressbar4_border)).setBackgroundResource(mProgressbarsFrameColor);
+((View)view.findViewById(R.id.studyoptions_bars_max)).setBackgroundResource(mProgressbarsBackgroundColor);
+((View)view.findViewById(R.id.studyoptions_progressbar2_content)).setBackgroundResource(mProgressbarsBackgroundColor);
+((View)view.findViewById(R.id.studyoptions_global_limit_bars_content)).setBackgroundResource(mProgressbarsBackgroundColor);
+((View)view.findViewById(R.id.studyoptions_progressbar4_content)).setBackgroundResource(mProgressbarsBackgroundColor);
+((View)view.findViewById(R.id.studyoptions_global_mat_limit_bar)).setBackgroundResource(mProgressbarsMatureColor);
+((View)view.findViewById(R.id.studyoptions_global_mat_bar)).setBackgroundResource(mProgressbarsMatureColor);
+((View)view.findViewById(R.id.studyoptions_global_limit_bar)).setBackgroundResource(mProgressbarsYoungColor);
+((View)view.findViewById(R.id.studyoptions_global_bar)).setBackgroundResource(mProgressbarsYoungColor);
+break;
+case CALLER_DECKPICKER:
+view.setBackgroundResource(mDeckpickerBackground);
+break;
+case CALLER_DECKPICKER_DECK:
+if (view.getId() == R.id.DeckPickerCompletionMat) {
+view.setBackgroundResource(mProgressbarsFrameColor);
+}
+ else if (view.getId() == R.id.DeckPickerCompletionAll) {
+view.setBackgroundResource(mProgressbarsDeckpickerYoungColor);
+}
+ else if (view.getId() == R.id.deckpicker_deck) {
+view.setBackgroundResource(mDeckpickerItemBorder);
+}
+break;
+case CALLER_REVIEWER:
+((View)view.findViewById(R.id.main_layout)).setBackgroundResource(mReviewerBackground);
+((View)view.findViewById(R.id.flashcard_border)).setBackgroundResource(mFlashcardBorder);
+break;
+case CALLER_FEEDBACK:
+((TextView)view).setTextColor(mProgressbarsFrameColor);
+break;
+}
+}

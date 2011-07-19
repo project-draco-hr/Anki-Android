@@ -16,8 +16,6 @@ mProgressbarsFrameColor=R.color.studyoptions_progressbar_frame_light;
 mProgressbarsMatureColor=R.color.studyoptions_progressbar_mature_light;
 mProgressbarsYoungColor=R.color.studyoptions_progressbar_young_blue;
 mProgressbarsDeckpickerYoungColor=R.color.deckpicker_progressbar_young_light;
-mButtonStyle=R.drawable.blue_btn_default;
-mToggleButtonStyle=R.drawable.blue_btn_toggle_bg;
 mDeckpickerBackground=R.color.deckpicker_background;
 mReviewerBackground=R.color.reviewer_background;
 mFlashcardBorder=R.drawable.blue_bg_webview;
@@ -32,8 +30,10 @@ switch (mCurrentTheme) {
 case THEME_DEFAULT:
 break;
 case THEME_ANDROID_LIGHT:
-case THEME_BLUE:
 context.setTheme(android.R.style.Theme_Light);
+break;
+case THEME_BLUE:
+context.setTheme(R.style.Theme_Blue);
 break;
 }
 }
