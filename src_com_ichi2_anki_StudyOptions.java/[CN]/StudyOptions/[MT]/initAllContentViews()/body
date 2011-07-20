@@ -55,9 +55,13 @@
   mDialogMoreOptions=createMoreOptionsDialog();
   mLimitSessionDialog=createLimitSessionDialog();
   mNoDeckView=getLayoutInflater().inflate(R.layout.studyoptions_nodeck,null);
+  Themes.setWallpaper(mNoDeckView);
   mTextNoDeckTitle=(TextView)mNoDeckView.findViewById(R.id.studyoptions_nodeck_title);
+  Themes.setTitleStyle(mTextNoDeckTitle);
   mTextNoDeckMessage=(TextView)mNoDeckView.findViewById(R.id.studyoptions_nodeck_message);
+  Themes.setTextViewStyle(mTextNoDeckMessage);
   mTextNoDeckMessage.setOnClickListener(mButtonClickListener);
+  Themes.setTextViewStyle(mTextNoDeckMessage);
   mNoDeckView.findViewById(R.id.studyoptions_load_sample_deck).setOnClickListener(mButtonClickListener);
   mNoDeckView.findViewById(R.id.studyoptions_download_deck).setOnClickListener(mButtonClickListener);
   mNoDeckView.findViewById(R.id.studyoptions_load_other_deck).setOnClickListener(mButtonClickListener);
@@ -78,4 +82,7 @@
   mButtonCongratsOpenOtherDeck.setOnClickListener(mButtonClickListener);
   mButtonCongratsFinish.setOnClickListener(mButtonClickListener);
   mNoExternalStorageView=getLayoutInflater().inflate(R.layout.studyoptions_nostorage,null);
+  Themes.setWallpaper(mNoExternalStorageView);
+  Themes.setTitleStyle(mNoExternalStorageView.findViewById(R.id.studyoptions_nostorage_title));
+  Themes.setTextViewStyle(mNoExternalStorageView.findViewById(R.id.studyoptions_nostorage_message));
 }
