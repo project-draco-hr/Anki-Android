@@ -1,0 +1,16 @@
+{
+  if (mFirstCard) {
+    return;
+  }
+  final float centerX=mCard.getWidth() / 2.0f;
+  final float centerY=mCard.getHeight() / 2.0f;
+  final Rotate3dAnimation rotation=new Rotate3dAnimation(start,end,centerX,centerY,0,false);
+  rotation.setDuration(speed);
+  rotation.setFillAfter(true);
+  rotation.setInterpolator(new AccelerateInterpolator());
+  if (setListener) {
+    rotation.setAnimationListener(mFlipCardAnimationListener);
+  }
+  mCardContainer.clearAnimation();
+  mCardContainer.startAnimation(rotation);
+}

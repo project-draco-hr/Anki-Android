@@ -1,13 +1,13 @@
 {
   Log.i(AnkiDroidApp.TAG,"updateCard");
-  String baseUrl="";
+  mBaseUrl="";
   Boolean isJapaneseModel=false;
   content=recalculateHardCodedFontSize(content,mDisplayFontSize);
   if (mCurrentCard != null) {
     final String japaneseModelTag="Japanese";
     Deck currentDeck=AnkiDroidApp.deck();
     Model myModel=Model.getModel(currentDeck,mCurrentCard.getCardModelId(),false);
-    baseUrl=Utils.getBaseUrl(mMediaDir,myModel,currentDeck);
+    mBaseUrl=Utils.getBaseUrl(mMediaDir,myModel,currentDeck);
     content=myModel.getCSSForFontColorSize(mCurrentCard.getCardModelId(),mDisplayFontSize,mInvertedColors) + Model.invertColors(content,mInvertedColors);
     isJapaneseModel=myModel.hasTag(japaneseModelTag);
     if (Themes.changeFlashcardBorder()) {
@@ -16,18 +16,18 @@
   }
  else {
     mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
-    baseUrl=Utils.urlEncodeMediaDir(mDeckFilename.replace(".anki",".media/"));
+    mBaseUrl=Utils.urlEncodeMediaDir(mDeckFilename.replace(".anki",".media/"));
   }
   int questionStartsAt=content.indexOf("<a name=\"question\"></a><hr/>");
   String question="";
   String answer="";
   if (isQuestionDisplayed()) {
     if (sDisplayAnswer && (questionStartsAt != -1)) {
-      question=Sound.parseSounds(baseUrl,content.substring(0,questionStartsAt),mSpeakText,MetaDB.LANGUAGE_QUESTION);
-      answer=Sound.parseSounds(baseUrl,content.substring(questionStartsAt,content.length()),mSpeakText,MetaDB.LANGUAGE_ANSWER);
+      question=Sound.parseSounds(mBaseUrl,content.substring(0,questionStartsAt),mSpeakText,MetaDB.LANGUAGE_QUESTION);
+      answer=Sound.parseSounds(mBaseUrl,content.substring(questionStartsAt,content.length()),mSpeakText,MetaDB.LANGUAGE_ANSWER);
     }
  else {
-      question=Sound.parseSounds(baseUrl,content.substring(0,content.length() - 5),mSpeakText,MetaDB.LANGUAGE_QUESTION) + "<hr/>";
+      question=Sound.parseSounds(mBaseUrl,content.substring(0,content.length() - 5),mSpeakText,MetaDB.LANGUAGE_QUESTION) + "<hr/>";
     }
   }
  else {
@@ -35,7 +35,7 @@
     if (sDisplayAnswer) {
       qa=MetaDB.LANGUAGE_ANSWER;
     }
-    answer=Sound.parseSounds(baseUrl,content,mSpeakText,qa);
+    answer=Sound.parseSounds(mBaseUrl,content,mSpeakText,qa);
   }
   question=LaTeX.parseLaTeX(AnkiDroidApp.deck(),question);
   answer=LaTeX.parseLaTeX(AnkiDroidApp.deck(),answer);
@@ -55,9 +55,15 @@
   style.append(getDefaultFontStyle());
   style.append(getDeckStyle(mCurrentCard.mDeck.getDeckPath()));
   Log.i(AnkiDroidApp.TAG,"::style::" + style);
-  String card=mCardTemplate.replace("::content::",content).replace("::style::",style.toString());
-  Log.i(AnkiDroidApp.TAG,"base url = " + baseUrl);
-  mCard.loadDataWithBaseURL(baseUrl,card,"text/html","utf-8",null);
+  mCardContent=mCardTemplate.replace("::content::",content).replace("::style::",style.toString());
+  Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
+  if (mShowAnimations && !mFirstCard) {
+    applyRotation(0,90,ANIMATION_SPEED / 2,true);
+  }
+ else {
+    mCard.loadDataWithBaseURL(mBaseUrl,mCardContent,"text/html","utf-8",null);
+    mFirstCard=false;
+  }
   if (!mConfigurationChanged && mPlaySoundsAtStart) {
     if (!mSpeakText) {
       Sound.playSounds(null,0);

@@ -1,0 +1,20 @@
+{
+  final float fromDegrees=mFromDegrees;
+  float degrees=fromDegrees + ((mToDegrees - fromDegrees) * interpolatedTime);
+  final float centerX=mCenterX;
+  final float centerY=mCenterY;
+  final Camera camera=mCamera;
+  final Matrix matrix=t.getMatrix();
+  camera.save();
+  if (mReverse) {
+    camera.translate(0.0f,0.0f,mDepthZ * interpolatedTime);
+  }
+ else {
+    camera.translate(0.0f,0.0f,mDepthZ * (1.0f - interpolatedTime));
+  }
+  camera.rotateX(degrees);
+  camera.getMatrix(matrix);
+  camera.restore();
+  matrix.preTranslate(-centerX,-centerY);
+  matrix.postTranslate(centerX,centerY);
+}
