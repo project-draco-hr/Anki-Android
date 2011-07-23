@@ -1,0 +1,7 @@
+{
+  float startValue=type;
+  Animation animation=new AlphaAnimation(startValue,1.0f - startValue);
+  animation.setDuration(duration);
+  animation.setStartOffset(offset);
+  return animation;
+}

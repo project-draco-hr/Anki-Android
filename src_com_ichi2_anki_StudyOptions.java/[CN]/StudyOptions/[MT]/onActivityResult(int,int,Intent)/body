@@ -6,8 +6,7 @@
  else   if (requestCode == PICK_DECK_REQUEST || requestCode == DOWNLOAD_PERSONAL_DECK || requestCode == DOWNLOAD_SHARED_DECK) {
     mInDeckPicker=false;
     if (requestCode == PICK_DECK_REQUEST && resultCode == RESULT_OK) {
-      showContentView(CONTENT_SESSION_COMPLETE);
-      mStudyOptionsMain.setVisibility(View.INVISIBLE);
+      showContentView(CONTENT_STUDY_OPTIONS);
     }
  else     if ((requestCode == DOWNLOAD_SHARED_DECK || requestCode == DOWNLOAD_PERSONAL_DECK) && resultCode == RESULT_OK) {
       openDeckPicker();

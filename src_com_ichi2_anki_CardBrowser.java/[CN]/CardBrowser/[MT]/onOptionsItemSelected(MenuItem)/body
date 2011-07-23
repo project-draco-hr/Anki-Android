@@ -9,7 +9,7 @@ return true;
 case MENU_ADD_FACT:
 startActivityForResult(new Intent(CardBrowser.this,FactAdder.class),ADD_FACT);
 if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-MyAnimation.slide(CardBrowser.this,MyAnimation.LEFT);
+ActivityTransitionAnimation.slide(CardBrowser.this,ActivityTransitionAnimation.LEFT);
 }
 return true;
 case MENU_SHOW_MARKED:

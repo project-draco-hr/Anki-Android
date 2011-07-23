@@ -5,7 +5,7 @@
       setResult(RESULT_OK);
       finish();
       if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-        MyAnimation.slide(CardBrowser.this,MyAnimation.RIGHT);
+        ActivityTransitionAnimation.slide(CardBrowser.this,ActivityTransitionAnimation.RIGHT);
       }
     }
  else {

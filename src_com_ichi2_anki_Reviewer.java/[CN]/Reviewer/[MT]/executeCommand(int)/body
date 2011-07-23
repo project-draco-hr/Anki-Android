@@ -62,6 +62,7 @@ closeReviewer();
 break;
 case GESTURE_UNDO:
 if (AnkiDroidApp.deck().undoAvailable()) {
+mFlipToRight=true;
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mUpdateCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
 }
 break;

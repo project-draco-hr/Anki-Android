@@ -6,7 +6,7 @@
   if (typeAnswer()) {
     mAnswerField.setText("");
   }
-  if (mPrefWhiteboard) {
+  if (mPrefWhiteboard && !mShowAnimations) {
     mWhiteboard.clear();
   }
   if (mPrefTimer) {

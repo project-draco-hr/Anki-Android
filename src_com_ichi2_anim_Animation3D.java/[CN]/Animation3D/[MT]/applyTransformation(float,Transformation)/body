@@ -1,0 +1,51 @@
+{
+  float centerX;
+  float centerY;
+  final Camera camera=mCamera;
+  final Matrix matrix=t.getMatrix();
+  camera.save();
+  float time;
+  if (mTurn) {
+    if (mRealTurn) {
+      time=interpolatedTime >= 0.5f ? (interpolatedTime - 1.0f) : interpolatedTime;
+    }
+ else {
+      time=interpolatedTime >= 0.5f ? -(interpolatedTime - 1.0f) : interpolatedTime;
+    }
+    float degrees=time * (mDirection ? -180 : 180);
+    if (interpolatedTime >= 0.5f && !mFlipped) {
+      mReviewer.fillFlashcard(false);
+      mFlipped=true;
+    }
+    camera.translate(0.0f,0.0f,mDepthZ * Math.abs(degrees));
+    if (mDirection) {
+      centerX=mValueX / 2;
+      centerY=mValueY / (mRealTurn ? 2 : 3);
+      camera.rotateX(degrees);
+    }
+ else {
+      centerX=mValueX / (mRealTurn ? 2 : 3);
+      centerY=mValueY / 2;
+      camera.rotateY(degrees);
+    }
+  }
+ else {
+    if (mDirection) {
+      time=interpolatedTime >= 0.5f ? -(interpolatedTime - 1.0f) : -interpolatedTime;
+    }
+ else {
+      time=interpolatedTime >= 0.5f ? (interpolatedTime - 1.0f) : interpolatedTime;
+    }
+    if (interpolatedTime >= 0.5f && !mFlipped) {
+      mReviewer.fillFlashcard(false);
+      mFlipped=true;
+    }
+    camera.translate(mValueX * time * 2,0.0f,mDepthZ * Math.abs(time * 180));
+    centerX=mValueX / 2;
+    centerY=mValueY / 2;
+  }
+  camera.getMatrix(matrix);
+  camera.restore();
+  matrix.preTranslate(-centerX,-centerY);
+  matrix.postTranslate(centerX,centerY);
+}

@@ -40,5 +40,10 @@
     mGestureTapBottom=Integer.parseInt(preferences.getString("gestureTapBottom","0"));
   }
   mShowAnimations=preferences.getBoolean("themeAnimations",false);
+  if (mShowAnimations) {
+    int animationDuration=preferences.getInt("animationDuration",500);
+    mAnimationDurationTurn=animationDuration;
+    mAnimationDurationMove=animationDuration;
+  }
   return preferences;
 }

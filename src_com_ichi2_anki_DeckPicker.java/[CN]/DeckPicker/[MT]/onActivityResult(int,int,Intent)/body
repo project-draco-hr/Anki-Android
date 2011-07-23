@@ -7,7 +7,7 @@
       Intent i=new Intent(DeckPicker.this,DeckPicker.class);
       startActivity(i);
       if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-        MyAnimation.slide(this,MyAnimation.NONE);
+        ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.NONE);
       }
     }
   }
@@ -16,7 +16,7 @@
     Intent i=new Intent(DeckPicker.this,DeckPicker.class);
     startActivity(i);
     if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-      MyAnimation.slide(this,MyAnimation.NONE);
+      ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.NONE);
     }
   }
  else   if (requestCode == REPORT_FEEDBACK && resultCode == RESULT_OK) {

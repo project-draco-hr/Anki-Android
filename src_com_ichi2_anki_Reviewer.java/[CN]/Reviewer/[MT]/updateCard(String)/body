@@ -57,12 +57,11 @@
   Log.i(AnkiDroidApp.TAG,"::style::" + style);
   mCardContent=mCardTemplate.replace("::content::",content).replace("::style::",style.toString());
   Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
-  if (mShowAnimations && !mFirstCard) {
-    applyRotation(0,90,ANIMATION_SPEED / 2,true);
+  if (!mFirstCard && mShowAnimations) {
+    fillFlashcard(true);
   }
  else {
-    mCard.loadDataWithBaseURL(mBaseUrl,mCardContent,"text/html","utf-8",null);
-    mFirstCard=false;
+    fillFlashcard(false);
   }
   if (!mConfigurationChanged && mPlaySoundsAtStart) {
     if (!mSpeakText) {

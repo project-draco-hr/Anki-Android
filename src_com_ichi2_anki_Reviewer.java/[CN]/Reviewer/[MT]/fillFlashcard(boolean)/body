@@ -1,0 +1,27 @@
+{
+  if (!flip) {
+    mCard.loadDataWithBaseURL(mBaseUrl,mCardContent,"text/html","utf-8",null);
+  }
+ else {
+    Animation3D rotation;
+    if (sDisplayAnswer) {
+      rotation=new Animation3D(mCard.getWidth(),mCard.getHeight(),5,true,true,true,this);
+      rotation.setDuration(mAnimationDurationTurn);
+      rotation.setInterpolator(new AccelerateDecelerateInterpolator());
+    }
+ else {
+      if (mShowWhiteboard) {
+        mWhiteboard.clear();
+      }
+      rotation=new Animation3D(mCard.getWidth(),mCard.getHeight(),0,!mFlipToRight,false,true,this);
+      mFlipToRight=false;
+      rotation.setDuration(mAnimationDurationMove);
+      rotation.setInterpolator(new AccelerateDecelerateInterpolator());
+    }
+    rotation.reset();
+    mCardContainer.setDrawingCacheEnabled(true);
+    mCardContainer.setDrawingCacheBackgroundColor(Themes.getBackgroundColor());
+    mCardContainer.clearAnimation();
+    mCardContainer.startAnimation(rotation);
+  }
+}

@@ -1,0 +1,12 @@
+{
+  view.setVisibility(visible);
+  if (mShowAnimations) {
+    int duration=mAnimationDurationTurn / 2;
+    if (visible == View.VISIBLE) {
+      view.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_IN,duration,duration));
+    }
+ else {
+      view.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_OUT,duration,0));
+    }
+  }
+}

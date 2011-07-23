@@ -49,7 +49,7 @@
       editCard.putExtra("callfromcardbrowser",true);
       startActivityForResult(editCard,EDIT_CARD);
       if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-        MyAnimation.slide(CardBrowser.this,MyAnimation.LEFT);
+        ActivityTransitionAnimation.slide(CardBrowser.this,ActivityTransitionAnimation.LEFT);
       }
     }
   }

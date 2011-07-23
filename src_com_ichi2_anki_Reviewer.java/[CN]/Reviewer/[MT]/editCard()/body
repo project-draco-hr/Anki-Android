@@ -9,7 +9,7 @@
     sEditorCard=mCurrentCard;
     startActivityForResult(editCard,EDIT_CURRENT_CARD);
     if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-      MyAnimation.slide(Reviewer.this,MyAnimation.LEFT);
+      ActivityTransitionAnimation.slide(Reviewer.this,ActivityTransitionAnimation.LEFT);
     }
     return true;
   }

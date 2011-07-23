@@ -7,7 +7,7 @@
     reviewer.putExtra("deckFilename",mDeckFilename);
     startActivityForResult(reviewer,REQUEST_REVIEW);
     if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-      MyAnimation.slide(this,MyAnimation.LEFT);
+      ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
     }
   }
 }

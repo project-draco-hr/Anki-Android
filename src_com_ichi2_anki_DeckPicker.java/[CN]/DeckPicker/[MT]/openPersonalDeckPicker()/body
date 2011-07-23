@@ -6,7 +6,7 @@
     }
     startActivityForResult(new Intent(this,PersonalDeckPicker.class),DOWNLOAD_PERSONAL_DECK);
     if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-      MyAnimation.slide(this,MyAnimation.RIGHT);
+      ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
     }
   }
  else {
