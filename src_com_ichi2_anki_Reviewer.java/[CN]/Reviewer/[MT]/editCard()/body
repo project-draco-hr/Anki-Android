@@ -1,7 +1,6 @@
 {
   if (isCramming()) {
-    Toast cramEditWarning=Toast.makeText(Reviewer.this,getResources().getString(R.string.cram_edit_warning),Toast.LENGTH_SHORT);
-    cramEditWarning.show();
+    Themes.showThemedToast(Reviewer.this,getResources().getString(R.string.cram_edit_warning),true);
     return false;
   }
  else {
