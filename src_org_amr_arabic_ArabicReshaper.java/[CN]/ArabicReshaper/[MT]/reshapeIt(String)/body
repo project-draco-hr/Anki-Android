@@ -3,7 +3,12 @@
   int wordLength=unshapedWord.length();
   char[] wordLetters=new char[wordLength];
   unshapedWord.getChars(0,wordLength,wordLetters,0);
-  reshapedWord.append(getReshapedGlphy(wordLetters[0],2));
+  if (wordLength > 1) {
+    reshapedWord.append(getReshapedGlphy(wordLetters[0],2));
+  }
+ else {
+    reshapedWord.append(getReshapedGlphy(wordLetters[0],1));
+  }
   for (int i=1; i < wordLength - 1; i++) {
     int beforeLast=i - 1;
     if (getGlphyType(wordLetters[beforeLast]) == 2) {
