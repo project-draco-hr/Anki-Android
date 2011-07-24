@@ -69,7 +69,7 @@
   mCardTimer=(Chronometer)findViewById(R.id.card_time);
   mChosenAnswer=(TextView)findViewById(R.id.choosen_answer);
   if (mPrefWhiteboard) {
-    mWhiteboard=new Whiteboard(this,null);
+    mWhiteboard=new Whiteboard(this,mInvertedColors,mBlackWhiteboard);
     FrameLayout.LayoutParams lp2=new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT);
     mWhiteboard.setLayoutParams(lp2);
     FrameLayout fl=(FrameLayout)findViewById(R.id.whiteboard);

@@ -3,9 +3,6 @@
   int bgColor=res.getColor(R.color.background_color_inv);
   int fgColor=res.getColor(R.color.foreground_color_inv);
   mCard.setBackgroundColor(res.getColor(R.color.background_color_inv));
-  if (mPrefWhiteboard) {
-    mWhiteboard.setInvertedColor(true);
-  }
   if (Themes.changeFlashcardBorder()) {
     mMainLayout.setBackgroundColor(bgColor);
     mNextTimeTextColor=res.getColor(R.color.next_time_usual_color_inv);

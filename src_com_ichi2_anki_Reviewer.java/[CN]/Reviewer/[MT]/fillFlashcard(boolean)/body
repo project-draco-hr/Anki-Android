@@ -1,6 +1,9 @@
 {
   if (!flip) {
     mCard.loadDataWithBaseURL(mBaseUrl,mCardContent,"text/html","utf-8",null);
+    if (!sDisplayAnswer && mShowWhiteboard) {
+      mWhiteboard.clear();
+    }
   }
  else {
     Animation3D rotation;
@@ -10,9 +13,6 @@
       rotation.setInterpolator(new AccelerateDecelerateInterpolator());
     }
  else {
-      if (mShowWhiteboard) {
-        mWhiteboard.clear();
-      }
       rotation=new Animation3D(mCard.getWidth(),mCard.getHeight(),0,!mFlipToRight,false,true,this);
       mFlipToRight=false;
       rotation.setDuration(mAnimationDurationMove);
