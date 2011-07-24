@@ -1,6 +1,7 @@
 {
   openDBIfClosed(context);
   String language="";
+  deckPath=stripQuotes(deckPath);
   Cursor cur=null;
   try {
     String query="SELECT language FROM languages " + "WHERE deckpath = \'" + deckPath + "\' "+ "AND modelid = "+ modelId+ " "+ "AND cardmodelid = "+ cardModelId+ " "+ "AND qa = "+ qa+ " "+ "LIMIT 1";

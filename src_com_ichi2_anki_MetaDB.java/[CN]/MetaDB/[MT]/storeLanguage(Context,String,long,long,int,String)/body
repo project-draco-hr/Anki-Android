@@ -1,5 +1,6 @@
 {
   openDBIfClosed(context);
+  deckPath=stripQuotes(deckPath);
   try {
     mMetaDb.execSQL("INSERT INTO languages (deckpath, modelid, cardmodelid, qa, language) " + " VALUES (?, ?, ?, ?, ?);",new Object[]{deckPath,modelId,cardModelId,qa,language});
     Log.i(AnkiDroidApp.TAG,"Store language for deck " + deckPath);
