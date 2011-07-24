@@ -16,7 +16,7 @@
             arabicText.append(arabicReshaper.getReshapedWord());
           }
  else {
-            reshapedText.append(manualRTL(arabicText,forWebView));
+            reshapedText.append(arabicText);
             arabicText=new StringBuffer("");
             reshapedText.append(mixedWords[j]);
           }
@@ -24,7 +24,7 @@
       }
     }
  else {
-      reshapedText.append(manualRTL(arabicText,forWebView));
+      reshapedText.append(arabicText);
       arabicText=new StringBuffer("");
       reshapedText.append(words[i]);
     }
@@ -35,6 +35,6 @@
       reshapedText.append(" ");
     }
   }
-  reshapedText.append(manualRTL(arabicText,forWebView));
-  return reshapedText.toString();
+  reshapedText.append(arabicText);
+  return manualRTL(reshapedText,forWebView).toString();
 }
