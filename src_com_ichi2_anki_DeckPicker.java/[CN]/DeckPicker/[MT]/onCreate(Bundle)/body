@@ -86,6 +86,7 @@
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
   mPrefDeckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory());
   mPrefDeckOrder=Integer.parseInt(preferences.getString("deckOrder","0"));
+  mPrefStartupDeckPicker=Integer.parseInt(preferences.getString("startup_mode","2")) == StudyOptions.SUM_DECKPICKER;
   populateDeckList(mPrefDeckPath);
   mSwipeEnabled=preferences.getBoolean("swipe",false);
   gestureDetector=new GestureDetector(new MyGestureDetector());

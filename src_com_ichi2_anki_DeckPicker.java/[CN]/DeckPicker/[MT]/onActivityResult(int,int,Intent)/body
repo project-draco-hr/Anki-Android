@@ -1,13 +1,19 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
   if (requestCode == PREFERENCES_UPDATE) {
-    SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
-    if (!mPrefDeckPath.equals(preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory())) || mPrefDeckOrder != Integer.parseInt(preferences.getString("deckOrder","0"))) {
+    if (resultCode == StudyOptions.RESULT_RESTART) {
+      setResult(StudyOptions.RESULT_RESTART);
       finish();
-      Intent i=new Intent(DeckPicker.this,DeckPicker.class);
-      startActivity(i);
-      if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-        ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.NONE);
+    }
+ else {
+      SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+      if (!mPrefDeckPath.equals(preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory())) || mPrefDeckOrder != Integer.parseInt(preferences.getString("deckOrder","0"))) {
+        finish();
+        Intent i=new Intent(DeckPicker.this,DeckPicker.class);
+        startActivity(i);
+        if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+          ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.NONE);
+        }
       }
     }
   }

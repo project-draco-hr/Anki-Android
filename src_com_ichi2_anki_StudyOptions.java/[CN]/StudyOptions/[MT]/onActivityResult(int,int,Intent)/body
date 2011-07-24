@@ -4,6 +4,12 @@
     showContentView(CONTENT_NO_EXTERNAL_STORAGE);
   }
  else   if (requestCode == PICK_DECK_REQUEST || requestCode == DOWNLOAD_PERSONAL_DECK || requestCode == DOWNLOAD_SHARED_DECK) {
+    if (requestCode == PICK_DECK_REQUEST && resultCode == RESULT_CLOSE) {
+      closeStudyOptions();
+    }
+ else     if (requestCode == PICK_DECK_REQUEST && resultCode == RESULT_RESTART) {
+      restartApp();
+    }
     mInDeckPicker=false;
     if (requestCode == PICK_DECK_REQUEST && resultCode == RESULT_OK) {
       showContentView(CONTENT_STUDY_OPTIONS);
@@ -40,11 +46,8 @@
  else   if (requestCode == PREFERENCES_UPDATE) {
     restorePreferences();
     showContentView();
-    if (resultCode == RESULT_OK) {
-      Intent i=getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
-      i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-      closeStudyOptions();
-      startActivity(i);
+    if (resultCode == RESULT_RESTART) {
+      restartApp();
     }
   }
  else   if (requestCode == REQUEST_REVIEW) {

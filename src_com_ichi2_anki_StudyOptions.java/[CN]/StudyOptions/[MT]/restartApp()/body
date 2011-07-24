@@ -1,0 +1,5 @@
+{
+  Intent i=getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
+  closeStudyOptions();
+  startActivity(i);
+}

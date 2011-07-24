@@ -1,7 +1,15 @@
 {
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
     Log.i(AnkiDroidApp.TAG,"StudyOptions - onBackPressed()");
-    closeStudyOptions();
+    if (mCurrentContentView == CONTENT_CONGRATS) {
+      showContentView(CONTENT_SESSION_COMPLETE);
+    }
+ else     if (mStartupMode == SUM_DECKPICKER) {
+      openDeckPicker();
+    }
+ else {
+      closeStudyOptions();
+    }
     return true;
   }
   return super.onKeyDown(keyCode,event);
