@@ -3,7 +3,7 @@
   String language="";
   Cursor cur=null;
   try {
-    String query="SELECT language FROM languages" + "WHERE deckpath = \'" + deckPath + "\' "+ "AND modelid = "+ modelId+ " "+ "AND cardmodelid = "+ cardModelId+ " "+ "AND qa = "+ qa+ " "+ "LIMIT 1";
+    String query="SELECT language FROM languages " + "WHERE deckpath = \'" + deckPath + "\' "+ "AND modelid = "+ modelId+ " "+ "AND cardmodelid = "+ cardModelId+ " "+ "AND qa = "+ qa+ " "+ "LIMIT 1";
     cur=mMetaDb.rawQuery(query,null);
     Log.i(AnkiDroidApp.TAG,"getLanguage: " + query);
     if (cur.moveToNext()) {
