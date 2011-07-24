@@ -1,0 +1,5 @@
+{
+  Matcher matcher=quotePattern.matcher(text);
+  text=matcher.replaceAll("");
+  return text;
+}
