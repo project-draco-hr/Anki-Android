@@ -1,8 +1,38 @@
 {
   if (forWebView) {
-    if (patternBreakingWebView.matcher(arabicText).find()) {
-      return arabicText.reverse().toString();
+    if (patternBreakingWebView.matcher(text).find()) {
+      StringBuffer ltr=new StringBuffer(""), rtl=new StringBuffer("");
+      int i=0;
+      while (i < text.length()) {
+        char c=text.charAt(i);
+        if (isStrongLeftToRight(c) || !isStrongRightToLeft(c)) {
+          while (i < text.length() && !isStrongRightToLeft(text.charAt(i))) {
+            ltr.append(text.charAt(i));
+            i++;
+          }
+          if (i == text.length()) {
+            break;
+          }
+        }
+        if (isStrongRightToLeft(text.charAt(i))) {
+          while (i < text.length() && !isStrongLeftToRight(text.charAt(i))) {
+            if (text.charAt(i) == '<') {
+              break;
+            }
+            rtl.append(text.charAt(i));
+            i++;
+          }
+          if (patternBreakingWebView.matcher(rtl).find()) {
+            ltr.append(rtl.reverse());
+          }
+ else {
+            ltr.append(rtl);
+          }
+          rtl=new StringBuffer("");
+        }
+      }
+      return ltr;
     }
   }
-  return arabicText.toString();
+  return text;
 }

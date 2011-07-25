@@ -1,0 +1,4 @@
+{
+  byte dir=Character.getDirectionality(c);
+  return (dir == Character.DIRECTIONALITY_RIGHT_TO_LEFT) || (dir == Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC) || (dir == Character.DIRECTIONALITY_RIGHT_TO_LEFT_EMBEDDING)|| (dir == Character.DIRECTIONALITY_RIGHT_TO_LEFT_OVERRIDE);
+}
