@@ -4,6 +4,7 @@
   String typeAnswer=myCardModel.getTypeAnswer();
   if (null == typeAnswer || 0 == typeAnswer.trim().length()) {
     returnArray[0]=null;
+    return returnArray;
   }
   Model myModel=Model.getModel(mDeck,myCardModel.getModelId(),true);
   TreeMap<Long,FieldModel> fieldModels=myModel.getFieldModels();
@@ -15,6 +16,11 @@
     if (myFieldModelId != 0l) {
       break;
     }
+  }
+  if (myFieldModelId == 0) {
+    Log.e(AnkiDroidApp.TAG,"could not find field model for type answer: " + typeAnswer);
+    returnArray[0]=null;
+    return null;
   }
   returnArray[0]=com.ichi2.anki.Field.fieldValuefromDb(this.mDeck,this.mFactId,myFieldModelId);
   returnArray[1]="fm" + Long.toHexString(myFieldModelId);
