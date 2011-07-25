@@ -19,10 +19,10 @@ return true;
 case MENU_EDIT:
 return editCard();
 case MENU_REMOVE_BURY:
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_BURY_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_BURY_CARD,mDismissCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
 return true;
 case MENU_REMOVE_SUSPEND:
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SUSPEND_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SUSPEND_CARD,mDismissCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
 return true;
 case MENU_REMOVE_DELETE:
 showDeleteCardDialog();

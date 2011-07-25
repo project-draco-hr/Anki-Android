@@ -4,6 +4,7 @@
     if (mShowProgressBars) {
       mProgressBars.setVisibility(View.VISIBLE);
     }
+    mFirstCard=false;
   }
   Deck deck=AnkiDroidApp.deck();
   int eta=deck.getETA();

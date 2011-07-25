@@ -1,7 +1,6 @@
 {
   super.onConfigurationChanged(newConfig);
   Log.i(AnkiDroidApp.TAG,"onConfigurationChanged");
-  mFirstCard=true;
   mConfigurationChanged=true;
   long savedTimer=mCardTimer.getBase();
   CharSequence savedAnswerField=mAnswerField.getText();
@@ -14,10 +13,6 @@
     mEase4.setHeight(mButtonHeight);
   }
   mCardTemplate=mCardTemplate.replaceFirst("var availableWidth = \\d*;","var availableWidth = " + getAvailableWidthInCard() + ";");
-  if (mCurrentCard != null) {
-    refreshCard();
-    updateScreenCounts();
-  }
   if (mPrefTimer) {
     mCardTimer.setBase(savedTimer);
     mCardTimer.start();
@@ -31,6 +26,10 @@
   if (mInvertedColors) {
     invertColors();
   }
-  updateStatisticBars();
+  if (mCurrentCard != null) {
+    mFirstCard=true;
+    fillFlashcard(false);
+    updateForNewCard();
+  }
   mConfigurationChanged=false;
 }

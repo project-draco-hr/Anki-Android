@@ -29,9 +29,6 @@
   if (!mFirstCard) {
     hideEaseButtons();
   }
- else {
-    mFirstCard=false;
-  }
   if (mPrefUseTimer) {
     mTimeoutHandler.removeCallbacks(mShowAnswerTask);
     mTimeoutHandler.postDelayed(mShowAnswerTask,mWaitSecond * 1000);

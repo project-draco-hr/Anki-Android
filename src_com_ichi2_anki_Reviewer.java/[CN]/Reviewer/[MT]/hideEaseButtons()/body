@@ -9,6 +9,8 @@
     switchVisibility(mNext3,View.INVISIBLE);
     switchVisibility(mNext4,View.INVISIBLE);
   }
-  switchVisibility(mFlipCard,View.VISIBLE);
-  mFlipCard.requestFocus();
+  if (mFlipCard.getVisibility() != View.VISIBLE) {
+    switchVisibility(mFlipCard,View.VISIBLE);
+    mFlipCard.requestFocus();
+  }
 }
