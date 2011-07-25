@@ -1,10 +1,13 @@
 {
+  Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   Resources res=getResources();
   setTitle(res.getString(R.string.menu_create_deck));
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
   mPrefDeckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory());
-  setContentView(R.layout.deck_creator);
+  View mainView=getLayoutInflater().inflate(R.layout.deck_creator,null);
+  setContentView(mainView);
+  Themes.setWallpaper(mainView);
   mCreate=(Button)findViewById(R.id.DeckCreatorOKButton);
   mCancel=(Button)findViewById(R.id.DeckCreatorCancelButton);
   mFilename=(EditText)findViewById(R.id.DeckCreatorFilename);
