@@ -57,12 +57,7 @@
   Log.i(AnkiDroidApp.TAG,"::style::" + style);
   mCardContent=mCardTemplate.replace("::content::",content).replace("::style::",style.toString());
   Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
-  if (!mFirstCard && mShowAnimations) {
-    fillFlashcard(true);
-  }
- else {
-    fillFlashcard(false);
-  }
+  fillFlashcard(mShowAnimations);
   if (!mConfigurationChanged && mPlaySoundsAtStart) {
     if (!mSpeakText) {
       Sound.playSounds(null,0);

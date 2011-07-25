@@ -3,6 +3,7 @@
   mMainLayout=findViewById(R.id.main_layout);
   Themes.setContentStyle(mMainLayout,Themes.CALLER_REVIEWER);
   mCardContainer=(FrameLayout)findViewById(R.id.flashcard_frame);
+  mCardContainer.setVisibility(mShowAnimations && !mConfigurationChanged ? View.INVISIBLE : View.VISIBLE);
   mCard=(WebView)findViewById(R.id.flashcard);
   mCard.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
   if (mZoomEnabled) {

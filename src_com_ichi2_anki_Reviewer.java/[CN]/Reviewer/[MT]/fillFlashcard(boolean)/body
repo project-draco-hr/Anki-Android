@@ -6,22 +6,29 @@
     }
   }
  else {
-    Animation3D rotation;
-    if (sDisplayAnswer) {
-      rotation=new Animation3D(mCard.getWidth(),mCard.getHeight(),5,true,true,true,this);
-      rotation.setDuration(mAnimationDurationTurn);
-      rotation.setInterpolator(new AccelerateDecelerateInterpolator());
+    if (mFirstCard && !mConfigurationChanged) {
+      mCard.loadDataWithBaseURL(mBaseUrl,mCardContent,"text/html","utf-8",null);
+      mCardContainer.setVisibility(View.VISIBLE);
+      mCardContainer.setAnimation(ViewAnimation.slide(ViewAnimation.SLIDE_IN_FROM_RIGHT,mAnimationDurationMove,0));
     }
  else {
-      rotation=new Animation3D(mCard.getWidth(),mCard.getHeight(),0,!mFlipToRight,false,true,this);
-      mFlipToRight=false;
-      rotation.setDuration(mAnimationDurationMove);
-      rotation.setInterpolator(new AccelerateDecelerateInterpolator());
+      Animation3D rotation;
+      if (sDisplayAnswer) {
+        rotation=new Animation3D(mCard.getWidth(),mCard.getHeight(),5,true,true,true,this);
+        rotation.setDuration(mAnimationDurationTurn);
+        rotation.setInterpolator(new AccelerateDecelerateInterpolator());
+      }
+ else {
+        rotation=new Animation3D(mCard.getWidth(),mCard.getHeight(),0,!mFlipToRight,false,true,this);
+        mFlipToRight=false;
+        rotation.setDuration(mAnimationDurationMove);
+        rotation.setInterpolator(new AccelerateDecelerateInterpolator());
+      }
+      rotation.reset();
+      mCardContainer.setDrawingCacheEnabled(true);
+      mCardContainer.setDrawingCacheBackgroundColor(Themes.getBackgroundColor());
+      mCardContainer.clearAnimation();
+      mCardContainer.startAnimation(rotation);
     }
-    rotation.reset();
-    mCardContainer.setDrawingCacheEnabled(true);
-    mCardContainer.setDrawingCacheBackgroundColor(Themes.getBackgroundColor());
-    mCardContainer.clearAnimation();
-    mCardContainer.startAnimation(rotation);
   }
 }
