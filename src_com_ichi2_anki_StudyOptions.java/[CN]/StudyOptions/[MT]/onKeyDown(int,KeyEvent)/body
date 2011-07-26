@@ -2,7 +2,7 @@
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
     Log.i(AnkiDroidApp.TAG,"StudyOptions - onBackPressed()");
     if (mCurrentContentView == CONTENT_CONGRATS) {
-      showContentView(CONTENT_SESSION_COMPLETE);
+      finishCongrats();
     }
  else     if (mStartupMode == SUM_DECKPICKER) {
       openDeckPicker();
