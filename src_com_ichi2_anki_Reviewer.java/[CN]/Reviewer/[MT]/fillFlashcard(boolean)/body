@@ -27,10 +27,10 @@
     }
  else {
       rotation=new Animation3D(mCard.getWidth(),mCard.getHeight(),0,Animation3D.ANIMATION_EXCHANGE_CARD,!mFlipToRight,true,this);
-      mFlipToRight=false;
       rotation.setDuration(mAnimationDurationMove);
       rotation.setInterpolator(new AccelerateDecelerateInterpolator());
     }
+    mFlipToRight=false;
     rotation.reset();
     mCardContainer.setDrawingCacheEnabled(true);
     mCardContainer.setDrawingCacheBackgroundColor(Themes.getBackgroundColor());
