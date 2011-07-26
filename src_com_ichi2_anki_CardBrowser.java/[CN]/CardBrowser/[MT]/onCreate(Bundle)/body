@@ -5,11 +5,10 @@
   setContentView(mainView);
   mDeck=AnkiDroidApp.deck();
   mDeck.resetUndo();
-  markedColor=getResources().getColor(R.color.card_browser_marked);
-  suspendedColor=getResources().getColor(R.color.card_browser_suspended);
   if (Themes.getTheme() == 2) {
     mainView.setBackgroundResource(Themes.getBackgroundColor());
   }
+  mBackground=Themes.getCardBrowserBackground();
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
   mrelativeBrowserFontSize=preferences.getInt("relativeCardBrowserFontSize",DEFAULT_FONT_SIZE_RATIO);
   mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
@@ -20,12 +19,17 @@
   mCardsAdapter.setViewBinder(new SimpleAdapter.ViewBinder(){
     @Override public boolean setViewValue(    View view,    Object arg1,    String text){
       if (view.getId() == R.id.card_item) {
-        if (text.substring(1,2).equals("1")) {
-          view.setBackgroundColor(suspendedColor);
+        int which=BACKGROUND_NORMAL;
+        if (text.equals("11")) {
+          which=BACKGROUND_MARKED_SUSPENDED;
+        }
+ else         if (text.substring(1,2).equals("1")) {
+          which=BACKGROUND_SUSPENDED;
         }
  else         if (text.substring(0,1).equals("1")) {
-          view.setBackgroundColor(markedColor);
+          which=BACKGROUND_MARKED;
         }
+        view.setBackgroundResource(mBackground[which]);
         return true;
       }
       return false;
