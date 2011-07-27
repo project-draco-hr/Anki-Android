@@ -3,7 +3,7 @@
   sDisplayAnswer=true;
   Sound.stopSounds();
   String displayString="";
-  String answer=mCurrentCard.getAnswer(), question=mCurrentCard.getQuestion();
+  String answer=getAnswer(), question=getQuestion();
   if (mPrefFixArabic) {
     answer=ArabicUtilities.reshapeSentence(answer,true);
     question=ArabicUtilities.reshapeSentence(question,true);

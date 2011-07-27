@@ -13,7 +13,7 @@
     InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
     inputMethodManager.showSoftInput(mAnswerField,InputMethodManager.SHOW_FORCED);
   }
-  String question=mCurrentCard.getQuestion();
+  String question=getQuestion();
   if (mPrefFixArabic) {
     question=ArabicUtilities.reshapeSentence(question,true);
   }

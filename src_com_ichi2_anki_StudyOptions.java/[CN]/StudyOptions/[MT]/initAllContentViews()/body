@@ -47,6 +47,17 @@
     }
   }
 );
+  mSwapQA=(CheckBox)mStudyOptionsView.findViewById(R.id.studyoptions_swap);
+  mSwapQA.setChecked(mSwap);
+  mSwapQA.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+    @Override public void onCheckedChanged(    CompoundButton buttonView,    boolean isChecked){
+      if (mSwap != isChecked) {
+        mSwap=isChecked;
+        savePreferences("swapqa");
+      }
+    }
+  }
+);
   mHelp=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_help);
   mHelp.setOnClickListener(mButtonClickListener);
   mButtonStart.setOnClickListener(mButtonClickListener);
