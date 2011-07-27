@@ -49,12 +49,16 @@
 );
   mSwapQA=(CheckBox)mStudyOptionsView.findViewById(R.id.studyoptions_swap);
   mSwapQA.setChecked(mSwap);
-  mSwapQA.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
-    @Override public void onCheckedChanged(    CompoundButton buttonView,    boolean isChecked){
-      if (mSwap != isChecked) {
-        mSwap=isChecked;
+  mSwapQA.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View view){
+      if (mSwapQA.isChecked()) {
+        mSwapQAAlert.show();
+      }
+ else       if (mSwap) {
+        mSwap=false;
         savePreferences("swapqa");
       }
+      mSwapQA.setChecked(false);
     }
   }
 );
