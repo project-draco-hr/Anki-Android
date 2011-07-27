@@ -30,6 +30,9 @@
     mFirstCard=true;
     fillFlashcard(false);
     updateForNewCard();
+    if (sDisplayAnswer) {
+      showEaseButtons();
+    }
   }
   mConfigurationChanged=false;
 }
