@@ -1,11 +1,4 @@
 {
-  if (mFirstCard) {
-    mCardTimer.setVisibility((mPrefTimer) ? View.VISIBLE : View.GONE);
-    if (mShowProgressBars) {
-      mProgressBars.setVisibility(View.VISIBLE);
-    }
-    mFirstCard=false;
-  }
   Deck deck=AnkiDroidApp.deck();
   int eta=deck.getETA();
   if (deck.hasFinishScheduler() || eta < 1) {

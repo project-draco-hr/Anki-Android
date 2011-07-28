@@ -1,4 +1,5 @@
 {
+  setOutAnimation(true);
   mClosing=true;
   DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SAVE_DECK,mSaveAndResetDeckHandler,new DeckTask.TaskData(AnkiDroidApp.deck(),""));
 }

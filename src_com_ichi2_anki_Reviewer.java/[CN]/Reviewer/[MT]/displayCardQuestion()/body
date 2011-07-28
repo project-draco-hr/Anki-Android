@@ -26,9 +26,7 @@
     ReadText.setLanguageInformation(Model.getModel(AnkiDroidApp.deck(),mCurrentCard.getCardModelId(),false).getId(),mCurrentCard.getCardModelId());
   }
   updateCard(displayString);
-  if (!mFirstCard) {
-    hideEaseButtons();
-  }
+  hideEaseButtons();
   if (mPrefUseTimer) {
     mTimeoutHandler.removeCallbacks(mShowAnswerTask);
     mTimeoutHandler.postDelayed(mShowAnswerTask,mWaitSecond * 1000);

@@ -53,7 +53,23 @@ time=1 - interpolatedTime;
 time=-1 + interpolatedTime;
 }
 if (interpolatedTime >= 0.0f && !mFlipped) {
+mReviewer.showFlashcard(true);
 mReviewer.fillFlashcard(false);
+mFlipped=true;
+}
+camera.translate(mValueX * time * 2,0.0f,mDepthZ * Math.abs(time * 180));
+centerX=mValueX / 2;
+centerY=mValueY / 2;
+break;
+case ANIMATION_SLIDE_OUT_CARD:
+if (mDirection) {
+time=-interpolatedTime;
+}
+ else {
+time=interpolatedTime;
+}
+if (interpolatedTime == 1.0f && !mFlipped) {
+mReviewer.showFlashcard(false);
 mFlipped=true;
 }
 camera.translate(mValueX * time * 2,0.0f,mDepthZ * Math.abs(time * 180));

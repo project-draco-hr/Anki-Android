@@ -6,10 +6,7 @@
  else {
     Intent editCard=new Intent(Reviewer.this,CardEditor.class);
     sEditorCard=mCurrentCard;
-    if (mShowAnimations) {
-      mCardContainer.setVisibility(View.INVISIBLE);
-      mCardContainer.setAnimation(ViewAnimation.slide(ViewAnimation.SLIDE_OUT_TO_LEFT,mAnimationDurationMove,0));
-    }
+    setOutAnimation(true);
     startActivityForResult(editCard,EDIT_CURRENT_CARD);
     if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
       ActivityTransitionAnimation.slide(Reviewer.this,ActivityTransitionAnimation.LEFT);
