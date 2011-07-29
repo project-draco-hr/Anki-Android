@@ -4,10 +4,9 @@
     mCurrentTheme=Integer.parseInt(preferences.getString("theme","2"));
 switch (mCurrentTheme) {
 case THEME_DEFAULT:
-      mDeckpickerBackground=R.color.card_browser_background;
-    mDialogBackgroundColor=R.color.card_browser_background;
-  mCardbrowserItemBorder=new int[]{0,R.color.card_browser_marked,R.color.card_browser_suspended,R.color.card_browser_marked};
-break;
+      mDialogBackgroundColor=R.color.card_browser_background;
+    mCardbrowserItemBorder=new int[]{0,R.color.card_browser_marked,R.color.card_browser_suspended,R.color.card_browser_marked};
+  break;
 case THEME_ANDROID_LIGHT:
 mProgressbarsBackgroundColor=R.color.studyoptions_progressbar_background_light;
 mProgressbarsFrameColor=R.color.studyoptions_progressbar_frame_light;
@@ -23,7 +22,6 @@ mProgressbarsFrameColor=R.color.studyoptions_progressbar_frame_light;
 mProgressbarsMatureColor=R.color.studyoptions_progressbar_mature_light;
 mProgressbarsYoungColor=R.color.studyoptions_progressbar_young_blue;
 mProgressbarsDeckpickerYoungColor=R.color.deckpicker_progressbar_young_light;
-mDeckpickerBackground=R.color.deckpicker_background;
 mReviewerBackground=R.color.reviewer_background;
 mFlashcardBorder=R.drawable.blue_bg_webview;
 mDeckpickerItemBorder=R.drawable.blue_bg_deckpicker;
