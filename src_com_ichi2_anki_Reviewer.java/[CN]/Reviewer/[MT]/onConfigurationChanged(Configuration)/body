@@ -1,5 +1,6 @@
 {
   super.onConfigurationChanged(newConfig);
+  setLanguage(mLocale);
   Log.i(AnkiDroidApp.TAG,"onConfigurationChanged");
   mConfigurationChanged=true;
   long savedTimer=mCardTimer.getBase();

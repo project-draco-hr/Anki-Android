@@ -38,6 +38,7 @@
   }
   mInvertedColors=preferences.getBoolean("invertedColors",false);
   mSwap=preferences.getBoolean("swapqa",false);
-  setLanguage(preferences.getString("language",""));
+  mLocale=preferences.getString("language","");
+  setLanguage(mLocale);
   return preferences;
 }

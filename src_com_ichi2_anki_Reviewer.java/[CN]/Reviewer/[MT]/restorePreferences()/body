@@ -47,5 +47,6 @@
     mAnimationDurationTurn=animationDuration;
     mAnimationDurationMove=animationDuration;
   }
+  mLocale=preferences.getString("language","");
   return preferences;
 }

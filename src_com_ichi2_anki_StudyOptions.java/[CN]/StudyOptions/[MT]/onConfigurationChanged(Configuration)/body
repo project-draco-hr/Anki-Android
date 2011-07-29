@@ -1,5 +1,6 @@
 {
   super.onConfigurationChanged(newConfig);
+  setLanguage(mLocale);
   hideDeckInformation();
   boolean cramChecked=mToggleCram.isChecked();
   boolean limitChecked=mToggleLimit.isChecked();
