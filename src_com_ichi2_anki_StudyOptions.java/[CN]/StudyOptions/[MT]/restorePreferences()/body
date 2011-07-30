@@ -9,19 +9,7 @@
     Editor editor=preferences.edit();
     editor.putString("lastVersion",getVersion());
     editor.commit();
-    Resources res=getResources();
-    AlertDialog.Builder builder=new AlertDialog.Builder(this);
-    builder.setTitle(res.getString(R.string.new_version_title) + " " + getVersion());
-    builder.setPositiveButton(getResources().getString(R.string.ok),null);
-    View contentView=getLayoutInflater().inflate(R.layout.dialog_webview,null);
-    WebView messageWebView=(WebView)contentView.findViewById(R.id.dialog_webview);
-    messageWebView.setBackgroundColor(res.getColor(Themes.getDialogBackgroundColor()));
-    messageWebView.loadDataWithBaseURL("",getVersionMessage(),"text/html","utf-8",null);
-    builder.setView(contentView);
-    builder.setPositiveButton(res.getString(R.string.ok),null);
-    builder.setCancelable(true);
-    mNewVersionAlert=builder.create();
-    mNewVersion=true;
+    mNewVersionAlert=Themes.htmlOkDialog(this,getResources().getString(R.string.new_version_title) + " " + getVersion(),getVersionMessage());
   }
   final float gestureScale=getResources().getDisplayMetrics().density;
   int sensibility=preferences.getInt("swipeSensibility",100);
