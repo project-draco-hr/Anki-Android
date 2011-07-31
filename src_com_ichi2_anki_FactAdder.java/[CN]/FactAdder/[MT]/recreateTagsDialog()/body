@@ -1,7 +1,7 @@
 {
   Resources res=getResources();
   if (allTags == null) {
-    String[] oldTags=AnkiDroidApp.deck().allUserTags();
+    String[] oldTags=mDeck.allUserTags();
     Log.i(AnkiDroidApp.TAG,"all tags: " + Arrays.toString(oldTags));
     allTags=new String[oldTags.length + 1];
     allTags[0]=res.getString(R.string.add_new_tag);

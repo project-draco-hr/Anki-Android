@@ -1,0 +1,38 @@
+{
+  int len=0;
+  File[] fileList;
+  File dir=new File(PrefSettings.getSharedPrefs(getBaseContext()).getString("deckPath",AnkiDroidApp.getStorageDirectory()));
+  fileList=dir.listFiles(new AnkiFilter());
+  if (dir.exists() && dir.isDirectory() && fileList != null) {
+    len=fileList.length;
+  }
+  TreeSet<String> tree=new TreeSet<String>();
+  mFullDeckPaths=new HashMap<String,String>();
+  if (len > 0 && fileList != null) {
+    Log.i(AnkiDroidApp.TAG,"FactAdder - populateDeckDialog, number of anki files = " + len);
+    for (    File file : fileList) {
+      String name=file.getName().replaceAll(".anki","");
+      tree.add(name);
+      mFullDeckPaths.put(name,file.getAbsolutePath());
+    }
+  }
+  AlertDialog.Builder builder=new AlertDialog.Builder(this);
+  builder.setTitle(R.string.fact_adder_select_deck);
+  mDeckNames=new CharSequence[tree.size()];
+  tree.toArray(mDeckNames);
+  builder.setItems(mDeckNames,new DialogInterface.OnClickListener(){
+    public void onClick(    DialogInterface dialog,    int item){
+      loadDeck(item);
+    }
+  }
+);
+  mDeckSelectDialog=builder.create();
+  mDeckSelectDialog.setOnDismissListener(new OnDismissListener(){
+    @Override public void onDismiss(    DialogInterface arg0){
+      if (mDeck == null) {
+        mDeckSelectDialog.show();
+      }
+    }
+  }
+);
+}

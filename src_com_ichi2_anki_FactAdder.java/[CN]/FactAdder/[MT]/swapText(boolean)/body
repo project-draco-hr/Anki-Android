@@ -1,0 +1,31 @@
+{
+  if (mEditFields.size() > mSourcePosition) {
+    mEditFields.get(mSourcePosition).setText("");
+  }
+  if (mEditFields.size() > mTargetPosition) {
+    mEditFields.get(mTargetPosition).setText("");
+  }
+  if (reset) {
+    mSourcePosition=0;
+    mTargetPosition=1;
+  }
+ else {
+    mTargetPosition++;
+    while (mTargetPosition == mSourcePosition || mTargetPosition >= mEditFields.size()) {
+      mTargetPosition++;
+      if (mTargetPosition >= mEditFields.size()) {
+        mTargetPosition=0;
+        mSourcePosition++;
+      }
+      if (mSourcePosition >= mEditFields.size()) {
+        mSourcePosition=0;
+      }
+    }
+  }
+  if (mSourceText != null) {
+    mEditFields.get(mSourcePosition).setText(mSourceText);
+  }
+  if (mSourceText != null) {
+    mEditFields.get(mTargetPosition).setText(mTargetText);
+  }
+}
