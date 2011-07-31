@@ -27,9 +27,18 @@
   }
 );
   mDeckSelectDialog=builder.create();
+  mDeckSelectDialog.setOnCancelListener(new OnCancelListener(){
+    @Override public void onCancel(    DialogInterface arg0){
+      mCancelled=true;
+    }
+  }
+);
   mDeckSelectDialog.setOnDismissListener(new OnDismissListener(){
     @Override public void onDismiss(    DialogInterface arg0){
-      if (mDeck == null) {
+      if (mCancelled == true) {
+        finish();
+      }
+ else       if (mDeck == null) {
         mDeckSelectDialog.show();
       }
     }
