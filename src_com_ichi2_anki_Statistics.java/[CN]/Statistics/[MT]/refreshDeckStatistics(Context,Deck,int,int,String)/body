@@ -1,11 +1,12 @@
 {
   initVariables(context,type,period,title);
   sDeck=deck;
-  sSeriesList=getSeriesList(context,type,period);
-  if (sSeriesList != null) {
-    return true;
+  if (type == TYPE_DECK_SUMMARY) {
+    sDeckSummaryValues=sDeck.getDeckSummary();
+    return sDeckSummaryValues != null ? true : false;
   }
  else {
-    return false;
+    sSeriesList=getSeriesList(context,type,period);
+    return sSeriesList != null ? true : false;
   }
 }
