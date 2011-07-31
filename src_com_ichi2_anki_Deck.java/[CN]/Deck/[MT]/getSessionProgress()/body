@@ -1,0 +1,5 @@
+{
+  int done=mDailyStats.getReps();
+  int total=done + mFailedSoonCount + mRevCount+ mNewCountToday;
+  return (double)done / total;
+}
