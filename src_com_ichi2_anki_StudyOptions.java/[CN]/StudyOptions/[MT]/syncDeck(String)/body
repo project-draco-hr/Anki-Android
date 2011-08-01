@@ -1,4 +1,8 @@
 {
+  if (mWalWarning != AnkiDb.NO_WAL_WARNING) {
+    showWalWarningDialog();
+    return;
+  }
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
   String username=preferences.getString("username","");
   String password=preferences.getString("password","");
