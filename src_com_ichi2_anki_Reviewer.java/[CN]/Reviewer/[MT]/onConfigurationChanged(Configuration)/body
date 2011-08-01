@@ -5,6 +5,7 @@
   mConfigurationChanged=true;
   long savedTimer=mCardTimer.getBase();
   CharSequence savedAnswerField=mAnswerField.getText();
+  boolean cardVisible=mCardContainer.getVisibility() == View.VISIBLE;
   initLayout(R.layout.flashcard);
   if (mRelativeButtonSize != 100) {
     mFlipCard.setHeight(mButtonHeight);
@@ -24,14 +25,23 @@
     invertColors();
   }
   if (mCurrentCard != null) {
-    fillFlashcard(false);
-    if (sDisplayAnswer) {
-      updateForNewCard();
-      showEaseButtons();
+    if (cardVisible) {
+      fillFlashcard(false);
+      if (mPrefTimer) {
+        mCardTimer.setBase(savedTimer);
+        mCardTimer.start();
+      }
+      if (sDisplayAnswer) {
+        updateForNewCard();
+      }
     }
-    if (mPrefTimer) {
-      mCardTimer.setBase(savedTimer);
-      mCardTimer.start();
+ else {
+      mCardContainer.setVisibility(View.INVISIBLE);
+      switchVisibility(mProgressBars,View.INVISIBLE);
+      switchVisibility(mCardTimer,View.INVISIBLE);
+    }
+    if (sDisplayAnswer) {
+      showEaseButtons();
     }
   }
   mConfigurationChanged=false;

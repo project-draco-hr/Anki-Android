@@ -14,7 +14,7 @@
     boolean directionToLeft=true;
 switch (mNextAnimation) {
 case ANIMATION_TURN:
-      rotation=new Animation3D(mCard.getWidth(),mCard.getHeight(),5,Animation3D.ANIMATION_TURN,true,true,this);
+      rotation=new Animation3D(mCard.getWidth(),mCard.getHeight(),9,Animation3D.ANIMATION_TURN,true,true,this);
     rotation.setDuration(mAnimationDurationTurn);
   rotation.setInterpolator(new AccelerateDecelerateInterpolator());
 break;

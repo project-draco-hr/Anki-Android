@@ -7,6 +7,7 @@
   builder.setMessage(String.format(res.getString(R.string.delete_card_message),Utils.stripHTML(mCurrentCard.getQuestion()),Utils.stripHTML(mCurrentCard.getAnswer())));
   builder.setPositiveButton(res.getString(R.string.yes),new DialogInterface.OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int which){
+      setNextCardAnimation(false);
       DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DELETE_CARD,mDismissCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
     }
   }
