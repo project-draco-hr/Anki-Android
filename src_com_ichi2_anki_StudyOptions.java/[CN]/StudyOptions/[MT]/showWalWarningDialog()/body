@@ -1,0 +1,17 @@
+{
+  if (mWalWarningAlert == null) {
+    Resources res=getResources();
+    AlertDialog.Builder builder=new AlertDialog.Builder(this);
+    builder.setMessage(res.getString(R.string.wal_warning));
+    builder.setPositiveButton(getResources().getString(R.string.ok),new DialogInterface.OnClickListener(){
+      @Override public void onClick(      DialogInterface dialog,      int which){
+        mWalWarning=AnkiDb.WAL_WARNING_ALREADY_SHOWN;
+        PrefSettings.getSharedPrefs(getBaseContext()).edit().putInt("walWarning",mWalWarning).commit();
+      }
+    }
+);
+    builder.setCancelable(true);
+    mWalWarningAlert=builder.create();
+  }
+  mWalWarningAlert.show();
+}
