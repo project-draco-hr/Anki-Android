@@ -1,5 +1,9 @@
 {
   String deckFilename=params[0].getString();
+  Deck oldDeck=params[0].getDeck();
+  if (oldDeck != null) {
+    oldDeck.closeDeck(false);
+  }
   Log.i(AnkiDroidApp.TAG,"doInBackgroundLoadDeck - deckFilename = " + deckFilename);
   Log.i(AnkiDroidApp.TAG,"loadDeck - SD card mounted and existent file -> Loading deck...");
   try {

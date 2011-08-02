@@ -27,7 +27,9 @@
       }
  else {
         showContentView(CONTENT_STUDY_OPTIONS);
-        displayProgressDialogAndLoadDeck();
+        if (resultCode != RESULT_DONT_RELOAD_DECK) {
+          displayProgressDialogAndLoadDeck();
+        }
       }
       return;
     }

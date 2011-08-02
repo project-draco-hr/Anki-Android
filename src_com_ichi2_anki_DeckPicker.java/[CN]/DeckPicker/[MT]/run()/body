@@ -32,8 +32,15 @@
           msg.setData(data);
           mHandler.sendMessage(msg);
         }
+        boolean openedDeck=false;
         try {
-          deck=Deck.openDeck(path,false);
+          if (mCurrentLoadedDeckPath != null && path.equals(mCurrentLoadedDeckPath)) {
+            deck=AnkiDroidApp.deck();
+            openedDeck=true;
+          }
+ else {
+            deck=Deck.openDeck(path,false);
+          }
           version=deck.getVersion();
         }
  catch (        SQLException e) {
@@ -47,7 +54,9 @@
           data.putInt("msgtype",MSG_UPGRADE_FAILURE);
           data.putInt("version",version);
           data.putString("notes",Deck.upgradeNotesToMessages(deck,getResources()));
-          deck.closeDeck(false);
+          if (!openedDeck) {
+            deck.closeDeck(false);
+          }
           msg.setData(data);
           mHandler.sendMessage(msg);
         }
@@ -60,7 +69,9 @@
           int totalRevCards=deck.getTotalRevFailedCount(mCompletionBarRestrictToActive);
           int totalCardsCompletionBar=totalRevCards + totalNewCards;
           String upgradeNotes=Deck.upgradeNotesToMessages(deck,getResources());
-          deck.closeDeck(false);
+          if (!openedDeck) {
+            deck.closeDeck(false);
+          }
           data.putString("absPath",path);
           data.putInt("msgtype",MSG_UPGRADE_SUCCESS);
           data.putInt("due",dueCards);

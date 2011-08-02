@@ -98,4 +98,8 @@
     }
   }
 );
+  Deck deck=AnkiDroidApp.deck();
+  if (deck != null) {
+    mCurrentLoadedDeckPath=deck.getDeckPath();
+  }
 }

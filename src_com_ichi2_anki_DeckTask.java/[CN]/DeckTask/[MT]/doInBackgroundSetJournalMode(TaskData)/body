@@ -1,6 +1,6 @@
 {
   Log.i(AnkiDroidApp.TAG,"doInBackgroundSetJournalMode");
-  String path=params[0].getOrder();
+  String path=params[0].getString();
   Deck currentDeck=params[0].getDeck();
   if (currentDeck != null) {
     currentDeck.closeDeck(false);
