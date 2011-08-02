@@ -1,0 +1,9 @@
+{
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundCloseDeck");
+  Deck deck=params[0].getDeck();
+  boolean wait=params[0].getBoolean();
+  if (deck != null) {
+    deck.closeDeck(wait);
+  }
+  return null;
+}

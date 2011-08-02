@@ -27,4 +27,17 @@
  else   if (Arrays.asList(mShowValueInSummSeek).contains(key)) {
     updateSeekBarPreference(key);
   }
+ else   if (key.equals("walMode") && !lockWalAction) {
+    lockWalAction=true;
+    if (sharedPreferences.getBoolean("walMode",false)) {
+      showDialog(DIALOG_WAL);
+    }
+ else     if (walModeInitiallySet) {
+      walModeInitiallySet=false;
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SET_ALL_DECKS_JOURNAL_MODE,mDeckOperationHandler,new DeckTask.TaskData(AnkiDroidApp.deck(),PrefSettings.getSharedPrefs(getBaseContext()).getString("deckPath",AnkiDroidApp.getStorageDirectory())));
+    }
+ else {
+      lockWalAction=false;
+    }
+  }
 }

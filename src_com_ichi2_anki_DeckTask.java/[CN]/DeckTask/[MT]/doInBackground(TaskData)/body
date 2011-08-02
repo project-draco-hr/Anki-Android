@@ -43,6 +43,10 @@ case TASK_TYPE_LOAD_STATISTICS:
 return doInBackgroundLoadStatistics(params);
 case TASK_TYPE_OPTIMIZE_DECK:
 return doInBackgroundOptimizeDeck(params);
+case TASK_TYPE_SET_ALL_DECKS_JOURNAL_MODE:
+return doInBackgroundSetJournalMode(params);
+case TASK_TYPE_CLOSE_DECK:
+return doInBackgroundCloseDeck(params);
 default :
 return null;
 }
