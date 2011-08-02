@@ -1,7 +1,6 @@
 {
   if (mWalWarning != AnkiDb.NO_WAL_WARNING) {
     showWalWarningDialog();
-    new FeedbackElement(this).createReport("WAL problem detected");
     return;
   }
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
