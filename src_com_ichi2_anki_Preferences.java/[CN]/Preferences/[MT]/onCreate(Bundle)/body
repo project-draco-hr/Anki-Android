@@ -10,7 +10,6 @@
   animationsCheckboxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("themeAnimations");
   walModePreference=(CheckBoxPreference)getPreferenceScreen().findPreference("walMode");
   walModeInitiallySet=mPrefMan.getSharedPreferences().getBoolean("walMode",false);
-  enableWalMode=mPrefMan.getSharedPreferences().getBoolean("walMode",false);
   ListPreference listpref=(ListPreference)getPreferenceScreen().findPreference("theme");
   animationsCheckboxPreference.setEnabled(listpref.getValue().equals("2"));
   zoomCheckboxPreference.setEnabled(!swipeCheckboxPreference.isChecked());
@@ -22,4 +21,5 @@
   for (  String key : mShowValueInSummSeek) {
     updateSeekBarPreference(key);
   }
+  enableWalSupport();
 }
