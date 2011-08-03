@@ -6,6 +6,7 @@
   long savedTimer=mCardTimer.getBase();
   CharSequence savedAnswerField=mAnswerField.getText();
   boolean cardVisible=mCardContainer.getVisibility() == View.VISIBLE;
+  int lookupButtonVis=mLookUpIcon.getVisibility();
   initLayout(R.layout.flashcard);
   if (mRelativeButtonSize != 100) {
     mFlipCard.setHeight(mButtonHeight);
@@ -44,5 +45,6 @@
       showEaseButtons();
     }
   }
+  mLookUpIcon.setVisibility(lookupButtonVis);
   mConfigurationChanged=false;
 }

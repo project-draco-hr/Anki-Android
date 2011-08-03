@@ -102,5 +102,15 @@
   if (mInvertedColors) {
     invertColors();
   }
+  mLookUpIcon=findViewById(R.id.lookup_button);
+  mLookUpIcon.setVisibility(View.GONE);
+  mLookUpIcon.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View arg0){
+      if (mClipboard.hasText()) {
+        lookUp();
+      }
+    }
+  }
+);
   initControls();
 }
