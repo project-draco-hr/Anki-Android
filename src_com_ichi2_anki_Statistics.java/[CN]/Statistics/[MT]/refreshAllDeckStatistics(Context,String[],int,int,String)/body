@@ -1,7 +1,17 @@
 {
   initVariables(context,type,period,title);
+  Deck currentDeck=AnkiDroidApp.deck();
+  String currentDeckPath=null;
+  if (currentDeck != null) {
+    currentDeckPath=currentDeck.getDeckPath();
+  }
   for (  String dp : deckPaths) {
-    sDeck=Deck.openDeck(dp);
+    if (currentDeckPath != null && dp.equals(currentDeckPath)) {
+      sDeck=currentDeck;
+    }
+ else {
+      sDeck=Deck.openDeck(dp);
+    }
     if (sDeck == null) {
       continue;
     }
