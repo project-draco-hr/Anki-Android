@@ -27,8 +27,10 @@
       }
  else {
         showContentView(CONTENT_STUDY_OPTIONS);
-        if (resultCode != RESULT_DONT_RELOAD_DECK) {
-          displayProgressDialogAndLoadDeck();
+        if (AnkiDroidApp.deck() == null || !AnkiDroidApp.deck().getDeckPath().equals(mDeckFilename)) {
+          if (resultCode != RESULT_DONT_RELOAD_DECK) {
+            displayProgressDialogAndLoadDeck();
+          }
         }
       }
       return;
@@ -45,8 +47,10 @@
       mShowWelcomeScreen=false;
       savePreferences("welcome");
     }
-    boolean updateAllCards=(requestCode == DOWNLOAD_SHARED_DECK);
-    displayProgressDialogAndLoadDeck(updateAllCards);
+    if (AnkiDroidApp.deck() == null || !AnkiDroidApp.deck().getDeckPath().equals(mDeckFilename)) {
+      boolean updateAllCards=(requestCode == DOWNLOAD_SHARED_DECK);
+      displayProgressDialogAndLoadDeck(updateAllCards);
+    }
   }
  else   if (requestCode == PREFERENCES_UPDATE) {
     restorePreferences();
