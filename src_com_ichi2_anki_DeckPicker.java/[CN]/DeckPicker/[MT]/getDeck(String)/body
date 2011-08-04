@@ -1,0 +1,9 @@
+{
+  Deck loadedDeck=AnkiDroidApp.deck();
+  if (loadedDeck != null && loadedDeck.getDeckPath().equals(filePath)) {
+    return loadedDeck;
+  }
+ else {
+    return Deck.openDeck(filePath,false);
+  }
+}
