@@ -1,6 +1,9 @@
 {
   mIsSelecting=false;
-  mLookUpIcon.setVisibility(View.GONE);
+  if (mLookUpIcon.getVisibility() == View.VISIBLE) {
+    mLookUpIcon.setVisibility(View.GONE);
+    mLookUpIcon.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_OUT,mFadeDuration,0));
+  }
   mClipboard.setText("");
   Deck deck=AnkiDroidApp.deck();
 switch (ease) {
