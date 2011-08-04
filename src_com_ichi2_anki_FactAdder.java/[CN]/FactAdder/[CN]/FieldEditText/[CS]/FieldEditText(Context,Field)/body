@@ -2,4 +2,12 @@
   super(context);
   mPairField=pairField;
   this.setMinimumWidth(400);
+  this.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      if (mCutMode) {
+        setSpannables();
+      }
+    }
+  }
+);
 }

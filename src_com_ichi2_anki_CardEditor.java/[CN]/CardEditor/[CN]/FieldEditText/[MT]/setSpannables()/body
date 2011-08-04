@@ -1,0 +1,23 @@
+{
+  int cursorPosition=this.getSelectionStart();
+  String text=this.getText().toString();
+  int beginWord=text.lastIndexOf(" ",cursorPosition - 1) + 1;
+  if (beginWord == -1) {
+    beginWord=0;
+  }
+  int endWord=text.indexOf(" ",cursorPosition);
+  if (endWord == -1) {
+    endWord=text.length();
+  }
+  Editable editText=this.getText();
+  StrikethroughSpan[] ss=this.getText().getSpans(beginWord,endWord,StrikethroughSpan.class);
+  if (ss.length != 0) {
+    enableStringPart(true,cursorPosition);
+    editText.removeSpan(ss[0]);
+  }
+ else {
+    enableStringPart(false,cursorPosition);
+    editText.setSpan(new StrikethroughSpan(),beginWord,endWord,0);
+  }
+  this.setText(editText);
+}
