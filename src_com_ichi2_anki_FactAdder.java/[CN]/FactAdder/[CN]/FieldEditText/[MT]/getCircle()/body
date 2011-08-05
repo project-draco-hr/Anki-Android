@@ -7,6 +7,8 @@
       Editable editText=FieldEditText.this.getText();
       if (mCutMode) {
         view.setImageResource(R.drawable.ic_circle_normal);
+        FieldEditText.this.setKeyListener(mKeyListener);
+        FieldEditText.this.setCursorVisible(true);
         for (        boolean enabled : mEnabled) {
           if (enabled) {
             removeDeleted();
@@ -21,6 +23,11 @@
       }
  else {
         view.setImageResource(R.drawable.ic_circle_pressed);
+        InputMethodManager imm=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(FieldEditText.this.getWindowToken(),0);
+        mKeyListener=FieldEditText.this.getKeyListener();
+        FieldEditText.this.setKeyListener(null);
+        FieldEditText.this.setCursorVisible(false);
         mCutMode=true;
         mCutString=editText.toString().split(" ");
         mEnabled=new boolean[mCutString.length];
