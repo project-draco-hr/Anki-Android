@@ -1,11 +1,10 @@
 {
-  if (mPrefTextSelection && mClipboard.hasText() && mIsDictionaryAvailable) {
-    mIsSelecting=false;
+  mIsSelecting=false;
 switch (mDictionary) {
 case DICTIONARY_AEDICT:
-      Intent aedictSearchIntent=new Intent(mDictionaryAction);
-    aedictSearchIntent.putExtra("kanjis",mClipboard.getText());
-  startActivity(aedictSearchIntent);
+    Intent aedictSearchIntent=new Intent(mDictionaryAction);
+  aedictSearchIntent.putExtra("kanjis",mClipboard.getText());
+startActivity(aedictSearchIntent);
 mClipboard.setText("");
 return true;
 case DICTIONARY_LEO_WEB:
@@ -48,7 +47,6 @@ colordictSearchIntent.putExtra("EXTRA_QUERY",mClipboard.getText());
 startActivity(colordictSearchIntent);
 mClipboard.setText("");
 return true;
-}
 }
 return true;
 }

@@ -28,7 +28,8 @@ case MENU_REMOVE_DELETE:
 showDeleteCardDialog();
 return true;
 case MENU_SEARCH:
-return lookUp();
+lookUpOrSelectText();
+return true;
 case MENU_MARK:
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_MARK_CARD,mMarkCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
 return true;
