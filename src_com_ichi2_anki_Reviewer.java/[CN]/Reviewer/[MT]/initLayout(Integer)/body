@@ -28,6 +28,7 @@
   if (mPrefTextSelection) {
     mCard.setOnLongClickListener(mLongClickHandler);
     mClipboard=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+    mClipboard.setText("");
   }
   mCard.setOnTouchListener(new View.OnTouchListener(){
     @Override public boolean onTouch(    View v,    MotionEvent event){
