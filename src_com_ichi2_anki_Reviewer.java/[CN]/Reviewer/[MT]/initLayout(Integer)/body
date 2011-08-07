@@ -1,18 +1,13 @@
 {
   setContentView(layout);
   mMainLayout=findViewById(R.id.main_layout);
-  mCard=(WebView)findViewById(R.id.flashcard);
-  mCard.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-  if (mZoomEnabled) {
-    mCard.getSettings().setBuiltInZoomControls(true);
-  }
-  mCard.getSettings().setJavaScriptEnabled(true);
-  mCard.setWebChromeClient(new AnkiDroidWebChromeClient());
-  mCard.addJavascriptInterface(new JavaScriptInterface(),"interface");
-  if (Integer.parseInt(android.os.Build.VERSION.SDK) > 7) {
-    mCard.setFocusableInTouchMode(false);
-  }
-  Log.i(AnkiDroidApp.TAG,"Focusable = " + mCard.isFocusable() + ", Focusable in touch mode = "+ mCard.isFocusableInTouchMode());
+  mCardFrame=(FrameLayout)findViewById(R.id.flashcard);
+  mCard=createWebView();
+  mNextCard=createWebView();
+  mNextCard.setVisibility(View.GONE);
+  mCardFrame.removeAllViews();
+  mCardFrame.addView(mCard);
+  mCardFrame.addView(mNextCard);
   gestureDetector=new GestureDetector(new MyGestureDetector());
   if (mShakeEnabled) {
     mSensorManager=(SensorManager)getSystemService(Context.SENSOR_SERVICE);

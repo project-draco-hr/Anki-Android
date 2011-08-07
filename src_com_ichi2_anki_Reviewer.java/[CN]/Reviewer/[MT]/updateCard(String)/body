@@ -55,7 +55,14 @@
   Log.i(AnkiDroidApp.TAG,"::style::" + style);
   String card=mCardTemplate.replace("::content::",content).replace("::style::",style.toString());
   Log.i(AnkiDroidApp.TAG,"base url = " + baseUrl);
-  mCard.loadDataWithBaseURL(baseUrl,card,"text/html","utf-8",null);
+  mNextCard.loadDataWithBaseURL(baseUrl,card,"text/html","utf-8",null);
+  mNextCard.setVisibility(View.VISIBLE);
+  mCardFrame.removeView(mCard);
+  mCard.destroy();
+  mCard=mNextCard;
+  mNextCard=createWebView();
+  mNextCard.setVisibility(View.GONE);
+  mCardFrame.addView(mNextCard);
   if (!mConfigurationChanged && mPlaySoundsAtStart) {
     if (!mSpeakText) {
       Sound.playSounds(null,0);
