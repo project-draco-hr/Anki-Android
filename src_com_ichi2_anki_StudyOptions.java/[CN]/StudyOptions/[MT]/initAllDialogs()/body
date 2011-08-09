@@ -4,6 +4,16 @@
   builder.setTitle(getResources().getString(R.string.sync_log_title));
   builder.setPositiveButton(getResources().getString(R.string.ok),null);
   mSyncLogAlert=builder.create();
+  builder.setTitle(getResources().getString(R.string.backup_deck_error_title));
+  builder.setIcon(android.R.drawable.ic_dialog_alert);
+  builder.setMessage(getResources().getString(R.string.backup_deck_no_space_left));
+  builder.setPositiveButton(getResources().getString(R.string.ok),null);
+  mNoSpaceLeftAlert=builder.create();
+  builder.setTitle(getResources().getString(R.string.backup_deck_error_title));
+  builder.setIcon(android.R.drawable.ic_dialog_alert);
+  builder.setMessage(getResources().getString(R.string.backup_deck_error));
+  builder.setPositiveButton(getResources().getString(R.string.ok),null);
+  mBackupErrorAlert=builder.create();
   builder.setTitle(res.getString(R.string.connection_error_title));
   builder.setIcon(android.R.drawable.ic_dialog_alert);
   builder.setMessage(res.getString(R.string.connection_needed));
