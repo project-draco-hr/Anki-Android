@@ -1,6 +1,14 @@
 {
   if (!flip) {
-    mCard.loadDataWithBaseURL(mBaseUrl,mCardContent,"text/html","utf-8",null);
+    Log.i(AnkiDroidApp.TAG,"base url = " + baseUrl);
+    mNextCard.loadDataWithBaseURL(mBaseUrl,mCardContent,"text/html","utf-8",null);
+    mNextCard.setVisibility(View.VISIBLE);
+    mCardFrame.removeView(mCard);
+    mCard.destroy();
+    mCard=mNextCard;
+    mNextCard=createWebView();
+    mNextCard.setVisibility(View.GONE);
+    mCardFrame.addView(mNextCard);
     if (!sDisplayAnswer) {
       updateForNewCard();
       if (mShowWhiteboard) {
@@ -28,7 +36,7 @@ break;
 case ANIMATION_SLIDE_OUT_TO_RIGHT:
 directionToLeft=false;
 case ANIMATION_SLIDE_OUT_TO_LEFT:
-mCard.loadDataWithBaseURL(mBaseUrl,mCardContent,"text/html","utf-8",null);
+fillFlashcard(false);
 rotation=new Animation3D(mCard.getWidth(),mCard.getHeight(),0,Animation3D.ANIMATION_SLIDE_OUT_CARD,directionToLeft,true,this);
 rotation.setDuration(mAnimationDurationMove);
 rotation.setInterpolator(new AccelerateInterpolator());
@@ -37,7 +45,7 @@ break;
 case ANIMATION_SLIDE_IN_FROM_LEFT:
 directionToLeft=false;
 case ANIMATION_SLIDE_IN_FROM_RIGHT:
-mCard.loadDataWithBaseURL(mBaseUrl,mCardContent,"text/html","utf-8",null);
+fillFlashcard(false);
 rotation=new Animation3D(mCard.getWidth(),mCard.getHeight(),0,Animation3D.ANIMATION_SLIDE_IN_CARD,directionToLeft,true,this);
 rotation.setDuration(mAnimationDurationMove);
 rotation.setInterpolator(new DecelerateInterpolator());
