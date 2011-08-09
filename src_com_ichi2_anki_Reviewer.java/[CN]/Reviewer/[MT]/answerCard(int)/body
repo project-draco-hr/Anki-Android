@@ -1,6 +1,8 @@
 {
   mIsSelecting=false;
-  mClipboard.setText("");
+  if (mClipboard != null) {
+    mClipboard.setText("");
+  }
   Deck deck=AnkiDroidApp.deck();
 switch (ease) {
 case Card.EASE_FAILED:
