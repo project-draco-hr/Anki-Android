@@ -4,12 +4,12 @@
   builder.setTitle(getResources().getString(R.string.sync_log_title));
   builder.setPositiveButton(getResources().getString(R.string.ok),null);
   mSyncLogAlert=builder.create();
-  builder.setTitle(getResources().getString(R.string.backup_deck_error_title));
+  builder.setTitle(getResources().getString(R.string.backup_manager_title));
   builder.setIcon(android.R.drawable.ic_dialog_alert);
   builder.setMessage(getResources().getString(R.string.backup_deck_no_space_left));
   builder.setPositiveButton(getResources().getString(R.string.ok),null);
   mNoSpaceLeftAlert=builder.create();
-  builder.setTitle(getResources().getString(R.string.backup_deck_error_title));
+  builder.setTitle(getResources().getString(R.string.backup_manager_title));
   builder.setIcon(android.R.drawable.ic_dialog_alert);
   builder.setMessage(getResources().getString(R.string.backup_deck_error));
   builder.setPositiveButton(getResources().getString(R.string.ok),null);
@@ -71,4 +71,82 @@
   builder.setIcon(android.R.drawable.ic_menu_sort_by_size);
   builder.setSingleChoiceItems(getResources().getStringArray(R.array.statistics_type_labels),Statistics.TYPE_DUE,mStatisticListener);
   mStatisticTypeAlert=builder.create();
+  builder=new AlertDialog.Builder(this);
+  builder.setTitle(res.getString(R.string.backup_manager_title));
+  builder.setIcon(android.R.drawable.ic_dialog_alert);
+  builder.setPositiveButton(res.getString(R.string.retry),new OnClickListener(){
+    @Override public void onClick(    DialogInterface dialog,    int which){
+      displayProgressDialogAndLoadDeck();
+    }
+  }
+);
+  builder.setNeutralButton(res.getString(R.string.backup_restore),new OnClickListener(){
+    @Override public void onClick(    DialogInterface dialog,    int which){
+      mBackups=BackupManager.getDeckBackups(new File(mDeckFilename));
+      if (mBackups.length == 0) {
+        Themes.showThemedToast(StudyOptions.this,getResources().getString(R.string.backup_restore_no_backups),true);
+      }
+ else {
+        CharSequence[] dates=new CharSequence[mBackups.length];
+        for (int i=0; i < mBackups.length; i++) {
+          dates[i]=mBackups[i].getName().replaceAll(".*-(\\d{4}-\\d{2}-\\d{2}).anki","$1");
+        }
+        AlertDialog.Builder builder=new AlertDialog.Builder(StudyOptions.this);
+        builder.setTitle(getResources().getString(R.string.backup_restore_select_title)).setIcon(android.R.drawable.ic_input_get).setSingleChoiceItems(dates,dates.length,new DialogInterface.OnClickListener(){
+          @Override public void onClick(          DialogInterface dialog,          int which){
+            DeckTask.launchDeckTask(DeckTask.TASK_TYPE_RESTORE_DECK,mRestoreDeckHandler,new DeckTask.TaskData(null,new String[]{mDeckFilename,mBackups[which].getPath()},0,0));
+            dialog.dismiss();
+          }
+        }
+).setCancelable(true).setOnCancelListener(new OnCancelListener(){
+          @Override public void onCancel(          DialogInterface arg0){
+            mDeckNotLoadedAlert.show();
+          }
+        }
+).show();
+      }
+    }
+  }
+);
+  builder.setNegativeButton(res.getString(R.string.delete_deck_title),new OnClickListener(){
+    @Override public void onClick(    DialogInterface dialog,    int which){
+      Resources res=getResources();
+      AlertDialog.Builder builder=new AlertDialog.Builder(StudyOptions.this);
+      builder.setCancelable(true).setTitle(res.getString(R.string.delete_deck_title)).setIcon(android.R.drawable.ic_dialog_alert).setMessage(String.format(res.getString(R.string.delete_deck_message),new File(mDeckFilename).getName().replace(".anki",""))).setPositiveButton(res.getString(R.string.delete_deck_confirm),new DialogInterface.OnClickListener(){
+        @Override public void onClick(        DialogInterface dialog,        int which){
+          File file=new File(mDeckFilename);
+          boolean deleted=file.delete();
+          if (deleted) {
+            DeckPicker.removeDir(new File(mDeckFilename.replace(".anki",".media")));
+            Log.i(AnkiDroidApp.TAG,"Broken deck " + mDeckFilename + " has been deleted");
+          }
+ else {
+            Log.e(AnkiDroidApp.TAG,"Broken deck " + mDeckFilename + " could not be deleted");
+          }
+          Themes.showThemedToast(StudyOptions.this,getResources().getString(R.string.delete_deck_success,new File(mDeckFilename).getName().replace(".anki","")),true);
+          showContentView(CONTENT_NO_DECK);
+        }
+      }
+).setNegativeButton(res.getString(R.string.cancel),new DialogInterface.OnClickListener(){
+        @Override public void onClick(        DialogInterface dialog,        int which){
+          mDeckNotLoadedAlert.show();
+        }
+      }
+).setOnCancelListener(new DialogInterface.OnCancelListener(){
+        @Override public void onCancel(        DialogInterface dialog){
+          mDeckNotLoadedAlert.show();
+        }
+      }
+).show();
+    }
+  }
+);
+  builder.setCancelable(true);
+  builder.setOnCancelListener(new OnCancelListener(){
+    @Override public void onCancel(    DialogInterface arg0){
+      showContentView(CONTENT_DECK_NOT_LOADED);
+    }
+  }
+);
+  mDeckNotLoadedAlert=builder.create();
 }

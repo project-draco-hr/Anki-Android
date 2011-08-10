@@ -27,17 +27,31 @@
  else   if (Arrays.asList(mShowValueInSummSeek).contains(key)) {
     updateSeekBarPreference(key);
   }
- else   if (key.equals("walMode") && !lockWalAction) {
-    lockWalAction=true;
+ else   if (key.equals("walMode") && !lockCheckAction) {
+    lockCheckAction=true;
     if (sharedPreferences.getBoolean("walMode",false)) {
       showDialog(DIALOG_WAL);
     }
  else     if (walModeInitiallySet) {
       walModeInitiallySet=false;
+      dialogMessage=getResources().getString(R.string.wal_mode_set_message);
       DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SET_ALL_DECKS_JOURNAL_MODE,mDeckOperationHandler,new DeckTask.TaskData(AnkiDroidApp.deck(),PrefSettings.getSharedPrefs(getBaseContext()).getString("deckPath",AnkiDroidApp.getStorageDirectory())));
     }
  else {
-      lockWalAction=false;
+      lockCheckAction=false;
+    }
+  }
+ else   if (key.equals("useBackup")) {
+    if (lockCheckAction) {
+      lockCheckAction=false;
+    }
+ else     if (!useBackupPreference.isChecked()) {
+      lockCheckAction=true;
+      useBackupPreference.setChecked(true);
+      showDialog(DIALOG_BACKUP);
+    }
+ else {
+      setReloadDeck();
     }
   }
 }

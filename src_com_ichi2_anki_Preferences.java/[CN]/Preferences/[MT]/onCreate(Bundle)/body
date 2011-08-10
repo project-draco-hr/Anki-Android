@@ -9,6 +9,7 @@
   zoomCheckboxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("zoom");
   animationsCheckboxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("themeAnimations");
   walModePreference=(CheckBoxPreference)getPreferenceScreen().findPreference("walMode");
+  useBackupPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("useBackup");
   walModeInitiallySet=mPrefMan.getSharedPreferences().getBoolean("walMode",false);
   ListPreference listpref=(ListPreference)getPreferenceScreen().findPreference("theme");
   animationsCheckboxPreference.setEnabled(listpref.getValue().equals("2"));

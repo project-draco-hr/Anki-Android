@@ -1,0 +1,11 @@
+{
+  if (mBrokenDirectoryPath == null) {
+    SharedPreferences prefs=PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext());
+    mBrokenDirectoryPath=prefs.getString("deckPath",AnkiDroidApp.getStorageDirectory()) + BROKEN_DECKS_SUFFIX;
+  }
+  File directory=new File(mBrokenDirectoryPath);
+  if (!directory.isDirectory()) {
+    directory.mkdirs();
+  }
+  return directory;
+}

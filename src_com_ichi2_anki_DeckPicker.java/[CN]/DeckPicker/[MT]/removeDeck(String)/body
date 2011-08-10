@@ -13,6 +13,8 @@
  else {
         Log.e(AnkiDroidApp.TAG,"Error: Could not delete " + mediaDir);
       }
+      BackupManager.deleteDeckBackups(deckFilename,0);
+      Themes.showThemedToast(DeckPicker.this,getResources().getString(R.string.delete_deck_success,file.getName().replace(".anki","")),true);
       populateDeckList(mPrefDeckPath);
     }
  else {

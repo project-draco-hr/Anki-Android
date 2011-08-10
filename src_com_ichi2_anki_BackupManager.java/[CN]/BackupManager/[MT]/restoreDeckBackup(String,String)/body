@@ -1,0 +1,32 @@
+{
+  File deckFile=new File(deckpath);
+  Date value=Utils.genToday(Utils.utcOffset());
+  String movedFilename=String.format(Utils.ENGLISH_LOCALE,"to-repair-" + deckFile.getName().replace(".anki","") + "-%tF.anki",value);
+  File movedFile=new File(getBrokenDirectory().getPath(),movedFilename);
+  int i=1;
+  while (movedFile.exists()) {
+    movedFile=new File(getBrokenDirectory().getPath(),movedFilename.replace(".anki","-" + Integer.toString(i) + ".anki"));
+    i++;
+  }
+  if (!deckFile.renameTo(movedFile)) {
+    return RETURN_ERROR;
+  }
+  File backupFile=new File(backupPath);
+  deckFile=new File(deckpath);
+  if (deckFile.getUsableSpace() < deckFile.length()) {
+    Log.e(AnkiDroidApp.TAG,"Not enough space on sd card to restore " + deckFile.getName() + ".");
+    return RETURN_NOT_ENOUGH_SPACE;
+  }
+  try {
+    InputStream stream=new FileInputStream(backupFile);
+    Utils.writeToFile(stream,deckFile.getAbsolutePath());
+    stream.close();
+    deckFile.setLastModified(backupFile.lastModified());
+  }
+ catch (  IOException e) {
+    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
+    Log.e(AnkiDroidApp.TAG,"Restore of file " + deckFile.getName() + " failed.");
+    return RETURN_ERROR;
+  }
+  return RETURN_DECK_RESTORED;
+}

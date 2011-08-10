@@ -6,8 +6,8 @@
   Deck deck=null;
 switch (item.getItemId()) {
 case R.id.delete_deck:
-    mRemoveDeckPath=null;
-  mRemoveDeckPath=data.get("filepath");
+    mCurrentDeckPath=null;
+  mCurrentDeckPath=data.get("filepath");
 showDialog(DIALOG_DELETE_DECK);
 return true;
 case R.id.reset_language:
@@ -23,6 +23,11 @@ deckPath=data.get("filepath");
 deck=getDeck(deckPath);
 Reviewer.setupMedia(deck);
 Connection.downloadMissingMedia(mDownloadMediaListener,new Connection.Payload(new Object[]{deck}));
+return true;
+case R.id.remove_backups:
+mCurrentDeckPath=null;
+mCurrentDeckPath=data.get("filepath");
+showDialog(DIALOG_DELETE_BACKUPS);
 return true;
 default :
 return super.onContextItemSelected(item);

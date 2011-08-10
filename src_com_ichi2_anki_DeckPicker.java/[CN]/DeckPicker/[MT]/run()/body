@@ -20,6 +20,7 @@
         }
  catch (        SQLException e) {
           Log.w(AnkiDroidApp.TAG,"Could not open database " + path);
+          mBrokenDecks.add(path);
           continue;
         }
         if (version < Deck.DECK_VERSION) {
@@ -38,6 +39,7 @@
         }
  catch (        SQLException e) {
           Log.w(AnkiDroidApp.TAG,"Could not open database " + path);
+          mBrokenDecks.add(path);
           continue;
         }
         Bundle data=new Bundle();

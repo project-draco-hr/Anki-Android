@@ -1,18 +1,17 @@
 {
-  if (mBackupDirectoryPath == null) {
-    SharedPreferences prefs=PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext());
-    mBackupDirectoryPath=prefs.getString("deckPath",AnkiDroidApp.getStorageDirectory()) + "/backup";
-  }
-  File backupDirectory=new File(mBackupDirectoryPath);
-  if (!backupDirectory.isDirectory()) {
-    backupDirectory.mkdirs();
-  }
   File deckFile=new File(deckpath);
+  File[] deckBackups=getDeckBackups(deckFile);
+  int len=deckBackups.length;
+  if (len > 0 && deckBackups[len - 1].lastModified() == deckFile.lastModified()) {
+    deleteDeckBackups(deckBackups,mMaxBackups);
+    return RETURN_DECK_NOT_CHANGED;
+  }
   Date value=Utils.genToday(Utils.utcOffset());
   String backupFilename=String.format(Utils.ENGLISH_LOCALE,deckFile.getName().replace(".anki","") + "-%tF.anki",value);
-  File backupFile=new File(mBackupDirectoryPath,backupFilename);
+  File backupFile=new File(getBackupDirectory().getPath(),backupFilename);
   if (backupFile.exists()) {
     Log.i(AnkiDroidApp.TAG,"No new backup of " + deckFile.getName() + " created. Already made one today");
+    deleteDeckBackups(deckBackups,mMaxBackups);
     return RETURN_TODAY_ALREADY_BACKUP_DONE;
   }
   if (deckFile.getUsableSpace() < deckFile.length()) {
@@ -23,11 +22,13 @@
     InputStream stream=new FileInputStream(deckFile);
     Utils.writeToFile(stream,backupFile.getAbsolutePath());
     stream.close();
+    backupFile.setLastModified(deckFile.lastModified());
   }
  catch (  IOException e) {
     Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
     Log.e(AnkiDroidApp.TAG,"Backup file " + deckFile.getName() + " - Copying of file failed.");
     return RETURN_ERROR;
   }
+  deleteDeckBackups(deckBackups,mMaxBackups - 1);
   return RETURN_BACKUP_CREATED;
 }
