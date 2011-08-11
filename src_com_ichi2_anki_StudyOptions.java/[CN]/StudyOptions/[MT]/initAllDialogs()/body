@@ -6,7 +6,6 @@
   mSyncLogAlert=builder.create();
   builder.setTitle(getResources().getString(R.string.backup_manager_title));
   builder.setIcon(android.R.drawable.ic_dialog_alert);
-  builder.setMessage(getResources().getString(R.string.backup_deck_no_space_left));
   builder.setPositiveButton(getResources().getString(R.string.ok),null);
   mNoSpaceLeftAlert=builder.create();
   builder.setTitle(getResources().getString(R.string.backup_manager_title));

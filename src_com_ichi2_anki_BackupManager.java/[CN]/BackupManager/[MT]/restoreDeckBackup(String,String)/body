@@ -4,7 +4,7 @@
   }
   File backupFile=new File(backupPath);
   File deckFile=new File(deckpath);
-  if (deckFile.getUsableSpace() < deckFile.length()) {
+  if (deckFile.getUsableSpace() < deckFile.length() + (StudyOptions.MIN_FREE_SPACE * 1024 * 1024)) {
     Log.e(AnkiDroidApp.TAG,"Not enough space on sd card to restore " + deckFile.getName() + ".");
     return RETURN_NOT_ENOUGH_SPACE;
   }
