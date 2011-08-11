@@ -10,6 +10,7 @@
   animationsCheckboxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("themeAnimations");
   walModePreference=(CheckBoxPreference)getPreferenceScreen().findPreference("walMode");
   useBackupPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("useBackup");
+  asyncModePreference=(CheckBoxPreference)getPreferenceScreen().findPreference("asyncMode");
   walModeInitiallySet=mPrefMan.getSharedPreferences().getBoolean("walMode",false);
   ListPreference listpref=(ListPreference)getPreferenceScreen().findPreference("theme");
   animationsCheckboxPreference.setEnabled(listpref.getValue().equals("2"));

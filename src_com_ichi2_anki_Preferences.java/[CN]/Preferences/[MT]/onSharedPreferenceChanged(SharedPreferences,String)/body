@@ -54,4 +54,17 @@
       setReloadDeck();
     }
   }
+ else   if (key.equals("asyncMode")) {
+    if (lockCheckAction) {
+      lockCheckAction=false;
+    }
+ else     if (asyncModePreference.isChecked()) {
+      lockCheckAction=true;
+      asyncModePreference.setChecked(false);
+      showDialog(DIALOG_ASYNC);
+    }
+ else {
+      setReloadDeck();
+    }
+  }
 }
