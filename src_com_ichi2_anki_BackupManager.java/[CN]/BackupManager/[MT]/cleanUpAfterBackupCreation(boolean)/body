@@ -1,0 +1,9 @@
+{
+  if (deckLoaded) {
+    return deleteDeckBackups(mLastDeckBackups,mMaxBackups - 1);
+  }
+ else   if (mLastCreatedBackup != null) {
+    return mLastCreatedBackup.delete();
+  }
+  return false;
+}

@@ -1,4 +1,6 @@
 {
+  mLastCreatedBackup=null;
+  mLastDeckBackups=null;
   File deckFile=new File(deckpath);
   File[] deckBackups=getDeckBackups(deckFile);
   int len=deckBackups.length;
@@ -29,6 +31,7 @@
     Log.e(AnkiDroidApp.TAG,"Backup file " + deckFile.getName() + " - Copying of file failed.");
     return RETURN_ERROR;
   }
-  deleteDeckBackups(deckBackups,mMaxBackups - 1);
+  mLastCreatedBackup=backupFile;
+  mLastDeckBackups=deckBackups;
   return RETURN_BACKUP_CREATED;
 }

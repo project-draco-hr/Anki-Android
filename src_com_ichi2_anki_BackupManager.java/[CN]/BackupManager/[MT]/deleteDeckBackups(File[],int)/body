@@ -1,5 +1,8 @@
 {
-  for (int i=deckBackups.length - 1 - keepNumber; i >= 0; i--) {
+  if (deckBackups == null) {
+    return false;
+  }
+  for (int i=0; i < deckBackups.length - keepNumber; i++) {
     deckBackups[i].delete();
   }
   return true;

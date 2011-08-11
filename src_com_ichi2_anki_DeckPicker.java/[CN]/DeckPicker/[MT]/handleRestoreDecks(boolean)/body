@@ -11,6 +11,7 @@
   }
  else   if (reloadIfEmpty) {
     if (mRestoredOrDeleted) {
+      mBrokenDecks=new ArrayList<String>();
       populateDeckList(mPrefDeckPath);
     }
   }
