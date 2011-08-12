@@ -4,12 +4,11 @@
   String password=preferences.getString("password","");
   if (AnkiDroidApp.isUserLoggedIn()) {
     Deck deck=AnkiDroidApp.deck();
-    if (Deck.isWalEnabled(mDeckFilename)) {
-      displayProgressDialogAndLoadDeck(false,true);
-      return;
-    }
     Log.i(AnkiDroidApp.TAG,"Synchronizing deck " + mDeckFilename + ", conflict resolution: "+ conflictResolution);
     Log.i(AnkiDroidApp.TAG,String.format(Utils.ENGLISH_LOCALE,"Before syncing - mod: %f, last sync: %f",deck.getModified(),deck.getLastSync()));
+    if (Deck.isWalEnabled(mDeckFilename)) {
+      deck=null;
+    }
     Connection.syncDeck(mSyncListener,new Connection.Payload(new Object[]{username,password,deck,mDeckFilename,conflictResolution}));
   }
  else {

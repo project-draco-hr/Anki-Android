@@ -49,7 +49,7 @@
     }
     if (AnkiDroidApp.deck() == null || !AnkiDroidApp.deck().getDeckPath().equals(mDeckFilename)) {
       boolean updateAllCards=(requestCode == DOWNLOAD_SHARED_DECK);
-      displayProgressDialogAndLoadDeck(updateAllCards,false);
+      displayProgressDialogAndLoadDeck(updateAllCards);
     }
   }
  else   if (requestCode == PREFERENCES_UPDATE) {

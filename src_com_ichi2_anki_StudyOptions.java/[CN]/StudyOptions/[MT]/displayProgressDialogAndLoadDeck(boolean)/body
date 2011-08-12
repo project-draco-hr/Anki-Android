@@ -4,10 +4,10 @@
     mToggleCram.setChecked(false);
     mToggleLimit.setEnabled(true);
     if (updateAllCards) {
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK_AND_UPDATE_CARDS,mLoadDeckHandler,new DeckTask.TaskData(AnkiDroidApp.deck(),mDeckFilename,forceDeleteJournalMode));
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK_AND_UPDATE_CARDS,mLoadDeckHandler,new DeckTask.TaskData(AnkiDroidApp.deck(),mDeckFilename));
     }
  else {
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK,mLoadDeckHandler,new DeckTask.TaskData(AnkiDroidApp.deck(),mDeckFilename,forceDeleteJournalMode));
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK,mLoadDeckHandler,new DeckTask.TaskData(AnkiDroidApp.deck(),mDeckFilename));
     }
   }
  else {
