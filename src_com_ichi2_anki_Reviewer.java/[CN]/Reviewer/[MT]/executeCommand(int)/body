@@ -63,7 +63,7 @@ break;
 case GESTURE_UNDO:
 if (AnkiDroidApp.deck().undoAvailable()) {
 setNextCardAnimation(true);
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mUpdateCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mUpdateCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard.getId(),false));
 }
 break;
 case GESTURE_REDO:
