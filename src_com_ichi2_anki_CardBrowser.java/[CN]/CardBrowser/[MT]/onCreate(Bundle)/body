@@ -51,7 +51,8 @@
   mSearchEditText=(EditText)findViewById(R.id.card_browser_search);
   mSearchEditText.addTextChangedListener(new TextWatcher(){
     public void afterTextChanged(    Editable s){
-      updateCardsList();
+      mTimerHandler.removeCallbacks(updateList);
+      mTimerHandler.postDelayed(updateList,WAIT_TIME_UNTIL_UPDATE);
     }
     public void beforeTextChanged(    CharSequence s,    int start,    int count,    int after){
     }
