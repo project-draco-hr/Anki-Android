@@ -48,5 +48,13 @@
     mAnimationDurationMove=animationDuration;
   }
   mLocale=preferences.getString("language","");
+  if (preferences.getBoolean("fixOrientation",false)) {
+    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+      setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+    }
+ else     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+      setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+  }
   return preferences;
 }
