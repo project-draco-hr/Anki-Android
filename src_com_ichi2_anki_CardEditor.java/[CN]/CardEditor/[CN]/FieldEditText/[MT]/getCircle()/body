@@ -9,8 +9,8 @@
         view.setImageResource(R.drawable.ic_circle_normal);
         FieldEditText.this.setKeyListener(mKeyListener);
         FieldEditText.this.setCursorVisible(true);
-        for (        boolean enabled : mEnabled) {
-          if (enabled) {
+        for (        WordRow row : mCutString) {
+          if (row.mEnabled) {
             removeDeleted();
             break;
           }
@@ -29,12 +29,19 @@
         FieldEditText.this.setKeyListener(null);
         FieldEditText.this.setCursorVisible(false);
         mCutMode=true;
-        mCutString=editText.toString().split(" ");
-        mEnabled=new boolean[mCutString.length];
+        String text=editText.toString();
+        splitText(text);
         int pos=0;
-        for (int i=0; i < mCutString.length; i++) {
-          editText.setSpan(new StrikethroughSpan(),pos,pos + mCutString[i].length(),0);
-          pos+=mCutString[i].length() + 1;
+        for (        WordRow row : mCutString) {
+          if (row.mWord.length() == 0) {
+            continue;
+          }
+          row.mBegin=text.indexOf(row.mWord,pos);
+          row.mEnd=row.mBegin + row.mWord.length();
+          if (!row.mEnabled) {
+            editText.setSpan(new StrikethroughSpan(),row.mBegin,row.mEnd,0);
+          }
+          pos=row.mEnd;
         }
       }
     }

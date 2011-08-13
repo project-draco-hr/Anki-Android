@@ -1,17 +1,12 @@
 {
   if (this.getText().length() > 0) {
     StringBuilder sb=new StringBuilder();
-    for (int i=0; i < mCutString.length; i++) {
-      if (mEnabled[i]) {
-        sb.append(mCutString[i]);
+    for (    WordRow row : mCutString) {
+      if (row.mEnabled) {
+        sb.append(row.mWord);
         sb.append(" ");
       }
     }
-    int last=sb.length() - 1;
-    while (sb.substring(last).equals(" ") || sb.substring(last).equals(",")) {
-      sb.deleteCharAt(last);
-      last--;
-    }
-    this.setText(sb.toString());
+    this.setText(cleanText(sb.toString()));
   }
 }

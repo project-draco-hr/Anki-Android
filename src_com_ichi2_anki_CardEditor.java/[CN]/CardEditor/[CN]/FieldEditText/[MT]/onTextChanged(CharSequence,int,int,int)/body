@@ -13,9 +13,4 @@
       mCircle.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_IN,300,0));
     }
   }
-  if (before != after) {
-    mCutString=text.toString().split("[\\n\\s]");
-    mEnabled=new boolean[mCutString.length];
-    mCutMode=false;
-  }
 }

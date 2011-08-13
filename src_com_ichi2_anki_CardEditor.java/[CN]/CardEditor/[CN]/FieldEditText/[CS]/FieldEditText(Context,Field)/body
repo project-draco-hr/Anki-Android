@@ -12,7 +12,7 @@
   this.setOnClickListener(new View.OnClickListener(){
     @Override public void onClick(    View v){
       if (mCutMode) {
-        setSpannables();
+        updateSpannables();
       }
     }
   }

@@ -1,0 +1,22 @@
+{
+  int cursorPosition=this.getSelectionStart();
+  Editable editText=this.getText();
+  for (  WordRow row : mCutString) {
+    if (row.mBegin <= cursorPosition && row.mEnd > cursorPosition) {
+      if (!row.mEnabled) {
+        StrikethroughSpan[] ss=this.getText().getSpans(cursorPosition,cursorPosition,StrikethroughSpan.class);
+        if (ss.length != 0) {
+          editText.removeSpan(ss[0]);
+        }
+        row.mEnabled=true;
+      }
+ else {
+        editText.setSpan(new StrikethroughSpan(),row.mBegin,row.mEnd,0);
+        row.mEnabled=false;
+        break;
+      }
+    }
+  }
+  this.setText(editText);
+  this.setSelection(cursorPosition);
+}
