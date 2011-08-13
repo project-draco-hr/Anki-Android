@@ -3,7 +3,7 @@
   mEditFields=new LinkedList<FieldEditText>();
   TreeSet<Field> fields=mNewFact.getFields();
   for (  Field f : fields) {
-    FieldEditText newTextbox=new FieldEditText(this,f);
+    FieldEditText newTextbox=(new CardEditor()).new FieldEditText(this,f);
     TextView label=newTextbox.getLabel();
     ImageView circle=newTextbox.getCircle();
     mEditFields.add(newTextbox);

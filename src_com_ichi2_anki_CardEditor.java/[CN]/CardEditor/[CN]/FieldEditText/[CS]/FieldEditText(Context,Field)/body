@@ -1,5 +1,6 @@
 {
   super(context);
+  mContext=context;
   mPairField=pairField;
   if (mPrefFixArabic) {
     this.setText(ArabicUtilities.reshapeSentence(pairField.getValue()));

@@ -23,7 +23,7 @@
       }
  else {
         view.setImageResource(R.drawable.ic_circle_pressed);
-        InputMethodManager imm=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm=(InputMethodManager)mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(FieldEditText.this.getWindowToken(),0);
         mKeyListener=FieldEditText.this.getKeyListener();
         FieldEditText.this.setKeyListener(null);
@@ -40,6 +40,11 @@
     }
   }
 );
-  mCircle.setVisibility(View.VISIBLE);
+  if (this.getText().toString().length() > 0) {
+    mCircle.setVisibility(View.VISIBLE);
+  }
+ else {
+    mCircle.setVisibility(View.GONE);
+  }
   return mCircle;
 }
