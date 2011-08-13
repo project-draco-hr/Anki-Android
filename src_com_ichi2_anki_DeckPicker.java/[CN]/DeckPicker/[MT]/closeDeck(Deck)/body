@@ -1,6 +1,11 @@
 {
   Deck loadedDeck=AnkiDroidApp.deck();
   if (!(loadedDeck != null && loadedDeck == deck)) {
-    deck.closeDeck(false);
+    try {
+      deck.closeDeck(true);
+    }
+ catch (    SQLiteException e) {
+      Log.e(AnkiDroidApp.TAG,"Error while closing " + deck.name() + ": "+ e);
+    }
   }
 }
