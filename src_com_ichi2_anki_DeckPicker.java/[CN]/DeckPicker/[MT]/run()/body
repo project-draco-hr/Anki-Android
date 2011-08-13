@@ -61,11 +61,13 @@
           int matureCards=deck.getMatureCardCount(mCompletionBarRestrictToActive);
           int totalRevCards=deck.getTotalRevFailedCount(mCompletionBarRestrictToActive);
           int totalCardsCompletionBar=totalRevCards + totalNewCards;
+          double modified=deck.getModified();
           String upgradeNotes=Deck.upgradeNotesToMessages(deck,getResources());
           closeDeck(deck);
           data.putString("absPath",path);
           data.putInt("msgtype",MSG_UPGRADE_SUCCESS);
           data.putInt("due",dueCards);
+          data.putDouble("mod",modified);
           data.putInt("total",totalCards);
           data.putInt("new",newCards);
           data.putInt("totalNew",totalNewCards);
