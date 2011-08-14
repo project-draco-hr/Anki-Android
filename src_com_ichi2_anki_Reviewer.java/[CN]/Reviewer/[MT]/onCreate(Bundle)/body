@@ -27,6 +27,7 @@
     }
     requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
     registerExternalStorageListener();
+    mCustomFontFiles=Utils.getCustomFonts(getBaseContext());
     initLayout(R.layout.flashcard);
 switch (mDictionary) {
 case DICTIONARY_AEDICT:

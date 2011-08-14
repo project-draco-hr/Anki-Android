@@ -2,12 +2,14 @@
   setContentView(layout);
   mMainLayout=findViewById(R.id.main_layout);
   mCardFrame=(FrameLayout)findViewById(R.id.flashcard);
-  mCard=createWebView();
-  mNextCard=createWebView();
-  mNextCard.setVisibility(View.GONE);
   mCardFrame.removeAllViews();
+  mCard=createWebView();
   mCardFrame.addView(mCard);
-  mCardFrame.addView(mNextCard);
+  if (mCustomFontFiles.length != 0) {
+    mNextCard=createWebView();
+    mNextCard.setVisibility(View.GONE);
+    mCardFrame.addView(mNextCard);
+  }
   gestureDetector=new GestureDetector(new MyGestureDetector());
   if (mShakeEnabled) {
     mSensorManager=(SensorManager)getSystemService(Context.SENSOR_SERVICE);
