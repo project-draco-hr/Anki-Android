@@ -3,15 +3,20 @@
   String baseUrl="";
   Boolean isJapaneseModel=false;
   content=recalculateHardCodedFontSize(content,mDisplayFontSize);
-  Model myModel=null;
+  int backgroundColor=Color.WHITE;
   if (mCurrentCard != null) {
     final String japaneseModelTag="Japanese";
     Deck currentDeck=AnkiDroidApp.deck();
-    myModel=Model.getModel(currentDeck,mCurrentCard.getCardModelId(),false);
+    Model myModel=Model.getModel(currentDeck,mCurrentCard.getCardModelId(),false);
     baseUrl=Utils.getBaseUrl(mMediaDir,myModel,currentDeck);
     content=myModel.getCSSForFontColorSize(mCurrentCard.getCardModelId(),mDisplayFontSize,mInvertedColors) + Model.invertColors(content,mInvertedColors);
     isJapaneseModel=myModel.hasTag(japaneseModelTag);
-    mMainLayout.setBackgroundColor(Color.parseColor(myModel.getBackgroundColor(mCurrentCard.getCardModelId(),mInvertedColors)));
+    backgroundColor=Color.parseColor(myModel.getBackgroundColor(mCurrentCard.getCardModelId(),mInvertedColors));
+    mMainLayout.setBackgroundColor(backgroundColor);
+    if (backgroundColor == Color.BLACK && !mInvertedColors) {
+      mInvertedColors=true;
+      invertColors();
+    }
   }
  else {
     mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
@@ -57,8 +62,8 @@
   String card=mCardTemplate.replace("::content::",content).replace("::style::",style.toString());
   Log.i(AnkiDroidApp.TAG,"base url = " + baseUrl);
   if (mCustomFontFiles.length != 0) {
-    if (myModel != null) {
-      mNextCard.setBackgroundColor(Color.parseColor(myModel.getBackgroundColor(mCurrentCard.getCardModelId(),mInvertedColors)));
+    if (backgroundColor != Color.WHITE) {
+      mNextCard.setBackgroundColor(backgroundColor);
     }
     mNextCard.loadDataWithBaseURL(baseUrl,card,"text/html","utf-8",null);
     mNextCard.setVisibility(View.VISIBLE);
