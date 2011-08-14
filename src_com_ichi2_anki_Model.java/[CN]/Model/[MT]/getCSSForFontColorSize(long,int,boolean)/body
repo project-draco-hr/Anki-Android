@@ -3,6 +3,7 @@
     mDisplayPercentage=percentage;
     mInvertedColor=invertedColors;
     prepareCSSForCardModels(invertedColors);
+    prepareColorForCardModels(invertedColors);
   }
   return mCssCardModelMap.get(myCardModelId);
 }
