@@ -9,9 +9,9 @@
     Deck currentDeck=AnkiDroidApp.deck();
     Model myModel=Model.getModel(currentDeck,mCurrentCard.getCardModelId(),false);
     baseUrl=Utils.getBaseUrl(mMediaDir,myModel,currentDeck);
-    content=myModel.getCSSForFontColorSize(mCurrentCard.getCardModelId(),mDisplayFontSize,mInvertedColors) + Model.invertColors(content,mInvertedColors);
+    content=myModel.getCSSForFontColorSize(mCurrentCard.getCardModelId(),mDisplayFontSize,mNightMode) + Model.invertColors(content,mNightMode);
     isJapaneseModel=myModel.hasTag(japaneseModelTag);
-    backgroundColor=Color.parseColor(myModel.getBackgroundColor(mCurrentCard.getCardModelId(),mInvertedColors));
+    backgroundColor=Color.parseColor(myModel.getBackgroundColor(mCurrentCard.getCardModelId(),mNightMode));
     mMainLayout.setBackgroundColor(backgroundColor);
     if (backgroundColor == Color.BLACK && !mInvertedColors) {
       mInvertedColors=true;

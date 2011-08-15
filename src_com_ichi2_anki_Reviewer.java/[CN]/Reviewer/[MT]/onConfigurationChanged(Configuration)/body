@@ -27,9 +27,6 @@
   if (mPrefWhiteboard) {
     mWhiteboard.rotate();
   }
-  if (mInvertedColors) {
-    invertColors();
-  }
   updateStatisticBars();
   mConfigurationChanged=false;
 }
