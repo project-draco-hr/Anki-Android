@@ -1,7 +1,7 @@
 {
   final StyledDialog dialog=new StyledDialog(context);
   LayoutInflater inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-  View layout=inflater.inflate(R.layout.alert_dialog,null);
+  View layout=inflater.inflate(R.layout.styled_dialog,null);
   dialog.addContentView(layout,new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));
   ((TextView)layout.findViewById(R.id.alertTitle)).setText(title);
   ((ImageView)layout.findViewById(R.id.icon)).setImageResource(icon);
@@ -108,7 +108,7 @@ frame.addView(contentView);
  else {
 ((View)layout.findViewById(R.id.customPanel)).setVisibility(View.GONE);
 }
-Themes.setStyledDialogBackgrounds(layout,numberOfButtons);
+Themes.setStyledDialogBackgrounds(layout,numberOfButtons,brightViewBackground);
 dialog.setContentView(layout);
 return dialog;
 }

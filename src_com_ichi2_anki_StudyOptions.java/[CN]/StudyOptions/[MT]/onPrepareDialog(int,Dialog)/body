@@ -51,7 +51,7 @@ checked[i]=true;
 mSelectedTags.add(tag);
 }
 }
-((StyledDialog)dialog).setMultiChoiceItems(allTags,checked,new DialogInterface.OnClickListener(){
+ad.setMultiChoiceItems(allTags,checked,new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 String tag=allTags[which];
 if (mSelectedTags.contains(tag)) {
