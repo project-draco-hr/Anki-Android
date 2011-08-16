@@ -1,7 +1,7 @@
 {
-  Dialog dialog;
+  StyledDialog dialog;
   Resources res=getResources();
-  AlertDialog.Builder builder=new AlertDialog.Builder(this);
+  StyledDialog.Builder builder=new StyledDialog.Builder(this);
 switch (id) {
 case DIALOG_NO_SDCARD:
     builder.setMessage("The SD card could not be read. Please, turn off USB storage.");

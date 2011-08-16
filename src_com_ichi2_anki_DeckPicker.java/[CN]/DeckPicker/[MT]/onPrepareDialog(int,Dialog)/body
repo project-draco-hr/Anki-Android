@@ -1,6 +1,6 @@
 {
   Resources res=getResources();
-  AlertDialog ad=(AlertDialog)dialog;
+  StyledDialog ad=(StyledDialog)dialog;
 switch (id) {
 case DIALOG_DELETE_DECK:
     ad.setMessage(String.format(res.getString(R.string.delete_deck_message),mCurrentDeckFilename));

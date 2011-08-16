@@ -52,7 +52,7 @@
   mSwapQA.setOnClickListener(new View.OnClickListener(){
     @Override public void onClick(    View view){
       if (mSwapQA.isChecked()) {
-        mSwapQAAlert.show();
+        showDialog(DIALOG_SWAP_QA);
       }
  else       if (mSwap) {
         mSwap=false;
@@ -69,8 +69,6 @@
   mToggleLimit.setOnClickListener(mButtonClickListener);
   mCardBrowser.setOnClickListener(mButtonClickListener);
   mStatisticsButton.setOnClickListener(mButtonClickListener);
-  mDialogMoreOptions=createMoreOptionsDialog();
-  mLimitSessionDialog=createLimitSessionDialog();
   mNoDeckView=getLayoutInflater().inflate(R.layout.studyoptions_nodeck,null);
   Themes.setWallpaper(mNoDeckView);
   mTextNoDeckTitle=(TextView)mNoDeckView.findViewById(R.id.studyoptions_nodeck_title);

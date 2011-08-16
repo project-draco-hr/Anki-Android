@@ -31,7 +31,7 @@
     }
   }
 );
-  AlertDialog.Builder builder=new AlertDialog.Builder(this);
+  StyledDialog.Builder builder=new StyledDialog.Builder(this);
   builder.setTitle(R.string.studyoptions_cram_dialog_title);
   builder.setPositiveButton(res.getString(R.string.begin_cram),new OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int which){

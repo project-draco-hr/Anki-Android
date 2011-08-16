@@ -7,7 +7,7 @@ case MENU_SYNC:
 syncDeck(null);
 return true;
 case MENU_MORE_OPTIONS:
-showMoreOptionsDialog();
+showDialog(DIALOG_MORE);
 return true;
 case MENU_PREFERENCES:
 startActivityForResult(new Intent(StudyOptions.this,Preferences.class),PREFERENCES_UPDATE);

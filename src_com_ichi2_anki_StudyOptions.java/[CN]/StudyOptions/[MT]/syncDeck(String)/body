@@ -12,6 +12,6 @@
     Connection.syncDeck(mSyncListener,new Connection.Payload(new Object[]{username,password,deck,mDeckFilename,conflictResolution}));
   }
  else {
-    mUserNotLoggedInAlert.show();
+    showDialog(DIALOG_USER_NOT_LOGGED_IN);
   }
 }
