@@ -1,5 +1,5 @@
 {
-  WebView webView=new WebView(getApplicationContext());
+  WebView webView=new WebView(this);
   webView.setWillNotCacheDrawing(true);
   webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
   if (mZoomEnabled) {
