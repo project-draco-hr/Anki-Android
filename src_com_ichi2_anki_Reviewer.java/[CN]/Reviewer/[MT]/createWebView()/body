@@ -30,15 +30,5 @@
     webView.setOnLongClickListener(mLongClickHandler);
     mClipboard=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
   }
-  webView.setOnTouchListener(new View.OnTouchListener(){
-    @Override public boolean onTouch(    View v,    MotionEvent event){
-      if (gestureDetector.onTouchEvent(event)) {
-        return true;
-      }
-      return false;
-    }
-  }
-);
-  mScaleInPercent=webView.getScale();
   return webView;
 }

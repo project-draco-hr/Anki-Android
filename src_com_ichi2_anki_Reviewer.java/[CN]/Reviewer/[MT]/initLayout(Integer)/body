@@ -18,21 +18,6 @@
     mAccelCurrent=SensorManager.GRAVITY_EARTH;
     mAccelLast=SensorManager.GRAVITY_EARTH;
   }
-  if (mPrefTextSelection) {
-    mCard.setOnLongClickListener(mLongClickHandler);
-    mClipboard=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
-    mClipboard.setText("");
-  }
-  mCard.setOnTouchListener(new View.OnTouchListener(){
-    @Override public boolean onTouch(    View v,    MotionEvent event){
-      if (gestureDetector.onTouchEvent(event)) {
-        return true;
-      }
-      return false;
-    }
-  }
-);
-  mScaleInPercent=mCard.getScale();
   mEase1=(Button)findViewById(R.id.ease1);
   mEase1.setOnClickListener(mSelectEaseHandler);
   mEase2=(Button)findViewById(R.id.ease2);
