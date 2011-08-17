@@ -70,7 +70,7 @@
   mSelectedTags=new HashSet<String>();
   mTags.setOnClickListener(new View.OnClickListener(){
     @Override public void onClick(    View v){
-      recreateTagsDialog();
+      showDialog(DIALOG_TAGS);
       if (!mTagsDialog.isShowing()) {
         mTagsDialog.show();
       }

@@ -28,12 +28,12 @@
  else {
         mNewSelectedCardModels.put(m,mCardModels.get(m));
       }
-      mCardModelDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(!mNewSelectedCardModels.isEmpty());
+      mCardModelDialog.getButton(StyledDialog.BUTTON_POSITIVE).setEnabled(!mNewSelectedCardModels.isEmpty());
     }
   }
 );
   mCardModelListView.setItemsCanFocus(false);
-  AlertDialog.Builder builder=new AlertDialog.Builder(this);
+  StyledDialog.Builder builder=new StyledDialog.Builder(this);
   builder.setTitle(res.getString(R.string.select_card_model));
   builder.setPositiveButton(res.getString(R.string.select),new OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int which){

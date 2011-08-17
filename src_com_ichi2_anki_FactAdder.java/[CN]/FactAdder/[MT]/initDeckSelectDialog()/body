@@ -16,9 +16,9 @@
       mFullDeckPaths.put(name,file.getAbsolutePath());
     }
   }
-  AlertDialog.Builder builder=new AlertDialog.Builder(this);
+  StyledDialog.Builder builder=new StyledDialog.Builder(this);
   builder.setTitle(R.string.fact_adder_select_deck);
-  mDeckNames=new CharSequence[tree.size()];
+  mDeckNames=new String[tree.size()];
   tree.toArray(mDeckNames);
   builder.setItems(mDeckNames,new DialogInterface.OnClickListener(){
     public void onClick(    DialogInterface dialog,    int item){
