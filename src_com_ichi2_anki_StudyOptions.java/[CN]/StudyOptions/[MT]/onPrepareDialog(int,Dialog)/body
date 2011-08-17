@@ -66,5 +66,23 @@ mSelectedTags.add(tag);
 }
 );
 break;
+case DIALOG_CRAM:
+activeCramTags.clear();
+allCramTags=AnkiDroidApp.deck().allTags_();
+ad.setMultiChoiceItems(allCramTags,new boolean[allCramTags.length],new DialogInterface.OnClickListener(){
+@Override public void onClick(DialogInterface arg0,int which){
+String tag=allCramTags[which];
+if (activeCramTags.contains(tag)) {
+Log.i(AnkiDroidApp.TAG,"unchecked tag: " + tag);
+activeCramTags.remove(tag);
+}
+ else {
+Log.i(AnkiDroidApp.TAG,"checked tag: " + tag);
+activeCramTags.add(tag);
+}
+}
+}
+);
+break;
 }
 }
