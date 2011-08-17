@@ -15,8 +15,52 @@ case DIALOG_TAGS:
 );
 builder.setNegativeButton(res.getString(R.string.cancel),null);
 mNewTagEditText=(EditText)new EditText(this);
-builder.setView(mNewTagEditText,true);
+InputFilter filter=new InputFilter(){
+public CharSequence filter(CharSequence source,int start,int end,Spanned dest,int dstart,int dend){
+for (int i=start; i < end; i++) {
+  if (!(Character.isLetterOrDigit(source.charAt(i)))) {
+    return "";
+  }
+}
+return null;
+}
+}
+;
+mNewTagEditText.setFilters(new InputFilter[]{filter});
+ImageView mAddTextButton=new ImageView(this);
+mAddTextButton.setImageResource(R.drawable.ic_addtag);
+mAddTextButton.setOnClickListener(new View.OnClickListener(){
+@Override public void onClick(View v){
+String tag=mNewTagEditText.getText().toString();
+if (tag.length() != 0) {
+for (int i=0; i < allTags.length; i++) {
+if (allTags[i].equalsIgnoreCase(tag)) {
+mNewTagEditText.setText("");
+return;
+}
+}
+mSelectedTags.add(tag);
+String[] oldTags=allTags;
+allTags=new String[oldTags.length + 1];
+allTags[0]=tag;
+for (int j=1; j < allTags.length; j++) {
+allTags[j]=oldTags[j - 1];
+}
+mTagsDialog.addMultiChoiceItems(tag,true);
+mNewTagEditText.setText("");
+}
+}
+}
+);
+FrameLayout frame=new FrameLayout(this);
+FrameLayout.LayoutParams params=new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT,Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+params.rightMargin=10;
+mAddTextButton.setLayoutParams(params);
+frame.addView(mNewTagEditText);
+frame.addView(mAddTextButton);
+builder.setView(frame,true);
 dialog=builder.create();
+mTagsDialog=dialog;
 break;
 }
 return dialog;
