@@ -1,7 +1,7 @@
 {
   Dialog dialog;
   Resources res=getResources();
-  AlertDialog.Builder builder=new AlertDialog.Builder(this);
+  StyledDialog.Builder builder=new StyledDialog.Builder(this);
   builder.setTitle(res.getString(R.string.delete_card_title));
   builder.setIcon(android.R.drawable.ic_dialog_alert);
   builder.setMessage(String.format(res.getString(R.string.delete_card_message),Utils.stripHTML(mCurrentCard.getQuestion()),Utils.stripHTML(mCurrentCard.getAnswer())));

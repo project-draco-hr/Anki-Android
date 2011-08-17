@@ -15,12 +15,13 @@ case DIALOG_TAGS:
 );
 builder.setNegativeButton(res.getString(R.string.cancel),null);
 mNewTagEditText=(EditText)new EditText(this);
+mNewTagEditText.setHint(R.string.add_new_tag);
 InputFilter filter=new InputFilter(){
 public CharSequence filter(CharSequence source,int start,int end,Spanned dest,int dstart,int dend){
 for (int i=start; i < end; i++) {
-  if (!(Character.isLetterOrDigit(source.charAt(i)))) {
-    return "";
-  }
+if (!(Character.isLetterOrDigit(source.charAt(i)))) {
+  return "";
+}
 }
 return null;
 }
