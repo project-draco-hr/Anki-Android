@@ -68,8 +68,6 @@
     mNextCard.loadDataWithBaseURL(baseUrl,card,"text/html","utf-8",null);
     mNextCard.setVisibility(View.VISIBLE);
     mCardFrame.removeView(mCard);
-    mCard.setOnTouchListener(null);
-    mCard.setOnLongClickListener(null);
     mCard.destroy();
     mCard=mNextCard;
     mNextCard=createWebView();
