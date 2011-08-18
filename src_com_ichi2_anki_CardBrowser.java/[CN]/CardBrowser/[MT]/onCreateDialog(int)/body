@@ -8,8 +8,10 @@ case DIALOG_ORDER:
   builder.setIcon(android.R.drawable.ic_menu_sort_by_size);
 builder.setSingleChoiceItems(getResources().getStringArray(R.array.card_browser_order_labels),mSelectedOrder,new DialogInterface.OnClickListener(){
   @Override public void onClick(  DialogInterface arg0,  int which){
-    mSelectedOrder=which;
-    getCards();
+    if (which != mSelectedOrder) {
+      mSelectedOrder=which;
+      getCards();
+    }
   }
 }
 );
