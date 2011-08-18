@@ -62,7 +62,6 @@
 );
   getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
   setTitle(mDeck.getDeckName());
-  initAllDialogs();
   allTags=null;
   mSelectedTags=new HashSet<String>();
   getCards();

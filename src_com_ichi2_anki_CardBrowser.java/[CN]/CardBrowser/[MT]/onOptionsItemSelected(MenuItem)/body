@@ -39,7 +39,7 @@ recreateTagsDialog();
 mTagsDialog.show();
 return true;
 case MENU_CHANGE_ORDER:
-mSelectOrderDialog.show();
+showDialog(DIALOG_ORDER);
 return true;
 }
 return false;
