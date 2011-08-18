@@ -36,5 +36,38 @@ mSelectedTags.add(tag);
 }
 );
 break;
+case DIALOG_CARD_MODEL_SELECT:
+mCardModels=mDeck.cardModels(mNewFact);
+int size=mCardModels.size();
+String dialogItems[]=new String[size];
+cardModelIds.clear();
+int i=0;
+for (Long id2 : mCardModels.keySet()) {
+dialogItems[i]=mCardModels.get(id2).getName();
+cardModelIds.add(id2);
+i++;
+}
+boolean[] checkedItems=new boolean[size];
+for (int j=0; j < size; j++) {
+;
+checkedItems[j]=mSelectedCardModels.containsKey(cardModelIds.get(j));
+}
+mNewSelectedCardModels.clear();
+mNewSelectedCardModels.putAll(mSelectedCardModels);
+ad.setMultiChoiceItems(dialogItems,checkedItems,new DialogInterface.OnClickListener(){
+@Override public void onClick(DialogInterface arg0,int which){
+long m=cardModelIds.get(which);
+if (mNewSelectedCardModels.containsKey(m)) {
+mNewSelectedCardModels.remove(m);
+}
+ else {
+mNewSelectedCardModels.put(m,mCardModels.get(m));
+}
+mCardModelDialog.getButton(StyledDialog.BUTTON_POSITIVE).setEnabled(!mNewSelectedCardModels.isEmpty());
+}
+}
+);
+ad.getButton(StyledDialog.BUTTON_POSITIVE).setEnabled(!mNewSelectedCardModels.isEmpty());
+break;
 }
 }

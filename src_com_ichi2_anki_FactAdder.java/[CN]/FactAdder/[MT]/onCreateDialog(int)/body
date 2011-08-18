@@ -35,7 +35,8 @@ mEditFields.get(i).setText(oldValues[i]);
 }
 }
 );
-return builder.create();
+dialog=builder.create();
+break;
 case DIALOG_TAGS:
 builder.setTitle(R.string.studyoptions_limit_select_tags);
 builder.setPositiveButton(res.getString(R.string.select),new OnClickListener(){
@@ -95,6 +96,24 @@ frame.addView(mAddTextButton);
 builder.setView(frame,true);
 dialog=builder.create();
 mTagsDialog=dialog;
+break;
+case DIALOG_CARD_MODEL_SELECT:
+builder.setTitle(res.getString(R.string.select_card_model));
+builder.setPositiveButton(res.getString(R.string.select),new OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+mSelectedCardModels.clear();
+mSelectedCardModels.putAll(mNewSelectedCardModels);
+cardModelsChanged();
+}
+}
+);
+builder.setNegativeButton(res.getString(R.string.cancel),new OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+}
+}
+);
+mCardModelDialog=builder.create();
+dialog=mCardModelDialog;
 break;
 }
 return dialog;

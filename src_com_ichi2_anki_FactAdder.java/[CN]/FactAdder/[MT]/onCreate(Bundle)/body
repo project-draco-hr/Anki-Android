@@ -55,8 +55,7 @@
 );
   mCardModelButton.setOnClickListener(new View.OnClickListener(){
     public void onClick(    View v){
-      recreateCardModelDialog();
-      mCardModelDialog.show();
+      showDialog(DIALOG_CARD_MODEL_SELECT);
     }
   }
 );
