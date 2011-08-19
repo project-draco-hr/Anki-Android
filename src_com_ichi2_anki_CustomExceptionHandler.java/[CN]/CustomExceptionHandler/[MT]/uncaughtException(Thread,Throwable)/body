@@ -32,6 +32,6 @@
   reportInformation.append("End Inner exceptions");
   printWriter.close();
   Log.i(AnkiDroidApp.TAG,"report infomation string created");
-  createReport(reportInformation.toString());
+  saveReportToFile(reportInformation.toString());
   mPreviousHandler.uncaughtException(t,e);
 }
