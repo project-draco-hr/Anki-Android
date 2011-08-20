@@ -12,15 +12,6 @@
     webView.setFocusableInTouchMode(false);
   }
   Log.i(AnkiDroidApp.TAG,"Focusable = " + webView.isFocusable() + ", Focusable in touch mode = "+ webView.isFocusableInTouchMode());
-  if (mPrefTextSelection) {
-    webView.setOnLongClickListener(mLongClickHandler);
-    mClipboard=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
-  }
-  webView.setOnTouchListener(mGestureListener);
   mScaleInPercent=webView.getScale();
-  if (mPrefTextSelection) {
-    webView.setOnLongClickListener(mLongClickHandler);
-    mClipboard=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
-  }
   return webView;
 }

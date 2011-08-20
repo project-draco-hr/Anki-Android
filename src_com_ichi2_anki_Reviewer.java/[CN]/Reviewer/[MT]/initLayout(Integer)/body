@@ -2,6 +2,11 @@
   setContentView(layout);
   mMainLayout=findViewById(R.id.main_layout);
   mCardFrame=(FrameLayout)findViewById(R.id.flashcard);
+  mTouchLayer=(FrameLayout)findViewById(R.id.touch_layer);
+  mTouchLayer.setOnTouchListener(mGestureListener);
+  if (mPrefTextSelection) {
+    mClipboard=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+  }
   mCardFrame.removeAllViews();
   mCard=createWebView();
   mCardFrame.addView(mCard);
