@@ -44,5 +44,13 @@
     }
   }
   values.put("deckAge",(int)((Utils.now() - created) / 86400));
+  values.put("newPerDay",mNewCardsPerDay);
+  int failedCards=getFailedDelayedCount();
+  int revCards=getNextDueCards(1);
+  int newCards=getNextNewCards();
+  int eta=getETA(failedCards,revCards,newCards,true);
+  values.put("revTomorrow",failedCards + revCards);
+  values.put("newTomorrow",newCards);
+  values.put("timeTomorrow",eta);
   return values;
 }
