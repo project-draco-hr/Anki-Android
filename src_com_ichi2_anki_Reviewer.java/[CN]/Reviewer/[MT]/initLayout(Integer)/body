@@ -6,12 +6,19 @@
   mCardContainer.setVisibility(mShowAnimations && !mConfigurationChanged ? View.INVISIBLE : View.VISIBLE);
   setInAnimation(false);
   mCardFrame=(FrameLayout)findViewById(R.id.flashcard);
-  mCard=createWebView();
-  mNextCard=createWebView();
-  mNextCard.setVisibility(View.GONE);
+  mTouchLayer=(FrameLayout)findViewById(R.id.touch_layer);
+  mTouchLayer.setOnTouchListener(mGestureListener);
+  if (mPrefTextSelection) {
+    mClipboard=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+  }
   mCardFrame.removeAllViews();
+  mCard=createWebView();
   mCardFrame.addView(mCard);
-  mCardFrame.addView(mNextCard);
+  if (mCustomFontFiles.length != 0) {
+    mNextCard=createWebView();
+    mNextCard.setVisibility(View.GONE);
+    mCardFrame.addView(mNextCard);
+  }
   gestureDetector=new GestureDetector(new MyGestureDetector());
   if (mShakeEnabled) {
     mSensorManager=(SensorManager)getSystemService(Context.SENSOR_SERVICE);
@@ -20,21 +27,6 @@
     mAccelCurrent=SensorManager.GRAVITY_EARTH;
     mAccelLast=SensorManager.GRAVITY_EARTH;
   }
-  if (mPrefTextSelection) {
-    mCard.setOnLongClickListener(mLongClickHandler);
-    mClipboard=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
-    mClipboard.setText("");
-  }
-  mCard.setOnTouchListener(new View.OnTouchListener(){
-    @Override public boolean onTouch(    View v,    MotionEvent event){
-      if (gestureDetector.onTouchEvent(event)) {
-        return true;
-      }
-      return false;
-    }
-  }
-);
-  mScaleInPercent=mCard.getScale();
   mEase1=(Button)findViewById(R.id.ease1);
   mEase1.setOnClickListener(mSelectEaseHandler);
   mEase2=(Button)findViewById(R.id.ease2);

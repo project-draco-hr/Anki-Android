@@ -8,11 +8,9 @@
     Deck currentDeck=AnkiDroidApp.deck();
     Model myModel=Model.getModel(currentDeck,mCurrentCard.getCardModelId(),false);
     mBaseUrl=Utils.getBaseUrl(mMediaDir,myModel,currentDeck);
-    content=myModel.getCSSForFontColorSize(mCurrentCard.getCardModelId(),mDisplayFontSize,mInvertedColors) + Model.invertColors(content,mInvertedColors);
+    content=myModel.getCSSForFontColorSize(mCurrentCard.getCardModelId(),mDisplayFontSize,mNightMode) + Model.invertColors(content,mNightMode);
     isJapaneseModel=myModel.hasTag(japaneseModelTag);
-    if (Themes.changeFlashcardBorder()) {
-      mMainLayout.setBackgroundColor(Color.parseColor(myModel.getBackgroundColor(mCurrentCard.getCardModelId(),mInvertedColors)));
-    }
+    mCurrentBackgroundColor=Color.parseColor(myModel.getBackgroundColor(mCurrentCard.getCardModelId(),mNightMode));
   }
  else {
     mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
