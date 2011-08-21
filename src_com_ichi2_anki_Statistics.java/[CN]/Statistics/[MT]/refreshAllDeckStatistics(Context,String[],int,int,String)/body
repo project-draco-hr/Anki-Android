@@ -24,26 +24,18 @@
       for (      Entry<String,Object> entry : values.valueSet()) {
         if (entry.getKey().equals("deckAge")) {
           if (sDeckSummaryValues.containsKey(entry.getKey())) {
-            sDeckSummaryValues.put(entry.getKey(),Math.max(sDeckSummaryValues.getAsLong(entry.getKey()),(Integer)entry.getValue()));
+            sDeckSummaryValues.put(entry.getKey(),Math.max(sDeckSummaryValues.getAsInteger(entry.getKey()),(Integer)entry.getValue()));
           }
  else {
             sDeckSummaryValues.put(entry.getKey(),(Integer)entry.getValue());
           }
         }
- else         if (entry.getValue().getClass().getSimpleName().equals("Long")) {
+ else {
           if (sDeckSummaryValues.containsKey(entry.getKey())) {
-            sDeckSummaryValues.put(entry.getKey(),sDeckSummaryValues.getAsLong(entry.getKey()) + (Long)entry.getValue());
+            sDeckSummaryValues.put(entry.getKey(),sDeckSummaryValues.getAsInteger(entry.getKey()) + (Integer)entry.getValue());
           }
  else {
-            sDeckSummaryValues.put(entry.getKey(),(Long)entry.getValue());
-          }
-        }
- else         if (entry.getValue().getClass().getSimpleName().equals("Float")) {
-          if (sDeckSummaryValues.containsKey(entry.getKey())) {
-            sDeckSummaryValues.put(entry.getKey(),sDeckSummaryValues.getAsFloat(entry.getKey()) + (Float)entry.getValue());
-          }
- else {
-            sDeckSummaryValues.put(entry.getKey(),(Float)entry.getValue());
+            sDeckSummaryValues.put(entry.getKey(),(Integer)entry.getValue());
           }
         }
       }
