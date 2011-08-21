@@ -17,7 +17,7 @@
   if (mCustomFontFiles.length != 0) {
     mNextCard=createWebView();
     mNextCard.setVisibility(View.GONE);
-    mCardFrame.addView(mNextCard);
+    mCardFrame.addView(mNextCard,0);
   }
   gestureDetector=new GestureDetector(new MyGestureDetector());
   if (mShakeEnabled) {
