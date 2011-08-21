@@ -2,7 +2,7 @@
   if (!flip) {
     Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
     if (mCustomFontFiles.length != 0) {
-      mNextCard.setBackgroundColor(mCurrentBackgroundColor);
+      mNextCard.setBackgroundColor(getResources().getColor(mCurrentBackgroundColor));
       mNextCard.loadDataWithBaseURL(mBaseUrl,mCardContent,"text/html","utf-8",null);
       mNextCard.setVisibility(View.VISIBLE);
       mCardFrame.removeView(mCard);
@@ -15,12 +15,9 @@
  else {
       mCard.loadDataWithBaseURL(mBaseUrl,mCardContent,"text/html","utf-8",null);
     }
-    if (Themes.changeFlashcardBorder()) {
-      mMainLayout.setBackgroundColor(mCurrentBackgroundColor);
-      if (mCurrentBackgroundColor == Color.BLACK && !mInvertedColors) {
-        mInvertedColors=true;
-        invertColors();
-      }
+    if (mCurrentBackgroundColor == Color.BLACK && !mInvertedColors) {
+      mInvertedColors=true;
+      invertColors();
     }
     if (!sDisplayAnswer) {
       updateForNewCard();

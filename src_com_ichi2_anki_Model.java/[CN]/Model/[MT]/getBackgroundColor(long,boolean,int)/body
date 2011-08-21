@@ -4,9 +4,15 @@
   }
   String color=mColorCardModelMap.get(myCardModelId);
   if (color != null) {
-    return color;
+    int intColor=Color.parseColor(color);
+    if (intColor == Color.BLACK) {
+      return alternativeColor;
+    }
+ else {
+      return intColor;
+    }
   }
  else {
-    return "#FFFFFF";
+    return android.R.color.white;
   }
 }

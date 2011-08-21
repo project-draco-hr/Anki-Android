@@ -28,6 +28,12 @@
     }
     requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
     registerExternalStorageListener();
+    if (mNightMode) {
+      mCurrentBackgroundColor=Themes.getNightModeCardBackground();
+    }
+ else {
+      mCurrentBackgroundColor=Color.WHITE;
+    }
     mCustomFontFiles=Utils.getCustomFonts(getBaseContext());
     initLayout(R.layout.flashcard);
 switch (mDictionary) {
