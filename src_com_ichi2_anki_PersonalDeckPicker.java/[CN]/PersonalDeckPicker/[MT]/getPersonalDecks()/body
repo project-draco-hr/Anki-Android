@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"getPersonalDecks");
   SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
   String username=pref.getString("username","");
   String password=pref.getString("password","");

@@ -1,4 +1,5 @@
 {
+  Log.d(AnkiDroidApp.TAG,"WidgetStatus.UpdateDeckStatusAsyncTask.doInBackground()");
   Context context=params[0];
   SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
   String deckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory() + "/AnkiDroid");
@@ -13,11 +14,13 @@
     try {
       String absPath=file.getAbsolutePath();
       String deckName=file.getName().replaceAll(".anki","");
+      Log.i(AnkiDroidApp.TAG,"Found deck: " + absPath);
       Deck deck=Deck.openDeck(absPath,false);
       if (deck == null) {
         Log.e(AnkiDroidApp.TAG,"Skipping null deck: " + absPath);
         for (        DeckStatus deckStatus : mDecks) {
           if (absPath.equals(deckStatus.mDeckPath)) {
+            Log.d(AnkiDroidApp.TAG,"Using previous value");
             decks.add(deckStatus);
             break;
           }
@@ -34,10 +37,12 @@
       decks.add(new DeckStatus(absPath,deckName,newCards,dueCards,failedCards));
     }
  catch (    SQLException e) {
+      Log.i(AnkiDroidApp.TAG,"Could not open deck");
       Log.e(AnkiDroidApp.TAG,e.toString());
     }
   }
   if (!decks.isEmpty() && decks.size() > 1) {
+    Log.i(AnkiDroidApp.TAG,"Sorting deck");
     Collections.sort(decks,new ByDueComparator());
   }
   mDecks=decks.toArray(EMPTY_DECK_STATUS);

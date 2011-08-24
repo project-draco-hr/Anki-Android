@@ -8,6 +8,7 @@
   try {
     if (oldCard != null) {
       deck.answerCard(oldCard,ease);
+      Log.i(AnkiDroidApp.TAG,"leech flag: " + oldCard.getLeechFlag());
     }
     newCard=deck.getCard();
     if (oldCard != null) {

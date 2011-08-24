@@ -1,5 +1,6 @@
 {
   if (mClipboard.hasText()) {
+    Log.i(AnkiDroidApp.TAG,"Clipboard has text = " + mClipboard.hasText());
     lookUp();
   }
  else {

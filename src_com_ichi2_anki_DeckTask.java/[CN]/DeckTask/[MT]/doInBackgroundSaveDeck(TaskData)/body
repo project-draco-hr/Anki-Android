@@ -1,5 +1,6 @@
 {
   Deck deck=params[0].getDeck();
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundSaveAndResetDeck");
   if (deck != null) {
     deck.commitToDB();
     deck.updateCutoff();

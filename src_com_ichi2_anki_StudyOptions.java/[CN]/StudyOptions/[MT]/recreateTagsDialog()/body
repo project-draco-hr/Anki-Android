@@ -2,6 +2,7 @@
   Resources res=getResources();
   if (allTags == null) {
     allTags=AnkiDroidApp.deck().allTags_();
+    Log.i(AnkiDroidApp.TAG,"all tags: " + Arrays.toString(allTags));
   }
   mSelectedTags.clear();
   List<String> selectedList=Arrays.asList(Utils.parseTags(getSelectedTags(mSelectedLimitTagText)));
@@ -20,9 +21,11 @@
     public void onClick(    DialogInterface dialog,    int whichButton,    boolean isChecked){
       String tag=allTags[whichButton];
       if (!isChecked) {
+        Log.i(AnkiDroidApp.TAG,"unchecked tag: " + tag);
         mSelectedTags.remove(tag);
       }
  else {
+        Log.i(AnkiDroidApp.TAG,"checked tag: " + tag);
         mSelectedTags.add(tag);
       }
     }

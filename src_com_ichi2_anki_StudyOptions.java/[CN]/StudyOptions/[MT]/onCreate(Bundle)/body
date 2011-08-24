@@ -1,5 +1,6 @@
 {
   super.onCreate(savedInstanceState);
+  Log.i(AnkiDroidApp.TAG,"StudyOptions Activity");
   if (hasErrorFiles()) {
     Intent i=new Intent(this,Feedback.class);
     startActivityForResult(i,REPORT_ERROR);
@@ -16,15 +17,19 @@
   Intent intent=getIntent();
   if (Intent.ACTION_VIEW.equalsIgnoreCase(intent.getAction()) && intent.getDataString() != null) {
     mDeckFilename=Uri.parse(intent.getDataString()).getPath();
+    Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from VIEW intent: " + mDeckFilename);
   }
  else   if (Intent.ACTION_MAIN.equalsIgnoreCase(intent.getAction()) && intent.hasExtra(EXTRA_DECK)) {
     mDeckFilename=intent.getStringExtra(EXTRA_DECK);
+    Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from MAIN intent: " + mDeckFilename);
   }
  else   if (savedInstanceState != null) {
     mDeckFilename=savedInstanceState.getString("deckFilename");
+    Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from savedInstanceState: " + mDeckFilename);
   }
  else {
     mDeckFilename=preferences.getString("deckFilename",null);
+    Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from preferences: " + mDeckFilename);
   }
   if (!mSdCardAvailable) {
     showContentView(CONTENT_NO_EXTERNAL_STORAGE);

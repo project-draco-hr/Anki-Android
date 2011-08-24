@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"buildUpdate");
   RemoteViews updateViews=new RemoteViews(context.getPackageName(),R.layout.widget);
   Intent ankiDroidIntent=new Intent(context,StudyOptions.class);
   ankiDroidIntent.setAction(Intent.ACTION_MAIN);

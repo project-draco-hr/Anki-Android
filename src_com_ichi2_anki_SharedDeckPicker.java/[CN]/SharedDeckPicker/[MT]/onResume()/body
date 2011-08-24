@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"onResume");
   super.onResume();
   if (mDownloadManagerService != null) {
     try {

@@ -1,5 +1,6 @@
 {
   super.onConfigurationChanged(newConfig);
+  Log.i(AnkiDroidApp.TAG,"onConfigurationChanged");
   mConfigurationChanged=true;
   long savedTimer=mCardTimer.getBase();
   CharSequence savedAnswerField=mAnswerField.getText();

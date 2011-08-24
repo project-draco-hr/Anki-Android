@@ -3,7 +3,10 @@
   JSONArray locallyDeleted=new JSONArray();
   JSONArray remotelyEdited=new JSONArray();
   JSONArray remotelyDeleted=new JSONArray();
+  Log.i(AnkiDroidApp.TAG,"\ndiffSummary - Key = " + key);
+  Log.i(AnkiDroidApp.TAG,"\nSummary local = ");
   Utils.printJSONObject(summaryLocal,false);
+  Log.i(AnkiDroidApp.TAG,"\nSummary server = ");
   Utils.printJSONObject(summaryServer,false);
   HashSet<Long> ids=new HashSet<Long>();
   HashMap<Long,Double> remoteMod=new HashMap<Long,Double>();
@@ -17,35 +20,48 @@
     Long id=idsIterator.next();
     Double localModTime=localMod.get(id);
     Double remoteModTime=remoteMod.get(id);
+    Log.i(AnkiDroidApp.TAG,"\nid = " + id + ", localModTime = "+ localModTime+ ", remoteModTime = "+ remoteModTime);
     if (localModTime != null && remoteModTime != null) {
+      Log.i(AnkiDroidApp.TAG,"localModTime not null AND remoteModTime not null");
       if (localModTime < remoteModTime) {
+        Log.i(AnkiDroidApp.TAG,"Remotely edited");
         remotelyEdited.put(id);
       }
  else       if (localModTime > remoteModTime) {
+        Log.i(AnkiDroidApp.TAG,"Locally edited");
         locallyEdited.put(id);
       }
     }
  else     if (localModTime != null && remoteModTime == null) {
+      Log.i(AnkiDroidApp.TAG,"localModTime not null AND remoteModTime null");
       if (!rdeletedIds.containsKey(id) || rdeletedIds.get(id) < localModTime) {
+        Log.i(AnkiDroidApp.TAG,"Locally edited");
         locallyEdited.put(id);
       }
  else {
+        Log.i(AnkiDroidApp.TAG,"Remotely deleted");
         remotelyDeleted.put(id);
       }
     }
  else     if (remoteModTime != null && localModTime == null) {
+      Log.i(AnkiDroidApp.TAG,"remoteModTime not null AND localModTime null");
       if (!ldeletedIds.containsKey(id) || ldeletedIds.get(id) < remoteModTime) {
+        Log.i(AnkiDroidApp.TAG,"Remotely edited");
         remotelyEdited.put(id);
       }
  else {
+        Log.i(AnkiDroidApp.TAG,"Locally deleted");
         locallyDeleted.put(id);
       }
     }
  else {
+      Log.i(AnkiDroidApp.TAG,"localModTime null AND remoteModTime null");
       if (ldeletedIds.containsKey(id) && !rdeletedIds.containsKey(id)) {
+        Log.i(AnkiDroidApp.TAG,"Locally deleted");
         locallyDeleted.put(id);
       }
  else       if (rdeletedIds.containsKey(id) && !ldeletedIds.containsKey(id)) {
+        Log.i(AnkiDroidApp.TAG,"Remotely deleted");
         remotelyDeleted.put(id);
       }
     }

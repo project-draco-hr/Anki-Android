@@ -4,11 +4,13 @@
       @Override public void onReceive(      Context context,      Intent intent){
         String action=intent.getAction();
         if (action.equals(Intent.ACTION_MEDIA_EJECT)) {
+          Log.i(AnkiDroidApp.TAG,"mUnmountReceiver - Action = Media Eject");
           closeOpenedDeck();
           showContentView(CONTENT_NO_EXTERNAL_STORAGE);
           mSdCardAvailable=false;
         }
  else         if (action.equals(Intent.ACTION_MEDIA_MOUNTED)) {
+          Log.i(AnkiDroidApp.TAG,"mUnmountReceiver - Action = Media Mounted");
           mSdCardAvailable=true;
           if (!mInDeckPicker) {
             loadPreviousDeck();

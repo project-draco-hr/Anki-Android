@@ -1,5 +1,6 @@
 {
   super.onCreate(savedInstanceState);
+  Log.i(AnkiDroidApp.TAG,"Reviewer - onCreate");
   setVolumeControlStream(AudioManager.STREAM_MUSIC);
   Deck deck=AnkiDroidApp.deck();
   if (deck == null) {
@@ -13,6 +14,7 @@
       if (AnkiDroidApp.zeemoteController() == null)       AnkiDroidApp.setZeemoteController(new Controller(Controller.CONTROLLER_1));
       controllerUi=new ControllerAndroidUi(this,AnkiDroidApp.zeemoteController());
       if (!AnkiDroidApp.zeemoteController().isConnected()) {
+        Log.d("Zeemote","starting connection in onCreate");
         controllerUi.startConnectionProcess();
       }
     }
@@ -48,6 +50,7 @@ default :
 mIsDictionaryAvailable=false;
 break;
 }
+Log.i(AnkiDroidApp.TAG,"Is intent available = " + mIsDictionaryAvailable);
 try {
 mCardTemplate=Utils.convertStreamToString(getAssets().open("card_template.html"));
 mCardTemplate=mCardTemplate.replaceFirst("var availableWidth = \\d*;","var availableWidth = " + getAvailableWidthInCard() + ";");
@@ -56,6 +59,7 @@ mCardTemplate=mCardTemplate.replaceFirst("var availableWidth = \\d*;","var avail
 e.printStackTrace();
 }
 long timelimit=deck.getSessionTimeLimit() * 1000;
+Log.i(AnkiDroidApp.TAG,"SessionTimeLimit: " + timelimit + " ms.");
 mSessionTimeLimit=System.currentTimeMillis() + timelimit;
 mSessionCurrReps=0;
 if (mSpeakText && Integer.valueOf(android.os.Build.VERSION.SDK) > 3) {

@@ -36,6 +36,7 @@
     bundledDeck.put("utcOffset",mUtcOffset);
   }
  catch (  JSONException e) {
+    Log.i(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
   }
   return bundledDeck;
 }

@@ -4,6 +4,7 @@
     mMetaDb.execSQL("CREATE TABLE IF NOT EXISTS languages (" + " _id INTEGER PRIMARY KEY AUTOINCREMENT, " + "deckpath TEXT NOT NULL, modelid INTEGER NOT NULL, "+ "cardmodelid INTEGER NOT NULL, "+ "qa INTEGER, "+ "language TEXT)");
     mMetaDb.execSQL("CREATE TABLE IF NOT EXISTS whiteboardState (" + "_id INTEGER PRIMARY KEY AUTOINCREMENT, " + "deckpath TEXT NOT NULL, "+ "state INTEGER)");
     mMetaDb.execSQL("CREATE TABLE IF NOT EXISTS widgetStatus (" + "deckPath TEXT NOT NULL PRIMARY KEY, " + "deckName TEXT NOT NULL, "+ "newCards INTEGER NOT NULL, "+ "dueCards INTEGER NOT NULL, "+ "failedCards INTEGER NOT NULL)");
+    Log.i(AnkiDroidApp.TAG,"Opening MetaDB");
   }
  catch (  Exception e) {
     Log.e("Error","Error opening MetaDB ",e);

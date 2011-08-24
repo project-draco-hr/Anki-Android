@@ -1,5 +1,6 @@
 {
   super.onDestroy();
+  Log.i(AnkiDroidApp.TAG,"StudyOptions - onDestroy()");
   closeOpenedDeck();
   MetaDB.closeDB();
   if (mUnmountReceiver != null) {
