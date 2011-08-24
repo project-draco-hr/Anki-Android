@@ -1,6 +1,5 @@
 {
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-    Log.i(AnkiDroidApp.TAG,"CardBrowser - onBackPressed()");
     if (mSearchEditText.getText().length() == 0 && !mShowOnlyMarSus && mSelectedTags.size() == 0) {
       setResult(RESULT_OK);
       finish();

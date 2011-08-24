@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"OnStart");
   boolean updateDueDecksNow=true;
   if (intent != null) {
     if (ACTION_NEXT.equals(intent.getAction())) {
@@ -18,7 +17,6 @@
       updateDueDecksNow=false;
     }
  else     if (ACTION_UPDATE.equals(intent.getAction())) {
-      Log.d(AnkiDroidApp.TAG,"AnkiDroidWidget.UpdateService: UPDATE");
     }
   }
   RemoteViews updateViews=buildUpdate(this,updateDueDecksNow);

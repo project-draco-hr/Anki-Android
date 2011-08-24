@@ -12,8 +12,6 @@
         newTags+="," + tag;
       }
     }
-    Log.i(AnkiDroidApp.TAG,"old tags = " + factTagsList.get(i));
-    Log.i(AnkiDroidApp.TAG,"new tags = " + newTags);
     if (newTags.length() > factTagsList.get(i).length()) {
       ContentValues values=new ContentValues();
       values.put("tags",newTags);

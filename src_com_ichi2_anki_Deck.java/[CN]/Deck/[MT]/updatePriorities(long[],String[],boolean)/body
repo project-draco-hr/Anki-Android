@@ -1,6 +1,5 @@
 {
   Cursor cursor=null;
-  Log.i(AnkiDroidApp.TAG,"updatePriorities - Updating priorities...");
   if (suspend != null && suspend.length > 0) {
     long ids[]=Utils.toPrimitive(tagIds(suspend,false).values());
     ContentValues values=new ContentValues();

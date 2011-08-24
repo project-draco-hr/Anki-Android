@@ -1,6 +1,5 @@
 {
   super.onResume();
-  Log.i(AnkiDroidApp.TAG,"onResume");
   if (mDownloadManagerService != null) {
     try {
       mDownloadManagerService.registerPersonalDeckCallback(mCallback);

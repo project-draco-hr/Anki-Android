@@ -2,11 +2,8 @@
   openDBIfClosed(context);
   try {
     mMetaDb.execSQL("DROP TABLE IF EXISTS languages;");
-    Log.i(AnkiDroidApp.TAG,"Resetting all language assignment");
     mMetaDb.execSQL("DROP TABLE IF EXISTS whiteboardState;");
-    Log.i(AnkiDroidApp.TAG,"Resetting whiteboard state");
     mMetaDb.execSQL("DROP TABLE IF EXISTS widgetStatus;");
-    Log.i(AnkiDroidApp.TAG,"Resetting widget status");
     return true;
   }
  catch (  Exception e) {

@@ -17,7 +17,6 @@
             buff.newLine();
             buff.close();
           }
-          Log.i(AnkiDroidApp.TAG,"	" + indentation + key+ " : ");
           printJSONObject((JSONObject)value,indentation + "-",writeToFile);
         }
  else {
@@ -27,7 +26,6 @@
             buff.newLine();
             buff.close();
           }
-          Log.i(AnkiDroidApp.TAG,"	" + indentation + key+ " = "+ jsonObject.get(key).toString());
         }
       }
  catch (      JSONException e) {
