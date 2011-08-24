@@ -1,0 +1,18 @@
+{
+  final String[] separatorsReg=new String[]{",",";","\\.","\\)","\\(","\\]","\\[",":"};
+  final String[] separators=new String[]{",",";",".",")","(","]","[",":"};
+  for (int i=0; i < separatorsReg.length; i++) {
+    text=text.replaceAll(separatorsReg[i]," " + separators[i] + " ");
+  }
+  String[] cut=text.split("\\s");
+  mCutString=new WordRow[cut.length];
+  for (int i=0; i < cut.length; i++) {
+    mCutString[i]=new WordRow(cut[i]);
+    for (    String s : separators) {
+      if (s.equals(cut[i])) {
+        mCutString[i].mEnabled=true;
+        break;
+      }
+    }
+  }
+}

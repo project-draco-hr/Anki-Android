@@ -1,0 +1,16 @@
+{
+  super.onTextChanged(text,start,before,after);
+  if (mCircle != null) {
+    int visibility=mCircle.getVisibility();
+    if (text.length() == 0) {
+      if (visibility == View.VISIBLE) {
+        mCircle.setVisibility(View.GONE);
+        mCircle.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_OUT,300,0));
+      }
+    }
+ else     if (visibility == View.GONE) {
+      mCircle.setVisibility(View.VISIBLE);
+      mCircle.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_IN,300,0));
+    }
+  }
+}

@@ -1,3 +1,8 @@
 {
-  createBitmap(AnkiDroidApp.getDisplayWidth(),AnkiDroidApp.getDisplayHeight(),Bitmap.Config.ARGB_4444);
+  if (mMonochrome && !mInvertedColors) {
+    createBitmap(AnkiDroidApp.getDisplayWidth(),AnkiDroidApp.getDisplayHeight(),Bitmap.Config.ALPHA_8);
+  }
+ else {
+    createBitmap(AnkiDroidApp.getDisplayWidth(),AnkiDroidApp.getDisplayHeight(),Bitmap.Config.ARGB_4444);
+  }
 }

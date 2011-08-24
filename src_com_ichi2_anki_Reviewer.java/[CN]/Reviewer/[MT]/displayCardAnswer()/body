@@ -1,9 +1,10 @@
 {
   Log.i(AnkiDroidApp.TAG,"displayCardAnswer");
   sDisplayAnswer=true;
+  setFlipCardAnimation();
   Sound.stopSounds();
   String displayString="";
-  String answer=mCurrentCard.getAnswer(), question=mCurrentCard.getQuestion();
+  String answer=getAnswer(), question=getQuestion();
   if (mPrefFixArabic) {
     answer=ArabicUtilities.reshapeSentence(answer,true);
     question=ArabicUtilities.reshapeSentence(question,true);
@@ -43,7 +44,6 @@
     displayString=sb.toString();
   }
   mIsSelecting=false;
-  mFlipCard.setVisibility(View.GONE);
   updateCard(displayString);
   showEaseButtons();
 }

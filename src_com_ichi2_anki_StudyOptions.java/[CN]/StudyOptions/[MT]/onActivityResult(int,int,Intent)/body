@@ -4,10 +4,15 @@
     showContentView(CONTENT_NO_EXTERNAL_STORAGE);
   }
  else   if (requestCode == PICK_DECK_REQUEST || requestCode == DOWNLOAD_PERSONAL_DECK || requestCode == DOWNLOAD_SHARED_DECK) {
+    if (requestCode == PICK_DECK_REQUEST && resultCode == RESULT_CLOSE) {
+      closeStudyOptions();
+    }
+ else     if (requestCode == PICK_DECK_REQUEST && resultCode == RESULT_RESTART) {
+      restartApp();
+    }
     mInDeckPicker=false;
     if (requestCode == PICK_DECK_REQUEST && resultCode == RESULT_OK) {
-      showContentView(CONTENT_SESSION_COMPLETE);
-      mStudyOptionsMain.setVisibility(View.INVISIBLE);
+      showContentView(CONTENT_STUDY_OPTIONS);
     }
  else     if ((requestCode == DOWNLOAD_SHARED_DECK || requestCode == DOWNLOAD_PERSONAL_DECK) && resultCode == RESULT_OK) {
       openDeckPicker();
@@ -20,7 +25,14 @@
         AnkiDroidApp.setDeck(null);
         showContentView(CONTENT_NO_DECK);
       }
-      displayProgressDialogAndLoadDeck();
+ else {
+        showContentView(CONTENT_STUDY_OPTIONS);
+        if (AnkiDroidApp.deck() == null || !AnkiDroidApp.deck().getDeckPath().equals(mDeckFilename)) {
+          if (resultCode != RESULT_DONT_RELOAD_DECK) {
+            displayProgressDialogAndLoadDeck();
+          }
+        }
+      }
       return;
     }
     if (intent == null) {
@@ -35,12 +47,20 @@
       mShowWelcomeScreen=false;
       savePreferences("welcome");
     }
-    boolean updateAllCards=(requestCode == DOWNLOAD_SHARED_DECK);
-    displayProgressDialogAndLoadDeck(updateAllCards);
+    if (AnkiDroidApp.deck() == null || !AnkiDroidApp.deck().getDeckPath().equals(mDeckFilename)) {
+      boolean updateAllCards=(requestCode == DOWNLOAD_SHARED_DECK);
+      displayProgressDialogAndLoadDeck(updateAllCards);
+    }
   }
  else   if (requestCode == PREFERENCES_UPDATE) {
     restorePreferences();
     showContentView();
+    if (resultCode == RESULT_RESTART) {
+      restartApp();
+    }
+ else     if (resultCode == RESULT_RELOAD_DECK) {
+      displayProgressDialogAndLoadDeck();
+    }
   }
  else   if (requestCode == REQUEST_REVIEW) {
     Log.i(AnkiDroidApp.TAG,"Result code = " + resultCode);

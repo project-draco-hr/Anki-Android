@@ -1,0 +1,30 @@
+{
+  StringBuffer sb=new StringBuffer();
+  sb.append("<!-- ").append(percentage).append(" % display font size-->");
+  sb.append("<style type=\"text/css\">\n");
+  CardModel myCardModel=mCardModelsMap.get(myCardModelId);
+  if (null != myCardModel.getLastFontColour() && 0 < myCardModel.getLastFontColour().trim().length()) {
+    String color=invertColor(myCardModel.getLastFontColour(),invertedColors);
+    if (nightModeBackground != Color.BLACK && Color.parseColor(color) == Color.BLACK) {
+      color=String.format("#%X",nightModeBackground);
+    }
+    sb.append("body {background-color:").append(color).append(";}\n");
+  }
+  sb.append(".").append(Reviewer.QUESTION_CLASS).append(" {\n");
+  sb.append(calculateDisplay(percentage,myCardModel.getQuestionFontFamily(),myCardModel.getQuestionFontSize(),myCardModel.getQuestionFontColour(),myCardModel.getQuestionAlign(),false,invertedColors));
+  sb.append("}\n");
+  sb.append(".").append(Reviewer.ANSWER_CLASS).append(" {\n");
+  sb.append(calculateDisplay(percentage,myCardModel.getAnswerFontFamily(),myCardModel.getAnswerFontSize(),myCardModel.getAnswerFontColour(),myCardModel.getQuestionAlign(),false,invertedColors));
+  sb.append("}\n");
+  FieldModel myFieldModel=null;
+  String hexId=null;
+  for (  Map.Entry<Long,FieldModel> entry : mFieldModelsMap.entrySet()) {
+    myFieldModel=entry.getValue();
+    hexId="fm" + Long.toHexString(myFieldModel.getId());
+    sb.append(".").append(hexId).append(" {\n");
+    sb.append(calculateDisplay(percentage,myFieldModel.getQuizFontFamily(),myFieldModel.getQuizFontSize(),myFieldModel.getQuizFontColour(),0,true,invertedColors));
+    sb.append("}\n");
+  }
+  sb.append("</style>");
+  return sb.toString();
+}

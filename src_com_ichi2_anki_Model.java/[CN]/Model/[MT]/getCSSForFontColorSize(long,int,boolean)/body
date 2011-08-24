@@ -1,9 +1,0 @@
-{
-  if (mDisplayPercentage != percentage || mInvertedColor != invertedColors) {
-    mDisplayPercentage=percentage;
-    mInvertedColor=invertedColors;
-    prepareCSSForCardModels(invertedColors);
-    prepareColorForCardModels(invertedColors);
-  }
-  return mCssCardModelMap.get(myCardModelId);
-}

@@ -1,37 +1,31 @@
 {
   Log.i(AnkiDroidApp.TAG,"updateCard");
-  String baseUrl="";
+  mBaseUrl="";
   Boolean isJapaneseModel=false;
   content=recalculateHardCodedFontSize(content,mDisplayFontSize);
-  int backgroundColor=Color.WHITE;
   if (mCurrentCard != null) {
     final String japaneseModelTag="Japanese";
     Deck currentDeck=AnkiDroidApp.deck();
     Model myModel=Model.getModel(currentDeck,mCurrentCard.getCardModelId(),false);
-    baseUrl=Utils.getBaseUrl(mMediaDir,myModel,currentDeck);
-    content=myModel.getCSSForFontColorSize(mCurrentCard.getCardModelId(),mDisplayFontSize,mNightMode) + Model.invertColors(content,mNightMode);
+    mBaseUrl=Utils.getBaseUrl(mMediaDir,myModel,currentDeck);
+    content=myModel.getCSSForFontColorSize(mCurrentCard.getCardModelId(),mDisplayFontSize,mNightMode,mCurrentBackgroundColor) + Model.invertColors(content,mNightMode);
     isJapaneseModel=myModel.hasTag(japaneseModelTag);
-    backgroundColor=Color.parseColor(myModel.getBackgroundColor(mCurrentCard.getCardModelId(),mNightMode));
-    mMainLayout.setBackgroundColor(backgroundColor);
-    if (backgroundColor == Color.BLACK && !mInvertedColors) {
-      mInvertedColors=true;
-      invertColors();
-    }
+    mCurrentBackgroundColor=myModel.getBackgroundColor(mCurrentCard.getCardModelId(),mNightMode,Themes.getNightModeCardBackground());
   }
  else {
     mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
-    baseUrl=Utils.urlEncodeMediaDir(mDeckFilename.replace(".anki",".media/"));
+    mBaseUrl=Utils.urlEncodeMediaDir(mDeckFilename.replace(".anki",".media/"));
   }
   int questionStartsAt=content.indexOf("<a name=\"question\"></a><hr/>");
   String question="";
   String answer="";
   if (isQuestionDisplayed()) {
     if (sDisplayAnswer && (questionStartsAt != -1)) {
-      question=Sound.parseSounds(baseUrl,content.substring(0,questionStartsAt),mSpeakText,MetaDB.LANGUAGE_QUESTION);
-      answer=Sound.parseSounds(baseUrl,content.substring(questionStartsAt,content.length()),mSpeakText,MetaDB.LANGUAGE_ANSWER);
+      question=Sound.parseSounds(mBaseUrl,content.substring(0,questionStartsAt),mSpeakText,MetaDB.LANGUAGE_QUESTION);
+      answer=Sound.parseSounds(mBaseUrl,content.substring(questionStartsAt,content.length()),mSpeakText,MetaDB.LANGUAGE_ANSWER);
     }
  else {
-      question=Sound.parseSounds(baseUrl,content.substring(0,content.length() - 5),mSpeakText,MetaDB.LANGUAGE_QUESTION) + "<hr/>";
+      question=Sound.parseSounds(mBaseUrl,content.substring(0,content.length() - 5),mSpeakText,MetaDB.LANGUAGE_QUESTION) + "<hr/>";
     }
   }
  else {
@@ -39,7 +33,7 @@
     if (sDisplayAnswer) {
       qa=MetaDB.LANGUAGE_ANSWER;
     }
-    answer=Sound.parseSounds(baseUrl,content,mSpeakText,qa);
+    answer=Sound.parseSounds(mBaseUrl,content,mSpeakText,qa);
   }
   question=LaTeX.parseLaTeX(AnkiDroidApp.deck(),question);
   answer=LaTeX.parseLaTeX(AnkiDroidApp.deck(),answer);
@@ -59,33 +53,18 @@
   style.append(getDefaultFontStyle());
   style.append(getDeckStyle(mCurrentCard.mDeck.getDeckPath()));
   Log.i(AnkiDroidApp.TAG,"::style::" + style);
-  String card=mCardTemplate.replace("::content::",content).replace("::style::",style.toString());
-  Log.i(AnkiDroidApp.TAG,"base url = " + baseUrl);
-  if (mCustomFontFiles.length != 0) {
-    if (backgroundColor != Color.WHITE) {
-      mNextCard.setBackgroundColor(backgroundColor);
-    }
-    mNextCard.loadDataWithBaseURL(baseUrl,card,"text/html","utf-8",null);
-    mNextCard.setVisibility(View.VISIBLE);
-    mCardFrame.removeView(mCard);
-    mCard.destroy();
-    mCard=mNextCard;
-    mNextCard=createWebView();
-    mNextCard.setVisibility(View.GONE);
-    mCardFrame.addView(mNextCard,0);
-  }
- else {
-    mCard.loadDataWithBaseURL(baseUrl,card,"text/html","utf-8",null);
-  }
+  mCardContent=mCardTemplate.replace("::content::",content).replace("::style::",style.toString());
+  Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
+  fillFlashcard(mShowAnimations);
   if (!mConfigurationChanged && mPlaySoundsAtStart) {
     if (!mSpeakText) {
       Sound.playSounds(null,0);
     }
  else     if (!sDisplayAnswer) {
-      Sound.playSounds(Utils.stripHTML(mCurrentCard.getQuestion()),MetaDB.LANGUAGE_QUESTION);
+      Sound.playSounds(Utils.stripHTML(getQuestion()),MetaDB.LANGUAGE_QUESTION);
     }
  else {
-      Sound.playSounds(Utils.stripHTML(mCurrentCard.getAnswer()),MetaDB.LANGUAGE_ANSWER);
+      Sound.playSounds(Utils.stripHTML(getAnswer()),MetaDB.LANGUAGE_ANSWER);
     }
   }
 }

@@ -1,0 +1,8 @@
+{
+  if (mCardContainer.getVisibility() == View.INVISIBLE) {
+    setInAnimation(reverse);
+  }
+ else {
+    mNextAnimation=reverse ? ANIMATION_NEXT_CARD_FROM_LEFT : ANIMATION_NEXT_CARD_FROM_RIGHT;
+  }
+}

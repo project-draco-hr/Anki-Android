@@ -1,0 +1,11 @@
+{
+  if (forceDeleteJournalMode) {
+    closeDatabase(pathDB);
+  }
+  if (sAnkiDatabases.containsKey(pathDB)) {
+    return sAnkiDatabases.get(pathDB);
+  }
+  AnkiDb ankiDB=new AnkiDb(pathDB,forceDeleteJournalMode);
+  sAnkiDatabases.put(pathDB,ankiDB);
+  return ankiDB;
+}

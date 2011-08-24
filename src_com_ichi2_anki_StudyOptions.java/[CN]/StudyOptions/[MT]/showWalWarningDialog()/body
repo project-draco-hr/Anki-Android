@@ -1,7 +1,7 @@
 {
   if (mWalWarningAlert == null) {
     Resources res=getResources();
-    AlertDialog.Builder builder=new AlertDialog.Builder(this);
+    StyledDialog.Builder builder=new StyledDialog.Builder(this);
     builder.setMessage(res.getString(R.string.wal_warning));
     builder.setPositiveButton(getResources().getString(R.string.ok),new DialogInterface.OnClickListener(){
       @Override public void onClick(      DialogInterface dialog,      int which){

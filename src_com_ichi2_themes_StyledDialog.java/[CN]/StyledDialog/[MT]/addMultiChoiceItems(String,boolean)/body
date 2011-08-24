@@ -1,0 +1,12 @@
+{
+  boolean[] checkedItems=new boolean[mListView.getChildCount()];
+  for (int i=0; i < mListView.getChildCount(); i++) {
+    checkedItems[i]=((CheckedTextView)mListView.getChildAt(i)).isChecked();
+  }
+  mItemList.add(0,value);
+  mListView.setItemChecked(0,true);
+  for (int i=1; i < mListView.getChildCount(); i++) {
+    mListView.setItemChecked(i,checkedItems[i - 1]);
+  }
+  mListAdapter.notifyDataSetChanged();
+}

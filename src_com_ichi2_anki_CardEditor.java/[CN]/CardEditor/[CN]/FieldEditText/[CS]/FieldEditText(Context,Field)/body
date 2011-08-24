@@ -1,5 +1,6 @@
 {
   super(context);
+  mContext=context;
   mPairField=pairField;
   if (mPrefFixArabic) {
     this.setText(ArabicUtilities.reshapeSentence(pairField.getValue()));
@@ -7,4 +8,13 @@
  else {
     this.setText(pairField.getValue());
   }
+  this.setMinimumWidth(400);
+  this.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      if (mCutMode) {
+        updateSpannables();
+      }
+    }
+  }
+);
 }

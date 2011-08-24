@@ -1,27 +1,55 @@
 {
+  Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   registerExternalStorageListener();
-  setContentView(R.layout.fact_adder);
+  View mainView=getLayoutInflater().inflate(R.layout.fact_adder,null);
+  setContentView(mainView);
+  Themes.setWallpaper(mainView);
+  setTitle(R.string.factadder_title);
   mFieldsLayoutContainer=(LinearLayout)findViewById(R.id.FactAdderEditFieldsLayout);
+  Themes.setTextViewStyle(mFieldsLayoutContainer);
   mAddButton=(Button)findViewById(R.id.FactAdderAddButton);
   mCloseButton=(Button)findViewById(R.id.FactAdderCloseButton);
+  mSwapButton=(Button)findViewById(R.id.FactAdderSwapButton);
   mModelButton=(Button)findViewById(R.id.FactAdderModelButton);
   mCardModelButton=(Button)findViewById(R.id.FactAdderCardModelButton);
   mTags=(Button)findViewById(R.id.FactAdderTagButton);
   mTags.setText(getResources().getString(R.string.CardEditorTags,mFactTags));
-  mDeck=AnkiDroidApp.deck();
-  mModels=Model.getModels(mDeck);
-  mCurrentSelectedModelId=mDeck.getCurrentModelId();
   mNewSelectedCardModels=new LinkedHashMap<Long,CardModel>();
   cardModelIds=new ArrayList<Long>();
-  modelChanged();
+  Intent intent=getIntent();
+  String action=intent.getAction();
+  if (action != null && action.equals(INTENT_CREATE_FLASHCARD)) {
+    prepareForIntentAddition();
+    Bundle extras=intent.getExtras();
+    mSourceLanguage=extras.getString("SOURCE_LANGUAGE");
+    mTargetLanguage=extras.getString("TARGET_LANGUAGE");
+    mSourceText=extras.getString("SOURCE_TEXT");
+    mTargetText=extras.getString("TARGET_TEXT");
+  }
+ else   if (action != null && action.equals(INTENT_CREATE_FLASHCARD_SEND)) {
+    prepareForIntentAddition();
+    Bundle extras=intent.getExtras();
+    mSourceText=extras.getString(Intent.EXTRA_SUBJECT);
+    mTargetText=extras.getString(Intent.EXTRA_TEXT);
+  }
+ else {
+    mDeck=AnkiDroidApp.deck();
+    loadContents();
+  }
   mAddButton.setOnClickListener(new View.OnClickListener(){
     public void onClick(    View v){
+      boolean empty=true;
       for (      FieldEditText current : mEditFields) {
         current.updateField();
+        if (current.getText().length() != 0) {
+          empty=false;
+        }
       }
-      mNewFact.setTags(mFactTags);
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ADD_FACT,mSaveFactHandler,new DeckTask.TaskData(mDeck,mNewFact,mSelectedCardModels));
+      if (!empty) {
+        mNewFact.setTags(mFactTags);
+        DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ADD_FACT,mSaveFactHandler,new DeckTask.TaskData(mDeck,mNewFact,mSelectedCardModels));
+      }
     }
   }
 );
@@ -33,8 +61,7 @@
 );
   mCardModelButton.setOnClickListener(new View.OnClickListener(){
     public void onClick(    View v){
-      recreateCardModelDialog();
-      mCardModelDialog.show();
+      showDialog(DIALOG_CARD_MODEL_SELECT);
     }
   }
 );
@@ -48,12 +75,11 @@
   mSelectedTags=new HashSet<String>();
   mTags.setOnClickListener(new View.OnClickListener(){
     @Override public void onClick(    View v){
-      recreateTagsDialog();
+      showDialog(DIALOG_TAGS);
       if (!mTagsDialog.isShowing()) {
         mTagsDialog.show();
       }
     }
   }
 );
-  initDialogs();
 }

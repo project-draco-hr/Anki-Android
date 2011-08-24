@@ -1,0 +1,12 @@
+{
+  if (mPrefTimer) {
+    switchVisibility(mCardTimer,visible);
+  }
+  if (mShowProgressBars) {
+    switchVisibility(mProgressBars,visible);
+  }
+  switchVisibility(mTextBarRed,visible);
+  switchVisibility(mTextBarBlack,visible);
+  switchVisibility(mTextBarBlue,visible);
+  switchVisibility(mChosenAnswer,visible);
+}

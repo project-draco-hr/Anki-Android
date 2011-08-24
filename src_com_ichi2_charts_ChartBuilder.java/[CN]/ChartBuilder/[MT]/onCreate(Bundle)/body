@@ -1,15 +1,20 @@
 {
+  Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   restorePreferences();
   if (mFullScreen) {
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
     requestWindowFeature(Window.FEATURE_NO_TITLE);
   }
-  setContentView(R.layout.statistics);
+  View mainView=getLayoutInflater().inflate(R.layout.statistics,null);
+  setContentView(mainView);
+  int[] colors=Themes.getChartColors();
+  mainView.setBackgroundColor(colors[1]);
   mTitle=(TextView)findViewById(R.id.statistics_title);
   if (mChartView == null) {
     if (mFullScreen) {
       mTitle.setText(Statistics.sTitle);
+      mTitle.setTextColor(colors[0]);
     }
  else {
       setTitle(Statistics.sTitle);
@@ -32,6 +37,10 @@
     mRenderer.setYAxisMin(0);
     mRenderer.setXTitle(Statistics.axisLabels[0]);
     mRenderer.setYTitle(Statistics.axisLabels[1]);
+    mRenderer.setBackgroundColor(colors[1]);
+    mRenderer.setMarginsColor(colors[1]);
+    mRenderer.setAxesColor(colors[0]);
+    mRenderer.setLabelsColor(colors[0]);
     mRenderer.setZoomEnabled(false,false);
     if (Statistics.sSeriesList[0][0] > 100 || Statistics.sSeriesList[0][1] > 100 || Statistics.sSeriesList[0][Statistics.sSeriesList[0].length - 1] > 100) {
       mRenderer.setMargins(new int[]{15,50,25,0});

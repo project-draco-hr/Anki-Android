@@ -1,10 +1,16 @@
 {
-  mEase1.setVisibility(View.GONE);
-  mEase2.setVisibility(View.GONE);
-  mEase3.setVisibility(View.GONE);
-  mEase4.setVisibility(View.GONE);
-  mNext1.setVisibility(View.INVISIBLE);
-  mNext2.setVisibility(View.INVISIBLE);
-  mNext3.setVisibility(View.INVISIBLE);
-  mNext4.setVisibility(View.INVISIBLE);
+  switchVisibility(mEase1,View.GONE);
+  switchVisibility(mEase2,View.GONE);
+  switchVisibility(mEase3,View.GONE);
+  switchVisibility(mEase4,View.GONE);
+  if (mshowNextReviewTime) {
+    switchVisibility(mNext1,View.INVISIBLE);
+    switchVisibility(mNext2,View.INVISIBLE);
+    switchVisibility(mNext3,View.INVISIBLE);
+    switchVisibility(mNext4,View.INVISIBLE);
+  }
+  if (mFlipCard.getVisibility() != View.VISIBLE) {
+    switchVisibility(mFlipCard,View.VISIBLE);
+    mFlipCard.requestFocus();
+  }
 }

@@ -1,6 +1,10 @@
 {
   mIsSelecting=false;
-  if (mClipboard != null) {
+  if (mLookUpIcon.getVisibility() == View.VISIBLE) {
+    mLookUpIcon.setVisibility(View.GONE);
+    mLookUpIcon.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_OUT,mFadeDuration,0));
+  }
+  if (mPrefTextSelection) {
     mClipboard.setText("");
   }
   Deck deck=AnkiDroidApp.deck();
@@ -30,5 +34,6 @@ mTimerHandler.postDelayed(removeChosenAnswerText,mShowChosenAnswerLength);
 Sound.stopSounds();
 mCurrentEase=ease;
 mSessionCurrReps++;
+setNextCardAnimation(false);
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(mCurrentEase,deck,mCurrentCard));
 }

@@ -1,0 +1,8 @@
+{
+  if (mSwapQA) {
+    return mCurrentCard.getQuestion();
+  }
+ else {
+    return mCurrentCard.getAnswer();
+  }
+}

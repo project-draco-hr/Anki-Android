@@ -1,4 +1,5 @@
 {
+  Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   Log.i(AnkiDroidApp.TAG,"Reviewer - onCreate");
   setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -27,6 +28,12 @@
     }
     requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
     registerExternalStorageListener();
+    if (mNightMode) {
+      mCurrentBackgroundColor=Themes.getNightModeCardBackground();
+    }
+ else {
+      mCurrentBackgroundColor=android.R.color.white;
+    }
     mCustomFontFiles=Utils.getCustomFonts(getBaseContext());
     initLayout(R.layout.flashcard);
 switch (mDictionary) {

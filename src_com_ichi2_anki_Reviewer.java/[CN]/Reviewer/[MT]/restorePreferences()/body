@@ -7,6 +7,8 @@
   mDeckFilename=preferences.getString("deckFilename","");
   mNightMode=preferences.getBoolean("invertedColors",false);
   mInvertedColors=mNightMode;
+  mBlackWhiteboard=preferences.getBoolean("blackWhiteboard",true);
+  mSwapQA=preferences.getBoolean("swapqa",false);
   mPrefUseRubySupport=preferences.getBoolean("useRubySupport",false);
   mPrefFullscreenReview=preferences.getBoolean("fullscreenReview",true);
   mshowNextReviewTime=preferences.getBoolean("showNextReviewTime",true);
@@ -39,6 +41,21 @@
     mGestureTapRight=Integer.parseInt(preferences.getString("gestureTapRight","0"));
     mGestureTapTop=Integer.parseInt(preferences.getString("gestureTapTop","0"));
     mGestureTapBottom=Integer.parseInt(preferences.getString("gestureTapBottom","0"));
+  }
+  mShowAnimations=preferences.getBoolean("themeAnimations",true);
+  if (mShowAnimations) {
+    int animationDuration=preferences.getInt("animationDuration",500);
+    mAnimationDurationTurn=animationDuration;
+    mAnimationDurationMove=animationDuration;
+  }
+  mLocale=preferences.getString("language","");
+  if (preferences.getBoolean("fixOrientation",false)) {
+    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+      setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+    }
+ else     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+      setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
   }
   return preferences;
 }

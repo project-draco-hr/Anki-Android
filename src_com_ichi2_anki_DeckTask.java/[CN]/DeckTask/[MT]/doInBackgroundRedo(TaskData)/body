@@ -18,5 +18,9 @@
   finally {
     ankiDB.getDatabase().endTransaction();
   }
-  return new TaskData(deck.getUndoType(),oldCardId);
+  String undoType=deck.getUndoType();
+  if (undoType == Deck.UNDO_TYPE_SUSPEND_CARD) {
+    undoType="redo suspend";
+  }
+  return new TaskData(undoType,oldCardId);
 }
