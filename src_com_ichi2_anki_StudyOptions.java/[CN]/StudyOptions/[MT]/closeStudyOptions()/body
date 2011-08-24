@@ -1,0 +1,10 @@
+{
+  MetaDB.closeDB();
+  if (AnkiDroidApp.deck() != null && mSdCardAvailable) {
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CLOSE_DECK,mCloseDeckHandler,new DeckTask.TaskData(AnkiDroidApp.deck(),0));
+  }
+ else {
+    AnkiDroidApp.setDeck(null);
+    StudyOptions.this.finish();
+  }
+}

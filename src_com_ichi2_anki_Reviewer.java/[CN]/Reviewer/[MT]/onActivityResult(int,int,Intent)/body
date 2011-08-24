@@ -1,13 +1,16 @@
 {
   super.onActivityResult(requestCode,resultCode,data);
   if (requestCode == EDIT_CURRENT_CARD) {
+    setInAnimation(true);
     if (resultCode == RESULT_OK) {
       Log.i(AnkiDroidApp.TAG,"Saving card...");
       DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_FACT,mUpdateCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
-      displayCardQuestion();
     }
  else     if (resultCode == StudyOptions.CONTENT_NO_EXTERNAL_STORAGE) {
       finishNoStorageAvailable();
+    }
+ else {
+      fillFlashcard(mShowAnimations);
     }
   }
 }

@@ -1,0 +1,18 @@
+{
+  if (mColorCardModelMap.size() == 0) {
+    prepareColorForCardModels(invertedColors);
+  }
+  String color=mColorCardModelMap.get(myCardModelId);
+  if (color != null) {
+    int intColor=Color.parseColor(color);
+    if (intColor == Color.BLACK) {
+      return alternativeColor;
+    }
+ else {
+      return intColor;
+    }
+  }
+ else {
+    return android.R.color.white;
+  }
+}

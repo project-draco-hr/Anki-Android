@@ -1,0 +1,85 @@
+{
+  final StyledDialog dialog=new StyledDialog(context);
+  LayoutInflater inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+  View layout=inflater.inflate(R.layout.styled_dialog,null);
+  dialog.addContentView(layout,new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));
+  ((TextView)layout.findViewById(R.id.alertTitle)).setText(title);
+  ((ImageView)layout.findViewById(R.id.icon)).setImageResource(icon);
+  int numberOfButtons=0;
+  if (positiveButtonText != null) {
+    Button button1=(Button)layout.findViewById(R.id.button1);
+    button1.setText(positiveButtonText);
+    button1.setOnClickListener(new View.OnClickListener(){
+      public void onClick(      View v){
+        if (positiveButtonClickListener != null) {
+          positiveButtonClickListener.onClick(dialog,DialogInterface.BUTTON_POSITIVE);
+        }
+        dialog.dismiss();
+      }
+    }
+);
+    numberOfButtons++;
+  }
+ else {
+    layout.findViewById(R.id.button1).setVisibility(View.GONE);
+  }
+  if (negativeButtonText != null) {
+    Button button2=(Button)layout.findViewById(R.id.button2);
+    button2.setText(negativeButtonText);
+    button2.setOnClickListener(new View.OnClickListener(){
+      public void onClick(      View v){
+        if (negativeButtonClickListener != null) {
+          negativeButtonClickListener.onClick(dialog,DialogInterface.BUTTON_NEGATIVE);
+        }
+        dialog.dismiss();
+      }
+    }
+);
+    numberOfButtons++;
+  }
+ else {
+    layout.findViewById(R.id.button2).setVisibility(View.GONE);
+  }
+  if (neutralButtonText != null) {
+    Button button3=(Button)layout.findViewById(R.id.button3);
+    button3.setText(neutralButtonText);
+    button3.setOnClickListener(new View.OnClickListener(){
+      public void onClick(      View v){
+        if (neutralButtonClickListener != null) {
+          neutralButtonClickListener.onClick(dialog,DialogInterface.BUTTON_NEUTRAL);
+        }
+        dialog.dismiss();
+      }
+    }
+);
+    numberOfButtons++;
+  }
+ else {
+    layout.findViewById(R.id.button3).setVisibility(View.GONE);
+  }
+  dialog.setCancelable(cancelable);
+  dialog.setOnCancelListener(cancelListener);
+  if (message != null) {
+    ((TextView)layout.findViewById(R.id.message)).setText(message);
+  }
+ else {
+    ((LinearLayout)layout.findViewById(R.id.contentPanel)).setVisibility(View.GONE);
+  }
+  if (itemTitels != null) {
+    dialog.setItems(listStyle,(ListView)layout.findViewById(R.id.listview),itemTitels,checkedItem,multipleCheckedItems,itemClickListener);
+  }
+ else {
+    ((View)layout.findViewById(R.id.listViewPanel)).setVisibility(View.GONE);
+  }
+  if (contentView != null) {
+    FrameLayout frame=(FrameLayout)layout.findViewById(R.id.custom);
+    frame.removeAllViews();
+    frame.addView(contentView);
+  }
+ else {
+    ((View)layout.findViewById(R.id.customPanel)).setVisibility(View.GONE);
+  }
+  Themes.setStyledDialogBackgrounds(layout,numberOfButtons,brightViewBackground);
+  dialog.setContentView(layout);
+  return dialog;
+}

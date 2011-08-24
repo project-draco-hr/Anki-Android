@@ -1,4 +1,5 @@
 {
+  mLookUpIcon.setVisibility(View.GONE);
   mIsSelecting=false;
 switch (mDictionary) {
 case DICTIONARY_AEDICT:
@@ -19,8 +20,8 @@ return true;
 }
 }
 }
-final CharSequence[] items={"Englisch","Franz??sisch","Spanisch","Italienisch","Chinesisch","Russisch"};
-AlertDialog.Builder builder=new AlertDialog.Builder(this);
+final String[] items={"Englisch","Franz??sisch","Spanisch","Italienisch","Chinesisch","Russisch"};
+StyledDialog.Builder builder=new StyledDialog.Builder(this);
 builder.setTitle("\"" + mClipboard.getText() + "\" nachschlagen");
 builder.setItems(items,new DialogInterface.OnClickListener(){
 public void onClick(DialogInterface dialog,int item){
@@ -31,7 +32,7 @@ mClipboard.setText("");
 }
 }
 );
-AlertDialog alert=builder.create();
+StyledDialog alert=builder.create();
 alert.show();
 return true;
 case DICTIONARY_COLORDICT:

@@ -1,0 +1,74 @@
+{
+  if (!flip) {
+    Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
+    if (mCustomFontFiles.length != 0) {
+      mNextCard.setBackgroundColor(getResources().getColor(mCurrentBackgroundColor));
+      mNextCard.loadDataWithBaseURL(mBaseUrl,mCardContent,"text/html","utf-8",null);
+      mNextCard.setVisibility(View.VISIBLE);
+      mCardFrame.removeView(mCard);
+      mCard.destroy();
+      mCard=mNextCard;
+      mNextCard=createWebView();
+      mNextCard.setVisibility(View.GONE);
+      mCardFrame.addView(mNextCard,0);
+    }
+ else {
+      mCard.loadDataWithBaseURL(mBaseUrl,mCardContent,"text/html","utf-8",null);
+    }
+    if (mCurrentBackgroundColor == Color.BLACK && !mInvertedColors) {
+      mInvertedColors=true;
+      invertColors();
+    }
+    if (!sDisplayAnswer) {
+      updateForNewCard();
+      if (mShowWhiteboard) {
+        mWhiteboard.clear();
+      }
+      setNextCardAnimation(false);
+    }
+  }
+ else {
+    Animation3D rotation;
+    boolean directionToLeft=true;
+switch (mNextAnimation) {
+case ANIMATION_TURN:
+      rotation=new Animation3D(mCard.getWidth(),mCard.getHeight(),9,Animation3D.ANIMATION_TURN,true,true,this);
+    rotation.setDuration(mAnimationDurationTurn);
+  rotation.setInterpolator(new AccelerateDecelerateInterpolator());
+break;
+case ANIMATION_NEXT_CARD_FROM_LEFT:
+directionToLeft=false;
+case ANIMATION_NEXT_CARD_FROM_RIGHT:
+rotation=new Animation3D(mCard.getWidth(),mCard.getHeight(),0,Animation3D.ANIMATION_EXCHANGE_CARD,directionToLeft,true,this);
+rotation.setDuration(mAnimationDurationMove);
+rotation.setInterpolator(new AccelerateDecelerateInterpolator());
+break;
+case ANIMATION_SLIDE_OUT_TO_RIGHT:
+directionToLeft=false;
+case ANIMATION_SLIDE_OUT_TO_LEFT:
+fillFlashcard(false);
+rotation=new Animation3D(mCard.getWidth(),mCard.getHeight(),0,Animation3D.ANIMATION_SLIDE_OUT_CARD,directionToLeft,true,this);
+rotation.setDuration(mAnimationDurationMove);
+rotation.setInterpolator(new AccelerateInterpolator());
+switchTopBarVisibility(View.INVISIBLE);
+break;
+case ANIMATION_SLIDE_IN_FROM_LEFT:
+directionToLeft=false;
+case ANIMATION_SLIDE_IN_FROM_RIGHT:
+fillFlashcard(false);
+rotation=new Animation3D(mCard.getWidth(),mCard.getHeight(),0,Animation3D.ANIMATION_SLIDE_IN_CARD,directionToLeft,true,this);
+rotation.setDuration(mAnimationDurationMove);
+rotation.setInterpolator(new DecelerateInterpolator());
+switchTopBarVisibility(View.VISIBLE);
+break;
+case ANIMATION_NO_ANIMATION:
+default :
+return;
+}
+rotation.reset();
+mCardContainer.setDrawingCacheEnabled(true);
+mCardContainer.setDrawingCacheBackgroundColor(Themes.getBackgroundColor());
+mCardContainer.clearAnimation();
+mCardContainer.startAnimation(rotation);
+}
+}

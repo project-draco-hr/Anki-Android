@@ -1,5 +1,9 @@
 {
   Resources res=context.getResources();
+  if (type == TYPE_DECK_SUMMARY) {
+    sDeckSummaryValues=new ContentValues();
+    return;
+  }
   sType=type;
   sTitle=title;
   axisLabels[0]=res.getString(R.string.statistics_period_x_axis);

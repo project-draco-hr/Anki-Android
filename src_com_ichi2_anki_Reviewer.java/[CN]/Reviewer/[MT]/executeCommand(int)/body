@@ -62,7 +62,8 @@ closeReviewer();
 break;
 case GESTURE_UNDO:
 if (AnkiDroidApp.deck().undoAvailable()) {
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mUpdateCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
+setNextCardAnimation(true);
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mUpdateCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard.getId(),false));
 }
 break;
 case GESTURE_REDO:
@@ -80,9 +81,11 @@ case GESTURE_LOOKUP:
 lookUpOrSelectText();
 break;
 case GESTURE_BURY:
+setNextCardAnimation(false);
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_BURY_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
 break;
 case GESTURE_SUSPEND:
+setNextCardAnimation(false);
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SUSPEND_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
 break;
 case GESTURE_DELETE:

@@ -1,8 +1,8 @@
 {
   super.onCreateContextMenu(menu,v,menuInfo);
   int selectedPosition=((AdapterView.AdapterContextMenuInfo)menuInfo).position;
-  mRemoveDeckFilename=mDeckList.get(selectedPosition).get("name");
-  menu.setHeaderTitle(mRemoveDeckFilename);
+  mCurrentDeckFilename=mDeckList.get(selectedPosition).get("name");
+  menu.setHeaderTitle(mCurrentDeckFilename);
   MenuInflater inflater=getMenuInflater();
   inflater.inflate(R.menu.contextmenu_deckpicker,menu);
 }

@@ -28,7 +28,7 @@
         data.put("name",file.getName().replaceAll(".anki",""));
         data.put("due",res.getString(R.string.deckpicker_loaddeck));
         data.put("new","");
-        data.put("mod",String.format("%f",Deck.getLastModified(absPath)));
+        data.put("mod","0");
         data.put("filepath",absPath);
         data.put("showProgress","true");
         data.put("rateOfCompletionMat","-1");
@@ -53,7 +53,7 @@
     data.put("name",res.getString(R.string.deckpicker_nodeck));
     data.put("new","");
     data.put("due","");
-    data.put("mod","1");
+    data.put("mod","0");
     data.put("showProgress","false");
     data.put("rateOfCompletionMat","-1");
     data.put("rateOfCompletionAll","-1");

@@ -5,10 +5,6 @@
   mTextBarBlue.setVisibility(View.VISIBLE);
   mChosenAnswer.setVisibility(View.VISIBLE);
   mFlipCard.setVisibility(View.VISIBLE);
-  mCardTimer.setVisibility((mPrefTimer) ? View.VISIBLE : View.GONE);
-  if (mShowProgressBars) {
-    mProgressBars.setVisibility(View.VISIBLE);
-  }
   if (mPrefWhiteboard) {
     mWhiteboard.setVisibility(mShowWhiteboard ? View.VISIBLE : View.GONE);
   }

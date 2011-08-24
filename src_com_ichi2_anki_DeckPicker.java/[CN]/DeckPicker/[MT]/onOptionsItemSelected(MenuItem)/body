@@ -4,7 +4,7 @@ case MENU_CREATE_DECK:
     startActivityForResult(new Intent(DeckPicker.this,DeckCreator.class),CREATE_DECK);
   ;
 if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-  MyAnimation.slide(DeckPicker.this,MyAnimation.RIGHT);
+  ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.RIGHT);
 }
 return true;
 case MENU_ABOUT:

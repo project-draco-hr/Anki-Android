@@ -1,9 +1,12 @@
 {
   super.onConfigurationChanged(newConfig);
+  setLanguage(mLocale);
   Log.i(AnkiDroidApp.TAG,"onConfigurationChanged");
   mConfigurationChanged=true;
   long savedTimer=mCardTimer.getBase();
   CharSequence savedAnswerField=mAnswerField.getText();
+  boolean cardVisible=mCardContainer.getVisibility() == View.VISIBLE;
+  int lookupButtonVis=mLookUpIcon.getVisibility();
   initLayout(R.layout.flashcard);
   if (mRelativeButtonSize != 100) {
     mFlipCard.setHeight(mButtonHeight);
@@ -13,20 +16,35 @@
     mEase4.setHeight(mButtonHeight);
   }
   mCardTemplate=mCardTemplate.replaceFirst("var availableWidth = \\d*;","var availableWidth = " + getAvailableWidthInCard() + ";");
-  if (mCurrentCard != null) {
-    refreshCard();
-    updateScreenCounts();
-  }
-  if (mPrefTimer) {
-    mCardTimer.setBase(savedTimer);
-    mCardTimer.start();
-  }
   if (typeAnswer()) {
     mAnswerField.setText(savedAnswerField);
   }
   if (mPrefWhiteboard) {
     mWhiteboard.rotate();
   }
-  updateStatisticBars();
+  if (mInvertedColors) {
+    invertColors();
+  }
+  if (mCurrentCard != null) {
+    if (cardVisible) {
+      fillFlashcard(false);
+      if (mPrefTimer) {
+        mCardTimer.setBase(savedTimer);
+        mCardTimer.start();
+      }
+      if (sDisplayAnswer) {
+        updateForNewCard();
+      }
+    }
+ else {
+      mCardContainer.setVisibility(View.INVISIBLE);
+      switchVisibility(mProgressBars,View.INVISIBLE);
+      switchVisibility(mCardTimer,View.INVISIBLE);
+    }
+    if (sDisplayAnswer) {
+      showEaseButtons();
+    }
+  }
+  mLookUpIcon.setVisibility(lookupButtonVis);
   mConfigurationChanged=false;
 }

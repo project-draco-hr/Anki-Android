@@ -10,4 +10,5 @@
   db.getDatabase().execSQL("UPDATE cardModels SET modelId=" + modelId);
   db.getDatabase().execSQL("UPDATE decks SET currentModelId=" + modelId);
   db.getDatabase().execSQL("UPDATE decks SET utcOffset=" + Utils.utcOffset());
+  db.getDatabase().execSQL("UPDATE decks SET created = " + Utils.now());
 }

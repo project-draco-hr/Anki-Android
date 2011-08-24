@@ -13,5 +13,8 @@
  else   if (str.equals("invertedColors")) {
     editor.putBoolean("invertedColors",mInvertedColors);
   }
+ else   if (str.equals("swapqa")) {
+    editor.putBoolean("swapqa",mSwap);
+  }
   editor.commit();
 }

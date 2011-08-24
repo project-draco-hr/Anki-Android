@@ -1,13 +1,3 @@
 {
-  if (mPrefDeckOrder == ORDER_BY_DATE) {
-    if (object2.get("mod").compareToIgnoreCase(object1.get("mod")) != 0) {
-      return object2.get("mod").compareToIgnoreCase(object1.get("mod"));
-    }
- else {
-      return object1.get("filepath").compareToIgnoreCase(object2.get("filepath"));
-    }
-  }
- else {
-    return object1.get("filepath").compareToIgnoreCase(object2.get("filepath"));
-  }
+  return object1.get("filepath").compareToIgnoreCase(object2.get("filepath"));
 }

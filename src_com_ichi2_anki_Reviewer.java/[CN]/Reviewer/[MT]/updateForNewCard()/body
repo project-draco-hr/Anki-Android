@@ -1,0 +1,16 @@
+{
+  updateScreenCounts();
+  if (mShowProgressBars) {
+    updateStatisticBars();
+  }
+  if (typeAnswer()) {
+    mAnswerField.setText("");
+  }
+  if (mPrefWhiteboard && !mShowAnimations) {
+    mWhiteboard.clear();
+  }
+  if (mPrefTimer) {
+    mCardTimer.setBase(SystemClock.elapsedRealtime());
+    mCardTimer.start();
+  }
+}

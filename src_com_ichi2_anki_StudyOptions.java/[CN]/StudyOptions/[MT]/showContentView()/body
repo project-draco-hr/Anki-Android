@@ -2,11 +2,11 @@
 switch (mCurrentContentView) {
 case CONTENT_NO_DECK:
     setTitle(R.string.app_name);
-  if (mNewVersion) {
+  if (mNewVersionAlert != null) {
     mShowWelcomeScreen=true;
     savePreferences("welcome");
     mNewVersionAlert.show();
-    mNewVersion=false;
+    mNewVersionAlert=null;
   }
 mShowWelcomeScreen=PrefSettings.getSharedPrefs(getBaseContext()).getBoolean("welcome",false);
 if (!mShowWelcomeScreen) {

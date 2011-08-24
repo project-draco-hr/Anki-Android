@@ -9,8 +9,11 @@
   updateFactTags(new long[]{scard.getFact().getId()});
   card.setLeechFlag(true);
   if (getBool("suspendLeeches")) {
+    String undoName=UNDO_TYPE_SUSPEND_CARD;
+    setUndoStart(undoName);
     suspendCards(new long[]{card.getId()});
     card.setSuspendedFlag(true);
+    setUndoEnd(undoName);
   }
   reset();
 }
