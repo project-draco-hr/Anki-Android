@@ -11,6 +11,9 @@
   if (mPrefTextSelection) {
     mClipboard=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
   }
+  if (!mChangeBorderStyle) {
+    ((View)findViewById(R.id.flashcard_border)).setVisibility(View.VISIBLE);
+  }
   mCardFrame.removeAllViews();
   mCard=createWebView();
   mCardFrame.addView(mCard);

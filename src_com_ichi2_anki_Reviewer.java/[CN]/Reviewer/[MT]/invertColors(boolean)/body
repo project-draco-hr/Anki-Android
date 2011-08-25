@@ -9,8 +9,8 @@
     mFlipCard.setBackgroundDrawable(invert ? res.getDrawable(R.drawable.btn_keyboard_key_fulltrans_normal) : mDefaultButtonDrawable[0]);
   }
  else {
-    mMainLayout.setBackgroundResource(R.color.reviewer_background_night);
-    findViewById(R.id.flashcard_border).setBackgroundResource(R.drawable.blue_bg_webview_night);
+    mMainLayout.setBackgroundResource(invert ? R.color.reviewer_background_night : R.color.reviewer_background);
+    findViewById(R.id.flashcard_border).setBackgroundResource(invert ? R.drawable.blue_bg_webview_night : R.drawable.blue_bg_webview);
     buttonDrawable=invert ? res.getDrawable(R.drawable.blue_btn_night) : mDefaultButtonDrawable[1];
     if (invert) {
       mFlipCard.setBackgroundDrawable(invert ? res.getDrawable(R.drawable.blue_btn_night) : mDefaultButtonDrawable[0]);
