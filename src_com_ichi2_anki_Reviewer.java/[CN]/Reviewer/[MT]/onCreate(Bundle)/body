@@ -2,6 +2,7 @@
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   Log.i(AnkiDroidApp.TAG,"Reviewer - onCreate");
+  mChangeBorderStyle=Themes.getTheme() != Themes.THEME_BLUE;
   setVolumeControlStream(AudioManager.STREAM_MUSIC);
   Deck deck=AnkiDroidApp.deck();
   if (deck == null) {
@@ -29,10 +30,10 @@
     requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
     registerExternalStorageListener();
     if (mNightMode) {
-      mCurrentBackgroundColor=Themes.getNightModeCardBackground();
+      mCurrentBackgroundColor=Themes.getNightModeCardBackground(this);
     }
  else {
-      mCurrentBackgroundColor=R.color.white;
+      mCurrentBackgroundColor=Color.WHITE;
     }
     mCustomFontFiles=Utils.getCustomFonts(getBaseContext());
     initLayout(R.layout.flashcard);

@@ -2,6 +2,7 @@
   if (!flip) {
     Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
     if (mCustomFontFiles.length != 0) {
+      mNextCard.setBackgroundColor(mCurrentBackgroundColor);
       mNextCard.loadDataWithBaseURL(mBaseUrl,mCardContent,"text/html","utf-8",null);
       mNextCard.setVisibility(View.VISIBLE);
       mCardFrame.removeView(mCard);
@@ -14,26 +15,46 @@
  else {
       mCard.loadDataWithBaseURL(mBaseUrl,mCardContent,"text/html","utf-8",null);
     }
-    if (mCurrentBackgroundColor == Color.BLACK && !mInvertedColors) {
+    if (mChangeBorderStyle) {
+switch (mCurrentBackgroundColor) {
+case Color.WHITE:
+        if (mInvertedColors) {
+          mInvertedColors=false;
+          invertColors(false);
+        }
+      break;
+case Color.BLACK:
+    if (!mInvertedColors) {
       mInvertedColors=true;
-      invertColors();
+      invertColors(true);
     }
-    if (!sDisplayAnswer) {
-      updateForNewCard();
-      if (mShowWhiteboard) {
-        mWhiteboard.clear();
-      }
-      setNextCardAnimation(false);
-    }
-  }
+  break;
+default :
+if (Themes.getTheme() != Themes.THEME_BLUE) {
+  mMainLayout.setBackgroundColor(mCurrentBackgroundColor);
+}
+if (mInvertedColors != mNightMode) {
+mInvertedColors=mNightMode;
+invertColors(mNightMode);
+}
+}
+}
+if (!sDisplayAnswer) {
+updateForNewCard();
+if (mShowWhiteboard) {
+mWhiteboard.clear();
+}
+setNextCardAnimation(false);
+}
+}
  else {
-    Animation3D rotation;
-    boolean directionToLeft=true;
+Animation3D rotation;
+boolean directionToLeft=true;
 switch (mNextAnimation) {
 case ANIMATION_TURN:
-      rotation=new Animation3D(mCard.getWidth(),mCard.getHeight(),9,Animation3D.ANIMATION_TURN,true,true,this);
-    rotation.setDuration(mAnimationDurationTurn);
-  rotation.setInterpolator(new AccelerateDecelerateInterpolator());
+rotation=new Animation3D(mCard.getWidth(),mCard.getHeight(),9,Animation3D.ANIMATION_TURN,true,true,this);
+rotation.setDuration(mAnimationDurationTurn);
+rotation.setInterpolator(new AccelerateDecelerateInterpolator());
 break;
 case ANIMATION_NEXT_CARD_FROM_LEFT:
 directionToLeft=false;

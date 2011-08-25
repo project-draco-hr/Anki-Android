@@ -5,6 +5,9 @@
   for (  Map.Entry<Long,CardModel> entry : mCardModelsMap.entrySet()) {
     myCardModel=entry.getValue();
     color=invertColor(myCardModel.getLastFontColour(),invertedColors);
+    if (nightModeBackground != Color.BLACK && Color.parseColor(color) == Color.BLACK) {
+      color=String.format("#%X",nightModeBackground);
+    }
     mColorCardModelMap.put(myCardModel.getId(),color);
   }
 }

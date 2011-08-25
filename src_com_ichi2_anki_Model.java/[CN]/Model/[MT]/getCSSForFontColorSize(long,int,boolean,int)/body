@@ -2,7 +2,7 @@
   if (mDisplayPercentage != percentage || mInvertedColor != invertedColors) {
     mDisplayPercentage=percentage;
     mInvertedColor=invertedColors;
-    prepareColorForCardModels(invertedColors);
+    prepareColorForCardModels(invertedColors,nightModeBackground);
     prepareCSSForCardModels(invertedColors,nightModeBackground);
   }
   return mCssCardModelMap.get(myCardModelId);

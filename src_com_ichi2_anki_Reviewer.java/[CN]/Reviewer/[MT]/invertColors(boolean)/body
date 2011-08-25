@@ -1,0 +1,43 @@
+{
+  Resources res=getResources();
+  int fgColor=invert ? res.getColor(R.color.foreground_color_inv) : res.getColor(R.color.black);
+  mCard.setBackgroundColor(mCurrentBackgroundColor);
+  Drawable buttonDrawable;
+  if (mChangeBorderStyle) {
+    mMainLayout.setBackgroundColor(mCurrentBackgroundColor);
+    buttonDrawable=invert ? res.getDrawable(R.drawable.btn_keyboard_key_fulltrans_normal) : mDefaultButtonDrawable[1];
+    mFlipCard.setBackgroundDrawable(invert ? res.getDrawable(R.drawable.btn_keyboard_key_fulltrans_normal) : mDefaultButtonDrawable[0]);
+  }
+ else {
+    mMainLayout.setBackgroundResource(R.color.reviewer_background_night);
+    findViewById(R.id.flashcard_border).setBackgroundResource(R.drawable.blue_bg_webview_night);
+    buttonDrawable=invert ? res.getDrawable(R.drawable.blue_btn_night) : mDefaultButtonDrawable[1];
+    if (invert) {
+      mFlipCard.setBackgroundDrawable(invert ? res.getDrawable(R.drawable.blue_btn_night) : mDefaultButtonDrawable[0]);
+    }
+  }
+  if (invert || mChangeBorderStyle) {
+    mNextTimeTextColor=invert ? res.getColor(R.color.next_time_usual_color_inv) : res.getColor(R.color.next_time_usual_color);
+    mNextTimeTextRecomColor=invert ? res.getColor(R.color.next_time_recommended_color_inv) : res.getColor(R.color.next_time_recommended_color);
+    mNext4.setTextColor(mNextTimeTextColor);
+    mCardTimer.setTextColor(fgColor);
+    mForegroundColor=fgColor;
+    mTextBarBlack.setTextColor(fgColor);
+    mTextBarBlue.setTextColor(invert ? res.getColor(R.color.textbar_blue_color_inv) : res.getColor(R.color.textbar_blue_color));
+    mEase1.setBackgroundDrawable(buttonDrawable);
+    mEase2.setBackgroundDrawable(buttonDrawable);
+    mEase3.setBackgroundDrawable(buttonDrawable);
+    mEase4.setBackgroundDrawable(buttonDrawable);
+    mFlipCard.setTextColor(fgColor);
+    mEase1.setTextColor(fgColor);
+    mEase2.setTextColor(fgColor);
+    mEase3.setTextColor(fgColor);
+    mEase4.setTextColor(fgColor);
+    fgColor=R.color.studyoptions_progressbar_frame_light;
+    int bgColor=R.color.studyoptions_progressbar_background_nightmode;
+    findViewById(R.id.progress_bars_border1).setBackgroundResource(fgColor);
+    findViewById(R.id.progress_bars_border2).setBackgroundResource(fgColor);
+    findViewById(R.id.progress_bars_back1).setBackgroundResource(bgColor);
+    findViewById(R.id.progress_bars_back2).setBackgroundResource(bgColor);
+  }
+}
