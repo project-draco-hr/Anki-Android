@@ -4,6 +4,7 @@
   mPrefWhiteboard=preferences.getBoolean("whiteboard",false);
   mPrefWriteAnswers=preferences.getBoolean("writeAnswers",false);
   mPrefTextSelection=preferences.getBoolean("textSelection",false);
+  mLongClickWorkaround=preferences.getBoolean("textSelectionLongclickWorkaround",false);
   mDeckFilename=preferences.getString("deckFilename","");
   mNightMode=preferences.getBoolean("invertedColors",false);
   mInvertedColors=mNightMode;

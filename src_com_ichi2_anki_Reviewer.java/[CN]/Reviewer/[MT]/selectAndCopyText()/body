@@ -1,9 +1,8 @@
 {
   try {
-    mLookUpIcon.setVisibility(View.VISIBLE);
-    mLookUpIcon.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_IN,mFadeDuration,0));
     KeyEvent shiftPressEvent=new KeyEvent(0,0,KeyEvent.ACTION_DOWN,KeyEvent.KEYCODE_SHIFT_LEFT,0,0);
     shiftPressEvent.dispatch(mCard);
+    shiftPressEvent.isShiftPressed();
     mIsSelecting=true;
   }
  catch (  Exception e) {

@@ -8,6 +8,9 @@
   mCardFrame=(FrameLayout)findViewById(R.id.flashcard);
   mTouchLayer=(FrameLayout)findViewById(R.id.touch_layer);
   mTouchLayer.setOnTouchListener(mGestureListener);
+  if (mPrefTextSelection && mLongClickWorkaround) {
+    mTouchLayer.setOnLongClickListener(mLongClickListener);
+  }
   if (mPrefTextSelection) {
     mClipboard=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
   }
