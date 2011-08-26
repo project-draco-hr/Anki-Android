@@ -19,6 +19,7 @@
   }
   mCardFrame.removeAllViews();
   mCard=createWebView();
+  mCard.setBackgroundColor(mCurrentBackgroundColor);
   mCardFrame.addView(mCard);
   if (mCustomFontFiles.length != 0) {
     mNextCard=createWebView();
