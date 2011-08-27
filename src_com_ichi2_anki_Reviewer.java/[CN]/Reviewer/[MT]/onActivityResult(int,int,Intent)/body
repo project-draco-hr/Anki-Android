@@ -13,4 +13,7 @@
       fillFlashcard(mShowAnimations);
     }
   }
+  if (mPrefTextSelection) {
+    mClipboard.setText("");
+  }
 }

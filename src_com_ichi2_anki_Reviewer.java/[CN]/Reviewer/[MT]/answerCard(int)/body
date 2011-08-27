@@ -1,11 +1,11 @@
 {
   mIsSelecting=false;
-  if (mLookUpIcon.getVisibility() == View.VISIBLE) {
-    mLookUpIcon.setVisibility(View.GONE);
-    mLookUpIcon.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_OUT,mFadeDuration,0));
-  }
   if (mPrefTextSelection) {
     mClipboard.setText("");
+    if (mLookUpIcon.getVisibility() == View.VISIBLE) {
+      mLookUpIcon.setVisibility(View.GONE);
+      mLookUpIcon.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_OUT,mFadeDuration,0));
+    }
   }
   Deck deck=AnkiDroidApp.deck();
 switch (ease) {
