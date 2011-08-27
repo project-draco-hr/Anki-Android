@@ -47,12 +47,12 @@
  else {
       comparedFieldAnswer=null;
     }
-    if (mChosenAnswer.getText().equals("")) {
-      setDueMessage();
-    }
     Reviewer.this.setProgressBarIndeterminateVisibility(false);
     Reviewer.this.unblockControls();
     Reviewer.this.displayCardQuestion();
+  }
+  if (mChosenAnswer.getText().equals("")) {
+    setDueMessage();
   }
   if (sessionMessage != null) {
     Themes.showThemedToast(Reviewer.this,sessionMessage,true);

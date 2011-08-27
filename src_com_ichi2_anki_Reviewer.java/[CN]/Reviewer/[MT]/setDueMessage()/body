@@ -1,9 +1,7 @@
 {
   Deck deck=AnkiDroidApp.deck();
   if (mCurrentCard != null && deck != null && deck.getScheduler().equals("reviewEarly")) {
-    double due=(mCurrentCard.getCombinedDue() - Utils.now()) / 86400.0;
-    if (due > 0.041) {
-      mChosenAnswer.setText(Utils.getReadableInterval(Reviewer.this,due,true,false));
-    }
+    mChosenAnswer.setTextColor(mForegroundColor);
+    mChosenAnswer.setText(Utils.fmtTimeSpan(mCurrentCard.getCombinedDue() - Utils.now(),Utils.TIME_FORMAT_IN));
   }
 }
