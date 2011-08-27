@@ -18,6 +18,14 @@ if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
 ActivityTransitionAnimation.slide(StudyOptions.this,ActivityTransitionAnimation.LEFT);
 }
 return true;
+case MENU_ROTATE:
+if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+}
+ else {
+setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+}
+return true;
 default :
 return super.onOptionsItemSelected(item);
 }
