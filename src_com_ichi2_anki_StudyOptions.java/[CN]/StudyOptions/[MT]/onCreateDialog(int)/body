@@ -9,6 +9,13 @@ case DIALOG_SYNC_LOG:
 dialog=builder.create();
 break;
 case DIALOG_NO_SPACE_LEFT:
+builder.setNegativeButton(getResources().getString(R.string.dont_show_again),new OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+PrefSettings.getSharedPrefs(getBaseContext()).edit().putBoolean("dontShowLowMemory",true).commit();
+}
+}
+);
+case DIALOG_BACKUP_NO_SPACE_LEFT:
 builder.setTitle(getResources().getString(R.string.backup_manager_title));
 builder.setIcon(android.R.drawable.ic_dialog_alert);
 builder.setPositiveButton(getResources().getString(R.string.ok),null);
