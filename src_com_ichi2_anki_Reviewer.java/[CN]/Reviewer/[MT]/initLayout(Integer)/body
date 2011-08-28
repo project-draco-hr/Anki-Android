@@ -3,7 +3,7 @@
   mMainLayout=findViewById(R.id.main_layout);
   Themes.setContentStyle(mMainLayout,Themes.CALLER_REVIEWER);
   mCardContainer=(FrameLayout)findViewById(R.id.flashcard_frame);
-  mCardContainer.setVisibility(mShowAnimations && !mConfigurationChanged ? View.INVISIBLE : View.VISIBLE);
+  mCardContainer.setVisibility(mConfigurationChanged ? View.VISIBLE : View.INVISIBLE);
   setInAnimation(false);
   mCardFrame=(FrameLayout)findViewById(R.id.flashcard);
   mTouchLayer=(FrameLayout)findViewById(R.id.touch_layer);
@@ -66,10 +66,10 @@
   }
   mCardTimer=(Chronometer)findViewById(R.id.card_time);
   mCardTimer.setOnClickListener(mCardStatisticsListener);
-  if (mPrefTimer && (!mShowAnimations || mConfigurationChanged)) {
+  if (mPrefTimer && (mConfigurationChanged)) {
     switchVisibility(mCardTimer,View.VISIBLE);
   }
-  if (mShowProgressBars && (!mShowAnimations || mConfigurationChanged)) {
+  if (mShowProgressBars && (mConfigurationChanged)) {
     switchVisibility(mProgressBars,View.VISIBLE);
   }
   mChosenAnswer=(TextView)findViewById(R.id.choosen_answer);
