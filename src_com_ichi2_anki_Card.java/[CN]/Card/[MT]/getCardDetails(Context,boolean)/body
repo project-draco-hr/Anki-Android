@@ -33,7 +33,7 @@
   }
   builder.append(res.getString(R.string.card_details_last_due));
   builder.append(": ");
-  if (mYesCount + mNoCount == 0 || mLastDue == 0) {
+  if (mYesCount + mNoCount == 0 || mLastDue == 0 || mInterval == 0) {
     builder.append("-");
   }
  else {
