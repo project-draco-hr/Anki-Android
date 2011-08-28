@@ -10,6 +10,7 @@
     editor.putString("lastVersion",getVersion());
     editor.commit();
     mNewVersionAlert=Themes.htmlOkDialog(this,getResources().getString(R.string.new_version_title) + " " + getVersion(),getVersionMessage());
+    AnkiDroidApp.createNoMediaFileIfMissing(new File(mPrefDeckPath));
   }
   mWalWarning=PrefSettings.getSharedPrefs(getBaseContext()).getInt("walWarning",AnkiDb.NO_WAL_WARNING);
   final float gestureScale=getResources().getDisplayMetrics().density;
