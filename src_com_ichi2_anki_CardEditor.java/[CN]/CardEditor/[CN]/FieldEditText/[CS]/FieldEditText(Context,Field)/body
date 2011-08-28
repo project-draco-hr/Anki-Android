@@ -3,10 +3,10 @@
   mContext=context;
   mPairField=pairField;
   if (mPrefFixArabic) {
-    this.setText(ArabicUtilities.reshapeSentence(pairField.getValue()));
+    this.setText(ArabicUtilities.reshapeSentence(pairField.getValue().replace("<br>","\n")));
   }
  else {
-    this.setText(pairField.getValue());
+    this.setText(pairField.getValue().replace("<br>","\n"));
   }
   this.setMinimumWidth(400);
   this.setOnClickListener(new View.OnClickListener(){

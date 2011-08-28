@@ -1,5 +1,6 @@
 {
   new File(mDestination + "/tmp/").mkdirs();
+  AnkiDroidApp.createNoMediaFileIfMissing(new File(mDestination));
   if (download instanceof SharedDeckDownload) {
     SharedDeckDownload sharedDeckDownload=(SharedDeckDownload)download;
     if (sharedDeckDownload.getStatus() == SharedDeckDownload.STATUS_PAUSED || sharedDeckDownload.getStatus() == SharedDeckDownload.STATUS_UPDATING) {

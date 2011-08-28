@@ -1,8 +1,6 @@
 {
   File decksDirectory=new File(mPrefDeckPath);
-  if (!decksDirectory.isDirectory()) {
-    decksDirectory.mkdirs();
-  }
+  AnkiDroidApp.createDecksDirectoryIfMissing(decksDirectory);
   File sampleDeckFile=new File(mPrefDeckPath,SAMPLE_DECK_NAME);
   if (!sampleDeckFile.exists()) {
     try {

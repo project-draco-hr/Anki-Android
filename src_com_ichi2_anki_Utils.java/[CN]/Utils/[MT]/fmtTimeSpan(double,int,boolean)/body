@@ -26,7 +26,7 @@
   int formatId;
 switch (format) {
 case TIME_FORMAT_IN:
-    if (time == 1) {
+    if (Math.round(time * 10) == 10) {
       formatId=R.array.next_review_in_s;
     }
  else {
@@ -34,7 +34,7 @@ case TIME_FORMAT_IN:
     }
   break;
 case TIME_FORMAT_BEFORE:
-if (time == 1) {
+if (Math.round(time * 10) == 10) {
   formatId=R.array.next_review_before_s;
 }
  else {
@@ -43,7 +43,7 @@ if (time == 1) {
 break;
 case TIME_FORMAT_DEFAULT:
 default :
-if (time == 1) {
+if (Math.round(time * 10) == 10) {
 formatId=R.array.next_review_s;
 }
  else {
