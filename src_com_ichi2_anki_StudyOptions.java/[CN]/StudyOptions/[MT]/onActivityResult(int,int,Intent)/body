@@ -23,6 +23,7 @@
       boolean fileNotDeleted=mDeckFilename != null && new File(mDeckFilename).exists();
       if (!fileNotDeleted) {
         AnkiDroidApp.setDeck(null);
+        mCompat.invalidateOptionsMenu(this);
         showContentView(CONTENT_NO_DECK);
       }
  else {

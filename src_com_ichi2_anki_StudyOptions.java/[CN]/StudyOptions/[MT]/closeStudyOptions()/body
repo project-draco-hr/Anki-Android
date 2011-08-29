@@ -5,6 +5,7 @@
   }
  else {
     AnkiDroidApp.setDeck(null);
+    mCompat.invalidateOptionsMenu(this);
     StudyOptions.this.finish();
   }
 }
