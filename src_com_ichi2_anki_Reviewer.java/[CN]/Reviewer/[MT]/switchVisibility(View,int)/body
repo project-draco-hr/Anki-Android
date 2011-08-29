@@ -1,12 +1,3 @@
 {
-  view.setVisibility(visible);
-  if (mShowAnimations && !mConfigurationChanged) {
-    int duration=mAnimationDurationTurn / 2;
-    if (visible == View.VISIBLE) {
-      view.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_IN,duration,duration));
-    }
- else {
-      view.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_OUT,duration,0));
-    }
-  }
+  switchVisibility(view,visible,mShowAnimations && !mConfigurationChanged);
 }
