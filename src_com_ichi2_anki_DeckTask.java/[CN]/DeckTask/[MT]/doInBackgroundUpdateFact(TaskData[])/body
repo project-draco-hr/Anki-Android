@@ -8,6 +8,6 @@
   editFact.toDb();
   deck.flushMod();
   deck.setUndoEnd(undoName);
-  publishProgress(new TaskData(editCard));
+  publishProgress(new TaskData(deck.cardFromId(editCard.getId())));
   return null;
 }
