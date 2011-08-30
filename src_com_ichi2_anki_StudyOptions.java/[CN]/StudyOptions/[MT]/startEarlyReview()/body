@@ -6,7 +6,7 @@
     Intent reviewer=new Intent(StudyOptions.this,Reviewer.class);
     reviewer.putExtra("deckFilename",mDeckFilename);
     startActivityForResult(reviewer,REQUEST_REVIEW);
-    if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+    if (getApiLevel() > 4) {
       ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
     }
   }

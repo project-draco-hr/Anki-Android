@@ -9,7 +9,7 @@
   }
  else {
     finish();
-    if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+    if (StudyOptions.getApiLevel() > 4) {
       ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
     }
   }

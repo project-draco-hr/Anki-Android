@@ -6,11 +6,11 @@
     }
     Intent i=getIntent();
     startActivityForResult(new Intent(this,PersonalDeckPicker.class),DOWNLOAD_PERSONAL_DECK);
-    if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+    if (StudyOptions.getApiLevel() > 4) {
       ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
     }
   }
  else {
-    showDialog(DIALOG_USER_NOT_LOGGED_IN);
+    showDialog(DIALOG_USER_NOT_LOGGED_IN_DOWNLOAD);
   }
 }

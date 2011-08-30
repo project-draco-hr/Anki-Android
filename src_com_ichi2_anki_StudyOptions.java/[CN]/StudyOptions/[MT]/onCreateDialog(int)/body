@@ -42,7 +42,11 @@ builder.setMessage(res.getString(R.string.no_user_password_error_message));
 builder.setPositiveButton(res.getString(R.string.log_in),new OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 Intent myAccount=new Intent(StudyOptions.this,MyAccount.class);
-startActivity(myAccount);
+myAccount.putExtra("notLoggedIn",true);
+startActivityForResult(myAccount,LOG_IN);
+if (getApiLevel() > 4) {
+ActivityTransitionAnimation.slide(StudyOptions.this,ActivityTransitionAnimation.LEFT);
+}
 }
 }
 );

@@ -2,10 +2,9 @@
 switch (item.getItemId()) {
 case MENU_CREATE_DECK:
     startActivityForResult(new Intent(DeckPicker.this,DeckCreator.class),CREATE_DECK);
-  ;
-if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-  ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.RIGHT);
-}
+  if (StudyOptions.getApiLevel() > 4) {
+    ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.RIGHT);
+  }
 return true;
 case MENU_ABOUT:
 startActivity(new Intent(DeckPicker.this,About.class));

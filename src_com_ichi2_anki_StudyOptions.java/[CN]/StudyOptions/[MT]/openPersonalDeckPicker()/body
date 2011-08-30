@@ -6,7 +6,7 @@
       mCompat.invalidateOptionsMenu(this);
     }
     startActivityForResult(new Intent(StudyOptions.this,PersonalDeckPicker.class),DOWNLOAD_PERSONAL_DECK);
-    if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+    if (getApiLevel() > 4) {
       ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
     }
   }

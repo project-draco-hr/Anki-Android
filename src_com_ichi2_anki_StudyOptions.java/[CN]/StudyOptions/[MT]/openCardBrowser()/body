@@ -1,7 +1,7 @@
 {
   Intent cardBrowser=new Intent(StudyOptions.this,CardBrowser.class);
   startActivityForResult(cardBrowser,BROWSE_CARDS);
-  if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+  if (getApiLevel() > 4) {
     ActivityTransitionAnimation.slide(StudyOptions.this,ActivityTransitionAnimation.LEFT);
   }
 }

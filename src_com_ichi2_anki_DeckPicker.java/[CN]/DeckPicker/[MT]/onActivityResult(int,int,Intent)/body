@@ -17,4 +17,10 @@
   }
  else   if (requestCode == REPORT_FEEDBACK && resultCode == RESULT_OK) {
   }
+ else   if (requestCode == LOG_IN_FOR_DOWNLOAD && resultCode == RESULT_OK) {
+    openPersonalDeckPicker();
+  }
+ else   if (requestCode == LOG_IN_FOR_SYNC && resultCode == RESULT_OK) {
+    syncAllDecks();
+  }
 }
