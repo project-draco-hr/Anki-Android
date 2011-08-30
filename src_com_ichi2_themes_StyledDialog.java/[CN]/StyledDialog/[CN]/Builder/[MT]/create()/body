@@ -9,15 +9,7 @@
   if (positiveButtonText != null) {
     Button button1=(Button)layout.findViewById(R.id.button1);
     button1.setText(positiveButtonText);
-    button1.setOnClickListener(new View.OnClickListener(){
-      public void onClick(      View v){
-        if (positiveButtonClickListener != null) {
-          positiveButtonClickListener.onClick(dialog,DialogInterface.BUTTON_POSITIVE);
-        }
-        dialog.dismiss();
-      }
-    }
-);
+    button1.setOnClickListener(new OnClickForwarder(dialog,DialogInterface.BUTTON_POSITIVE,positiveButtonClickListener));
     numberOfButtons++;
   }
  else {
@@ -26,15 +18,7 @@
   if (negativeButtonText != null) {
     Button button2=(Button)layout.findViewById(R.id.button2);
     button2.setText(negativeButtonText);
-    button2.setOnClickListener(new View.OnClickListener(){
-      public void onClick(      View v){
-        if (negativeButtonClickListener != null) {
-          negativeButtonClickListener.onClick(dialog,DialogInterface.BUTTON_NEGATIVE);
-        }
-        dialog.dismiss();
-      }
-    }
-);
+    button2.setOnClickListener(new OnClickForwarder(dialog,DialogInterface.BUTTON_NEGATIVE,negativeButtonClickListener));
     numberOfButtons++;
   }
  else {
@@ -43,15 +27,7 @@
   if (neutralButtonText != null) {
     Button button3=(Button)layout.findViewById(R.id.button3);
     button3.setText(neutralButtonText);
-    button3.setOnClickListener(new View.OnClickListener(){
-      public void onClick(      View v){
-        if (neutralButtonClickListener != null) {
-          neutralButtonClickListener.onClick(dialog,DialogInterface.BUTTON_NEUTRAL);
-        }
-        dialog.dismiss();
-      }
-    }
-);
+    button3.setOnClickListener(new OnClickForwarder(dialog,DialogInterface.BUTTON_NEUTRAL,neutralButtonClickListener));
     numberOfButtons++;
   }
  else {

@@ -57,4 +57,10 @@
     }
   }
 ;
+  if (getApiLevel() >= 11) {
+    mCompat=new CompatV11();
+  }
+ else {
+    mCompat=new CompatV3();
+  }
 }
