@@ -57,7 +57,7 @@
     }
   }
 ;
-  if (false) {
+  if (getApiLevel() >= 11) {
     mCompat=new CompatV11();
   }
  else {
