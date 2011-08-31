@@ -14,7 +14,7 @@ startActivityForResult(new Intent(StudyOptions.this,Preferences.class),PREFERENC
 return true;
 case MENU_ADD_FACT:
 startActivityForResult(new Intent(StudyOptions.this,FactAdder.class),ADD_FACT);
-if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+if (getApiLevel() > 4) {
 ActivityTransitionAnimation.slide(StudyOptions.this,ActivityTransitionAnimation.LEFT);
 }
 return true;

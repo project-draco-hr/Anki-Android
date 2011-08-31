@@ -1,5 +1,5 @@
 {
-  String newValue=this.getText().toString().replace("\n","<br>");
+  String newValue=this.getText().toString().replace("\n","<br />");
   if (!mPairField.getValue().equals(newValue)) {
     mPairField.setValue(newValue);
     return true;

@@ -4,7 +4,7 @@
     AnkiDroidApp.setDeck(null);
   }
   startActivityForResult(new Intent(this,SharedDeckPicker.class),DOWNLOAD_SHARED_DECK);
-  if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+  if (StudyOptions.getApiLevel() > 4) {
     ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
   }
 }

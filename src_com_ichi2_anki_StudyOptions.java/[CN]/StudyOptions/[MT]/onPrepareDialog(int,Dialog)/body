@@ -9,6 +9,7 @@ case DIALOG_SYNC_LOG:
   break;
 case DIALOG_MORE:
 Deck deck=AnkiDroidApp.deck();
+if (deck != null) {
 mSpinnerNewCardOrder.setSelection(deck.getNewCardOrder());
 mSpinnerNewCardSchedule.setSelection(deck.getNewCardSpacing());
 mSpinnerRevCardOrder.setSelection(deck.getRevCardOrder());
@@ -17,6 +18,7 @@ mEditMaxFailCard.setText(String.valueOf(deck.getFailedCardMax()));
 mEditNewPerDay.setText(String.valueOf(deck.getNewCardsPerDay()));
 mCheckBoxPerDay.setChecked(deck.getPerDay());
 mCheckBoxSuspendLeeches.setChecked(deck.getSuspendLeeches());
+}
 break;
 case DIALOG_LIMIT_SESSION:
 Deck deck2=AnkiDroidApp.deck();

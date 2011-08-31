@@ -83,6 +83,9 @@ resetAndUpdateValuesFromDeck();
  else if (requestCode == BROWSE_CARDS && resultCode == RESULT_OK) {
 resetAndUpdateValuesFromDeck();
 }
+ else if (requestCode == LOG_IN && resultCode == RESULT_OK) {
+syncDeck(null);
+}
  else if (requestCode == STATISTICS && mCurrentContentView == CONTENT_CONGRATS) {
 showContentView(CONTENT_STUDY_OPTIONS);
 }
