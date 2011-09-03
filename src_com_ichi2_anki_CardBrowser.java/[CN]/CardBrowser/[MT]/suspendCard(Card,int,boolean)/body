@@ -1,19 +1,19 @@
 {
   int posA=getPosition(mAllCards,card.getId());
-  String marSus=mAllCards.get(posA).remove("marSus");
+  String marSus=mAllCards.get(posA).remove("flags");
   if (suspend) {
     marSus=marSus.substring(0,1) + "1";
     if (position != -1) {
-      mCards.get(position).put("marSus",marSus);
+      mCards.get(position).put("flags",marSus);
     }
-    mAllCards.get(posA).put("marSus",marSus);
+    mAllCards.get(posA).put("flags",marSus);
   }
  else {
     marSus=marSus.substring(0,1) + "0";
     if (position != -1) {
-      mCards.get(position).put("marSus",marSus);
+      mCards.get(position).put("flags",marSus);
     }
-    mAllCards.get(posA).put("marSus",marSus);
+    mAllCards.get(posA).put("flags",marSus);
   }
   updateList();
 }

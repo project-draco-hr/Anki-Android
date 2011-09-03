@@ -1,0 +1,23 @@
+{
+  try {
+switch (mSelectedOrder) {
+case CARD_ORDER_ANSWER:
+      return object1.get("answer").compareToIgnoreCase(object2.get("answer"));
+case CARD_ORDER_QUESTION:
+    return object1.get("question").compareToIgnoreCase(object2.get("question"));
+case CARD_ORDER_DUE:
+  return Double.valueOf(object1.get("due")).compareTo(Double.valueOf(object2.get("due")));
+case CARD_ORDER_INTERVAL:
+return Double.valueOf(object1.get("interval")).compareTo(Double.valueOf(object2.get("interval")));
+case CARD_ORDER_FACTOR:
+return Double.valueOf(object1.get("factor")).compareTo(Double.valueOf(object2.get("factor")));
+case CARD_ORDER_CREATED:
+return Double.valueOf(object1.get("created")).compareTo(Double.valueOf(object2.get("created")));
+}
+return 0;
+}
+ catch (Exception e) {
+Log.e(AnkiDroidApp.TAG,"Error on sorting cards: " + e);
+return 0;
+}
+}
