@@ -7,73 +7,134 @@
   Themes.setWallpaper(mainView);
   mFieldsLayoutContainer=(LinearLayout)findViewById(R.id.CardEditorEditFieldsLayout);
   Themes.setTextViewStyle(mFieldsLayoutContainer);
+  setTitle(R.string.cardeditor_title);
   mSave=(Button)findViewById(R.id.CardEditorSaveButton);
   mCancel=(Button)findViewById(R.id.CardEditorCancelButton);
+  mSwapButton=(Button)findViewById(R.id.CardEditorSwapButton);
+  mModelButtons=(LinearLayout)findViewById(R.id.CardEditorSelectModelLayout);
+  mModelButton=(Button)findViewById(R.id.CardEditorModelButton);
+  mCardModelButton=(Button)findViewById(R.id.CardEditorCardModelButton);
   mTags=(Button)findViewById(R.id.CardEditorTagButton);
-  if (getIntent().getBooleanExtra("callfromcardbrowser",false)) {
-    mEditorCard=CardBrowser.getEditorCard();
-  }
- else {
-    mEditorCard=Reviewer.getEditorCard();
-  }
-  mEditorFact=mEditorCard.getFact();
-  TreeSet<Field> fields=mEditorFact.getFields();
-  mEditFields=new LinkedList<FieldEditText>();
-  mModified=false;
-  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
-  mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
-  mSave.setEnabled(!mPrefFixArabic);
-  Iterator<Field> iter=fields.iterator();
-  while (iter.hasNext()) {
-    FieldEditText newTextbox=new FieldEditText(this,iter.next());
-    TextView label=newTextbox.getLabel();
-    ImageView circle=newTextbox.getCircle();
-    mEditFields.add(newTextbox);
-    FrameLayout frame=new FrameLayout(this);
-    FrameLayout.LayoutParams params=new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT,Gravity.RIGHT | Gravity.CENTER_VERTICAL);
-    params.rightMargin=10;
-    circle.setLayoutParams(params);
-    frame.addView(newTextbox);
-    frame.addView(circle);
-    mFieldsLayoutContainer.addView(label);
-    mFieldsLayoutContainer.addView(frame);
-  }
-  mFactTags=mEditorFact.getTags();
   mTags.setText(getResources().getString(R.string.CardEditorTags,mFactTags));
-  mTags.setOnClickListener(new View.OnClickListener(){
-    @Override public void onClick(    View v){
-      showDialog(DIALOG_TAGS);
-    }
+  mNewSelectedCardModels=new LinkedHashMap<Long,CardModel>();
+  cardModelIds=new ArrayList<Long>();
+  Intent intent=getIntent();
+  String action=intent.getAction();
+  if (action != null && action.equals(INTENT_CREATE_FLASHCARD)) {
+    prepareForIntentAddition();
+    Bundle extras=intent.getExtras();
+    mSourceLanguage=extras.getString("SOURCE_LANGUAGE");
+    mTargetLanguage=extras.getString("TARGET_LANGUAGE");
+    mSourceText=extras.getString("SOURCE_TEXT");
+    mTargetText=extras.getString("TARGET_TEXT");
+    mAddFact=true;
   }
-);
-  allTags=null;
-  mSelectedTags=new HashSet<String>();
-  mSave.setOnClickListener(new View.OnClickListener(){
-    @Override public void onClick(    View v){
-      Iterator<FieldEditText> iter=mEditFields.iterator();
-      while (iter.hasNext()) {
-        FieldEditText current=iter.next();
-        mModified|=current.updateField();
-      }
-      if (!mEditorFact.getTags().equals(mFactTags)) {
-        mEditorFact.setTags(mFactTags);
-        mModified=true;
-      }
-      if (mModified) {
-        setResult(RESULT_OK);
-      }
+ else   if (action != null && action.equals(INTENT_CREATE_FLASHCARD_SEND)) {
+    prepareForIntentAddition();
+    Bundle extras=intent.getExtras();
+    mSourceText=extras.getString(Intent.EXTRA_SUBJECT);
+    mTargetText=extras.getString(Intent.EXTRA_TEXT);
+    mAddFact=true;
+  }
  else {
-        setResult(RESULT_CANCELED);
-      }
-      closeCardEditor();
-    }
-  }
+switch (intent.getIntExtra(CARD_EDITOR_ACTION,ADD_CARD)) {
+case EDIT_REVIEWER_CARD:
+      mEditorFact=Reviewer.getEditorCard().getFact();
+    break;
+case EDIT_BROWSER_CARD:
+  mEditorFact=CardBrowser.getEditorCard().getFact();
+break;
+case ADD_CARD:
+mAddFact=true;
+mDeck=AnkiDroidApp.deck();
+loadContents();
+modelChanged();
+mSave.setEnabled(false);
+break;
+}
+}
+if (mAddFact) {
+mModelButtons.setVisibility(View.VISIBLE);
+mModelButton.setOnClickListener(new View.OnClickListener(){
+public void onClick(View v){
+showDialog(DIALOG_MODEL_SELECT);
+}
+}
 );
-  mCancel.setOnClickListener(new View.OnClickListener(){
-    @Override public void onClick(    View v){
-      setResult(RESULT_CANCELED);
-      closeCardEditor();
-    }
-  }
+mCardModelButton.setOnClickListener(new View.OnClickListener(){
+public void onClick(View v){
+showDialog(DIALOG_CARD_MODEL_SELECT);
+}
+}
 );
+mSave.setText(getResources().getString(R.string.add));
+mCancel.setText(getResources().getString(R.string.close));
+}
+ else {
+mFactTags=mEditorFact.getTags();
+}
+mModified=false;
+SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
+if (mPrefFixArabic && !mAddFact) {
+mSave.setEnabled(false);
+}
+mTags.setOnClickListener(new View.OnClickListener(){
+@Override public void onClick(View v){
+showDialog(DIALOG_TAGS);
+}
+}
+);
+allTags=null;
+mSelectedTags=new HashSet<String>();
+mSave.setOnClickListener(new View.OnClickListener(){
+@Override public void onClick(View v){
+if (mAddFact) {
+boolean empty=true;
+for (FieldEditText current : mEditFields) {
+current.updateField();
+if (current.getText().length() != 0) {
+empty=false;
+}
+}
+if (!empty) {
+mEditorFact.setTags(mFactTags);
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ADD_FACT,mSaveFactHandler,new DeckTask.TaskData(mDeck,mEditorFact,mSelectedCardModels));
+setResult(RESULT_OK);
+}
+ else {
+setResult(RESULT_CANCELED);
+}
+}
+ else {
+Iterator<FieldEditText> iter=mEditFields.iterator();
+while (iter.hasNext()) {
+FieldEditText current=iter.next();
+mModified|=current.updateField();
+}
+if (!mEditorFact.getTags().equals(mFactTags)) {
+mEditorFact.setTags(mFactTags);
+mModified=true;
+}
+if (mModified) {
+setResult(RESULT_OK);
+}
+ else {
+setResult(RESULT_CANCELED);
+}
+closeCardEditor();
+}
+}
+}
+);
+mCancel.setOnClickListener(new View.OnClickListener(){
+@Override public void onClick(View v){
+setResult(RESULT_CANCELED);
+closeCardEditor();
+}
+}
+);
+if (!mAddFact) {
+populateEditFields();
+}
 }

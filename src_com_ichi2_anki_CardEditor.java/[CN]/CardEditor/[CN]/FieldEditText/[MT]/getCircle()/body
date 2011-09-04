@@ -48,6 +48,7 @@
   }
 );
   if (this.getText().toString().length() > 0) {
+    mFilledFields++;
     mCircle.setVisibility(View.VISIBLE);
   }
  else {

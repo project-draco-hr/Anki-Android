@@ -35,6 +35,7 @@
   }
   dialog.setCancelable(cancelable);
   dialog.setOnCancelListener(cancelListener);
+  dialog.setOnDismissListener(dismissListener);
   if (message != null) {
     ((TextView)layout.findViewById(R.id.message)).setText(message);
   }
