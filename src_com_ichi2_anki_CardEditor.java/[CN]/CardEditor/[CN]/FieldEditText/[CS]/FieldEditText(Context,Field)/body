@@ -3,10 +3,10 @@
   mContext=context;
   mPairField=pairField;
   if (mPrefFixArabic) {
-    this.setText(ArabicUtilities.reshapeSentence(pairField.getValue().replaceAll("<br(\\s*\\/*)>","\n")));
+    this.setText(ArabicUtilities.reshapeSentence(pairField.getValue().replaceAll("<br(\\s*\\/*)>",NEW_LINE)));
   }
  else {
-    this.setText(pairField.getValue().replaceAll("<br(\\s*\\/*)>","\n"));
+    this.setText(pairField.getValue().replaceAll("<br(\\s*\\/*)>",NEW_LINE));
   }
   this.setMinimumWidth(400);
   this.setOnClickListener(new View.OnClickListener(){
