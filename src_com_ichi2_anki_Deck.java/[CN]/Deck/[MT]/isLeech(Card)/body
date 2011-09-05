@@ -3,6 +3,9 @@
   int fmax=0;
   if (hasKey("leechFails")) {
     fmax=getInt("leechFails");
+    if (fmax == 0) {
+      return false;
+    }
   }
  else {
     return false;

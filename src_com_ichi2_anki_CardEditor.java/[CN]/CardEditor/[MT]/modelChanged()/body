@@ -1,0 +1,8 @@
+{
+  mEditorFact=mDeck.newFact(mCurrentSelectedModelId);
+  mSelectedCardModels=mDeck.activeCardModels(mEditorFact);
+  mModelButton.setText(getResources().getString(R.string.model) + " " + mModels.get(mCurrentSelectedModelId).getName());
+  cardModelsChanged();
+  populateEditFields();
+  swapText(true);
+}

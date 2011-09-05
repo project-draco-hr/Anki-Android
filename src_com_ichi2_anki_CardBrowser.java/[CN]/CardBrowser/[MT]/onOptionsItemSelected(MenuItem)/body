@@ -7,7 +7,9 @@ case MENU_REDO:
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REDO,mUndoRedoHandler,new DeckTask.TaskData(0,mDeck,0,true));
 return true;
 case MENU_ADD_FACT:
-startActivityForResult(new Intent(CardBrowser.this,FactAdder.class),ADD_FACT);
+Intent intent=new Intent(CardBrowser.this,CardEditor.class);
+intent.putExtra(CardEditor.CARD_EDITOR_ACTION,CardEditor.ADD_CARD);
+startActivityForResult(intent,ADD_FACT);
 if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
 ActivityTransitionAnimation.slide(CardBrowser.this,ActivityTransitionAnimation.LEFT);
 }
@@ -17,7 +19,7 @@ mShowOnlyMarSus=true;
 mSearchEditText.setHint(R.string.card_browser_show_marked);
 mCards.clear();
 for (int i=0; i < mAllCards.size(); i++) {
-if ((mAllCards.get(i).get("question").toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1 || mAllCards.get(i).get("answer").toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1) && mAllCards.get(i).get("marSus").subSequence(0,1).equals("1")) {
+if ((mAllCards.get(i).get("question").toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1 || mAllCards.get(i).get("answer").toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1) && mAllCards.get(i).get("flags").subSequence(0,1).equals("1")) {
 mCards.add(mAllCards.get(i));
 }
 }
@@ -28,7 +30,7 @@ mShowOnlyMarSus=true;
 mSearchEditText.setHint(R.string.card_browser_show_suspended);
 mCards.clear();
 for (int i=0; i < mAllCards.size(); i++) {
-if ((mAllCards.get(i).get("question").toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1 || mAllCards.get(i).get("answer").toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1) && mAllCards.get(i).get("marSus").subSequence(1,2).equals("1")) {
+if ((mAllCards.get(i).get("question").toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1 || mAllCards.get(i).get("answer").toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1) && mAllCards.get(i).get("flags").subSequence(1,2).equals("1")) {
 mCards.add(mAllCards.get(i));
 }
 }

@@ -51,6 +51,8 @@ case TASK_TYPE_DELETE_BACKUPS:
 return doInBackgroundDeleteBackups(params);
 case TASK_TYPE_RESTORE_DECK:
 return doInBackgroundRestoreDeck(params);
+case TASK_TYPE_SORT_CARDS:
+return doInBackgroundSortCards(params);
 default :
 return null;
 }

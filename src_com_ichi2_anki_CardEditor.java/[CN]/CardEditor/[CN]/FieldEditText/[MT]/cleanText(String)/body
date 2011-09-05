@@ -1,13 +1,6 @@
 {
-  final String[] from=new String[]{"\\(","\\[","\\)","\\]","\\.",",",";"};
-  final String[] to=new String[]{" ("," [",") ","] ",". ",", ","; "};
-  for (int i=0; i < from.length; i++) {
-    text=text.replaceAll("\\s*" + from[i] + "*\\s*"+ from[i]+ "+\\s*",to[i]);
-  }
-  final String[] from1=new String[]{"\\(","\\[",",",";","\\.",",",";","\\."," ","^","^","^","^"};
-  final String[] from2=new String[]{"\\)","\\]",",",";","\\.","$","$","$","$","\\.",",",";"," "};
-  for (int i=0; i < from1.length; i++) {
-    text=text.replaceAll(from1[i] + "\\s*" + from2[i],"");
-  }
+  text=text.replaceAll("\\s*(" + NL_MARK + "\\s*)+",NEW_LINE);
+  text=text.replaceAll("^[,;:\\s\\)\\]" + NEW_LINE + "]*","");
+  text=text.replaceAll("[,;:\\s\\(\\[" + NEW_LINE + "]*$","");
   return text;
 }

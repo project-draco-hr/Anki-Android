@@ -10,7 +10,7 @@
         FieldEditText.this.setKeyListener(mKeyListener);
         FieldEditText.this.setCursorVisible(true);
         for (        WordRow row : mCutString) {
-          if (row.mEnabled) {
+          if (row.mEnabled && !row.mWord.equals(NL_MARK)) {
             removeDeleted();
             break;
           }
@@ -33,7 +33,7 @@
         splitText(text);
         int pos=0;
         for (        WordRow row : mCutString) {
-          if (row.mWord.length() == 0) {
+          if (row.mWord.length() == 0 || row.mWord.equals(NL_MARK)) {
             continue;
           }
           row.mBegin=text.indexOf(row.mWord,pos);
@@ -48,6 +48,7 @@
   }
 );
   if (this.getText().toString().length() > 0) {
+    mFilledFields++;
     mCircle.setVisibility(View.VISIBLE);
   }
  else {

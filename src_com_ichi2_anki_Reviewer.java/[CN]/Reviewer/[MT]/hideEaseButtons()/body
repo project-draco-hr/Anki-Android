@@ -4,13 +4,19 @@
   switchVisibility(mEase3,View.GONE);
   switchVisibility(mEase4,View.GONE);
   if (mshowNextReviewTime) {
-    switchVisibility(mNext1,View.INVISIBLE);
-    switchVisibility(mNext2,View.INVISIBLE);
-    switchVisibility(mNext3,View.INVISIBLE);
-    switchVisibility(mNext4,View.INVISIBLE);
+    int visibility=typeAnswer() ? View.GONE : View.INVISIBLE;
+    switchVisibility(mNext1,visibility);
+    switchVisibility(mNext2,visibility);
+    switchVisibility(mNext3,visibility);
+    switchVisibility(mNext4,visibility);
   }
   if (mFlipCard.getVisibility() != View.VISIBLE) {
     switchVisibility(mFlipCard,View.VISIBLE);
     mFlipCard.requestFocus();
+  }
+ else   if (typeAnswer()) {
+    mAnswerField.requestFocus();
+    InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+    inputMethodManager.showSoftInput(mAnswerField,InputMethodManager.SHOW_FORCED);
   }
 }
