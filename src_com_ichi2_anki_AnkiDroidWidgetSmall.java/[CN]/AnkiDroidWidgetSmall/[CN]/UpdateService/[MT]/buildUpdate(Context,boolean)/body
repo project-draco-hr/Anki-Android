@@ -1,0 +1,79 @@
+{
+  Log.i(AnkiDroidApp.TAG,"buildUpdate");
+  RemoteViews updateViews=new RemoteViews(context.getPackageName(),R.layout.widget_small);
+  boolean mounted=AnkiDroidApp.isSdCardMounted();
+  if (!mounted) {
+    updateViews.setTextViewText(R.id.widget_due,"-");
+    updateViews.setTextViewText(R.id.widget_eta,"-");
+    if (mMountReceiver == null) {
+      mMountReceiver=new BroadcastReceiver(){
+        @Override public void onReceive(        Context context,        Intent intent){
+          String action=intent.getAction();
+          if (action.equals(Intent.ACTION_MEDIA_MOUNTED)) {
+            Log.i(AnkiDroidApp.TAG,"mMountReceiver - Action = Media Mounted");
+            if (remounted) {
+              WidgetStatus.update(getBaseContext());
+              remounted=false;
+              if (mMountReceiver != null) {
+                unregisterReceiver(mMountReceiver);
+              }
+            }
+ else {
+              remounted=true;
+            }
+          }
+        }
+      }
+;
+      IntentFilter iFilter=new IntentFilter();
+      iFilter.addAction(Intent.ACTION_MEDIA_MOUNTED);
+      iFilter.addDataScheme("file");
+      registerReceiver(mMountReceiver,iFilter);
+    }
+  }
+ else {
+    if (dueCardsCount == 0 || updateDueDecksNow) {
+      int[] counts=WidgetStatus.fetchSmall(context);
+      dueCardsCount=counts[0];
+      reps=counts[1];
+      int totalReps=dueCardsCount + reps;
+      int progress=0;
+      if (reps != 0) {
+        progress=(int)Math.round((100.0d * reps) / totalReps);
+      }
+      eta=counts[2];
+      startDeckPicker=counts[3] == 0;
+      updateViews.setTextViewText(R.id.widget_due,Integer.toString(dueCardsCount));
+      updateViews.setTextViewText(R.id.widget_eta,Integer.toString(eta));
+      updateViews.setProgressBar(R.id.widget_progress,100,progress,false);
+    }
+  }
+  Intent ankiDroidIntent=new Intent(context,StudyOptions.class);
+  ankiDroidIntent.setAction(Intent.ACTION_MAIN);
+  ankiDroidIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+  ankiDroidIntent.putExtra("startDeckpicker",startDeckPicker);
+  PendingIntent pendingAnkiDroidIntent=PendingIntent.getActivity(context,0,ankiDroidIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+  updateViews.setOnClickPendingIntent(R.id.ankidroid_widget_small_layout,pendingAnkiDroidIntent);
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
+  int minimumCardsDueForNotification=Integer.parseInt(preferences.getString("minimumCardsDueForNotification","25"));
+  if (mounted && dueCardsCount >= minimumCardsDueForNotification) {
+    int icon=R.drawable.anki;
+    CharSequence tickerText=String.format(getString(R.string.widget_minimum_cards_due_notification_ticker_text),dueCardsCount);
+    long when=System.currentTimeMillis();
+    Notification notification=new Notification(icon,tickerText,when);
+    if (preferences.getBoolean("widgetVibrate",false)) {
+      notification.defaults|=Notification.DEFAULT_VIBRATE;
+    }
+    if (preferences.getBoolean("widgetBlink",false)) {
+      notification.defaults|=Notification.DEFAULT_LIGHTS;
+    }
+    Context appContext=getApplicationContext();
+    CharSequence contentTitle=getText(R.string.widget_minimum_cards_due_notification_ticker_title);
+    notification.setLatestEventInfo(appContext,contentTitle,tickerText,pendingAnkiDroidIntent);
+    mNotificationManager.notify(WIDGET_NOTIFY_ID,notification);
+  }
+ else {
+    mNotificationManager.cancel(WIDGET_NOTIFY_ID);
+  }
+  return updateViews;
+}

@@ -1,7 +1,16 @@
 {
   Log.d(AnkiDroidApp.TAG,"WidgetStatus.UpdateDeckStatusAsyncTask.onPostExecute()");
   MetaDB.storeWidgetStatus(context,mDecks);
-  Intent intent=new Intent(context,AnkiDroidWidget.UpdateService.class);
-  intent.setAction(AnkiDroidWidget.UpdateService.ACTION_UPDATE);
-  context.startService(intent);
+  if (mediumWidget) {
+    Intent intent;
+    intent=new Intent(context,AnkiDroidWidget.UpdateService.class);
+    intent.setAction(AnkiDroidWidget.UpdateService.ACTION_UPDATE);
+    context.startService(intent);
+  }
+  if (smallWidget) {
+    Intent intent;
+    intent=new Intent(context,AnkiDroidWidgetSmall.UpdateService.class);
+    intent.setAction(AnkiDroidWidgetSmall.UpdateService.ACTION_UPDATE);
+    context.startService(intent);
+  }
 }

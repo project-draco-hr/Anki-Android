@@ -2,14 +2,14 @@
   openDBIfClosed(context);
   Cursor cursor=null;
   try {
-    cursor=mMetaDb.query("widgetStatus",new String[]{"deckPath","deckName","newCards","dueCards","failedCards"},null,null,null,null,"deckName");
+    cursor=mMetaDb.query("widgetStatus",new String[]{"deckPath","deckName","newCards","dueCards","failedCards","eta","reps"},null,null,null,null,"deckName");
     int count=cursor.getCount();
     DeckStatus[] decks=new DeckStatus[count];
     for (int index=0; index < count; ++index) {
       if (!cursor.moveToNext()) {
         throw new SQLiteException("cursor count was incorrect");
       }
-      decks[index]=new DeckStatus(cursor.getString(cursor.getColumnIndexOrThrow("deckPath")),cursor.getString(cursor.getColumnIndexOrThrow("deckName")),cursor.getInt(cursor.getColumnIndexOrThrow("newCards")),cursor.getInt(cursor.getColumnIndexOrThrow("dueCards")),cursor.getInt(cursor.getColumnIndexOrThrow("failedCards")));
+      decks[index]=new DeckStatus(cursor.getString(cursor.getColumnIndexOrThrow("deckPath")),cursor.getString(cursor.getColumnIndexOrThrow("deckName")),cursor.getInt(cursor.getColumnIndexOrThrow("newCards")),cursor.getInt(cursor.getColumnIndexOrThrow("dueCards")),cursor.getInt(cursor.getColumnIndexOrThrow("failedCards")),cursor.getInt(cursor.getColumnIndexOrThrow("eta")),cursor.getInt(cursor.getColumnIndexOrThrow("reps")));
     }
     return decks;
   }

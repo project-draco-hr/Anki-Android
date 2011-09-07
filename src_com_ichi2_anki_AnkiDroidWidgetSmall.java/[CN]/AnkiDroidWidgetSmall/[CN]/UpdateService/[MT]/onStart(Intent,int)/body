@@ -1,0 +1,7 @@
+{
+  Log.i(AnkiDroidApp.TAG,"OnStart");
+  RemoteViews updateViews=buildUpdate(this,true);
+  ComponentName thisWidget=new ComponentName(this,AnkiDroidWidgetSmall.class);
+  AppWidgetManager manager=AppWidgetManager.getInstance(this);
+  manager.updateAppWidget(thisWidget,updateViews);
+}

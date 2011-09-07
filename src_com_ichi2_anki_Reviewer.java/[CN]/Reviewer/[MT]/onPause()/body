@@ -5,6 +5,7 @@
   if (!mClosing) {
     Deck deck=AnkiDroidApp.deck();
     deck.commitToDB();
+    WidgetStatus.update(getBaseContext());
   }
   if (mShakeEnabled) {
     mSensorManager.unregisterListener(mSensorListener);

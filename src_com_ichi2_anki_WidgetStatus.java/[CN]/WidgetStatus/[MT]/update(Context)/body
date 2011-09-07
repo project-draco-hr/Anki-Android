@@ -1,6 +1,18 @@
 {
   SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
   if (preferences.getBoolean("widgetEnabled",false)) {
+    mediumWidget=true;
+  }
+ else {
+    mediumWidget=false;
+  }
+  if (preferences.getBoolean("widgetSmallEnabled",false)) {
+    smallWidget=true;
+  }
+ else {
+    smallWidget=false;
+  }
+  if (mediumWidget || smallWidget) {
     Log.d(AnkiDroidApp.TAG,"WidgetStatus.update(): updating");
     AsyncTask<Context,Void,Context> updateDeckStatusAsyncTask=new UpdateDeckStatusAsyncTask();
     updateDeckStatusAsyncTask.execute(context);
