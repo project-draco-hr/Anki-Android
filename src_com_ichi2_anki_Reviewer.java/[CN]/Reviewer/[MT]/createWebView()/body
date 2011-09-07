@@ -6,6 +6,7 @@
     webView.getSettings().setBuiltInZoomControls(true);
   }
   webView.getSettings().setJavaScriptEnabled(true);
+  webView.requestFocus(View.FOCUS_DOWN);
   webView.setWebChromeClient(new AnkiDroidWebChromeClient());
   webView.addJavascriptInterface(new JavaScriptInterface(),"interface");
   if (Integer.parseInt(android.os.Build.VERSION.SDK) > 7) {
