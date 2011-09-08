@@ -15,7 +15,14 @@
       String absPath=file.getAbsolutePath();
       String deckName=file.getName().replaceAll(".anki","");
       Log.i(AnkiDroidApp.TAG,"Found deck: " + absPath);
-      Deck deck=Deck.openDeck(absPath,false);
+      Deck deck;
+      Deck currentDeck=AnkiDroidApp.deck();
+      if (currentDeck != null && currentDeck.getDeckPath().equals(deckName)) {
+        deck=currentDeck;
+      }
+ else {
+        deck=Deck.openDeck(absPath,false);
+      }
       if (deck == null) {
         Log.e(AnkiDroidApp.TAG,"Skipping null deck: " + absPath);
         for (        DeckStatus deckStatus : mDecks) {
@@ -31,12 +38,11 @@
       int newCards=deck.getNewCountToday();
       int failedCards=deck.getFailedSoonCount();
       int eta=deck.getETA();
-      int reps=deck.getTodaysReps();
-      Deck currentDeck=AnkiDroidApp.deck();
+      int time=deck.getReviewTime(0) / 60;
       if (currentDeck != null && currentDeck.getDB() != deck.getDB()) {
         deck.closeDeck();
       }
-      decks.add(new DeckStatus(absPath,deckName,newCards,dueCards,failedCards,eta,reps));
+      decks.add(new DeckStatus(absPath,deckName,newCards,dueCards,failedCards,eta,time));
     }
  catch (    SQLException e) {
       Log.i(AnkiDroidApp.TAG,"Could not open deck");

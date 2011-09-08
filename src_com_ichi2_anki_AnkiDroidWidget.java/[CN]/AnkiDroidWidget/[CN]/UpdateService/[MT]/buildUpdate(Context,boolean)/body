@@ -10,6 +10,31 @@
     updateViews.setTextViewText(R.id.anki_droid_title,context.getText(R.string.sdcard_missing_message));
     updateViews.setTextViewText(R.id.anki_droid_name,"");
     updateViews.setTextViewText(R.id.anki_droid_status,"");
+    if (mMountReceiver == null) {
+      mMountReceiver=new BroadcastReceiver(){
+        @Override public void onReceive(        Context context,        Intent intent){
+          String action=intent.getAction();
+          if (action.equals(Intent.ACTION_MEDIA_MOUNTED)) {
+            Log.i(AnkiDroidApp.TAG,"mMountReceiver - Action = Media Mounted");
+            if (remounted) {
+              WidgetStatus.update(getBaseContext());
+              remounted=false;
+              if (mMountReceiver != null) {
+                unregisterReceiver(mMountReceiver);
+              }
+            }
+ else {
+              remounted=true;
+            }
+          }
+        }
+      }
+;
+      IntentFilter iFilter=new IntentFilter();
+      iFilter.addAction(Intent.ACTION_MEDIA_MOUNTED);
+      iFilter.addDataScheme("file");
+      registerReceiver(mMountReceiver,iFilter);
+    }
     return updateViews;
   }
   if (dueDecks == null || updateDueDecksNow) {
