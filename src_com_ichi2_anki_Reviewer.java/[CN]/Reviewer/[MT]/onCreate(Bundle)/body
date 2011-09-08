@@ -7,7 +7,7 @@
   Deck deck=AnkiDroidApp.deck();
   if (deck == null) {
     setResult(StudyOptions.CONTENT_NO_EXTERNAL_STORAGE);
-    closeReviewer();
+    finish();
   }
  else {
     mMediaDir=setupMedia(deck);
