@@ -6,6 +6,8 @@
     webView.getSettings().setBuiltInZoomControls(true);
   }
   webView.getSettings().setJavaScriptEnabled(true);
+  webView.setWebChromeClient(new AnkiDroidWebChromeClient());
+  webView.addJavascriptInterface(new JavaScriptInterface(),"interface");
   if (Integer.parseInt(android.os.Build.VERSION.SDK) < 8) {
     webView.requestFocus(View.FOCUS_DOWN);
     webView.setOnTouchListener(new View.OnTouchListener(){
@@ -23,8 +25,6 @@ case MotionEvent.ACTION_UP:
 }
 );
 }
-webView.setWebChromeClient(new AnkiDroidWebChromeClient());
-webView.addJavascriptInterface(new JavaScriptInterface(),"interface");
 if (Integer.parseInt(android.os.Build.VERSION.SDK) > 7) {
 webView.setFocusableInTouchMode(false);
 }
