@@ -91,7 +91,7 @@
             data.putBoolean("lastDeck",false);
           }
           msg.setData(data);
-          mTotalDueCards+=dueCards;
+          mTotalDueCards+=dueCards + newCards;
           mTotalCards+=totalCards;
           mTotalTime+=Math.max(deck.getETA(),0);
           mHandler.sendMessage(msg);

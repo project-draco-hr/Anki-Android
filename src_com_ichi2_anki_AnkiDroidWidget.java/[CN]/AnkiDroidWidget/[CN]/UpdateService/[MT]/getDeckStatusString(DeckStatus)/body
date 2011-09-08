@@ -2,8 +2,7 @@
   SpannableStringBuilder sb=new SpannableStringBuilder();
   SpannableString red=new SpannableString(Integer.toString(deck.mFailedCards));
   red.setSpan(new ForegroundColorSpan(Color.RED),0,red.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-  int revCards=deck.mDueCards - deck.mFailedCards;
-  SpannableString black=new SpannableString(Integer.toString(revCards));
+  SpannableString black=new SpannableString(Integer.toString(deck.mDueCards));
   black.setSpan(new ForegroundColorSpan(Color.BLACK),0,black.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
   SpannableString blue=new SpannableString(Integer.toString(deck.mNewCards));
   blue.setSpan(new ForegroundColorSpan(Color.BLUE),0,blue.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
