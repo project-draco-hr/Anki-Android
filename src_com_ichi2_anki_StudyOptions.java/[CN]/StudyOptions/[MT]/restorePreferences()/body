@@ -29,6 +29,7 @@
   mInvertedColors=preferences.getBoolean("invertedColors",false);
   mSwap=preferences.getBoolean("swapqa",false);
   mLocale=preferences.getString("language","");
+  mZeemoteEnabled=preferences.getBoolean("zeemote",false);
   setLanguage(mLocale);
   return preferences;
 }

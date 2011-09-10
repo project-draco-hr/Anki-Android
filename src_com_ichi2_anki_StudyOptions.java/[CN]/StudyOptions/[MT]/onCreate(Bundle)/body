@@ -1,7 +1,7 @@
 {
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
-  Log.i(AnkiDroidApp.TAG,"StudyOptions Activity");
+  Log.i(AnkiDroidApp.TAG,"StudyOptions - OnCreate()");
   if (hasErrorFiles()) {
     Intent i=new Intent(this,Feedback.class);
     startActivityForResult(i,REPORT_ERROR);
@@ -62,5 +62,13 @@
   }
  else {
     mCompat=new CompatV3();
+  }
+  if (mZeemoteEnabled) {
+    if (AnkiDroidApp.zeemoteController() == null)     AnkiDroidApp.setZeemoteController(new Controller(Controller.CONTROLLER_1));
+    controllerUi=new ControllerAndroidUi(this,AnkiDroidApp.zeemoteController());
+    if (!AnkiDroidApp.zeemoteController().isConnected()) {
+      Log.d("Zeemote","starting connection in onCreate");
+      controllerUi.startConnectionProcess();
+    }
   }
 }
