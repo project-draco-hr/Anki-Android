@@ -7,8 +7,11 @@
     mSensorManager.registerListener(mSensorListener,mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_NORMAL);
   }
   restartTimer();
-  if (AnkiDroidApp.zeemoteController() != null) {
+  if ((AnkiDroidApp.zeemoteController() != null) && (AnkiDroidApp.zeemoteController().isConnected())) {
     Log.d("Zeemote","Adding listener in onResume");
     AnkiDroidApp.zeemoteController().addButtonListener(this);
+    adapter=new JoystickToButtonAdapter();
+    AnkiDroidApp.zeemoteController().addJoystickListener(adapter);
+    adapter.addButtonListener(this);
   }
 }
