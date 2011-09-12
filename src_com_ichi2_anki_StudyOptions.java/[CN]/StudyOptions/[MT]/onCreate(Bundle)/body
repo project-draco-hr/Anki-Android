@@ -63,9 +63,9 @@
  else {
     mCompat=new CompatV3();
   }
+  if (AnkiDroidApp.zeemoteController() == null)   AnkiDroidApp.setZeemoteController(new Controller(Controller.CONTROLLER_1));
+  controllerUi=new ControllerAndroidUi(this,AnkiDroidApp.zeemoteController());
   if (mZeemoteEnabled) {
-    if (AnkiDroidApp.zeemoteController() == null)     AnkiDroidApp.setZeemoteController(new Controller(Controller.CONTROLLER_1));
-    controllerUi=new ControllerAndroidUi(this,AnkiDroidApp.zeemoteController());
     if (!AnkiDroidApp.zeemoteController().isConnected()) {
       Log.d("Zeemote","starting connection in onCreate");
       controllerUi.startConnectionProcess();

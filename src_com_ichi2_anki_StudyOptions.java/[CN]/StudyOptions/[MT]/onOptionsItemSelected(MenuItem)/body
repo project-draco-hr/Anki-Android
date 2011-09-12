@@ -28,6 +28,11 @@ setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 }
 return true;
+case MENU_ZEEMOTE:
+if ((AnkiDroidApp.zeemoteController() != null)) {
+controllerUi.showControllerMenu();
+}
+return true;
 default :
 return super.onOptionsItemSelected(item);
 }
