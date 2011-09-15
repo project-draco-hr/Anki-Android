@@ -46,4 +46,8 @@
   mIsSelecting=false;
   updateCard(displayString);
   showEaseButtons();
+  if (mPrefUseTimer) {
+    mTimeoutHandler.removeCallbacks(mShowQuestionTask);
+    mTimeoutHandler.postDelayed(mShowQuestionTask,mWaitQuestionSecond * 1000);
+  }
 }

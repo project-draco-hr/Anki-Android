@@ -25,7 +25,8 @@
   mPlaySoundsAtStart=preferences.getBoolean("playSoundsAtStart",true);
   mShowProgressBars=preferences.getBoolean("progressBars",true);
   mPrefUseTimer=preferences.getBoolean("timeoutAnswer",false);
-  mWaitSecond=preferences.getInt("timeoutAnswerSeconds",20);
+  mWaitAnswerSecond=preferences.getInt("timeoutAnswerSeconds",20);
+  mWaitQuestionSecond=preferences.getInt("timeoutQuestionSeconds",60);
   mScrollingButtons=preferences.getBoolean("scrolling_buttons",false);
   mDoubleScrolling=preferences.getBoolean("double_scrolling",false);
   mGesturesEnabled=preferences.getBoolean("swipe",false);
