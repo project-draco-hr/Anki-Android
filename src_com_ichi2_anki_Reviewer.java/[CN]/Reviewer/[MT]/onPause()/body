@@ -17,5 +17,6 @@
     AnkiDroidApp.zeemoteController().removeJoystickListener(adapter);
     adapter.removeButtonListener(this);
     adapter=null;
+    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
   }
 }
