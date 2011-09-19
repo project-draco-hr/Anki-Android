@@ -11,9 +11,6 @@
   if (Integer.parseInt(android.os.Build.VERSION.SDK) > 7) {
     webView.setFocusableInTouchMode(false);
   }
-  if (Integer.parseInt(android.os.Build.VERSION.SDK) < 8) {
-    webView.requestFocus(View.FOCUS_DOWN);
-  }
   Log.i(AnkiDroidApp.TAG,"Focusable = " + webView.isFocusable() + ", Focusable in touch mode = "+ webView.isFocusableInTouchMode());
   mScaleInPercent=webView.getScale();
   return webView;
