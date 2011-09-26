@@ -15,7 +15,6 @@
   mModelButton=(Button)findViewById(R.id.CardEditorModelButton);
   mCardModelButton=(Button)findViewById(R.id.CardEditorCardModelButton);
   mTags=(Button)findViewById(R.id.CardEditorTagButton);
-  mTags.setText(getResources().getString(R.string.CardEditorTags,mFactTags));
   mNewSelectedCardModels=new LinkedHashMap<Long,CardModel>();
   cardModelIds=new ArrayList<Long>();
   Intent intent=getIntent();
@@ -73,6 +72,7 @@ mCancel.setText(getResources().getString(R.string.close));
  else {
 mFactTags=mEditorFact.getTags();
 }
+mTags.setText(getResources().getString(R.string.CardEditorTags,mFactTags));
 mModified=false;
 SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
 mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
