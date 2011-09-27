@@ -31,47 +31,26 @@
     initLayout(R.layout.flashcard);
     if (mPrefTextSelection) {
       mClipboard.setText("");
+      Lookup.initialize(this,mDeckFilename);
     }
-switch (mDictionary) {
-case DICTIONARY_AEDICT:
-      mDictionaryAction="sk.baka.aedict.action.ACTION_SEARCH_EDICT";
-    mIsDictionaryAvailable=Utils.isIntentAvailable(this,mDictionaryAction);
-  break;
-case DICTIONARY_LEO_WEB:
-mDictionaryAction="android.intent.action.VIEW";
-mIsDictionaryAvailable=Utils.isIntentAvailable(this,mDictionaryAction);
-break;
-case DICTIONARY_LEO_APP:
-mDictionaryAction="android.intent.action.SEND";
-mIsDictionaryAvailable=Utils.isIntentAvailable(this,mDictionaryAction,new ComponentName("org.leo.android.dict","org.leo.android.dict.LeoDict"));
-break;
-case DICTIONARY_COLORDICT:
-mDictionaryAction="colordict.intent.action.SEARCH";
-mIsDictionaryAvailable=Utils.isIntentAvailable(this,mDictionaryAction);
-break;
-default :
-mIsDictionaryAvailable=false;
-break;
-}
-Log.i(AnkiDroidApp.TAG,"Is intent available = " + mIsDictionaryAvailable);
-try {
-mCardTemplate=Utils.convertStreamToString(getAssets().open("card_template.html"));
-mCardTemplate=mCardTemplate.replaceFirst("var availableWidth = \\d*;","var availableWidth = " + getAvailableWidthInCard() + ";");
-}
- catch (IOException e) {
-e.printStackTrace();
-}
-long timelimit=deck.getSessionTimeLimit() * 1000;
-Log.i(AnkiDroidApp.TAG,"SessionTimeLimit: " + timelimit + " ms.");
-mSessionTimeLimit=System.currentTimeMillis() + timelimit;
-mSessionCurrReps=0;
-if (mSpeakText && Integer.valueOf(android.os.Build.VERSION.SDK) > 3) {
-ReadText.initializeTts(this,mDeckFilename);
-}
-if (mPrefWhiteboard && MetaDB.getWhiteboardState(this,mDeckFilename) == 1) {
-mShowWhiteboard=true;
-mWhiteboard.setVisibility(View.VISIBLE);
-}
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,deck,null));
-}
+    try {
+      mCardTemplate=Utils.convertStreamToString(getAssets().open("card_template.html"));
+      mCardTemplate=mCardTemplate.replaceFirst("var availableWidth = \\d*;","var availableWidth = " + getAvailableWidthInCard() + ";");
+    }
+ catch (    IOException e) {
+      e.printStackTrace();
+    }
+    long timelimit=deck.getSessionTimeLimit() * 1000;
+    Log.i(AnkiDroidApp.TAG,"SessionTimeLimit: " + timelimit + " ms.");
+    mSessionTimeLimit=System.currentTimeMillis() + timelimit;
+    mSessionCurrReps=0;
+    if (mSpeakText && Integer.valueOf(android.os.Build.VERSION.SDK) > 3) {
+      ReadText.initializeTts(this,mDeckFilename);
+    }
+    if (mPrefWhiteboard && MetaDB.getWhiteboardState(this,mDeckFilename) == 1) {
+      mShowWhiteboard=true;
+      mWhiteboard.setVisibility(View.VISIBLE);
+    }
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,deck,null));
+  }
 }

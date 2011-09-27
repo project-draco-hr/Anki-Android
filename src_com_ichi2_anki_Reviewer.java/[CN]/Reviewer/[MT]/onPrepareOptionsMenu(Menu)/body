@@ -14,8 +14,8 @@
   if (mPrefTextSelection) {
     item=menu.findItem(MENU_SEARCH);
     if (mClipboard.hasText()) {
-      item.setTitle(String.format(getString(R.string.menu_search),getResources().getStringArray(R.array.dictionary_labels)[mDictionary]));
-      item.setEnabled(mIsDictionaryAvailable);
+      item.setTitle(Lookup.getSearchStringTitle());
+      item.setEnabled(Lookup.isAvailable());
     }
  else {
       item.setTitle(getResources().getString(R.string.menu_select));

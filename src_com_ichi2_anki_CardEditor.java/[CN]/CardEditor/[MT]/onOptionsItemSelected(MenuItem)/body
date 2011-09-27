@@ -44,6 +44,14 @@ populateEditFields();
 }
 return true;
 case MENU_LOOKUP:
+View focus=this.getWindow().getCurrentFocus();
+if (focus instanceof FieldEditText) {
+FieldEditText field=(FieldEditText)focus;
+if (!field.isSelected()) {
+field.selectAll();
+}
+Lookup.lookUp(field.getText().toString().substring(field.getSelectionStart(),field.getSelectionEnd()),mDeck.cardFromId(mDeck.getCardsFromFactId(mEditorFact.getId()).get(0)));
+}
 return true;
 case MENU_RESET_CARD_PROGRESS:
 showDialog(DIALOG_RESET_CARD);

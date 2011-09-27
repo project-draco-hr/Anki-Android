@@ -1,9 +1,10 @@
 {
   MenuItem item;
   Resources res=getResources();
+  Lookup.initialize(this,mDeck.getDeckPath());
   item=menu.add(Menu.NONE,MENU_LOOKUP,Menu.NONE,res.getString(R.string.card_editor_lookup));
   item.setIcon(R.drawable.ic_menu_search);
-  item.setEnabled(false);
+  item.setEnabled(Lookup.isAvailable());
   item=menu.add(Menu.NONE,MENU_RESET,Menu.NONE,res.getString(R.string.card_editor_reset));
   item.setIcon(R.drawable.ic_menu_revert);
   if (!mAddFact) {

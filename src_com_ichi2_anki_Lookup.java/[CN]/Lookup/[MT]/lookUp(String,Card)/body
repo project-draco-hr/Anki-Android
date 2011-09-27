@@ -1,0 +1,45 @@
+{
+  mCurrentCard=card;
+switch (mDictionary) {
+case DICTIONARY_AEDICT:
+    Intent aedictSearchIntent=new Intent(mDictionaryAction);
+  aedictSearchIntent.putExtra("kanjis",text);
+mContext.startActivity(aedictSearchIntent);
+return true;
+case DICTIONARY_LEO_WEB:
+case DICTIONARY_LEO_APP:
+mLookupText=text;
+final CharSequence[] itemValues={"en","fr","es","it","ch","ru"};
+String language=getLanguage(MetaDB.LANGUAGES_QA_UNDEFINED);
+if (language.length() > 0) {
+for (int i=0; i < itemValues.length; i++) {
+if (language.equals(itemValues[i])) {
+lookupLeo(language,mLookupText);
+mLookupText="";
+return true;
+}
+}
+}
+final String[] items={"Englisch","Franz??sisch","Spanisch","Italienisch","Chinesisch","Russisch"};
+StyledDialog.Builder builder=new StyledDialog.Builder(mContext);
+builder.setTitle("\"" + mLookupText + "\" nachschlagen");
+builder.setItems(items,new DialogInterface.OnClickListener(){
+public void onClick(DialogInterface dialog,int item){
+String language=itemValues[item].toString();
+storeLanguage(language,MetaDB.LANGUAGES_QA_UNDEFINED);
+lookupLeo(language,mLookupText);
+mLookupText="";
+}
+}
+);
+StyledDialog alert=builder.create();
+alert.show();
+return true;
+case DICTIONARY_COLORDICT:
+Intent colordictSearchIntent=new Intent(mDictionaryAction);
+colordictSearchIntent.putExtra("EXTRA_QUERY",text.trim().replaceAll("[,;:\\s\\(\\[\\)\\]]*$",""));
+mContext.startActivity(colordictSearchIntent);
+return true;
+}
+return false;
+}
