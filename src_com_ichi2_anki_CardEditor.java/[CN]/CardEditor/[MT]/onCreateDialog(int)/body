@@ -161,6 +161,24 @@ builder.setNegativeButton(res.getString(R.string.cancel),new OnClickListener(){
 mCardModelDialog=builder.create();
 dialog=mCardModelDialog;
 break;
+case DIALOG_RESET_CARD:
+builder.setTitle(res.getString(R.string.reset_card_dialog_title));
+builder.setMessage(res.getString(R.string.reset_card_dialog_message));
+builder.setPositiveButton(res.getString(R.string.yes),new OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+for (long cardId : mDeck.getCardsFromFactId(mEditorFact.getId())) {
+mDeck.cardFromId(cardId).resetCard();
+}
+mDeck.reset();
+setResult(RESULT_OK);
+Themes.showThemedToast(CardEditor.this,getResources().getString(R.string.reset_card_dialog_confirmation),true);
+}
+}
+);
+builder.setNegativeButton(res.getString(R.string.no),null);
+builder.setCancelable(true);
+dialog=builder.create();
+break;
 }
 return dialog;
 }

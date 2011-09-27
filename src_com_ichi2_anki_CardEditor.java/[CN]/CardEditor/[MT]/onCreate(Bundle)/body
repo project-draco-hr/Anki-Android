@@ -36,6 +36,7 @@
     mAddFact=true;
   }
  else {
+    mDeck=AnkiDroidApp.deck();
 switch (intent.getIntExtra(CARD_EDITOR_ACTION,ADD_CARD)) {
 case EDIT_REVIEWER_CARD:
       mEditorFact=Reviewer.getEditorCard().getFact();
@@ -43,12 +44,24 @@ case EDIT_REVIEWER_CARD:
 case EDIT_BROWSER_CARD:
   mEditorFact=CardBrowser.getEditorCard().getFact();
 break;
+case COPY_CARD:
+mForCopy=true;
 case ADD_CARD:
 mAddFact=true;
-mDeck=AnkiDroidApp.deck();
 loadContents();
 modelChanged();
 mSave.setEnabled(false);
+if (mForCopy) {
+String[] contents=intent.getStringExtra("contents").split("\\x1f");
+for (int i=0; i < mEditFields.size(); i++) {
+if (i < contents.length) {
+mEditFields.get(i).setText(contents[i]);
+if (contents[i].length() > 0) {
+mSave.setEnabled(true);
+}
+}
+}
+}
 break;
 }
 }
