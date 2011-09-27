@@ -22,11 +22,21 @@ ActivityTransitionAnimation.slide(CardEditor.this,ActivityTransitionAnimation.LE
 return true;
 case MENU_RESET:
 if (mAddFact) {
+if (mIntentAdd) {
+if (mSourceText != null) {
+mEditFields.get(0).setText(mSourceText);
+}
+if (mTargetText != null) {
+mEditFields.get(1).setText(mTargetText);
+}
+}
+ else {
 for (FieldEditText current : mEditFields) {
 current.setText("");
 }
 if (!mEditFields.isEmpty()) {
 mEditFields.getFirst().requestFocus();
+}
 }
 }
  else {

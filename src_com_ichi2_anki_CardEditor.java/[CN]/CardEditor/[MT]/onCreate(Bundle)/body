@@ -27,6 +27,7 @@
     mSourceText=extras.getString("SOURCE_TEXT");
     mTargetText=extras.getString("TARGET_TEXT");
     mAddFact=true;
+    mIntentAdd=true;
   }
  else   if (action != null && action.equals(INTENT_CREATE_FLASHCARD_SEND)) {
     prepareForIntentAddition();
@@ -34,6 +35,7 @@
     mSourceText=extras.getString(Intent.EXTRA_SUBJECT);
     mTargetText=extras.getString(Intent.EXTRA_TEXT);
     mAddFact=true;
+    mIntentAdd=true;
   }
  else {
     mDeck=AnkiDroidApp.deck();
