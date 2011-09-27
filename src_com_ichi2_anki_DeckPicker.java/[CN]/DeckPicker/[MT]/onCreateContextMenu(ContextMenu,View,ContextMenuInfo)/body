@@ -8,4 +8,6 @@
   menu.setHeaderTitle(mCurrentDeckFilename);
   MenuInflater inflater=getMenuInflater();
   inflater.inflate(R.menu.contextmenu_deckpicker,menu);
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+  menu.findItem(R.id.set_custom_dictionary).setEnabled(preferences.getBoolean("textSelection",false));
 }
