@@ -38,11 +38,11 @@
       int newCards=deck.getNewCountToday();
       int failedCards=deck.getFailedSoonCount();
       int eta=deck.getETA();
-      int time=deck.getReviewTime(0) / 60;
+      int reps=deck.getSessionYesReps();
       if (currentDeck != null && currentDeck.getDB() != deck.getDB()) {
         deck.closeDeck();
       }
-      decks.add(new DeckStatus(absPath,deckName,newCards,dueCards,failedCards,eta,time));
+      decks.add(new DeckStatus(absPath,deckName,newCards,dueCards,failedCards,eta,reps));
     }
  catch (    SQLException e) {
       Log.i(AnkiDroidApp.TAG,"Could not open deck");

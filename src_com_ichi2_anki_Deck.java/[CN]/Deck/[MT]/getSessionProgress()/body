@@ -1,5 +1,5 @@
 {
-  int done=mDailyStats.getReps();
+  int done=mDailyStats.getYesReps();
   int total=done + mFailedSoonCount + mRevCount+ mNewCountToday;
   if (hasFinishScheduler()) {
     return 1.0d;
