@@ -31,5 +31,6 @@
   mLocale=preferences.getString("language","");
   mZeemoteEnabled=preferences.getBoolean("zeemote",false);
   setLanguage(mLocale);
+  BroadcastMessage.checkForNewMessage(this,preferences.getLong("lastTimeOpened",0));
   return preferences;
 }

@@ -1,0 +1,17 @@
+{
+  String[] version1=ver1.replaceAll("([:alpha:])([:digit:])","$1.$2").replaceAll("([:digit:])([:alpha:])","$1.$2").split("\\.");
+  String[] version2=ver2.replaceAll("([:alpha:])([:digit:])","$1.$2").replaceAll("([:digit:])([:alpha:])","$1.$2").split("\\.");
+  for (int i=0; i < Math.min(version1.length,version2.length); i++) {
+    int com=0;
+    try {
+      com=Integer.valueOf(version1[i]).compareTo(Integer.valueOf(version2[i]));
+    }
+ catch (    NumberFormatException e) {
+      com=version1[i].compareToIgnoreCase(version2[i]);
+    }
+    if (com != 0) {
+      return com;
+    }
+  }
+  return 0;
+}
