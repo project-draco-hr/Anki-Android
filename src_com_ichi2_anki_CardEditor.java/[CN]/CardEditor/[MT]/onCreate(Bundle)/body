@@ -131,11 +131,13 @@ if (!mEditorFact.getTags().equals(mFactTags)) {
 mEditorFact.setTags(mFactTags);
 mModified=true;
 }
+if (!mCardReset) {
 if (mModified) {
 setResult(RESULT_OK);
 }
  else {
 setResult(RESULT_CANCELED);
+}
 }
 closeCardEditor();
 }
@@ -144,7 +146,9 @@ closeCardEditor();
 );
 mCancel.setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
+if (!mCardReset) {
 setResult(RESULT_CANCELED);
+}
 closeCardEditor();
 }
 }

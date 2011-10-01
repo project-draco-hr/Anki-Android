@@ -170,7 +170,8 @@ for (long cardId : mDeck.getCardsFromFactId(mEditorFact.getId())) {
 mDeck.cardFromId(cardId).resetCard();
 }
 mDeck.reset();
-setResult(RESULT_OK);
+setResult(Reviewer.RESULT_EDIT_CARD_RESET);
+mCardReset=true;
 Themes.showThemedToast(CardEditor.this,getResources().getString(R.string.reset_card_dialog_confirmation),true);
 }
 }
