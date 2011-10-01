@@ -1,0 +1,70 @@
+{
+  Log.d(AnkiDroidApp.TAG,"BroadcastMessage.DownloadBroadcastMessage.doInBackground()");
+  Context context=params[0];
+  mContext=context;
+  SharedPreferences prefs=PrefSettings.getSharedPrefs(context);
+  try {
+    Log.i(AnkiDroidApp.TAG,"BroadcastMessage: download file " + FILE_URL);
+    URL fileUrl;
+    fileUrl=new URL(FILE_URL);
+    URLConnection conn=fileUrl.openConnection();
+    conn.setConnectTimeout(TIMEOUT);
+    conn.setReadTimeout(TIMEOUT);
+    BufferedReader in=new BufferedReader(new InputStreamReader(conn.getInputStream()));
+    String inputLine;
+    while ((inputLine=in.readLine()) != null) {
+      if (inputLine.length() == 0 || inputLine.startsWith("#")) {
+        continue;
+      }
+ else       if (inputLine.startsWith(NEW)) {
+        mNew=Integer.parseInt(inputLine.substring(NEW.length()));
+      }
+ else       if (inputLine.startsWith(NUM)) {
+        mNum=Integer.parseInt(inputLine.substring(NUM.length()));
+        int lastNum=prefs.getInt("lastMessageNum",-1);
+        if (mNew == 0 && lastNum == -1) {
+          prefs.edit().putInt("lastMessageNum",mNum).commit();
+          return context;
+        }
+ else         if (mNum <= lastNum) {
+          Log.d(AnkiDroidApp.TAG,"BroadcastMessage - message " + mNum + " already shown");
+          return context;
+        }
+      }
+ else       if (inputLine.startsWith(MIN_VERSION)) {
+        mMinVersion=inputLine.substring(MIN_VERSION.length());
+        if (compareVersions(mMinVersion,AnkiDroidApp.getPkgVersion()) > 0) {
+          Log.d(AnkiDroidApp.TAG,"BroadcastMessage - too low AnkiDroid version, message only for > " + mMinVersion);
+          return context;
+        }
+      }
+ else       if (inputLine.startsWith(MAX_VERSION)) {
+        mMaxVersion=inputLine.substring(MAX_VERSION.length());
+        if (compareVersions(mMaxVersion,AnkiDroidApp.getPkgVersion()) < 0) {
+          Log.d(AnkiDroidApp.TAG,"BroadcastMessage - too high AnkiDroid version, message only for < " + mMaxVersion);
+          return context;
+        }
+      }
+ else       if (inputLine.startsWith(TITLE)) {
+        mTitle=inputLine.substring(TITLE.length());
+      }
+ else       if (inputLine.startsWith(TEXT)) {
+        mText=inputLine.substring(TEXT.length());
+      }
+ else       if (inputLine.startsWith(URL)) {
+        mUrl=inputLine.substring(URL.length());
+      }
+    }
+    mShowDialog=true;
+    in.close();
+  }
+ catch (  IOException e) {
+    Log.e(AnkiDroidApp.TAG,"IOException on reading file " + FILE_URL + ": "+ e);
+    return context;
+  }
+catch (  NumberFormatException e) {
+    Log.e(AnkiDroidApp.TAG,"Number of file " + FILE_URL + " could not be read: "+ e);
+    return context;
+  }
+  return context;
+}

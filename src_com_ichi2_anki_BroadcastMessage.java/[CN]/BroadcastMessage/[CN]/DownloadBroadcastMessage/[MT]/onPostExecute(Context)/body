@@ -1,0 +1,49 @@
+{
+  Log.d(AnkiDroidApp.TAG,"BroadcastMessage.DownloadBroadcastMessage.onPostExecute()");
+  if (!mShowDialog) {
+    return;
+  }
+  StyledDialog.Builder builder=new StyledDialog.Builder(context);
+  if (mText != null && mText.length() > 0) {
+    builder.setMessage("<html><body text=\"#FFFFFF\">" + mText + "</body></html>");
+    builder.setCancelable(true);
+    builder.setNegativeButton(context.getResources().getString(R.string.close),new DialogInterface.OnClickListener(){
+      @Override public void onClick(      DialogInterface dialog,      int which){
+        PrefSettings.getSharedPrefs(mContext).edit().putInt("lastMessageNum",mNum).commit();
+      }
+    }
+);
+    builder.setOnCancelListener(new OnCancelListener(){
+      @Override public void onCancel(      DialogInterface arg0){
+        PrefSettings.getSharedPrefs(mContext).edit().putInt("lastMessageNum",mNum).commit();
+      }
+    }
+);
+  }
+ else {
+    return;
+  }
+  if (mTitle != null && mTitle.length() > 0) {
+    builder.setTitle(mTitle);
+  }
+  if (mUrl != null && mUrl.length() > 0) {
+    builder.setMessage(mText);
+    builder.setPositiveButton(context.getResources().getString(R.string.visit),new DialogInterface.OnClickListener(){
+      @Override public void onClick(      DialogInterface dialog,      int which){
+        PrefSettings.getSharedPrefs(mContext).edit().putInt("lastMessageNum",mNum).commit();
+        String action="android.intent.action.VIEW";
+        if (Utils.isIntentAvailable(mContext,action)) {
+          Intent i=new Intent(action,Uri.parse(mUrl));
+          mContext.startActivity(i);
+        }
+      }
+    }
+);
+  }
+  try {
+    builder.create().show();
+  }
+ catch (  BadTokenException e) {
+    Log.e(AnkiDroidApp.TAG,"BroadcastMessage - BadTokenException on showing dialog: " + e);
+  }
+}
