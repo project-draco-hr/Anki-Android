@@ -1,0 +1,9 @@
+{
+  String text=null;
+  NodeList list=e.getElementsByTagName(tag);
+  if (list != null && list.getLength() > 0) {
+    Element element=(Element)list.item(0);
+    text=element.getFirstChild().getNodeValue();
+  }
+  return text;
+}

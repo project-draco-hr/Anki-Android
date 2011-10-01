@@ -1,0 +1,8 @@
+{
+  Editor editor=PrefSettings.getSharedPrefs(context).edit();
+  editor.putInt("lastMessageNum",num);
+  if (last) {
+    editor.putBoolean("showBroadcastMessageToday",false);
+  }
+  editor.commit();
+}

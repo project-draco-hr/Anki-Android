@@ -1,6 +1,12 @@
 {
   SharedPreferences prefs=PrefSettings.getSharedPrefs(context);
-  if (!prefs.getBoolean("showBroadcastMessages",true) || !Utils.isNewDay(lastTimeOpened)) {
+  if (!prefs.getBoolean("showBroadcastMessages",true)) {
+    return;
+  }
+  if (Utils.isNewDay(lastTimeOpened)) {
+    prefs.edit().putBoolean("showBroadcastMessageToday",true).commit();
+  }
+  if (!prefs.getBoolean("showBroadcastMessageToday",true)) {
     return;
   }
   AsyncTask<Context,Void,Context> checkForNewMessage=new DownloadBroadcastMessage();

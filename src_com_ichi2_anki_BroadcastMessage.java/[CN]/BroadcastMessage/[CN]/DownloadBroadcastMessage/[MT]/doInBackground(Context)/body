@@ -10,60 +10,67 @@
     URLConnection conn=fileUrl.openConnection();
     conn.setConnectTimeout(TIMEOUT);
     conn.setReadTimeout(TIMEOUT);
-    BufferedReader in=new BufferedReader(new InputStreamReader(conn.getInputStream()));
-    String inputLine;
-    while ((inputLine=in.readLine()) != null) {
-      if (inputLine.length() == 0 || inputLine.startsWith("#")) {
-        continue;
-      }
- else       if (inputLine.startsWith(NEW)) {
-        mNew=Integer.parseInt(inputLine.substring(NEW.length()));
-      }
- else       if (inputLine.startsWith(NUM)) {
-        mNum=Integer.parseInt(inputLine.substring(NUM.length()));
+    DocumentBuilderFactory dbf=DocumentBuilderFactory.newInstance();
+    DocumentBuilder db=dbf.newDocumentBuilder();
+    Document dom=db.parse(conn.getInputStream());
+    Element docEle=dom.getDocumentElement();
+    NodeList nl=docEle.getElementsByTagName("Message");
+    if (nl != null && nl.getLength() > 0) {
+      for (int i=0; i < nl.getLength(); i++) {
+        Element el=(Element)nl.item(i);
+        mNum=Integer.parseInt(getXmlValue(el,NUM));
         int lastNum=prefs.getInt("lastMessageNum",-1);
-        if (mNew == 0 && lastNum == -1) {
+        if (el.getAttribute(NOT_FOR_NEW_INSTALLATIONS).equals("1") && lastNum == -1) {
           prefs.edit().putInt("lastMessageNum",mNum).commit();
           return context;
         }
  else         if (mNum <= lastNum) {
           Log.d(AnkiDroidApp.TAG,"BroadcastMessage - message " + mNum + " already shown");
+          continue;
+        }
+        mMinVersion=getXmlValue(el,MIN_VERSION);
+        if (mMinVersion != null && mMinVersion.length() > 0) {
+          if (compareVersions(mMinVersion,AnkiDroidApp.getPkgVersion()) > 0) {
+            Log.d(AnkiDroidApp.TAG,"BroadcastMessage - too low AnkiDroid version, message only for > " + mMinVersion);
+            continue;
+          }
+        }
+        mMaxVersion=getXmlValue(el,MAX_VERSION);
+        if (mMaxVersion != null && mMaxVersion.length() > 0) {
+          if (compareVersions(mMaxVersion,AnkiDroidApp.getPkgVersion()) < 0) {
+            Log.d(AnkiDroidApp.TAG,"BroadcastMessage - too high AnkiDroid version, message only for < " + mMaxVersion);
+            continue;
+          }
+        }
+        mTitle=getXmlValue(el,TITLE);
+        mText=getXmlValue(el,TEXT);
+        mUrl=getXmlValue(el,URL);
+        if (mText != null && mText.length() > 0) {
+          mShowDialog=true;
+          if (i == nl.getLength() - 1) {
+            mIsLastMessage=true;
+          }
           return context;
         }
       }
- else       if (inputLine.startsWith(MIN_VERSION)) {
-        mMinVersion=inputLine.substring(MIN_VERSION.length());
-        if (compareVersions(mMinVersion,AnkiDroidApp.getPkgVersion()) > 0) {
-          Log.d(AnkiDroidApp.TAG,"BroadcastMessage - too low AnkiDroid version, message only for > " + mMinVersion);
-          return context;
-        }
-      }
- else       if (inputLine.startsWith(MAX_VERSION)) {
-        mMaxVersion=inputLine.substring(MAX_VERSION.length());
-        if (compareVersions(mMaxVersion,AnkiDroidApp.getPkgVersion()) < 0) {
-          Log.d(AnkiDroidApp.TAG,"BroadcastMessage - too high AnkiDroid version, message only for < " + mMaxVersion);
-          return context;
-        }
-      }
- else       if (inputLine.startsWith(TITLE)) {
-        mTitle=inputLine.substring(TITLE.length());
-      }
- else       if (inputLine.startsWith(TEXT)) {
-        mText=inputLine.substring(TEXT.length());
-      }
- else       if (inputLine.startsWith(URL)) {
-        mUrl=inputLine.substring(URL.length());
-      }
+      prefs.edit().putBoolean("showBroadcastMessageToday",false).commit();
+      mShowDialog=false;
     }
-    mShowDialog=true;
-    in.close();
   }
  catch (  IOException e) {
-    Log.e(AnkiDroidApp.TAG,"IOException on reading file " + FILE_URL + ": "+ e);
+    Log.e(AnkiDroidApp.TAG,"DownloadBroadcastMessage: IOException on reading file " + FILE_URL + ": "+ e);
     return context;
   }
 catch (  NumberFormatException e) {
-    Log.e(AnkiDroidApp.TAG,"Number of file " + FILE_URL + " could not be read: "+ e);
+    Log.e(AnkiDroidApp.TAG,"DownloadBroadcastMessage: Number of file " + FILE_URL + " could not be read: "+ e);
+    return context;
+  }
+catch (  ParserConfigurationException e) {
+    Log.e(AnkiDroidApp.TAG,"DownloadBroadcastMessage: ParserConfigurationException: " + e);
+    return context;
+  }
+catch (  SAXException e) {
+    Log.e(AnkiDroidApp.TAG,"DownloadBroadcastMessage: SAXException: " + e);
     return context;
   }
   return context;
