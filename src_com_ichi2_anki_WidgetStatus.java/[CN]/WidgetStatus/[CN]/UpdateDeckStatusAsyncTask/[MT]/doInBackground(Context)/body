@@ -38,7 +38,7 @@
       int newCards=deck.getNewCountToday();
       int failedCards=deck.getFailedSoonCount();
       int eta=deck.getETA();
-      int reps=deck.getSessionYesReps();
+      int reps=deck.getSessionFinishedCards();
       if (currentDeck != null && currentDeck.getDB() != deck.getDB()) {
         deck.closeDeck();
       }
