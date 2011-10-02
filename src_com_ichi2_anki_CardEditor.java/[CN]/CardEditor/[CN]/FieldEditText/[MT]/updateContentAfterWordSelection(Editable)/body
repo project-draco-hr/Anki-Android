@@ -1,0 +1,13 @@
+{
+  for (  WordRow row : mCutString) {
+    if (row.mEnabled && !row.mWord.equals(NL_MARK)) {
+      removeDeleted();
+      break;
+    }
+  }
+  StrikethroughSpan[] ss=editText.getSpans(0,editText.length(),StrikethroughSpan.class);
+  for (  StrikethroughSpan s : ss) {
+    editText.removeSpan(s);
+  }
+  mCutMode=false;
+}
