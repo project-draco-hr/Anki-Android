@@ -38,7 +38,8 @@
     builder.setNeutralButton(context.getResources().getString(R.string.later),null);
   }
   try {
-    builder.create().show();
+    mDialog=builder.create();
+    mDialog.show();
   }
  catch (  BadTokenException e) {
     Log.e(AnkiDroidApp.TAG,"BroadcastMessage - BadTokenException on showing dialog: " + e);
