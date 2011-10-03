@@ -4,6 +4,7 @@
   stopTimer();
   if (!mClosing) {
     Deck deck=AnkiDroidApp.deck();
+    DeckTask.waitToFinish();
     deck.commitToDB();
     WidgetStatus.update(getBaseContext());
   }
