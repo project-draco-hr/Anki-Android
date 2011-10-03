@@ -37,10 +37,10 @@ DeckTask.launchDeckTask(DeckTask.TASK_TYPE_MARK_CARD,mMarkCardHandler,new DeckTa
 return true;
 case MENU_UNDO:
 setNextCardAnimation(true);
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mUpdateCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard.getId(),false));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mUpdateCardHandler,new DeckTask.TaskData(UPDATE_CARD_SHOW_QUESTION,AnkiDroidApp.deck(),mCurrentCard.getId(),false));
 return true;
 case MENU_REDO:
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REDO,mUpdateCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard.getId(),false));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REDO,mUpdateCardHandler,new DeckTask.TaskData(UPDATE_CARD_SHOW_QUESTION,AnkiDroidApp.deck(),mCurrentCard.getId(),false));
 return true;
 }
 return false;
