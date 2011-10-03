@@ -126,6 +126,7 @@ builder.setIcon(android.R.drawable.ic_dialog_alert);
 dialog=builder.create();
 break;
 case DIALOG_CONTEXT_MENU:
+mCurrentDeckFilename=mDeckList.get(mContextMenuPosition).get("name");
 if (mCurrentDeckFilename == null || mCurrentDeckFilename.equalsIgnoreCase(getResources().getString(R.string.deckpicker_nodeck))) {
 dialog=null;
 break;

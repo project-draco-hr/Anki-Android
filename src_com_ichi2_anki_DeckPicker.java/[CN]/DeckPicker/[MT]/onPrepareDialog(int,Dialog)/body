@@ -9,7 +9,6 @@ case DIALOG_DELETE_BACKUPS:
 ad.setMessage(String.format(res.getString(R.string.backup_delete_deck_backups_alert),mCurrentDeckFilename));
 break;
 case DIALOG_CONTEXT_MENU:
-mCurrentDeckFilename=mDeckList.get(mContextMenuPosition).get("name");
 ad.setTitle(mCurrentDeckFilename);
 break;
 }
