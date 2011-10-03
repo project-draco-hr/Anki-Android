@@ -3,8 +3,18 @@
   LayoutInflater inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
   View layout=inflater.inflate(R.layout.styled_dialog,null);
   dialog.addContentView(layout,new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));
-  ((TextView)layout.findViewById(R.id.alertTitle)).setText(title);
-  ((ImageView)layout.findViewById(R.id.icon)).setImageResource(icon);
+  if (title != null && title.length() > 0) {
+    ((TextView)layout.findViewById(R.id.alertTitle)).setText(title);
+    if (icon != 0) {
+      ((ImageView)layout.findViewById(R.id.icon)).setImageResource(icon);
+    }
+ else {
+      layout.findViewById(R.id.icon).setVisibility(View.GONE);
+    }
+  }
+ else {
+    layout.findViewById(R.id.topPanel).setVisibility(View.GONE);
+  }
   int numberOfButtons=0;
   if (positiveButtonText != null) {
     Button button1=(Button)layout.findViewById(R.id.button1);
@@ -32,6 +42,9 @@
   }
  else {
     layout.findViewById(R.id.button3).setVisibility(View.GONE);
+  }
+  if (numberOfButtons == 0) {
+    layout.findViewById(R.id.buttonPanel).setVisibility(View.GONE);
   }
   dialog.setCancelable(cancelable);
   dialog.setOnCancelListener(cancelListener);
