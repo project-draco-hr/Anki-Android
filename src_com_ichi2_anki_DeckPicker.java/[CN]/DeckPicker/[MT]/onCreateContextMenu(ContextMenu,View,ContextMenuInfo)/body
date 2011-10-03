@@ -1,13 +1,4 @@
 {
-  super.onCreateContextMenu(menu,v,menuInfo);
-  int selectedPosition=((AdapterView.AdapterContextMenuInfo)menuInfo).position;
-  mCurrentDeckFilename=mDeckList.get(selectedPosition).get("name");
-  if (mCurrentDeckFilename == null || mCurrentDeckFilename.equalsIgnoreCase(getResources().getString(R.string.deckpicker_nodeck))) {
-    return;
-  }
-  menu.setHeaderTitle(mCurrentDeckFilename);
-  MenuInflater inflater=getMenuInflater();
-  inflater.inflate(R.menu.contextmenu_deckpicker,menu);
-  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
-  menu.findItem(R.id.set_custom_dictionary).setEnabled(preferences.getBoolean("textSelection",false));
+  mContextMenuPosition=((AdapterView.AdapterContextMenuInfo)menuInfo).position;
+  showDialog(DIALOG_CONTEXT_MENU);
 }

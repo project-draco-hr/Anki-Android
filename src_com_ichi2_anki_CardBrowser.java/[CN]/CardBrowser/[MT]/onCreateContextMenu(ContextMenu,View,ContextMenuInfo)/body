@@ -1,28 +1,4 @@
 {
-  super.onCreateContextMenu(menu,v,menuInfo);
-  int selectedPosition=((AdapterView.AdapterContextMenuInfo)menuInfo).position;
-  Resources res=getResources();
-  @SuppressWarnings("unused") MenuItem item;
-  mSelectedCard=mDeck.cardFromId(Long.parseLong(mCards.get(selectedPosition).get("id")));
-  if (mSelectedCard.isMarked()) {
-    item=menu.add(Menu.NONE,CONTEXT_MENU_MARK,Menu.NONE,res.getString(R.string.card_browser_unmark_card));
-    mIsMarked=true;
-    Log.i(AnkiDroidApp.TAG,"Selected Card is currently marked");
-  }
- else {
-    item=menu.add(Menu.NONE,CONTEXT_MENU_MARK,Menu.NONE,res.getString(R.string.card_browser_mark_card));
-    mIsMarked=false;
-  }
-  if (mSelectedCard.getSuspendedState()) {
-    item=menu.add(Menu.NONE,CONTEXT_MENU_SUSPEND,Menu.NONE,res.getString(R.string.card_browser_unsuspend_card));
-    mIsSuspended=true;
-    Log.i(AnkiDroidApp.TAG,"Selected Card is currently suspended");
-  }
- else {
-    item=menu.add(Menu.NONE,CONTEXT_MENU_SUSPEND,Menu.NONE,res.getString(R.string.card_browser_suspend_card));
-    mIsSuspended=false;
-  }
-  item=menu.add(Menu.NONE,CONTEXT_MENU_DELETE,Menu.NONE,res.getString(R.string.card_browser_delete_card));
-  item=menu.add(Menu.NONE,CONTEXT_MENU_DETAILS,Menu.NONE,res.getString(R.string.card_browser_card_details));
-  menu.setHeaderTitle(mCards.get(selectedPosition).get("question"));
+  mPositionInCardsList=((AdapterView.AdapterContextMenuInfo)menuInfo).position;
+  showDialog(DIALOG_CONTEXT_MENU);
 }

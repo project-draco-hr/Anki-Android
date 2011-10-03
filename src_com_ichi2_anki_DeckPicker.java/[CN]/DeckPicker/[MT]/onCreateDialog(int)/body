@@ -125,6 +125,23 @@ builder.setPositiveButton(res.getString(R.string.ok),null);
 builder.setIcon(android.R.drawable.ic_dialog_alert);
 dialog=builder.create();
 break;
+case DIALOG_CONTEXT_MENU:
+if (mCurrentDeckFilename == null || mCurrentDeckFilename.equalsIgnoreCase(getResources().getString(R.string.deckpicker_nodeck))) {
+dialog=null;
+break;
+}
+String[] entries=new String[6];
+entries[CONTEXT_MENU_OPTIMIZE]=res.getString(R.string.contextmenu_deckpicker_optimize_deck);
+entries[CONTEXT_MENU_CUSTOM_DICTIONARY]=res.getString(R.string.contextmenu_deckpicker_set_custom_dictionary);
+entries[CONTEXT_MENU_DOWNLOAD_MEDIA]=res.getString(R.string.contextmenu_deckpicker_download_missing_media);
+entries[CONTEXT_MENU_RESET_LANGUAGE]=res.getString(R.string.contextmenu_deckpicker_reset_language_assignments);
+entries[CONTEXT_MENU_REMOVE_BACKUPS]=res.getString(R.string.contextmenu_deckpicker_remove_backups);
+entries[CONTEXT_MENU_DELETE_DECK]=res.getString(R.string.contextmenu_deckpicker_delete_deck);
+builder.setTitle("contextmenu");
+builder.setIcon(R.drawable.ic_menu_manage);
+builder.setItems(entries,mContextMenuListener);
+dialog=builder.create();
+break;
 default :
 dialog=null;
 }

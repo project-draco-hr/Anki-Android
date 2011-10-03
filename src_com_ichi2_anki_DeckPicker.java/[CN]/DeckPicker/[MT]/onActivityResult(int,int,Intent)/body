@@ -8,7 +8,7 @@
  else {
       SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
       if (!mPrefDeckPath.equals(preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory())) || mPrefDeckOrder != Integer.parseInt(preferences.getString("deckOrder","0"))) {
-        populateDeckList(mPrefDeckPath);
+        populateDeckList(preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory()));
       }
     }
   }
