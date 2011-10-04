@@ -1,4 +1,7 @@
 {
+  if (mIntentAdd && mDeck != null) {
+    mDeck.closeDeck();
+  }
   finish();
   if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
     ActivityTransitionAnimation.slide(CardEditor.this,ActivityTransitionAnimation.RIGHT);
