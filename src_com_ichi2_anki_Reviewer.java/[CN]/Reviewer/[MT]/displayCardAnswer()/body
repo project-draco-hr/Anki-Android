@@ -1,5 +1,8 @@
 {
   Log.i(AnkiDroidApp.TAG,"displayCardAnswer");
+  if (mCurrentCard == null) {
+    return;
+  }
   sDisplayAnswer=true;
   setFlipCardAnimation();
   Sound.stopSounds();
