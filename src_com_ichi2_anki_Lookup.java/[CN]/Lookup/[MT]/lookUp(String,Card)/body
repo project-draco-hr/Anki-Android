@@ -1,5 +1,6 @@
 {
   mCurrentCard=card;
+  text=text.trim().replaceAll("[,;:\\s\\(\\[\\)\\]\\.]*$","").replaceAll("^[,;:\\s\\(\\[\\)\\]\\.]*","");
 switch (mDictionary) {
 case DICTIONARY_AEDICT:
     Intent aedictSearchIntent=new Intent(mDictionaryAction);
@@ -37,8 +38,21 @@ alert.show();
 return true;
 case DICTIONARY_COLORDICT:
 Intent colordictSearchIntent=new Intent(mDictionaryAction);
-colordictSearchIntent.putExtra("EXTRA_QUERY",text.trim().replaceAll("[,;:\\s\\(\\[\\)\\]]*$",""));
+colordictSearchIntent.putExtra("EXTRA_QUERY",text);
 mContext.startActivity(colordictSearchIntent);
+return true;
+case DICTIONARY_FORA:
+Intent foraSearchIntent=new Intent(mDictionaryAction);
+foraSearchIntent.putExtra("HEADWORD",text.trim());
+mContext.startActivity(foraSearchIntent);
+return true;
+case DICTIONARY_NCIKU_WEB:
+Intent ncikuWebIntent=new Intent(mDictionaryAction,Uri.parse("http://m.nciku.com/en/entry/?query=" + text));
+mContext.startActivity(ncikuWebIntent);
+return true;
+case DICTIONARY_EIJIRO_WEB:
+Intent eijiroWebIntent=new Intent(mDictionaryAction,Uri.parse("http://eow.alc.co.jp/" + text));
+mContext.startActivity(eijiroWebIntent);
 return true;
 }
 return false;

@@ -15,6 +15,8 @@ case DICTIONARY_AEDICT:
   mIsDictionaryAvailable=Utils.isIntentAvailable(mContext,mDictionaryAction);
 break;
 case DICTIONARY_LEO_WEB:
+case DICTIONARY_NCIKU_WEB:
+case DICTIONARY_EIJIRO_WEB:
 mDictionaryAction="android.intent.action.VIEW";
 mIsDictionaryAvailable=Utils.isIntentAvailable(mContext,mDictionaryAction);
 break;
@@ -24,6 +26,10 @@ mIsDictionaryAvailable=Utils.isIntentAvailable(mContext,mDictionaryAction,new Co
 break;
 case DICTIONARY_COLORDICT:
 mDictionaryAction="colordict.intent.action.SEARCH";
+mIsDictionaryAvailable=Utils.isIntentAvailable(mContext,mDictionaryAction);
+break;
+case DICTIONARY_FORA:
+mDictionaryAction="com.ngc.fora.action.LOOKUP";
 mIsDictionaryAvailable=Utils.isIntentAvailable(mContext,mDictionaryAction);
 break;
 default :
