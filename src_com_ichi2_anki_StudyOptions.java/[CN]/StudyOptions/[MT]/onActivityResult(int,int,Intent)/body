@@ -5,7 +5,7 @@
   }
  else   if (requestCode == PICK_DECK_REQUEST || requestCode == DOWNLOAD_PERSONAL_DECK || requestCode == DOWNLOAD_SHARED_DECK) {
     if (requestCode == PICK_DECK_REQUEST && resultCode == RESULT_CLOSE) {
-      closeStudyOptions();
+      closeStudyOptions(false);
     }
  else     if (requestCode == PICK_DECK_REQUEST && resultCode == RESULT_RESTART) {
       restartApp();

@@ -3,9 +3,11 @@
     setResult(StudyOptions.RESULT_CLOSE);
     Deck deck=AnkiDroidApp.deck();
     if (deck != null) {
-      deck.closeDeck();
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CLOSE_DECK,mCloseDeckHandler,new DeckTask.TaskData(deck,0));
     }
-    finish();
+ else {
+      finish();
+    }
   }
  else {
     finish();
