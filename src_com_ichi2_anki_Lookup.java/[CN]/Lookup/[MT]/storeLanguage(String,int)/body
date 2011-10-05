@@ -1,3 +1,5 @@
 {
-  MetaDB.storeLanguage(mContext,mDeckFilename,Model.getModel(AnkiDroidApp.deck(),mCurrentCard.getCardModelId(),false).getId(),mCurrentCard.getCardModelId(),questionAnswer,language);
+  if (mCurrentCard != null) {
+    MetaDB.storeLanguage(mContext,mDeckFilename,Model.getModel(AnkiDroidApp.deck(),mCurrentCard.getCardModelId(),false).getId(),mCurrentCard.getCardModelId(),questionAnswer,language);
+  }
 }
