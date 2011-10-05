@@ -7,6 +7,7 @@
     prefs.edit().putBoolean("showBroadcastMessageToday",true).commit();
   }
   if (!prefs.getBoolean("showBroadcastMessageToday",true)) {
+    Log.d(AnkiDroidApp.TAG,"BroadcastMessages: already shown today");
     return;
   }
   AsyncTask<Context,Void,Context> checkForNewMessage=new DownloadBroadcastMessage();

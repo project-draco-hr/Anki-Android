@@ -1,8 +1,6 @@
 {
   Editor editor=PrefSettings.getSharedPrefs(context).edit();
+  Log.d(AnkiDroidApp.TAG,"BroadcastMessages: set message " + num + " as read");
   editor.putInt("lastMessageNum",num);
-  if (last) {
-    editor.putBoolean("showBroadcastMessageToday",false);
-  }
   editor.commit();
 }

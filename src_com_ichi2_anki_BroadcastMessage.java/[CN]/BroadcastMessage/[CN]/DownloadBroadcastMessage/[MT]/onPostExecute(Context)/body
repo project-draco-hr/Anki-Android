@@ -4,15 +4,17 @@
     return;
   }
   StyledDialog.Builder builder=new StyledDialog.Builder(context);
+  Resources res=context.getResources();
   if (mText != null && mText.length() > 0) {
     WebView view=new WebView(context);
-    view.setBackgroundColor(context.getResources().getColor(Themes.getDialogBackgroundColor()));
+    view.setBackgroundColor(res.getColor(Themes.getDialogBackgroundColor()));
     view.loadDataWithBaseURL("","<html><body text=\"#FFFFFF\">" + mText + "</body></html>","text/html","UTF-8","");
     builder.setView(view);
     builder.setCancelable(true);
-    builder.setNegativeButton(context.getResources().getString(R.string.close),new DialogInterface.OnClickListener(){
+    builder.setNegativeButton(res.getString(R.string.close),new DialogInterface.OnClickListener(){
       @Override public void onClick(      DialogInterface dialog,      int which){
-        setMessageRead(mContext,mNum,mIsLastMessage);
+        setMessageRead(mContext,mNum);
+        BroadcastMessage.checkForNewMessage(mContext);
       }
     }
 );
@@ -24,9 +26,9 @@
     builder.setTitle(mTitle);
   }
   if (mUrl != null && mUrl.length() > 0) {
-    builder.setPositiveButton(context.getResources().getString(R.string.visit),new DialogInterface.OnClickListener(){
+    builder.setPositiveButton(mUrl.substring(mUrl.length() - 4).equals(".apk") ? res.getString(R.string.download) : res.getString(R.string.visit),new DialogInterface.OnClickListener(){
       @Override public void onClick(      DialogInterface dialog,      int which){
-        setMessageRead(mContext,mNum,mIsLastMessage);
+        setMessageRead(mContext,mNum);
         String action="android.intent.action.VIEW";
         if (Utils.isIntentAvailable(mContext,action)) {
           Intent i=new Intent(action,Uri.parse(mUrl));
@@ -35,7 +37,7 @@
       }
     }
 );
-    builder.setNeutralButton(context.getResources().getString(R.string.later),null);
+    builder.setNeutralButton(res.getString(R.string.later),null);
   }
   try {
     mDialog=builder.create();

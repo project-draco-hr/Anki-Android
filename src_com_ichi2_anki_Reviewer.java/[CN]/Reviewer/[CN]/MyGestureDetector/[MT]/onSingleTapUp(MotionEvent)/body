@@ -1,7 +1,7 @@
 {
   if (mTouchStarted) {
-    mTouchStarted=false;
     longClickHandler.removeCallbacks(longClickTestRunnable);
+    mTouchStarted=false;
   }
   return false;
 }

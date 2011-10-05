@@ -10,6 +10,9 @@ case MENU_ADD_CARD:
       contents.append(current.getText().toString()).append("\u001f");
     }
     intent.putExtra("contents",contents.toString());
+    if (mDeckPath != null && mDeckPath.length() > 0) {
+      intent.putExtra(DECKPATH,mDeckPath);
+    }
   }
  else {
     intent.putExtra(CardEditor.CARD_EDITOR_ACTION,CardEditor.ADD_CARD);
