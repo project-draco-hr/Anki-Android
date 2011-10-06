@@ -26,7 +26,6 @@
  else {
     BroadcastMessage.checkForNewMessage(this);
   }
-  mWalWarning=PrefSettings.getSharedPrefs(getBaseContext()).getInt("walWarning",AnkiDb.NO_WAL_WARNING);
   final float gestureScale=getResources().getDisplayMetrics().density;
   int sensibility=preferences.getInt("swipeSensibility",100);
   if (sensibility != 100) {
