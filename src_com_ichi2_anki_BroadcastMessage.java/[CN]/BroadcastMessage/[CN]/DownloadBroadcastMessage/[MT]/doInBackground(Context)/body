@@ -4,6 +4,10 @@
   mContext=context;
   SharedPreferences prefs=PrefSettings.getSharedPrefs(context);
   int lastNum=prefs.getInt("lastMessageNum",-1);
+  if (lastNum == -1) {
+    prefs.edit().putInt("lastMessageNum",0).commit();
+    return context;
+  }
   try {
     Log.i(AnkiDroidApp.TAG,"BroadcastMessage: download file " + FILE_URL);
     URL fileUrl;
