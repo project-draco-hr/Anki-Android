@@ -58,7 +58,7 @@
   mFlipCard=(Button)findViewById(R.id.flip_card);
   mFlipCard.setOnClickListener(mFlipCardListener);
   mFlipCard.setText(getResources().getString(R.string.show_answer));
-  mDefaultButtonDrawable=new Drawable[]{mFlipCard.getBackground(),mEase1.getBackground()};
+  mDefaultButtonDrawable=new Drawable[]{mFlipCard.getBackground(),mEase1.getBackground(),mEase2.getBackground(),mEase3.getBackground(),mEase4.getBackground()};
   mTextBarRed=(TextView)findViewById(R.id.red_number);
   mTextBarBlack=(TextView)findViewById(R.id.black_number);
   mTextBarBlue=(TextView)findViewById(R.id.blue_number);
