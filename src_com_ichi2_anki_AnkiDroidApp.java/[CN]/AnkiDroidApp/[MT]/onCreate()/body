@@ -14,6 +14,4 @@
     editor.putString("deckPath",deckPath);
     editor.commit();
   }
-  Intent intent=new Intent(Veecheck.getRescheduleAction(this));
-  sendBroadcast(intent);
 }
