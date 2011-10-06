@@ -44,10 +44,6 @@
     Log.i(AnkiDroidApp.TAG,"onActivityResult = OK");
     mDeckFilename=intent.getExtras().getString(OPT_DB);
     savePreferences("deckFilename");
-    if (mShowWelcomeScreen) {
-      mShowWelcomeScreen=false;
-      savePreferences("welcome");
-    }
     if (AnkiDroidApp.deck() == null || !AnkiDroidApp.deck().getDeckPath().equals(mDeckFilename)) {
       boolean updateAllCards=(requestCode == DOWNLOAD_SHARED_DECK);
       displayProgressDialogAndLoadDeck(updateAllCards);

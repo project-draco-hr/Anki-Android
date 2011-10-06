@@ -1,7 +1,6 @@
 {
   Resources res=getResources();
   StringBuilder builder=new StringBuilder();
-  builder.append("<html><body text=\"#FFFFFF\">");
   builder.append(res.getString(R.string.new_version_message));
   builder.append("<ul>");
   String[] features=res.getStringArray(R.array.new_version_features);

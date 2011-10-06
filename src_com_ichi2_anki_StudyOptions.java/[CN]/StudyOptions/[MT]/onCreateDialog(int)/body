@@ -386,6 +386,46 @@ return;
 builder.setView(spinner,true);
 dialog=builder.create();
 break;
+case DIALOG_WELCOME:
+builder.setTitle(R.string.studyoptions_welcome_title);
+WebView view=new WebView(this);
+view.setBackgroundColor(res.getColor(Themes.getDialogBackgroundColor()));
+view.loadDataWithBaseURL("","<html><body text=\"#FFFFFF\" link=\"#E37068\" alink=\"#E37068\" vlink=\"#E37068\">" + res.getString(R.string.studyoptions_welcome_dialog).replace("\n","<br>") + "</body></html>","text/html","UTF-8","");
+builder.setView(view);
+builder.setCancelable(true);
+builder.setPositiveButton(res.getString(R.string.yes),new OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+PrefSettings.getSharedPrefs(StudyOptions.this.getBaseContext()).edit().putBoolean("firstStart",false).commit();
+mNewVersionAlert=null;
+loadSampleDeck();
+}
+}
+);
+builder.setNegativeButton(res.getString(R.string.no),new OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+PrefSettings.getSharedPrefs(StudyOptions.this.getBaseContext()).edit().putBoolean("firstStart",false).commit();
+if (mNewVersionAlert != null) {
+mNewVersionAlert.show();
+}
+ else {
+BroadcastMessage.checkForNewMessage(StudyOptions.this);
+}
+}
+}
+);
+builder.setOnCancelListener(new OnCancelListener(){
+@Override public void onCancel(DialogInterface dialog){
+if (mNewVersionAlert != null) {
+mNewVersionAlert.show();
+}
+ else {
+BroadcastMessage.checkForNewMessage(StudyOptions.this);
+}
+}
+}
+);
+dialog=builder.create();
+break;
 default :
 dialog=null;
 }
