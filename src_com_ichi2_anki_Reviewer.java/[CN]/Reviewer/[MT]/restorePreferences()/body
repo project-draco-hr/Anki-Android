@@ -18,6 +18,7 @@
   mDisplayFontSize=preferences.getInt("relativeDisplayFontSize",CardModel.DEFAULT_FONT_SIZE_RATIO);
   mRelativeButtonSize=preferences.getInt("answerButtonSize",100);
   mPrefHideQuestionInAnswer=Integer.parseInt(preferences.getString("hideQuestionInAnswer",Integer.toString(HQIA_DO_SHOW)));
+  mInputWorkaround=preferences.getBoolean("inputWorkaround",false);
   mPrefFixHebrew=preferences.getBoolean("fixHebrewText",false);
   mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
   mSpeakText=preferences.getBoolean("tts",false);
