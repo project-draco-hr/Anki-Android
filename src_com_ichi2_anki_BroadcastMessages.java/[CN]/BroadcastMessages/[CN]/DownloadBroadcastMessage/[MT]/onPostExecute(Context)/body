@@ -14,7 +14,7 @@
     builder.setNegativeButton(res.getString(R.string.close),new DialogInterface.OnClickListener(){
       @Override public void onClick(      DialogInterface dialog,      int which){
         setMessageRead(mContext,mNum);
-        BroadcastMessage.checkForNewMessage(mContext);
+        BroadcastMessages.checkForNewMessages(mContext);
       }
     }
 );
@@ -41,6 +41,7 @@
   }
   try {
     mDialog=builder.create();
+    Log.d(AnkiDroidApp.TAG,"BroadcastMessages: show dialog");
     mDialog.show();
   }
  catch (  BadTokenException e) {
