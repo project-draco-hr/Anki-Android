@@ -1,4 +1,5 @@
 {
+  Log.d(AnkiDroidApp.TAG,"BroadcastMessages: checkForNewMessages");
   SharedPreferences prefs=PrefSettings.getSharedPrefs(context);
   if (!prefs.getBoolean("showBroadcastMessages",true)) {
     return;
