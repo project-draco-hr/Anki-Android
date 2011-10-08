@@ -1,8 +1,10 @@
 {
   if (mIntentAdd && mDeck != null) {
-    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CLOSE_DECK,mCloseDeckHandler,new DeckTask.TaskData(mDeck,0));
+    Deck deck=AnkiDroidApp.deck();
+    if (deck == null || !deck.getDeckPath().equals(mDeckPath)) {
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CLOSE_DECK,mCloseDeckHandler,new DeckTask.TaskData(mDeck,0));
+      return;
+    }
   }
- else {
-    finish();
-  }
+  finish();
 }
