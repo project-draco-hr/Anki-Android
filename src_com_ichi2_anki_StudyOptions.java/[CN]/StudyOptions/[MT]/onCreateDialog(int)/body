@@ -199,7 +199,7 @@ mCheckBoxPerDay=(CheckBox)contentViewMore.findViewById(R.id.studyoptions_per_day
 mCheckBoxSuspendLeeches=(CheckBox)contentViewMore.findViewById(R.id.studyoptions_suspend_leeches);
 builder.setTitle(R.string.studyoptions_more_dialog_title);
 builder.setPositiveButton(R.string.studyoptions_more_save,mDialogSaveListener);
-builder.setView(contentViewMore);
+builder.setView(contentViewMore,true);
 dialog=builder.create();
 break;
 case DIALOG_DOWNLOAD_SELECTOR:
@@ -333,7 +333,7 @@ mToggleLimit.setChecked((mSessionLimitCheckBox.isChecked() && !(textTime.length(
 }
 }
 );
-builder.setView(contentView);
+builder.setView(contentView,true);
 dialog=builder.create();
 break;
 case DIALOG_TAGS:
@@ -383,7 +383,7 @@ return;
 }
 }
 );
-builder.setView(spinner,true);
+builder.setView(spinner,false,true);
 dialog=builder.create();
 break;
 case DIALOG_WELCOME:
@@ -391,7 +391,7 @@ builder.setTitle(R.string.studyoptions_welcome_title);
 WebView view=new WebView(this);
 view.setBackgroundColor(res.getColor(Themes.getDialogBackgroundColor()));
 view.loadDataWithBaseURL("","<html><body text=\"#FFFFFF\" link=\"#E37068\" alink=\"#E37068\" vlink=\"#E37068\">" + res.getString(R.string.studyoptions_welcome_dialog).replace("\n","<br>") + "</body></html>","text/html","UTF-8","");
-builder.setView(view);
+builder.setView(view,true);
 builder.setCancelable(true);
 builder.setPositiveButton(res.getString(R.string.yes),new OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){

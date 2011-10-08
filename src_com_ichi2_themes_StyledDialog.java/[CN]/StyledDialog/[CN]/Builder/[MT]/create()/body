@@ -63,6 +63,8 @@
   }
   if (contentView != null) {
     FrameLayout frame=(FrameLayout)layout.findViewById(R.id.custom);
+    float factor=context.getResources().getDisplayMetrics().density;
+    frame.setPadding((int)(2 * factor),(int)((5 - bottomMargin) * factor),(int)(2 * factor),(int)(bottomMargin * factor));
     frame.removeAllViews();
     frame.addView(contentView);
   }
