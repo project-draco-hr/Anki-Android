@@ -14,7 +14,7 @@
  else   if (Math.abs(time) < 60 * 60 * 24* 30 || unit < 4) {
     type=TIME_DAYS;
   }
- else   if (Math.abs(time) < 60 * 60 * 24* 365 || unit < 5) {
+ else   if (Math.abs(time) < 60 * 60 * 24* 30* 12 || unit < 5) {
     type=TIME_MONTHS;
     point=1;
   }
