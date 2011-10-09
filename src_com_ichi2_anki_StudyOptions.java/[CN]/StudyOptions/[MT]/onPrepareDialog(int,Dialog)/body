@@ -41,6 +41,11 @@ case DIALOG_TAGS:
 if (allTags == null) {
 allTags=AnkiDroidApp.deck().allTags_();
 Log.i(AnkiDroidApp.TAG,"all tags: " + Arrays.toString(allTags));
+if (allCramTags == null) {
+Themes.showThemedToast(StudyOptions.this,getResources().getString(R.string.error_insufficient_memory),false);
+ad.setEnabled(false);
+return;
+}
 }
 mSelectedTags.clear();
 List<String> selectedList=Arrays.asList(Utils.parseTags(getSelectedTags(mSelectedLimitTagText)));
@@ -71,6 +76,11 @@ break;
 case DIALOG_CRAM:
 activeCramTags.clear();
 allCramTags=AnkiDroidApp.deck().allTags_();
+if (allCramTags == null) {
+Themes.showThemedToast(StudyOptions.this,getResources().getString(R.string.error_insufficient_memory),false);
+ad.setEnabled(false);
+return;
+}
 ad.setMultiChoiceItems(allCramTags,new boolean[allCramTags.length],new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface arg0,int which){
 String tag=allCramTags[which];
