@@ -1,5 +1,5 @@
 {
-  if (mCurrentTheme == THEME_DEFAULT) {
+  if (mCurrentTheme == THEME_ANDROID_DARK) {
     return;
   }
 switch (caller) {
@@ -16,6 +16,9 @@ case CALLER_STUDYOPTIONS:
 ((View)view.findViewById(R.id.studyoptions_global_mat_bar)).setBackgroundResource(mProgressbarsMatureColor);
 ((View)view.findViewById(R.id.studyoptions_global_limit_bar)).setBackgroundResource(mProgressbarsYoungColor);
 ((View)view.findViewById(R.id.studyoptions_global_bar)).setBackgroundResource(mProgressbarsYoungColor);
+break;
+case CALLER_DECKPICKER:
+((ListView)view.findViewById(R.id.files)).setSelector(mDeckpickerSelector);
 break;
 case CALLER_DECKPICKER_DECK:
 if (view.getId() == R.id.DeckPickerCompletionMat) {
