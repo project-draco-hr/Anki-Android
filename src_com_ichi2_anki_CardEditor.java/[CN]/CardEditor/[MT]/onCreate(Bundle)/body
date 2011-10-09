@@ -119,12 +119,14 @@ empty=false;
 }
 }
 if (!empty) {
+setResult(Reviewer.RESULT_EDIT_CARD_RESET);
 mEditorFact.setTags(mFactTags);
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ADD_FACT,mSaveFactHandler,new DeckTask.TaskData(mDeck,mEditorFact,mSelectedCardModels));
-setResult(RESULT_OK);
 }
  else {
+if (!mCardReset) {
 setResult(RESULT_CANCELED);
+}
 }
 }
  else {
