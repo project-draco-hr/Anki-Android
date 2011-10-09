@@ -3,7 +3,7 @@
     SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
     mCurrentTheme=Integer.parseInt(preferences.getString("theme","2"));
 switch (mCurrentTheme) {
-case THEME_DEFAULT:
+case THEME_ANDROID_DARK:
       mDialogBackgroundColor=R.color.card_browser_background;
     mCardbrowserItemBorder=new int[]{0,R.color.card_browser_marked,R.color.card_browser_suspended,R.color.card_browser_marked};
   mChartColors=new int[]{Color.WHITE,Color.BLACK};
@@ -80,11 +80,12 @@ mPopupFullBright=R.drawable.blue_popup_full_bright;
 mPopupFullMedium=R.drawable.blue_popup_full_medium;
 mPopupFullDark=R.drawable.blue_popup_full_dark;
 mDividerHorizontalBright=R.drawable.blue_divider_horizontal_bright;
+mDeckpickerSelector=R.drawable.blue_deckpicker_list_selector;
 break;
 }
 }
 switch (mCurrentTheme) {
-case THEME_DEFAULT:
+case THEME_ANDROID_DARK:
 context.setTheme(R.style.Theme_Black);
 Log.i(AnkiDroidApp.TAG,"Set theme: dark");
 break;
