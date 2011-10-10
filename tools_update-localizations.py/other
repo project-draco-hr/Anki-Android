@@ -4,6 +4,7 @@ import os
 import zipfile
 import urllib
 import string
+import re
 zipname = 'ankidroid.zip'
 print 'downloading crowdin-file'
 req = urllib.urlopen('http://crowdin.net/download/project/ankidroid.zip')
@@ -17,7 +18,7 @@ for language in languages:
         androidLanguage = 'zh-rCN'
     else:
         androidLanguage = language[:2]
-    print ('copying language files for: ' + androidLanguage)
+    print ('\ncopying language files for: ' + androidLanguage)
     valuesDirectory = (('../res/values-' + androidLanguage) + '/')
     if (not os.path.isdir(valuesDirectory)):
         os.mkdir(valuesDirectory)
