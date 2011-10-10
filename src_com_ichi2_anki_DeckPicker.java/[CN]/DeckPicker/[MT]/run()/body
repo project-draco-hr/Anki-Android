@@ -82,12 +82,6 @@
           }
           data.putInt("rateOfCompletionMat",rateOfCompletionMat);
           data.putInt("rateOfCompletionAll",Math.max(0,rateOfCompletionAll - rateOfCompletionMat));
-          if (i == mFileList.length) {
-            data.putBoolean("lastDeck",true);
-          }
- else {
-            data.putBoolean("lastDeck",false);
-          }
           msg.setData(data);
           mTotalDueCards+=dueCards + newCards;
           mTotalCards+=totalCards;
