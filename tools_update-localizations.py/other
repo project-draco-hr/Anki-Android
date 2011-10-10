@@ -1,5 +1,5 @@
 languages = ['ar', 'ca', 'cs', 'de', 'el', 'es-ES', 'fi', 'fr', 'hu', 'id', 'it', 'ja', 'ko', 'nl', 'pl', 'pt-PT', 'ro', 'ru', 'sr', 'sv-SE', 'tr', 'vi', 'zh-CN', 'zh-TW']
-fileNames = ['01-core', '02-strings', '03-dialogs', '04-network', '05-feedback', '06-statistics', '07-cardbrowser', '08-widget', '09-backup', '10-preferences', '11-arrays']
+fileNames = ['01-core', '02-strings', '03-dialogs', '04-network', '05-feedback', '06-statistics', '07-cardbrowser', '08-widget', '09-backup', '10-preferences', '11-arrays', 'tutorial']
 import os
 import zipfile
 import urllib
@@ -22,8 +22,12 @@ for language in languages:
     if (not os.path.isdir(valuesDirectory)):
         os.mkdir(valuesDirectory)
     for f in fileNames:
+        if (f == 'tutorial'):
+            fileExt = '.csv'
+        else:
+            fileExt = '.xml'
         newfile = ((valuesDirectory + f) + '.xml')
-        file(newfile, 'w').write(zip.read((((language + '/') + f) + '.xml')))
-        replacechars(newfile)
+        file(newfile, 'w').write(zip.read((((language + '/') + f) + fileExt)))
+        replacechars(newfile, fileExt)
 print 'removing crowdin-file'
 os.remove(zipname)
