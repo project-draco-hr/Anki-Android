@@ -53,6 +53,8 @@ case TASK_TYPE_RESTORE_DECK:
 return doInBackgroundRestoreDeck(params);
 case TASK_TYPE_SORT_CARDS:
 return doInBackgroundSortCards(params);
+case TASK_TYPE_LOAD_TUTORIAL:
+return doInBackgroundLoadTutorial(params);
 default :
 return null;
 }
