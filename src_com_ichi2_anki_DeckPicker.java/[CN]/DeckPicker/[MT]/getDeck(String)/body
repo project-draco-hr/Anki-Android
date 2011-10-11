@@ -4,6 +4,22 @@
     return loadedDeck;
   }
  else {
-    return Deck.openDeck(filePath,false);
+    Deck deck=null;
+    try {
+      deck=Deck.openDeck(filePath,false);
+    }
+ catch (    SQLException e) {
+      Log.w(AnkiDroidApp.TAG,"Could not open database " + filePath + ": "+ e);
+      if (!mBrokenDecks.contains(filePath)) {
+        mBrokenDecks.add(filePath);
+      }
+    }
+catch (    RuntimeException e) {
+      Log.w(AnkiDroidApp.TAG,"Could not open database " + filePath + ": "+ e);
+      if (!mBrokenDecks.contains(filePath)) {
+        mBrokenDecks.add(filePath);
+      }
+    }
+    return deck;
   }
 }

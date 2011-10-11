@@ -35,4 +35,8 @@ catch (  CursorIndexOutOfBoundsException e) {
     Log.i(AnkiDroidApp.TAG,"The deck has no cards = " + e.getMessage());
     return new TaskData(DECK_EMPTY);
   }
+catch (  RuntimeException e) {
+    Log.i(AnkiDroidApp.TAG,"The database " + deckFilename + " could not be opened = "+ e.getMessage());
+    return new TaskData(DECK_NOT_LOADED);
+  }
 }
