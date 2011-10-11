@@ -3,7 +3,12 @@
   Deck deck=params[0].getDeck();
   boolean wait=params[0].getBoolean();
   if (deck != null) {
-    deck.closeDeck(wait);
+    try {
+      deck.closeDeck(wait);
+    }
+ catch (    SQLiteException e) {
+      Log.e(AnkiDroidApp.TAG,"Error on closing deck: " + e);
+    }
   }
   return null;
 }
