@@ -8,6 +8,7 @@
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
   mrelativeBrowserFontSize=preferences.getInt("relativeCardBrowserFontSize",DEFAULT_FONT_SIZE_RATIO);
   mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
+  mPrefCacheCardBrowser=preferences.getBoolean("cardBrowserCache",false);
   mCards=new ArrayList<HashMap<String,String>>();
   mAllCards=new ArrayList<HashMap<String,String>>();
   mCardsListView=(ListView)findViewById(R.id.card_browser_list);
@@ -39,6 +40,10 @@
       editCard.putExtra(CardEditor.CARD_EDITOR_ACTION,CardEditor.EDIT_BROWSER_CARD);
       mPositionInCardsList=position;
       mSelectedCard=mDeck.cardFromId(Long.parseLong(mCards.get(mPositionInCardsList).get("id")));
+      if (mSelectedCard == null) {
+        deleteCard(mCards.get(mPositionInCardsList).get("id"),mPositionInCardsList);
+        return;
+      }
       sEditorCard=mSelectedCard;
       editCard.putExtra("callfromcardbrowser",true);
       startActivityForResult(editCard,EDIT_CARD);
