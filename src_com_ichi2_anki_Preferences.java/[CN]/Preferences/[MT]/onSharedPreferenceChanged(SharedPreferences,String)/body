@@ -33,6 +33,9 @@
  else     if (Arrays.asList(mShowValueInSummSeek).contains(key)) {
       updateSeekBarPreference(key);
     }
+ else     if (key.equals("writeAnswers") && sharedPreferences.getBoolean("writeAnswers",false)) {
+      showDialog(DIALOG_WRITE_ANSWERS);
+    }
  else     if (key.equals("walMode") && !lockCheckAction) {
       lockCheckAction=true;
       if (sharedPreferences.getBoolean("walMode",false)) {
