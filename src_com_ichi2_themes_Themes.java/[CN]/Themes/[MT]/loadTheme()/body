@@ -1,5 +1,5 @@
 {
-  SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(mContext);
   mCurrentTheme=Integer.parseInt(preferences.getString("theme","2"));
 switch (mCurrentTheme) {
 case THEME_ANDROID_DARK:
