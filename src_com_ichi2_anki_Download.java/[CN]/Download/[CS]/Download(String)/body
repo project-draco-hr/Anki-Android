@@ -5,7 +5,4 @@
   mDownloaded=0;
   mStatus=STATUS_STARTED;
   mFilename=mTitle.replaceAll(":/\\\\","");
-  if (mFilename.length() > 40) {
-    mFilename=mFilename.substring(0,40);
-  }
 }
