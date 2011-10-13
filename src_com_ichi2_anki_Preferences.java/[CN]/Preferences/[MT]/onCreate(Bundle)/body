@@ -3,10 +3,16 @@
   mPrefMan=getPreferenceManager();
   mPrefMan.setSharedPreferencesName(PrefSettings.SHARED_PREFS_NAME);
   addPreferencesFromResource(R.xml.preferences);
-  mVeecheckStatus=mPrefMan.getSharedPreferences().getBoolean(PrefSettings.KEY_ENABLED,PrefSettings.DEFAULT_ENABLED);
   getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
   swipeCheckboxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("swipe");
   zoomCheckboxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("zoom");
+  animationsCheckboxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("themeAnimations");
+  walModePreference=(CheckBoxPreference)getPreferenceScreen().findPreference("walMode");
+  useBackupPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("useBackup");
+  asyncModePreference=(CheckBoxPreference)getPreferenceScreen().findPreference("asyncMode");
+  walModeInitiallySet=mPrefMan.getSharedPreferences().getBoolean("walMode",false);
+  ListPreference listpref=(ListPreference)getPreferenceScreen().findPreference("theme");
+  animationsCheckboxPreference.setEnabled(listpref.getValue().equals("2"));
   zoomCheckboxPreference.setEnabled(!swipeCheckboxPreference.isChecked());
   initializeLanguageDialog();
   initializeCustomFontsDialog();
@@ -16,4 +22,5 @@
   for (  String key : mShowValueInSummSeek) {
     updateSeekBarPreference(key);
   }
+  enableWalSupport();
 }

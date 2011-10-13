@@ -1,47 +1,35 @@
 {
   Resources res=getResources();
-  if (mCurrentScheduler.lrnButtons(mCurrentCard)) {
-    mEase1.setVisibility(View.VISIBLE);
-    mEase2.setVisibility(View.VISIBLE);
-    mEase3.setVisibility(View.VISIBLE);
-    mEase4.setVisibility(View.GONE);
-    mEase1.setText(res.getString(R.string.ease1_learning));
-    mEase2.setText(res.getString(R.string.ease2_learning));
-    mEase3.setText(res.getString(R.string.ease3_learning));
-    if (mshowNextReviewTime) {
-      mNext1.setVisibility(View.VISIBLE);
-      mNext2.setVisibility(View.VISIBLE);
-      mNext3.setVisibility(View.VISIBLE);
-      mNext4.setVisibility(View.GONE);
-      mNext1.setText(mCurrentScheduler.nextIvlStr(mCurrentCard,1));
-      mNext2.setText(mCurrentScheduler.nextIvlStr(mCurrentCard,2));
-      mNext3.setText(mCurrentScheduler.nextIvlStr(mCurrentCard,3));
-    }
-    mEase2.requestFocus();
-    mNext3.setTextColor(mNextTimeTextColor);
-    mNext2.setTextColor(mNextTimeTextRecomColor);
-  }
- else {
-    mEase1.setVisibility(View.VISIBLE);
-    mEase2.setVisibility(View.VISIBLE);
-    mEase3.setVisibility(View.VISIBLE);
-    mEase4.setVisibility(View.VISIBLE);
+  switchVisibility(mFlipCard,View.GONE);
+  if (mCurrentCard.isRev()) {
     mEase1.setText(res.getString(R.string.ease1_successive));
     mEase2.setText(res.getString(R.string.ease2_successive));
     mEase3.setText(res.getString(R.string.ease3_successive));
     mEase4.setText(res.getString(R.string.ease4_successive));
-    if (mshowNextReviewTime) {
-      mNext1.setVisibility(View.VISIBLE);
-      mNext2.setVisibility(View.VISIBLE);
-      mNext3.setVisibility(View.VISIBLE);
-      mNext4.setVisibility(View.VISIBLE);
-      mNext1.setText(mCurrentScheduler.nextIvlStr(mCurrentCard,1));
-      mNext2.setText(mCurrentScheduler.nextIvlStr(mCurrentCard,2));
-      mNext3.setText(mCurrentScheduler.nextIvlStr(mCurrentCard,3));
-      mNext4.setText(mCurrentScheduler.nextIvlStr(mCurrentCard,4));
-    }
+  }
+ else {
+    mEase1.setText(res.getString(R.string.ease1_learning));
+    mEase2.setText(res.getString(R.string.ease2_learning));
+    mEase3.setText(res.getString(R.string.ease3_learning));
+    mEase4.setText(res.getString(R.string.ease4_learning));
+  }
+  switchVisibility(mEase1,View.VISIBLE);
+  switchVisibility(mEase2,View.VISIBLE);
+  switchVisibility(mEase3,View.VISIBLE);
+  switchVisibility(mEase4,View.VISIBLE);
+  if (mCurrentCard.isRev()) {
     mEase3.requestFocus();
     mNext2.setTextColor(mNextTimeTextColor);
     mNext3.setTextColor(mNextTimeTextRecomColor);
+  }
+  if (mshowNextReviewTime) {
+    mNext1.setText(mCurrentScheduler.nextIvlStr(mCurrentCard,1));
+    mNext2.setText(mCurrentScheduler.nextIvlStr(mCurrentCard,2));
+    mNext3.setText(mCurrentScheduler.nextIvlStr(mCurrentCard,3));
+    mNext4.setText(mCurrentScheduler.nextIvlStr(mCurrentCard,4));
+    switchVisibility(mNext1,View.VISIBLE);
+    switchVisibility(mNext2,View.VISIBLE);
+    switchVisibility(mNext3,View.VISIBLE);
+    switchVisibility(mNext4,View.VISIBLE);
   }
 }

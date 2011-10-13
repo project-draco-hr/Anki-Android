@@ -1,0 +1,59 @@
+{
+  int type;
+  int unit=99;
+  int point=0;
+  if (Math.abs(time) < 60 || unit < 1) {
+    type=TIME_SECONDS;
+  }
+ else   if (Math.abs(time) < 3599 || unit < 2) {
+    type=TIME_MINUTES;
+  }
+ else   if (Math.abs(time) < 60 * 60 * 24 || unit < 3) {
+    type=TIME_HOURS;
+  }
+ else   if (Math.abs(time) < 60 * 60 * 24* 29.5 || unit < 4) {
+    type=TIME_DAYS;
+  }
+ else   if (Math.abs(time) < 60 * 60 * 24* 30* 11.95 || unit < 5) {
+    type=TIME_MONTHS;
+    point=1;
+  }
+ else {
+    type=TIME_YEARS;
+    point=1;
+  }
+  time=convertSecondsTo(time,type);
+  int formatId;
+switch (format) {
+case TIME_FORMAT_IN:
+    if (Math.round(time * 10) == 10) {
+      formatId=R.array.next_review_in_s;
+    }
+ else {
+      formatId=R.array.next_review_in_p;
+    }
+  break;
+case TIME_FORMAT_BEFORE:
+if (Math.round(time * 10) == 10) {
+  formatId=R.array.next_review_before_s;
+}
+ else {
+  formatId=R.array.next_review_before_p;
+}
+break;
+case TIME_FORMAT_DEFAULT:
+default :
+if (Math.round(time * 10) == 10) {
+formatId=R.array.next_review_s;
+}
+ else {
+formatId=R.array.next_review_p;
+}
+break;
+}
+String timeString=String.format(AnkiDroidApp.getAppResources().getStringArray(formatId)[type],boldNumber ? "<b>" + fmtDouble(time,point) + "</b>" : fmtDouble(time,point));
+if (boldNumber && time == 1) {
+timeString=timeString.replace("1","<b>1</b>");
+}
+return timeString;
+}

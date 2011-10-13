@@ -1,5 +1,9 @@
 {
   Resources res=sContext.getResources();
+  if (AnkiDroidApp.deck() != null) {
+    AnkiDroidApp.deck().closeDeck();
+    AnkiDroidApp.setDeck(null);
+  }
   try {
     String username=(String)data.data[0];
     String password=(String)data.data[1];

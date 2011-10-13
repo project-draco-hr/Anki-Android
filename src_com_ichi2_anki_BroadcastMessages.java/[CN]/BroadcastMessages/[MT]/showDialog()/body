@@ -1,0 +1,11 @@
+{
+  if (mDialog != null && mDialog.isShowing()) {
+    try {
+      mDialog.dismiss();
+      mDialog.show();
+    }
+ catch (    IllegalArgumentException e) {
+      Log.e(AnkiDroidApp.TAG,"Error on dismissing and showing new messages dialog: " + e);
+    }
+  }
+}

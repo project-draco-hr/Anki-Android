@@ -2,9 +2,7 @@
   Log.d(AnkiDroidApp.TAG,"Creating deck: " + filename);
   filename=filename + ".anki";
   File decksDirectory=new File(mPrefDeckPath);
-  if (!decksDirectory.isDirectory()) {
-    decksDirectory.mkdirs();
-  }
+  AnkiDroidApp.createDecksDirectoryIfMissing(decksDirectory);
   File destinationFile=new File(mPrefDeckPath,filename);
   if (destinationFile.exists()) {
     return false;

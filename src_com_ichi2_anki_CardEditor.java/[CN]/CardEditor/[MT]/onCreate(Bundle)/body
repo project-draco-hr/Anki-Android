@@ -1,91 +1,177 @@
 {
+  Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   registerExternalStorageListener();
-  setContentView(R.layout.card_editor);
+  View mainView=getLayoutInflater().inflate(R.layout.card_editor,null);
+  setContentView(mainView);
+  Themes.setWallpaper(mainView);
   mFieldsLayoutContainer=(LinearLayout)findViewById(R.id.CardEditorEditFieldsLayout);
+  Themes.setTextViewStyle(mFieldsLayoutContainer);
+  setTitle(R.string.cardeditor_title);
   mSave=(Button)findViewById(R.id.CardEditorSaveButton);
   mCancel=(Button)findViewById(R.id.CardEditorCancelButton);
-  mTags=(Button)findViewById(R.id.CardEditorTagButton);
-  mTags=(Button)findViewById(R.id.CardEditorTagButton);
+  mSwapButton=(Button)findViewById(R.id.CardEditorSwapButton);
   mModelButtons=(LinearLayout)findViewById(R.id.CardEditorSelectModelLayout);
   mModelButton=(Button)findViewById(R.id.CardEditorModelButton);
-  mTemplateButton=(Button)findViewById(R.id.CardEditorTemplateButton);
-  mDeck=AnkiDroidApp.deck();
-  mModels=mDeck.models();
-  mCurrentModel=mDeck.currentModel();
-switch (getIntent().getIntExtra(CARD_EDITOR_ACTION,ADD_CARD)) {
+  mCardModelButton=(Button)findViewById(R.id.CardEditorCardModelButton);
+  mTags=(Button)findViewById(R.id.CardEditorTagButton);
+  mNewSelectedCardModels=new LinkedHashMap<Long,CardModel>();
+  cardModelIds=new ArrayList<Long>();
+  Intent intent=getIntent();
+  String action=intent.getAction();
+  if (action != null && action.equals(INTENT_CREATE_FLASHCARD)) {
+    prepareForIntentAddition();
+    Bundle extras=intent.getExtras();
+    mSourceLanguage=extras.getString(SOURCE_LANGUAGE);
+    mTargetLanguage=extras.getString(TARGET_LANGUAGE);
+    mSourceText=extras.getString(SOURCE_TEXT);
+    mTargetText=extras.getString(TARGET_TEXT);
+    mAddFact=true;
+    mIntentAdd=true;
+  }
+ else   if (action != null && action.equals(INTENT_CREATE_FLASHCARD_SEND)) {
+    prepareForIntentAddition();
+    Bundle extras=intent.getExtras();
+    mSourceText=extras.getString(Intent.EXTRA_SUBJECT);
+    mTargetText=extras.getString(Intent.EXTRA_TEXT);
+    mAddFact=true;
+    mIntentAdd=true;
+  }
+ else {
+    mDeckPath=intent.getStringExtra(DECKPATH);
+    if (mDeckPath != null && mDeckPath.length() > 0) {
+      mDeck=Deck.openDeck(mDeckPath,false);
+    }
+ else {
+      mDeck=AnkiDroidApp.deck();
+    }
+switch (intent.getIntExtra(CARD_EDITOR_ACTION,ADD_CARD)) {
 case EDIT_REVIEWER_CARD:
-    mEditorFact=Reviewer.getEditorCard().getFact();
-  break;
-case EDIT_BROWSER_CARD:
-mEditorFact=CardBrowser.getEditorCard().getFact();
+      Card revCard=Reviewer.getEditorCard();
+    if (revCard == null) {
+      finish();
+      return;
+    }
+  mEditorFact=revCard.getFact();
 break;
+case EDIT_BROWSER_CARD:
+Card browCard=CardBrowser.getEditorCard();
+if (browCard == null) {
+finish();
+return;
+}
+mEditorFact=browCard.getFact();
+break;
+case COPY_CARD:
+mForCopy=true;
 case ADD_CARD:
 mAddFact=true;
-mEditorFact=new Fact(mDeck,mCurrentModel);
+loadContents();
+modelChanged();
+mSave.setEnabled(false);
+if (mForCopy) {
+String[] contents=intent.getStringExtra("contents").split("\\x1f");
+for (int i=0; i < mEditFields.size(); i++) {
+if (i < contents.length) {
+mEditFields.get(i).setText(contents[i]);
+if (contents[i].length() > 0) {
+mSave.setEnabled(true);
+}
+}
+}
+}
+break;
+}
+}
+if (mAddFact) {
 mModelButtons.setVisibility(View.VISIBLE);
-Resources res=getResources();
-mSave.setText(res.getString(R.string.add));
-mCancel.setText(res.getString(R.string.close));
 mModelButton.setOnClickListener(new View.OnClickListener(){
 public void onClick(View v){
 showDialog(DIALOG_MODEL_SELECT);
 }
 }
 );
-mTemplateButton.setOnClickListener(new View.OnClickListener(){
+mCardModelButton.setOnClickListener(new View.OnClickListener(){
 public void onClick(View v){
-templatesDialog().show();
+showDialog(DIALOG_CARD_MODEL_SELECT);
 }
 }
 );
-break;
+mSave.setText(getResources().getString(R.string.add));
+mCancel.setText(getResources().getString(R.string.close));
 }
+ else {
+mFactTags=mEditorFact.getTags();
+}
+mTags.setText(getResources().getString(R.string.CardEditorTags,mFactTags));
+mModified=false;
 SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
 mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
-mSave.setEnabled(!mPrefFixArabic);
-initializeFactVariables();
+if (mPrefFixArabic && !mAddFact) {
+mSave.setEnabled(false);
+}
 mTags.setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
-recreateTagsDialog();
-if (!mTagsDialog.isShowing()) {
-mTagsDialog.show();
-}
+showDialog(DIALOG_TAGS);
 }
 }
 );
+allTags=null;
+mSelectedTags=new HashSet<String>();
 mSave.setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
-for (FieldEditText f : mEditFields) {
-mModified|=f.updateField();
+if (mAddFact) {
+boolean empty=true;
+for (FieldEditText current : mEditFields) {
+current.updateField();
+if (current.getText().length() != 0) {
+empty=false;
 }
-if (!mEditorFact.stringTags().equals(mFactTags)) {
+}
+if (!empty) {
+setResult(Reviewer.RESULT_EDIT_CARD_RESET);
+mEditorFact.setTags(mFactTags);
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ADD_FACT,mSaveFactHandler,new DeckTask.TaskData(mDeck,mEditorFact,mSelectedCardModels));
+}
+ else {
+if (!mCardReset) {
+setResult(RESULT_CANCELED);
+}
+}
+}
+ else {
+Iterator<FieldEditText> iter=mEditFields.iterator();
+while (iter.hasNext()) {
+FieldEditText current=iter.next();
+mModified|=current.updateField();
+}
+if (!mEditorFact.getTags().equals(mFactTags)) {
 mEditorFact.setTags(mFactTags);
 mModified=true;
 }
+if (!mCardReset) {
 if (mModified) {
-if (mAddFact) {
-AnkiDroidApp.deck().addFact(mEditorFact);
-}
- else {
-mEditorFact.flush();
 setResult(RESULT_OK);
-finish();
-}
 }
  else {
 setResult(RESULT_CANCELED);
+}
+}
+closeCardEditor();
 }
 }
 }
 );
 mCancel.setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
+if (!mCardReset) {
 setResult(RESULT_CANCELED);
+}
 closeCardEditor();
 }
 }
 );
-initDialogs();
-modelChanged();
+if (!mAddFact) {
+populateEditFields();
+}
 }

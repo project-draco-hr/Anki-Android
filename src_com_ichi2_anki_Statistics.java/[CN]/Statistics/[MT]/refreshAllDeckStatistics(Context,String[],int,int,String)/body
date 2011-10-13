@@ -1,23 +1,60 @@
 {
   initVariables(context,type,period,title);
+  Deck currentDeck=AnkiDroidApp.deck();
+  String currentDeckPath=null;
+  if (currentDeck != null) {
+    currentDeckPath=currentDeck.getDeckPath();
+  }
   for (  String dp : deckPaths) {
-    double[][] seriesList;
-    mDeck=Deck.openDeck(dp);
-    if (mDeck == null) {
+    if (currentDeckPath != null && dp.equals(currentDeckPath)) {
+      sDeck=currentDeck;
+    }
+ else {
+      sDeck=Deck.openDeck(dp);
+    }
+    if (sDeck == null) {
       continue;
     }
-    seriesList=getSeriesList();
-    mDeck.closeDeck(false);
-    for (int i=0; i < sSeriesList.length; i++) {
-      for (int j=0; j < period; j++) {
-        sSeriesList[i][j]+=seriesList[i][j];
+    if (type == TYPE_DECK_SUMMARY) {
+      sDeckSummaryValues.put("title",context.getResources().getString(R.string.deck_summary_all_decks));
+      ContentValues values=sDeck.getDeckSummary();
+      if (values == null) {
+        continue;
+      }
+      for (      Entry<String,Object> entry : values.valueSet()) {
+        if (entry.getKey().equals("deckAge")) {
+          if (sDeckSummaryValues.containsKey(entry.getKey())) {
+            sDeckSummaryValues.put(entry.getKey(),Math.max(sDeckSummaryValues.getAsInteger(entry.getKey()),(Integer)entry.getValue()));
+          }
+ else {
+            sDeckSummaryValues.put(entry.getKey(),(Integer)entry.getValue());
+          }
+        }
+ else {
+          if (sDeckSummaryValues.containsKey(entry.getKey())) {
+            sDeckSummaryValues.put(entry.getKey(),sDeckSummaryValues.getAsInteger(entry.getKey()) + (Integer)entry.getValue());
+          }
+ else {
+            sDeckSummaryValues.put(entry.getKey(),(Integer)entry.getValue());
+          }
+        }
+      }
+    }
+ else {
+      double[][] seriesList;
+      seriesList=getSeriesList(context,type,period);
+      sDeck.closeDeck(false);
+      for (int i=0; i < sSeriesList.length; i++) {
+        for (int j=0; j < period; j++) {
+          sSeriesList[i][j]+=seriesList[i][j];
+        }
       }
     }
   }
-  if (sSeriesList != null) {
-    return true;
+  if (type == TYPE_DECK_SUMMARY) {
+    return sDeckSummaryValues != null ? true : false;
   }
  else {
-    return false;
+    return sSeriesList != null ? true : false;
   }
 }

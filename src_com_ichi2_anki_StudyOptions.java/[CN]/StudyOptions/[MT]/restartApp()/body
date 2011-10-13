@@ -1,0 +1,11 @@
+{
+  Intent i=getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
+  if (AnkiDroidApp.deck() != null && mSdCardAvailable) {
+    AnkiDroidApp.deck().closeDeck();
+  }
+  AnkiDroidApp.setDeck(null);
+  mCompat.invalidateOptionsMenu(this);
+  MetaDB.closeDB();
+  StudyOptions.this.finish();
+  startActivity(i);
+}

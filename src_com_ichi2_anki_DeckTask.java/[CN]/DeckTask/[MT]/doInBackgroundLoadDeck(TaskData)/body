@@ -1,10 +1,30 @@
 {
   String deckFilename=params[0].getString();
+  Deck oldDeck=params[0].getDeck();
+  Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
+  if (oldDeck != null) {
+    publishProgress(new TaskData(res.getString(R.string.close_previous_deck)));
+    oldDeck.closeDeck(false);
+  }
+  int backupResult=BackupManager.RETURN_NULL;
+  if (PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).getBoolean("useBackup",true)) {
+    publishProgress(new TaskData(res.getString(R.string.backup_deck)));
+    backupResult=BackupManager.backupDeck(deckFilename);
+  }
+  if (BackupManager.getFreeDiscSpace(deckFilename) < (StudyOptions.MIN_FREE_SPACE * 1024 * 1024)) {
+    backupResult=BackupManager.RETURN_LOW_SYSTEM_SPACE;
+  }
   Log.i(AnkiDroidApp.TAG,"doInBackgroundLoadDeck - deckFilename = " + deckFilename);
   Log.i(AnkiDroidApp.TAG,"loadDeck - SD card mounted and existent file -> Loading deck...");
   try {
     Deck deck=Deck.openDeck(deckFilename);
     Log.i(AnkiDroidApp.TAG,"Deck loaded!");
+    if (deck == null) {
+      BackupManager.cleanUpAfterBackupCreation(false);
+      return new TaskData(DECK_NOT_LOADED);
+    }
+    BackupManager.cleanUpAfterBackupCreation(true);
+    publishProgress(new TaskData(backupResult));
     return new TaskData(DECK_LOADED,deck,null);
   }
  catch (  SQLException e) {
@@ -14,5 +34,9 @@
 catch (  CursorIndexOutOfBoundsException e) {
     Log.i(AnkiDroidApp.TAG,"The deck has no cards = " + e.getMessage());
     return new TaskData(DECK_EMPTY);
+  }
+catch (  RuntimeException e) {
+    Log.i(AnkiDroidApp.TAG,"The database " + deckFilename + " could not be opened = "+ e.getMessage());
+    return new TaskData(DECK_NOT_LOADED);
   }
 }

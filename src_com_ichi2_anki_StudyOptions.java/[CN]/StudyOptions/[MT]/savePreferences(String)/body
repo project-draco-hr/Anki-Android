@@ -4,12 +4,6 @@
   if (str.equals("deckFilename")) {
     editor.putString("deckFilename",mDeckFilename);
   }
- else   if (str.equals("close")) {
-    editor.putLong("lastTimeOpened",System.currentTimeMillis());
-  }
- else   if (str.equals("welcome")) {
-    editor.putBoolean("welcome",mShowWelcomeScreen);
-  }
  else   if (str.equals("invertedColors")) {
     editor.putBoolean("invertedColors",mInvertedColors);
   }

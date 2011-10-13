@@ -1,13 +1,23 @@
 {
   super.onActivityResult(requestCode,resultCode,data);
   if (requestCode == EDIT_CURRENT_CARD) {
-    if (resultCode == RESULT_OK) {
+    setInAnimation(true);
+    if (resultCode == RESULT_OK || resultCode == RESULT_EDIT_CARD_RESET) {
       Log.i(AnkiDroidApp.TAG,"Saving card...");
-      mCurrentCard._getQA(true);
-      displayCardQuestion();
+      int showQuestion=sDisplayAnswer ? UPDATE_CARD_SHOW_ANSWER : UPDATE_CARD_SHOW_QUESTION;
+      if (resultCode == RESULT_EDIT_CARD_RESET) {
+        showQuestion=UPDATE_CARD_NEW_CARD;
+      }
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_FACT,mUpdateCardHandler,new DeckTask.TaskData(showQuestion,AnkiDroidApp.deck(),mCurrentCard));
     }
  else     if (resultCode == StudyOptions.CONTENT_NO_EXTERNAL_STORAGE) {
       finishNoStorageAvailable();
     }
+ else {
+      fillFlashcard(mShowAnimations);
+    }
+  }
+  if (mPrefTextSelection) {
+    mClipboard.setText("");
   }
 }

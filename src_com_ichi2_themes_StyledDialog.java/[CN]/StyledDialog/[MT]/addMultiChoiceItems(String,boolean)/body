@@ -1,0 +1,13 @@
+{
+  mItemList.add(0,value);
+  mListView.setItemChecked(0,checked);
+  boolean[] newChecked=new boolean[mItemList.size()];
+  newChecked[0]=checked;
+  for (int i=1; i < mItemList.size(); i++) {
+    boolean c=mCheckedItems[i - 1];
+    mListView.setItemChecked(i,c);
+    newChecked[i]=c;
+  }
+  mCheckedItems=newChecked;
+  mListAdapter.notifyDataSetChanged();
+}

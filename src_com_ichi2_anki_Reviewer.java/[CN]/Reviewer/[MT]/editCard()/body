@@ -1,16 +1,16 @@
 {
   if (isCramming()) {
-    Toast cramEditWarning=Toast.makeText(Reviewer.this,getResources().getString(R.string.cram_edit_warning),Toast.LENGTH_SHORT);
-    cramEditWarning.show();
+    Themes.showThemedToast(Reviewer.this,getResources().getString(R.string.cram_edit_warning),true);
     return false;
   }
  else {
     Intent editCard=new Intent(Reviewer.this,CardEditor.class);
     editCard.putExtra(CardEditor.CARD_EDITOR_ACTION,CardEditor.EDIT_REVIEWER_CARD);
     sEditorCard=mCurrentCard;
+    setOutAnimation(true);
     startActivityForResult(editCard,EDIT_CURRENT_CARD);
     if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-      MyAnimation.slide(Reviewer.this,MyAnimation.LEFT);
+      ActivityTransitionAnimation.slide(Reviewer.this,ActivityTransitionAnimation.LEFT);
     }
     return true;
   }

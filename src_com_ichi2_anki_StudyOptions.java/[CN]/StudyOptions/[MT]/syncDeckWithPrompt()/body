@@ -5,11 +5,11 @@
       if (mProgressDialog != null && mProgressDialog.isShowing()) {
         mProgressDialog.dismiss();
       }
-      mSyncConflictResolutionAlert.setMessage(String.format(getResources().getString(R.string.sync_conflict_message),deck.getDeckName()));
-      mSyncConflictResolutionAlert.show();
+      mCurrentDialogMessage=String.format(getResources().getString(R.string.sync_conflict_message),deck.getDeckName());
+      showDialog(DIALOG_SYNC_CONFLICT_RESOLUTION);
     }
   }
  else {
-    mUserNotLoggedInAlert.show();
+    showDialog(DIALOG_USER_NOT_LOGGED_IN);
   }
 }

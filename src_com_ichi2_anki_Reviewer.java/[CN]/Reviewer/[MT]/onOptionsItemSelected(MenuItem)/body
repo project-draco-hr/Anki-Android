@@ -19,26 +19,28 @@ return true;
 case MENU_EDIT:
 return editCard();
 case MENU_REMOVE_BURY:
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_BURY_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
+setNextCardAnimation(false);
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_BURY_CARD,mDismissCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
 return true;
 case MENU_REMOVE_SUSPEND:
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SUSPEND_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
+setNextCardAnimation(false);
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SUSPEND_CARD,mDismissCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
 return true;
 case MENU_REMOVE_DELETE:
 showDeleteCardDialog();
 return true;
 case MENU_SEARCH:
-return lookUp();
+lookUpOrSelectText();
+return true;
 case MENU_MARK:
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_MARK_CARD,mMarkCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
 return true;
 case MENU_UNDO:
-mReloadStatistics=true;
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mUpdateCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard.getId(),false));
+setNextCardAnimation(true);
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mUpdateCardHandler,new DeckTask.TaskData(UPDATE_CARD_SHOW_QUESTION,AnkiDroidApp.deck(),mCurrentCard.getId(),false));
 return true;
 case MENU_REDO:
-mReloadStatistics=true;
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REDO,mUpdateCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard.getId(),false));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REDO,mUpdateCardHandler,new DeckTask.TaskData(UPDATE_CARD_SHOW_QUESTION,AnkiDroidApp.deck(),mCurrentCard.getId(),false));
 return true;
 }
 return false;

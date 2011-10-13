@@ -3,25 +3,29 @@
   mPrefDeckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory());
   mPrefStudyOptions=preferences.getBoolean("study_options",true);
   mStartupMode=Integer.parseInt(preferences.getString("startup_mode",Integer.toString(SUM_DECKPICKER_ON_FIRST_START)));
-  mLastTimeOpened=preferences.getLong("lastTimeOpened",0);
   mSwipeEnabled=preferences.getBoolean("swipe",false);
+  mLastTimeOpened=preferences.getLong("lastTimeOpened",0);
+  BroadcastMessages.init(this,mLastTimeOpened);
+  preferences.edit().putLong("lastTimeOpened",System.currentTimeMillis()).commit();
   if (!preferences.getString("lastVersion","").equals(getVersion())) {
-    Editor editor=preferences.edit();
-    editor.putString("lastVersion",getVersion());
-    editor.commit();
-    Resources res=getResources();
-    AlertDialog.Builder builder=new AlertDialog.Builder(this);
-    builder.setTitle(res.getString(R.string.new_version_title) + " " + getVersion());
-    builder.setPositiveButton(getResources().getString(R.string.ok),null);
-    View contentView=getLayoutInflater().inflate(R.layout.dialog_webview,null);
-    WebView messageWebView=(WebView)contentView.findViewById(R.id.dialog_webview);
-    messageWebView.setBackgroundColor(res.getColor(R.color.card_browser_background));
-    messageWebView.loadDataWithBaseURL("",getVersionMessage(),"text/html","utf-8",null);
-    builder.setView(contentView);
-    builder.setPositiveButton(res.getString(R.string.ok),null);
-    builder.setCancelable(true);
-    mNewVersionAlert=builder.create();
-    mNewVersion=true;
+    mNewVersionAlert=Themes.htmlOkDialog(this,getResources().getString(R.string.new_version_title) + " " + getVersion(),getVersionMessage(),new DialogInterface.OnClickListener(){
+      @Override public void onClick(      DialogInterface dialog,      int which){
+        PrefSettings.getSharedPrefs(StudyOptions.this.getBaseContext()).edit().putString("lastVersion",getVersion()).commit();
+        mNewVersionAlert=null;
+        BroadcastMessages.checkForNewMessages(StudyOptions.this);
+      }
+    }
+,new DialogInterface.OnCancelListener(){
+      @Override public void onCancel(      DialogInterface dialog){
+        mNewVersionAlert=null;
+        BroadcastMessages.checkForNewMessages(StudyOptions.this);
+      }
+    }
+,true);
+    AnkiDroidApp.createNoMediaFileIfMissing(new File(mPrefDeckPath));
+  }
+ else   if (!preferences.getBoolean("firstStart",true)) {
+    BroadcastMessages.checkForNewMessages(this);
   }
   final float gestureScale=getResources().getDisplayMetrics().density;
   int sensibility=preferences.getInt("swipeSensibility",100);
@@ -38,6 +42,8 @@
   }
   mInvertedColors=preferences.getBoolean("invertedColors",false);
   mSwap=preferences.getBoolean("swapqa",false);
-  setLanguage(preferences.getString("language",""));
+  mLocale=preferences.getString("language","");
+  mZeemoteEnabled=preferences.getBoolean("zeemote",false);
+  setLanguage(mLocale);
   return preferences;
 }

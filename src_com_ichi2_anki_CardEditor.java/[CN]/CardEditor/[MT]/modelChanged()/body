@@ -1,21 +1,8 @@
 {
-  if (mAddFact) {
-    mEditorFact=new Fact(mDeck,mCurrentModel);
-    initializeFactVariables();
-    mTemplates=mCurrentModel.getTemplates();
-    mSelectedTemplates.clear();
-    for (    Entry<Integer,JSONObject> entry : mTemplates.entrySet()) {
-      try {
-        if (entry.getValue().getString("actv").toLowerCase().equals("true")) {
-          mSelectedTemplates.put(entry.getKey(),entry.getValue());
-        }
-      }
- catch (      JSONException e) {
-        throw new RuntimeException(e);
-      }
-    }
-    mModelButton.setText(getResources().getString(R.string.model) + " " + mModels.get(mCurrentModel.getId()).getName());
-    cardModelsChanged();
-  }
+  mEditorFact=mDeck.newFact(mCurrentSelectedModelId);
+  mSelectedCardModels=mDeck.activeCardModels(mEditorFact);
+  mModelButton.setText(getResources().getString(R.string.model) + " " + mModels.get(mCurrentSelectedModelId).getName());
+  cardModelsChanged();
   populateEditFields();
+  swapText(true);
 }

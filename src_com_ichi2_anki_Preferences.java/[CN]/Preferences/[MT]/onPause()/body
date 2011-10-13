@@ -1,6 +1,3 @@
 {
   super.onPause();
-  if (mVeecheckStatus ^ mPrefMan.getSharedPreferences().getBoolean(PrefSettings.KEY_ENABLED,mVeecheckStatus)) {
-    sendBroadcast(new Intent(Veecheck.getRescheduleAction(this)));
-  }
 }

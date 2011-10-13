@@ -2,9 +2,10 @@
   if (AnkiDroidApp.deck() != null) {
     AnkiDroidApp.deck().closeDeck();
     AnkiDroidApp.setDeck(null);
+    mCompat.invalidateOptionsMenu(this);
   }
   startActivityForResult(new Intent(StudyOptions.this,SharedDeckPicker.class),DOWNLOAD_SHARED_DECK);
-  if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-    MyAnimation.slide(this,MyAnimation.RIGHT);
+  if (getApiLevel() > 4) {
+    ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
   }
 }

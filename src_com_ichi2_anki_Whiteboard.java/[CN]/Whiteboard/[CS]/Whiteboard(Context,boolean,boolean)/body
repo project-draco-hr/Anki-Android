@@ -1,0 +1,33 @@
+{
+  super(context,null);
+  mInvertedColors=inverted;
+  mMonochrome=monochrome;
+  if (!mInvertedColors) {
+    if (mMonochrome) {
+      mForegroundColor=Color.BLACK;
+    }
+ else {
+      mForegroundColor=context.getResources().getColor(R.color.wb_fg_color);
+    }
+  }
+ else {
+    if (mMonochrome) {
+      mForegroundColor=Color.WHITE;
+    }
+ else {
+      mForegroundColor=context.getResources().getColor(R.color.wb_fg_color_inv);
+    }
+  }
+  mPaint=new Paint();
+  mPaint.setAntiAlias(true);
+  mPaint.setDither(true);
+  mPaint.setColor(mForegroundColor);
+  mPaint.setStyle(Paint.Style.STROKE);
+  mPaint.setStrokeJoin(Paint.Join.ROUND);
+  mPaint.setStrokeCap(Paint.Cap.ROUND);
+  int wbStrokeWidth=PrefSettings.getSharedPrefs(context).getInt("whiteBoardStrokeWidth",6);
+  mPaint.setStrokeWidth((float)wbStrokeWidth);
+  createBitmap();
+  mPath=new Path();
+  mBitmapPaint=new Paint(Paint.DITHER_FLAG);
+}

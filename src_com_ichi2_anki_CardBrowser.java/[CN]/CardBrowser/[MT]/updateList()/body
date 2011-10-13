@@ -1,5 +1,0 @@
-{
-  mCardsAdapter.notifyDataSetChanged();
-  int count=mCards.size();
-  setTitle(getResources().getQuantityString(R.plurals.card_browser_title,count,mDeck.getDeckName(),count,mAllCards.size()));
-}

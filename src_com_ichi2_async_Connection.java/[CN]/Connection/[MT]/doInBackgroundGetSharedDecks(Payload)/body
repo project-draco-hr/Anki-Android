@@ -1,8 +1,17 @@
 {
+  if (AnkiDroidApp.deck() != null) {
+    AnkiDroidApp.deck().closeDeck();
+    AnkiDroidApp.setDeck(null);
+  }
   try {
     data.result=AnkiDroidProxy.getSharedDecks();
   }
- catch (  Exception e) {
+ catch (  OutOfMemoryError e) {
+    data.success=false;
+    data.returnType=RETURN_TYPE_OUT_OF_MEMORY;
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundGetSharedDecks: OutOfMemoryError: " + e);
+  }
+catch (  Exception e) {
     data.success=false;
     data.exception=e;
     Log.e(AnkiDroidApp.TAG,"doInBackgroundGetSharedDecks - Error getting shared decks = " + e.getMessage());

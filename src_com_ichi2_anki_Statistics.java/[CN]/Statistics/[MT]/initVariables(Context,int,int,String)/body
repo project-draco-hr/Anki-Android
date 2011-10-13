@@ -1,5 +1,9 @@
 {
   Resources res=context.getResources();
+  if (type == TYPE_DECK_SUMMARY) {
+    sDeckSummaryValues=new ContentValues();
+    return;
+  }
   sType=type;
   sTitle=title;
   sStart=0;
@@ -48,6 +52,16 @@
   }
  else {
     Titles=new String[1];
-  }
-  sZoom=0;
+    sSeriesList=new double[1][period];
+switch (type) {
+case TYPE_INTERVALS:
+      xAxisData=xAxisData(period,false);
+    break;
+case TYPE_REVIEWING_TIME:
+  xAxisData=xAxisData(period,true);
+axisLabels[1]=context.getResources().getString(R.string.statistics_period_x_axis_minutes);
+break;
+}
+}
+sZoom=0;
 }

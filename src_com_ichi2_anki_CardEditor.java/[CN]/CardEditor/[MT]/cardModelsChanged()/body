@@ -1,20 +1,13 @@
 {
   String cardModelNames="";
-  for (  Entry<Integer,JSONObject> entry : mSelectedTemplates.entrySet()) {
-    try {
-      cardModelNames=cardModelNames + entry.getValue().getString("name") + ", ";
-    }
- catch (    JSONException e) {
-      throw new RuntimeException(e);
-    }
+  for (  Map.Entry<Long,CardModel> entry : mSelectedCardModels.entrySet()) {
+    cardModelNames=cardModelNames + entry.getValue().getName() + ", ";
   }
-  if (cardModelNames.length() > 2) {
-    cardModelNames=cardModelNames.substring(0,cardModelNames.length() - 2);
-  }
-  if (mSelectedTemplates.size() == 1) {
-    mTemplateButton.setText(getResources().getString(R.string.card) + " " + cardModelNames);
+  cardModelNames=cardModelNames.substring(0,cardModelNames.length() - 2);
+  if (mSelectedCardModels.size() == 1) {
+    mCardModelButton.setText(getResources().getString(R.string.card) + " " + cardModelNames);
   }
  else {
-    mTemplateButton.setText(getResources().getString(R.string.cards) + " " + cardModelNames);
+    mCardModelButton.setText(getResources().getString(R.string.cards) + " " + cardModelNames);
   }
 }

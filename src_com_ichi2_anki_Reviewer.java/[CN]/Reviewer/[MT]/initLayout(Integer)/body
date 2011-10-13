@@ -1,18 +1,34 @@
 {
   setContentView(layout);
   mMainLayout=findViewById(R.id.main_layout);
-  mCard=(WebView)findViewById(R.id.flashcard);
-  mCard.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-  if (mZoomEnabled) {
-    mCard.getSettings().setBuiltInZoomControls(true);
+  Themes.setContentStyle(mMainLayout,Themes.CALLER_REVIEWER);
+  mCardContainer=(FrameLayout)findViewById(R.id.flashcard_frame);
+  mCardContainer.setVisibility(mConfigurationChanged ? View.VISIBLE : View.INVISIBLE);
+  setInAnimation(false);
+  findViewById(R.id.top_bar).setOnClickListener(mCardStatisticsListener);
+  mCardFrame=(FrameLayout)findViewById(R.id.flashcard);
+  mTouchLayer=(FrameLayout)findViewById(R.id.touch_layer);
+  mTouchLayer.setOnTouchListener(mGestureListener);
+  if (mPrefTextSelection && mLongClickWorkaround) {
+    mTouchLayer.setOnLongClickListener(mLongClickListener);
   }
-  mCard.getSettings().setJavaScriptEnabled(true);
-  mCard.setWebChromeClient(new AnkiDroidWebChromeClient());
-  mCard.addJavascriptInterface(new JavaScriptInterface(),"interface");
-  if (Integer.parseInt(android.os.Build.VERSION.SDK) > 7) {
-    mCard.setFocusableInTouchMode(false);
+  if (mPrefTextSelection) {
+    mClipboard=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
   }
-  Log.i(AnkiDroidApp.TAG,"Focusable = " + mCard.isFocusable() + ", Focusable in touch mode = "+ mCard.isFocusableInTouchMode());
+  mCardFrame.removeAllViews();
+  mCard=createWebView();
+  mCardFrame.addView(mCard);
+  if (!mChangeBorderStyle) {
+    ((View)findViewById(R.id.flashcard_border)).setVisibility(View.VISIBLE);
+  }
+  if (mCustomFontFiles.length != 0) {
+    mNextCard=createWebView();
+    mNextCard.setVisibility(View.GONE);
+    mCardFrame.addView(mNextCard,0);
+  }
+  if (Integer.parseInt(android.os.Build.VERSION.SDK) < 8) {
+    mCard.setFocusableInTouchMode(true);
+  }
   gestureDetector=new GestureDetector(new MyGestureDetector());
   if (mShakeEnabled) {
     mSensorManager=(SensorManager)getSystemService(Context.SENSOR_SERVICE);
@@ -21,20 +37,6 @@
     mAccelCurrent=SensorManager.GRAVITY_EARTH;
     mAccelLast=SensorManager.GRAVITY_EARTH;
   }
-  if (mPrefTextSelection) {
-    mCard.setOnLongClickListener(mLongClickHandler);
-    mClipboard=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
-  }
-  mCard.setOnTouchListener(new View.OnTouchListener(){
-    @Override public boolean onTouch(    View v,    MotionEvent event){
-      if (gestureDetector.onTouchEvent(event)) {
-        return true;
-      }
-      return false;
-    }
-  }
-);
-  mScaleInPercent=mCard.getScale();
   mEase1=(Button)findViewById(R.id.ease1);
   mEase1.setOnClickListener(mSelectEaseHandler);
   mEase2=(Button)findViewById(R.id.ease2);
@@ -47,24 +49,34 @@
   mNext2=(TextView)findViewById(R.id.nextTime2);
   mNext3=(TextView)findViewById(R.id.nextTime3);
   mNext4=(TextView)findViewById(R.id.nextTime4);
+  if (!mshowNextReviewTime) {
+    mNext1.setVisibility(View.GONE);
+    mNext2.setVisibility(View.GONE);
+    mNext3.setVisibility(View.GONE);
+    mNext4.setVisibility(View.GONE);
+  }
   mFlipCard=(Button)findViewById(R.id.flip_card);
   mFlipCard.setOnClickListener(mFlipCardListener);
   mFlipCard.setText(getResources().getString(R.string.show_answer));
+  mDefaultButtonDrawable=new Drawable[]{mFlipCard.getBackground(),mEase1.getBackground(),mEase2.getBackground(),mEase3.getBackground(),mEase4.getBackground()};
   mTextBarRed=(TextView)findViewById(R.id.red_number);
   mTextBarBlack=(TextView)findViewById(R.id.black_number);
   mTextBarBlue=(TextView)findViewById(R.id.blue_number);
   if (mShowProgressBars) {
-    mDailyBar=(View)findViewById(R.id.daily_bar);
-    mGlobalBar=(View)findViewById(R.id.global_bar);
+    mSessionYesBar=(View)findViewById(R.id.daily_bar);
+    mSessionProgressBar=(View)findViewById(R.id.session_progress);
     mProgressBars=(LinearLayout)findViewById(R.id.progress_bars);
   }
   mCardTimer=(Chronometer)findViewById(R.id.card_time);
-  float headTextSize=(float)(mCardTimer.getTextSize() * 0.63);
-  mCardTimer.setTextSize(headTextSize);
+  if (mPrefTimer && (mConfigurationChanged)) {
+    switchVisibility(mCardTimer,View.VISIBLE);
+  }
+  if (mShowProgressBars && (mConfigurationChanged)) {
+    switchVisibility(mProgressBars,View.VISIBLE);
+  }
   mChosenAnswer=(TextView)findViewById(R.id.choosen_answer);
-  mChosenAnswer.setTextSize((float)(headTextSize * 1.02));
   if (mPrefWhiteboard) {
-    mWhiteboard=new Whiteboard(this,null);
+    mWhiteboard=new Whiteboard(this,mInvertedColors,mBlackWhiteboard);
     FrameLayout.LayoutParams lp2=new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT);
     mWhiteboard.setLayoutParams(lp2);
     FrameLayout fl=(FrameLayout)findViewById(R.id.whiteboard);
@@ -85,13 +97,19 @@
   mAnswerField=(EditText)findViewById(R.id.answer_field);
   mNextTimeTextColor=getResources().getColor(R.color.next_time_usual_color);
   mNextTimeTextRecomColor=getResources().getColor(R.color.next_time_recommended_color);
+  mForegroundColor=getResources().getColor(R.color.next_time_usual_color);
   if (mInvertedColors) {
-    invertColors();
+    invertColors(true);
   }
- else {
-    mNextTimeTextColor=getResources().getColor(R.color.next_time_usual_color);
-    mNextTimeTextRecomColor=getResources().getColor(R.color.next_time_recommended_color);
-    mForegroundColor=getResources().getColor(R.color.next_time_usual_color);
+  mLookUpIcon=findViewById(R.id.lookup_button);
+  mLookUpIcon.setVisibility(View.GONE);
+  mLookUpIcon.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View arg0){
+      if (mClipboard.hasText()) {
+        lookUp();
+      }
+    }
   }
+);
   initControls();
 }

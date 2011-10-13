@@ -1,0 +1,76 @@
+{
+  View topPanel=((View)main.findViewById(R.id.topPanel));
+  boolean[] visibility=new boolean[5];
+  if (topPanel.getVisibility() == View.VISIBLE) {
+    topPanel.setBackgroundResource(mPopupTopDark);
+    ((View)main.findViewById(R.id.titleDivider)).setBackgroundResource(mDividerHorizontalBright);
+    visibility[0]=true;
+  }
+  View contentPanel=((View)main.findViewById(R.id.contentPanel));
+  if (contentPanel.getVisibility() == View.VISIBLE) {
+    visibility[1]=true;
+  }
+  View listViewPanel=((View)main.findViewById(R.id.listViewPanel));
+  if (listViewPanel.getVisibility() == View.VISIBLE) {
+    visibility[2]=true;
+  }
+  View customPanel=((View)main.findViewById(R.id.customPanel));
+  if (customPanel.getVisibility() == View.VISIBLE) {
+    visibility[3]=true;
+  }
+  if (buttonNumbers > 0) {
+    LinearLayout buttonPanel=(LinearLayout)main.findViewById(R.id.buttonPanel);
+    buttonPanel.setBackgroundResource(mPopupBottomMedium);
+    if (buttonNumbers > 1) {
+      main.findViewById(R.id.rightSpacer).setVisibility(View.GONE);
+      main.findViewById(R.id.leftSpacer).setVisibility(View.GONE);
+    }
+    visibility[4]=true;
+  }
+  int first=-1;
+  int last=-1;
+  for (int i=0; i < 5; i++) {
+    if (first == -1 && visibility[i]) {
+      first=i;
+    }
+    if (visibility[i]) {
+      last=i;
+    }
+  }
+  int res=mPopupCenterDark;
+  if (first == 1) {
+    res=mPopupTopDark;
+  }
+  if (last == 1) {
+    res=mPopupBottomDark;
+    if (first == 1) {
+      res=mPopupFullDark;
+    }
+  }
+  contentPanel.setBackgroundResource(res);
+  res=mPopupCenterBright;
+  if (first == 2) {
+    res=mPopupTopBright;
+  }
+  if (last == 2) {
+    res=mPopupBottomBright;
+    if (first == 2) {
+      res=mPopupFullBright;
+    }
+  }
+  listViewPanel.setBackgroundResource(res);
+  res=brightCustomPanelBackground ? mPopupCenterMedium : mPopupCenterDark;
+  if (first == 3) {
+    res=brightCustomPanelBackground ? mPopupTopMedium : mPopupTopDark;
+    ;
+  }
+  if (last == 3) {
+    res=brightCustomPanelBackground ? mPopupBottomMedium : mPopupBottomDark;
+    ;
+    if (first == 3) {
+      res=brightCustomPanelBackground ? mPopupFullMedium : mPopupFullDark;
+      ;
+    }
+  }
+  customPanel.setBackgroundResource(res);
+}

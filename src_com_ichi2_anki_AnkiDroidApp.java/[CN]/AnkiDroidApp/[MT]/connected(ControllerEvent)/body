@@ -1,5 +1,0 @@
-{
-  final PowerManager pm=(PowerManager)getSystemService(Context.POWER_SERVICE);
-  wakeLock=pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,TAG);
-  wakeLock.acquire();
-}

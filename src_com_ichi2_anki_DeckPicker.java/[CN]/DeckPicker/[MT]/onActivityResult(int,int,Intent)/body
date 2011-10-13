@@ -1,24 +1,26 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
   if (requestCode == PREFERENCES_UPDATE) {
-    SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
-    if (!mPrefDeckPath.equals(preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory())) || mPrefDeckOrder != Integer.parseInt(preferences.getString("deckOrder","0"))) {
+    if (resultCode == StudyOptions.RESULT_RESTART) {
+      setResult(StudyOptions.RESULT_RESTART);
       finish();
-      Intent i=new Intent(DeckPicker.this,DeckPicker.class);
-      startActivity(i);
-      if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-        MyAnimation.slide(this,MyAnimation.NONE);
+    }
+ else {
+      SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+      if (!mPrefDeckPath.equals(preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory())) || mPrefDeckOrder != Integer.parseInt(preferences.getString("deckOrder","0"))) {
+        populateDeckList(preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory()));
       }
     }
   }
  else   if ((requestCode == CREATE_DECK || requestCode == DOWNLOAD_PERSONAL_DECK || requestCode == DOWNLOAD_SHARED_DECK) && resultCode == RESULT_OK) {
-    finish();
-    Intent i=new Intent(DeckPicker.this,DeckPicker.class);
-    startActivity(i);
-    if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-      MyAnimation.slide(this,MyAnimation.NONE);
-    }
+    populateDeckList(mPrefDeckPath);
   }
  else   if (requestCode == REPORT_FEEDBACK && resultCode == RESULT_OK) {
+  }
+ else   if (requestCode == LOG_IN_FOR_DOWNLOAD && resultCode == RESULT_OK) {
+    openPersonalDeckPicker();
+  }
+ else   if (requestCode == LOG_IN_FOR_SYNC && resultCode == RESULT_OK) {
+    syncAllDecks();
   }
 }

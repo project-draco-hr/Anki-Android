@@ -1,6 +1,7 @@
 {
   super.onConfigurationChanged(newConfig);
-  int visibility=mStudyOptionsMain.getVisibility();
+  setLanguage(mLocale);
+  hideDeckInformation();
   boolean cramChecked=mToggleCram.isChecked();
   boolean limitChecked=mToggleLimit.isChecked();
   boolean limitEnabled=mToggleLimit.isEnabled();
@@ -21,5 +22,5 @@
   if (mDailyBar != null) {
     mGlobalLimitFrame.setVisibility(limitBarVisibility);
   }
-  mStudyOptionsMain.setVisibility(visibility);
+  showDeckInformation(false);
 }

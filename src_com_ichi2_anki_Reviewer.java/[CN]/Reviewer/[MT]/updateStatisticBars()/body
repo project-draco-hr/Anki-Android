@@ -12,6 +12,7 @@
     mStatisticBarsMax=view.getWidth();
     mStatisticBarsHeight=view.getHeight();
   }
-  Utils.updateProgressBars(this,mDailyBar,1 - (double)mStatisticsTodaysNoCount / mStatisticsTodaysCount,mStatisticBarsMax,mStatisticBarsHeight,true);
-  Utils.updateProgressBars(this,mGlobalBar,1 - (double)mStatisticsMatureNoCount / mStatisticsMatureCount,mStatisticBarsMax,mStatisticBarsHeight,true);
+  Deck deck=AnkiDroidApp.deck();
+  Utils.updateProgressBars(this,mSessionProgressBar,deck.getSessionProgress(),mStatisticBarsMax,mStatisticBarsHeight,true,false);
+  Utils.updateProgressBars(this,mSessionYesBar,deck.getProgress(false),mStatisticBarsMax,mStatisticBarsHeight,true);
 }

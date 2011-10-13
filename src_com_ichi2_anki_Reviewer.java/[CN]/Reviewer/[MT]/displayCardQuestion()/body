@@ -1,5 +1,6 @@
 {
   sDisplayAnswer=false;
+  mIsAnswering=false;
   if (mButtonHeight == 0 && mRelativeButtonSize != 100) {
     mButtonHeight=mFlipCard.getHeight() * mRelativeButtonSize / 100;
     mFlipCard.setHeight(mButtonHeight);
@@ -13,8 +14,6 @@
     InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
     inputMethodManager.showSoftInput(mAnswerField,InputMethodManager.SHOW_FORCED);
   }
-  mFlipCard.setVisibility(View.VISIBLE);
-  mFlipCard.requestFocus();
   String question=getQuestion();
   if (mPrefFixArabic) {
     question=ArabicUtilities.reshapeSentence(question,true);
@@ -31,6 +30,6 @@
   hideEaseButtons();
   if (mPrefUseTimer) {
     mTimeoutHandler.removeCallbacks(mShowAnswerTask);
-    mTimeoutHandler.postDelayed(mShowAnswerTask,mWaitSecond * 1000);
+    mTimeoutHandler.postDelayed(mShowAnswerTask,mWaitAnswerSecond * 1000);
   }
 }

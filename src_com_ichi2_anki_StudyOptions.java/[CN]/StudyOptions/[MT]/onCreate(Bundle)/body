@@ -1,6 +1,7 @@
 {
+  Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
-  Log.i(AnkiDroidApp.TAG,"StudyOptions Activity");
+  Log.i(AnkiDroidApp.TAG,"StudyOptions - OnCreate()");
   if (hasErrorFiles()) {
     Intent i=new Intent(this,Feedback.class);
     startActivityForResult(i,REPORT_ERROR);
@@ -8,8 +9,11 @@
   SharedPreferences preferences=restorePreferences();
   registerExternalStorageListener();
   activeCramTags=new HashSet<String>();
+  mSelectedTags=new HashSet<String>();
   initAllContentViews();
-  initAllDialogs();
+  if ((AnkiDroidApp.deck() != null) && (AnkiDroidApp.deck().hasFinishScheduler())) {
+    AnkiDroidApp.deck().finishScheduler();
+  }
   Intent intent=getIntent();
   if (Intent.ACTION_VIEW.equalsIgnoreCase(intent.getAction()) && intent.getDataString() != null) {
     mDeckFilename=Uri.parse(intent.getDataString()).getPath();
@@ -35,7 +39,7 @@
       showContentView(CONTENT_NO_DECK);
     }
  else {
-      if (showDeckPickerOnStartup() && !hasErrorFiles()) {
+      if ((showDeckPickerOnStartup() || getIntent().getBooleanExtra("startDeckpicker",false)) && !hasErrorFiles()) {
         openDeckPicker();
       }
  else {
@@ -53,4 +57,26 @@
     }
   }
 ;
+  if (getApiLevel() >= 11) {
+    mCompat=new CompatV11();
+  }
+ else {
+    mCompat=new CompatV3();
+  }
+  if (AnkiDroidApp.zeemoteController() == null)   AnkiDroidApp.setZeemoteController(new Controller(Controller.CONTROLLER_1));
+  controllerUi=new ControllerAndroidUi(this,AnkiDroidApp.zeemoteController());
+  com.zeemote.util.Strings zstrings=com.zeemote.util.Strings.getStrings();
+  if (zstrings.isLocaleAvailable(mLocale)) {
+    Log.d("Zeemote","Zeemote locale " + mLocale + " is available. Setting.");
+    zstrings.setLocale(mLocale);
+  }
+ else {
+    Log.d("Zeemote","Zeemote locale " + mLocale + " is not available.");
+  }
+  if (mZeemoteEnabled) {
+    if (!AnkiDroidApp.zeemoteController().isConnected()) {
+      Log.d("Zeemote","starting connection in onCreate");
+      controllerUi.startConnectionProcess();
+    }
+  }
 }

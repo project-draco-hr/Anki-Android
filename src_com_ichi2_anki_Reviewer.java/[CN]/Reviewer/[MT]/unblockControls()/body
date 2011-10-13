@@ -1,5 +1,5 @@
 {
-  mCard.setEnabled(true);
+  mCardFrame.setEnabled(true);
   mFlipCard.setEnabled(true);
 switch (mCurrentEase) {
 case EASE_FAILED:
@@ -42,4 +42,5 @@ mWhiteboard.setEnabled(true);
 if (typeAnswer()) {
 mAnswerField.setEnabled(true);
 }
+mTouchLayer.setVisibility(View.VISIBLE);
 }

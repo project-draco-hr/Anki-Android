@@ -1,4 +1,5 @@
 {
+  Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   Resources res=getResources();
   Context context=getBaseContext();
@@ -35,7 +36,11 @@
     setResult(RESULT_OK);
     finish();
   }
-  setContentView(R.layout.feedback);
+  View mainView=getLayoutInflater().inflate(R.layout.feedback,null);
+  setContentView(mainView);
+  Themes.setWallpaper(mainView);
+  Themes.setTextViewStyle(findViewById(R.id.tvFeedbackDisclaimer));
+  Themes.setTextViewStyle(findViewById(R.id.lvFeedbackErrorList));
   Button btnSend=(Button)findViewById(R.id.btnFeedbackSend);
   Button btnKeepLatest=(Button)findViewById(R.id.btnFeedbackKeepLatest);
   Button btnClearAll=(Button)findViewById(R.id.btnFeedbackClearAll);

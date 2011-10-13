@@ -5,9 +5,14 @@
   }
   if (mPrefTextSelection) {
     item=menu.findItem(MENU_SEARCH);
-    Log.i(AnkiDroidApp.TAG,"Clipboard has text = " + mClipboard.hasText());
-    boolean lookupPossible=mClipboard.hasText() && mIsDictionaryAvailable;
-    item.setEnabled(lookupPossible);
+    if (mClipboard.hasText()) {
+      item.setTitle(Lookup.getSearchStringTitle());
+      item.setEnabled(Lookup.isAvailable());
+    }
+ else {
+      item.setTitle(getResources().getString(R.string.menu_select));
+      item.setEnabled(true);
+    }
   }
   if (mPrefFullscreenReview) {
     mTextBarRed.setVisibility(View.GONE);

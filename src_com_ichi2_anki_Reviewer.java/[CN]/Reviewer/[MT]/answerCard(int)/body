@@ -1,19 +1,20 @@
 {
   mIsSelecting=false;
+  mIsAnswering=true;
+  if (mPrefTextSelection) {
+    mClipboard.setText("");
+    if (mLookUpIcon.getVisibility() == View.VISIBLE) {
+      mLookUpIcon.setVisibility(View.GONE);
+      mLookUpIcon.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_OUT,mFadeDuration,0));
+    }
+  }
   Deck deck=AnkiDroidApp.deck();
-  mChosenAnswer.setText("\u2022");
-  boolean mature=mCurrentCard.getIvl() >= 21;
 switch (ease) {
-case EASE_FAILED:
+case Card.EASE_FAILED:
     mChosenAnswer.setText("\u2022");
   mChosenAnswer.setTextColor(mNext1.getTextColors());
-int[] counts=deck.getSched().counts();
-if (counts[0] + counts[1] + counts[2] == 1) {
-mIsLastCard=true;
-}
-mStatisticsTodaysNoCount++;
-if (mature) {
-mStatisticsMatureNoCount++;
+if ((deck.getDueCount() + deck.getNewCountToday()) == 1) {
+  mIsLastCard=true;
 }
 break;
 case EASE_HARD:
@@ -38,5 +39,6 @@ mTimerHandler.postDelayed(removeChosenAnswerText,mShowChosenAnswerLength);
 Sound.stopSounds();
 mCurrentEase=ease;
 mSessionCurrReps++;
+setNextCardAnimation(false);
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(mCurrentEase,deck,mCurrentCard));
 }

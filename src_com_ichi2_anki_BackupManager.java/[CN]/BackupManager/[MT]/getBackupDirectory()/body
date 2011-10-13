@@ -1,0 +1,12 @@
+{
+  if (mBackupDirectoryPath == null) {
+    SharedPreferences prefs=PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext());
+    mBackupDirectoryPath=prefs.getString("deckPath",AnkiDroidApp.getStorageDirectory()) + BACKUP_SUFFIX;
+    mMaxBackups=prefs.getInt("backupMax",3);
+  }
+  File directory=new File(mBackupDirectoryPath);
+  if (!directory.isDirectory()) {
+    directory.mkdirs();
+  }
+  return directory;
+}

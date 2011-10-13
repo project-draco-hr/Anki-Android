@@ -4,7 +4,7 @@ case GESTURE_NOTHING:
     break;
 case GESTURE_ANSWER_EASE1:
   if (sDisplayAnswer) {
-    answerCard(EASE_FAILED);
+    answerCard(Card.EASE_FAILED);
   }
  else {
     displayCardAnswer();
@@ -12,7 +12,7 @@ case GESTURE_ANSWER_EASE1:
 break;
 case GESTURE_ANSWER_EASE2:
 if (sDisplayAnswer) {
-answerCard(EASE_HARD);
+answerCard(Card.EASE_HARD);
 }
  else {
 displayCardAnswer();
@@ -20,7 +20,7 @@ displayCardAnswer();
 break;
 case GESTURE_ANSWER_EASE3:
 if (sDisplayAnswer) {
-answerCard(EASE_MID);
+answerCard(Card.EASE_MID);
 }
  else {
 displayCardAnswer();
@@ -28,7 +28,7 @@ displayCardAnswer();
 break;
 case GESTURE_ANSWER_EASE4:
 if (sDisplayAnswer) {
-answerCard(EASE_EASY);
+answerCard(Card.EASE_EASY);
 }
  else {
 displayCardAnswer();
@@ -36,7 +36,12 @@ displayCardAnswer();
 break;
 case GESTURE_ANSWER_RECOMMENDED:
 if (sDisplayAnswer) {
-answerCard(mCurrentScheduler.recButton(mCurrentCard));
+if (mCurrentCard.isRev()) {
+answerCard(Card.EASE_MID);
+}
+ else {
+answerCard(Card.EASE_HARD);
+}
 }
  else {
 displayCardAnswer();
@@ -44,7 +49,12 @@ displayCardAnswer();
 break;
 case GESTURE_ANSWER_BETTER_THAN_RECOMMENDED:
 if (sDisplayAnswer) {
-answerCard(mCurrentScheduler.recButton(mCurrentCard) + 1);
+if (mCurrentCard.isRev()) {
+answerCard(Card.EASE_EASY);
+}
+ else {
+answerCard(Card.EASE_MID);
+}
 }
 break;
 case GESTURE_EXIT:
@@ -52,12 +62,13 @@ closeReviewer();
 break;
 case GESTURE_UNDO:
 if (AnkiDroidApp.deck().undoAvailable()) {
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mUpdateCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
+setNextCardAnimation(true);
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mUpdateCardHandler,new DeckTask.TaskData(UPDATE_CARD_SHOW_QUESTION,AnkiDroidApp.deck(),mCurrentCard.getId(),false));
 }
 break;
 case GESTURE_REDO:
 if (AnkiDroidApp.deck().redoAvailable()) {
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REDO,mUpdateCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard.getId(),false));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REDO,mUpdateCardHandler,new DeckTask.TaskData(UPDATE_CARD_SHOW_QUESTION,AnkiDroidApp.deck(),mCurrentCard.getId(),false));
 }
 break;
 case GESTURE_EDIT:
@@ -67,12 +78,14 @@ case GESTURE_MARK:
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_MARK_CARD,mMarkCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
 break;
 case GESTURE_LOOKUP:
-lookUp();
+lookUpOrSelectText();
 break;
 case GESTURE_BURY:
+setNextCardAnimation(false);
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_BURY_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
 break;
 case GESTURE_SUSPEND:
+setNextCardAnimation(false);
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SUSPEND_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,AnkiDroidApp.deck(),mCurrentCard));
 break;
 case GESTURE_DELETE:

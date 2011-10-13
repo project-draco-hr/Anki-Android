@@ -1,24 +1,18 @@
 {
+  Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   Log.i(AnkiDroidApp.TAG,"Reviewer - onCreate");
+  mChangeBorderStyle=Themes.getTheme() != Themes.THEME_BLUE;
   setVolumeControlStream(AudioManager.STREAM_MUSIC);
   Deck deck=AnkiDroidApp.deck();
   if (deck == null) {
     setResult(StudyOptions.CONTENT_NO_EXTERNAL_STORAGE);
-    closeReviewer();
+    finish();
   }
  else {
     mCurrentScheduler=deck.getSched();
     mMediaDir=setupMedia(deck);
     restorePreferences();
-    if (mZeemoteEnabled) {
-      if (AnkiDroidApp.zeemoteController() == null)       AnkiDroidApp.setZeemoteController(new Controller(Controller.CONTROLLER_1));
-      controllerUi=new ControllerAndroidUi(this,AnkiDroidApp.zeemoteController());
-      if (!AnkiDroidApp.zeemoteController().isConnected()) {
-        Log.d("Zeemote","starting connection in onCreate");
-        controllerUi.startConnectionProcess();
-      }
-    }
     deck.resetUndo();
     if (mPrefFullscreenReview) {
       getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -28,44 +22,33 @@
     }
     requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
     registerExternalStorageListener();
+    if (mNightMode) {
+      mCurrentBackgroundColor=Themes.getNightModeCardBackground(this);
+    }
+ else {
+      mCurrentBackgroundColor=Color.WHITE;
+    }
+    mCustomFontFiles=Utils.getCustomFonts(getBaseContext());
     initLayout(R.layout.flashcard);
-switch (mDictionary) {
-case DICTIONARY_AEDICT:
-      mDictionaryAction="sk.baka.aedict.action.ACTION_SEARCH_EDICT";
-    mIsDictionaryAvailable=Utils.isIntentAvailable(this,mDictionaryAction);
-  break;
-case DICTIONARY_LEO_WEB:
-mDictionaryAction="android.intent.action.VIEW";
-mIsDictionaryAvailable=Utils.isIntentAvailable(this,mDictionaryAction);
-break;
-case DICTIONARY_LEO_APP:
-mDictionaryAction="android.intent.action.SEND";
-mIsDictionaryAvailable=Utils.isIntentAvailable(this,mDictionaryAction,new ComponentName("org.leo.android.dict","org.leo.android.dict.LeoDict"));
-break;
-case DICTIONARY_COLORDICT:
-mDictionaryAction="colordict.intent.action.SEARCH";
-mIsDictionaryAvailable=Utils.isIntentAvailable(this,mDictionaryAction);
-break;
-default :
-mIsDictionaryAvailable=false;
-break;
-}
-Log.i(AnkiDroidApp.TAG,"Is intent available = " + mIsDictionaryAvailable);
-try {
-mCardTemplate=Utils.convertStreamToString(getAssets().open("card_template.html"));
-mCardTemplate=mCardTemplate.replaceFirst("var availableWidth = \\d*;","var availableWidth = " + getAvailableWidthInCard() + ";");
-}
- catch (IOException e) {
-e.printStackTrace();
-}
-mSessionCurrReps=0;
-if (mSpeakText && Integer.valueOf(android.os.Build.VERSION.SDK) > 3) {
-ReadText.initializeTts(this,mDeckFilename);
-}
-if (mPrefWhiteboard && MetaDB.getWhiteboardState(this,mDeckFilename) == 1) {
-mShowWhiteboard=true;
-mWhiteboard.setVisibility(View.VISIBLE);
-}
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,deck,null));
-}
+    if (mPrefTextSelection) {
+      mClipboard.setText("");
+      Lookup.initialize(this,mDeckFilename);
+    }
+    try {
+      mCardTemplate=Utils.convertStreamToString(getAssets().open("card_template.html"));
+      mCardTemplate=mCardTemplate.replaceFirst("var availableWidth = \\d*;","var availableWidth = " + getAvailableWidthInCard() + ";");
+    }
+ catch (    IOException e) {
+      e.printStackTrace();
+    }
+    mSessionCurrReps=0;
+    if (mSpeakText && Integer.valueOf(android.os.Build.VERSION.SDK) > 3) {
+      ReadText.initializeTts(this,mDeckFilename);
+    }
+    if (mPrefWhiteboard && MetaDB.getWhiteboardState(this,mDeckFilename) == 1) {
+      mShowWhiteboard=true;
+      mWhiteboard.setVisibility(View.VISIBLE);
+    }
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,deck,null));
+  }
 }

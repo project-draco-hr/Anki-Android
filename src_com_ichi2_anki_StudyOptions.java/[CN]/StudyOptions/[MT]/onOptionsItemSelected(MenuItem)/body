@@ -7,7 +7,7 @@ case MENU_SYNC:
 syncDeck(null);
 return true;
 case MENU_MORE_OPTIONS:
-showMoreOptionsDialog();
+showDialog(DIALOG_MORE);
 return true;
 case MENU_PREFERENCES:
 startActivityForResult(new Intent(StudyOptions.this,Preferences.class),PREFERENCES_UPDATE);
@@ -16,8 +16,22 @@ case MENU_ADD_FACT:
 Intent intent=new Intent(StudyOptions.this,CardEditor.class);
 intent.putExtra(CardEditor.CARD_EDITOR_ACTION,CardEditor.ADD_CARD);
 startActivityForResult(intent,ADD_FACT);
-if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-MyAnimation.slide(StudyOptions.this,MyAnimation.LEFT);
+if (getApiLevel() > 4) {
+ActivityTransitionAnimation.slide(StudyOptions.this,ActivityTransitionAnimation.LEFT);
+}
+return true;
+case MENU_ROTATE:
+if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+}
+ else {
+setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+}
+return true;
+case MENU_ZEEMOTE:
+Log.d("Zeemote","Locale: " + mLocale);
+if ((AnkiDroidApp.zeemoteController() != null)) {
+controllerUi.showControllerMenu();
 }
 return true;
 default :

@@ -1,0 +1,39 @@
+{
+  String sourceText=mEditFields.get(mSourcePosition).getText().toString();
+  if (sourceText.length() == 0) {
+    sourceText=mSourceText;
+  }
+  String targetText=mEditFields.get(mTargetPosition).getText().toString();
+  if (targetText.length() == 0) {
+    targetText=mTargetText;
+  }
+  if (mEditFields.size() > mSourcePosition) {
+    mEditFields.get(mSourcePosition).setText("");
+  }
+  if (mEditFields.size() > mTargetPosition) {
+    mEditFields.get(mTargetPosition).setText("");
+  }
+  if (reset) {
+    mSourcePosition=0;
+    mTargetPosition=1;
+  }
+ else {
+    mTargetPosition++;
+    while (mTargetPosition == mSourcePosition || mTargetPosition >= mEditFields.size()) {
+      mTargetPosition++;
+      if (mTargetPosition >= mEditFields.size()) {
+        mTargetPosition=0;
+        mSourcePosition++;
+      }
+      if (mSourcePosition >= mEditFields.size()) {
+        mSourcePosition=0;
+      }
+    }
+  }
+  if (sourceText != null) {
+    mEditFields.get(mSourcePosition).setText(sourceText);
+  }
+  if (targetText != null) {
+    mEditFields.get(mTargetPosition).setText(targetText);
+  }
+}

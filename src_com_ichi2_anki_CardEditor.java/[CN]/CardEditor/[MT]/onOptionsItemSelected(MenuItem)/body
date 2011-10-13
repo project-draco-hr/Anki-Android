@@ -1,0 +1,63 @@
+{
+switch (item.getItemId()) {
+case MENU_COPY_CARD:
+case MENU_ADD_CARD:
+    Intent intent=new Intent(CardEditor.this,CardEditor.class);
+  if (item.getItemId() == MENU_COPY_CARD) {
+    intent.putExtra(CardEditor.CARD_EDITOR_ACTION,CardEditor.COPY_CARD);
+    StringBuilder contents=new StringBuilder();
+    for (    FieldEditText current : mEditFields) {
+      contents.append(current.getText().toString()).append("\u001f");
+    }
+    intent.putExtra("contents",contents.toString());
+    if (mDeckPath != null && mDeckPath.length() > 0) {
+      intent.putExtra(DECKPATH,mDeckPath);
+    }
+  }
+ else {
+    intent.putExtra(CardEditor.CARD_EDITOR_ACTION,CardEditor.ADD_CARD);
+  }
+startActivityForResult(intent,ACTION_ADD_CARD);
+if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+ActivityTransitionAnimation.slide(CardEditor.this,ActivityTransitionAnimation.LEFT);
+}
+return true;
+case MENU_RESET:
+if (mAddFact) {
+if (mIntentAdd) {
+if (mSourceText != null) {
+mEditFields.get(0).setText(mSourceText);
+}
+if (mTargetText != null) {
+mEditFields.get(1).setText(mTargetText);
+}
+}
+ else {
+for (FieldEditText current : mEditFields) {
+current.setText("");
+}
+if (!mEditFields.isEmpty()) {
+mEditFields.getFirst().requestFocus();
+}
+}
+}
+ else {
+populateEditFields();
+}
+return true;
+case MENU_LOOKUP:
+View focus=this.getWindow().getCurrentFocus();
+if (focus instanceof FieldEditText) {
+FieldEditText field=(FieldEditText)focus;
+if (!field.isSelected()) {
+field.selectAll();
+}
+Lookup.lookUp(field.getText().toString().substring(field.getSelectionStart(),field.getSelectionEnd()),null);
+}
+return true;
+case MENU_RESET_CARD_PROGRESS:
+showDialog(DIALOG_RESET_CARD);
+return true;
+}
+return false;
+}

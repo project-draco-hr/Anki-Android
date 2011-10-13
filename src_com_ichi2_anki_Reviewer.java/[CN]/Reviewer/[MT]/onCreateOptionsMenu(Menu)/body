@@ -17,7 +17,7 @@
   removeDeckSubMenu.add(Menu.NONE,MENU_REMOVE_SUSPEND,Menu.NONE,R.string.menu_suspend_card);
   removeDeckSubMenu.add(Menu.NONE,MENU_REMOVE_DELETE,Menu.NONE,R.string.card_browser_delete_card);
   if (mPrefTextSelection) {
-    item=menu.add(Menu.NONE,MENU_SEARCH,Menu.NONE,String.format(getString(R.string.menu_search),res.getStringArray(R.array.dictionary_labels)[mDictionary]));
+    item=menu.add(Menu.NONE,MENU_SEARCH,Menu.NONE,res.getString(R.string.menu_select));
     item.setIcon(R.drawable.ic_menu_search);
   }
   item=menu.add(Menu.NONE,MENU_MARK,Menu.NONE,R.string.menu_mark_card);

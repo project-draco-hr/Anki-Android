@@ -1,0 +1,6 @@
+{
+  Log.d(AnkiDroidApp.TAG,"BroadcastMessages: init");
+  if (Utils.isNewDay(lastTimeOpened)) {
+    PrefSettings.getSharedPrefs(context).edit().putBoolean("showBroadcastMessageToday",true).commit();
+  }
+}

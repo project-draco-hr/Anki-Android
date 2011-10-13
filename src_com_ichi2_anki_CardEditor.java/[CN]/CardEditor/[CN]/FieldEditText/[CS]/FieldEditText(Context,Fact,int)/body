@@ -1,15 +1,2 @@
 {
-  super(context);
-  mFact=fact;
-  mFieldOrd=fieldOrd;
-  String content=mFact.getFields()[fieldOrd];
-  if (content == null) {
-    content="";
-  }
-  if (mPrefFixArabic) {
-    this.setText(ArabicUtilities.reshapeSentence(content));
-  }
- else {
-    this.setText(content);
-  }
 }

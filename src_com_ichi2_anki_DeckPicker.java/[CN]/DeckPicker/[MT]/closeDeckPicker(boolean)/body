@@ -1,0 +1,18 @@
+{
+  if (mPrefStartupDeckPicker && backPressed) {
+    setResult(StudyOptions.RESULT_CLOSE);
+    Deck deck=AnkiDroidApp.deck();
+    if (deck != null) {
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CLOSE_DECK,mCloseDeckHandler,new DeckTask.TaskData(deck,0));
+    }
+ else {
+      finish();
+    }
+  }
+ else {
+    finish();
+    if (StudyOptions.getApiLevel() > 4) {
+      ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
+    }
+  }
+}

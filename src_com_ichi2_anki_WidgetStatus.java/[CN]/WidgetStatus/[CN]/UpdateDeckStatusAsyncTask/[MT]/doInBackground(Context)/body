@@ -15,7 +15,20 @@
       String absPath=file.getAbsolutePath();
       String deckName=file.getName().replaceAll(".anki","");
       Log.i(AnkiDroidApp.TAG,"Found deck: " + absPath);
-      Deck deck=Deck.openDeck(absPath,false);
+      Deck deck;
+      Deck currentDeck=AnkiDroidApp.deck();
+      if (currentDeck != null && currentDeck.getDeckPath().equals(deckName)) {
+        deck=currentDeck;
+      }
+ else {
+        try {
+          deck=Deck.openDeck(absPath,false);
+        }
+ catch (        RuntimeException e) {
+          Log.w(AnkiDroidApp.TAG,"Widget: Could not open database " + absPath + ": "+ e);
+          deck=null;
+        }
+      }
       if (deck == null) {
         Log.e(AnkiDroidApp.TAG,"Skipping null deck: " + absPath);
         for (        DeckStatus deckStatus : mDecks) {
@@ -28,8 +41,10 @@
         continue;
       }
       int[] counts=deck.getSched().counts();
-      Deck currentDeck=AnkiDroidApp.deck();
-      decks.add(new DeckStatus(absPath,deckName,counts[Scheduler.COUNTS_NEW],counts[Scheduler.COUNTS_REV],counts[Scheduler.COUNTS_LRN]));
+      if (currentDeck != null && currentDeck.getDB() != deck.getDB()) {
+        deck.closeDeck();
+      }
+      decks.add(new DeckStatus(absPath,deckName,counts[Scheduler.COUNTS_NEW],counts[Scheduler.COUNTS_REV],counts[Scheduler.COUNTS_LRN],eta,reps));
     }
  catch (    SQLException e) {
       Log.i(AnkiDroidApp.TAG,"Could not open deck");

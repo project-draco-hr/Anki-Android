@@ -1,6 +1,10 @@
 {
   Log.i(AnkiDroidApp.TAG,"displayCardAnswer");
+  if (mCurrentCard == null) {
+    return;
+  }
   sDisplayAnswer=true;
+  setFlipCardAnimation();
   Sound.stopSounds();
   String displayString="";
   String answer=getAnswer(), question=getQuestion();
@@ -43,7 +47,10 @@
     displayString=sb.toString();
   }
   mIsSelecting=false;
-  mFlipCard.setVisibility(View.GONE);
   updateCard(displayString);
   showEaseButtons();
+  if (mPrefUseTimer) {
+    mTimeoutHandler.removeCallbacks(mShowQuestionTask);
+    mTimeoutHandler.postDelayed(mShowQuestionTask,mWaitQuestionSecond * 1000);
+  }
 }

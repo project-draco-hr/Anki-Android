@@ -20,7 +20,7 @@
     }
   }
   Resources res=mReviewer.getResources();
-  AlertDialog.Builder builder=new AlertDialog.Builder(mReviewer);
+  StyledDialog.Builder builder=new StyledDialog.Builder(mReviewer);
   if (availableTtsLocales.size() == 0) {
     builder.setTitle(res.getString(R.string.no_tts_available_title));
     builder.setMessage(res.getString(R.string.no_tts_available_message));
@@ -37,7 +37,7 @@
       dialogItems.add(availableTtsLocales.get(i)[1]);
       dialogIds.add(availableTtsLocales.get(i)[0]);
     }
-    CharSequence[] items=new CharSequence[dialogItems.size()];
+    String[] items=new String[dialogItems.size()];
     dialogItems.toArray(items);
     builder.setItems(items,new DialogInterface.OnClickListener(){
       @Override public void onClick(      DialogInterface dialog,      int which){
@@ -47,6 +47,5 @@
     }
 );
   }
-  AlertDialog alert=builder.create();
-  alert.show();
+  builder.create().show();
 }

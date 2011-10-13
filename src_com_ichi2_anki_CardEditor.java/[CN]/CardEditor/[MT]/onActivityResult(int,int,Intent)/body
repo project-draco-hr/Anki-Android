@@ -1,0 +1,7 @@
+{
+  super.onActivityResult(requestCode,resultCode,data);
+  if (resultCode == Reviewer.RESULT_EDIT_CARD_RESET) {
+    mCardReset=true;
+    setResult(Reviewer.RESULT_EDIT_CARD_RESET);
+  }
+}

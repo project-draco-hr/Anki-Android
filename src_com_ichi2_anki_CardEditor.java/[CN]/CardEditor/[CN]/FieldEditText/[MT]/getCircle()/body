@@ -1,0 +1,48 @@
+{
+  mCircle=new ImageView(this.getContext());
+  mCircle.setImageResource(R.drawable.ic_circle_normal);
+  mCircle.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      ImageView view=((ImageView)v);
+      Editable editText=FieldEditText.this.getText();
+      if (mCutMode) {
+        view.setImageResource(R.drawable.ic_circle_normal);
+        FieldEditText.this.setKeyListener(mKeyListener);
+        FieldEditText.this.setCursorVisible(true);
+        updateContentAfterWordSelection(editText);
+      }
+ else {
+        view.setImageResource(R.drawable.ic_circle_pressed);
+        InputMethodManager imm=(InputMethodManager)mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(FieldEditText.this.getWindowToken(),0);
+        mKeyListener=FieldEditText.this.getKeyListener();
+        FieldEditText.this.setKeyListener(null);
+        FieldEditText.this.setCursorVisible(false);
+        mCutMode=true;
+        String text=editText.toString();
+        splitText(text);
+        int pos=0;
+        for (        WordRow row : mCutString) {
+          if (row.mWord.length() == 0 || row.mWord.equals(NL_MARK)) {
+            continue;
+          }
+          row.mBegin=text.indexOf(row.mWord,pos);
+          row.mEnd=row.mBegin + row.mWord.length();
+          if (!row.mEnabled) {
+            editText.setSpan(new StrikethroughSpan(),row.mBegin,row.mEnd,0);
+          }
+          pos=row.mEnd;
+        }
+      }
+    }
+  }
+);
+  if (this.getText().toString().length() > 0) {
+    mFilledFields++;
+    mCircle.setVisibility(View.VISIBLE);
+  }
+ else {
+    mCircle.setVisibility(View.GONE);
+  }
+  return mCircle;
+}

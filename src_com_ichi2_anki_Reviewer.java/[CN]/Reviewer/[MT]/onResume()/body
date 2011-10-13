@@ -1,17 +1,18 @@
 {
   super.onResume();
+  if (AnkiDroidApp.deck() == null) {
+    finish();
+  }
   if (mShakeEnabled) {
     mSensorManager.registerListener(mSensorListener,mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_NORMAL);
   }
-  if (mCurrentCard != null) {
-    mCurrentCard.resumeTimer();
-  }
-  if (mPrefTimer && mSavedTimer != 0) {
-    mCardTimer.setBase(SystemClock.elapsedRealtime() - mSavedTimer);
-    mCardTimer.start();
-  }
-  if (AnkiDroidApp.zeemoteController() != null) {
+  restartTimer();
+  if ((AnkiDroidApp.zeemoteController() != null) && (AnkiDroidApp.zeemoteController().isConnected())) {
     Log.d("Zeemote","Adding listener in onResume");
     AnkiDroidApp.zeemoteController().addButtonListener(this);
+    adapter=new JoystickToButtonAdapter();
+    AnkiDroidApp.zeemoteController().addJoystickListener(adapter);
+    adapter.addButtonListener(this);
+    getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
   }
 }

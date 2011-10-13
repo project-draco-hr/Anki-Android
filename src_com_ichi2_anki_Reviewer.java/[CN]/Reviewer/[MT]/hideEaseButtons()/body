@@ -1,10 +1,22 @@
 {
-  mEase1.setVisibility(View.GONE);
-  mEase2.setVisibility(View.GONE);
-  mEase3.setVisibility(View.GONE);
-  mEase4.setVisibility(View.GONE);
-  mNext1.setVisibility(View.INVISIBLE);
-  mNext2.setVisibility(View.INVISIBLE);
-  mNext3.setVisibility(View.INVISIBLE);
-  mNext4.setVisibility(View.INVISIBLE);
+  switchVisibility(mEase1,View.GONE);
+  switchVisibility(mEase2,View.GONE);
+  switchVisibility(mEase3,View.GONE);
+  switchVisibility(mEase4,View.GONE);
+  if (mshowNextReviewTime) {
+    int visibility=typeAnswer() ? View.GONE : View.INVISIBLE;
+    switchVisibility(mNext1,visibility);
+    switchVisibility(mNext2,visibility);
+    switchVisibility(mNext3,visibility);
+    switchVisibility(mNext4,visibility);
+  }
+  if (mFlipCard.getVisibility() != View.VISIBLE) {
+    switchVisibility(mFlipCard,View.VISIBLE);
+    mFlipCard.requestFocus();
+  }
+ else   if (typeAnswer()) {
+    mAnswerField.requestFocus();
+    InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+    inputMethodManager.showSoftInput(mAnswerField,InputMethodManager.SHOW_FORCED);
+  }
 }

@@ -1,10 +1,19 @@
 {
   mFieldsLayoutContainer.removeAllViews();
-  for (int i=0; i < mFields.length; i++) {
-    FieldEditText newTextbox=new FieldEditText(this,mEditorFact,i);
+  mEditFields=new LinkedList<FieldEditText>();
+  TreeSet<Field> fields=mEditorFact.getFields();
+  for (  Field f : fields) {
+    FieldEditText newTextbox=new FieldEditText(this,f);
     TextView label=newTextbox.getLabel();
+    ImageView circle=newTextbox.getCircle();
     mEditFields.add(newTextbox);
+    FrameLayout frame=new FrameLayout(this);
+    FrameLayout.LayoutParams params=new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT,Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+    params.rightMargin=10;
+    circle.setLayoutParams(params);
+    frame.addView(newTextbox);
+    frame.addView(circle);
     mFieldsLayoutContainer.addView(label);
-    mFieldsLayoutContainer.addView(newTextbox);
+    mFieldsLayoutContainer.addView(frame);
   }
 }

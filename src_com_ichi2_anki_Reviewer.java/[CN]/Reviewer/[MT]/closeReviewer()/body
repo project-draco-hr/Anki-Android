@@ -1,4 +1,10 @@
 {
+  mTimeoutHandler.removeCallbacks(mShowAnswerTask);
+  mTimeoutHandler.removeCallbacks(mShowQuestionTask);
+  mTimerHandler.removeCallbacks(removeChosenAnswerText);
+  longClickHandler.removeCallbacks(longClickTestRunnable);
+  longClickHandler.removeCallbacks(startSelection);
+  setOutAnimation(true);
   mClosing=true;
-  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SAVE_DECK,mSaveAndResetDeckHandler,new DeckTask.TaskData(AnkiDroidApp.deck(),""));
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SAVE_DECK,mSaveAndResetDeckHandler,new DeckTask.TaskData(AnkiDroidApp.deck(),0));
 }

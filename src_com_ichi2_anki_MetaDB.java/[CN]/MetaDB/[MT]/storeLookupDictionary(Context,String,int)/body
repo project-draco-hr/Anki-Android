@@ -1,0 +1,24 @@
+{
+  openDBIfClosed(context);
+  deckPath=stripQuotes(deckPath);
+  Cursor cur=null;
+  try {
+    cur=mMetaDb.rawQuery("SELECT _id FROM customDictionary" + " WHERE deckpath = \'" + deckPath + "\'",null);
+    if (cur.moveToNext()) {
+      mMetaDb.execSQL("UPDATE customDictionary " + "SET deckpath=\'" + deckPath + "\', "+ "dictionary="+ Integer.toString(dictionary)+ " "+ "WHERE _id="+ cur.getString(0)+ ";");
+      Log.i(AnkiDroidApp.TAG,"Store custom dictionary (" + dictionary + ") for deck "+ deckPath);
+    }
+ else {
+      mMetaDb.execSQL("INSERT INTO customDictionary (deckpath, dictionary) VALUES (?, ?)",new Object[]{deckPath,dictionary});
+      Log.i(AnkiDroidApp.TAG,"Store custom dictionary (" + dictionary + ") for deck "+ deckPath);
+    }
+  }
+ catch (  Exception e) {
+    Log.e("Error","Error storing custom dictionary to MetaDB ",e);
+  }
+ finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+}

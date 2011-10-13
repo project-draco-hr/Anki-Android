@@ -2,7 +2,7 @@
   openDBIfClosed(context);
   Cursor cur=null;
   try {
-    cur=mMetaDb.rawQuery("SELECT state FROM whiteboardState" + " WHERE deckpath = \'" + deckPath + "\'",null);
+    cur=mMetaDb.rawQuery("SELECT state FROM whiteboardState" + " WHERE deckpath = \'" + stripQuotes(deckPath) + "\'",null);
     if (cur.moveToNext()) {
       return cur.getInt(0);
     }

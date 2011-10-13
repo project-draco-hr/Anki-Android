@@ -1,0 +1,17 @@
+{
+  WebView webView=new MyWebView(this);
+  webView.setWillNotCacheDrawing(true);
+  webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+  if (mZoomEnabled) {
+    webView.getSettings().setBuiltInZoomControls(true);
+  }
+  webView.getSettings().setJavaScriptEnabled(true);
+  webView.setWebChromeClient(new AnkiDroidWebChromeClient());
+  webView.addJavascriptInterface(new JavaScriptInterface(),"interface");
+  if (Integer.parseInt(android.os.Build.VERSION.SDK) > 7) {
+    webView.setFocusableInTouchMode(false);
+  }
+  Log.i(AnkiDroidApp.TAG,"Focusable = " + webView.isFocusable() + ", Focusable in touch mode = "+ webView.isFocusableInTouchMode());
+  mScaleInPercent=webView.getScale();
+  return webView;
+}

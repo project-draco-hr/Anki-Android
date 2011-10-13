@@ -20,6 +20,9 @@
         }
  catch (        SQLException e) {
           Log.w(AnkiDroidApp.TAG,"Could not open database " + path);
+          if (!mBrokenDecks.contains(path)) {
+            mBrokenDecks.add(path);
+          }
           continue;
         }
         if (version < Deck.DECK_VERSION) {
@@ -32,21 +35,19 @@
           msg.setData(data);
           mHandler.sendMessage(msg);
         }
-        try {
-          deck=Deck.openDeck(path,false);
-          version=deck.getVersion();
-        }
- catch (        SQLException e) {
-          Log.w(AnkiDroidApp.TAG,"Could not open database " + path);
+        deck=getDeck(path);
+        if (deck == null) {
           continue;
         }
+        version=deck.getVersion();
         Bundle data=new Bundle();
         Message msg=Message.obtain();
         if (false) {
           data.putString("absPath",path);
           data.putInt("msgtype",MSG_UPGRADE_FAILURE);
           data.putInt("version",version);
-          deck.closeDeck(false);
+          data.putString("notes",Deck.upgradeNotesToMessages(deck,getResources()));
+          closeDeck(deck);
           msg.setData(data);
           mHandler.sendMessage(msg);
         }
@@ -57,8 +58,8 @@
           int newCards=counts[Scheduler.COUNTS_NEW];
           int totalNewCards=deck.totalNewCardCount(false);
           int eta=deck.getSched().eta() / 60;
-          String upgradeNotes="";
-          deck.closeDeck(false);
+          String upgradeNotes=Deck.upgradeNotesToMessages(deck,getResources());
+          closeDeck(deck);
           data.putString("absPath",path);
           data.putInt("msgtype",MSG_UPGRADE_SUCCESS);
           data.putInt("due",dueCards);
@@ -76,7 +77,7 @@
             data.putBoolean("lastDeck",false);
           }
           msg.setData(data);
-          mTotalDueCards+=dueCards;
+          mTotalDueCards+=dueCards + newCards;
           mTotalCards+=totalCards;
           mTotalTime+=eta;
           mHandler.sendMessage(msg);

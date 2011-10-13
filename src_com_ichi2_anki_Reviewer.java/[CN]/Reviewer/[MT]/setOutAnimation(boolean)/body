@@ -1,0 +1,6 @@
+{
+  mNextAnimation=reverse ? ANIMATION_SLIDE_OUT_TO_RIGHT : ANIMATION_SLIDE_OUT_TO_LEFT;
+  if (mCardContainer.getVisibility() == View.VISIBLE && mShowAnimations) {
+    fillFlashcard(true);
+  }
+}
