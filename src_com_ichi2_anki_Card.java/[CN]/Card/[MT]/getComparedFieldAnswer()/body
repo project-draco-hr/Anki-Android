@@ -3,7 +3,8 @@
   CardModel myCardModel=this.getCardModel();
   String typeAnswer=myCardModel.getTypeAnswer();
   if (null == typeAnswer || 0 == typeAnswer.trim().length()) {
-    returnArray[0]=null;
+    returnArray[0]=mAnswer;
+    returnArray[1]="";
     return returnArray;
   }
   Model myModel=Model.getModel(mDeck,myCardModel.getModelId(),true);
