@@ -1,8 +1,4 @@
 {
-  if (AnkiDroidApp.deck() != null) {
-    AnkiDroidApp.deck().closeDeck();
-    AnkiDroidApp.setDeck(null);
-  }
   startActivityForResult(new Intent(this,SharedDeckPicker.class),DOWNLOAD_SHARED_DECK);
   if (StudyOptions.getApiLevel() > 4) {
     ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);

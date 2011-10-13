@@ -11,11 +11,13 @@
     mNewVersionAlert=Themes.htmlOkDialog(this,getResources().getString(R.string.new_version_title) + " " + getVersion(),getVersionMessage(),new DialogInterface.OnClickListener(){
       @Override public void onClick(      DialogInterface dialog,      int which){
         PrefSettings.getSharedPrefs(StudyOptions.this.getBaseContext()).edit().putString("lastVersion",getVersion()).commit();
+        mNewVersionAlert=null;
         BroadcastMessages.checkForNewMessages(StudyOptions.this);
       }
     }
 ,new DialogInterface.OnCancelListener(){
       @Override public void onCancel(      DialogInterface dialog){
+        mNewVersionAlert=null;
         BroadcastMessages.checkForNewMessages(StudyOptions.this);
       }
     }

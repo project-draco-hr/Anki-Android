@@ -85,4 +85,19 @@ syncDeck(null);
  else if (requestCode == STATISTICS && mCurrentContentView == CONTENT_CONGRATS) {
 showContentView(CONTENT_STUDY_OPTIONS);
 }
+ else if (requestCode == REPORT_ERROR) {
+try {
+if (mWelcomeAlert != null && mWelcomeAlert.isShowing()) {
+mWelcomeAlert.dismiss();
+mWelcomeAlert.show();
+}
+ else if (mNewVersionAlert != null && mNewVersionAlert.isShowing()) {
+mNewVersionAlert.dismiss();
+mNewVersionAlert.show();
+}
+}
+ catch (IllegalArgumentException e) {
+Log.e(AnkiDroidApp.TAG,"Error on dismissing and showing dialog: " + e);
+}
+}
 }

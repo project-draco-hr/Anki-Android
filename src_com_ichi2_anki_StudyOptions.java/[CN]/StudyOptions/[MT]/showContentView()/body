@@ -12,7 +12,6 @@ case CONTENT_NO_DECK:
     mTextNoDeckMessage.setText(String.format(getResources().getString(R.string.studyoptions_nodeck_message),mPrefDeckPath));
     if (mNewVersionAlert != null) {
       mNewVersionAlert.show();
-      mNewVersionAlert=null;
     }
   }
 setContentView(mNoDeckView);
