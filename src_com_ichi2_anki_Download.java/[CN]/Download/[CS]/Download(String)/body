@@ -4,5 +4,5 @@
   mSize=-1;
   mDownloaded=0;
   mStatus=STATUS_STARTED;
-  mFilename=mTitle.replaceAll(":/\\\\","");
+  mFilename=mTitle.replaceAll("[:/\\\\]","");
 }
