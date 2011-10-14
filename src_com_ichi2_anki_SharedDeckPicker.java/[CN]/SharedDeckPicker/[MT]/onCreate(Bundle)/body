@@ -31,8 +31,7 @@
         SharedDeck selectedDeck=(SharedDeck)obj;
         for (        Download d : mSharedDeckDownloads) {
           if (d.getTitle().equals(selectedDeck.getTitle())) {
-            Toast duplicateMessage=Toast.makeText(SharedDeckPicker.this,res.getString(R.string.duplicate_download),Toast.LENGTH_SHORT);
-            duplicateMessage.show();
+            Themes.showThemedToast(SharedDeckPicker.this,res.getString(R.string.duplicate_download),true);
             return;
           }
         }

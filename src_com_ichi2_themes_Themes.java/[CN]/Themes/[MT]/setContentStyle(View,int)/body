@@ -22,6 +22,11 @@ if (mCurrentTheme == THEME_BLUE) {
 ((ListView)view.findViewById(R.id.files)).setSelector(R.drawable.blue_deckpicker_list_selector);
 }
 break;
+case CALLER_CARDBROWSER:
+if (mCurrentTheme == THEME_BLUE) {
+((ListView)view.findViewById(R.id.card_browser_list)).setSelector(R.drawable.blue_cardbrowser_list_selector);
+}
+break;
 case CALLER_DECKPICKER_DECK:
 if (view.getId() == R.id.DeckPickerCompletionMat) {
 view.setBackgroundResource(mProgressbarsFrameColor);
