@@ -57,6 +57,8 @@ catch (  RuntimeException e) {
     return new TaskData(TUTORIAL_NOT_CREATED);
   }
  finally {
-    ankiDB.getDatabase().endTransaction();
+    if (ankiDB != null && ankiDB.getDatabase().inTransaction()) {
+      ankiDB.getDatabase().endTransaction();
+    }
   }
 }
