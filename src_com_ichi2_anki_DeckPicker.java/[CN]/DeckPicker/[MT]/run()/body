@@ -18,11 +18,17 @@
         try {
           version=Deck.getDeckVersion(path);
         }
- catch (        SQLException e) {
+ catch (        Exception e) {
           Log.w(AnkiDroidApp.TAG,"Could not open database " + path);
           if (!mBrokenDecks.contains(path)) {
             mBrokenDecks.add(path);
           }
+          Bundle data=new Bundle();
+          data.putString("absPath",path);
+          data.putInt("msgtype",MSG_COULD_NOT_BE_LOADED);
+          Message msg=Message.obtain();
+          msg.setData(data);
+          mHandler.sendMessage(msg);
           continue;
         }
         if (version < Deck.DECK_VERSION) {
@@ -37,6 +43,12 @@
         }
         deck=getDeck(path);
         if (deck == null) {
+          Bundle data=new Bundle();
+          data.putString("absPath",path);
+          data.putInt("msgtype",MSG_COULD_NOT_BE_LOADED);
+          Message msg=Message.obtain();
+          msg.setData(data);
+          mHandler.sendMessage(msg);
           continue;
         }
         version=deck.getVersion();

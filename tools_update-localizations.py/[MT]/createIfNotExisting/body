@@ -1,0 +1,3 @@
+def createIfNotExisting(directory):
+    if (not os.path.isdir(directory)):
+        os.mkdir(directory)
