@@ -71,7 +71,14 @@
  else {
     ((View)layout.findViewById(R.id.customPanel)).setVisibility(View.GONE);
   }
-  Themes.setStyledDialogBackgrounds(layout,numberOfButtons,brightViewBackground);
+  try {
+    Themes.setStyledDialogBackgrounds(layout,numberOfButtons,brightViewBackground);
+  }
+ catch (  OutOfMemoryError e) {
+    Log.e(AnkiDroidApp.TAG,"StyledDialog - Dialog could not be created: " + e);
+    Themes.showThemedToast(context,context.getResources().getString(R.string.error_insufficient_memory),false);
+    return null;
+  }
   dialog.setContentView(layout);
   return dialog;
 }
