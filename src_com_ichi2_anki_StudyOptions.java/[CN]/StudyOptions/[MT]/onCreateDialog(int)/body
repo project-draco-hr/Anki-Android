@@ -179,12 +179,6 @@ showDialog(DIALOG_DECK_NOT_LOADED);
 }
 );
 builder.setCancelable(true);
-builder.setOnCancelListener(new OnCancelListener(){
-@Override public void onCancel(DialogInterface arg0){
-showContentView(CONTENT_DECK_NOT_LOADED);
-}
-}
-);
 dialog=builder.create();
 break;
 case DIALOG_MORE:
