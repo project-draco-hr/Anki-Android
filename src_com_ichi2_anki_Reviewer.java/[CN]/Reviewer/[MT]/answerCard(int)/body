@@ -2,7 +2,7 @@
   mIsSelecting=false;
   mIsAnswering=true;
   if (mPrefTextSelection) {
-    mClipboard.setText("");
+    clipboardSetText("");
     if (mLookUpIcon.getVisibility() == View.VISIBLE) {
       mLookUpIcon.setVisibility(View.GONE);
       mLookUpIcon.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_OUT,mFadeDuration,0));

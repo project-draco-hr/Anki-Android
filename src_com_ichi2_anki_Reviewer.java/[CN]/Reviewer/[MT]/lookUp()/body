@@ -1,8 +1,8 @@
 {
   mLookUpIcon.setVisibility(View.GONE);
   mIsSelecting=false;
-  if (Lookup.lookUp(mClipboard.getText().toString(),mCurrentCard)) {
-    mClipboard.setText("");
+  if (Lookup.lookUp(clipboardGetText().toString(),mCurrentCard)) {
+    clipboardSetText("");
   }
   return true;
 }
