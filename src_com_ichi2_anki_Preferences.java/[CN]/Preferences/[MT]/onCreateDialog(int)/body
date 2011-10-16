@@ -31,7 +31,7 @@ builder.setPositiveButton(res.getString(R.string.yes),new OnClickListener(){
 lockCheckAction=true;
 useBackupPreference.setChecked(false);
 dialogMessage=getResources().getString(R.string.backup_delete);
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DELETE_BACKUPS,mDeckOperationHandler,null);
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DELETE_BACKUPS,mDeckOperationHandler,(DeckTask.TaskData[])null);
 }
 }
 );
