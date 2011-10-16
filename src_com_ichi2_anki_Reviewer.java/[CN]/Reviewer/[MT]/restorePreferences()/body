@@ -14,7 +14,6 @@
   mPrefFullscreenReview=preferences.getBoolean("fullscreenReview",true);
   mshowNextReviewTime=preferences.getBoolean("showNextReviewTime",true);
   mZoomEnabled=preferences.getBoolean("zoom",false);
-  mZeemoteEnabled=preferences.getBoolean("zeemote",false);
   mDisplayFontSize=preferences.getInt("relativeDisplayFontSize",CardModel.DEFAULT_FONT_SIZE_RATIO);
   mRelativeButtonSize=preferences.getInt("answerButtonSize",100);
   mPrefHideQuestionInAnswer=Integer.parseInt(preferences.getString("hideQuestionInAnswer",Integer.toString(HQIA_DO_SHOW)));
