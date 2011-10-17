@@ -3,5 +3,6 @@
   sInstance=new DeckTask();
   sInstance.mListener=listener;
   sInstance.mType=type;
-  return (DeckTask)sInstance.execute(params);
+  sInstance.execute(params);
+  return sInstance;
 }

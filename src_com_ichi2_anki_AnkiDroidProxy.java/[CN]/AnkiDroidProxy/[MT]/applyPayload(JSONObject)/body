@@ -21,7 +21,6 @@
     Log.i(AnkiDroidApp.TAG,"Payload response = ");
     payloadReply=new JSONObject(contentString);
     Utils.printJSONObject(payloadReply,false);
-    Utils.saveJSONObject(payloadReply);
   }
  catch (  UnsupportedEncodingException e) {
     Log.e(AnkiDroidApp.TAG,"UnsupportedEncodingException = " + e.getMessage());

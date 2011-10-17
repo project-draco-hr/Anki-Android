@@ -37,7 +37,6 @@
     mSessionRepLimit=deckPayload.getInt("sessionRepLimit");
     mSessionTimeLimit=deckPayload.getInt("sessionTimeLimit");
     mSuspended=deckPayload.getString("suspended");
-    mUndoEnabled=deckPayload.getBoolean("undoEnabled");
     mUtcOffset=deckPayload.getDouble("utcOffset");
     commitToDB();
   }

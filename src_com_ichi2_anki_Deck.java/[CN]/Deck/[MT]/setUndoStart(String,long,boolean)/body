@@ -11,5 +11,5 @@
   if (mUndoStack.size() > 20) {
     mUndoStack.removeElementAt(0);
   }
-  mUndoRedoStackToRecord=mUndoStack;
+  startRecordingUndoInfo(mUndoStack);
 }
