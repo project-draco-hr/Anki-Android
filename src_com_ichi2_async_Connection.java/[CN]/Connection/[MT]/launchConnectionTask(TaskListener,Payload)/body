@@ -14,5 +14,6 @@
   }
   sInstance=new Connection();
   sInstance.mListener=listener;
-  return (Connection)sInstance.execute(data);
+  sInstance.execute(data);
+  return sInstance;
 }

@@ -23,7 +23,7 @@
         for (int i=0; i < len; i++) {
           oldvalues.put(columns[i],cursor.getString(i));
         }
-        deck.addUndoCommand("INS",table,oldvalues,null);
+        deck.addUndoCommand(SQL_INS,table,oldvalues,null);
       }
     }
   finally {

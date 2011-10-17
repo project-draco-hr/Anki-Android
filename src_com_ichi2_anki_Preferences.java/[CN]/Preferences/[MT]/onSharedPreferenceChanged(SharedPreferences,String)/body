@@ -22,7 +22,7 @@
  else {
         animationsCheckboxPreference.setEnabled(true);
       }
-      Themes.resetTheme();
+      Themes.loadTheme();
       Intent intent=this.getIntent();
       setResult(StudyOptions.RESULT_RESTART,intent);
       finish();
@@ -32,6 +32,9 @@
     }
  else     if (Arrays.asList(mShowValueInSummSeek).contains(key)) {
       updateSeekBarPreference(key);
+    }
+ else     if (key.equals("writeAnswers") && sharedPreferences.getBoolean("writeAnswers",false)) {
+      showDialog(DIALOG_WRITE_ANSWERS);
     }
  else     if (key.equals("walMode") && !lockCheckAction) {
       lockCheckAction=true;

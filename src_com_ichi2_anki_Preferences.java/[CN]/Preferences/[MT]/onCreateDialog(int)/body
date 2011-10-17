@@ -31,7 +31,7 @@ builder.setPositiveButton(res.getString(R.string.yes),new OnClickListener(){
 lockCheckAction=true;
 useBackupPreference.setChecked(false);
 dialogMessage=getResources().getString(R.string.backup_delete);
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DELETE_BACKUPS,mDeckOperationHandler,null);
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DELETE_BACKUPS,mDeckOperationHandler,(DeckTask.TaskData[])null);
 }
 }
 );
@@ -50,6 +50,12 @@ setReloadDeck();
 }
 );
 builder.setNegativeButton(res.getString(R.string.no),null);
+break;
+case DIALOG_WRITE_ANSWERS:
+builder.setTitle(res.getString(R.string.write_answers));
+builder.setCancelable(false);
+builder.setMessage(res.getString(R.string.write_answers_message));
+builder.setNegativeButton(res.getString(R.string.ok),null);
 break;
 }
 return builder.create();

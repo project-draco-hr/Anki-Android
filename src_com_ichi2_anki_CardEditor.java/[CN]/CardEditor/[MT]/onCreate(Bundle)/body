@@ -22,8 +22,6 @@
   if (action != null && action.equals(INTENT_CREATE_FLASHCARD)) {
     prepareForIntentAddition();
     Bundle extras=intent.getExtras();
-    mSourceLanguage=extras.getString(SOURCE_LANGUAGE);
-    mTargetLanguage=extras.getString(TARGET_LANGUAGE);
     mSourceText=extras.getString(SOURCE_TEXT);
     mTargetText=extras.getString(TARGET_TEXT);
     mAddFact=true;
@@ -47,10 +45,20 @@
     }
 switch (intent.getIntExtra(CARD_EDITOR_ACTION,ADD_CARD)) {
 case EDIT_REVIEWER_CARD:
-      mEditorFact=Reviewer.getEditorCard().getFact();
-    break;
+      Card revCard=Reviewer.getEditorCard();
+    if (revCard == null) {
+      finish();
+      return;
+    }
+  mEditorFact=revCard.getFact();
+break;
 case EDIT_BROWSER_CARD:
-  mEditorFact=CardBrowser.getEditorCard().getFact();
+Card browCard=CardBrowser.getEditorCard();
+if (browCard == null) {
+finish();
+return;
+}
+mEditorFact=browCard.getFact();
 break;
 case COPY_CARD:
 mForCopy=true;

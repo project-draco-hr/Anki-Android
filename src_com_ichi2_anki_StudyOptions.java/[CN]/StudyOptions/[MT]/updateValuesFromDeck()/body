@@ -2,46 +2,54 @@
   Deck deck=AnkiDroidApp.deck();
   Resources res=getResources();
   if (deck != null && !mIsClosing) {
-    int dueCount=deck.getDueCount();
-    int newTodayCount=deck.getNewCountToday();
-    int cardsCount=deck.getCardCount();
-    setTitle(res.getQuantityString(R.plurals.studyoptions_window_title,dueCount + newTodayCount,deck.getDeckName(),dueCount + newTodayCount,cardsCount));
-    mTextDeckName.setText(deck.getDeckName());
-    mTextReviewsDue.setText(String.valueOf(dueCount));
-    mTextNewToday.setText(String.valueOf(newTodayCount));
-    String etastr="-";
-    int eta=deck.getETA();
-    if (eta != -1) {
-      etastr=Integer.toString(eta);
-    }
-    mTextETA.setText(etastr);
-    int totalNewCount=deck.getNewCount(false);
-    mTextNewTotal.setText(String.valueOf(totalNewCount));
-    if (mDailyBar != null) {
-      double totalCardsCount=cardsCount;
-      mProgressTodayYes=deck.getProgress(false);
-      mProgressMatureYes=deck.getProgress(true);
-      double mature=deck.getMatureCardCount(false);
-      mProgressMature=mature / totalCardsCount;
-      double allRev=deck.getTotalRevFailedCount(false);
-      mProgressAll=allRev / totalCardsCount;
-      if (deck.isLimitedByTag()) {
-        if (mToggleCram.isChecked()) {
+    try {
+      int dueCount=deck.getDueCount();
+      int newTodayCount=deck.getNewCountToday();
+      int cardsCount=deck.getCardCount();
+      setTitle(res.getQuantityString(R.plurals.studyoptions_window_title,dueCount + newTodayCount,deck.getDeckName(),dueCount + newTodayCount,cardsCount));
+      mTextDeckName.setText(deck.getDeckName());
+      mTextReviewsDue.setText(String.valueOf(dueCount));
+      mTextNewToday.setText(String.valueOf(newTodayCount));
+      String etastr="-";
+      int eta=deck.getETA();
+      if (eta != -1) {
+        etastr=Integer.toString(eta);
+      }
+      mTextETA.setText(etastr);
+      int totalNewCount=deck.getNewCount(false);
+      mTextNewTotal.setText(String.valueOf(totalNewCount));
+      if (mDailyBar != null) {
+        double totalCardsCount=cardsCount;
+        mProgressTodayYes=deck.getProgress(false);
+        mProgressMatureYes=deck.getProgress(true);
+        double mature=deck.getMatureCardCount(false);
+        mProgressMature=mature / totalCardsCount;
+        double allRev=deck.getTotalRevFailedCount(false);
+        mProgressAll=allRev / totalCardsCount;
+        if (deck.isLimitedByTag()) {
+          if (mToggleCram.isChecked()) {
+            mGlobalLimitFrame.setVisibility(View.GONE);
+          }
+ else {
+            mGlobalLimitFrame.setVisibility(View.VISIBLE);
+            mature=deck.getMatureCardCount(true);
+            allRev=deck.getTotalRevFailedCount(true);
+            totalCardsCount=allRev + deck.getNewCount(true);
+            mProgressMatureLimit=mature / totalCardsCount;
+            mProgressAllLimit=allRev / totalCardsCount;
+          }
+        }
+ else {
           mGlobalLimitFrame.setVisibility(View.GONE);
         }
- else {
-          mGlobalLimitFrame.setVisibility(View.VISIBLE);
-          mature=deck.getMatureCardCount(true);
-          allRev=deck.getTotalRevFailedCount(true);
-          totalCardsCount=allRev + deck.getNewCount(true);
-          mProgressMatureLimit=mature / totalCardsCount;
-          mProgressAllLimit=allRev / totalCardsCount;
-        }
+        updateStatisticBars();
       }
- else {
-        mGlobalLimitFrame.setVisibility(View.GONE);
-      }
-      updateStatisticBars();
+      return true;
+    }
+ catch (    SQLiteException e) {
+      Log.e(AnkiDroidApp.TAG,"updateValuesFromDeck - error on retrieving deck information: " + e);
+      return false;
     }
   }
+  return true;
 }

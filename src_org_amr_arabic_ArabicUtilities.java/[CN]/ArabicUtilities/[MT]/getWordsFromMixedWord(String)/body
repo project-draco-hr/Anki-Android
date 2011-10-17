@@ -1,5 +1,5 @@
 {
-  ArrayList finalWords=new ArrayList();
+  ArrayList<String> finalWords=new ArrayList<String>();
   String tempWord="";
   for (int i=0; i < word.length(); i++) {
     if (isArabicCharacter(word.charAt(i))) {

@@ -20,15 +20,15 @@ for language in languages:
         androidLanguage = language[:2]
     print ('\ncopying language files for: ' + androidLanguage)
     valuesDirectory = (('../res/values-' + androidLanguage) + '/')
-    if (not os.path.isdir(valuesDirectory)):
-        os.mkdir(valuesDirectory)
+    createIfNotExisting(valuesDirectory)
     for f in fileNames:
-        if (f == 'tutorial'):
-            fileExt = '.csv'
-        else:
-            fileExt = '.xml'
-        newfile = ((valuesDirectory + f) + '.xml')
-        file(newfile, 'w').write(zip.read((((language + '/') + f) + fileExt)))
-        replacechars(newfile, fileExt)
+        fileExt = fileExtFor(f)
+        update(valuesDirectory, f, zip.read((((language + '/') + f) + fileExt)), fileExt, True)
+valuesDirectory = '../res/values/'
+createIfNotExisting(valuesDirectory)
+f = 'tutorial'
+fileExt = fileExtFor(f)
+source = open((('../assets/' + f) + fileExt))
+update(valuesDirectory, f, source.read(), fileExt, False)
 print 'removing crowdin-file'
 os.remove(zipname)
