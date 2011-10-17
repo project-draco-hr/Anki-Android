@@ -22,8 +22,6 @@
   if (action != null && action.equals(INTENT_CREATE_FLASHCARD)) {
     prepareForIntentAddition();
     Bundle extras=intent.getExtras();
-    mSourceLanguage=extras.getString(SOURCE_LANGUAGE);
-    mTargetLanguage=extras.getString(TARGET_LANGUAGE);
     mSourceText=extras.getString(SOURCE_TEXT);
     mTargetText=extras.getString(TARGET_TEXT);
     mAddFact=true;

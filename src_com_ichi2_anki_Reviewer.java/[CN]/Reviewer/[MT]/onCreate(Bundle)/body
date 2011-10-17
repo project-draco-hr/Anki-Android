@@ -30,7 +30,7 @@
     mCustomFontFiles=Utils.getCustomFonts(getBaseContext());
     initLayout(R.layout.flashcard);
     if (mPrefTextSelection) {
-      mClipboard.setText("");
+      clipboardSetText("");
       Lookup.initialize(this,mDeckFilename);
     }
     try {

@@ -105,7 +105,7 @@
   mLookUpIcon.setVisibility(View.GONE);
   mLookUpIcon.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View arg0){
-      if (mClipboard.hasText()) {
+      if (clipboardHasText()) {
         lookUp();
       }
     }

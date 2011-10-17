@@ -13,7 +13,7 @@
   }
   if (mPrefTextSelection) {
     item=menu.findItem(MENU_SEARCH);
-    if (mClipboard.hasText()) {
+    if (clipboardHasText()) {
       item.setTitle(Lookup.getSearchStringTitle());
       item.setEnabled(Lookup.isAvailable());
     }
