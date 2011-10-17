@@ -15,22 +15,25 @@
         String path=file.getAbsolutePath();
         Deck deck;
         Bundle data=new Bundle();
-        Message msg=Message.obtain();
+        Message msg;
         if (mUseBackups && BackupManager.safetyBackupNeeded(path,SAFETY_BACKUP_THRESHOLD)) {
           Log.i(AnkiDroidApp.TAG,"DeckPicker - Safety backup for deck " + path + "needed");
           data.putString("absPath",path);
           data.putInt("msgtype",MSG_CREATING_BACKUP);
+          msg=Message.obtain();
           msg.setData(data);
           mHandler.sendMessage(msg);
-          if (BackupManager.backupDeck(deckFilename) == BackupManager.RETURN_BACKUP_CREATED) {
+          if (BackupManager.backupDeck(path) == BackupManager.RETURN_BACKUP_CREATED) {
             data.putString("absPath",path);
             data.putInt("msgtype",MSG_LOADING_DECK);
+            msg=Message.obtain();
             msg.setData(data);
             mHandler.sendMessage(msg);
           }
  else {
             data.putString("absPath",path);
             data.putInt("msgtype",MSG_BACKUP_ERROR);
+            msg=Message.obtain();
             msg.setData(data);
             mHandler.sendMessage(msg);
             continue;
@@ -47,6 +50,7 @@
           }
           data.putString("absPath",path);
           data.putInt("msgtype",MSG_COULD_NOT_BE_LOADED);
+          msg=Message.obtain();
           msg.setData(data);
           mHandler.sendMessage(msg);
           continue;
@@ -56,6 +60,7 @@
           data.putInt("msgtype",MSG_UPGRADE_NEEDED);
           data.putInt("version",version);
           data.putString("notes","");
+          msg=Message.obtain();
           msg.setData(data);
           mHandler.sendMessage(msg);
         }
@@ -63,6 +68,7 @@
         if (deck == null) {
           data.putString("absPath",path);
           data.putInt("msgtype",MSG_COULD_NOT_BE_LOADED);
+          msg=Message.obtain();
           msg.setData(data);
           mHandler.sendMessage(msg);
           continue;
@@ -74,6 +80,7 @@
           data.putInt("version",version);
           data.putString("notes",Deck.upgradeNotesToMessages(deck,getResources()));
           closeDeck(deck);
+          msg=Message.obtain();
           msg.setData(data);
           mHandler.sendMessage(msg);
         }
@@ -109,6 +116,7 @@
             }
             data.putInt("rateOfCompletionMat",rateOfCompletionMat);
             data.putInt("rateOfCompletionAll",Math.max(0,rateOfCompletionAll - rateOfCompletionMat));
+            msg=Message.obtain();
             msg.setData(data);
             mTotalDueCards+=dueCards + newCards;
             mTotalCards+=totalCards;
@@ -118,6 +126,7 @@
             Log.e(AnkiDroidApp.TAG,"DeckPicker - run - error on loading deck values from file " + path + ": "+ e);
             data.putString("absPath",path);
             data.putInt("msgtype",MSG_COULD_NOT_BE_LOADED);
+            msg=Message.obtain();
             msg.setData(data);
             mHandler.sendMessage(msg);
             if (!mBrokenDecks.contains(path)) {
