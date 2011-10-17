@@ -10,15 +10,11 @@
     }
  catch (    SQLException e) {
       Log.w(AnkiDroidApp.TAG,"Could not open database " + filePath + ": "+ e);
-      if (!mBrokenDecks.contains(filePath)) {
-        mBrokenDecks.add(filePath);
-      }
+      addBrokenDeck(filePath);
     }
 catch (    RuntimeException e) {
       Log.w(AnkiDroidApp.TAG,"Could not open database " + filePath + ": "+ e);
-      if (!mBrokenDecks.contains(filePath)) {
-        mBrokenDecks.add(filePath);
-      }
+      addBrokenDeck(filePath);
     }
     return deck;
   }

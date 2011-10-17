@@ -1,4 +1,8 @@
 {
+  if (mDeckPickerDecks.contains(deckpath)) {
+    return false;
+  }
+  mDeckPickerDecks.add(deckpath);
   File[] deckBackups=getDeckBackups(new File(deckpath));
   int len=deckBackups.length;
   if (len == 0) {

@@ -45,9 +45,7 @@
         }
  catch (        Exception e) {
           Log.w(AnkiDroidApp.TAG,"Could not open database " + path);
-          if (!mBrokenDecks.contains(path)) {
-            mBrokenDecks.add(path);
-          }
+          addBrokenDeck(path);
           data.putString("absPath",path);
           data.putInt("msgtype",MSG_COULD_NOT_BE_LOADED);
           msg=Message.obtain();
@@ -66,6 +64,7 @@
         }
         deck=getDeck(path);
         if (deck == null) {
+          addBrokenDeck(path);
           data.putString("absPath",path);
           data.putInt("msgtype",MSG_COULD_NOT_BE_LOADED);
           msg=Message.obtain();
@@ -129,9 +128,7 @@
             msg=Message.obtain();
             msg.setData(data);
             mHandler.sendMessage(msg);
-            if (!mBrokenDecks.contains(path)) {
-              mBrokenDecks.add(path);
-            }
+            addBrokenDeck(path);
             continue;
           }
           mHandler.sendMessage(msg);
