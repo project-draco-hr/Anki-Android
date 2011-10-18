@@ -52,7 +52,7 @@ break;
 case DIALOG_DELETE_DECK:
 builder.setTitle(res.getString(R.string.delete_deck_title));
 builder.setIcon(android.R.drawable.ic_dialog_alert);
-builder.setMessage(String.format(res.getString(R.string.delete_deck_message),mCurrentDeckFilename));
+builder.setMessage(String.format(res.getString(R.string.delete_deck_message),"\'" + mCurrentDeckFilename + "\'"));
 builder.setPositiveButton(res.getString(R.string.delete_deck_confirm),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 removeDeck(mCurrentDeckPath);
@@ -80,7 +80,7 @@ break;
 case DIALOG_DELETE_BACKUPS:
 builder.setTitle(res.getString(R.string.backup_manager_title));
 builder.setIcon(android.R.drawable.ic_dialog_alert);
-builder.setMessage(String.format(res.getString(R.string.backup_delete_deck_backups_alert),mCurrentDeckFilename));
+builder.setMessage(String.format(res.getString(R.string.backup_delete_deck_backups_alert),"\'" + mCurrentDeckFilename + "\'"));
 builder.setPositiveButton(res.getString(R.string.delete_deck_confirm),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 if (BackupManager.deleteDeckBackups(mCurrentDeckPath,0)) {
