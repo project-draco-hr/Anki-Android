@@ -71,7 +71,7 @@
       builder.setCancelable(true).setTitle(res.getString(R.string.delete_deck_title)).setIcon(android.R.drawable.ic_dialog_alert).setMessage(String.format(res.getString(R.string.delete_deck_message),"\'" + new File(mCurrentDeckPath).getName().replace(".anki","") + "\'")).setPositiveButton(res.getString(R.string.delete_deck_confirm),new DialogInterface.OnClickListener(){
         @Override public void onClick(        DialogInterface dialog,        int which){
           if (BackupManager.moveDeckToBrokenFolder(mCurrentDeckPath)) {
-            Themes.showThemedToast(DeckPicker.this,getResources().getString(R.string.delete_deck_success,new File(mCurrentDeckPath).getName().replace(".anki",""),BackupManager.BROKEN_DECKS_SUFFIX.replace("/","")),false);
+            Themes.showThemedToast(DeckPicker.this,getResources().getString(R.string.delete_deck_success,"\'" + (new File(mCurrentDeckPath).getName().replace(".anki","")) + "\'",BackupManager.BROKEN_DECKS_SUFFIX.replace("/","")),false);
             mRestoredOrDeleted=true;
             handleRestoreDecks(true);
           }
