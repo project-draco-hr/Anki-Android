@@ -11,8 +11,9 @@
   }
   ArrayList<DeckStatus> decks=new ArrayList<DeckStatus>(fileList.length);
   for (  File file : fileList) {
+    String absPath=null;
     try {
-      String absPath=file.getAbsolutePath();
+      absPath=file.getAbsolutePath();
       String deckName=file.getName().replaceAll(".anki","");
       Log.i(AnkiDroidApp.TAG,"Found deck: " + absPath);
       Deck deck;
@@ -53,8 +54,10 @@
     }
  catch (    SQLException e) {
       Log.i(AnkiDroidApp.TAG,"Widget: Could not open deck");
-      BackupManager.restoreDeckIfMissing(absPath);
       Log.e(AnkiDroidApp.TAG,e.toString());
+      if (absPath != null) {
+        BackupManager.restoreDeckIfMissing(absPath);
+      }
     }
   }
   if (!decks.isEmpty() && decks.size() > 1) {
