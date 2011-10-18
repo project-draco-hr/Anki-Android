@@ -7,6 +7,7 @@
     startActivityForResult(i,REPORT_ERROR);
   }
   SharedPreferences preferences=restorePreferences();
+  BackupManager.initBackup();
   registerExternalStorageListener();
   activeCramTags=new HashSet<String>();
   mSelectedTags=new HashSet<String>();

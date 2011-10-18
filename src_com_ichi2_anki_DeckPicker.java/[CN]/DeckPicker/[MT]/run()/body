@@ -16,7 +16,7 @@
         Deck deck;
         Bundle data=new Bundle();
         Message msg;
-        if (mUseBackups && BackupManager.safetyBackupNeeded(path,SAFETY_BACKUP_THRESHOLD)) {
+        if (BackupManager.isActivated() && BackupManager.safetyBackupNeeded(path,BackupManager.SAFETY_BACKUP_THRESHOLD)) {
           Log.i(AnkiDroidApp.TAG,"DeckPicker - Safety backup for deck " + path + "needed");
           data.putString("absPath",path);
           data.putInt("msgtype",MSG_CREATING_BACKUP);

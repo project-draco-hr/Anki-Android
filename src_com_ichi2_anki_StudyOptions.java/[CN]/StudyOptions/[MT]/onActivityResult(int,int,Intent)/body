@@ -54,6 +54,7 @@
   }
  else   if (requestCode == PREFERENCES_UPDATE) {
     restorePreferences();
+    BackupManager.initBackup();
     showContentView();
     if (resultCode == RESULT_RESTART) {
       restartApp();
