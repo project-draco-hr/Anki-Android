@@ -32,7 +32,7 @@
         }
       }
       if (deck == null) {
-        Log.e(AnkiDroidApp.TAG,"Skipping null deck: " + absPath);
+        Log.e(AnkiDroidApp.TAG,"Widget: Skipping null deck: " + absPath);
         for (        DeckStatus deckStatus : mDecks) {
           if (absPath.equals(deckStatus.mDeckPath)) {
             Log.d(AnkiDroidApp.TAG,"Using previous value");
