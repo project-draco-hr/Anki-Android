@@ -1,0 +1,4 @@
+{
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundRepairDeck");
+  return new TaskData(BackupManager.repairDeck(params[0].getString()));
+}
