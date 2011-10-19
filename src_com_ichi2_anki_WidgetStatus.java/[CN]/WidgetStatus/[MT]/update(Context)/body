@@ -1,6 +1,6 @@
 {
   SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
-  if (preferences.getBoolean("widgetEnabled",false)) {
+  if (preferences.getBoolean("widgetMediumEnabled",false)) {
     mediumWidget=true;
   }
  else {
