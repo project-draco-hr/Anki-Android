@@ -54,6 +54,7 @@
   }
  else   if (requestCode == PREFERENCES_UPDATE) {
     restorePreferences();
+    BackupManager.initBackup();
     showContentView();
     if (resultCode == RESULT_RESTART) {
       restartApp();
@@ -70,6 +71,10 @@ case Reviewer.RESULT_SESSION_COMPLETED:
     break;
 case Reviewer.RESULT_NO_MORE_CARDS:
   showContentView(CONTENT_CONGRATS);
+break;
+case Reviewer.RESULT_ANSWERING_ERROR:
+showContentView(CONTENT_STUDY_OPTIONS);
+showDialog(DIALOG_ANSWERING_ERROR);
 break;
 default :
 showContentView(CONTENT_STUDY_OPTIONS);

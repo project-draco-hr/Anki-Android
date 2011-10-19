@@ -13,7 +13,7 @@
     String[] answers=res.getStringArray(R.array.tutorial_answers);
     String[] sampleQuestions=res.getStringArray(R.array.tutorial_capitals_questions);
     String[] sampleAnswers=res.getStringArray(R.array.tutorial_capitals_answers);
-    Deck deck=Deck.openDeck(sampleDeckFile.getAbsolutePath(),false);
+    Deck deck=Deck.openDeck(sampleDeckFile.getAbsolutePath());
     ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
     ankiDB.getDatabase().beginTransaction();
     try {
@@ -42,13 +42,13 @@
       deck.setSessionTimeLimit(0);
       deck.flushMod();
       deck.reset();
-      AnkiDroidApp.setDeck(deck);
       ankiDB.getDatabase().setTransactionSuccessful();
-      return new TaskData(DECK_LOADED,deck,null);
     }
   finally {
       ankiDB.getDatabase().endTransaction();
     }
+    AnkiDroidApp.setDeck(deck);
+    return new TaskData(DECK_LOADED,deck,null);
   }
  catch (  IOException e) {
     Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));

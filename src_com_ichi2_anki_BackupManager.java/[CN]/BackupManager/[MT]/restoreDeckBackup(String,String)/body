@@ -1,5 +1,5 @@
 {
-  if (!moveDeckToBrokenFolder(deckpath)) {
+  if ((new File(deckpath)).exists() && !moveDeckToBrokenFolder(deckpath)) {
     return RETURN_ERROR;
   }
   File backupFile=new File(backupPath);

@@ -1,0 +1,6 @@
+{
+  if (!mBrokenDecks.contains(filePath)) {
+    mBrokenDecks.add(filePath);
+    BackupManager.restoreDeckIfMissing(filePath);
+  }
+}

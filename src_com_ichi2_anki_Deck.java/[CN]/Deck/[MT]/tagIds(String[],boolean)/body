@@ -8,7 +8,7 @@
   if (tags.length != 0) {
     StringBuilder tagList=new StringBuilder(128);
     for (int i=0; i < tags.length; i++) {
-      tagList.append("'").append(tags[i]).append("'");
+      tagList.append("'").append(tags[i].replaceAll("\\'+","\'\'")).append("'");
       if (i < tags.length - 1) {
         tagList.append(", ");
       }
