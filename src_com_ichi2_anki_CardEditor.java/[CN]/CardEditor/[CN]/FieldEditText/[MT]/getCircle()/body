@@ -1,6 +1,7 @@
 {
   mCircle=new ImageView(this.getContext());
   mCircle.setImageResource(R.drawable.ic_circle_normal);
+  mKeyListener=FieldEditText.this.getKeyListener();
   mCircle.setOnClickListener(new View.OnClickListener(){
     @Override public void onClick(    View v){
       Editable editText=FieldEditText.this.getText();
