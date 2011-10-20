@@ -16,6 +16,7 @@
       absPath=file.getAbsolutePath();
       String deckName=file.getName().replaceAll(".anki","");
       Log.i(AnkiDroidApp.TAG,"Found deck: " + absPath);
+      DeckTask.waitToFinish();
       Deck deck;
       Deck currentDeck=AnkiDroidApp.deck();
       if (currentDeck != null && currentDeck.getDeckPath().equals(deckName)) {
