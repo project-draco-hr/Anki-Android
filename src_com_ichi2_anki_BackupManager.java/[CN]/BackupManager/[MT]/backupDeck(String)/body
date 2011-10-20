@@ -1,4 +1,7 @@
 {
+  if (mDeckPickerDecks == null) {
+    initBackup();
+  }
   mDeckPickerDecks.add(deckpath);
   mLastCreatedBackup=null;
   mLastDeckBackups=null;
