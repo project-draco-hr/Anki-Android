@@ -1,6 +1,7 @@
 {
   Deck deck=AnkiDroidApp.deck();
   if (deck != null) {
+    mInReviewer=true;
     deck.setupReviewEarlyScheduler();
     deck.reset();
     Intent reviewer=new Intent(StudyOptions.this,Reviewer.class);
