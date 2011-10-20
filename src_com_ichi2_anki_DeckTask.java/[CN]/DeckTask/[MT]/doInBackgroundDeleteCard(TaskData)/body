@@ -4,18 +4,25 @@
   Card newCard=null;
   Long id=0l;
   Log.i(AnkiDroidApp.TAG,"doInBackgroundDeleteCard");
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
-  ankiDB.getDatabase().beginTransaction();
   try {
-    id=card.getId();
-    card.delete();
-    deck.reset();
-    newCard=deck.getCard();
-    publishProgress(new TaskData(newCard));
-    ankiDB.getDatabase().setTransactionSuccessful();
-  }
+    AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
+    ankiDB.getDatabase().beginTransaction();
+    try {
+      id=card.getId();
+      card.delete();
+      deck.reset();
+      newCard=deck.getCard();
+      publishProgress(new TaskData(newCard));
+      ankiDB.getDatabase().setTransactionSuccessful();
+    }
   finally {
-    ankiDB.getDatabase().endTransaction();
+      ankiDB.getDatabase().endTransaction();
+    }
   }
-  return new TaskData(String.valueOf(id));
+ catch (  RuntimeException e) {
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundDeleteCard - RuntimeException on deleting card: " + e);
+    AnkiDroidApp.saveExceptionReportFile(e);
+    return new TaskData(String.valueOf(id),0,false);
+  }
+  return new TaskData(String.valueOf(id),0,true);
 }

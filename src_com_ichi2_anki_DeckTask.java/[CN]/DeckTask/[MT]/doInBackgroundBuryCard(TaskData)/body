@@ -4,18 +4,25 @@
   Card newCard=null;
   Long id=0l;
   Log.i(AnkiDroidApp.TAG,"doInBackgroundBuryCard");
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
-  ankiDB.getDatabase().beginTransaction();
   try {
-    id=card.getId();
-    deck.buryFact(card.getFactId(),id);
-    deck.reset();
-    newCard=deck.getCard();
-    publishProgress(new TaskData(newCard));
-    ankiDB.getDatabase().setTransactionSuccessful();
-  }
+    AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
+    ankiDB.getDatabase().beginTransaction();
+    try {
+      id=card.getId();
+      deck.buryFact(card.getFactId(),id);
+      deck.reset();
+      newCard=deck.getCard();
+      publishProgress(new TaskData(newCard));
+      ankiDB.getDatabase().setTransactionSuccessful();
+    }
   finally {
-    ankiDB.getDatabase().endTransaction();
+      ankiDB.getDatabase().endTransaction();
+    }
   }
-  return new TaskData(String.valueOf(id));
+ catch (  RuntimeException e) {
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundSuspendCard - RuntimeException on suspending card: " + e);
+    AnkiDroidApp.saveExceptionReportFile(e);
+    return new TaskData(String.valueOf(id),0,false);
+  }
+  return new TaskData(String.valueOf(id),0,true);
 }
