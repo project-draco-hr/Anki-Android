@@ -1,4 +1,7 @@
 {
+  if (mDeckPickerDecks == null) {
+    initBackup();
+  }
   if (!mUseBackups || mDeckPickerDecks.contains(deckpath)) {
     return false;
   }
