@@ -411,6 +411,15 @@ DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REPAIR_DECK,mRepairDeckHandler,new De
 }
 }
 );
+builder.setNeutralButton(res.getString(R.string.answering_error_report),new OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+if (hasErrorFiles()) {
+Intent i=new Intent(StudyOptions.this,Feedback.class);
+startActivityForResult(i,REPORT_ERROR);
+}
+}
+}
+);
 builder.setNegativeButton(res.getString(R.string.close),null);
 builder.setCancelable(true);
 dialog=builder.create();

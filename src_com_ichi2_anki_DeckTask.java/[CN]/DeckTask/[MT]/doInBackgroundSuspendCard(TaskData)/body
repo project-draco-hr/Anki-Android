@@ -2,27 +2,34 @@
   Deck deck=params[0].getDeck();
   Card oldCard=params[0].getCard();
   Card newCard=null;
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
-  ankiDB.getDatabase().beginTransaction();
   try {
-    if (oldCard != null) {
-      String undoName=Deck.UNDO_TYPE_SUSPEND_CARD;
-      deck.setUndoStart(undoName,oldCard.getId());
-      if (oldCard.getSuspendedState()) {
-        oldCard.unsuspend();
-        newCard=oldCard;
-      }
+    AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
+    ankiDB.getDatabase().beginTransaction();
+    try {
+      if (oldCard != null) {
+        String undoName=Deck.UNDO_TYPE_SUSPEND_CARD;
+        deck.setUndoStart(undoName,oldCard.getId());
+        if (oldCard.getSuspendedState()) {
+          oldCard.unsuspend();
+          newCard=oldCard;
+        }
  else {
-        oldCard.suspend();
-        newCard=deck.getCard();
+          oldCard.suspend();
+          newCard=deck.getCard();
+        }
+        deck.setUndoEnd(undoName);
       }
-      deck.setUndoEnd(undoName);
+      publishProgress(new TaskData(newCard));
+      ankiDB.getDatabase().setTransactionSuccessful();
     }
-    publishProgress(new TaskData(newCard));
-    ankiDB.getDatabase().setTransactionSuccessful();
-  }
   finally {
-    ankiDB.getDatabase().endTransaction();
+      ankiDB.getDatabase().endTransaction();
+    }
   }
-  return null;
+ catch (  RuntimeException e) {
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundSuspendCard - RuntimeException on suspending card: " + e);
+    AnkiDroidApp.saveExceptionReportFile(e);
+    return new TaskData(false);
+  }
+  return new TaskData(true);
 }

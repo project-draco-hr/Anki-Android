@@ -24,8 +24,9 @@
       ankiDB.getDatabase().endTransaction();
     }
   }
- catch (  SQLiteDiskIOException e) {
-    Log.e(AnkiDroidApp.TAG,"doInBackgroundAnswerCard - SQLiteDiskIOException on answering card: " + e);
+ catch (  RuntimeException e) {
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundAnswerCard - RuntimeException on answering card: " + e);
+    AnkiDroidApp.saveExceptionReportFile(e);
     return new TaskData(false);
   }
   return new TaskData(true);
