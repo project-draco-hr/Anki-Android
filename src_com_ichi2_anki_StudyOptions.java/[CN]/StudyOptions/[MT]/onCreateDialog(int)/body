@@ -415,6 +415,7 @@ builder.setNeutralButton(res.getString(R.string.answering_error_report),new OnCl
 @Override public void onClick(DialogInterface dialog,int which){
 mShowRepairDialog=true;
 Intent i=new Intent(StudyOptions.this,Feedback.class);
+dialog.dismiss();
 startActivityForResult(i,REPORT_ERROR);
 if (getApiLevel() > 4) {
 ActivityTransitionAnimation.slide(StudyOptions.this,ActivityTransitionAnimation.FADE);
