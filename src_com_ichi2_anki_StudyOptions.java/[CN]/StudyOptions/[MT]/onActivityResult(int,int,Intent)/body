@@ -108,5 +108,9 @@ mNewVersionAlert.show();
  catch (IllegalArgumentException e) {
 Log.e(AnkiDroidApp.TAG,"Error on dismissing and showing dialog: " + e);
 }
+if (mShowRepairDialog) {
+showDialog(DIALOG_ANSWERING_ERROR);
+mShowRepairDialog=false;
+}
 }
 }
