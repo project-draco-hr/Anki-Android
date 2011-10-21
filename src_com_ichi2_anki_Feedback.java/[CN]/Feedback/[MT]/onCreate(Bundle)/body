@@ -28,13 +28,13 @@
     }
     deleteFiles(true,false);
     setResult(RESULT_OK);
-    finish();
+    closeFeedback();
     return;
   }
  else   if (mReportErrorMode.equals(REPORT_NEVER)) {
     deleteFiles(false,false);
     setResult(RESULT_OK);
-    finish();
+    closeFeedback();
   }
   View mainView=getLayoutInflater().inflate(R.layout.feedback,null);
   setContentView(mainView);
