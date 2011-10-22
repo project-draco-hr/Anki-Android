@@ -19,9 +19,11 @@
   }
   reportInformation.append("stacktrace=\n");
   if (t == null) {
-    reportInformation.append("This occured in reviewer and is probably related to a corrupt db/insufficient disc space (has been catched)\n");
+    reportInformation.append("(This exception occured in reviewer and is probably related to a corrupt db/insufficient disc space. Has been catched)\nBegin Stacktrace\n(ProbablyCorruptDB)\n");
   }
-  reportInformation.append("Begin Stacktrace\n");
+ else {
+    reportInformation.append("Begin Stacktrace\n");
+  }
   final Writer result=new StringWriter();
   final PrintWriter printWriter=new PrintWriter(result);
   e.printStackTrace(printWriter);

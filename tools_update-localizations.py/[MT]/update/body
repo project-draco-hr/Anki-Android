@@ -1,4 +1,4 @@
 def update(valuesDirectory, f, source, fileExt, isCrowdin):
     newfile = ((valuesDirectory + f) + '.xml')
     file(newfile, 'w').write(source)
-    replacechars(newfile, fileExt, isCrowdin)
+    return replacechars(newfile, fileExt, isCrowdin)

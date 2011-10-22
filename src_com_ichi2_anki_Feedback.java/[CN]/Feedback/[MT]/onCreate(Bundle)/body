@@ -27,13 +27,11 @@
       Log.e(AnkiDroidApp.TAG,e.toString());
     }
     deleteFiles(true,false);
-    setResult(RESULT_OK);
     closeFeedback();
     return;
   }
  else   if (mReportErrorMode.equals(REPORT_NEVER)) {
     deleteFiles(false,false);
-    setResult(RESULT_OK);
     closeFeedback();
   }
   View mainView=getLayoutInflater().inflate(R.layout.feedback,null);
