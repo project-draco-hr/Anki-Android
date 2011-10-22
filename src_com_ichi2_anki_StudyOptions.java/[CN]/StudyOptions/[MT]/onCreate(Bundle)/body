@@ -40,7 +40,7 @@
       showContentView(CONTENT_NO_DECK);
     }
  else {
-      if ((showDeckPickerOnStartup() || getIntent().getBooleanExtra("startDeckpicker",false)) && !hasErrorFiles()) {
+      if ((showDeckPickerOnStartup() || getIntent().getBooleanExtra("startDeckpicker",false)) && (!hasErrorFiles())) {
         openDeckPicker();
       }
  else {
