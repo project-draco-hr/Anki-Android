@@ -1,6 +1,10 @@
 {
   super.onPause();
   Log.i(AnkiDroidApp.TAG,"Reviewer - onPause()");
+  mTimeoutHandler.removeCallbacks(mShowAnswerTask);
+  mTimeoutHandler.removeCallbacks(mShowQuestionTask);
+  longClickHandler.removeCallbacks(longClickTestRunnable);
+  longClickHandler.removeCallbacks(startSelection);
   stopTimer();
   if (!mClosing) {
     Deck deck=AnkiDroidApp.deck();
