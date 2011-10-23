@@ -44,6 +44,7 @@
     mGestureTapRight=Integer.parseInt(preferences.getString("gestureTapRight","0"));
     mGestureTapTop=Integer.parseInt(preferences.getString("gestureTapTop","0"));
     mGestureTapBottom=Integer.parseInt(preferences.getString("gestureTapBottom","0"));
+    mGestureLongclick=Integer.parseInt(preferences.getString("gestureLongclick","0"));
   }
   mShowAnimations=preferences.getBoolean("themeAnimations",false);
   if (mShowAnimations) {

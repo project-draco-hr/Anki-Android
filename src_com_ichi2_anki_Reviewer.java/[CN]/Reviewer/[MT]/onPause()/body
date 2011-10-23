@@ -4,7 +4,7 @@
   mTimeoutHandler.removeCallbacks(mShowAnswerTask);
   mTimeoutHandler.removeCallbacks(mShowQuestionTask);
   longClickHandler.removeCallbacks(longClickTestRunnable);
-  longClickHandler.removeCallbacks(startSelection);
+  longClickHandler.removeCallbacks(startLongClickAction);
   stopTimer();
   if (!mClosing) {
     Deck deck=AnkiDroidApp.deck();

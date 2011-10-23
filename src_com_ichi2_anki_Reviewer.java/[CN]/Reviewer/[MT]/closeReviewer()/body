@@ -3,7 +3,7 @@
   mTimeoutHandler.removeCallbacks(mShowQuestionTask);
   mTimerHandler.removeCallbacks(removeChosenAnswerText);
   longClickHandler.removeCallbacks(longClickTestRunnable);
-  longClickHandler.removeCallbacks(startSelection);
+  longClickHandler.removeCallbacks(startLongClickAction);
   setOutAnimation(true);
   mClosing=true;
   DeckTask.waitToFinish();
