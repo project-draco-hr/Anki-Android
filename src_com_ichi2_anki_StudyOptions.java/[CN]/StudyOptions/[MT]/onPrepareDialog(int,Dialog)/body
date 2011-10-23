@@ -83,7 +83,12 @@ mSelectedTags.add(tag);
 );
 break;
 case DIALOG_CRAM:
+if (activeCramTags == null) {
+activeCramTags=new HashSet<String>();
+}
+ else {
 activeCramTags.clear();
+}
 allCramTags=AnkiDroidApp.deck().allTags_();
 if (allCramTags == null) {
 Themes.showThemedToast(StudyOptions.this,getResources().getString(R.string.error_insufficient_memory),false);
@@ -104,6 +109,9 @@ activeCramTags.add(tag);
 }
 }
 );
+break;
+case DIALOG_ANSWERING_ERROR:
+ad.getButton(Dialog.BUTTON_NEUTRAL).setEnabled(hasErrorFiles() && !PrefSettings.getSharedPrefs(StudyOptions.this).getString("reportErrorMode",Feedback.REPORT_ASK).equals(Feedback.REPORT_NEVER));
 break;
 }
 }

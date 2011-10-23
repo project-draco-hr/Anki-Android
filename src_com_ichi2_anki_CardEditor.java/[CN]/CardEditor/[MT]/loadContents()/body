@@ -2,4 +2,6 @@
   mModels=Model.getModels(mDeck);
   mCurrentSelectedModelId=mDeck.getCurrentModelId();
   modelChanged();
+  mEditFields.get(0).setText(mSourceText);
+  mEditFields.get(1).setText(mTargetText);
 }

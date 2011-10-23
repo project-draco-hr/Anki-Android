@@ -49,5 +49,7 @@ def replacechars(filename, fileExt, isCrowdin):
     if errorOccured:
         os.remove(filename)
         print ('error in file ' + filename)
+        return False
     else:
         print (('file ' + filename) + ' successfully copied')
+        return True

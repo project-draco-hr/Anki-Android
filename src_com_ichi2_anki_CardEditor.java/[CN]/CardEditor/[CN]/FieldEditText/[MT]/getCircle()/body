@@ -1,24 +1,16 @@
 {
   mCircle=new ImageView(this.getContext());
   mCircle.setImageResource(R.drawable.ic_circle_normal);
+  mKeyListener=FieldEditText.this.getKeyListener();
   mCircle.setOnClickListener(new View.OnClickListener(){
     @Override public void onClick(    View v){
-      ImageView view=((ImageView)v);
       Editable editText=FieldEditText.this.getText();
       if (mCutMode) {
-        view.setImageResource(R.drawable.ic_circle_normal);
-        FieldEditText.this.setKeyListener(mKeyListener);
-        FieldEditText.this.setCursorVisible(true);
+        setCutMode(false,null);
         updateContentAfterWordSelection(editText);
       }
  else {
-        view.setImageResource(R.drawable.ic_circle_pressed);
-        InputMethodManager imm=(InputMethodManager)mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(FieldEditText.this.getWindowToken(),0);
-        mKeyListener=FieldEditText.this.getKeyListener();
-        FieldEditText.this.setKeyListener(null);
-        FieldEditText.this.setCursorVisible(false);
-        mCutMode=true;
+        setCutMode(true,null);
         String text=editText.toString();
         splitText(text);
         int pos=0;

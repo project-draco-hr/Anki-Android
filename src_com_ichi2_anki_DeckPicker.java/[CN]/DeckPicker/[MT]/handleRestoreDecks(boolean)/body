@@ -6,7 +6,7 @@
         break;
       }
     }
-    mDeckNotLoadedAlert.setMessage(getResources().getString(R.string.open_deck_failed,new File(mCurrentDeckPath).getName().replace(".anki",""),BackupManager.BROKEN_DECKS_SUFFIX.replace("/",""),getResources().getString(R.string.repair_deck)));
+    mDeckNotLoadedAlert.setMessage(getResources().getString(R.string.open_deck_failed,"\'" + new File(mCurrentDeckPath).getName() + "\'",BackupManager.BROKEN_DECKS_SUFFIX.replace("/",""),getResources().getString(R.string.repair_deck)));
     mDeckNotLoadedAlert.show();
   }
  else   if (reloadIfEmpty) {

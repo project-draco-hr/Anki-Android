@@ -54,6 +54,7 @@
   }
  else   if (requestCode == PREFERENCES_UPDATE) {
     restorePreferences();
+    BackupManager.initBackup();
     showContentView();
     if (resultCode == RESULT_RESTART) {
       restartApp();
@@ -64,12 +65,17 @@
   }
  else   if (requestCode == REQUEST_REVIEW) {
     Log.i(AnkiDroidApp.TAG,"Result code = " + resultCode);
+    mInReviewer=false;
 switch (resultCode) {
 case Reviewer.RESULT_SESSION_COMPLETED:
       showContentView(CONTENT_SESSION_COMPLETE);
     break;
 case Reviewer.RESULT_NO_MORE_CARDS:
   showContentView(CONTENT_CONGRATS);
+break;
+case Reviewer.RESULT_ANSWERING_ERROR:
+showContentView(CONTENT_STUDY_OPTIONS);
+showDialog(DIALOG_ANSWERING_ERROR);
 break;
 default :
 showContentView(CONTENT_STUDY_OPTIONS);
@@ -89,6 +95,14 @@ syncDeck(null);
 showContentView(CONTENT_STUDY_OPTIONS);
 }
  else if (requestCode == REPORT_ERROR) {
+if (mShowRepairDialog) {
+showDialog(DIALOG_ANSWERING_ERROR);
+mShowRepairDialog=false;
+}
+ else if ((showDeckPickerOnStartup() || getIntent().getBooleanExtra("startDeckpicker",false))) {
+openDeckPicker();
+}
+ else {
 try {
 if (mWelcomeAlert != null && mWelcomeAlert.isShowing()) {
 mWelcomeAlert.dismiss();
@@ -101,6 +115,7 @@ mNewVersionAlert.show();
 }
  catch (IllegalArgumentException e) {
 Log.e(AnkiDroidApp.TAG,"Error on dismissing and showing dialog: " + e);
+}
 }
 }
 }
