@@ -13,8 +13,8 @@
     builder.setCancelable(true);
     builder.setNegativeButton(res.getString(R.string.close),new DialogInterface.OnClickListener(){
       @Override public void onClick(      DialogInterface dialog,      int which){
-        setMessageRead(mContext,mNum);
-        BroadcastMessages.checkForNewMessages(mContext);
+        setMessageRead(mActivity,mNum);
+        BroadcastMessages.checkForNewMessages(mActivity);
       }
     }
 );
@@ -28,11 +28,11 @@
   if (mUrl != null && mUrl.length() > 0) {
     builder.setPositiveButton(mUrl.substring(mUrl.length() - 4).equals(".apk") ? res.getString(R.string.download) : res.getString(R.string.visit),new DialogInterface.OnClickListener(){
       @Override public void onClick(      DialogInterface dialog,      int which){
-        setMessageRead(mContext,mNum);
+        setMessageRead(mActivity,mNum);
         String action="android.intent.action.VIEW";
-        if (Utils.isIntentAvailable(mContext,action)) {
+        if (Utils.isIntentAvailable(mActivity,action)) {
           Intent i=new Intent(action,Uri.parse(mUrl));
-          mContext.startActivity(i);
+          mActivity.startActivity(i);
         }
       }
     }
@@ -42,6 +42,7 @@
   try {
     mDialog=builder.create();
     Log.d(AnkiDroidApp.TAG,"BroadcastMessages: show dialog");
+    mDialog.setOwnerActivity(mActivity);
     mDialog.show();
   }
  catch (  BadTokenException e) {

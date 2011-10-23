@@ -430,5 +430,6 @@ break;
 default :
 dialog=null;
 }
+dialog.setOwnerActivity(StudyOptions.this);
 return dialog;
 }

@@ -95,6 +95,14 @@ syncDeck(null);
 showContentView(CONTENT_STUDY_OPTIONS);
 }
  else if (requestCode == REPORT_ERROR) {
+if (mShowRepairDialog) {
+showDialog(DIALOG_ANSWERING_ERROR);
+mShowRepairDialog=false;
+}
+ else if ((showDeckPickerOnStartup() || getIntent().getBooleanExtra("startDeckpicker",false))) {
+openDeckPicker();
+}
+ else {
 try {
 if (mWelcomeAlert != null && mWelcomeAlert.isShowing()) {
 mWelcomeAlert.dismiss();
@@ -108,9 +116,6 @@ mNewVersionAlert.show();
  catch (IllegalArgumentException e) {
 Log.e(AnkiDroidApp.TAG,"Error on dismissing and showing dialog: " + e);
 }
-if (mShowRepairDialog) {
-showDialog(DIALOG_ANSWERING_ERROR);
-mShowRepairDialog=false;
 }
 }
 }

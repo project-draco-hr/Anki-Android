@@ -1,12 +1,12 @@
 {
   Log.d(AnkiDroidApp.TAG,"BroadcastMessage.DownloadBroadcastMessage.doInBackground()");
-  Context context=params[0];
-  mContext=context;
-  SharedPreferences prefs=PrefSettings.getSharedPrefs(context);
+  Activity activity=params[0];
+  mActivity=activity;
+  SharedPreferences prefs=PrefSettings.getSharedPrefs(activity);
   int lastNum=prefs.getInt("lastMessageNum",-1);
   if (lastNum == -1) {
     prefs.edit().putInt("lastMessageNum",0).commit();
-    return context;
+    return activity;
   }
   try {
     Log.i(AnkiDroidApp.TAG,"BroadcastMessage: download file " + FILE_URL);
@@ -44,7 +44,7 @@
         mUrl=getXmlValue(el,URL);
         if (mText != null && mText.length() > 0) {
           mShowDialog=true;
-          return context;
+          return activity;
         }
       }
       Log.d(AnkiDroidApp.TAG,"BroadcastMessages: disable messaging system for today");
@@ -54,19 +54,19 @@
   }
  catch (  IOException e) {
     Log.e(AnkiDroidApp.TAG,"DownloadBroadcastMessage: IOException on reading file " + FILE_URL + ": "+ e);
-    return context;
+    return activity;
   }
 catch (  NumberFormatException e) {
     Log.e(AnkiDroidApp.TAG,"DownloadBroadcastMessage: Number of file " + FILE_URL + " could not be read: "+ e);
-    return context;
+    return activity;
   }
 catch (  ParserConfigurationException e) {
     Log.e(AnkiDroidApp.TAG,"DownloadBroadcastMessage: ParserConfigurationException: " + e);
-    return context;
+    return activity;
   }
 catch (  SAXException e) {
     Log.e(AnkiDroidApp.TAG,"DownloadBroadcastMessage: SAXException: " + e);
-    return context;
+    return activity;
   }
-  return context;
+  return activity;
 }
