@@ -1,0 +1,23 @@
+def uploadtranslation(language, filename, sourcefile):
+    if (language == 'zh-TW'):
+        pathlan = 'zh-rTW'
+    elif (language == 'zh-CN'):
+        pathlan = 'zh-rCN'
+    else:
+        pathlan = language[:2]
+    path = (('../res/values-' + pathlan) + '/')
+    filename = (filename + '.xml')
+    print ((('Update of Translation ' + language) + ' for ') + filename)
+    if filename:
+        if language:
+            c = pycurl.Curl()
+            fields = [((('files[' + filename) + ']'), (c.FORM_FILE, ((path + sourcefile) + '.xml'))), ('language', language), ('auto_approve_imported', '0')]
+            c.setopt(pycurl.URL, ((('http://crowdin.net/api/project/' + PROJECT_IDENTIFIER) + '/upload-translation?key=') + CROWDIN_KEY))
+            c.setopt(pycurl.HTTPPOST, fields)
+            b = StringIO.StringIO()
+            c.setopt(pycurl.WRITEFUNCTION, b.write)
+            c.perform()
+            c.close()
+            print b.getvalue()
+        else:
+            print 'no language code entered'
