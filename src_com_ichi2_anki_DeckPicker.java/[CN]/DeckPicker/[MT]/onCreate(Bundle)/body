@@ -8,7 +8,6 @@
   setContentView(mainView);
   Themes.setContentStyle(mainView,Themes.CALLER_DECKPICKER);
   registerExternalStorageListener();
-  mUseBackups=PrefSettings.getSharedPrefs(this).getBoolean("useBackup",true);
   initDialogs();
   mBrokenDecks=new ArrayList<String>();
   mAlreadyDealtWith=new ArrayList<String>();

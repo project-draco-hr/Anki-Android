@@ -3,5 +3,12 @@
   if (mCurrentTheme >= THEME_BLUE) {
     result.getView().setBackgroundResource(mToastBackground);
   }
-  result.show();
+  try {
+    result.show();
+  }
+ catch (  OutOfMemoryError e) {
+    Log.e(AnkiDroidApp.TAG,"showThemedToast - OutOfMemoryError occured: " + e);
+    result.getView().setBackgroundResource(R.color.black);
+    result.show();
+  }
 }

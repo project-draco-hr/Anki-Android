@@ -1,0 +1,14 @@
+def encode_upload_request(fields, file_path):
+    'Encode the given fields and file into a multipart form body.\n\n  fields is a sequence of (name, value) pairs. file is the path of\n  the file to upload. The file will be uploaded to Google Code with\n  the same file name.\n\n  Returns: (content_type, body) ready for httplib.HTTP instance\n  '
+    BOUNDARY = '----------Googlecode_boundary_reindeer_flotilla'
+    CRLF = '\r\n'
+    body = []
+    for (key, value) in fields:
+        body.extend([('--' + BOUNDARY), ('Content-Disposition: form-data; name="%s"' % key), '', value])
+    file_name = os.path.basename(file_path)
+    f = open(file_path, 'rb')
+    file_content = f.read()
+    f.close()
+    body.extend([('--' + BOUNDARY), ('Content-Disposition: form-data; name="filename"; filename="%s"' % file_name), 'Content-Type: application/octet-stream', '', file_content])
+    body.extend([(('--' + BOUNDARY) + '--'), ''])
+    return (('multipart/form-data; boundary=%s' % BOUNDARY), CRLF.join(body))

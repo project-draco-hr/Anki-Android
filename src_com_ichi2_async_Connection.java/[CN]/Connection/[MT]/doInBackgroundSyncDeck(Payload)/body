@@ -4,12 +4,15 @@
   String username=(String)data.data[0];
   String password=(String)data.data[1];
   Deck deck=(Deck)data.data[2];
-  String deckPath=(String)data.data[3];
+  String deckPath=deck.getDeckPath();
   String syncName=deckPath.substring(deckPath.lastIndexOf("/") + 1,deckPath.length() - 5);
-  String conflictResolution=(String)data.data[4];
-  if (deck == null) {
+  String conflictResolution=(String)data.data[3];
+  boolean singleDeckSync=(Boolean)data.data[4];
+  if (singleDeckSync) {
     publishProgress(syncName,res.getString(R.string.sync_set_journal_mode));
+    deck.closeDeck();
     deck=Deck.openDeck(deckPath,true,true);
+    AnkiDroidApp.setDeck(deck);
   }
   syncChangelog.put("deckName",syncName);
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
@@ -137,6 +140,8 @@
           if (result.containsKey("code") && result.get("code").equals("200")) {
             syncChangelog.put("message",res.getString(R.string.sync_log_downloading_message));
           }
+          deck=Deck.openDeck(deckPath);
+          AnkiDroidApp.setDeck(deck);
         }
         publishProgress(syncName,res.getString(R.string.sync_complete_message));
         if (!result.containsKey("code") || !result.get("code").equals("200")) {
@@ -217,9 +222,6 @@ catch (  JSONException e) {
  finally {
     if (ankiDB.getDatabase() != null && ankiDB.getDatabase().inTransaction()) {
       ankiDB.getDatabase().endTransaction();
-    }
-    if (deck != null) {
-      deck.closeDeck();
     }
   }
   data.result=syncChangelog;

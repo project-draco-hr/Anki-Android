@@ -1,12 +1,12 @@
 {
-  String sourceText=mEditFields.get(mSourcePosition).getText().toString();
-  if (sourceText.length() == 0) {
-    sourceText=mSourceText;
-  }
-  String targetText=mEditFields.get(mTargetPosition).getText().toString();
-  if (targetText.length() == 0) {
-    targetText=mTargetText;
-  }
+  FieldEditText field=mEditFields.get(mSourcePosition);
+  Editable sourceText=field.getText();
+  boolean sourceCutMode=field.getCutMode();
+  FieldEditText.WordRow[] sourceCutString=field.getCutString();
+  field=mEditFields.get(mTargetPosition);
+  Editable targetText=field.getText();
+  boolean targetCutMode=field.getCutMode();
+  FieldEditText.WordRow[] targetCutString=field.getCutString();
   if (mEditFields.size() > mSourcePosition) {
     mEditFields.get(mSourcePosition).setText("");
   }
@@ -32,8 +32,10 @@
   }
   if (sourceText != null) {
     mEditFields.get(mSourcePosition).setText(sourceText);
+    mEditFields.get(mSourcePosition).setCutMode(sourceCutMode,sourceCutString);
   }
   if (targetText != null) {
     mEditFields.get(mTargetPosition).setText(targetText);
+    mEditFields.get(mTargetPosition).setCutMode(targetCutMode,targetCutString);
   }
 }

@@ -3,24 +3,31 @@
   Card oldCard=params[0].getCard();
   int ease=params[0].getInt();
   Card newCard;
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
-  ankiDB.getDatabase().beginTransaction();
   try {
-    if (oldCard != null) {
-      deck.answerCard(oldCard,ease);
-      Log.i(AnkiDroidApp.TAG,"leech flag: " + oldCard.getLeechFlag());
-    }
-    newCard=deck.getCard();
-    if (oldCard != null) {
-      publishProgress(new TaskData(newCard,oldCard.getLeechFlag(),oldCard.getSuspendedFlag()));
-    }
+    AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
+    ankiDB.getDatabase().beginTransaction();
+    try {
+      if (oldCard != null) {
+        deck.answerCard(oldCard,ease);
+        Log.i(AnkiDroidApp.TAG,"leech flag: " + oldCard.getLeechFlag());
+      }
+      newCard=deck.getCard();
+      if (oldCard != null) {
+        publishProgress(new TaskData(newCard,oldCard.getLeechFlag(),oldCard.getSuspendedFlag()));
+      }
  else {
-      publishProgress(new TaskData(newCard));
+        publishProgress(new TaskData(newCard));
+      }
+      ankiDB.getDatabase().setTransactionSuccessful();
     }
-    ankiDB.getDatabase().setTransactionSuccessful();
-  }
   finally {
-    ankiDB.getDatabase().endTransaction();
+      ankiDB.getDatabase().endTransaction();
+    }
   }
-  return null;
+ catch (  RuntimeException e) {
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundAnswerCard - RuntimeException on answering card: " + e);
+    AnkiDroidApp.saveExceptionReportFile(e);
+    return new TaskData(false);
+  }
+  return new TaskData(true);
 }

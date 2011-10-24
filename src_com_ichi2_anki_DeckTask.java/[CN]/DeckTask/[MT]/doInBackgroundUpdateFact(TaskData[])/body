@@ -3,17 +3,32 @@
   Card editCard=params[0].getCard();
   Fact editFact=editCard.getFact();
   int showQuestion=params[0].getInt();
-  String undoName=Deck.UNDO_TYPE_EDIT_CARD;
-  deck.setUndoStart(undoName,editCard.getId());
-  editFact.setModified(true,deck,false);
-  editFact.toDb();
-  deck.flushMod();
-  deck.setUndoEnd(undoName);
-  if (showQuestion == Reviewer.UPDATE_CARD_NEW_CARD) {
-    publishProgress(new TaskData(showQuestion,null,deck.getCard()));
-  }
+  try {
+    AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
+    ankiDB.getDatabase().beginTransaction();
+    try {
+      String undoName=Deck.UNDO_TYPE_EDIT_CARD;
+      deck.setUndoStart(undoName,editCard.getId());
+      editFact.setModified(true,deck,false);
+      editFact.toDb();
+      deck.flushMod();
+      deck.setUndoEnd(undoName);
+      if (showQuestion == Reviewer.UPDATE_CARD_NEW_CARD) {
+        publishProgress(new TaskData(showQuestion,null,deck.getCard()));
+      }
  else {
-    publishProgress(new TaskData(showQuestion,null,deck.cardFromId(editCard.getId())));
+        publishProgress(new TaskData(showQuestion,null,deck.cardFromId(editCard.getId())));
+      }
+      ankiDB.getDatabase().setTransactionSuccessful();
+    }
+  finally {
+      ankiDB.getDatabase().endTransaction();
+    }
   }
-  return null;
+ catch (  RuntimeException e) {
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundUpdateFact - RuntimeException on updating fact: " + e);
+    AnkiDroidApp.saveExceptionReportFile(e);
+    return new TaskData(false);
+  }
+  return new TaskData(true);
 }

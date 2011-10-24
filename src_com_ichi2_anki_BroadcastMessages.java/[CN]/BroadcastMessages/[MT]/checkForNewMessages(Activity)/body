@@ -1,6 +1,6 @@
 {
   Log.d(AnkiDroidApp.TAG,"BroadcastMessages: checkForNewMessages");
-  SharedPreferences prefs=PrefSettings.getSharedPrefs(context);
+  SharedPreferences prefs=PrefSettings.getSharedPrefs(activity);
   if (!prefs.getBoolean("showBroadcastMessages",true)) {
     return;
   }
@@ -8,6 +8,6 @@
     Log.d(AnkiDroidApp.TAG,"BroadcastMessages: already shown today");
     return;
   }
-  AsyncTask<Context,Void,Context> checkForNewMessage=new DownloadBroadcastMessage();
-  checkForNewMessage.execute(context);
+  AsyncTask<Activity,Void,Context> checkForNewMessage=new DownloadBroadcastMessage();
+  checkForNewMessage.execute(activity);
 }

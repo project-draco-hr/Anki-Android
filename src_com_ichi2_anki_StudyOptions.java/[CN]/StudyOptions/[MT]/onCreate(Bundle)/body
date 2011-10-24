@@ -7,6 +7,7 @@
     startActivityForResult(i,REPORT_ERROR);
   }
   SharedPreferences preferences=restorePreferences();
+  BackupManager.initBackup();
   registerExternalStorageListener();
   activeCramTags=new HashSet<String>();
   mSelectedTags=new HashSet<String>();
@@ -39,7 +40,7 @@
       showContentView(CONTENT_NO_DECK);
     }
  else {
-      if ((showDeckPickerOnStartup() || getIntent().getBooleanExtra("startDeckpicker",false)) && !hasErrorFiles()) {
+      if ((showDeckPickerOnStartup() || getIntent().getBooleanExtra("startDeckpicker",false)) && (!hasErrorFiles())) {
         openDeckPicker();
       }
  else {
