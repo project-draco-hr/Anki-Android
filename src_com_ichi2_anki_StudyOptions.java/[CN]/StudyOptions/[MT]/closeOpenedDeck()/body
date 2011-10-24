@@ -1,4 +1,5 @@
 {
+  DeckTask.waitToFinish();
   if (AnkiDroidApp.deck() != null && mSdCardAvailable) {
     AnkiDroidApp.deck().closeDeck();
     AnkiDroidApp.setDeck(null);
