@@ -1,0 +1,20 @@
+def upload_find_auth(file_path, project_name, summary, labels=None, user_name=None, password=None, tries=3):
+    "Find credentials and upload a file to a Google Code project's file server.\n\n  file_path, project_name, summary, and labels are passed as-is to upload.\n\n  Args:\n    file_path: The local path to the file.\n    project_name: The name of your project on Google Code.\n    summary: A small description for the file.\n    labels: an optional list of label strings with which to tag the file.\n    config_dir: Path to Subversion configuration directory, 'none', or None.\n    user_name: Your Google account name.\n    tries: How many attempts to make.\n  "
+    while (tries > 0):
+        if (user_name is None):
+            sys.stdout.write('Please enter your googlecode.com username: ')
+            sys.stdout.flush()
+            user_name = sys.stdin.readline().rstrip()
+        if (password is None):
+            print 'Please enter your googlecode.com password.'
+            print '** Note that this is NOT your Gmail account password! **'
+            print 'It is the password you use to access Subversion repositories,'
+            print 'and can be found here: http://code.google.com/hosting/settings'
+            password = getpass.getpass()
+        (status, reason, url) = upload(file_path, project_name, user_name, password, summary, labels)
+        if (status in [httplib.FORBIDDEN, httplib.UNAUTHORIZED]):
+            user_name = password = None
+            tries = (tries - 1)
+        else:
+            break
+    return (status, reason, url)
