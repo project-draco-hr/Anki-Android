@@ -1,0 +1,18 @@
+def updateMasterFile(selu):
+    if (selu == '12'):
+        filename = (files[(int(selu) - 1)] + '.csv')
+        curPath = (path + '../../assets/')
+    else:
+        filename = (files[(int(selu) - 1)] + '.xml')
+        curPath = path
+    if filename:
+        print ('Update of Master File ' + filename)
+        c = pycurl.Curl()
+        fields = [((('files[' + filename) + ']'), (c.FORM_FILE, (curPath + filename)))]
+        c.setopt(pycurl.URL, ((('http://crowdin.net/api/project/' + PROJECT_IDENTIFIER) + '/update-file?key=') + CROWDIN_KEY))
+        c.setopt(pycurl.HTTPPOST, fields)
+        b = StringIO.StringIO()
+        c.setopt(pycurl.WRITEFUNCTION, b.write)
+        c.perform()
+        c.close()
+        print b.getvalue()
