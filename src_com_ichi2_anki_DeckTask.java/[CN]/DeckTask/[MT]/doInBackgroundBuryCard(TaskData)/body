@@ -21,7 +21,7 @@
   }
  catch (  RuntimeException e) {
     Log.e(AnkiDroidApp.TAG,"doInBackgroundSuspendCard - RuntimeException on suspending card: " + e);
-    AnkiDroidApp.saveExceptionReportFile(e);
+    AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundBuryCard");
     return new TaskData(String.valueOf(id),0,false);
   }
   return new TaskData(String.valueOf(id),0,true);
