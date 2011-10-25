@@ -24,7 +24,9 @@ for language in languages:
     createIfNotExisting(valuesDirectory)
     for f in fileNames:
         fileExt = fileExtFor(f)
-        anyError = update(valuesDirectory, f, zip.read((((language + '/') + f) + fileExt)), fileExt, True)
+        if update(valuesDirectory, f, zip.read((((language + '/') + f) + fileExt)), fileExt, True):
+            continue
+        anyError = True
 valuesDirectory = '../res/values/'
 createIfNotExisting(valuesDirectory)
 f = 'tutorial'
