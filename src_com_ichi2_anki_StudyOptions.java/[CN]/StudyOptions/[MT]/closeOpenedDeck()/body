@@ -1,6 +1,5 @@
 {
-  DeckTask.waitToFinish();
-  if (AnkiDroidApp.deck() != null && mSdCardAvailable) {
+  if (!mIsClosing && AnkiDroidApp.deck() != null && mSdCardAvailable) {
     AnkiDroidApp.deck().closeDeck();
     AnkiDroidApp.setDeck(null);
     mCompat.invalidateOptionsMenu(this);
