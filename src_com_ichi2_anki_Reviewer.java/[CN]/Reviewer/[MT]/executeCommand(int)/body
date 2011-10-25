@@ -58,7 +58,7 @@ answerCard(Card.EASE_MID);
 }
 break;
 case GESTURE_EXIT:
-closeReviewer();
+closeReviewer(false);
 break;
 case GESTURE_UNDO:
 if (AnkiDroidApp.deck().undoAvailable()) {

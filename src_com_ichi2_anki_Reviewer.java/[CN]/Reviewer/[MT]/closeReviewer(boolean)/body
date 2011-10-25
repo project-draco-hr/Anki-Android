@@ -6,5 +6,10 @@
   longClickHandler.removeCallbacks(startSelection);
   setOutAnimation(true);
   mClosing=true;
-  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SAVE_DECK,mSaveAndResetDeckHandler,new DeckTask.TaskData(AnkiDroidApp.deck(),0));
+  if (saveDeck) {
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SAVE_DECK,mSaveAndResetDeckHandler,new DeckTask.TaskData(AnkiDroidApp.deck(),0));
+  }
+ else {
+    finish();
+  }
 }

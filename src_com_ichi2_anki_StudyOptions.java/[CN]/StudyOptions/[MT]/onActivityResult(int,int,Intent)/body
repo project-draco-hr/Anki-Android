@@ -78,6 +78,7 @@ showContentView(CONTENT_STUDY_OPTIONS);
 showDialog(DIALOG_ANSWERING_ERROR);
 break;
 default :
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SAVE_DECK,mSaveAndResetDeckHandler,new DeckTask.TaskData(AnkiDroidApp.deck(),0));
 showContentView(CONTENT_STUDY_OPTIONS);
 break;
 }
