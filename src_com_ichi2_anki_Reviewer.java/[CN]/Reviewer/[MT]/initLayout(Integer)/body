@@ -21,7 +21,7 @@
   if (!mChangeBorderStyle) {
     ((View)findViewById(R.id.flashcard_border)).setVisibility(View.VISIBLE);
   }
-  if (mCustomFontFiles.length != 0) {
+  if (mRefreshWebview) {
     mNextCard=createWebView();
     mNextCard.setVisibility(View.GONE);
     mCardFrame.addView(mNextCard,0);

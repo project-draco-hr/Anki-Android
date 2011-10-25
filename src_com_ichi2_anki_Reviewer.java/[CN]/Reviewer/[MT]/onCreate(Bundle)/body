@@ -27,7 +27,7 @@
  else {
       mCurrentBackgroundColor=Color.WHITE;
     }
-    mCustomFontFiles=Utils.getCustomFonts(getBaseContext());
+    mRefreshWebview=getRefreshWebview();
     initLayout(R.layout.flashcard);
     if (mPrefTextSelection) {
       clipboardSetText("");

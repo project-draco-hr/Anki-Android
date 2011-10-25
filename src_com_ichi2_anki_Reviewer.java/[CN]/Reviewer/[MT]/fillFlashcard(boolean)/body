@@ -1,7 +1,7 @@
 {
   if (!flip) {
     Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
-    if (mCustomFontFiles.length != 0) {
+    if (mRefreshWebview) {
       mNextCard.setBackgroundColor(mCurrentBackgroundColor);
       mNextCard.loadDataWithBaseURL(mBaseUrl,mCardContent,"text/html","utf-8",null);
       mNextCard.setVisibility(View.VISIBLE);
