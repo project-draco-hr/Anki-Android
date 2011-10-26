@@ -5,8 +5,8 @@
     try {
       deck.commitToDB();
       deck.updateCutoff();
-      if (AnkiDroidApp.deck().hasFinishScheduler()) {
-        AnkiDroidApp.deck().finishScheduler();
+      if (deck.hasFinishScheduler()) {
+        deck.finishScheduler();
       }
       deck.reset();
     }
