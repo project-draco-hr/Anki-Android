@@ -1,0 +1,10 @@
+{
+  try {
+    if ((sInstance != null) && (sInstance.getStatus() != AsyncTask.Status.FINISHED)) {
+      sInstance.cancel(true);
+    }
+  }
+ catch (  Exception e) {
+    return;
+  }
+}
