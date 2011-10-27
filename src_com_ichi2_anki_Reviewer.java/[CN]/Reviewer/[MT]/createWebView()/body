@@ -12,6 +12,15 @@
     webView.setFocusableInTouchMode(false);
   }
   Log.i(AnkiDroidApp.TAG,"Focusable = " + webView.isFocusable() + ", Focusable in touch mode = "+ webView.isFocusableInTouchMode());
+  if (mSetScrollbarBarFading != null) {
+    try {
+      mSetScrollbarBarFading.invoke(webView,false);
+    }
+ catch (    Throwable e) {
+      Log.i(AnkiDroidApp.TAG,"setScrollbarFadingEnabled could not be set due to a too low Android version (< 2.1)");
+      mSetScrollbarBarFading=null;
+    }
+  }
   mScaleInPercent=webView.getScale();
   return webView;
 }

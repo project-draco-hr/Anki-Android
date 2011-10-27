@@ -27,6 +27,12 @@
  else {
       mCurrentBackgroundColor=Color.WHITE;
     }
+    try {
+      mSetScrollbarBarFading=WebView.class.getMethod("setScrollbarFadingEnabled",boolean.class);
+    }
+ catch (    Throwable e) {
+      Log.i(AnkiDroidApp.TAG,"setScrollbarFadingEnabled could not be found due to a too low Android version (< 2.1)");
+    }
     mRefreshWebview=getRefreshWebview();
     initLayout(R.layout.flashcard);
     if (mPrefTextSelection) {
