@@ -1,4 +1,13 @@
 {
+  if (!isTaskRoot()) {
+    Log.i(AnkiDroidApp.TAG,"StudyOptions - onCreate: Detected multiple instance of this activity, closing it and return to root activity");
+    Intent reloadIntent=new Intent(StudyOptions.this,StudyOptions.class);
+    reloadIntent.setAction(Intent.ACTION_MAIN);
+    reloadIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+    reloadIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    finish();
+    startActivityIfNeeded(reloadIntent,0);
+  }
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   Log.i(AnkiDroidApp.TAG,"StudyOptions - OnCreate()");
