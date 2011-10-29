@@ -401,7 +401,7 @@ BroadcastMessages.checkForNewMessages(StudyOptions.this);
 dialog=builder.create();
 mWelcomeAlert=dialog;
 break;
-case DIALOG_ANSWERING_ERROR:
+case DIALOG_DB_ERROR:
 builder.setTitle(R.string.answering_error_title);
 builder.setIcon(android.R.drawable.ic_dialog_alert);
 builder.setMessage(R.string.answering_error_message);
