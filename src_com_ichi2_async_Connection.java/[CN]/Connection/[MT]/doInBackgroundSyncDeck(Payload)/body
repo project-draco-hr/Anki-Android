@@ -208,7 +208,7 @@
       }
     }
   finally {
-      if (ankiDB.getDatabase() != null && ankiDB.getDatabase().inTransaction()) {
+      if (ankiDB.getDatabase() != null && ankiDB.getDatabase().isOpen() && ankiDB.getDatabase().inTransaction()) {
         ankiDB.getDatabase().endTransaction();
       }
     }
