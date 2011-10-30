@@ -174,5 +174,6 @@ break;
 default :
 dialog=null;
 }
+dialog.setOwnerActivity(DeckPicker.this);
 return dialog;
 }
