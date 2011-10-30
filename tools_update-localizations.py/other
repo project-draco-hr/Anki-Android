@@ -1,11 +1,12 @@
 languages = ['ar', 'ca', 'cs', 'de', 'el', 'es-ES', 'fi', 'fr', 'hu', 'id', 'it', 'ja', 'ko', 'nl', 'pl', 'pt-PT', 'ro', 'ru', 'sr', 'sv-SE', 'th', 'tr', 'vi', 'zh-CN', 'zh-TW']
-fileNames = ['01-core', '02-strings', '03-dialogs', '04-network', '05-feedback', '06-statistics', '07-cardbrowser', '08-widget', '09-backup', '10-preferences', '11-arrays', '12-tutorial', '13-newfeatures']
+fileNames = ['01-core', '02-strings', '03-dialogs', '04-network', '05-feedback', '06-statistics', '07-cardbrowser', '08-widget', '09-backup', '10-preferences', '11-arrays', '12-tutorial', '13-newfeatures', '14-marketdescription']
 anyError = False
 import os
 import zipfile
 import urllib
 import string
 import re
+import difflib
 zipname = 'ankidroid.zip'
 print 'downloading crowdin-file'
 req = urllib.urlopen('http://crowdin.net/download/project/ankidroid.zip')
@@ -24,7 +25,7 @@ for language in languages:
     createIfNotExisting(valuesDirectory)
     for f in fileNames:
         fileExt = fileExtFor(f)
-        anyError = ((not update(valuesDirectory, f, zip.read((((language + '/') + f) + fileExt)), fileExt, True)) or anyError)
+        anyError = ((not update(valuesDirectory, f, zip.read((((language + '/') + f) + fileExt)), fileExt, True, language)) or anyError)
 valuesDirectory = '../res/values/'
 createIfNotExisting(valuesDirectory)
 f = '12-tutorial'
