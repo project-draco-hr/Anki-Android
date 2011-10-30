@@ -114,7 +114,7 @@ activeCramTags.add(tag);
 }
 );
 break;
-case DIALOG_ANSWERING_ERROR:
+case DIALOG_DB_ERROR:
 ad.getButton(Dialog.BUTTON_NEUTRAL).setEnabled(hasErrorFiles() && !PrefSettings.getSharedPrefs(StudyOptions.this).getString("reportErrorMode",Feedback.REPORT_ASK).equals(Feedback.REPORT_NEVER));
 break;
 }

@@ -6,6 +6,8 @@
   getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
   swipeCheckboxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("swipe");
   zoomCheckboxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("zoom");
+  keepScreenOnCheckBoxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("keepScreenOn");
+  showAnswerCheckBoxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("timeoutAnswer");
   animationsCheckboxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("themeAnimations");
   walModePreference=(CheckBoxPreference)getPreferenceScreen().findPreference("walMode");
   useBackupPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("useBackup");

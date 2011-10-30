@@ -4,6 +4,9 @@
       zoomCheckboxPreference.setChecked(false);
       zoomCheckboxPreference.setEnabled(!swipeCheckboxPreference.isChecked());
     }
+ else     if (key.equals("timeoutAnswer")) {
+      keepScreenOnCheckBoxPreference.setChecked(showAnswerCheckBoxPreference.isChecked());
+    }
  else     if (key.equals("language")) {
       Intent intent=this.getIntent();
       setResult(StudyOptions.RESULT_RESTART,intent);
