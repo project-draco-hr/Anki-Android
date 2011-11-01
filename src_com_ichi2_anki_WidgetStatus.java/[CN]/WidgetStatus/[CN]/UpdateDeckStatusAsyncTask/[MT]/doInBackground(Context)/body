@@ -19,7 +19,6 @@
       absPath=file.getAbsolutePath();
       String deckName=file.getName().replaceAll(".anki","");
       Log.i(AnkiDroidApp.TAG,"Found deck: " + absPath);
-      DeckTask.waitToFinish();
       Deck deck;
       Deck currentDeck=AnkiDroidApp.deck();
       if (currentDeck != null && currentDeck.getDeckPath().equals(deckName)) {
@@ -37,13 +36,6 @@
       }
       if (deck == null) {
         Log.e(AnkiDroidApp.TAG,"Widget: Skipping null deck: " + absPath);
-        for (        DeckStatus deckStatus : mDecks) {
-          if (absPath.equals(deckStatus.mDeckPath)) {
-            Log.d(AnkiDroidApp.TAG,"Using previous value");
-            decks.add(deckStatus);
-            break;
-          }
-        }
         continue;
       }
       int dueCards=deck.getRevCount();
