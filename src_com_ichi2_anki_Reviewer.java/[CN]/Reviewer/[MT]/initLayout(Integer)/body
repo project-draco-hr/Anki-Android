@@ -3,7 +3,6 @@
   mMainLayout=findViewById(R.id.main_layout);
   Themes.setContentStyle(mMainLayout,Themes.CALLER_REVIEWER);
   mCardContainer=(FrameLayout)findViewById(R.id.flashcard_frame);
-  mCardContainer.setVisibility(mConfigurationChanged ? View.VISIBLE : View.INVISIBLE);
   setInAnimation(false);
   findViewById(R.id.top_bar).setOnClickListener(mCardStatisticsListener);
   mCardFrame=(FrameLayout)findViewById(R.id.flashcard);

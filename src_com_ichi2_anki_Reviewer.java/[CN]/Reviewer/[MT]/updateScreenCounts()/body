@@ -1,4 +1,7 @@
 {
+  if (mCurrentCard == null) {
+    return;
+  }
   Deck deck=AnkiDroidApp.deck();
   int eta=deck.getETA();
   if (deck.hasFinishScheduler() || eta < 1) {
