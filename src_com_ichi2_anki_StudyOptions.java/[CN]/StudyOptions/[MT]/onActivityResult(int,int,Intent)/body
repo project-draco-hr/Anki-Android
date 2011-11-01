@@ -100,7 +100,7 @@ if (mShowRepairDialog) {
 showDialog(DIALOG_DB_ERROR);
 mShowRepairDialog=false;
 }
- else if ((showDeckPickerOnStartup() || getIntent().getBooleanExtra("startDeckpicker",false))) {
+ else if (showDeckPickerOnStartup()) {
 openDeckPicker();
 }
  else {
