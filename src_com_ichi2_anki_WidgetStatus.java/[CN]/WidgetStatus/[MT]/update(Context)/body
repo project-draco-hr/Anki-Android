@@ -12,7 +12,13 @@
  else {
     smallWidget=false;
   }
-  if (mediumWidget || smallWidget) {
+  if (Integer.parseInt(preferences.getString("minimumCardsDueForNotification","25")) < 1000000) {
+    notification=true;
+  }
+ else {
+    notification=false;
+  }
+  if (mediumWidget || smallWidget || notification) {
     Log.d(AnkiDroidApp.TAG,"WidgetStatus.update(): updating");
     mUpdateDeckStatusAsyncTask=new UpdateDeckStatusAsyncTask();
     mUpdateDeckStatusAsyncTask.execute(context);
