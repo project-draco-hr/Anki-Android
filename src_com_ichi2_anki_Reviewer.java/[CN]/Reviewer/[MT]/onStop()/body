@@ -2,6 +2,7 @@
   if (mShakeEnabled) {
     mSensorManager.unregisterListener(mSensorListener);
   }
+  DeckTask.waitToFinish();
   WidgetStatus.update(getBaseContext(),true);
   super.onStop();
 }
