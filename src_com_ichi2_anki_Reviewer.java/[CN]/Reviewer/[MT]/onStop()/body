@@ -2,6 +2,7 @@
   if (mShakeEnabled) {
     mSensorManager.unregisterListener(mSensorListener);
   }
+  super.onStop();
   DeckTask.waitToFinish();
   if (!isFinishing()) {
     Deck deck=AnkiDroidApp.deck();
@@ -10,5 +11,4 @@
     }
   }
   WidgetStatus.update(getBaseContext(),true);
-  super.onStop();
 }
