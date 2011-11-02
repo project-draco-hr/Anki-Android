@@ -2,5 +2,6 @@
   if (mShakeEnabled) {
     mSensorManager.unregisterListener(mSensorListener);
   }
+  WidgetStatus.update(getBaseContext(),true);
   super.onStop();
 }

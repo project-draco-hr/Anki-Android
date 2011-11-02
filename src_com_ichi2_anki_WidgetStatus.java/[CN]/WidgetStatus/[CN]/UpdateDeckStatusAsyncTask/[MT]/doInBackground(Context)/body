@@ -4,55 +4,84 @@
   if (!AnkiDroidApp.isSdCardMounted()) {
     return context;
   }
-  SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
-  String deckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory() + "/AnkiDroid");
-  File dir=new File(deckPath);
-  File[] fileList=dir.listFiles(new AnkiFileFilter());
-  if (fileList == null || fileList.length == 0) {
-    mDecks=EMPTY_DECK_STATUS;
-    return context;
-  }
-  ArrayList<DeckStatus> decks=new ArrayList<DeckStatus>(fileList.length);
-  for (  File file : fileList) {
-    String absPath=null;
-    try {
-      absPath=file.getAbsolutePath();
-      String deckName=file.getName().replaceAll(".anki","");
-      Log.i(AnkiDroidApp.TAG,"Found deck: " + absPath);
-      Deck deck;
-      Deck currentDeck=AnkiDroidApp.deck();
-      if (currentDeck != null && currentDeck.getDeckPath().equals(deckName)) {
-        deck=currentDeck;
-      }
+  ArrayList<DeckStatus> decks;
+  if (onlyCurrentDeck) {
+    decks=new ArrayList<DeckStatus>(mDecks.length);
+    Deck currentDeck=AnkiDroidApp.deck();
+    if (currentDeck != null) {
+      String currentDeckPath=currentDeck.getDeckPath();
+      try {
+        for (        DeckStatus m : mDecks) {
+          if (m.mDeckPath.equals(currentDeckPath)) {
+            Log.i(AnkiDroidApp.TAG,"UpdateWidget - update information for deck " + currentDeckPath);
+            decks.add(new DeckStatus(currentDeckPath,currentDeck.getDeckName(),currentDeck.getNewCountToday(),currentDeck.getRevCount(),currentDeck.getFailedSoonCount(),currentDeck.getETA(),currentDeck.getSessionFinishedCards()));
+          }
  else {
-        try {
-          deck=Deck.openDeck(absPath,false);
-        }
- catch (        RuntimeException e) {
-          Log.w(AnkiDroidApp.TAG,"Widget: Could not open database " + absPath + ": "+ e);
-          BackupManager.restoreDeckIfMissing(absPath);
-          deck=null;
+            Log.i(AnkiDroidApp.TAG,"UpdateWidget - copy information for deck " + m.mDeckPath);
+            decks.add(m);
+          }
         }
       }
-      if (deck == null) {
-        Log.e(AnkiDroidApp.TAG,"Widget: Skipping null deck: " + absPath);
-        continue;
+ catch (      SQLException e) {
+        Log.i(AnkiDroidApp.TAG,"Widget: Could not retrieve deck information");
+        Log.e(AnkiDroidApp.TAG,e.toString());
+        if (currentDeckPath != null) {
+          BackupManager.restoreDeckIfMissing(currentDeckPath);
+        }
       }
-      int dueCards=deck.getRevCount();
-      int newCards=deck.getNewCountToday();
-      int failedCards=deck.getFailedSoonCount();
-      int eta=deck.getETA();
-      int reps=deck.getSessionFinishedCards();
-      if (currentDeck != null && currentDeck.getDB() != deck.getDB()) {
-        deck.closeDeck();
-      }
-      decks.add(new DeckStatus(absPath,deckName,newCards,dueCards,failedCards,eta,reps));
     }
- catch (    SQLException e) {
-      Log.i(AnkiDroidApp.TAG,"Widget: Could not open deck");
-      Log.e(AnkiDroidApp.TAG,e.toString());
-      if (absPath != null) {
-        BackupManager.restoreDeckIfMissing(absPath);
+  }
+ else {
+    SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
+    String deckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory() + "/AnkiDroid");
+    File dir=new File(deckPath);
+    File[] fileList=dir.listFiles(new AnkiFileFilter());
+    if (fileList == null || fileList.length == 0) {
+      mDecks=EMPTY_DECK_STATUS;
+      return context;
+    }
+    decks=new ArrayList<DeckStatus>(fileList.length);
+    for (    File file : fileList) {
+      String absPath=null;
+      try {
+        absPath=file.getAbsolutePath();
+        String deckName=file.getName().replaceAll(".anki","");
+        Log.i(AnkiDroidApp.TAG,"Found deck: " + absPath);
+        Deck deck;
+        Deck currentDeck=AnkiDroidApp.deck();
+        if (currentDeck != null && currentDeck.getDeckPath().equals(deckName)) {
+          deck=currentDeck;
+        }
+ else {
+          try {
+            deck=Deck.openDeck(absPath,false);
+          }
+ catch (          RuntimeException e) {
+            Log.w(AnkiDroidApp.TAG,"Widget: Could not open database " + absPath + ": "+ e);
+            BackupManager.restoreDeckIfMissing(absPath);
+            deck=null;
+          }
+        }
+        if (deck == null) {
+          Log.e(AnkiDroidApp.TAG,"Widget: Skipping null deck: " + absPath);
+          continue;
+        }
+        int dueCards=deck.getRevCount();
+        int newCards=deck.getNewCountToday();
+        int failedCards=deck.getFailedSoonCount();
+        int eta=deck.getETA();
+        int reps=deck.getSessionFinishedCards();
+        if (currentDeck != null && currentDeck.getDB() != deck.getDB()) {
+          deck.closeDeck();
+        }
+        decks.add(new DeckStatus(absPath,deckName,newCards,dueCards,failedCards,eta,reps));
+      }
+ catch (      SQLException e) {
+        Log.i(AnkiDroidApp.TAG,"Widget: Could not open deck");
+        Log.e(AnkiDroidApp.TAG,e.toString());
+        if (absPath != null) {
+          BackupManager.restoreDeckIfMissing(absPath);
+        }
       }
     }
   }

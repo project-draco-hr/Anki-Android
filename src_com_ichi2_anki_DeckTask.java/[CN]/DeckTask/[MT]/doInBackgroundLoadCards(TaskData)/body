@@ -3,7 +3,7 @@
   int chunk=params[0].getInt();
   Log.i(AnkiDroidApp.TAG,"doInBackgroundLoadCards");
   String startId="";
-  while (!mIsCanceled) {
+  while (!this.isCancelled()) {
     ArrayList<HashMap<String,String>> cards=deck.getCards(chunk,startId);
     if (cards.size() == 0) {
       break;
