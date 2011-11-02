@@ -3,6 +3,12 @@
     mSensorManager.unregisterListener(mSensorListener);
   }
   DeckTask.waitToFinish();
+  if (!isFinishing()) {
+    Deck deck=AnkiDroidApp.deck();
+    if (deck != null) {
+      deck.commitToDB();
+    }
+  }
   WidgetStatus.update(getBaseContext(),true);
   super.onStop();
 }

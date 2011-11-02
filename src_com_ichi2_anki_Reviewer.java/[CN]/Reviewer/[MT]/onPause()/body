@@ -6,13 +6,6 @@
   longClickHandler.removeCallbacks(longClickTestRunnable);
   longClickHandler.removeCallbacks(startLongClickAction);
   stopTimer();
-  if (!isFinishing()) {
-    Deck deck=AnkiDroidApp.deck();
-    if (deck != null) {
-      DeckTask.waitToFinish();
-      deck.commitToDB();
-    }
-  }
   if (mShakeEnabled) {
     mSensorManager.unregisterListener(mSensorListener);
   }
