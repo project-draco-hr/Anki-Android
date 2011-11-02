@@ -401,7 +401,7 @@ BroadcastMessages.checkForNewMessages(StudyOptions.this);
 dialog=builder.create();
 mWelcomeAlert=dialog;
 break;
-case DIALOG_ANSWERING_ERROR:
+case DIALOG_DB_ERROR:
 builder.setTitle(R.string.answering_error_title);
 builder.setIcon(android.R.drawable.ic_dialog_alert);
 builder.setMessage(R.string.answering_error_message);
@@ -425,6 +425,27 @@ ActivityTransitionAnimation.slide(StudyOptions.this,ActivityTransitionAnimation.
 );
 builder.setNegativeButton(res.getString(R.string.close),null);
 builder.setCancelable(true);
+dialog=builder.create();
+break;
+case DIALOG_SELECT_HELP:
+builder.setTitle(res.getString(R.string.help_title));
+builder.setItems(new String[]{res.getString(R.string.help_tutorial),res.getString(R.string.help_online)},new OnClickListener(){
+@Override public void onClick(DialogInterface arg0,int arg1){
+if (arg1 == 0) {
+loadSampleDeck();
+}
+ else {
+if (Utils.isIntentAvailable(StudyOptions.this,"android.intent.action.VIEW")) {
+Intent intent=new Intent("android.intent.action.VIEW",Uri.parse(getResources().getString(R.string.link_help)));
+startActivity(intent);
+}
+ else {
+startActivity(new Intent(StudyOptions.this,About.class));
+}
+}
+}
+}
+);
 dialog=builder.create();
 break;
 default :

@@ -6,6 +6,7 @@
       @Override public void onPreExecute(){
       }
       @Override public void onPostExecute(      DeckTask.TaskData result){
+        mIsClosing=false;
       }
       @Override public void onProgressUpdate(      DeckTask.TaskData... values){
       }

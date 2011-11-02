@@ -10,7 +10,11 @@
   if (smallWidget) {
     Intent intent;
     intent=new Intent(context,AnkiDroidWidgetSmall.UpdateService.class);
-    intent.setAction(AnkiDroidWidgetSmall.UpdateService.ACTION_UPDATE);
+    context.startService(intent);
+  }
+  if (notification) {
+    Intent intent;
+    intent=new Intent(context,NotificationService.class);
     context.startService(intent);
   }
 }

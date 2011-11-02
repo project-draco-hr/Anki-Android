@@ -1,7 +1,7 @@
 {
   Deck deck=AnkiDroidApp.deck();
   Resources res=getResources();
-  if (deck != null && !mIsClosing) {
+  if (deck != null && !mIsClosing && !mDeckNotAvailable) {
     try {
       int dueCount=deck.getDueCount();
       int newTodayCount=deck.getNewCountToday();

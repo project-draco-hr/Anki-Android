@@ -27,7 +27,7 @@
   }
  catch (  RuntimeException e) {
     Log.e(AnkiDroidApp.TAG,"doInBackgroundRedo - RuntimeException on redoing: " + e);
-    AnkiDroidApp.saveExceptionReportFile(e);
+    AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundRedo");
     return new TaskData(undoType,oldCardId,false);
   }
   return new TaskData(undoType,oldCardId,true);

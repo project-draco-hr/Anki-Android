@@ -4,13 +4,14 @@
     showContentView(CONTENT_NO_EXTERNAL_STORAGE);
   }
  else   if (requestCode == PICK_DECK_REQUEST || requestCode == DOWNLOAD_PERSONAL_DECK || requestCode == DOWNLOAD_SHARED_DECK) {
+    mInDeckPicker=false;
     if (requestCode == PICK_DECK_REQUEST && resultCode == RESULT_CLOSE) {
-      closeStudyOptions(false);
+      closeStudyOptions(true);
+      return;
     }
  else     if (requestCode == PICK_DECK_REQUEST && resultCode == RESULT_RESTART) {
       restartApp();
     }
-    mInDeckPicker=false;
     if (requestCode == PICK_DECK_REQUEST && resultCode == RESULT_OK) {
       showContentView(CONTENT_STUDY_OPTIONS);
     }
@@ -75,9 +76,10 @@ case Reviewer.RESULT_NO_MORE_CARDS:
 break;
 case Reviewer.RESULT_ANSWERING_ERROR:
 showContentView(CONTENT_STUDY_OPTIONS);
-showDialog(DIALOG_ANSWERING_ERROR);
+showDialog(DIALOG_DB_ERROR);
 break;
 default :
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SAVE_DECK,mSaveAndResetDeckHandler,new DeckTask.TaskData(AnkiDroidApp.deck(),0));
 showContentView(CONTENT_STUDY_OPTIONS);
 break;
 }
@@ -96,10 +98,10 @@ showContentView(CONTENT_STUDY_OPTIONS);
 }
  else if (requestCode == REPORT_ERROR) {
 if (mShowRepairDialog) {
-showDialog(DIALOG_ANSWERING_ERROR);
+showDialog(DIALOG_DB_ERROR);
 mShowRepairDialog=false;
 }
- else if ((showDeckPickerOnStartup() || getIntent().getBooleanExtra("startDeckpicker",false))) {
+ else if (showDeckPickerOnStartup()) {
 openDeckPicker();
 }
  else {

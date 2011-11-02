@@ -6,7 +6,7 @@
   longClickHandler.removeCallbacks(longClickTestRunnable);
   longClickHandler.removeCallbacks(startLongClickAction);
   stopTimer();
-  if (!mClosing) {
+  if (!isFinishing()) {
     Deck deck=AnkiDroidApp.deck();
     if (deck != null) {
       DeckTask.waitToFinish();

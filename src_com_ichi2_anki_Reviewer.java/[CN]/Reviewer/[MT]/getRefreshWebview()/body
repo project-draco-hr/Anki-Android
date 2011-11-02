@@ -1,0 +1,12 @@
+{
+  mCustomFontFiles=Utils.getCustomFonts(getBaseContext());
+  if (mCustomFontFiles.length != 0) {
+    return true;
+  }
+  for (  String s : new String[]{"nook"}) {
+    if (android.os.Build.DEVICE.indexOf(s) != -1 || android.os.Build.MODEL.indexOf(s) != -1) {
+      return true;
+    }
+  }
+  return false;
+}

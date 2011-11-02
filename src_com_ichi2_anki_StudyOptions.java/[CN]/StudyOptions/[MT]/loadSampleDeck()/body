@@ -1,15 +1,7 @@
 {
   File decksDirectory=new File(mPrefDeckPath);
   AnkiDroidApp.createDecksDirectoryIfMissing(decksDirectory);
-  File sampleDeckFile=new File(mPrefDeckPath,SAMPLE_DECK_NAME);
-  if (!sampleDeckFile.exists()) {
-    mDeckFilename=sampleDeckFile.getAbsolutePath();
-    savePreferences("deckFilename");
-    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_TUTORIAL,mLoadDeckHandler,new DeckTask.TaskData(sampleDeckFile.getAbsolutePath()));
-  }
- else {
-    Intent deckLoadIntent=new Intent();
-    deckLoadIntent.putExtra(OPT_DB,sampleDeckFile.getAbsolutePath());
-    onActivityResult(PICK_DECK_REQUEST,RESULT_OK,deckLoadIntent);
-  }
+  mDeckFilename=mPrefDeckPath + "/" + SAMPLE_DECK_NAME;
+  savePreferences("deckFilename");
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_TUTORIAL,mLoadDeckHandler,new DeckTask.TaskData(mDeckFilename));
 }

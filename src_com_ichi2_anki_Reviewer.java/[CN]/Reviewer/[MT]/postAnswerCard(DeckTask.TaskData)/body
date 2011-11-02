@@ -3,6 +3,9 @@
   boolean sessionComplete=false;
   boolean noMoreCards=false;
   Deck deck=AnkiDroidApp.deck();
+  if (deck == null) {
+    return new boolean[]{false,false};
+  }
   long sessionRepLimit=deck.getSessionRepLimit();
   long sessionTime=deck.getSessionTimeLimit();
   String sessionMessage=null;

@@ -27,7 +27,7 @@
   }
  catch (  RuntimeException e) {
     Log.e(AnkiDroidApp.TAG,"doInBackgroundUndo - RuntimeException on undoing: " + e);
-    AnkiDroidApp.saveExceptionReportFile(e);
+    AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundUndo");
     return new TaskData(undoType,oldCardId,false);
   }
   return new TaskData(undoType,oldCardId,true);

@@ -1,6 +1,7 @@
 {
   Log.i(AnkiDroidApp.TAG,"doInBackgroundCloseDeck");
   Deck deck=params[0].getDeck();
+  WidgetStatus.waitToFinish();
   if (deck != null) {
     try {
       deck.closeDeck(false);

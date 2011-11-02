@@ -14,5 +14,9 @@ case DIALOG_CONTEXT_MENU:
 mCurrentDeckFilename=mDeckList.get(mContextMenuPosition).get("name");
 ad.setTitle(mCurrentDeckFilename);
 break;
+case DIALOG_REPAIR_DECK:
+mCurrentDeckFilename=mDeckList.get(mContextMenuPosition).get("name");
+ad.setMessage(String.format(res.getString(R.string.repair_deck_dialog),mCurrentDeckFilename,BackupManager.BROKEN_DECKS_SUFFIX.replace("/","")));
+break;
 }
 }

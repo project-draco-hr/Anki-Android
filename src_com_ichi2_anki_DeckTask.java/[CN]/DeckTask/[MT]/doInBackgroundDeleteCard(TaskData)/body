@@ -21,7 +21,7 @@
   }
  catch (  RuntimeException e) {
     Log.e(AnkiDroidApp.TAG,"doInBackgroundDeleteCard - RuntimeException on deleting card: " + e);
-    AnkiDroidApp.saveExceptionReportFile(e);
+    AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundDeleteCard");
     return new TaskData(String.valueOf(id),0,false);
   }
   return new TaskData(String.valueOf(id),0,true);

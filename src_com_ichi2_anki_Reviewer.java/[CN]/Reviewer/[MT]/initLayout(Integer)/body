@@ -3,7 +3,6 @@
   mMainLayout=findViewById(R.id.main_layout);
   Themes.setContentStyle(mMainLayout,Themes.CALLER_REVIEWER);
   mCardContainer=(FrameLayout)findViewById(R.id.flashcard_frame);
-  mCardContainer.setVisibility(mConfigurationChanged ? View.VISIBLE : View.INVISIBLE);
   setInAnimation(false);
   findViewById(R.id.top_bar).setOnClickListener(mCardStatisticsListener);
   mCardFrame=(FrameLayout)findViewById(R.id.flashcard);
@@ -21,7 +20,7 @@
   if (!mChangeBorderStyle) {
     ((View)findViewById(R.id.flashcard_border)).setVisibility(View.VISIBLE);
   }
-  if (mCustomFontFiles.length != 0) {
+  if (mRefreshWebview) {
     mNextCard=createWebView();
     mNextCard.setVisibility(View.GONE);
     mCardFrame.addView(mNextCard,0);

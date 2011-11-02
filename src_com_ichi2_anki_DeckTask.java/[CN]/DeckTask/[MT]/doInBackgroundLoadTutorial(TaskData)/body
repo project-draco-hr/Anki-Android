@@ -5,6 +5,14 @@
   publishProgress(new TaskData(res.getString(R.string.tutorial_load)));
   AnkiDb ankiDB=null;
   try {
+    Deck openDeck=AnkiDroidApp.deck();
+    if (openDeck != null) {
+      openDeck.closeDeck(false);
+      AnkiDroidApp.setDeck(null);
+    }
+    if (!sampleDeckFile.exists()) {
+      sampleDeckFile.delete();
+    }
     InputStream stream=res.getAssets().open(DeckCreator.EMPTY_DECK_NAME);
     Utils.writeToFile(stream,sampleDeckFile.getAbsolutePath());
     stream.close();

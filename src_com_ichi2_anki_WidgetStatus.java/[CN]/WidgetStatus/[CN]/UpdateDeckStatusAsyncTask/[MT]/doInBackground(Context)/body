@@ -1,6 +1,9 @@
 {
   Log.d(AnkiDroidApp.TAG,"WidgetStatus.UpdateDeckStatusAsyncTask.doInBackground()");
   Context context=params[0];
+  if (!AnkiDroidApp.isSdCardMounted()) {
+    return context;
+  }
   SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
   String deckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory() + "/AnkiDroid");
   File dir=new File(deckPath);
@@ -16,7 +19,6 @@
       absPath=file.getAbsolutePath();
       String deckName=file.getName().replaceAll(".anki","");
       Log.i(AnkiDroidApp.TAG,"Found deck: " + absPath);
-      DeckTask.waitToFinish();
       Deck deck;
       Deck currentDeck=AnkiDroidApp.deck();
       if (currentDeck != null && currentDeck.getDeckPath().equals(deckName)) {
@@ -34,13 +36,6 @@
       }
       if (deck == null) {
         Log.e(AnkiDroidApp.TAG,"Widget: Skipping null deck: " + absPath);
-        for (        DeckStatus deckStatus : mDecks) {
-          if (absPath.equals(deckStatus.mDeckPath)) {
-            Log.d(AnkiDroidApp.TAG,"Using previous value");
-            decks.add(deckStatus);
-            break;
-          }
-        }
         continue;
       }
       int dueCards=deck.getRevCount();

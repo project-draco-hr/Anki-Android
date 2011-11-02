@@ -1,7 +1,7 @@
 {
   if (!flip) {
     Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
-    if (mCustomFontFiles.length != 0) {
+    if (mRefreshWebview) {
       mNextCard.setBackgroundColor(mCurrentBackgroundColor);
       mNextCard.loadDataWithBaseURL(mBaseUrl,mCardContent,"text/html","utf-8",null);
       mNextCard.setVisibility(View.VISIBLE);
@@ -43,10 +43,8 @@ invertColors(mNightMode);
 }
 }
 }
-if (!mShowAnimations && mCardContainer.getVisibility() == View.INVISIBLE) {
+if (!mShowAnimations && mCardTimer.getVisibility() == View.INVISIBLE) {
 switchTopBarVisibility(View.VISIBLE);
-mCardContainer.setVisibility(View.VISIBLE);
-mCardContainer.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_IN,mFadeDuration,0));
 }
 if (!sDisplayAnswer) {
 updateForNewCard();
