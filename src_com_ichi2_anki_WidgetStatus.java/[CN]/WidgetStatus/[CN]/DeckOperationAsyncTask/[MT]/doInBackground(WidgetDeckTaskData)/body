@@ -1,0 +1,8 @@
+{
+  Log.d(AnkiDroidApp.TAG,"WidgetStatus.DeckOperationAsyncTask.doInBackground()");
+  Context context=params[0];
+  if (!AnkiDroidApp.isSdCardMounted()) {
+    return context;
+  }
+  return context;
+}

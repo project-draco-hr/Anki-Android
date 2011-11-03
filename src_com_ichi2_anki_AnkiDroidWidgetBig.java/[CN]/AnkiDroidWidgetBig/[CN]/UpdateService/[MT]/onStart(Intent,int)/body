@@ -1,0 +1,22 @@
+{
+  Log.i(AnkiDroidApp.TAG,"BigWidget: OnStart");
+  boolean updateDueDecksNow=true;
+  if (intent != null) {
+    if (ACTION_OPENDECK.equals(intent.getAction())) {
+      WidgetStatus.deckOperation(this,0);
+    }
+ else     if (ACTION_CLOSEDECK.equals(intent.getAction())) {
+    }
+ else     if (ACTION_OPEN.equals(intent.getAction())) {
+      startActivity(StudyOptions.getLoadDeckIntent(this,intent.getData().getPath()));
+    }
+ else     if (ACTION_ANSWER.equals(intent.getAction())) {
+    }
+ else     if (ACTION_UPDATE.equals(intent.getAction())) {
+    }
+  }
+  RemoteViews updateViews=buildUpdate(this,updateDueDecksNow);
+  ComponentName thisWidget=new ComponentName(this,AnkiDroidWidgetMedium.class);
+  AppWidgetManager manager=AppWidgetManager.getInstance(this);
+  manager.updateAppWidget(thisWidget,updateViews);
+}

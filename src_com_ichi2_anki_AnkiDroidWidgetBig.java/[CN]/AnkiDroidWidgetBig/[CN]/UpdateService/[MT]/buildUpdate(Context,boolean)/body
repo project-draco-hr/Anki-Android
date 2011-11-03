@@ -1,0 +1,10 @@
+{
+  Log.i(AnkiDroidApp.TAG,"BigWidget: buildUpdate");
+  RemoteViews updateViews=new RemoteViews(context.getPackageName(),R.layout.widget_big);
+  Intent ankiDroidIntent=new Intent(context,StudyOptions.class);
+  ankiDroidIntent.setAction(Intent.ACTION_MAIN);
+  ankiDroidIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+  PendingIntent pendingAnkiDroidIntent=PendingIntent.getActivity(context,0,ankiDroidIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+  updateViews.setOnClickPendingIntent(R.id.ankidroid_widget_big_layout,pendingAnkiDroidIntent);
+  return updateViews;
+}

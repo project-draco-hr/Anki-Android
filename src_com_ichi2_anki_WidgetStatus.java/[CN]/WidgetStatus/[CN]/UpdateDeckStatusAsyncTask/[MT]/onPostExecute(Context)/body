@@ -17,4 +17,8 @@
     intent=new Intent(context,NotificationService.class);
     context.startService(intent);
   }
+  Intent intent;
+  intent=new Intent(context,AnkiDroidWidgetBig.UpdateService.class);
+  intent.setAction(AnkiDroidWidgetBig.UpdateService.ACTION_UPDATE);
+  context.startService(intent);
 }

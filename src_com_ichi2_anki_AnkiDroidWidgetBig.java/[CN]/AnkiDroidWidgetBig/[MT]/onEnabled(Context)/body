@@ -1,0 +1,6 @@
+{
+  super.onEnabled(context);
+  Log.i(AnkiDroidApp.TAG,"BigWidget: Widget enabled");
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
+  preferences.edit().putBoolean("widgetBigEnabled",true).commit();
+}
