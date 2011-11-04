@@ -1,3 +1,6 @@
 {
   Log.i(AnkiDroidApp.TAG,"BigWidget: onUpdate");
+  Intent intent;
+  intent=new Intent(context,AnkiDroidWidgetBig.UpdateService.class);
+  context.startService(intent);
 }

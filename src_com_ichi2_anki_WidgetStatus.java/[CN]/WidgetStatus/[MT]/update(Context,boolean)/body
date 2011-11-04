@@ -21,8 +21,8 @@
   }
   if (mediumWidget || smallWidget || notification) {
     Log.d(AnkiDroidApp.TAG,"WidgetStatus.update(): updating");
-    mUpdateDeckStatusAsyncTask=new UpdateDeckStatusAsyncTask();
-    mUpdateDeckStatusAsyncTask.execute(context);
+    sUpdateDeckStatusAsyncTask=new UpdateDeckStatusAsyncTask();
+    sUpdateDeckStatusAsyncTask.execute(context);
   }
  else {
     Log.d(AnkiDroidApp.TAG,"WidgetStatus.update(): not enabled");

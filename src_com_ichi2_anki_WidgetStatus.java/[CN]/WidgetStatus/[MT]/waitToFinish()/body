@@ -1,7 +1,7 @@
 {
   try {
-    if ((mUpdateDeckStatusAsyncTask != null) && (mUpdateDeckStatusAsyncTask.getStatus() != AsyncTask.Status.FINISHED)) {
-      mUpdateDeckStatusAsyncTask.get();
+    if ((sUpdateDeckStatusAsyncTask != null) && (sUpdateDeckStatusAsyncTask.getStatus() != AsyncTask.Status.FINISHED)) {
+      sUpdateDeckStatusAsyncTask.get();
     }
   }
  catch (  Exception e) {

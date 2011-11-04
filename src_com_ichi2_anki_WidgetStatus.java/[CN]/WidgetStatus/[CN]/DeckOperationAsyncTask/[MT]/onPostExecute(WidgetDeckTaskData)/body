@@ -1,3 +1,10 @@
 {
   Log.d(AnkiDroidApp.TAG,"WidgetStatus.DeckOperationAsyncTask.onPostExecute()");
+  Context context=params.getContext();
+  sDeck=params.getDeck();
+  sCard=params.getCard();
+  Intent intent;
+  intent=new Intent(context,AnkiDroidWidgetBig.UpdateService.class);
+  intent.setAction(AnkiDroidWidgetBig.UpdateService.ACTION_UPDATE);
+  context.startService(intent);
 }

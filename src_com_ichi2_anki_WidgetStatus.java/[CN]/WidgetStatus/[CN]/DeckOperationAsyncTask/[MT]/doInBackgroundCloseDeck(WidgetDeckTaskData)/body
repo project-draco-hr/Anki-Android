@@ -1,0 +1,5 @@
+{
+  Log.e(AnkiDroidApp.TAG,"doInBackgroundCloseDeck");
+  params[0].getDeck().closeDeck(false);
+  return new WidgetDeckTaskData(params[0].getContext());
+}

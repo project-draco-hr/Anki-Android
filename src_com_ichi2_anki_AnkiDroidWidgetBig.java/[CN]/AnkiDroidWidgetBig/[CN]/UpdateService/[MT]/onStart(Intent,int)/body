@@ -2,21 +2,31 @@
   Log.i(AnkiDroidApp.TAG,"BigWidget: OnStart");
   boolean updateDueDecksNow=true;
   if (intent != null) {
+    if (intent.getAction() != null) {
+      Log.e("intentaction","a " + intent.getAction());
+    }
     if (ACTION_OPENDECK.equals(intent.getAction())) {
-      WidgetStatus.deckOperation(this,0);
+      WidgetStatus.deckOperation(WidgetStatus.TASK_OPEN_DECK,new WidgetDeckTaskData(this,"/emmc/AnkiDroid/Fra-2-Red.anki"));
     }
  else     if (ACTION_CLOSEDECK.equals(intent.getAction())) {
+      Deck deck=WidgetStatus.getDeck();
+      if (deck != null) {
+        WidgetStatus.deckOperation(WidgetStatus.TASK_CLOSE_DECK,new WidgetDeckTaskData(this,deck));
+      }
     }
  else     if (ACTION_OPEN.equals(intent.getAction())) {
       startActivity(StudyOptions.getLoadDeckIntent(this,intent.getData().getPath()));
     }
  else     if (ACTION_ANSWER.equals(intent.getAction())) {
+      Deck deck=WidgetStatus.getDeck();
+      Card card=WidgetStatus.getCard();
+      WidgetStatus.deckOperation(WidgetStatus.TASK_ANSWER_CARD,new WidgetDeckTaskData(this,deck,card,intent.getIntExtra(EXTRA_ANSWER_EASE,0)));
     }
  else     if (ACTION_UPDATE.equals(intent.getAction())) {
     }
   }
   RemoteViews updateViews=buildUpdate(this,updateDueDecksNow);
-  ComponentName thisWidget=new ComponentName(this,AnkiDroidWidgetMedium.class);
+  ComponentName thisWidget=new ComponentName(this,AnkiDroidWidgetBig.class);
   AppWidgetManager manager=AppWidgetManager.getInstance(this);
   manager.updateAppWidget(thisWidget,updateViews);
 }

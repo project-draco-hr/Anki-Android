@@ -1,8 +1,12 @@
 {
   Log.d(AnkiDroidApp.TAG,"WidgetStatus.DeckOperationAsyncTask.doInBackground()");
-  Context context=params[0];
-  if (!AnkiDroidApp.isSdCardMounted()) {
-    return context;
-  }
-  return context;
+switch (sDeckOperationType) {
+case TASK_OPEN_DECK:
+    return doInBackgroundOpenDeck(params);
+case TASK_ANSWER_CARD:
+  return doInBackgroundAnswerCard(params);
+case TASK_CLOSE_DECK:
+return doInBackgroundCloseDeck(params);
+}
+return params[0];
 }

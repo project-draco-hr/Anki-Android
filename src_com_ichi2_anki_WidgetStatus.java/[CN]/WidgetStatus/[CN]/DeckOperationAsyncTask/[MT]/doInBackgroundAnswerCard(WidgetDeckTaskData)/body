@@ -1,0 +1,24 @@
+{
+  Log.e(AnkiDroidApp.TAG,"doInBackgroundAnswerCard");
+  Card card=params[0].getCard();
+  Deck deck=params[0].getDeck();
+  Card newCard;
+  int ease=params[0].getInt();
+  if (ease == 0) {
+    return new WidgetDeckTaskData(params[0].getContext(),deck,card);
+  }
+  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
+  ankiDB.getDatabase().beginTransaction();
+  try {
+    if (card != null) {
+      deck.answerCard(card,3);
+      Log.e(AnkiDroidApp.TAG,"WidgetBig: answering card with ease " + ease);
+    }
+    newCard=deck.getCard();
+    ankiDB.getDatabase().setTransactionSuccessful();
+  }
+  finally {
+    ankiDB.getDatabase().endTransaction();
+  }
+  return new WidgetDeckTaskData(params[0].getContext(),deck,newCard);
+}
