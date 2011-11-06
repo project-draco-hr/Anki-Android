@@ -20,6 +20,17 @@
         }
 ).show();
       }
+ else       if (ACTION_SHOW_RESTRICTIONS_DIALOG.equals(action)) {
+        Resources res=getResources();
+        StyledDialog.Builder builder=new StyledDialog.Builder(this);
+        builder.setTitle(res.getString(R.string.widget_big)).setMessage(R.string.widget_big_restrictions_dialog).setOnDismissListener(new OnDismissListener(){
+          @Override public void onDismiss(          DialogInterface arg0){
+            WidgetDialog.this.finish();
+          }
+        }
+).setPositiveButton(res.getString(R.string.ok),null);
+        builder.show();
+      }
     }
   }
 }

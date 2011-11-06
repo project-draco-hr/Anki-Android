@@ -2,7 +2,10 @@
   Log.i(AnkiDroidApp.TAG,"BigWidget: OnStart");
   if (intent != null && intent.getAction() != null) {
     String action=intent.getAction();
-    if (ACTION_OPENDECK.equals(action)) {
+    if (ACTION_UPDATE.equals(action)) {
+      updateViews();
+    }
+ else     if (ACTION_OPENDECK.equals(action)) {
       updateViews(VIEW_ACTION_SHOW_PROGRESS_DIALOG);
       WidgetStatus.deckOperation(WidgetStatus.TASK_OPEN_DECK,new WidgetDeckTaskData(AnkiDroidWidgetBig.UpdateService.this,intent.getStringExtra(EXTRA_DECK_PATH)));
     }
@@ -34,8 +37,11 @@
         WidgetStatus.deckOperation(WidgetStatus.TASK_ANSWER_CARD,new WidgetDeckTaskData(this,sLoadedDeck,sCard,ease));
       }
     }
- else     if (ACTION_UPDATE.equals(action)) {
-      updateViews();
+ else     if (ACTION_SHOW_RESTRICTIONS_DIALOG.equals(action)) {
+      Intent dialogIntent=new Intent(this,WidgetDialog.class);
+      dialogIntent.setAction(WidgetDialog.ACTION_SHOW_RESTRICTIONS_DIALOG);
+      dialogIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      this.startActivity(dialogIntent);
     }
   }
 }
