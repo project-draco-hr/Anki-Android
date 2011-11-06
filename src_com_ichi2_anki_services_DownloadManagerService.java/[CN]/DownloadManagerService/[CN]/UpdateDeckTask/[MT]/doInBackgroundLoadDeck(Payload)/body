@@ -5,7 +5,7 @@
   Log.i(AnkiDroidApp.TAG,"doInBackgroundLoadDeck - deckFilename = " + deckFilename);
   Log.i(AnkiDroidApp.TAG,"loadDeck - SD card mounted and existent file -> Loading deck...");
   try {
-    Deck deck=Deck.openDeck(deckFilename);
+    Deck deck=DeckManager.getDeck(deckFilename,DeckManager.REQUESTING_ACTIVITY_DOWNLOADMANAGER);
     Card card=deck.getCard();
     Log.i(AnkiDroidApp.TAG,"Deck loaded!");
     data.returnType=DeckTask.DECK_LOADED;

@@ -1,6 +1,6 @@
 {
   Resources res=getResources();
-  Deck deck=AnkiDroidApp.deck();
+  Deck deck=DeckManager.getMainDeck();
   if (deck != null) {
     int failedCards=deck.getFailedDelayedCount();
     int revCards=deck.getNextDueCards(1);

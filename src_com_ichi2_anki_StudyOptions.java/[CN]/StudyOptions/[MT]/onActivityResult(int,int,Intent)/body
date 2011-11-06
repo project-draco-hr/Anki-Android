@@ -20,16 +20,15 @@
       return;
     }
     if (resultCode != RESULT_OK) {
-      Log.e(AnkiDroidApp.TAG,"onActivityResult - Deck browser returned with error");
-      boolean fileNotDeleted=mDeckFilename != null && new File(mDeckFilename).exists();
-      if (!fileNotDeleted) {
-        AnkiDroidApp.setDeck(null);
+      Log.i(AnkiDroidApp.TAG,"onActivityResult - Deck browser returned without picking new deck");
+      if (mDeckFilename == null || !(new File(mDeckFilename).exists())) {
+        DeckManager.closeMainDeck();
         mCompat.invalidateOptionsMenu(this);
         showContentView(CONTENT_NO_DECK);
       }
  else {
         showContentView(CONTENT_STUDY_OPTIONS);
-        if (AnkiDroidApp.deck() == null || !AnkiDroidApp.deck().getDeckPath().equals(mDeckFilename)) {
+        if (DeckManager.getMainDeck() == null || !DeckManager.getMainDeckPath().equals(mDeckFilename)) {
           if (resultCode != RESULT_DONT_RELOAD_DECK) {
             displayProgressDialogAndLoadDeck();
           }
@@ -48,7 +47,7 @@
     if (mDeckFilename == null || !new File(mDeckFilename).exists()) {
       showContentView(CONTENT_NO_DECK);
     }
-    if (AnkiDroidApp.deck() == null || !AnkiDroidApp.deck().getDeckPath().equals(mDeckFilename)) {
+    if (DeckManager.getMainDeck() == null || !DeckManager.getMainDeckPath().equals(mDeckFilename)) {
       boolean updateAllCards=(requestCode == DOWNLOAD_SHARED_DECK);
       displayProgressDialogAndLoadDeck(updateAllCards);
     }
@@ -79,7 +78,7 @@ showContentView(CONTENT_STUDY_OPTIONS);
 showDialog(DIALOG_DB_ERROR);
 break;
 default :
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SAVE_DECK,mSaveAndResetDeckHandler,new DeckTask.TaskData(AnkiDroidApp.deck(),0));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SAVE_DECK,mSaveAndResetDeckHandler,new DeckTask.TaskData(DeckManager.getMainDeck(),0));
 showContentView(CONTENT_STUDY_OPTIONS);
 break;
 }

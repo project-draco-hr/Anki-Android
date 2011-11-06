@@ -8,8 +8,6 @@ case TASK_OPEN_DECK:
   update=true;
 break;
 case TASK_CLOSE_DECK:
-AnkiDroidWidgetBig.setDeckAndLoadCard(params.getDeck());
-update=true;
 break;
 case TASK_ANSWER_CARD:
 break;
@@ -19,6 +17,6 @@ case TASK_BURY_CARD:
 break;
 }
 if (update) {
-sendUpdateIntent(context);
+AnkiDroidWidgetBig.updateWidget();
 }
 }

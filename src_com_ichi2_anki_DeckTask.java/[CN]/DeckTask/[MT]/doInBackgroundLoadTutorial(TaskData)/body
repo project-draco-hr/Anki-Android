@@ -5,11 +5,7 @@
   publishProgress(new TaskData(res.getString(R.string.tutorial_load)));
   AnkiDb ankiDB=null;
   try {
-    Deck openDeck=AnkiDroidApp.deck();
-    if (openDeck != null) {
-      openDeck.closeDeck(false);
-      AnkiDroidApp.setDeck(null);
-    }
+    DeckManager.closeMainDeck(false);
     if (!sampleDeckFile.exists()) {
       sampleDeckFile.delete();
     }
@@ -21,7 +17,7 @@
     String[] answers=res.getStringArray(R.array.tutorial_answers);
     String[] sampleQuestions=res.getStringArray(R.array.tutorial_capitals_questions);
     String[] sampleAnswers=res.getStringArray(R.array.tutorial_capitals_answers);
-    Deck deck=Deck.openDeck(sampleDeckFile.getAbsolutePath());
+    Deck deck=DeckManager.getDeck(sampleDeckFile.getAbsolutePath(),DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS,true);
     ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
     ankiDB.getDatabase().beginTransaction();
     try {
@@ -55,17 +51,18 @@
   finally {
       ankiDB.getDatabase().endTransaction();
     }
-    AnkiDroidApp.setDeck(deck);
     return new TaskData(DECK_LOADED,deck,null);
   }
  catch (  IOException e) {
     Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
     Log.e(AnkiDroidApp.TAG,"Empty deck could not be copied to the sd card.");
+    DeckManager.closeMainDeck(false);
     sampleDeckFile.delete();
     return new TaskData(TUTORIAL_NOT_CREATED);
   }
 catch (  RuntimeException e) {
     Log.e(AnkiDroidApp.TAG,"Error on creating tutorial deck: " + e);
+    DeckManager.closeMainDeck(false);
     sampleDeckFile.delete();
     return new TaskData(TUTORIAL_NOT_CREATED);
   }

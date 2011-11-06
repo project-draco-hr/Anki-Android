@@ -1,0 +1,5 @@
+{
+  Log.d(AnkiDroidApp.TAG,"DeckManager.CloseDeckAsyncTask.onPostExecute()");
+  sLoadedDecks.remove(deckInformation.mKey);
+  Log.i(AnkiDroidApp.TAG,"Still loaded: " + sLoadedDecks.toString());
+}

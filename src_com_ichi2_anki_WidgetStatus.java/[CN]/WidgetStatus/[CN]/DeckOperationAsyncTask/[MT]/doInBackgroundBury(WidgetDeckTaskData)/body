@@ -6,6 +6,6 @@
   deck.buryFact(card.getFactId(),id);
   deck.reset();
   AnkiDroidWidgetBig.setCard(deck.getCard());
-  sendUpdateIntent(params[0].getContext());
+  AnkiDroidWidgetBig.updateWidget();
   return new WidgetDeckTaskData(params[0].getContext());
 }

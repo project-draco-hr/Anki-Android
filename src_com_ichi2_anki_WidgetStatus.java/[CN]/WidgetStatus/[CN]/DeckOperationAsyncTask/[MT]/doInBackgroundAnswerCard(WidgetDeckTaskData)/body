@@ -1,5 +1,5 @@
 {
-  Log.e(AnkiDroidApp.TAG,"doInBackgroundAnswerCard");
+  Log.e(AnkiDroidApp.TAG,"DeckOperationAsyncTask: doInBackgroundAnswerCard");
   Context context=params[0].getContext();
   Card card=params[0].getCard();
   Deck deck=params[0].getDeck();
@@ -20,7 +20,7 @@
     }
     newCard=deck.getCard();
     AnkiDroidWidgetBig.setCard(newCard);
-    sendUpdateIntent(context);
+    AnkiDroidWidgetBig.updateWidget();
     ankiDB.getDatabase().setTransactionSuccessful();
   }
   finally {

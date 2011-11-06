@@ -3,6 +3,6 @@
   Deck deck=params[0].getDeck();
   deck.undo(0,true);
   AnkiDroidWidgetBig.setCard(deck.getCard());
-  sendUpdateIntent(params[0].getContext());
+  AnkiDroidWidgetBig.updateWidget();
   return new WidgetDeckTaskData(params[0].getContext());
 }

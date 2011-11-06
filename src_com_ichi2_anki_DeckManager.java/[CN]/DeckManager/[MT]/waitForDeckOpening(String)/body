@@ -1,0 +1,15 @@
+{
+  mLock.lock();
+  try {
+    while (mOpeningDeck != null && mOpeningDeck.equals(deckPath)) {
+      Log.e(AnkiDroidApp.TAG,"DeckManager: waitForDeckOpening (" + deckPath + ")");
+      mCondFinished.await();
+    }
+  }
+ catch (  InterruptedException e) {
+    e.printStackTrace();
+  }
+ finally {
+    mLock.unlock();
+  }
+}

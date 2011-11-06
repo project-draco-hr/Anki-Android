@@ -7,20 +7,20 @@
     len=fileList.length;
   }
   TreeSet<String> tree=new TreeSet<String>();
-  mDeckPaths=new HashMap<String,String>();
+  sDeckPaths=new HashMap<String,String>();
   if (len > 0 && fileList != null) {
     Log.i(AnkiDroidApp.TAG,"DeckManager - getSelectDeckDialog, number of anki files = " + len);
     for (    File file : fileList) {
       String name=file.getName().replaceAll(".anki","");
       tree.add(name);
-      mDeckPaths.put(name,file.getAbsolutePath());
+      sDeckPaths.put(name,file.getAbsolutePath());
     }
   }
   StyledDialog.Builder builder=new StyledDialog.Builder(context);
   builder.setTitle(R.string.fact_adder_select_deck);
-  mDeckNames=new String[tree.size()];
-  tree.toArray(mDeckNames);
-  builder.setItems(mDeckNames,itemClickListener);
+  sDeckNames=new String[tree.size()];
+  tree.toArray(sDeckNames);
+  builder.setItems(sDeckNames,itemClickListener);
   builder.setOnCancelListener(cancelListener);
   builder.setOnDismissListener(dismissListener);
   return builder.create();

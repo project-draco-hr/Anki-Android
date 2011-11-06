@@ -62,7 +62,7 @@
           msg.setData(data);
           mHandler.sendMessage(msg);
         }
-        deck=getDeck(path);
+        deck=DeckManager.getDeck(path,DeckManager.REQUESTING_ACTIVITY_DECKPICKER,false);
         if (deck == null) {
           addBrokenDeck(path);
           data.putString("absPath",path);
@@ -78,7 +78,7 @@
           data.putInt("msgtype",MSG_UPGRADE_FAILURE);
           data.putInt("version",version);
           data.putString("notes",Deck.upgradeNotesToMessages(deck,getResources()));
-          closeDeck(deck);
+          DeckManager.closeDeck(path,DeckManager.REQUESTING_ACTIVITY_DECKPICKER);
           msg=Message.obtain();
           msg.setData(data);
           mHandler.sendMessage(msg);
@@ -94,7 +94,7 @@
             int totalCardsCompletionBar=totalRevCards + totalNewCards;
             double modified=deck.getModified();
             String upgradeNotes=Deck.upgradeNotesToMessages(deck,getResources());
-            closeDeck(deck);
+            DeckManager.closeDeck(path,DeckManager.REQUESTING_ACTIVITY_DECKPICKER);
             data.putString("absPath",path);
             data.putInt("msgtype",MSG_UPGRADE_SUCCESS);
             data.putInt("due",dueCards);

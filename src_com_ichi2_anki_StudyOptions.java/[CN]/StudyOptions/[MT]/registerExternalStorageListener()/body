@@ -5,12 +5,7 @@
         String action=intent.getAction();
         if (action.equals(Intent.ACTION_MEDIA_EJECT)) {
           Log.i(AnkiDroidApp.TAG,"mUnmountReceiver - Action = Media Eject");
-          if (mIsClosing) {
-            DeckTask.waitToFinish();
-          }
- else {
-            closeOpenedDeck();
-          }
+          DeckManager.closeAllDecks();
           showContentView(CONTENT_NO_EXTERNAL_STORAGE);
           mSdCardAvailable=false;
         }

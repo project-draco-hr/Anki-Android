@@ -38,10 +38,10 @@
  else {
     mDeckPath=intent.getStringExtra(DECKPATH);
     if (mDeckPath != null && mDeckPath.length() > 0) {
-      mDeck=Deck.openDeck(mDeckPath,false);
+      mDeck=DeckManager.getDeck(mDeckPath,DeckManager.REQUESTING_ACTIVITY_CARDEDITOR,false);
     }
  else {
-      mDeck=AnkiDroidApp.deck();
+      mDeck=DeckManager.getMainDeck();
     }
 switch (intent.getIntExtra(CARD_EDITOR_ACTION,ADD_CARD)) {
 case EDIT_REVIEWER_CARD:

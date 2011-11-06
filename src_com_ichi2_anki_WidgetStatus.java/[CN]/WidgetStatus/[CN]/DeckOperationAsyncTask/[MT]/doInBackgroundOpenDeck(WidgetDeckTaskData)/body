@@ -1,6 +1,4 @@
 {
-  Log.e(AnkiDroidApp.TAG,"doInBackgroundOpenDeck");
-  Deck deck=Deck.openDeck(params[0].getString(),true);
-  Card card=deck.getCard();
-  return new WidgetDeckTaskData(params[0].getContext(),deck,card);
+  Log.i(AnkiDroidApp.TAG,"DeckOperationAsyncTask: doInBackgroundOpenDeck");
+  return new WidgetDeckTaskData(params[0].getContext(),DeckManager.getDeck(params[0].getString(),DeckManager.REQUESTING_ACTIVITY_BIGWIDGET));
 }

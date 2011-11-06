@@ -2,7 +2,7 @@
   if (mCurrentCard == null) {
     return;
   }
-  Deck deck=AnkiDroidApp.deck();
+  Deck deck=DeckManager.getMainDeck();
   int eta=deck.getETA();
   if (deck.hasFinishScheduler() || eta < 1) {
     setTitle(deck.getDeckName());

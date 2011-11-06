@@ -4,7 +4,7 @@
   Log.i(AnkiDroidApp.TAG,"Reviewer - onCreate");
   mChangeBorderStyle=Themes.getTheme() != Themes.THEME_BLUE;
   setVolumeControlStream(AudioManager.STREAM_MUSIC);
-  Deck deck=AnkiDroidApp.deck();
+  Deck deck=DeckManager.getMainDeck();
   if (deck == null) {
     setResult(StudyOptions.CONTENT_NO_EXTERNAL_STORAGE);
     finish();
@@ -57,6 +57,7 @@
       mShowWhiteboard=true;
       mWhiteboard.setVisibility(View.VISIBLE);
     }
+    DeckManager.closeDeck(DeckManager.getMainDeckPath(),DeckManager.REQUESTING_ACTIVITY_BIGWIDGET);
     DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,deck,null));
   }
 }

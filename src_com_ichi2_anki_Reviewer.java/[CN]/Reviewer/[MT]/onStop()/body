@@ -5,7 +5,7 @@
   super.onStop();
   DeckTask.waitToFinish();
   if (!isFinishing()) {
-    Deck deck=AnkiDroidApp.deck();
+    Deck deck=DeckManager.getMainDeck();
     if (deck != null) {
       deck.commitToDB();
     }

@@ -1,6 +1,6 @@
 {
   super.onResume();
-  if (AnkiDroidApp.deck() == null) {
+  if (DeckManager.getMainDeck() == null) {
     finish();
   }
   if (mShakeEnabled) {

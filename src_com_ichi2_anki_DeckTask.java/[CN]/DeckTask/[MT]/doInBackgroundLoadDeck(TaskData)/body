@@ -1,11 +1,7 @@
 {
   String deckFilename=params[0].getString();
-  Deck oldDeck=params[0].getDeck();
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundLoadDeck - deckFilename = " + deckFilename);
   Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
-  if (oldDeck != null) {
-    publishProgress(new TaskData(res.getString(R.string.close_previous_deck)));
-    oldDeck.closeDeck(false);
-  }
   int backupResult=BackupManager.RETURN_NULL;
   if (PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).getBoolean("useBackup",true)) {
     publishProgress(new TaskData(res.getString(R.string.backup_deck)));
@@ -14,33 +10,17 @@
   if (BackupManager.getFreeDiscSpace(deckFilename) < (StudyOptions.MIN_FREE_SPACE * 1024 * 1024)) {
     backupResult=BackupManager.RETURN_LOW_SYSTEM_SPACE;
   }
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundLoadDeck - deckFilename = " + deckFilename);
   Log.i(AnkiDroidApp.TAG,"loadDeck - SD card mounted and existent file -> Loading deck...");
-  try {
-    Deck deck=Deck.openDeck(deckFilename);
-    Log.i(AnkiDroidApp.TAG,"Deck loaded!");
-    if (deck == null) {
-      BackupManager.cleanUpAfterBackupCreation(false);
-      return new TaskData(DECK_NOT_LOADED);
-    }
-    BackupManager.cleanUpAfterBackupCreation(true);
-    if (deck.hasFinishScheduler()) {
-      deck.finishScheduler();
-    }
-    publishProgress(new TaskData(backupResult));
-    return new TaskData(DECK_LOADED,deck,null);
-  }
- catch (  SQLException e) {
-    Log.i(AnkiDroidApp.TAG,"The database " + deckFilename + " could not be opened = "+ e.getMessage());
+  Deck deck=DeckManager.getDeck(deckFilename,true,DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS);
+  if (deck == null) {
+    Log.i(AnkiDroidApp.TAG,"The database " + deckFilename + " could not be opened");
     BackupManager.cleanUpAfterBackupCreation(false);
     return new TaskData(DECK_NOT_LOADED);
   }
-catch (  CursorIndexOutOfBoundsException e) {
-    Log.i(AnkiDroidApp.TAG,"The deck has no cards = " + e.getMessage());
-    return new TaskData(DECK_EMPTY);
+  BackupManager.cleanUpAfterBackupCreation(true);
+  if (deck.hasFinishScheduler()) {
+    deck.finishScheduler();
   }
-catch (  RuntimeException e) {
-    Log.i(AnkiDroidApp.TAG,"The database " + deckFilename + " could not be opened = "+ e.getMessage());
-    return new TaskData(DECK_NOT_LOADED);
-  }
+  publishProgress(new TaskData(backupResult));
+  return new TaskData(DECK_LOADED);
 }

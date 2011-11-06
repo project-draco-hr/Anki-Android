@@ -12,6 +12,8 @@
   }
  else   if (sLoadedDeck != null) {
     updateViews.setTextViewText(R.id.widget_big_deckname,sLoadedDeck.getDeckName());
+    PendingIntent openADIntent=getOpenPendingIntent(this,sLoadedDeck.getDeckPath());
+    updateViews.setOnClickPendingIntent(R.id.widget_big_deckname,openADIntent);
     updateViews.setTextViewText(R.id.widget_big_counts,getDeckStatusString(sLoadedDeck,sCard));
     PendingIntent closeDeckPendingIntent=getCloseDeckPendingIntent(context);
     updateViews.setOnClickPendingIntent(R.id.widget_big_close,closeDeckPendingIntent);

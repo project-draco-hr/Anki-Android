@@ -12,7 +12,7 @@
  else     if (ACTION_CLOSEDECK.equals(action)) {
       updateViews(VIEW_ACTION_SHOW_PROGRESS_DIALOG);
       if (sLoadedDeck != null) {
-        WidgetStatus.deckOperation(WidgetStatus.TASK_CLOSE_DECK,new WidgetDeckTaskData(this,sLoadedDeck));
+        WidgetStatus.deckOperation(WidgetStatus.TASK_CLOSE_DECK,new WidgetDeckTaskData(this,sLoadedDeck.getDeckPath()));
       }
     }
  else     if (ACTION_UNDO.equals(action)) {
@@ -42,6 +42,9 @@
       dialogIntent.setAction(WidgetDialog.ACTION_SHOW_RESTRICTIONS_DIALOG);
       dialogIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
       this.startActivity(dialogIntent);
+    }
+ else     if (ACTION_OPEN.equals(action)) {
+      startActivity(StudyOptions.getLoadDeckIntent(this,intent.getData().getPath()));
     }
   }
 }
