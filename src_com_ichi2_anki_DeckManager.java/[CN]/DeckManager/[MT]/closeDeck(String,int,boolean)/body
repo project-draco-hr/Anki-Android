@@ -1,6 +1,7 @@
 {
   waitForDeckOpening(deckpath);
   if (sLoadedDecks.containsKey(deckpath)) {
+    Log.e("try","to close with " + requestingActivity + " deck "+ deckpath+ ": "+ sLoadedDecks.get(deckpath).mOpenedBy.toString());
     ArrayList<Integer> openList=sLoadedDecks.get(deckpath).mOpenedBy;
     if (waitToFinish && (openList.contains(REQUESTING_ACTIVITY_STUDYOPTIONS))) {
       DeckTask.waitToFinish();
@@ -8,6 +9,9 @@
     if (requestingActivity != -1 && openList.size() > 1) {
       openList.remove(deckpath);
       Log.i(AnkiDroidApp.TAG,"DeckManager: deck " + deckpath + " used by more than one activity ("+ openList.toString()+ "), removing only "+ requestingActivity);
+      if (requestingActivity == REQUESTING_ACTIVITY_BIGWIDGET) {
+        sendWidgetBigClosedNotification();
+      }
     }
  else {
       Log.i(AnkiDroidApp.TAG,"DeckManager: closing deck " + deckpath + " ("+ requestingActivity+ ")");

@@ -44,7 +44,18 @@
       this.startActivity(dialogIntent);
     }
  else     if (ACTION_OPEN.equals(action)) {
-      startActivity(StudyOptions.getLoadDeckIntent(this,intent.getData().getPath()));
+      DeckManager.getDeck(intent.getData().getPath(),true,DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS);
+      Intent newIntent=StudyOptions.getLoadDeckIntent(this,"");
+      newIntent.removeExtra(StudyOptions.EXTRA_DECK);
+      newIntent.putExtra(StudyOptions.EXTRA_START_REVIEWER,true);
+      startActivity(newIntent);
+    }
+ else     if (ACTION_CARDEDITOR.equals(action)) {
+      Intent editIntent=new Intent(this,CardEditor.class);
+      editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      editIntent.putExtra(CardEditor.CARD_EDITOR_ACTION,CardEditor.EDIT_BIGWIDGET_CARD);
+      editIntent.putExtra(CardEditor.DECKPATH,sLoadedDeck.getDeckPath());
+      this.startActivity(editIntent);
     }
   }
 }

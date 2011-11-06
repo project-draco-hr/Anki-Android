@@ -60,6 +60,14 @@ return;
 }
 mEditorFact=browCard.getFact();
 break;
+case EDIT_BIGWIDGET_CARD:
+Card widgetCard=AnkiDroidWidgetBig.getCard();
+if (widgetCard == null) {
+finish();
+return;
+}
+mEditorFact=widgetCard.getFact();
+break;
 case COPY_CARD:
 mForCopy=true;
 case ADD_CARD:
@@ -147,7 +155,13 @@ if (!mEditorFact.getTags().equals(mFactTags)) {
 mEditorFact.setTags(mFactTags);
 mModified=true;
 }
-if (!mCardReset) {
+if (getIntent().getIntExtra(CARD_EDITOR_ACTION,ADD_CARD) == EDIT_BIGWIDGET_CARD) {
+mEditorFact.setModified(true,mDeck,false);
+mEditorFact.toDb();
+mDeck.flushMod();
+AnkiDroidWidgetBig.setCard(mDeck.cardFromId(AnkiDroidWidgetBig.getCard().getId()));
+}
+ else if (!mCardReset) {
 if (mModified) {
 setResult(RESULT_OK);
 }

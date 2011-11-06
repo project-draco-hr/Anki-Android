@@ -1,5 +1,5 @@
 {
-  if (mIntentAdd && mDeck != null) {
+  if (mIntentAdd) {
     DeckManager.closeDeck(mDeck.getDeckPath(),DeckManager.REQUESTING_ACTIVITY_CARDEDITOR);
   }
   finish();

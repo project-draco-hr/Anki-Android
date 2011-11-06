@@ -3,6 +3,7 @@
     Log.i(AnkiDroidApp.TAG,"StudyOptions - onCreate: Detected multiple instance of this activity, closing it and return to root activity");
     Intent reloadIntent=new Intent(StudyOptions.this,StudyOptions.class);
     reloadIntent.setAction(Intent.ACTION_MAIN);
+    reloadIntent.putExtras(getIntent().getExtras());
     reloadIntent.addCategory(Intent.CATEGORY_LAUNCHER);
     reloadIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     finish();
@@ -21,6 +22,7 @@
   activeCramTags=new HashSet<String>();
   mSelectedTags=new HashSet<String>();
   initAllContentViews();
+  boolean startReviewer=false;
   Intent intent=getIntent();
   if (Intent.ACTION_VIEW.equalsIgnoreCase(intent.getAction()) && intent.getDataString() != null) {
     mDeckFilename=Uri.parse(intent.getDataString()).getPath();
@@ -29,6 +31,9 @@
  else   if (Intent.ACTION_MAIN.equalsIgnoreCase(intent.getAction()) && intent.hasExtra(EXTRA_DECK)) {
     mDeckFilename=intent.getStringExtra(EXTRA_DECK);
     Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from MAIN intent: " + mDeckFilename);
+  }
+ else   if (Intent.ACTION_MAIN.equalsIgnoreCase(intent.getAction()) && intent.hasExtra(EXTRA_START_REVIEWER)) {
+    startReviewer=true;
   }
  else   if (savedInstanceState != null) {
     mDeckFilename=savedInstanceState.getString("deckFilename");
@@ -40,6 +45,11 @@
   }
   if (!mSdCardAvailable) {
     showContentView(CONTENT_NO_EXTERNAL_STORAGE);
+  }
+  if (startReviewer) {
+    mCurrentContentView=CONTENT_STUDY_OPTIONS;
+    openReviewer();
+    showContentView();
   }
  else {
     if (mDeckFilename == null || !new File(mDeckFilename).exists()) {

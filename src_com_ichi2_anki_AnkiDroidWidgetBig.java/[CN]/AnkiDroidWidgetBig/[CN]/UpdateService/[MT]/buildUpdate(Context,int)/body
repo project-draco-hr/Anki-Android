@@ -14,6 +14,7 @@
     updateViews.setTextViewText(R.id.widget_big_deckname,sLoadedDeck.getDeckName());
     PendingIntent openADIntent=getOpenPendingIntent(this,sLoadedDeck.getDeckPath());
     updateViews.setOnClickPendingIntent(R.id.widget_big_deckname,openADIntent);
+    updateViews.setOnClickPendingIntent(R.id.widget_big_topleft,openADIntent);
     updateViews.setTextViewText(R.id.widget_big_counts,getDeckStatusString(sLoadedDeck,sCard));
     PendingIntent closeDeckPendingIntent=getCloseDeckPendingIntent(context);
     updateViews.setOnClickPendingIntent(R.id.widget_big_close,closeDeckPendingIntent);
@@ -21,13 +22,17 @@
     updateViews.setViewVisibility(R.id.widget_big_open,View.INVISIBLE);
     updateViews.setTextViewText(R.id.widget_big_topleft,"");
     updateViews.setTextViewText(R.id.widget_big_topright,"");
+    updateViews.setTextViewText(R.id.widget_big_middleleft,"");
+    updateViews.setTextViewText(R.id.widget_big_middleright,"");
     updateViews.setTextViewText(R.id.widget_big_bottomleft,"");
     updateViews.setTextViewText(R.id.widget_big_bottomright,"");
     if (sCard != null) {
       PendingIntent undoPendindIntent=getUndoPendingIntent(context);
-      updateViews.setOnClickPendingIntent(R.id.widget_big_topright,undoPendindIntent);
+      updateViews.setOnClickPendingIntent(R.id.widget_big_middleright,undoPendindIntent);
       PendingIntent buryPendindIntent=getBuryCardPendingIntent(context);
-      updateViews.setOnClickPendingIntent(R.id.widget_big_topleft,buryPendindIntent);
+      updateViews.setOnClickPendingIntent(R.id.widget_big_middleleft,buryPendindIntent);
+      PendingIntent cardEditorIntent=getCardEditorPendingIntent(context);
+      updateViews.setOnClickPendingIntent(R.id.widget_big_topright,cardEditorIntent);
       updateViews.setViewVisibility(R.id.widget_big_empty,View.INVISIBLE);
       if (sShowAnswer) {
         updateViews.setTextViewText(R.id.widget_big_cardcontent,Html.fromHtml(sCard.getQuestion() + "<br>???????????????<br>" + sCard.getAnswer()));
@@ -83,8 +88,10 @@
     updateViews.setViewVisibility(R.id.widget_big_empty,View.VISIBLE);
     updateViews.setViewVisibility(R.id.widget_big_close,View.INVISIBLE);
     updateViews.setViewVisibility(R.id.widget_big_open,View.VISIBLE);
-    updateViews.setTextViewText(R.id.widget_big_topleft,"bury");
-    updateViews.setTextViewText(R.id.widget_big_topright,"undo");
+    updateViews.setTextViewText(R.id.widget_big_topleft,"reviewer");
+    updateViews.setTextViewText(R.id.widget_big_topright,"cardeditor");
+    updateViews.setTextViewText(R.id.widget_big_middleleft,"bury");
+    updateViews.setTextViewText(R.id.widget_big_middleright,"undo");
     updateViews.setTextViewText(R.id.widget_big_bottomleft,"again");
     updateViews.setTextViewText(R.id.widget_big_bottomright,"recommended");
   }

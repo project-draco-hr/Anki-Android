@@ -1,6 +1,8 @@
 {
   Intent intent;
-  intent=new Intent(sContext,AnkiDroidWidgetBig.UpdateService.class);
-  intent.setAction(AnkiDroidWidgetBig.UpdateService.ACTION_UPDATE);
-  sContext.startService(intent);
+  if (sContext != null) {
+    intent=new Intent(sContext,AnkiDroidWidgetBig.UpdateService.class);
+    intent.setAction(AnkiDroidWidgetBig.UpdateService.ACTION_UPDATE);
+    sContext.startService(intent);
+  }
 }
