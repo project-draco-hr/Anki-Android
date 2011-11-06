@@ -1,0 +1,5 @@
+{
+  Intent ankiDroidIntent=new Intent(context,WidgetDialog.class);
+  ankiDroidIntent.setAction(WidgetDialog.ACTION_SHOW_DECK_SELECTION_DIALOG);
+  return PendingIntent.getActivity(context,0,ankiDroidIntent,0);
+}

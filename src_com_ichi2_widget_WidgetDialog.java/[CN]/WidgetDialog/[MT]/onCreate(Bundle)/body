@@ -1,0 +1,25 @@
+{
+  super.onCreate(savedInstanceState);
+  Intent intent=getIntent();
+  if (intent != null) {
+    String action=intent.getAction();
+    if (action != null) {
+      if (ACTION_SHOW_DECK_SELECTION_DIALOG.equals(action)) {
+        DeckManager.getSelectDeckDialog(this,new OnClickListener(){
+          @Override public void onClick(          DialogInterface dialog,          int which){
+            Intent newIntent=new Intent(WidgetDialog.this,AnkiDroidWidgetBig.UpdateService.class);
+            newIntent.setAction(AnkiDroidWidgetBig.UpdateService.ACTION_OPENDECK);
+            newIntent.putExtra(AnkiDroidWidgetBig.UpdateService.EXTRA_DECK_PATH,DeckManager.getDeckPath(which));
+            startService(newIntent);
+          }
+        }
+,null,new OnDismissListener(){
+          @Override public void onDismiss(          DialogInterface arg0){
+            WidgetDialog.this.finish();
+          }
+        }
+).show();
+      }
+    }
+  }
+}

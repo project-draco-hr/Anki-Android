@@ -4,7 +4,7 @@
     String action=intent.getAction();
     if (ACTION_OPENDECK.equals(action)) {
       updateViews(VIEW_ACTION_SHOW_PROGRESS_DIALOG);
-      WidgetStatus.deckOperation(WidgetStatus.TASK_OPEN_DECK,new WidgetDeckTaskData(this,"/emmc/AnkiDroid/Eng-1ab-Red+Gru+Auf.anki"));
+      WidgetStatus.deckOperation(WidgetStatus.TASK_OPEN_DECK,new WidgetDeckTaskData(AnkiDroidWidgetBig.UpdateService.this,intent.getStringExtra(EXTRA_DECK_PATH)));
     }
  else     if (ACTION_CLOSEDECK.equals(action)) {
       updateViews(VIEW_ACTION_SHOW_PROGRESS_DIALOG);

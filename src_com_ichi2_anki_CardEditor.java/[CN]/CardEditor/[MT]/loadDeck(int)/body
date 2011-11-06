@@ -1,6 +1,5 @@
 {
-  String deckName=mDeckNames[item];
-  mDeckPath=mFullDeckPaths.get(deckName);
+  mDeckPath=DeckManager.getDeckPath(item);
   Deck deck=AnkiDroidApp.deck();
   if (deck != null && deck.getDeckPath().equals(mDeckPath)) {
     mDeck=deck;
@@ -21,6 +20,6 @@
       return;
     }
   }
-  setTitle(deckName);
+  setTitle(deck.getDeckName());
   loadContents();
 }

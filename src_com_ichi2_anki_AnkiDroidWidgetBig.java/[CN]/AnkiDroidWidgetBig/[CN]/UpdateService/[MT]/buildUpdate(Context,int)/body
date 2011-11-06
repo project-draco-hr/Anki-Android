@@ -73,7 +73,7 @@
   }
  else {
     sShowAnswer=false;
-    PendingIntent openPendingIntent=getOpenDeckPendingIntent(context);
+    PendingIntent openPendingIntent=getShowDeckSelectionPendingIntent(context);
     updateViews.setOnClickPendingIntent(R.id.widget_big_open,openPendingIntent);
     updateViews.setTextViewText(R.id.widget_big_counts,"");
     updateViews.setTextViewText(R.id.widget_big_deckname,"");
