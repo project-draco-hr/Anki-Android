@@ -1,0 +1,11 @@
+{
+  Log.e(AnkiDroidApp.TAG,"doInBackgroundBury");
+  Card card=params[0].getCard();
+  long id=card.getId();
+  Deck deck=params[0].getDeck();
+  deck.buryFact(card.getFactId(),id);
+  deck.reset();
+  AnkiDroidWidgetBig.setCard(deck.getCard());
+  sendUpdateIntent(params[0].getContext());
+  return new WidgetDeckTaskData(params[0].getContext());
+}

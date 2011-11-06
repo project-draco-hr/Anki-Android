@@ -1,0 +1,90 @@
+{
+  Log.i(AnkiDroidApp.TAG,"BigWidget: buildUpdate");
+  RemoteViews updateViews=new RemoteViews(context.getPackageName(),R.layout.widget_big);
+  if (action == VIEW_ACTION_SHOW_PROGRESS_DIALOG) {
+    updateViews.setViewVisibility(R.id.widget_big_progressbar,View.VISIBLE);
+  }
+ else {
+    updateViews.setViewVisibility(R.id.widget_big_progressbar,View.INVISIBLE);
+  }
+  if (action == VIEW_ACTION_HIDE_BUTTONS) {
+    updateViews.setViewVisibility(R.id.widget_big_empty,View.VISIBLE);
+  }
+ else   if (sLoadedDeck != null) {
+    updateViews.setTextViewText(R.id.widget_big_deckname,sLoadedDeck.getDeckName());
+    updateViews.setTextViewText(R.id.widget_big_counts,getDeckStatusString(sLoadedDeck,sCard));
+    PendingIntent closeDeckPendingIntent=getCloseDeckPendingIntent(context);
+    updateViews.setOnClickPendingIntent(R.id.widget_big_close,closeDeckPendingIntent);
+    updateViews.setViewVisibility(R.id.widget_big_close,View.VISIBLE);
+    updateViews.setViewVisibility(R.id.widget_big_open,View.INVISIBLE);
+    updateViews.setTextViewText(R.id.widget_big_topleft,"");
+    updateViews.setTextViewText(R.id.widget_big_topright,"");
+    updateViews.setTextViewText(R.id.widget_big_bottomleft,"");
+    updateViews.setTextViewText(R.id.widget_big_bottomright,"");
+    if (sCard != null) {
+      PendingIntent undoPendindIntent=getUndoPendingIntent(context);
+      updateViews.setOnClickPendingIntent(R.id.widget_big_topright,undoPendindIntent);
+      PendingIntent buryPendindIntent=getBuryCardPendingIntent(context);
+      updateViews.setOnClickPendingIntent(R.id.widget_big_topleft,buryPendindIntent);
+      updateViews.setViewVisibility(R.id.widget_big_empty,View.INVISIBLE);
+      if (sShowAnswer) {
+        updateViews.setTextViewText(R.id.widget_big_cardcontent,Html.fromHtml(sCard.getQuestion() + "<br>???????????????<br>" + sCard.getAnswer()));
+        PendingIntent ease1PendindIntent=getAnswerPendingIntent(context,1);
+        updateViews.setOnClickPendingIntent(R.id.widget_big_ease1,ease1PendindIntent);
+        updateViews.setOnClickPendingIntent(R.id.widget_big_bottomleft,ease1PendindIntent);
+        if (sCard.isRev()) {
+          PendingIntent ease2PendindIntent=getAnswerPendingIntent(context,2);
+          updateViews.setOnClickPendingIntent(R.id.widget_big_ease2,ease2PendindIntent);
+          PendingIntent ease3PendindIntent=getAnswerPendingIntent(context,3);
+          updateViews.setOnClickPendingIntent(R.id.widget_big_ease3_rec,ease3PendindIntent);
+          updateViews.setOnClickPendingIntent(R.id.widget_big_bottomright,ease3PendindIntent);
+          updateViews.setViewVisibility(R.id.widget_big_ease2,View.VISIBLE);
+          updateViews.setViewVisibility(R.id.widget_big_ease2_rec,View.INVISIBLE);
+          updateViews.setViewVisibility(R.id.widget_big_ease3,View.INVISIBLE);
+          updateViews.setViewVisibility(R.id.widget_big_ease3_rec,View.VISIBLE);
+        }
+ else {
+          PendingIntent ease2PendindIntent=getAnswerPendingIntent(context,2);
+          updateViews.setOnClickPendingIntent(R.id.widget_big_ease2_rec,ease2PendindIntent);
+          updateViews.setOnClickPendingIntent(R.id.widget_big_bottomright,ease2PendindIntent);
+          PendingIntent ease3PendindIntent=getAnswerPendingIntent(context,3);
+          updateViews.setOnClickPendingIntent(R.id.widget_big_ease3,ease3PendindIntent);
+          updateViews.setViewVisibility(R.id.widget_big_ease2,View.INVISIBLE);
+          updateViews.setViewVisibility(R.id.widget_big_ease2_rec,View.VISIBLE);
+          updateViews.setViewVisibility(R.id.widget_big_ease3,View.VISIBLE);
+          updateViews.setViewVisibility(R.id.widget_big_ease3_rec,View.INVISIBLE);
+        }
+        PendingIntent ease4PendindIntent=getAnswerPendingIntent(context,4);
+        updateViews.setOnClickPendingIntent(R.id.widget_big_ease4,ease4PendindIntent);
+        updateViews.setViewVisibility(R.id.widget_big_flipcard,View.INVISIBLE);
+      }
+ else {
+        PendingIntent ease0PendindIntent=getAnswerPendingIntent(context,0);
+        updateViews.setOnClickPendingIntent(R.id.widget_big_flipcard,ease0PendindIntent);
+        updateViews.setOnClickPendingIntent(R.id.widget_big_bottomright,ease0PendindIntent);
+        updateViews.setOnClickPendingIntent(R.id.widget_big_bottomleft,ease0PendindIntent);
+        updateViews.setViewVisibility(R.id.widget_big_flipcard,View.VISIBLE);
+        updateViews.setTextViewText(R.id.widget_big_cardcontent,Html.fromHtml(sCard.getQuestion()));
+      }
+    }
+ else {
+      updateViews.setViewVisibility(R.id.widget_big_empty,View.INVISIBLE);
+    }
+  }
+ else {
+    sShowAnswer=false;
+    PendingIntent openPendingIntent=getOpenDeckPendingIntent(context);
+    updateViews.setOnClickPendingIntent(R.id.widget_big_open,openPendingIntent);
+    updateViews.setTextViewText(R.id.widget_big_counts,"");
+    updateViews.setTextViewText(R.id.widget_big_deckname,"");
+    updateViews.setTextViewText(R.id.widget_big_cardcontent,"");
+    updateViews.setViewVisibility(R.id.widget_big_empty,View.VISIBLE);
+    updateViews.setViewVisibility(R.id.widget_big_close,View.INVISIBLE);
+    updateViews.setViewVisibility(R.id.widget_big_open,View.VISIBLE);
+    updateViews.setTextViewText(R.id.widget_big_topleft,"bury");
+    updateViews.setTextViewText(R.id.widget_big_topright,"undo");
+    updateViews.setTextViewText(R.id.widget_big_bottomleft,"again");
+    updateViews.setTextViewText(R.id.widget_big_bottomright,"recommended");
+  }
+  return updateViews;
+}

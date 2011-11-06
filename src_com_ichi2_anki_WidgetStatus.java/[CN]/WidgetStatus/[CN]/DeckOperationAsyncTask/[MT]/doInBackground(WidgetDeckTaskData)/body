@@ -7,6 +7,10 @@ case TASK_ANSWER_CARD:
   return doInBackgroundAnswerCard(params);
 case TASK_CLOSE_DECK:
 return doInBackgroundCloseDeck(params);
+case TASK_UNDO:
+return doInBackgroundUndo(params);
+case TASK_BURY_CARD:
+return doInBackgroundBury(params);
 }
 return params[0];
 }

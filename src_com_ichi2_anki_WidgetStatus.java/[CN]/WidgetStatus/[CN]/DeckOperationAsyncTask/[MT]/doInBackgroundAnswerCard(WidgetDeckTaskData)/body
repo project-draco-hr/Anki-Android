@@ -1,20 +1,26 @@
 {
   Log.e(AnkiDroidApp.TAG,"doInBackgroundAnswerCard");
+  Context context=params[0].getContext();
   Card card=params[0].getCard();
   Deck deck=params[0].getDeck();
   Card newCard;
   int ease=params[0].getInt();
   if (ease == 0) {
-    return new WidgetDeckTaskData(params[0].getContext(),deck,card);
+    return new WidgetDeckTaskData(context,deck,card);
   }
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
   ankiDB.getDatabase().beginTransaction();
   try {
     if (card != null) {
-      deck.answerCard(card,3);
+      if (card.thinkingTime() >= 20) {
+        card.startTimer();
+      }
+      deck.answerCard(card,ease);
       Log.e(AnkiDroidApp.TAG,"WidgetBig: answering card with ease " + ease);
     }
     newCard=deck.getCard();
+    AnkiDroidWidgetBig.setCard(newCard);
+    sendUpdateIntent(context);
     ankiDB.getDatabase().setTransactionSuccessful();
   }
   finally {

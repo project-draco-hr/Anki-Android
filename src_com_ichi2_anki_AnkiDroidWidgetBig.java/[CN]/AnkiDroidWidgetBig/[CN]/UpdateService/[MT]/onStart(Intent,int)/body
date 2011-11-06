@@ -1,32 +1,41 @@
 {
   Log.i(AnkiDroidApp.TAG,"BigWidget: OnStart");
-  boolean updateDueDecksNow=true;
-  if (intent != null) {
-    if (intent.getAction() != null) {
-      Log.e("intentaction","a " + intent.getAction());
+  if (intent != null && intent.getAction() != null) {
+    String action=intent.getAction();
+    if (ACTION_OPENDECK.equals(action)) {
+      updateViews(VIEW_ACTION_SHOW_PROGRESS_DIALOG);
+      WidgetStatus.deckOperation(WidgetStatus.TASK_OPEN_DECK,new WidgetDeckTaskData(this,"/emmc/AnkiDroid/Eng-1ab-Red+Gru+Auf.anki"));
     }
-    if (ACTION_OPENDECK.equals(intent.getAction())) {
-      WidgetStatus.deckOperation(WidgetStatus.TASK_OPEN_DECK,new WidgetDeckTaskData(this,"/emmc/AnkiDroid/Fra-2-Red.anki"));
-    }
- else     if (ACTION_CLOSEDECK.equals(intent.getAction())) {
-      Deck deck=WidgetStatus.getDeck();
-      if (deck != null) {
-        WidgetStatus.deckOperation(WidgetStatus.TASK_CLOSE_DECK,new WidgetDeckTaskData(this,deck));
+ else     if (ACTION_CLOSEDECK.equals(action)) {
+      updateViews(VIEW_ACTION_SHOW_PROGRESS_DIALOG);
+      if (sLoadedDeck != null) {
+        WidgetStatus.deckOperation(WidgetStatus.TASK_CLOSE_DECK,new WidgetDeckTaskData(this,sLoadedDeck));
       }
     }
- else     if (ACTION_OPEN.equals(intent.getAction())) {
-      startActivity(StudyOptions.getLoadDeckIntent(this,intent.getData().getPath()));
+ else     if (ACTION_UNDO.equals(action)) {
+      sShowAnswer=false;
+      updateViews(VIEW_ACTION_HIDE_BUTTONS);
+      WidgetStatus.deckOperation(WidgetStatus.TASK_UNDO,new WidgetDeckTaskData(this,sLoadedDeck));
     }
- else     if (ACTION_ANSWER.equals(intent.getAction())) {
-      Deck deck=WidgetStatus.getDeck();
-      Card card=WidgetStatus.getCard();
-      WidgetStatus.deckOperation(WidgetStatus.TASK_ANSWER_CARD,new WidgetDeckTaskData(this,deck,card,intent.getIntExtra(EXTRA_ANSWER_EASE,0)));
+ else     if (ACTION_BURY_CARD.equals(action)) {
+      sShowAnswer=false;
+      updateViews(VIEW_ACTION_HIDE_BUTTONS);
+      WidgetStatus.deckOperation(WidgetStatus.TASK_BURY_CARD,new WidgetDeckTaskData(this,sLoadedDeck,sCard));
     }
- else     if (ACTION_UPDATE.equals(intent.getAction())) {
+ else     if (action.startsWith(ACTION_ANSWER)) {
+      int ease=Integer.parseInt(action.substring(action.length() - 1));
+      if (ease == 0) {
+        sShowAnswer=true;
+        updateViews();
+      }
+ else {
+        sShowAnswer=false;
+        updateViews(VIEW_ACTION_HIDE_BUTTONS);
+        WidgetStatus.deckOperation(WidgetStatus.TASK_ANSWER_CARD,new WidgetDeckTaskData(this,sLoadedDeck,sCard,ease));
+      }
+    }
+ else     if (ACTION_UPDATE.equals(action)) {
+      updateViews();
     }
   }
-  RemoteViews updateViews=buildUpdate(this,updateDueDecksNow);
-  ComponentName thisWidget=new ComponentName(this,AnkiDroidWidgetBig.class);
-  AppWidgetManager manager=AppWidgetManager.getInstance(this);
-  manager.updateAppWidget(thisWidget,updateViews);
 }
