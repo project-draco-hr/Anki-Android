@@ -1,0 +1,5 @@
+{
+  android.app.Activity activity=solo.getCurrentActivity();
+  Log.d("Test Activity Title",pre + ": " + (String)activity.getTitle());
+  Log.d("Test Activity Class",pre + ": " + (String)activity.getLocalClassName());
+}

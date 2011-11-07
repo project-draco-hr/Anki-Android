@@ -1,0 +1,16 @@
+{
+  logCurrentActivity("Start");
+  while (solo.getCurrentActivity().getTitle().toString().equals("AnkiDroid"))   solo.sleep(SHORT_SLEEP_TIME);
+  logCurrentActivity("After loaded");
+  solo.sendKey(solo.ENTER);
+  solo.sleep(SLEEP_TIME);
+  while (solo.getCurrentActivity().getLocalClassName().equals(STUDY_OPTIONS_CLASS))   solo.sleep(SHORT_SLEEP_TIME);
+  logCurrentActivity("Before answer cards");
+  while (true) {
+    if (finished())     break;
+    answerACard();
+    logCurrentActivity("Answered a card");
+    solo.sleep(SLEEP_TIME);
+  }
+  assertTrue(true);
+}
