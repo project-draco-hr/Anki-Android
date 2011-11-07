@@ -1,10 +1,22 @@
 {
   Deck deck=null;
+  waitForDeckOpening(deckpath);
   mLock.lock();
   mOpeningDeck=deckpath;
   try {
     if (sLoadedDecks.containsKey(deckpath)) {
-      ArrayList<Integer> openList=sLoadedDecks.get(deckpath).mOpenedBy;
+      DeckInformation deckInformation=sLoadedDecks.get(deckpath);
+      try {
+        if ((deckInformation.mClosingAsyncTask != null) && (deckInformation.mClosingAsyncTask.getStatus() != AsyncTask.Status.FINISHED)) {
+          Log.e(AnkiDroidApp.TAG,"DeckManager: deck " + deckpath + " is closing now, waiting for this to finish and reopening it");
+          deckInformation.mClosingAsyncTask.get();
+          return getDeck(deckpath,requestingActivity);
+        }
+      }
+ catch (      Exception e) {
+        Log.i(AnkiDroidApp.TAG,"DeckManager: An exception occurred while waiting for closing task of deck " + deckpath);
+      }
+      ArrayList<Integer> openList=deckInformation.mOpenedBy;
       if (!openList.contains(requestingActivity)) {
         Log.i(AnkiDroidApp.TAG,"DeckManager: deck " + deckpath + " already loaded, adding requesting activity");
         openList.add(requestingActivity);
@@ -13,44 +25,32 @@
         Log.e(AnkiDroidApp.TAG,"DeckManager: deck " + deckpath + " already loaded by this activity!");
       }
       Log.i(AnkiDroidApp.TAG,"DeckManager: deck " + deckpath + " is now opened by "+ openList.toString());
-      DeckInformation deckInformation=sLoadedDecks.get(deckpath);
-      try {
-        if ((deckInformation.mClosingAsyncTask != null) && (deckInformation.mClosingAsyncTask.getStatus() != AsyncTask.Status.FINISHED)) {
-          deckInformation.mClosingAsyncTask.get();
-          deck=getDeck(deckpath,requestingActivity);
-        }
- else {
-          deck=deckInformation.mDeck;
-        }
-        if (requestingActivity == REQUESTING_ACTIVITY_SYNCCLIENT) {
-          sendWidgetBigClosedNotification();
-          deckInformation.mOpenedBy.remove(REQUESTING_ACTIVITY_BIGWIDGET);
-          if (!deckInformation.mDeleteJournalModeForced) {
-            Cursor cur=null;
-            try {
-              cur=deck.getDB().getDatabase().rawQuery("PRAGMA journal_mode",null);
-              if (cur.moveToFirst()) {
-                if (!cur.getString(0).equalsIgnoreCase("delete")) {
-                  Log.i(AnkiDroidApp.TAG,"DeckManager: Journal mode not set to delete, reloading deck");
-                  deck.closeDeck();
-                  deck=Deck.openDeck(deckpath,rebuild,true);
-                }
-                deckInformation.mDeleteJournalModeForced=true;
+      deck=deckInformation.mDeck;
+      if (requestingActivity == REQUESTING_ACTIVITY_SYNCCLIENT) {
+        sendWidgetBigClosedNotification();
+        deckInformation.mOpenedBy.remove(REQUESTING_ACTIVITY_BIGWIDGET);
+        if (!deckInformation.mDeleteJournalModeForced) {
+          Cursor cur=null;
+          try {
+            cur=deck.getDB().getDatabase().rawQuery("PRAGMA journal_mode",null);
+            if (cur.moveToFirst()) {
+              if (!cur.getString(0).equalsIgnoreCase("delete")) {
+                Log.i(AnkiDroidApp.TAG,"DeckManager: Journal mode not set to delete, reloading deck");
+                deck.closeDeck();
+                deck=Deck.openDeck(deckpath,rebuild,true);
               }
+              deckInformation.mDeleteJournalModeForced=true;
             }
+          }
   finally {
-              if (cur != null && !cur.isClosed()) {
-                cur.close();
-              }
+            if (cur != null && !cur.isClosed()) {
+              cur.close();
             }
           }
- else           if (deckInformation.mOpenedBy.contains(REQUESTING_ACTIVITY_SYNCCLIENT)) {
-            deck=null;
-          }
         }
-      }
- catch (      Exception e) {
-        Log.i(AnkiDroidApp.TAG,"DeckManager: An exception occurred while waiting for closing task of deck " + deckpath);
+ else         if (deckInformation.mOpenedBy.contains(REQUESTING_ACTIVITY_SYNCCLIENT)) {
+          deck=null;
+        }
       }
     }
  else {
@@ -75,7 +75,7 @@
   }
   finally {
     mOpeningDeck=null;
-    mCondFinished.signalAll();
+    mCondFinished.signal();
     mLock.unlock();
   }
   return deck;

@@ -1,35 +1,44 @@
 {
   waitForDeckOpening(deckpath);
-  if (sLoadedDecks.containsKey(deckpath)) {
-    DeckInformation di=sLoadedDecks.get(deckpath);
-    if ((di.mClosingAsyncTask != null) && (di.mClosingAsyncTask.getStatus() != AsyncTask.Status.FINISHED)) {
-      Log.i(AnkiDroidApp.TAG,"DeckManager: closeDeck - deck " + deckpath + " is already closing");
-      return;
-    }
-    ArrayList<Integer> openList=sLoadedDecks.get(deckpath).mOpenedBy;
-    if (waitToFinish && (openList.contains(REQUESTING_ACTIVITY_STUDYOPTIONS))) {
-      DeckTask.waitToFinish();
-    }
-    if (requestingActivity != -1 && openList.size() > 1) {
-      openList.remove(deckpath);
-      Log.i(AnkiDroidApp.TAG,"DeckManager: deck " + deckpath + " used by more than one activity ("+ openList.toString()+ "), removing only "+ requestingActivity);
-      if (requestingActivity == REQUESTING_ACTIVITY_BIGWIDGET) {
-        sendWidgetBigClosedNotification();
+  mLock.lock();
+  try {
+    if (sLoadedDecks.containsKey(deckpath)) {
+      DeckInformation di=sLoadedDecks.get(deckpath);
+      if ((di.mClosingAsyncTask != null) && (di.mClosingAsyncTask.getStatus() != AsyncTask.Status.FINISHED)) {
+        Log.i(AnkiDroidApp.TAG,"DeckManager: closeDeck - deck " + deckpath + " is already closing");
+        return;
+      }
+      ArrayList<Integer> openList=sLoadedDecks.get(deckpath).mOpenedBy;
+      if (requestingActivity != -1 && !openList.contains(requestingActivity)) {
+        Log.e(AnkiDroidApp.TAG,"DeckManager: deck " + deckpath + " is not loaded by "+ requestingActivity);
+      }
+ else       if (requestingActivity != -1 && openList.size() > 1) {
+        openList.remove(new Integer(requestingActivity));
+        Log.i(AnkiDroidApp.TAG,"DeckManager: deck " + deckpath + " used still by more activities ("+ openList.toString()+ "), removing only "+ requestingActivity);
+        if (requestingActivity == REQUESTING_ACTIVITY_BIGWIDGET) {
+          sendWidgetBigClosedNotification();
+        }
+      }
+ else {
+        Log.i(AnkiDroidApp.TAG,"DeckManager: closing deck " + deckpath + " ("+ requestingActivity+ ")");
+        if (waitToFinish && (openList.contains(REQUESTING_ACTIVITY_STUDYOPTIONS))) {
+          DeckTask.waitToFinish();
+        }
+        sLoadedDecks.get(deckpath).mClosingAsyncTask=new CloseDeckAsyncTask();
+        sLoadedDecks.get(deckpath).mClosingAsyncTask.execute(sLoadedDecks.get(deckpath));
+        if (openList.contains(REQUESTING_ACTIVITY_BIGWIDGET)) {
+          sendWidgetBigClosedNotification();
+        }
+        if (sMainDeckPath != null && sMainDeckPath.equals(deckpath)) {
+          sMainDeckPath=null;
+        }
       }
     }
  else {
-      Log.i(AnkiDroidApp.TAG,"DeckManager: closing deck " + deckpath + " ("+ requestingActivity+ ")");
-      sLoadedDecks.get(deckpath).mClosingAsyncTask=new CloseDeckAsyncTask();
-      sLoadedDecks.get(deckpath).mClosingAsyncTask.execute(sLoadedDecks.get(deckpath));
-      if (openList.contains(REQUESTING_ACTIVITY_BIGWIDGET)) {
-        sendWidgetBigClosedNotification();
-      }
-      if (sMainDeckPath != null && sMainDeckPath.equals(deckpath)) {
-        sMainDeckPath=null;
-      }
+      Log.e(AnkiDroidApp.TAG,"DeckManager: deck " + deckpath + " is not a loaded deck");
     }
   }
- else {
-    Log.e(AnkiDroidApp.TAG,"DeckManager: deck " + deckpath + " not loaded");
+  finally {
+    mLock.unlock();
   }
 }

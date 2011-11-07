@@ -3,6 +3,7 @@
   if (mDeckFilename != null && new File(mDeckFilename).exists()) {
     mToggleCram.setChecked(false);
     mToggleLimit.setEnabled(true);
+    DeckManager.closeMainDeck(DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS);
     if (updateAllCards) {
       DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK_AND_UPDATE_CARDS,mLoadDeckHandler,new DeckTask.TaskData(mDeckFilename));
     }
