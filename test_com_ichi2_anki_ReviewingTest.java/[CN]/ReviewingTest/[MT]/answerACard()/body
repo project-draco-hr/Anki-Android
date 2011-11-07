@@ -1,0 +1,10 @@
+{
+  solo.sendKey(solo.DOWN);
+  solo.sendKey(solo.ENTER);
+  solo.sleep(SLEEP_TIME);
+  if (finished())   return;
+  int r=rd.nextInt(4);
+  if (r == 0)   solo.sendKey(solo.LEFT);
+ else   for (int i=0; i < (r - 1); i++)   solo.sendKey(solo.RIGHT);
+  solo.sendKey(solo.ENTER);
+}
