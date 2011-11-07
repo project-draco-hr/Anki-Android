@@ -1,7 +1,11 @@
 {
   waitForDeckOpening(deckpath);
   if (sLoadedDecks.containsKey(deckpath)) {
-    Log.e("try","to close with " + requestingActivity + " deck "+ deckpath+ ": "+ sLoadedDecks.get(deckpath).mOpenedBy.toString());
+    DeckInformation di=sLoadedDecks.get(deckpath);
+    if ((di.mClosingAsyncTask != null) && (di.mClosingAsyncTask.getStatus() != AsyncTask.Status.FINISHED)) {
+      Log.i(AnkiDroidApp.TAG,"DeckManager: closeDeck - deck " + deckpath + " is already closing");
+      return;
+    }
     ArrayList<Integer> openList=sLoadedDecks.get(deckpath).mOpenedBy;
     if (waitToFinish && (openList.contains(REQUESTING_ACTIVITY_STUDYOPTIONS))) {
       DeckTask.waitToFinish();

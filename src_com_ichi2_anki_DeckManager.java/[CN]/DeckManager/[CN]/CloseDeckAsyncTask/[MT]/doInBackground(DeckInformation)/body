@@ -3,7 +3,7 @@
   DeckInformation di=params[0];
   String deckpath=di.mDeck.getDeckPath();
   try {
-    di.mDeck.closeDeck();
+    di.mDeck.closeDeck(false);
     Log.i(AnkiDroidApp.TAG,"DeckManager.CloseDeckAsyncTask: deck " + deckpath + " successfully closed");
   }
  catch (  RuntimeException e) {
