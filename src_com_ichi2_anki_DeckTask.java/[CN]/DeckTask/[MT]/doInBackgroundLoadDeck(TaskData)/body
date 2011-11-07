@@ -2,6 +2,8 @@
   String deckFilename=params[0].getString();
   Log.i(AnkiDroidApp.TAG,"doInBackgroundLoadDeck - deckFilename = " + deckFilename);
   Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
+  publishProgress(new TaskData(AnkiDroidApp.getInstance().getBaseContext().getResources().getString(R.string.finish_operation)));
+  DeckManager.waitForDeckClosingThread(deckFilename);
   int backupResult=BackupManager.RETURN_NULL;
   if (PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).getBoolean("useBackup",true)) {
     publishProgress(new TaskData(res.getString(R.string.backup_deck)));

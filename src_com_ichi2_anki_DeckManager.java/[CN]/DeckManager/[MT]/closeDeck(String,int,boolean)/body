@@ -1,8 +1,12 @@
 {
-  waitForDeckOpening(deckpath);
   mLock.lock();
+  mClosingDeck=deckpath;
   try {
     if (sLoadedDecks.containsKey(deckpath)) {
+      while (mOpeningDeck != null && mOpeningDeck.equals(deckpath)) {
+        Log.e(AnkiDroidApp.TAG,"DeckManager: waitForDeckOpening (" + deckpath + ")");
+        mCondFinished.await();
+      }
       DeckInformation di=sLoadedDecks.get(deckpath);
       if ((di.mClosingAsyncTask != null) && (di.mClosingAsyncTask.getStatus() != AsyncTask.Status.FINISHED)) {
         Log.i(AnkiDroidApp.TAG,"DeckManager: closeDeck - deck " + deckpath + " is already closing");
@@ -38,7 +42,12 @@
       Log.e(AnkiDroidApp.TAG,"DeckManager: deck " + deckpath + " is not a loaded deck");
     }
   }
-  finally {
+ catch (  InterruptedException e) {
+    e.printStackTrace();
+  }
+ finally {
+    mClosingDeck=null;
+    mCondFinished.signal();
     mLock.unlock();
   }
 }

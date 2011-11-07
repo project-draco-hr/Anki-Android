@@ -1,9 +1,12 @@
 {
   Deck deck=null;
-  waitForDeckOpening(deckpath);
   mLock.lock();
   mOpeningDeck=deckpath;
   try {
+    while (mClosingDeck != null && mClosingDeck.equals(deckpath)) {
+      Log.e(AnkiDroidApp.TAG,"DeckManager: waitForDeckClosing (" + deckpath + ")");
+      mCondFinished.await();
+    }
     if (sLoadedDecks.containsKey(deckpath)) {
       DeckInformation deckInformation=sLoadedDecks.get(deckpath);
       try {
@@ -73,7 +76,10 @@
       sMainDeckPath=deckpath;
     }
   }
-  finally {
+ catch (  InterruptedException e) {
+    e.printStackTrace();
+  }
+ finally {
     mOpeningDeck=null;
     mCondFinished.signal();
     mLock.unlock();
