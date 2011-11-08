@@ -28,6 +28,9 @@
         if (waitToFinish && (openList.contains(REQUESTING_ACTIVITY_STUDYOPTIONS))) {
           DeckTask.waitToFinish();
         }
+ else         if (waitToFinish && (openList.contains(REQUESTING_ACTIVITY_BIGWIDGET))) {
+          WidgetStatus.deckOperationWaitToFinish();
+        }
         sLoadedDecks.get(deckpath).mClosingAsyncTask=new CloseDeckAsyncTask();
         sLoadedDecks.get(deckpath).mClosingAsyncTask.execute(sLoadedDecks.get(deckpath));
         if (openList.contains(REQUESTING_ACTIVITY_BIGWIDGET)) {

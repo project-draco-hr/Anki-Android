@@ -1,6 +1,6 @@
 {
-  RemoteViews updateViews=buildUpdate(this,action);
-  ComponentName thisWidget=new ComponentName(this,AnkiDroidWidgetBig.class);
-  AppWidgetManager manager=AppWidgetManager.getInstance(this);
-  manager.updateAppWidget(thisWidget,updateViews);
+  if (view != VIEW_NOT_SPECIFIED) {
+    mCurrentView=view;
+  }
+  updateViews();
 }

@@ -57,7 +57,6 @@
       mShowWhiteboard=true;
       mWhiteboard.setVisibility(View.VISIBLE);
     }
-    DeckManager.closeDeck(DeckManager.getMainDeckPath(),DeckManager.REQUESTING_ACTIVITY_BIGWIDGET);
     DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,deck,null));
   }
 }

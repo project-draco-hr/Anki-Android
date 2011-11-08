@@ -1,12 +1,9 @@
 {
   Log.d(AnkiDroidApp.TAG,"WidgetStatus.DeckOperationAsyncTask.onPostExecute()");
-  Context context=params.getContext();
-  boolean update=false;
 switch (sDeckOperationType) {
 case TASK_OPEN_DECK:
     AnkiDroidWidgetBig.setDeckAndLoadCard(params.getDeck());
-  update=true;
-break;
+  break;
 case TASK_CLOSE_DECK:
 break;
 case TASK_ANSWER_CARD:
@@ -15,8 +12,5 @@ case TASK_UNDO:
 break;
 case TASK_BURY_CARD:
 break;
-}
-if (update) {
-AnkiDroidWidgetBig.updateWidget();
 }
 }

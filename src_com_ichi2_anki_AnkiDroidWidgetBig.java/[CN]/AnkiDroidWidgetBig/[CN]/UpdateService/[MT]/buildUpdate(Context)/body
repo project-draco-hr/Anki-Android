@@ -1,0 +1,137 @@
+{
+  Log.i(AnkiDroidApp.TAG,"BigWidget: buildUpdate");
+  Resources res=getResources();
+  RemoteViews updateViews=new RemoteViews(context.getPackageName(),R.layout.widget_big);
+  if (mCurrentView == VIEW_SHOW_HELP) {
+  }
+ else   if (sLoadedDeck == null) {
+    mCurrentView=VIEW_DECKS;
+  }
+ else   if (sCard == null) {
+    mCurrentView=VIEW_NOTHING_DUE;
+  }
+  if (mShowProgressDialog) {
+    updateViews.setViewVisibility(R.id.widget_big_progressbar,View.VISIBLE);
+    updateViews.setViewVisibility(R.id.widget_big_empty,View.VISIBLE);
+    updateViews.setViewVisibility(R.id.widget_big_flipcard,View.INVISIBLE);
+    updateViews.setViewVisibility(R.id.widget_big_help,View.INVISIBLE);
+  }
+ else {
+    updateViews.setViewVisibility(R.id.widget_big_progressbar,View.INVISIBLE);
+  }
+switch (mCurrentView) {
+case VIEW_SHOW_HELP:
+case VIEW_DECKS:
+    updateViews.setTextViewText(R.id.widget_big_deckname,"");
+  updateViews.setTextViewText(R.id.widget_big_counts,"");
+updateViews.setViewVisibility(R.id.widget_big_empty,View.VISIBLE);
+updateViews.setOnClickPendingIntent(R.id.widget_big_empty,getHelpPendingIntent(this));
+updateViews.setViewVisibility(R.id.widget_big_flipcard,View.INVISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_help,View.VISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_open,View.VISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_close,View.INVISIBLE);
+if (!mShowProgressDialog) {
+updateViews.setOnClickPendingIntent(R.id.widget_big_openclose,getShowDeckSelectionPendingIntent(context));
+}
+updateViews.setViewVisibility(R.id.widget_big_cardbackgroundstar,View.VISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_deckfield,View.VISIBLE);
+CharSequence[] content=getDeckNamesAndDues();
+updateViews.setTextViewText(R.id.widget_big_decknames,content[0]);
+updateViews.setTextViewText(R.id.widget_big_deckdues,content[1]);
+updateViews.setTextViewText(R.id.widget_big_decketa,"???????????????\n" + content[2]);
+updateViews.setTextViewText(R.id.widget_big_cardcontent,"");
+break;
+case VIEW_SHOW_ANSWER:
+if (!mShowProgressDialog) {
+updateViews.setOnClickPendingIntent(R.id.widget_big_topleft,getOpenPendingIntent(this,sLoadedDeck.getDeckPath()));
+updateViews.setOnClickPendingIntent(R.id.widget_big_middleleft,getBuryCardPendingIntent(context));
+updateViews.setOnClickPendingIntent(R.id.widget_big_bottomleft,getAnswerPendingIntent(context,1));
+updateViews.setOnClickPendingIntent(R.id.widget_big_topright,getCardEditorPendingIntent(context));
+updateViews.setOnClickPendingIntent(R.id.widget_big_middleright,getUndoPendingIntent(context));
+updateViews.setOnClickPendingIntent(R.id.widget_big_bottomright,getAnswerPendingIntent(context,sCard.isRev() ? 3 : 2));
+updateViews.setOnClickPendingIntent(R.id.widget_big_ease1,getAnswerPendingIntent(context,1));
+updateViews.setOnClickPendingIntent(R.id.widget_big_ease2,getAnswerPendingIntent(context,2));
+updateViews.setOnClickPendingIntent(R.id.widget_big_ease3,getAnswerPendingIntent(context,3));
+updateViews.setOnClickPendingIntent(R.id.widget_big_ease4,getAnswerPendingIntent(context,4));
+if (sCard.isRev()) {
+updateViews.setViewVisibility(R.id.widget_big_ease2_normal,View.INVISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_ease2_rec,View.VISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_ease3_normal,View.INVISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_ease3_rec,View.VISIBLE);
+}
+ else {
+updateViews.setViewVisibility(R.id.widget_big_ease2_normal,View.VISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_ease2_rec,View.INVISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_ease3_normal,View.VISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_ease3_rec,View.INVISIBLE);
+}
+updateViews.setViewVisibility(R.id.widget_big_empty,View.INVISIBLE);
+}
+updateViews.setTextViewText(R.id.widget_big_cardcontent,Html.fromHtml(sCard.getQuestion() + "<br>???????????????<br>" + sCard.getAnswer()));
+case VIEW_SHOW_QUESTION:
+if (mCurrentView == VIEW_SHOW_QUESTION) {
+if (!mShowProgressDialog) {
+updateViews.setViewVisibility(R.id.widget_big_empty,View.VISIBLE);
+updateViews.setOnClickPendingIntent(R.id.widget_big_empty,getAnswerPendingIntent(context,0));
+updateViews.setViewVisibility(R.id.widget_big_flipcard,View.VISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_help,View.INVISIBLE);
+updateViews.setOnClickPendingIntent(R.id.widget_big_bottomleft,getAnswerPendingIntent(context,0));
+updateViews.setOnClickPendingIntent(R.id.widget_big_bottomright,getAnswerPendingIntent(context,0));
+}
+updateViews.setTextViewText(R.id.widget_big_cardcontent,Html.fromHtml(sCard.getQuestion()));
+}
+updateViews.setTextViewText(R.id.widget_big_deckname,sLoadedDeck.getDeckName());
+updateViews.setTextViewText(R.id.widget_big_counts,getDeckStatusString(sLoadedDeck,sCard));
+updateViews.setViewVisibility(R.id.widget_big_open,View.INVISIBLE);
+if (!mShowProgressDialog) {
+updateViews.setOnClickPendingIntent(R.id.widget_big_openclose,getCloseDeckPendingIntent(context));
+}
+updateViews.setViewVisibility(R.id.widget_big_close,View.VISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_deckfield,View.INVISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_cardbackgroundstar,View.INVISIBLE);
+break;
+case VIEW_NOTHING_DUE:
+updateViews.setTextViewText(R.id.widget_big_deckname,sLoadedDeck.getDeckName());
+updateViews.setTextViewText(R.id.widget_big_counts,getDeckStatusString(sLoadedDeck,sCard));
+if (!mShowProgressDialog) {
+updateViews.setOnClickPendingIntent(R.id.widget_big_middleright,getUndoPendingIntent(context));
+updateViews.setViewVisibility(R.id.widget_big_empty,View.VISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_flipcard,View.INVISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_help,View.INVISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_open,View.VISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_close,View.INVISIBLE);
+updateViews.setOnClickPendingIntent(R.id.widget_big_openclose,getShowDeckSelectionPendingIntent(context));
+}
+updateViews.setViewVisibility(R.id.widget_big_deckfield,View.INVISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_cardbackgroundstar,View.INVISIBLE);
+updateViews.setTextViewText(R.id.widget_big_cardcontent,StudyOptions.getCongratsMessage(this,sLoadedDeck));
+updateViews.setViewVisibility(R.id.widget_big_open,View.INVISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_close,View.VISIBLE);
+break;
+}
+if (mCurrentView == VIEW_SHOW_HELP) {
+String[] values=res.getStringArray(R.array.gestures_labels);
+updateViews.setTextViewText(R.id.widget_big_topleft,res.getString(R.string.open_in_reviewer));
+updateViews.setTextViewText(R.id.widget_big_middleleft,values[12]);
+updateViews.setTextViewText(R.id.widget_big_bottomleft,values[1]);
+updateViews.setTextViewText(R.id.widget_big_topright,values[9]);
+updateViews.setTextViewText(R.id.widget_big_middleright,values[7]);
+updateViews.setTextViewText(R.id.widget_big_bottomright,values[5]);
+updateViews.setOnClickPendingIntent(R.id.widget_big_empty,getUpdatePendingIntent(this,VIEW_DECKS));
+updateViews.setViewVisibility(R.id.widget_big_empty,View.VISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_deckfield,View.INVISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_flipcard,View.INVISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_help,View.VISIBLE);
+updateViews.setTextViewText(R.id.widget_big_cardcontent,"");
+updateViews.setViewVisibility(R.id.widget_big_cardbackgroundstar,View.INVISIBLE);
+}
+ else {
+updateViews.setTextViewText(R.id.widget_big_topleft,"");
+updateViews.setTextViewText(R.id.widget_big_middleleft,"");
+updateViews.setTextViewText(R.id.widget_big_bottomleft,"");
+updateViews.setTextViewText(R.id.widget_big_topright,"");
+updateViews.setTextViewText(R.id.widget_big_middleright,"");
+updateViews.setTextViewText(R.id.widget_big_bottomright,"");
+}
+return updateViews;
+}

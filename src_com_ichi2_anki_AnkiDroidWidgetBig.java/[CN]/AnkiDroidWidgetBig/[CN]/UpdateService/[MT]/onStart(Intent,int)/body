@@ -1,39 +1,37 @@
 {
   Log.i(AnkiDroidApp.TAG,"BigWidget: OnStart");
+  sContext=this;
   if (intent != null && intent.getAction() != null) {
     String action=intent.getAction();
     if (ACTION_UPDATE.equals(action)) {
-      updateViews();
+      mShowProgressDialog=false;
+      updateViews(intent.getIntExtra(EXTRA_CURRENT_VIEW,VIEW_NOT_SPECIFIED));
     }
  else     if (ACTION_OPENDECK.equals(action)) {
-      updateViews(VIEW_ACTION_SHOW_PROGRESS_DIALOG);
+      showProgressDialog();
       WidgetStatus.deckOperation(WidgetStatus.TASK_OPEN_DECK,new WidgetDeckTaskData(AnkiDroidWidgetBig.UpdateService.this,intent.getStringExtra(EXTRA_DECK_PATH)));
     }
  else     if (ACTION_CLOSEDECK.equals(action)) {
-      updateViews(VIEW_ACTION_SHOW_PROGRESS_DIALOG);
+      showProgressDialog();
       if (sLoadedDeck != null) {
         WidgetStatus.deckOperation(WidgetStatus.TASK_CLOSE_DECK,new WidgetDeckTaskData(this,sLoadedDeck.getDeckPath()));
       }
     }
  else     if (ACTION_UNDO.equals(action)) {
-      sShowAnswer=false;
-      updateViews(VIEW_ACTION_HIDE_BUTTONS);
+      showProgressDialog();
       WidgetStatus.deckOperation(WidgetStatus.TASK_UNDO,new WidgetDeckTaskData(this,sLoadedDeck));
     }
  else     if (ACTION_BURY_CARD.equals(action)) {
-      sShowAnswer=false;
-      updateViews(VIEW_ACTION_HIDE_BUTTONS);
+      showProgressDialog();
       WidgetStatus.deckOperation(WidgetStatus.TASK_BURY_CARD,new WidgetDeckTaskData(this,sLoadedDeck,sCard));
     }
  else     if (action.startsWith(ACTION_ANSWER)) {
       int ease=Integer.parseInt(action.substring(action.length() - 1));
       if (ease == 0) {
-        sShowAnswer=true;
-        updateViews();
+        updateViews(VIEW_SHOW_ANSWER);
       }
  else {
-        sShowAnswer=false;
-        updateViews(VIEW_ACTION_HIDE_BUTTONS);
+        showProgressDialog();
         WidgetStatus.deckOperation(WidgetStatus.TASK_ANSWER_CARD,new WidgetDeckTaskData(this,sLoadedDeck,sCard,ease));
       }
     }
@@ -56,6 +54,9 @@
       editIntent.putExtra(CardEditor.CARD_EDITOR_ACTION,CardEditor.EDIT_BIGWIDGET_CARD);
       editIntent.putExtra(CardEditor.DECKPATH,sLoadedDeck.getDeckPath());
       this.startActivity(editIntent);
+    }
+ else     if (ACTION_HELP.equals(action)) {
+      updateViews(VIEW_SHOW_HELP);
     }
   }
 }

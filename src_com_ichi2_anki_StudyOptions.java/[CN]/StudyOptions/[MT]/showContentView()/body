@@ -44,7 +44,7 @@ showContentView(CONTENT_DECK_NOT_LOADED);
 }
 break;
 case CONTENT_CONGRATS:
-setCongratsMessage();
+mTextCongratsMessage.setText(getCongratsMessage(this,DeckManager.getMainDeck()));
 updateValuesFromDeck();
 setContentView(mCongratsView);
 break;

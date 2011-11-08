@@ -1,12 +1,18 @@
 {
   super.onResume();
-  if (DeckManager.getMainDeck() == null) {
+  Deck deck=DeckManager.getMainDeck();
+  if (deck == null) {
     finish();
+  }
+  if (DeckManager.mainIsOpenedInBigWidget()) {
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,deck,null));
+  }
+ else {
+    restartTimer();
   }
   if (mShakeEnabled) {
     mSensorManager.registerListener(mSensorListener,mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_NORMAL);
   }
-  restartTimer();
   if ((AnkiDroidApp.zeemoteController() != null) && (AnkiDroidApp.zeemoteController().isConnected())) {
     Log.d("Zeemote","Adding listener in onResume");
     AnkiDroidApp.zeemoteController().addButtonListener(this);
