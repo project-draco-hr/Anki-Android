@@ -40,6 +40,7 @@ updateViews.setViewVisibility(R.id.widget_big_flipcard,View.INVISIBLE);
 updateViews.setViewVisibility(R.id.widget_big_help,View.VISIBLE);
 updateViews.setViewVisibility(R.id.widget_big_open,View.VISIBLE);
 updateViews.setViewVisibility(R.id.widget_big_close,View.INVISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_nothing_due,View.INVISIBLE);
 if (!mShowProgressDialog) {
 updateViews.setOnClickPendingIntent(R.id.widget_big_openclose,getShowDeckSelectionPendingIntent(context));
 disableCardAreaListeners(updateViews,false,doNothingIntent);
@@ -70,6 +71,7 @@ updateViews.setViewVisibility(R.id.widget_big_ease2_rec,View.INVISIBLE);
 updateViews.setViewVisibility(R.id.widget_big_ease3_normal,View.VISIBLE);
 updateViews.setViewVisibility(R.id.widget_big_ease3_rec,View.INVISIBLE);
 }
+updateViews.setViewVisibility(R.id.widget_big_nothing_due,View.INVISIBLE);
 updateViews.setViewVisibility(R.id.widget_big_empty,View.INVISIBLE);
 enableCardAreaListeners(updateViews,false);
 updateViews.setTextViewText(R.id.widget_big_message,getNextTimeString(sCard));
@@ -99,6 +101,7 @@ if (!mShowProgressDialog) {
 updateViews.setOnClickPendingIntent(R.id.widget_big_openclose,getCloseDeckPendingIntent(context));
 }
 updateViews.setViewVisibility(R.id.widget_big_close,View.VISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_nothing_due,View.INVISIBLE);
 updateViews.setViewVisibility(R.id.widget_big_deckfield,View.INVISIBLE);
 updateViews.setViewVisibility(R.id.widget_big_cardbackgroundstar,View.INVISIBLE);
 break;
@@ -113,12 +116,16 @@ updateViews.setViewVisibility(R.id.widget_big_open,View.VISIBLE);
 updateViews.setViewVisibility(R.id.widget_big_close,View.INVISIBLE);
 disableCardAreaListeners(updateViews,true,doNothingIntent);
 updateViews.setOnClickPendingIntent(R.id.widget_big_openclose,getCloseDeckPendingIntent(context));
+updateViews.setViewVisibility(R.id.widget_big_nothing_due,View.VISIBLE);
+updateViews.setTextViewText(R.id.widget_big_cardcontent,"");
 }
 updateViews.setViewVisibility(R.id.widget_big_deckfield,View.INVISIBLE);
-updateViews.setViewVisibility(R.id.widget_big_cardbackgroundstar,View.INVISIBLE);
-updateViews.setTextViewText(R.id.widget_big_cardcontent,StudyOptions.getCongratsMessage(this,sLoadedDeck));
+updateViews.setViewVisibility(R.id.widget_big_cardbackgroundstar,View.VISIBLE);
+updateViews.setTextViewText(R.id.widget_big_congrats,StudyOptions.getCongratsMessage(this,sLoadedDeck));
 updateViews.setViewVisibility(R.id.widget_big_open,View.INVISIBLE);
 updateViews.setViewVisibility(R.id.widget_big_close,View.VISIBLE);
+updateViews.setOnClickPendingIntent(R.id.widget_big_review_early,getReviewEarlyPendingIntent(context));
+updateViews.setOnClickPendingIntent(R.id.widget_big_learn_more,getLearnMorePendingIntent(context));
 break;
 }
 if (mCurrentView == VIEW_SHOW_HELP) {
@@ -135,6 +142,7 @@ updateViews.setViewVisibility(R.id.widget_big_flipcard,View.INVISIBLE);
 updateViews.setViewVisibility(R.id.widget_big_help,View.VISIBLE);
 updateViews.setTextViewText(R.id.widget_big_cardcontent,"");
 updateViews.setViewVisibility(R.id.widget_big_cardbackgroundstar,View.INVISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_nothing_due,View.INVISIBLE);
 if (!mShowProgressDialog) {
 disableCardAreaListeners(updateViews,false,doNothingIntent);
 }

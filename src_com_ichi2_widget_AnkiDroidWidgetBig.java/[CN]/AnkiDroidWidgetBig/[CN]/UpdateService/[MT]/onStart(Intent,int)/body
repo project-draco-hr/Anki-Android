@@ -63,5 +63,25 @@
  else     if (ACTION_HELP.equals(action)) {
       updateViews(VIEW_SHOW_HELP);
     }
+ else     if (ACTION_LEARN_MORE.equals(action)) {
+      if (sLoadedDeck != null) {
+        sLoadedDeck.setupLearnMoreScheduler();
+        sLoadedDeck.reset();
+        sCard=sLoadedDeck.getCard();
+        mShowProgressDialog=false;
+        mCurrentMessage=null;
+        updateViews(VIEW_SHOW_QUESTION);
+      }
+    }
+ else     if (ACTION_REVIEW_EARLY.equals(action)) {
+      if (sLoadedDeck != null) {
+        sLoadedDeck.setupReviewEarlyScheduler();
+        sLoadedDeck.reset();
+        sCard=sLoadedDeck.getCard();
+        mShowProgressDialog=false;
+        mCurrentMessage=null;
+        updateViews(VIEW_SHOW_QUESTION);
+      }
+    }
   }
 }
