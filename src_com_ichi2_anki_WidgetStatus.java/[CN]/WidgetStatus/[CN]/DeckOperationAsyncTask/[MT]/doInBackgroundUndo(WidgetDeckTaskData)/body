@@ -1,7 +1,0 @@
-{
-  Log.e(AnkiDroidApp.TAG,"doInBackgroundUndo");
-  Deck deck=params[0].getDeck();
-  deck.undo(0,true);
-  AnkiDroidWidgetBig.setCard(deck.getCard());
-  return new WidgetDeckTaskData(params[0].getContext());
-}

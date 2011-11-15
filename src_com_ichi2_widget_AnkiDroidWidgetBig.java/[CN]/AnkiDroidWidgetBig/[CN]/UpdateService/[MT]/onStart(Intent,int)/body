@@ -1,0 +1,67 @@
+{
+  Log.i(AnkiDroidApp.TAG,"BigWidget: OnStart");
+  sContext=this;
+  if (intent != null && intent.getAction() != null) {
+    String action=intent.getAction();
+    if (ACTION_NOTHING.equals(action)) {
+    }
+ else     if (action.startsWith(ACTION_UPDATE)) {
+      mShowProgressDialog=false;
+      int view;
+      try {
+        view=Integer.parseInt(action.substring(action.length() - 1));
+      }
+ catch (      NumberFormatException e) {
+        view=VIEW_NOT_SPECIFIED;
+      }
+      updateViews(view);
+    }
+ else     if (ACTION_OPENDECK.equals(action)) {
+      showProgressDialog();
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK,mOpenDeckHandler,new DeckTask.TaskData(intent.getStringExtra(EXTRA_DECK_PATH)));
+    }
+ else     if (ACTION_CLOSEDECK.equals(action)) {
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CLOSE_DECK,mCloseDeckHandler,new DeckTask.TaskData(sLoadedDeck.getDeckPath()));
+    }
+ else     if (ACTION_UNDO.equals(action)) {
+      if (sLoadedDeck.undoAvailable()) {
+        DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mUpdateCardHandler,new DeckTask.TaskData(0,sLoadedDeck,sCard.getId(),true));
+      }
+    }
+ else     if (ACTION_BURY_CARD.equals(action)) {
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_BURY_CARD,mUpdateCardHandler,new DeckTask.TaskData(0,sLoadedDeck,sCard));
+    }
+ else     if (action.startsWith(ACTION_ANSWER)) {
+      int ease=Integer.parseInt(action.substring(action.length() - 1));
+      if (ease == 0) {
+        updateViews(VIEW_SHOW_ANSWER);
+      }
+ else {
+        DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(ease,sLoadedDeck,sCard));
+      }
+    }
+ else     if (ACTION_SHOW_RESTRICTIONS_DIALOG.equals(action)) {
+      Intent dialogIntent=new Intent(this,WidgetDialog.class);
+      dialogIntent.setAction(WidgetDialog.ACTION_SHOW_RESTRICTIONS_DIALOG);
+      dialogIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      this.startActivity(dialogIntent);
+    }
+ else     if (ACTION_OPEN.equals(action)) {
+      DeckManager.getDeck(intent.getData().getPath(),true,DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS);
+      Intent newIntent=StudyOptions.getLoadDeckIntent(this,"");
+      newIntent.removeExtra(StudyOptions.EXTRA_DECK);
+      newIntent.putExtra(StudyOptions.EXTRA_START_REVIEWER,(mCurrentView != VIEW_NOTHING_DUE));
+      startActivity(newIntent);
+    }
+ else     if (ACTION_CARDEDITOR.equals(action)) {
+      Intent editIntent=new Intent(this,CardEditor.class);
+      editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      editIntent.putExtra(CardEditor.CARD_EDITOR_ACTION,CardEditor.EDIT_BIGWIDGET_CARD);
+      editIntent.putExtra(CardEditor.DECKPATH,sLoadedDeck.getDeckPath());
+      this.startActivity(editIntent);
+    }
+ else     if (ACTION_HELP.equals(action)) {
+      updateViews(VIEW_SHOW_HELP);
+    }
+  }
+}

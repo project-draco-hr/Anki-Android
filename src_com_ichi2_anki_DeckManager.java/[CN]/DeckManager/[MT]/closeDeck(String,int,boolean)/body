@@ -1,12 +1,7 @@
 {
-  mLock.lock();
-  mClosingDeck=deckpath;
+  lockDeck(deckpath);
   try {
     if (sLoadedDecks.containsKey(deckpath)) {
-      while (mOpeningDeck != null && mOpeningDeck.equals(deckpath)) {
-        Log.e(AnkiDroidApp.TAG,"DeckManager: waitForDeckOpening (" + deckpath + ")");
-        mCondFinished.await();
-      }
       DeckInformation di=sLoadedDecks.get(deckpath);
       if ((di.mClosingAsyncTask != null) && (di.mClosingAsyncTask.getStatus() != AsyncTask.Status.FINISHED)) {
         Log.i(AnkiDroidApp.TAG,"DeckManager: closeDeck - deck " + deckpath + " is already closing");
@@ -25,14 +20,8 @@
       }
  else {
         Log.i(AnkiDroidApp.TAG,"DeckManager: closing deck " + deckpath + " ("+ requestingActivity+ ")");
-        if (waitToFinish && (openList.contains(REQUESTING_ACTIVITY_STUDYOPTIONS))) {
-          DeckTask.waitToFinish();
-        }
- else         if (waitToFinish && (openList.contains(REQUESTING_ACTIVITY_BIGWIDGET))) {
-          WidgetStatus.deckOperationWaitToFinish();
-        }
         sLoadedDecks.get(deckpath).mClosingAsyncTask=new CloseDeckAsyncTask();
-        sLoadedDecks.get(deckpath).mClosingAsyncTask.execute(sLoadedDecks.get(deckpath));
+        sLoadedDecks.get(deckpath).mClosingAsyncTask.execute(new CloseDeckInformation(deckpath,requestingActivity));
         if (openList.contains(REQUESTING_ACTIVITY_BIGWIDGET)) {
           sendWidgetBigClosedNotification();
         }
@@ -45,12 +34,7 @@
       Log.e(AnkiDroidApp.TAG,"DeckManager: deck " + deckpath + " is not a loaded deck");
     }
   }
- catch (  InterruptedException e) {
-    e.printStackTrace();
-  }
- finally {
-    mClosingDeck=null;
-    mCondFinished.signal();
-    mLock.unlock();
+  finally {
+    unlockDeck(deckpath);
   }
 }

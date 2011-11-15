@@ -1,5 +1,0 @@
-{
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundCloseDeck");
-  DeckManager.closeDeck(params[0].getString(),DeckManager.REQUESTING_ACTIVITY_BIGWIDGET);
-  return new WidgetDeckTaskData(params[0].getContext());
-}

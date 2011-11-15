@@ -2,10 +2,10 @@
   super.onStop();
   if (!mInDeckPicker && !mInReviewer) {
     if (isFinishing()) {
-      WidgetStatus.update(getBaseContext());
+      WidgetStatus.update(this,null);
     }
  else {
-      WidgetStatus.update(getBaseContext(),true);
+      WidgetStatus.update(this,WidgetStatus.getDeckStatus(DeckManager.getMainDeck()));
     }
   }
 }

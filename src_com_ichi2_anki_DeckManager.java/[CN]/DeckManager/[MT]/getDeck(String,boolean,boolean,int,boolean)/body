@@ -1,19 +1,14 @@
 {
   Deck deck=null;
-  mLock.lock();
-  mOpeningDeck=deckpath;
+  lockDeck(deckpath);
   try {
-    while (mClosingDeck != null && mClosingDeck.equals(deckpath)) {
-      Log.e(AnkiDroidApp.TAG,"DeckManager: waitForDeckClosing (" + deckpath + ")");
-      mCondFinished.await();
-    }
     if (sLoadedDecks.containsKey(deckpath)) {
       DeckInformation deckInformation=sLoadedDecks.get(deckpath);
       try {
         if ((deckInformation.mClosingAsyncTask != null) && (deckInformation.mClosingAsyncTask.getStatus() != AsyncTask.Status.FINISHED)) {
           Log.e(AnkiDroidApp.TAG,"DeckManager: deck " + deckpath + " is closing now, waiting for this to finish and reopening it");
           deckInformation.mClosingAsyncTask.get();
-          return getDeck(deckpath,requestingActivity);
+          return getDeck(deckpath,setAsMainDeck,doSafetyBackupIfNeeded,requestingActivity,rebuild);
         }
       }
  catch (      Exception e) {
@@ -25,7 +20,7 @@
         openList.add(requestingActivity);
       }
  else {
-        Log.e(AnkiDroidApp.TAG,"DeckManager: deck " + deckpath + " already loaded by this activity!");
+        Log.i(AnkiDroidApp.TAG,"DeckManager: deck " + deckpath + " already loaded by this activity!");
       }
       Log.i(AnkiDroidApp.TAG,"DeckManager: deck " + deckpath + " is now opened by "+ openList.toString());
       deck=deckInformation.mDeck;
@@ -55,6 +50,18 @@
           deck=null;
         }
       }
+ else       if (rebuild) {
+        if (!deckInformation.mInitiallyRebuilt) {
+          Log.i(AnkiDroidApp.TAG,"DeckManager: reopen deck in order to rebuild");
+          deck.closeDeck(false);
+          deckInformation.mDeck=Deck.openDeck(deckpath,true,requestingActivity == REQUESTING_ACTIVITY_SYNCCLIENT);
+          deckInformation.mInitiallyRebuilt=true;
+          WidgetStatus.update(AnkiDroidApp.getInstance().getBaseContext(),WidgetStatus.getDeckStatus(deck));
+        }
+ else {
+          deckInformation.mDeck.reset();
+        }
+      }
     }
  else {
       try {
@@ -76,13 +83,8 @@
       sMainDeckPath=deckpath;
     }
   }
- catch (  InterruptedException e) {
-    e.printStackTrace();
-  }
- finally {
-    mOpeningDeck=null;
-    mCondFinished.signal();
-    mLock.unlock();
+  finally {
+    unlockDeck(deckpath);
   }
   return deck;
 }

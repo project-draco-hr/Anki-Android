@@ -1,0 +1,8 @@
+{
+  Intent intent;
+  if (sContext != null) {
+    intent=new Intent(sContext,AnkiDroidWidgetBig.UpdateService.class);
+    intent.setAction(AnkiDroidWidgetBig.UpdateService.ACTION_UPDATE + Integer.toString(view));
+    sContext.startService(intent);
+  }
+}

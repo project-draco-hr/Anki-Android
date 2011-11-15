@@ -5,7 +5,18 @@
     return context;
   }
   ArrayList<DeckStatus> decks;
-  if (false) {
+  if (sDeckStatus != null) {
+    decks=new ArrayList<DeckStatus>(mDecks.length);
+    for (    DeckStatus m : mDecks) {
+      if (m.mDeckPath.equals(sDeckStatus.mDeckPath)) {
+        Log.i(AnkiDroidApp.TAG,"UpdateWidget - update information for deck " + sDeckStatus.mDeckPath);
+        decks.add(sDeckStatus);
+      }
+ else {
+        Log.i(AnkiDroidApp.TAG,"UpdateWidget - copy information for deck " + m.mDeckPath);
+        decks.add(m);
+      }
+    }
   }
  else {
     SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
@@ -23,7 +34,7 @@
         absPath=file.getAbsolutePath();
         String deckName=file.getName().replaceAll(".anki","");
         Log.i(AnkiDroidApp.TAG,"WidgetStatus: Found deck: " + absPath);
-        Deck deck=DeckManager.getDeck(absPath,DeckManager.REQUESTING_ACTIVITY_WIDGETSTATUS);
+        Deck deck=DeckManager.getDeck(absPath,DeckManager.REQUESTING_ACTIVITY_WIDGETSTATUS,false);
         if (deck == null) {
           Log.e(AnkiDroidApp.TAG,"Widget: Skipping null deck: " + absPath);
           continue;
