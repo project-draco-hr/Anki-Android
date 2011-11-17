@@ -10,7 +10,7 @@
   }
   preferences.edit().putBoolean("widgetBigEnabled",true).commit();
   sContext=context;
-  mCurrentView=UpdateService.VIEW_NOT_SPECIFIED;
+  sCurrentView=UpdateService.VIEW_NOT_SPECIFIED;
   sLoadedDeck=null;
   sCard=null;
   mCurrentMessage=null;

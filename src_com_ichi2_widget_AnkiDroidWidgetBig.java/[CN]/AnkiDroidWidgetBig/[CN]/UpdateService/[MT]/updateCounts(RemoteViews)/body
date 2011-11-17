@@ -1,0 +1,53 @@
+{
+  DeckStatus[] decks=WidgetStatus.fetch(this);
+  int eta=0;
+  int reps=0;
+  int due=0;
+  for (  DeckStatus d : decks) {
+    eta+=d.mEta;
+    reps+=d.mTime;
+    due+=d.mFailedCards + d.mNewCards + d.mDueCards;
+  }
+  int totalreps=reps + due;
+  int progressTotal=0;
+  if (totalreps != 0) {
+    progressTotal=(int)Math.round((100.0d * reps) / totalreps);
+  }
+switch (sCurrentView) {
+case VIEW_SHOW_QUESTION:
+case VIEW_NOTHING_DUE:
+    updateViews.setTextViewText(R.id.widget_big_counts,getDeckStatusString(sLoadedDeck,sCard));
+  int sessionProgress=sLoadedDeck.getSessionProgress(true);
+if (sessionProgress == -1) {
+  updateViews.setViewVisibility(R.id.widget_big_progress_frame_deck,View.INVISIBLE);
+}
+ else {
+  updateViews.setProgressBar(R.id.widget_big_progress_deck,100,(int)(sLoadedDeck.getSessionProgress() * 100),false);
+  updateViews.setViewVisibility(R.id.widget_big_progress_frame_deck,View.VISIBLE);
+}
+break;
+case VIEW_DECKS:
+updateViews.setViewVisibility(R.id.widget_big_progress_frame_deck,View.INVISIBLE);
+updateViews.setTextViewText(R.id.widget_big_counts,"");
+StringBuilder namesSb=new StringBuilder();
+SpannableStringBuilder duesSb=new SpannableStringBuilder();
+for (DeckStatus d : decks) {
+namesSb.append(d.mDeckName).append("  \n");
+duesSb.append(getDeckStatusString(d.mFailedCards,d.mDueCards,d.mNewCards,null)).append("\n");
+}
+int pos=namesSb.length() - 1;
+if (pos != -1) {
+namesSb.delete(pos,pos + 1);
+}
+pos=duesSb.length() - 1;
+if (pos != -1) {
+duesSb.delete(pos,pos + 1);
+}
+updateViews.setTextViewText(R.id.widget_big_decknames,namesSb);
+updateViews.setTextViewText(R.id.widget_big_deckdues,duesSb);
+updateViews.setTextViewText(R.id.widget_big_decketa,"???????????????\n" + getResources().getQuantityString(R.plurals.widget_big_eta,eta,eta));
+break;
+}
+updateViews.setProgressBar(R.id.widget_big_progress_total,100,progressTotal,false);
+updateViews.setTextViewText(R.id.widget_big_eta,eta > 99 ? "\u2027\u2027\u2027" : Integer.toString(eta));
+}

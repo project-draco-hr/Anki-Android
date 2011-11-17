@@ -3,6 +3,7 @@
   updateViews.setOnClickPendingIntent(R.id.widget_big_topright,doNothingIntent);
   updateViews.setOnClickPendingIntent(R.id.widget_big_middleleft,doNothingIntent);
   updateViews.setOnClickPendingIntent(R.id.widget_big_middleright,keepUndoOpening ? getUndoPendingIntent(this) : doNothingIntent);
+  updateViews.setOnClickPendingIntent(R.id.widget_big_bottom_right,keepUndoOpening ? getCardEditorPendingIntent(this,false) : doNothingIntent);
   updateViews.setOnClickPendingIntent(R.id.widget_big_bottomleft,doNothingIntent);
   updateViews.setOnClickPendingIntent(R.id.widget_big_bottomright,doNothingIntent);
 }

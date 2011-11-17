@@ -1,5 +1,5 @@
 {
   Intent ankiDroidIntent=new Intent(context,UpdateService.class);
-  ankiDroidIntent.setAction(ACTION_CARDEDITOR);
+  ankiDroidIntent.setAction(ACTION_CARDEDITOR + (editCurrentCard ? "1" : "0"));
   return PendingIntent.getService(context,0,ankiDroidIntent,0);
 }
