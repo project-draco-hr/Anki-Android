@@ -13,7 +13,15 @@
   if (totalreps != 0) {
     progressTotal=(int)Math.round((100.0d * reps) / totalreps);
   }
-switch (sCurrentView) {
+  updateViews.setProgressBar(R.id.widget_big_progress_total,100,progressTotal,false);
+  if (eta == 0) {
+    updateViews.setViewVisibility(R.id.widget_big_eta,View.INVISIBLE);
+  }
+ else {
+    updateViews.setViewVisibility(R.id.widget_big_eta,View.VISIBLE);
+    updateViews.setTextViewText(R.id.widget_big_eta,eta > 99 ? "\u2027\u2027\u2027" : Integer.toString(eta));
+  }
+switch (view) {
 case VIEW_SHOW_QUESTION:
 case VIEW_NOTHING_DUE:
     updateViews.setTextViewText(R.id.widget_big_counts,getDeckStatusString(sLoadedDeck,sCard));
@@ -25,10 +33,22 @@ if (sessionProgress == -1) {
   updateViews.setProgressBar(R.id.widget_big_progress_deck,100,(int)(sessionProgress * 100),false);
   updateViews.setViewVisibility(R.id.widget_big_progress_frame_deck,View.VISIBLE);
 }
+mCongratsMessage=null;
+break;
+case VIEW_CONGRATS:
+if (mCongratsMessage != null && mCongratsMessage.length() > 0) {
+updateViews.setViewVisibility(R.id.widget_big_nothing_due,View.VISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_congrats_buttons,View.INVISIBLE);
+updateViews.setTextViewText(R.id.widget_big_congrats,mCongratsMessage);
+}
+updateViews.setViewVisibility(R.id.widget_big_deckfield,View.INVISIBLE);
 break;
 case VIEW_DECKS:
-updateViews.setViewVisibility(R.id.widget_big_progress_frame_deck,View.INVISIBLE);
 updateViews.setTextViewText(R.id.widget_big_counts,"");
+updateViews.setViewVisibility(R.id.widget_big_progress_frame_deck,View.INVISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_nothing_due,View.INVISIBLE);
+if (due != 0) {
+mCongratsMessage=null;
 StringBuilder namesSb=new StringBuilder();
 SpannableStringBuilder duesSb=new SpannableStringBuilder();
 for (DeckStatus d : decks) {
@@ -46,8 +66,17 @@ duesSb.delete(pos,pos + 1);
 updateViews.setTextViewText(R.id.widget_big_decknames,namesSb);
 updateViews.setTextViewText(R.id.widget_big_deckdues,duesSb);
 updateViews.setTextViewText(R.id.widget_big_decketa,"???????????????\n" + getResources().getQuantityString(R.plurals.widget_big_eta,eta,eta));
+updateViews.setViewVisibility(R.id.widget_big_deckfield,View.VISIBLE);
+}
+ else if (mCongratsMessage == null) {
+updateViews.setViewVisibility(R.id.widget_big_progressbar,View.VISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_noclicks,View.VISIBLE);
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_GET_TOMORROW_DUE,mLoadStatisticHandler,new DeckTask.TaskData(DeckManager.REQUESTING_ACTIVITY_BIGWIDGET,PrefSettings.getSharedPrefs(AnkiDroidWidgetBig.UpdateService.this).getString("deckPath",AnkiDroidApp.getStorageDirectory() + "/AnkiDroid")));
+}
+ else {
+sCurrentView=VIEW_CONGRATS;
+updateCounts(updateViews,VIEW_CONGRATS);
+}
 break;
 }
-updateViews.setProgressBar(R.id.widget_big_progress_total,100,progressTotal,false);
-updateViews.setTextViewText(R.id.widget_big_eta,eta > 99 ? "\u2027\u2027\u2027" : Integer.toString(eta));
 }

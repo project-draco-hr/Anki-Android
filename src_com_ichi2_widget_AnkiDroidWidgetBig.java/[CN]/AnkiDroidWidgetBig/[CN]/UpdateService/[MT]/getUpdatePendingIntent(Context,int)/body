@@ -1,5 +1,6 @@
 {
   Intent ankiDroidIntent=new Intent(context,UpdateService.class);
-  ankiDroidIntent.setAction(ACTION_UPDATE + Integer.toString(view));
-  return PendingIntent.getService(context,0,ankiDroidIntent,0);
+  ankiDroidIntent.setAction(ACTION_UPDATE);
+  ankiDroidIntent.putExtra(EXTRA_VIEW,view);
+  return PendingIntent.getService(context,0,ankiDroidIntent,PendingIntent.FLAG_CANCEL_CURRENT);
 }

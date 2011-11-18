@@ -57,6 +57,8 @@ case TASK_TYPE_REPAIR_DECK:
 return doInBackgroundRepairDeck(params);
 case TASK_TYPE_CLOSE_DECK:
 return doInBackgroundCloseDeck(params);
+case TASK_TYPE_GET_TOMORROW_DUE:
+return doInBackgroundGetTomorrowDue(params);
 default :
 return null;
 }

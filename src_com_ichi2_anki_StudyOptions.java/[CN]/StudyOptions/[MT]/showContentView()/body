@@ -44,7 +44,14 @@ showContentView(CONTENT_DECK_NOT_LOADED);
 }
 break;
 case CONTENT_CONGRATS:
-mTextCongratsMessage.setText(getCongratsMessage(this,DeckManager.getMainDeck()));
+Deck deck=DeckManager.getMainDeck();
+if (deck != null) {
+int failedCards=deck.getFailedDelayedCount();
+int revCards=deck.getNextDueCards(1);
+int newCards=deck.getNextNewCards();
+int eta=deck.getETA(failedCards,revCards,newCards,true);
+mTextCongratsMessage.setText(getCongratsMessage(this,failedCards,revCards,newCards,eta));
+}
 updateValuesFromDeck();
 setContentView(mCongratsView);
 break;

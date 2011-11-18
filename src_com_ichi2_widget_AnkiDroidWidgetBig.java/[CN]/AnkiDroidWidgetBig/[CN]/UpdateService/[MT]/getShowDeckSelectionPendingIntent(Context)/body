@@ -1,5 +1,6 @@
 {
   Intent ankiDroidIntent=new Intent(context,WidgetDialog.class);
   ankiDroidIntent.setAction(WidgetDialog.ACTION_SHOW_DECK_SELECTION_DIALOG);
+  ankiDroidIntent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
   return PendingIntent.getActivity(context,0,ankiDroidIntent,0);
 }

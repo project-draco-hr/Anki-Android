@@ -1,5 +1,5 @@
 {
   Intent ankiDroidIntent=new Intent(context,UpdateService.class);
-  ankiDroidIntent.setAction(ACTION_NOTHING);
+  ankiDroidIntent.setAction(ACTION_OPEN);
   return PendingIntent.getService(context,0,ankiDroidIntent,0);
 }

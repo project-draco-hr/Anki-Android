@@ -1,0 +1,5 @@
+{
+  Intent intent=new Intent(context,AnkiDroidWidgetBig.UpdateService.class);
+  intent.putExtra(UpdateService.EXTRA_VIEW,view);
+  return intent.setAction(UpdateService.ACTION_UPDATE);
+}

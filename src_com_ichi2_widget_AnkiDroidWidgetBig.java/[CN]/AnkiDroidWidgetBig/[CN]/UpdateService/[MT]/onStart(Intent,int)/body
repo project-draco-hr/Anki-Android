@@ -5,16 +5,11 @@
     String action=intent.getAction();
     if (ACTION_NOTHING.equals(action)) {
     }
- else     if (action.startsWith(ACTION_UPDATE)) {
-      mShowProgressDialog=false;
-      int view;
-      try {
-        view=Integer.parseInt(action.substring(action.length() - 1));
+ else     if (ACTION_UPDATE.equals(action)) {
+      if (!mWaitForAsyncTask) {
+        mShowProgressDialog=false;
+        updateViews(intent.getIntExtra(EXTRA_VIEW,VIEW_NOT_SPECIFIED));
       }
- catch (      NumberFormatException e) {
-        view=VIEW_NOT_SPECIFIED;
-      }
-      updateViews(view);
     }
  else     if (ACTION_OPENDECK.equals(action)) {
       showProgressDialog();
@@ -32,7 +27,7 @@
       DeckTask.launchDeckTask(DeckTask.TASK_TYPE_BURY_CARD,mUpdateCardHandler,new DeckTask.TaskData(0,sLoadedDeck,sCard));
     }
  else     if (action.startsWith(ACTION_ANSWER)) {
-      int ease=Integer.parseInt(action.substring(action.length() - 1));
+      int ease=intent.getIntExtra(EXTRA_EASE,0);
       if (ease == 0) {
         updateViews(VIEW_SHOW_ANSWER);
       }
@@ -47,23 +42,24 @@
       this.startActivity(dialogIntent);
     }
  else     if (ACTION_OPEN.equals(action)) {
-      DeckManager.getDeck(intent.getData().getPath(),true,DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS);
+      DeckManager.getDeck(sLoadedDeck.getDeckPath(),true,DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS);
       Intent newIntent=StudyOptions.getLoadDeckIntent(this,"");
       newIntent.removeExtra(StudyOptions.EXTRA_DECK);
       newIntent.putExtra(StudyOptions.EXTRA_START_REVIEWER,(sCurrentView != VIEW_NOTHING_DUE));
       startActivity(newIntent);
     }
- else     if (action.startsWith(ACTION_CARDEDITOR)) {
+ else     if (ACTION_CARDEDITOR.equals(action)) {
       Intent editIntent=new Intent(this,CardEditor.class);
       editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-      if (action.substring(action.length() - 1).equals("1")) {
-        editIntent.putExtra(CardEditor.CARD_EDITOR_ACTION,CardEditor.EDIT_BIGWIDGET_CARD);
-        editIntent.putExtra(CardEditor.DECKPATH,sLoadedDeck.getDeckPath());
-      }
- else {
-        editIntent.putExtra(CardEditor.CARD_EDITOR_ACTION,CardEditor.ADD_CARD);
-        editIntent.putExtra(CardEditor.DECKPATH,sLoadedDeck.getDeckPath());
-      }
+      editIntent.putExtra(CardEditor.CARD_EDITOR_ACTION,CardEditor.EDIT_BIGWIDGET_CARD);
+      editIntent.putExtra(CardEditor.DECKPATH,sLoadedDeck.getDeckPath());
+      this.startActivity(editIntent);
+    }
+ else     if (ACTION_FACTADDER.equals(action)) {
+      Intent editIntent=new Intent(this,CardEditor.class);
+      editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      editIntent.putExtra(CardEditor.CARD_EDITOR_ACTION,CardEditor.ADD_CARD);
+      editIntent.putExtra(CardEditor.DECKPATH,sLoadedDeck.getDeckPath());
       this.startActivity(editIntent);
     }
  else     if (ACTION_HELP.equals(action)) {

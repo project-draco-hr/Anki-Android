@@ -1,9 +1,0 @@
-{
-  updateViews.setOnClickPendingIntent(R.id.widget_big_topleft,getOpenPendingIntent(this,sLoadedDeck.getDeckPath()));
-  updateViews.setOnClickPendingIntent(R.id.widget_big_middleleft,getBuryCardPendingIntent(this));
-  updateViews.setOnClickPendingIntent(R.id.widget_big_bottomleft,getAnswerPendingIntent(this,questionsShown ? 0 : 1));
-  updateViews.setOnClickPendingIntent(R.id.widget_big_topright,getCardEditorPendingIntent(this,true));
-  updateViews.setOnClickPendingIntent(R.id.widget_big_bottom_right,getCardEditorPendingIntent(this,false));
-  updateViews.setOnClickPendingIntent(R.id.widget_big_middleright,getUndoPendingIntent(this));
-  updateViews.setOnClickPendingIntent(R.id.widget_big_bottomright,getAnswerPendingIntent(this,questionsShown ? 0 : (sCard.isRev() ? 3 : 2)));
-}
