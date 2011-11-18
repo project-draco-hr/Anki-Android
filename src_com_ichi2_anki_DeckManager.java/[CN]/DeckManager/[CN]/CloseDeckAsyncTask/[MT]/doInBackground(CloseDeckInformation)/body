@@ -6,10 +6,10 @@
   if (di.mOpenedBy.contains(REQUESTING_ACTIVITY_STUDYOPTIONS) && requestingActivity != REQUESTING_ACTIVITY_STUDYOPTIONS) {
     di.mWaitForDeckTaskToFinish=true;
     DeckTask.waitToFinish();
+    di.mWaitForDeckTaskToFinish=false;
     if (this.isCancelled()) {
       return null;
     }
-    di.mWaitForDeckTaskToFinish=false;
   }
   try {
     di.mDeck.closeDeck(false);

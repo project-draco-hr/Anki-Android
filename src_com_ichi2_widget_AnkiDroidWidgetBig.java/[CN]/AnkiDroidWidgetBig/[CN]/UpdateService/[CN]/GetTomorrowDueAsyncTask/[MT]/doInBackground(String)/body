@@ -20,6 +20,10 @@
         Log.e(AnkiDroidApp.TAG,"doInBackgroundGetTomorrowDue: an error occurred: " + e);
       }
     }
+    if (this.isCancelled()) {
+      sTomorrowDues=null;
+      return null;
+    }
     Collections.sort(decks,new WidgetStatus.ByNameComparator());
   }
   return decks.toArray(new DeckStatus[0]);

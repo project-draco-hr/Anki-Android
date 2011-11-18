@@ -10,6 +10,9 @@
         sShowProgressDialog=false;
         updateViews(intent.getIntExtra(EXTRA_VIEW,VIEW_NOT_SPECIFIED));
       }
+ else       if (sCurrentView == VIEW_SHOW_HELP) {
+        showProgressDialog();
+      }
     }
  else     if (ACTION_OPENDECK.equals(action)) {
       showProgressDialog();
@@ -66,7 +69,14 @@
       this.startActivity(editIntent);
     }
  else     if (ACTION_HELP.equals(action)) {
-      updateViews(VIEW_SHOW_HELP);
+      if (sShowProgressDialog) {
+        sShowProgressDialog=false;
+        updateViews(VIEW_SHOW_HELP);
+        sShowProgressDialog=true;
+      }
+ else {
+        updateViews(VIEW_SHOW_HELP);
+      }
     }
  else     if (ACTION_LEARN_MORE.equals(action)) {
       if (sLoadedDeck != null) {

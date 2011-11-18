@@ -3,7 +3,7 @@
   try {
     if (sLoadedDecks.containsKey(deckpath)) {
       DeckInformation di=sLoadedDecks.get(deckpath);
-      if ((di.mClosingAsyncTask != null) && (di.mClosingAsyncTask.getStatus() != AsyncTask.Status.FINISHED && !di.mClosingAsyncTask.isCancelled())) {
+      if ((di.mClosingAsyncTask != null) && di.mClosingAsyncTask.getStatus() == AsyncTask.Status.RUNNING && !di.mClosingAsyncTask.isCancelled()) {
         Log.i(AnkiDroidApp.TAG,"DeckManager: closeDeck - deck " + deckpath + " is already closing");
         return;
       }
