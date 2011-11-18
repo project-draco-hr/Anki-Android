@@ -63,7 +63,7 @@
   }
   if (!decks.isEmpty() && decks.size() > 1) {
     Log.i(AnkiDroidApp.TAG,"Sorting deck");
-    Collections.sort(decks,new ByDueComparator());
+    Collections.sort(decks,new ByNameComparator());
   }
   mDecks=decks.toArray(EMPTY_DECK_STATUS);
   return context;

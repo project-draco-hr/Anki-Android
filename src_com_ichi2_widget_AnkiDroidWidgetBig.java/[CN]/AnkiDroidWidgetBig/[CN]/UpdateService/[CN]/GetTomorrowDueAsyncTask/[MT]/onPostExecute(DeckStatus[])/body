@@ -1,0 +1,10 @@
+{
+  Log.d(AnkiDroidApp.TAG,"DeckManager.CloseDeckAsyncTask.onPostExecute()");
+  sLoadedDeck=null;
+  sCard=null;
+  sShowProgressDialog=false;
+  sCurrentMessage=null;
+  sWaitForAsyncTask=false;
+  sTomorrowDues=status;
+  updateWidget(VIEW_CONGRATS);
+}

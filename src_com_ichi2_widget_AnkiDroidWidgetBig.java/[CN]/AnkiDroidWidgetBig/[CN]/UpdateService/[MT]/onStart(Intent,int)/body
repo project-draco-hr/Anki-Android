@@ -6,13 +6,16 @@
     if (ACTION_NOTHING.equals(action)) {
     }
  else     if (ACTION_UPDATE.equals(action)) {
-      if (!mWaitForAsyncTask) {
-        mShowProgressDialog=false;
+      if (!sWaitForAsyncTask) {
+        sShowProgressDialog=false;
         updateViews(intent.getIntExtra(EXTRA_VIEW,VIEW_NOT_SPECIFIED));
       }
     }
  else     if (ACTION_OPENDECK.equals(action)) {
       showProgressDialog();
+      if (sGetTomorrowCountAsyncTask != null && sGetTomorrowCountAsyncTask.getStatus() == AsyncTask.Status.RUNNING) {
+        sGetTomorrowCountAsyncTask.cancel(true);
+      }
       DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK,mOpenDeckHandler,new DeckTask.TaskData(intent.getStringExtra(EXTRA_DECK_PATH)));
     }
  else     if (ACTION_CLOSEDECK.equals(action)) {
@@ -70,8 +73,8 @@
         sLoadedDeck.setupLearnMoreScheduler();
         sLoadedDeck.reset();
         sCard=sLoadedDeck.getCard();
-        mShowProgressDialog=false;
-        mCurrentMessage=null;
+        sShowProgressDialog=false;
+        sCurrentMessage=null;
         updateViews(VIEW_SHOW_QUESTION);
       }
     }
@@ -80,8 +83,8 @@
         sLoadedDeck.setupReviewEarlyScheduler();
         sLoadedDeck.reset();
         sCard=sLoadedDeck.getCard();
-        mShowProgressDialog=false;
-        mCurrentMessage=null;
+        sShowProgressDialog=false;
+        sCurrentMessage=null;
         updateViews(VIEW_SHOW_QUESTION);
       }
     }

@@ -2,7 +2,7 @@
   Log.i(AnkiDroidApp.TAG,"BigWidget: buildUpdate (" + sCurrentView + ")");
   Resources res=getResources();
   RemoteViews updateViews=new RemoteViews(context.getPackageName(),R.layout.widget_big);
-  if (mShowProgressDialog) {
+  if (sShowProgressDialog) {
     updateViews.setViewVisibility(R.id.widget_big_progressbar,View.VISIBLE);
     updateViews.setViewVisibility(R.id.widget_big_noclicks,View.VISIBLE);
     return updateViews;
@@ -19,8 +19,8 @@
  else   if (sCard == null) {
     sCurrentView=VIEW_NOTHING_DUE;
   }
-  if (mCurrentMessage != null) {
-    updateViews.setTextViewText(R.id.widget_big_message,mCurrentMessage);
+  if (sCurrentMessage != null) {
+    updateViews.setTextViewText(R.id.widget_big_message,sCurrentMessage);
   }
  else {
     updateViews.setTextViewText(R.id.widget_big_message,"");
@@ -127,7 +127,6 @@ emptyCardAreaTexts(updateViews);
 updateViews.setViewVisibility(R.id.widget_big_cardbackgroundstar,View.VISIBLE);
 updateViews.setTextViewText(R.id.widget_big_cardcontent,"");
 updateViews.setViewVisibility(R.id.widget_big_nothing_due,View.VISIBLE);
-updateViews.setViewVisibility(R.id.widget_big_congrats_buttons,View.VISIBLE);
 updateViews.setViewVisibility(R.id.widget_big_deckfield,View.INVISIBLE);
 int failedCards=sLoadedDeck.getFailedDelayedCount();
 int revCards=sLoadedDeck.getNextDueCards(1);
