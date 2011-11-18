@@ -3,7 +3,7 @@
   try {
     if (sLoadedDecks.containsKey(deckpath)) {
       DeckInformation di=sLoadedDecks.get(deckpath);
-      if ((di.mClosingAsyncTask != null) && (di.mClosingAsyncTask.getStatus() != AsyncTask.Status.FINISHED)) {
+      if ((di.mClosingAsyncTask != null) && (di.mClosingAsyncTask.getStatus() != AsyncTask.Status.FINISHED && !di.mClosingAsyncTask.isCancelled())) {
         Log.i(AnkiDroidApp.TAG,"DeckManager: closeDeck - deck " + deckpath + " is already closing");
         return;
       }
@@ -15,7 +15,6 @@
         openList.remove(new Integer(requestingActivity));
         Log.i(AnkiDroidApp.TAG,"DeckManager: deck " + deckpath + " used still by more activities ("+ openList.toString()+ "), removing only "+ requestingActivity);
         if (requestingActivity == REQUESTING_ACTIVITY_BIGWIDGET) {
-          sendWidgetBigClosedNotification();
         }
       }
  else {
@@ -23,7 +22,6 @@
         sLoadedDecks.get(deckpath).mClosingAsyncTask=new CloseDeckAsyncTask();
         sLoadedDecks.get(deckpath).mClosingAsyncTask.execute(new CloseDeckInformation(deckpath,requestingActivity));
         if (openList.contains(REQUESTING_ACTIVITY_BIGWIDGET)) {
-          sendWidgetBigClosedNotification();
         }
         if (sMainDeckPath != null && sMainDeckPath.equals(deckpath)) {
           sMainDeckPath=null;

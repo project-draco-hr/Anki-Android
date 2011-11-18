@@ -1,7 +1,7 @@
 {
   DeckInformation deckInformation=sLoadedDecks.get(deckpath);
   try {
-    if ((deckInformation.mClosingAsyncTask != null) && (deckInformation.mClosingAsyncTask.getStatus() != AsyncTask.Status.FINISHED)) {
+    if ((deckInformation.mClosingAsyncTask != null) && (deckInformation.mClosingAsyncTask.getStatus() != AsyncTask.Status.FINISHED && !deckInformation.mClosingAsyncTask.isCancelled())) {
       Log.e(AnkiDroidApp.TAG,"DeckManager: deck " + deckpath + " is closing now, waiting for this to finish and reopening it");
       deckInformation.mClosingAsyncTask.get();
     }

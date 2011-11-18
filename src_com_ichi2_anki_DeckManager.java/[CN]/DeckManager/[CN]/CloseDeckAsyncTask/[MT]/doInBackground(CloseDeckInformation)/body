@@ -4,7 +4,12 @@
   int requestingActivity=params[0].mCaller;
   DeckInformation di=sLoadedDecks.get(deckpath);
   if (di.mOpenedBy.contains(REQUESTING_ACTIVITY_STUDYOPTIONS) && requestingActivity != REQUESTING_ACTIVITY_STUDYOPTIONS) {
+    di.mWaitForDeckTaskToFinish=true;
     DeckTask.waitToFinish();
+    if (this.isCancelled()) {
+      return null;
+    }
+    di.mWaitForDeckTaskToFinish=false;
   }
   try {
     di.mDeck.closeDeck(false);
