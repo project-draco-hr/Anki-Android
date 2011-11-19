@@ -5,7 +5,6 @@
     finish();
   }
   if (DeckManager.mainIsOpenedInBigWidget()) {
-    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,deck,null));
   }
  else {
     restartTimer();

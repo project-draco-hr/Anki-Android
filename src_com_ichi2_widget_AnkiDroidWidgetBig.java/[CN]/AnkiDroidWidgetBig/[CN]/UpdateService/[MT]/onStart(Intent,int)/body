@@ -48,10 +48,20 @@
       this.startActivity(dialogIntent);
     }
  else     if (ACTION_OPEN.equals(action)) {
-      DeckManager.getDeck(sLoadedDeck.getDeckPath(),true,DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS);
-      Intent newIntent=StudyOptions.getLoadDeckIntent(this,"");
-      newIntent.removeExtra(StudyOptions.EXTRA_DECK);
-      newIntent.putExtra(StudyOptions.EXTRA_START_REVIEWER,(sCurrentView != VIEW_NOTHING_DUE));
+      String deckpath=intent.getStringExtra(EXTRA_DECK_PATH);
+      Intent newIntent=StudyOptions.getLoadDeckIntent(this,deckpath);
+      if (deckpath != null) {
+        if (sCurrentView == VIEW_NOTHING_DUE) {
+          newIntent.putExtra(StudyOptions.EXTRA_START_REVIEWER,false);
+        }
+ else {
+          DeckManager.getDeck(deckpath,true,DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS);
+          newIntent.putExtra(StudyOptions.EXTRA_START_REVIEWER,true);
+        }
+      }
+ else {
+        newIntent.putExtra(StudyOptions.EXTRA_START_DECKPICKER,true);
+      }
       startActivity(newIntent);
     }
  else     if (ACTION_CARDEDITOR.equals(action)) {

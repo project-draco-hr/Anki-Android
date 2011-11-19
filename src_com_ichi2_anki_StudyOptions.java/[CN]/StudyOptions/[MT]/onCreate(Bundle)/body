@@ -28,12 +28,16 @@
     mDeckFilename=Uri.parse(intent.getDataString()).getPath();
     Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from VIEW intent: " + mDeckFilename);
   }
+ else   if (Intent.ACTION_MAIN.equalsIgnoreCase(intent.getAction()) && intent.getBooleanExtra(EXTRA_START_REVIEWER,false)) {
+    startReviewer=true;
+  }
+ else   if (Intent.ACTION_MAIN.equalsIgnoreCase(intent.getAction()) && intent.getBooleanExtra(EXTRA_START_DECKPICKER,false)) {
+    mDeckFilename=preferences.getString("deckFilename",null);
+    openDeckPicker();
+  }
  else   if (Intent.ACTION_MAIN.equalsIgnoreCase(intent.getAction()) && intent.hasExtra(EXTRA_DECK)) {
     mDeckFilename=intent.getStringExtra(EXTRA_DECK);
     Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from MAIN intent: " + mDeckFilename);
-  }
- else   if (Intent.ACTION_MAIN.equalsIgnoreCase(intent.getAction()) && intent.hasExtra(EXTRA_START_REVIEWER)) {
-    startReviewer=true;
   }
  else   if (savedInstanceState != null) {
     mDeckFilename=savedInstanceState.getString("deckFilename");
@@ -55,7 +59,7 @@
     if (mDeckFilename == null || !new File(mDeckFilename).exists()) {
       showContentView(CONTENT_NO_DECK);
     }
- else {
+ else     if (!mInDeckPicker) {
       if ((showDeckPickerOnStartup()) && (!hasErrorFiles())) {
         openDeckPicker();
       }

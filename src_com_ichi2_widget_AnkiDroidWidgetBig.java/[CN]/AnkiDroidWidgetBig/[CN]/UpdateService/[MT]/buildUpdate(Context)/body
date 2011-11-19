@@ -43,7 +43,8 @@ updateViews.setViewVisibility(R.id.widget_big_card_areas,View.INVISIBLE);
 emptyCardAreaTexts(updateViews);
 removeAreaListeners(this,true);
 updateViews.setViewVisibility(R.id.widget_big_add,View.INVISIBLE);
-updateViews.setViewVisibility(R.id.widget_big_bottom_right,View.INVISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_star,View.VISIBLE);
+updateViews.setOnClickPendingIntent(R.id.widget_big_bottom_right,getOpenPendingIntent(this,null));
 break;
 case VIEW_SHOW_HELP:
 updateViews.setOnClickPendingIntent(R.id.widget_big_empty,getUpdatePendingIntent(this,VIEW_DECKS));
@@ -70,7 +71,7 @@ updateViews.setViewVisibility(R.id.widget_big_help,View.INVISIBLE);
 updateViews.setViewVisibility(R.id.widget_big_flipcard,View.VISIBLE);
 updateViews.setOnClickPendingIntent(R.id.widget_big_empty,getAnswerPendingIntent(context,0));
 updateViews.setViewVisibility(R.id.widget_big_card_areas,View.VISIBLE);
-updateViews.setOnClickPendingIntent(R.id.widget_big_topleft,getOpenPendingIntent(this));
+updateViews.setOnClickPendingIntent(R.id.widget_big_topleft,getOpenPendingIntent(this,sLoadedDeck.getDeckPath()));
 updateViews.setOnClickPendingIntent(R.id.widget_big_middleleft,getBuryCardPendingIntent(this));
 updateViews.setOnClickPendingIntent(R.id.widget_big_bottomleft,getAnswerPendingIntent(this,0));
 updateViews.setOnClickPendingIntent(R.id.widget_big_topright,getCardEditorPendingIntent(this));
@@ -82,7 +83,7 @@ updateViews.setViewVisibility(R.id.widget_big_deckfield,View.INVISIBLE);
 updateViews.setViewVisibility(R.id.widget_big_cardbackgroundstar,View.INVISIBLE);
 updateViews.setTextViewText(R.id.widget_big_cardcontent,Html.fromHtml(sCard.getQuestion()));
 updateViews.setViewVisibility(R.id.widget_big_add,View.VISIBLE);
-updateViews.setViewVisibility(R.id.widget_big_bottom_right,View.VISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_star,View.INVISIBLE);
 updateViews.setOnClickPendingIntent(R.id.widget_big_bottom_right,getFactAdderPendingIntent(context));
 break;
 case VIEW_SHOW_ANSWER:
@@ -120,7 +121,7 @@ updateViews.setViewVisibility(R.id.widget_big_help,View.INVISIBLE);
 getHelpPendingIntent(this).cancel();
 getUpdatePendingIntent(this,VIEW_DECKS).cancel();
 updateViews.setViewVisibility(R.id.widget_big_card_areas,View.VISIBLE);
-updateViews.setOnClickPendingIntent(R.id.widget_big_topleft,getOpenPendingIntent(this));
+updateViews.setOnClickPendingIntent(R.id.widget_big_topleft,getOpenPendingIntent(this,sLoadedDeck.getDeckPath()));
 removeAreaListeners(this,false);
 updateViews.setOnClickPendingIntent(R.id.widget_big_middleright,getUndoPendingIntent(this));
 emptyCardAreaTexts(updateViews);
@@ -136,7 +137,7 @@ updateViews.setTextViewText(R.id.widget_big_congrats,StudyOptions.getCongratsMes
 updateViews.setOnClickPendingIntent(R.id.widget_big_review_early,getReviewEarlyPendingIntent(context));
 updateViews.setOnClickPendingIntent(R.id.widget_big_learn_more,getLearnMorePendingIntent(context));
 updateViews.setViewVisibility(R.id.widget_big_add,View.VISIBLE);
-updateViews.setViewVisibility(R.id.widget_big_bottom_right,View.VISIBLE);
+updateViews.setViewVisibility(R.id.widget_big_star,View.INVISIBLE);
 updateViews.setOnClickPendingIntent(R.id.widget_big_bottom_right,getFactAdderPendingIntent(context));
 break;
 }
