@@ -111,6 +111,7 @@ updateViews.setOnClickPendingIntent(R.id.widget_big_bottomright,getAnswerPending
 updateViews.setTextViewText(R.id.widget_big_cardcontent,Html.fromHtml(sCard.getQuestion() + "<br>???????????????<br>" + sCard.getAnswer()));
 break;
 case VIEW_NOTHING_DUE:
+updateViews.setTextViewText(R.id.widget_big_deckname,sLoadedDeck.getDeckName());
 updateCounts(updateViews,sCurrentView);
 updateViews.setOnClickPendingIntent(R.id.widget_big_openclose,getCloseDeckPendingIntent(context));
 updateViews.setViewVisibility(R.id.widget_big_open,View.INVISIBLE);
