@@ -3,6 +3,8 @@
   Log.i(AnkiDroidApp.TAG,"onSaveInstanceState: " + path);
   if (path != null) {
     outState.putString("deckFilename",path);
+    outState.putBoolean("addFact",mAddFact);
+    outState.putInt("caller",mCaller);
   }
   Log.i(AnkiDroidApp.TAG,"onSaveInstanceState - Ending");
 }

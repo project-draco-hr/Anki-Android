@@ -57,15 +57,15 @@
  else     if (ACTION_CARDEDITOR.equals(action)) {
       Intent editIntent=new Intent(this,CardEditor.class);
       editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-      editIntent.putExtra(CardEditor.CARD_EDITOR_ACTION,CardEditor.EDIT_BIGWIDGET_CARD);
-      editIntent.putExtra(CardEditor.DECKPATH,sLoadedDeck.getDeckPath());
+      editIntent.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_BIGWIDGET_EDIT);
+      editIntent.putExtra(CardEditor.EXTRA_DECKPATH,sLoadedDeck.getDeckPath());
       this.startActivity(editIntent);
     }
  else     if (ACTION_FACTADDER.equals(action)) {
       Intent editIntent=new Intent(this,CardEditor.class);
       editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-      editIntent.putExtra(CardEditor.CARD_EDITOR_ACTION,CardEditor.ADD_CARD);
-      editIntent.putExtra(CardEditor.DECKPATH,sLoadedDeck.getDeckPath());
+      editIntent.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_BIGWIDGET_ADD);
+      editIntent.putExtra(CardEditor.EXTRA_DECKPATH,sLoadedDeck.getDeckPath());
       this.startActivity(editIntent);
     }
  else     if (ACTION_HELP.equals(action)) {
