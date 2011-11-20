@@ -17,6 +17,13 @@
   }
   if (namesSb.length() == 0 || duesSb.length() == 0) {
     updateViews.setViewVisibility(R.id.widget_big_deckfield,View.INVISIBLE);
+    if (!sUpdateStarted) {
+      sUpdateStarted=true;
+      WidgetStatus.update(sContext);
+    }
+  }
+ else {
+    sUpdateStarted=false;
   }
   updateViews.setTextViewText(R.id.widget_big_decknames,namesSb);
   updateViews.setTextViewText(R.id.widget_big_deckdues,duesSb);
