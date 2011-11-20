@@ -47,26 +47,9 @@ updateViews.setViewVisibility(R.id.widget_big_progress_frame_deck,View.INVISIBLE
 updateViews.setViewVisibility(R.id.widget_big_deckfield,View.VISIBLE);
 updateViews.setViewVisibility(R.id.widget_big_nothing_due,View.INVISIBLE);
 setDeckCounts(updateViews,decks);
-if (due != 0) {
 updateViews.setViewVisibility(R.id.widget_big_totalcongrats,View.GONE);
 updateViews.setViewVisibility(R.id.widget_big_decketa,View.VISIBLE);
 updateViews.setTextViewText(R.id.widget_big_decketa,"???????????????\n" + getResources().getQuantityString(R.plurals.widget_big_eta,eta,eta));
-}
- else if (sTomorrowDues == null) {
-updateViews.setViewVisibility(R.id.widget_big_totalcongrats,View.GONE);
-sShowProgressDialog=true;
-updateViews.setViewVisibility(R.id.widget_big_progressbar,View.VISIBLE);
-sWaitForAsyncTask=true;
-if (sGetTomorrowCountAsyncTask == null || sGetTomorrowCountAsyncTask.getStatus() != AsyncTask.Status.RUNNING) {
-sGetTomorrowCountAsyncTask=new GetTomorrowDueAsyncTask();
-sGetTomorrowCountAsyncTask.execute(PrefSettings.getSharedPrefs(AnkiDroidWidgetBig.UpdateService.this).getString("deckPath",AnkiDroidApp.getStorageDirectory() + "/AnkiDroid"));
-}
-}
- else {
-updateViews.setViewVisibility(R.id.widget_big_totalcongrats,View.VISIBLE);
-sCurrentView=VIEW_CONGRATS;
-updateCounts(updateViews,VIEW_CONGRATS);
-}
 break;
 }
 }

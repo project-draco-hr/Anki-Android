@@ -30,6 +30,7 @@ case VIEW_CONGRATS:
 case VIEW_DECKS:
     updateViews.setTextViewText(R.id.widget_big_deckname,"");
   updateCounts(updateViews,sCurrentView);
+updateViews.setOnClickPendingIntent(R.id.widget_big_deckfield,sCurrentView == VIEW_DECKS ? getTomorrowDuePendingIntent(context) : getUpdatePendingIntent(context,VIEW_DECKS));
 updateViews.setOnClickPendingIntent(R.id.widget_big_openclose,getShowDeckSelectionPendingIntent(context));
 updateViews.setViewVisibility(R.id.widget_big_open,View.VISIBLE);
 updateViews.setViewVisibility(R.id.widget_big_close,View.INVISIBLE);

@@ -1,5 +1,13 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
+  if (mStartedByBigWidget && (requestCode == REQUEST_REVIEW || (requestCode == PICK_DECK_REQUEST && resultCode != RESULT_OK))) {
+    DeckManager.closeMainDeck(DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS);
+    finish();
+    return;
+  }
+ else {
+    mStartedByBigWidget=false;
+  }
   if (resultCode == CONTENT_NO_EXTERNAL_STORAGE) {
     showContentView(CONTENT_NO_EXTERNAL_STORAGE);
   }

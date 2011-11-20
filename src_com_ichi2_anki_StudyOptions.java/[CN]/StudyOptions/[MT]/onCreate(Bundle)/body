@@ -12,7 +12,9 @@
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   Log.i(AnkiDroidApp.TAG,"StudyOptions - OnCreate()");
-  if (hasErrorFiles()) {
+  Intent intent=getIntent();
+  mStartedByBigWidget=intent.hasExtra(EXTRA_START_REVIEWER) || intent.hasExtra(EXTRA_START_DECKPICKER);
+  if (hasErrorFiles() && !mStartedByBigWidget) {
     Intent i=new Intent(this,Feedback.class);
     startActivityForResult(i,REPORT_ERROR);
   }
@@ -22,17 +24,14 @@
   activeCramTags=new HashSet<String>();
   mSelectedTags=new HashSet<String>();
   initAllContentViews();
-  boolean startReviewer=false;
-  Intent intent=getIntent();
   if (Intent.ACTION_VIEW.equalsIgnoreCase(intent.getAction()) && intent.getDataString() != null) {
     mDeckFilename=Uri.parse(intent.getDataString()).getPath();
     Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from VIEW intent: " + mDeckFilename);
   }
  else   if (Intent.ACTION_MAIN.equalsIgnoreCase(intent.getAction()) && intent.getBooleanExtra(EXTRA_START_REVIEWER,false)) {
-    startReviewer=true;
+    openReviewer();
   }
  else   if (Intent.ACTION_MAIN.equalsIgnoreCase(intent.getAction()) && intent.getBooleanExtra(EXTRA_START_DECKPICKER,false)) {
-    mDeckFilename=preferences.getString("deckFilename",null);
     openDeckPicker();
   }
  else   if (Intent.ACTION_MAIN.equalsIgnoreCase(intent.getAction()) && intent.hasExtra(EXTRA_DECK)) {
@@ -50,16 +49,11 @@
   if (!mSdCardAvailable) {
     showContentView(CONTENT_NO_EXTERNAL_STORAGE);
   }
-  if (startReviewer) {
-    mCurrentContentView=CONTENT_STUDY_OPTIONS;
-    openReviewer();
-    showContentView();
-  }
  else {
     if (mDeckFilename == null || !new File(mDeckFilename).exists()) {
       showContentView(CONTENT_NO_DECK);
     }
- else     if (!mInDeckPicker) {
+ else     if (!mStartedByBigWidget) {
       if ((showDeckPickerOnStartup()) && (!hasErrorFiles())) {
         openDeckPicker();
       }

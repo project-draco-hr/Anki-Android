@@ -8,6 +8,7 @@
   if (deck == null) {
     setResult(StudyOptions.CONTENT_NO_EXTERNAL_STORAGE);
     finish();
+    return;
   }
  else {
     mMediaDir=setupMedia(deck);

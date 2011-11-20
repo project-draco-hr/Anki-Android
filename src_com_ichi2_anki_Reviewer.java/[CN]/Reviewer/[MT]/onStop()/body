@@ -10,5 +10,9 @@
       deck.commitToDB();
     }
   }
+  if (DeckManager.deckIsOpenedInBigWidget(DeckManager.getMainDeckPath())) {
+    AnkiDroidWidgetBig.setCard(mCurrentCard);
+    AnkiDroidWidgetBig.updateWidget(AnkiDroidWidgetBig.UpdateService.VIEW_SHOW_QUESTION);
+  }
   WidgetStatus.update(this,WidgetStatus.getDeckStatus(deck));
 }
