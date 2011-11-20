@@ -5,10 +5,10 @@
     mToggleLimit.setEnabled(true);
     DeckManager.closeMainDeck(DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS);
     if (updateAllCards) {
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK_AND_UPDATE_CARDS,mLoadDeckHandler,new DeckTask.TaskData(mDeckFilename,0,true));
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK_AND_UPDATE_CARDS,mLoadDeckHandler,new DeckTask.TaskData(DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS,mDeckFilename));
     }
  else {
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK,mLoadDeckHandler,new DeckTask.TaskData(mDeckFilename,0,true));
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK,mLoadDeckHandler,new DeckTask.TaskData(DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS,mDeckFilename));
     }
   }
  else {

@@ -9,8 +9,7 @@
     Model myModel=Model.getModel(currentDeck,mCurrentCard.getCardModelId(),false);
     if (myModel == null) {
       Log.e(AnkiDroidApp.TAG,"updateCard - no Model could be fetched. Closing Reviewer and showing db-error dialog");
-      Reviewer.this.setResult(RESULT_ANSWERING_ERROR);
-      closeReviewer(true);
+      closeReviewer(RESULT_ANSWERING_ERROR,true);
     }
     mBaseUrl=Utils.getBaseUrl(mMediaDir,myModel,currentDeck);
     int nightBackground=Themes.getNightModeCardBackground(this);

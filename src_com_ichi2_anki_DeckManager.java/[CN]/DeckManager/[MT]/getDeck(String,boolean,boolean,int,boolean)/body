@@ -68,9 +68,6 @@
           deckInformation.mInitiallyRebuilt=true;
           WidgetStatus.update(AnkiDroidApp.getInstance().getBaseContext(),WidgetStatus.getDeckStatus(deck));
         }
- else {
-          deckInformation.mDeck.reset();
-        }
       }
     }
  else {

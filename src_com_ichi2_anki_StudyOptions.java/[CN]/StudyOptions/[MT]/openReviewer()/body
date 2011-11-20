@@ -4,7 +4,7 @@
     Intent reviewer=new Intent(StudyOptions.this,Reviewer.class);
     reviewer.putExtra("deckFilename",mDeckFilename);
     startActivityForResult(reviewer,REQUEST_REVIEW);
-    if (getApiLevel() > 4) {
+    if (getApiLevel() > 4 && !mStartedByBigWidget) {
       ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
     }
   }

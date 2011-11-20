@@ -1,7 +1,7 @@
 {
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
     Log.i(AnkiDroidApp.TAG,"Reviewer - onBackPressed()");
-    closeReviewer(false);
+    closeReviewer(RESULT_DEFAULT,false);
     return true;
   }
   if (keyCode == 92) {

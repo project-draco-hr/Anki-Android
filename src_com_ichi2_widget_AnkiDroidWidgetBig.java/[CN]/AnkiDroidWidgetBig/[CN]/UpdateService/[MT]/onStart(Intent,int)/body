@@ -16,10 +16,7 @@
     }
  else     if (ACTION_OPENDECK.equals(action)) {
       showProgressDialog();
-      if (sGetTomorrowCountAsyncTask != null && sGetTomorrowCountAsyncTask.getStatus() == AsyncTask.Status.RUNNING) {
-        sGetTomorrowCountAsyncTask.cancel(true);
-      }
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK,mOpenDeckHandler,new DeckTask.TaskData(intent.getStringExtra(EXTRA_DECK_PATH),0,false));
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK,mOpenDeckHandler,new DeckTask.TaskData(DeckManager.REQUESTING_ACTIVITY_BIGWIDGET,intent.getStringExtra(EXTRA_DECK_PATH)));
     }
  else     if (ACTION_CLOSEDECK.equals(action)) {
       if (sLoadedDeck != null) {
@@ -71,10 +68,7 @@
       String deckpath=intent.getStringExtra(EXTRA_DECK_PATH);
       Intent newIntent=StudyOptions.getLoadDeckIntent(this,deckpath);
       if (deckpath != null) {
-        if (sCurrentView == VIEW_NOTHING_DUE) {
-          newIntent.putExtra(StudyOptions.EXTRA_START_REVIEWER,false);
-        }
- else {
+        if (sCurrentView != VIEW_NOTHING_DUE) {
           DeckManager.getDeck(deckpath,true,DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS);
           newIntent.putExtra(StudyOptions.EXTRA_START_REVIEWER,true);
         }
@@ -136,12 +130,10 @@
     }
  else     if (ACTION_SHOW_TOMORROW_DUES.equals(action)) {
       if (sTomorrowDues == null) {
-        if (sGetTomorrowCountAsyncTask == null || sGetTomorrowCountAsyncTask.getStatus() != AsyncTask.Status.RUNNING) {
-          showProgressDialog();
-          sWaitForAsyncTask=true;
-          sGetTomorrowCountAsyncTask=new GetTomorrowDueAsyncTask();
-          sGetTomorrowCountAsyncTask.execute(PrefSettings.getSharedPrefs(AnkiDroidWidgetBig.UpdateService.this).getString("deckPath",AnkiDroidApp.getStorageDirectory() + "/AnkiDroid"));
-        }
+        showProgressDialog();
+        sWaitForAsyncTask=true;
+        AsyncTask<String,Void,DeckStatus[]> getTomorrowDuesAsyncTask=new GetTomorrowDueAsyncTask();
+        getTomorrowDuesAsyncTask.execute(PrefSettings.getSharedPrefs(AnkiDroidWidgetBig.UpdateService.this).getString("deckPath",AnkiDroidApp.getStorageDirectory() + "/AnkiDroid"));
       }
  else {
         updateViews(VIEW_CONGRATS);

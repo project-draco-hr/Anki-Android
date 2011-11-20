@@ -2,16 +2,7 @@
   Log.i(AnkiDroidApp.TAG,"BigWidget: buildUpdate (" + sCurrentView + ")");
   Resources res=getResources();
   RemoteViews updateViews=new RemoteViews(context.getPackageName(),R.layout.widget_big);
-  if (sShowProgressDialog) {
-    updateViews.setViewVisibility(R.id.widget_big_progressbar,View.VISIBLE);
-    updateViews.setViewVisibility(R.id.widget_big_noclicks,View.VISIBLE);
-    return updateViews;
-  }
- else {
-    updateViews.setViewVisibility(R.id.widget_big_progressbar,View.INVISIBLE);
-    updateViews.setViewVisibility(R.id.widget_big_noclicks,View.INVISIBLE);
-  }
-  if (sCurrentView == VIEW_SHOW_HELP || sCurrentView == VIEW_CONGRATS) {
+  if (sCurrentView == VIEW_DECKS || sCurrentView == VIEW_SHOW_HELP || sCurrentView == VIEW_CONGRATS) {
   }
  else   if (sLoadedDeck == null) {
     sCurrentView=VIEW_DECKS;
@@ -24,6 +15,15 @@
   }
  else {
     updateViews.setTextViewText(R.id.widget_big_message,"");
+  }
+  if (sShowProgressDialog) {
+    updateViews.setViewVisibility(R.id.widget_big_progressbar,View.VISIBLE);
+    updateViews.setViewVisibility(R.id.widget_big_noclicks,View.VISIBLE);
+    return updateViews;
+  }
+ else {
+    updateViews.setViewVisibility(R.id.widget_big_progressbar,View.INVISIBLE);
+    updateViews.setViewVisibility(R.id.widget_big_noclicks,View.INVISIBLE);
   }
 switch (sCurrentView) {
 case VIEW_CONGRATS:

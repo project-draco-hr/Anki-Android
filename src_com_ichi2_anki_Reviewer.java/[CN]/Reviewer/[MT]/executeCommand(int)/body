@@ -58,7 +58,7 @@ answerCard(Card.EASE_MID);
 }
 break;
 case GESTURE_EXIT:
-closeReviewer(false);
+closeReviewer(RESULT_DEFAULT,false);
 break;
 case GESTURE_UNDO:
 if (DeckManager.getMainDeck().undoAvailable()) {

@@ -2,9 +2,13 @@
   super.onResume();
   Deck deck=DeckManager.getMainDeck();
   if (deck == null) {
-    finish();
+    Log.e(AnkiDroidApp.TAG,"Reviewer: Deck already closed, returning to study options");
+    closeReviewer(RESULT_DECK_CLOSED,false);
+    return;
   }
-  if (DeckManager.mainIsOpenedInBigWidget()) {
+  if (DeckManager.deckIsOpenedInBigWidget(deck.getDeckPath()) && mCurrentCard != null) {
+    Log.i(AnkiDroidApp.TAG,"Reviewer: onResume: get card from big widget");
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,deck,null));
   }
  else {
     restartTimer();
