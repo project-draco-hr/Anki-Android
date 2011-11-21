@@ -14,6 +14,7 @@
     backupResult=BackupManager.RETURN_LOW_SYSTEM_SPACE;
   }
   Log.i(AnkiDroidApp.TAG,"loadDeck - SD card mounted and existent file -> Loading deck...");
+  publishProgress(new TaskData(res.getString(R.string.loading_deck)));
   Deck deck=DeckManager.getDeck(deckFilename,requestingActivity == DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS,requestingActivity);
   if (deck == null) {
     Log.i(AnkiDroidApp.TAG,"The database " + deckFilename + " could not be opened");
