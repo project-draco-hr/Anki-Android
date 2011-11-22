@@ -6,7 +6,7 @@
     closeReviewer(RESULT_DECK_CLOSED,false);
     return;
   }
-  if (DeckManager.deckIsOpenedInBigWidget(deck.getDeckPath()) && mCurrentCard != null) {
+  if (DeckManager.deckIsOpenedInBigWidget(deck.getDeckPath()) && mCurrentCard != null && !mInEditor) {
     Log.i(AnkiDroidApp.TAG,"Reviewer: onResume: get card from big widget");
     DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,deck,null));
   }
