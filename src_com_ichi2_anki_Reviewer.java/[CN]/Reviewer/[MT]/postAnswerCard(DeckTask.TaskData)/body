@@ -35,6 +35,9 @@
   }
  else {
     mCurrentCard=values[0].getCard();
+    if (mInBackground) {
+      updateBigWidget(false);
+    }
     if (mCurrentCard == null) {
       noMoreCards=true;
       mProgressDialog=ProgressDialog.show(Reviewer.this,"",getResources().getString(R.string.saving_changes),true);
