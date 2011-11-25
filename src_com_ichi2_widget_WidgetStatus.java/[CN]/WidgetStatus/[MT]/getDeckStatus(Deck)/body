@@ -1,0 +1,16 @@
+{
+  if (deck == null) {
+    return null;
+  }
+  int dueCards=0;
+  int newCards=0;
+  int failedCards=deck.getFailedSoonCount();
+  int eta=0;
+  int reps=deck.getSessionFinishedCards();
+  if (!deck.hasFinishScheduler()) {
+    dueCards=deck.getRevCount();
+    newCards=deck.getNewCountToday();
+    eta=deck.getETA();
+  }
+  return new DeckStatus(deck.getDeckPath(),deck.getDeckName(),newCards,dueCards,failedCards,eta,reps);
+}

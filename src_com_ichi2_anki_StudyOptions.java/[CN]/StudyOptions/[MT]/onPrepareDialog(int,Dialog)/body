@@ -9,7 +9,7 @@ case DIALOG_SYNC_LOG:
     ad.setMessage(mCurrentDialogMessage);
   break;
 case DIALOG_MORE:
-Deck deck=AnkiDroidApp.deck();
+Deck deck=DeckManager.getMainDeck();
 mSpinnerNewCardOrder.setSelection(deck.getNewCardOrder());
 mSpinnerNewCardSchedule.setSelection(deck.getNewCardSpacing());
 mSpinnerRevCardOrder.setSelection(deck.getRevCardOrder());
@@ -20,7 +20,7 @@ mCheckBoxPerDay.setChecked(deck.getPerDay());
 mCheckBoxSuspendLeeches.setChecked(deck.getSuspendLeeches());
 break;
 case DIALOG_LIMIT_SESSION:
-Deck deck2=AnkiDroidApp.deck();
+Deck deck2=DeckManager.getMainDeck();
 long timeLimit=deck2.getSessionTimeLimit() / 60;
 long repLimit=deck2.getSessionRepLimit();
 mSessionLimitCheckBox.setChecked(timeLimit + repLimit > 0);
@@ -39,7 +39,7 @@ allTags=null;
 break;
 case DIALOG_TAGS:
 if (allTags == null) {
-allTags=AnkiDroidApp.deck().allTags_();
+allTags=DeckManager.getMainDeck().allTags_();
 Log.i(AnkiDroidApp.TAG,"all tags: " + Arrays.toString(allTags));
 if (allTags == null) {
 Themes.showThemedToast(StudyOptions.this,getResources().getString(R.string.error_insufficient_memory),false);
@@ -78,7 +78,7 @@ mSelectedTags.add(tag);
 );
 break;
 case DIALOG_CRAM:
-allCramTags=AnkiDroidApp.deck().allTags_();
+allCramTags=DeckManager.getMainDeck().allTags_();
 if (allCramTags == null) {
 Themes.showThemedToast(StudyOptions.this,getResources().getString(R.string.error_insufficient_memory),false);
 ad.setEnabled(false);

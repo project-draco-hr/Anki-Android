@@ -2,7 +2,7 @@
   Intent decksPicker=new Intent(StudyOptions.this,DeckPicker.class);
   mInDeckPicker=true;
   startActivityForResult(decksPicker,PICK_DECK_REQUEST);
-  if (getApiLevel() > 4) {
+  if (getApiLevel() > 4 && !mStartedByBigWidget) {
     ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
   }
 }

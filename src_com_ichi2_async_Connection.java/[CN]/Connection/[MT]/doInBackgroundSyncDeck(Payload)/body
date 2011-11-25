@@ -12,9 +12,7 @@
     syncChangelog.put("deckName",syncName);
     if (singleDeckSync) {
       publishProgress(syncName,res.getString(R.string.sync_set_journal_mode));
-      deck.closeDeck();
-      deck=Deck.openDeck(deckPath,true,true);
-      AnkiDroidApp.setDeck(deck);
+      DeckManager.getDeck(deckPath,true,true,DeckManager.REQUESTING_ACTIVITY_SYNCCLIENT,true);
     }
     AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deckPath);
     ankiDB.getDatabase().beginTransaction();
@@ -134,15 +132,11 @@
  else           if ("fromServer".equalsIgnoreCase(syncFrom)) {
             publishProgress(syncName,res.getString(R.string.sync_downloading_message));
             ankiDB.getDatabase().endTransaction();
-            if (deck != null) {
-              deck.closeDeck();
-            }
+            DeckManager.closeDeck(deckPath);
             result=SyncClient.fullSyncFromServer(password,username,syncName,deckPath);
             if (result.containsKey("code") && result.get("code").equals("200")) {
               syncChangelog.put("message",res.getString(R.string.sync_log_downloading_message));
             }
-            deck=Deck.openDeck(deckPath);
-            AnkiDroidApp.setDeck(deck);
           }
           publishProgress(syncName,res.getString(R.string.sync_complete_message));
           if (!result.containsKey("code") || !result.get("code").equals("200")) {
@@ -205,6 +199,9 @@
         Log.i(AnkiDroidApp.TAG,"NO CHANGES.");
         publishProgress(syncName,res.getString(R.string.sync_no_changes_message));
         syncChangelog.put("message",res.getString(R.string.sync_log_no_changes_message));
+      }
+      if (singleDeckSync) {
+        DeckManager.getDeck(deckPath,DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS);
       }
     }
   finally {

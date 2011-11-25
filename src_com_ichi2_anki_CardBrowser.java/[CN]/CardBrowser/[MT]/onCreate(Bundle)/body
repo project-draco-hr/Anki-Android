@@ -4,7 +4,7 @@
   View mainView=getLayoutInflater().inflate(R.layout.card_browser,null);
   setContentView(mainView);
   Themes.setContentStyle(mainView,Themes.CALLER_CARDBROWSER);
-  mDeck=AnkiDroidApp.deck();
+  mDeck=DeckManager.getMainDeck();
   if (mDeck == null) {
     finish();
     return;
@@ -14,6 +14,7 @@
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
   mrelativeBrowserFontSize=preferences.getInt("relativeCardBrowserFontSize",DEFAULT_FONT_SIZE_RATIO);
   mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
+  mPrefCacheCardBrowser=preferences.getBoolean("cardBrowserCache",false);
   mCards=new ArrayList<HashMap<String,String>>();
   mAllCards=new ArrayList<HashMap<String,String>>();
   mCardsListView=(ListView)findViewById(R.id.card_browser_list);
@@ -42,9 +43,14 @@
   mCardsListView.setOnItemClickListener(new OnItemClickListener(){
     @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
       Intent editCard=new Intent(CardBrowser.this,CardEditor.class);
-      editCard.putExtra(CardEditor.CARD_EDITOR_ACTION,CardEditor.EDIT_BROWSER_CARD);
+      editCard.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_CARDBROWSER_EDIT);
+      editCard.putExtra(CardEditor.EXTRA_DECKPATH,DeckManager.getMainDeckPath());
       mPositionInCardsList=position;
       mSelectedCard=mDeck.cardFromId(Long.parseLong(mCards.get(mPositionInCardsList).get("id")));
+      if (mSelectedCard == null) {
+        deleteCard(mCards.get(mPositionInCardsList).get("id"),mPositionInCardsList);
+        return;
+      }
       sEditorCard=mSelectedCard;
       editCard.putExtra("callfromcardbrowser",true);
       startActivityForResult(editCard,EDIT_CARD);

@@ -263,7 +263,7 @@ mLimitTagRevInactiveCheckBox.setOnCheckedChangeListener(mLimitTagCheckedChangeLi
 builder.setTitle(R.string.studyoptions_limit_dialog_title);
 builder.setPositiveButton(R.string.studyoptions_more_save,new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
-Deck deck=AnkiDroidApp.deck();
+Deck deck=DeckManager.getMainDeck();
 boolean changed=false;
 String textTime=mEditSessionTime.getText().toString();
 if (!textTime.equals(Long.toString(deck.getSessionTimeLimit() / 60))) {

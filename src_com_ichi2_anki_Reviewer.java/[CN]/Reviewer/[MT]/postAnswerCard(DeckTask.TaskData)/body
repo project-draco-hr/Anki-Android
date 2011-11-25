@@ -2,7 +2,7 @@
   Resources res=getResources();
   boolean sessionComplete=false;
   boolean noMoreCards=false;
-  Deck deck=AnkiDroidApp.deck();
+  Deck deck=DeckManager.getMainDeck();
   if (deck == null) {
     return new boolean[]{false,false};
   }
@@ -34,14 +34,13 @@
     setOutAnimation(true);
   }
  else {
-    Card newCard=values[0].getCard();
-    if (newCard == null) {
+    mCurrentCard=values[0].getCard();
+    if (mCurrentCard == null) {
       noMoreCards=true;
       mProgressDialog=ProgressDialog.show(Reviewer.this,"",getResources().getString(R.string.saving_changes),true);
       setOutAnimation(false);
       return new boolean[]{sessionComplete,noMoreCards};
     }
-    mCurrentCard=newCard;
     if (mPrefWriteAnswers) {
       String[] answer=mCurrentCard.getComparedFieldAnswer();
       comparedFieldAnswer=answer[0];

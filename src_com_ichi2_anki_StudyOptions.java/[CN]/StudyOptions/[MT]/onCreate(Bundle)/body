@@ -3,6 +3,7 @@
     Log.i(AnkiDroidApp.TAG,"StudyOptions - onCreate: Detected multiple instance of this activity, closing it and return to root activity");
     Intent reloadIntent=new Intent(StudyOptions.this,StudyOptions.class);
     reloadIntent.setAction(Intent.ACTION_MAIN);
+    reloadIntent.putExtras(getIntent().getExtras());
     reloadIntent.addCategory(Intent.CATEGORY_LAUNCHER);
     reloadIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     finish();
@@ -11,7 +12,9 @@
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   Log.i(AnkiDroidApp.TAG,"StudyOptions - OnCreate()");
-  if (hasErrorFiles()) {
+  Intent intent=getIntent();
+  mStartedByBigWidget=intent.hasExtra(EXTRA_START_REVIEWER) || intent.hasExtra(EXTRA_START_DECKPICKER);
+  if (hasErrorFiles() && !mStartedByBigWidget) {
     Intent i=new Intent(this,Feedback.class);
     startActivityForResult(i,REPORT_ERROR);
   }
@@ -21,10 +24,15 @@
   activeCramTags=new HashSet<String>();
   mSelectedTags=new HashSet<String>();
   initAllContentViews();
-  Intent intent=getIntent();
   if (Intent.ACTION_VIEW.equalsIgnoreCase(intent.getAction()) && intent.getDataString() != null) {
     mDeckFilename=Uri.parse(intent.getDataString()).getPath();
     Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from VIEW intent: " + mDeckFilename);
+  }
+ else   if (Intent.ACTION_MAIN.equalsIgnoreCase(intent.getAction()) && intent.getBooleanExtra(EXTRA_START_REVIEWER,false)) {
+    openReviewer();
+  }
+ else   if (Intent.ACTION_MAIN.equalsIgnoreCase(intent.getAction()) && intent.getBooleanExtra(EXTRA_START_DECKPICKER,false)) {
+    openDeckPicker();
   }
  else   if (Intent.ACTION_MAIN.equalsIgnoreCase(intent.getAction()) && intent.hasExtra(EXTRA_DECK)) {
     mDeckFilename=intent.getStringExtra(EXTRA_DECK);
@@ -45,7 +53,7 @@
     if (mDeckFilename == null || !new File(mDeckFilename).exists()) {
       showContentView(CONTENT_NO_DECK);
     }
- else {
+ else     if (!mStartedByBigWidget) {
       if ((showDeckPickerOnStartup()) && (!hasErrorFiles())) {
         openDeckPicker();
       }

@@ -2,7 +2,7 @@
   Deck deck=params[0].getDeck();
   Card oldCard=params[0].getCard();
   int ease=params[0].getInt();
-  Card newCard;
+  Card newCard=null;
   try {
     AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
     ankiDB.getDatabase().beginTransaction();
@@ -11,7 +11,13 @@
         deck.answerCard(oldCard,ease);
         Log.i(AnkiDroidApp.TAG,"leech flag: " + oldCard.getLeechFlag());
       }
-      newCard=deck.getCard();
+ else       if (DeckManager.deckIsOpenedInBigWidget(deck.getDeckPath())) {
+        Log.i(AnkiDroidApp.TAG,"doInBackgroundAnswerCard: get card from big widget");
+        newCard=AnkiDroidWidgetBig.getCard();
+      }
+      if (newCard == null) {
+        newCard=deck.getCard();
+      }
       if (oldCard != null) {
         publishProgress(new TaskData(newCard,oldCard.getLeechFlag(),oldCard.getSuspendedFlag()));
       }

@@ -64,39 +64,17 @@ dialog=builder.create();
 mTagsDialog=dialog;
 break;
 case DIALOG_DECK_SELECT:
-int len=0;
-File[] fileList;
-File dir=new File(PrefSettings.getSharedPrefs(getBaseContext()).getString("deckPath",AnkiDroidApp.getStorageDirectory()));
-fileList=dir.listFiles(new AnkiFilter());
-if (dir.exists() && dir.isDirectory() && fileList != null) {
-len=fileList.length;
-}
-TreeSet<String> tree=new TreeSet<String>();
-mFullDeckPaths=new HashMap<String,String>();
-if (len > 0 && fileList != null) {
-Log.i(AnkiDroidApp.TAG,"CardEditor - populateDeckDialog, number of anki files = " + len);
-for (File file : fileList) {
-String name=file.getName().replaceAll(".anki","");
-tree.add(name);
-mFullDeckPaths.put(name,file.getAbsolutePath());
-}
-}
-builder.setTitle(R.string.fact_adder_select_deck);
-mDeckNames=new String[tree.size()];
-tree.toArray(mDeckNames);
-builder.setItems(mDeckNames,new DialogInterface.OnClickListener(){
+dialog=DeckManager.getSelectDeckDialog(this,new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int item){
 loadDeck(item);
 }
 }
-);
-builder.setOnCancelListener(new OnCancelListener(){
+,new OnCancelListener(){
 @Override public void onCancel(DialogInterface arg0){
 mCancelled=true;
 }
 }
-);
-builder.setOnDismissListener(new OnDismissListener(){
+,new OnDismissListener(){
 @Override public void onDismiss(DialogInterface arg0){
 if (mCancelled == true) {
 finish();
@@ -107,7 +85,6 @@ showDialog(DIALOG_DECK_SELECT);
 }
 }
 );
-dialog=builder.create();
 break;
 case DIALOG_MODEL_SELECT:
 ArrayList<CharSequence> dialogItems=new ArrayList<CharSequence>();
@@ -132,7 +109,7 @@ for (int i=0; i < size; i++) {
 oldValues[i]=mEditFields.get(i).getText().toString();
 }
 modelChanged();
-if ((mSourceText == null || mSourceText.isEmpty()) && (mTargetText == null || mTargetText.isEmpty())) {
+if ((mSourceText == null || mSourceText.length() == 0) && (mTargetText == null || mTargetText.length() == 0)) {
 for (int i=0; i < Math.min(size,mEditFields.size()); i++) {
 mEditFields.get(i).setText(oldValues[i]);
 }

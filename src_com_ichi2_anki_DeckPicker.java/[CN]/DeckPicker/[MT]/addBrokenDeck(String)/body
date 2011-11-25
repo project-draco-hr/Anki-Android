@@ -3,4 +3,5 @@
     mBrokenDecks.add(filePath);
     BackupManager.restoreDeckIfMissing(filePath);
   }
+  DeckManager.closeDeck(filePath,DeckManager.REQUESTING_ACTIVITY_DECKPICKER);
 }

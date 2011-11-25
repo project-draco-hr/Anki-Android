@@ -1,0 +1,20 @@
+{
+  super.onEnabled(context);
+  Log.i(AnkiDroidApp.TAG,"BigWidget: Widget enabled");
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
+  if (!preferences.getBoolean("widgetBigEnabled",false)) {
+    Intent intent;
+    intent=new Intent(context,AnkiDroidWidgetBig.UpdateService.class);
+    intent.setAction(UpdateService.ACTION_SHOW_RESTRICTIONS_DIALOG);
+    context.startService(intent);
+  }
+  preferences.edit().putBoolean("widgetBigEnabled",true).commit();
+  sContext=context;
+  sCurrentView=UpdateService.VIEW_NOT_SPECIFIED;
+  sLoadedDeck=null;
+  sCard=null;
+  sCurrentMessage=null;
+  sShowProgressDialog=false;
+  sTomorrowDues=null;
+  sWaitForAsyncTask=false;
+}

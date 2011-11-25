@@ -131,15 +131,17 @@ if (mCurrentDeckFilename == null || mCurrentDeckFilename.equalsIgnoreCase(getRes
 dialog=null;
 break;
 }
-String[] entries=new String[7];
+String[] entries=new String[9];
 entries[CONTEXT_MENU_OPTIMIZE]=res.getString(R.string.contextmenu_deckpicker_optimize_deck);
 entries[CONTEXT_MENU_CUSTOM_DICTIONARY]=res.getString(R.string.contextmenu_deckpicker_set_custom_dictionary);
 entries[CONTEXT_MENU_DOWNLOAD_MEDIA]=res.getString(R.string.contextmenu_deckpicker_download_missing_media);
 entries[CONTEXT_MENU_RESET_LANGUAGE]=res.getString(R.string.contextmenu_deckpicker_reset_language_assignments);
 entries[CONTEXT_MENU_REPAIR_DECK]=res.getString(R.string.backup_repair_deck);
 entries[CONTEXT_MENU_REMOVE_BACKUPS]=res.getString(R.string.contextmenu_deckpicker_remove_backups);
+entries[CONTEXT_MENU_RENAME_DECK]=res.getString(R.string.contextmenu_deckpicker_rename_deck);
 entries[CONTEXT_MENU_DELETE_DECK]=res.getString(R.string.contextmenu_deckpicker_delete_deck);
-builder.setTitle("contextmenu");
+entries[CONTEXT_MENU_DECK_SUMMARY]=res.getStringArray(R.array.statistics_type_labels)[Statistics.TYPE_DECK_SUMMARY];
+builder.setTitle("Context Menu");
 builder.setIcon(R.drawable.ic_menu_manage);
 builder.setItems(entries,mContextMenuListener);
 dialog=builder.create();

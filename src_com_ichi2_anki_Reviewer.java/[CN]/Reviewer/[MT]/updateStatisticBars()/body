@@ -4,7 +4,7 @@
     mStatisticBarsMax=view.getWidth();
     mStatisticBarsHeight=view.getHeight();
   }
-  Deck deck=AnkiDroidApp.deck();
+  Deck deck=DeckManager.getMainDeck();
   Utils.updateProgressBars(this,mSessionProgressBar,deck.getSessionProgress(),mStatisticBarsMax,mStatisticBarsHeight,true,false);
   Utils.updateProgressBars(this,mSessionYesBar,deck.getProgress(false),mStatisticBarsMax,mStatisticBarsHeight,true);
 }
