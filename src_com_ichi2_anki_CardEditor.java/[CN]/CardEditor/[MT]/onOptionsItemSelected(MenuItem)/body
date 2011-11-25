@@ -3,28 +3,23 @@ switch (item.getItemId()) {
 case MENU_COPY_CARD:
 case MENU_ADD_CARD:
     Intent intent=new Intent(CardEditor.this,CardEditor.class);
-  if (item.getItemId() == MENU_COPY_CARD) {
-    intent.putExtra(CardEditor.CARD_EDITOR_ACTION,CardEditor.COPY_CARD);
-    StringBuilder contents=new StringBuilder();
-    for (    FieldEditText current : mEditFields) {
-      contents.append(current.getText().toString()).append("\u001f");
-    }
-    intent.putExtra("contents",contents.toString());
-    if (mDeckPath != null && mDeckPath.length() > 0) {
-      intent.putExtra(DECKPATH,mDeckPath);
-    }
-  }
- else {
-    intent.putExtra(CardEditor.CARD_EDITOR_ACTION,CardEditor.ADD_CARD);
-  }
-startActivityForResult(intent,ACTION_ADD_CARD);
+  intent.putExtra(EXTRA_CALLER,CALLER_CARDEDITOR);
+intent.putExtra(EXTRA_DECKPATH,mDeckPath);
+if (item.getItemId() == MENU_COPY_CARD) {
+StringBuilder contents=new StringBuilder();
+for (FieldEditText current : mEditFields) {
+  contents.append(current.getText().toString()).append("\u001f");
+}
+intent.putExtra(EXTRA_CONTENTS,contents.toString());
+}
+startActivity(intent);
 if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
 ActivityTransitionAnimation.slide(CardEditor.this,ActivityTransitionAnimation.LEFT);
 }
 return true;
 case MENU_RESET:
 if (mAddFact) {
-if (mIntentAdd) {
+if (mCaller == CALLER_INDICLASH) {
 if (mSourceText != null) {
 mEditFields.get(0).setText(mSourceText);
 }
@@ -33,9 +28,7 @@ mEditFields.get(1).setText(mTargetText);
 }
 }
  else {
-for (FieldEditText current : mEditFields) {
-current.setText("");
-}
+setEditFieldTexts(getIntent().getStringExtra(EXTRA_CONTENTS));
 if (!mEditFields.isEmpty()) {
 mEditFields.getFirst().requestFocus();
 }

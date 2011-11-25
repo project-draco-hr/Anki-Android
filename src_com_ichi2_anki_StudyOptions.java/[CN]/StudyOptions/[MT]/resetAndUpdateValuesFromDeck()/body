@@ -1,6 +1,5 @@
 {
-  Deck deck=AnkiDroidApp.deck();
-  DeckTask.waitToFinish();
+  Deck deck=DeckManager.getMainDeck();
   if (deck != null) {
     deck.reset();
     updateValuesFromDeck();

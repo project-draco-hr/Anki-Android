@@ -1,6 +1,6 @@
 {
   if (AnkiDroidApp.isUserLoggedIn()) {
-    Deck deck=AnkiDroidApp.deck();
+    Deck deck=DeckManager.getMainDeck();
     if (deck != null) {
       if (mProgressDialog != null && mProgressDialog.isShowing()) {
         mProgressDialog.dismiss();

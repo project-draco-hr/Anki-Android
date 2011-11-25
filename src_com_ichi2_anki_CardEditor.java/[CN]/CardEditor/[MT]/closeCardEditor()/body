@@ -1,17 +1,4 @@
 {
-  if (mIntentAdd && mDeck != null) {
-    Deck deck=AnkiDroidApp.deck();
-    if (deck == null || !deck.getDeckPath().equals(mDeckPath)) {
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CLOSE_DECK,new DeckTask.TaskListener(){
-        @Override public void onPreExecute(){
-        }
-        @Override public void onPostExecute(        DeckTask.TaskData result){
-        }
-        @Override public void onProgressUpdate(        DeckTask.TaskData... values){
-        }
-      }
-,new DeckTask.TaskData(mDeck,0));
-    }
-  }
+  DeckManager.closeDeck(mDeck.getDeckPath(),DeckManager.REQUESTING_ACTIVITY_CARDEDITOR);
   finish();
 }

@@ -10,7 +10,7 @@
   getDB().insert(this,"facts",null,values);
   if (cardModels.isEmpty()) {
     Log.e(AnkiDroidApp.TAG,"Error while adding fact: No cardmodels for the new fact");
-    return null;
+    return 0;
   }
   mFactCount++;
   for (  Field f : fact.getFields()) {
@@ -23,15 +23,17 @@
     getDB().insert(this,"fields",null,values);
   }
   ArrayList<Long> newCardIds=new ArrayList<Long>();
+  int count=0;
   for (  Map.Entry<Long,CardModel> entry : cardModels.entrySet()) {
     CardModel cardModel=entry.getValue();
     Card newCard=new Card(this,fact,cardModel,Utils.now());
     newCard.addToDb();
     newCardIds.add(newCard.getId());
-    mCardCount++;
-    mNewCount++;
+    count++;
     Log.i(AnkiDroidApp.TAG,entry.getKey().toString());
   }
+  mCardCount+=count;
+  mNewCount+=count;
   commitToDB();
   fact.setModified(true,this);
   updateFactTags(new long[]{fact.getId()});
@@ -40,5 +42,5 @@
   if (reset) {
     reset();
   }
-  return fact;
+  return count;
 }

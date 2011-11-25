@@ -4,16 +4,8 @@
   mTimeoutHandler.removeCallbacks(mShowAnswerTask);
   mTimeoutHandler.removeCallbacks(mShowQuestionTask);
   longClickHandler.removeCallbacks(longClickTestRunnable);
-  longClickHandler.removeCallbacks(startSelection);
+  longClickHandler.removeCallbacks(startLongClickAction);
   stopTimer();
-  if (!isFinishing()) {
-    Deck deck=AnkiDroidApp.deck();
-    if (deck != null) {
-      DeckTask.waitToFinish();
-      deck.commitToDB();
-    }
-    WidgetStatus.update(getBaseContext());
-  }
   if (mShakeEnabled) {
     mSensorManager.unregisterListener(mSensorListener);
   }

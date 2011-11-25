@@ -1,0 +1,7 @@
+{
+  Log.i(AnkiDroidApp.TAG,"DeckPicker - onStop");
+  super.onStop();
+  if (!isFinishing() && mIsFinished) {
+    WidgetStatus.update(this);
+  }
+}

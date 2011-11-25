@@ -1,0 +1,6 @@
+{
+  if (!sDeckLocks.containsKey(path)) {
+    sDeckLocks.put(path,new ReentrantLock(true));
+  }
+  sDeckLocks.get(path).lock();
+}

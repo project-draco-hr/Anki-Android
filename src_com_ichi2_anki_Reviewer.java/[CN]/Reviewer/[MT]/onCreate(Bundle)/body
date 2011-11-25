@@ -4,10 +4,10 @@
   Log.i(AnkiDroidApp.TAG,"Reviewer - onCreate");
   mChangeBorderStyle=Themes.getTheme() != Themes.THEME_BLUE;
   setVolumeControlStream(AudioManager.STREAM_MUSIC);
-  Deck deck=AnkiDroidApp.deck();
+  Deck deck=DeckManager.getMainDeck();
   if (deck == null) {
-    setResult(StudyOptions.CONTENT_NO_EXTERNAL_STORAGE);
-    finish();
+    finishNoStorageAvailable();
+    return;
   }
  else {
     mMediaDir=setupMedia(deck);

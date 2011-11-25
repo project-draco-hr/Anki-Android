@@ -1,5 +1,5 @@
 {
-  AnkiDroidApp.deck().setupCramScheduler(activeCramTags.toArray(new String[activeCramTags.size()]),cramOrder);
+  DeckManager.getMainDeck().setupCramScheduler(activeCramTags.toArray(new String[activeCramTags.size()]),cramOrder);
   mToggleLimit.setEnabled(false);
   resetAndUpdateValuesFromDeck();
 }

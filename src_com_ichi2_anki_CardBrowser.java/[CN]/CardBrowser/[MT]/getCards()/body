@@ -1,3 +1,12 @@
 {
-  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_CARDS,mLoadCardsHandler,new DeckTask.TaskData(mDeck,LOAD_CHUNK));
+  if ((sCachedDeckPath != null && !sCachedDeckPath.equals(mDeck.getDeckPath())) || !mPrefCacheCardBrowser) {
+    sCachedDeckPath=null;
+    sAllCardsCache=null;
+  }
+  if (mPrefCacheCardBrowser && sAllCardsCache != null && !sAllCardsCache.isEmpty()) {
+    showDialog(DIALOG_RELOAD_CARDS);
+  }
+ else {
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_CARDS,mLoadCardsHandler,new DeckTask.TaskData(mDeck,LOAD_CHUNK));
+  }
 }
