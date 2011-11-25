@@ -1,9 +1,11 @@
 {
+  Log.i(AnkiDroidApp.TAG,"Getting daily stats...");
   int type=STATS_DAY;
   Date today=Utils.genToday(deck.getUtcOffset());
   Stats stats=null;
   Cursor cursor=null;
   try {
+    Log.i(AnkiDroidApp.TAG,"Trying to get stats for " + today.toString());
     cursor=AnkiDatabaseManager.getDatabase(deck.getDeckPath()).getDatabase().rawQuery("SELECT id " + "FROM stats " + "WHERE type = " + String.valueOf(type) + " and day = \""+ today.toString()+ "\"",null);
     if (cursor.moveToFirst()) {
       stats=new Stats(deck);

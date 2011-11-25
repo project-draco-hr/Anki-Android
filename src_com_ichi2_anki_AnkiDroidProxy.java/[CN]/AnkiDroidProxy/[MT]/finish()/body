@@ -16,6 +16,7 @@
     }
     InputStream content=entityResponse.getContent();
     String contentString=Utils.convertStreamToString(new InflaterInputStream(content));
+    Log.i(AnkiDroidApp.TAG,"finish: " + contentString);
     return true;
   }
  catch (  UnsupportedEncodingException e) {

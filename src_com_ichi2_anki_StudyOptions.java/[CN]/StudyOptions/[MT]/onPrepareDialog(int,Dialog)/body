@@ -40,6 +40,7 @@ break;
 case DIALOG_TAGS:
 if (allTags == null) {
 allTags=AnkiDroidApp.deck().allTags_();
+Log.i(AnkiDroidApp.TAG,"all tags: " + Arrays.toString(allTags));
 if (allTags == null) {
 Themes.showThemedToast(StudyOptions.this,getResources().getString(R.string.error_insufficient_memory),false);
 ad.setEnabled(false);
@@ -65,9 +66,11 @@ return;
 }
 String tag=allTags[which];
 if (mSelectedTags.contains(tag)) {
+Log.i(AnkiDroidApp.TAG,"unchecked tag: " + tag);
 mSelectedTags.remove(tag);
 }
  else {
+Log.i(AnkiDroidApp.TAG,"checked tag: " + tag);
 mSelectedTags.add(tag);
 }
 }
@@ -85,9 +88,11 @@ ad.setMultiChoiceItems(allCramTags,new boolean[allCramTags.length],new DialogInt
 @Override public void onClick(DialogInterface arg0,int which){
 String tag=allCramTags[which];
 if (activeCramTags.contains(tag)) {
+Log.i(AnkiDroidApp.TAG,"unchecked tag: " + tag);
 activeCramTags.remove(tag);
 }
  else {
+Log.i(AnkiDroidApp.TAG,"checked tag: " + tag);
 activeCramTags.add(tag);
 }
 }

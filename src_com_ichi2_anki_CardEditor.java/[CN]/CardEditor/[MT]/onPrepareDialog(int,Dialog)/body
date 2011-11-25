@@ -9,6 +9,7 @@ case DIALOG_TAGS:
         ad.setEnabled(false);
         return;
       }
+      Log.i(AnkiDroidApp.TAG,"all tags: " + Arrays.toString(oldTags));
       allTags=new String[oldTags.length];
       for (int i=0; i < oldTags.length; i++) {
         allTags[i]=oldTags[i];
@@ -33,6 +34,7 @@ Log.i(AnkiDroidApp.TAG,"unchecked tag: " + tag);
 mSelectedTags.remove(tag);
 }
  else {
+Log.i(AnkiDroidApp.TAG,"checked tag: " + tag);
 mSelectedTags.add(tag);
 }
 }

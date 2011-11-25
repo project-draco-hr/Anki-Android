@@ -5,6 +5,7 @@
     m.appendReplacement(sb,"{{" + m.group(1) + "}}");
   }
   m.appendTail(sb);
+  Log.i(AnkiDroidApp.TAG,"Compiling question template \"" + sb.toString() + "\"");
   mQTemplate=Mustache.compiler().compile(sb.toString());
   sb=new StringBuffer();
   m=sOldStylePattern.matcher(mAformat);
@@ -12,5 +13,6 @@
     m.appendReplacement(sb,"{{" + m.group(1) + "}}");
   }
   m.appendTail(sb);
+  Log.i(AnkiDroidApp.TAG,"Compiling answer template \"" + sb.toString() + "\"");
   mATemplate=Mustache.compiler().compile(sb.toString());
 }

@@ -8,6 +8,7 @@
   SharedDeckDownload download=(SharedDeckDownload)result.data[0];
   SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
   Editor editor=pref.edit();
+  Log.i(AnkiDroidApp.TAG,"Finished deck " + download.getFilename() + " "+ result.success);
   if (result.success) {
     editor.putLong("numUpdatedCards:" + mDestination + "/tmp/"+ download.getFilename()+ ".anki.updating",0);
     editor.commit();

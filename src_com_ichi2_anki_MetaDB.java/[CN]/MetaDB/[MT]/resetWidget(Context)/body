@@ -3,6 +3,7 @@
     openDB(context);
   }
   try {
+    Log.i(AnkiDroidApp.TAG,"Resetting widget status");
     mMetaDb.execSQL("DROP TABLE IF EXISTS widgetStatus;");
     openDB(context);
     return true;

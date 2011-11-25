@@ -1,5 +1,6 @@
 {
   if (!flip) {
+    Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
     if (mRefreshWebview) {
       mNextCard.setBackgroundColor(mCurrentBackgroundColor);
       mNextCard.loadDataWithBaseURL(mBaseUrl,mCardContent,"text/html","utf-8",null);

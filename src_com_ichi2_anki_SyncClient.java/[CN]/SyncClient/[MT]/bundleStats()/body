@@ -1,6 +1,8 @@
 {
+  Log.i(AnkiDroidApp.TAG,"bundleStats");
   JSONObject bundledStats=new JSONObject();
   Date lastDay=new Date(java.lang.Math.max(0,(long)(mDeck.getLastSync() - 60 * 60 * 24) * 1000));
+  Log.i(AnkiDroidApp.TAG,"lastDay = " + lastDay.toString());
   ArrayList<Long> ids=mDeck.getDB().queryColumn(Long.class,"SELECT id FROM stats WHERE type = 1 and day >= \"" + lastDay.toString() + "\"",0);
   Stats stat=new Stats(mDeck);
   bundledStats.put("global",Stats.globalStats(mDeck).bundleJson());
@@ -12,6 +14,7 @@
     }
   }
   bundledStats.put("daily",dailyStats);
+  Log.i(AnkiDroidApp.TAG,"Stats =");
   Utils.printJSONObject(bundledStats,false);
   return bundledStats;
 }

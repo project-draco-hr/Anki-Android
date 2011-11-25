@@ -1,15 +1,19 @@
 {
+  Log.i(AnkiDroidApp.TAG,"deleteFacts = " + ids.toString());
   int len=ids.size();
   if (len > 0) {
     commitToDB();
     double now=Utils.now();
     String idsString=Utils.ids2str(ids);
+    Log.i(AnkiDroidApp.TAG,"DELETE FROM facts WHERE id in " + idsString);
     getDB().delete(this,"facts","id in " + idsString,null);
+    Log.i(AnkiDroidApp.TAG,"DELETE FROM fields WHERE factId in " + idsString);
     getDB().delete(this,"fields","factId in " + idsString,null);
     for (    String id : ids) {
       ContentValues values=new ContentValues();
       values.put("factId",id);
       values.put("deletedTime",String.format(Utils.ENGLISH_LOCALE,"%f",now));
+      Log.i(AnkiDroidApp.TAG,"inserting into factsDeleted");
       getDB().insert(this,"factsDeleted",null,values);
     }
     setModified();

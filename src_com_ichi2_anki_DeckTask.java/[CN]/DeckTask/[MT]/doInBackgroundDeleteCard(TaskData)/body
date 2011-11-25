@@ -3,6 +3,7 @@
   Card card=params[0].getCard();
   Card newCard=null;
   Long id=0l;
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundDeleteCard");
   try {
     AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(deck.getDeckPath());
     ankiDB.getDatabase().beginTransaction();

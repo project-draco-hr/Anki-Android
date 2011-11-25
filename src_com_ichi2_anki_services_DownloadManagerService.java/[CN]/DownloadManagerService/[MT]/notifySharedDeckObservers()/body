@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"notifySharedDeckObservers");
   final int numSharedDeckCallbacks=mSharedDeckCallbacks.beginBroadcast();
   for (int i=0; i < numSharedDeckCallbacks; i++) {
     try {
