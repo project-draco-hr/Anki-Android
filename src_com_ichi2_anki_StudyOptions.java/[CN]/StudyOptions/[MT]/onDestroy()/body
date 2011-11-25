@@ -1,6 +1,5 @@
 {
   super.onDestroy();
-  Log.i(AnkiDroidApp.TAG,"StudyOptions - onDestroy()");
   if (!isFinishing()) {
     closeOpenedDeck();
     MetaDB.closeDB();
@@ -10,7 +9,6 @@
   }
   if ((AnkiDroidApp.zeemoteController() != null) && (AnkiDroidApp.zeemoteController().isConnected())) {
     try {
-      Log.d("Zeemote","trying to disconnect in onDestroy...");
       AnkiDroidApp.zeemoteController().disconnect();
     }
  catch (    IOException ex) {

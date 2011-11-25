@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundRepairDeck");
   String deckPath=params[0].getString();
   Deck currentDeck=AnkiDroidApp.deck();
   if (currentDeck != null && currentDeck.getDeckPath().equals(deckPath)) {

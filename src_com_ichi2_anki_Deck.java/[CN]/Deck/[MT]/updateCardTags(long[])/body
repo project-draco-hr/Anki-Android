@@ -11,22 +11,15 @@
     cardsWithTags=splitTagsList();
   }
  else {
-    Log.i(AnkiDroidApp.TAG,"updateCardTags cardIds: " + Arrays.toString(cardIds));
     getDB().delete(this,"cardTags","cardId IN " + Utils.ids2str(cardIds),null);
     String factIds=Utils.ids2str(Utils.toPrimitive(getDB().queryColumn(Long.class,"SELECT factId FROM cards WHERE id IN " + Utils.ids2str(cardIds),0)));
-    Log.i(AnkiDroidApp.TAG,"updateCardTags factIds: " + factIds);
     String[] allTags=allTags_("WHERE id IN " + factIds);
     if (allTags != null) {
       tagIds=tagIds(allTags);
     }
-    Log.i(AnkiDroidApp.TAG,"updateCardTags tagIds keys: " + Arrays.toString(tagIds.keySet().toArray(new String[tagIds.size()])));
-    Log.i(AnkiDroidApp.TAG,"updateCardTags tagIds values: " + Arrays.toString(tagIds.values().toArray(new Long[tagIds.size()])));
     cardsWithTags=splitTagsList("AND facts.id IN " + factIds);
-    Log.i(AnkiDroidApp.TAG,"updateCardTags cardTags keys: " + Arrays.toString(cardsWithTags.keySet().toArray(new Long[cardsWithTags.size()])));
     for (    List<String> tags : cardsWithTags.values()) {
-      Log.i(AnkiDroidApp.TAG,"updateCardTags cardTags values: ");
       for (      String tag : tags) {
-        Log.i(AnkiDroidApp.TAG,"updateCardTags row item: " + tag);
       }
     }
   }
@@ -39,7 +32,6 @@
         association.put("cardId",cardId);
         association.put("tagId",tagIds.get(tag.toLowerCase()));
         association.put("src",new Long(src));
-        Log.i(AnkiDroidApp.TAG,"populating association " + src + " "+ tag);
         cardTags.add(association);
       }
     }

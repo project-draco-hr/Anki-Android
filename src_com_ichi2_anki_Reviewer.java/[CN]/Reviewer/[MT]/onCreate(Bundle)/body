@@ -1,7 +1,6 @@
 {
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
-  Log.i(AnkiDroidApp.TAG,"Reviewer - onCreate");
   mChangeBorderStyle=Themes.getTheme() != Themes.THEME_BLUE;
   setVolumeControlStream(AudioManager.STREAM_MUSIC);
   Deck deck=AnkiDroidApp.deck();
@@ -31,7 +30,6 @@
       mSetScrollbarBarFading=WebView.class.getMethod("setScrollbarFadingEnabled",boolean.class);
     }
  catch (    Throwable e) {
-      Log.i(AnkiDroidApp.TAG,"setScrollbarFadingEnabled could not be found due to a too low Android version (< 2.1)");
     }
     mRefreshWebview=getRefreshWebview();
     initLayout(R.layout.flashcard);
@@ -47,7 +45,6 @@
       e.printStackTrace();
     }
     long timelimit=deck.getSessionTimeLimit() * 1000;
-    Log.i(AnkiDroidApp.TAG,"SessionTimeLimit: " + timelimit + " ms.");
     mSessionTimeLimit=System.currentTimeMillis() + timelimit;
     mSessionCurrReps=0;
     if (mSpeakText && Integer.valueOf(android.os.Build.VERSION.SDK) > 3) {

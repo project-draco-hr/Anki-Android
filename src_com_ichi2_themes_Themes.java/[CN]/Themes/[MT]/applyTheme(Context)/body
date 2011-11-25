@@ -6,15 +6,12 @@
 switch (mCurrentTheme) {
 case THEME_ANDROID_DARK:
     context.setTheme(R.style.Theme_Black);
-  Log.i(AnkiDroidApp.TAG,"Set theme: dark");
-break;
+  break;
 case THEME_ANDROID_LIGHT:
 context.setTheme(R.style.Theme_Light);
-Log.i(AnkiDroidApp.TAG,"Set theme: light");
 break;
 case THEME_BLUE:
 context.setTheme(R.style.Theme_Blue);
-Log.i(AnkiDroidApp.TAG,"Set theme: blue");
 break;
 }
 }

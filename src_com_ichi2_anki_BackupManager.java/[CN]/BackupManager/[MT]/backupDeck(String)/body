@@ -23,7 +23,6 @@
   }
   File backupFile=new File(getBackupDirectory().getPath(),backupFilename);
   if (backupFile.exists()) {
-    Log.i(AnkiDroidApp.TAG,"No new backup of " + deckFile.getName() + " created. Already made one today");
     deleteDeckBackups(deckBackups,mMaxBackups);
     return RETURN_TODAY_ALREADY_BACKUP_DONE;
   }

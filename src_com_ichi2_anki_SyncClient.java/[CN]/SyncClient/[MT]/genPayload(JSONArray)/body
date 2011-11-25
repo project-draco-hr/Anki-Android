@@ -16,7 +16,6 @@
     payload.put("sources",bundleSources());
     payload.put("deck",bundleDeck());
   }
-  Log.i(AnkiDroidApp.TAG,"Payload =");
   Utils.printJSONObject(payload,true);
   return payload;
 }

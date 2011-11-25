@@ -74,7 +74,6 @@ len=fileList.length;
 TreeSet<String> tree=new TreeSet<String>();
 mFullDeckPaths=new HashMap<String,String>();
 if (len > 0 && fileList != null) {
-Log.i(AnkiDroidApp.TAG,"CardEditor - populateDeckDialog, number of anki files = " + len);
 for (File file : fileList) {
 String name=file.getName().replaceAll(".anki","");
 tree.add(name);
