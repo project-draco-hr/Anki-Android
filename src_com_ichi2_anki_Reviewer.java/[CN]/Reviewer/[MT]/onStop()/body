@@ -1,18 +1,15 @@
 {
+  mInBackground=true;
   if (mShakeEnabled) {
     mSensorManager.unregisterListener(mSensorListener);
   }
   super.onStop();
-  DeckTask.waitToFinish();
   Deck deck=DeckManager.getMainDeck();
   if (!isFinishing()) {
+    updateBigWidget(!mCardFrame.isEnabled());
+    DeckTask.waitToFinish();
     if (deck != null) {
       deck.commitToDB();
-    }
-    if (DeckManager.deckIsOpenedInBigWidget(DeckManager.getMainDeckPath())) {
-      Log.i(AnkiDroidApp.TAG,"Reviewer: onStop: updating big widget");
-      AnkiDroidWidgetBig.setCard(mCurrentCard);
-      AnkiDroidWidgetBig.updateWidget(AnkiDroidWidgetBig.UpdateService.VIEW_SHOW_QUESTION);
     }
   }
   WidgetStatus.update(this,WidgetStatus.getDeckStatus(deck));

@@ -7,11 +7,13 @@
     }
  else     if (ACTION_UPDATE.equals(action)) {
       if (!sWaitForAsyncTask) {
-        sShowProgressDialog=false;
-        updateViews(intent.getIntExtra(EXTRA_VIEW,VIEW_NOT_SPECIFIED));
-      }
- else       if (sCurrentView == VIEW_SHOW_HELP) {
-        showProgressDialog();
+        if (!intent.getBooleanExtra(EXTRA_PROGRESSDIALOG,false)) {
+          sShowProgressDialog=false;
+          updateViews(intent.getIntExtra(EXTRA_VIEW,VIEW_NOT_SPECIFIED));
+        }
+ else         if (!sShowProgressDialog) {
+          showProgressDialog();
+        }
       }
     }
  else     if (ACTION_OPENDECK.equals(action)) {
@@ -51,6 +53,9 @@
       }
  else {
         if (sLoadedDeck != null) {
+          if (sCard.thinkingTime() > 12) {
+            sCard.setTimerStart(Utils.now() - 6);
+          }
           DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(ease,sLoadedDeck,sCard));
         }
  else {
@@ -71,12 +76,14 @@
         if (sCurrentView != VIEW_NOTHING_DUE) {
           DeckManager.getDeck(deckpath,true,DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS);
           newIntent.putExtra(StudyOptions.EXTRA_START_REVIEWER,true);
+          startActivity(newIntent);
+          showProgressDialog();
         }
       }
  else {
         newIntent.putExtra(StudyOptions.EXTRA_START_DECKPICKER,true);
+        startActivity(newIntent);
       }
-      startActivity(newIntent);
     }
  else     if (ACTION_CARDEDITOR.equals(action)) {
       Intent editIntent=new Intent(this,CardEditor.class);

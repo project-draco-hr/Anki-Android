@@ -1,0 +1,7 @@
+{
+  if (DeckManager.deckIsOpenedInBigWidget(DeckManager.getMainDeckPath())) {
+    Log.i(AnkiDroidApp.TAG,"Reviewer: updateBigWidget");
+    AnkiDroidWidgetBig.setCard(mCurrentCard);
+    AnkiDroidWidgetBig.updateWidget(AnkiDroidWidgetBig.UpdateService.VIEW_SHOW_QUESTION,showProgressDialog);
+  }
+}

@@ -74,6 +74,7 @@
  else   if (requestCode == REQUEST_REVIEW) {
     Log.i(AnkiDroidApp.TAG,"Result code = " + resultCode);
     mInReviewer=false;
+    AnkiDroidWidgetBig.updateWidget(AnkiDroidWidgetBig.UpdateService.VIEW_NOT_SPECIFIED,false);
 switch (resultCode) {
 case Reviewer.RESULT_SESSION_COMPLETED:
       showContentView(CONTENT_SESSION_COMPLETE);

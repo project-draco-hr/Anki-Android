@@ -2,6 +2,9 @@
   Resources res=getResources();
   boolean sessionComplete=false;
   boolean noMoreCards=false;
+  if (mInBackground) {
+    updateBigWidget(false);
+  }
   Deck deck=DeckManager.getMainDeck();
   if (deck == null) {
     return new boolean[]{false,false};
