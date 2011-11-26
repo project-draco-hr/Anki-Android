@@ -75,13 +75,13 @@
       if (deckpath != null) {
         if (sCurrentView != VIEW_NOTHING_DUE) {
           DeckManager.getDeck(deckpath,true,DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS);
-          newIntent.putExtra(StudyOptions.EXTRA_START_REVIEWER,true);
+          newIntent.putExtra(StudyOptions.EXTRA_START,StudyOptions.EXTRA_START_REVIEWER);
           startActivity(newIntent);
           showProgressDialog();
         }
       }
  else {
-        newIntent.putExtra(StudyOptions.EXTRA_START_DECKPICKER,true);
+        newIntent.putExtra(StudyOptions.EXTRA_START,StudyOptions.EXTRA_START_DECKPICKER);
         startActivity(newIntent);
       }
     }
