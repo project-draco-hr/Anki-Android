@@ -13,8 +13,8 @@
   super.onCreate(savedInstanceState);
   Log.i(AnkiDroidApp.TAG,"StudyOptions - OnCreate()");
   Intent intent=getIntent();
-  mStartedByBigWidget=intent.hasExtra(EXTRA_START_REVIEWER) || intent.hasExtra(EXTRA_START_DECKPICKER);
-  if (hasErrorFiles() && !mStartedByBigWidget) {
+  mStartedByBigWidget=intent.getIntExtra(EXTRA_START,EXTRA_START_NOTHING);
+  if (hasErrorFiles() && mStartedByBigWidget == EXTRA_START_NOTHING) {
     Intent i=new Intent(this,Feedback.class);
     startActivityForResult(i,REPORT_ERROR);
   }
@@ -28,70 +28,81 @@
     mDeckFilename=Uri.parse(intent.getDataString()).getPath();
     Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from VIEW intent: " + mDeckFilename);
   }
- else   if (Intent.ACTION_MAIN.equalsIgnoreCase(intent.getAction()) && intent.getBooleanExtra(EXTRA_START_REVIEWER,false)) {
-    openReviewer();
-  }
- else   if (Intent.ACTION_MAIN.equalsIgnoreCase(intent.getAction()) && intent.getBooleanExtra(EXTRA_START_DECKPICKER,false)) {
-    openDeckPicker();
-  }
- else   if (Intent.ACTION_MAIN.equalsIgnoreCase(intent.getAction()) && intent.hasExtra(EXTRA_DECK)) {
-    mDeckFilename=intent.getStringExtra(EXTRA_DECK);
-    Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from MAIN intent: " + mDeckFilename);
-  }
- else   if (savedInstanceState != null) {
-    mDeckFilename=savedInstanceState.getString("deckFilename");
-    Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from savedInstanceState: " + mDeckFilename);
-  }
+ else   if (Intent.ACTION_MAIN.equalsIgnoreCase(intent.getAction()) && mStartedByBigWidget != EXTRA_START_NOTHING) {
+switch (intent.getIntExtra(EXTRA_START,EXTRA_START_NOTHING)) {
+case EXTRA_START_REVIEWER:
+      openReviewer();
+    break;
+case EXTRA_START_DECKPICKER:
+  openDeckPicker();
+break;
+case EXTRA_DB_ERROR:
+onActivityResult(REQUEST_REVIEW,Reviewer.RESULT_ANSWERING_ERROR,null);
+break;
+}
+}
+ else if (Intent.ACTION_MAIN.equalsIgnoreCase(intent.getAction()) && intent.hasExtra(EXTRA_DECK)) {
+mDeckFilename=intent.getStringExtra(EXTRA_DECK);
+Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from MAIN intent: " + mDeckFilename);
+}
+ else if (savedInstanceState != null) {
+mDeckFilename=savedInstanceState.getString("deckFilename");
+Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from savedInstanceState: " + mDeckFilename);
+}
  else {
-    mDeckFilename=preferences.getString("deckFilename",null);
-    Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from preferences: " + mDeckFilename);
-  }
-  if (!mSdCardAvailable) {
-    showContentView(CONTENT_NO_EXTERNAL_STORAGE);
-  }
+mDeckFilename=preferences.getString("deckFilename",null);
+Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from preferences: " + mDeckFilename);
+}
+if (!mSdCardAvailable) {
+showContentView(CONTENT_NO_EXTERNAL_STORAGE);
+}
  else {
-    if (mDeckFilename == null || !new File(mDeckFilename).exists()) {
-      showContentView(CONTENT_NO_DECK);
-    }
- else     if (!mStartedByBigWidget) {
-      if ((showDeckPickerOnStartup()) && (!hasErrorFiles())) {
-        openDeckPicker();
-      }
+if (mStartedByBigWidget == EXTRA_START_DECKPICKER || mStartedByBigWidget == EXTRA_START_REVIEWER) {
+showContentView(CONTENT_STUDY_OPTIONS);
+showDeckInformation(false);
+}
+ else if (mDeckFilename == null || !new File(mDeckFilename).exists()) {
+showContentView(CONTENT_NO_DECK);
+}
+ else if (mStartedByBigWidget == EXTRA_START_NOTHING) {
+if ((showDeckPickerOnStartup()) && (!hasErrorFiles())) {
+openDeckPicker();
+}
  else {
-        loadPreviousDeck();
-      }
-    }
-  }
-  gestureDetector=new GestureDetector(new MyGestureDetector());
-  gestureListener=new View.OnTouchListener(){
-    public boolean onTouch(    View v,    MotionEvent event){
-      if (gestureDetector.onTouchEvent(event)) {
-        return true;
-      }
-      return false;
-    }
-  }
+loadPreviousDeck();
+}
+}
+}
+gestureDetector=new GestureDetector(new MyGestureDetector());
+gestureListener=new View.OnTouchListener(){
+public boolean onTouch(View v,MotionEvent event){
+if (gestureDetector.onTouchEvent(event)) {
+return true;
+}
+return false;
+}
+}
 ;
-  if (getApiLevel() >= 11) {
-    mCompat=new CompatV11();
-  }
+if (getApiLevel() >= 11) {
+mCompat=new CompatV11();
+}
  else {
-    mCompat=new CompatV3();
-  }
-  if (AnkiDroidApp.zeemoteController() == null)   AnkiDroidApp.setZeemoteController(new Controller(Controller.CONTROLLER_1));
-  controllerUi=new ControllerAndroidUi(this,AnkiDroidApp.zeemoteController());
-  com.zeemote.util.Strings zstrings=com.zeemote.util.Strings.getStrings();
-  if (zstrings.isLocaleAvailable(mLocale)) {
-    Log.d("Zeemote","Zeemote locale " + mLocale + " is available. Setting.");
-    zstrings.setLocale(mLocale);
-  }
+mCompat=new CompatV3();
+}
+if (AnkiDroidApp.zeemoteController() == null) AnkiDroidApp.setZeemoteController(new Controller(Controller.CONTROLLER_1));
+controllerUi=new ControllerAndroidUi(this,AnkiDroidApp.zeemoteController());
+com.zeemote.util.Strings zstrings=com.zeemote.util.Strings.getStrings();
+if (zstrings.isLocaleAvailable(mLocale)) {
+Log.d("Zeemote","Zeemote locale " + mLocale + " is available. Setting.");
+zstrings.setLocale(mLocale);
+}
  else {
-    Log.d("Zeemote","Zeemote locale " + mLocale + " is not available.");
-  }
-  if (mZeemoteEnabled) {
-    if (!AnkiDroidApp.zeemoteController().isConnected()) {
-      Log.d("Zeemote","starting connection in onCreate");
-      controllerUi.startConnectionProcess();
-    }
-  }
+Log.d("Zeemote","Zeemote locale " + mLocale + " is not available.");
+}
+if (mZeemoteEnabled) {
+if (!AnkiDroidApp.zeemoteController().isConnected()) {
+Log.d("Zeemote","starting connection in onCreate");
+controllerUi.startConnectionProcess();
+}
+}
 }

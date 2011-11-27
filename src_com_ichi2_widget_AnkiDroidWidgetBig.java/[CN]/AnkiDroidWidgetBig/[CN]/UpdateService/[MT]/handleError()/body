@@ -1,0 +1,11 @@
+{
+  Intent newIntent=StudyOptions.getLoadDeckIntent(AnkiDroidWidgetBig.UpdateService.this,"");
+  newIntent.putExtra(StudyOptions.EXTRA_START,StudyOptions.EXTRA_DB_ERROR);
+  startActivity(newIntent);
+  sCurrentMessage=null;
+  DeckManager.closeDeck(sLoadedDeck.getDeckPath());
+  sLoadedDeck=null;
+  sCard=null;
+  sShowProgressDialog=false;
+  updateViews(VIEW_DECKS);
+}
