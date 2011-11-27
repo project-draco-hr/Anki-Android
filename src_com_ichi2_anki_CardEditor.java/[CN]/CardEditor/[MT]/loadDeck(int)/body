@@ -7,6 +7,11 @@
     BackupManager.restoreDeckIfMissing(mDeckPath);
     return;
   }
+  mModelButtons.setVisibility(View.VISIBLE);
+  mSave.setVisibility(View.VISIBLE);
+  mCancel.setVisibility(View.VISIBLE);
+  mTags.setVisibility(View.VISIBLE);
+  mFieldsLayoutContainer.setVisibility(View.VISIBLE);
   setTitle(mDeck.getDeckName());
   loadContents();
 }

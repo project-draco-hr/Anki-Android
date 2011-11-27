@@ -120,8 +120,14 @@ modelChanged();
 mSave.setEnabled(false);
 String contents=intent.getStringExtra(EXTRA_CONTENTS);
 setEditFieldTexts(contents);
-}
 mModelButtons.setVisibility(View.VISIBLE);
+}
+ else {
+mSave.setVisibility(View.INVISIBLE);
+mCancel.setVisibility(View.INVISIBLE);
+mTags.setVisibility(View.INVISIBLE);
+mFieldsLayoutContainer.setVisibility(View.INVISIBLE);
+}
 mModelButton.setOnClickListener(new View.OnClickListener(){
 public void onClick(View v){
 showDialog(DIALOG_MODEL_SELECT);
