@@ -1,0 +1,15 @@
+{
+  if (mMetaDb == null || !mMetaDb.isOpen()) {
+    openDB(context);
+  }
+  try {
+    Log.i(AnkiDroidApp.TAG,"Resetting intent information");
+    mMetaDb.execSQL("DROP TABLE IF EXISTS intentInformation;");
+    openDB(context);
+    return true;
+  }
+ catch (  Exception e) {
+    Log.e("Error","Error resetting intentInformation ",e);
+  }
+  return false;
+}

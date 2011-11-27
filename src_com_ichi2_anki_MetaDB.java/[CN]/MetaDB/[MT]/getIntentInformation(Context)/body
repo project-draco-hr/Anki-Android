@@ -1,0 +1,24 @@
+{
+  openDBIfClosed(context);
+  Cursor cursor=null;
+  ArrayList<HashMap<String,String>> list=new ArrayList<HashMap<String,String>>();
+  try {
+    cursor=mMetaDb.query("intentInformation",new String[]{"id","source","target"},null,null,null,null,"id");
+    while (cursor.moveToNext()) {
+      HashMap<String,String> item=new HashMap<String,String>();
+      item.put("id",Integer.toString(cursor.getInt(0)));
+      item.put("source",cursor.getString(1));
+      item.put("target",cursor.getString(2));
+      list.add(item);
+    }
+  }
+ catch (  SQLiteException e) {
+    Log.e(AnkiDroidApp.TAG,"Error while querying intentInformation",e);
+  }
+ finally {
+    if (cursor != null && !cursor.isClosed()) {
+      cursor.close();
+    }
+  }
+  return list;
+}

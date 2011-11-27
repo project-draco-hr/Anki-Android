@@ -74,5 +74,8 @@ mCardModelDialog.getButton(StyledDialog.BUTTON_POSITIVE).setEnabled(!mNewSelecte
 );
 ad.getButton(StyledDialog.BUTTON_POSITIVE).setEnabled(!mNewSelectedCardModels.isEmpty());
 break;
+case DIALOG_INTENT_INFORMATION:
+mIntentInformationAdapter.notifyDataSetChanged();
+break;
 }
 }

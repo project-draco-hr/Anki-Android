@@ -12,14 +12,14 @@ for (FieldEditText current : mEditFields) {
 }
 intent.putExtra(EXTRA_CONTENTS,contents.toString());
 }
-startActivity(intent);
+startActivityForResult(intent,REQUEST_ADD);
 if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
 ActivityTransitionAnimation.slide(CardEditor.this,ActivityTransitionAnimation.LEFT);
 }
 return true;
 case MENU_RESET:
 if (mAddFact) {
-if (mCaller == CALLER_INDICLASH) {
+if (mCaller == CALLER_INDICLASH || mCaller == CALLER_CARDEDITOR_INTENT_ADD) {
 if (mSourceText != null) {
 mEditFields.get(0).setText(mSourceText);
 }
@@ -50,6 +50,9 @@ Lookup.lookUp(field.getText().toString().substring(field.getSelectionStart(),fie
 return true;
 case MENU_RESET_CARD_PROGRESS:
 showDialog(DIALOG_RESET_CARD);
+return true;
+case MENU_SAVED_INTENT:
+showDialog(DIALOG_INTENT_INFORMATION);
 return true;
 }
 return false;

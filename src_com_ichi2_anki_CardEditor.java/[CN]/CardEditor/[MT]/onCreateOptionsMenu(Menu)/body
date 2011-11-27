@@ -17,5 +17,10 @@
     item=menu.add(Menu.NONE,MENU_RESET_CARD_PROGRESS,Menu.NONE,res.getString(R.string.card_editor_reset_card));
     item.setIcon(R.drawable.ic_menu_delete);
   }
+  if (mCaller != CALLER_CARDEDITOR_INTENT_ADD) {
+    mIntentInformation=MetaDB.getIntentInformation(this);
+    item=menu.add(Menu.NONE,MENU_SAVED_INTENT,Menu.NONE,res.getString(R.string.intent_add_saved_information));
+    item.setIcon(R.drawable.ic_menu_archive);
+  }
   return true;
 }

@@ -1,0 +1,33 @@
+{
+  int len=0;
+  File[] fileList;
+  File dir=new File(PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).getString("deckPath",AnkiDroidApp.getStorageDirectory()));
+  fileList=dir.listFiles(new AnkiFilter());
+  if (dir.exists() && dir.isDirectory() && fileList != null) {
+    len=fileList.length;
+  }
+  TreeSet<String> tree=new TreeSet<String>();
+  sDeckPaths=new HashMap<String,String>();
+  if (len > 0 && fileList != null) {
+    Log.i(AnkiDroidApp.TAG,"DeckManager - getSelectDeckDialog, number of anki files = " + len);
+    for (    File file : fileList) {
+      String name=file.getName().replaceAll(".anki","");
+      tree.add(name);
+      sDeckPaths.put(name,file.getAbsolutePath());
+    }
+  }
+  StyledDialog.Builder builder=new StyledDialog.Builder(context);
+  builder.setTitle(R.string.fact_adder_select_deck);
+  sDeckNames=new String[tree.size()];
+  tree.toArray(sDeckNames);
+  builder.setItems(sDeckNames,itemClickListener);
+  builder.setOnCancelListener(cancelListener);
+  builder.setOnDismissListener(dismissListener);
+  if (buttonTitle != null) {
+    Button button=new Button(context,null,android.R.attr.buttonStyleSmall);
+    button.setText(buttonTitle);
+    button.setOnClickListener(buttonClickListener);
+    builder.setView(button,false,true);
+  }
+  return builder.create();
+}
