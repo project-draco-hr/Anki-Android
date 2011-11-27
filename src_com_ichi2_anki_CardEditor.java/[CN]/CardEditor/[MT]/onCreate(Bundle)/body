@@ -81,7 +81,6 @@ case CALLER_CARDEDITOR:
 mAddFact=true;
 break;
 case CALLER_INDICLASH:
-prepareForIntentAddition();
 Bundle extras=intent.getExtras();
 if (ACTION_CREATE_FLASHCARD.equals(intent.getAction())) {
 mSourceText=extras.getString(SOURCE_TEXT);
@@ -95,6 +94,11 @@ if (mSourceText == null && mTargetText == null) {
 finish();
 return;
 }
+if (mSourceText.equals("Aedict Notepad") && addFromAedict(mTargetText)) {
+finish();
+return;
+}
+prepareForIntentAddition();
 mAddFact=true;
 break;
 }
