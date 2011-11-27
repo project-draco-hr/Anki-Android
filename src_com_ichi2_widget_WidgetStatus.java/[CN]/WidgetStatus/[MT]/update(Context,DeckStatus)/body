@@ -1,36 +1,3 @@
 {
-  sDeckStatus=deckStatus;
-  SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
-  if (preferences.getBoolean("widgetMediumEnabled",false)) {
-    mediumWidget=true;
-  }
- else {
-    mediumWidget=false;
-  }
-  if (preferences.getBoolean("widgetSmallEnabled",false)) {
-    smallWidget=true;
-  }
- else {
-    smallWidget=false;
-  }
-  if (preferences.getBoolean("widgetBigEnabled",false)) {
-    bigWidget=true;
-  }
- else {
-    bigWidget=false;
-  }
-  if (Integer.parseInt(preferences.getString("minimumCardsDueForNotification","25")) < 1000000 && sDeckStatus == null) {
-    notification=true;
-  }
- else {
-    notification=false;
-  }
-  if ((mediumWidget || smallWidget || bigWidget|| notification) && ((sUpdateDeckStatusAsyncTask == null) || (sUpdateDeckStatusAsyncTask.getStatus() == AsyncTask.Status.FINISHED))) {
-    Log.d(AnkiDroidApp.TAG,"WidgetStatus.update(): updating");
-    sUpdateDeckStatusAsyncTask=new UpdateDeckStatusAsyncTask();
-    sUpdateDeckStatusAsyncTask.execute(context);
-  }
- else {
-    Log.d(AnkiDroidApp.TAG,"WidgetStatus.update(): not enabled");
-  }
+  update(context,deckStatus,true);
 }
