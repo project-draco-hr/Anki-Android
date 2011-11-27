@@ -37,6 +37,7 @@ case EXTRA_START_DECKPICKER:
   openDeckPicker();
 break;
 case EXTRA_DB_ERROR:
+mRepairFileName=intent.getStringExtra(EXTRA_DECK);
 onActivityResult(REQUEST_REVIEW,Reviewer.RESULT_ANSWERING_ERROR,null);
 break;
 }
