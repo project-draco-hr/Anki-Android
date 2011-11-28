@@ -80,6 +80,13 @@ break;
 case CALLER_CARDEDITOR:
 mAddFact=true;
 break;
+case CALLER_CARDEDITOR_INTENT_ADD:
+prepareForIntentAddition();
+mAddFact=true;
+String[] fields=intent.getStringExtra(EXTRA_CONTENTS).split("\\x1f");
+mSourceText=fields[0];
+mTargetText=fields[1];
+break;
 case CALLER_INDICLASH:
 prepareForIntentAddition();
 Bundle extras=intent.getExtras();
@@ -98,7 +105,7 @@ return;
 mAddFact=true;
 break;
 }
-if (mCaller != CALLER_INDICLASH) {
+if (mCaller != CALLER_INDICLASH && mCaller != CALLER_CARDEDITOR_INTENT_ADD) {
 mDeckPath=intent.getStringExtra(EXTRA_DECKPATH);
 mDeck=DeckManager.getDeck(mDeckPath,DeckManager.REQUESTING_ACTIVITY_CARDEDITOR,false);
 if (mDeck == null) {
@@ -107,14 +114,20 @@ return;
 }
 }
 if (mAddFact) {
-if (mCaller != CALLER_INDICLASH) {
+if (mCaller != CALLER_INDICLASH && mCaller != CALLER_CARDEDITOR_INTENT_ADD) {
 loadContents();
 modelChanged();
 mSave.setEnabled(false);
 String contents=intent.getStringExtra(EXTRA_CONTENTS);
 setEditFieldTexts(contents);
-}
 mModelButtons.setVisibility(View.VISIBLE);
+}
+ else {
+mSave.setVisibility(View.INVISIBLE);
+mCancel.setVisibility(View.INVISIBLE);
+mTags.setVisibility(View.INVISIBLE);
+mFieldsLayoutContainer.setVisibility(View.INVISIBLE);
+}
 mModelButton.setOnClickListener(new View.OnClickListener(){
 public void onClick(View v){
 showDialog(DIALOG_MODEL_SELECT);

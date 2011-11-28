@@ -1,7 +1,30 @@
 {
   super.onActivityResult(requestCode,resultCode,data);
-  if (resultCode == Reviewer.RESULT_EDIT_CARD_RESET) {
-    mCardReset=true;
-    setResult(Reviewer.RESULT_EDIT_CARD_RESET);
+switch (requestCode) {
+case REQUEST_INTENT_ADD:
+    if (resultCode != RESULT_CANCELED) {
+      String id=data.getStringExtra(EXTRA_ID);
+      if (id != null) {
+        for (int i=0; i < mIntentInformation.size(); i++) {
+          if (mIntentInformation.get(i).get("id").endsWith(id)) {
+            if (MetaDB.removeIntentInformation(CardEditor.this,id)) {
+              mIntentInformation.remove(i);
+              mIntentInformationAdapter.notifyDataSetChanged();
+            }
+            break;
+          }
+        }
+      }
+    }
+  if (mIntentInformation.size() > 0) {
+    showDialog(DIALOG_INTENT_INFORMATION);
   }
+break;
+case REQUEST_ADD:
+if (resultCode == Reviewer.RESULT_EDIT_CARD_RESET) {
+mCardReset=true;
+setResult(Reviewer.RESULT_EDIT_CARD_RESET);
+}
+break;
+}
 }

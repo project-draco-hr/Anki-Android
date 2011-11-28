@@ -1,0 +1,14 @@
+{
+  if (mMetaDb == null || !mMetaDb.isOpen()) {
+    openDB(context);
+  }
+  try {
+    Log.i(AnkiDroidApp.TAG,"Deleting intent information " + id);
+    mMetaDb.execSQL("DELETE FROM intentInformation WHERE id = " + id + ";");
+    return true;
+  }
+ catch (  Exception e) {
+    Log.e("Error","Error deleting intentInformation " + id + ": ",e);
+  }
+  return false;
+}

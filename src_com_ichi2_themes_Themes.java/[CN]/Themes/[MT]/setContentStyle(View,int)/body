@@ -31,6 +31,13 @@ lv.setSelector(R.drawable.blue_cardbrowser_list_selector);
 lv.setDividerHeight(0);
 }
 break;
+case CALLER_CARDEDITOR_INTENTDIALOG:
+if (mCurrentTheme == THEME_BLUE) {
+ListView lv=(ListView)view;
+lv.setSelector(R.drawable.blue_cardbrowser_list_selector);
+lv.setDividerHeight(0);
+}
+break;
 case CALLER_DECKPICKER_DECK:
 if (view.getId() == R.id.DeckPickerCompletionMat) {
 view.setBackgroundResource(mProgressbarsFrameColor);
