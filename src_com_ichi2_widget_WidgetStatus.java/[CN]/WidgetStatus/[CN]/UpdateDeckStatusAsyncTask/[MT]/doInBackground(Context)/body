@@ -5,7 +5,7 @@
     return context;
   }
   ArrayList<DeckStatus> decks;
-  if (sDeckStatus != null) {
+  if (sDeckStatus != null && mDecks != null && mDecks.length > 0) {
     decks=new ArrayList<DeckStatus>(mDecks.length);
     for (    DeckStatus m : mDecks) {
       if (m.mDeckPath.equals(sDeckStatus.mDeckPath)) {
