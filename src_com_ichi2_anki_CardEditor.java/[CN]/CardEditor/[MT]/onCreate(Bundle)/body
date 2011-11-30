@@ -18,6 +18,7 @@
   mTags=(Button)findViewById(R.id.CardEditorTagButton);
   mNewSelectedCardModels=new LinkedHashMap<Long,CardModel>();
   cardModelIds=new ArrayList<Long>();
+  mAedictIntent=false;
   Intent intent=getIntent();
   if (savedInstanceState != null) {
     mDeckPath=savedInstanceState.getString("deckFilename");
