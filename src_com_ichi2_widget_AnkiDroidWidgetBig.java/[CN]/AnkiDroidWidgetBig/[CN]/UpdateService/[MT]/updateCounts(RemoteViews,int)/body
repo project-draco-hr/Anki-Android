@@ -24,8 +24,8 @@
 switch (view) {
 case VIEW_SHOW_QUESTION:
 case VIEW_NOTHING_DUE:
-    updateViews.setTextViewText(R.id.widget_big_counts,getDeckStatusString(sLoadedDeck,sCard));
-  double sessionProgress=sLoadedDeck.getSessionProgress(true);
+    updateViews.setTextViewText(R.id.widget_big_counts,getDeckStatusString(contentService.mLoadedDeck,contentService.mCurrentCard));
+  double sessionProgress=contentService.mLoadedDeck.getSessionProgress(true);
 if (sessionProgress == -1) {
   updateViews.setViewVisibility(R.id.widget_big_progress_frame_deck,View.INVISIBLE);
 }
@@ -33,12 +33,12 @@ if (sessionProgress == -1) {
   updateViews.setProgressBar(R.id.widget_big_progress_deck,100,(int)(sessionProgress * 100),false);
   updateViews.setViewVisibility(R.id.widget_big_progress_frame_deck,View.VISIBLE);
 }
-sTomorrowDues=null;
+contentService.mTomorrowDues=null;
 break;
 case VIEW_CONGRATS:
-if (sTomorrowDues != null && sTomorrowDues.length > 0) {
+if (contentService.mTomorrowDues != null && contentService.mTomorrowDues.length > 0) {
 updateViews.setViewVisibility(R.id.widget_big_totalcongrats,View.VISIBLE);
-setDeckCounts(updateViews,sTomorrowDues);
+setDeckCounts(updateViews,contentService.mTomorrowDues);
 }
 break;
 case VIEW_DECKS:

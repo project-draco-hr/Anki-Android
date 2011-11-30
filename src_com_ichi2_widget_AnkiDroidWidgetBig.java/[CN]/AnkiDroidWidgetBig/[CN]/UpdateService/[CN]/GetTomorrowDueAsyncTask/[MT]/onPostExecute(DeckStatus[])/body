@@ -1,13 +1,13 @@
 {
   Log.d(AnkiDroidApp.TAG,"DeckManager.CloseDeckAsyncTask.onPostExecute()");
-  sLoadedDeck=null;
-  sCard=null;
-  sCurrentMessage=null;
-  sWaitForAsyncTask=false;
-  sTomorrowDues=status;
-  if (sShowProgressDialog) {
-    sShowProgressDialog=false;
+  contentService.mLoadedDeck=null;
+  contentService.mCurrentCard=null;
+  contentService.mBigCurrentMessage=null;
+  contentService.mWaitForAsyncTask=false;
+  contentService.mTomorrowDues=status;
+  if (contentService.mBigShowProgressDialog) {
+    contentService.mBigShowProgressDialog=false;
     updateWidget(VIEW_CONGRATS);
   }
-  sShowProgressDialog=false;
+  contentService.mBigShowProgressDialog=false;
 }

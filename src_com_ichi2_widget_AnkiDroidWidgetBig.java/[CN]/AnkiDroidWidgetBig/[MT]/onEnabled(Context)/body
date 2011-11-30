@@ -9,12 +9,13 @@
     context.startService(intent);
   }
   preferences.edit().putBoolean("widgetBigEnabled",true).commit();
-  sContext=context;
-  sCurrentView=UpdateService.VIEW_NOT_SPECIFIED;
-  sLoadedDeck=null;
-  sCard=null;
-  sCurrentMessage=null;
-  sShowProgressDialog=false;
-  sTomorrowDues=null;
-  sWaitForAsyncTask=false;
+  if (contentService != null) {
+    contentService.mBigCurrentView=UpdateService.VIEW_NOT_SPECIFIED;
+    contentService.mLoadedDeck=null;
+    contentService.mCurrentCard=null;
+    contentService.mBigCurrentMessage=null;
+    contentService.mBigShowProgressDialog=false;
+    contentService.mTomorrowDues=null;
+    contentService.mWaitForAsyncTask=false;
+  }
 }

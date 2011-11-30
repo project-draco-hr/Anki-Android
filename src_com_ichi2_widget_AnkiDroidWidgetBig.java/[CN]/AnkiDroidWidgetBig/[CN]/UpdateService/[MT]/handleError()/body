@@ -1,15 +1,15 @@
 {
   String deckpath=null;
-  if (sLoadedDeck != null) {
-    deckpath=sLoadedDeck.getDeckPath();
+  if (contentService.mLoadedDeck != null) {
+    deckpath=contentService.mLoadedDeck.getDeckPath();
   }
   Intent newIntent=StudyOptions.getLoadDeckIntent(AnkiDroidWidgetBig.UpdateService.this,deckpath);
   newIntent.putExtra(StudyOptions.EXTRA_START,StudyOptions.EXTRA_DB_ERROR);
   startActivity(newIntent);
-  sCurrentMessage=null;
-  DeckManager.closeDeck(sLoadedDeck.getDeckPath());
-  sLoadedDeck=null;
-  sCard=null;
-  sShowProgressDialog=false;
+  contentService.mBigCurrentMessage=null;
+  DeckManager.closeDeck(contentService.mLoadedDeck.getDeckPath());
+  contentService.mLoadedDeck=null;
+  contentService.mCurrentCard=null;
+  contentService.mBigShowProgressDialog=false;
   updateViews(VIEW_DECKS);
 }

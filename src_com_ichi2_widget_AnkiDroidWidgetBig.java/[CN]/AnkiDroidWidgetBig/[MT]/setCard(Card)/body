@@ -1,5 +1,5 @@
 {
-  if (sLoadedDeck != null) {
-    sCard=card;
+  if (contentService != null && contentService.mLoadedDeck != null) {
+    contentService.mCurrentCard=card;
   }
 }
