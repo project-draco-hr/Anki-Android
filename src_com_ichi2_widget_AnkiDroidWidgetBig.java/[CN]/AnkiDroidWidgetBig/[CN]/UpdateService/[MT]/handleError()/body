@@ -9,7 +9,7 @@
   contentService.mBigCurrentMessage=null;
   DeckManager.closeDeck(contentService.mLoadedDeck.getDeckPath());
   contentService.mLoadedDeck=null;
-  contentService.mCurrentCard=null;
+  contentService.setCard(null);
   contentService.mBigShowProgressDialog=false;
   updateViews(VIEW_DECKS);
 }

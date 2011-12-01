@@ -12,7 +12,8 @@
   if (contentService != null) {
     contentService.mBigCurrentView=UpdateService.VIEW_NOT_SPECIFIED;
     contentService.mLoadedDeck=null;
-    contentService.mCurrentCard=null;
+    PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).edit().putString("lastWidgetDeck","").commit();
+    contentService.setCard(null);
     contentService.mBigCurrentMessage=null;
     contentService.mBigShowProgressDialog=false;
     contentService.mTomorrowDues=null;

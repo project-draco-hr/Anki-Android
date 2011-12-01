@@ -1,6 +1,6 @@
 {
   String path="";
-  long cardId=0;
+  long cardId=0l;
   if (mLoadedDeck != null) {
     path=mLoadedDeck.getDeckPath();
     DeckManager.closeDeck(path,DeckManager.REQUESTING_ACTIVITY_BIGWIDGET);

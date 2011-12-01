@@ -125,7 +125,7 @@
       if (contentService.mLoadedDeck != null) {
         contentService.mLoadedDeck.setupLearnMoreScheduler();
         contentService.mLoadedDeck.reset();
-        contentService.mCurrentCard=contentService.mLoadedDeck.getCard();
+        contentService.setCard();
         contentService.mBigShowProgressDialog=false;
         contentService.mBigCurrentMessage=null;
         updateViews(VIEW_SHOW_QUESTION);
@@ -138,7 +138,7 @@
       if (contentService.mLoadedDeck != null) {
         contentService.mLoadedDeck.setupReviewEarlyScheduler();
         contentService.mLoadedDeck.reset();
-        contentService.mCurrentCard=contentService.mLoadedDeck.getCard();
+        contentService.setCard();
         contentService.mBigShowProgressDialog=false;
         contentService.mBigCurrentMessage=null;
         updateViews(VIEW_SHOW_QUESTION);
