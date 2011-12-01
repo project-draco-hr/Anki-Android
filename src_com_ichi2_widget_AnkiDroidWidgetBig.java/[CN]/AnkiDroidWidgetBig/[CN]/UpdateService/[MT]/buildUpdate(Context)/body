@@ -1,7 +1,12 @@
 {
-  Log.i(AnkiDroidApp.TAG,"BigWidget: buildUpdate (" + contentService.mBigCurrentView + ")");
   Resources res=getResources();
   RemoteViews updateViews=new RemoteViews(context.getPackageName(),R.layout.widget_big);
+  if (contentService == null) {
+    updateViews.setViewVisibility(R.id.widget_big_progressbar,View.VISIBLE);
+    updateViews.setViewVisibility(R.id.widget_big_noclicks,View.VISIBLE);
+    return updateViews;
+  }
+  Log.i(AnkiDroidApp.TAG,"BigWidget: buildUpdate (" + contentService.mBigCurrentView + ")");
   if (contentService.mBigCurrentView == VIEW_DECKS || contentService.mBigCurrentView == VIEW_SHOW_HELP || contentService.mBigCurrentView == VIEW_CONGRATS) {
   }
  else   if (contentService.mLoadedDeck == null) {

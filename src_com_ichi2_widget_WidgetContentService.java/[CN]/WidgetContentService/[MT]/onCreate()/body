@@ -1,3 +1,9 @@
 {
   super.onCreate();
+  String path=PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).getString("lastWidgetDeck","");
+  if (path != null && path.length() > 0) {
+    Log.i(AnkiDroidApp.TAG,"BigWidget: reloading deck " + path);
+    mLoadedDeck=DeckManager.getDeck(path,DeckManager.REQUESTING_ACTIVITY_BIGWIDGET,true);
+    mCurrentCard=mLoadedDeck.getCard();
+  }
 }
