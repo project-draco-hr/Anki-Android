@@ -1,15 +1,16 @@
 {
   Log.i(AnkiDroidApp.TAG,"BigWidget: OnStart");
-  if (contentService == null) {
+  if (intent == null) {
+  }
+ else   if (contentService == null) {
     Log.i(AnkiDroidApp.TAG,"binding content service");
     updateViews();
     tempIntent=intent;
     sContext=this;
-    Intent contentIntent=new Intent(this.getApplicationContext(),WidgetContentService.class);
+    Intent contentIntent=new Intent(this,WidgetContentService.class);
     this.bindService(contentIntent,localServiceConnection,Context.BIND_AUTO_CREATE);
-    return;
   }
-  if (intent != null && intent.getAction() != null) {
+ else   if (intent.getAction() != null) {
     String action=intent.getAction();
     if (ACTION_NOTHING.equals(action)) {
     }
