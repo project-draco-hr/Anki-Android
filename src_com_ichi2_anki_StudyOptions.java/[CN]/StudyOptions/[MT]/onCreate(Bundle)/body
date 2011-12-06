@@ -34,7 +34,7 @@ case EXTRA_START_REVIEWER:
       openReviewer();
     break;
 case EXTRA_START_DECKPICKER:
-  openDeckPicker();
+  openDeckPicker(false);
 break;
 case EXTRA_DB_ERROR:
 mRepairFileName=intent.getStringExtra(EXTRA_DECK);
