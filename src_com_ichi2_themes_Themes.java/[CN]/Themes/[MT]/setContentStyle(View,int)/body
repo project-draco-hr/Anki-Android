@@ -1,7 +1,4 @@
 {
-  if (mCurrentTheme == THEME_ANDROID_DARK) {
-    return;
-  }
 switch (caller) {
 case CALLER_STUDYOPTIONS:
     ((View)view.findViewById(R.id.studyoptions_progressbar1_border)).setBackgroundResource(mProgressbarsFrameColor);
@@ -18,24 +15,51 @@ case CALLER_STUDYOPTIONS:
 ((View)view.findViewById(R.id.studyoptions_global_bar)).setBackgroundResource(mProgressbarsYoungColor);
 break;
 case CALLER_DECKPICKER:
-if (mCurrentTheme == THEME_BLUE) {
+switch (mCurrentTheme) {
+case THEME_BLUE:
 ListView lv=(ListView)view.findViewById(R.id.files);
 lv.setSelector(R.drawable.blue_deckpicker_list_selector);
 lv.setDividerHeight(0);
+break;
+case THEME_FLAT:
+ListView lv=(ListView)view.findViewById(R.id.files);
+lv.setSelector(R.drawable.blue_deckpicker_list_selector);
+lv.setDividerHeight(0);
+break;
+default :
+break;
 }
 break;
 case CALLER_CARDBROWSER:
-if (mCurrentTheme == THEME_BLUE) {
+switch (mCurrentTheme) {
+case THEME_BLUE:
 ListView lv=(ListView)view.findViewById(R.id.card_browser_list);
 lv.setSelector(R.drawable.blue_cardbrowser_list_selector);
 lv.setDividerHeight(0);
+break;
+case THEME_FLAT:
+ListView lv=(ListView)view.findViewById(R.id.card_browser_list);
+lv.setSelector(R.drawable.blue_cardbrowser_list_selector);
+lv.setDividerHeight(0);
+break;
+default :
+break;
 }
 break;
 case CALLER_CARDEDITOR_INTENTDIALOG:
-if (mCurrentTheme == THEME_BLUE) {
+switch (mCurrentTheme) {
+case THEME_BLUE:
 ListView lv=(ListView)view;
 lv.setSelector(R.drawable.blue_cardbrowser_list_selector);
 lv.setDividerHeight(0);
+break;
+case THEME_FLAT:
+ListView lv=(ListView)view;
+lv.setSelector(R.drawable.blue_cardbrowser_list_selector);
+lv.setDividerHeight(0);
+break;
+default :
+break;
 }
 break;
 case CALLER_DECKPICKER_DECK:
@@ -52,7 +76,18 @@ break;
 case CALLER_REVIEWER:
 ((View)view.findViewById(R.id.main_layout)).setBackgroundResource(mReviewerBackground);
 ((View)view.findViewById(R.id.flashcard_border)).setBackgroundResource(mFlashcardBorder);
-((View)view.findViewById(R.id.flashcard_frame)).setBackgroundResource(PrefSettings.getSharedPrefs(mContext).getBoolean("invertedColors",false) ? (mCurrentTheme == THEME_BLUE ? R.color.reviewer_night_card_background : R.color.black) : R.color.white);
+switch (mCurrentTheme) {
+case THEME_ANDROID_DARK:
+case THEME_ANDROID_LIGHT:
+((View)view.findViewById(R.id.flashcard_frame)).setBackgroundResource(PrefSettings.getSharedPrefs(mContext).getBoolean("invertedColors",false) ? R.color.black : R.color.white);
+break;
+case THEME_BLUE:
+((View)view.findViewById(R.id.flashcard_frame)).setBackgroundResource(PrefSettings.getSharedPrefs(mContext).getBoolean("invertedColors",false) ? R.color.reviewer_night_card_background : R.color.white);
+break;
+case THEME_FLAT:
+((View)view.findViewById(R.id.flashcard_frame)).setBackgroundResource(PrefSettings.getSharedPrefs(mContext).getBoolean("invertedColors",false) ? R.color.reviewer_night_card_background : R.color.white);
+break;
+}
 ((View)view.findViewById(R.id.session_progress)).setBackgroundResource(mReviewerProgressbar);
 break;
 case CALLER_FEEDBACK:
