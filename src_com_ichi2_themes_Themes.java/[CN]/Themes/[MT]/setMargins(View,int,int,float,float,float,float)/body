@@ -1,0 +1,15 @@
+{
+  View parent=(View)view.getParent();
+  parent.setBackgroundResource(mBackgroundColor);
+  Class c=view.getParent().getClass();
+  float factor=mContext.getResources().getDisplayMetrics().density;
+  if (c == LinearLayout.class) {
+    parent.setPadding((int)(dipLeft * factor),(int)(dipTop * factor),(int)(dipRight * factor),(int)(dipBottom * factor));
+  }
+ else   if (c == FrameLayout.class) {
+    parent.setPadding((int)(dipLeft * factor),(int)(dipTop * factor),(int)(dipRight * factor),(int)(dipBottom * factor));
+  }
+ else   if (c == RelativeLayout.class) {
+    parent.setPadding((int)(dipLeft * factor),(int)(dipTop * factor),(int)(dipRight * factor),(int)(dipBottom * factor));
+  }
+}

@@ -1,15 +1,19 @@
 {
+  setFont(main);
+  if (mCurrentTheme == THEME_WHITE) {
+    setTextColor(main,mContext.getResources().getColor(R.color.black));
+  }
   View topPanel=((View)main.findViewById(R.id.topPanel));
   boolean[] visibility=new boolean[5];
   if (topPanel.getVisibility() == View.VISIBLE) {
     try {
       topPanel.setBackgroundResource(mPopupTopDark);
+      ((View)main.findViewById(R.id.titleDivider)).setBackgroundResource(mDividerHorizontalBright);
     }
  catch (    OutOfMemoryError e) {
       Log.e(AnkiDroidApp.TAG,"setStyledDialogBackgrounds - OutOfMemoryError occured: " + e);
       topPanel.setBackgroundResource(R.color.black);
     }
-    ((View)main.findViewById(R.id.titleDivider)).setBackgroundResource(mDividerHorizontalBright);
     visibility[0]=true;
   }
   View contentPanel=((View)main.findViewById(R.id.contentPanel));

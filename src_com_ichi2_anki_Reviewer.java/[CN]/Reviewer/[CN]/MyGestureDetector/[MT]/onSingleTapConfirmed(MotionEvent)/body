@@ -1,7 +1,7 @@
 {
   if (mGesturesEnabled && !mIsSelecting) {
-    int height=mCard.getHeight();
-    int width=mCard.getWidth();
+    int height=mTouchLayer.getHeight();
+    int width=mTouchLayer.getWidth();
     float posX=e.getX();
     float posY=e.getY();
     if (posX > posY / height * width) {
