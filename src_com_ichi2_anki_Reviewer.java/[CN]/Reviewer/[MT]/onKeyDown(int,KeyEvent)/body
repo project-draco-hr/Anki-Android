@@ -4,33 +4,35 @@
     closeReviewer(RESULT_DEFAULT,false);
     return true;
   }
-  if (keyCode == 92) {
-    mCard.pageUp(false);
-    if (mDoubleScrolling) {
+  if (!mSimpleInterface) {
+    if (keyCode == 92) {
       mCard.pageUp(false);
+      if (mDoubleScrolling) {
+        mCard.pageUp(false);
+      }
+      return true;
     }
-    return true;
-  }
-  if (keyCode == 93) {
-    mCard.pageDown(false);
-    if (mDoubleScrolling) {
+    if (keyCode == 93) {
       mCard.pageDown(false);
+      if (mDoubleScrolling) {
+        mCard.pageDown(false);
+      }
+      return true;
     }
-    return true;
-  }
-  if (mScrollingButtons && keyCode == 94) {
-    mCard.pageUp(false);
-    if (mDoubleScrolling) {
+    if (mScrollingButtons && keyCode == 94) {
       mCard.pageUp(false);
+      if (mDoubleScrolling) {
+        mCard.pageUp(false);
+      }
+      return true;
     }
-    return true;
-  }
-  if (mScrollingButtons && keyCode == 95) {
-    mCard.pageDown(false);
-    if (mDoubleScrolling) {
+    if (mScrollingButtons && keyCode == 95) {
       mCard.pageDown(false);
+      if (mDoubleScrolling) {
+        mCard.pageDown(false);
+      }
+      return true;
     }
-    return true;
   }
   return super.onKeyDown(keyCode,event);
 }

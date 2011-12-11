@@ -1,7 +1,9 @@
 {
   Resources res=getResources();
   int fgColor=invert ? res.getColor(R.color.foreground_color_inv) : res.getColor(R.color.black);
-  mCard.setBackgroundColor(mCurrentBackgroundColor);
+  if (!mSimpleInterface) {
+    mCard.setBackgroundColor(mCurrentBackgroundColor);
+  }
   if (mChangeBorderStyle) {
     mMainLayout.setBackgroundColor(mCurrentBackgroundColor);
     mFlipCardLayout.setBackgroundDrawable(invert ? res.getDrawable(R.drawable.btn_keyboard_key_fulltrans_normal) : mDefaultButtonDrawable[0]);
