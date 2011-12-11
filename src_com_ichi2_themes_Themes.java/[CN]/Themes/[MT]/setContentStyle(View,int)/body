@@ -124,6 +124,11 @@ break;
 case CALLER_FEEDBACK:
 ((TextView)view).setTextColor(mProgressbarsFrameColor);
 break;
+case CALLER_CARD_EDITOR:
+view.findViewById(R.id.CardEditorEditFieldsLayout).setBackgroundResource(mTextViewStyle);
+int padding=(int)(4 * mContext.getResources().getDisplayMetrics().density);
+view.findViewById(R.id.CardEditorScroll).setPadding(padding,padding,padding,padding);
+break;
 case CALLER_DOWNLOAD_DECK:
 view.setBackgroundResource(mDeckpickerItemBorder);
 break;
