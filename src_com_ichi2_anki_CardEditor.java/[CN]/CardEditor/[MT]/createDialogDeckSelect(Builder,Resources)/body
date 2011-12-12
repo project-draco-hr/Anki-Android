@@ -1,0 +1,34 @@
+{
+  StyledDialog dialog=DeckManager.getSelectDeckDialog(this,new DialogInterface.OnClickListener(){
+    @Override public void onClick(    DialogInterface dialog,    int item){
+      loadDeck(item);
+    }
+  }
+,new OnCancelListener(){
+    @Override public void onCancel(    DialogInterface arg0){
+      mCancelled=true;
+    }
+  }
+,new OnDismissListener(){
+    @Override public void onDismiss(    DialogInterface arg0){
+      if (mCancelled == true) {
+        finish();
+        if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+          ActivityTransitionAnimation.slide(CardEditor.this,ActivityTransitionAnimation.FADE);
+        }
+      }
+ else       if (mDeck == null) {
+        showDialog(DIALOG_DECK_SELECT);
+      }
+    }
+  }
+,mCaller == CALLER_CARDEDITOR_INTENT_ADD ? null : res.getString(R.string.intent_add_save_for_later),mCaller == CALLER_CARDEDITOR_INTENT_ADD ? null : new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      MetaDB.saveIntentInformation(CardEditor.this,mSourceText,mTargetText);
+      mCancelled=true;
+      finish();
+    }
+  }
+);
+  return dialog;
+}
