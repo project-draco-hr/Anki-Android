@@ -1,5 +1,6 @@
 {
   View parent=(View)view.getParent();
+  parent.setBackgroundResource(mBackgroundColor);
   Class c=view.getParent().getClass();
   float factor=mContext.getResources().getDisplayMetrics().density;
   if (c == LinearLayout.class) {

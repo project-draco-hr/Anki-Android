@@ -20,6 +20,10 @@
     Themes.setRegularFont(mSimpleCard);
     mSimpleCard.setTextSize(mSimpleCard.getTextSize() * mDisplayFontSize / 100);
     mSimpleCard.setGravity(Gravity.CENTER);
+    if (Integer.parseInt(android.os.Build.VERSION.SDK) >= 11) {
+      mSimpleCard.setTextIsSelectable(true);
+    }
+    mSimpleCard.setClickable(true);
     mCardFrame.addView(mSimpleCard);
   }
  else {
@@ -68,7 +72,7 @@
   mNext1.setTextColor(res.getColor(R.color.next_time_failed_color));
   mNext2.setTextColor(res.getColor(R.color.next_time_usual_color));
   if (!mshowNextReviewTime) {
-    ((LinearLayout)findViewById(R.id.nextTimeflip)).setVisibility(View.GONE);
+    ((TextView)findViewById(R.id.nextTimeflip)).setVisibility(View.GONE);
     mNext1.setVisibility(View.GONE);
     mNext2.setVisibility(View.GONE);
     mNext3.setVisibility(View.GONE);

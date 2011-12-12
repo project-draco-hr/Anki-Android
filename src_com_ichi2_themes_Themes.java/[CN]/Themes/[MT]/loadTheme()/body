@@ -35,6 +35,7 @@ mPopupFullDark=R.drawable.popup_full_dark;
 mPopupFullMedium=R.drawable.popup_full_bright;
 mDividerHorizontalBright=R.drawable.blue_divider_horizontal_bright;
 mBackgroundColor=R.color.white;
+mProgressDialogFontColor=mContext.getResources().getColor(R.color.white);
 break;
 case THEME_ANDROID_LIGHT:
 mProgressbarsBackgroundColor=R.color.studyoptions_progressbar_background_light;
@@ -69,6 +70,7 @@ mPopupFullMedium=R.drawable.popup_full_bright;
 mPopupFullDark=R.drawable.popup_full_dark;
 mDividerHorizontalBright=R.drawable.blue_divider_horizontal_bright;
 mBackgroundColor=R.color.white;
+mProgressDialogFontColor=mContext.getResources().getColor(R.color.white);
 break;
 case THEME_BLUE:
 mProgressbarsBackgroundColor=R.color.studyoptions_progressbar_background_blue;
@@ -103,6 +105,7 @@ mPopupFullBright=R.drawable.blue_popup_full_bright;
 mPopupFullMedium=R.drawable.blue_popup_full_medium;
 mPopupFullDark=R.drawable.blue_popup_full_dark;
 mDividerHorizontalBright=R.drawable.blue_divider_horizontal_bright;
+mProgressDialogFontColor=mContext.getResources().getColor(R.color.white);
 break;
 case THEME_FLAT:
 mProgressbarsBackgroundColor=R.color.studyoptions_progressbar_background_blue;
@@ -140,6 +143,7 @@ mDividerHorizontalBright=R.drawable.blue_divider_horizontal_bright;
 mLightFont=Typeface.createFromAsset(mContext.getAssets(),"fonts/OpenSans-Light.ttf");
 mRegularFont=Typeface.createFromAsset(mContext.getAssets(),"fonts/OpenSans-Regular.ttf");
 mBoldFont=Typeface.createFromAsset(mContext.getAssets(),"fonts/OpenSans-Bold.ttf");
+mProgressDialogFontColor=mContext.getResources().getColor(R.color.white);
 break;
 case THEME_WHITE:
 mProgressbarsBackgroundColor=R.color.studyoptions_progressbar_background_blue;
@@ -151,19 +155,19 @@ mReviewerBackground=R.color.white_background;
 mFlashcardBorder=R.drawable.white_bg_webview;
 mDeckpickerItemBorder=R.drawable.white_bg_deckpicker;
 mTitleStyle=R.drawable.flat_title;
-mTitleTextColor=mContext.getResources().getColor(R.color.flat_title_color);
+mTitleTextColor=mContext.getResources().getColor(R.color.black);
 mTextViewStyle=R.drawable.white_textview_padding;
 mWallpaper=R.color.white_background;
 mBackgroundColor=R.color.white_background;
-mToastBackground=R.drawable.blue_toast_frame;
-mDialogBackgroundColor=R.color.background_dialog_blue;
+mToastBackground=R.drawable.white_toast_frame;
+mDialogBackgroundColor=mBackgroundColor;
 mBackgroundDarkColor=R.color.background_dark_blue;
 mReviewerProgressbar=R.color.reviewer_progressbar_session_blue;
 mCardbrowserItemBorder=new int[]{R.drawable.white_bg_cardbrowser,R.drawable.white_bg_cardbrowser_marked,R.drawable.white_bg_cardbrowser_suspended,R.drawable.white_bg_cardbrowser_marked_suspended};
 mChartColors=new int[]{Color.BLACK,Color.WHITE};
 mPopupTopBright=R.drawable.white_popup_top_bright;
-mPopupTopDark=mPopupTopBright;
 mPopupTopMedium=R.drawable.white_popup_top_medium;
+mPopupTopDark=mPopupTopMedium;
 mPopupCenterDark=R.drawable.white_popup_center_bright;
 mPopupCenterBright=R.drawable.white_popup_center_bright;
 mPopupCenterMedium=R.drawable.white_popup_center_medium;
@@ -177,6 +181,7 @@ mDividerHorizontalBright=R.drawable.white_dialog_divider;
 mLightFont=Typeface.createFromAsset(mContext.getAssets(),"fonts/OpenSans-Light.ttf");
 mRegularFont=Typeface.createFromAsset(mContext.getAssets(),"fonts/OpenSans-Regular.ttf");
 mBoldFont=Typeface.createFromAsset(mContext.getAssets(),"fonts/OpenSans-Bold.ttf");
+mProgressDialogFontColor=mContext.getResources().getColor(R.color.black);
 break;
 }
 }

@@ -33,14 +33,14 @@
   }
  else   if (mIsLastCard) {
     noMoreCards=true;
-    mProgressDialog=ProgressDialog.show(Reviewer.this,"",getResources().getString(R.string.saving_changes),true);
+    mProgressDialog=StyledProgressDialog.show(Reviewer.this,"",getResources().getString(R.string.saving_changes),true);
     setOutAnimation(true);
   }
  else {
     mCurrentCard=values[0].getCard();
     if (mCurrentCard == null) {
       noMoreCards=true;
-      mProgressDialog=ProgressDialog.show(Reviewer.this,"",getResources().getString(R.string.saving_changes),true);
+      mProgressDialog=StyledProgressDialog.show(Reviewer.this,"",getResources().getString(R.string.saving_changes),true);
       setOutAnimation(false);
       return new boolean[]{sessionComplete,noMoreCards};
     }

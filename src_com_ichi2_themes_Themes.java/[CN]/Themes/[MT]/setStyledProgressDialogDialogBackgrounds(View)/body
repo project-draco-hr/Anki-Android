@@ -1,0 +1,27 @@
+{
+  View topPanel=((View)main.findViewById(R.id.topPanel));
+  View contentPanel=((View)main.findViewById(R.id.contentPanel));
+  if (topPanel.getVisibility() == View.VISIBLE) {
+    try {
+      topPanel.setBackgroundResource(mPopupTopDark);
+      ((View)main.findViewById(R.id.titleDivider)).setBackgroundResource(mDividerHorizontalBright);
+      contentPanel.setBackgroundResource(mPopupBottomMedium);
+    }
+ catch (    OutOfMemoryError e) {
+      Log.e(AnkiDroidApp.TAG,"setStyledDialogBackgrounds - OutOfMemoryError occured: " + e);
+      topPanel.setBackgroundResource(R.color.black);
+      contentPanel.setBackgroundResource(R.color.white);
+    }
+  }
+ else {
+    try {
+      contentPanel.setBackgroundResource(mPopupFullMedium);
+    }
+ catch (    OutOfMemoryError e) {
+      Log.e(AnkiDroidApp.TAG,"setStyledDialogBackgrounds - OutOfMemoryError occured: " + e);
+      contentPanel.setBackgroundResource(R.color.white);
+    }
+  }
+  ((TextView)main.findViewById(R.id.alertTitle)).setTextColor(mProgressDialogFontColor);
+  ((TextView)main.findViewById(R.id.message)).setTextColor(mProgressDialogFontColor);
+}
