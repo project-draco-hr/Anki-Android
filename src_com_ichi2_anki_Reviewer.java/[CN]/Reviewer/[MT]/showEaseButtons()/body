@@ -1,6 +1,6 @@
 {
   Resources res=getResources();
-  switchVisibility(mFlipCard,View.GONE);
+  switchVisibility(mFlipCardLayout,View.GONE);
   if (mCurrentCard.isRev()) {
     mEase1.setText(res.getString(R.string.ease1_successive));
     mEase2.setText(res.getString(R.string.ease2_successive));
@@ -13,19 +13,23 @@
     mEase3.setText(res.getString(R.string.ease3_learning));
     mEase4.setText(res.getString(R.string.ease4_learning));
   }
-  switchVisibility(mEase1,View.VISIBLE);
-  switchVisibility(mEase2,View.VISIBLE);
-  switchVisibility(mEase3,View.VISIBLE);
-  switchVisibility(mEase4,View.VISIBLE);
+  switchVisibility(mEase1Layout,View.VISIBLE);
+  switchVisibility(mEase2Layout,View.VISIBLE);
+  switchVisibility(mEase3Layout,View.VISIBLE);
+  switchVisibility(mEase4Layout,View.VISIBLE);
   if (mCurrentCard.isRev()) {
-    mEase3.requestFocus();
+    mEase3Layout.requestFocus();
     mNext2.setTextColor(mNextTimeTextColor);
+    mEase2.setTextColor(mNextTimeTextColor);
     mNext3.setTextColor(mNextTimeTextRecomColor);
+    mEase3.setTextColor(mNextTimeTextRecomColor);
   }
  else {
-    mEase2.requestFocus();
+    mEase2Layout.requestFocus();
     mNext2.setTextColor(mNextTimeTextRecomColor);
+    mEase2.setTextColor(mNextTimeTextRecomColor);
     mNext3.setTextColor(mNextTimeTextColor);
+    mEase3.setTextColor(mNextTimeTextColor);
   }
   if (mshowNextReviewTime) {
     mNext1.setText(nextInterval(1));

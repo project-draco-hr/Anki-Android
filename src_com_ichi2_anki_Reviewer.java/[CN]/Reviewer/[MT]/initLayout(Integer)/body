@@ -5,7 +5,7 @@
   mCardContainer=(FrameLayout)findViewById(R.id.flashcard_frame);
   setInAnimation(false);
   findViewById(R.id.top_bar).setOnClickListener(mCardStatisticsListener);
-  mCardFrame=(FrameLayout)findViewById(R.id.flashcard);
+  mCardFrame=(LinearLayout)findViewById(R.id.flashcard);
   mTouchLayer=(FrameLayout)findViewById(R.id.touch_layer);
   mTouchLayer.setOnTouchListener(mGestureListener);
   if (mPrefTextSelection && mLongClickWorkaround) {
@@ -15,17 +15,46 @@
     mClipboard=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
   }
   mCardFrame.removeAllViews();
-  mCard=createWebView();
-  mCardFrame.addView(mCard);
+  if (mSimpleInterface) {
+    mSimpleCard=new TextView(this);
+    Themes.setRegularFont(mSimpleCard);
+    mSimpleCard.setTextSize(mSimpleCard.getTextSize() * mDisplayFontSize / 100);
+    mSimpleCard.setGravity(Gravity.CENTER);
+    try {
+      mSetTextIsSelectable=TextView.class.getMethod("setTextIsSelectable",boolean.class);
+    }
+ catch (    Throwable e) {
+      Log.i(AnkiDroidApp.TAG,"mSetTextIsSelectable could not be found due to a too low Android version (< 3.0)");
+      mSetTextIsSelectable=null;
+    }
+    if (mSetTextIsSelectable != null) {
+      try {
+        mSetTextIsSelectable.invoke(mSimpleCard,true);
+      }
+ catch (      IllegalAccessException e) {
+        Log.e(AnkiDroidApp.TAG,e.getMessage());
+      }
+catch (      InvocationTargetException e) {
+        Log.e(AnkiDroidApp.TAG,e.getMessage());
+      }
+    }
+    mSimpleCard.setClickable(true);
+    mCardFrame.addView(mSimpleCard);
+  }
+ else {
+    mCard=createWebView();
+    mCardFrame.addView(mCard);
+  }
   if (!mChangeBorderStyle) {
     ((View)findViewById(R.id.flashcard_border)).setVisibility(View.VISIBLE);
   }
-  if (mRefreshWebview) {
+  if (mRefreshWebview && !mSimpleInterface) {
     mNextCard=createWebView();
     mNextCard.setVisibility(View.GONE);
     mCardFrame.addView(mNextCard,0);
+    mCustomFontStyle=getCustomFontsStyle() + getDefaultFontStyle();
   }
-  if (Integer.parseInt(android.os.Build.VERSION.SDK) < 8) {
+  if (Integer.parseInt(android.os.Build.VERSION.SDK) < 8 && !mSimpleInterface) {
     mCard.setFocusableInTouchMode(true);
   }
   gestureDetector=new GestureDetector(new MyGestureDetector());
@@ -36,28 +65,38 @@
     mAccelCurrent=SensorManager.GRAVITY_EARTH;
     mAccelLast=SensorManager.GRAVITY_EARTH;
   }
+  Resources res=getResources();
   mEase1=(Button)findViewById(R.id.ease1);
-  mEase1.setOnClickListener(mSelectEaseHandler);
+  mEase1.setTextColor(res.getColor(R.color.next_time_failed_color));
+  mEase1Layout=(LinearLayout)findViewById(R.id.flashcard_layout_ease1);
+  mEase1Layout.setOnClickListener(mSelectEaseHandler);
   mEase2=(Button)findViewById(R.id.ease2);
-  mEase2.setOnClickListener(mSelectEaseHandler);
+  mEase2.setTextColor(res.getColor(R.color.next_time_usual_color));
+  mEase2Layout=(LinearLayout)findViewById(R.id.flashcard_layout_ease2);
+  mEase2Layout.setOnClickListener(mSelectEaseHandler);
   mEase3=(Button)findViewById(R.id.ease3);
-  mEase3.setOnClickListener(mSelectEaseHandler);
+  mEase3Layout=(LinearLayout)findViewById(R.id.flashcard_layout_ease3);
+  mEase3Layout.setOnClickListener(mSelectEaseHandler);
   mEase4=(Button)findViewById(R.id.ease4);
-  mEase4.setOnClickListener(mSelectEaseHandler);
+  mEase4Layout=(LinearLayout)findViewById(R.id.flashcard_layout_ease4);
+  mEase4Layout.setOnClickListener(mSelectEaseHandler);
   mNext1=(TextView)findViewById(R.id.nextTime1);
   mNext2=(TextView)findViewById(R.id.nextTime2);
   mNext3=(TextView)findViewById(R.id.nextTime3);
   mNext4=(TextView)findViewById(R.id.nextTime4);
+  mNext1.setTextColor(res.getColor(R.color.next_time_failed_color));
+  mNext2.setTextColor(res.getColor(R.color.next_time_usual_color));
   if (!mshowNextReviewTime) {
+    ((TextView)findViewById(R.id.nextTimeflip)).setVisibility(View.GONE);
     mNext1.setVisibility(View.GONE);
     mNext2.setVisibility(View.GONE);
     mNext3.setVisibility(View.GONE);
     mNext4.setVisibility(View.GONE);
   }
   mFlipCard=(Button)findViewById(R.id.flip_card);
-  mFlipCard.setOnClickListener(mFlipCardListener);
-  mFlipCard.setText(getResources().getString(R.string.show_answer));
-  mDefaultButtonDrawable=new Drawable[]{mFlipCard.getBackground(),mEase1.getBackground(),mEase2.getBackground(),mEase3.getBackground(),mEase4.getBackground()};
+  mFlipCardLayout=(LinearLayout)findViewById(R.id.flashcard_layout_flip);
+  mFlipCardLayout.setOnClickListener(mFlipCardListener);
+  mDefaultButtonDrawable=new Drawable[]{mFlipCardLayout.getBackground(),mEase1Layout.getBackground(),mEase2Layout.getBackground(),mEase3Layout.getBackground(),mEase4Layout.getBackground()};
   mTextBarRed=(TextView)findViewById(R.id.red_number);
   mTextBarBlack=(TextView)findViewById(R.id.black_number);
   mTextBarBlue=(TextView)findViewById(R.id.blue_number);

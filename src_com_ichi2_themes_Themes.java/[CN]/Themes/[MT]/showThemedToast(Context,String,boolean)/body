@@ -2,7 +2,11 @@
   Toast result=Toast.makeText(context,text,shortLength ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG);
   try {
     if (mCurrentTheme >= THEME_BLUE) {
-      result.getView().setBackgroundResource(mToastBackground);
+      TextView tv=new TextView(context);
+      tv.setBackgroundResource(mToastBackground);
+      tv.setTextColor(mProgressDialogFontColor);
+      tv.setText(text);
+      result.setView(tv);
     }
     result.show();
   }

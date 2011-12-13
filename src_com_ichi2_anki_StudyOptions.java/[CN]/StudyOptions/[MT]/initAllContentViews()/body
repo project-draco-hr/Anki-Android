@@ -5,9 +5,7 @@
   Themes.setWallpaper(mStudyOptionsMain);
   mTextDeckName=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_name);
   Themes.setTitleStyle(mTextDeckName);
-  mStatisticsField=(LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_statistic_field);
-  Themes.setTextViewStyle(mStatisticsField);
-  Themes.setTitleStyle(mStudyOptionsView.findViewById(R.id.studyoptions_bottom));
+  mDeckInformation=(LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_deckinformation);
   mButtonStart=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_start);
   mToggleCram=(ToggleButton)mStudyOptionsView.findViewById(R.id.studyoptions_cram);
   mToggleLimit=(ToggleButton)mStudyOptionsView.findViewById(R.id.studyoptions_limit);
@@ -62,8 +60,6 @@
     }
   }
 );
-  mHelp=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_help);
-  mHelp.setOnClickListener(mButtonClickListener);
   mButtonStart.setOnClickListener(mButtonClickListener);
   mToggleCram.setOnClickListener(mButtonClickListener);
   mToggleLimit.setOnClickListener(mButtonClickListener);

@@ -16,6 +16,14 @@ case THEME_BLUE:
 context.setTheme(R.style.Theme_Blue);
 Log.i(AnkiDroidApp.TAG,"Set theme: blue");
 break;
+case THEME_FLAT:
+context.setTheme(R.style.Theme_Flat);
+Log.i(AnkiDroidApp.TAG,"Set theme: flat");
+break;
+case THEME_WHITE:
+context.setTheme(R.style.Theme_White);
+Log.i(AnkiDroidApp.TAG,"Set theme: white");
+break;
 case -1:
 break;
 }

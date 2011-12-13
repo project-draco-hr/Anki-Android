@@ -1,9 +1,12 @@
 {
   if (!flip) {
     Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
-    if (mRefreshWebview) {
+    if (mSimpleInterface) {
+      mSimpleCard.setText(mCardContent);
+    }
+ else     if (mRefreshWebview) {
       mNextCard.setBackgroundColor(mCurrentBackgroundColor);
-      mNextCard.loadDataWithBaseURL(mBaseUrl,mCardContent,"text/html","utf-8",null);
+      mNextCard.loadDataWithBaseURL(mBaseUrl,mCardContent.toString(),"text/html","utf-8",null);
       mNextCard.setVisibility(View.VISIBLE);
       mCardFrame.removeView(mCard);
       mCard.destroy();
@@ -16,7 +19,7 @@
       }
     }
  else {
-      mCard.loadDataWithBaseURL(mBaseUrl,mCardContent,"text/html","utf-8",null);
+      mCard.loadDataWithBaseURL(mBaseUrl,mCardContent.toString(),"text/html","utf-8",null);
       mCard.setBackgroundColor(mCurrentBackgroundColor);
     }
     if (mChangeBorderStyle) {
@@ -59,14 +62,14 @@ Animation3D rotation;
 boolean directionToLeft=true;
 switch (mNextAnimation) {
 case ANIMATION_TURN:
-rotation=new Animation3D(mCard.getWidth(),mCard.getHeight(),9,Animation3D.ANIMATION_TURN,true,true,this);
+rotation=new Animation3D(mCardContainer.getWidth(),mCardContainer.getHeight(),9,Animation3D.ANIMATION_TURN,true,true,this);
 rotation.setDuration(mAnimationDurationTurn);
 rotation.setInterpolator(new AccelerateDecelerateInterpolator());
 break;
 case ANIMATION_NEXT_CARD_FROM_LEFT:
 directionToLeft=false;
 case ANIMATION_NEXT_CARD_FROM_RIGHT:
-rotation=new Animation3D(mCard.getWidth(),mCard.getHeight(),0,Animation3D.ANIMATION_EXCHANGE_CARD,directionToLeft,true,this);
+rotation=new Animation3D(mCardContainer.getWidth(),mCardContainer.getHeight(),0,Animation3D.ANIMATION_EXCHANGE_CARD,directionToLeft,true,this);
 rotation.setDuration(mAnimationDurationMove);
 rotation.setInterpolator(new AccelerateDecelerateInterpolator());
 break;
@@ -74,7 +77,7 @@ case ANIMATION_SLIDE_OUT_TO_RIGHT:
 directionToLeft=false;
 case ANIMATION_SLIDE_OUT_TO_LEFT:
 fillFlashcard(false);
-rotation=new Animation3D(mCard.getWidth(),mCard.getHeight(),0,Animation3D.ANIMATION_SLIDE_OUT_CARD,directionToLeft,true,this);
+rotation=new Animation3D(mCardContainer.getWidth(),mCardContainer.getHeight(),0,Animation3D.ANIMATION_SLIDE_OUT_CARD,directionToLeft,true,this);
 rotation.setDuration(mAnimationDurationMove);
 rotation.setInterpolator(new AccelerateInterpolator());
 switchTopBarVisibility(View.INVISIBLE);
@@ -83,7 +86,7 @@ case ANIMATION_SLIDE_IN_FROM_LEFT:
 directionToLeft=false;
 case ANIMATION_SLIDE_IN_FROM_RIGHT:
 fillFlashcard(false);
-rotation=new Animation3D(mCard.getWidth(),mCard.getHeight(),0,Animation3D.ANIMATION_SLIDE_IN_CARD,directionToLeft,true,this);
+rotation=new Animation3D(mCardContainer.getWidth(),mCardContainer.getHeight(),0,Animation3D.ANIMATION_SLIDE_IN_CARD,directionToLeft,true,this);
 rotation.setDuration(mAnimationDurationMove);
 rotation.setInterpolator(new DecelerateInterpolator());
 switchTopBarVisibility(View.VISIBLE);

@@ -1,8 +1,8 @@
 {
-  switchVisibility(mEase1,View.GONE);
-  switchVisibility(mEase2,View.GONE);
-  switchVisibility(mEase3,View.GONE);
-  switchVisibility(mEase4,View.GONE);
+  switchVisibility(mEase1Layout,View.GONE);
+  switchVisibility(mEase2Layout,View.GONE);
+  switchVisibility(mEase3Layout,View.GONE);
+  switchVisibility(mEase4Layout,View.GONE);
   if (mshowNextReviewTime) {
     int visibility=typeAnswer() ? View.GONE : View.INVISIBLE;
     switchVisibility(mNext1,visibility);
@@ -10,9 +10,9 @@
     switchVisibility(mNext3,visibility);
     switchVisibility(mNext4,visibility);
   }
-  if (mFlipCard.getVisibility() != View.VISIBLE) {
-    switchVisibility(mFlipCard,View.VISIBLE);
-    mFlipCard.requestFocus();
+  if (mFlipCardLayout.getVisibility() != View.VISIBLE) {
+    switchVisibility(mFlipCardLayout,View.VISIBLE);
+    mFlipCardLayout.requestFocus();
   }
  else   if (typeAnswer()) {
     mAnswerField.requestFocus();

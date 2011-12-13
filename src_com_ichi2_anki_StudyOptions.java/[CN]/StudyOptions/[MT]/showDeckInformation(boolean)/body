@@ -1,10 +1,7 @@
 {
   mTextDeckName.setVisibility(View.VISIBLE);
+  mDeckInformation.setVisibility(View.VISIBLE);
   if (fade) {
-    mTextDeckName.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_IN,500,0));
-  }
-  mStatisticsField.setVisibility(View.VISIBLE);
-  if (fade) {
-    mStatisticsField.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_IN,500,0));
+    mDeckInformation.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_IN,500,0));
   }
 }

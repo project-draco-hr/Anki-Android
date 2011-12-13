@@ -1,3 +1,18 @@
 {
   view.setBackgroundResource(mTitleStyle);
+  if (view instanceof TextView) {
+    TextView tv=(TextView)view;
+    tv.setTextColor(mTitleTextColor);
+    if (mCurrentTheme == THEME_FLAT) {
+      tv.setMinLines(1);
+      tv.setMaxLines(2);
+      int height=(int)(tv.getLineHeight() / 2);
+      LinearLayout.LayoutParams llp=new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT);
+      MarginLayoutParams mlp=(MarginLayoutParams)tv.getLayoutParams();
+      height+=mlp.bottomMargin;
+      llp.setMargins(0,height,0,height);
+      tv.setLayoutParams(llp);
+      setBoldFont(tv);
+    }
+  }
 }

@@ -1,5 +1,9 @@
 {
   Log.i(AnkiDroidApp.TAG,"updateCard");
+  if (mSimpleInterface) {
+    fillFlashcard(mShowAnimations);
+    return;
+  }
   mBaseUrl="";
   Boolean isJapaneseModel=false;
   content=recalculateHardCodedFontSize(content,mDisplayFontSize);
@@ -54,11 +58,10 @@
   }
   Log.i(AnkiDroidApp.TAG,"content card = \n" + content);
   StringBuilder style=new StringBuilder();
-  style.append(getCustomFontsStyle());
-  style.append(getDefaultFontStyle());
+  style.append(mCustomFontStyle);
   style.append(getDeckStyle(mCurrentCard.mDeck.getDeckPath()));
   Log.i(AnkiDroidApp.TAG,"::style::" + style);
-  mCardContent=mCardTemplate.replace("::content::",content).replace("::style::",style.toString());
+  mCardContent=new SpannedString(mCardTemplate.replace("::content::",content).replace("::style::",style.toString()));
   Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
   fillFlashcard(mShowAnimations);
   if (!mConfigurationChanged && mPlaySoundsAtStart) {
