@@ -115,7 +115,7 @@ case THEME_FLAT:
 ((View)view.findViewById(R.id.flashcard_frame)).setBackgroundResource(PrefSettings.getSharedPrefs(mContext).getBoolean("invertedColors",false) ? R.color.reviewer_night_card_background : R.color.white);
 break;
 case THEME_WHITE:
-((View)view.findViewById(R.id.flashcard_frame)).setBackgroundResource(PrefSettings.getSharedPrefs(mContext).getBoolean("invertedColors",false) ? R.color.reviewer_night_card_background : R.color.white);
+((View)view.findViewById(R.id.flashcard_frame)).setBackgroundResource(PrefSettings.getSharedPrefs(mContext).getBoolean("invertedColors",false) ? R.color.black : R.color.white);
 setMargins(view.findViewById(R.id.main_layout),LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT,4f,0,4f,4f);
 break;
 }

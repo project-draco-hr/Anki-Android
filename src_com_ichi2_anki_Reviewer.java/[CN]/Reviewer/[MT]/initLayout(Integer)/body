@@ -31,11 +31,8 @@
       try {
         mSetTextIsSelectable.invoke(mSimpleCard,true);
       }
- catch (      IllegalAccessException e) {
-        Log.e(AnkiDroidApp.TAG,e.getMessage());
-      }
-catch (      InvocationTargetException e) {
-        Log.e(AnkiDroidApp.TAG,e.getMessage());
+ catch (      Exception e) {
+        Log.e(AnkiDroidApp.TAG,e.toString());
       }
     }
     mSimpleCard.setClickable(true);
@@ -96,7 +93,6 @@ catch (      InvocationTargetException e) {
   mFlipCard=(Button)findViewById(R.id.flip_card);
   mFlipCardLayout=(LinearLayout)findViewById(R.id.flashcard_layout_flip);
   mFlipCardLayout.setOnClickListener(mFlipCardListener);
-  mDefaultButtonDrawable=new Drawable[]{mFlipCardLayout.getBackground(),mEase1Layout.getBackground(),mEase2Layout.getBackground(),mEase3Layout.getBackground(),mEase4Layout.getBackground()};
   mTextBarRed=(TextView)findViewById(R.id.red_number);
   mTextBarBlack=(TextView)findViewById(R.id.black_number);
   mTextBarBlue=(TextView)findViewById(R.id.blue_number);
