@@ -11,6 +11,7 @@
       deck.setUndoStart(undoName,editCard.getId());
       editFact.setModified(true,deck,false);
       editFact.toDb();
+      deck.updateFactTags(new long[]{editFact.getId()});
       deck.flushMod();
       deck.setUndoEnd(undoName);
       if (showQuestion == Reviewer.UPDATE_CARD_NEW_CARD) {
