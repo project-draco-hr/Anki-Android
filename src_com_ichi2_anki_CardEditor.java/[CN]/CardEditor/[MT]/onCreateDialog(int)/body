@@ -4,144 +4,13 @@
   StyledDialog.Builder builder=new StyledDialog.Builder(this);
 switch (id) {
 case DIALOG_TAGS:
-    builder.setTitle(R.string.studyoptions_limit_select_tags);
-  builder.setPositiveButton(res.getString(R.string.select),new OnClickListener(){
-    @Override public void onClick(    DialogInterface dialog,    int which){
-      String tags=mSelectedTags.toString();
-      mFactTags=tags.substring(1,tags.length() - 1);
-      mTags.setText(getResources().getString(R.string.CardEditorTags,mFactTags));
-    }
-  }
-);
-builder.setNegativeButton(res.getString(R.string.cancel),null);
-mNewTagEditText=(EditText)new EditText(this);
-mNewTagEditText.setHint(R.string.add_new_tag);
-InputFilter filter=new InputFilter(){
-public CharSequence filter(CharSequence source,int start,int end,Spanned dest,int dstart,int dend){
-for (int i=start; i < end; i++) {
-if (!(Character.isLetterOrDigit(source.charAt(i)))) {
-  return "";
-}
-}
-return null;
-}
-}
-;
-mNewTagEditText.setFilters(new InputFilter[]{filter});
-ImageView mAddTextButton=new ImageView(this);
-mAddTextButton.setImageResource(R.drawable.ic_addtag);
-mAddTextButton.setOnClickListener(new View.OnClickListener(){
-@Override public void onClick(View v){
-String tag=mNewTagEditText.getText().toString();
-if (tag.length() != 0) {
-for (int i=0; i < allTags.length; i++) {
-if (allTags[i].equalsIgnoreCase(tag)) {
-mNewTagEditText.setText("");
-return;
-}
-}
-mSelectedTags.add(tag);
-String[] oldTags=allTags;
-allTags=new String[oldTags.length + 1];
-allTags[0]=tag;
-for (int j=1; j < allTags.length; j++) {
-allTags[j]=oldTags[j - 1];
-}
-mTagsDialog.addMultiChoiceItems(tag,true);
-mNewTagEditText.setText("");
-}
-}
-}
-);
-FrameLayout frame=new FrameLayout(this);
-FrameLayout.LayoutParams params=new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT,Gravity.RIGHT | Gravity.CENTER_VERTICAL);
-params.rightMargin=10;
-mAddTextButton.setLayoutParams(params);
-frame.addView(mNewTagEditText);
-frame.addView(mAddTextButton);
-builder.setView(frame,false,true);
-dialog=builder.create();
-mTagsDialog=dialog;
-break;
+    dialog=createDialogTags(builder,res);
+  break;
 case DIALOG_DECK_SELECT:
-int len=0;
-File[] fileList;
-File dir=new File(PrefSettings.getSharedPrefs(getBaseContext()).getString("deckPath",AnkiDroidApp.getStorageDirectory()));
-fileList=dir.listFiles(new AnkiFilter());
-if (dir.exists() && dir.isDirectory() && fileList != null) {
-len=fileList.length;
-}
-TreeSet<String> tree=new TreeSet<String>();
-mFullDeckPaths=new HashMap<String,String>();
-if (len > 0 && fileList != null) {
-Log.i(AnkiDroidApp.TAG,"CardEditor - populateDeckDialog, number of anki files = " + len);
-for (File file : fileList) {
-String name=file.getName().replaceAll(".anki","");
-tree.add(name);
-mFullDeckPaths.put(name,file.getAbsolutePath());
-}
-}
-builder.setTitle(R.string.fact_adder_select_deck);
-mDeckNames=new String[tree.size()];
-tree.toArray(mDeckNames);
-builder.setItems(mDeckNames,new DialogInterface.OnClickListener(){
-@Override public void onClick(DialogInterface dialog,int item){
-loadDeck(item);
-}
-}
-);
-builder.setOnCancelListener(new OnCancelListener(){
-@Override public void onCancel(DialogInterface arg0){
-mCancelled=true;
-}
-}
-);
-builder.setOnDismissListener(new OnDismissListener(){
-@Override public void onDismiss(DialogInterface arg0){
-if (mCancelled == true) {
-finish();
-}
- else if (mDeck == null) {
-showDialog(DIALOG_DECK_SELECT);
-}
-}
-}
-);
-dialog=builder.create();
+dialog=createDialogDeckSelect(builder,res);
 break;
 case DIALOG_MODEL_SELECT:
-ArrayList<CharSequence> dialogItems=new ArrayList<CharSequence>();
-final ArrayList<Long> dialogIds=new ArrayList<Long>();
-Model mModel;
-builder.setTitle(R.string.select_model);
-for (Long i : mModels.keySet()) {
-mModel=mModels.get(i);
-dialogItems.add(mModel.getName());
-dialogIds.add(i);
-}
-String[] items=new String[dialogItems.size()];
-dialogItems.toArray(items);
-builder.setItems(items,new DialogInterface.OnClickListener(){
-public void onClick(DialogInterface dialog,int item){
-long oldModelId=mCurrentSelectedModelId;
-mCurrentSelectedModelId=dialogIds.get(item);
-if (oldModelId != mCurrentSelectedModelId) {
-int size=mEditFields.size();
-String[] oldValues=new String[size];
-for (int i=0; i < size; i++) {
-oldValues[i]=mEditFields.get(i).getText().toString();
-}
-modelChanged();
-if ((mSourceText == null || mSourceText.isEmpty()) && (mTargetText == null || mTargetText.isEmpty())) {
-for (int i=0; i < Math.min(size,mEditFields.size()); i++) {
-mEditFields.get(i).setText(oldValues[i]);
-}
-}
-}
-}
-}
-);
-dialog=builder.create();
+dialog=createDialogModelSelect(builder,res);
 break;
 case DIALOG_CARD_MODEL_SELECT:
 builder.setTitle(res.getString(R.string.select_card_model));
@@ -180,6 +49,8 @@ builder.setNegativeButton(res.getString(R.string.no),null);
 builder.setCancelable(true);
 dialog=builder.create();
 break;
+case DIALOG_INTENT_INFORMATION:
+dialog=createDialogIntentInformation(builder,res);
 }
 return dialog;
 }

@@ -1,6 +1,6 @@
 {
   ArrayList<String> personalDecks=new ArrayList<String>();
-  Iterator decksIterator=mDecks.keys();
+  @SuppressWarnings("unchecked") Iterator<String> decksIterator=(Iterator<String>)mDecks.keys();
   while (decksIterator.hasNext()) {
     personalDecks.add((String)decksIterator.next());
   }

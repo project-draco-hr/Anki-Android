@@ -1,0 +1,22 @@
+{
+switch (data.taskType) {
+case TASK_TYPE_LOGIN:
+    return doInBackgroundLogin(data);
+case TASK_TYPE_GET_SHARED_DECKS:
+  return doInBackgroundGetSharedDecks(data);
+case TASK_TYPE_GET_PERSONAL_DECKS:
+return doInBackgroundGetPersonalDecks(data);
+case TASK_TYPE_SYNC_ALL_DECKS:
+return doInBackgroundSyncAllDecks(data);
+case TASK_TYPE_SYNC_DECK:
+return doInBackgroundSyncDeck(data);
+case TASK_TYPE_SYNC_DECK_FROM_PAYLOAD:
+return doInBackgroundSyncDeckFromPayload(data);
+case TASK_TYPE_SEND_CRASH_REPORT:
+return doInBackgroundSendFeedback(data);
+case TASK_TYPE_DOWNLOAD_MEDIA:
+return doInBackgroundDownloadMissingMedia(data);
+default :
+return null;
+}
+}

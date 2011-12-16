@@ -2,16 +2,22 @@
   Log.d(AnkiDroidApp.TAG,"DeckPreferences - commit() changes back to database");
   for (  Entry<String,Object> entry : mUpdate.valueSet()) {
     if (entry.getKey().equals("newCardsPDay")) {
-      AnkiDroidApp.deck().setIntVar("newPerDay",Integer.parseInt(entry.getValue().toString()));
+      DeckManager.getMainDeck().setNewCardsPerDay(Integer.parseInt(entry.getValue().toString()));
+    }
+ else     if (entry.getKey().equals("sessionQLimit")) {
+      DeckManager.getMainDeck().setSessionRepLimit(Long.parseLong(entry.getValue().toString()));
+    }
+ else     if (entry.getKey().equals("sessionTLimit")) {
+      DeckManager.getMainDeck().setSessionTimeLimit(60 * Long.parseLong(entry.getValue().toString()));
     }
  else     if (entry.getKey().equals("newCardOrder")) {
-      AnkiDroidApp.deck().setIntVar("newOrder",Integer.parseInt(entry.getValue().toString()));
+      DeckManager.getMainDeck().setNewCardOrder(Integer.parseInt(entry.getValue().toString()));
     }
  else     if (entry.getKey().equals("newCardSpacing")) {
-      AnkiDroidApp.deck().setIntVar("newSpread",Integer.parseInt(entry.getValue().toString()));
+      DeckManager.getMainDeck().setNewCardSpacing(Integer.parseInt(entry.getValue().toString()));
     }
  else     if (entry.getKey().equals("revCardOrder")) {
-      AnkiDroidApp.deck().setIntVar("revOrder",Integer.parseInt(entry.getValue().toString()));
+      DeckManager.getMainDeck().setRevCardOrder(Integer.parseInt(entry.getValue().toString()));
     }
   }
   cacheValues();

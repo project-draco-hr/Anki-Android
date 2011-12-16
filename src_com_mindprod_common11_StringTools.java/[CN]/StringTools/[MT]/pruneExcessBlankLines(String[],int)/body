@@ -16,7 +16,7 @@
   if (firstNonBlankLine > lastNonBlankLine) {
     return new String[0];
   }
-  Vector keep=new Vector(lastNonBlankLine - firstNonBlankLine + 1);
+  ArrayList<String> keep=new ArrayList<String>(lastNonBlankLine - firstNonBlankLine + 1);
   int pendingBlankLines=0;
   for (int i=firstNonBlankLine; i <= lastNonBlankLine; i++) {
     if (lines[i].trim().length() == 0) {
@@ -30,5 +30,5 @@
       pendingBlankLines=0;
     }
   }
-  return (String[])keep.toArray(new String[keep.size()]);
+  return keep.toArray(new String[keep.size()]);
 }

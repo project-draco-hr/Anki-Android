@@ -1,0 +1,30 @@
+def main():
+    parser = optparse.OptionParser(usage='googlecode-upload.py -s SUMMARY -p PROJECT [options] FILE')
+    parser.add_option('-s', '--summary', dest='summary', help='Short description of the file')
+    parser.add_option('-p', '--project', dest='project', help='Google Code project name')
+    parser.add_option('-u', '--user', dest='user', help='Your Google Code username')
+    parser.add_option('-w', '--password', dest='password', help='Your Google Code password')
+    parser.add_option('-l', '--labels', dest='labels', help='An optional list of comma-separated labels to attach to the file')
+    (options, args) = parser.parse_args()
+    if (not options.summary):
+        parser.error('File summary is missing.')
+    elif (not options.project):
+        parser.error('Project name is missing.')
+    elif (len(args) < 1):
+        parser.error('File to upload not provided.')
+    elif (len(args) > 1):
+        parser.error('Only one file may be specified.')
+    file_path = args[0]
+    if options.labels:
+        labels = options.labels.split(',')
+    else:
+        labels = None
+    (status, reason, url) = upload_find_auth(file_path, options.project, options.summary, labels, options.user, options.password)
+    if url:
+        print 'The file was uploaded successfully.'
+        print ('URL: %s' % url)
+        return 0
+    else:
+        print 'An error occurred. Your file was not uploaded.'
+        print ('Google Code upload server said: %s (%s)' % (reason, status))
+        return 1

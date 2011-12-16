@@ -15,7 +15,7 @@
   if (mReportErrorMode.equals(REPORT_ALWAYS)) {
     try {
       String feedback="Automatically sent";
-      Connection.sendFeedback(mSendListener,new Payload(new Object[]{mFeedbackUrl,mErrorUrl,feedback,mErrorReports,mNonce,getApplication()}));
+      Connection.sendFeedback(mSendListener,new Payload(new Object[]{mFeedbackUrl,mErrorUrl,feedback,mErrorReports,mNonce,getApplication(),true}));
       if (mErrorReports.size() > 0) {
         mPostingFeedback=true;
       }
@@ -26,15 +26,12 @@
  catch (    Exception e) {
       Log.e(AnkiDroidApp.TAG,e.toString());
     }
-    deleteFiles(true,false);
-    setResult(RESULT_OK);
-    finish();
+    closeFeedback();
     return;
   }
  else   if (mReportErrorMode.equals(REPORT_NEVER)) {
     deleteFiles(false,false);
-    setResult(RESULT_OK);
-    finish();
+    closeFeedback();
   }
   View mainView=getLayoutInflater().inflate(R.layout.feedback,null);
   setContentView(mainView);
@@ -85,7 +82,7 @@ btnSend.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View v){
 if (!mPostingFeedback) {
   String feedback=mEtFeedbackText.getText().toString();
-  Connection.sendFeedback(mSendListener,new Payload(new Object[]{mFeedbackUrl,mErrorUrl,feedback,mErrorReports,mNonce,getApplication()}));
+  Connection.sendFeedback(mSendListener,new Payload(new Object[]{mFeedbackUrl,mErrorUrl,feedback,mErrorReports,mNonce,getApplication(),false}));
   if (mErrorReports.size() > 0) {
     mPostingFeedback=true;
   }

@@ -1,7 +1,10 @@
 {
-  Deck deck=AnkiDroidApp.deck();
+  if (mCurrentCard == null) {
+    return;
+  }
+  Deck deck=DeckManager.getMainDeck();
   int eta=mCurrentScheduler.eta() / 60;
-  if (eta < 1) {
+  if (deck.hasFinishScheduler() || eta < 1) {
     setTitle(deck.getDeckName());
   }
  else {

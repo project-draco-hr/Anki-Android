@@ -1,0 +1,23 @@
+{
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundGetTomorrowDue");
+  File dir=new File(params[0]);
+  File[] fileList=dir.listFiles(new WidgetStatus.AnkiFileFilter());
+  DeckStatus[] todayDues=WidgetStatus.fetch(sContext);
+  ArrayList<DeckStatus> decks=new ArrayList<DeckStatus>(fileList.length);
+  for (  DeckStatus s : todayDues) {
+    try {
+      Deck deck=DeckManager.getDeck(s.mDeckPath,DeckManager.REQUESTING_ACTIVITY_BIGWIDGET,false);
+      if (deck != null) {
+        int failedCards=deck.getFailedDelayedCount() + s.mFailedCards;
+        int dueCards=deck.getNextDueCards(1) + s.mDueCards;
+        int newCards=deck.getNextNewCards() + s.mNewCards;
+        decks.add(new DeckStatus(null,deck.getDeckName(),newCards,dueCards,failedCards,deck.getETA(failedCards,dueCards,newCards,true),0));
+      }
+      DeckManager.closeDeck(s.mDeckPath,DeckManager.REQUESTING_ACTIVITY_BIGWIDGET);
+    }
+ catch (    RuntimeException e) {
+      Log.e(AnkiDroidApp.TAG,"doInBackgroundGetTomorrowDue: an error occurred: " + e);
+    }
+  }
+  return decks.toArray(new DeckStatus[0]);
+}

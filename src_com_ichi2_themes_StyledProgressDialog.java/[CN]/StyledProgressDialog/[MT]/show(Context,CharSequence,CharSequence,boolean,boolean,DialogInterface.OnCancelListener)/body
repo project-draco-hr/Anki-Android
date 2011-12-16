@@ -1,0 +1,28 @@
+{
+  final StyledProgressDialog dialog=new StyledProgressDialog(context);
+  LayoutInflater inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+  View layout=inflater.inflate(R.layout.styled_progress_dialog,null);
+  dialog.addContentView(layout,new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));
+  if (title != null && title.length() > 0) {
+    ((TextView)layout.findViewById(R.id.alertTitle)).setText(title);
+  }
+ else {
+    layout.findViewById(R.id.topPanel).setVisibility(View.GONE);
+    layout.findViewById(R.id.titleDivider).setVisibility(View.GONE);
+  }
+  if (message != null) {
+    TextView tv=(TextView)layout.findViewById(R.id.message);
+    tv.setText(message);
+  }
+  try {
+    Themes.setStyledProgressDialogDialogBackgrounds(layout);
+  }
+ catch (  OutOfMemoryError e) {
+    Log.e(AnkiDroidApp.TAG,"StyledDialog - Dialog could not be created: " + e);
+    Themes.showThemedToast(context,context.getResources().getString(R.string.error_insufficient_memory),false);
+    return null;
+  }
+  dialog.setContentView(layout);
+  dialog.show();
+  return dialog;
+}

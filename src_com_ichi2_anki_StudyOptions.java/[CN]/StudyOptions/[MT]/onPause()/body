@@ -7,7 +7,4 @@
     adapter=null;
   }
   super.onPause();
-  if (!mInDeckPicker) {
-    WidgetStatus.update(getBaseContext());
-  }
 }

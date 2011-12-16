@@ -1,8 +1,5 @@
 {
-  if (AnkiDroidApp.deck() != null) {
-    AnkiDroidApp.deck().closeDeck();
-    AnkiDroidApp.setDeck(null);
-  }
+  DeckManager.closeMainDeck();
   try {
     data.result=AnkiDroidProxy.getSharedDecks();
   }

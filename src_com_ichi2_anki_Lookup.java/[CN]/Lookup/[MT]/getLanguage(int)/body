@@ -3,6 +3,6 @@
     return "";
   }
  else {
-    return MetaDB.getLanguage(mContext,mDeckFilename,Model.getModel(AnkiDroidApp.deck(),mCurrentCard.getCardModelId(),false).getId(),mCurrentCard.getCardModelId(),questionAnswer);
+    return MetaDB.getLanguage(mContext,mDeckFilename,Model.getModel(DeckManager.getMainDeck(),mCurrentCard.getCardModelId(),false).getId(),mCurrentCard.getCardModelId(),questionAnswer);
   }
 }

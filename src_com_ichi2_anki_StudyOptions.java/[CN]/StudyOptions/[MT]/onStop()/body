@@ -1,0 +1,11 @@
+{
+  super.onStop();
+  if (!mInDeckPicker && !mInReviewer) {
+    if (isFinishing()) {
+      WidgetStatus.update(this,null);
+    }
+ else {
+      WidgetStatus.update(this,WidgetStatus.getDeckStatus(DeckManager.getMainDeck()));
+    }
+  }
+}

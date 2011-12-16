@@ -1,10 +1,12 @@
 {
   if (deckFilename != null) {
+    DeckManager.closeDeck(deckFilename);
     File file=new File(deckFilename);
     boolean deleted=BackupManager.removeDeck(file);
     if (deleted) {
       Log.i(AnkiDroidApp.TAG,"DeckPicker - " + deckFilename + " deleted");
       mDeckIsSelected=false;
+      DeckManager.closeDeck(deckFilename);
       populateDeckList(mPrefDeckPath);
     }
  else {

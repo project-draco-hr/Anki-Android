@@ -3,7 +3,7 @@
 switch (id) {
 case DIALOG_TAGS:
     if (allTags == null) {
-      String[] oldTags=AnkiDroidApp.deck().allUserTags();
+      String[] oldTags=mDeck.allUserTags();
       if (oldTags == null) {
         Themes.showThemedToast(CardEditor.this,getResources().getString(R.string.error_insufficient_memory),false);
         ad.setEnabled(false);
@@ -73,6 +73,9 @@ mCardModelDialog.getButton(StyledDialog.BUTTON_POSITIVE).setEnabled(!mNewSelecte
 }
 );
 ad.getButton(StyledDialog.BUTTON_POSITIVE).setEnabled(!mNewSelectedCardModels.isEmpty());
+break;
+case DIALOG_INTENT_INFORMATION:
+mIntentInformationAdapter.notifyDataSetChanged();
 break;
 }
 }

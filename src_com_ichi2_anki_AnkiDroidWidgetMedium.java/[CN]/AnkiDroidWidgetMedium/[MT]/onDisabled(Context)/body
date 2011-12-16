@@ -1,6 +1,0 @@
-{
-  super.onDisabled(context);
-  Log.d(AnkiDroidApp.TAG,"Widget disabled");
-  SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
-  preferences.edit().putBoolean("widgetEnabled",false).commit();
-}

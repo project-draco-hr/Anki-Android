@@ -1,11 +1,7 @@
 {
+  mIsClosing=true;
   MetaDB.closeDB();
-  if (closeDeck && AnkiDroidApp.deck() != null && mSdCardAvailable) {
-    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CLOSE_DECK,mCloseDeckHandler,new DeckTask.TaskData(AnkiDroidApp.deck(),0));
-  }
- else {
-    AnkiDroidApp.setDeck(null);
-    mCompat.invalidateOptionsMenu(this);
-    StudyOptions.this.finish();
-  }
+  DeckManager.closeMainDeck(DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS);
+  mCompat.invalidateOptionsMenu(this);
+  StudyOptions.this.finish();
 }

@@ -1,9 +1,11 @@
 {
-  if (mCard.getScrollY() != 0) {
-    mIsYScrolling=true;
-  }
-  if (mCard.getScrollX() != 0) {
-    mIsXScrolling=true;
+  if (!mSimpleInterface) {
+    if (mCard.getScrollY() != 0) {
+      mIsYScrolling=true;
+    }
+    if (mCard.getScrollX() != 0) {
+      mIsXScrolling=true;
+    }
   }
   return super.onScroll(e1,e2,distanceX,distanceY);
 }

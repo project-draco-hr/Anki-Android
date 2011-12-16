@@ -1,0 +1,24 @@
+{
+  SpannableStringBuilder sb=new SpannableStringBuilder();
+  SpannableString red=new SpannableString(Integer.toString(failed));
+  red.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.widget_big_font_color_red)),0,red.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+  if (card != null && card.getType() == Card.TYPE_FAILED) {
+    red.setSpan(new UnderlineSpan(),0,red.length(),0);
+  }
+  SpannableString black=new SpannableString(Integer.toString(rev));
+  black.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.widget_big_font_color)),0,black.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+  if (card != null && card.getType() == Card.TYPE_REV) {
+    black.setSpan(new UnderlineSpan(),0,black.length(),0);
+  }
+  SpannableString blue=new SpannableString(Integer.toString(newCount));
+  blue.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.widget_big_font_color_blue)),0,blue.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+  if (card != null && card.getType() == Card.TYPE_NEW) {
+    blue.setSpan(new UnderlineSpan(),0,blue.length(),0);
+  }
+  sb.append(red);
+  sb.append(" ");
+  sb.append(black);
+  sb.append(" ");
+  sb.append(blue);
+  return sb;
+}

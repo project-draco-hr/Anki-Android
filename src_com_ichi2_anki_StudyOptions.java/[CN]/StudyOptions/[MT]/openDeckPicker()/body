@@ -1,8 +1,3 @@
 {
-  Intent decksPicker=new Intent(StudyOptions.this,DeckPicker.class);
-  mInDeckPicker=true;
-  startActivityForResult(decksPicker,PICK_DECK_REQUEST);
-  if (getApiLevel() > 4) {
-    ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
-  }
+  openDeckPicker(true);
 }

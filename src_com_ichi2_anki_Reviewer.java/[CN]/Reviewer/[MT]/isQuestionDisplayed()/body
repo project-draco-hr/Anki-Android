@@ -5,12 +5,7 @@ case HQIA_DO_HIDE:
 case HQIA_DO_SHOW:
   return true;
 case HQIA_CARD_MODEL:
-try {
-  return !mCurrentCard.getTemplate().getString("hideQ").equals("True");
-}
- catch (JSONException e) {
-  throw new RuntimeException(e);
-}
+return (Model.getModel(DeckManager.getMainDeck(),mCurrentCard.getCardModelId(),false).getCardModel(mCurrentCard.getCardModelId()).isQuestionInAnswer());
 default :
 return true;
 }

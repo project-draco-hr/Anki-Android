@@ -2,13 +2,13 @@
   mIsSelecting=false;
   mIsAnswering=true;
   if (mPrefTextSelection) {
-    mClipboard.setText("");
+    clipboardSetText("");
     if (mLookUpIcon.getVisibility() == View.VISIBLE) {
       mLookUpIcon.setVisibility(View.GONE);
       mLookUpIcon.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_OUT,mFadeDuration,0));
     }
   }
-  Deck deck=AnkiDroidApp.deck();
+  Deck deck=DeckManager.getMainDeck();
 switch (ease) {
 case Card.EASE_FAILED:
     mChosenAnswer.setText("\u2022");

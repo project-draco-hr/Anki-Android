@@ -1,7 +1,7 @@
 {
   Locale locale;
   if (language.equals("")) {
-    return;
+    locale=Locale.getDefault();
   }
  else {
     locale=new Locale(language);

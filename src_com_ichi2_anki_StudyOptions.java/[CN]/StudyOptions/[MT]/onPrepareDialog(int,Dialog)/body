@@ -1,5 +1,6 @@
 {
   StyledDialog ad=(StyledDialog)dialog;
+  DeckTask.waitToFinish();
 switch (id) {
 case DIALOG_SYNC_CONFLICT_RESOLUTION:
 case DIALOG_NO_SPACE_LEFT:
@@ -8,8 +9,7 @@ case DIALOG_SYNC_LOG:
     ad.setMessage(mCurrentDialogMessage);
   break;
 case DIALOG_MORE:
-Deck deck=AnkiDroidApp.deck();
-if (deck != null) {
+Deck deck=DeckManager.getMainDeck();
 mSpinnerNewCardOrder.setSelection(deck.getNewCardOrder());
 mSpinnerNewCardSchedule.setSelection(deck.getNewCardSpacing());
 mSpinnerRevCardOrder.setSelection(deck.getRevCardOrder());
@@ -18,14 +18,9 @@ mEditMaxFailCard.setText(String.valueOf(deck.getFailedCardMax()));
 mEditNewPerDay.setText(String.valueOf(deck.getNewCardsPerDay()));
 mCheckBoxPerDay.setChecked(deck.getPerDay());
 mCheckBoxSuspendLeeches.setChecked(deck.getSuspendLeeches());
-}
 break;
 case DIALOG_LIMIT_SESSION:
-Deck deck2=AnkiDroidApp.deck();
-if (deck2 == null) {
-ad.setEnabled(false);
-return;
-}
+Deck deck2=DeckManager.getMainDeck();
 long timeLimit=deck2.getSessionTimeLimit() / 60;
 long repLimit=deck2.getSessionRepLimit();
 mSessionLimitCheckBox.setChecked(timeLimit + repLimit > 0);
@@ -40,15 +35,11 @@ updateLimitTagText(LIMIT_NEW_INACTIVE,deck2.getVar("newInactive"));
 updateLimitTagText(LIMIT_REV_ACTIVE,deck2.getVar("revActive"));
 updateLimitTagText(LIMIT_REV_INACTIVE,deck2.getVar("revInactive"));
 mLimitTagsCheckBox.setChecked(mLimitTagNewActiveCheckBox.isChecked() || mLimitTagNewInactiveCheckBox.isChecked() || mLimitTagRevActiveCheckBox.isChecked()|| mLimitTagRevInactiveCheckBox.isChecked());
+allTags=null;
 break;
 case DIALOG_TAGS:
-Deck deck3=AnkiDroidApp.deck();
-if (deck3 == null) {
-ad.setEnabled(false);
-return;
-}
 if (allTags == null) {
-allTags=deck3.allTags_();
+allTags=DeckManager.getMainDeck().allTags_();
 Log.i(AnkiDroidApp.TAG,"all tags: " + Arrays.toString(allTags));
 if (allTags == null) {
 Themes.showThemedToast(StudyOptions.this,getResources().getString(R.string.error_insufficient_memory),false);
@@ -69,6 +60,10 @@ mSelectedTags.add(tag);
 }
 ad.setMultiChoiceItems(allTags,checked,new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
+if (allTags == null) {
+dialog.dismiss();
+return;
+}
 String tag=allTags[which];
 if (mSelectedTags.contains(tag)) {
 Log.i(AnkiDroidApp.TAG,"unchecked tag: " + tag);
@@ -83,8 +78,7 @@ mSelectedTags.add(tag);
 );
 break;
 case DIALOG_CRAM:
-activeCramTags.clear();
-allCramTags=AnkiDroidApp.deck().allTags_();
+allCramTags=DeckManager.getMainDeck().allTags_();
 if (allCramTags == null) {
 Themes.showThemedToast(StudyOptions.this,getResources().getString(R.string.error_insufficient_memory),false);
 ad.setEnabled(false);
@@ -104,6 +98,9 @@ activeCramTags.add(tag);
 }
 }
 );
+break;
+case DIALOG_DB_ERROR:
+ad.getButton(Dialog.BUTTON_NEUTRAL).setEnabled(hasErrorFiles() && !PrefSettings.getSharedPrefs(StudyOptions.this).getString("reportErrorMode",Feedback.REPORT_ASK).equals(Feedback.REPORT_NEVER));
 break;
 }
 }

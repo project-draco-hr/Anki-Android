@@ -1,37 +1,3 @@
 {
-  Log.i(AnkiDroidApp.TAG,"uncaughtException");
-  collectInformation();
-  Date ts=new Date();
-  TimeZone tz=TimeZone.getDefault();
-  SimpleDateFormat df1=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS",Locale.US);
-  SimpleDateFormat df2=new SimpleDateFormat("Z",Locale.US);
-  df1.setTimeZone(TimeZone.getTimeZone("UTC"));
-  String reportgeneratedutc=String.format("%s",df1.format(ts));
-  String reportgeneratedtzoffset=String.format("%s",df2.format(ts));
-  String reportgeneratedtz=String.format("%s",tz.getID());
-  StringBuilder reportInformation=new StringBuilder(10000);
-  reportInformation.append(String.format("reportgeneratedutc=%s\n",reportgeneratedutc));
-  reportInformation.append(String.format("reportgeneratedtzoffset=%s\n",reportgeneratedtzoffset));
-  reportInformation.append(String.format("reportgeneratedtz=%s\n",reportgeneratedtz));
-  for (  String key : mInformation.keySet()) {
-    String value=mInformation.get(key);
-    reportInformation.append(String.format("%s=%s\n",key.toLowerCase(),value));
-  }
-  reportInformation.append("stacktrace=\nBegin Stacktrace\n");
-  final Writer result=new StringWriter();
-  final PrintWriter printWriter=new PrintWriter(result);
-  e.printStackTrace(printWriter);
-  reportInformation.append(String.format("%s\n",result.toString()));
-  reportInformation.append("End Stacktrace\n\nBegin Inner exceptions\n");
-  Throwable cause=e.getCause();
-  while (cause != null) {
-    cause.printStackTrace(printWriter);
-    reportInformation.append(String.format("%s\n",result.toString()));
-    cause=cause.getCause();
-  }
-  reportInformation.append("End Inner exceptions");
-  printWriter.close();
-  Log.i(AnkiDroidApp.TAG,"report infomation string created");
-  saveReportToFile(reportInformation.toString());
-  mPreviousHandler.uncaughtException(t,e);
+  uncaughtException(t,e,null);
 }

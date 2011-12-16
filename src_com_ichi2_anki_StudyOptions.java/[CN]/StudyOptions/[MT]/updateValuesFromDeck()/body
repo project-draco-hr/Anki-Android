@@ -1,5 +1,5 @@
 {
-  Deck deck=AnkiDroidApp.deck();
+  Deck deck=DeckManager.getMainDeck();
   Resources res=getResources();
   if (deck != null) {
     int[] counts=deck.getSched().counts();
@@ -41,4 +41,5 @@
       updateStatisticBars();
     }
   }
+  return true;
 }

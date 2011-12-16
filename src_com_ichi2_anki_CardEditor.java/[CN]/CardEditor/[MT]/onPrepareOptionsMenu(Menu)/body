@@ -10,5 +10,9 @@
       menu.findItem(MENU_COPY_CARD).setEnabled(false);
     }
   }
+  if (mCaller != CALLER_CARDEDITOR_INTENT_ADD) {
+    mIntentInformation=MetaDB.getIntentInformation(this);
+    menu.findItem(MENU_SAVED_INTENT).setEnabled(mIntentInformation.size() > 0);
+  }
   return true;
 }

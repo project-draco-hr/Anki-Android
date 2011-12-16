@@ -2,12 +2,12 @@
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   Log.i(AnkiDroidApp.TAG,"Reviewer - onCreate");
-  mChangeBorderStyle=Themes.getTheme() != Themes.THEME_BLUE;
+  mChangeBorderStyle=Themes.getTheme() == Themes.THEME_ANDROID_LIGHT || Themes.getTheme() == Themes.THEME_ANDROID_DARK;
   setVolumeControlStream(AudioManager.STREAM_MUSIC);
-  Deck deck=AnkiDroidApp.deck();
+  Deck deck=DeckManager.getMainDeck();
   if (deck == null) {
-    setResult(StudyOptions.CONTENT_NO_EXTERNAL_STORAGE);
-    finish();
+    finishNoStorageAvailable();
+    return;
   }
  else {
     mCurrentScheduler=deck.getSched();
@@ -28,10 +28,10 @@
  else {
       mCurrentBackgroundColor=Color.WHITE;
     }
-    mCustomFontFiles=Utils.getCustomFonts(getBaseContext());
+    mRefreshWebview=getRefreshWebviewAndInitializeWebviewVariables();
     initLayout(R.layout.flashcard);
     if (mPrefTextSelection) {
-      mClipboard.setText("");
+      clipboardSetText("");
       Lookup.initialize(this,mDeckFilename);
     }
     try {

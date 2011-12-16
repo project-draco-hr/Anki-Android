@@ -1,7 +1,9 @@
 {
   Log.i(AnkiDroidApp.TAG,"DeckPreferences - CacheValues");
-  mValues.put("newCardsPDay",String.valueOf(AnkiDroidApp.deck().getIntVar("newPerDay")));
-  mValues.put("newCardOrder",String.valueOf(AnkiDroidApp.deck().getIntVar("newOrder")));
-  mValues.put("newCardSpacing",String.valueOf(AnkiDroidApp.deck().getIntVar("newSpread")));
-  mValues.put("revCardOrder",String.valueOf(AnkiDroidApp.deck().getIntVar("revOrder")));
+  mValues.put("newCardsPDay",String.valueOf(DeckManager.getMainDeck().getNewCardsPerDay()));
+  mValues.put("sessionQLimit",String.valueOf(DeckManager.getMainDeck().getSessionRepLimit()));
+  mValues.put("sessionTLimit",String.valueOf(DeckManager.getMainDeck().getSessionTimeLimit() / 60));
+  mValues.put("newCardOrder",String.valueOf(DeckManager.getMainDeck().getNewCardOrder()));
+  mValues.put("newCardSpacing",String.valueOf(DeckManager.getMainDeck().getNewCardSpacing()));
+  mValues.put("revCardOrder",String.valueOf(DeckManager.getMainDeck().getRevCardOrder()));
 }

@@ -1,0 +1,6 @@
+{
+  super.onDisabled(context);
+  Log.i(AnkiDroidApp.TAG,"MediumWidget: Widget disabled");
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
+  preferences.edit().putBoolean("widgetMediumEnabled",false).commit();
+}

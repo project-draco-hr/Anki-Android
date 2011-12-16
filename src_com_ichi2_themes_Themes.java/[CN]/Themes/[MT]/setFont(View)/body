@@ -1,0 +1,18 @@
+{
+  if (view instanceof ViewGroup) {
+    ViewGroup vg=(ViewGroup)view;
+    for (int i=0; i < vg.getChildCount(); i++) {
+      View child=vg.getChildAt(i);
+      if (child instanceof TextView) {
+        TextView tv=(TextView)child;
+        if (tv.getTypeface() != null && tv.getTypeface().getStyle() == Typeface.BOLD) {
+          setBoldFont((TextView)child);
+        }
+ else {
+          setRegularFont((TextView)child);
+        }
+      }
+      setFont(child);
+    }
+  }
+}

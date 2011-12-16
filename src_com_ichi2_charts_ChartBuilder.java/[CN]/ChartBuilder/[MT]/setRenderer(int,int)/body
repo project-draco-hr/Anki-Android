@@ -10,33 +10,20 @@ case 1:
   renderer.setColor(res.getColor(R.color.statistics_due_mature_cards));
 break;
 case 2:
-renderer.setColor(res.getColor(R.color.statistics_due_learn_cards));
-break;
-case 3:
-renderer.setColor(res.getColor(R.color.statistics_due_average_line));
-renderer.setLineWidth(2f);
+renderer.setColor(res.getColor(R.color.statistics_due_failed_cards));
 break;
 }
 }
- else if (type <= Statistics.TYPE_REVIEWING_TIME) {
+ else if (type == Statistics.TYPE_REVIEWS) {
 switch (row) {
 case 0:
-renderer.setColor(res.getColor(R.color.statistics_reps_cram_cards));
+renderer.setColor(res.getColor(R.color.statistics_reps_new_cards));
 break;
 case 1:
-renderer.setColor(res.getColor(R.color.statistics_reps_learn_cards));
-break;
-case 2:
-renderer.setColor(res.getColor(R.color.statistics_reps_relearn_cards));
-break;
-case 3:
 renderer.setColor(res.getColor(R.color.statistics_reps_young_cards));
 break;
-case 4:
+case 2:
 renderer.setColor(res.getColor(R.color.statistics_reps_mature_cards));
-break;
-case 5:
-renderer.setColor(res.getColor(R.color.statistics_due_average_line));
 break;
 }
 }

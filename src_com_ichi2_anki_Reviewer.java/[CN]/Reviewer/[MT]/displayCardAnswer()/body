@@ -5,46 +5,68 @@
   }
   sDisplayAnswer=true;
   setFlipCardAnimation();
-  Sound.stopSounds();
-  String displayString="";
   String answer=getAnswer(), question=getQuestion();
-  if (mPrefFixArabic) {
-    answer=ArabicUtilities.reshapeSentence(answer,true);
-    question=ArabicUtilities.reshapeSentence(question,true);
-  }
-  if (typeAnswer()) {
-    mAnswerField.setVisibility(View.GONE);
-    if (mCurrentCard != null) {
-      String userAnswer=mAnswerField.getText().toString();
-      Matcher matcher=sSpanPattern.matcher(Utils.stripHTMLMedia(ArabicUtilities.reshapeSentence(comparedFieldAnswer,true)));
-      String correctAnswer=matcher.replaceAll("");
-      matcher=sBrPattern.matcher(correctAnswer);
-      correctAnswer=matcher.replaceAll("\n");
-      matcher=Sound.sSoundPattern.matcher(correctAnswer);
-      correctAnswer=matcher.replaceAll("");
-      matcher=Image.sImagePattern.matcher(correctAnswer);
-      correctAnswer=matcher.replaceAll("");
-      Log.i(AnkiDroidApp.TAG,"correct answer = " + correctAnswer);
-      DiffEngine diff=new DiffEngine();
-      StringBuffer span=new StringBuffer();
-      span.append("<span class=\"").append(comparedFieldClass).append("\">");
-      span.append(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer)));
-      span.append("</span>");
-      span.append("<br/>").append(answer);
-      displayString=enrichWithQADiv(span.toString(),true);
+  String displayString="";
+  if (mSimpleInterface) {
+    SpannableStringBuilder sb=new SpannableStringBuilder();
+    if (isQuestionDisplayed()) {
+      Spanned ques=Html.fromHtml(question);
+      if (ques.length() == 0) {
+        ques=new SpannableString(getResources().getString(R.string.simple_interface_hint,R.string.card_details_question));
+        ((SpannableString)ques).setSpan(new StyleSpan(Typeface.ITALIC),0,mCardContent.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      }
+      sb.append(ques);
+      sb.append("\n???????????????\n");
     }
-    InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-    inputMethodManager.hideSoftInputFromWindow(mAnswerField.getWindowToken(),0);
+    Spanned ans=Html.fromHtml(answer);
+    if (ans.length() == 0) {
+      SpannableString hint=new SpannableString(getResources().getString(R.string.simple_interface_hint,R.string.card_details_answer));
+      hint.setSpan(new StyleSpan(Typeface.ITALIC),0,hint.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      ans=hint;
+    }
+    sb.append(ans);
+    mCardContent=sb;
   }
  else {
-    displayString=enrichWithQADiv(answer,true);
-  }
-  if (isQuestionDisplayed()) {
-    StringBuffer sb=new StringBuffer();
-    sb.append(enrichWithQADiv(question,false));
-    sb.append("<a name=\"question\"></a><hr/>");
-    sb.append(displayString);
-    displayString=sb.toString();
+    Sound.stopSounds();
+    if (mPrefFixArabic) {
+      answer=ArabicUtilities.reshapeSentence(answer,true);
+      question=ArabicUtilities.reshapeSentence(question,true);
+    }
+    if (typeAnswer()) {
+      mAnswerField.setVisibility(View.GONE);
+      if (mCurrentCard != null) {
+        String userAnswer=mAnswerField.getText().toString();
+        Matcher matcher=sSpanPattern.matcher(Utils.stripHTMLMedia(ArabicUtilities.reshapeSentence(comparedFieldAnswer,true)));
+        String correctAnswer=matcher.replaceAll("");
+        matcher=sBrPattern.matcher(correctAnswer);
+        correctAnswer=matcher.replaceAll("\n");
+        matcher=Sound.sSoundPattern.matcher(correctAnswer);
+        correctAnswer=matcher.replaceAll("");
+        matcher=Image.sImagePattern.matcher(correctAnswer);
+        correctAnswer=matcher.replaceAll("");
+        Log.i(AnkiDroidApp.TAG,"correct answer = " + correctAnswer);
+        DiffEngine diff=new DiffEngine();
+        StringBuffer span=new StringBuffer();
+        span.append("<span class=\"").append(comparedFieldClass).append("\">");
+        span.append(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer)));
+        span.append("</span>");
+        span.append("<br/>").append(answer);
+        displayString=enrichWithQADiv(span.toString(),true);
+      }
+      InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+      inputMethodManager.hideSoftInputFromWindow(mAnswerField.getWindowToken(),0);
+    }
+ else {
+      displayString=enrichWithQADiv(answer,true);
+    }
+    if (isQuestionDisplayed()) {
+      StringBuffer sb=new StringBuffer();
+      sb.append(enrichWithQADiv(question,false));
+      sb.append("<a name=\"question\"></a><hr/>");
+      sb.append(displayString);
+      displayString=sb.toString();
+    }
   }
   mIsSelecting=false;
   updateCard(displayString);

@@ -7,10 +7,16 @@
     AnkiDroidApp.zeemoteController().addJoystickListener(adapter);
     adapter.addButtonListener(this);
   }
-  if ((mCurrentContentView == CONTENT_STUDY_OPTIONS || mCurrentContentView == CONTENT_SESSION_COMPLETE) && mTextDeckName.getVisibility() != View.VISIBLE && (mProgressDialog == null || !mProgressDialog.isShowing())) {
-    showDeckInformation(true);
+  if ((mCurrentContentView == CONTENT_STUDY_OPTIONS || mCurrentContentView == CONTENT_SESSION_COMPLETE) && (mProgressDialog == null || !mProgressDialog.isShowing())) {
+    if (mTextDeckName.getVisibility() != View.VISIBLE) {
+      showDeckInformation(true);
+    }
+ else {
+      updateValuesFromDeck();
+    }
   }
   if (Utils.isNewDay(PrefSettings.getSharedPrefs(getBaseContext()).getLong("lastTimeOpened",0)) && (mCurrentContentView == CONTENT_STUDY_OPTIONS || mCurrentContentView == CONTENT_SESSION_COMPLETE)) {
+    BackupManager.initBackup();
     if (!DeckTask.taskIsRunning()) {
       displayProgressDialogAndLoadDeck();
     }

@@ -1,0 +1,8 @@
+{
+  mCurrentCard=card;
+  Long cardId=0l;
+  if (card != null) {
+    cardId=card.getId();
+  }
+  PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).edit().putLong("lastWidgetCard",cardId).commit();
+}

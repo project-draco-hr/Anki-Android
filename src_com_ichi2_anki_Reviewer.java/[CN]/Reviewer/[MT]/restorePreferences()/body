@@ -14,7 +14,6 @@
   mPrefFullscreenReview=preferences.getBoolean("fullscreenReview",true);
   mshowNextReviewTime=preferences.getBoolean("showNextReviewTime",true);
   mZoomEnabled=preferences.getBoolean("zoom",false);
-  mZeemoteEnabled=preferences.getBoolean("zeemote",false);
   mDisplayFontSize=preferences.getInt("relativeDisplayFontSize",CardModel.DEFAULT_FONT_SIZE_RATIO);
   mRelativeButtonSize=preferences.getInt("answerButtonSize",100);
   mPrefHideQuestionInAnswer=Integer.parseInt(preferences.getString("hideQuestionInAnswer",Integer.toString(HQIA_DO_SHOW)));
@@ -45,6 +44,7 @@
     mGestureTapRight=Integer.parseInt(preferences.getString("gestureTapRight","0"));
     mGestureTapTop=Integer.parseInt(preferences.getString("gestureTapTop","0"));
     mGestureTapBottom=Integer.parseInt(preferences.getString("gestureTapBottom","0"));
+    mGestureLongclick=Integer.parseInt(preferences.getString("gestureLongclick","0"));
   }
   mShowAnimations=preferences.getBoolean("themeAnimations",false);
   if (mShowAnimations) {
@@ -61,5 +61,9 @@
       setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
   }
+  if (preferences.getBoolean("keepScreenOn",false)) {
+    this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+  }
+  mSimpleInterface=preferences.getBoolean("simpleInterface",false);
   return preferences;
 }

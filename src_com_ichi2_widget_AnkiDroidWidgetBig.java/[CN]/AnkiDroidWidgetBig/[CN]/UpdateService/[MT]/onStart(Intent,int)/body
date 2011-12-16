@@ -1,0 +1,162 @@
+{
+  Log.i(AnkiDroidApp.TAG,"BigWidget: OnStart");
+  if (intent == null) {
+  }
+ else   if (contentService == null) {
+    Log.i(AnkiDroidApp.TAG,"binding content service");
+    updateViews();
+    tempIntent=intent;
+    sContext=this;
+    Intent contentIntent=new Intent(this,WidgetContentService.class);
+    this.bindService(contentIntent,localServiceConnection,Context.BIND_AUTO_CREATE);
+  }
+ else   if (intent.getAction() != null) {
+    String action=intent.getAction();
+    if (ACTION_NOTHING.equals(action)) {
+    }
+ else     if (ACTION_UPDATE.equals(action)) {
+      if (!contentService.mWaitForAsyncTask) {
+        if (!intent.getBooleanExtra(EXTRA_PROGRESSDIALOG,false)) {
+          contentService.mBigShowProgressDialog=false;
+          updateViews(intent.getIntExtra(EXTRA_VIEW,VIEW_NOT_SPECIFIED));
+        }
+ else         if (!contentService.mBigShowProgressDialog) {
+          showProgressDialog();
+        }
+      }
+    }
+ else     if (ACTION_OPENDECK.equals(action)) {
+      showProgressDialog();
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK,mOpenDeckHandler,new DeckTask.TaskData(DeckManager.REQUESTING_ACTIVITY_BIGWIDGET,intent.getStringExtra(EXTRA_DECK_PATH)));
+    }
+ else     if (ACTION_CLOSEDECK.equals(action)) {
+      if (contentService.mLoadedDeck != null) {
+        DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CLOSE_DECK,mCloseDeckHandler,new DeckTask.TaskData(contentService.mLoadedDeck.getDeckPath()));
+      }
+ else {
+        updateViews(VIEW_DECKS);
+      }
+    }
+ else     if (ACTION_UNDO.equals(action)) {
+      if (contentService.mLoadedDeck != null) {
+        if (contentService.mLoadedDeck.undoAvailable()) {
+          DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mUpdateCardHandler,new DeckTask.TaskData(0,contentService.mLoadedDeck,contentService.mCurrentCard != null ? contentService.mCurrentCard.getId() : 0,true));
+        }
+      }
+ else {
+        updateViews(VIEW_DECKS);
+      }
+    }
+ else     if (ACTION_BURY_CARD.equals(action)) {
+      if (contentService.mLoadedDeck != null) {
+        DeckTask.launchDeckTask(DeckTask.TASK_TYPE_BURY_CARD,mUpdateCardHandler,new DeckTask.TaskData(0,contentService.mLoadedDeck,contentService.mCurrentCard));
+      }
+ else {
+        updateViews(VIEW_DECKS);
+      }
+    }
+ else     if (action.startsWith(ACTION_ANSWER)) {
+      int ease=intent.getIntExtra(EXTRA_EASE,0);
+      if (ease == 0) {
+        updateViews(VIEW_SHOW_ANSWER);
+      }
+ else {
+        if (contentService.mLoadedDeck != null) {
+          if (contentService.mCurrentCard.thinkingTime() > 12) {
+            contentService.mCurrentCard.setTimerStart(Utils.now() - 6);
+          }
+          DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(ease,contentService.mLoadedDeck,contentService.mCurrentCard));
+        }
+ else {
+          updateViews(VIEW_DECKS);
+        }
+      }
+    }
+ else     if (ACTION_SHOW_RESTRICTIONS_DIALOG.equals(action)) {
+      Intent dialogIntent=new Intent(this,WidgetDialog.class);
+      dialogIntent.setAction(WidgetDialog.ACTION_SHOW_RESTRICTIONS_DIALOG);
+      dialogIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      this.startActivity(dialogIntent);
+    }
+ else     if (ACTION_OPEN.equals(action)) {
+      String deckpath=intent.getStringExtra(EXTRA_DECK_PATH);
+      Intent newIntent=StudyOptions.getLoadDeckIntent(this,deckpath);
+      if (deckpath != null) {
+        DeckManager.getDeck(deckpath,true,DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS);
+        if (contentService.mBigCurrentView != VIEW_NOTHING_DUE) {
+          newIntent.putExtra(StudyOptions.EXTRA_START,StudyOptions.EXTRA_START_REVIEWER);
+          startActivity(newIntent);
+          showProgressDialog();
+        }
+ else {
+          startActivity(newIntent);
+        }
+      }
+ else {
+        newIntent.putExtra(StudyOptions.EXTRA_START,StudyOptions.EXTRA_START_DECKPICKER);
+        startActivity(newIntent);
+      }
+    }
+ else     if (ACTION_CARDEDITOR.equals(action)) {
+      Intent editIntent=new Intent(this,CardEditor.class);
+      editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      editIntent.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_BIGWIDGET_EDIT);
+      editIntent.putExtra(CardEditor.EXTRA_DECKPATH,contentService.mLoadedDeck.getDeckPath());
+      this.startActivity(editIntent);
+    }
+ else     if (ACTION_FACTADDER.equals(action)) {
+      Intent editIntent=new Intent(this,CardEditor.class);
+      editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      editIntent.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_BIGWIDGET_ADD);
+      editIntent.putExtra(CardEditor.EXTRA_DECKPATH,contentService.mLoadedDeck.getDeckPath());
+      this.startActivity(editIntent);
+    }
+ else     if (ACTION_HELP.equals(action)) {
+      if (contentService.mBigShowProgressDialog) {
+        contentService.mBigShowProgressDialog=false;
+        updateViews(VIEW_SHOW_HELP);
+        contentService.mBigShowProgressDialog=true;
+      }
+ else {
+        updateViews(VIEW_SHOW_HELP);
+      }
+    }
+ else     if (ACTION_LEARN_MORE.equals(action)) {
+      if (contentService.mLoadedDeck != null) {
+        contentService.mLoadedDeck.setupLearnMoreScheduler();
+        contentService.mLoadedDeck.reset();
+        contentService.setCard();
+        contentService.mBigShowProgressDialog=false;
+        contentService.mBigCurrentMessage=null;
+        updateViews(VIEW_SHOW_QUESTION);
+      }
+ else {
+        updateViews(VIEW_DECKS);
+      }
+    }
+ else     if (ACTION_REVIEW_EARLY.equals(action)) {
+      if (contentService.mLoadedDeck != null) {
+        contentService.mLoadedDeck.setupReviewEarlyScheduler();
+        contentService.mLoadedDeck.reset();
+        contentService.setCard();
+        contentService.mBigShowProgressDialog=false;
+        contentService.mBigCurrentMessage=null;
+        updateViews(VIEW_SHOW_QUESTION);
+      }
+ else {
+        updateViews(VIEW_DECKS);
+      }
+    }
+ else     if (ACTION_SHOW_TOMORROW_DUES.equals(action)) {
+      if (contentService.mTomorrowDues == null) {
+        showProgressDialog();
+        contentService.mWaitForAsyncTask=true;
+        AsyncTask<String,Void,DeckStatus[]> getTomorrowDuesAsyncTask=new GetTomorrowDueAsyncTask();
+        getTomorrowDuesAsyncTask.execute(PrefSettings.getSharedPrefs(AnkiDroidWidgetBig.UpdateService.this).getString("deckPath",AnkiDroidApp.getStorageDirectory() + "/AnkiDroid"));
+      }
+ else {
+        updateViews(VIEW_CONGRATS);
+      }
+    }
+  }
+}

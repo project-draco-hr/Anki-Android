@@ -1,5 +1,5 @@
 {
   if (mCurrentCard != null) {
-    MetaDB.storeLanguage(mContext,mDeckFilename,Model.getModel(AnkiDroidApp.deck(),mCurrentCard.getCardModelId(),false).getId(),mCurrentCard.getCardModelId(),questionAnswer,language);
+    MetaDB.storeLanguage(mContext,mDeckFilename,Model.getModel(DeckManager.getMainDeck(),mCurrentCard.getCardModelId(),false).getId(),mCurrentCard.getCardModelId(),questionAnswer,language);
   }
 }

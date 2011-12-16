@@ -1,9 +1,10 @@
 {
-  if (mCurrentContentView == CONTENT_STUDY_OPTIONS || mCurrentContentView == CONTENT_SESSION_COMPLETE) {
+  if (mStartedByBigWidget != EXTRA_START_NOTHING || mCurrentContentView == CONTENT_STUDY_OPTIONS || mCurrentContentView == CONTENT_SESSION_COMPLETE) {
+    mInReviewer=true;
     Intent reviewer=new Intent(StudyOptions.this,Reviewer.class);
     reviewer.putExtra("deckFilename",mDeckFilename);
     startActivityForResult(reviewer,REQUEST_REVIEW);
-    if (getApiLevel() > 4) {
+    if (getApiLevel() > 4 && mStartedByBigWidget == EXTRA_START_NOTHING) {
       ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
     }
   }

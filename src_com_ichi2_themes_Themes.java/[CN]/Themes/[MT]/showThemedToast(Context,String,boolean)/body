@@ -1,7 +1,18 @@
 {
   Toast result=Toast.makeText(context,text,shortLength ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG);
-  if (mCurrentTheme >= THEME_BLUE) {
-    result.getView().setBackgroundResource(mToastBackground);
+  try {
+    if (mCurrentTheme >= THEME_BLUE) {
+      TextView tv=new TextView(context);
+      tv.setBackgroundResource(mToastBackground);
+      tv.setTextColor(mProgressDialogFontColor);
+      tv.setText(text);
+      result.setView(tv);
+    }
+    result.show();
   }
-  result.show();
+ catch (  OutOfMemoryError e) {
+    Log.e(AnkiDroidApp.TAG,"showThemedToast - OutOfMemoryError occured: " + e);
+    result.getView().setBackgroundResource(R.color.black);
+    result.show();
+  }
 }
