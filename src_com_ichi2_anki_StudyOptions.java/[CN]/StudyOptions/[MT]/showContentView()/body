@@ -26,10 +26,8 @@ showDialog(DIALOG_DECK_NOT_LOADED);
 break;
 case CONTENT_STUDY_OPTIONS:
 case CONTENT_SESSION_COMPLETE:
-if ((DeckManager.getMainDeck() != null) && (DeckManager.getMainDeck().name().equals("cram"))) {
 mToggleCram.setChecked(false);
 mToggleLimit.setEnabled(true);
-}
 if (mCurrentContentView == CONTENT_STUDY_OPTIONS) {
 mButtonStart.setText(R.string.studyoptions_start);
 }
@@ -44,6 +42,8 @@ showContentView(CONTENT_DECK_NOT_LOADED);
 }
 break;
 case CONTENT_CONGRATS:
+mToggleCram.setChecked(false);
+mToggleLimit.setEnabled(true);
 Deck deck=DeckManager.getMainDeck();
 if (deck != null) {
 int failedCards=deck.getFailedDelayedCount();
