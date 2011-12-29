@@ -14,6 +14,11 @@
       executeSegs(tmpl,ctx,out);
     }
   }
+ else   if (value instanceof String) {
+    if (((String)value).length() == 0) {
+      executeSegs(tmpl,ctx,out);
+    }
+  }
  else   if (value.getClass().isArray()) {
     if (Array.getLength(value) == 0) {
       executeSegs(tmpl,ctx,out);
