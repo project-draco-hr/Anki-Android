@@ -6,9 +6,9 @@
       Log.w(AnkiDroidApp.TAG,"Card.java (fromDB(id)): No result from query.");
       return;
     }
-    mId=cursor.getInt(0);
-    mNid=cursor.getInt(1);
-    mDid=cursor.getInt(2);
+    mId=cursor.getLong(0);
+    mNid=cursor.getLong(1);
+    mDid=cursor.getLong(2);
     mOrd=cursor.getInt(3);
     mMod=cursor.getInt(4);
     mUsn=cursor.getInt(5);

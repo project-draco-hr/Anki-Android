@@ -10,7 +10,7 @@
     return;
   }
  else {
-    mSched=new Sched(col);
+    mSched=col.getSched();
     restorePreferences();
     if (mPrefFullscreenReview) {
       getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);

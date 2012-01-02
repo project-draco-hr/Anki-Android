@@ -32,10 +32,10 @@
     mEase3.setTextColor(mNextTimeTextColor);
   }
   if (mshowNextReviewTime) {
-    mNext1.setText(mCurrentScheduler.nextIvlStr(mCurrentCard,1));
-    mNext2.setText(mCurrentScheduler.nextIvlStr(mCurrentCard,2));
-    mNext3.setText(mCurrentScheduler.nextIvlStr(mCurrentCard,3));
-    mNext4.setText(mCurrentScheduler.nextIvlStr(mCurrentCard,4));
+    mNext1.setText(mSched.nextIvlStr(mCurrentCard,1));
+    mNext2.setText(mSched.nextIvlStr(mCurrentCard,2));
+    mNext3.setText(mSched.nextIvlStr(mCurrentCard,3));
+    mNext4.setText(mSched.nextIvlStr(mCurrentCard,4));
     switchVisibility(mNext1,View.VISIBLE);
     switchVisibility(mNext2,View.VISIBLE);
     switchVisibility(mNext3,View.VISIBLE);

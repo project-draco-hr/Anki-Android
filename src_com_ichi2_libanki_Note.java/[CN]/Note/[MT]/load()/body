@@ -7,8 +7,8 @@
       return;
     }
     mGuId=cursor.getString(0);
-    mMid=cursor.getInt(1);
-    mDid=cursor.getInt(2);
+    mMid=cursor.getLong(1);
+    mDid=cursor.getLong(2);
     mMod=cursor.getInt(3);
     mUsn=cursor.getInt(4);
     mTags=mCol.getTags().split(cursor.getString(5));
