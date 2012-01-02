@@ -1,6 +1,17 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
-  if (requestCode == SHOW_INFO) {
+  if (requestCode == SHOW_STUDYOPTIONS) {
+    if (resultCode == RESULT_OK) {
+      for (      long did : mCol.getDecks().active()) {
+        HashMap<String,String> deck=getDeckFromDeckList(did);
+        deck.put("new","-1");
+        deck.put("lrn","-1");
+        deck.put("rev","-1");
+      }
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK_COUNTS,mLoadCountsHandler,new TaskData(mCol));
+    }
+  }
+ else   if (requestCode == SHOW_INFO) {
     if (resultCode == RESULT_OK) {
       showOtherScreensIfNecessary(PrefSettings.getSharedPrefs(getBaseContext()));
     }
@@ -20,7 +31,7 @@
       }
     }
   }
- else   if ((requestCode == CREATE_DECK || requestCode == DOWNLOAD_PERSONAL_DECK || requestCode == DOWNLOAD_SHARED_DECK) && resultCode == RESULT_OK) {
+ else   if ((requestCode == CREATE_DECK || requestCode == DOWNLOAD_SHARED_DECK) && resultCode == RESULT_OK) {
   }
  else   if (requestCode == REPORT_FEEDBACK && resultCode == RESULT_OK) {
   }

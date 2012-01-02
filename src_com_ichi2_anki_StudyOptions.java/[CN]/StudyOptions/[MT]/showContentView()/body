@@ -1,43 +1,14 @@
 {
 switch (mCurrentContentView) {
-case CONTENT_NO_DECK:
-    setTitle(R.string.app_name);
-  if (PrefSettings.getSharedPrefs(getBaseContext()).getBoolean("firstStart",true)) {
-    mTextNoDeckTitle.setText(R.string.studyoptions_welcome_title);
-    mTextNoDeckMessage.setText(String.format(getResources().getString(R.string.studyoptions_welcome_message),mPrefDeckPath));
-    showDialog(DIALOG_WELCOME);
-  }
- else {
-    mTextNoDeckTitle.setText(R.string.studyoptions_nodeck_title);
-    mTextNoDeckMessage.setText(String.format(getResources().getString(R.string.studyoptions_nodeck_message),mPrefDeckPath));
-    if (mNewVersionAlert != null) {
-      mNewVersionAlert.show();
-    }
-  }
-setContentView(mNoDeckView);
-break;
-case CONTENT_DECK_NOT_LOADED:
-setTitle(R.string.app_name);
-mTextNoDeckTitle.setText(R.string.studyoptions_deck_not_loaded_title);
-mTextNoDeckMessage.setText(R.string.studyoptions_deck_not_loaded_message);
-setContentView(mNoDeckView);
-mCurrentDialogMessage=getResources().getString(R.string.open_deck_failed,"\'" + new File(mDeckFilename).getName() + "\'",BackupManager.BROKEN_DECKS_SUFFIX.replace("/",""),getResources().getString(R.string.repair_deck));
-showDialog(DIALOG_DECK_NOT_LOADED);
-break;
 case CONTENT_STUDY_OPTIONS:
-case CONTENT_SESSION_COMPLETE:
-if (mCurrentContentView == CONTENT_STUDY_OPTIONS) {
-mButtonStart.setText(R.string.studyoptions_start);
-}
+    if (mCurrentContentView == CONTENT_STUDY_OPTIONS) {
+      mButtonStart.setText(R.string.studyoptions_start);
+    }
  else {
-mButtonStart.setText(R.string.studyoptions_continue);
-}
-if (updateValuesFromDeck()) {
-setContentView(mStudyOptionsView);
-}
- else {
-showContentView(CONTENT_DECK_NOT_LOADED);
-}
+      mButtonStart.setText(R.string.studyoptions_continue);
+    }
+  setContentView(mStudyOptionsView);
+updateValuesFromDeck();
 break;
 case CONTENT_CONGRATS:
 case CONTENT_NO_EXTERNAL_STORAGE:

@@ -1,0 +1,37 @@
+{
+  name=name.replaceAll("\'","").replace("\"","");
+  for (  Map.Entry<Long,JSONObject> g : mDecks.entrySet()) {
+    try {
+      if (g.getValue().getString("name").equalsIgnoreCase(name)) {
+        return g.getKey();
+      }
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  if (!create) {
+    return 0;
+  }
+  if (name.split("::").length > 1) {
+    _ensureParents(name);
+  }
+  JSONObject g;
+  long id;
+  try {
+    g=new JSONObject(defaultDeck);
+    g.put("name",name);
+    id=Utils.intNow();
+    while (mDecks.containsKey(id)) {
+      id=Utils.intNow();
+    }
+    g.put("id",id);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  mDecks.put(id,g);
+  save(g);
+  maybeAddToActive();
+  return id;
+}

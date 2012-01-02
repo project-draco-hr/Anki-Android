@@ -3,9 +3,5 @@
   @SuppressWarnings("unchecked") HashMap<String,String> data=(HashMap<String,String>)mDeckListAdapter.getItem(id);
   mCol.getDecks().select(Long.parseLong(data.get("did")));
   Log.i(AnkiDroidApp.TAG,"Selected " + deckFilename);
-  Intent intent=new Intent(this,StudyOptions.class);
-  startActivityForResult(intent,STUDYOPTIONS);
-  if (UIUtils.getApiLevel() > 4) {
-    ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
-  }
+  openStudyOptions();
 }

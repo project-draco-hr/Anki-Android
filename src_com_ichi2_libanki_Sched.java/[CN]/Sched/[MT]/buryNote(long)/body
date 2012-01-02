@@ -1,0 +1,12 @@
+{
+  mCol.setDirty();
+  ArrayList<Long> cids=mCol.getDb().queryColumn(long.class,"SELECT id FROM card WHERE nid = " + nid,0);
+  long[] ids=new long[cids.size()];
+  int i=0;
+  for (  long c : cids) {
+    ids[i]=c;
+    i++;
+  }
+  removeFailed(ids);
+  mCol.getDb().getDatabase().execSQL("UPDATE cards SET queue = -2 WHERE nid = " + nid);
+}

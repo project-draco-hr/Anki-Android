@@ -3,33 +3,33 @@
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   Resources res=getResources();
-  mType=getIntent().getIntExtra(TYPE_EXTRA);
-  setTitle(getTitle());
+  mType=getIntent().getIntExtra(TYPE_EXTRA,TYPE_ABOUT);
+  setTitle(getTitleString());
   setContentView(R.layout.info);
   WebView webview=(WebView)findViewById(R.id.info);
   webview.setBackgroundColor(res.getColor(Themes.getBackgroundColor()));
   Button continueButton=(Button)findViewById(R.id.info_continue);
   continueButton.setOnClickListener(new OnClickListener(){
-    @Override public void onClick(    DialogInterface dialog,    int which){
+    @Override public void onClick(    View arg0){
       setResult(RESULT_OK);
 switch (mType) {
 case TYPE_WELCOME:
-        PrefSettings.getSharedPrefs(Info.this.getBaseContext()).edit().putString("lastVersion",getVersion()).commit();
+        PrefSettings.getSharedPrefs(Info.this.getBaseContext()).edit().putLong("lastTimeOpened",System.currentTimeMillis()).commit();
       break;
 case TYPE_NEW_VERSION:
-    PrefSettings.getSharedPrefs(Info.this.getBaseContext()).edit().putString("lastTimeOpened",System.currentTimeMillis()).commit();
+    PrefSettings.getSharedPrefs(Info.this.getBaseContext()).edit().putString("lastVersion",AnkiDroidApp.getPkgVersion()).commit();
   break;
 }
 finish();
 if (UIUtils.getApiLevel() > 4) {
-ActivityTransitionAnimation.slide(StudyOptions.this,ActivityTransitionAnimation.LEFT);
+ActivityTransitionAnimation.slide(Info.this,ActivityTransitionAnimation.LEFT);
 }
 }
 }
 );
 String[] content=res.getStringArray(R.array.about_content);
 StringBuilder sb=new StringBuilder();
-sb.append("<html><body text=\"#FFFFFF\" link=\"#E37068\" alink=\"#E37068\" vlink=\"#E37068\">");
+sb.append("<html><body text=\"#000000\" link=\"#E37068\" alink=\"#E37068\" vlink=\"#E37068\">");
 switch (mType) {
 case TYPE_ABOUT:
 sb.append(String.format(content[0],res.getString(R.string.app_name),res.getString(R.string.link_anki))).append("<br/><br/>");
@@ -43,16 +43,15 @@ case TYPE_WELCOME:
 sb.append(res.getString(R.string.studyoptions_welcome_dialog).replace("\n","<br>"));
 break;
 case TYPE_NEW_VERSION:
-builder.append(res.getString(R.string.new_version_message));
-builder.append("<ul>");
+sb.append(res.getString(R.string.new_version_message));
+sb.append("<ul>");
 String[] features=res.getStringArray(R.array.new_version_features);
 for (int i=0; i < features.length; i++) {
-builder.append("<li>");
-builder.append(features[i]);
-builder.append("</li>");
+sb.append("<li>");
+sb.append(features[i]);
+sb.append("</li>");
 }
-builder.append("</ul>");
-return builder.toString();
+sb.append("</ul>");
 break;
 default :
 finish();

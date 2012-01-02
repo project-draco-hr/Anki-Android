@@ -6,7 +6,6 @@
   registerExternalStorageListener();
   mCol=Collection.currentCollection();
   activeCramTags=new HashSet<String>();
-  mSelectedTags=new HashSet<String>();
   initAllContentViews();
   showContentView(CONTENT_STUDY_OPTIONS);
   gestureDetector=new GestureDetector(new MyGestureDetector());

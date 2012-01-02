@@ -14,7 +14,7 @@
       try {
         cur=mCol.getDb().getDatabase().rawQuery("SELECT id, due FROM cards WHERE did = " + did + " AND queue = 0 LIMIT "+ lim,null);
         while (cur.moveToNext()) {
-          mNewQueue.add(new int[]{cur.getInt(0),cur.getInt(1)});
+          mNewQueue.add(new long[]{cur.getInt(0),cur.getLong(1)});
         }
       }
   finally {

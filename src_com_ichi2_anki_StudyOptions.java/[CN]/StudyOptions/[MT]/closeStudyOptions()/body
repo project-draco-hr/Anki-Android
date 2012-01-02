@@ -1,3 +1,7 @@
 {
-  closeStudyOptions(true);
+  mCompat.invalidateOptionsMenu(this);
+  finish();
+  if (UIUtils.getApiLevel() > 4) {
+    ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
+  }
 }

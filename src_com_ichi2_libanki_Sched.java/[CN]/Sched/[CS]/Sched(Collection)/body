@@ -4,9 +4,9 @@
   mReportLimit=1000;
   mReps=0;
   _updateCutoff();
-  mNewQueue=new LinkedList<int[]>();
-  mLrnQueue=new LinkedList<int[]>();
-  mRevQueue=new LinkedList<int[]>();
+  mNewQueue=new LinkedList<long[]>();
+  mLrnQueue=new LinkedList<long[]>();
+  mRevQueue=new LinkedList<long[]>();
   mGroupConfs=new TreeMap<Integer,Integer>();
   mConfCache=new TreeMap<Integer,JSONObject>();
 }

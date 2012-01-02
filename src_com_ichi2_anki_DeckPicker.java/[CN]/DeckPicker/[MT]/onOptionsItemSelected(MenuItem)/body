@@ -7,7 +7,7 @@ case MENU_CREATE_DECK:
   }
 return true;
 case MENU_ABOUT:
-startActivity(new Intent(DeckPicker.this,About.class));
+startActivity(new Intent(DeckPicker.this,Info.class));
 return true;
 case MENU_DOWNLOAD_PERSONAL_DECK:
 openPersonalDeckPicker();

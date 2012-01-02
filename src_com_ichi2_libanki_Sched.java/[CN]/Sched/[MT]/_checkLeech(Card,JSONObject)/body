@@ -10,7 +10,7 @@
       n.addTag("leech");
       n.flush();
       if (conf.getInt("leechAction") == 0) {
-        suspendCards(new int[]{card.getId()});
+        suspendCards(new long[]{card.getId()});
         card.setQueue(-1);
       }
       return true;

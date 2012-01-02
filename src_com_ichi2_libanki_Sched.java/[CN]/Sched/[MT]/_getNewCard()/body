@@ -2,7 +2,7 @@
   if (mNewQueue.isEmpty()) {
     return null;
   }
-  int[] item=mNewQueue.remove();
+  long[] item=mNewQueue.remove();
   try {
     JSONObject conf=mCol.getDecks().confForDid(mNewDids.getFirst());
     if (conf.getJSONObject("new").getBoolean("separate")) {

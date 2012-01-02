@@ -10,7 +10,7 @@
       }
     }
     if (mLrnQueue.getFirst()[0] < cutoff) {
-      int id=mLrnQueue.remove()[1];
+      long id=mLrnQueue.remove()[1];
       Card card=mCol.getCard(id);
       mLrnCount-=card.getLeft();
       return card;

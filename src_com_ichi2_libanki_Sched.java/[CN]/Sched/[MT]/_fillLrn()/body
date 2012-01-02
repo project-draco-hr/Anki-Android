@@ -10,7 +10,7 @@
   try {
     cur=mCol.getDb().getDatabase().rawQuery("SELECT due, id FROM cards WHERE did IN " + _deckLimit() + " AND queue = 1 AND due < "+ mDayCutoff+ " SORT BY due LIMIT "+ mReportLimit,null);
     while (cur.moveToNext()) {
-      mLrnQueue.add(new int[]{cur.getInt(0),cur.getInt(1)});
+      mLrnQueue.add(new long[]{cur.getInt(0),cur.getLong(1)});
     }
     return !mLrnQueue.isEmpty();
   }

@@ -2,17 +2,11 @@
   StyledDialog ad=(StyledDialog)dialog;
   DeckTask.waitToFinish();
 switch (id) {
-case DIALOG_SYNC_CONFLICT_RESOLUTION:
-case DIALOG_NO_SPACE_LEFT:
-case DIALOG_DECK_NOT_LOADED:
-case DIALOG_SYNC_LOG:
-    ad.setMessage(mCurrentDialogMessage);
-  break;
 case DIALOG_MORE:
 case DIALOG_LIMIT_SESSION:
-break;
+    break;
 case DIALOG_TAGS:
-break;
+  break;
 case DIALOG_CRAM:
 break;
 case DIALOG_DB_ERROR:

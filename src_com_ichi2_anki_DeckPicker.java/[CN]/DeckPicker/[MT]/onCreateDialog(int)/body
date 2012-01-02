@@ -8,40 +8,6 @@ case DIALOG_NO_SDCARD:
   builder.setPositiveButton("OK",null);
 dialog=builder.create();
 break;
-case DIALOG_USER_NOT_LOGGED_IN_SYNC:
-case DIALOG_USER_NOT_LOGGED_IN_DOWNLOAD:
-builder.setTitle(res.getString(R.string.connection_error_title));
-builder.setIcon(android.R.drawable.ic_dialog_alert);
-builder.setMessage(res.getString(R.string.no_user_password_error_message));
-if (id == DIALOG_USER_NOT_LOGGED_IN_SYNC) {
-builder.setPositiveButton(res.getString(R.string.log_in),new DialogInterface.OnClickListener(){
-@Override public void onClick(DialogInterface dialog,int which){
-Intent myAccount=new Intent(DeckPicker.this,MyAccount.class);
-myAccount.putExtra("notLoggedIn",true);
-startActivityForResult(myAccount,LOG_IN_FOR_SYNC);
-if (UIUtils.getApiLevel() > 4) {
-ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.LEFT);
-}
-}
-}
-);
-}
- else {
-builder.setPositiveButton(res.getString(R.string.log_in),new DialogInterface.OnClickListener(){
-@Override public void onClick(DialogInterface dialog,int which){
-Intent myAccount=new Intent(DeckPicker.this,MyAccount.class);
-myAccount.putExtra("notLoggedIn",true);
-startActivityForResult(myAccount,LOG_IN_FOR_DOWNLOAD);
-if (UIUtils.getApiLevel() > 4) {
-ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.LEFT);
-}
-}
-}
-);
-}
-builder.setNegativeButton(res.getString(R.string.cancel),null);
-dialog=builder.create();
-break;
 case DIALOG_NO_CONNECTION:
 builder.setTitle(res.getString(R.string.connection_error_title));
 builder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -175,8 +141,8 @@ dialog=builder.create();
 break;
 case DIALOG_NO_SPACE_LEFT:
 builder.setMessage(res.getString(R.string.sd_space_warning));
-builder.setNegativeButton(res.getString(R.string.dont_show_again),new OnClickListener(){
-@Override public void onClick(DialogInterface dialog,int which){
+builder.setNegativeButton(res.getString(R.string.dont_show_again),new DialogInterface.OnClickListener(){
+@Override public void onClick(DialogInterface arg0,int arg1){
 PrefSettings.getSharedPrefs(getBaseContext()).edit().putBoolean("dontShowLowMemory",true).commit();
 }
 }
@@ -184,6 +150,8 @@ PrefSettings.getSharedPrefs(getBaseContext()).edit().putBoolean("dontShowLowMemo
 default :
 dialog=null;
 }
+if (dialog != null) {
 dialog.setOwnerActivity(this);
+}
 return dialog;
 }

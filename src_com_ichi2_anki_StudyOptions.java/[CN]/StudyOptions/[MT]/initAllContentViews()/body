@@ -28,11 +28,13 @@
     }
 );
   }
-  mTextReviewsDue=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_reviews_due);
-  mTextReviewsDue.setText("    ");
-  mTextNewToday=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_new_today);
-  mTextETA=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_eta);
+  mTextTodayNew=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_today_new);
+  mTextTodayNew.setText("    ");
+  mTextTodayLrn=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_today_lrn);
+  mTextTodayRev=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_today_rev);
   mTextNewTotal=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_new_total);
+  mTextTotal=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_total);
+  mTextETA=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_eta);
   mNightMode=(CheckBox)mStudyOptionsView.findViewById(R.id.studyoptions_night_mode);
   mNightMode.setChecked(mInvertedColors);
   mNightMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
@@ -64,17 +66,6 @@
   mToggleLimit.setOnClickListener(mButtonClickListener);
   mCardBrowser.setOnClickListener(mButtonClickListener);
   mStatisticsButton.setOnClickListener(mButtonClickListener);
-  mNoDeckView=getLayoutInflater().inflate(R.layout.studyoptions_nodeck,null);
-  Themes.setWallpaper(mNoDeckView);
-  mTextNoDeckTitle=(TextView)mNoDeckView.findViewById(R.id.studyoptions_nodeck_title);
-  Themes.setTitleStyle(mTextNoDeckTitle);
-  mTextNoDeckMessage=(TextView)mNoDeckView.findViewById(R.id.studyoptions_nodeck_message);
-  Themes.setTextViewStyle(mTextNoDeckMessage);
-  mTextNoDeckMessage.setOnClickListener(mButtonClickListener);
-  Themes.setTextViewStyle(mTextNoDeckMessage);
-  mNoDeckView.findViewById(R.id.studyoptions_load_sample_deck).setOnClickListener(mButtonClickListener);
-  mNoDeckView.findViewById(R.id.studyoptions_download_deck).setOnClickListener(mButtonClickListener);
-  mNoDeckView.findViewById(R.id.studyoptions_load_other_deck).setOnClickListener(mButtonClickListener);
   mCongratsView=getLayoutInflater().inflate(R.layout.studyoptions_congrats,null);
   Themes.setWallpaper(mCongratsView);
   Themes.setTitleStyle(mCongratsView.findViewById(R.id.studyoptions_congrats_title));

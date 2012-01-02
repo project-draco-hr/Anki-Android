@@ -1,17 +1,17 @@
 {
   if (mSwipeEnabled) {
     try {
-      if (e1.getX() - e2.getX() > sSwipeMinDistance && Math.abs(velocityX) > sSwipeThresholdVelocity && Math.abs(e1.getY() - e2.getY()) < sSwipeMaxOffPath) {
+      if (e1.getX() - e2.getX() > DeckPicker.sSwipeMinDistance && Math.abs(velocityX) > DeckPicker.sSwipeThresholdVelocity && Math.abs(e1.getY() - e2.getY()) < DeckPicker.sSwipeMaxOffPath) {
         openReviewer();
       }
- else       if (e2.getX() - e1.getX() > sSwipeMinDistance && Math.abs(velocityX) > sSwipeThresholdVelocity && Math.abs(e1.getY() - e2.getY()) < sSwipeMaxOffPath) {
-        openDeckPicker();
+ else       if (e2.getX() - e1.getX() > DeckPicker.sSwipeMinDistance && Math.abs(velocityX) > DeckPicker.sSwipeThresholdVelocity && Math.abs(e1.getY() - e2.getY()) < DeckPicker.sSwipeMaxOffPath) {
+        closeStudyOptions();
       }
- else       if (e2.getY() - e1.getY() > sSwipeMinDistance && Math.abs(velocityY) > sSwipeThresholdVelocity && Math.abs(e1.getX() - e2.getX()) < sSwipeMaxOffPath) {
+ else       if (e2.getY() - e1.getY() > DeckPicker.sSwipeMinDistance && Math.abs(velocityY) > DeckPicker.sSwipeThresholdVelocity && Math.abs(e1.getX() - e2.getX()) < DeckPicker.sSwipeMaxOffPath) {
         mStatisticType=0;
         openStatistics(0);
       }
- else       if (e1.getY() - e2.getY() > sSwipeMinDistance && Math.abs(velocityY) > sSwipeThresholdVelocity && Math.abs(e1.getX() - e2.getX()) < sSwipeMaxOffPath) {
+ else       if (e1.getY() - e2.getY() > DeckPicker.sSwipeMinDistance && Math.abs(velocityY) > DeckPicker.sSwipeThresholdVelocity && Math.abs(e1.getX() - e2.getX()) < DeckPicker.sSwipeMaxOffPath) {
         openGroupSelection();
       }
     }

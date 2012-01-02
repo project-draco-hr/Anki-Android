@@ -20,9 +20,10 @@ setMargins(view.findViewById(R.id.studyoptions_statistic_field),LayoutParams.WRA
 setMargins(view.findViewById(R.id.studyoptions_bottom),LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT,0,0,0,8f);
 ((View)view.findViewById(R.id.studyoptions_deckinformation)).setBackgroundResource(R.drawable.white_textview);
 ((View)view.findViewById(R.id.studyoptions_statistic_field)).setBackgroundResource(R.color.transparent);
+((View)view.findViewById(R.id.studyoptions_deck_name)).setVisibility(View.VISIBLE);
 ((View)view.findViewById(R.id.studyoptions_deckinformation)).setBackgroundResource(mTextViewStyle);
 ((View)view.findViewById(R.id.studyoptions_bottom)).setBackgroundResource(mTextViewStyle);
-((View)view.findViewById(R.id.studyoptions_main)).setBackgroundResource(R.drawable.white_wallpaper_so);
+((View)view.findViewById(R.id.studyoptions_main)).setBackgroundResource(R.drawable.white_wallpaper);
 }
  else {
 ((View)view.findViewById(R.id.studyoptions_statistic_field)).setBackgroundResource(mTextViewStyle);

@@ -1,6 +1,6 @@
 {
   try {
-    mRevCount=_walkingCount(Sched.class.getDeclaredMethod("__deckRevLimitSingle",JSONObject.class),Sched.class.getDeclaredMethod("_cntFnRev",Integer.class));
+    mRevCount=_walkingCount(Sched.class.getDeclaredMethod("_deckRevLimitSingle",JSONObject.class),Sched.class.getDeclaredMethod("_cntFnRev",long.class,int.class));
   }
  catch (  NoSuchMethodException e) {
     throw new RuntimeException(e);

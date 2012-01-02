@@ -13,7 +13,7 @@
  else   if (requestCode == PICK_DECK_REQUEST || requestCode == DOWNLOAD_PERSONAL_DECK || requestCode == DOWNLOAD_SHARED_DECK) {
     mInDeckPicker=false;
     if (requestCode == PICK_DECK_REQUEST && resultCode == RESULT_CLOSE) {
-      closeStudyOptions(true);
+      closeStudyOptions();
       return;
     }
  else     if (requestCode == PICK_DECK_REQUEST && resultCode == RESULT_RESTART) {
@@ -30,7 +30,6 @@
       Log.i(AnkiDroidApp.TAG,"onActivityResult - Deck browser returned without picking new deck");
       if (mDeckFilename == null || !(new File(mDeckFilename).exists())) {
         mCompat.invalidateOptionsMenu(this);
-        showContentView(CONTENT_NO_DECK);
       }
  else {
         showContentView(CONTENT_STUDY_OPTIONS);
@@ -46,7 +45,6 @@
     mDeckFilename=intent.getExtras().getString(OPT_DB);
     savePreferences("deckFilename");
     if (mDeckFilename == null || !new File(mDeckFilename).exists()) {
-      showContentView(CONTENT_NO_DECK);
     }
   }
  else   if (requestCode == PREFERENCES_UPDATE) {
@@ -65,11 +63,10 @@
     mInReviewer=false;
 switch (resultCode) {
 case Reviewer.RESULT_SESSION_COMPLETED:
-      showContentView(CONTENT_SESSION_COMPLETE);
-    break;
+      break;
 case Reviewer.RESULT_NO_MORE_CARDS:
-  showContentView(CONTENT_CONGRATS);
-break;
+    showContentView(CONTENT_CONGRATS);
+  break;
 case Reviewer.RESULT_ANSWERING_ERROR:
 showContentView(CONTENT_STUDY_OPTIONS);
 showDialog(DIALOG_DB_ERROR);
@@ -112,21 +109,6 @@ mShowRepairDialog=false;
 }
  else if (showDeckPickerOnStartup()) {
 openDeckPicker();
-}
- else {
-try {
-if (mWelcomeAlert != null && mWelcomeAlert.isShowing()) {
-mWelcomeAlert.dismiss();
-mWelcomeAlert.show();
-}
- else if (mNewVersionAlert != null && mNewVersionAlert.isShowing()) {
-mNewVersionAlert.dismiss();
-mNewVersionAlert.show();
-}
-}
- catch (IllegalArgumentException e) {
-Log.e(AnkiDroidApp.TAG,"Error on dismissing and showing dialog: " + e);
-}
 }
 }
 }
