@@ -1,16 +1,2 @@
 {
-  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
-  String username=preferences.getString("username","");
-  String password=preferences.getString("password","");
-  if (AnkiDroidApp.isUserLoggedIn()) {
-    Deck deck=DeckManager.getMainDeck();
-    if (deck != null) {
-      Log.i(AnkiDroidApp.TAG,"Synchronizing deck " + mDeckFilename + ", conflict resolution: "+ conflictResolution);
-      Log.i(AnkiDroidApp.TAG,String.format(Utils.ENGLISH_LOCALE,"Before syncing - mod: %f, last sync: %f",deck.getModified(),deck.getLastSync()));
-      Connection.syncDeck(mSyncListener,new Connection.Payload(new Object[]{username,password,deck,conflictResolution,true}));
-    }
-  }
- else {
-    showDialog(DIALOG_USER_NOT_LOGGED_IN);
-  }
 }

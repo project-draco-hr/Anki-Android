@@ -1,0 +1,6 @@
+{
+  ArrayList<JSONObject> ok=new ArrayList<JSONObject>();
+  JSONObject model=note.model();
+  int[] avail=mModels.availOrds(model,Utils.joinFields(note.getFields()));
+  return (JSONObject[])ok.toArray(new JSONObject[ok.size()]);
+}

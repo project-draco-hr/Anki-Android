@@ -1,0 +1,18 @@
+{
+  Card c=_getLrnCard();
+  if (c != null) {
+    return c;
+  }
+  if (_timeForNewCard()) {
+    return _getNewCard();
+  }
+  c=_getRevCard();
+  if (c != null) {
+    return c;
+  }
+  c=_getNewCard();
+  if (c != null) {
+    return c;
+  }
+  return _getLrnCard(true);
+}

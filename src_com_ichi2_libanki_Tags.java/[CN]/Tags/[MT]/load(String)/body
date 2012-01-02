@@ -1,0 +1,9 @@
+{
+  try {
+    mTags=new JSONObject(json);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  mChanged=false;
+}

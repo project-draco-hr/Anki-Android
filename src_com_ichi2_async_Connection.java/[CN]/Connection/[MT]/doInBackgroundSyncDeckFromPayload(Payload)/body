@@ -1,14 +1,11 @@
 {
   Log.i(AnkiDroidApp.TAG,"SyncDeckFromPayload");
-  Deck deck=(Deck)data.data[0];
-  SyncClient client=new SyncClient(deck);
+  Decks deck=(Decks)data.data[0];
+  SyncClient client=null;
   BufferedReader bufPython;
   try {
     bufPython=new BufferedReader(new FileReader("/sdcard/jsonObjectPython.txt"));
     JSONObject payloadReply=new JSONObject(bufPython.readLine());
-    client.applyPayloadReply(payloadReply);
-    deck.setLastLoaded(deck.getModified());
-    deck.commitToDB();
   }
  catch (  FileNotFoundException e) {
     e.printStackTrace();

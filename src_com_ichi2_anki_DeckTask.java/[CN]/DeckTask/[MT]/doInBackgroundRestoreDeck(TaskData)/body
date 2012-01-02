@@ -1,5 +1,0 @@
-{
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundRestoreDeck");
-  String[] paths=params[0].getDeckList();
-  return new TaskData(BackupManager.restoreDeckBackup(paths[0],paths[1]));
-}

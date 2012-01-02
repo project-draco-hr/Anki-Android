@@ -1,0 +1,9 @@
+{
+  try {
+    JSONObject c=mCol.getDecks().confForDid(d.getLong("id"));
+    return Math.max(0,c.getJSONObject("rev").getInt("perDay") - d.getJSONArray("revToday").getInt(1));
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

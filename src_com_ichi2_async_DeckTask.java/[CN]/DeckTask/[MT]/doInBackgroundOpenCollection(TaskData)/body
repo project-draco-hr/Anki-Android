@@ -1,0 +1,8 @@
+{
+  Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
+  Log.i(AnkiDroidApp.TAG,"loadDeck - SD card mounted and existent file -> Loading collection...");
+  publishProgress(new TaskData(res.getString(R.string.loading_deck)));
+  Collection col=Collection.openCollection("/emmc/AnkiDroid/collection.anki2");
+  TreeSet<Object[]> decks=col.getSched().deckDueTree(false);
+  return new TaskData(col,decks,DECK_LOADED);
+}

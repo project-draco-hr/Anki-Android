@@ -3,11 +3,11 @@
   StringBuilder sb=new StringBuilder();
   sb.append("INSERT OR REPLACE INTO cards VALUES (");
   sb.append(mId).append(", ");
-  sb.append(mFId).append(", ");
-  sb.append(mGId).append(", ");
+  sb.append(mNid).append(", ");
+  sb.append(mDid).append(", ");
   sb.append(mOrd).append(", ");
-  sb.append(mCrt).append(", ");
   sb.append(mMod).append(", ");
+  sb.append(mUsn).append(", ");
   sb.append(mType).append(", ");
   sb.append(mQueue).append(", ");
   sb.append(mDue).append(", ");
@@ -15,9 +15,9 @@
   sb.append(mFactor).append(", ");
   sb.append(mReps).append(", ");
   sb.append(mLapses).append(", ");
-  sb.append(mGrade).append(", ");
-  sb.append(mCycles).append(", ");
+  sb.append(mLeft).append(", ");
   sb.append(mEDue).append(", ");
+  sb.append(mFlags).append(", ");
   sb.append("\"").append(mData).append("\")");
-  mDeck.getDB().getDatabase().execSQL(sb.toString());
+  mCol.getDb().getDatabase().execSQL(sb.toString());
 }

@@ -1,0 +1,4 @@
+{
+  removeFailed(ids);
+  mCol.getDb().getDatabase().execSQL("UPDATE cards SET queue = -1, mod = " + Utils.intNow() + ", usn = "+ mCol.getUsn()+ " WHERE id IN "+ Utils.ids2str(ids));
+}

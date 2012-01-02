@@ -1,0 +1,62 @@
+{
+  try {
+    if ((sOldInstance != null) && (sOldInstance.getStatus() != AsyncTask.Status.FINISHED)) {
+      Log.i(AnkiDroidApp.TAG,"Waiting for " + sOldInstance.mType + " to finish");
+      sOldInstance.get();
+    }
+  }
+ catch (  Exception e) {
+    Log.e(AnkiDroidApp.TAG,"doInBackground - Got exception while waiting for thread to finish: " + e.getMessage());
+  }
+switch (mType) {
+case TASK_TYPE_OPEN_COLLECTION:
+    return doInBackgroundOpenCollection(params);
+case TASK_TYPE_LOAD_DECK_COUNTS:
+  return doInBackgroundLoadDeckCounts(params);
+case TASK_TYPE_OPEN_COLLECTION_AND_UPDATE_CARDS:
+TaskData taskData=doInBackgroundOpenCollection(params);
+return taskData;
+case TASK_TYPE_SAVE_DECK:
+return doInBackgroundSaveDeck(params);
+case TASK_TYPE_ANSWER_CARD:
+return doInBackgroundAnswerCard(params);
+case TASK_TYPE_SUSPEND_CARD:
+return doInBackgroundSuspendCard(params);
+case TASK_TYPE_MARK_CARD:
+return doInBackgroundMarkCard(params);
+case TASK_TYPE_ADD_FACT:
+return doInBackgroundAddFact(params);
+case TASK_TYPE_UPDATE_FACT:
+return doInBackgroundUpdateFact(params);
+case TASK_TYPE_UNDO:
+return doInBackgroundUndo(params);
+case TASK_TYPE_REDO:
+return doInBackgroundRedo(params);
+case TASK_TYPE_LOAD_CARDS:
+return doInBackgroundLoadCards(params);
+case TASK_TYPE_BURY_CARD:
+return doInBackgroundBuryCard(params);
+case TASK_TYPE_DELETE_CARD:
+return doInBackgroundDeleteCard(params);
+case TASK_TYPE_LOAD_STATISTICS:
+return doInBackgroundLoadStatistics(params);
+case TASK_TYPE_OPTIMIZE_DECK:
+return doInBackgroundOptimizeDeck(params);
+case TASK_TYPE_SET_ALL_DECKS_JOURNAL_MODE:
+return doInBackgroundSetJournalMode(params);
+case TASK_TYPE_DELETE_BACKUPS:
+return doInBackgroundDeleteBackups();
+case TASK_TYPE_RESTORE_DECK:
+return doInBackgroundRestoreDeck(params);
+case TASK_TYPE_SORT_CARDS:
+return doInBackgroundSortCards(params);
+case TASK_TYPE_LOAD_TUTORIAL:
+return doInBackgroundLoadTutorial(params);
+case TASK_TYPE_REPAIR_DECK:
+return doInBackgroundRepairDeck(params);
+case TASK_TYPE_CLOSE_DECK:
+return doInBackgroundCloseDeck(params);
+default :
+return null;
+}
+}

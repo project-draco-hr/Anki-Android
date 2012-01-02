@@ -60,7 +60,6 @@ showDialog(DIALOG_WAL);
  else if (walModeInitiallySet) {
 walModeInitiallySet=false;
 dialogMessage=getResources().getString(R.string.wal_mode_set_message);
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SET_ALL_DECKS_JOURNAL_MODE,mDeckOperationHandler,new DeckTask.TaskData(DeckManager.getMainDeck(),PrefSettings.getSharedPrefs(getBaseContext()).getString("deckPath",AnkiDroidApp.getStorageDirectory())));
 }
  else {
 lockCheckAction=false;

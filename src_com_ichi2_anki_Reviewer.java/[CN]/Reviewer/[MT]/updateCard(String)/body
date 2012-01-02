@@ -9,17 +9,8 @@
   content=recalculateHardCodedFontSize(content,mDisplayFontSize);
   if (mCurrentCard != null) {
     final String japaneseModelTag="Japanese";
-    Deck currentDeck=DeckManager.getMainDeck();
-    Model myModel=Model.getModel(currentDeck,mCurrentCard.getCardModelId(),false);
-    if (myModel == null) {
-      Log.e(AnkiDroidApp.TAG,"updateCard - no Model could be fetched. Closing Reviewer and showing db-error dialog");
-      closeReviewer(RESULT_ANSWERING_ERROR,true);
-    }
-    mBaseUrl=Utils.getBaseUrl(mMediaDir,myModel,currentDeck);
+    mBaseUrl="";
     int nightBackground=Themes.getNightModeCardBackground(this);
-    content=myModel.getCSSForFontColorSize(mCurrentCard.getCardModelId(),mDisplayFontSize,mNightMode,nightBackground) + Model.invertColors(content,mNightMode);
-    isJapaneseModel=myModel.hasTag(japaneseModelTag);
-    mCurrentBackgroundColor=myModel.getBackgroundColor(mCurrentCard.getCardModelId());
   }
  else {
     mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
@@ -44,8 +35,6 @@
     }
     answer=Sound.parseSounds(mBaseUrl,content,mSpeakText,qa);
   }
-  question=LaTeX.parseLaTeX(DeckManager.getMainDeck(),question);
-  answer=LaTeX.parseLaTeX(DeckManager.getMainDeck(),answer);
   if (mPrefUseRubySupport && isJapaneseModel) {
     content=RubyParser.ankiStripKanji(question) + RubyParser.ankiRubyToMarkup(answer);
   }
@@ -59,7 +48,6 @@
   Log.i(AnkiDroidApp.TAG,"content card = \n" + content);
   StringBuilder style=new StringBuilder();
   style.append(mCustomFontStyle);
-  style.append(getDeckStyle(mCurrentCard.mDeck.getDeckPath()));
   Log.i(AnkiDroidApp.TAG,"::style::" + style);
   mCardContent=new SpannedString(mCardTemplate.replace("::content::",content).replace("::style::",style.toString()));
   Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);

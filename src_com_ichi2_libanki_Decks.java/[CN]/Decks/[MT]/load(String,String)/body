@@ -1,0 +1,26 @@
+{
+  mDecks=new HashMap<Long,JSONObject>();
+  mDeckIds=new HashMap<String,Long>();
+  mDconf=new HashMap<Long,JSONObject>();
+  try {
+    JSONObject decksarray=new JSONObject(decks);
+    JSONArray ids=decksarray.names();
+    for (int i=0; i < ids.length(); i++) {
+      String id=ids.getString(i);
+      JSONObject o=decksarray.getJSONObject(id);
+      long longId=Long.parseLong(id);
+      mDecks.put(longId,o);
+      mDeckIds.put(o.getString("name"),longId);
+    }
+    JSONObject confarray=new JSONObject(dconf);
+    ids=confarray.names();
+    for (int i=0; i < ids.length(); i++) {
+      String id=ids.getString(i);
+      mDconf.put(Long.parseLong(id),confarray.getJSONObject(id));
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  mChanged=false;
+}

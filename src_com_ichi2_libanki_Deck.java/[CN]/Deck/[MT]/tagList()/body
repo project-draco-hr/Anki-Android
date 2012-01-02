@@ -1,4 +1,0 @@
-{
-  ArrayList<String> tags=getDB().queryColumn(String.class,"SELECT name FROM tags ORDER BY name",0);
-  return (String[])tags.toArray(new String[tags.size()]);
-}

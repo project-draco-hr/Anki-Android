@@ -1,0 +1,33 @@
+{
+  if (mNewQueue.size() > 0) {
+    return true;
+  }
+  if (mNewCount == 0) {
+    return false;
+  }
+  while (!mNewDids.isEmpty()) {
+    long did=mNewDids.getFirst();
+    int lim=Math.min(mQueueLimit,_deckNewLimit(did));
+    mNewQueue.clear();
+    Cursor cur=null;
+    if (lim != 0) {
+      try {
+        cur=mCol.getDb().getDatabase().rawQuery("SELECT id, due FROM cards WHERE did = " + did + " AND queue = 0 LIMIT "+ lim,null);
+        while (cur.moveToNext()) {
+          mNewQueue.add(new int[]{cur.getInt(0),cur.getInt(1)});
+        }
+      }
+  finally {
+        if (cur != null && !cur.isClosed()) {
+          cur.close();
+        }
+      }
+      if (!mNewQueue.isEmpty()) {
+        Collections.reverse(mNewQueue);
+        return true;
+      }
+    }
+    mNewDids.remove();
+  }
+  return false;
+}

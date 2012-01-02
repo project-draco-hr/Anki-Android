@@ -1,0 +1,11 @@
+{
+  if (mDecks.containsKey(did)) {
+    return mDecks.get(did);
+  }
+ else   if (defaultvalue) {
+    return mDecks.get(1);
+  }
+ else {
+    return null;
+  }
+}

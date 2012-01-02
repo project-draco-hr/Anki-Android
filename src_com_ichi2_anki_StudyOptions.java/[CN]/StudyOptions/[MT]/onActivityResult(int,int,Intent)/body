@@ -1,7 +1,6 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
   if (mStartedByBigWidget != EXTRA_START_NOTHING && ((requestCode == REQUEST_REVIEW && resultCode == Reviewer.RESULT_DEFAULT) || (requestCode == PICK_DECK_REQUEST && resultCode != RESULT_OK))) {
-    DeckManager.closeMainDeck(DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS);
     finish();
     return;
   }
@@ -30,17 +29,11 @@
     if (resultCode != RESULT_OK) {
       Log.i(AnkiDroidApp.TAG,"onActivityResult - Deck browser returned without picking new deck");
       if (mDeckFilename == null || !(new File(mDeckFilename).exists())) {
-        DeckManager.closeMainDeck();
         mCompat.invalidateOptionsMenu(this);
         showContentView(CONTENT_NO_DECK);
       }
  else {
         showContentView(CONTENT_STUDY_OPTIONS);
-        if (DeckManager.getMainDeck() == null || !DeckManager.getMainDeckPath().equals(mDeckFilename)) {
-          if (resultCode != RESULT_DONT_RELOAD_DECK) {
-            displayProgressDialogAndLoadDeck();
-          }
-        }
       }
       return;
     }
@@ -54,10 +47,6 @@
     savePreferences("deckFilename");
     if (mDeckFilename == null || !new File(mDeckFilename).exists()) {
       showContentView(CONTENT_NO_DECK);
-    }
-    if (DeckManager.getMainDeck() == null || !DeckManager.getMainDeckPath().equals(mDeckFilename)) {
-      boolean updateAllCards=(requestCode == DOWNLOAD_SHARED_DECK);
-      displayProgressDialogAndLoadDeck(updateAllCards);
     }
   }
  else   if (requestCode == PREFERENCES_UPDATE) {
@@ -74,7 +63,6 @@
  else   if (requestCode == REQUEST_REVIEW) {
     Log.i(AnkiDroidApp.TAG,"Result code = " + resultCode);
     mInReviewer=false;
-    AnkiDroidWidgetBig.updateWidget(AnkiDroidWidgetBig.UpdateService.VIEW_NOT_SPECIFIED,false);
 switch (resultCode) {
 case Reviewer.RESULT_SESSION_COMPLETED:
       showContentView(CONTENT_SESSION_COMPLETE);
@@ -92,7 +80,6 @@ mDeckFilename=PrefSettings.getSharedPrefs(getBaseContext()).getString("deckFilen
 displayProgressDialogAndLoadDeck();
 break;
 case Reviewer.RESULT_DEFAULT:
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SAVE_DECK,mSaveAndResetDeckHandler,new DeckTask.TaskData(DeckManager.getMainDeck(),0));
 showContentView(CONTENT_STUDY_OPTIONS);
 break;
 }

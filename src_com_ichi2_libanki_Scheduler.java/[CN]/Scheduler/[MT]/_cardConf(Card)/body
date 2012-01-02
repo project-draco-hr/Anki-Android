@@ -1,7 +1,0 @@
-{
-  int id=mGroupConfs.get(card.getGId());
-  if (!mConfCache.containsKey(id)) {
-    mConfCache.put(id,mDeck.groupConf(id));
-  }
-  return mConfCache.get(id);
-}

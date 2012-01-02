@@ -1,9 +1,0 @@
-{
-  List<String> other=new ArrayList<String>();
-  for (  String t : mTags) {
-    if (!t.toLowerCase().equals(tag.toLowerCase())) {
-      other.add(t);
-    }
-  }
-  mTags=(String[])other.toArray();
-}

@@ -1,16 +1,24 @@
 {
   Log.i(AnkiDroidApp.TAG,"DeckPicker - onCreate");
+  if (!isTaskRoot()) {
+    Log.i(AnkiDroidApp.TAG,"DeckPicker - onCreate: Detected multiple instance of this activity, closing it and return to root activity");
+    Intent reloadIntent=new Intent(DeckPicker.this,DeckPicker.class);
+    reloadIntent.setAction(Intent.ACTION_MAIN);
+    reloadIntent.putExtras(getIntent().getExtras());
+    reloadIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+    reloadIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    finish();
+    startActivityIfNeeded(reloadIntent,0);
+  }
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
-  setTitleText();
-  mSelf=this;
+  Intent intent=getIntent();
+  SharedPreferences preferences=restorePreferences();
+  showOtherScreensIfNecessary(preferences);
   View mainView=getLayoutInflater().inflate(R.layout.deck_picker,null);
   setContentView(mainView);
   Themes.setContentStyle(mainView,Themes.CALLER_DECKPICKER);
   registerExternalStorageListener();
-  initDialogs();
-  mBrokenDecks=new ArrayList<String>();
-  mAlreadyDealtWith=new ArrayList<String>();
   mDeckpickerButtons=(View)findViewById(R.id.deckpicker_buttons);
   mSyncAllButton=(Button)findViewById(R.id.sync_all_button);
   mSyncAllButton.setOnClickListener(new OnClickListener(){
@@ -29,47 +37,9 @@
 );
   mDeckList=new ArrayList<HashMap<String,String>>();
   mDeckListView=(ListView)findViewById(R.id.files);
-  mDeckListAdapter=new AlternatingAdapter(this,mDeckList,R.layout.deck_item,new String[]{"name","due","new","showProgress","notes","rateOfCompletionMat","rateOfCompletionAll"},new int[]{R.id.DeckPickerName,R.id.DeckPickerDue,R.id.DeckPickerNew,R.id.DeckPickerProgress,R.id.DeckPickerUpgradeNotesButton,R.id.DeckPickerCompletionMat,R.id.DeckPickerCompletionAll});
+  mDeckListAdapter=new ThemedAdapter(this,mDeckList,R.layout.deck_item,new String[]{"name","due","new","complMat","complAll"},new int[]{R.id.DeckPickerName,R.id.DeckPickerDue,R.id.DeckPickerNew,R.id.DeckPickerCompletionMat,R.id.DeckPickerCompletionAll});
   mDeckListAdapter.setViewBinder(new SimpleAdapter.ViewBinder(){
     @Override public boolean setViewValue(    View view,    Object data,    String text){
-      if (view instanceof ProgressBar) {
-        if (text.equals("true")) {
-          view.setVisibility(View.VISIBLE);
-        }
- else {
-          view.setVisibility(View.GONE);
-        }
-        return true;
-      }
-      if (view.getId() == R.id.DeckPickerCompletionMat || view.getId() == R.id.DeckPickerCompletionAll) {
-        if (!text.equals("-1")) {
-          Utils.updateProgressBars(DeckPicker.this,view,Double.parseDouble(text) / 100.0,mDeckListView.getWidth(),2,false);
-        }
- else {
-          Themes.setContentStyle(view,Themes.CALLER_DECKPICKER_DECK);
-        }
-      }
-      if (view.getId() == R.id.DeckPickerUpgradeNotesButton) {
-        if (text.equals("")) {
-          view.setVisibility(View.GONE);
-        }
- else {
-          view.setVisibility(View.VISIBLE);
-          view.setTag(text);
-          view.setOnClickListener(new OnClickListener(){
-            @Override public void onClick(            View v){
-              String tag=(String)v.getTag();
-              if (tag == null) {
-                tag="";
-              }
-              mUpgradeNotesAlert.setMessage(tag);
-              mUpgradeNotesAlert.show();
-            }
-          }
-);
-        }
-        return true;
-      }
       return false;
     }
   }
@@ -77,20 +47,17 @@
   mDeckListView.setOnItemClickListener(mDeckSelHandler);
   mDeckListView.setAdapter(mDeckListAdapter);
   registerForContextMenu(mDeckListView);
-  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
-  mPrefDeckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory());
-  mPrefDeckOrder=Integer.parseInt(preferences.getString("deckOrder",Integer.toString(ORDER_ALPHABETICAL)));
-  mPrefStartupDeckPicker=Integer.parseInt(preferences.getString("startup_mode","2")) == StudyOptions.SUM_DECKPICKER;
-  populateDeckList(mPrefDeckPath);
-  mSwipeEnabled=preferences.getBoolean("swipe",false);
-  gestureDetector=new GestureDetector(new MyGestureDetector());
-  mDeckListView.setOnTouchListener(new View.OnTouchListener(){
-    public boolean onTouch(    View v,    MotionEvent event){
-      if (gestureDetector.onTouchEvent(event)) {
-        return true;
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_OPEN_COLLECTION,mOpenCollectionHandler,null);
+  if (mSwipeEnabled) {
+    gestureDetector=new GestureDetector(new MyGestureDetector());
+    mDeckListView.setOnTouchListener(new View.OnTouchListener(){
+      public boolean onTouch(      View v,      MotionEvent event){
+        if (gestureDetector.onTouchEvent(event)) {
+          return true;
+        }
+        return false;
       }
-      return false;
     }
-  }
 );
+  }
 }

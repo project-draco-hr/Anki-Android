@@ -1,0 +1,7 @@
+{
+  ContentValues values=new ContentValues();
+  values.put("decks",mDecks.toString());
+  values.put("dconf",mDconf.toString());
+  mCol.getDb().getDatabase().update("col",values,null,null);
+  mChanged=false;
+}

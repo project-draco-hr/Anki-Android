@@ -2,30 +2,4 @@
   if (mCurrentCard == null) {
     return;
   }
-  Deck deck=DeckManager.getMainDeck();
-  int eta=mCurrentScheduler.eta() / 60;
-  if (deck.hasFinishScheduler() || eta < 1) {
-    setTitle(deck.getDeckName());
-  }
- else {
-    setTitle(getResources().getQuantityString(R.plurals.reviewer_window_title,eta,deck.getDeckName(),eta));
-  }
-  int[] counts=mCurrentScheduler.counts();
-  SpannableString newCount=new SpannableString(String.valueOf(counts[Scheduler.COUNTS_NEW]));
-  SpannableString lrnCount=new SpannableString(String.valueOf(counts[Scheduler.COUNTS_LRN]));
-  SpannableString revCount=new SpannableString(String.valueOf(counts[Scheduler.COUNTS_REV]));
-switch (mCurrentCard.getQueue()) {
-case Card.TYPE_NEW:
-    newCount.setSpan(new UnderlineSpan(),0,newCount.length(),0);
-  break;
-case Card.TYPE_LRN:
-lrnCount.setSpan(new UnderlineSpan(),0,lrnCount.length(),0);
-break;
-case Card.TYPE_REV:
-revCount.setSpan(new UnderlineSpan(),0,revCount.length(),0);
-break;
-}
-mTextBarRed.setText(newCount);
-mTextBarBlack.setText(lrnCount);
-mTextBarBlue.setText(revCount);
 }

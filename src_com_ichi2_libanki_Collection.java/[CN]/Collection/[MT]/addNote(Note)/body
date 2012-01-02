@@ -1,0 +1,14 @@
+{
+  JSONObject[] cms=findTemplates(note);
+  if (cms.length == 0) {
+    return 0;
+  }
+  note.flush();
+  int due=nextID("pos");
+  int ncards=0;
+  for (  JSONObject template : cms) {
+    _newCard(note,template,due);
+    ncards+=1;
+  }
+  return ncards;
+}

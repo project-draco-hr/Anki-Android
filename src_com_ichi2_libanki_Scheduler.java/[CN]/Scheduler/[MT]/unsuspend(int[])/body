@@ -1,3 +1,0 @@
-{
-  mDb.getDatabase().execSQL("UPDATE cards SET queue = type, mod = " + Utils.intNow() + " WHERE queue = -1 AND id IN "+ Utils.ids2str(ids));
-}

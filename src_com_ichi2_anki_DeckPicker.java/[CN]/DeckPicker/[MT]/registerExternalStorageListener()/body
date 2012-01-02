@@ -7,7 +7,6 @@
           Log.i(AnkiDroidApp.TAG,"DeckPicker - mUnmountReceiver, Action = Media Unmounted");
           SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
           String deckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory());
-          populateDeckList(deckPath);
         }
  else         if (action.equals(Intent.ACTION_MEDIA_MOUNTED)) {
           Log.i(AnkiDroidApp.TAG,"DeckPicker - mUnmountReceiver, Action = Media Mounted");
@@ -15,7 +14,6 @@
           String deckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory());
           mDeckIsSelected=false;
           setTitleText();
-          populateDeckList(deckPath);
         }
       }
     }

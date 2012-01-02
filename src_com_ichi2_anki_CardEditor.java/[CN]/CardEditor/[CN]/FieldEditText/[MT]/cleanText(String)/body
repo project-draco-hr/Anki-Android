@@ -1,6 +1,0 @@
-{
-  text=text.replaceAll("\\s*(" + NL_MARK + "\\s*)+",NEW_LINE);
-  text=text.replaceAll("^[,;:\\s\\)\\]" + NEW_LINE + "]*","");
-  text=text.replaceAll("[,;:\\s\\(\\[" + NEW_LINE + "]*$","");
-  return text;
-}

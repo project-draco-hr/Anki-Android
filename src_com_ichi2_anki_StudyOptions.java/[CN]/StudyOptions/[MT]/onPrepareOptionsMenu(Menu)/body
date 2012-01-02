@@ -1,8 +1,3 @@
 {
-  boolean deckChangeable=(DeckManager.getMainDeck() != null) && mSdCardAvailable && !mToggleCram.isChecked();
-  menu.findItem(MENU_OPEN).setEnabled(mSdCardAvailable);
-  menu.findItem(MENU_ADD_FACT).setEnabled(deckChangeable);
-  menu.findItem(MENU_MORE_OPTIONS).setEnabled(deckChangeable);
-  menu.findItem(MENU_SYNC).setEnabled(deckChangeable);
   return true;
 }

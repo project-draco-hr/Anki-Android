@@ -1,8 +1,0 @@
-{
-  try {
-    return revOrderStrings[mDeck.getQconf().getInt("revOrder")];
-  }
- catch (  JSONException e) {
-    throw new RuntimeException(e);
-  }
-}

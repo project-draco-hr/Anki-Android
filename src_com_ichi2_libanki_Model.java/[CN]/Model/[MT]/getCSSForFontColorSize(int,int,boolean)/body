@@ -1,8 +1,0 @@
-{
-  if (mDisplayPercentage != percentage || mNightMode != night || !mCssTemplateMap.containsKey(ord)) {
-    mDisplayPercentage=percentage;
-    mNightMode=night;
-    mCssTemplateMap.put(ord,createCSSForFontColorSize(ord,percentage,night));
-  }
-  return mCssTemplateMap.get(ord);
-}

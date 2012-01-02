@@ -1,0 +1,13 @@
+{
+  Log.i(AnkiDroidApp.TAG,"flush - Saving information to DB...");
+  mMod=(mod == 0 ? Utils.intNow() : mod);
+  ContentValues values=new ContentValues();
+  values.put("crt",mCrt);
+  values.put("mod",mMod);
+  values.put("scm",mScm);
+  values.put("dty",mDty ? 1 : 0);
+  values.put("usn",mUsn);
+  values.put("ls",mLs);
+  values.put("conf",mConf.toString());
+  mDb.getDatabase().update("col",values,null,null);
+}

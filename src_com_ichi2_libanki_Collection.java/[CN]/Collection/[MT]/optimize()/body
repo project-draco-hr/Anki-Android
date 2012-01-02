@@ -1,0 +1,7 @@
+{
+  Log.i(AnkiDroidApp.TAG,"executing VACUUM statement");
+  mDb.getDatabase().execSQL("VACUUM");
+  Log.i(AnkiDroidApp.TAG,"executing ANALYZE statement");
+  mDb.getDatabase().execSQL("ANALYZE");
+  return 0;
+}

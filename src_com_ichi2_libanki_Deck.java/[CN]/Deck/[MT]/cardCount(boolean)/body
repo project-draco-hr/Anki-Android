@@ -1,7 +1,0 @@
-{
-  String lim="";
-  if (limit) {
-    lim=" WHERE id != 0" + getSched()._groupLimit();
-  }
-  return (int)getDB().queryScalar("SELECT count() FROM cards" + lim);
-}

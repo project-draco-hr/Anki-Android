@@ -1,0 +1,10 @@
+{
+  initVariables(context,type,period,title);
+  if (type == TYPE_DECK_SUMMARY) {
+    return sDeckSummaryValues != null ? true : false;
+  }
+ else {
+    sSeriesList=getSeriesList();
+    return sSeriesList != null ? true : false;
+  }
+}

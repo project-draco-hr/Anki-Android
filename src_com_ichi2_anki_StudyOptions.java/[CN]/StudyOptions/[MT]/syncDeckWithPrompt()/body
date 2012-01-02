@@ -1,15 +1,2 @@
 {
-  if (AnkiDroidApp.isUserLoggedIn()) {
-    Deck deck=DeckManager.getMainDeck();
-    if (deck != null) {
-      if (mProgressDialog != null && mProgressDialog.isShowing()) {
-        mProgressDialog.dismiss();
-      }
-      mCurrentDialogMessage=String.format(getResources().getString(R.string.sync_conflict_message),deck.getDeckName());
-      showDialog(DIALOG_SYNC_CONFLICT_RESOLUTION);
-    }
-  }
- else {
-    showDialog(DIALOG_USER_NOT_LOGGED_IN);
-  }
 }

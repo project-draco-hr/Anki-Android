@@ -8,7 +8,6 @@
       if (resultCode == RESULT_EDIT_CARD_RESET) {
         showQuestion=UPDATE_CARD_NEW_CARD;
       }
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_FACT,mUpdateCardHandler,new DeckTask.TaskData(showQuestion,DeckManager.getMainDeck(),mCurrentCard));
     }
  else     if (resultCode == StudyOptions.CONTENT_NO_EXTERNAL_STORAGE) {
       finishNoStorageAvailable();

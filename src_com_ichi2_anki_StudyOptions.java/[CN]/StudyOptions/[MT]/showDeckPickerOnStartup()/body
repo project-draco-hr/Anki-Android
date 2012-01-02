@@ -5,7 +5,6 @@ case SUM_STUDY_OPTIONS:
 case SUM_DECKPICKER:
   return true;
 case SUM_DECKPICKER_ON_FIRST_START:
-return Utils.isNewDay(mLastTimeOpened);
 default :
 return false;
 }

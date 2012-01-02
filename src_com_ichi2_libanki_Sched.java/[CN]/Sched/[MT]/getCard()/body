@@ -1,0 +1,11 @@
+{
+  _checkDay();
+  Card card=_getCard();
+  if (card != null) {
+    card.startTimer();
+    return card;
+  }
+ else {
+    return null;
+  }
+}

@@ -1,8 +1,0 @@
-{
-  try {
-    return getModel(mConf.getInt("currentModelId"));
-  }
- catch (  JSONException e) {
-    throw new RuntimeException(e);
-  }
-}

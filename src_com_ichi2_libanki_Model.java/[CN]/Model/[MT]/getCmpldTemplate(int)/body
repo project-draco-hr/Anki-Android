@@ -1,6 +1,0 @@
-{
-  if (!mCmpldTemplateMap.containsKey(ord)) {
-    mCmpldTemplateMap.put(ord,compileTemplate(ord));
-  }
-  return mCmpldTemplateMap.get(ord);
-}

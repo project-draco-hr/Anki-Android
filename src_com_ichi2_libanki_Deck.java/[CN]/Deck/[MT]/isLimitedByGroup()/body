@@ -1,8 +1,0 @@
-{
-  try {
-    return getQconf().getJSONArray("groups").length() > 0;
-  }
- catch (  JSONException e) {
-    throw new RuntimeException(e);
-  }
-}

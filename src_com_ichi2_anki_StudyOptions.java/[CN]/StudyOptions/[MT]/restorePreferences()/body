@@ -7,26 +7,6 @@
   mLastTimeOpened=preferences.getLong("lastTimeOpened",0);
   BroadcastMessages.init(this,mLastTimeOpened);
   preferences.edit().putLong("lastTimeOpened",System.currentTimeMillis()).commit();
-  if (!preferences.getString("lastVersion","").equals(getVersion())) {
-    mNewVersionAlert=Themes.htmlOkDialog(this,getResources().getString(R.string.new_version_title) + " " + getVersion(),getVersionMessage(),new DialogInterface.OnClickListener(){
-      @Override public void onClick(      DialogInterface dialog,      int which){
-        PrefSettings.getSharedPrefs(StudyOptions.this.getBaseContext()).edit().putString("lastVersion",getVersion()).commit();
-        mNewVersionAlert=null;
-        BroadcastMessages.checkForNewMessages(StudyOptions.this);
-      }
-    }
-,new DialogInterface.OnCancelListener(){
-      @Override public void onCancel(      DialogInterface dialog){
-        mNewVersionAlert=null;
-        BroadcastMessages.checkForNewMessages(StudyOptions.this);
-      }
-    }
-,true);
-    AnkiDroidApp.createNoMediaFileIfMissing(new File(mPrefDeckPath));
-  }
- else   if (!preferences.getBoolean("firstStart",true)) {
-    BroadcastMessages.checkForNewMessages(this);
-  }
   final float gestureScale=getResources().getDisplayMetrics().density;
   int sensibility=preferences.getInt("swipeSensibility",100);
   if (sensibility != 100) {

@@ -1,8 +1,0 @@
-{
-  try {
-    return new StringBuilder().append("cm").append(Utils.hexifyID(getModel().getId())).append("-").append(Utils.hexifyID(getTemplate().getInt("ord"))).toString();
-  }
- catch (  JSONException e) {
-    throw new RuntimeException(e);
-  }
-}

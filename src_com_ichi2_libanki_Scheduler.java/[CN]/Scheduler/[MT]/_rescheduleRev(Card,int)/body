@@ -1,6 +1,0 @@
-{
-  card.setLastIvl(card.getIvl());
-  _updateRevIvl(card,ease);
-  card.setFactor(Math.max(1300,card.getFactor() + factorAdditionValues[ease - 2]));
-  card.setDue(mToday + card.getIvl());
-}

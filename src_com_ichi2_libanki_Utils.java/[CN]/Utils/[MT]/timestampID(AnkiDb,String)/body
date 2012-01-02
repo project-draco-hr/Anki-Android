@@ -1,0 +1,7 @@
+{
+  int t=intNow(1000);
+  while (db.queryScalar("SELECT id FROM " + table + " WHERE id = "+ t) == 0) {
+    t+=1;
+  }
+  return t;
+}

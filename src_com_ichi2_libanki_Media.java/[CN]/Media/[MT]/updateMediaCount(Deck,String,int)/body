@@ -1,8 +1,0 @@
-{
-  if (deck.getDB().queryScalar("SELECT 1 FROM media WHERE filename = '" + file + "'") == 1l) {
-    deck.getDB().getDatabase().execSQL(String.format(Utils.ENGLISH_LOCALE,"UPDATE media SET size = size + %d, created = %f WHERE filename = '%s'",count,Utils.now(),file));
-  }
- else   if (count > 0) {
-    String sum=Utils.fileChecksum(file);
-  }
-}

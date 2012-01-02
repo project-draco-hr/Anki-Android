@@ -1,0 +1,14 @@
+{
+  try {
+    mCol.getDb().getDatabase().execSQL("INSERT INTO revlog VALUES (?,?,?,?,?,?,?,?,?)",new Object[]{Utils.now() * 1000,id,usn,ease,ivl,lastIvl,factor,timeTaken,type});
+  }
+ catch (  SQLiteConstraintException e) {
+    try {
+      Thread.sleep(10);
+    }
+ catch (    InterruptedException e1) {
+      throw new RuntimeException(e1);
+    }
+    log(id,usn,ease,ivl,lastIvl,factor,timeTaken,type);
+  }
+}

@@ -1,7 +1,2 @@
 {
-  Intent cardBrowser=new Intent(StudyOptions.this,CardBrowser.class);
-  startActivityForResult(cardBrowser,BROWSE_CARDS);
-  if (getApiLevel() > 4) {
-    ActivityTransitionAnimation.slide(StudyOptions.this,ActivityTransitionAnimation.LEFT);
-  }
 }

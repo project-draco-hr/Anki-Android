@@ -1,0 +1,14 @@
+{
+  if (mDb != null) {
+    cleanup();
+    if (save) {
+      save();
+    }
+ else {
+      rollback();
+    }
+    if (!mServer) {
+    }
+    mDb=null;
+  }
+}

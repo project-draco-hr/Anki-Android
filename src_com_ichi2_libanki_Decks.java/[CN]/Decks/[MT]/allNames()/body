@@ -1,0 +1,12 @@
+{
+  ArrayList<String> list=new ArrayList<String>();
+  for (  JSONObject o : mDecks.values()) {
+    try {
+      list.add(o.getString("name"));
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  return (String[])list.toArray();
+}

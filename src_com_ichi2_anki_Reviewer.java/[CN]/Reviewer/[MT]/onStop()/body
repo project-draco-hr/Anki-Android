@@ -4,13 +4,4 @@
     mSensorManager.unregisterListener(mSensorListener);
   }
   super.onStop();
-  Deck deck=DeckManager.getMainDeck();
-  if (!isFinishing()) {
-    updateBigWidget(!mCardFrame.isEnabled());
-    DeckTask.waitToFinish();
-    if (deck != null) {
-      deck.commitToDB();
-    }
-  }
-  WidgetStatus.update(this,WidgetStatus.getDeckStatus(deck));
 }

@@ -1,0 +1,46 @@
+{
+  if (dids == null) {
+    dids=mCol.getDecks().active();
+  }
+  int tot=0;
+  HashMap<Long,Integer> pcounts=new HashMap<Long,Integer>();
+  try {
+    for (    long did : dids) {
+      int lim=0;
+      if (limFn != null) {
+        limFn.invoke(Sched.this,mCol.getDecks().get(did));
+      }
+ else {
+        continue;
+      }
+      ArrayList<JSONObject> parents=mCol.getDecks().parents(did);
+      for (      JSONObject p : parents) {
+        long id=p.getLong("id");
+        if (!pcounts.containsKey(id)) {
+          pcounts.put(id,(Integer)cntFn.invoke(Sched.this,p));
+        }
+        lim=Math.min(pcounts.get(id),lim);
+      }
+      int cnt=0;
+      if (cntFn != null) {
+        cnt=(Integer)cntFn.invoke(Sched.this,did,lim);
+      }
+      for (      JSONObject p : parents) {
+        long id=p.getLong("id");
+        pcounts.put(id,pcounts.get(id) - cnt);
+      }
+      pcounts.put(did,lim - cnt);
+      tot+=cnt;
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+catch (  InvocationTargetException e) {
+    throw new RuntimeException(e);
+  }
+catch (  IllegalAccessException e) {
+    throw new RuntimeException(e);
+  }
+  return tot;
+}

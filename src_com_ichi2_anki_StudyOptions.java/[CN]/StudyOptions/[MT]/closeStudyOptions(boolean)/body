@@ -1,7 +1,6 @@
 {
   mIsClosing=true;
   MetaDB.closeDB();
-  DeckManager.closeMainDeck(DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS);
   mCompat.invalidateOptionsMenu(this);
   StudyOptions.this.finish();
 }

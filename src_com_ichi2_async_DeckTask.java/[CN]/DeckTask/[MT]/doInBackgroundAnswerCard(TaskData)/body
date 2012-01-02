@@ -1,0 +1,12 @@
+{
+  Sched sched=params[0].getSched();
+  Card oldCard=params[0].getCard();
+  int ease=params[0].getInt();
+  Card newCard=null;
+  if (oldCard != null) {
+    sched.answerCard(oldCard,ease);
+  }
+  newCard=sched.getCard();
+  publishProgress(new TaskData(newCard));
+  return new TaskData(true);
+}

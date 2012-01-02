@@ -1,0 +1,21 @@
+{
+  ArrayList<Object[]> dids=new ArrayList<Object[]>();
+  for (  JSONObject g : mCol.getDecks().all()) {
+    try {
+      long did=g.getLong("id");
+      LinkedList<Long> ldid=new LinkedList<Long>();
+      ldid.add(did);
+      int newCount=counts ? _walkingCount(ldid,Sched.class.getDeclaredMethod("_deckNewLimitSingle",JSONObject.class),Sched.class.getDeclaredMethod("_cntFnNew",Integer.class)) : -1;
+      int lrnCount=counts ? _cntFnLrn("(" + did + ")") : -1;
+      int revCount=counts ? _walkingCount(ldid,Sched.class.getDeclaredMethod("_deckRevLimitSingle",JSONObject.class),Sched.class.getDeclaredMethod("_cntFnRev",Integer.class)) : -1;
+      dids.add(new Object[]{g.getString("name"),did,newCount,lrnCount,revCount});
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+catch (    NoSuchMethodException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  return dids;
+}

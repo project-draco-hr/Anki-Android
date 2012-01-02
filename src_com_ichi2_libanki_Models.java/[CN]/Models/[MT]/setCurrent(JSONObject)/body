@@ -1,0 +1,9 @@
+{
+  try {
+    mCol.getConf().put("curModel",m.get("id"));
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  mCol.setMod();
+}

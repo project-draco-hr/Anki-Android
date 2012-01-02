@@ -1,3 +1,0 @@
-{
-  return (int)mDb.queryScalar("SELECT count() FROM cards WHERE queue = 2 AND due = " + (mToday + 1) + _groupLimit());
-}

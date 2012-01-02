@@ -1,0 +1,25 @@
+{
+  mCol=col;
+  mTimerStarted=Double.NaN;
+  mQA=null;
+  mNote=null;
+  if (id != 0) {
+    mId=id;
+    load();
+  }
+ else {
+    mId=Utils.timestampID(mCol.getDb(),"cards");
+    mDid=1;
+    mCrt=Utils.intNow();
+    mType=0;
+    mQueue=0;
+    mIvl=0;
+    mFactor=0;
+    mReps=0;
+    mLapses=0;
+    mLeft=0;
+    mEDue=0;
+    mFlags=0;
+    mData="";
+  }
+}

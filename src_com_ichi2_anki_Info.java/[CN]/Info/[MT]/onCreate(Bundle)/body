@@ -1,0 +1,63 @@
+{
+  Log.i(AnkiDroidApp.TAG,"Info - onCreate()");
+  Themes.applyTheme(this);
+  super.onCreate(savedInstanceState);
+  Resources res=getResources();
+  mType=getIntent().getIntExtra(TYPE_EXTRA);
+  setTitle(getTitle());
+  setContentView(R.layout.info);
+  WebView webview=(WebView)findViewById(R.id.info);
+  webview.setBackgroundColor(res.getColor(Themes.getBackgroundColor()));
+  Button continueButton=(Button)findViewById(R.id.info_continue);
+  continueButton.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    DialogInterface dialog,    int which){
+      setResult(RESULT_OK);
+switch (mType) {
+case TYPE_WELCOME:
+        PrefSettings.getSharedPrefs(Info.this.getBaseContext()).edit().putString("lastVersion",getVersion()).commit();
+      break;
+case TYPE_NEW_VERSION:
+    PrefSettings.getSharedPrefs(Info.this.getBaseContext()).edit().putString("lastTimeOpened",System.currentTimeMillis()).commit();
+  break;
+}
+finish();
+if (UIUtils.getApiLevel() > 4) {
+ActivityTransitionAnimation.slide(StudyOptions.this,ActivityTransitionAnimation.LEFT);
+}
+}
+}
+);
+String[] content=res.getStringArray(R.array.about_content);
+StringBuilder sb=new StringBuilder();
+sb.append("<html><body text=\"#FFFFFF\" link=\"#E37068\" alink=\"#E37068\" vlink=\"#E37068\">");
+switch (mType) {
+case TYPE_ABOUT:
+sb.append(String.format(content[0],res.getString(R.string.app_name),res.getString(R.string.link_anki))).append("<br/><br/>");
+sb.append(String.format(content[1],res.getString(R.string.link_issue_tracker),res.getString(R.string.link_wiki),res.getString(R.string.link_forum))).append("<br/><br/>");
+sb.append(String.format(content[2],res.getString(R.string.link_wikipedia_open_source),res.getString(R.string.link_contribution),res.getString(R.string.link_contribution_contributors))).append(" ");
+sb.append(String.format(content[3],res.getString(R.string.link_translation),res.getString(R.string.link_donation))).append("<br/><br/>");
+sb.append(String.format(content[4],res.getString(R.string.licence_wiki),res.getString(R.string.link_source))).append("<br/><br/>");
+sb.append("</body></html>");
+break;
+case TYPE_WELCOME:
+sb.append(res.getString(R.string.studyoptions_welcome_dialog).replace("\n","<br>"));
+break;
+case TYPE_NEW_VERSION:
+builder.append(res.getString(R.string.new_version_message));
+builder.append("<ul>");
+String[] features=res.getStringArray(R.array.new_version_features);
+for (int i=0; i < features.length; i++) {
+builder.append("<li>");
+builder.append(features[i]);
+builder.append("</li>");
+}
+builder.append("</ul>");
+return builder.toString();
+break;
+default :
+finish();
+break;
+}
+sb.append("</body></html>");
+webview.loadDataWithBaseURL("",sb.toString(),"text/html","utf-8",null);
+}

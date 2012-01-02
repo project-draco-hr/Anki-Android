@@ -22,7 +22,7 @@
     type=TIME_YEARS;
     point=1;
   }
-  time=convertSecondsTo(time,type);
+  time=convertSecondsTo((int)time,type);
   int formatId;
 switch (format) {
 case TIME_FORMAT_IN:

@@ -1,7 +1,7 @@
 {
   Resources res=getResources();
   switchVisibility(mFlipCardLayout,View.GONE);
-  if (mCurrentCard.isRev()) {
+  if (mSched.lrnButtons(mCurrentCard)) {
     mEase1.setText(res.getString(R.string.ease1_successive));
     mEase2.setText(res.getString(R.string.ease2_successive));
     mEase3.setText(res.getString(R.string.ease3_successive));
@@ -17,7 +17,7 @@
   switchVisibility(mEase2Layout,View.VISIBLE);
   switchVisibility(mEase3Layout,View.VISIBLE);
   switchVisibility(mEase4Layout,View.VISIBLE);
-  if (mCurrentCard.isRev()) {
+  if (mSched.lrnButtons(mCurrentCard)) {
     mEase3Layout.requestFocus();
     mNext2.setTextColor(mNextTimeTextColor);
     mEase2.setTextColor(mNextTimeTextColor);

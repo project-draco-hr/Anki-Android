@@ -1,0 +1,9 @@
+{
+  mModels.flush();
+  mDecks.flush();
+  mTags.flush();
+  if (mDb.getMod()) {
+    flush(mod);
+    mDb.setMod(false);
+  }
+}

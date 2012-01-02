@@ -1,8 +1,0 @@
-{
-  for (int i=0; i < mAllGroups.size(); i++) {
-    String fullname=mAllGroups.get(i).get("fullname");
-    if (fullname.startsWith(name + "::")) {
-      mGroupStatus.get(fullname)[position]=value;
-    }
-  }
-}

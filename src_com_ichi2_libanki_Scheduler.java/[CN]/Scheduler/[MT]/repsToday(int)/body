@@ -1,3 +1,0 @@
-{
-  return (int)mDb.queryScalar("SELECT count() FROM revlog WHERE time > " + (mDayCutoff - 86400));
-}

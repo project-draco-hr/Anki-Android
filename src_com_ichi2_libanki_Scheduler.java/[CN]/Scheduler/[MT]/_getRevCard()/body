@@ -1,9 +1,0 @@
-{
-  if (_haveRevCards()) {
-    mRevCount-=1;
-    return mRevQueue.remove()[0];
-  }
- else {
-    return 0;
-  }
-}

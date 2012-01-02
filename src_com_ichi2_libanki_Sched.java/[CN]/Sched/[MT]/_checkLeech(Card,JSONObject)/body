@@ -1,0 +1,23 @@
+{
+  int lf;
+  try {
+    lf=conf.getInt("leechFails");
+    if (lf == 0) {
+      return false;
+    }
+    if (lf >= card.getLapses() && (card.getLapses() - lf) % Math.max(lf / 2,1) == 0) {
+      Note n=card.getNote();
+      n.addTag("leech");
+      n.flush();
+      if (conf.getInt("leechAction") == 0) {
+        suspendCards(new int[]{card.getId()});
+        card.setQueue(-1);
+      }
+      return true;
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  return false;
+}

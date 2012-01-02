@@ -1,0 +1,12 @@
+{
+  HashMap<String,String> m=new HashMap<String,String>();
+  try {
+    for (    Object[] e : mFMap.values()) {
+      m.put(((JSONObject)e[1]).getString("name"),mFields[(Integer)e[0]]);
+    }
+  }
+ catch (  JSONException e1) {
+    throw new RuntimeException(e1);
+  }
+  return m;
+}

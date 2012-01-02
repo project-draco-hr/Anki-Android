@@ -1,18 +1,2 @@
 {
-  if (mReloadStatistics) {
-    int[] counts=AnkiDroidApp.deck().yesCounts();
-    mStatisticsTodaysCount=counts[0];
-    mStatisticsTodaysNoCount=counts[1];
-    mStatisticsMatureCount=counts[2];
-    mStatisticsMatureNoCount=counts[3];
-    mReloadStatistics=false;
-  }
-  if (mStatisticBarsMax == 0) {
-    View view=findViewById(R.id.progress_bars_back1);
-    mStatisticBarsMax=view.getWidth();
-    mStatisticBarsHeight=view.getHeight();
-  }
-  Deck deck=DeckManager.getMainDeck();
-  Utils.updateProgressBars(this,mSessionProgressBar,deck.getSessionProgress(),mStatisticBarsMax,mStatisticBarsHeight,true,false);
-  Utils.updateProgressBars(this,mSessionYesBar,deck.getProgress(false),mStatisticBarsMax,mStatisticBarsHeight,true);
 }

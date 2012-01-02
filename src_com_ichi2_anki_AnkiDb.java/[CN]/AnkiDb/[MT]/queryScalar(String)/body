@@ -1,17 +1,3 @@
 {
-  Cursor cursor=null;
-  long scalar;
-  try {
-    cursor=mDatabase.rawQuery(query,null);
-    if (!cursor.moveToNext()) {
-      throw new SQLException("No result for query: " + query);
-    }
-    scalar=cursor.getLong(0);
-  }
-  finally {
-    if (cursor != null) {
-      cursor.close();
-    }
-  }
-  return scalar;
+  return queryScalar(query,true);
 }

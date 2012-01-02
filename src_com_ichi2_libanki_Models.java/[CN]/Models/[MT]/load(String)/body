@@ -1,0 +1,16 @@
+{
+  mChanged=false;
+  mModels=new HashMap<String,JSONObject>();
+  try {
+    JSONObject decksarray=new JSONObject(json);
+    JSONArray ids=decksarray.names();
+    for (int i=0; i < ids.length(); i++) {
+      String id=ids.getString(i);
+      JSONObject o=decksarray.getJSONObject(id);
+      mModels.put(id,o);
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

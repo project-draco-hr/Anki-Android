@@ -1,0 +1,16 @@
+{
+  ArrayList<Object[]> data=new ArrayList<Object[]>();
+  Cursor cur=null;
+  try {
+    cur=mDb.getDatabase().rawQuery("SELECT c.id, n.id, n.mid, c.did, c.ord, " + "n.tags, n.flds FROM cards c, notes n WHERE c.nid == n.id " + where,null);
+    while (cur.moveToNext()) {
+      data.add(new Object[]{cur.getInt(0),cur.getInt(1),cur.getInt(2),cur.getInt(3),cur.getInt(4),cur.getString(5),cur.getString(6)});
+    }
+  }
+  finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+  return data;
+}

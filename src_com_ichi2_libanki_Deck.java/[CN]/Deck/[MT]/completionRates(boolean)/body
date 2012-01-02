@@ -1,9 +1,0 @@
-{
-  double total=cardCount(limit) - totalSuspendedCardCount(limit);
-  if (total == 0.0) {
-    return new double[]{0,0};
-  }
-  double matureRate=(double)matureCardCount(limit) / total;
-  double allRate=(total - totalNewCardCount(limit)) / total;
-  return new double[]{matureRate,allRate};
-}

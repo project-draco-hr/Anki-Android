@@ -1,11 +1,3 @@
 {
-  Matcher htmlEntities=htmlEntitiesPattern.matcher(s);
-  StringBuilder s2=new StringBuilder(s);
-  while (htmlEntities.find()) {
-    String text=htmlEntities.group();
-    text=Html.fromHtml(text).toString();
-    s2.replace(htmlEntities.start(),htmlEntities.end(),text);
-    htmlEntities=htmlEntitiesPattern.matcher(s2);
-  }
-  return s2.toString();
+  return html;
 }

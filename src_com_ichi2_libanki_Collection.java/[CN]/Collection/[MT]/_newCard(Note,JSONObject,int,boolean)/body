@@ -1,0 +1,17 @@
+{
+  Card card=new Card(this);
+  card.setNid(note.getId());
+  try {
+    card.setOrd(template.getInt("ord"));
+    int did=template.getInt("did");
+    card.setDid(did != 0 ? did : note.getDid());
+  }
+ catch (  JSONException e) {
+    new RuntimeException(e);
+  }
+  card.setDue(_dueForDid(card.getDid(),due));
+  if (flush) {
+    card.flush();
+  }
+  return card;
+}

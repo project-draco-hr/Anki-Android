@@ -2,25 +2,25 @@
   mCardFrame.setEnabled(true);
   mFlipCardLayout.setEnabled(true);
 switch (mCurrentEase) {
-case Card.EASE_FAILED:
+case EASE_FAILED:
     mEase1Layout.setClickable(true);
   mEase2Layout.setEnabled(true);
 mEase3Layout.setEnabled(true);
 mEase4Layout.setEnabled(true);
 break;
-case Card.EASE_HARD:
+case EASE_HARD:
 mEase1Layout.setEnabled(true);
 mEase2Layout.setClickable(true);
 mEase3Layout.setEnabled(true);
 mEase4Layout.setEnabled(true);
 break;
-case Card.EASE_MID:
+case EASE_MID:
 mEase1Layout.setEnabled(true);
 mEase2Layout.setEnabled(true);
 mEase3Layout.setClickable(true);
 mEase4Layout.setEnabled(true);
 break;
-case Card.EASE_EASY:
+case EASE_EASY:
 mEase1Layout.setEnabled(true);
 mEase2Layout.setEnabled(true);
 mEase3Layout.setEnabled(true);

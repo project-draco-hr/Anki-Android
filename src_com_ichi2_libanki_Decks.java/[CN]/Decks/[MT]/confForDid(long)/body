@@ -1,0 +1,8 @@
+{
+  try {
+    return getConf(get(did).getLong("conf"));
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

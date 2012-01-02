@@ -1,0 +1,15 @@
+{
+  JSONObject m;
+  try {
+    m=get(mCol.getConf().getInt("curModel"));
+    if (m != null) {
+      return m;
+    }
+ else {
+      return null;
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

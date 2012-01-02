@@ -1,9 +1,0 @@
-{
-  if (sLoadedDecks.containsKey(sMainDeckPath) && sLoadedDecks.get(sMainDeckPath).mOpenedBy.contains(REQUESTING_ACTIVITY_BIGWIDGET)) {
-    DeckManager.closeDeck(sMainDeckPath,DeckManager.REQUESTING_ACTIVITY_BIGWIDGET);
-    return true;
-  }
- else {
-    return false;
-  }
-}

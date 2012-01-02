@@ -1,0 +1,6 @@
+{
+  if (mChanged) {
+    mCol.getDb().getDatabase().execSQL("UPDATE col SET models = " + mModels.toString());
+    mChanged=false;
+  }
+}

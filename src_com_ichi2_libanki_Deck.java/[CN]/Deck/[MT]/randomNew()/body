@@ -1,8 +1,0 @@
-{
-  try {
-    return mQconf.getInt("newOrder") == Scheduler.NEW_CARDS_RANDOM;
-  }
- catch (  JSONException e) {
-    throw new RuntimeException(e);
-  }
-}

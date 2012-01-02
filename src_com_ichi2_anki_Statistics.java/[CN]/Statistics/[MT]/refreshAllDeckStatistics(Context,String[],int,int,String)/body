@@ -1,45 +1,6 @@
 {
   initVariables(context,type,period,title);
   for (  String dp : deckPaths) {
-    sDeck=DeckManager.getDeck(dp,DeckManager.REQUESTING_ACTIVITY_STATISTICS);
-    if (sDeck == null) {
-      continue;
-    }
-    if (type == TYPE_DECK_SUMMARY) {
-      sDeckSummaryValues.put("title",context.getResources().getString(R.string.deck_summary_all_decks));
-      ContentValues values=sDeck.getDeckSummary();
-      if (values == null) {
-        continue;
-      }
-      for (      Entry<String,Object> entry : values.valueSet()) {
-        if (entry.getKey().equals("deckAge")) {
-          if (sDeckSummaryValues.containsKey(entry.getKey())) {
-            sDeckSummaryValues.put(entry.getKey(),Math.max(sDeckSummaryValues.getAsInteger(entry.getKey()),(Integer)entry.getValue()));
-          }
- else {
-            sDeckSummaryValues.put(entry.getKey(),(Integer)entry.getValue());
-          }
-        }
- else {
-          if (sDeckSummaryValues.containsKey(entry.getKey())) {
-            sDeckSummaryValues.put(entry.getKey(),sDeckSummaryValues.getAsInteger(entry.getKey()) + (Integer)entry.getValue());
-          }
- else {
-            sDeckSummaryValues.put(entry.getKey(),(Integer)entry.getValue());
-          }
-        }
-      }
-    }
- else {
-      double[][] seriesList;
-      seriesList=getSeriesList(context,type,period);
-      for (int i=0; i < sSeriesList.length; i++) {
-        for (int j=0; j < period; j++) {
-          sSeriesList[i][j]+=seriesList[i][j];
-        }
-      }
-    }
-    DeckManager.closeDeck(dp,DeckManager.REQUESTING_ACTIVITY_STATISTICS,false);
   }
   if (type == TYPE_DECK_SUMMARY) {
     return (sDeckSummaryValues != null && sDeckSummaryValues.size() > 0) ? true : false;

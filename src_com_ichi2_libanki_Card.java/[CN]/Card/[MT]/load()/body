@@ -1,0 +1,34 @@
+{
+  Cursor cursor=null;
+  try {
+    cursor=mCol.getDb().getDatabase().rawQuery("SELECT * FROM cards WHERE id = " + mId,null);
+    if (!cursor.moveToFirst()) {
+      Log.w(AnkiDroidApp.TAG,"Card.java (fromDB(id)): No result from query.");
+      return;
+    }
+    mId=cursor.getInt(0);
+    mNid=cursor.getInt(1);
+    mDid=cursor.getInt(2);
+    mOrd=cursor.getInt(3);
+    mMod=cursor.getInt(4);
+    mUsn=cursor.getInt(5);
+    mType=cursor.getInt(6);
+    mQueue=cursor.getInt(7);
+    mDue=cursor.getInt(8);
+    mIvl=cursor.getInt(9);
+    mFactor=cursor.getInt(10);
+    mReps=cursor.getInt(11);
+    mLapses=cursor.getInt(12);
+    mLeft=cursor.getInt(13);
+    mEDue=cursor.getInt(14);
+    mFlags=cursor.getInt(15);
+    mData=cursor.getString(16);
+  }
+  finally {
+    if (cursor != null) {
+      cursor.close();
+    }
+  }
+  mQA=null;
+  mNote=null;
+}

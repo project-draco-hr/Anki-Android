@@ -1,8 +1,0 @@
-{
-  if (sMainDeckPath == null || !sLoadedDecks.containsKey(sMainDeckPath)) {
-    return null;
-  }
- else {
-    return sLoadedDecks.get(sMainDeckPath).mDeck;
-  }
-}

@@ -1,0 +1,12 @@
+{
+  mCol=col;
+  mQueueLimit=200;
+  mReportLimit=1000;
+  mReps=0;
+  _updateCutoff();
+  mNewQueue=new LinkedList<int[]>();
+  mLrnQueue=new LinkedList<int[]>();
+  mRevQueue=new LinkedList<int[]>();
+  mGroupConfs=new TreeMap<Integer,Integer>();
+  mConfCache=new TreeMap<Integer,JSONObject>();
+}

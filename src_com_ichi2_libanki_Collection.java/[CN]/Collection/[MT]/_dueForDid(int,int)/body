@@ -1,0 +1,16 @@
+{
+  JSONObject conf=mDecks.confForDid(did);
+  try {
+    if (conf.getJSONObject("new").getInt("order") == Sched.NEW_CARDS_DUE) {
+      return due;
+    }
+ else {
+      Random r=new Random();
+      r.setSeed(due);
+      return r.nextInt(2 ^ 32) + 1;
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

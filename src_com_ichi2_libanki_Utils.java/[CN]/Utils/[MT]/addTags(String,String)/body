@@ -1,9 +1,0 @@
-{
-  ArrayList<String> currentTags=new ArrayList<String>(Arrays.asList(parseTags(tags)));
-  for (  String tag : parseTags(addtags)) {
-    if (!hasTag(tag,currentTags)) {
-      currentTags.add(tag);
-    }
-  }
-  return canonifyTags((String[])currentTags.toArray());
-}

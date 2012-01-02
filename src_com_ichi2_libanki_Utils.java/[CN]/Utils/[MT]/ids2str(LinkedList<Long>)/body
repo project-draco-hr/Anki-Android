@@ -1,0 +1,12 @@
+{
+  StringBuilder sb=new StringBuilder();
+  sb.append("(");
+  while (!ids.isEmpty()) {
+    sb.append(ids.remove());
+    if (ids.size() > 0) {
+      sb.append(", ");
+    }
+  }
+  sb.append(")");
+  return sb.toString();
+}

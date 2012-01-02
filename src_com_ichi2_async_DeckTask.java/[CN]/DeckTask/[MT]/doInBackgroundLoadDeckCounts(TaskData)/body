@@ -1,0 +1,5 @@
+{
+  Collection col=params[0].getCollection();
+  TreeSet<Object[]> decks=col.getSched().deckDueTree(true);
+  return new TaskData(decks);
+}

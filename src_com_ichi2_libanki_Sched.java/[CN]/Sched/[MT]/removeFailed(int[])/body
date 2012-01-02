@@ -1,0 +1,7 @@
+{
+  String extra="";
+  if (ids != null && ids.length > 0) {
+    extra=" AND id IN " + Utils.ids2str(ids);
+  }
+  mCol.getDb().getDatabase().execSQL("UPDATE cards SET " + "due = edue, queue = 2, mod = " + Utils.intNow() + " usn = "+ mCol.getUsn()+ " WHERE queue = 1 AND type = 2 "+ extra);
+}

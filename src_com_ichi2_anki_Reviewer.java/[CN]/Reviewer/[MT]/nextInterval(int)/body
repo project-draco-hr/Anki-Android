@@ -1,9 +1,4 @@
 {
   Resources res=getResources();
-  if (ease == 1) {
-    return res.getString(R.string.soon);
-  }
- else {
-    return Utils.fmtTimeSpan(mCurrentCard.nextInterval(mCurrentCard,ease) * 86400,Utils.TIME_FORMAT_DEFAULT);
-  }
+  return res.getString(R.string.soon);
 }

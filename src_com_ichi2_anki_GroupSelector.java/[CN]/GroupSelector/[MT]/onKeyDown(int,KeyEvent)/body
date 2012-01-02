@@ -1,8 +1,0 @@
-{
-  if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-    Log.i(AnkiDroidApp.TAG,"GroupSelector - onBackPressed()");
-    closeGroupSelector();
-    return true;
-  }
-  return super.onKeyDown(keyCode,event);
-}

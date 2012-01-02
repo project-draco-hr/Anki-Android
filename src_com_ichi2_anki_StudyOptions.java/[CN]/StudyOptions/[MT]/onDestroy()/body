@@ -2,7 +2,6 @@
   super.onDestroy();
   Log.i(AnkiDroidApp.TAG,"StudyOptions - onDestroy()");
   if (!isFinishing()) {
-    DeckManager.closeMainDeck(DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS);
     mCompat.invalidateOptionsMenu(StudyOptions.this);
     MetaDB.closeDB();
   }

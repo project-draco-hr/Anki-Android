@@ -26,10 +26,6 @@ showDialog(DIALOG_DECK_NOT_LOADED);
 break;
 case CONTENT_STUDY_OPTIONS:
 case CONTENT_SESSION_COMPLETE:
-if ((DeckManager.getMainDeck() != null) && (DeckManager.getMainDeck().name().equals("cram"))) {
-mToggleCram.setChecked(false);
-mToggleLimit.setEnabled(true);
-}
 if (mCurrentContentView == CONTENT_STUDY_OPTIONS) {
 mButtonStart.setText(R.string.studyoptions_start);
 }
@@ -44,17 +40,6 @@ showContentView(CONTENT_DECK_NOT_LOADED);
 }
 break;
 case CONTENT_CONGRATS:
-Deck deck=DeckManager.getMainDeck();
-if (deck != null) {
-int failedCards=deck.getFailedDelayedCount();
-int revCards=deck.getNextDueCards(1);
-int newCards=deck.getNextNewCards();
-int eta=deck.getETA(failedCards,revCards,newCards,true);
-mTextCongratsMessage.setText(getCongratsMessage(this,failedCards,revCards,newCards,eta));
-}
-updateValuesFromDeck();
-setContentView(mCongratsView);
-break;
 case CONTENT_NO_EXTERNAL_STORAGE:
 setTitle(R.string.app_name);
 setContentView(mNoExternalStorageView);
