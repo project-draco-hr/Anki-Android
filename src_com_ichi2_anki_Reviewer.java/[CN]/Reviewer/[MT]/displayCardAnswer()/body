@@ -5,19 +5,10 @@
   }
   sDisplayAnswer=true;
   setFlipCardAnimation();
-  String answer=getAnswer(), question=getQuestion();
+  String answer=getAnswer();
   String displayString="";
   if (mSimpleInterface) {
     SpannableStringBuilder sb=new SpannableStringBuilder();
-    if (isQuestionDisplayed()) {
-      Spanned ques=Html.fromHtml(question);
-      if (ques.length() == 0) {
-        ques=new SpannableString(getResources().getString(R.string.simple_interface_hint,R.string.card_details_question));
-        ((SpannableString)ques).setSpan(new StyleSpan(Typeface.ITALIC),0,mCardContent.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-      }
-      sb.append(ques);
-      sb.append("\n???????????????\n");
-    }
     Spanned ans=Html.fromHtml(answer);
     if (ans.length() == 0) {
       SpannableString hint=new SpannableString(getResources().getString(R.string.simple_interface_hint,R.string.card_details_answer));
@@ -31,7 +22,6 @@
     Sound.stopSounds();
     if (mPrefFixArabic) {
       answer=ArabicUtilities.reshapeSentence(answer,true);
-      question=ArabicUtilities.reshapeSentence(question,true);
     }
     if (typeAnswer()) {
       mAnswerField.setVisibility(View.GONE);
@@ -59,13 +49,6 @@
     }
  else {
       displayString=enrichWithQADiv(answer,true);
-    }
-    if (isQuestionDisplayed()) {
-      StringBuffer sb=new StringBuffer();
-      sb.append(enrichWithQADiv(question,false));
-      sb.append("<a name=\"question\"></a><hr/>");
-      sb.append(displayString);
-      displayString=sb.toString();
     }
   }
   mIsSelecting=false;

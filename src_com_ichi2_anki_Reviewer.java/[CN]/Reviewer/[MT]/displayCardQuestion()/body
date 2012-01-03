@@ -30,9 +30,6 @@
       inputMethodManager.showSoftInput(mAnswerField,InputMethodManager.SHOW_FORCED);
     }
     displayString=enrichWithQADiv(question,false);
-    if (isQuestionDisplayed()) {
-      displayString=displayString + "<hr/>";
-    }
     if (mSpeakText && Integer.valueOf(android.os.Build.VERSION.SDK) > 3) {
     }
   }

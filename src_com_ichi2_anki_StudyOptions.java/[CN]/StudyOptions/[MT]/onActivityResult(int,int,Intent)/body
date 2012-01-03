@@ -28,24 +28,13 @@
     }
     if (resultCode != RESULT_OK) {
       Log.i(AnkiDroidApp.TAG,"onActivityResult - Deck browser returned without picking new deck");
-      if (mDeckFilename == null || !(new File(mDeckFilename).exists())) {
-        mCompat.invalidateOptionsMenu(this);
-      }
- else {
-        showContentView(CONTENT_STUDY_OPTIONS);
-      }
       return;
     }
     if (intent == null) {
       Log.e(AnkiDroidApp.TAG,"onActivityResult - Deck browser returned null intent");
-      displayProgressDialogAndLoadDeck();
       return;
     }
     Log.i(AnkiDroidApp.TAG,"onActivityResult = OK");
-    mDeckFilename=intent.getExtras().getString(OPT_DB);
-    savePreferences("deckFilename");
-    if (mDeckFilename == null || !new File(mDeckFilename).exists()) {
-    }
   }
  else   if (requestCode == PREFERENCES_UPDATE) {
     restorePreferences();
@@ -55,7 +44,6 @@
       restartApp();
     }
  else     if (resultCode == RESULT_RELOAD_DECK) {
-      displayProgressDialogAndLoadDeck();
     }
   }
  else   if (requestCode == REQUEST_REVIEW) {
@@ -73,8 +61,6 @@ showDialog(DIALOG_DB_ERROR);
 break;
 case Reviewer.RESULT_DECK_CLOSED:
 showContentView(CONTENT_STUDY_OPTIONS);
-mDeckFilename=PrefSettings.getSharedPrefs(getBaseContext()).getString("deckFilename",null);
-displayProgressDialogAndLoadDeck();
 break;
 case Reviewer.RESULT_DEFAULT:
 showContentView(CONTENT_STUDY_OPTIONS);

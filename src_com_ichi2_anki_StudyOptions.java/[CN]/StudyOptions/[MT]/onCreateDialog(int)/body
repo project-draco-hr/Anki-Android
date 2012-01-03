@@ -94,32 +94,6 @@ return;
 builder.setView(spinner,false,true);
 dialog=builder.create();
 break;
-case DIALOG_DB_ERROR:
-builder.setTitle(R.string.answering_error_title);
-builder.setIcon(android.R.drawable.ic_dialog_alert);
-builder.setMessage(R.string.answering_error_message);
-builder.setPositiveButton(res.getString(R.string.backup_repair_deck),new OnClickListener(){
-@Override public void onClick(DialogInterface dialog,int which){
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REPAIR_DECK,mRepairDeckHandler,new DeckTask.TaskData(mDeckFilename != null ? mDeckFilename : mRepairFileName));
-}
-}
-);
-builder.setNeutralButton(res.getString(R.string.answering_error_report),new OnClickListener(){
-@Override public void onClick(DialogInterface dialog,int which){
-mShowRepairDialog=true;
-Intent i=new Intent(StudyOptions.this,Feedback.class);
-dialog.dismiss();
-startActivityForResult(i,REPORT_ERROR);
-if (UIUtils.getApiLevel() > 4) {
-ActivityTransitionAnimation.slide(StudyOptions.this,ActivityTransitionAnimation.FADE);
-}
-}
-}
-);
-builder.setNegativeButton(res.getString(R.string.close),null);
-builder.setCancelable(true);
-dialog=builder.create();
-break;
 case DIALOG_SELECT_HELP:
 builder.setTitle(res.getString(R.string.help_title));
 builder.setItems(new String[]{res.getString(R.string.help_tutorial),res.getString(R.string.help_online),res.getString(R.string.help_faq)},new OnClickListener(){

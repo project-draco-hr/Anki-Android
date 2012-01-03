@@ -2,16 +2,26 @@
   Resources res=getResources();
   Sched sched=mCol.getSched();
   int[] counts=sched.counts();
-  String name;
+  String[] name;
   try {
-    name=mCol.getDecks().current().getString("name");
+    name=mCol.getDecks().current().getString("name").split("::");
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
+  StringBuilder nameBuilder=new StringBuilder();
+  if (name.length > 0) {
+    nameBuilder.append(name[0]);
+  }
+  if (name.length > 2) {
+    nameBuilder.append("...");
+  }
+  if (name.length > 1) {
+    nameBuilder.append("\n").append(name[name.length - 1]);
+  }
   int dues=counts[0] + counts[1] + counts[2];
   setTitle(res.getQuantityString(R.plurals.studyoptions_window_title,dues,name,dues,0));
-  mTextDeckName.setText(name);
+  mTextDeckName.setText(nameBuilder.toString());
   mTextTodayNew.setText(String.valueOf(counts[0]));
   mTextTodayLrn.setText(String.valueOf(counts[1]));
   mTextTodayRev.setText(String.valueOf(counts[2]));

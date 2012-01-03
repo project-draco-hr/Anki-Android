@@ -12,7 +12,6 @@
           Log.i(AnkiDroidApp.TAG,"mUnmountReceiver - Action = Media Mounted");
           mSdCardAvailable=true;
           if (!mInDeckPicker) {
-            loadPreviousDeck();
           }
         }
       }

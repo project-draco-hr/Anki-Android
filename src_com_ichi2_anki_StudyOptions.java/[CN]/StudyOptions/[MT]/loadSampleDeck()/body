@@ -1,6 +1,5 @@
 {
   File decksDirectory=new File(mPrefDeckPath);
   AnkiDroidApp.createDecksDirectoryIfMissing(decksDirectory);
-  mDeckFilename=mPrefDeckPath + "/" + SAMPLE_DECK_NAME;
   savePreferences("deckFilename");
 }

@@ -19,22 +19,11 @@
   int questionStartsAt=content.indexOf("<a name=\"question\"></a><hr/>");
   String question="";
   String answer="";
-  if (isQuestionDisplayed()) {
-    if (sDisplayAnswer && (questionStartsAt != -1)) {
-      question=Sound.parseSounds(mBaseUrl,content.substring(0,questionStartsAt),mSpeakText,MetaDB.LANGUAGES_QA_QUESTION);
-      answer=Sound.parseSounds(mBaseUrl,content.substring(questionStartsAt,content.length()),mSpeakText,MetaDB.LANGUAGES_QA_ANSWER);
-    }
- else {
-      question=Sound.parseSounds(mBaseUrl,content.substring(0,content.length() - 5),mSpeakText,MetaDB.LANGUAGES_QA_QUESTION) + "<hr/>";
-    }
+  int qa=MetaDB.LANGUAGES_QA_QUESTION;
+  if (sDisplayAnswer) {
+    qa=MetaDB.LANGUAGES_QA_ANSWER;
   }
- else {
-    int qa=MetaDB.LANGUAGES_QA_QUESTION;
-    if (sDisplayAnswer) {
-      qa=MetaDB.LANGUAGES_QA_ANSWER;
-    }
-    answer=Sound.parseSounds(mBaseUrl,content,mSpeakText,qa);
-  }
+  answer=Sound.parseSounds(mBaseUrl,content,mSpeakText,qa);
   if (mPrefUseRubySupport && isJapaneseModel) {
     content=RubyParser.ankiStripKanji(question) + RubyParser.ankiRubyToMarkup(answer);
   }
