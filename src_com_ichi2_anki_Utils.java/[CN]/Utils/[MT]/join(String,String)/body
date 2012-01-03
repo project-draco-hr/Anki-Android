@@ -1,0 +1,10 @@
+{
+  StringBuilder sb=new StringBuilder();
+  for (  String value : values) {
+    if (sb.length() != 0) {
+      sb.append(delimiter);
+    }
+    sb.append(value);
+  }
+  return sb.toString();
+}

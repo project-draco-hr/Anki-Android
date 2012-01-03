@@ -1,0 +1,3 @@
+{
+  return String.format("SELECT %s FROM cards, facts, models, cardModels " + "WHERE cards.factId == facts.id AND facts.modelId == models.id " + "AND cards.cardModelId = cardModels.id %s ORDER BY cards.id LIMIT %d",Utils.join(", ",PROJECTION),TextUtils.isEmpty(startId) ? "" : ("AND cards.id > " + startId),chunkSize);
+}
