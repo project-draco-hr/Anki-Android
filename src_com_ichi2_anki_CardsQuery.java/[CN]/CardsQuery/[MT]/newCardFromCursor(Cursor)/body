@@ -1,0 +1,28 @@
+{
+  HashMap<String,String> data=new HashMap<String,String>();
+  data.put("id",Long.toString(cursor.getLong(CardsQuery.CARDS_ID)));
+  data.put("question",Utils.replaceLineBreak(Utils.stripHTML(cursor.getString(CardsQuery.CARDS_QUESTION))));
+  data.put("answer",Utils.replaceLineBreak(Utils.stripHTML(cursor.getString(CardsQuery.CARDS_ANSWER))));
+  String factTags=cursor.getString(CardsQuery.FACTS_TAGS);
+  String cardsPriority=cursor.getString(CardsQuery.CARDS_PRIORITY);
+  String flags=null;
+  if (factTags.contains(Deck.TAG_MARKED)) {
+    flags="1";
+  }
+ else {
+    flags="0";
+  }
+  if (cardsPriority.equals("-3")) {
+    flags=flags + "1";
+  }
+ else {
+    flags=flags + "0";
+  }
+  data.put("flags",flags);
+  data.put("tags",factTags + " " + cursor.getString(CardsQuery.MODELS_TAGS)+ " "+ cursor.getString(CardsQuery.CARDMODELS_NAME));
+  data.put("due",Double.toString(cursor.getDouble(CardsQuery.CARDS_DUE)));
+  data.put("interval",Double.toString(cursor.getDouble(CardsQuery.CARDS_INTERVAL)));
+  data.put("factor",Double.toString(cursor.getDouble(CardsQuery.CARDS_FACTOR)));
+  data.put("created",Double.toString(cursor.getDouble(CardsQuery.CARDS_CREATED)));
+  return data;
+}

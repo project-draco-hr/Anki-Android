@@ -1,7 +1,3 @@
 {
-  StringBuilder result=new StringBuilder(128);
-  for (  String tag : tags) {
-    result.append(tag).append(" ");
-  }
-  return result.toString().trim();
+  return join(" ",tags.toArray(new String[0]));
 }
