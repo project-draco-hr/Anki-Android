@@ -1,0 +1,9 @@
+{
+  Matcher mf=sFenPattern.matcher(text);
+  StringBuffer sb=new StringBuffer();
+  while (mf.find()) {
+    mf.appendReplacement(sb,"<script type=\"text/javascript\">document.write(renderFen('" + mf.group(1) + "'));</script>");
+  }
+  mf.appendTail(sb);
+  return sb.toString();
+}
