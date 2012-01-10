@@ -8,15 +8,6 @@
   String answer=getAnswer();
   String displayString="";
   if (mSimpleInterface) {
-    SpannableStringBuilder sb=new SpannableStringBuilder();
-    Spanned ans=Html.fromHtml(answer);
-    if (ans.length() == 0) {
-      SpannableString hint=new SpannableString(getResources().getString(R.string.simple_interface_hint,R.string.card_details_answer));
-      hint.setSpan(new StyleSpan(Typeface.ITALIC),0,hint.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-      ans=hint;
-    }
-    sb.append(ans);
-    mCardContent=sb;
   }
  else {
     Sound.stopSounds();
