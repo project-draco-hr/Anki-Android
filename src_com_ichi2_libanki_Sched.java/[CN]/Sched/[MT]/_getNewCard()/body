@@ -1,5 +1,5 @@
 {
-  if (mNewQueue.isEmpty()) {
+  if (!_fillNew()) {
     return null;
   }
   long[] item=mNewQueue.remove();

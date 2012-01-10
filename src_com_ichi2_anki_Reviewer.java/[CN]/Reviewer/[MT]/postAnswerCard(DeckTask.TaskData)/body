@@ -20,6 +20,10 @@
     Themes.showThemedToast(Reviewer.this,leechMessage,true);
   }
   mCurrentCard=values[0].getCard();
+  if (mCurrentCard == null) {
+    closeReviewer(0,false);
+    return new boolean[]{false,false};
+  }
   Reviewer.this.setProgressBarIndeterminateVisibility(false);
   Reviewer.this.unblockControls();
   Reviewer.this.displayCardQuestion();

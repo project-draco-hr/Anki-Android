@@ -3,10 +3,25 @@
   Card oldCard=params[0].getCard();
   int ease=params[0].getInt();
   Card newCard=null;
-  if (oldCard != null) {
-    sched.answerCard(oldCard,ease);
+  try {
+    AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(sched.getCol().getPath());
+    ankiDB.getDatabase().beginTransaction();
+    try {
+      if (oldCard != null) {
+        sched.answerCard(oldCard,ease);
+      }
+      newCard=sched.getCard();
+      publishProgress(new TaskData(newCard));
+      ankiDB.getDatabase().setTransactionSuccessful();
+    }
+  finally {
+      ankiDB.getDatabase().endTransaction();
+    }
   }
-  newCard=sched.getCard();
-  publishProgress(new TaskData(newCard));
+ catch (  RuntimeException e) {
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundAnswerCard - RuntimeException on answering card: " + e);
+    AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundAnswerCard");
+    return new TaskData(false);
+  }
   return new TaskData(true);
 }
