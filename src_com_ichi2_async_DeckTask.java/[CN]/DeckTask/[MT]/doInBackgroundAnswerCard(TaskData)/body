@@ -3,15 +3,24 @@
   Card oldCard=params[0].getCard();
   int ease=params[0].getInt();
   Card newCard=null;
+  int oldCardLeech=0;
   try {
-    AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(sched.getCol().getPath());
+    AnkiDb ankiDB=sched.getCol().getDb();
     ankiDB.getDatabase().beginTransaction();
     try {
       if (oldCard != null) {
-        sched.answerCard(oldCard,ease);
+        oldCardLeech=sched.answerCard(oldCard,ease) ? 1 : 0;
+        if (oldCardLeech != 0) {
+          oldCardLeech+=sched.leechActionSuspend(oldCard) ? 1 : 0;
+        }
       }
-      newCard=sched.getCard();
-      publishProgress(new TaskData(newCard));
+      if (newCard == null) {
+        newCard=sched.getCard();
+      }
+      if (newCard != null) {
+        newCard._getQA(true);
+      }
+      publishProgress(new TaskData(newCard,oldCardLeech));
       ankiDB.getDatabase().setTransactionSuccessful();
     }
   finally {

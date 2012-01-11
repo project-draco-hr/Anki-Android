@@ -6,11 +6,6 @@
   longClickHandler.removeCallbacks(startLongClickAction);
   Reviewer.this.setResult(result);
   setOutAnimation(true);
-  updateBigWidget(!mCardFrame.isEnabled());
-  if (saveDeck) {
-  }
- else {
-    finish();
-    ActivityTransitionAnimation.slide(Reviewer.this,ActivityTransitionAnimation.RIGHT);
-  }
+  finish();
+  ActivityTransitionAnimation.slide(Reviewer.this,ActivityTransitionAnimation.RIGHT);
 }

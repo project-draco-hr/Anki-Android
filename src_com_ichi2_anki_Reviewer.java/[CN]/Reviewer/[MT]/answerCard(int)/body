@@ -1,6 +1,5 @@
 {
   mIsSelecting=false;
-  mIsAnswering=true;
   if (mPrefTextSelection) {
     clipboardSetText("");
     if (mLookUpIcon.getVisibility() == View.VISIBLE) {
@@ -26,7 +25,6 @@ mChosenAnswer.setText("\u2022\u2022\u2022\u2022");
 mChosenAnswer.setTextColor(mNext4.getTextColors());
 break;
 }
-mStatisticsTodaysCount++;
 mTimerHandler.removeCallbacks(removeChosenAnswerText);
 mTimerHandler.postDelayed(removeChosenAnswerText,mShowChosenAnswerLength);
 Sound.stopSounds();

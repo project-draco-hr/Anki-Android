@@ -3,10 +3,5 @@
   for (  Object[] g : grps) {
     set.add(new Object[]{((String)g[0]).split("::"),g[1],g[2],g[3],g[4]});
   }
-  if (counts) {
-    return _groupChildrenMain(set);
-  }
- else {
-    return set;
-  }
+  return set;
 }

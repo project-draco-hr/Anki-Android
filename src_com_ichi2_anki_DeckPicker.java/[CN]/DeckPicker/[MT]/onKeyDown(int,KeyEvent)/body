@@ -1,6 +1,7 @@
 {
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
     Log.i(AnkiDroidApp.TAG,"DeckPicker - onBackPressed()");
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CLOSE_DECK,mCloseCollectionHandler,new TaskData(mCol));
     finish();
     if (UIUtils.getApiLevel() > 4) {
       ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.NONE);

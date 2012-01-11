@@ -1,4 +1,6 @@
 {
   Log.i(AnkiDroidApp.TAG,"doInBackgroundCloseDeck");
+  Collection col=params[0].getCollection();
+  col.close(true);
   return null;
 }

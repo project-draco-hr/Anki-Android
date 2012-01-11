@@ -5,8 +5,11 @@
       long did=g.getLong("id");
       LinkedList<Long> ldid=new LinkedList<Long>();
       ldid.add(did);
+      for (      Long c : mCol.getDecks().children(did).values()) {
+        ldid.add(c);
+      }
       int newCount=counts ? _walkingCount(ldid,Sched.class.getDeclaredMethod("_deckNewLimitSingle",JSONObject.class),Sched.class.getDeclaredMethod("_cntFnNew",long.class,int.class)) : -1;
-      int lrnCount=counts ? _cntFnLrn("(" + did + ")") : -1;
+      int lrnCount=counts ? _cntFnLrn(Utils.ids2str(ldid)) : -1;
       int revCount=counts ? _walkingCount(ldid,Sched.class.getDeclaredMethod("_deckRevLimitSingle",JSONObject.class),Sched.class.getDeclaredMethod("_cntFnRev",long.class,int.class)) : -1;
       dids.add(new Object[]{g.getString("name"),did,newCount,lrnCount,revCount});
     }

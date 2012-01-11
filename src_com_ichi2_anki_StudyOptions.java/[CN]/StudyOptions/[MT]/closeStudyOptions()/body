@@ -1,5 +1,6 @@
 {
   mCompat.invalidateOptionsMenu(this);
+  setResult(RESULT_OK);
   finish();
   if (UIUtils.getApiLevel() > 4) {
     ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);

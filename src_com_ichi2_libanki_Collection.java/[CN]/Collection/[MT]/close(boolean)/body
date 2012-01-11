@@ -2,13 +2,22 @@
   if (mDb != null) {
     cleanup();
     if (save) {
-      save();
+      getDb().getDatabase().beginTransaction();
+      try {
+        save();
+        getDb().getDatabase().setTransactionSuccessful();
+      }
+  finally {
+        getDb().getDatabase().endTransaction();
+      }
     }
  else {
       rollback();
     }
     if (!mServer) {
     }
+    AnkiDatabaseManager.closeDatabase(mPath);
+    Log.i(AnkiDroidApp.TAG,"Collection closed");
     mDb=null;
   }
 }

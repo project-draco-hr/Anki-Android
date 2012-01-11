@@ -45,10 +45,6 @@
           view.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_IN,500,0));
           return false;
         }
- else {
-          view.setVisibility(View.INVISIBLE);
-          return false;
-        }
       }
       if (view.getId() == R.id.DeckPickerName) {
         View parent=(View)view.getParent().getParent();

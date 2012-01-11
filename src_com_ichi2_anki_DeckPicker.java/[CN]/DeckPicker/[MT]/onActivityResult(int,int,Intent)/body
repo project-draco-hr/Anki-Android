@@ -2,12 +2,6 @@
   super.onActivityResult(requestCode,resultCode,intent);
   if (requestCode == SHOW_STUDYOPTIONS) {
     if (resultCode == RESULT_OK) {
-      for (      long did : mCol.getDecks().active()) {
-        HashMap<String,String> deck=getDeckFromDeckList(did);
-        deck.put("new","-1");
-        deck.put("lrn","-1");
-        deck.put("rev","-1");
-      }
       DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK_COUNTS,mLoadCountsHandler,new TaskData(mCol));
     }
   }

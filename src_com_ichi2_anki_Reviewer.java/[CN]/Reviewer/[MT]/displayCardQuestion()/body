@@ -1,6 +1,9 @@
 {
   sDisplayAnswer=false;
-  mIsAnswering=false;
+  if (mPrefUseTimer) {
+    mTimeoutHandler.removeCallbacks(mShowAnswerTask);
+    mTimeoutHandler.postDelayed(mShowAnswerTask,mWaitAnswerSecond * 1000);
+  }
   String question=getQuestion();
   if (mPrefFixArabic) {
     question=ArabicUtilities.reshapeSentence(question,true);
@@ -16,13 +19,7 @@
       inputMethodManager.showSoftInput(mAnswerField,InputMethodManager.SHOW_FORCED);
     }
     displayString=enrichWithQADiv(question,false);
-    if (mSpeakText && Integer.valueOf(android.os.Build.VERSION.SDK) > 3) {
-    }
   }
   updateCard(displayString);
   hideEaseButtons();
-  if (mPrefUseTimer) {
-    mTimeoutHandler.removeCallbacks(mShowAnswerTask);
-    mTimeoutHandler.postDelayed(mShowAnswerTask,mWaitAnswerSecond * 1000);
-  }
 }

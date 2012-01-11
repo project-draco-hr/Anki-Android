@@ -1,5 +1,9 @@
 {
   Log.i(AnkiDroidApp.TAG,"displayCardAnswer");
+  if (mPrefUseTimer) {
+    mTimeoutHandler.removeCallbacks(mShowQuestionTask);
+    mTimeoutHandler.postDelayed(mShowQuestionTask,mWaitQuestionSecond * 1000);
+  }
   if (mCurrentCard == null) {
     return;
   }
@@ -45,8 +49,4 @@
   mIsSelecting=false;
   updateCard(displayString);
   showEaseButtons();
-  if (mPrefUseTimer) {
-    mTimeoutHandler.removeCallbacks(mShowQuestionTask);
-    mTimeoutHandler.postDelayed(mShowQuestionTask,mWaitQuestionSecond * 1000);
-  }
 }

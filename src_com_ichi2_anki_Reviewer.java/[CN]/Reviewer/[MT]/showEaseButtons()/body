@@ -1,7 +1,8 @@
 {
   Resources res=getResources();
   switchVisibility(mFlipCardLayout,View.GONE);
-  if (mSched.lrnButtons(mCurrentCard)) {
+  boolean lrnCard=mSched.lrnButtons(mCurrentCard);
+  if (lrnCard) {
     mEase1.setText(res.getString(R.string.ease1_successive));
     mEase2.setText(res.getString(R.string.ease2_successive));
     mEase3.setText(res.getString(R.string.ease3_successive));
@@ -16,7 +17,7 @@
   switchVisibility(mEase1Layout,View.VISIBLE);
   switchVisibility(mEase2Layout,View.VISIBLE);
   switchVisibility(mEase3Layout,View.VISIBLE);
-  if (mSched.lrnButtons(mCurrentCard)) {
+  if (lrnCard) {
     mEase3Layout.requestFocus();
     mNext2.setTextColor(mNextTimeTextColor);
     mEase2.setTextColor(mNextTimeTextColor);
@@ -33,7 +34,7 @@
     mNext1.setText(mSched.nextIvlStr(mCurrentCard,1));
     mNext2.setText(mSched.nextIvlStr(mCurrentCard,2));
     mNext3.setText(mSched.nextIvlStr(mCurrentCard,3));
-    mNext4.setText(mSched.nextIvlStr(mCurrentCard,4));
+    mNext4.setText(lrnCard ? "" : mSched.nextIvlStr(mCurrentCard,4));
     switchVisibility(mNext1,View.VISIBLE);
     switchVisibility(mNext2,View.VISIBLE);
     switchVisibility(mNext3,View.VISIBLE);

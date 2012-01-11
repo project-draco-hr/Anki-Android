@@ -2,4 +2,22 @@
   if (mCurrentCard == null) {
     return;
   }
+  int[] counts=mSched.counts(mCurrentCard);
+  SpannableString newCount=new SpannableString(String.valueOf(counts[0]));
+  SpannableString lrnCount=new SpannableString(String.valueOf(counts[1]));
+  SpannableString revCount=new SpannableString(String.valueOf(counts[2]));
+switch (mCurrentCard.getQueue()) {
+case Card.TYPE_NEW:
+    newCount.setSpan(new UnderlineSpan(),0,newCount.length(),0);
+  break;
+case Card.TYPE_LRN:
+lrnCount.setSpan(new UnderlineSpan(),0,lrnCount.length(),0);
+break;
+case Card.TYPE_REV:
+revCount.setSpan(new UnderlineSpan(),0,revCount.length(),0);
+break;
+}
+mTextBarRed.setText(newCount);
+mTextBarBlack.setText(lrnCount);
+mTextBarBlue.setText(revCount);
 }

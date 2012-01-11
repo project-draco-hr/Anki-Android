@@ -15,6 +15,10 @@
     }
     if (!_checkLeech(card,conf) && conf.getJSONArray("delays").length() > 0) {
       _sortIntoLrn(card.getDue(),card.getId());
+      return false;
+    }
+ else {
+      return true;
     }
   }
  catch (  JSONException e) {

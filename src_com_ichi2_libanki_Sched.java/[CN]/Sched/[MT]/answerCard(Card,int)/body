@@ -1,5 +1,6 @@
 {
   Log.i(AnkiDroidApp.TAG,"answerCard");
+  boolean isLeech=false;
   mCol.markReview(card);
   mReps+=1;
   card.setReps(card.getReps() + 1);
@@ -17,7 +18,7 @@
     }
   }
  else   if (card.getQueue() == 2) {
-    _answerRevCard(card,ease);
+    isLeech=_answerRevCard(card,ease);
     _updateStats(card,"rev");
   }
  else {
@@ -27,4 +28,5 @@
   card.setMod(Utils.intNow());
   card.setUsn(mCol.usn());
   card.flushSched();
+  return isLeech;
 }
