@@ -4,7 +4,7 @@
   mStudyOptionsMain=(View)mStudyOptionsView.findViewById(R.id.studyoptions_main);
   mTextDeckName=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_name);
   Themes.setTitleStyle(mTextDeckName);
-  mDeckInformation=(LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_deckinformation);
+  mTextDeckDescription=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_description);
   mButtonStart=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_start);
   mToggleCram=(ToggleButton)mStudyOptionsView.findViewById(R.id.studyoptions_cram);
   mToggleLimit=(ToggleButton)mStudyOptionsView.findViewById(R.id.studyoptions_limit);
@@ -28,13 +28,9 @@
     }
 );
   }
-  mTextTodayNew=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_today_new);
-  mTextTodayNew.setText("    ");
-  mTextTodayLrn=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_today_lrn);
-  mTextTodayRev=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_today_rev);
-  mTextNewTotal=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_new_total);
-  mTextTotal=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_total);
-  mTextETA=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_eta);
+  mTextTodayNew=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_new);
+  mTextTodayLrn=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_lrn);
+  mTextTodayRev=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_rev);
   mNightMode=(CheckBox)mStudyOptionsView.findViewById(R.id.studyoptions_night_mode);
   mNightMode.setChecked(mInvertedColors);
   mNightMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
