@@ -8,17 +8,13 @@
   mButtonStart=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_start);
   mToggleCram=(ToggleButton)mStudyOptionsView.findViewById(R.id.studyoptions_cram);
   mToggleLimit=(ToggleButton)mStudyOptionsView.findViewById(R.id.studyoptions_limit);
-  mCardBrowser=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_card_browser);
   mStatisticsButton=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_statistics);
-  mDailyBar=(View)mStudyOptionsView.findViewById(R.id.studyoptions_daily_bar);
-  mMatureBar=(View)mStudyOptionsView.findViewById(R.id.studyoptions_mature_bar);
-  mGlobalLimitFrame=(View)mStudyOptionsView.findViewById(R.id.studyoptions_global_limit_bars);
-  mGlobalLimitBar=(View)mStudyOptionsView.findViewById(R.id.studyoptions_global_limit_bar);
-  mGlobalMatLimitBar=(View)mStudyOptionsView.findViewById(R.id.studyoptions_global_mat_limit_bar);
+  mCardBrowser=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_card_browser);
+  mDeckOptions=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_options);
   mGlobalBar=(View)mStudyOptionsView.findViewById(R.id.studyoptions_global_bar);
   mGlobalMatBar=(View)mStudyOptionsView.findViewById(R.id.studyoptions_global_mat_bar);
-  mBarsMax=(View)mStudyOptionsView.findViewById(R.id.studyoptions_bars_max);
-  if (mDailyBar != null) {
+  mBarsMax=(View)mStudyOptionsView.findViewById(R.id.studyoptions_progressbar_content);
+  if (mGlobalBar != null) {
     ViewTreeObserver vto=mBarsMax.getViewTreeObserver();
     vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener(){
       @Override public void onGlobalLayout(){
@@ -31,6 +27,9 @@
   mTextTodayNew=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_new);
   mTextTodayLrn=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_lrn);
   mTextTodayRev=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_rev);
+  mTextNewTotal=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_total_new);
+  mTextTotal=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_total);
+  mTextETA=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_eta);
   mNightMode=(CheckBox)mStudyOptionsView.findViewById(R.id.studyoptions_night_mode);
   mNightMode.setChecked(mInvertedColors);
   mNightMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
@@ -61,6 +60,7 @@
   mToggleCram.setOnClickListener(mButtonClickListener);
   mToggleLimit.setOnClickListener(mButtonClickListener);
   mCardBrowser.setOnClickListener(mButtonClickListener);
+  mDeckOptions.setOnClickListener(mButtonClickListener);
   mStatisticsButton.setOnClickListener(mButtonClickListener);
   mCongratsView=getLayoutInflater().inflate(R.layout.studyoptions_congrats,null);
   Themes.setWallpaper(mCongratsView);
