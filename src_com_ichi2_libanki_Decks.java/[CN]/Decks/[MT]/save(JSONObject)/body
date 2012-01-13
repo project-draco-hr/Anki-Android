@@ -1,2 +1,12 @@
 {
+  if (g != null) {
+    try {
+      g.put("mod",Utils.intNow());
+      g.put("usn",mCol.getUsn());
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  mChanged=true;
 }

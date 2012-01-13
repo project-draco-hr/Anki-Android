@@ -1,12 +1,30 @@
 {
   for (  String key : mPref.mValues.keySet()) {
     Preference pref=this.findPreference(key);
+    String value=null;
     if (pref == null) {
       continue;
     }
-    if (pref instanceof CheckBoxPreference) {
+ else     if (pref instanceof CheckBoxPreference) {
       continue;
     }
-    pref.setSummary(this.mPref.getString(key,""));
+ else     if (pref instanceof ListPreference) {
+      ListPreference lp=(ListPreference)pref;
+      value=lp.getEntry().toString();
+    }
+ else {
+      value=this.mPref.getString(key,"");
+    }
+    if (!mPref.mSummaries.containsKey(key)) {
+      CharSequence s=pref.getSummary();
+      mPref.mSummaries.put(key,s != null ? pref.getSummary().toString() : null);
+    }
+    String summ=mPref.mSummaries.get(key);
+    if (summ != null && summ.contains("XXX")) {
+      pref.setSummary(summ.replace("XXX",value));
+    }
+ else {
+      pref.setSummary(value);
+    }
   }
 }

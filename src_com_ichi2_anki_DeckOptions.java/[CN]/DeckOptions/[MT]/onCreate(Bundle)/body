@@ -1,15 +1,17 @@
 {
   super.onCreate(icicle);
-  Collection col=Collection.currentCollection();
-  if (col == null) {
+  mCol=Collection.currentCollection();
+  mDeck=mCol.getDecks().current();
+  if (mCol == null) {
     Log.i(AnkiDroidApp.TAG,"DeckOptions - No Collection loaded");
     finish();
     return;
   }
  else {
-    mPref=new DeckPreferenceHack(col);
+    mPref=new DeckPreferenceHack();
     mPref.registerOnSharedPreferenceChangeListener(this);
     this.addPreferencesFromResource(R.xml.deck_options);
+    this.buildLists();
     this.updateSummaries();
   }
 }

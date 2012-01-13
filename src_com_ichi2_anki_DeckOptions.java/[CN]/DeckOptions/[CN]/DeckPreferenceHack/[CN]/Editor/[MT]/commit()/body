@@ -1,2 +1,113 @@
 {
+  Log.d(AnkiDroidApp.TAG,"DeckOptions - commit() changes back to database");
+  try {
+    for (    Entry<String,Object> entry : mUpdate.valueSet()) {
+      Log.i(AnkiDroidApp.TAG,"Change value for key '" + entry.getKey() + "': "+ entry.getValue());
+      if (entry.getKey().equals("name")) {
+        mCol.getDecks().rename(mDeck,(String)entry.getValue());
+      }
+ else       if (entry.getKey().equals("desc")) {
+        mDeck.put("desc",(String)entry.getValue());
+      }
+ else       if (entry.getKey().equals("deckConf")) {
+        mDeck.put("conf",Long.parseLong((String)entry.getValue()));
+        mOptions=mCol.getDecks().confForDid(mDeck.getLong("id"));
+      }
+ else       if (entry.getKey().equals("maxAnswerTime")) {
+        mOptions.put("maxTaken",Integer.parseInt((String)entry.getValue()));
+      }
+ else       if (entry.getKey().equals("showAnswerTimer")) {
+        mOptions.put("timer",(Boolean)entry.getValue() ? "1" : "0");
+      }
+ else       if (entry.getKey().equals("autoPlayAudio")) {
+        mOptions.put("autoplay",(Boolean)entry.getValue());
+      }
+ else       if (entry.getKey().equals("newSteps")) {
+        String steps=(String)entry.getValue();
+        if (steps.matches("[0-9\\s]*")) {
+          mOptions.getJSONObject("new").put("delays",getDelays(steps));
+        }
+      }
+ else       if (entry.getKey().equals("newGradIvl")) {
+        JSONArray ja=new JSONArray();
+        ja.put(Integer.parseInt((String)entry.getValue()));
+        ja.put(mOptions.getJSONObject("new").getJSONArray("ints").get(1));
+        mOptions.getJSONObject("new").put("ints",ja);
+      }
+ else       if (entry.getKey().equals("newEasy")) {
+        JSONArray ja=new JSONArray();
+        ja.put(mOptions.getJSONObject("new").getJSONArray("ints").get(0));
+        ja.put(Integer.parseInt((String)entry.getValue()));
+        mOptions.getJSONObject("new").put("ints",ja);
+      }
+ else       if (entry.getKey().equals("initialFactor")) {
+        mOptions.getJSONObject("new").put("initialFactor",(int)(Integer.parseInt((String)entry.getValue()) * 10));
+      }
+ else       if (entry.getKey().equals("newOrder")) {
+        mOptions.getJSONObject("new").put("order",Integer.parseInt((String)entry.getValue()));
+      }
+ else       if (entry.getKey().equals("newPerDay")) {
+        mOptions.getJSONObject("new").put("perDay",Integer.parseInt((String)entry.getValue()));
+      }
+ else       if (entry.getKey().equals("newSeparate")) {
+        mOptions.getJSONObject("new").put("separate",(Boolean)entry.getValue());
+      }
+ else       if (entry.getKey().equals("revPerDay")) {
+        mOptions.getJSONObject("rev").put("perDay",Integer.parseInt((String)entry.getValue()));
+      }
+ else       if (entry.getKey().equals("revOrder")) {
+        mOptions.getJSONObject("rev").put("order",Integer.parseInt((String)entry.getValue()));
+      }
+ else       if (entry.getKey().equals("revSpaceMax")) {
+        mOptions.getJSONObject("rev").put("fuzz",Integer.parseInt((String)entry.getValue()) / 100.0f);
+      }
+ else       if (entry.getKey().equals("revSpaceMin")) {
+        mOptions.getJSONObject("rev").put("minSpace",Integer.parseInt((String)entry.getValue()));
+      }
+ else       if (entry.getKey().equals("easyBonus")) {
+        mOptions.getJSONObject("rev").put("ease4",Integer.parseInt((String)entry.getValue()) / 100.0f);
+      }
+ else       if (entry.getKey().equals("revDesForIdx")) {
+        JSONArray ja=new JSONArray();
+        ja=new JSONArray();
+        ja.put(Integer.parseInt((String)entry.getValue()));
+        ja.put(mOptions.getJSONObject("rev").getJSONArray("fi").get(1));
+        mOptions.getJSONObject("rev").put("fi",ja);
+      }
+ else       if (entry.getKey().equals("revAssForIdx")) {
+        JSONArray ja=new JSONArray();
+        ja=new JSONArray();
+        ja.put(mOptions.getJSONObject("rev").getJSONArray("fi").get(0));
+        ja.put(Integer.parseInt((String)entry.getValue()));
+        mOptions.getJSONObject("rev").put("fi",ja);
+      }
+ else       if (entry.getKey().equals("lapSteps")) {
+        String steps=(String)entry.getValue();
+        if (steps.matches("[0-9\\s]*")) {
+          mOptions.getJSONObject("lapse").put("delays",getDelays(steps));
+        }
+      }
+ else       if (entry.getKey().equals("lapNewIvl")) {
+        mOptions.getJSONObject("lapse").put("mult",Float.parseFloat((String)entry.getValue()));
+      }
+ else       if (entry.getKey().equals("lapMinIvl")) {
+        mOptions.getJSONObject("lapse").put("minInt",Integer.parseInt((String)entry.getValue()));
+      }
+ else       if (entry.getKey().equals("lapLeechThres")) {
+        mOptions.getJSONObject("lapse").put("leechFails",Integer.parseInt((String)entry.getValue()));
+      }
+ else       if (entry.getKey().equals("lapLeechAct")) {
+        mOptions.getJSONObject("lapse").put("leechAction",Integer.parseInt((String)entry.getValue()));
+      }
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  cacheValues();
+  updateSummaries();
+  for (  OnSharedPreferenceChangeListener listener : listeners) {
+    listener.onSharedPreferenceChanged(DeckPreferenceHack.this,null);
+  }
+  return true;
 }

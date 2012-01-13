@@ -21,16 +21,17 @@
   try {
     g=new JSONObject(defaultDeck);
     g.put("name",name);
-    id=Utils.intNow();
+    id=Utils.intNow(1000);
     while (mDecks.containsKey(id)) {
       id=Utils.intNow();
     }
     g.put("id",id);
+    mDecks.put(id,g);
+    mDeckIds.put(name,id);
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
-  mDecks.put(id,g);
   save(g);
   maybeAddToActive();
   return id;

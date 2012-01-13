@@ -1,3 +1,7 @@
 {
-  return (ArrayList<JSONObject>)mDconf.values();
+  ArrayList<JSONObject> confs=new ArrayList<JSONObject>();
+  for (  JSONObject c : mDconf.values()) {
+    confs.add(c);
+  }
+  return confs;
 }

@@ -1,0 +1,31 @@
+{
+  ListPreference deckConfPref=(ListPreference)findPreference("deckConf");
+  ArrayList<JSONObject> confs=mCol.getDecks().allConf();
+  String[] confValues=new String[confs.size()];
+  String[] confLabels=new String[confs.size()];
+  try {
+    for (int i=0; i < confs.size(); i++) {
+      JSONObject o=confs.get(i);
+      confValues[i]=o.getString("id");
+      confLabels[i]=o.getString("name");
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  deckConfPref.setEntries(confLabels);
+  deckConfPref.setEntryValues(confValues);
+  deckConfPref.setValue(mPref.getString("deckConf","0"));
+  ListPreference newOrderPref=(ListPreference)findPreference("newOrder");
+  newOrderPref.setEntries(R.array.new_order_labels);
+  newOrderPref.setEntryValues(R.array.new_order_values);
+  newOrderPref.setValue(mPref.getString("newOrder","0"));
+  ListPreference revOrderPref=(ListPreference)findPreference("revOrder");
+  revOrderPref.setEntries(R.array.rev_order_labels);
+  revOrderPref.setEntryValues(R.array.rev_order_values);
+  revOrderPref.setValue(mPref.getString("revOrder","0"));
+  ListPreference leechActPref=(ListPreference)findPreference("lapLeechAct");
+  leechActPref.setEntries(R.array.leech_action_labels);
+  leechActPref.setEntryValues(R.array.leech_action_values);
+  leechActPref.setValue(mPref.getString("lapLeechAct","0"));
+}
