@@ -9,12 +9,11 @@
     }
  else     if (key.equals("language")) {
       Intent intent=this.getIntent();
-      finish();
+      closePreferences();
     }
  else     if (key.equals("startup_mode")) {
       Intent intent=this.getIntent();
-      setResult(DeckPicker.RESULT_RESTART,intent);
-      finish();
+      closePreferences();
     }
  else     if (key.equals("theme")) {
       if (!sharedPreferences.getString("theme","2").equals("2")) {
@@ -40,7 +39,7 @@ break;
 }
 Intent intent=this.getIntent();
 setResult(DeckPicker.RESULT_RESTART,intent);
-finish();
+closePreferences();
 }
  else if (Arrays.asList(mShowValueInSummList).contains(key)) {
 updateListPreference(key);

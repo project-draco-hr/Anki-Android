@@ -2,7 +2,7 @@
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   Log.i(AnkiDroidApp.TAG,"StudyOptions - OnCreate()");
-  SharedPreferences preferences=restorePreferences();
+  restorePreferences();
   registerExternalStorageListener();
   mCol=Collection.currentCollection();
   initAllContentViews();
@@ -24,6 +24,7 @@
  else {
     mCompat=new CompatV3();
   }
+  showContentView(CONTENT_STUDY_OPTIONS);
   if (mZeemoteEnabled) {
     if (AnkiDroidApp.zeemoteController() == null) {
       AnkiDroidApp.setZeemoteController(new Controller(Controller.CONTROLLER_1));

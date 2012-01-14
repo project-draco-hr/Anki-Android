@@ -1,0 +1,11 @@
+{
+  if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+    Log.i(AnkiDroidApp.TAG,"DeckOptions - onBackPressed()");
+    finish();
+    if (UIUtils.getApiLevel() > 4) {
+      ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
+    }
+    return true;
+  }
+  return super.onKeyDown(keyCode,event);
+}
