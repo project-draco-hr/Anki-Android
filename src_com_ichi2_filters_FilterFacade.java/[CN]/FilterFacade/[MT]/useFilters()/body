@@ -1,0 +1,4 @@
+{
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
+  return preferences.getBoolean(FIX_EXTERNAL_DATA,false);
+}
