@@ -1,7 +1,7 @@
 {
   Intent reviewer=new Intent(StudyOptions.this,Reviewer.class);
   startActivityForResult(reviewer,REQUEST_REVIEW);
-  if (UIUtils.getApiLevel() > 4 && mStartedByBigWidget == EXTRA_START_NOTHING) {
+  if (UIUtils.getApiLevel() > 4) {
     ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
   }
 }

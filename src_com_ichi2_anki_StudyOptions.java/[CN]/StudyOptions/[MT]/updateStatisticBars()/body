@@ -3,6 +3,6 @@
     mStatisticBarsMax=mBarsMax.getWidth();
     mStatisticBarsHeight=mBarsMax.getHeight();
   }
-  Utils.updateProgressBars(this,mGlobalMatBar,0.7,mStatisticBarsMax,mStatisticBarsHeight,false);
-  Utils.updateProgressBars(this,mGlobalBar,(mProgressAll == 1.0) ? 1.0 : 0.1,mStatisticBarsMax,mStatisticBarsHeight,false);
+  Utils.updateProgressBars(this,mGlobalMatBar,mProgressMature,mStatisticBarsMax,mStatisticBarsHeight,false);
+  Utils.updateProgressBars(this,mGlobalBar,(mProgressAll == 1.0) ? 1.0 : mProgressAll - mProgressMature,mStatisticBarsMax,mStatisticBarsHeight,false);
 }

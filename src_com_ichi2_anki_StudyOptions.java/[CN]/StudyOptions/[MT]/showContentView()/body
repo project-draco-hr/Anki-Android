@@ -1,19 +1,12 @@
 {
 switch (mCurrentContentView) {
 case CONTENT_STUDY_OPTIONS:
-    if (mCurrentContentView == CONTENT_STUDY_OPTIONS) {
-      mButtonStart.setText(R.string.studyoptions_start);
-    }
- else {
-      mButtonStart.setText(R.string.studyoptions_continue);
-    }
-  setContentView(mStudyOptionsView);
-resetAndUpdateValuesFromDeck();
+    setContentView(mStudyOptionsView);
+  resetAndUpdateValuesFromDeck();
 break;
 case CONTENT_CONGRATS:
-case CONTENT_NO_EXTERNAL_STORAGE:
-setTitle(R.string.app_name);
-setContentView(mNoExternalStorageView);
+updateValuesFromDeck();
+setContentView(mCongratsView);
 break;
 }
 }

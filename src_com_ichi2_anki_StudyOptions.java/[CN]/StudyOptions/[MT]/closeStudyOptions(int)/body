@@ -1,0 +1,11 @@
+{
+  mCompat.invalidateOptionsMenu(this);
+  setResult(result);
+  finish();
+  if (mUnmountReceiver != null) {
+    unregisterReceiver(mUnmountReceiver);
+  }
+  if (UIUtils.getApiLevel() > 4) {
+    ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
+  }
+}

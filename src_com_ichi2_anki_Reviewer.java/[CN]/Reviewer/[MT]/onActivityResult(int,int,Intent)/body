@@ -9,7 +9,7 @@
         showQuestion=UPDATE_CARD_NEW_CARD;
       }
     }
- else     if (resultCode == StudyOptions.CONTENT_NO_EXTERNAL_STORAGE) {
+ else     if (resultCode == DeckPicker.RESULT_MEDIA_EJECTED) {
       finishNoStorageAvailable();
     }
  else {

@@ -1,15 +1,14 @@
 {
   mStudyOptionsView=getLayoutInflater().inflate(R.layout.studyoptions,null);
   Themes.setContentStyle(mStudyOptionsView,Themes.CALLER_STUDYOPTIONS);
-  mStudyOptionsMain=(View)mStudyOptionsView.findViewById(R.id.studyoptions_main);
   mTextDeckName=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_name);
-  Themes.setTitleStyle(mTextDeckName);
   mTextDeckDescription=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_description);
   mButtonStart=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_start);
   mToggleCram=(ToggleButton)mStudyOptionsView.findViewById(R.id.studyoptions_cram);
   mToggleLimit=(ToggleButton)mStudyOptionsView.findViewById(R.id.studyoptions_limit);
-  mStatisticsButton=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_statistics);
+  mAddNote=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_add);
   mCardBrowser=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_card_browser);
+  mStatisticsButton=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_statistics);
   mDeckOptions=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_options);
   mGlobalBar=(View)mStudyOptionsView.findViewById(R.id.studyoptions_global_bar);
   mGlobalMatBar=(View)mStudyOptionsView.findViewById(R.id.studyoptions_global_mat_bar);
@@ -36,7 +35,7 @@
     @Override public void onCheckedChanged(    CompoundButton buttonView,    boolean isChecked){
       if (mInvertedColors != isChecked) {
         mInvertedColors=isChecked;
-        savePreferences("invertedColors");
+        savePreferences("invertedColors",mInvertedColors);
       }
     }
   }
@@ -50,7 +49,7 @@
       }
  else       if (mSwap) {
         mSwap=false;
-        savePreferences("swapqa");
+        savePreferences("swapqa",mSwap);
       }
       mSwapQA.setChecked(false);
     }
@@ -59,27 +58,18 @@
   mButtonStart.setOnClickListener(mButtonClickListener);
   mToggleCram.setOnClickListener(mButtonClickListener);
   mToggleLimit.setOnClickListener(mButtonClickListener);
+  mAddNote.setOnClickListener(mButtonClickListener);
   mCardBrowser.setOnClickListener(mButtonClickListener);
-  mDeckOptions.setOnClickListener(mButtonClickListener);
   mStatisticsButton.setOnClickListener(mButtonClickListener);
+  mDeckOptions.setOnClickListener(mButtonClickListener);
   mCongratsView=getLayoutInflater().inflate(R.layout.studyoptions_congrats,null);
   Themes.setWallpaper(mCongratsView);
   Themes.setTitleStyle(mCongratsView.findViewById(R.id.studyoptions_congrats_title));
   mTextCongratsMessage=(TextView)mCongratsView.findViewById(R.id.studyoptions_congrats_message);
   Themes.setTextViewStyle(mTextCongratsMessage);
   mTextCongratsMessage.setOnClickListener(mButtonClickListener);
-  mButtonCongratsLearnMore=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_learnmore);
-  mButtonCongratsReviewEarly=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_reviewearly);
-  mButtonCongratsSyncDeck=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_syncdeck);
   mButtonCongratsOpenOtherDeck=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_open_other_deck);
   mButtonCongratsFinish=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_finish);
-  mButtonCongratsLearnMore.setOnClickListener(mButtonClickListener);
-  mButtonCongratsReviewEarly.setOnClickListener(mButtonClickListener);
-  mButtonCongratsSyncDeck.setOnClickListener(mButtonClickListener);
   mButtonCongratsOpenOtherDeck.setOnClickListener(mButtonClickListener);
   mButtonCongratsFinish.setOnClickListener(mButtonClickListener);
-  mNoExternalStorageView=getLayoutInflater().inflate(R.layout.studyoptions_nostorage,null);
-  Themes.setWallpaper(mNoExternalStorageView);
-  Themes.setTitleStyle(mNoExternalStorageView.findViewById(R.id.studyoptions_nostorage_title));
-  Themes.setTextViewStyle(mNoExternalStorageView.findViewById(R.id.studyoptions_nostorage_message));
 }

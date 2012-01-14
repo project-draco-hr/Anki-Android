@@ -5,23 +5,43 @@
   SharedPreferences preferences=restorePreferences();
   registerExternalStorageListener();
   mCol=Collection.currentCollection();
-  activeCramTags=new HashSet<String>();
   initAllContentViews();
-  showContentView(CONTENT_STUDY_OPTIONS);
-  gestureDetector=new GestureDetector(new MyGestureDetector());
-  gestureListener=new View.OnTouchListener(){
-    public boolean onTouch(    View v,    MotionEvent event){
-      if (gestureDetector.onTouchEvent(event)) {
-        return true;
+  if (mSwipeEnabled) {
+    gestureDetector=new GestureDetector(new MyGestureDetector());
+    gestureListener=new View.OnTouchListener(){
+      public boolean onTouch(      View v,      MotionEvent event){
+        if (gestureDetector.onTouchEvent(event)) {
+          return true;
+        }
+        return false;
       }
-      return false;
     }
-  }
 ;
+  }
   if (UIUtils.getApiLevel() >= 11) {
     mCompat=new CompatV11();
   }
  else {
     mCompat=new CompatV3();
+  }
+  if (mZeemoteEnabled) {
+    if (AnkiDroidApp.zeemoteController() == null) {
+      AnkiDroidApp.setZeemoteController(new Controller(Controller.CONTROLLER_1));
+    }
+    controllerUi=new ControllerAndroidUi(this,AnkiDroidApp.zeemoteController());
+    com.zeemote.util.Strings zstrings=com.zeemote.util.Strings.getStrings();
+    if (zstrings.isLocaleAvailable(mLocale)) {
+      Log.d("Zeemote","Zeemote locale " + mLocale + " is available. Setting.");
+      zstrings.setLocale(mLocale);
+    }
+ else {
+      Log.d("Zeemote","Zeemote locale " + mLocale + " is not available.");
+    }
+    if (mZeemoteEnabled) {
+      if (!AnkiDroidApp.zeemoteController().isConnected()) {
+        Log.d("Zeemote","starting connection in onCreate");
+        controllerUi.startConnectionProcess();
+      }
+    }
   }
 }

@@ -1,15 +1,10 @@
 {
   super.onConfigurationChanged(newConfig);
-  setLanguage(mLocale);
   boolean cramChecked=mToggleCram.isChecked();
   boolean limitChecked=mToggleLimit.isChecked();
   boolean limitEnabled=mToggleLimit.isEnabled();
   boolean nightModeChecekd=mNightMode.isChecked();
   boolean swapQA=mSwapQA.isChecked();
-  int limitBarVisibility=View.GONE;
-  if (mDailyBar != null) {
-    limitBarVisibility=mGlobalLimitFrame.getVisibility();
-  }
   initAllContentViews();
   updateValuesFromDeck();
   showContentView();
@@ -18,7 +13,4 @@
   mToggleLimit.setEnabled(limitEnabled);
   mNightMode.setChecked(nightModeChecekd);
   mSwapQA.setChecked(swapQA);
-  if (mDailyBar != null) {
-    mGlobalLimitFrame.setVisibility(limitBarVisibility);
-  }
 }

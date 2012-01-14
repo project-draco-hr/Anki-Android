@@ -9,12 +9,11 @@
     }
  else     if (key.equals("language")) {
       Intent intent=this.getIntent();
-      setResult(StudyOptions.RESULT_RESTART,intent);
       finish();
     }
  else     if (key.equals("startup_mode")) {
       Intent intent=this.getIntent();
-      setResult(StudyOptions.RESULT_RESTART,intent);
+      setResult(DeckPicker.RESULT_RESTART,intent);
       finish();
     }
  else     if (key.equals("theme")) {
@@ -40,7 +39,7 @@ sharedPreferences.edit().putString("defaultFont","OpenSans-Regular").commit();
 break;
 }
 Intent intent=this.getIntent();
-setResult(StudyOptions.RESULT_RESTART,intent);
+setResult(DeckPicker.RESULT_RESTART,intent);
 finish();
 }
  else if (Arrays.asList(mShowValueInSummList).contains(key)) {

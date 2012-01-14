@@ -14,16 +14,6 @@
     }
   }
  else   if (requestCode == PREFERENCES_UPDATE) {
-    if (resultCode == StudyOptions.RESULT_RESTART) {
-      setResult(StudyOptions.RESULT_RESTART);
-      finish();
-    }
- else {
-      SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
-      BackupManager.initBackup();
-      if (!mPrefDeckPath.equals(preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory())) || mPrefDeckOrder != Integer.parseInt(preferences.getString("deckOrder","0"))) {
-      }
-    }
   }
  else   if ((requestCode == CREATE_DECK || requestCode == DOWNLOAD_SHARED_DECK) && resultCode == RESULT_OK) {
   }

@@ -5,12 +5,8 @@ case MENU_HELP:
   return true;
 case MENU_PREFERENCES:
 startActivityForResult(new Intent(StudyOptions.this,Preferences.class),PREFERENCES_UPDATE);
-return true;
-case MENU_ADD_FACT:
-Intent intent=new Intent(StudyOptions.this,CardEditor.class);
-startActivityForResult(intent,ADD_FACT);
 if (UIUtils.getApiLevel() > 4) {
-ActivityTransitionAnimation.slide(StudyOptions.this,ActivityTransitionAnimation.LEFT);
+ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.FADE);
 }
 return true;
 case MENU_ROTATE:
@@ -22,7 +18,7 @@ setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 }
 return true;
 case MENU_ZEEMOTE:
-Log.d("Zeemote","Locale: " + mLocale);
+Log.d(AnkiDroidApp.TAG,"Zeemote: Locale: " + mLocale);
 if ((AnkiDroidApp.zeemoteController() != null)) {
 controllerUi.showControllerMenu();
 }

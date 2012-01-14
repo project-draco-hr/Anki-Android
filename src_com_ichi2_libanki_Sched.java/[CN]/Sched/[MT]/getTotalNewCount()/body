@@ -1,3 +1,0 @@
-{
-  return mCol.getDb().queryScalar("SELECT count() FROM (SELECT 1 FROM cards WHERE did IN " + _deckLimit() + " AND queue = 0)");
-}

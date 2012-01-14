@@ -14,7 +14,6 @@
       updateDueDecksNow=false;
     }
  else     if (ACTION_OPEN.equals(intent.getAction())) {
-      startActivity(StudyOptions.getLoadDeckIntent(this,intent.getData().getPath()));
       updateDueDecksNow=false;
     }
  else     if (ACTION_UPDATE.equals(intent.getAction())) {

@@ -2,6 +2,10 @@
   Resources res=getResources();
   Sched sched=mCol.getSched();
   int[] counts=sched.counts();
+  int totalNewCount=sched.newCount();
+  int totalCount=sched.cardCount();
+  mProgressMature=((double)sched.matureCount()) / ((double)totalCount);
+  mProgressAll=1 - (((double)(totalNewCount + counts[1])) / ((double)totalCount));
   String[] name;
   try {
     name=mCol.getDecks().current().getString("name").split("::");
@@ -33,8 +37,8 @@
   mTextTodayNew.setText(String.valueOf(counts[0]));
   mTextTodayLrn.setText(String.valueOf(counts[1]));
   mTextTodayRev.setText(String.valueOf(counts[2]));
-  mTextNewTotal.setText(String.valueOf(sched.getTotalNewCount()));
-  mTextTotal.setText(String.valueOf(sched.getTotalCount()));
+  mTextNewTotal.setText(String.valueOf(totalNewCount));
+  mTextTotal.setText(String.valueOf(totalCount));
   mTextETA.setText("???");
   updateStatisticBars();
   return true;
