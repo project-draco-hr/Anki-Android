@@ -5,7 +5,7 @@
   mCardContainer=(FrameLayout)findViewById(R.id.flashcard_frame);
   setInAnimation(false);
   findViewById(R.id.top_bar).setOnClickListener(mCardStatisticsListener);
-  mCardFrame=(LinearLayout)findViewById(R.id.flashcard);
+  mCardFrame=(FrameLayout)findViewById(R.id.flashcard);
   mTouchLayer=(FrameLayout)findViewById(R.id.touch_layer);
   mTouchLayer.setOnTouchListener(mGestureListener);
   if (mPrefTextSelection && mLongClickWorkaround) {
