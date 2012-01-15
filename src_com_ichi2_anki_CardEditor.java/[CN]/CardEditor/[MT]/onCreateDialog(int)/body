@@ -3,14 +3,92 @@
   Resources res=getResources();
   StyledDialog.Builder builder=new StyledDialog.Builder(this);
 switch (id) {
-case DIALOG_TAGS:
+case DIALOG_TAGS_SELECT:
     dialog=createDialogTags(builder,res);
   break;
 case DIALOG_DECK_SELECT:
-dialog=createDialogDeckSelect(builder,res);
+ArrayList<CharSequence> dialogDeckItems=new ArrayList<CharSequence>();
+final ArrayList<Long> dialogDeckIds=new ArrayList<Long>();
+ArrayList<JSONObject> decks=mCol.getDecks().all();
+Collections.sort(decks,new JSONNameComparator());
+builder.setTitle(R.string.deck);
+for (JSONObject d : decks) {
+try {
+dialogDeckItems.add(DeckPicker.readableName(d.getString("name").split("::")));
+dialogDeckIds.add(d.getLong("id"));
+}
+ catch (JSONException e) {
+throw new RuntimeException(e);
+}
+}
+String[] items=new String[dialogDeckItems.size()];
+dialogDeckItems.toArray(items);
+builder.setItems(items,new DialogInterface.OnClickListener(){
+public void onClick(DialogInterface dialog,int item){
+try {
+long oldDid=mCol.getDecks().get(mEditorNote.getDid()).getLong("id");
+long newId=dialogDeckIds.get(item);
+if (oldDid != newId) {
+if (mCaller == CALLER_DECKPICKER) {
+mCol.getDecks().select(newId);
+}
+mEditorNote.setDid(newId);
+mDeckButton.setText(getResources().getString(R.string.CardEditorDeck,mCol.getDecks().get(newId).getString("name")));
+}
+}
+ catch (JSONException e) {
+throw new RuntimeException(e);
+}
+}
+}
+);
+dialog=builder.create();
 break;
 case DIALOG_MODEL_SELECT:
-dialog=createDialogModelSelect(builder,res);
+ArrayList<CharSequence> dialogItems=new ArrayList<CharSequence>();
+final ArrayList<Long> dialogIds=new ArrayList<Long>();
+ArrayList<JSONObject> models=mCol.getModels().all();
+Collections.sort(models,new JSONNameComparator());
+builder.setTitle(R.string.model);
+for (JSONObject m : models) {
+try {
+dialogItems.add(m.getString("name"));
+dialogIds.add(m.getLong("id"));
+}
+ catch (JSONException e) {
+throw new RuntimeException(e);
+}
+}
+String[] items2=new String[dialogItems.size()];
+dialogItems.toArray(items2);
+builder.setItems(items2,new DialogInterface.OnClickListener(){
+public void onClick(DialogInterface dialog,int item){
+long oldModelId;
+try {
+oldModelId=mCol.getModels().current().getLong("id");
+}
+ catch (JSONException e) {
+throw new RuntimeException(e);
+}
+long newId=dialogIds.get(item);
+if (oldModelId != newId) {
+mCol.getModels().setCurrent(mCol.getModels().get(newId));
+int size=mEditFields.size();
+String[] oldValues=new String[size];
+for (int i=0; i < size; i++) {
+oldValues[i]=mEditFields.get(i).getText().toString();
+}
+modelChanged();
+if ((mSourceText == null || mSourceText.length() == 0) && (mTargetText == null || mTargetText.length() == 0)) {
+for (int i=0; i < Math.min(size,mEditFields.size()); i++) {
+mEditFields.get(i).setText(oldValues[i]);
+}
+}
+}
+}
+}
+);
+dialog=builder.create();
 break;
 case DIALOG_RESET_CARD:
 builder.setTitle(res.getString(R.string.reset_card_dialog_title));

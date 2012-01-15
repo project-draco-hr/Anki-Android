@@ -1,6 +1,6 @@
 {
   if (AnkiDroidApp.isUserLoggedIn()) {
-    mSyncAllButton.setClickable(false);
+    mSyncButton.setClickable(false);
     SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
     String username=preferences.getString("username","");
     String password=preferences.getString("password","");

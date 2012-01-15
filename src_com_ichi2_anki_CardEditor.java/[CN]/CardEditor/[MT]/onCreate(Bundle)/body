@@ -11,17 +11,15 @@
   setTitle(R.string.cardeditor_title);
   mSave=(Button)findViewById(R.id.CardEditorSaveButton);
   mCancel=(Button)findViewById(R.id.CardEditorCancelButton);
-  mSwapButton=(Button)findViewById(R.id.CardEditorSwapButton);
-  mModelButtons=(LinearLayout)findViewById(R.id.CardEditorSelectModelLayout);
+  mDeckButton=(Button)findViewById(R.id.CardEditorDeckButton);
   mModelButton=(Button)findViewById(R.id.CardEditorModelButton);
-  mTags=(Button)findViewById(R.id.CardEditorTagButton);
+  mTagsButton=(Button)findViewById(R.id.CardEditorTagButton);
+  mSwapButton=(Button)findViewById(R.id.CardEditorSwapButton);
   mAedictIntent=false;
   Intent intent=getIntent();
   if (savedInstanceState != null) {
-    mDeckPath=savedInstanceState.getString("deckFilename");
     mCaller=savedInstanceState.getInt("caller");
     mAddNote=savedInstanceState.getBoolean("addFact");
-    Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from savedInstanceState: " + mDeckPath);
   }
  else {
     mCaller=intent.getIntExtra(EXTRA_CALLER,CALLER_NOCALLER);
@@ -48,6 +46,7 @@ mEditorNote=revCard.getNote();
 mAddNote=false;
 break;
 case CALLER_STUDYOPTIONS:
+case CALLER_DECKPICKER:
 mAddNote=true;
 break;
 case CALLER_BIGWIDGET_EDIT:
@@ -64,7 +63,6 @@ case CALLER_CARDEDITOR:
 mAddNote=true;
 break;
 case CALLER_CARDEDITOR_INTENT_ADD:
-prepareForIntentAddition();
 mAddNote=true;
 String[] fields=intent.getStringExtra(EXTRA_CONTENTS).split("\\x1f");
 mSourceText=fields[0];
@@ -88,7 +86,6 @@ if (mSourceText.equals("Aedict Notepad") && addFromAedict(mTargetText)) {
 finish();
 return;
 }
-prepareForIntentAddition();
 mAddNote=true;
 break;
 }
@@ -98,20 +95,33 @@ finish();
 return;
 }
 if (mAddNote) {
-if (mCaller != CALLER_INDICLASH && mCaller != CALLER_CARDEDITOR_INTENT_ADD) {
-loadContents();
+try {
+mDeckButton.setText(getResources().getString(R.string.CardEditorDeck,mCol.getDecks().current().getString("name")));
+mModelButton.setText(getResources().getString(R.string.CardEditorDeck,mCol.getModels().current().getString("name")));
 modelChanged();
-mSave.setEnabled(false);
-String contents=intent.getStringExtra(EXTRA_CONTENTS);
-setEditFieldTexts(contents);
-mModelButtons.setVisibility(View.VISIBLE);
+mTagsButton.setText(getResources().getString(R.string.CardEditorTags,""));
+}
+ catch (JSONException e) {
+throw new RuntimeException(e);
+}
+String contents=null;
+if (mSourceText != null) {
+if (mAedictIntent && (mEditFields.size() == 3) && mTargetText.contains("[")) {
+contents=mTargetText.replaceFirst("\\[","\u001f");
+contents=contents.substring(0,contents.length() - 1);
 }
  else {
-mSave.setVisibility(View.INVISIBLE);
-mCancel.setVisibility(View.INVISIBLE);
-mTags.setVisibility(View.INVISIBLE);
-mFieldsLayoutContainer.setVisibility(View.INVISIBLE);
+mEditFields.get(0).setText(mSourceText);
+mEditFields.get(1).setText(mTargetText);
 }
+}
+ else {
+contents=intent.getStringExtra(EXTRA_CONTENTS);
+}
+if (contents != null) {
+setEditFieldTexts(contents);
+}
+mSave.setEnabled(false);
 mModelButton.setOnClickListener(new View.OnClickListener(){
 public void onClick(View v){
 showDialog(DIALOG_MODEL_SELECT);
@@ -120,20 +130,31 @@ showDialog(DIALOG_MODEL_SELECT);
 );
 mSave.setText(getResources().getString(R.string.add));
 mCancel.setText(getResources().getString(R.string.close));
-mFactTags="";
 }
  else {
+try {
+mModelButton.setText(getResources().getString(R.string.CardEditorDeck,mCol.getDecks().get(mEditorNote.getDid()).getString("name")));
 }
-mTags.setText(getResources().getString(R.string.CardEditorTags,mFactTags));
+ catch (JSONException e) {
+throw new RuntimeException(e);
+}
+}
+mDeckButton.setOnClickListener(new View.OnClickListener(){
+public void onClick(View v){
+showDialog(DIALOG_DECK_SELECT);
+}
+}
+);
+mTagsButton.setText(getResources().getString(R.string.CardEditorTags,mEditorNote.stringTags()));
 mModified=false;
 SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
 mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
 if (mPrefFixArabic && !mAddNote) {
 mSave.setEnabled(false);
 }
-mTags.setOnClickListener(new View.OnClickListener(){
+mTagsButton.setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
-showDialog(DIALOG_TAGS);
+showDialog(DIALOG_TAGS_SELECT);
 }
 }
 );

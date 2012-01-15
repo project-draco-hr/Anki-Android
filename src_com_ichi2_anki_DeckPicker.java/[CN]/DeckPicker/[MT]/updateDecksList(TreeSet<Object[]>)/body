@@ -2,21 +2,8 @@
   mDeckList.clear();
   for (  Object[] d : decks) {
     HashMap<String,String> m=new HashMap<String,String>();
-    String[] name=(String[])d[0];
-    int len=name.length;
-    StringBuilder sb=new StringBuilder();
-    for (int i=0; i < len; i++) {
-      if (i == len - 1) {
-        sb.append(name[i]);
-      }
- else       if (i == len - 2) {
-        sb.append("\u21aa");
-      }
- else {
-        sb.append("    ");
-      }
-    }
-    m.put("name",sb.toString());
+    String[] name=((String)d[0]).split("::");
+    m.put("name",readableName(name));
     m.put("did",((Long)d[1]).toString());
     m.put("new",((Integer)d[2]).toString());
     m.put("lrn",((Integer)d[3]).toString());

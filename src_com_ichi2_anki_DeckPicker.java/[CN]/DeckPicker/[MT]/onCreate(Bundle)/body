@@ -19,18 +19,36 @@
   setContentView(mainView);
   Themes.setContentStyle(mainView,Themes.CALLER_DECKPICKER);
   registerExternalStorageListener();
-  mDeckpickerButtons=(View)findViewById(R.id.deckpicker_buttons);
-  mSyncAllButton=(ImageButton)findViewById(R.id.sync_all_button);
-  mSyncAllButton.setOnClickListener(new OnClickListener(){
+  mAddButton=(ImageButton)findViewById(R.id.deckpicker_add);
+  mAddButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View v){
+      Intent intent=new Intent(DeckPicker.this,CardEditor.class);
+      intent.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_DECKPICKER);
+      startActivityForResult(intent,ADD_NOTE);
+      if (UIUtils.getApiLevel() > 4) {
+        ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.UP);
+      }
     }
   }
 );
-  mStatisticsAllButton=(ImageButton)findViewById(R.id.statistics_all_button);
-  mStatisticsAllButton.setOnClickListener(new OnClickListener(){
+  mCardsButton=(ImageButton)findViewById(R.id.deckpicker_card_browser);
+  mCardsButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View v){
-      mStatisticType=-1;
-      showDialog(DIALOG_SELECT_STATISTICS_TYPE);
+      mCardsButton.setEnabled(false);
+    }
+  }
+);
+  mStatsButton=(ImageButton)findViewById(R.id.statistics_all_button);
+  mStatsButton.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View v){
+      mStatsButton.setEnabled(false);
+    }
+  }
+);
+  mSyncButton=(ImageButton)findViewById(R.id.sync_all_button);
+  mSyncButton.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View v){
+      mSyncButton.setEnabled(false);
     }
   }
 );
