@@ -3,7 +3,7 @@
   card.setNid(note.getId());
   try {
     card.setOrd(template.getInt("ord"));
-    int did=template.getInt("did");
+    long did=template.getLong("did");
     card.setDid(did != 0 ? did : note.getDid());
   }
  catch (  JSONException e) {

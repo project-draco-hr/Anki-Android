@@ -1,5 +1,5 @@
 {
-  name=name.replaceAll("\'","").replace("\"","");
+  name=name.replace("\'","").replace("\"","");
   for (  Map.Entry<Long,JSONObject> g : mDecks.entrySet()) {
     try {
       if (g.getValue().getString("name").equalsIgnoreCase(name)) {
@@ -13,7 +13,7 @@
   if (!create) {
     return 0;
   }
-  if (name.split("::").length > 1) {
+  if (name.matches("::")) {
     _ensureParents(name);
   }
   JSONObject g;

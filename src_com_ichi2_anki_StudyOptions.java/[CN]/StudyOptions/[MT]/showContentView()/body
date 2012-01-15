@@ -5,6 +5,7 @@ case CONTENT_STUDY_OPTIONS:
   resetAndUpdateValuesFromDeck();
 break;
 case CONTENT_CONGRATS:
+mTextCongratsMessage.setText(mCol.getSched().finishedMsg(this));
 updateValuesFromDeck();
 setContentView(mCongratsView);
 break;

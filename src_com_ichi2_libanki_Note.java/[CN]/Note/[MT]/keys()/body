@@ -1,3 +1,7 @@
 {
-  return (HashSet<String>)mFMap.keySet();
+  HashSet<String> keys=new HashSet<String>();
+  for (  String s : mFMap.keySet()) {
+    keys.add(s);
+  }
+  return keys;
 }

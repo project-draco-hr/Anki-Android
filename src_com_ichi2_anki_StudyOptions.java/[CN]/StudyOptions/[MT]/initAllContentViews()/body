@@ -64,7 +64,6 @@
   mDeckOptions.setOnClickListener(mButtonClickListener);
   mCongratsView=getLayoutInflater().inflate(R.layout.studyoptions_congrats,null);
   Themes.setWallpaper(mCongratsView);
-  Themes.setTitleStyle(mCongratsView.findViewById(R.id.studyoptions_congrats_title));
   mTextCongratsMessage=(TextView)mCongratsView.findViewById(R.id.studyoptions_congrats_message);
   Themes.setTextViewStyle(mTextCongratsMessage);
   mTextCongratsMessage.setOnClickListener(mButtonClickListener);

@@ -1,3 +1,17 @@
 {
-  updateProgressBars(context,view,progress,maxX,y,singleBar,true);
+  if (view == null) {
+    return;
+  }
+  if (vertical) {
+    LinearLayout.LayoutParams lparam=new LinearLayout.LayoutParams(0,0);
+    lparam.height=(int)(maxX * progress);
+    lparam.width=y;
+    view.setLayoutParams(lparam);
+  }
+ else {
+    LinearLayout.LayoutParams lparam=new LinearLayout.LayoutParams(0,0);
+    lparam.height=y;
+    lparam.width=(int)(maxX * progress);
+    view.setLayoutParams(lparam);
+  }
 }

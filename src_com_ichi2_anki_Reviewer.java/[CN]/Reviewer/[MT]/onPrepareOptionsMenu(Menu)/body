@@ -27,5 +27,6 @@
     }
     getWindow().setFlags(0,WindowManager.LayoutParams.FLAG_FULLSCREEN);
   }
+  menu.findItem(MENU_UNDO).setEnabled(mSched.getCol().undoAvailable());
   return true;
 }

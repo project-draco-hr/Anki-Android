@@ -1,0 +1,9 @@
+{
+  try {
+    deck.put("conf",id);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  save(deck);
+}

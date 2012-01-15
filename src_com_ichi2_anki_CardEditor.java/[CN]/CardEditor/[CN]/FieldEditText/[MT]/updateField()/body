@@ -1,0 +1,18 @@
+{
+  if (mCutMode) {
+    updateContentAfterWordSelection(FieldEditText.this.getText());
+  }
+  String newValue=this.getText().toString();
+  int ord;
+  try {
+    ord=mField.getInt("id");
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  if (!mEditorNote.getFields()[ord].equals(newValue)) {
+    mEditorNote.getFields()[ord]=newValue;
+    return true;
+  }
+  return false;
+}

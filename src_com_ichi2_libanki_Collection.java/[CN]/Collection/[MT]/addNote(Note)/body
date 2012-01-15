@@ -1,6 +1,6 @@
 {
-  JSONObject[] cms=findTemplates(note);
-  if (cms.length == 0) {
+  ArrayList<JSONObject> cms=findTemplates(note);
+  if (cms.size() == 0) {
     return 0;
   }
   note.flush();

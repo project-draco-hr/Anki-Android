@@ -26,6 +26,10 @@ lookUpOrSelectText();
 return true;
 case MENU_MARK:
 return true;
+case MENU_UNDO:
+setNextCardAnimation(true);
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mUpdateCardHandler,new DeckTask.TaskData(mSched));
+return true;
 }
 return false;
 }

@@ -3,7 +3,7 @@
     Log.i(AnkiDroidApp.TAG,"DeckOptions - onBackPressed()");
     finish();
     if (UIUtils.getApiLevel() > 4) {
-      ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
+      ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.FADE);
     }
     return true;
   }

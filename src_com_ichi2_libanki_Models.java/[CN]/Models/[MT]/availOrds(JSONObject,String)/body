@@ -1,5 +1,59 @@
 {
-  for (  String n : Utils.splitFields(flds)) {
+  String[] fields=Utils.splitFields(flds);
+  for (  String f : fields) {
+    f=f.trim();
   }
-  return null;
+  ArrayList<Integer> avail=new ArrayList<Integer>();
+  try {
+    JSONArray reqArray=m.getJSONArray("req");
+    for (int i=0; i < reqArray.length(); i++) {
+      JSONArray sr=reqArray.getJSONArray(i);
+      int ord=sr.getInt(0);
+      String type=sr.getString(1);
+      JSONArray req=sr.getJSONArray(2);
+      JSONArray reqstrs=sr.getJSONArray(3);
+      if (type.equals("none")) {
+        continue;
+      }
+ else       if (type.equals("all")) {
+        boolean ok=true;
+        for (int j=0; j < req.length(); j++) {
+          if (fields.length <= j || fields[j] == null || fields[j].length() == 0) {
+            ok=false;
+            break;
+          }
+        }
+        if (!ok) {
+          continue;
+        }
+      }
+ else       if (type.equals("any")) {
+        boolean ok=false;
+        for (int j=0; j < req.length(); j++) {
+          if (fields.length <= j || fields[j] == null || fields[j].length() == 0) {
+            ok=true;
+            break;
+          }
+        }
+        if (!ok) {
+          continue;
+        }
+      }
+      boolean ok=true;
+      for (int j=0; j < reqstrs.length(); j++) {
+        if (!flds.matches(reqstrs.getString(i))) {
+          ok=false;
+          break;
+        }
+      }
+      if (!ok) {
+        continue;
+      }
+      avail.add(ord);
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  return avail;
 }

@@ -21,6 +21,8 @@
     m.put("new",((Integer)d[2]).toString());
     m.put("lrn",((Integer)d[3]).toString());
     m.put("rev",((Integer)d[4]).toString());
+    m.put("complMat",((Float)d[5]).toString());
+    m.put("complAll",((Float)d[6]).toString());
     if (name.length == 1) {
       m.put("sep","top");
       if (mDeckList.size() > 0) {

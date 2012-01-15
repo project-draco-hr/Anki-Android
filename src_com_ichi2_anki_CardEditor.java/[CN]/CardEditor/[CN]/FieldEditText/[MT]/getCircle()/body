@@ -1,0 +1,40 @@
+{
+  mCircle=new ImageView(this.getContext());
+  mCircle.setImageResource(R.drawable.ic_circle_normal);
+  mKeyListener=FieldEditText.this.getKeyListener();
+  mCircle.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      Editable editText=FieldEditText.this.getText();
+      if (mCutMode) {
+        setCutMode(false,null);
+        updateContentAfterWordSelection(editText);
+      }
+ else {
+        setCutMode(true,null);
+        String text=editText.toString();
+        splitText(text);
+        int pos=0;
+        for (        WordRow row : mCutString) {
+          if (row.mWord.length() == 0 || row.mWord.equals(NL_MARK)) {
+            continue;
+          }
+          row.mBegin=text.indexOf(row.mWord,pos);
+          row.mEnd=row.mBegin + row.mWord.length();
+          if (!row.mEnabled) {
+            editText.setSpan(new StrikethroughSpan(),row.mBegin,row.mEnd,0);
+          }
+          pos=row.mEnd;
+        }
+      }
+    }
+  }
+);
+  if (this.getText().toString().length() > 0) {
+    mFilledFields++;
+    mCircle.setVisibility(View.VISIBLE);
+  }
+ else {
+    mCircle.setVisibility(View.GONE);
+  }
+  return mCircle;
+}

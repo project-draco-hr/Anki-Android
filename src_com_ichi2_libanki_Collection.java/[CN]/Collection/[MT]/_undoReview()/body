@@ -1,2 +1,10 @@
 {
+  LinkedList<Card> data=(LinkedList<Card>)mUndo[2];
+  Card c=data.removeLast();
+  if (data.size() == 0) {
+    clearUndo();
+  }
+  c.flush();
+  long last=mDb.queryLongScalar("SELECT id FROM revlog WHERE cid = " + c.getId() + " ORDER BY id DESC LIMIT 1");
+  mDb.getDatabase().execSQL("DELETE FROM revlog WHERE id = " + last);
 }

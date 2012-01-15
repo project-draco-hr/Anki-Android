@@ -1,0 +1,10 @@
+{
+  TextView label=new TextView(this.getContext());
+  try {
+    label.setText(mField.getString("name"));
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  return label;
+}

@@ -1,6 +1,6 @@
 {
-  int now=intNow(1000);
-  now=Math.max(now,db.queryScalar("SELECT MAX(id) FROM cards"));
-  now=Math.max(now,db.queryScalar("SELECT MAX(id) FROM cnotes"));
+  long now=intNow(1000);
+  now=Math.max(now,db.queryLongScalar("SELECT MAX(id) FROM cards"));
+  now=Math.max(now,db.queryLongScalar("SELECT MAX(id) FROM cnotes"));
   return now + 1;
 }

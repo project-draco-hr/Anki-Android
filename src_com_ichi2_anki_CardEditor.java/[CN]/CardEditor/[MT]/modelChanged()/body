@@ -1,0 +1,11 @@
+{
+  mEditorNote=mCol.newNote();
+  try {
+    mModelButton.setText(getResources().getString(R.string.model) + " " + mCol.getModels().current().getString("name"));
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  populateEditFields();
+  swapText(true);
+}

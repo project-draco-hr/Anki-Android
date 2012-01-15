@@ -2,12 +2,12 @@
   mChanged=false;
   mModels=new HashMap<Long,JSONObject>();
   try {
-    JSONObject decksarray=new JSONObject(json);
-    JSONArray ids=decksarray.names();
+    JSONObject modelarray=new JSONObject(json);
+    JSONArray ids=modelarray.names();
     for (int i=0; i < ids.length(); i++) {
-      long id=ids.getLong(i);
-      JSONObject o=decksarray.getJSONObject(String.valueOf(id));
-      mModels.put(id,o);
+      String id=ids.getString(i);
+      JSONObject o=modelarray.getJSONObject(id);
+      mModels.put(o.getLong("id"),o);
     }
   }
  catch (  JSONException e) {

@@ -11,8 +11,8 @@
     mDid=cursor.getLong(2);
     mMod=cursor.getInt(3);
     mUsn=cursor.getInt(4);
-    mTags=mCol.getTags().split(cursor.getString(5));
     mFields=Utils.splitFields(cursor.getString(6));
+    mTags=mCol.getTags().split(cursor.getString(5));
     mData=cursor.getString(7);
     mScm=mCol.getScm();
   }

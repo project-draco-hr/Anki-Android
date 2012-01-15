@@ -1,0 +1,33 @@
+{
+  super(context);
+  mField=field;
+  mContext=context;
+  String content=null;
+  try {
+    content=mEditorNote.getFields()[mField.getInt("ord")];
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  if (content == null) {
+    content="";
+  }
+ else {
+    content=content.replaceAll("<br(\\s*\\/*)>",NEW_LINE);
+  }
+  if (mPrefFixArabic) {
+    this.setText(ArabicUtilities.reshapeSentence(content));
+  }
+ else {
+    this.setText(content);
+  }
+  this.setMinimumWidth(400);
+  this.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      if (mCutMode) {
+        updateSpannables();
+      }
+    }
+  }
+);
+}

@@ -1,0 +1,11 @@
+{
+  text=text.replace(NEW_LINE," " + NL_MARK + " ");
+  String[] cut=text.split("\\s");
+  mCutString=new WordRow[cut.length];
+  for (int i=0; i < cut.length; i++) {
+    mCutString[i]=new WordRow(cut[i]);
+    if (mCutString[i].mWord.equals(NL_MARK)) {
+      mCutString[i].mEnabled=true;
+    }
+  }
+}

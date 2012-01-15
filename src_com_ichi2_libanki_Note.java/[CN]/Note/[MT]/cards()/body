@@ -4,7 +4,7 @@
   try {
     cur=mCol.getDb().getDatabase().rawQuery("SELECT id FROM cards WHERE nid = " + mId + " ORDER BY ord",null);
     while (cur.moveToNext()) {
-      cards.add(mCol.getCard(cur.getInt(0)));
+      cards.add(mCol.getCard(cur.getLong(0)));
     }
   }
   finally {
@@ -12,5 +12,5 @@
       cur.close();
     }
   }
-  return (Card[])cards.toArray();
+  return cards;
 }

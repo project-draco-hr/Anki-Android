@@ -5,8 +5,8 @@
   if (!mDecks.containsKey(did)) {
     return;
   }
-  for (  long chDid : mDecks.keySet()) {
-    rem(chDid,cardsToo);
+  for (  long id : children(did).values()) {
+    rem(id,cardsToo);
   }
   if (cardsToo) {
     mCol.remCards(cids(did));

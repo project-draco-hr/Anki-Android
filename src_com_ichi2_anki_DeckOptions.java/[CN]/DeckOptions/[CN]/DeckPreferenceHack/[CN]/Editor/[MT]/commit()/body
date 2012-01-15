@@ -10,7 +10,7 @@
         mDeck.put("desc",(String)entry.getValue());
       }
  else       if (entry.getKey().equals("deckConf")) {
-        mDeck.put("conf",Long.parseLong((String)entry.getValue()));
+        mCol.getDecks().setConf(mDeck,Long.parseLong((String)entry.getValue()));
         mOptions=mCol.getDecks().confForDid(mDeck.getLong("id"));
       }
  else       if (entry.getKey().equals("maxAnswerTime")) {

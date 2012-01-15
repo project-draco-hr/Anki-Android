@@ -1,0 +1,45 @@
+{
+  ArrayList<CharSequence> dialogItems=new ArrayList<CharSequence>();
+  final ArrayList<Long> dialogIds=new ArrayList<Long>();
+  ArrayList<JSONObject> models=mCol.getModels().all();
+  builder.setTitle(R.string.select_model);
+  for (  JSONObject m : models) {
+    try {
+      dialogItems.add(m.getString("name"));
+      dialogIds.add(m.getLong("id"));
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  String[] items=new String[dialogItems.size()];
+  dialogItems.toArray(items);
+  builder.setItems(items,new DialogInterface.OnClickListener(){
+    public void onClick(    DialogInterface dialog,    int item){
+      long oldModelId;
+      try {
+        oldModelId=mCol.getModels().current().getLong("id");
+      }
+ catch (      JSONException e) {
+        throw new RuntimeException(e);
+      }
+      long newId=dialogIds.get(item);
+      if (oldModelId != newId) {
+        mCol.getModels().setCurrent(mCol.getModels().get(newId));
+        int size=mEditFields.size();
+        String[] oldValues=new String[size];
+        for (int i=0; i < size; i++) {
+          oldValues[i]=mEditFields.get(i).getText().toString();
+        }
+        modelChanged();
+        if ((mSourceText == null || mSourceText.length() == 0) && (mTargetText == null || mTargetText.length() == 0)) {
+          for (int i=0; i < Math.min(size,mEditFields.size()); i++) {
+            mEditFields.get(i).setText(oldValues[i]);
+          }
+        }
+      }
+    }
+  }
+);
+  return builder.create();
+}

@@ -1,3 +1,21 @@
 {
-  return null;
+  Collection col=params[0].getSched().getCol();
+  try {
+    col.getDb().getDatabase().beginTransaction();
+    try {
+      col.undo();
+      col.reset();
+      publishProgress(null);
+      col.getDb().getDatabase().setTransactionSuccessful();
+    }
+  finally {
+      col.getDb().getDatabase().endTransaction();
+    }
+  }
+ catch (  RuntimeException e) {
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundUndo - RuntimeException on undoing: " + e);
+    AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundUndo");
+    return new TaskData(false);
+  }
+  return new TaskData(true);
 }
