@@ -7,4 +7,5 @@
   c.flush();
   long last=mDb.queryLongScalar("SELECT id FROM revlog WHERE cid = " + c.getId() + " ORDER BY id DESC LIMIT 1");
   mDb.getDatabase().execSQL("DELETE FROM revlog WHERE id = " + last);
+  return c;
 }

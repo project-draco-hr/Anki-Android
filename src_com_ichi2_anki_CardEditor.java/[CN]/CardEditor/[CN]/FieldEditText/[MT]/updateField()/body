@@ -10,8 +10,8 @@
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
-  if (!mEditorNote.getFields()[ord].equals(newValue)) {
-    mEditorNote.getFields()[ord]=newValue;
+  if (!mEditorNote.values()[ord].equals(newValue)) {
+    mEditorNote.values()[ord]=newValue;
     return true;
   }
   return false;

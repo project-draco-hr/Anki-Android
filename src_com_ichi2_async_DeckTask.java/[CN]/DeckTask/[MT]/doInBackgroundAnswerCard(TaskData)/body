@@ -9,7 +9,6 @@
   double muh=Utils.now() * 1000;
   try {
     if (oldCard != null) {
-      sched.getCol().markReview(oldCard);
       oldCardLeech=sched.answerCard(oldCard,ease) ? 1 : 0;
       if (oldCardLeech != 0) {
         oldCardLeech+=sched.leechActionSuspend(oldCard) ? 1 : 0;

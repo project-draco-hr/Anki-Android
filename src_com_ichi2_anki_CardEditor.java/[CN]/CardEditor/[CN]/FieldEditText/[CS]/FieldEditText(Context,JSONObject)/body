@@ -4,7 +4,7 @@
   mContext=context;
   String content=null;
   try {
-    content=mEditorNote.getFields()[mField.getInt("ord")];
+    content=mEditorNote.values()[mField.getInt("ord")];
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);

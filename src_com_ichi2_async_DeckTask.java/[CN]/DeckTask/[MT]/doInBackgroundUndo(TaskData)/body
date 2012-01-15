@@ -1,11 +1,20 @@
 {
-  Collection col=params[0].getSched().getCol();
+  Sched sched=params[0].getSched();
+  Collection col=sched.getCol();
   try {
     col.getDb().getDatabase().beginTransaction();
     try {
-      col.undo();
+      Card newCard=col.undo();
       col.reset();
-      publishProgress(null);
+      if (newCard != null) {
+        if (!sched.removeCardFromQueues(newCard)) {
+          newCard=sched.getCard();
+        }
+      }
+ else {
+        newCard=sched.getCard();
+      }
+      publishProgress(new TaskData(newCard,0));
       col.getDb().getDatabase().setTransactionSuccessful();
     }
   finally {

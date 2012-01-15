@@ -1,7 +1,7 @@
 {
   ArrayList<JSONObject> ok=new ArrayList<JSONObject>();
   JSONObject model=note.model();
-  ArrayList<Integer> avail=mModels.availOrds(model,Utils.joinFields(note.getFields()));
+  ArrayList<Integer> avail=mModels.availOrds(model,Utils.joinFields(note.values()));
   JSONArray tmpls;
   try {
     tmpls=model.getJSONArray("tmpls");
