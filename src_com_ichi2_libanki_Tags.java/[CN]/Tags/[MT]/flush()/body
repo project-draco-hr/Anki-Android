@@ -1,6 +1,15 @@
 {
   if (mChanged) {
-    mCol.getDb().getDatabase().execSQL("UPDATE col SET tags = " + mTags.toString());
+    JSONObject tags=new JSONObject();
+    for (    Map.Entry<String,Integer> t : mTags.entrySet()) {
+      try {
+        tags.put(t.getKey(),t.getValue());
+      }
+ catch (      JSONException e) {
+        throw new RuntimeException(e);
+      }
+    }
+    mCol.getDb().getDatabase().execSQL("UPDATE col SET tags = " + tags.toString());
     mChanged=false;
   }
 }

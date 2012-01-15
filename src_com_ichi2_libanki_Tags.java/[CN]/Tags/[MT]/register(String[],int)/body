@@ -1,2 +1,8 @@
 {
+  for (  String t : tags) {
+    if (mTags.containsKey(t)) {
+      mTags.put(t,usn == 0 ? mCol.usn() : usn);
+      mChanged=true;
+    }
+  }
 }
