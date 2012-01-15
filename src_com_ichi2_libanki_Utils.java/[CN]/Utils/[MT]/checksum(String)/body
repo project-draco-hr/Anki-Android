@@ -4,7 +4,7 @@
     MessageDigest md=null;
     byte[] digest=null;
     try {
-      md=MessageDigest.getInstance("MD5");
+      md=MessageDigest.getInstance("SHA");
       digest=md.digest(data.getBytes("UTF-8"));
     }
  catch (    NoSuchAlgorithmException e) {

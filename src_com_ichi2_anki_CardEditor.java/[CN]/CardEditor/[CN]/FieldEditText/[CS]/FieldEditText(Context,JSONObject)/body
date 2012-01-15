@@ -3,12 +3,14 @@
   mField=field;
   mContext=context;
   String content=null;
+  int ord;
   try {
-    content=mEditorNote.values()[mField.getInt("ord")];
+    ord=mField.getInt("ord");
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
+  content=mEditorNote.values()[ord];
   if (content == null) {
     content="";
   }
@@ -30,4 +32,23 @@
     }
   }
 );
+  if (ord == 0) {
+    this.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+      @Override public void onFocusChange(      View arg0,      boolean arg1){
+        if (create) {
+          create=false;
+          return;
+        }
+        if (mEditorNote.dupeOrEmpty(FieldEditText.this.getText().toString()) != 0) {
+          FieldEditText.this.setBackgroundResource(R.drawable.blue_edit_text_dupe);
+          mSave.setEnabled(false);
+        }
+ else {
+          FieldEditText.this.setBackgroundResource(R.drawable.blue_edit_text);
+          mSave.setEnabled(true);
+        }
+      }
+    }
+);
+  }
 }
