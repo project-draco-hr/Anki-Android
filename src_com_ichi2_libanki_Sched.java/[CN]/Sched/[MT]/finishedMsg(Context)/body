@@ -3,6 +3,6 @@
   sb.append(context.getString(R.string.studyoptions_congrats_finished));
   StyleSpan boldSpan=new StyleSpan(Typeface.BOLD);
   sb.setSpan(boldSpan,0,sb.length(),0);
-  sb.append(_tomorrowDueMsg(context));
+  sb.append(_nextDueMsg(context));
   return sb;
 }

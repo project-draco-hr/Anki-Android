@@ -12,7 +12,7 @@
       return _graduatingIvl(card,conf,true,false) * 86400;
     }
  else {
-      int left=card.getLeft() + 1;
+      int left=card.getLeft() - 1;
       if (left <= 0) {
         return _graduatingIvl(card,conf,false,false) * 86400;
       }
