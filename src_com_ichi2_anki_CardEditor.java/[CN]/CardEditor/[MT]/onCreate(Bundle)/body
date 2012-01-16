@@ -165,7 +165,7 @@ mSelectedTags=new HashSet<String>();
 mSave.setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
 if (mAddNote) {
-if (mEditFields.get(0).duplicateCheck()) {
+if (duplicateCheck()) {
 return;
 }
 boolean empty=true;

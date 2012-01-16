@@ -1,0 +1,13 @@
+{
+  FieldEditText field=mEditFields.get(0);
+  if (mEditorNote.dupeOrEmpty(field.getText().toString()) != 0) {
+    field.setBackgroundResource(R.drawable.blue_edit_text_dupe);
+    mSave.setEnabled(false);
+    return true;
+  }
+ else {
+    field.setBackgroundResource(R.drawable.blue_edit_text);
+    mSave.setEnabled(true);
+    return false;
+  }
+}

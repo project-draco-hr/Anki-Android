@@ -33,13 +33,18 @@
   }
 );
   if (ord == 0) {
-    this.setOnFocusChangeListener(new View.OnFocusChangeListener(){
-      @Override public void onFocusChange(      View arg0,      boolean arg1){
-        if (create) {
-          create=false;
+    this.addTextChangedListener(new TextWatcher(){
+      @Override public void afterTextChanged(      Editable arg0){
+        if (mJustCreated > 0) {
+          mJustCreated--;
           return;
         }
-        duplicateCheck();
+        mTimerHandler.removeCallbacks(checkDuplicatesRunnable);
+        mTimerHandler.postDelayed(checkDuplicatesRunnable,WAIT_TIME_UNTIL_UPDATE);
+      }
+      @Override public void beforeTextChanged(      CharSequence arg0,      int arg1,      int arg2,      int arg3){
+      }
+      @Override public void onTextChanged(      CharSequence arg0,      int arg1,      int arg2,      int arg3){
       }
     }
 );
