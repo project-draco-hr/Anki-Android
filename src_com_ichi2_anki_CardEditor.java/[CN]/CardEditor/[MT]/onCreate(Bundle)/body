@@ -11,9 +11,9 @@
   setTitle(R.string.cardeditor_title);
   mSave=(Button)findViewById(R.id.CardEditorSaveButton);
   mCancel=(Button)findViewById(R.id.CardEditorCancelButton);
-  mDeckButton=(Button)findViewById(R.id.CardEditorDeckButton);
-  mModelButton=(Button)findViewById(R.id.CardEditorModelButton);
-  mTagsButton=(Button)findViewById(R.id.CardEditorTagButton);
+  mDeckButton=(TextView)findViewById(R.id.CardEditorDeckText);
+  mModelButton=(TextView)findViewById(R.id.CardEditorModelText);
+  mTagsButton=(TextView)findViewById(R.id.CardEditorTagText);
   mSwapButton=(Button)findViewById(R.id.CardEditorSwapButton);
   mAedictIntent=false;
   Intent intent=getIntent();
@@ -122,7 +122,7 @@ if (contents != null) {
 setEditFieldTexts(contents);
 }
 mSave.setEnabled(false);
-mModelButton.setOnClickListener(new View.OnClickListener(){
+((LinearLayout)findViewById(R.id.CardEditorModelButton)).setOnClickListener(new View.OnClickListener(){
 public void onClick(View v){
 showDialog(DIALOG_MODEL_SELECT);
 }
@@ -139,7 +139,7 @@ mModelButton.setText(getResources().getString(R.string.CardEditorDeck,mCol.getDe
 throw new RuntimeException(e);
 }
 }
-mDeckButton.setOnClickListener(new View.OnClickListener(){
+((LinearLayout)findViewById(R.id.CardEditorDeckButton)).setOnClickListener(new View.OnClickListener(){
 public void onClick(View v){
 showDialog(DIALOG_DECK_SELECT);
 }
@@ -152,7 +152,7 @@ mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
 if (mPrefFixArabic && !mAddNote) {
 mSave.setEnabled(false);
 }
-mTagsButton.setOnClickListener(new View.OnClickListener(){
+((LinearLayout)findViewById(R.id.CardEditorTagButton)).setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
 showDialog(DIALOG_TAGS_SELECT);
 }
@@ -163,6 +163,9 @@ mSelectedTags=new HashSet<String>();
 mSave.setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
 if (mAddNote) {
+if (mEditFields.get(0).duplicateCheck()) {
+return;
+}
 boolean empty=true;
 for (FieldEditText current : mEditFields) {
 current.updateField();

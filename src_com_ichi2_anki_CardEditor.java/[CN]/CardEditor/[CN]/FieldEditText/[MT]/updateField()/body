@@ -5,7 +5,7 @@
   String newValue=this.getText().toString();
   int ord;
   try {
-    ord=mField.getInt("id");
+    ord=mField.getInt("ord");
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);

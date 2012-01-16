@@ -39,14 +39,7 @@
           create=false;
           return;
         }
-        if (mEditorNote.dupeOrEmpty(FieldEditText.this.getText().toString()) != 0) {
-          FieldEditText.this.setBackgroundResource(R.drawable.blue_edit_text_dupe);
-          mSave.setEnabled(false);
-        }
- else {
-          FieldEditText.this.setBackgroundResource(R.drawable.blue_edit_text);
-          mSave.setEnabled(true);
-        }
+        duplicateCheck();
       }
     }
 );
