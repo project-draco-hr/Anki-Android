@@ -1,0 +1,9 @@
+{
+  assertEquals("",Utils.join(""));
+  assertEquals("",Utils.join("+"));
+  assertEquals("a",Utils.join("+","a"));
+  assertEquals("a+b",Utils.join("+","a","b"));
+  assertEquals("a b",Utils.join(" ","a","b"));
+  assertEquals("a, b",Utils.join(", ","a","b"));
+  assertEquals("a, b, a, c",Utils.join(", ","a","b","a","c"));
+}

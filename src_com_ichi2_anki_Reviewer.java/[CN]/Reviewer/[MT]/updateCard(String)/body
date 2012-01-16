@@ -32,6 +32,9 @@
   if (isHebrewFixEnabled()) {
     content=applyFixForHebrew(content);
   }
+  if (this.isFenConversionEnabled()) {
+    content=fenToChessboard(content);
+  }
   Log.i(AnkiDroidApp.TAG,"content card = \n" + content);
   StringBuilder style=new StringBuilder();
   style.append(mCustomFontStyle);
