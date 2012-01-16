@@ -11,7 +11,7 @@
     try {
       mDid=model.getLong("did");
       mMid=model.getLong("id");
-      mTags=new String[]{""};
+      mTags=new ArrayList<String>();
       mFields=new String[model.getJSONArray("flds").length()];
     }
  catch (    JSONException e) {

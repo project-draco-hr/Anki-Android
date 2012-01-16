@@ -4,8 +4,59 @@
   StyledDialog.Builder builder=new StyledDialog.Builder(this);
 switch (id) {
 case DIALOG_TAGS_SELECT:
-    dialog=createDialogTags(builder,res);
-  break;
+    builder.setTitle(R.string.studyoptions_limit_select_tags);
+  builder.setPositiveButton(res.getString(R.string.select),new OnClickListener(){
+    @Override public void onClick(    DialogInterface dialog,    int which){
+      mEditorNote.clearTags();
+      for (      String s : selectedTags) {
+        mEditorNote.addTag(s);
+      }
+      updateTagsButton();
+    }
+  }
+);
+builder.setNegativeButton(res.getString(R.string.cancel),null);
+mNewTagEditText=(EditText)new EditText(this);
+mNewTagEditText.setHint(R.string.add_new_tag);
+InputFilter filter=new InputFilter(){
+public CharSequence filter(CharSequence source,int start,int end,Spanned dest,int dstart,int dend){
+for (int i=start; i < end; i++) {
+if (source.charAt(i) == ' ' || source.charAt(i) == ',') {
+  return "";
+}
+}
+return null;
+}
+}
+;
+mNewTagEditText.setFilters(new InputFilter[]{filter});
+ImageView mAddTextButton=new ImageView(this);
+mAddTextButton.setImageResource(R.drawable.ic_addtag);
+mAddTextButton.setOnClickListener(new View.OnClickListener(){
+@Override public void onClick(View v){
+String tag=mNewTagEditText.getText().toString();
+if (tag.length() != 0) {
+if (mEditorNote.hasTag(tag)) {
+mNewTagEditText.setText("");
+return;
+}
+selectedTags.add(tag);
+actualizeTagDialog(mTagsDialog);
+mNewTagEditText.setText("");
+}
+}
+}
+);
+FrameLayout frame=new FrameLayout(this);
+FrameLayout.LayoutParams params=new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT,Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+params.rightMargin=10;
+mAddTextButton.setLayoutParams(params);
+frame.addView(mNewTagEditText);
+frame.addView(mAddTextButton);
+builder.setView(frame,false,true);
+dialog=builder.create();
+mTagsDialog=dialog;
+break;
 case DIALOG_DECK_SELECT:
 ArrayList<CharSequence> dialogDeckItems=new ArrayList<CharSequence>();
 final ArrayList<Long> dialogDeckIds=new ArrayList<Long>();

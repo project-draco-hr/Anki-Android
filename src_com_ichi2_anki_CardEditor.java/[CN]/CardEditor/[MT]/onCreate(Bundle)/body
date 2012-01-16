@@ -99,9 +99,8 @@ return;
 if (mAddNote) {
 try {
 mDeckButton.setText(getResources().getString(R.string.CardEditorDeck,mCol.getDecks().current().getString("name")));
-mModelButton.setText(getResources().getString(R.string.CardEditorDeck,mCol.getModels().current().getString("name")));
+mModelButton.setText(getResources().getString(R.string.CardEditorModel,mCol.getModels().current().getString("name")));
 modelChanged();
-mTagsButton.setText(getResources().getString(R.string.CardEditorTags,""));
 }
  catch (JSONException e) {
 throw new RuntimeException(e);
@@ -124,18 +123,22 @@ if (contents != null) {
 setEditFieldTexts(contents);
 }
 mSave.setEnabled(false);
-((LinearLayout)findViewById(R.id.CardEditorModelButton)).setOnClickListener(new View.OnClickListener(){
+LinearLayout modelButton=((LinearLayout)findViewById(R.id.CardEditorModelButton));
+modelButton.setOnClickListener(new View.OnClickListener(){
 public void onClick(View v){
 showDialog(DIALOG_MODEL_SELECT);
 }
 }
 );
+modelButton.setVisibility(View.VISIBLE);
 mSave.setText(getResources().getString(R.string.add));
 mCancel.setText(getResources().getString(R.string.close));
 }
  else {
 try {
-mModelButton.setText(getResources().getString(R.string.CardEditorDeck,mCol.getDecks().get(mEditorNote.getDid()).getString("name")));
+Long id=mEditorNote.getDid();
+JSONObject d=mCol.getDecks().get(id);
+mDeckButton.setText(getResources().getString(R.string.CardEditorDeck,mCol.getDecks().get(mEditorNote.getDid()).getString("name")));
 }
  catch (JSONException e) {
 throw new RuntimeException(e);
@@ -147,7 +150,7 @@ showDialog(DIALOG_DECK_SELECT);
 }
 }
 );
-mTagsButton.setText(getResources().getString(R.string.CardEditorTags,mEditorNote.stringTags()));
+updateTagsButton();
 mModified=false;
 SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
 mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
@@ -160,8 +163,6 @@ showDialog(DIALOG_TAGS_SELECT);
 }
 }
 );
-allTags=null;
-mSelectedTags=new HashSet<String>();
 mSave.setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
 if (mAddNote) {

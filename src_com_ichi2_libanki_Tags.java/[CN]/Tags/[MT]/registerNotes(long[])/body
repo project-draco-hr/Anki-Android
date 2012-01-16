@@ -8,10 +8,5 @@
     mTags.clear();
     mChanged=true;
   }
-  ArrayList<String> tags=mCol.getDb().queryColumn(String.class,"SELECT DISTINCT FROM notes" + lim,0);
-  StringBuilder sb=new StringBuilder();
-  for (  String t : tags) {
-    sb.append(t).append(" ");
-  }
-  register(sb.toString().split(" "));
+  register(mCol.getDb().queryColumn(String.class,"SELECT DISTINCT FROM notes" + lim,0));
 }
