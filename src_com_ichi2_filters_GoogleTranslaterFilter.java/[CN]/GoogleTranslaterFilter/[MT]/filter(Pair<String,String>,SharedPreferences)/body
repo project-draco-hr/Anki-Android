@@ -1,0 +1,12 @@
+{
+  Pair<String,String> result=new Pair<String,String>(messages.first,messages.second);
+  Pattern pattern=Pattern.compile(SEARCH_PATTERN);
+  Matcher matcher=pattern.matcher(getSearchText(messages));
+  if (isCanBeExecuted(messages,preferences) && matcher.find()) {
+    String translate=matcher.group(1);
+    if (matcher.find()) {
+      result=new Pair<String,String>(matcher.group(1),translate);
+    }
+  }
+  return result;
+}

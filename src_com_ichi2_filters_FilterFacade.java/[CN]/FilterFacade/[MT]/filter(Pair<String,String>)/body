@@ -1,0 +1,7 @@
+{
+  Pair<String,String> result=new Pair<String,String>(messages.first,messages.second);
+  for (  CardFilter cardFilter : filters) {
+    result=cardFilter.filter(result,PrefSettings.getSharedPrefs(context));
+  }
+  return result;
+}

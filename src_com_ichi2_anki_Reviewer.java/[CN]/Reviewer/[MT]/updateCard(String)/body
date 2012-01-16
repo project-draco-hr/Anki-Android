@@ -17,6 +17,7 @@
   int questionStartsAt=content.indexOf("<a name=\"question\"></a><hr/>");
   String question="";
   String answer="";
+  Sound.resetSounds();
   int qa=MetaDB.LANGUAGES_QA_QUESTION;
   if (sDisplayAnswer) {
     qa=MetaDB.LANGUAGES_QA_ANSWER;
@@ -42,15 +43,5 @@
   mCardContent=new SpannedString(mCardTemplate.replace("::content::",content).replace("::style::",style.toString()));
   Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
   fillFlashcard(mShowAnimations);
-  if (!mConfigurationChanged && mPlaySoundsAtStart) {
-    if (!mSpeakText) {
-      Sound.playSounds(null,0);
-    }
- else     if (!sDisplayAnswer) {
-      Sound.playSounds(Utils.stripHTML(getQuestion()),MetaDB.LANGUAGES_QA_QUESTION);
-    }
- else {
-      Sound.playSounds(Utils.stripHTML(getAnswer()),MetaDB.LANGUAGES_QA_ANSWER);
-    }
-  }
+  if (!mConfigurationChanged && mPlaySoundsAtStart)   playSounds();
 }
