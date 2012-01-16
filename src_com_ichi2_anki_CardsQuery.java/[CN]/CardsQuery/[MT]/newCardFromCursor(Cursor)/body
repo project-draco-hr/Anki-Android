@@ -6,7 +6,7 @@
   String factTags=cursor.getString(CardsQuery.FACTS_TAGS);
   String cardsPriority=cursor.getString(CardsQuery.CARDS_PRIORITY);
   String flags=null;
-  if (factTags.contains(Deck.TAG_MARKED)) {
+  if (factTags.contains("Marked")) {
     flags="1";
   }
  else {

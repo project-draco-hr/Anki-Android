@@ -1,6 +1,7 @@
 {
   ListPreference deckConfPref=(ListPreference)findPreference("deckConf");
   ArrayList<JSONObject> confs=mCol.getDecks().allConf();
+  Collections.sort(confs,new JSONNameComparator());
   String[] confValues=new String[confs.size()];
   String[] confLabels=new String[confs.size()];
   try {

@@ -1,0 +1,12 @@
+{
+  String o1;
+  String o2;
+  try {
+    o1=lhs.getString("name");
+    o2=rhs.getString("name");
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  return o1.compareToIgnoreCase(o2);
+}
