@@ -1,9 +1,6 @@
 {
   MenuItem item;
   Resources res=getResources();
-  item=menu.add(Menu.NONE,MENU_LOOKUP,Menu.NONE,Lookup.getSearchStringTitle());
-  item.setIcon(R.drawable.ic_menu_search);
-  item.setEnabled(Lookup.isAvailable());
   item=menu.add(Menu.NONE,MENU_RESET,Menu.NONE,res.getString(R.string.card_editor_reset));
   item.setIcon(R.drawable.ic_menu_revert);
   if (!mAddNote) {

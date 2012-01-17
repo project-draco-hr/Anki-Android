@@ -11,6 +11,7 @@
   setTitle(R.string.cardeditor_title);
   mSave=(Button)findViewById(R.id.CardEditorSaveButton);
   mCancel=(Button)findViewById(R.id.CardEditorCancelButton);
+  mLater=(Button)findViewById(R.id.CardEditorLaterButton);
   mDeckButton=(TextView)findViewById(R.id.CardEditorDeckText);
   mModelButton=(TextView)findViewById(R.id.CardEditorModelText);
   mTagsButton=(TextView)findViewById(R.id.CardEditorTagText);
@@ -64,7 +65,7 @@ mAddNote=true;
 break;
 case CALLER_CARDEDITOR_INTENT_ADD:
 mAddNote=true;
-String[] fields=intent.getStringExtra(EXTRA_CONTENTS).split("\\x1f");
+String[] fields=Utils.splitFields(intent.getStringExtra(EXTRA_CONTENTS));
 mSourceText=fields[0];
 mTargetText=fields[1];
 break;
@@ -133,6 +134,17 @@ showDialog(DIALOG_MODEL_SELECT);
 modelButton.setVisibility(View.VISIBLE);
 mSave.setText(getResources().getString(R.string.add));
 mCancel.setText(getResources().getString(R.string.close));
+mLater.setVisibility(View.VISIBLE);
+mLater.setOnClickListener(new View.OnClickListener(){
+@Override public void onClick(View v){
+MetaDB.saveIntentInformation(CardEditor.this,getFieldsText());
+populateEditFields();
+mSave.setEnabled(false);
+mSourceText=null;
+mTargetText=null;
+}
+}
+);
 }
  else {
 try {

@@ -8,9 +8,7 @@
       Intent intent=new Intent(CardEditor.this,CardEditor.class);
       intent.putExtra(EXTRA_CALLER,CALLER_CARDEDITOR_INTENT_ADD);
       HashMap<String,String> map=mIntentInformation.get(position);
-      StringBuilder contents=new StringBuilder();
-      contents.append(map.get("source")).append("\u001f").append(map.get("target"));
-      intent.putExtra(EXTRA_CONTENTS,contents.toString());
+      intent.putExtra(EXTRA_CONTENTS,map.get("fields"));
       intent.putExtra(EXTRA_ID,map.get("id"));
       startActivityForResult(intent,REQUEST_INTENT_ADD);
       if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {

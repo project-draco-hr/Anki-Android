@@ -5,11 +5,7 @@ case MENU_ADD_CARD:
     Intent intent=new Intent(CardEditor.this,CardEditor.class);
   intent.putExtra(EXTRA_CALLER,CALLER_CARDEDITOR);
 if (item.getItemId() == MENU_COPY_CARD) {
-  StringBuilder contents=new StringBuilder();
-  for (  FieldEditText current : mEditFields) {
-    contents.append(current.getText().toString()).append("\u001f");
-  }
-  intent.putExtra(EXTRA_CONTENTS,contents.toString());
+  intent.putExtra(EXTRA_CONTENTS,getFieldsText());
 }
 startActivityForResult(intent,REQUEST_ADD);
 if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
