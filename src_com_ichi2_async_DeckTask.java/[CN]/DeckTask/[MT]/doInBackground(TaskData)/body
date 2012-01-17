@@ -54,6 +54,8 @@ case TASK_TYPE_REPAIR_DECK:
 return doInBackgroundRepairDeck(params);
 case TASK_TYPE_CLOSE_DECK:
 return doInBackgroundCloseDeck(params);
+case TASK_TYPE_UPDATE_VALUES_FROM_DECK:
+return doInBackgroundUpdateValuesFromDeck(params);
 default :
 return null;
 }
