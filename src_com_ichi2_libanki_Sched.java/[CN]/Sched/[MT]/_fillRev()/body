@@ -25,15 +25,15 @@
         }
       }
       if (!mRevQueue.isEmpty()) {
+        if (order.length() == 0) {
+          Random r=new Random();
+          r.setSeed(mToday);
+          Collections.shuffle(mRevQueue,r);
+        }
         return true;
       }
     }
     mRevDids.remove();
   }
-  if (order.length() == 0) {
-    Random r=new Random();
-    r.setSeed(mToday);
-    Collections.shuffle(mRevQueue,r);
-  }
-  return true;
+  return false;
 }

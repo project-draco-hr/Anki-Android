@@ -12,6 +12,7 @@
     while (cur.moveToNext()) {
       mLrnQueue.add(new long[]{cur.getLong(0),cur.getLong(1)});
     }
+    Collections.sort(mLrnQueue,new DueComparator());
     return !mLrnQueue.isEmpty();
   }
   finally {
