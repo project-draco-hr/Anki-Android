@@ -18,17 +18,18 @@
   switchVisibility(mEase2Layout,View.VISIBLE);
   switchVisibility(mEase3Layout,View.VISIBLE);
   if (lrnCard) {
-    mEase3Layout.requestFocus();
-    mNext2.setTextColor(mNextTimeTextColor);
-    mEase2.setTextColor(mNextTimeTextColor);
-    mNext3.setTextColor(mNextTimeTextRecomColor);
-  }
- else {
     mEase2Layout.requestFocus();
     mNext2.setTextColor(mNextTimeTextRecomColor);
     mEase2.setTextColor(mNextTimeTextRecomColor);
     mNext3.setTextColor(mNextTimeTextColor);
     mEase3.setTextColor(mNextTimeTextColor);
+  }
+ else {
+    mEase3Layout.requestFocus();
+    mNext2.setTextColor(mNextTimeTextColor);
+    mEase2.setTextColor(mNextTimeTextColor);
+    mNext3.setTextColor(mNextTimeTextRecomColor);
+    mEase4.setTextColor(mNextTimeTextRecomColor);
   }
   if (mshowNextReviewTime) {
     mNext1.setText(mSched.nextIvlStr(mCurrentCard,1));
