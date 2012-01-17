@@ -22,19 +22,18 @@
         }
       }
     }
+ else     if (mDeckList.size() > 0 && mDeckList.size() == decks.size() - 1) {
+      if (name.length == 1) {
+        m.put("sep","ful");
+      }
+ else {
+        m.put("sep","bot");
+      }
+    }
  else {
       m.put("sep","cen");
     }
     mDeckList.add(m);
-  }
-  if (mDeckList.size() > 0) {
-    HashMap<String,String> map=mDeckList.get(mDeckList.size() - 1);
-    if (map.get("sep").equals("top")) {
-      map.put("sep","ful");
-    }
- else {
-      map.put("sep","bot");
-    }
   }
   mDeckListAdapter.notifyDataSetChanged();
 }

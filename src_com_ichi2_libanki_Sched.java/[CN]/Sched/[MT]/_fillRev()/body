@@ -35,8 +35,5 @@
     r.setSeed(mToday);
     Collections.shuffle(mRevQueue,r);
   }
- else {
-    Collections.reverse(mRevQueue);
-  }
   return true;
 }
