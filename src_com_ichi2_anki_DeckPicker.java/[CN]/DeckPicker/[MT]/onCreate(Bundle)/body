@@ -26,7 +26,7 @@
       intent.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_DECKPICKER);
       startActivityForResult(intent,ADD_NOTE);
       if (UIUtils.getApiLevel() > 4) {
-        ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.UP);
+        ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.LEFT);
       }
     }
   }

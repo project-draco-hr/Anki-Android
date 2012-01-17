@@ -35,10 +35,6 @@
   if (ord == 0) {
     this.addTextChangedListener(new TextWatcher(){
       @Override public void afterTextChanged(      Editable arg0){
-        if (mJustCreated > 0) {
-          mJustCreated--;
-          return;
-        }
         mTimerHandler.removeCallbacks(checkDuplicatesRunnable);
         mTimerHandler.postDelayed(checkDuplicatesRunnable,WAIT_TIME_UNTIL_UPDATE);
       }

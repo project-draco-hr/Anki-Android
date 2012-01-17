@@ -166,7 +166,7 @@ showDialog(DIALOG_TAGS_SELECT);
 mSave.setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
 if (mAddNote) {
-if (duplicateCheck()) {
+if (duplicateCheck(true)) {
 return;
 }
 for (FieldEditText f : mEditFields) {
