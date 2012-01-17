@@ -169,20 +169,10 @@ if (mAddNote) {
 if (duplicateCheck()) {
 return;
 }
-boolean empty=true;
-for (FieldEditText current : mEditFields) {
-current.updateField();
-if (current.getText().length() != 0) {
-empty=false;
+for (FieldEditText f : mEditFields) {
+f.updateField();
 }
-}
-if (!empty) {
-}
- else {
-if (!mCardReset) {
-setResult(RESULT_CANCELED);
-}
-}
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ADD_FACT,mSaveFactHandler,new DeckTask.TaskData(mEditorNote));
 }
  else {
 Iterator<FieldEditText> iter=mEditFields.iterator();

@@ -1,3 +1,20 @@
 {
-  return null;
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundAddFact");
+  Note note=params[0].getNote();
+  Collection col=note.getCol();
+  try {
+    AnkiDb ankiDB=col.getDb();
+    ankiDB.getDatabase().beginTransaction();
+    try {
+      publishProgress(new TaskData(col.addNote(note)));
+      ankiDB.getDatabase().setTransactionSuccessful();
+    }
+  finally {
+      ankiDB.getDatabase().endTransaction();
+    }
+  }
+ catch (  RuntimeException e) {
+    throw new RuntimeException(e);
+  }
+  return new TaskData(true);
 }

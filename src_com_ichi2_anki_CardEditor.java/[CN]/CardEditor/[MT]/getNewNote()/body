@@ -1,0 +1,16 @@
+{
+  long did;
+  if (mEditorNote != null) {
+    did=mEditorNote.getDid();
+  }
+ else {
+    try {
+      did=mCol.getDecks().current().getLong("id");
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  mEditorNote=mCol.newNote();
+  mEditorNote.setDid(did);
+}
