@@ -7,13 +7,14 @@
       httpGet.setHeader("Host",SYNC_HOST);
       DefaultHttpClient defaultHttpClient=new DefaultHttpClient();
       HttpResponse httpResponse=defaultHttpClient.execute(httpGet);
-      String response=Utils.convertStreamToString(httpResponse.getEntity().getContent());
-      sSharedDecks.addAll(getSharedDecksListFromJSONArray(new JSONArray(response)));
+      HttpEntity ent=httpResponse.getEntity();
+      InputStream inpStream=ent.getContent();
+      sSharedDecks.addAll(parseGetSharedDecksResponce(inpStream));
     }
   }
  catch (  Exception e) {
     sSharedDecks=null;
-    throw new Exception();
+    throw e;
   }
   return sSharedDecks;
 }
