@@ -2,7 +2,7 @@
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
   Editor editor=preferences.edit();
   editor.putString("username","");
-  editor.putString("password","");
+  editor.putString("hkey","");
   editor.commit();
   setContentView(mLoginToMyAccountView);
 }

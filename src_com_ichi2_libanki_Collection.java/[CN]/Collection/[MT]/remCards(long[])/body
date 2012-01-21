@@ -3,10 +3,10 @@
     return;
   }
   String sids=Utils.ids2str(ids);
-  long[] nids=Utils.arrayList2array(mDb.queryColumn(long.class,"SELECT nid FROM cards WHERE id IN " + sids,0));
+  long[] nids=Utils.arrayList2array(mDb.queryColumn(Long.class,"SELECT nid FROM cards WHERE id IN " + sids,0));
   _logRem(ids,Sched.REM_CARD);
   mDb.getDatabase().execSQL("DELETE FROM cards WHERE id IN " + sids);
   mDb.getDatabase().execSQL("DELETE FROM revlog WHERE cid IN " + sids);
-  nids=Utils.arrayList2array(mDb.queryColumn(long.class,"SELECT nid FROM notes WHERE id IN " + Utils.ids2str(nids) + " AND id NOT IN (SELECT nid FROM cards)",0));
+  nids=Utils.arrayList2array(mDb.queryColumn(Long.class,"SELECT id FROM notes WHERE id IN " + Utils.ids2str(nids) + " AND id NOT IN (SELECT nid FROM cards)",0));
   _remNotes(nids);
 }

@@ -1,0 +1,11 @@
+{
+  try {
+    for (    JSONObject m : all()) {
+      m.put("usn",0);
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  save();
+}

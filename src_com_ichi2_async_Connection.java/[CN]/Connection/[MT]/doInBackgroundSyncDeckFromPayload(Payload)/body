@@ -1,7 +1,7 @@
 {
   Log.i(AnkiDroidApp.TAG,"SyncDeckFromPayload");
   Decks deck=(Decks)data.data[0];
-  SyncClient client=null;
+  Syncer client=null;
   BufferedReader bufPython;
   try {
     bufPython=new BufferedReader(new FileReader("/sdcard/jsonObjectPython.txt"));

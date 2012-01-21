@@ -1,0 +1,57 @@
+{
+  String hkey=(String)data.data[0];
+  boolean media=(Boolean)data.data[1];
+  String conflictResolution=(String)data.data[2];
+  Collection col=Collection.currentCollection();
+  String path=col.getPath();
+  HttpSyncer server=new RemoteServer(hkey);
+  Syncer client=new Syncer(col,server);
+  long sentTotal=0;
+  long recvTotal=0;
+  if (conflictResolution == null) {
+    Log.i(AnkiDroidApp.TAG,"Sync - starting sync");
+    publishProgress(R.string.sync_prepare_syncing);
+    String ret=client.sync(this);
+    if (ret.equals("badAuth") || ret.equals("clockOff") || ret.equals("fullSync")|| ret.equals("error")) {
+      data.success=false;
+      data.result=ret;
+      return data;
+    }
+    col.save();
+    if (ret.equals("noChanges")) {
+      publishProgress("XXX nochanges");
+    }
+ else {
+      publishProgress("XXX success");
+    }
+  }
+ else {
+    publishProgress(R.string.sync_preparing_full_sync_message);
+    server=new FullSyncer(col,hkey);
+    if (conflictResolution.equals("upload")) {
+      Log.i(AnkiDroidApp.TAG,"Sync - fullsync - upload collection");
+      HttpResponse ret=server.upload(this);
+      if (ret == null || !HttpSyncer.getDataString(ret).equals(HttpSyncer.ANKIWEB_STATUS_OK)) {
+        data.success=false;
+        data.result=HttpSyncer.getReturnType(ret);
+        return data;
+      }
+    }
+ else     if (conflictResolution.equals("download")) {
+      Log.i(AnkiDroidApp.TAG,"Sync - fullsync - download collection");
+      publishProgress(R.string.sync_downloading_message);
+      HttpResponse ret=server.download(this);
+      if (ret == null) {
+        data.success=false;
+        return data;
+      }
+    }
+    col=Collection.openCollection(path);
+  }
+  TreeSet<Object[]> decks=col.getSched().deckDueTree(true);
+  data.result=decks;
+  if (media) {
+  }
+  data.success=true;
+  return data;
+}

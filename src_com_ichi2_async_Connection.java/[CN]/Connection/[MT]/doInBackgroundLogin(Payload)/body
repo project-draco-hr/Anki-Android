@@ -1,18 +1,26 @@
 {
-  try {
-    String username=(String)data.data[0];
-    String password=(String)data.data[1];
-    AnkiDroidProxy server=new AnkiDroidProxy(username,password);
-    int status=server.connect(false);
-    if (status != AnkiDroidProxy.LOGIN_OK) {
-      data.success=false;
-      data.returnType=status;
+  String username=(String)data.data[0];
+  String password=(String)data.data[1];
+  HttpSyncer server=new RemoteServer(null);
+  HttpResponse ret=server.hostKey(username,password);
+  String hostkey=null;
+  boolean valid=false;
+  data.returnType=HttpSyncer.getReturnType(ret);
+  if (data.returnType == 200) {
+    try {
+      hostkey=HttpSyncer.getDataJSONObject(ret).getString("key");
+      valid=(hostkey != null) && (hostkey.length() > 0);
+    }
+ catch (    JSONException e) {
+      valid=false;
     }
   }
- catch (  Exception e) {
+  if (valid) {
+    data.success=true;
+    data.data=new String[]{username,hostkey};
+  }
+ else {
     data.success=false;
-    data.exception=e;
-    Log.e(AnkiDroidApp.TAG,"Error trying to log in");
   }
   return data;
 }

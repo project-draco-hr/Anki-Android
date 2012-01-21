@@ -1,0 +1,9 @@
+{
+  if (mod == 0) {
+    mod=Utils.intNow(1000);
+  }
+  mCol.setLs(mod);
+  mCol.setUsn(mMaxUsn + 1);
+  mCol.save(null,mod);
+  return mod;
+}

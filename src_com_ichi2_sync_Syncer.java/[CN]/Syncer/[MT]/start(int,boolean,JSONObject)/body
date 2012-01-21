@@ -1,0 +1,8 @@
+{
+  mMaxUsn=mCol.getUsn();
+  mMinUsn=minUsn;
+  mLNewer=!lnewer;
+  JSONObject lgraves=removed();
+  remove(graves);
+  return lgraves;
+}

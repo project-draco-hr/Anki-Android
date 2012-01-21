@@ -1,0 +1,26 @@
+{
+  Cursor cur=null;
+  try {
+    cur=mCol.getDb().getDatabase().rawQuery("PRAGMA integrity_check",null);
+    if (!cur.moveToFirst() || !cur.getString(0).equals("ok")) {
+      return null;
+    }
+  }
+  finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+  mCol.beforeUpload();
+  String filePath=mCol.getPath();
+  mCol.close();
+  HttpResponse ret;
+  connection.publishProgress(R.string.sync_uploading_message);
+  try {
+    ret=super.req("upload",new FileInputStream(filePath));
+  }
+ catch (  FileNotFoundException e) {
+    throw new RuntimeException(e);
+  }
+  return ret;
+}

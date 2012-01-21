@@ -1,0 +1,14 @@
+{
+  try {
+    for (    JSONObject d : all()) {
+      d.put("usn",0);
+    }
+    for (    JSONObject c : allConf()) {
+      c.put("usn",0);
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  save();
+}

@@ -48,7 +48,7 @@
   mSyncButton=(ImageButton)findViewById(R.id.sync_all_button);
   mSyncButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View v){
-      mSyncButton.setEnabled(false);
+      sync();
     }
   }
 );

@@ -1,0 +1,11 @@
+{
+  try {
+    JSONObject jo=new JSONObject();
+    jo.put("u",user);
+    jo.put("p",pw);
+    return super.req("hostKey",new ByteArrayInputStream(jo.toString().getBytes()),false);
+  }
+ catch (  JSONException e) {
+    return null;
+  }
+}

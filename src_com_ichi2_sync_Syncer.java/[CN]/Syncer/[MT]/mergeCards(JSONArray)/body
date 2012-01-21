@@ -1,0 +1,5 @@
+{
+  for (  Object[] r : newerRows(cards,"cards",4)) {
+    mCol.getDb().getDatabase().execSQL("INSERT OR REPLACE INTO cards VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",r);
+  }
+}

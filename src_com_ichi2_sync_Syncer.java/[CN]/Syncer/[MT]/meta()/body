@@ -1,0 +1,8 @@
+{
+  JSONArray o=new JSONArray();
+  o.put(mCol.getMod());
+  o.put(mCol.getScm());
+  o.put(mCol.getUsn());
+  o.put(Utils.intNow());
+  return o;
+}

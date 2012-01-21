@@ -9,7 +9,9 @@
         throw new RuntimeException(e);
       }
     }
-    mCol.getDb().getDatabase().execSQL("UPDATE col SET tags = " + tags.toString());
+    ContentValues val=new ContentValues();
+    val.put("tags",tags.toString());
+    mCol.getDb().getDatabase().update("col",val,null,null);
     mChanged=false;
   }
 }

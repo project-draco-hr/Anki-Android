@@ -1,0 +1,13 @@
+{
+  for (int i=0; i < logs.length(); i++) {
+    try {
+      mCol.getDb().getDatabase().execSQL("INSERT OR IGNORE INTO revlog VALUES (?,?,?,?,?,?,?,?,?)",ConvUtils.jsonArray2Objects(logs.getJSONArray(i)));
+    }
+ catch (    SQLException e) {
+      throw new RuntimeException(e);
+    }
+catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
+}

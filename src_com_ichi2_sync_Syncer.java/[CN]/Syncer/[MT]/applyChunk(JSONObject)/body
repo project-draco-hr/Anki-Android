@@ -1,0 +1,16 @@
+{
+  try {
+    if (chunk.has("revlog")) {
+      mergeRevlog(chunk.getJSONArray("revlog"));
+    }
+    if (chunk.has("cards")) {
+      mergeCards(chunk.getJSONArray("cards"));
+    }
+    if (chunk.has("notes")) {
+      mergeNotes(chunk.getJSONArray("notes"));
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}
