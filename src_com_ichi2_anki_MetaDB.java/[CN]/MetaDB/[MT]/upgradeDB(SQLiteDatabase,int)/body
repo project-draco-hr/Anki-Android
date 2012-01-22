@@ -1,6 +1,7 @@
 {
+  Log.i(AnkiDroidApp.TAG,"Upgrading Internal Database..");
   if (mMetaDb.getVersion() == 0) {
-    Log.i(AnkiDroidApp.TAG,"Upgrade Internal Database from version: " + 0 + " to: "+ databaseVersion);
+    Log.i(AnkiDroidApp.TAG,"Applying changes for version: 0");
     mMetaDb.execSQL("CREATE TABLE IF NOT EXISTS languages (" + " _id INTEGER PRIMARY KEY AUTOINCREMENT, " + "deckpath TEXT NOT NULL, modelid INTEGER NOT NULL, "+ "cardmodelid INTEGER NOT NULL, "+ "qa INTEGER, "+ "language TEXT)");
     mMetaDb.execSQL("CREATE TABLE IF NOT EXISTS whiteboardState (" + "_id INTEGER PRIMARY KEY AUTOINCREMENT, " + "deckpath TEXT NOT NULL, "+ "state INTEGER)");
     mMetaDb.execSQL("CREATE TABLE IF NOT EXISTS customDictionary (" + "_id INTEGER PRIMARY KEY AUTOINCREMENT, " + "deckpath TEXT NOT NULL, "+ "dictionary INTEGER)");
@@ -18,5 +19,6 @@
     }
   }
   mMetaDb.setVersion(databaseVersion);
+  Log.i(AnkiDroidApp.TAG,"Upgrading Internal Database finished. New version: " + databaseVersion);
   return mMetaDb;
 }
