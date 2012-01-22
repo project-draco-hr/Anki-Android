@@ -1,0 +1,12 @@
+{
+  mDatabase.beginTransaction();
+  try {
+    for (    Object[] o : list) {
+      mDatabase.execSQL(sql,o);
+    }
+    mDatabase.setTransactionSuccessful();
+  }
+  finally {
+    mDatabase.endTransaction();
+  }
+}

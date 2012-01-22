@@ -1,5 +1,5 @@
 {
-  HttpResponse ret=super.req("download");
+  HttpResponse ret=super.req("download",new ByteArrayInputStream("{}".toString().getBytes()));
   InputStream cont;
   try {
     cont=ret.getEntity().getContent();

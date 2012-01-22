@@ -5,12 +5,12 @@
     if (!cursor.moveToFirst()) {
       return false;
     }
-    mCrt=cursor.getInt(0);
-    mMod=cursor.getInt(1);
-    mScm=cursor.getInt(2);
+    mCrt=cursor.getLong(0);
+    mMod=cursor.getLong(1);
+    mScm=cursor.getLong(2);
     mDty=cursor.getInt(3) == 1;
     mUsn=cursor.getInt(4);
-    mLs=cursor.getInt(5);
+    mLs=cursor.getLong(5);
     try {
       mConf=new JSONObject(cursor.getString(6));
     }

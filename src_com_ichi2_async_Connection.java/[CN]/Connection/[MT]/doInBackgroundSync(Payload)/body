@@ -12,7 +12,7 @@
     Log.i(AnkiDroidApp.TAG,"Sync - starting sync");
     publishProgress(R.string.sync_prepare_syncing);
     String ret=client.sync(this);
-    if (ret.equals("badAuth") || ret.equals("clockOff") || ret.equals("fullSync")|| ret.equals("error")) {
+    if (ret.equals("badAuth") || ret.equals("clockOff") || ret.equals("fullSync")|| ret.equals("error")|| ret.equals("serverNotAvailable")) {
       data.success=false;
       data.result=ret;
       return data;

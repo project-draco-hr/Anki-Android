@@ -17,7 +17,7 @@
     if (!mServer) {
     }
     AnkiDatabaseManager.closeDatabase(mPath);
-    Log.i(AnkiDroidApp.TAG,"Collection closed");
     mDb=null;
+    Log.i(AnkiDroidApp.TAG,"Collection closed");
   }
 }

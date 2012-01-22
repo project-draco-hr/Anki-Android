@@ -34,7 +34,7 @@ mTablesLeft.removeFirst();
 mCursor.close();
 mCursor=null;
 if (!mCol.getServer()) {
-mCol.getDb().getDatabase().execSQL("UPDATE " + curTable + " SET usn="+ mMaxUsn+ " WHERE usn=-1",null);
+mCol.getDb().getDatabase().execSQL("UPDATE " + curTable + " SET usn="+ mMaxUsn+ " WHERE usn=-1");
 }
 }
 buf.put(curTable,rows);

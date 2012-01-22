@@ -1,12 +1,6 @@
 {
-  File file=new File(mPath);
-  long size=file.length();
-  save();
   Log.i(AnkiDroidApp.TAG,"executing VACUUM statement");
   mDb.getDatabase().execSQL("VACUUM");
   Log.i(AnkiDroidApp.TAG,"executing ANALYZE statement");
   mDb.getDatabase().execSQL("ANALYZE");
-  file=new File(mPath);
-  size-=file.length();
-  return size;
 }
