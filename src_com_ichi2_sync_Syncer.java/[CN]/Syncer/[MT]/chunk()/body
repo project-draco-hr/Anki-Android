@@ -9,12 +9,11 @@
         mCursor=cursorForTable(curTable);
       }
       JSONArray rows=new JSONArray();
-      while (mCursor.moveToNext()) {
+      while (mCursor.moveToNext() && mCursor.getPosition() <= lim) {
         JSONArray r=new JSONArray();
         int count=mCursor.getColumnCount();
         for (int i=0; i < count; i++) {
-          int type=mCursor.getType(i);
-switch (type) {
+switch (mCursor.getType(i)) {
 case Cursor.FIELD_TYPE_STRING:
             r.put(mCursor.getString(i));
           break;

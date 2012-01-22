@@ -1,15 +1,6 @@
 {
-  Cursor cur=null;
-  try {
-    cur=mCol.getDb().getDatabase().rawQuery("PRAGMA integrity_check",null);
-    if (!cur.moveToFirst() || !cur.getString(0).equals("ok")) {
-      return null;
-    }
-  }
-  finally {
-    if (cur != null && !cur.isClosed()) {
-      cur.close();
-    }
+  if (!mCol.getDb().queryString("PRAGMA integrity_check").equalsIgnoreCase("ok")) {
+    return new Object[]{"dbError"};
   }
   mCol.beforeUpload();
   String filePath=mCol.getPath();
@@ -22,5 +13,6 @@
  catch (  FileNotFoundException e) {
     throw new RuntimeException(e);
   }
-  return ret;
+  String result=HttpSyncer.getDataString(ret);
+  return new Object[]{result.equalsIgnoreCase(HttpSyncer.ANKIWEB_STATUS_OK) ? result : "error",HttpSyncer.getReturnType(ret),HttpSyncer.getReason(ret)};
 }

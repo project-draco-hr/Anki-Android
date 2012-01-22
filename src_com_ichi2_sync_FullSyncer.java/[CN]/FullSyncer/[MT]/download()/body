@@ -1,5 +1,5 @@
 {
-  HttpResponse ret=super.req("download",new ByteArrayInputStream("{}".toString().getBytes()));
+  HttpResponse ret=super.req("download");
   InputStream cont;
   try {
     cont=ret.getEntity().getContent();
@@ -22,30 +22,23 @@ catch (  IOException e1) {
   }
   try {
     AnkiDb d=AnkiDatabaseManager.getDatabase(tpath);
-    Cursor cur=null;
-    try {
-      cur=d.getDatabase().rawQuery("PRAGMA integrity_check",null);
-      if (!cur.moveToFirst() || !cur.getString(0).equals("ok")) {
-        Log.e(AnkiDroidApp.TAG,"Full sync - downloaded file corrupt");
-        return null;
-      }
+    if (!d.queryString("PRAGMA integrity_check").equalsIgnoreCase("ok")) {
+      Log.e(AnkiDroidApp.TAG,"Full sync - downloaded file corrupt");
+      return new Object[]{"remoteDbError"};
     }
-  finally {
-      if (cur != null && !cur.isClosed()) {
-        cur.close();
-      }
-    }
-    AnkiDatabaseManager.closeDatabase(tpath);
   }
  catch (  SQLiteDatabaseCorruptException e) {
-    return null;
+    Log.e(AnkiDroidApp.TAG,"Full sync - downloaded file corrupt");
+    return new Object[]{"remoteDbError"};
   }
-  connection.publishProgress(R.string.sync_complete_message);
+ finally {
+    AnkiDatabaseManager.closeDatabase(tpath);
+  }
   File newFile=new File(tpath);
   if (newFile.renameTo(new File(path))) {
-    return ret;
+    return new Object[]{"success"};
   }
  else {
-    return null;
+    return new Object[]{"overwriteError"};
   }
 }
