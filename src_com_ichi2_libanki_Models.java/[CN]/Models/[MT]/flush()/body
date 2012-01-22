@@ -11,7 +11,7 @@
     }
     ContentValues val=new ContentValues();
     val.put("models",array.toString());
-    mCol.getDb().getDatabase().update("col",val,null,null);
+    mCol.getDb().update("col",val);
     mChanged=false;
   }
 }

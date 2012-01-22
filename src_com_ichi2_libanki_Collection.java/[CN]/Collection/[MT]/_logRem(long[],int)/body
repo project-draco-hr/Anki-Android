@@ -4,6 +4,6 @@
     values.put("usn",usn());
     values.put("oid",id);
     values.put("type",type);
-    mDb.getDatabase().insert("graves",null,values);
+    mDb.insert("graves",null,values);
   }
 }

@@ -1,0 +1,16 @@
+{
+  if (m != null && m.has("id")) {
+    try {
+      m.put("mod",Utils.intNow());
+      m.put("usn",mCol.getUsn());
+      _updateRequired(m);
+      if (templates) {
+        _syncTemplates(m);
+      }
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  mChanged=true;
+}

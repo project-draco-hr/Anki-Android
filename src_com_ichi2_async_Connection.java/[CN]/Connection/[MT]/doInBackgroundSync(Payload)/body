@@ -1,7 +1,7 @@
 {
   String hkey=(String)data.data[0];
   boolean media=(Boolean)data.data[1];
-  String conflictResolution=(String)data.data[2];
+  String conflictResolution="upload";
   Collection col=Collection.currentCollection();
   String path=col.getPath();
   HttpSyncer server=new RemoteServer(hkey);
@@ -19,11 +19,9 @@
     }
     col.save();
     if (retCode.equals("noChanges")) {
-      publishProgress(R.string.sync_no_changes_message);
       noChanges=true;
     }
  else {
-      publishProgress(R.string.sync_database_success);
     }
   }
  else {
