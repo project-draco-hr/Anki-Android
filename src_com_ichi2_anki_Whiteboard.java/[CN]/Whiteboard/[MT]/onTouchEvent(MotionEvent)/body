@@ -10,6 +10,9 @@ case MotionEvent.ACTION_DOWN:
     invalidate();
   break;
 case MotionEvent.ACTION_MOVE:
+for (int i=0; i < event.getHistorySize(); i++) {
+  touchMove(event.getHistoricalX(i),event.getHistoricalY(i));
+}
 touchMove(x,y);
 invalidate();
 break;
