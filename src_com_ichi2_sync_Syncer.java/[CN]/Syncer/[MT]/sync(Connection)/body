@@ -29,6 +29,7 @@
       return "clockOff";
     }
     if (mLMod == mRMod) {
+      return "noChanges";
     }
  else     if (mLScm != mRScm) {
       return "fullSync";
