@@ -4,5 +4,5 @@
   }
   String strids=Utils.ids2str(ids);
   _logRem(ids,Sched.REM_NOTE);
-  mDb.getDatabase().execSQL("DELETE FROM notes WHERE id IN " + strids);
+  mDb.execute("DELETE FROM notes WHERE id IN " + strids);
 }

@@ -26,7 +26,7 @@ cur.close();
 }
 }
 if (!mCol.getServer()) {
-mCol.getDb().getDatabase().execSQL("UPDATE graves SET usn=" + mMaxUsn + " WHERE usn=-1");
+mCol.getDb().execute("UPDATE graves SET usn=" + mMaxUsn + " WHERE usn=-1");
 }
 JSONObject o=new JSONObject();
 try {
