@@ -1,0 +1,19 @@
+{
+  mDatabase=SQLiteDatabase.openDatabase(ankiFilename,null,SQLiteDatabase.OPEN_READWRITE | SQLiteDatabase.NO_LOCALIZED_COLLATORS);
+  if (mDatabase != null) {
+    SharedPreferences prefs=PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext());
+    if (prefs.getBoolean("walMode",false)) {
+      queryString("PRAGMA journal_mode = WAL");
+    }
+ else {
+      queryString("PRAGMA journal_mode = DELETE");
+    }
+    if (prefs.getBoolean("asyncMode",false)) {
+      mDatabase.rawQuery("PRAGMA synchronous = 0",null);
+    }
+ else {
+      mDatabase.rawQuery("PRAGMA synchronous = 2",null);
+    }
+  }
+  mMod=false;
+}
