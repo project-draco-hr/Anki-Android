@@ -1,4 +1,5 @@
 {
   boolean mod=mDb.getMod();
+  mDb.execute("UPDATE col SET mod=mod");
   mDb.setMod(mod);
 }

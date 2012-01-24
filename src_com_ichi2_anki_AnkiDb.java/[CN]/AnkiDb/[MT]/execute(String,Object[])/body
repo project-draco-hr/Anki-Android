@@ -1,6 +1,5 @@
 {
   String s=sql.trim().toLowerCase();
-  mMod=true;
   for (  String mo : MOD_SQLS) {
     if (s.startsWith(mo)) {
       mMod=true;

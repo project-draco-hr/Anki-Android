@@ -4,6 +4,7 @@
   mTags.flush();
   if (mDb.getMod()) {
     flush(mod);
+    lock();
     mDb.setMod(false);
   }
   _markOp(name);
