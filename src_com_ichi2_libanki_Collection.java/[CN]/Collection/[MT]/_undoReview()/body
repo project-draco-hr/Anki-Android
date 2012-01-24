@@ -7,5 +7,7 @@
   c.flush();
   long last=mDb.queryLongScalar("SELECT id FROM revlog WHERE cid = " + c.getId() + " ORDER BY id DESC LIMIT 1");
   mDb.execute("DELETE FROM revlog WHERE id = " + last);
+  String type=(new String[]{"new","lrn","rev"})[c.getQueue()];
+  mSched._updateStats(c,type,-1);
   return c;
 }

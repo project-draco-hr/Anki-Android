@@ -30,6 +30,10 @@
       delay*=(1 + (new Random().nextInt(25) / 100));
     }
     card.setDue((int)(Utils.now() + delay));
+    if (!mLrnQueue.isEmpty() && mRevCount == 0 && mNewCount == 0) {
+      long smallestDue=mLrnQueue.getFirst()[0];
+      card.setDue(Math.max(card.getDue(),smallestDue + 1));
+    }
     _sortIntoLrn(card.getDue(),card.getId());
   }
   _logLrn(card,ease,conf,leaving,type,lastLeft);

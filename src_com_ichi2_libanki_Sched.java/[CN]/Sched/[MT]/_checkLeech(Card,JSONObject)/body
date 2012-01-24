@@ -11,7 +11,7 @@
       n.flush();
       if (conf.getInt("leechAction") == 0) {
         suspendCards(new long[]{card.getId()});
-        card.setQueue(-1);
+        card.load();
       }
       return true;
     }

@@ -1,5 +1,5 @@
 {
-  int delay=_daysLate(card);
+  long delay=_daysLate(card);
   double interval=0;
   JSONObject conf=_cardConf(card);
   double fct=card.getFactor() / 1000.0;
