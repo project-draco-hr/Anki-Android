@@ -1,8 +1,0 @@
-{
-  try {
-    return new JSONArray(getDataString(response));
-  }
- catch (  JSONException e) {
-    throw new RuntimeException(e);
-  }
-}

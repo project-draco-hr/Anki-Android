@@ -1,0 +1,6 @@
+{
+  if (mNextSend <= bytesSent + bytesReceived) {
+    mNextSend=bytesSent + bytesReceived + 1024;
+    mCon.publishProgress(0,bytesSent / 1024,bytesReceived / 1024);
+  }
+}

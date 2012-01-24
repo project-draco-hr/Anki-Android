@@ -8,7 +8,7 @@
       buf.write(bdry + "\r\n");
       buf.write("Content-Disposition: form-data; name=\"k\"\r\n\r\n" + mHKey + "\r\n");
     }
-    ByteArrayOutputStream bos=new ByteArrayOutputStream();
+    OutputStreamProgress bos=new OutputStreamProgress(new ByteArrayOutputStream());
     if (fobj != null) {
       buf.write(bdry + "\r\n");
       buf.write("Content-Disposition: form-data; name=\"data\"; filename=\"data\"\r\nContent-Type: application/octet-stream\r\n\r\n");
@@ -57,6 +57,6 @@
     throw new RuntimeException(e);
   }
 catch (  IOException e) {
-    throw new RuntimeException(e);
+    return null;
   }
 }

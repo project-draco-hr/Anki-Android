@@ -1,0 +1,12 @@
+{
+  new File(destination).createNewFile();
+  OutputStream output=new BufferedOutputStream(new FileOutputStream(destination));
+  byte[] buf=new byte[Utils.CHUNK_SIZE];
+  int len;
+  while ((len=source.read(buf)) > 0) {
+    output.write(buf,0,len);
+    bytesReceived+=len;
+    publishProgress();
+  }
+  output.close();
+}
