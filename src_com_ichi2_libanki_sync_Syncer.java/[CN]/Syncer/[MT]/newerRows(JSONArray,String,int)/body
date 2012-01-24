@@ -7,7 +7,7 @@
     HashMap<Long,Long> lmods=new HashMap<Long,Long>();
     Cursor cur=null;
     try {
-      cur=mCol.getDb().getDatabase().rawQuery("SELECT id, mod FROM " + table + "WHERE id IN "+ Utils.ids2str(ids)+ " AND "+ usnLim(),null);
+      cur=mCol.getDb().getDatabase().rawQuery("SELECT id, mod FROM " + table + " WHERE id IN "+ Utils.ids2str(ids)+ " AND "+ usnLim(),null);
       while (cur.moveToNext()) {
         lmods.put(cur.getLong(0),cur.getLong(1));
       }

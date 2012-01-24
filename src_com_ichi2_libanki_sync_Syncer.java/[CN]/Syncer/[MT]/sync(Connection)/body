@@ -43,7 +43,7 @@
     o.put("lnewer",mLNewer);
     o.put("graves",lrem);
     JSONObject rrem=mServer.start(o);
-    if (ret == null) {
+    if (rrem == null) {
       return null;
     }
     if (rrem.has("errorType")) {
@@ -55,7 +55,7 @@
     JSONObject sch=new JSONObject();
     sch.put("changes",lchg);
     JSONObject rchg=mServer.applyChanges(sch);
-    if (ret == null) {
+    if (rchg == null) {
       return null;
     }
     if (rchg.has("errorType")) {
@@ -65,15 +65,13 @@
     con.publishProgress(R.string.sync_download_chunk);
     while (true) {
       JSONObject chunk=mServer.chunk();
-      if (ret == null) {
+      if (chunk == null) {
         return null;
       }
       if (chunk.has("errorType")) {
         return new Object[]{"error",chunk.get("errorType"),chunk.get("errorReason")};
       }
-      JSONObject pch=new JSONObject();
-      pch.put("chunk",chunk);
-      applyChunk(pch);
+      applyChunk(chunk);
       if (chunk.getBoolean("done")) {
         break;
       }
