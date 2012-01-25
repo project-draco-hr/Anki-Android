@@ -6,5 +6,5 @@
     JSONObject model=mModels.get((Long)o[1]);
     r.add(new Object[]{Utils.stripHTML(fields[mModels.sortIdx(model)]),Utils.fieldChecksum(fields[0]),o[0]});
   }
-  mDb.executeMany("UPDATE notes SET sflds=?, csum=?, WHERE id=?",r);
+  mDb.executeMany("UPDATE notes SET sfld=?, csum=? WHERE id=?",r);
 }
