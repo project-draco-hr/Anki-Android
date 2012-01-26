@@ -147,8 +147,6 @@ mTargetText=null;
 }
  else {
 try {
-Long id=mEditorNote.getDid();
-JSONObject d=mCol.getDecks().get(id);
 mDeckButton.setText(getResources().getString(R.string.CardEditorDeck,mCol.getDecks().get(mEditorNote.getDid()).getString("name")));
 }
  catch (JSONException e) {

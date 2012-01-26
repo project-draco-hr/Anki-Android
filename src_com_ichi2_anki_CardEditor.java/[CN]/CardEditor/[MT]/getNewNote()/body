@@ -1,7 +1,9 @@
 {
   long did;
+  ArrayList<String> tags=null;
   if (mEditorNote != null) {
     did=mEditorNote.getDid();
+    tags=mEditorNote.getTags();
   }
  else {
     try {
@@ -10,7 +12,11 @@
  catch (    JSONException e) {
       throw new RuntimeException(e);
     }
+    tags=new ArrayList<String>();
   }
   mEditorNote=mCol.newNote();
   mEditorNote.setDid(did);
+  for (  String t : tags) {
+    mEditorNote.addTag(t);
+  }
 }
