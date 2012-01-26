@@ -1,0 +1,23 @@
+{
+  if (mEditorNote == null) {
+    return;
+  }
+  if (mAddNote) {
+    JSONObject m=mEditorNote.model();
+    try {
+      m.put("did",mEditorNote.getDid());
+      JSONArray ja=new JSONArray();
+      for (      String t : mEditorNote.getTags()) {
+        ja.put(t);
+      }
+      m.put("tags",ja.toString());
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+    mCol.getModels().save();
+  }
+ else {
+    mEditorNote.flush();
+  }
+}

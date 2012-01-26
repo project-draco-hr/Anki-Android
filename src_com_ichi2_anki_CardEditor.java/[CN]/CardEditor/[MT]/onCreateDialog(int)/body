@@ -7,11 +7,7 @@ case DIALOG_TAGS_SELECT:
     builder.setTitle(R.string.studyoptions_limit_select_tags);
   builder.setPositiveButton(res.getString(R.string.select),new OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int which){
-      mEditorNote.clearTags();
-      for (      String s : selectedTags) {
-        mEditorNote.addTag(s);
-      }
-      PrefSettings.getSharedPrefs(getBaseContext()).edit().putStringSet("card_editor_tags",new HashSet<String>(selectedTags)).commit();
+      mEditorNote.setTags(selectedTags);
       updateTagsButton();
     }
   }

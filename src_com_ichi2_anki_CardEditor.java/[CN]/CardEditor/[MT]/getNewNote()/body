@@ -1,9 +1,7 @@
 {
   long did;
-  ArrayList<String> tags=null;
   if (mEditorNote != null) {
     did=mEditorNote.getDid();
-    tags=mEditorNote.getTags();
   }
  else {
     try {
@@ -12,11 +10,17 @@
  catch (    JSONException e) {
       throw new RuntimeException(e);
     }
-    tags=new ArrayList<String>(PrefSettings.getSharedPrefs(getBaseContext()).getStringSet("card_editor_tags",new HashSet<String>()));
   }
   mEditorNote=mCol.newNote();
   mEditorNote.setDid(did);
-  for (  String t : tags) {
-    mEditorNote.addTag(t);
+  JSONArray ja;
+  try {
+    ja=mCol.getModels().current().getJSONArray("tags");
+    for (int i=0; i < ja.length(); i++) {
+      mEditorNote.addTag(ja.getString(i));
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
   }
 }
