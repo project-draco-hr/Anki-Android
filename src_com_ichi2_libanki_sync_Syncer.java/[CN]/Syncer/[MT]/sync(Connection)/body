@@ -82,11 +82,23 @@
       JSONObject sech=new JSONObject();
       sech.put("chunk",chunk);
       mServer.applyChunk(sech);
-      if (ret == null) {
-        return null;
-      }
       if (chunk.getBoolean("done")) {
         break;
+      }
+    }
+    JSONArray c=sanityCheck();
+    JSONArray s=mServer.sanityCheck();
+    if (s.getString(0).equals("error")) {
+      return new Object[]{"error",200,"sanity check error on server"};
+    }
+    for (int i=0; i < s.getJSONArray(0).length(); i++) {
+      if (c.getJSONArray(0).getLong(i) != s.getJSONArray(0).getLong(i)) {
+        return new Object[]{"error",200,"sanity check failed: 1/" + i};
+      }
+    }
+    for (int i=1; i < s.length(); i++) {
+      if (c.getLong(i) != s.getLong(i)) {
+        return new Object[]{"error",200,"sanity check failed: " + i};
       }
     }
   }
@@ -99,7 +111,6 @@ catch (  IllegalStateException e) {
 catch (  IOException e) {
     throw new RuntimeException(e);
   }
-  mCol.getSched().reset();
   con.publishProgress(R.string.sync_finish_message);
   long mod=mServer.finish();
   if (mod == 0) {

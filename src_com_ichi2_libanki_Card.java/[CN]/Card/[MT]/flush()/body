@@ -1,5 +1,6 @@
 {
   mMod=Utils.intNow();
+  mUsn=mCol.usn();
   StringBuilder sb=new StringBuilder();
   sb.append("INSERT OR REPLACE INTO cards VALUES (");
   sb.append(mId).append(", ");
