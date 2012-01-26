@@ -12,7 +12,7 @@
  catch (    JSONException e) {
       throw new RuntimeException(e);
     }
-    tags=new ArrayList<String>();
+    tags=new ArrayList<String>(PrefSettings.getSharedPrefs(getBaseContext()).getStringSet("card_editor_tags",new HashSet<String>()));
   }
   mEditorNote=mCol.newNote();
   mEditorNote.setDid(did);
