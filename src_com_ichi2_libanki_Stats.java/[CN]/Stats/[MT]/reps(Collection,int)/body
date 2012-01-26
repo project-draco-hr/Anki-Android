@@ -1,0 +1,21 @@
+{
+  mCol=col;
+  mType=type;
+  int days;
+  int chunk;
+switch (type) {
+case TYPE_MONTH:
+    days=30;
+  chunk=1;
+break;
+case TYPE_YEAR:
+days=52;
+chunk=7;
+break;
+case TYPE_LIFE:
+days=-1;
+chunk=30;
+break;
+}
+return null;
+}
