@@ -1,3 +1,12 @@
 {
-  return Integer.toString(num);
+  String table=ALL_CHARACTERS + extra;
+  int len=table.length();
+  String buf="";
+  int mod=0;
+  while (num != 0) {
+    mod=num % len;
+    buf=buf + table.substring(mod,mod + 1);
+    num=num / len;
+  }
+  return buf;
 }
