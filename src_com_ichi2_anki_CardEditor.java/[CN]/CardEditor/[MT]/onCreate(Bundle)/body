@@ -100,7 +100,6 @@ return;
 if (mAddNote) {
 try {
 mDeckButton.setText(getResources().getString(R.string.CardEditorDeck,mCol.getDecks().current().getString("name")));
-mModelButton.setText(getResources().getString(R.string.CardEditorModel,mCol.getModels().current().getString("name")));
 modelChanged();
 }
  catch (JSONException e) {

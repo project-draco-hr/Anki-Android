@@ -1,7 +1,7 @@
 {
   getNewNote();
   try {
-    mModelButton.setText(getResources().getString(R.string.model) + " " + mCol.getModels().current().getString("name"));
+    mModelButton.setText(getResources().getString(R.string.CardEditorModel,mCol.getModels().current().getString("name")));
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);
