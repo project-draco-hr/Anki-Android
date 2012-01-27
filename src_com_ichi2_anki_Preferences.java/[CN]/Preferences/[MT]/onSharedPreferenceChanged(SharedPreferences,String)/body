@@ -50,19 +50,6 @@ updateSeekBarPreference(key);
  else if (key.equals("writeAnswers") && sharedPreferences.getBoolean("writeAnswers",false)) {
 showDialog(DIALOG_WRITE_ANSWERS);
 }
- else if (key.equals("walMode") && !lockCheckAction) {
-lockCheckAction=true;
-if (sharedPreferences.getBoolean("walMode",false)) {
-showDialog(DIALOG_WAL);
-}
- else if (walModeInitiallySet) {
-walModeInitiallySet=false;
-dialogMessage=getResources().getString(R.string.wal_mode_set_message);
-}
- else {
-lockCheckAction=false;
-}
-}
  else if (key.equals("useBackup")) {
 if (lockCheckAction) {
 lockCheckAction=false;
