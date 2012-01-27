@@ -18,10 +18,7 @@ builder.setPositiveButton(res.getString(R.string.log_in),new DialogInterface.OnC
 @Override public void onClick(DialogInterface dialog,int which){
 Intent myAccount=new Intent(DeckPicker.this,MyAccount.class);
 myAccount.putExtra("notLoggedIn",true);
-startActivityForResult(myAccount,LOG_IN_FOR_SYNC);
-if (StudyOptions.getApiLevel() > 4) {
-ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.LEFT);
-}
+startActivityForResultWithAnimation(myAccount,LOG_IN_FOR_SYNC,ActivityTransitionAnimation.LEFT);
 }
 }
 );
@@ -31,10 +28,7 @@ builder.setPositiveButton(res.getString(R.string.log_in),new DialogInterface.OnC
 @Override public void onClick(DialogInterface dialog,int which){
 Intent myAccount=new Intent(DeckPicker.this,MyAccount.class);
 myAccount.putExtra("notLoggedIn",true);
-startActivityForResult(myAccount,LOG_IN_FOR_DOWNLOAD);
-if (StudyOptions.getApiLevel() > 4) {
-ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.LEFT);
-}
+startActivityForResultWithAnimation(myAccount,LOG_IN_FOR_DOWNLOAD,ActivityTransitionAnimation.LEFT);
 }
 }
 );

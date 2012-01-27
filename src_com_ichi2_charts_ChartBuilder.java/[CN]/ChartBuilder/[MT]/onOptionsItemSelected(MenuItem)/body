@@ -6,12 +6,9 @@ case MENU_FULLSCREEN:
 editor.putBoolean("fullScreen",!mFullScreen);
 Statistics.sZoom=zoom;
 editor.commit();
-finish();
+finishWithoutAnimation();
 Intent intent=new Intent(this,com.ichi2.charts.ChartBuilder.class);
-startActivity(intent);
-if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.FADE);
-}
+startActivityWithAnimation(intent,ActivityTransitionAnimation.FADE);
 return true;
 case MENU_ZOOM_IN:
 zoom+=1;

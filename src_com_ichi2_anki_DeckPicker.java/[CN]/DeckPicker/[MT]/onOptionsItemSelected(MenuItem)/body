@@ -1,13 +1,10 @@
 {
 switch (item.getItemId()) {
 case MENU_CREATE_DECK:
-    startActivityForResult(new Intent(DeckPicker.this,DeckCreator.class),CREATE_DECK);
-  if (StudyOptions.getApiLevel() > 4) {
-    ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.RIGHT);
-  }
-return true;
+    startActivityForResultWithAnimation(new Intent(DeckPicker.this,DeckCreator.class),CREATE_DECK,ActivityTransitionAnimation.RIGHT);
+  return true;
 case MENU_ABOUT:
-startActivity(new Intent(DeckPicker.this,About.class));
+startActivityWithoutAnimation(new Intent(DeckPicker.this,About.class));
 return true;
 case MENU_DOWNLOAD_PERSONAL_DECK:
 openPersonalDeckPicker();
@@ -16,13 +13,13 @@ case MENU_DOWNLOAD_SHARED_DECK:
 openSharedDeckPicker();
 return true;
 case MENU_MY_ACCOUNT:
-startActivity(new Intent(DeckPicker.this,MyAccount.class));
+startActivityWithoutAnimation(new Intent(DeckPicker.this,MyAccount.class));
 return true;
 case MENU_PREFERENCES:
-startActivityForResult(new Intent(DeckPicker.this,Preferences.class),PREFERENCES_UPDATE);
+startActivityForResultWithoutAnimation(new Intent(DeckPicker.this,Preferences.class),PREFERENCES_UPDATE);
 return true;
 case MENU_FEEDBACK:
-startActivityForResult(new Intent(DeckPicker.this,Feedback.class),REPORT_FEEDBACK);
+startActivityForResultWithoutAnimation(new Intent(DeckPicker.this,Feedback.class),REPORT_FEEDBACK);
 return true;
 default :
 return super.onOptionsItemSelected(item);

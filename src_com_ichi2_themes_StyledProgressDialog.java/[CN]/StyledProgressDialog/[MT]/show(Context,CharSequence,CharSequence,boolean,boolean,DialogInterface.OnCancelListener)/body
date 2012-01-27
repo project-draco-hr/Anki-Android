@@ -23,6 +23,8 @@
     return null;
   }
   dialog.setContentView(layout);
-  dialog.show();
+  if (animationEnabled(context)) {
+    dialog.show();
+  }
   return dialog;
 }

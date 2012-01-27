@@ -5,7 +5,7 @@
     clipboardSetText("");
     if (mLookUpIcon.getVisibility() == View.VISIBLE) {
       mLookUpIcon.setVisibility(View.GONE);
-      mLookUpIcon.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_OUT,mFadeDuration,0));
+      enableViewAnimation(mLookUpIcon,ViewAnimation.fade(ViewAnimation.FADE_OUT,mFadeDuration,0));
     }
   }
   Deck deck=DeckManager.getMainDeck();

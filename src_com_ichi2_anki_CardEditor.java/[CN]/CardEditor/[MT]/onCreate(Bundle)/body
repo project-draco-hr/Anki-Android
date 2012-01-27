@@ -40,12 +40,12 @@
 switch (mCaller) {
 case CALLER_NOCALLER:
     Log.i(AnkiDroidApp.TAG,"CardEditor: no caller could be identified, closing");
-  finish();
+  finishWithoutAnimation();
 return;
 case CALLER_REVIEWER:
 Card revCard=Reviewer.getEditorCard();
 if (revCard == null) {
-finish();
+finishWithoutAnimation();
 return;
 }
 mEditorFact=revCard.getFact();
@@ -57,7 +57,7 @@ break;
 case CALLER_BIGWIDGET_EDIT:
 Card widgetCard=AnkiDroidWidgetBig.getCard();
 if (widgetCard == null) {
-finish();
+finishWithoutAnimation();
 return;
 }
 mEditorFact=widgetCard.getFact();
@@ -69,7 +69,7 @@ break;
 case CALLER_CARDBROWSER_EDIT:
 Card browCard=CardBrowser.getEditorCard();
 if (browCard == null) {
-finish();
+finishWithoutAnimation();
 return;
 }
 mEditorFact=browCard.getFact();
@@ -101,11 +101,11 @@ mSourceText=cleanMessages.first;
 mTargetText=cleanMessages.second;
 }
 if (mSourceText == null && mTargetText == null) {
-finish();
+finishWithoutAnimation();
 return;
 }
 if (mSourceText.equals("Aedict Notepad") && addFromAedict(mTargetText)) {
-finish();
+finishWithoutAnimation();
 return;
 }
 prepareForIntentAddition();
@@ -116,7 +116,7 @@ if (mCaller != CALLER_INDICLASH && mCaller != CALLER_CARDEDITOR_INTENT_ADD) {
 mDeckPath=intent.getStringExtra(EXTRA_DECKPATH);
 mDeck=DeckManager.getDeck(mDeckPath,DeckManager.REQUESTING_ACTIVITY_CARDEDITOR,false);
 if (mDeck == null) {
-finish();
+finishWithoutAnimation();
 return;
 }
 }

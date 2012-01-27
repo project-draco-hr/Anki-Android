@@ -2,6 +2,6 @@
   Intent i=getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
   mCompat.invalidateOptionsMenu(this);
   MetaDB.closeDB();
-  StudyOptions.this.finish();
-  startActivity(i);
+  StudyOptions.this.finishWithoutAnimation();
+  startActivityWithoutAnimation(i);
 }

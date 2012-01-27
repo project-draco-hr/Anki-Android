@@ -6,7 +6,7 @@
   Themes.setContentStyle(mainView,Themes.CALLER_CARDBROWSER);
   mDeck=DeckManager.getMainDeck();
   if (mDeck == null) {
-    finish();
+    finishWithoutAnimation();
     return;
   }
   mDeck.resetUndo();
@@ -53,10 +53,7 @@
       }
       sEditorCard=mSelectedCard;
       editCard.putExtra("callfromcardbrowser",true);
-      startActivityForResult(editCard,EDIT_CARD);
-      if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-        ActivityTransitionAnimation.slide(CardBrowser.this,ActivityTransitionAnimation.LEFT);
-      }
+      startActivityForResultWithAnimation(editCard,EDIT_CARD,ActivityTransitionAnimation.LEFT);
     }
   }
 );

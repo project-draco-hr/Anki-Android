@@ -2,7 +2,7 @@
   super.onActivityResult(requestCode,resultCode,intent);
   if (mStartedByBigWidget != EXTRA_START_NOTHING && ((requestCode == REQUEST_REVIEW && resultCode == Reviewer.RESULT_DEFAULT) || (requestCode == PICK_DECK_REQUEST && resultCode != RESULT_OK))) {
     DeckManager.closeMainDeck(DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS);
-    finish();
+    finishWithoutAnimation();
     return;
   }
  else {

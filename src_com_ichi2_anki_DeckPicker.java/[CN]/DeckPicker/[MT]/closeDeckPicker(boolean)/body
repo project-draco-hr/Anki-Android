@@ -1,12 +1,9 @@
 {
   if (mPrefStartupDeckPicker && backPressed) {
     setResult(StudyOptions.RESULT_CLOSE);
-    finish();
+    finishWithoutAnimation();
   }
  else {
-    finish();
-    if (getIntent().getBooleanExtra("showAnimation",false) && StudyOptions.getApiLevel() > 4) {
-      ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
-    }
+    finishWithAnimation(ActivityTransitionAnimation.LEFT);
   }
 }

@@ -3,8 +3,5 @@
     Intent intent=PersonalDeckPicker.this.getIntent();
     setResult(RESULT_OK,intent);
   }
-  finish();
-  if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-    ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
-  }
+  finishWithAnimation(ActivityTransitionAnimation.LEFT);
 }

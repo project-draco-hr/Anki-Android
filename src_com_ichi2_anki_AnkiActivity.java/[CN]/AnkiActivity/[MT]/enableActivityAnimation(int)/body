@@ -1,0 +1,10 @@
+{
+  if (animationDisabled()) {
+    disableActivityAnimation();
+  }
+ else {
+    if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+      ActivityTransitionAnimation.slide(this,animation);
+    }
+  }
+}

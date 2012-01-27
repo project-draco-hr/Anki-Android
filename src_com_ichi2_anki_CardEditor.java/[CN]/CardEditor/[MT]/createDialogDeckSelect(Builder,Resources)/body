@@ -12,10 +12,7 @@
 ,new OnDismissListener(){
     @Override public void onDismiss(    DialogInterface arg0){
       if (mCancelled == true) {
-        finish();
-        if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-          ActivityTransitionAnimation.slide(CardEditor.this,ActivityTransitionAnimation.FADE);
-        }
+        finishWithAnimation(ActivityTransitionAnimation.FADE);
       }
  else       if (mDeck == null) {
         showDialog(DIALOG_DECK_SELECT);
@@ -26,7 +23,7 @@
     @Override public void onClick(    View v){
       MetaDB.saveIntentInformation(CardEditor.this,mSourceText,mTargetText);
       mCancelled=true;
-      finish();
+      finishWithoutAnimation();
     }
   }
 );
