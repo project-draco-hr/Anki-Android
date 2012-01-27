@@ -12,7 +12,7 @@
     for (int i=0; i < templates.length(); i++) {
       JSONObject t=templates.getJSONObject(i);
       Object[] ret=_reqForTemplate(m,flds,t);
-      if ((Boolean)ret[2]) {
+      if (((JSONArray)ret[2]).length() > 0) {
         cloze=true;
       }
       JSONArray r=new JSONArray();
