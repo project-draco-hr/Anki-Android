@@ -1,0 +1,11 @@
+{
+  try {
+    mDeckButton.setText(getResources().getString(R.string.CardEditorDeck,mCol.getDecks().get(mEditorNote.getDid()).getString("name")));
+  }
+ catch (  NotFoundException e) {
+    throw new RuntimeException(e);
+  }
+catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

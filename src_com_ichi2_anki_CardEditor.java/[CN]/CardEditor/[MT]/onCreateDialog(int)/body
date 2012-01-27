@@ -8,7 +8,18 @@ case DIALOG_TAGS_SELECT:
   builder.setPositiveButton(res.getString(R.string.select),new OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int which){
       mEditorNote.setTags(selectedTags);
-      updateTagsButton();
+      try {
+        JSONArray ja=new JSONArray();
+        for (        String t : selectedTags) {
+          ja.put(t);
+        }
+        mEditorNote.model().put("tags",ja);
+      }
+ catch (      JSONException e) {
+        throw new RuntimeException(e);
+      }
+      updateTags();
+      mCol.getModels().setChanged();
     }
   }
 );
@@ -77,11 +88,10 @@ try {
 long oldDid=mCol.getDecks().get(mEditorNote.getDid()).getLong("id");
 long newId=dialogDeckIds.get(item);
 if (oldDid != newId) {
-if (mCaller == CALLER_DECKPICKER) {
-mCol.getDecks().select(newId);
-}
 mEditorNote.setDid(newId);
-mDeckButton.setText(getResources().getString(R.string.CardEditorDeck,mCol.getDecks().get(newId).getString("name")));
+mEditorNote.model().put("did",newId);
+updateDeck();
+mCol.getModels().setChanged();
 }
 }
  catch (JSONException e) {
@@ -126,7 +136,7 @@ String[] oldValues=new String[size];
 for (int i=0; i < size; i++) {
 oldValues[i]=mEditFields.get(i).getText().toString();
 }
-modelChanged();
+setNote();
 if ((mSourceText == null || mSourceText.length() == 0) && (mTargetText == null || mTargetText.length() == 0)) {
 for (int i=0; i < Math.min(size,mEditFields.size()); i++) {
 mEditFields.get(i).setText(oldValues[i]);

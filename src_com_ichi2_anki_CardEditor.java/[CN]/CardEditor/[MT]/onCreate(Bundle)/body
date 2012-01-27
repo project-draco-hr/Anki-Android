@@ -21,6 +21,10 @@
   if (savedInstanceState != null) {
     mCaller=savedInstanceState.getInt("caller");
     mAddNote=savedInstanceState.getBoolean("addFact");
+    if (mCol == null) {
+      finish();
+      return;
+    }
   }
  else {
     mCaller=intent.getIntExtra(EXTRA_CALLER,CALLER_NOCALLER);
@@ -31,7 +35,7 @@
       }
     }
   }
-  Log.i(AnkiDroidApp.TAG,"Caller: " + mCaller);
+  Log.i(AnkiDroidApp.TAG,"CardEditor: caller: " + mCaller);
 switch (mCaller) {
 case CALLER_NOCALLER:
     Log.i(AnkiDroidApp.TAG,"CardEditor: no caller could be identified, closing");
@@ -97,14 +101,8 @@ if (mCol == null) {
 finish();
 return;
 }
+setNote(mEditorNote);
 if (mAddNote) {
-try {
-mDeckButton.setText(getResources().getString(R.string.CardEditorDeck,mCol.getDecks().current().getString("name")));
-modelChanged();
-}
- catch (JSONException e) {
-throw new RuntimeException(e);
-}
 String contents=null;
 if (mSourceText != null) {
 if (mAedictIntent && (mEditFields.size() == 3) && mTargetText.contains("[")) {
@@ -122,7 +120,6 @@ contents=intent.getStringExtra(EXTRA_CONTENTS);
 if (contents != null) {
 setEditFieldTexts(contents);
 }
-mSave.setEnabled(false);
 LinearLayout modelButton=((LinearLayout)findViewById(R.id.CardEditorModelButton));
 modelButton.setOnClickListener(new View.OnClickListener(){
 public void onClick(View v){
@@ -138,20 +135,11 @@ mLater.setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
 MetaDB.saveIntentInformation(CardEditor.this,getFieldsText());
 populateEditFields();
-mSave.setEnabled(false);
 mSourceText=null;
 mTargetText=null;
 }
 }
 );
-}
- else {
-try {
-mDeckButton.setText(getResources().getString(R.string.CardEditorDeck,mCol.getDecks().get(mEditorNote.getDid()).getString("name")));
-}
- catch (JSONException e) {
-throw new RuntimeException(e);
-}
 }
 ((LinearLayout)findViewById(R.id.CardEditorDeckButton)).setOnClickListener(new View.OnClickListener(){
 public void onClick(View v){
@@ -159,7 +147,6 @@ showDialog(DIALOG_DECK_SELECT);
 }
 }
 );
-updateTagsButton();
 mModified=false;
 SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
 mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
@@ -174,7 +161,6 @@ showDialog(DIALOG_TAGS_SELECT);
 );
 mSave.setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
-saveNow();
 if (mAddNote) {
 if (duplicateCheck(true)) {
 return;
@@ -183,6 +169,8 @@ for (FieldEditText f : mEditFields) {
 f.updateField();
 }
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ADD_FACT,mSaveFactHandler,new DeckTask.TaskData(mEditorNote));
+}
+ else {
 }
 }
 }
@@ -196,7 +184,4 @@ closeCardEditor();
 }
 }
 );
-if (!mAddNote) {
-populateEditFields();
-}
 }

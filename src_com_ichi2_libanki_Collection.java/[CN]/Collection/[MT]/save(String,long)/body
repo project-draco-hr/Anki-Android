@@ -4,6 +4,7 @@
   mTags.flush();
   if (mDb.getMod()) {
     flush(mod);
+    mDb.commit();
     lock();
     mDb.setMod(false);
   }
