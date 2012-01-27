@@ -5,4 +5,7 @@
   mDownloaded=0;
   mStatus=STATUS_STARTED;
   mFilename=Utils.removeInvalidDeckNameCharacters(mTitle);
+  if (mFilename.length() > 40) {
+    mFilename=mFilename.substring(0,40);
+  }
 }
