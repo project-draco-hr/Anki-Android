@@ -3,7 +3,7 @@
   mInDeckPicker=true;
   decksPicker.putExtra("showAnimation",showAnimation);
   startActivityForResult(decksPicker,PICK_DECK_REQUEST);
-  if (showAnimation && getApiLevel() > 4) {
+  if (showAnimation && Utils.getApiLevel() > 4) {
     ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
   }
 }

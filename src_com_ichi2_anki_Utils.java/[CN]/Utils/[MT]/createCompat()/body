@@ -1,0 +1,8 @@
+{
+  if (getApiLevel() >= 11) {
+    return new CompatV11();
+  }
+ else {
+    return new CompatV3();
+  }
+}

@@ -1,7 +1,7 @@
 {
   mCompat.invalidateOptionsMenu(this);
   startActivityForResult(new Intent(StudyOptions.this,SharedDeckPicker.class),DOWNLOAD_SHARED_DECK);
-  if (getApiLevel() > 4) {
+  if (Utils.getApiLevel() > 4) {
     ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
   }
 }
