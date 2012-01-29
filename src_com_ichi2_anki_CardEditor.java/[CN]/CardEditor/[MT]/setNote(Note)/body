@@ -7,16 +7,17 @@
       for (int i=0; i < tags.length(); i++) {
         mEditorNote.addTag(tags.getString(i));
       }
+      mCurrentDid=mEditorNote.getDid();
     }
  else {
       mEditorNote=note;
+      mCurrentDid=mCurrentEditedCard.getDid();
     }
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
   mCurrentTags=mEditorNote.getTags();
-  mCurrentDid=mEditorNote.getDid();
   updateDeck();
   updateTags();
   populateEditFields();

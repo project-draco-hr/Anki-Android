@@ -42,12 +42,12 @@ case CALLER_NOCALLER:
   finish();
 return;
 case CALLER_REVIEWER:
-Card revCard=Reviewer.getEditorCard();
-if (revCard == null) {
+mCurrentEditedCard=Reviewer.getEditorCard();
+if (mCurrentEditedCard == null) {
 finish();
 return;
 }
-mEditorNote=revCard.getNote();
+mEditorNote=mCurrentEditedCard.getNote();
 mAddNote=false;
 break;
 case CALLER_STUDYOPTIONS:
@@ -175,10 +175,10 @@ for (String t : mCurrentTags) {
 modified=modified || !mEditorNote.hasTag(t);
 }
 modified=modified || mEditorNote.getTags().size() > mCurrentTags.size();
-modified=modified || mEditorNote.getDid() != mCurrentDid;
+modified=modified || (mAddNote ? mEditorNote.getDid() : mCurrentEditedCard.getDid()) != mCurrentDid;
 if (modified) {
 mEditorNote.setTags(mCurrentTags);
-Reviewer.getEditorCard().setDid(mCurrentDid);
+mCurrentEditedCard.setDid(mCurrentDid);
 closeCardEditor(RESULT_OK);
 }
  else {
