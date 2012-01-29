@@ -4,6 +4,7 @@
   }
   mCol.setLs(mod);
   mCol.setUsnAfterSync(mMaxUsn + 1);
+  mCol.getDb().setMod(true);
   mCol.save(null,mod);
   return mod;
 }
