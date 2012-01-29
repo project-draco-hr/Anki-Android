@@ -33,7 +33,7 @@
     if (isQuestionDisplayed()) {
       displayString=displayString + "<hr/>";
     }
-    if (mSpeakText && Integer.valueOf(android.os.Build.VERSION.SDK) > 3) {
+    if (mSpeakText && AnkiDroidApp.isDonutOrLater()) {
       ReadText.setLanguageInformation(Model.getModel(DeckManager.getMainDeck(),mCurrentCard.getCardModelId(),false).getId(),mCurrentCard.getCardModelId());
     }
   }

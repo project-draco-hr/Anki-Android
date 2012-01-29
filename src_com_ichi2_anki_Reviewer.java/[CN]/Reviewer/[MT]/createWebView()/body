@@ -8,7 +8,7 @@
   webView.getSettings().setJavaScriptEnabled(true);
   webView.setWebChromeClient(new AnkiDroidWebChromeClient());
   webView.addJavascriptInterface(new JavaScriptInterface(),"interface");
-  if (Integer.parseInt(android.os.Build.VERSION.SDK) > 7) {
+  if (AnkiDroidApp.isFroyoOrLater()) {
     webView.setFocusableInTouchMode(false);
   }
   Log.i(AnkiDroidApp.TAG,"Focusable = " + webView.isFocusable() + ", Focusable in touch mode = "+ webView.isFocusableInTouchMode());

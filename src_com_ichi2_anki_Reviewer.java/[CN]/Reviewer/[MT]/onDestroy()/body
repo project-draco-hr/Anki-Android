@@ -4,7 +4,7 @@
   if (mUnmountReceiver != null) {
     unregisterReceiver(mUnmountReceiver);
   }
-  if (mSpeakText && Integer.valueOf(android.os.Build.VERSION.SDK) > 3) {
+  if (mSpeakText && AnkiDroidApp.isDonutOrLater()) {
     ReadText.releaseTts();
   }
 }

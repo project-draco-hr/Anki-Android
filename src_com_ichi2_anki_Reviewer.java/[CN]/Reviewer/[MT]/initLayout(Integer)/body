@@ -51,7 +51,7 @@
     mCardFrame.addView(mNextCard,0);
     mCustomFontStyle=getCustomFontsStyle() + getDefaultFontStyle();
   }
-  if (Integer.parseInt(android.os.Build.VERSION.SDK) < 8 && !mSimpleInterface) {
+  if (!AnkiDroidApp.isFroyoOrLater() && !mSimpleInterface) {
     mCard.setFocusableInTouchMode(true);
   }
   gestureDetector=new GestureDetector(new MyGestureDetector());
