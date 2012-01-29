@@ -1,0 +1,26 @@
+{
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_TUTORIAL,new DeckTask.TaskListener(){
+    @Override public void onPreExecute(){
+      mProgressDialog=StyledProgressDialog.show(StudyOptions.this,"",getResources().getString(R.string.tutorial_load),true);
+    }
+    @Override public void onPostExecute(    TaskData result){
+      if (result.getBoolean()) {
+        resetAndUpdateValuesFromDeck();
+      }
+ else {
+        Themes.showThemedToast(StudyOptions.this,getResources().getString(R.string.tutorial_loading_error),false);
+      }
+      if (mProgressDialog.isShowing()) {
+        try {
+          mProgressDialog.dismiss();
+        }
+ catch (        Exception e) {
+          Log.e(AnkiDroidApp.TAG,"onPostExecute - Dialog dismiss Exception = " + e.getMessage());
+        }
+      }
+    }
+    @Override public void onProgressUpdate(    TaskData... values){
+    }
+  }
+,new DeckTask.TaskData(mCol));
+}
