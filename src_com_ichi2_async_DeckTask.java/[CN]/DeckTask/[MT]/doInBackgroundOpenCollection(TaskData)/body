@@ -1,6 +1,22 @@
 {
   String collectionFile=params[0].getString();
   Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
+  File dbFile=new File(collectionFile);
+  if (!dbFile.exists()) {
+    Log.i(AnkiDroidApp.TAG,"LoadDeck: db file does not exist. Creating it...");
+    AnkiDroidApp.createDecksDirectoryIfMissing(dbFile.getParentFile());
+    try {
+      InputStream stream=res.getAssets().open("collection.anki2");
+      Utils.writeToFile(stream,dbFile.getAbsolutePath());
+      stream.close();
+    }
+ catch (    IOException e) {
+      Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
+      Log.e(AnkiDroidApp.TAG,"onCreate - The copy of empty.anki to the SD card failed.");
+      Collection col=null;
+      return new TaskData(col);
+    }
+  }
   Log.i(AnkiDroidApp.TAG,"loadDeck - SD card mounted and existent file -> Loading collection...");
   publishProgress(new TaskData(res.getString(R.string.loading_deck)));
   Collection col=Collection.openCollection(collectionFile);
