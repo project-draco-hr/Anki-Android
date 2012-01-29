@@ -5,9 +5,7 @@
     try {
       Log.i(AnkiDroidApp.TAG,"Thread run - Inside lock");
       mIsFinished=false;
-      int i=0;
       for (      File file : mFileList) {
-        i++;
         Log.i(AnkiDroidApp.TAG,"Thread run - Before break mDeckIsSelected = " + mDeckIsSelected);
         if (mDeckIsSelected) {
           break;

@@ -20,7 +20,6 @@
     int currentBatch=(int)(updatedCards / batchSize);
     long runningAvgCount=0;
     long batchStart;
-    mElapsedTime=0;
     while (updatedCards < totalCards && download.getStatus() == SharedDeckDownload.STATUS_UPDATING) {
       batchStart=System.currentTimeMillis();
       updatedCards=deck.updateAllCardsFromPosition(updatedCards,batchSize);
