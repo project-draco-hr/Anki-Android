@@ -2,17 +2,14 @@
   Log.i(AnkiDroidApp.TAG,"updateCard");
   if (mSimpleInterface) {
   }
-  mBaseUrl="";
   Boolean isJapaneseModel=false;
   content=recalculateHardCodedFontSize(content,mDisplayFontSize);
   if (mCurrentCard != null) {
     final String japaneseModelTag="Japanese";
-    mBaseUrl="";
     int nightBackground=Themes.getNightModeCardBackground(this);
   }
  else {
     mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
-    mBaseUrl=Utils.urlEncodeMediaDir(mDeckFilename.replace(".anki",".media/"));
   }
   int questionStartsAt=content.indexOf("<a name=\"question\"></a><hr/>");
   String question="";

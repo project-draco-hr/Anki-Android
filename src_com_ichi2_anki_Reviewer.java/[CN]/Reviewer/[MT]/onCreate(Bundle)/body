@@ -11,6 +11,8 @@
   }
  else {
     mSched=col.getSched();
+    mCollectionFilename=col.getPath();
+    mBaseUrl=Utils.getBaseUrl(col.getMedia().getDir());
     restorePreferences();
     if (mPrefFullscreenReview) {
       getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -30,7 +32,7 @@
     initLayout(R.layout.flashcard);
     if (mPrefTextSelection) {
       clipboardSetText("");
-      Lookup.initialize(this,mDeckFilename);
+      Lookup.initialize(this,mCollectionFilename);
     }
     try {
       mCardTemplate=Utils.convertStreamToString(getAssets().open("card_template.html"));
@@ -41,9 +43,9 @@
     }
     mSessionCurrReps=0;
     if (mSpeakText && Integer.valueOf(android.os.Build.VERSION.SDK) > 3) {
-      ReadText.initializeTts(this,mDeckFilename);
+      ReadText.initializeTts(this,mCollectionFilename);
     }
-    if (mPrefWhiteboard && MetaDB.getWhiteboardState(this,mDeckFilename) == 1) {
+    if (mPrefWhiteboard && MetaDB.getWhiteboardState(this,mCollectionFilename) == 1) {
       mShowWhiteboard=true;
       mWhiteboard.setVisibility(View.VISIBLE);
     }

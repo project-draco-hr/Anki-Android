@@ -5,12 +5,12 @@ case MENU_WHITEBOARD:
   if (mShowWhiteboard) {
     mWhiteboard.setVisibility(View.VISIBLE);
     item.setTitle(R.string.hide_whiteboard);
-    MetaDB.storeWhiteboardState(this,mDeckFilename,1);
+    MetaDB.storeWhiteboardState(this,mCollectionFilename,1);
   }
  else {
     mWhiteboard.setVisibility(View.GONE);
     item.setTitle(R.string.show_whiteboard);
-    MetaDB.storeWhiteboardState(this,mDeckFilename,0);
+    MetaDB.storeWhiteboardState(this,mCollectionFilename,0);
   }
 return true;
 case MENU_CLEAR_WHITEBOARD:
