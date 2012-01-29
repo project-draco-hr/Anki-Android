@@ -147,7 +147,6 @@ showDialog(DIALOG_DECK_SELECT);
 }
 }
 );
-mModified=false;
 SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
 mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
 if (mPrefFixArabic && !mAddNote) {
@@ -161,16 +160,30 @@ showDialog(DIALOG_TAGS_SELECT);
 );
 mSave.setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
-if (mAddNote) {
 if (duplicateCheck(true)) {
 return;
 }
+boolean modified=false;
 for (FieldEditText f : mEditFields) {
-f.updateField();
+modified=modified || f.updateField();
 }
+if (mAddNote) {
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ADD_FACT,mSaveFactHandler,new DeckTask.TaskData(mEditorNote));
 }
  else {
+for (String t : mCurrentTags) {
+modified=modified || !mEditorNote.hasTag(t);
+}
+modified=modified || mEditorNote.getTags().size() > mCurrentTags.size();
+modified=modified || mEditorNote.getDid() != mCurrentDid;
+if (modified) {
+mEditorNote.setTags(mCurrentTags);
+Reviewer.getEditorCard().setDid(mCurrentDid);
+closeCardEditor(RESULT_OK);
+}
+ else {
+closeCardEditor(RESULT_CANCELED);
+}
 }
 }
 }

@@ -1,16 +1,9 @@
 {
   super(context);
-  mField=field;
+  mOrd=ord;
+  mName=value[0];
   mContext=context;
-  String content=null;
-  int ord;
-  try {
-    ord=mField.getInt("ord");
-  }
- catch (  JSONException e) {
-    throw new RuntimeException(e);
-  }
-  content=mEditorNote.values()[ord];
+  String content=value[1];
   if (content == null) {
     content="";
   }

@@ -22,5 +22,5 @@
     }
   }
   mModel=mCol.getModels().get(mMid);
-  mFMap=mCol.getModels().fieldMap(mModel);
+  mFMap=mCol.getModels().orderedFields(mModel);
 }

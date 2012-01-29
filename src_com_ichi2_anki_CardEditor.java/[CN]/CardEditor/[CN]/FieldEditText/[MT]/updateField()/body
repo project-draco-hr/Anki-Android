@@ -3,15 +3,8 @@
     updateContentAfterWordSelection(FieldEditText.this.getText());
   }
   String newValue=this.getText().toString();
-  int ord;
-  try {
-    ord=mField.getInt("ord");
-  }
- catch (  JSONException e) {
-    throw new RuntimeException(e);
-  }
-  if (!mEditorNote.values()[ord].equals(newValue)) {
-    mEditorNote.values()[ord]=newValue;
+  if (!mEditorNote.values()[mOrd].equals(newValue)) {
+    mEditorNote.values()[mOrd]=newValue;
     return true;
   }
   return false;

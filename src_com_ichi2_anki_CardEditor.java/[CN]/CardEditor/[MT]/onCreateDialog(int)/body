@@ -7,19 +7,22 @@ case DIALOG_TAGS_SELECT:
     builder.setTitle(R.string.studyoptions_limit_select_tags);
   builder.setPositiveButton(res.getString(R.string.select),new OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int which){
-      mEditorNote.setTags(selectedTags);
-      try {
-        JSONArray ja=new JSONArray();
-        for (        String t : selectedTags) {
-          ja.put(t);
+      if (mAddNote) {
+        try {
+          JSONArray ja=new JSONArray();
+          for (          String t : selectedTags) {
+            ja.put(t);
+          }
+          mCol.getModels().current().put("tags",ja);
+          mCol.getModels().setChanged();
         }
-        mEditorNote.model().put("tags",ja);
+ catch (        JSONException e) {
+          throw new RuntimeException(e);
+        }
+        mEditorNote.setTags(selectedTags);
       }
- catch (      JSONException e) {
-        throw new RuntimeException(e);
-      }
+      mCurrentTags=selectedTags;
       updateTags();
-      mCol.getModels().setChanged();
     }
   }
 );
@@ -84,18 +87,20 @@ String[] items=new String[dialogDeckItems.size()];
 dialogDeckItems.toArray(items);
 builder.setItems(items,new DialogInterface.OnClickListener(){
 public void onClick(DialogInterface dialog,int item){
-try {
-long oldDid=mCol.getDecks().get(mEditorNote.getDid()).getLong("id");
 long newId=dialogDeckIds.get(item);
-if (oldDid != newId) {
+if (mCurrentDid != newId) {
+if (mAddNote) {
+try {
 mEditorNote.setDid(newId);
 mEditorNote.model().put("did",newId);
-updateDeck();
 mCol.getModels().setChanged();
-}
 }
  catch (JSONException e) {
 throw new RuntimeException(e);
+}
+}
+mCurrentDid=newId;
+updateDeck();
 }
 }
 }

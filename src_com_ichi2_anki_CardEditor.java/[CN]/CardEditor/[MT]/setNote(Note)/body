@@ -15,6 +15,8 @@
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
+  mCurrentTags=mEditorNote.getTags();
+  mCurrentDid=mEditorNote.getDid();
   updateDeck();
   updateTags();
   populateEditFields();

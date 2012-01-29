@@ -21,7 +21,7 @@
       mFields[i]="";
     }
     mData="";
-    mFMap=mCol.getModels().fieldMap(mModel);
+    mFMap=mCol.getModels().orderedFields(mModel);
     mScm=mCol.getScm();
   }
 }
