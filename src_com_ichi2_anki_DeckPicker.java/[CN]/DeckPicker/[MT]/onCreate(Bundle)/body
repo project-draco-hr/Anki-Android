@@ -102,7 +102,8 @@
   mDeckListView.setOnItemClickListener(mDeckSelHandler);
   mDeckListView.setAdapter(mDeckListAdapter);
   registerForContextMenu(mDeckListView);
-  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_OPEN_COLLECTION,mOpenCollectionHandler,null);
+  String deckPath=preferences.getString("deckPath",AnkiDroidApp.getDefaultAnkiDroidDirectory());
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_OPEN_COLLECTION,mOpenCollectionHandler,new DeckTask.TaskData(deckPath + "/collection.anki2"));
   if (mSwipeEnabled) {
     gestureDetector=new GestureDetector(new MyGestureDetector());
     mDeckListView.setOnTouchListener(new View.OnTouchListener(){
