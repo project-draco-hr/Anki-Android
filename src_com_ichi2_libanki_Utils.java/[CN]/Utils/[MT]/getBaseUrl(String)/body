@@ -1,0 +1,7 @@
+{
+  if (mediaDir.length() != 0 && !mediaDir.equalsIgnoreCase("null")) {
+    Uri mediaDirUri=Uri.fromFile(new File(mediaDir));
+    return mediaDirUri.toString() + "/";
+  }
+  return "";
+}

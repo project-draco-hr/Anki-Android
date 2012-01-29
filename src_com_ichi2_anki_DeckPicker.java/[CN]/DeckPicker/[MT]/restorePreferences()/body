@@ -1,6 +1,6 @@
 {
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
-  mPrefDeckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory());
+  mPrefDeckPath=preferences.getString("deckPath",AnkiDroidApp.getDefaultAnkiDroidDirectory());
   mLastTimeOpened=preferences.getLong("lastTimeOpened",0);
   mSwipeEnabled=preferences.getBoolean("swipe",false);
   final float gestureScale=getResources().getDisplayMetrics().density;

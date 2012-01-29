@@ -1,6 +1,7 @@
 {
   mInBackground=false;
   super.onResume();
+  mCollectionFilename=Collection.currentCollection().getPath();
   if (mShakeEnabled) {
     mSensorManager.registerListener(mSensorListener,mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_NORMAL);
   }

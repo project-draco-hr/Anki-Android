@@ -3,6 +3,8 @@
   mServer=server;
   mLastSave=Utils.now();
   clearUndo();
+  mPath=path;
+  mMedia=new Media(this);
   mModels=new Models(this);
   mDecks=new Decks(this);
   mTags=new Tags(this);
