@@ -44,7 +44,7 @@ builder.setPositiveButton(res.getString(R.string.log_in),new OnClickListener(){
 Intent myAccount=new Intent(StudyOptions.this,MyAccount.class);
 myAccount.putExtra("notLoggedIn",true);
 startActivityForResult(myAccount,LOG_IN);
-if (getApiLevel() > 4) {
+if (Utils.getApiLevel() > 4) {
 ActivityTransitionAnimation.slide(StudyOptions.this,ActivityTransitionAnimation.LEFT);
 }
 }
@@ -417,7 +417,7 @@ mShowRepairDialog=true;
 Intent i=new Intent(StudyOptions.this,Feedback.class);
 dialog.dismiss();
 startActivityForResult(i,REPORT_ERROR);
-if (getApiLevel() > 4) {
+if (Utils.getApiLevel() > 4) {
 ActivityTransitionAnimation.slide(StudyOptions.this,ActivityTransitionAnimation.FADE);
 }
 }

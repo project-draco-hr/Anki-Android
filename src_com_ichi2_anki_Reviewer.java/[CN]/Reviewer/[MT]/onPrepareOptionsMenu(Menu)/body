@@ -1,6 +1,9 @@
 {
   MenuItem item=menu.findItem(MENU_MARK);
-  if (mCurrentCard != null && mCurrentCard.isMarked()) {
+  if (mCurrentCard == null) {
+    return false;
+  }
+  if (mCurrentCard.isMarked()) {
     item.setTitle(R.string.menu_marked);
     item.setIcon(R.drawable.ic_menu_star_on);
   }

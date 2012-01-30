@@ -1,7 +1,7 @@
 {
   if (AnkiDroidApp.isUserLoggedIn()) {
     startActivityForResult(new Intent(this,PersonalDeckPicker.class),DOWNLOAD_PERSONAL_DECK);
-    if (StudyOptions.getApiLevel() > 4) {
+    if (Utils.getApiLevel() > 4) {
       ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
     }
   }
