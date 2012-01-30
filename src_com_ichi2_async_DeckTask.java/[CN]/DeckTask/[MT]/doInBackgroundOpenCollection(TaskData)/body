@@ -7,8 +7,11 @@
     AnkiDroidApp.createDecksDirectoryIfMissing(dbFile.getParentFile());
     try {
       InputStream stream=res.getAssets().open("collection.anki2");
-      Utils.writeToFile(stream,dbFile.getAbsolutePath());
+      Utils.writeToFile(stream,collectionFile);
       stream.close();
+      AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(collectionFile);
+      ankiDB.getDatabase().execSQL("UPDATE col SET crt = " + Utils.intNow());
+      ankiDB.closeDatabase();
     }
  catch (    IOException e) {
       Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
