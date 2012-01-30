@@ -2,13 +2,16 @@
   Log.i(AnkiDroidApp.TAG,"doInBackgroundLoadTutorial");
   Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
   Collection col=params[0].getCollection();
-  String[] questions=res.getStringArray(R.array.tutorial_questions);
-  String[] answers=res.getStringArray(R.array.tutorial_answers);
-  String[] sampleQuestions=res.getStringArray(R.array.tutorial_capitals_questions);
-  String[] sampleAnswers=res.getStringArray(R.array.tutorial_capitals_answers);
   col.getDb().getDatabase().beginTransaction();
   try {
     long did=col.getDecks().id(res.getString(R.string.tutorial_title));
+    if (col.getSched().cardCount("(" + did + ")") > 0) {
+      col.remCards(col.getDecks().cids(did));
+    }
+    String[] questions=res.getStringArray(R.array.tutorial_questions);
+    String[] answers=res.getStringArray(R.array.tutorial_answers);
+    String[] sampleQuestions=res.getStringArray(R.array.tutorial_capitals_questions);
+    String[] sampleAnswers=res.getStringArray(R.array.tutorial_capitals_answers);
     int len=Math.min(questions.length,answers.length);
     for (int i=0; i < len + Math.min(sampleQuestions.length,sampleAnswers.length); i++) {
       Note note=col.newNote();

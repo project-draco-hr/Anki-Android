@@ -8,5 +8,5 @@
     i++;
   }
   removeFailed(ids);
-  mCol.getDb().getDatabase().execSQL("UPDATE cards SET queue = -2 WHERE nid = " + nid);
+  mCol.getDb().execute("UPDATE cards SET queue = -2 WHERE nid = " + nid);
 }
