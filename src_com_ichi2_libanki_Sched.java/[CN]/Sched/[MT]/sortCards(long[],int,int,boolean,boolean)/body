@@ -1,2 +1,38 @@
 {
+  String scids=Utils.ids2str(cids);
+  long now=Utils.intNow();
+  ArrayList<Long> nids=mCol.getDb().queryColumn(Long.class,"SELECT DISTINCT nid FROM cards WHERE type = 0 AND id IN " + scids + " ORDER BY nid",0);
+  if (nids.size() == 0) {
+    return;
+  }
+  HashMap<Long,Long> due=new HashMap<Long,Long>();
+  if (shuffle) {
+    Collections.shuffle(nids);
+  }
+  for (int c=0; c < nids.size(); c++) {
+    due.put(nids.get(c),(long)(start + c * step));
+  }
+  int high=start + step * nids.size();
+  if (shift) {
+    int low=mCol.getDb().queryScalar("SELECT min(due) FROM cards WHERE due >= " + start + " AND type = 0 AND id NOT IN "+ scids,false);
+    if (low != 0) {
+      int shiftby=high - low + 1;
+      mCol.getDb().execute("UPDATE cards SET mod = " + now + ", usn = "+ mCol.usn()+ ", due = due + "+ shiftby+ " WHERE id NOT IN "+ scids+ " AND due >= "+ low);
+    }
+  }
+  ArrayList<Object[]> d=new ArrayList<Object[]>();
+  Cursor cur=null;
+  try {
+    cur=mCol.getDb().getDatabase().rawQuery("SELECT id, nid FROM cards WHERE type = 0 AND id IN " + scids,null);
+    while (cur.moveToNext()) {
+      long nid=cur.getLong(1);
+      d.add(new Object[]{due.get(nid),now,mCol.usn(),cur.getLong(0)});
+    }
+  }
+  finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+  mCol.getDb().executeMany("UPDATE cards SET due = ?, mod = ?, usn = ? WHERE id = ?",d);
 }

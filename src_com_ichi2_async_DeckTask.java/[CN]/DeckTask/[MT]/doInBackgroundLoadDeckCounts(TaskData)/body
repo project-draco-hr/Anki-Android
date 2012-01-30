@@ -1,5 +1,13 @@
 {
   Collection col=params[0].getCollection();
   TreeSet<Object[]> decks=col.getSched().deckDueTree(true);
-  return new TaskData(decks);
+  int[] counts=new int[]{0,0,0};
+  for (  Object[] deck : decks) {
+    if (((String[])deck[0]).length == 1) {
+      counts[0]+=(Integer)deck[2];
+      counts[1]+=(Integer)deck[3];
+      counts[2]+=(Integer)deck[4];
+    }
+  }
+  return new TaskData(new Object[]{decks,col.getSched().eta(counts),col.cardCount()});
 }

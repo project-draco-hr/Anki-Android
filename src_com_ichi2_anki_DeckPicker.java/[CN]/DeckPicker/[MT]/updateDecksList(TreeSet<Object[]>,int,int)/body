@@ -1,5 +1,6 @@
 {
   mDeckList.clear();
+  int due=0;
   for (  Object[] d : decks) {
     HashMap<String,String> m=new HashMap<String,String>();
     String[] name=((String[])d[0]);
@@ -11,6 +12,7 @@
     m.put("complMat",((Float)d[5]).toString());
     m.put("complAll",((Float)d[6]).toString());
     if (name.length == 1) {
+      due+=Integer.parseInt(m.get("new")) + Integer.parseInt(m.get("lrn")) + Integer.parseInt(m.get("rev"));
       m.put("sep","top");
       if (mDeckList.size() > 0) {
         HashMap<String,String> map=mDeckList.get(mDeckList.size() - 1);
@@ -36,4 +38,13 @@
     mDeckList.add(m);
   }
   mDeckListAdapter.notifyDataSetChanged();
+  Resources res=getResources();
+  if (eta != -1) {
+    eta/=60;
+    String time=res.getQuantityString(R.plurals.deckpicker_title_minutes,eta,eta);
+    setTitle(res.getQuantityString(R.plurals.deckpicker_title,due,due,count,time));
+  }
+ else {
+    setTitle(res.getString(R.string.app_name));
+  }
 }

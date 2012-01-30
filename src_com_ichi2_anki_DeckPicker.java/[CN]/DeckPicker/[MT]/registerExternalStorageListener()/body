@@ -9,7 +9,6 @@
  else         if (action.equals(Intent.ACTION_MEDIA_MOUNTED)) {
           Log.i(AnkiDroidApp.TAG,"DeckPicker - mUnmountReceiver, Action = Media Mounted");
           mDeckIsSelected=false;
-          setTitleText();
         }
       }
     }

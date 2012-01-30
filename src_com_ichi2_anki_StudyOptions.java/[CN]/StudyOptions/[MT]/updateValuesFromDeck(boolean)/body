@@ -1,12 +1,13 @@
 {
   Resources res=getResources();
-  String[] name;
+  String fullName;
   try {
-    name=mCol.getDecks().current().getString("name").split("::");
+    fullName=mCol.getDecks().current().getString("name");
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
+  String[] name=fullName.split("::");
   StringBuilder nameBuilder=new StringBuilder();
   if (name.length > 0) {
     nameBuilder.append(name[0]);
@@ -18,6 +19,7 @@
     nameBuilder.append("\n").append(name[name.length - 1]);
   }
   mTextDeckName.setText(nameBuilder.toString());
+  setTitle(fullName);
   String desc=mCol.getDecks().getActualDescription();
   if (desc.length() > 0) {
     mTextDeckDescription.setText(desc);
