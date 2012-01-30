@@ -9,7 +9,6 @@
       }
  else       if (e2.getY() - e1.getY() > DeckPicker.sSwipeMinDistance && Math.abs(velocityY) > DeckPicker.sSwipeThresholdVelocity && Math.abs(e1.getX() - e2.getX()) < DeckPicker.sSwipeMaxOffPath) {
         mStatisticType=0;
-        openStatistics(0);
       }
  else       if (e1.getY() - e2.getY() > DeckPicker.sSwipeMinDistance && Math.abs(velocityY) > DeckPicker.sSwipeThresholdVelocity && Math.abs(e1.getX() - e2.getX()) < DeckPicker.sSwipeMaxOffPath) {
         addNote();

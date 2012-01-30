@@ -1,7 +1,7 @@
 {
   Resources res=getResources();
   XYSeriesRenderer renderer=new XYSeriesRenderer();
-  if (type <= Statistics.TYPE_CUMULATIVE_DUE) {
+  if (type <= 2) {
 switch (row) {
 case 0:
       renderer.setColor(res.getColor(R.color.statistics_due_young_cards));
@@ -13,7 +13,7 @@ case 2:
 break;
 }
 }
- else if (type == Statistics.TYPE_REVIEWS) {
+ else if (type == 3) {
 switch (row) {
 case 0:
 break;

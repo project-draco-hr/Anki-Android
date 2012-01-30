@@ -1,0 +1,45 @@
+{
+  mType=type;
+  int start=0;
+  int end=0;
+  int chunk=0;
+switch (type) {
+case TYPE_MONTH:
+    end=31;
+  chunk=1;
+break;
+case TYPE_YEAR:
+end=52;
+chunk=7;
+break;
+case TYPE_LIFE:
+end=-1;
+chunk=30;
+break;
+}
+String lim=" AND due - " + mCol.getSched().getToday() + " >= "+ start;
+if (end != -1) {
+lim+=" AND day < " + end;
+}
+ArrayList<int[]> dues=new ArrayList<int[]>();
+Cursor cur=null;
+try {
+cur=mCol.getDb().getDatabase().rawQuery("SELECT (due - " + mCol.getSched().getToday() + ")/"+ chunk+ " AS day, "+ "count(), "+ "sum(CASE WHEN ivl >= 21 THEN 1 ELSE 0 END) "+ "FROM cards WHERE queue = 2"+ lim+ " GROUP BY day ORDER BY day",null);
+while (cur.moveToNext()) {
+dues.add(new int[]{cur.getInt(0),cur.getInt(1),cur.getInt(2)});
+}
+}
+  finally {
+if (cur != null && !cur.isClosed()) {
+cur.close();
+}
+}
+mSeriesList=new double[2][dues.size()];
+mXAxisList=new int[dues.size()];
+for (int i=0; i < dues.size(); i++) {
+int[] data=dues.get(i);
+mXAxisList[i]=data[0];
+mSeriesList[0][i]=data[1];
+mSeriesList[1][i]=data[2];
+}
+}

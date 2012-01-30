@@ -1,3 +1,7 @@
 {
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundLoadStatistics");
+  Collection col=Collection.currentCollection();
+  Stats stats=new Stats(col);
+  stats.calculateDue(Stats.TYPE_MONTH);
   return null;
 }
