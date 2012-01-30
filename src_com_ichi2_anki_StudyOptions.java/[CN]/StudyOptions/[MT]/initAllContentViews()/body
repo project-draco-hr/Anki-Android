@@ -1,7 +1,6 @@
 {
   mStudyOptionsView=getLayoutInflater().inflate(R.layout.studyoptions,null);
   Themes.setContentStyle(mStudyOptionsView,Themes.CALLER_STUDYOPTIONS);
-  mStudyOptionsMain=(View)mStudyOptionsView.findViewById(R.id.studyoptions_main);
   mTextDeckName=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_name);
   Themes.setTitleStyle(mTextDeckName);
   mDeckInformation=(LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_deckinformation);
