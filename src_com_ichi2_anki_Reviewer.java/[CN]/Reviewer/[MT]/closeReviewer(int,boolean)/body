@@ -12,6 +12,8 @@
   }
  else {
     finish();
-    ActivityTransitionAnimation.slide(Reviewer.this,ActivityTransitionAnimation.RIGHT);
+    if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+      ActivityTransitionAnimation.slide(Reviewer.this,ActivityTransitionAnimation.RIGHT);
+    }
   }
 }
