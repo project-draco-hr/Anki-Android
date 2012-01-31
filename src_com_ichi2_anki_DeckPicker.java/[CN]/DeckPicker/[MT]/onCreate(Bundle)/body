@@ -41,7 +41,7 @@
   mStatsButton=(ImageButton)findViewById(R.id.statistics_all_button);
   mStatsButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View v){
-      mStatsButton.setEnabled(false);
+      showDialog(DIALOG_SELECT_STATISTICS_TYPE);
     }
   }
 );
