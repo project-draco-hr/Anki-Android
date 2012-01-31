@@ -1,7 +1,8 @@
 {
   Log.i(AnkiDroidApp.TAG,"doInBackgroundLoadStatistics");
-  Collection col=Collection.currentCollection();
+  Collection col=params[0].getCollection();
+  int type=params[0].getInt();
   Stats stats=new Stats(col);
-  stats.calculateDue(Stats.TYPE_MONTH);
+  stats.calculateDue(PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).getInt("statsType",Stats.TYPE_MONTH));
   return null;
 }
