@@ -10,7 +10,7 @@
       Utils.writeToFile(stream,collectionFile);
       stream.close();
       AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(collectionFile);
-      ankiDB.execute("UPDATE col SET crt = " + Utils.intNow());
+      ankiDB.execute("UPDATE col SET crt = 0");
       ankiDB.closeDatabase();
     }
  catch (    IOException e) {
