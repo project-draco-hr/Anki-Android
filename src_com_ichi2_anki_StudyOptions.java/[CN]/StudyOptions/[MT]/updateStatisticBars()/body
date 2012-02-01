@@ -1,8 +1,6 @@
 {
-  if (mStatisticBarsMax == 0) {
-    mStatisticBarsMax=mBarsMax.getWidth();
-    mStatisticBarsHeight=mBarsMax.getHeight();
-  }
-  Utils.updateProgressBars(this,mGlobalMatBar,mProgressMature,mStatisticBarsMax,mStatisticBarsHeight,false);
-  Utils.updateProgressBars(this,mGlobalBar,(mProgressAll == 1.0) ? 1.0 : mProgressAll - mProgressMature,mStatisticBarsMax,mStatisticBarsHeight,false);
+  int maxWidth=mBarsMax.getWidth();
+  int maxHeight=mBarsMax.getHeight();
+  Utils.updateProgressBars(this,mGlobalMatBar,mProgressMature,maxWidth,maxHeight,false);
+  Utils.updateProgressBars(this,mGlobalBar,(mProgressAll == 1.0) ? 1.0 : mProgressAll - mProgressMature,maxWidth,maxHeight,false);
 }

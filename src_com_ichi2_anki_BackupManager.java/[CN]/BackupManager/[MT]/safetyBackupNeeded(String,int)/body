@@ -1,30 +1,3 @@
 {
-  if (mDeckPickerDecks == null) {
-    initBackup();
-  }
-  if (!mUseBackups || mDeckPickerDecks.contains(deckpath)) {
-    return false;
-  }
-  File[] deckBackups=getDeckBackups(new File(deckpath));
-  int len=deckBackups.length;
-  if (len == 0) {
-    return true;
-  }
-  String backupDateString=deckBackups[len - 1].getName().replaceAll("^.*-(\\d{4}-\\d{2}-\\d{2}).anki$","$1");
-  Date backupDate;
-  try {
-    backupDate=new SimpleDateFormat("yyyy-MM-dd").parse(backupDateString);
-  }
- catch (  ParseException e) {
-    Log.e(AnkiDroidApp.TAG,"BackupManager - safetyBackupNeeded - Error on parsing backups: " + e);
-    return true;
-  }
-  Date target=Utils.genToday(Utils.utcOffset() + (days * 86400));
-  if (backupDate.before(target)) {
-    return true;
-  }
- else {
-    mDeckPickerDecks.add(deckpath);
-    return false;
-  }
+  return false;
 }

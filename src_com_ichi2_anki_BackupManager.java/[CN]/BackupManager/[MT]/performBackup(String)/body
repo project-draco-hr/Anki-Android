@@ -1,0 +1,44 @@
+{
+  if (!PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).getBoolean("useBackup",true)) {
+    return;
+  }
+  File collectionFile=new File(path);
+  File[] deckBackups=getBackups(collectionFile);
+  int len=deckBackups.length;
+  if (len > 0 && deckBackups[len - 1].lastModified() == collectionFile.lastModified()) {
+    return;
+  }
+  SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd-HH-mm");
+  df.setTimeZone(TimeZone.getTimeZone("GMT"));
+  Calendar cal=new GregorianCalendar(TimeZone.getTimeZone("GMT"));
+  cal.setTimeInMillis(System.currentTimeMillis());
+  String value=df.format(cal.getTime());
+  String backupFilename;
+  try {
+    backupFilename=String.format(Utils.ENGLISH_LOCALE,collectionFile.getName().replace(".anki2","") + "-%s.anki2",value);
+  }
+ catch (  UnknownFormatConversionException e) {
+    Log.e(AnkiDroidApp.TAG,"performBackup: error on creating backup filename: " + e);
+    return;
+  }
+  File backupFile=new File(getBackupDirectory().getPath(),backupFilename);
+  if (backupFile.exists()) {
+    Log.i(AnkiDroidApp.TAG,"performBackup: No new backup created. Already made one today");
+    return;
+  }
+  if (getFreeDiscSpace(collectionFile) < collectionFile.length() + (MIN_FREE_SPACE * 1024 * 1024)) {
+    Log.e(AnkiDroidApp.TAG,"Not enough space on sd card to backup.");
+    return;
+  }
+  try {
+    InputStream stream=new FileInputStream(collectionFile);
+    Utils.writeToFile(stream,backupFile.getAbsolutePath());
+    stream.close();
+    backupFile.setLastModified(collectionFile.lastModified());
+  }
+ catch (  IOException e) {
+    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
+    Log.e(AnkiDroidApp.TAG,"Backup - Copying of file failed.");
+    return;
+  }
+}

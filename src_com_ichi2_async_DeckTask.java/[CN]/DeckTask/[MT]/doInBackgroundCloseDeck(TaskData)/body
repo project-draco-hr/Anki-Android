@@ -1,6 +1,8 @@
 {
   Log.i(AnkiDroidApp.TAG,"doInBackgroundCloseDeck");
   Collection col=params[0].getCollection();
+  String path=col.getPath();
   col.close(true);
+  BackupManager.performBackup(path);
   return null;
 }
