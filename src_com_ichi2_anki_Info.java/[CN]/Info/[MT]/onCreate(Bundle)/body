@@ -8,6 +8,7 @@
   setContentView(R.layout.info);
   WebView webview=(WebView)findViewById(R.id.info);
   webview.setBackgroundColor(res.getColor(Themes.getBackgroundColor()));
+  ((View)webview.getParent()).setBackgroundColor(res.getColor(Themes.getBackgroundColor()));
   Button continueButton=(Button)findViewById(R.id.info_continue);
   continueButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View arg0){

@@ -176,13 +176,22 @@ builder.setPositiveButton(res.getString(R.string.ok),null);
 dialog=builder.create();
 break;
 case DIALOG_NO_SPACE_LEFT:
-builder.setMessage(res.getString(R.string.sd_space_warning));
-builder.setNegativeButton(res.getString(R.string.dont_show_again),new DialogInterface.OnClickListener(){
-@Override public void onClick(DialogInterface arg0,int arg1){
-PrefSettings.getSharedPrefs(getBaseContext()).edit().putBoolean("dontShowLowMemory",true).commit();
+builder.setMessage(res.getString(R.string.sd_space_warning,BackupManager.MIN_FREE_SPACE));
+builder.setPositiveButton(res.getString(R.string.ok),new DialogInterface.OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+loadCollection();
 }
 }
 );
+builder.setCancelable(true);
+builder.setOnCancelListener(new OnCancelListener(){
+@Override public void onCancel(DialogInterface arg0){
+loadCollection();
+}
+}
+);
+dialog=builder.create();
+break;
 default :
 dialog=null;
 }

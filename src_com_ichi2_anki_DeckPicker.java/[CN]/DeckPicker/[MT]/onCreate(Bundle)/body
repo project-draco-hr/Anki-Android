@@ -14,7 +14,6 @@
   super.onCreate(savedInstanceState);
   Intent intent=getIntent();
   SharedPreferences preferences=restorePreferences();
-  showOtherScreensIfNecessary(preferences);
   View mainView=getLayoutInflater().inflate(R.layout.deck_picker,null);
   setContentView(mainView);
   Themes.setContentStyle(mainView,Themes.CALLER_DECKPICKER);
@@ -102,8 +101,7 @@
   mDeckListView.setOnItemClickListener(mDeckSelHandler);
   mDeckListView.setAdapter(mDeckListAdapter);
   registerForContextMenu(mDeckListView);
-  String deckPath=preferences.getString("deckPath",AnkiDroidApp.getDefaultAnkiDroidDirectory());
-  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_OPEN_COLLECTION,mOpenCollectionHandler,new DeckTask.TaskData(deckPath + "/collection.anki2"));
+  showOtherScreensIfNecessary(preferences);
   if (mSwipeEnabled) {
     gestureDetector=new GestureDetector(new MyGestureDetector());
     mDeckListView.setOnTouchListener(new View.OnTouchListener(){

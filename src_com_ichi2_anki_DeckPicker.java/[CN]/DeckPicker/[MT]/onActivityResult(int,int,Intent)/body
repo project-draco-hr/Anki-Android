@@ -6,6 +6,9 @@
  else   if (requestCode == ADD_NOTE && resultCode != RESULT_CANCELED) {
     DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK_COUNTS,mLoadCountsHandler,new TaskData(mCol));
   }
+ else   if (requestCode == REPORT_ERROR) {
+    showOtherScreensIfNecessary(PrefSettings.getSharedPrefs(getBaseContext()));
+  }
  else   if (requestCode == SHOW_INFO) {
     if (resultCode == RESULT_OK) {
       showOtherScreensIfNecessary(PrefSettings.getSharedPrefs(getBaseContext()));

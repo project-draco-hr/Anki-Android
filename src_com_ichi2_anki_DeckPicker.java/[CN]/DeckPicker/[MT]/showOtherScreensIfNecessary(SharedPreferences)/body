@@ -25,4 +25,7 @@
  else   if (!BackupManager.enoughDiscSpace(mPrefDeckPath) && !preferences.getBoolean("dontShowLowMemory",false)) {
     showDialog(DIALOG_NO_SPACE_LEFT);
   }
+ else {
+    loadCollection();
+  }
 }

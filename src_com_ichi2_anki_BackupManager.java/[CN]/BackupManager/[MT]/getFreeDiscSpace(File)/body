@@ -3,7 +3,6 @@
     StatFs stat=new StatFs(file.getParentFile().getPath());
     long blocks=stat.getAvailableBlocks();
     long blocksize=stat.getBlockSize();
-    long muh=blocks * blocksize;
     return blocks * blocksize;
   }
  catch (  IllegalArgumentException e) {
