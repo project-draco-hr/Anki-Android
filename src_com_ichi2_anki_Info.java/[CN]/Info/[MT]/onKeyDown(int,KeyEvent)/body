@@ -4,7 +4,7 @@
     setResult(RESULT_CANCELED);
     finish();
     if (UIUtils.getApiLevel() > 4) {
-      ActivityTransitionAnimation.slide(Info.this,ActivityTransitionAnimation.NONE);
+      ActivityTransitionAnimation.slide(Info.this,ActivityTransitionAnimation.LEFT);
     }
     return true;
   }

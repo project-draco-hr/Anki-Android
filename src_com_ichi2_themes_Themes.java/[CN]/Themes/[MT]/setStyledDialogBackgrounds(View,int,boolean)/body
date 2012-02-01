@@ -32,6 +32,7 @@
     LinearLayout buttonPanel=(LinearLayout)main.findViewById(R.id.buttonPanel);
     try {
       buttonPanel.setBackgroundResource(mPopupBottomMedium);
+      ((View)main.findViewById(R.id.bottomDivider)).setBackgroundResource(mDividerHorizontalBright);
     }
  catch (    OutOfMemoryError e) {
       Log.e(AnkiDroidApp.TAG,"setStyledDialogBackgrounds - OutOfMemoryError occured: " + e);
@@ -102,6 +103,7 @@
   }
   try {
     customPanel.setBackgroundResource(res);
+    ((View)main.findViewById(R.id.bottomDivider)).setBackgroundResource(mDividerHorizontalBright);
   }
  catch (  OutOfMemoryError e) {
     Log.e(AnkiDroidApp.TAG,"setStyledDialogBackgrounds - OutOfMemoryError occured: " + e);
