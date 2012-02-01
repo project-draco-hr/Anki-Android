@@ -1,3 +1,36 @@
 {
-  return false;
+  if (!PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).getBoolean("useBackup",true)) {
+    return false;
+  }
+  File collectionFile=new File(path);
+  File[] deckBackups=getBackups(collectionFile);
+  int len=deckBackups.length;
+  if (len == 0) {
+    return true;
+  }
+ else   if (deckBackups[len - 1].lastModified() == collectionFile.lastModified()) {
+    return false;
+  }
+  SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd-HH-mm");
+  Calendar cal=new GregorianCalendar();
+  cal.setTimeInMillis(System.currentTimeMillis());
+  Date lastBackupDate=null;
+  while (lastBackupDate == null && len > 0) {
+    try {
+      len--;
+      lastBackupDate=df.parse(deckBackups[len].getName().replaceAll("^.*-(\\d{4}-\\d{2}-\\d{2}-\\d{2}-\\d{2}).anki2$","$1"));
+    }
+ catch (    ParseException e) {
+      lastBackupDate=null;
+    }
+  }
+  if (lastBackupDate == null) {
+    return true;
+  }
+ else   if (lastBackupDate.getTime() + days * 24 * 3600000 < Utils.intNow(1000)) {
+    return true;
+  }
+ else {
+    return false;
+  }
 }

@@ -1,6 +1,6 @@
 {
-  String collectionFile=params[0].getString();
   Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
+  String collectionFile=params[0].getString();
   File dbFile=new File(collectionFile);
   if (!dbFile.exists()) {
     Log.i(AnkiDroidApp.TAG,"doInBackgroundOpenCollection: db file does not exist. Creating it...");
@@ -19,6 +19,10 @@
       Collection col=null;
       return new TaskData(col);
     }
+  }
+ else   if (BackupManager.safetyBackupNeeded(collectionFile)) {
+    publishProgress(new TaskData(res.getString(R.string.backup_collection)));
+    BackupManager.performBackup(collectionFile);
   }
   Log.i(AnkiDroidApp.TAG,"doInBackgroundOpenCollection - SD card mounted and existent file -> Loading collection...");
   publishProgress(new TaskData(res.getString(R.string.loading_deck)));
