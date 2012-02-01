@@ -24,6 +24,7 @@ lim+=" AND day < " + end;
 ArrayList<int[]> dues=new ArrayList<int[]>();
 Cursor cur=null;
 try {
+String s="SELECT (due - " + mCol.getSched().getToday() + ")/"+ chunk+ " AS day, "+ "count(), "+ "sum(CASE WHEN ivl >= 21 THEN 1 ELSE 0 END) "+ "FROM cards WHERE did IN "+ _limit()+ " AND queue = 2"+ lim+ " GROUP BY day ORDER BY day";
 cur=mCol.getDb().getDatabase().rawQuery("SELECT (due - " + mCol.getSched().getToday() + ")/"+ chunk+ " AS day, "+ "count(), "+ "sum(CASE WHEN ivl >= 21 THEN 1 ELSE 0 END) "+ "FROM cards WHERE did IN "+ _limit()+ " AND queue = 2"+ lim+ " GROUP BY day ORDER BY day",null);
 while (cur.moveToNext()) {
 dues.add(new int[]{cur.getInt(0),cur.getInt(1),cur.getInt(2)});
@@ -34,12 +35,11 @@ if (cur != null && !cur.isClosed()) {
 cur.close();
 }
 }
-mSeriesList=new double[2][dues.size()];
-mXAxisList=new int[dues.size()];
+mSeriesList=new double[3][dues.size()];
 for (int i=0; i < dues.size(); i++) {
 int[] data=dues.get(i);
-mXAxisList[i]=data[0];
-mSeriesList[0][i]=data[1];
-mSeriesList[1][i]=data[2];
+mSeriesList[0][i]=data[0];
+mSeriesList[1][i]=data[1];
+mSeriesList[2][i]=data[2];
 }
 }
