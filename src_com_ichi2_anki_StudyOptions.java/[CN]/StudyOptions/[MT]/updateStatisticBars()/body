@@ -1,7 +1,17 @@
 {
-  int maxWidth=mBarsMax.getWidth() + 1;
-  int height=mBarsMax.getHeight();
-  int mat=(int)(mProgressMature * maxWidth);
-  Utils.updateProgressBars(mGlobalMatBar,mat,height);
-  Utils.updateProgressBars(mGlobalBar,(int)(mProgressAll * maxWidth) - mat,height);
+  mGlobalMatBar.setVisibility(View.INVISIBLE);
+  mGlobalBar.setVisibility(View.INVISIBLE);
+  mBarsMax.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener(){
+    @Override public void onGlobalLayout(){
+      mBarsMax.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+      int maxWidth=mBarsMax.getWidth() + 1;
+      int height=mBarsMax.getHeight();
+      int mat=(int)(mProgressMature * maxWidth);
+      Utils.updateProgressBars(mGlobalMatBar,mat,height);
+      Utils.updateProgressBars(mGlobalBar,(int)(mProgressAll * maxWidth) - mat,height);
+      mGlobalMatBar.setVisibility(View.VISIBLE);
+      mGlobalBar.setVisibility(View.VISIBLE);
+    }
+  }
+);
 }
