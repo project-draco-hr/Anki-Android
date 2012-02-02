@@ -4,7 +4,7 @@
   StyledDialog.Builder builder=new StyledDialog.Builder(this);
 switch (id) {
 case DIALOG_TAGS_SELECT:
-    builder.setTitle(R.string.studyoptions_limit_select_tags);
+    builder.setTitle(R.string.card_details_tags);
   builder.setPositiveButton(res.getString(R.string.select),new OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int which){
       if (mAddNote) {
@@ -112,7 +112,7 @@ ArrayList<CharSequence> dialogItems=new ArrayList<CharSequence>();
 final ArrayList<Long> dialogIds=new ArrayList<Long>();
 ArrayList<JSONObject> models=mCol.getModels().all();
 Collections.sort(models,new JSONNameComparator());
-builder.setTitle(R.string.card_type);
+builder.setTitle(R.string.note_type);
 for (JSONObject m : models) {
 try {
 dialogItems.add(m.getString("name"));
