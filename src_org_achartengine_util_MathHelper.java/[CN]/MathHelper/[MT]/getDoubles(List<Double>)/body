@@ -1,0 +1,8 @@
+{
+  int length=values.size();
+  double[] result=new double[length];
+  for (int i=0; i < length; i++) {
+    result[i]=values.get(i).doubleValue();
+  }
+  return result;
+}

@@ -1,0 +1,9 @@
+{
+  XYSeries xySeries=new XYSeries(getTitle());
+  int length=getItemCount();
+  for (int k=0; k < length; k++) {
+    xySeries.add(k + 1,getMinimumValue(k));
+    xySeries.add(k + 1.000001,getMaximumValue(k));
+  }
+  return xySeries;
+}

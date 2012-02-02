@@ -1,0 +1,37 @@
+{
+  int action=event.getAction();
+  if (mRenderer != null && action == MotionEvent.ACTION_MOVE) {
+    if (oldX >= 0 || oldY >= 0) {
+      float newX=event.getX();
+      float newY=event.getY();
+      if (mRenderer.isPanEnabled()) {
+        mPan.apply(oldX,oldY,newX,newY);
+      }
+      oldX=newX;
+      oldY=newY;
+      graphicalView.repaint();
+      return true;
+    }
+  }
+ else   if (action == MotionEvent.ACTION_DOWN) {
+    oldX=event.getX();
+    oldY=event.getY();
+    if (mRenderer != null && mRenderer.isZoomEnabled() && zoomR.contains(oldX,oldY)) {
+      if (oldX < zoomR.left + zoomR.width() / 3) {
+        graphicalView.zoomIn();
+      }
+ else       if (oldX < zoomR.left + zoomR.width() * 2 / 3) {
+        graphicalView.zoomOut();
+      }
+ else {
+        graphicalView.zoomReset();
+      }
+      return true;
+    }
+  }
+ else   if (action == MotionEvent.ACTION_UP) {
+    oldX=0;
+    oldY=0;
+  }
+  return !mRenderer.isClickEnabled();
+}

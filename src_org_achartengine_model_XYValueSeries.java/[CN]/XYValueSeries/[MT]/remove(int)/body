@@ -1,0 +1,7 @@
+{
+  super.remove(index);
+  double removedValue=mValue.remove(index);
+  if (removedValue == mMinValue || removedValue == mMaxValue) {
+    initRange();
+  }
+}

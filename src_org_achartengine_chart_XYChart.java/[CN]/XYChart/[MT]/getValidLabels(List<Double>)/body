@@ -1,0 +1,9 @@
+{
+  List<Double> result=new ArrayList<Double>(labels);
+  for (  Double label : labels) {
+    if (label.isNaN()) {
+      result.remove(label);
+    }
+  }
+  return result;
+}

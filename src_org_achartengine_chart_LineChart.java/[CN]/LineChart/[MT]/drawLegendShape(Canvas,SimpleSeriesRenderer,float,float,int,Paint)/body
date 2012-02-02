@@ -1,0 +1,6 @@
+{
+  canvas.drawLine(x,y,x + SHAPE_WIDTH,y,paint);
+  if (isRenderPoints(renderer)) {
+    pointsChart.drawLegendShape(canvas,renderer,x + 5,y,seriesIndex,paint);
+  }
+}

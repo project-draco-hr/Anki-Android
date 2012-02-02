@@ -1,0 +1,6 @@
+{
+  SimpleSeriesRenderer[] renderers=getSeriesRenderers();
+  for (  SimpleSeriesRenderer renderer : renderers) {
+    renderer.setDisplayChartValues(display);
+  }
+}

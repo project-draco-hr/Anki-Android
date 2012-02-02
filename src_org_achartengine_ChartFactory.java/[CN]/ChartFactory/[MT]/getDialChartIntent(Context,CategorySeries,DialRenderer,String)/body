@@ -1,0 +1,8 @@
+{
+  checkParameters(dataset,renderer);
+  Intent intent=new Intent(context,GraphicalActivity.class);
+  DialChart chart=new DialChart(dataset,renderer);
+  intent.putExtra(CHART,chart);
+  intent.putExtra(TITLE,activityTitle);
+  return intent;
+}

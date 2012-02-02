@@ -1,0 +1,21 @@
+{
+  if (Math.abs(start - end) < 0.0000001f) {
+    return new double[]{start,start,0};
+  }
+  double s=start;
+  double e=end;
+  boolean switched=false;
+  if (s > e) {
+    switched=true;
+    double tmp=s;
+    s=e;
+    e=tmp;
+  }
+  double xStep=roundUp(Math.abs(s - e) / approxNumLabels);
+  double xStart=xStep * Math.ceil(s / xStep);
+  double xEnd=xStep * Math.floor(e / xStep);
+  if (switched) {
+    return new double[]{xEnd,xStart,-1.0 * xStep};
+  }
+  return new double[]{xStart,xEnd,xStep};
+}

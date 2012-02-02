@@ -1,0 +1,10 @@
+{
+  int scale=mDataset.getSeriesAt(seriesIndex).getScaleNumber();
+  if (mType == Type.STACKED) {
+    drawBar(canvas,xMin - halfDiffX,yMax,xMax + halfDiffX,yMin,scale,seriesIndex,paint);
+  }
+ else {
+    float startX=xMin - seriesNr * halfDiffX + seriesIndex * 2 * halfDiffX;
+    drawBar(canvas,startX,yMax,startX + 2 * halfDiffX,yMin,scale,seriesIndex,paint);
+  }
+}

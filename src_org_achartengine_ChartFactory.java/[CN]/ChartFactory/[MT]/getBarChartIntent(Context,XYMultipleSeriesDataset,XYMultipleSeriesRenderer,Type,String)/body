@@ -1,0 +1,8 @@
+{
+  checkParameters(dataset,renderer);
+  Intent intent=new Intent(context,GraphicalActivity.class);
+  BarChart chart=new BarChart(dataset,renderer,type);
+  intent.putExtra(CHART,chart);
+  intent.putExtra(TITLE,activityTitle);
+  return intent;
+}

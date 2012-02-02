@@ -1,0 +1,5 @@
+{
+  double angleDiff=maxAngle - minAngle;
+  double diff=max - min;
+  return Math.toRadians(minAngle + (value - min) * angleDiff / diff);
+}

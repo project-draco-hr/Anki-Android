@@ -1,0 +1,66 @@
+{
+  int action=event.getAction();
+  if (mRenderer != null && action == MotionEvent.ACTION_MOVE) {
+    if (oldX >= 0 || oldY >= 0) {
+      float newX=event.getX(0);
+      float newY=event.getY(0);
+      if (event.getPointerCount() > 1 && (oldX2 >= 0 || oldY2 >= 0) && mRenderer.isZoomEnabled()) {
+        float newX2=event.getX(1);
+        float newY2=event.getY(1);
+        float newDeltaX=Math.abs(newX - newX2);
+        float newDeltaY=Math.abs(newY - newY2);
+        float oldDeltaX=Math.abs(oldX - oldX2);
+        float oldDeltaY=Math.abs(oldY - oldY2);
+        float zoomRate=1;
+        if (Math.abs(newX - oldX) >= Math.abs(newY - oldY)) {
+          zoomRate=newDeltaX / oldDeltaX;
+        }
+ else {
+          zoomRate=newDeltaY / oldDeltaY;
+        }
+        if (zoomRate > 0.909 && zoomRate < 1.1) {
+          mPinchZoom.setZoomRate(zoomRate);
+          mPinchZoom.apply();
+        }
+        oldX2=newX2;
+        oldY2=newY2;
+      }
+ else       if (mRenderer.isPanEnabled()) {
+        mPan.apply(oldX,oldY,newX,newY);
+        oldX2=0;
+        oldY2=0;
+      }
+      oldX=newX;
+      oldY=newY;
+      graphicalView.repaint();
+      return true;
+    }
+  }
+ else   if (action == MotionEvent.ACTION_DOWN) {
+    oldX=event.getX(0);
+    oldY=event.getY(0);
+    if (mRenderer != null && mRenderer.isZoomEnabled() && zoomR.contains(oldX,oldY)) {
+      if (oldX < zoomR.left + zoomR.width() / 3) {
+        graphicalView.zoomIn();
+      }
+ else       if (oldX < zoomR.left + zoomR.width() * 2 / 3) {
+        graphicalView.zoomOut();
+      }
+ else {
+        graphicalView.zoomReset();
+      }
+      return true;
+    }
+  }
+ else   if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_POINTER_UP) {
+    oldX=0;
+    oldY=0;
+    oldX2=0;
+    oldY2=0;
+    if (action == MotionEvent.ACTION_POINTER_UP) {
+      oldX=-1;
+      oldY=-1;
+    }
+  }
+  return !mRenderer.isClickEnabled();
+}

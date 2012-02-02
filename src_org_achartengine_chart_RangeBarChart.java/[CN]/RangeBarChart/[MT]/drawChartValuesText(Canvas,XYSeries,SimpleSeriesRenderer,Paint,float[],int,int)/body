@@ -1,0 +1,21 @@
+{
+  int seriesNr=mDataset.getSeriesCount();
+  float halfDiffX=getHalfDiffX(points,points.length,seriesNr);
+  int start=0;
+  if (startIndex > 0) {
+    start=2;
+  }
+  for (int i=start; i < points.length; i+=4) {
+    int index=startIndex + i / 2;
+    float x=points[i];
+    if (mType == Type.DEFAULT) {
+      x+=seriesIndex * 2 * halfDiffX - (seriesNr - 1.5f) * halfDiffX;
+    }
+    if (!isNullValue(series.getY(index + 1)) && points.length > i + 3) {
+      drawText(canvas,getLabel(series.getY(index + 1)),x,points[i + 3] - renderer.getChartValuesSpacing(),paint,0);
+    }
+    if (!isNullValue(series.getY(index)) && points.length > i + 1) {
+      drawText(canvas,getLabel(series.getY(index)),x,points[i + 1] + renderer.getChartValuesTextSize() + renderer.getChartValuesSpacing() - 3,paint,0);
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  Map<Integer,List<Double>> allYLabels=new HashMap<Integer,List<Double>>();
+  for (int i=0; i < maxScaleNumber; i++) {
+    allYLabels.put(i,getValidLabels(MathHelper.getLabels(minY[i],maxY[i],mRenderer.getYLabels())));
+  }
+  return allYLabels;
+}

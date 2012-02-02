@@ -1,0 +1,16 @@
+{
+  if (clickableAreas != null)   for (int seriesIndex=clickableAreas.size() - 1; seriesIndex >= 0; seriesIndex--) {
+    int pointIndex=0;
+    if (clickableAreas.get(seriesIndex) != null) {
+      RectF rectangle;
+      for (      ClickableArea area : clickableAreas.get(seriesIndex)) {
+        rectangle=area.getRect();
+        if (rectangle != null && rectangle.contains(screenPoint.getX(),screenPoint.getY())) {
+          return new SeriesSelection(seriesIndex,pointIndex,area.getX(),area.getY());
+        }
+        pointIndex++;
+      }
+    }
+  }
+  return super.getSeriesAndPointForScreenCoordinate(screenPoint);
+}

@@ -1,0 +1,12 @@
+{
+  mMinX[i]=MathHelper.NULL_VALUE;
+  mMaxX[i]=-MathHelper.NULL_VALUE;
+  mMinY[i]=MathHelper.NULL_VALUE;
+  mMaxY[i]=-MathHelper.NULL_VALUE;
+  double[] range=new double[]{mMinX[i],mMaxX[i],mMinY[i],mMaxY[i]};
+  initialRange.put(i,range);
+  mYTitle[i]="";
+  mYTextLabels.put(i,new HashMap<Double,String>());
+  yLabelsAlign[i]=Align.CENTER;
+  yAxisAlign[i]=Align.LEFT;
+}

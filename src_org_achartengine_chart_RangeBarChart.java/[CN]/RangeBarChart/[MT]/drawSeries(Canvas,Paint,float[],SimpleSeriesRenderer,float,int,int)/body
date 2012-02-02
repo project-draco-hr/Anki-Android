@@ -1,0 +1,21 @@
+{
+  int seriesNr=mDataset.getSeriesCount();
+  int length=points.length;
+  paint.setColor(seriesRenderer.getColor());
+  paint.setStyle(Style.FILL);
+  float halfDiffX=getHalfDiffX(points,length,seriesNr);
+  int start=0;
+  if (startIndex > 0) {
+    start=2;
+  }
+  for (int i=start; i < length; i+=4) {
+    if (points.length > i + 3) {
+      float xMin=points[i];
+      float yMin=points[i + 1];
+      float xMax=points[i + 2];
+      float yMax=points[i + 3];
+      drawBar(canvas,xMin,yMin,xMax,yMax,halfDiffX,seriesNr,seriesIndex,paint);
+    }
+  }
+  paint.setColor(seriesRenderer.getColor());
+}

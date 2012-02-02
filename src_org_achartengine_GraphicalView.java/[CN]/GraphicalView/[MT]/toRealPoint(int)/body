@@ -1,0 +1,7 @@
+{
+  if (mChart instanceof XYChart) {
+    XYChart chart=(XYChart)mChart;
+    return chart.toRealPoint(oldX,oldY,scale);
+  }
+  return null;
+}

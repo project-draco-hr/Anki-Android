@@ -1,0 +1,22 @@
+{
+  int length=xLabels.size();
+  if (length > 0) {
+    boolean showLabels=mRenderer.isShowLabels();
+    boolean showGridY=mRenderer.isShowGridY();
+    DateFormat format=getDateFormat(xLabels.get(0),xLabels.get(length - 1));
+    for (int i=0; i < length; i++) {
+      long label=Math.round(xLabels.get(i));
+      float xLabel=(float)(left + xPixelsPerUnit * (label - minX));
+      if (showLabels) {
+        paint.setColor(mRenderer.getXLabelsColor());
+        canvas.drawLine(xLabel,bottom,xLabel,bottom + mRenderer.getLabelsTextSize() / 3,paint);
+        drawText(canvas,format.format(new Date(label)),xLabel,bottom + mRenderer.getLabelsTextSize() * 4 / 3,paint,mRenderer.getXLabelsAngle());
+      }
+      if (showGridY) {
+        paint.setColor(mRenderer.getGridColor());
+        canvas.drawLine(xLabel,bottom,xLabel,top,paint);
+      }
+    }
+  }
+  drawXTextLabels(xTextLabelLocations,canvas,paint,true,left,top,bottom,xPixelsPerUnit,minX,maxX);
+}

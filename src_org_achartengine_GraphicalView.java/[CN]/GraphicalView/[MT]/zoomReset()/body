@@ -1,0 +1,7 @@
+{
+  if (mFitZoom != null) {
+    mFitZoom.apply();
+    mZoomIn.notifyZoomResetListeners();
+    repaint();
+  }
+}

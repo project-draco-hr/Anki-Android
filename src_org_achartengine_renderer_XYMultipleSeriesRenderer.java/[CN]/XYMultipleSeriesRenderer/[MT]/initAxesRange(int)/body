@@ -1,0 +1,14 @@
+{
+  mYTitle=new String[scales];
+  yLabelsAlign=new Align[scales];
+  yAxisAlign=new Align[scales];
+  mYLabelsColor=new int[scales];
+  mMinX=new double[scales];
+  mMaxX=new double[scales];
+  mMinY=new double[scales];
+  mMaxY=new double[scales];
+  for (int i=0; i < scales; i++) {
+    mYLabelsColor[i]=TEXT_COLOR;
+    initAxesRangeForScale(i);
+  }
+}

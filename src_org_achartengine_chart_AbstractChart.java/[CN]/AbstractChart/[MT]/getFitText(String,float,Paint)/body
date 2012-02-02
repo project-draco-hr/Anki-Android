@@ -1,0 +1,13 @@
+{
+  String newText=text;
+  int length=text.length();
+  int diff=0;
+  while (paint.measureText(newText) > width && diff < length) {
+    diff++;
+    newText=text.substring(0,length - diff) + "...";
+  }
+  if (diff == length) {
+    newText="...";
+  }
+  return newText;
+}
