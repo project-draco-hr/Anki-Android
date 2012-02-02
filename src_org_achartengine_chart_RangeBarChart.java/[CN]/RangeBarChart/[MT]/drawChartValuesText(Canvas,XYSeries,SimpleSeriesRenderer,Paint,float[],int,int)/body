@@ -1,6 +1,6 @@
 {
   int seriesNr=mDataset.getSeriesCount();
-  float halfDiffX=getHalfDiffX(points,points.length,seriesNr);
+  float halfDiffX=getHalfDiffX(points,points.length,seriesNr,0);
   int start=0;
   if (startIndex > 0) {
     start=2;

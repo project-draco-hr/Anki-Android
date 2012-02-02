@@ -1,0 +1,5 @@
+{
+  mCharts[seriesIndex].setScreenR(getScreenR());
+  mCharts[seriesIndex].setCalcRange(getCalcRange(mDataset.getSeriesAt(seriesIndex).getScaleNumber()),0);
+  mCharts[seriesIndex].drawSeries(series,canvas,paint,pointsList,seriesRenderer,yAxisValue,0,or,startIndex,range);
+}

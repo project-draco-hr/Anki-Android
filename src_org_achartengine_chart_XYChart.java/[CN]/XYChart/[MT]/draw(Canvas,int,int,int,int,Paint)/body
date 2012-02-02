@@ -121,6 +121,7 @@
     clickableAreas.put(i,clickableArea);
     SortedMap<Double,Double> range=series.getRange(minX[scale],maxX[scale],1);
     int startIndex=-1;
+    int intRange=range.lastKey().intValue() - range.firstKey().intValue();
     for (    Entry<Double,Double> value : range.entrySet()) {
       double xValue=value.getKey();
       double yValue=value.getValue();
@@ -139,8 +140,8 @@
       }
  else {
         if (points.size() > 0) {
-          drawSeries(series,canvas,paint,points,seriesRenderer,yAxisValue,i,or,startIndex);
-          ClickableArea[] clickableAreasForSubSeries=clickableAreasForPoints(MathHelper.getFloats(points),MathHelper.getDoubles(values),yAxisValue,i,startIndex);
+          drawSeries(series,canvas,paint,points,seriesRenderer,yAxisValue,i,or,startIndex,intRange);
+          ClickableArea[] clickableAreasForSubSeries=clickableAreasForPoints(MathHelper.getFloats(points),MathHelper.getDoubles(values),yAxisValue,i,startIndex,intRange);
           clickableArea.addAll(Arrays.asList(clickableAreasForSubSeries));
           points.clear();
           values.clear();
@@ -149,8 +150,8 @@
       }
     }
     if (points.size() > 0) {
-      drawSeries(series,canvas,paint,points,seriesRenderer,yAxisValue,i,or,startIndex);
-      ClickableArea[] clickableAreasForSubSeries=clickableAreasForPoints(MathHelper.getFloats(points),MathHelper.getDoubles(values),yAxisValue,i,startIndex);
+      drawSeries(series,canvas,paint,points,seriesRenderer,yAxisValue,i,or,startIndex,intRange);
+      ClickableArea[] clickableAreasForSubSeries=clickableAreasForPoints(MathHelper.getFloats(points),MathHelper.getDoubles(values),yAxisValue,i,startIndex,intRange);
       clickableArea.addAll(Arrays.asList(clickableAreasForSubSeries));
     }
   }
