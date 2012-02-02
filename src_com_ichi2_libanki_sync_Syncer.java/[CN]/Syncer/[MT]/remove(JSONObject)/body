@@ -6,7 +6,7 @@
     mCol.remCards(Utils.jsonArrayToLongArray(graves.getJSONArray("cards")));
     JSONArray decks=graves.getJSONArray("decks");
     for (int i=0; i < decks.length(); i++) {
-      mCol.getDecks().rem(decks.getLong(i));
+      mCol.getDecks().rem(decks.getLong(i),false,false);
     }
   }
  catch (  JSONException e) {

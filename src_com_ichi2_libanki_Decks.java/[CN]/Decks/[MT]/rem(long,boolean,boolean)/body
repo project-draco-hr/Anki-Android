@@ -1,0 +1,22 @@
+{
+  if (did == 1) {
+    return;
+  }
+  mCol._logRem(new long[]{did},Sched.REM_DECK);
+  if (!mDecks.containsKey(did)) {
+    return;
+  }
+  if (childrenToo) {
+    for (    long id : children(did).values()) {
+      rem(id,cardsToo);
+    }
+  }
+  if (cardsToo) {
+    mCol.remCards(cids(did));
+  }
+  mDecks.remove(did);
+  if (active().contains(did)) {
+    select((long)(mDecks.keySet().iterator().next()));
+  }
+  save();
+}
