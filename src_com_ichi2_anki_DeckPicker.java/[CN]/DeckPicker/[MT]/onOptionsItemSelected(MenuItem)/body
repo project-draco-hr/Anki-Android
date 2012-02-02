@@ -12,9 +12,6 @@ if (UIUtils.getApiLevel() > 4) {
 ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.RIGHT);
 }
 return true;
-case MENU_DOWNLOAD_PERSONAL_DECK:
-openPersonalDeckPicker();
-return true;
 case MENU_DOWNLOAD_SHARED_DECK:
 openSharedDeckPicker();
 return true;
@@ -26,6 +23,9 @@ startActivityForResult(new Intent(DeckPicker.this,Preferences.class),PREFERENCES
 return true;
 case MENU_FEEDBACK:
 startActivityForResult(new Intent(DeckPicker.this,Feedback.class),REPORT_FEEDBACK);
+if (UIUtils.getApiLevel() > 4) {
+ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
+}
 return true;
 default :
 return super.onOptionsItemSelected(item);

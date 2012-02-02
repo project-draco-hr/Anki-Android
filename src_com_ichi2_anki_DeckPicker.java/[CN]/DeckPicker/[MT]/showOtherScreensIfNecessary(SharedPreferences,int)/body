@@ -1,0 +1,31 @@
+{
+  if (skip < 1 && preferences.getLong("lastTimeOpened",0) == 0) {
+    Intent infoIntent=new Intent(this,Info.class);
+    infoIntent.putExtra(Info.TYPE_EXTRA,Info.TYPE_WELCOME);
+    startActivityForResult(infoIntent,SHOW_INFO_WELCOME);
+    if (skip != 0 && UIUtils.getApiLevel() > 4) {
+      ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
+    }
+  }
+ else   if (skip < 2 && !preferences.getString("lastVersion","").equals(AnkiDroidApp.getPkgVersion())) {
+    Intent infoIntent=new Intent(this,Info.class);
+    infoIntent.putExtra(Info.TYPE_EXTRA,Info.TYPE_NEW_VERSION);
+    startActivityForResult(infoIntent,SHOW_INFO_NEW_VERSION);
+    if (skip != 0 && UIUtils.getApiLevel() > 4) {
+      ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
+    }
+  }
+ else   if (skip < 3 && hasErrorFiles()) {
+    Intent i=new Intent(this,Feedback.class);
+    startActivityForResult(i,REPORT_ERROR);
+    if (skip != 0 && UIUtils.getApiLevel() > 4) {
+      ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
+    }
+  }
+ else   if (!BackupManager.enoughDiscSpace(mPrefDeckPath) && !preferences.getBoolean("dontShowLowMemory",false)) {
+    showDialog(DIALOG_NO_SPACE_LEFT);
+  }
+ else {
+    loadCollection();
+  }
+}
