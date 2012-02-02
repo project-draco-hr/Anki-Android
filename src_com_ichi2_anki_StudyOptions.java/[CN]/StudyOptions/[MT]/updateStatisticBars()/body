@@ -1,6 +1,4 @@
 {
-  mGlobalMatBar.setVisibility(View.INVISIBLE);
-  mGlobalBar.setVisibility(View.INVISIBLE);
   mBarsMax.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener(){
     @Override public void onGlobalLayout(){
       mBarsMax.getViewTreeObserver().removeGlobalOnLayoutListener(this);
@@ -9,8 +7,12 @@
       int mat=(int)(mProgressMature * maxWidth);
       Utils.updateProgressBars(mGlobalMatBar,mat,height);
       Utils.updateProgressBars(mGlobalBar,(int)(mProgressAll * maxWidth) - mat,height);
-      mGlobalMatBar.setVisibility(View.VISIBLE);
-      mGlobalBar.setVisibility(View.VISIBLE);
+      if (mGlobalMatBar.getVisibility() == View.INVISIBLE) {
+        mGlobalMatBar.setVisibility(View.VISIBLE);
+        mGlobalMatBar.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_IN,100,0));
+        mGlobalBar.setVisibility(View.VISIBLE);
+        mGlobalBar.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_IN,100,0));
+      }
     }
   }
 );

@@ -19,6 +19,8 @@
   mTextNewTotal=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_total_new);
   mTextTotal=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_total);
   mTextETA=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_eta);
+  mGlobalMatBar.setVisibility(View.INVISIBLE);
+  mGlobalBar.setVisibility(View.INVISIBLE);
   mDeckCounts=(LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_deckcounts);
   mNightMode=(CheckBox)mStudyOptionsView.findViewById(R.id.studyoptions_night_mode);
   mNightMode.setChecked(mInvertedColors);
