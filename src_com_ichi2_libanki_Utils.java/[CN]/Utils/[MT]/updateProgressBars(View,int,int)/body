@@ -1,0 +1,9 @@
+{
+  if (view == null) {
+    return;
+  }
+  LinearLayout.LayoutParams lparam=new LinearLayout.LayoutParams(0,0);
+  lparam.height=y;
+  lparam.width=x;
+  view.setLayoutParams(lparam);
+}
