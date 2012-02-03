@@ -8,6 +8,7 @@
       }
  else       if (entry.getKey().equals("desc")) {
         mDeck.put("desc",(String)entry.getValue());
+        mCol.getDecks().save(mDeck);
       }
  else       if (entry.getKey().equals("deckConf")) {
         mCol.getDecks().setConf(mDeck,Long.parseLong((String)entry.getValue()));
@@ -104,6 +105,7 @@
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
+  mCol.getDecks().save(mOptions);
   cacheValues();
   updateSummaries();
   for (  OnSharedPreferenceChangeListener listener : listeners) {
