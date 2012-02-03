@@ -133,10 +133,13 @@ mCancel.setText(getResources().getString(R.string.close));
 mLater.setVisibility(View.VISIBLE);
 mLater.setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
-MetaDB.saveIntentInformation(CardEditor.this,getFieldsText());
+String content=getFieldsText();
+if (content.length() > mEditFields.size() - 1) {
+MetaDB.saveIntentInformation(CardEditor.this,content);
 populateEditFields();
 mSourceText=null;
 mTargetText=null;
+}
 }
 }
 );
