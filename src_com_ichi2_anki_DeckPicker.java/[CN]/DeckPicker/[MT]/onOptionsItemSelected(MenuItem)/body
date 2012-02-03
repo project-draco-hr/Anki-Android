@@ -1,10 +1,13 @@
 {
 switch (item.getItemId()) {
+case MENU_HELP:
+    showDialog(DIALOG_SELECT_HELP);
+  return true;
 case MENU_CREATE_DECK:
-    startActivityForResult(new Intent(DeckPicker.this,DeckCreator.class),CREATE_DECK);
-  if (UIUtils.getApiLevel() > 4) {
-    ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.RIGHT);
-  }
+startActivityForResult(new Intent(DeckPicker.this,DeckCreator.class),CREATE_DECK);
+if (UIUtils.getApiLevel() > 4) {
+ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.RIGHT);
+}
 return true;
 case MENU_ABOUT:
 startActivity(new Intent(DeckPicker.this,Info.class));

@@ -1,0 +1,11 @@
+{
+  JSONObject t;
+  try {
+    t=new JSONObject(defaultTemplate);
+    t.put("name",name);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  return t;
+}

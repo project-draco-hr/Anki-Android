@@ -1,14 +1,14 @@
 {
   DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_TUTORIAL,new DeckTask.TaskListener(){
     @Override public void onPreExecute(){
-      mProgressDialog=StyledProgressDialog.show(StudyOptions.this,"",getResources().getString(R.string.tutorial_load),true);
+      mProgressDialog=StyledProgressDialog.show(DeckPicker.this,"",getResources().getString(R.string.tutorial_load),true);
     }
     @Override public void onPostExecute(    TaskData result){
       if (result.getBoolean()) {
-        resetAndUpdateValuesFromDeck();
+        openStudyOptions();
       }
  else {
-        Themes.showThemedToast(StudyOptions.this,getResources().getString(R.string.tutorial_loading_error),false);
+        Themes.showThemedToast(DeckPicker.this,getResources().getString(R.string.tutorial_loading_error),false);
       }
       if (mProgressDialog.isShowing()) {
         try {

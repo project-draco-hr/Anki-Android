@@ -1,0 +1,15 @@
+{
+  try {
+    if (m.getLong("id") != 0) {
+      mCol.modSchema();
+    }
+    JSONArray ja=m.getJSONArray("tmpls");
+    ja.put(template);
+    m.put("tmpls",ja);
+    _updateTemplOrds(m);
+    save(m);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

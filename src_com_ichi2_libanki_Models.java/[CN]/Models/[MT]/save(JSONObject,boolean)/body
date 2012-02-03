@@ -3,7 +3,9 @@
     try {
       m.put("mod",Utils.intNow());
       m.put("usn",mCol.usn());
-      _updateRequired(m);
+      if (m.getLong("id") != 0) {
+        _updateRequired(m);
+      }
       if (templates) {
         _syncTemplates(m);
       }
