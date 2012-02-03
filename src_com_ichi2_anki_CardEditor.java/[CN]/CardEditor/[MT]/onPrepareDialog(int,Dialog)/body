@@ -9,7 +9,8 @@ case DIALOG_TAGS_SELECT:
 actualizeTagDialog(ad);
 break;
 case DIALOG_INTENT_INFORMATION:
-mIntentInformationAdapter.notifyDataSetChanged();
+mIntentInformationDialog=createDialogIntentInformation(new StyledDialog.Builder(this),getResources());
+ad=mIntentInformationDialog;
 break;
 }
 }
