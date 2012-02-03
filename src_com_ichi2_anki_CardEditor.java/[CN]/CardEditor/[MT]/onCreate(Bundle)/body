@@ -69,9 +69,6 @@ mAddNote=true;
 break;
 case CALLER_CARDEDITOR_INTENT_ADD:
 mAddNote=true;
-String[] fields=Utils.splitFields(intent.getStringExtra(EXTRA_CONTENTS));
-mSourceText=fields[0];
-mTargetText=fields[1];
 break;
 case CALLER_INDICLASH:
 Bundle extras=intent.getExtras();
@@ -193,10 +190,7 @@ closeCardEditor(RESULT_CANCELED);
 );
 mCancel.setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
-if (!mCardReset) {
-setResult(RESULT_CANCELED);
-}
-closeCardEditor();
+closeCardEditor(RESULT_CANCELED);
 }
 }
 );

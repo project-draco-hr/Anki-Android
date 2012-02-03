@@ -1,8 +1,6 @@
 {
   MenuItem item;
   Resources res=getResources();
-  item=menu.add(Menu.NONE,MENU_RESET,Menu.NONE,res.getString(R.string.card_editor_reset));
-  item.setIcon(R.drawable.ic_menu_revert);
   if (!mAddNote) {
     item=menu.add(Menu.NONE,MENU_ADD_CARD,Menu.NONE,res.getString(R.string.card_editor_add_card));
     item.setIcon(R.drawable.ic_menu_add);

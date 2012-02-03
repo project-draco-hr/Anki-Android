@@ -1,5 +1,4 @@
 {
-  View focus=this.getWindow().getCurrentFocus();
   for (int i=0; i < mEditFields.size(); i++) {
     if (mEditFields.get(i).getText().length() > 0) {
       menu.findItem(MENU_COPY_CARD).setEnabled(true);
