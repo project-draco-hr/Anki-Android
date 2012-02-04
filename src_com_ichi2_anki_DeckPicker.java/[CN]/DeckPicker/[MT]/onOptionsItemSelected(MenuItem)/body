@@ -25,7 +25,9 @@ case MENU_PREFERENCES:
 startActivityForResult(new Intent(DeckPicker.this,Preferences.class),PREFERENCES_UPDATE);
 return true;
 case MENU_FEEDBACK:
-startActivityForResult(new Intent(DeckPicker.this,Feedback.class),REPORT_FEEDBACK);
+Intent i=new Intent(DeckPicker.this,Feedback.class);
+i.putExtra("request",REPORT_FEEDBACK);
+startActivityForResult(i,REPORT_FEEDBACK);
 if (UIUtils.getApiLevel() > 4) {
 ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
 }
