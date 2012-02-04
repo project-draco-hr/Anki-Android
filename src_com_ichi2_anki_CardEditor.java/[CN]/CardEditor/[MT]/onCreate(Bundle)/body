@@ -132,6 +132,9 @@ MetaDB.saveIntentInformation(CardEditor.this,content);
 populateEditFields();
 mSourceText=null;
 mTargetText=null;
+if (mCaller == CALLER_INDICLASH || mCaller == CALLER_CARDEDITOR_INTENT_ADD) {
+closeCardEditor();
+}
 }
 }
 }
