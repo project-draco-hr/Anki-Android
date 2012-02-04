@@ -41,7 +41,26 @@ sb.append(String.format(content[4],res.getString(R.string.licence_wiki),res.getS
 sb.append("</body></html>");
 break;
 case TYPE_WELCOME:
-sb.append(res.getString(R.string.studyoptions_welcome_dialog).replace("\n","<br>"));
+sb.append("<big><b>");
+sb.append(res.getString(R.string.studyoptions_welcome_title));
+sb.append("</big></b><br><br>");
+sb.append(res.getString(R.string.welcome_message).replace("\n","<br>"));
+Button tutBut=(Button)findViewById(R.id.info_tutorial);
+tutBut.setVisibility(View.VISIBLE);
+tutBut.setOnClickListener(new OnClickListener(){
+@Override public void onClick(View arg0){
+setResult(RESULT_OK);
+Editor edit=PrefSettings.getSharedPrefs(Info.this.getBaseContext()).edit();
+edit.putLong("lastTimeOpened",System.currentTimeMillis());
+edit.putBoolean("createTutorial",true);
+edit.commit();
+finish();
+if (UIUtils.getApiLevel() > 4) {
+ActivityTransitionAnimation.slide(Info.this,ActivityTransitionAnimation.LEFT);
+}
+}
+}
+);
 break;
 case TYPE_NEW_VERSION:
 sb.append(res.getString(R.string.new_version_message));

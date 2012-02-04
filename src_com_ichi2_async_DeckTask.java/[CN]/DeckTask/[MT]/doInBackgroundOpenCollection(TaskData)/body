@@ -29,6 +29,12 @@
   }
   Log.i(AnkiDroidApp.TAG,"doInBackgroundOpenCollection - File exists -> Loading collection...");
   Collection col=Collection.openCollection(collectionFile);
+  SharedPreferences prefs=PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext());
+  if (prefs.contains("createTutorial") && prefs.getBoolean("createTutorial",false)) {
+    prefs.edit().remove("createTutorial").commit();
+    publishProgress(new TaskData(res.getString(R.string.tutorial_load)));
+    doInBackgroundLoadTutorial(new TaskData(col));
+  }
   TreeSet<Object[]> decks=col.getSched().deckDueTree(false);
   return new TaskData(col,decks,DECK_LOADED);
 }
