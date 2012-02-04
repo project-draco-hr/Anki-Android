@@ -7,11 +7,11 @@
     DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK_COUNTS,mLoadCountsHandler,new TaskData(mCol));
   }
  else   if (requestCode == REPORT_ERROR) {
-    showOtherScreensIfNecessary(PrefSettings.getSharedPrefs(getBaseContext()),3);
+    showStartupScreensAndDialogs(PrefSettings.getSharedPrefs(getBaseContext()),3);
   }
  else   if (requestCode == SHOW_INFO_WELCOME || requestCode == SHOW_INFO_NEW_VERSION) {
     if (resultCode == RESULT_OK) {
-      showOtherScreensIfNecessary(PrefSettings.getSharedPrefs(getBaseContext()),requestCode == SHOW_INFO_WELCOME ? 1 : 2);
+      showStartupScreensAndDialogs(PrefSettings.getSharedPrefs(getBaseContext()),requestCode == SHOW_INFO_WELCOME ? 1 : 2);
     }
  else {
       finish();

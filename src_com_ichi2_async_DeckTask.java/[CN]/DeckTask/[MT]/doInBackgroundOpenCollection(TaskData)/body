@@ -4,14 +4,15 @@
   File dbFile=new File(collectionFile);
   if (!dbFile.exists()) {
     Log.i(AnkiDroidApp.TAG,"doInBackgroundOpenCollection: db file does not exist. Creating it...");
-    AnkiDroidApp.createDecksDirectoryIfMissing(dbFile.getParentFile());
+    publishProgress(new TaskData(res.getString(R.string.create_collection)));
+    AnkiDroidApp.createDirectoryIfMissing(dbFile.getParentFile());
     try {
       InputStream stream=res.getAssets().open("collection.anki2");
       Utils.writeToFile(stream,collectionFile);
       stream.close();
       AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(collectionFile);
       ankiDB.execute("UPDATE col SET crt = 0");
-      ankiDB.closeDatabase();
+      AnkiDatabaseManager.closeDatabase(collectionFile);
     }
  catch (    IOException e) {
       Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
@@ -19,13 +20,14 @@
       Collection col=null;
       return new TaskData(col);
     }
+    publishProgress(new TaskData(res.getString(R.string.open_collection)));
   }
  else   if (BackupManager.safetyBackupNeeded(collectionFile)) {
     publishProgress(new TaskData(res.getString(R.string.backup_collection)));
     BackupManager.performBackup(collectionFile);
+    publishProgress(new TaskData(res.getString(R.string.open_collection)));
   }
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundOpenCollection - SD card mounted and existent file -> Loading collection...");
-  publishProgress(new TaskData(res.getString(R.string.loading_deck)));
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundOpenCollection - File exists -> Loading collection...");
   Collection col=Collection.openCollection(collectionFile);
   TreeSet<Object[]> decks=col.getSched().deckDueTree(false);
   return new TaskData(col,decks,DECK_LOADED);

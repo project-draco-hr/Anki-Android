@@ -1,0 +1,9 @@
+{
+  if (backups == null) {
+    return false;
+  }
+  for (int i=0; i < backups.length - keepNumber; i++) {
+    backups[i].delete();
+  }
+  return true;
+}

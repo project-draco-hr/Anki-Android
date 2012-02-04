@@ -10,7 +10,7 @@
     Editor editor=preferences.edit();
     editor.putString(PrefSettings.KEY_CHECK_URI,"http://ankidroid.googlecode.com/files/last_release.xml");
     String deckPath=getDefaultAnkiDroidDirectory();
-    createDecksDirectoryIfMissing(new File(deckPath));
+    createDirectoryIfMissing(new File(deckPath));
     editor.putString("deckPath",deckPath);
     editor.commit();
   }

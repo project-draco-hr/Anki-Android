@@ -101,7 +101,7 @@
   mDeckListView.setOnItemClickListener(mDeckSelHandler);
   mDeckListView.setAdapter(mDeckListAdapter);
   registerForContextMenu(mDeckListView);
-  showOtherScreensIfNecessary(preferences,0);
+  showStartupScreensAndDialogs(preferences,0);
   if (mSwipeEnabled) {
     gestureDetector=new GestureDetector(new MyGestureDetector());
     mDeckListView.setOnTouchListener(new View.OnTouchListener(){

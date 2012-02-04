@@ -1,5 +1,6 @@
 {
-  if (!PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).getBoolean("useBackup",true)) {
+  SharedPreferences prefs=PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext());
+  if (!prefs.getBoolean("useBackup",true)) {
     return;
   }
   File collectionFile=new File(path);
@@ -36,12 +37,16 @@
   }
   File backupFile=new File(getBackupDirectory().getPath(),backupFilename);
   if (backupFile.exists()) {
-    Log.i(AnkiDroidApp.TAG,"performBackup: No new backup created. Already made one today");
+    Log.i(AnkiDroidApp.TAG,"performBackup: No new backup created. File already exists");
     return;
   }
   if (getFreeDiscSpace(collectionFile) < collectionFile.length() + (MIN_FREE_SPACE * 1024 * 1024)) {
     Log.e(AnkiDroidApp.TAG,"performBackup: Not enough space on sd card to backup.");
+    prefs.edit().putBoolean("noSpaceLeft",true).commit();
     return;
+  }
+ else {
+    prefs.edit().putBoolean("noSpaceLeft",false).commit();
   }
   try {
     InputStream stream=new FileInputStream(collectionFile);
@@ -54,4 +59,5 @@
     Log.e(AnkiDroidApp.TAG,"performBackup: Copying of file failed.");
     return;
   }
+  deleteDeckBackups(path,prefs.getInt("backupMax",3));
 }
