@@ -1,8 +1,9 @@
 {
   File file=new File(destination);
+  OutputStream output=null;
   try {
     file.createNewFile();
-    OutputStream output=new BufferedOutputStream(new FileOutputStream(file));
+    output=new BufferedOutputStream(new FileOutputStream(file));
     byte[] buf=new byte[Utils.CHUNK_SIZE];
     int len;
     while ((len=source.read(buf)) > 0) {
@@ -14,6 +15,11 @@
     return true;
   }
  catch (  IOException e) {
+    try {
+      output.close();
+    }
+ catch (    IOException e1) {
+    }
     file.delete();
     return false;
   }
