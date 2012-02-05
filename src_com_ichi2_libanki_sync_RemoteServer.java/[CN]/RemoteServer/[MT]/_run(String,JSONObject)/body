@@ -1,5 +1,5 @@
 {
-  HttpResponse ret=super.req(cmd,new ByteArrayInputStream(data.toString().getBytes()));
+  HttpResponse ret=super.req(cmd,super.getInputStream(data.toString()));
   if (ret == null) {
     return null;
   }

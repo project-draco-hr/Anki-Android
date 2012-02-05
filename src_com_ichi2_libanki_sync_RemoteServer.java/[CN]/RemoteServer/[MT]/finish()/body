@@ -1,6 +1,6 @@
 {
   try {
-    HttpResponse ret=super.req("finish",new ByteArrayInputStream("{}".getBytes()));
+    HttpResponse ret=super.req("finish",super.getInputStream("{}"));
     if (ret == null) {
       return 0;
     }

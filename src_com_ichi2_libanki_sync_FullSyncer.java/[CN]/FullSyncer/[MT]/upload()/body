@@ -1,4 +1,5 @@
 {
+  mCon.publishProgress(R.string.sync_check_upload_file);
   if (!mCol.getDb().queryString("PRAGMA integrity_check").equalsIgnoreCase("ok")) {
     return new Object[]{"dbError"};
   }

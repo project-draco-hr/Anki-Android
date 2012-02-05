@@ -23,6 +23,7 @@ catch (  IOException e1) {
  catch (  IOException e) {
     throw new RuntimeException(e);
   }
+  mCon.publishProgress(R.string.sync_check_download_file);
   try {
     AnkiDb d=AnkiDatabaseManager.getDatabase(tpath);
     if (!d.queryString("PRAGMA integrity_check").equalsIgnoreCase("ok")) {

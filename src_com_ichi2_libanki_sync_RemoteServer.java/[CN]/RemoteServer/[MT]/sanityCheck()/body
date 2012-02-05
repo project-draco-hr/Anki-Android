@@ -2,7 +2,7 @@
   try {
     JSONObject jo=new JSONObject();
     jo.put("v",SYNC_VER);
-    HttpResponse ret=super.req("sanityCheck",new ByteArrayInputStream("{}".getBytes()));
+    HttpResponse ret=super.req("sanityCheck",super.getInputStream("{}"));
     if (ret == null) {
       return null;
     }
