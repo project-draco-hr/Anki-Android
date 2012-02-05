@@ -8,7 +8,7 @@
       buf.write(bdry + "\r\n");
       buf.write("Content-Disposition: form-data; name=\"k\"\r\n\r\n" + mHKey + "\r\n");
     }
-    OutputStreamProgress bos=new OutputStreamProgress(new ByteArrayOutputStream());
+    ByteArrayOutputStream bos=new ByteArrayOutputStream();
     if (fobj != null) {
       buf.write(bdry + "\r\n");
       buf.write("Content-Disposition: form-data; name=\"data\"; filename=\"data\"\r\nContent-Type: application/octet-stream\r\n\r\n");
@@ -29,6 +29,7 @@
         while ((len=bfobj.read(chunk)) > 0) {
           tgt.write(chunk,0,len);
         }
+        tgt.close();
       }
       bos.write(("\r\n" + bdry + "--\r\n").getBytes());
     }
@@ -38,7 +39,7 @@
     }
     bos.close();
     HttpPost httpPost=new HttpPost(SYNC_URL + method);
-    HttpEntity entity=new ByteArrayEntity(bos.toByteArray());
+    HttpEntity entity=new ProgressByteEntity(bos.toByteArray());
     httpPost.setEntity(entity);
     httpPost.setHeader("Content-type","multipart/form-data; boundary=" + BOUNDARY);
     SchemeRegistry schemeRegistry=new SchemeRegistry();
