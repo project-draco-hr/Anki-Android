@@ -22,7 +22,7 @@
       ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
     }
   }
- else   if (!BackupManager.enoughDiscSpace(mPrefDeckPath) && !preferences.getBoolean("dontShowLowMemory",false)) {
+ else   if (!BackupManager.enoughDiscSpace(mPrefDeckPath)) {
     showDialog(DIALOG_NO_SPACE_LEFT);
   }
  else   if (preferences.getBoolean("noSpaceLeft",false)) {

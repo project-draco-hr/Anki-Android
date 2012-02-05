@@ -17,11 +17,8 @@ catch (  IOException e1) {
   mCol.close(false);
   mCol=null;
   String tpath=path + ".tmp";
-  try {
-    super.writeToFile(cont,tpath);
-  }
- catch (  IOException e) {
-    throw new RuntimeException(e);
+  if (!super.writeToFile(cont,tpath)) {
+    return new Object[]{"sdAccessError"};
   }
   mCon.publishProgress(R.string.sync_check_download_file);
   try {

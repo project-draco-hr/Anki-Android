@@ -1,12 +1,20 @@
 {
-  new File(destination).createNewFile();
-  OutputStream output=new BufferedOutputStream(new FileOutputStream(destination));
-  byte[] buf=new byte[Utils.CHUNK_SIZE];
-  int len;
-  while ((len=source.read(buf)) > 0) {
-    output.write(buf,0,len);
-    bytesReceived+=len;
-    publishProgress();
+  File file=new File(destination);
+  try {
+    file.createNewFile();
+    OutputStream output=new BufferedOutputStream(new FileOutputStream(file));
+    byte[] buf=new byte[Utils.CHUNK_SIZE];
+    int len;
+    while ((len=source.read(buf)) > 0) {
+      output.write(buf,0,len);
+      bytesReceived+=len;
+      publishProgress();
+    }
+    output.close();
+    return true;
   }
-  output.close();
+ catch (  IOException e) {
+    file.delete();
+    return false;
+  }
 }
