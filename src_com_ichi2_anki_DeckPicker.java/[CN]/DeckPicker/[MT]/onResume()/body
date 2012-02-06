@@ -1,0 +1,8 @@
+{
+  super.onResume();
+  if (mCol != null) {
+    if (mCol.getSched()._checkDay()) {
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK_COUNTS,mLoadCountsHandler,new TaskData(mCol));
+    }
+  }
+}

@@ -7,4 +7,9 @@
     AnkiDroidApp.zeemoteController().addJoystickListener(adapter);
     adapter.addButtonListener(this);
   }
+  if (mCol != null) {
+    if (mCol.getSched()._checkDay()) {
+      updateValuesFromDeck(true);
+    }
+  }
 }
