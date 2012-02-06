@@ -1,13 +1,39 @@
 {
+  Resources res=getResources();
 switch (item.getItemId()) {
 case MENU_HELP:
     showDialog(DIALOG_SELECT_HELP);
   return true;
 case MENU_CREATE_DECK:
-startActivityForResult(new Intent(DeckPicker.this,DeckCreator.class),CREATE_DECK);
-if (UIUtils.getApiLevel() > 4) {
-ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.RIGHT);
+StyledDialog.Builder builder2=new StyledDialog.Builder(DeckPicker.this);
+builder2.setTitle(res.getString(R.string.new_deck));
+mDialogEditText=(EditText)new EditText(DeckPicker.this);
+InputFilter filter=new InputFilter(){
+public CharSequence filter(CharSequence source,int start,int end,Spanned dest,int dstart,int dend){
+for (int i=start; i < end; i++) {
+if (!Character.isLetterOrDigit(source.charAt(i))) {
+  if (source.charAt(i) != ':') {
+    return "";
+  }
 }
+}
+return null;
+}
+}
+;
+mDialogEditText.setFilters(new InputFilter[]{filter});
+builder2.setView(mDialogEditText,false,false);
+builder2.setPositiveButton(res.getString(R.string.create),new DialogInterface.OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+String deckName=mDialogEditText.getText().toString();
+Log.i(AnkiDroidApp.TAG,"Creating deck: " + deckName);
+mCol.getDecks().id(deckName,true);
+loadCounts();
+}
+}
+);
+builder2.setNegativeButton(res.getString(R.string.cancel),null);
+builder2.create().show();
 return true;
 case MENU_ABOUT:
 startActivity(new Intent(DeckPicker.this,Info.class));

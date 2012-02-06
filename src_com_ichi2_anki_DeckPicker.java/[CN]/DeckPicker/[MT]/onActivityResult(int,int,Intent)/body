@@ -1,10 +1,10 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
   if (requestCode == SHOW_STUDYOPTIONS && resultCode == RESULT_OK) {
-    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK_COUNTS,mLoadCountsHandler,new TaskData(mCol));
+    loadCounts();
   }
  else   if (requestCode == ADD_NOTE && resultCode != RESULT_CANCELED) {
-    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK_COUNTS,mLoadCountsHandler,new TaskData(mCol));
+    loadCounts();
   }
  else   if (requestCode == REPORT_ERROR) {
     showStartupScreensAndDialogs(PrefSettings.getSharedPrefs(getBaseContext()),3);

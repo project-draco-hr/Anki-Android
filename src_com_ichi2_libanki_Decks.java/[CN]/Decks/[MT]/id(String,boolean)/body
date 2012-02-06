@@ -13,7 +13,7 @@
   if (!create) {
     return 0;
   }
-  if (name.matches("::")) {
+  if (name.matches(".*::.*")) {
     _ensureParents(name);
   }
   JSONObject g;
