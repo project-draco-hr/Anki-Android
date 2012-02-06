@@ -178,18 +178,16 @@ modified=modified || (mAddNote ? mEditorNote.getDid() : mCurrentEditedCard.getDi
 if (modified) {
 mEditorNote.setTags(mCurrentTags);
 mCurrentEditedCard.setDid(mCurrentDid);
-closeCardEditor(RESULT_OK);
+mChanged=true;
 }
- else {
-closeCardEditor(RESULT_CANCELED);
-}
+closeCardEditor();
 }
 }
 }
 );
 mCancel.setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
-closeCardEditor(RESULT_CANCELED);
+closeCardEditor();
 }
 }
 );

@@ -1,7 +1,7 @@
 {
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
     Log.i(AnkiDroidApp.TAG,"CardEditor - onBackPressed()");
-    closeCardEditor(RESULT_CANCELED);
+    closeCardEditor();
     return true;
   }
   return super.onKeyDown(keyCode,event);

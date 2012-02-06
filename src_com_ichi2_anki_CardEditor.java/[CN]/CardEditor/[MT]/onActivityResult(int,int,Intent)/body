@@ -3,6 +3,7 @@
 switch (requestCode) {
 case REQUEST_INTENT_ADD:
     if (resultCode != RESULT_CANCELED) {
+      mChanged=true;
       String id=data.getStringExtra(EXTRA_ID);
       if (id != null) {
         for (int i=0; i < mIntentInformation.size(); i++) {
@@ -21,9 +22,9 @@ case REQUEST_INTENT_ADD:
   }
 break;
 case REQUEST_ADD:
-if (resultCode == Reviewer.RESULT_EDIT_CARD_RESET) {
-mCardReset=true;
-setResult(Reviewer.RESULT_EDIT_CARD_RESET);
+mChanged=true;
+if (resultCode != RESULT_CANCELED) {
+mChanged=true;
 }
 break;
 }

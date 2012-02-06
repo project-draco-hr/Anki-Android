@@ -1,4 +1,10 @@
 {
+  if (intent != null) {
+    setResult(result,intent);
+  }
+ else {
+    setResult(result);
+  }
   finish();
   if (mCaller == CALLER_CARDEDITOR_INTENT_ADD || mCaller == CALLER_BIGWIDGET_EDIT || mCaller == CALLER_BIGWIDGET_ADD) {
     if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
