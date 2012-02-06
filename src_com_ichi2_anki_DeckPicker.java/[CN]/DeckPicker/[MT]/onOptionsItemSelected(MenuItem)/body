@@ -8,24 +8,10 @@ case MENU_CREATE_DECK:
 StyledDialog.Builder builder2=new StyledDialog.Builder(DeckPicker.this);
 builder2.setTitle(res.getString(R.string.new_deck));
 mDialogEditText=(EditText)new EditText(DeckPicker.this);
-InputFilter filter=new InputFilter(){
-public CharSequence filter(CharSequence source,int start,int end,Spanned dest,int dstart,int dend){
-for (int i=start; i < end; i++) {
-if (!Character.isLetterOrDigit(source.charAt(i))) {
-  if (source.charAt(i) != ':') {
-    return "";
-  }
-}
-}
-return null;
-}
-}
-;
-mDialogEditText.setFilters(new InputFilter[]{filter});
 builder2.setView(mDialogEditText,false,false);
 builder2.setPositiveButton(res.getString(R.string.create),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
-String deckName=mDialogEditText.getText().toString();
+String deckName=mDialogEditText.getText().toString().replaceAll("[\'\"\\s\\n\\r\\[\\]\\(\\)]","");
 Log.i(AnkiDroidApp.TAG,"Creating deck: " + deckName);
 mCol.getDecks().id(deckName,true);
 loadCounts();

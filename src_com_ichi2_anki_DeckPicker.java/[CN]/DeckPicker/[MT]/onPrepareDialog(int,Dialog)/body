@@ -3,20 +3,12 @@
   StyledDialog ad=(StyledDialog)dialog;
 switch (id) {
 case DIALOG_DELETE_DECK:
-    mCurrentDeckFilename=mDeckList.get(mContextMenuPosition).get("name");
-  ad.setMessage(String.format(res.getString(R.string.delete_deck_message),"\'" + mCurrentDeckFilename + "\'"));
-break;
-case DIALOG_DELETE_BACKUPS:
-mCurrentDeckFilename=mDeckList.get(mContextMenuPosition).get("name");
-ad.setMessage(String.format(res.getString(R.string.backup_delete_deck_backups_alert),"\'" + mCurrentDeckFilename + "\'"));
+    mCurrentDid=Long.parseLong(mDeckList.get(mContextMenuPosition).get("did"));
+  ad.setMessage(String.format(res.getString(R.string.delete_deck_message),"\'" + mCol.getDecks().name(mCurrentDid) + "\'"));
 break;
 case DIALOG_CONTEXT_MENU:
-mCurrentDeckFilename=mDeckList.get(mContextMenuPosition).get("name");
-ad.setTitle(mCurrentDeckFilename);
-break;
-case DIALOG_REPAIR_DECK:
-mCurrentDeckFilename=mDeckList.get(mContextMenuPosition).get("name");
-ad.setMessage(String.format(res.getString(R.string.repair_deck_dialog),mCurrentDeckFilename,BackupManager.BROKEN_DECKS_SUFFIX.replace("/","")));
+mCurrentDid=Long.parseLong(mDeckList.get(mContextMenuPosition).get("did"));
+ad.setTitle(mCol.getDecks().name(mCurrentDid));
 break;
 case DIALOG_SYNC_LOG:
 ad.setMessage(mDialogMessage);
