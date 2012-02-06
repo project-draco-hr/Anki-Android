@@ -2,7 +2,11 @@
   StyledDialog.Builder builder=new StyledDialog.Builder(context);
   builder.setTitle(context.getString(R.string.statistics_type_title));
   builder.setIcon(android.R.drawable.ic_menu_sort_by_size);
-  builder.setItems(context.getResources().getStringArray(R.array.statistics_type_labels),listener);
+  String[] items=new String[3];
+  items[0]=context.getResources().getString(R.string.stats_forecast);
+  items[1]=context.getResources().getString(R.string.stats_review_count);
+  items[2]=context.getResources().getString(R.string.stats_review_time);
+  builder.setItems(items,listener);
   final RadioButton[] statisticRadioButtons=new RadioButton[3];
   RadioGroup rg=new RadioGroup(context);
   rg.setOrientation(RadioGroup.HORIZONTAL);

@@ -1,9 +1,10 @@
 {
   mType=type;
-  mOrigin=0;
-  mValueLabels=new int[]{R.string.statistics_young_cards,R.string.statistics_mature_cards};
-  mColors=new int[]{R.color.statistics_due_young_cards,R.color.statistics_due_mature_cards};
-  mAxisTitles=new int[]{type,R.string.statistics_period_y_axis};
+  mBackwards=false;
+  mTitle=R.string.stats_forecast;
+  mValueLabels=new int[]{R.string.statistics_young,R.string.statistics_mature};
+  mColors=new int[]{R.color.stats_young,R.color.stats_mature};
+  mAxisTitles=new int[]{type,R.string.stats_cards};
   int end=0;
   int chunk=0;
 switch (type) {
@@ -28,6 +29,9 @@ ArrayList<int[]> dues=new ArrayList<int[]>();
 Cursor cur=null;
 try {
 cur=mCol.getDb().getDatabase().rawQuery("SELECT (due - " + mCol.getSched().getToday() + ")/"+ chunk+ " AS day, "+ "count(), "+ "sum(CASE WHEN ivl >= 21 THEN 1 ELSE 0 END) "+ "FROM cards WHERE did IN "+ _limit()+ " AND queue = 2"+ lim+ " GROUP BY day ORDER BY day",null);
+if (!cur.moveToFirst()) {
+return false;
+}
 while (cur.moveToNext()) {
 dues.add(new int[]{cur.getInt(0),cur.getInt(1),cur.getInt(2)});
 }
@@ -44,4 +48,5 @@ mSeriesList[0][i]=data[0];
 mSeriesList[1][i]=data[1];
 mSeriesList[2][i]=data[2];
 }
+return true;
 }
