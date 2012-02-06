@@ -49,7 +49,7 @@ builder.setMessage(res.getString(R.string.sync_conflict_message));
 builder.setPositiveButton(res.getString(R.string.sync_conflict_local),mSyncConflictResolutionListener);
 builder.setNeutralButton(res.getString(R.string.sync_conflict_remote),mSyncConflictResolutionListener);
 builder.setNegativeButton(res.getString(R.string.sync_conflict_cancel),mSyncConflictResolutionListener);
-builder.setCancelable(false);
+builder.setCancelable(true);
 dialog=builder.create();
 break;
 case DIALOG_USER_NOT_LOGGED_IN_SYNC:
