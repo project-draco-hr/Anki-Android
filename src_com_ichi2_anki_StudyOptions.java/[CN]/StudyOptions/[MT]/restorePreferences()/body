@@ -2,7 +2,6 @@
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
   mSwipeEnabled=preferences.getBoolean("swipe",false);
   mInvertedColors=preferences.getBoolean("invertedColors",false);
-  mSwap=preferences.getBoolean("swapqa",false);
   mZeemoteEnabled=preferences.getBoolean("zeemote",false);
   return preferences;
 }

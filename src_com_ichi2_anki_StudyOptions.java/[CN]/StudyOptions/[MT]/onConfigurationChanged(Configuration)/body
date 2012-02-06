@@ -1,16 +1,10 @@
 {
   super.onConfigurationChanged(newConfig);
   boolean cramChecked=mToggleCram.isChecked();
-  boolean limitChecked=mToggleLimit.isChecked();
-  boolean limitEnabled=mToggleLimit.isEnabled();
-  boolean nightModeChecekd=mNightMode.isChecked();
-  boolean swapQA=mSwapQA.isChecked();
+  boolean limitChecked=mToggleNight.isChecked();
   initAllContentViews();
   updateValuesFromDeck();
   showContentView();
   mToggleCram.setChecked(cramChecked);
-  mToggleLimit.setChecked(limitChecked);
-  mToggleLimit.setEnabled(limitEnabled);
-  mNightMode.setChecked(nightModeChecekd);
-  mSwapQA.setChecked(swapQA);
+  mToggleNight.setChecked(limitChecked);
 }

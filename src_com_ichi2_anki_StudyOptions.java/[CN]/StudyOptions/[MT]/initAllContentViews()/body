@@ -5,7 +5,8 @@
   mTextDeckDescription=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_description);
   mButtonStart=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_start);
   mToggleCram=(ToggleButton)mStudyOptionsView.findViewById(R.id.studyoptions_cram);
-  mToggleLimit=(ToggleButton)mStudyOptionsView.findViewById(R.id.studyoptions_limit);
+  mToggleNight=(ToggleButton)mStudyOptionsView.findViewById(R.id.studyoptions_night);
+  mToggleNight.setChecked(mInvertedColors);
   mAddNote=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_add);
   mCardBrowser=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_card_browser);
   mStatisticsButton=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_statistics);
@@ -22,35 +23,9 @@
   mGlobalMatBar.setVisibility(View.INVISIBLE);
   mGlobalBar.setVisibility(View.INVISIBLE);
   mDeckCounts=(LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_deckcounts);
-  mNightMode=(CheckBox)mStudyOptionsView.findViewById(R.id.studyoptions_night_mode);
-  mNightMode.setChecked(mInvertedColors);
-  mNightMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
-    @Override public void onCheckedChanged(    CompoundButton buttonView,    boolean isChecked){
-      if (mInvertedColors != isChecked) {
-        mInvertedColors=isChecked;
-        savePreferences("invertedColors",mInvertedColors);
-      }
-    }
-  }
-);
-  mSwapQA=(CheckBox)mStudyOptionsView.findViewById(R.id.studyoptions_swap);
-  mSwapQA.setChecked(mSwap);
-  mSwapQA.setOnClickListener(new View.OnClickListener(){
-    @Override public void onClick(    View view){
-      if (mSwapQA.isChecked()) {
-        showDialog(DIALOG_SWAP_QA);
-      }
- else       if (mSwap) {
-        mSwap=false;
-        savePreferences("swapqa",mSwap);
-      }
-      mSwapQA.setChecked(false);
-    }
-  }
-);
   mButtonStart.setOnClickListener(mButtonClickListener);
   mToggleCram.setOnClickListener(mButtonClickListener);
-  mToggleLimit.setOnClickListener(mButtonClickListener);
+  mToggleNight.setOnClickListener(mButtonClickListener);
   mAddNote.setOnClickListener(mButtonClickListener);
   mCardBrowser.setOnClickListener(mButtonClickListener);
   mStatisticsButton.setOnClickListener(mButtonClickListener);

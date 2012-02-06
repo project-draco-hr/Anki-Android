@@ -3,30 +3,14 @@
   Resources res=getResources();
   StyledDialog.Builder builder=new StyledDialog.Builder(this);
 switch (id) {
-case DIALOG_SWAP_QA:
-    builder.setTitle(getResources().getString(R.string.swap_qa_title));
-  builder.setMessage(getResources().getString(R.string.swap_qa_text));
-builder.setIcon(android.R.drawable.ic_dialog_alert);
-builder.setPositiveButton(res.getString(R.string.yes),new OnClickListener(){
-@Override public void onClick(DialogInterface dialog,int which){
-  mSwapQA.setChecked(true);
-  mSwap=true;
-  savePreferences("swapqa",mSwap);
-}
-}
-);
-builder.setNegativeButton(res.getString(R.string.cancel),null);
-dialog=builder.create();
-break;
 case DIALOG_STATISTIC_TYPE:
-dialog=ChartBuilder.getStatisticsDialog(this,new DialogInterface.OnClickListener(){
-@Override public void onClick(DialogInterface dialog,int which){
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_STATISTICS,mLoadStatisticsHandler,new DeckTask.TaskData(mCol,which,false));
-}
-}
+    dialog=ChartBuilder.getStatisticsDialog(this,new DialogInterface.OnClickListener(){
+      @Override public void onClick(      DialogInterface dialog,      int which){
+        DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_STATISTICS,mLoadStatisticsHandler,new DeckTask.TaskData(mCol,which,false));
+      }
+    }
 );
-break;
-case DIALOG_LIMIT_SESSION:
+  break;
 case DIALOG_CRAM:
 default :
 dialog=null;
