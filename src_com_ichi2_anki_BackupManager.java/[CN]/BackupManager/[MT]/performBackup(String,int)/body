@@ -45,9 +45,6 @@
     prefs.edit().putBoolean("noSpaceLeft",true).commit();
     return;
   }
- else {
-    prefs.edit().putBoolean("noSpaceLeft",false).commit();
-  }
   try {
     InputStream stream=new FileInputStream(collectionFile);
     Utils.writeToFile(stream,backupFile.getAbsolutePath());
