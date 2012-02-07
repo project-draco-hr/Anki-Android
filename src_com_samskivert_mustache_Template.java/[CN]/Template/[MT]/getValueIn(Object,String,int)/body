@@ -2,7 +2,13 @@
   if (data == null) {
     throw new NullPointerException("Null context for variable '" + name + "' on line "+ line);
   }
-  VariableFetcher fetcher=createFetcher(data.getClass(),name);
+  Mustache.VariableFetcher fetcher;
+  if (Mustache.VariableFetcher.class.isInstance(data)) {
+    fetcher=Mustache.VariableFetcher.class.cast(data);
+  }
+ else {
+    fetcher=createFetcher(data.getClass(),name);
+  }
   if (fetcher == null) {
     return null;
   }

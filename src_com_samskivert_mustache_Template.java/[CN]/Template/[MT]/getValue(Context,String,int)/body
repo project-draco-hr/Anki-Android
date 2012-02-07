@@ -6,6 +6,6 @@
     }
     ctx=ctx.parent;
   }
-  Log.e(AnkiDroidApp.TAG,"No key, method or field with name '" + name + "' on line "+ line);
+  Log.e(AnkiDroidApp.TAG,"Could not retrieve from context name '" + name + "' on line "+ line);
   return new String("{unknown field " + name + "}");
 }
