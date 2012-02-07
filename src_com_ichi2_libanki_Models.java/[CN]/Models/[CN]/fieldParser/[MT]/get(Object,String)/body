@@ -36,6 +36,18 @@
     Log.e(AnkiDroidApp.TAG,"Unimplemented field modifier: " + mod);
     return null;
   }
+ else   if (mod.equals("kanjionly")) {
+    if (txt == null)     return txt;
+    return txt.replaceAll(rubyr,"$1");
+  }
+ else   if (mod.equals("readingonly")) {
+    if (txt == null)     return txt;
+    return txt.replaceAll(rubyr,"$2");
+  }
+ else   if (mod.equals("furigana")) {
+    if (txt == null)     return txt;
+    return txt.replaceAll(rubyr,"<ruby><rb>$1</rb><rt>$2</rt></ruby>");
+  }
  else {
     Log.w(AnkiDroidApp.TAG,"Unknown field modifier: " + mod);
     return txt;
