@@ -1,15 +1,4 @@
 {
-  if (name.indexOf(".") != -1) {
-    String[] comps=name.split("\\.");
-    Object data=getValue(ctx,comps[0].intern(),line);
-    for (int ii=1; ii < comps.length; ii++) {
-      if (data == null) {
-        throw new NullPointerException("Null context for compound variable '" + name + "' on line "+ line+ ". '"+ comps[ii - 1]+ "' resolved to null.");
-      }
-      data=getValueIn(data,comps[ii].intern(),line);
-    }
-    return data;
-  }
   if (name == FIRST_NAME) {
     return ctx.mode == Mode.FIRST;
   }
