@@ -1,13 +1,4 @@
 {
-  if (name == FIRST_NAME) {
-    return ctx.mode == Mode.FIRST;
-  }
- else   if (name == LAST_NAME) {
-    return ctx.mode == Mode.LAST;
-  }
- else   if (name == INDEX_NAME) {
-    return ctx.index;
-  }
   while (ctx != null) {
     Object value=getValueIn(ctx.data,name,line);
     if (value != null) {
