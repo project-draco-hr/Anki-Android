@@ -61,9 +61,6 @@ ArrayList<double[]> list=new ArrayList<double[]>();
 Cursor cur=null;
 try {
 cur=mCol.getDb().getDatabase().rawQuery("SELECT (cast((id/1000 - " + mCol.getSched().getDayCutoff() + ") / 86400.0 AS INT))/"+ chunk+ " AS day, "+ "sum(CASE WHEN type = 0 THEN "+ ti+ " ELSE 0 END)"+ tf+ ", "+ "sum(CASE WHEN type = 1 AND lastIvl < 21 THEN "+ ti+ " ELSE 0 END)"+ tf+ ", "+ "sum(CASE WHEN type = 1 AND lastIvl >= 21 THEN "+ ti+ " ELSE 0 END)"+ tf+ ", "+ "sum(CASE WHEN type = 2 THEN "+ ti+ " ELSE 0 END)"+ tf+ ", "+ "sum(CASE WHEN type = 3 THEN "+ ti+ " ELSE 0 END)"+ tf+ " FROM revlog "+ lim+ " GROUP BY day ORDER BY day",null);
-if (!cur.moveToFirst()) {
-return false;
-}
 while (cur.moveToNext()) {
 list.add(new double[]{cur.getDouble(0),cur.getDouble(1),cur.getDouble(4),cur.getDouble(2),cur.getDouble(3),cur.getDouble(5)});
 }
@@ -72,6 +69,9 @@ list.add(new double[]{cur.getDouble(0),cur.getDouble(1),cur.getDouble(4),cur.get
 if (cur != null && !cur.isClosed()) {
 cur.close();
 }
+}
+if (num != -1 && list.get(0)[0] != num) {
+list.add(new double[]{num,0,0,0,0,0});
 }
 mSeriesList=new double[6][list.size()];
 for (int i=0; i < list.size(); i++) {
@@ -83,5 +83,5 @@ mSeriesList[3][i]=data[3] + data[4] + data[5];
 mSeriesList[4][i]=data[4] + data[5];
 mSeriesList[5][i]=data[5];
 }
-return true;
+return list.size() > 0;
 }
