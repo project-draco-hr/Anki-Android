@@ -1,10 +1,7 @@
 {
   mToday=(int)((Utils.now() - mCol.getCrt()) / 86400);
   mDayCutoff=mCol.getCrt() + ((mToday + 1) * 86400);
-  for (  long did : mCol.getDecks().active()) {
-    update(mCol.getDecks().get(did));
-  }
-  for (  JSONObject grp : mCol.getDecks().parents(mCol.getDecks().selected())) {
-    update(grp);
+  for (  JSONObject d : mCol.getDecks().all()) {
+    update(d);
   }
 }
