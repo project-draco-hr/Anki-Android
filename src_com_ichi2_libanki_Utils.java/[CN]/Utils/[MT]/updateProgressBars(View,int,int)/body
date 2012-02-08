@@ -2,8 +2,16 @@
   if (view == null) {
     return;
   }
-  LinearLayout.LayoutParams lparam=new LinearLayout.LayoutParams(0,0);
-  lparam.height=y;
-  lparam.width=x;
-  view.setLayoutParams(lparam);
+  if (view.getParent() instanceof LinearLayout) {
+    LinearLayout.LayoutParams lparam=new LinearLayout.LayoutParams(0,0);
+    lparam.height=y;
+    lparam.width=x;
+    view.setLayoutParams(lparam);
+  }
+ else   if (view.getParent() instanceof FrameLayout) {
+    FrameLayout.LayoutParams lparam=new FrameLayout.LayoutParams(0,0);
+    lparam.height=y;
+    lparam.width=x;
+    view.setLayoutParams(lparam);
+  }
 }
