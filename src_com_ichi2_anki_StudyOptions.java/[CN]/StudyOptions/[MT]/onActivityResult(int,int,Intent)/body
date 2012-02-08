@@ -1,5 +1,9 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
+  if (resultCode == AnkiDroidApp.RESULT_TO_HOME) {
+    closeStudyOptions();
+    return;
+  }
   if (resultCode == DeckPicker.RESULT_MEDIA_EJECTED) {
     closeStudyOptions(DeckPicker.RESULT_MEDIA_EJECTED);
   }
