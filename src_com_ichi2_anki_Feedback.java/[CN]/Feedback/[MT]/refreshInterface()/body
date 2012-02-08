@@ -1,5 +1,5 @@
 {
-  if (mReportErrorMode.equals(REPORT_ASK)) {
+  if (mAllowFeedback) {
     Resources res=getResources();
     Button btnSend=(Button)findViewById(R.id.btnFeedbackSend);
     Button btnKeepLatest=(Button)findViewById(R.id.btnFeedbackKeepLatest);

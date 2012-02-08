@@ -13,7 +13,8 @@
   initAllAlertDialogs();
   getErrorFiles();
   Intent i=getIntent();
-  if (!i.hasExtra("request") || i.getIntExtra("request",0) != DeckPicker.REPORT_FEEDBACK) {
+  mAllowFeedback=(i.hasExtra("request") && i.getIntExtra("request",0) == DeckPicker.REPORT_FEEDBACK) || mReportErrorMode.equals(REPORT_ASK);
+  if (!mAllowFeedback) {
     if (mReportErrorMode.equals(REPORT_ALWAYS)) {
       try {
         String feedback="Automatically sent";
