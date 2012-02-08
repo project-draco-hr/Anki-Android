@@ -1,8 +1,8 @@
 {
-  Utils.addMenuItem(menu,Menu.NONE,MENU_PREFERENCES,Menu.NONE,R.string.menu_preferences,R.drawable.ic_menu_preferences);
-  Utils.addMenuItem(menu,Menu.NONE,MENU_ROTATE,Menu.NONE,R.string.menu_rotate,android.R.drawable.ic_menu_always_landscape_portrait);
+  UIUtils.addMenuItem(menu,Menu.NONE,MENU_PREFERENCES,Menu.NONE,R.string.menu_preferences,R.drawable.ic_menu_preferences);
+  UIUtils.addMenuItem(menu,Menu.NONE,MENU_ROTATE,Menu.NONE,R.string.menu_rotate,android.R.drawable.ic_menu_always_landscape_portrait);
   if (mZeemoteEnabled) {
-    Utils.addMenuItem(menu,Menu.NONE,MENU_ZEEMOTE,Menu.NONE,R.string.menu_zeemote,R.drawable.ic_menu_zeemote);
+    UIUtils.addMenuItem(menu,Menu.NONE,MENU_ZEEMOTE,Menu.NONE,R.string.menu_zeemote,R.drawable.ic_menu_zeemote);
   }
   return true;
 }
