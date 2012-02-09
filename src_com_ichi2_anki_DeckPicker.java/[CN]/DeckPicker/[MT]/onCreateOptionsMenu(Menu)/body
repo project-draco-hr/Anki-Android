@@ -11,5 +11,6 @@
   item.setIcon(R.drawable.ic_menu_send);
   item=menu.add(Menu.NONE,MENU_ABOUT,Menu.NONE,R.string.menu_about);
   item.setIcon(R.drawable.ic_menu_info_details);
+  UIUtils.addMenuItem(menu,Menu.NONE,CHECK_DATABASE,Menu.NONE,R.string.check_db,R.drawable.ic_menu_search);
   return true;
 }

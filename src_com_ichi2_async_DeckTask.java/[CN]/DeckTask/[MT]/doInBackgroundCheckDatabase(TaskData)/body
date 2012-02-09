@@ -1,0 +1,5 @@
+{
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundCheckDatabase");
+  Collection col=params[0].getCollection();
+  return new TaskData(col.fixIntegrity());
+}

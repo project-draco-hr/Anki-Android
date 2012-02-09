@@ -38,8 +38,8 @@ case TASK_TYPE_DELETE_CARD:
 return doInBackgroundDeleteCard(params);
 case TASK_TYPE_LOAD_STATISTICS:
 return doInBackgroundLoadStatistics(params);
-case TASK_TYPE_OPTIMIZE_DECK:
-return doInBackgroundOptimizeDeck(params);
+case TASK_TYPE_CHECK_DATABASE:
+return doInBackgroundCheckDatabase(params);
 case TASK_TYPE_SET_ALL_DECKS_JOURNAL_MODE:
 return doInBackgroundSetJournalMode(params);
 case TASK_TYPE_DELETE_BACKUPS:

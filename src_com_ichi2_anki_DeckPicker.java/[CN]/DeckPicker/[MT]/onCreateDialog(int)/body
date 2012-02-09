@@ -3,9 +3,13 @@
   Resources res=getResources();
   StyledDialog.Builder builder=new StyledDialog.Builder(this);
 switch (id) {
+case DIALOG_OK:
+    builder.setPositiveButton(R.string.ok,null);
+  dialog=builder.create();
+break;
 case DIALOG_NO_SDCARD:
-    builder.setMessage("The SD card could not be read. Please, turn off USB storage.");
-  builder.setPositiveButton("OK",null);
+builder.setMessage("The SD card could not be read. Please, turn off USB storage.");
+builder.setPositiveButton(R.string.ok,null);
 dialog=builder.create();
 break;
 case DIALOG_SELECT_HELP:
@@ -17,11 +21,11 @@ createTutorialDeck();
 }
  else {
 if (Utils.isIntentAvailable(DeckPicker.this,"android.intent.action.VIEW")) {
-  Intent intent=new Intent("android.intent.action.VIEW",Uri.parse(getResources().getString(arg1 == 0 ? R.string.link_help : R.string.link_faq)));
-  startActivity(intent);
+Intent intent=new Intent("android.intent.action.VIEW",Uri.parse(getResources().getString(arg1 == 0 ? R.string.link_help : R.string.link_faq)));
+startActivity(intent);
 }
  else {
-  startActivity(new Intent(DeckPicker.this,Info.class));
+startActivity(new Intent(DeckPicker.this,Info.class));
 }
 }
 }
