@@ -28,10 +28,12 @@ case MENU_SEARCH:
 lookUpOrSelectText();
 return true;
 case MENU_MARK:
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_MARK_CARD,mMarkCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,0));
 return true;
 case MENU_UNDO:
 undo();
 return true;
+default :
+return super.onOptionsItemSelected(item);
 }
-return false;
 }

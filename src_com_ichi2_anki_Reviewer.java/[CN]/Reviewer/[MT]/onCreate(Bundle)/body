@@ -20,7 +20,6 @@
         requestWindowFeature(Window.FEATURE_NO_TITLE);
       }
     }
-    requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
     registerExternalStorageListener();
     if (mNightMode) {
       mCurrentBackgroundColor=Themes.getNightModeCardBackground(this);

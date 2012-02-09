@@ -4,7 +4,8 @@
     mTimeoutHandler.removeCallbacks(mShowAnswerTask);
     mTimeoutHandler.postDelayed(mShowAnswerTask,mWaitAnswerSecond * 1000);
   }
-  String question=getQuestion();
+  String question=mCurrentCard.getQuestion(mSimpleInterface);
+  updateMenuItems();
   if (mPrefFixArabic) {
     question=ArabicUtilities.reshapeSentence(question,true);
   }

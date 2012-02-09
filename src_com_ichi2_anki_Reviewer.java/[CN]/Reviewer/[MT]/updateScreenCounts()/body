@@ -2,6 +2,7 @@
   if (mCurrentCard == null) {
     return;
   }
+  setTitle("aaa");
   int[] counts=mSched.counts(mCurrentCard);
   SpannableString newCount=new SpannableString(String.valueOf(counts[0]));
   SpannableString lrnCount=new SpannableString(String.valueOf(counts[1]));

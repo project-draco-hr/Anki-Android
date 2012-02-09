@@ -1,3 +1,31 @@
 {
+  Card card=params[0].getCard();
+  Sched sched=params[0].getSched();
+  try {
+    AnkiDb ankiDB=sched.getCol().getDb();
+    ankiDB.getDatabase().beginTransaction();
+    try {
+      if (card != null) {
+        Note note=card.note();
+        if (note.hasTag("marked")) {
+          note.delTag("marked");
+        }
+ else {
+          note.addTag("marked");
+        }
+        note.flush();
+      }
+      publishProgress(null);
+      ankiDB.getDatabase().setTransactionSuccessful();
+    }
+  finally {
+      ankiDB.getDatabase().endTransaction();
+    }
+  }
+ catch (  RuntimeException e) {
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundMarkCard - RuntimeException on marking card: " + e);
+    AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundMarkCard");
+    return new TaskData(false);
+  }
   return new TaskData(true);
 }
