@@ -1,4 +1,8 @@
 {
+  if (mInAnswer) {
+    return;
+  }
+  mInAnswer=true;
   mIsSelecting=false;
   if (mPrefTextSelection) {
     clipboardSetText("");
