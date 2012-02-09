@@ -6,6 +6,15 @@
   String title=res.getString(R.string.tutorial_title);
   try {
     long did=col.getDecks().id(title);
+    JSONObject d=col.getDecks().get(did);
+    for (    String t : new String[]{"new","rev","lrn","time"}) {
+      String k=t + "Today";
+      JSONArray ja=new JSONArray();
+      ja.put(col.getSched().getToday());
+      ja.put(0);
+      d.put(k,ja);
+    }
+    col.getDecks().save(d);
     if (col.getSched().cardCount("(" + did + ")") > 0) {
       col.remCards(col.getDecks().cids(did));
     }
