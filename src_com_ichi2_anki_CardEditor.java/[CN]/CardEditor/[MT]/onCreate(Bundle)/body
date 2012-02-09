@@ -28,7 +28,6 @@
   Themes.setWallpaper(mainView);
   Themes.setContentStyle(mainView,Themes.CALLER_CARD_EDITOR);
   mFieldsLayoutContainer=(LinearLayout)findViewById(R.id.CardEditorEditFieldsLayout);
-  setTitle(R.string.cardeditor_title);
   mSave=(Button)findViewById(R.id.CardEditorSaveButton);
   mCancel=(Button)findViewById(R.id.CardEditorCancelButton);
   mLater=(Button)findViewById(R.id.CardEditorLaterButton);
@@ -96,6 +95,7 @@ break;
 }
 setNote(mEditorNote);
 if (mAddNote) {
+setTitle(R.string.cardeditor_title_add_note);
 String contents=null;
 if (mSourceText != null) {
 if (mAedictIntent && (mEditFields.size() == 3) && mTargetText.contains("[")) {
@@ -140,6 +140,9 @@ closeCardEditor();
 }
 );
 }
+ else {
+setTitle(R.string.cardeditor_title_edit_card);
+}
 ((LinearLayout)findViewById(R.id.CardEditorDeckButton)).setOnClickListener(new View.OnClickListener(){
 public void onClick(View v){
 showDialog(DIALOG_DECK_SELECT);
@@ -174,10 +177,16 @@ for (String t : mCurrentTags) {
 modified=modified || !mEditorNote.hasTag(t);
 }
 modified=modified || mEditorNote.getTags().size() > mCurrentTags.size();
-modified=modified || (mAddNote ? mEditorNote.getDid() : mCurrentEditedCard.getDid()) != mCurrentDid;
+boolean changedDid=mCurrentEditedCard.getDid() != mCurrentDid;
+modified=modified || changedDid;
 if (modified) {
 mEditorNote.setTags(mCurrentTags);
+if (changedDid) {
 mCurrentEditedCard.setDid(mCurrentDid);
+if (mMoveNoteTooToggle.isChecked()) {
+mEditorNote.setDid(mCurrentDid);
+}
+}
 mChanged=true;
 }
 closeCardEditor();
