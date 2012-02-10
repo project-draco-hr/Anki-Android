@@ -1,31 +1,3 @@
 {
-  double revYesRate;
-  double revTime;
-  double lrnYesRate;
-  double lrnTime;
-  Cursor cur=null;
-  try {
-    cur=mCol.getDb().getDatabase().rawQuery("SELECT avg(CASE WHEN ease > 1 THEN 1 ELSE 0 END), avg(time) FROM revlog WHERE type = 1 AND id > " + ((mCol.getSched().getDayCutoff() - (7 * 86400)) * 1000),null);
-    if (!cur.moveToFirst()) {
-      return -1;
-    }
-    revYesRate=cur.getDouble(0);
-    revTime=cur.getDouble(1);
-    cur=mCol.getDb().getDatabase().rawQuery("SELECT avg(CASE WHEN ease = 3 THEN 1 ELSE 0 END), avg(time) FROM revlog WHERE type != 1 AND id > " + ((mCol.getSched().getDayCutoff() - (7 * 86400)) * 1000),null);
-    if (!cur.moveToFirst()) {
-      return -1;
-    }
-    lrnYesRate=cur.getDouble(0);
-    lrnTime=cur.getDouble(1);
-  }
-  finally {
-    if (cur != null && !cur.isClosed()) {
-      cur.close();
-    }
-  }
-  double eta=revTime * counts[2];
-  double factor=Math.min(1 / (1 - lrnYesRate),10);
-  double lrnAnswers=(counts[0] + counts[1] + counts[2] * (1 - revYesRate)) * factor;
-  eta+=lrnAnswers * lrnTime;
-  return (int)(eta / 1000);
+  return eta(counts,true);
 }

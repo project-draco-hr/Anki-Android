@@ -1,0 +1,19 @@
+{
+  try {
+    Method getActionBar=context.getClass().getMethod("getActionBar");
+    ActionBar actionBar=(ActionBar)getActionBar.invoke(context);
+    actionBar.setSubtitle(text);
+  }
+ catch (  SecurityException e) {
+  }
+catch (  NoSuchMethodException e) {
+  }
+catch (  IllegalArgumentException e) {
+  }
+catch (  IllegalAccessException e) {
+  }
+catch (  InvocationTargetException e) {
+  }
+catch (  NullPointerException e) {
+  }
+}
