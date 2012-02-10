@@ -1,0 +1,52 @@
+{
+  Themes.applyTheme(this);
+  super.onCreate(savedInstanceState);
+  View mainView=getLayoutInflater().inflate(R.layout.card_browser,null);
+  setContentView(mainView);
+  Themes.setContentStyle(mainView,Themes.CALLER_CARDBROWSER);
+  mCol=Collection.currentCollection();
+  if (mCol == null) {
+    finish();
+    return;
+  }
+  Intent i=getIntent();
+  mWholeCollection=i.hasExtra("fromDeckpicker") && i.getBooleanExtra("fromDeckpicker",false);
+  mBackground=Themes.getCardBrowserBackground();
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+  mrelativeBrowserFontSize=preferences.getInt("relativeCardBrowserFontSize",DEFAULT_FONT_SIZE_RATIO);
+  mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
+  mPrefCacheCardBrowser=preferences.getBoolean("cardBrowserCache",false);
+  mCards=new ArrayList<HashMap<String,String>>();
+  mAllCards=new ArrayList<HashMap<String,String>>();
+  mCardsListView=(ListView)findViewById(R.id.card_browser_list);
+  mCardsAdapter=new SizeControlledListAdapter(this,mCards,R.layout.card_item,new String[]{"sfld","tmpl","flags"},new int[]{R.id.card_sfld,R.id.card_tmpl,R.id.card_item},mrelativeBrowserFontSize);
+  mCardsAdapter.setViewBinder(new SimpleAdapter.ViewBinder(){
+    @Override public boolean setViewValue(    View view,    Object arg1,    String text){
+      if (view.getId() == R.id.card_item) {
+        return true;
+      }
+ else       if (view.getId() == R.id.card_tmpl) {
+      }
+      return false;
+    }
+  }
+);
+  mCardsListView.setAdapter(mCardsAdapter);
+  registerForContextMenu(mCardsListView);
+  mSearchEditText=(EditText)findViewById(R.id.card_browser_search);
+  mSearchEditText.addTextChangedListener(new TextWatcher(){
+    public void afterTextChanged(    Editable s){
+      mTimerHandler.removeCallbacks(updateList);
+      mTimerHandler.postDelayed(updateList,WAIT_TIME_UNTIL_UPDATE);
+    }
+    public void beforeTextChanged(    CharSequence s,    int start,    int count,    int after){
+    }
+    public void onTextChanged(    CharSequence s,    int start,    int before,    int count){
+    }
+  }
+);
+  getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+  allTags=null;
+  mSelectedTags=new HashSet<String>();
+  getCards();
+}

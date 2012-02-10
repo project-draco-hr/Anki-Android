@@ -38,7 +38,12 @@
   mCardsButton=(ImageButton)findViewById(R.id.deckpicker_card_browser);
   mCardsButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View v){
-      mCardsButton.setEnabled(false);
+      Intent cardBrowser=new Intent(DeckPicker.this,CardBrowser.class);
+      cardBrowser.putExtra("fromDeckpicker",true);
+      startActivityForResult(cardBrowser,BROWSE_CARDS);
+      if (UIUtils.getApiLevel() > 4) {
+        ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.LEFT);
+      }
     }
   }
 );
