@@ -25,7 +25,11 @@ lv.setDividerHeight(0);
 break;
 case THEME_WHITE:
 lv.setSelector(R.drawable.white_deckpicker_list_selector);
+try {
 lv.setOverScrollMode(View.OVER_SCROLL_NEVER);
+}
+ catch (Throwable e) {
+}
 lv.setVerticalScrollBarEnabled(false);
 lv.setFadingEdgeLength(15);
 lv.setDividerHeight(0);
