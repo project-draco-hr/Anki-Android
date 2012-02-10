@@ -20,8 +20,6 @@ case TASK_TYPE_SAVE_DECK:
 return doInBackgroundSaveDeck(params);
 case TASK_TYPE_ANSWER_CARD:
 return doInBackgroundAnswerCard(params);
-case TASK_TYPE_SUSPEND_CARD:
-return doInBackgroundSuspendCard(params);
 case TASK_TYPE_MARK_CARD:
 return doInBackgroundMarkCard(params);
 case TASK_TYPE_ADD_FACT:
@@ -32,10 +30,8 @@ case TASK_TYPE_UNDO:
 return doInBackgroundUndo(params);
 case TASK_TYPE_LOAD_CARDS:
 return doInBackgroundLoadCards(params);
-case TASK_TYPE_BURY_CARD:
-return doInBackgroundBuryCard(params);
-case TASK_TYPE_DELETE_CARD:
-return doInBackgroundDeleteCard(params);
+case TASK_TYPE_DISMISS_NOTE:
+return doInBackgroundDismissNote(params);
 case TASK_TYPE_LOAD_STATISTICS:
 return doInBackgroundLoadStatistics(params);
 case TASK_TYPE_CHECK_DATABASE:

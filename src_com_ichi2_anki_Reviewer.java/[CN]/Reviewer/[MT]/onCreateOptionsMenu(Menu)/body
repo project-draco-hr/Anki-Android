@@ -14,11 +14,12 @@
     }
     UIUtils.addMenuItemInActionBar(menu,Menu.NONE,MENU_CLEAR_WHITEBOARD,Menu.NONE,R.string.clear_whiteboard,R.drawable.ic_menu_clear_playlist);
   }
-  SubMenu removeDeckSubMenu=menu.addSubMenu(Menu.NONE,MENU_REMOVE,Menu.NONE,R.string.menu_remove_card);
+  SubMenu removeDeckSubMenu=menu.addSubMenu(Menu.NONE,MENU_REMOVE,Menu.NONE,R.string.menu_dismiss_note);
   removeDeckSubMenu.setIcon(R.drawable.ic_menu_stop);
-  removeDeckSubMenu.add(Menu.NONE,MENU_REMOVE_BURY,Menu.NONE,R.string.menu_bury_card);
-  removeDeckSubMenu.add(Menu.NONE,MENU_REMOVE_SUSPEND,Menu.NONE,R.string.menu_suspend_card);
-  removeDeckSubMenu.add(Menu.NONE,MENU_REMOVE_DELETE,Menu.NONE,R.string.card_browser_delete_card);
+  removeDeckSubMenu.add(Menu.NONE,MENU_REMOVE_BURY,Menu.NONE,R.string.menu_bury_note);
+  removeDeckSubMenu.add(Menu.NONE,MENU_REMOVE_SUSPEND_CARD,Menu.NONE,R.string.menu_suspend_card);
+  removeDeckSubMenu.add(Menu.NONE,MENU_REMOVE_SUSPEND_NOTE,Menu.NONE,R.string.menu_suspend_note);
+  removeDeckSubMenu.add(Menu.NONE,MENU_REMOVE_DELETE,Menu.NONE,R.string.menu_delete_note);
   if (mPrefTextSelection) {
     item=menu.add(Menu.NONE,MENU_SEARCH,Menu.NONE,res.getString(R.string.menu_select));
     item.setIcon(R.drawable.ic_menu_search);

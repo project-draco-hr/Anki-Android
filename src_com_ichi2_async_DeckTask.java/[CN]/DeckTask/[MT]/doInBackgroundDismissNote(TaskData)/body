@@ -1,0 +1,35 @@
+{
+  Sched sched=params[0].getSched();
+  Collection col=sched.getCol();
+  Card card=params[0].getCard();
+  Note note=card.note();
+  int type=params[0].getInt();
+  col.getDb().getDatabase().beginTransaction();
+  try {
+switch (type) {
+case 0:
+      sched.buryNote(note.getId());
+    break;
+case 1:
+  sched.suspendCards(new long[]{card.getId()});
+break;
+case 2:
+ArrayList<Card> cards=note.cards();
+long[] cids=new long[cards.size()];
+for (int i=0; i < cards.size(); i++) {
+cids[i]=cards.get(i).getId();
+}
+sched.suspendCards(cids);
+break;
+case 3:
+col.remNotes(new long[]{note.getId()});
+break;
+}
+publishProgress(new TaskData(col.getSched().getCard(),0));
+col.getDb().getDatabase().setTransactionSuccessful();
+}
+  finally {
+col.getDb().getDatabase().endTransaction();
+}
+return new TaskData(true);
+}

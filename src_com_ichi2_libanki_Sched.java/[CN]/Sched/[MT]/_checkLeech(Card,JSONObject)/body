@@ -6,7 +6,7 @@
       return false;
     }
     if (lf >= card.getLapses() && (card.getLapses() - lf) % Math.max(lf / 2,1) == 0) {
-      Note n=card.getNote();
+      Note n=card.note();
       n.addTag("leech");
       n.flush();
       if (conf.getInt("leechAction") == 0) {

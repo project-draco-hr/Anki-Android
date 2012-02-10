@@ -47,7 +47,7 @@ if (mCurrentEditedCard == null) {
 finish();
 return;
 }
-mEditorNote=mCurrentEditedCard.getNote();
+mEditorNote=mCurrentEditedCard.note();
 mAddNote=false;
 break;
 case CALLER_STUDYOPTIONS:

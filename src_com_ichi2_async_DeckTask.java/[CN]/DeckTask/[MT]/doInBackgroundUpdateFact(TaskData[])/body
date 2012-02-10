@@ -2,7 +2,7 @@
   Sched sched=params[0].getSched();
   Collection col=sched.getCol();
   Card editCard=params[0].getCard();
-  Note editNote=editCard.getNote();
+  Note editNote=editCard.note();
   boolean showQuestion=params[0].getBoolean();
   try {
     col.getDb().getDatabase().beginTransaction();
