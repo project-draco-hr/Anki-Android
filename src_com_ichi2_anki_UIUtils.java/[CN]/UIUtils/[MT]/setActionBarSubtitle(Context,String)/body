@@ -1,8 +1,10 @@
 {
   try {
     Method getActionBar=context.getClass().getMethod("getActionBar");
-    ActionBar actionBar=(ActionBar)getActionBar.invoke(context);
-    actionBar.setSubtitle(text);
+    if (getActionBar != null) {
+      Object o=getActionBar.invoke(context);
+      o.getClass().getMethod("setSubtitle",CharSequence.class).invoke(o,text);
+    }
   }
  catch (  SecurityException e) {
   }
