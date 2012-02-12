@@ -7,5 +7,7 @@
   Reviewer.this.setResult(result);
   setOutAnimation(true);
   finish();
-  ActivityTransitionAnimation.slide(Reviewer.this,ActivityTransitionAnimation.RIGHT);
+  if (UIUtils.getApiLevel() > 4) {
+    ActivityTransitionAnimation.slide(Reviewer.this,ActivityTransitionAnimation.RIGHT);
+  }
 }
