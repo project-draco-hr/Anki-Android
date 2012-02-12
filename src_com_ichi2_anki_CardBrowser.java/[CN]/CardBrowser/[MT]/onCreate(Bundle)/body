@@ -19,13 +19,14 @@
   mCards=new ArrayList<HashMap<String,String>>();
   mAllCards=new ArrayList<HashMap<String,String>>();
   mCardsListView=(ListView)findViewById(R.id.card_browser_list);
-  mCardsAdapter=new SizeControlledListAdapter(this,mCards,R.layout.card_item,new String[]{"sfld","tmpl","flags"},new int[]{R.id.card_sfld,R.id.card_tmpl,R.id.card_item},mrelativeBrowserFontSize);
+  mCardsAdapter=new SizeControlledListAdapter(this,mCards,R.layout.card_item,new String[]{"sfld","tmpl","deck","flags"},new int[]{R.id.card_sfld,R.id.card_tmpl,R.id.card_deck,R.id.card_item},mrelativeBrowserFontSize);
   mCardsAdapter.setViewBinder(new SimpleAdapter.ViewBinder(){
     @Override public boolean setViewValue(    View view,    Object arg1,    String text){
       if (view.getId() == R.id.card_item) {
         return true;
       }
- else       if (view.getId() == R.id.card_tmpl) {
+ else       if (view.getId() == R.id.card_deck && text.length() > 0) {
+        view.setVisibility(View.VISIBLE);
       }
       return false;
     }
