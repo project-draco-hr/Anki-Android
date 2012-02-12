@@ -44,6 +44,18 @@
   }
 );
   mCardsListView.setAdapter(mCardsAdapter);
+  mCardsListView.setOnItemClickListener(new OnItemClickListener(){
+    @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
+      Intent editCard=new Intent(CardBrowser.this,CardEditor.class);
+      editCard.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_CARDBROWSER_EDIT);
+      editCard.putExtra(CardEditor.EXTRA_CARD_ID,Long.parseLong(mCards.get(position).get("id")));
+      startActivityForResult(editCard,EDIT_CARD);
+      if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+        ActivityTransitionAnimation.slide(CardBrowser.this,ActivityTransitionAnimation.LEFT);
+      }
+    }
+  }
+);
   registerForContextMenu(mCardsListView);
   mSearchEditText=(EditText)findViewById(R.id.card_browser_search);
   mSearchEditText.addTextChangedListener(new TextWatcher(){
