@@ -5,6 +5,8 @@
   for (int i=0; i < fields.length; i++) {
     FieldEditText newTextbox=new FieldEditText(this,i,fields[i]);
     TextView label=newTextbox.getLabel();
+    label.setTextColor(Color.BLACK);
+    label.setPadding((int)UIUtils.getDensityAdjustedValue(this,3.4f),0,0,0);
     ImageView circle=newTextbox.getCircle();
     mEditFields.add(newTextbox);
     FrameLayout frame=new FrameLayout(this);
