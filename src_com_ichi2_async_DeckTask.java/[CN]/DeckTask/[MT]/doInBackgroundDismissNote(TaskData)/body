@@ -11,7 +11,12 @@ case 0:
       sched.buryNote(note.getId());
     break;
 case 1:
-  sched.suspendCards(new long[]{card.getId()});
+  if (card.getQueue() == -1) {
+    sched.unsuspendCards(new long[]{card.getId()});
+  }
+ else {
+    sched.suspendCards(new long[]{card.getId()});
+  }
 break;
 case 2:
 ArrayList<Card> cards=note.cards();

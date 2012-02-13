@@ -1,0 +1,8 @@
+{
+  ArrayList<Card> cards=mCol.getCard(Long.parseLong(mCards.get(position).get("id"))).note().cards();
+  for (  Card c : cards) {
+    mCards.remove(getPosition(mCards,c.getId()));
+    mAllCards.remove(getPosition(mAllCards,c.getId()));
+  }
+  updateList();
+}

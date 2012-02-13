@@ -1,2 +1,24 @@
 {
+  String searchText=mSearchEditText.getText().toString().toLowerCase();
+  mShowOnlyMarSus=false;
+  if (mSelectedTags.size() == 0) {
+    mSearchEditText.setHint(R.string.downloaddeck_search);
+  }
+ else {
+    String tags=mSelectedTags.toString();
+    mSearchEditText.setHint(getResources().getString(R.string.card_browser_tags_shown,tags.substring(1,tags.length() - 1)));
+  }
+  mCards.clear();
+  if (searchText.length() == 0 && mSelectedTags.size() == 0 && mSelectedTags.size() == 0) {
+    mCards.addAll(mAllCards);
+  }
+ else {
+    for (int i=0; i < mAllCards.size(); i++) {
+      HashMap<String,String> card=mAllCards.get(i);
+      if (card.get("sfld").toLowerCase().indexOf(searchText) != -1 && Arrays.asList(card.get("tags").split("\\s")).containsAll(mSelectedTags)) {
+        mCards.add(mAllCards.get(i));
+      }
+    }
+  }
+  updateList();
 }

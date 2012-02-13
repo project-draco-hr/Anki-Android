@@ -1,0 +1,20 @@
+{
+  StyledDialog dialog=null;
+  Resources res=getResources();
+  StyledDialog.Builder builder=new StyledDialog.Builder(this);
+switch (id) {
+case DIALOG_CONTEXT_MENU:
+    String[] entries=new String[4];
+  @SuppressWarnings("unused") MenuItem item;
+entries[CONTEXT_MENU_MARK]=res.getString(R.string.card_browser_mark_card);
+entries[CONTEXT_MENU_SUSPEND]=res.getString(R.string.card_browser_suspend_card);
+entries[CONTEXT_MENU_DELETE]=res.getString(R.string.card_browser_delete_card);
+entries[CONTEXT_MENU_DETAILS]=res.getString(R.string.card_browser_card_details);
+builder.setTitle("contextmenu");
+builder.setIcon(R.drawable.ic_menu_manage);
+builder.setItems(entries,mContextMenuListener);
+dialog=builder.create();
+break;
+}
+return dialog;
+}

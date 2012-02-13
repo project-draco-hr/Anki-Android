@@ -15,7 +15,7 @@
         }
         note.flush();
       }
-      publishProgress(null);
+      publishProgress(new TaskData(card));
       ankiDB.getDatabase().setTransactionSuccessful();
     }
   finally {

@@ -30,11 +30,18 @@
         Log.e(AnkiDroidApp.TAG,e.toString());
       }
       finish();
+      if (UIUtils.getApiLevel() > 4) {
+        ActivityTransitionAnimation.slide(Feedback.this,ActivityTransitionAnimation.NONE);
+      }
       return;
     }
  else     if (mReportErrorMode.equals(REPORT_NEVER)) {
       deleteFiles(false,false);
       finish();
+      if (UIUtils.getApiLevel() > 4) {
+        ActivityTransitionAnimation.slide(Feedback.this,ActivityTransitionAnimation.NONE);
+      }
+      return;
     }
   }
   View mainView=getLayoutInflater().inflate(R.layout.feedback,null);

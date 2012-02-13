@@ -3,21 +3,26 @@
   Collection col=sched.getCol();
   Card editCard=params[0].getCard();
   Note editNote=editCard.note();
-  boolean showQuestion=params[0].getBoolean();
+  boolean fromReviewer=params[0].getBoolean();
   try {
     col.getDb().getDatabase().beginTransaction();
     try {
       editNote.flush();
       editCard.flush();
-      Card newCard;
-      if (col.getDecks().active().contains(editCard.getDid())) {
-        newCard=editCard;
-        newCard.getQuestion(true);
+      if (fromReviewer) {
+        Card newCard;
+        if (col.getDecks().active().contains(editCard.getDid())) {
+          newCard=editCard;
+          newCard.getQuestion(true);
+        }
+ else {
+          newCard=sched.getCard();
+        }
+        publishProgress(new TaskData(newCard));
       }
  else {
-        newCard=sched.getCard();
+        publishProgress(new TaskData(editCard));
       }
-      publishProgress(new TaskData(null,newCard,showQuestion));
       col.getDb().getDatabase().setTransactionSuccessful();
     }
   finally {
