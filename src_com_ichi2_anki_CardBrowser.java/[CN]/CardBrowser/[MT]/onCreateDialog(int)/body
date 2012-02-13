@@ -3,9 +3,26 @@
   Resources res=getResources();
   StyledDialog.Builder builder=new StyledDialog.Builder(this);
 switch (id) {
+case DIALOG_ORDER:
+    builder.setTitle(res.getString(R.string.card_browser_change_display_order_title));
+  builder.setIcon(android.R.drawable.ic_menu_sort_by_size);
+builder.setSingleChoiceItems(getResources().getStringArray(R.array.card_browser_order_labels),mOrder,new DialogInterface.OnClickListener(){
+  @Override public void onClick(  DialogInterface arg0,  int which){
+    if (which != mOrder) {
+      mOrder=which;
+      PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).edit().putInt("cardBrowserOrder",mOrder).commit();
+      if (mOrder != CARD_ORDER_NONE) {
+        DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_CARD_BROWSER_LIST,mSortCardsHandler,new DeckTask.TaskData(mAllCards,new HashMapCompare()));
+      }
+    }
+  }
+}
+);
+dialog=builder.create();
+break;
 case DIALOG_CONTEXT_MENU:
-    String[] entries=new String[4];
-  @SuppressWarnings("unused") MenuItem item;
+String[] entries=new String[4];
+@SuppressWarnings("unused") MenuItem item;
 entries[CONTEXT_MENU_MARK]=res.getString(R.string.card_browser_mark_card);
 entries[CONTEXT_MENU_SUSPEND]=res.getString(R.string.card_browser_suspend_card);
 entries[CONTEXT_MENU_DELETE]=res.getString(R.string.card_browser_delete_card);
@@ -13,6 +30,60 @@ entries[CONTEXT_MENU_DETAILS]=res.getString(R.string.card_browser_card_details);
 builder.setTitle("contextmenu");
 builder.setIcon(R.drawable.ic_menu_manage);
 builder.setItems(entries,mContextMenuListener);
+dialog=builder.create();
+break;
+case DIALOG_TAGS:
+allTags=mCol.getTags().all();
+builder.setTitle(R.string.studyoptions_limit_select_tags);
+builder.setMultiChoiceItems(allTags,new boolean[allTags.length],new DialogInterface.OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+String tag=allTags[which];
+if (mSelectedTags.contains(tag)) {
+Log.i(AnkiDroidApp.TAG,"unchecked tag: " + tag);
+mSelectedTags.remove(tag);
+}
+ else {
+Log.i(AnkiDroidApp.TAG,"checked tag: " + tag);
+mSelectedTags.add(tag);
+}
+}
+}
+);
+builder.setPositiveButton(res.getString(R.string.select),new OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+mSearchEditText.setText("");
+mTimerHandler.removeCallbacks(updateList);
+String tags=mSelectedTags.toString();
+mSearchEditText.setHint(getResources().getString(R.string.card_browser_tags_shown,tags.substring(1,tags.length() - 1)));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_CARD_BROWSER_LIST,new DeckTask.TaskListener(){
+@Override public void onPreExecute(){
+mProgressDialog=StyledProgressDialog.show(CardBrowser.this,"",getResources().getString(R.string.card_browser_filtering_cards),true);
+}
+@Override public void onProgressUpdate(DeckTask.TaskData... values){
+}
+@Override public void onPostExecute(DeckTask.TaskData result){
+updateList();
+if (mProgressDialog != null && mProgressDialog.isShowing()) {
+mProgressDialog.dismiss();
+}
+}
+}
+,new DeckTask.TaskData(mAllCards),new DeckTask.TaskData(mCards),new DeckTask.TaskData(new Object[]{mSelectedTags}));
+}
+}
+);
+builder.setNegativeButton(res.getString(R.string.cancel),new OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+mSelectedTags.clear();
+}
+}
+);
+builder.setOnCancelListener(new OnCancelListener(){
+@Override public void onCancel(DialogInterface dialog){
+mSelectedTags.clear();
+}
+}
+);
 dialog=builder.create();
 break;
 }

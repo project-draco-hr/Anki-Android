@@ -1,0 +1,16 @@
+{
+  MenuItem item;
+  item=menu.add(Menu.NONE,MENU_UNDO,Menu.NONE,R.string.undo);
+  item.setIcon(R.drawable.ic_menu_revert);
+  item=menu.add(Menu.NONE,MENU_ADD_NOTE,Menu.NONE,R.string.card_editor_add_card);
+  item.setIcon(R.drawable.ic_menu_add);
+  item=menu.add(Menu.NONE,MENU_CHANGE_ORDER,Menu.NONE,R.string.card_browser_change_display_order);
+  item.setIcon(R.drawable.ic_menu_sort_by_size);
+  item=menu.add(Menu.NONE,MENU_SHOW_MARKED,Menu.NONE,R.string.card_browser_show_marked);
+  item.setIcon(R.drawable.ic_menu_star_on);
+  item=menu.add(Menu.NONE,MENU_SELECT_SUSPENDED,Menu.NONE,R.string.card_browser_show_suspended);
+  item.setIcon(R.drawable.ic_menu_search);
+  item=menu.add(Menu.NONE,MENU_SELECT_TAG,Menu.NONE,R.string.card_browser_search_by_tag);
+  item.setIcon(R.drawable.ic_menu_close_clear_cancel);
+  return true;
+}

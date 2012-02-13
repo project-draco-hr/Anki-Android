@@ -1,0 +1,24 @@
+{
+  try {
+    int result=0;
+switch (mOrder) {
+case CARD_ORDER_SFLD:
+      result=object1.get("sfld").compareToIgnoreCase(object2.get("sfld"));
+    if (result == 0) {
+      result=object1.get("tmpl").compareToIgnoreCase(object2.get("tmpl"));
+    }
+  break;
+case CARD_ORDER_DUE:
+result=Long.valueOf(object1.get("due")).compareTo(Long.valueOf(object2.get("due")));
+if (result == 0) {
+result=object1.get("sfld").compareToIgnoreCase(object2.get("sfld"));
+}
+break;
+}
+return result;
+}
+ catch (Exception e) {
+Log.e(AnkiDroidApp.TAG,"Error on sorting cards: " + e);
+return 0;
+}
+}

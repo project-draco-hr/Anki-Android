@@ -1,0 +1,45 @@
+{
+switch (item.getItemId()) {
+case MENU_UNDO:
+    return true;
+case MENU_ADD_NOTE:
+  Intent intent=new Intent(CardBrowser.this,CardEditor.class);
+intent.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_CARDBROWSER_ADD);
+startActivityForResult(intent,ADD_NOTE);
+if (UIUtils.getApiLevel() > 4) {
+ActivityTransitionAnimation.slide(CardBrowser.this,ActivityTransitionAnimation.LEFT);
+}
+return true;
+case MENU_SHOW_MARKED:
+mShowOnlyMarSus=true;
+mSearchEditText.setHint(R.string.card_browser_show_marked);
+mCards.clear();
+for (int i=0; i < mAllCards.size(); i++) {
+int flags=Integer.parseInt(mAllCards.get(i).get("flags"));
+if (flags == 2 || flags == 3) {
+mCards.add(mAllCards.get(i));
+}
+}
+updateList();
+return true;
+case MENU_SELECT_SUSPENDED:
+mShowOnlyMarSus=true;
+mSearchEditText.setHint(R.string.card_browser_show_suspended);
+mCards.clear();
+for (int i=0; i < mAllCards.size(); i++) {
+int flags=Integer.parseInt(mAllCards.get(i).get("flags"));
+if (flags == 1 || flags == 3) {
+mCards.add(mAllCards.get(i));
+}
+}
+updateList();
+return true;
+case MENU_SELECT_TAG:
+showDialog(DIALOG_TAGS);
+return true;
+case MENU_CHANGE_ORDER:
+showDialog(DIALOG_ORDER);
+return true;
+}
+return false;
+}

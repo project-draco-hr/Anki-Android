@@ -16,6 +16,7 @@
   mrelativeBrowserFontSize=preferences.getInt("relativeCardBrowserFontSize",DEFAULT_FONT_SIZE_RATIO);
   mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
   mPrefCacheCardBrowser=preferences.getBoolean("cardBrowserCache",false);
+  mOrder=preferences.getInt("cardBrowserOrder",CARD_ORDER_NONE);
   mCards=new ArrayList<HashMap<String,String>>();
   mAllCards=new ArrayList<HashMap<String,String>>();
   mCardsListView=(ListView)findViewById(R.id.card_browser_list);
@@ -83,7 +84,6 @@
       throw new RuntimeException(e);
     }
   }
-  allTags=null;
   mSelectedTags=new HashSet<String>();
   getCards();
 }

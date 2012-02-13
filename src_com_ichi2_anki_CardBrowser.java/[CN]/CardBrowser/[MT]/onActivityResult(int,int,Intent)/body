@@ -4,7 +4,7 @@
     Log.i(AnkiDroidApp.TAG,"Saving card...");
     DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_FACT,mUpdateCardHandler,new DeckTask.TaskData(mCol.getSched(),sCardBrowserCard,false));
   }
- else   if (requestCode == ADD_FACT && resultCode == RESULT_OK) {
+ else   if (requestCode == ADD_NOTE && resultCode == RESULT_OK) {
     getCards();
   }
 }
