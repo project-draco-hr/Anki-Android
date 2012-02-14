@@ -2,6 +2,7 @@
   Log.i(AnkiDroidApp.TAG,"CardEditor: onCreate");
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
+  this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
   Intent intent=getIntent();
   if (savedInstanceState != null) {
     mCaller=savedInstanceState.getInt("caller");
