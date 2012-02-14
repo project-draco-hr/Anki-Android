@@ -49,6 +49,9 @@ return true;
 case MENU_SAVED_INTENT:
 showDialog(DIALOG_INTENT_INFORMATION);
 return true;
+case android.R.id.home:
+closeCardEditor(AnkiDroidApp.RESULT_TO_HOME);
+return true;
 }
 return false;
 }
