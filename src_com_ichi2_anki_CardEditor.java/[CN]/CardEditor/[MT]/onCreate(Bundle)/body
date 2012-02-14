@@ -174,7 +174,7 @@ return;
 }
 boolean modified=false;
 for (FieldEditText f : mEditFields) {
-modified=modified || f.updateField();
+modified=modified | f.updateField();
 }
 if (mAddNote) {
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ADD_FACT,mSaveFactHandler,new DeckTask.TaskData(mEditorNote));
