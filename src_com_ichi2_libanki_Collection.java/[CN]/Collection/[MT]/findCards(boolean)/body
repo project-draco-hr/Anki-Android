@@ -36,6 +36,9 @@
       }
       map.put("due",due);
       data.add(map);
+      if (DeckTask.taskIsCancelled()) {
+        return null;
+      }
     }
   }
   finally {
