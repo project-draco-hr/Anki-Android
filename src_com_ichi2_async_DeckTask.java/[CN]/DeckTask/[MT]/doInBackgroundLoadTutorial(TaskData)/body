@@ -18,17 +18,10 @@
     if (col.getSched().cardCount("(" + did + ")") > 0) {
       col.remCards(col.getDecks().cids(did));
     }
-    while (col.getModels().byName(title) != null) {
-      JSONObject m=col.getModels().byName(title);
-      if (col.getDb().queryScalar("SELECT id FROM cards WHERE nid IN (SELECT id FROM notes WHERE mid = " + m.getLong("id") + ")",false) == 0) {
-        col.getModels().rem(m);
-      }
- else {
-        m.put("name",title + " (renamed)");
-        col.getModels().save(m);
-      }
+    JSONObject model=col.getModels().byName(title);
+    if (model == null) {
+      model=col.getModels().addBasicModel(title,false);
     }
-    JSONObject model=col.getModels().addBasicModel(title,false);
     model.put("did",did);
     String[] questions=res.getStringArray(R.array.tutorial_questions);
     String[] answers=res.getStringArray(R.array.tutorial_answers);
