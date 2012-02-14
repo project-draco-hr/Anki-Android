@@ -11,6 +11,7 @@
   int[] valueLabels=(int[])ob[3];
   int[] barColors=(int[])ob[4];
   int[] axisTitles=(int[])ob[5];
+  String subTitle=(String)ob[6];
   if (mSeriesList == null || mSeriesList[0].length < 2) {
     Log.i(AnkiDroidApp.TAG,"ChartBuilder - Data variable empty, closing chartbuilder");
     finish();
@@ -31,6 +32,7 @@
     }
  else {
       setTitle(title);
+      UIUtils.setActionBarSubtitle(this,subTitle);
       mTitle.setVisibility(View.GONE);
     }
     for (int i=1; i < mSeriesList.length; i++) {
