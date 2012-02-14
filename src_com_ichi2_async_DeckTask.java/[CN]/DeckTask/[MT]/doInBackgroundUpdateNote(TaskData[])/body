@@ -13,6 +13,7 @@
         Card newCard;
         if (col.getDecks().active().contains(editCard.getDid())) {
           newCard=editCard;
+          newCard.load();
           newCard.getQuestion(true);
         }
  else {
