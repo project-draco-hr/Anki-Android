@@ -1,5 +1,8 @@
 {
   super.onActivityResult(requestCode,resultCode,data);
+  if (resultCode == DeckPicker.RESULT_DB_ERROR) {
+    closeCardEditor(DeckPicker.RESULT_DB_ERROR);
+  }
   if (resultCode == AnkiDroidApp.RESULT_TO_HOME) {
     closeCardEditor(AnkiDroidApp.RESULT_TO_HOME);
   }

@@ -30,7 +30,7 @@
     showDialog(DIALOG_BACKUP_NO_SPACE_LEFT);
     preferences.edit().putBoolean("noSpaceLeft",false).commit();
   }
- else {
+ else   if (mCol == null) {
     loadCollection();
   }
 }

@@ -105,7 +105,15 @@
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
-  mCol.getDecks().save(mOptions);
+  try {
+    mCol.getDecks().save(mOptions);
+  }
+ catch (  RuntimeException e) {
+    Log.e(AnkiDroidApp.TAG,"DeckOptions - RuntimeException on saving conf: " + e);
+    AnkiDroidApp.saveExceptionReportFile(e,"DeckOptionsSaveConf");
+    setResult(DeckPicker.RESULT_DB_ERROR);
+    finish();
+  }
   cacheValues();
   updateSummaries();
   for (  OnSharedPreferenceChangeListener listener : listeners) {

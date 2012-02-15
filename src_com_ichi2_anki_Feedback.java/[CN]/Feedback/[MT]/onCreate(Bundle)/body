@@ -13,7 +13,7 @@
   initAllAlertDialogs();
   getErrorFiles();
   Intent i=getIntent();
-  mAllowFeedback=(i.hasExtra("request") && i.getIntExtra("request",0) == DeckPicker.REPORT_FEEDBACK) || mReportErrorMode.equals(REPORT_ASK);
+  mAllowFeedback=(i.hasExtra("request") && (i.getIntExtra("request",0) == DeckPicker.REPORT_FEEDBACK || i.getIntExtra("request",0) == DeckPicker.RESULT_DB_ERROR)) || mReportErrorMode.equals(REPORT_ASK);
   if (!mAllowFeedback) {
     if (mReportErrorMode.equals(REPORT_ALWAYS)) {
       try {

@@ -1,3 +1,9 @@
 {
-  return null;
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundRepairDeck");
+  String deckPath=params[0].getString();
+  Collection col=params[0].getCollection();
+  if (col != null) {
+    col.close(false);
+  }
+  return new TaskData(BackupManager.repairDeck(deckPath));
 }

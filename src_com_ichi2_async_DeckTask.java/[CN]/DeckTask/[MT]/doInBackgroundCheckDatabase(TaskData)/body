@@ -1,5 +1,26 @@
 {
   Log.i(AnkiDroidApp.TAG,"doInBackgroundCheckDatabase");
   Collection col=params[0].getCollection();
-  return new TaskData(col.fixIntegrity());
+  long result;
+  try {
+    col.getDb().getDatabase().beginTransaction();
+    try {
+      result=col.fixIntegrity();
+      col.getDb().getDatabase().setTransactionSuccessful();
+    }
+  finally {
+      col.getDb().getDatabase().endTransaction();
+    }
+  }
+ catch (  RuntimeException e) {
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundCheckDatabase - RuntimeException on marking card: " + e);
+    AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundCheckDatabase");
+    return new TaskData(false);
+  }
+  if (result == -1) {
+    return new TaskData(false);
+  }
+ else {
+    return new TaskData(0,result,true);
+  }
 }

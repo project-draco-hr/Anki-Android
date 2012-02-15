@@ -56,6 +56,31 @@ builder.setNegativeButton(res.getString(R.string.sync_conflict_cancel),mSyncConf
 builder.setCancelable(true);
 dialog=builder.create();
 break;
+case DIALOG_DB_ERROR:
+builder.setTitle(R.string.answering_error_title);
+builder.setIcon(android.R.drawable.ic_dialog_alert);
+builder.setMessage(R.string.answering_error_message);
+builder.setPositiveButton("XXXCheckcolXXX",new DialogInterface.OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+}
+}
+);
+builder.setNeutralButton(res.getString(R.string.answering_error_report),new DialogInterface.OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+Intent i=new Intent(DeckPicker.this,Feedback.class);
+i.putExtra("request",RESULT_DB_ERROR);
+dialog.dismiss();
+startActivityForResult(i,REPORT_ERROR);
+if (UIUtils.getApiLevel() > 4) {
+ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.RIGHT);
+}
+}
+}
+);
+builder.setNegativeButton(res.getString(R.string.close),null);
+builder.setCancelable(true);
+dialog=builder.create();
+break;
 case DIALOG_USER_NOT_LOGGED_IN_SYNC:
 builder.setTitle(res.getString(R.string.connection_error_title));
 builder.setIcon(android.R.drawable.ic_dialog_alert);

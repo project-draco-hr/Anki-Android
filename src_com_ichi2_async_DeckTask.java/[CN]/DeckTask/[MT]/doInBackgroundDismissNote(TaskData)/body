@@ -4,20 +4,21 @@
   Card card=params[0].getCard();
   Note note=card.note();
   int type=params[0].getInt();
-  col.getDb().getDatabase().beginTransaction();
   try {
+    col.getDb().getDatabase().beginTransaction();
+    try {
 switch (type) {
 case 0:
-      sched.buryNote(note.getId());
-    break;
+        sched.buryNote(note.getId());
+      break;
 case 1:
-  if (card.getQueue() == -1) {
-    sched.unsuspendCards(new long[]{card.getId()});
-  }
+    if (card.getQueue() == -1) {
+      sched.unsuspendCards(new long[]{card.getId()});
+    }
  else {
-    sched.suspendCards(new long[]{card.getId()});
-  }
-break;
+      sched.suspendCards(new long[]{card.getId()});
+    }
+  break;
 case 2:
 ArrayList<Card> cards=note.cards();
 long[] cids=new long[cards.size()];
@@ -35,6 +36,12 @@ col.getDb().getDatabase().setTransactionSuccessful();
 }
   finally {
 col.getDb().getDatabase().endTransaction();
+}
+}
+ catch (RuntimeException e) {
+Log.e(AnkiDroidApp.TAG,"doInBackgroundSuspendCard - RuntimeException on suspending card: " + e);
+AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundSuspendCard");
+return new TaskData(false);
 }
 return new TaskData(true);
 }

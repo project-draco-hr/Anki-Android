@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundAddFact");
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundAddNote");
   Note note=params[0].getNote();
   Collection col=note.getCol();
   try {
@@ -14,7 +14,9 @@
     }
   }
  catch (  RuntimeException e) {
-    throw new RuntimeException(e);
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundAddNote - RuntimeException on adding fact: " + e);
+    AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundAddNote");
+    return new TaskData(false);
   }
   return new TaskData(true);
 }

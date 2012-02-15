@@ -13,5 +13,8 @@ break;
 case DIALOG_SYNC_LOG:
 ad.setMessage(mDialogMessage);
 break;
+case DIALOG_DB_ERROR:
+ad.getButton(Dialog.BUTTON3).setEnabled(hasErrorFiles());
+break;
 }
 }

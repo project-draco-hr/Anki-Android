@@ -50,16 +50,18 @@ DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CHECK_DATABASE,new DeckTask.TaskListe
 mProgressDialog=StyledProgressDialog.show(DeckPicker.this,"",getResources().getString(R.string.check_db_message),true);
 }
 @Override public void onPostExecute(TaskData result){
-long val=result.getLong();
-if (val == -1) {
-}
 if (mProgressDialog.isShowing()) {
 mProgressDialog.dismiss();
 }
+if (result.getBoolean()) {
 StyledDialog dialog=(StyledDialog)onCreateDialog(DIALOG_OK);
 dialog.setTitle(getResources().getString(R.string.check_db_title));
 dialog.setMessage(String.format(Utils.ENGLISH_LOCALE,getResources().getString(R.string.check_db_result_message),Math.round(result.getLong() / 1024)));
 dialog.show();
+}
+ else {
+showDialog(DIALOG_DB_ERROR);
+}
 }
 @Override public void onProgressUpdate(TaskData... values){
 }
