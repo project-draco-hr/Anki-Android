@@ -56,12 +56,16 @@ builder.setNegativeButton(res.getString(R.string.sync_conflict_cancel),mSyncConf
 builder.setCancelable(true);
 dialog=builder.create();
 break;
+case DIALOG_LOAD_FAILED:
+dialog=builder.create();
+break;
 case DIALOG_DB_ERROR:
 builder.setTitle(R.string.answering_error_title);
 builder.setIcon(android.R.drawable.ic_dialog_alert);
 builder.setMessage(R.string.answering_error_message);
-builder.setPositiveButton("XXXCheckcolXXX",new DialogInterface.OnClickListener(){
+builder.setPositiveButton(res.getString(R.string.backup_error_menu_repair),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
+showDialog(DIALOG_ERROR_HANDLING);
 }
 }
 );
@@ -79,6 +83,10 @@ ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.RI
 );
 builder.setNegativeButton(res.getString(R.string.close),null);
 builder.setCancelable(true);
+dialog=builder.create();
+break;
+case DIALOG_ERROR_HANDLING:
+builder.setMessage("TODO");
 dialog=builder.create();
 break;
 case DIALOG_USER_NOT_LOGGED_IN_SYNC:

@@ -43,6 +43,9 @@
  else {
     col=oldCol;
   }
+  if (col == null) {
+    return new TaskData(col);
+  }
   if (reset) {
     col.getSched().reset();
   }
