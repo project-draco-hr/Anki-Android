@@ -12,7 +12,8 @@
   useBackupPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("useBackup");
   asyncModePreference=(CheckBoxPreference)getPreferenceScreen().findPreference("asyncMode");
   ListPreference listpref=(ListPreference)getPreferenceScreen().findPreference("theme");
-  animationsCheckboxPreference.setEnabled(listpref.getValue().equals("2"));
+  String theme=listpref.getValue();
+  animationsCheckboxPreference.setEnabled(theme.equals("2") || theme.equals("3"));
   zoomCheckboxPreference.setEnabled(!swipeCheckboxPreference.isChecked());
   initializeLanguageDialog();
   initializeCustomFontsDialog();

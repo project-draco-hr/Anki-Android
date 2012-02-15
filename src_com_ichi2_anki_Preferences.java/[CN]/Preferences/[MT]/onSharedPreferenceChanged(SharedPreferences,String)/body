@@ -16,7 +16,8 @@
       closePreferences();
     }
  else     if (key.equals("theme")) {
-      if (!sharedPreferences.getString("theme","2").equals("2")) {
+      String theme=sharedPreferences.getString("theme","3");
+      if (theme.equals("2") || theme.equals("3")) {
         animationsCheckboxPreference.setChecked(false);
         animationsCheckboxPreference.setEnabled(false);
       }
@@ -24,7 +25,7 @@
         animationsCheckboxPreference.setEnabled(true);
       }
       Themes.loadTheme();
-switch (Integer.parseInt(sharedPreferences.getString("theme","2"))) {
+switch (Integer.parseInt(sharedPreferences.getString("theme","3"))) {
 case Themes.THEME_ANDROID_DARK:
 case Themes.THEME_ANDROID_LIGHT:
 case Themes.THEME_BLUE:
