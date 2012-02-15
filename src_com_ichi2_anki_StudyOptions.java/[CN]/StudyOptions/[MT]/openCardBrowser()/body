@@ -1,4 +1,5 @@
 {
+  mDontSaveOnStop=true;
   Intent cardBrowser=new Intent(StudyOptions.this,CardBrowser.class);
   startActivityForResult(cardBrowser,BROWSE_CARDS);
   if (UIUtils.getApiLevel() > 4) {

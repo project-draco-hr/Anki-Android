@@ -1,5 +1,9 @@
 {
   super.onSaveInstanceState(outState);
-  outState.putSerializable("dataset",mDataset);
-  outState.putSerializable("renderer",mRenderer);
+  int len=mSeriesList.length;
+  outState.putInt("seriesListLen",len);
+  for (int i=0; i < len; i++) {
+    outState.putSerializable("seriesList" + i,mSeriesList[i]);
+  }
+  outState.putSerializable("meta",mMeta);
 }

@@ -1,0 +1,13 @@
+{
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundSaveCollection");
+  Collection col=params[0].getCollection();
+  if (col != null) {
+    try {
+      col.save();
+    }
+ catch (    SQLiteDiskIOException e) {
+      Log.e(AnkiDroidApp.TAG,"Error on saving deck in background: " + e);
+    }
+  }
+  return null;
+}

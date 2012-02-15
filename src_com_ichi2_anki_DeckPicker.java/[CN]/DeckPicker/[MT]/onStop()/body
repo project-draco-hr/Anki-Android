@@ -1,7 +1,8 @@
 {
   Log.i(AnkiDroidApp.TAG,"DeckPicker - onStop");
   super.onStop();
-  if (!isFinishing() && mIsFinished) {
+  if (!isFinishing() && !mDontSaveOnStop) {
     WidgetStatus.update(this);
+    UIUtils.saveCollectionInBackground(mCol);
   }
 }

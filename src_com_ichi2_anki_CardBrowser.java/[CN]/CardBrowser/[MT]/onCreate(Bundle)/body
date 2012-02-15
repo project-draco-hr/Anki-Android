@@ -6,7 +6,7 @@
   Themes.setContentStyle(mainView,Themes.CALLER_CARDBROWSER);
   mCol=Collection.currentCollection();
   if (mCol == null) {
-    finish();
+    reloadCollection(savedInstanceState);
     return;
   }
   Intent i=getIntent();

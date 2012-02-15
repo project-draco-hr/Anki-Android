@@ -1,6 +1,10 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
+  if (mCol == null) {
+    return;
+  }
   if (requestCode == SHOW_STUDYOPTIONS && resultCode == RESULT_OK) {
+    mDontSaveOnStop=false;
     loadCounts();
   }
  else   if (requestCode == ADD_NOTE && resultCode != RESULT_CANCELED) {

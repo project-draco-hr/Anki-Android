@@ -1,4 +1,4 @@
 {
   String deckPath=PrefSettings.getSharedPrefs(getBaseContext()).getString("deckPath",AnkiDroidApp.getDefaultAnkiDroidDirectory());
-  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_OPEN_COLLECTION,mOpenCollectionHandler,new DeckTask.TaskData(deckPath + "/collection.anki2"));
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_OPEN_COLLECTION,mOpenCollectionHandler,new DeckTask.TaskData(Collection.currentCollection(),deckPath + AnkiDroidApp.COLLECTION_PATH));
 }

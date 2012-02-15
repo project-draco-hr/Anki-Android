@@ -1,11 +1,13 @@
 {
-  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
-  String hkey=preferences.getString("hkey","");
-  if (hkey.length() == 0) {
-    showDialog(DIALOG_USER_NOT_LOGGED_IN_SYNC);
-  }
+  if (mCol != null) {
+    SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+    String hkey=preferences.getString("hkey","");
+    if (hkey.length() == 0) {
+      showDialog(DIALOG_USER_NOT_LOGGED_IN_SYNC);
+    }
  else {
-    mSyncButton.setClickable(false);
-    Connection.sync(mSyncListener,new Connection.Payload(new Object[]{hkey,false,syncConflictResolution}));
+      mSyncButton.setClickable(false);
+      Connection.sync(mSyncListener,new Connection.Payload(new Object[]{hkey,false,syncConflictResolution}));
+    }
   }
 }

@@ -1,4 +1,5 @@
 {
+  mDontSaveOnStop=true;
   Intent reviewer=new Intent(StudyOptions.this,Reviewer.class);
   startActivityForResult(reviewer,REQUEST_REVIEW);
   if (UIUtils.getApiLevel() > 4) {

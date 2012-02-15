@@ -1,6 +1,8 @@
 {
   StyledDialog ad=(StyledDialog)dialog;
-  DeckTask.waitToFinish();
+  if (mCol == null) {
+    return;
+  }
 switch (id) {
 case DIALOG_CRAM:
     break;

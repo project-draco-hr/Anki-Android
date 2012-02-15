@@ -1,4 +1,5 @@
 {
+  mDontSaveOnStop=true;
   Intent intent=new Intent(this,StudyOptions.class);
   startActivityForResult(intent,SHOW_STUDYOPTIONS);
   if (UIUtils.getApiLevel() > 4) {

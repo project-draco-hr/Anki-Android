@@ -6,7 +6,6 @@
   int oldCardLeech=0;
   AnkiDb ankiDB=sched.getCol().getDb();
   ankiDB.getDatabase().beginTransaction();
-  double muh=Utils.now() * 1000;
   try {
     if (oldCard != null) {
       oldCardLeech=sched.answerCard(oldCard,ease) ? 1 : 0;
@@ -14,24 +13,17 @@
         oldCardLeech+=sched.leechActionSuspend(oldCard) ? 1 : 0;
       }
     }
-    Log.e("antworten","" + (Utils.now() * 1000 - muh));
-    muh=Utils.now() * 1000;
     if (newCard == null) {
       newCard=sched.getCard();
     }
-    Log.e("neue","" + (Utils.now() * 1000 - muh));
-    muh=Utils.now() * 1000;
     if (newCard != null) {
       newCard._getQA(true);
     }
-    Log.e("qa","" + (Utils.now() * 1000 - muh));
-    muh=Utils.now() * 1000;
     publishProgress(new TaskData(newCard,oldCardLeech));
     ankiDB.getDatabase().setTransactionSuccessful();
   }
   finally {
     ankiDB.getDatabase().endTransaction();
   }
-  Log.e("write","" + (Utils.now() * 1000 - muh));
   return new TaskData(true);
 }

@@ -1,6 +1,6 @@
 {
   super.onStop();
-  if (!isFinishing() && !mDontSaveOnStop) {
+  if (!isFinishing()) {
     UIUtils.saveCollectionInBackground(mCol);
   }
 }

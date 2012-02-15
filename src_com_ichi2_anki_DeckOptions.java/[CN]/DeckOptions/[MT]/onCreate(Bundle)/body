@@ -1,6 +1,10 @@
 {
   super.onCreate(icicle);
   mCol=Collection.currentCollection();
+  if (mCol == null) {
+    finish();
+    return;
+  }
   mDeck=mCol.getDecks().current();
   if (mCol == null) {
     Log.i(AnkiDroidApp.TAG,"DeckOptions - No Collection loaded");

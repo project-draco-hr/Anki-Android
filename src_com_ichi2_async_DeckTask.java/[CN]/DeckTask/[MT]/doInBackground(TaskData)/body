@@ -1,7 +1,7 @@
 {
   try {
     if ((sOldInstance != null) && (sOldInstance.getStatus() != AsyncTask.Status.FINISHED)) {
-      Log.i(AnkiDroidApp.TAG,"Waiting for " + sOldInstance.mType + " to finish");
+      Log.i(AnkiDroidApp.TAG,"Waiting for " + sOldInstance.mType + " to finish before starting "+ sInstance.mType);
       sOldInstance.get();
     }
   }
@@ -16,8 +16,8 @@ case TASK_TYPE_LOAD_DECK_COUNTS:
 case TASK_TYPE_OPEN_COLLECTION_AND_UPDATE_CARDS:
 TaskData taskData=doInBackgroundOpenCollection(params);
 return taskData;
-case TASK_TYPE_SAVE_DECK:
-return doInBackgroundSaveDeck(params);
+case TASK_TYPE_SAVE_COLLECTION:
+return doInBackgroundSaveCollection(params);
 case TASK_TYPE_ANSWER_CARD:
 return doInBackgroundAnswerCard(params);
 case TASK_TYPE_MARK_CARD:

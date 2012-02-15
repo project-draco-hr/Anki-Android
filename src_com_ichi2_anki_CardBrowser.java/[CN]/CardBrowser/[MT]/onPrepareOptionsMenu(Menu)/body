@@ -1,4 +1,7 @@
 {
+  if (mCol == null) {
+    return false;
+  }
   menu.findItem(MENU_UNDO).setEnabled(mCol.undoAvailable());
   return true;
 }

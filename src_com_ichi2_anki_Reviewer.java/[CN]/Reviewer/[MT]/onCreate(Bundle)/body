@@ -6,7 +6,7 @@
   setVolumeControlStream(AudioManager.STREAM_MUSIC);
   Collection col=Collection.currentCollection();
   if (col == null) {
-    finishNoStorageAvailable();
+    reloadCollection(savedInstanceState);
     return;
   }
  else {

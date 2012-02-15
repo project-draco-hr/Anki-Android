@@ -4,4 +4,7 @@
     mSensorManager.unregisterListener(mSensorListener);
   }
   super.onStop();
+  if (!isFinishing()) {
+    UIUtils.saveCollectionInBackground(mSched.getCol());
+  }
 }

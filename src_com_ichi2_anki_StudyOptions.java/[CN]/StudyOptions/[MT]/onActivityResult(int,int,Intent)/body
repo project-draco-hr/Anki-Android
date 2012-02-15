@@ -1,5 +1,6 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
+  Log.i(AnkiDroidApp.TAG,"StudyOptions: onActivityResult");
   if (resultCode == AnkiDroidApp.RESULT_TO_HOME) {
     closeStudyOptions();
     return;
@@ -21,17 +22,19 @@
 switch (resultCode) {
 case Reviewer.RESULT_SESSION_COMPLETED:
 default :
-      showContentView(CONTENT_STUDY_OPTIONS);
+      showContentView(CONTENT_STUDY_OPTIONS,mDontSaveOnStop);
     break;
 case Reviewer.RESULT_NO_MORE_CARDS:
-  showContentView(CONTENT_CONGRATS);
+  showContentView(CONTENT_CONGRATS,mDontSaveOnStop);
 break;
 case Reviewer.RESULT_ANSWERING_ERROR:
 closeStudyOptions(DeckPicker.RESULT_DB_ERROR);
 break;
 }
+mDontSaveOnStop=false;
 }
  else if (requestCode == BROWSE_CARDS && resultCode == RESULT_OK) {
+mDontSaveOnStop=false;
 resetAndUpdateValuesFromDeck();
 }
  else if (requestCode == STATISTICS && mCurrentContentView == CONTENT_CONGRATS) {

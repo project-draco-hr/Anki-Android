@@ -1,14 +1,6 @@
 {
   DeckTask.launchDeckTask(DeckTask.TASK_TYPE_OPEN_COLLECTION,new DeckTask.TaskListener(){
     @Override public void onPostExecute(    DeckTask.TaskData result){
-      if (mProgressDialog.isShowing()) {
-        try {
-          mProgressDialog.dismiss();
-        }
- catch (        Exception e) {
-          Log.e(AnkiDroidApp.TAG,"onPostExecute - Dialog dismiss Exception = " + e.getMessage());
-        }
-      }
       mCol=result.getCollection();
       Collection.putCurrentCollection(mCol);
       if (mCol == null) {
@@ -19,7 +11,7 @@
       }
     }
     @Override public void onPreExecute(){
-      mProgressDialog=StyledProgressDialog.show(CardEditor.this,"",getResources().getString(R.string.open_collection),true,true,new OnCancelListener(){
+      mProgressDialog=StyledProgressDialog.show(CardBrowser.this,"",getResources().getString(R.string.open_collection),true,true,new OnCancelListener(){
         @Override public void onCancel(        DialogInterface arg0){
           finish();
         }

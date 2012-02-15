@@ -5,6 +5,10 @@
   restorePreferences();
   registerExternalStorageListener();
   mCol=Collection.currentCollection();
+  if (mCol == null) {
+    reloadCollection(savedInstanceState);
+    return;
+  }
   initAllContentViews();
   if (mSwipeEnabled) {
     gestureDetector=new GestureDetector(new MyGestureDetector());
