@@ -1,0 +1,15 @@
+{
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundCloseCollection");
+  Collection col=params[0].getCollection();
+  if (col != null) {
+    try {
+      String path=col.getPath();
+      col.close(true);
+      BackupManager.performBackup(path);
+    }
+ catch (    RuntimeException e) {
+      Log.i(AnkiDroidApp.TAG,"doInBackgroundCloseCollection: error occurred - collection not properly closed");
+    }
+  }
+  return null;
+}
