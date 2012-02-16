@@ -50,5 +50,5 @@
     col.getSched().reset();
   }
   TreeSet<Object[]> decks=col.getSched().deckDueTree(false);
-  return new TaskData(col,decks,DECK_LOADED);
+  return new TaskData(col,decks,0);
 }

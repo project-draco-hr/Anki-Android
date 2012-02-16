@@ -1,6 +1,6 @@
 {
   Payload data=doInBackgroundLoadDeck(args);
-  if (data.returnType == DeckTask.DECK_LOADED) {
+  if (data.returnType == 0) {
     HashMap<String,Object> results=(HashMap<String,Object>)data.result;
     Decks deck=(Decks)results.get("deck");
     SharedDeckDownload download=(SharedDeckDownload)args[0].data[0];

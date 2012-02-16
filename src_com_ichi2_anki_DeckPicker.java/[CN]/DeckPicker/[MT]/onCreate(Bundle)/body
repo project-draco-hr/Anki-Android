@@ -104,6 +104,10 @@
           return false;
         }
       }
+ else       if (text.equals("-1")) {
+        view.setVisibility(View.INVISIBLE);
+        return false;
+      }
       return false;
     }
   }

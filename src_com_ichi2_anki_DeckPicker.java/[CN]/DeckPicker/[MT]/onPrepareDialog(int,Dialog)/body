@@ -16,5 +16,49 @@ break;
 case DIALOG_DB_ERROR:
 ad.getButton(Dialog.BUTTON3).setEnabled(hasErrorFiles());
 break;
+case DIALOG_ERROR_HANDLING:
+ArrayList<String> options=new ArrayList<String>();
+ArrayList<Integer> values=new ArrayList<Integer>();
+if (mCol == null) {
+options.add(res.getString(R.string.backup_retry_opening));
+values.add(0);
+}
+ else {
+options.add(res.getString(R.string.check_db));
+values.add(1);
+}
+options.add(res.getString(R.string.backup_error_menu_repair));
+values.add(2);
+options.add(res.getString(R.string.backup_restore));
+values.add(3);
+options.add(res.getString(R.string.backup_new_collection));
+values.add(4);
+String[] titles=new String[options.size()];
+mRepairValues=new int[options.size()];
+for (int i=0; i < options.size(); i++) {
+titles[i]=options.get(i);
+mRepairValues[i]=values.get(i);
+}
+ad.setSingleChoiceItems(titles,0,new DialogInterface.OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+switch (mRepairValues[which]) {
+case 0:
+loadCollection();
+return;
+case 1:
+integrityCheck();
+return;
+case 2:
+showDialog(DIALOG_REPAIR_COLLECTION);
+return;
+case 3:
+return;
+case 4:
+return;
+}
+}
+}
+);
+break;
 }
 }
