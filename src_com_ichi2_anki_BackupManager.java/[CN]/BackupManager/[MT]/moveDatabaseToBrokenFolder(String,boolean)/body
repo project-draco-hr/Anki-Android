@@ -1,0 +1,27 @@
+{
+  File colFile=new File(colPath);
+  Date value=Utils.genToday(Utils.utcOffset());
+  String movedFilename=String.format(Utils.ENGLISH_LOCALE,colFile.getName().replace(".anki2","") + "-corrupt-%tF.anki2",value);
+  File movedFile=new File(getBrokenDirectory().getPath(),movedFilename);
+  int i=1;
+  while (movedFile.exists()) {
+    movedFile=new File(getBrokenDirectory().getPath(),movedFilename.replace(".anki2","-" + Integer.toString(i) + ".anki2"));
+    i++;
+  }
+  movedFilename=movedFile.getName();
+  if (!colFile.renameTo(movedFile)) {
+    return false;
+  }
+  if (moveConnectedFilesToo) {
+    String deckName=colFile.getName();
+    File directory=new File(colFile.getParent());
+    for (    File f : directory.listFiles()) {
+      if (f.getName().startsWith(deckName)) {
+        if (!f.renameTo(new File(getBrokenDirectory().getPath(),f.getName().replace(deckName,movedFilename)))) {
+          return false;
+        }
+      }
+    }
+  }
+  return true;
+}
