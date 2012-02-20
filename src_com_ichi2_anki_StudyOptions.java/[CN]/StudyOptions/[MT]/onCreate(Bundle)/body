@@ -84,12 +84,7 @@ return false;
 }
 }
 ;
-if (getApiLevel() >= 11) {
-mCompat=new CompatV11();
-}
- else {
-mCompat=new CompatV3();
-}
+mCompat=Utils.createCompat();
 if (AnkiDroidApp.zeemoteController() == null) AnkiDroidApp.setZeemoteController(new Controller(Controller.CONTROLLER_1));
 controllerUi=new ControllerAndroidUi(this,AnkiDroidApp.zeemoteController());
 com.zeemote.util.Strings zstrings=com.zeemote.util.Strings.getStrings();

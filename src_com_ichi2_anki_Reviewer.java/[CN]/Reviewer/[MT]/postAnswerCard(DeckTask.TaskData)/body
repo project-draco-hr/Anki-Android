@@ -38,6 +38,7 @@
   }
  else {
     mCurrentCard=values[0].getCard();
+    mCompat.invalidateOptionsMenu(Reviewer.this);
     if (mCurrentCard == null) {
       noMoreCards=true;
       mProgressDialog=StyledProgressDialog.show(Reviewer.this,"",getResources().getString(R.string.saving_changes),true);

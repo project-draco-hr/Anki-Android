@@ -15,7 +15,7 @@
   Button signUpButton=(Button)mLoginToMyAccountView.findViewById(R.id.sign_up_button);
   signUpButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View v){
-      startActivityWithoutAnimation(new Intent(Intent.ACTION_VIEW,Uri.parse(getResources().getString(R.string.ankionline_sign_up_url))));
+      startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(getResources().getString(R.string.ankionline_sign_up_url))));
     }
   }
 );
