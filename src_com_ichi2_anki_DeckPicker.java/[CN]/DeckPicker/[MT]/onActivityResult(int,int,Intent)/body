@@ -1,7 +1,7 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
   if (resultCode == RESULT_DB_ERROR) {
-    showDialog(DIALOG_DB_ERROR);
+    handleDbError();
   }
   if (requestCode == SHOW_STUDYOPTIONS && resultCode == RESULT_OK) {
     mDontSaveOnStop=false;

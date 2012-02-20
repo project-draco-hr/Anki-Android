@@ -3,7 +3,7 @@
   String collectionFile=params[0].getString();
   Collection oldCol=params[0].getCollection();
   boolean reset=params[0].getBoolean();
-  Collection col;
+  Collection col=null;
   if (oldCol == null || !oldCol.getPath().equals(collectionFile)) {
     File dbFile=new File(collectionFile);
     if (!dbFile.exists()) {
@@ -32,12 +32,17 @@
       publishProgress(new TaskData(res.getString(R.string.open_collection)));
     }
     Log.i(AnkiDroidApp.TAG,"doInBackgroundOpenCollection - File exists -> Loading collection...");
-    col=Collection.openCollection(collectionFile);
-    SharedPreferences prefs=PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext());
-    if (prefs.contains("createTutorial") && prefs.getBoolean("createTutorial",false)) {
-      prefs.edit().remove("createTutorial").commit();
-      publishProgress(new TaskData(res.getString(R.string.tutorial_load)));
-      doInBackgroundLoadTutorial(new TaskData(col));
+    try {
+      col=Collection.openCollection(collectionFile);
+      SharedPreferences prefs=PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext());
+      if (prefs.contains("createTutorial") && prefs.getBoolean("createTutorial",false)) {
+        prefs.edit().remove("createTutorial").commit();
+        publishProgress(new TaskData(res.getString(R.string.tutorial_load)));
+        doInBackgroundLoadTutorial(new TaskData(col));
+      }
+    }
+ catch (    RuntimeException e) {
+      BackupManager.restoreCollectionIfMissing(collectionFile);
     }
   }
  else {

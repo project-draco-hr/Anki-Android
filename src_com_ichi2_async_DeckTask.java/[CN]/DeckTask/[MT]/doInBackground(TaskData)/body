@@ -50,6 +50,8 @@ case TASK_TYPE_CLOSE_DECK:
 return doInBackgroundCloseCollection(params);
 case TASK_TYPE_UPDATE_VALUES_FROM_DECK:
 return doInBackgroundUpdateValuesFromDeck(params);
+case TASK_TYPE_RESTORE_IF_MISSING:
+return doInBackgroundRestoreIfMissing(params);
 default :
 return null;
 }
