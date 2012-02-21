@@ -14,7 +14,7 @@
     cursor=mCol.getDb().getDatabase().rawQuery("SELECT DISTINCT tags FROM notes",null);
     while (cursor.moveToNext()) {
       for (      String t : cursor.getString(0).split("\\s")) {
-        if (t.length > 0) {
+        if (t.length() > 0) {
           tags.add(t);
         }
       }
