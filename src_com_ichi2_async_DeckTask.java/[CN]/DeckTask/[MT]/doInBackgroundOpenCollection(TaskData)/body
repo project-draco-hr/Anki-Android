@@ -51,9 +51,15 @@
   if (col == null) {
     return new TaskData(col);
   }
-  if (reset) {
-    col.getSched().reset();
+  try {
+    if (reset) {
+      col.getSched().reset();
+    }
+    TreeSet<Object[]> decks=col.getSched().deckDueTree(false);
+    return new TaskData(col,decks,0);
   }
-  TreeSet<Object[]> decks=col.getSched().deckDueTree(false);
-  return new TaskData(col,decks,0);
+ catch (  RuntimeException e) {
+    col=null;
+    return new TaskData(col);
+  }
 }
