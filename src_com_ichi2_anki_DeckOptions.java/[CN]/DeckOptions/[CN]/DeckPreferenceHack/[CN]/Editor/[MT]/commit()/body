@@ -4,7 +4,9 @@
     for (    Entry<String,Object> entry : mUpdate.valueSet()) {
       Log.i(AnkiDroidApp.TAG,"Change value for key '" + entry.getKey() + "': "+ entry.getValue());
       if (entry.getKey().equals("name")) {
-        mCol.getDecks().rename(mDeck,(String)entry.getValue());
+        if (!mCol.getDecks().rename(mDeck,(String)entry.getValue())) {
+          Themes.showThemedToast(DeckOptions.this,getResources().getString(R.string.rename_error,mDeck.get("name")),false);
+        }
       }
  else       if (entry.getKey().equals("desc")) {
         mDeck.put("desc",(String)entry.getValue());

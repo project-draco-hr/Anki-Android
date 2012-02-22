@@ -1,6 +1,6 @@
 {
   if (allNames().contains(newName) || newName.length() == 0) {
-    return;
+    return false;
   }
   String oldName;
   try {
@@ -21,4 +21,5 @@
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
+  return true;
 }
