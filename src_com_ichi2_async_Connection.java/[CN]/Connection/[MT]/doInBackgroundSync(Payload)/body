@@ -4,6 +4,11 @@
   boolean media=(Boolean)data.data[1];
   String conflictResolution=(String)data.data[2];
   Collection col=Collection.currentCollection();
+  if (col == null) {
+    data.success=false;
+    data.result=new Object[]{"genericError"};
+    return data;
+  }
   String path=col.getPath();
   HttpSyncer server=new RemoteServer(this,hkey);
   Syncer client=new Syncer(col,server);
