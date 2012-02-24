@@ -5,7 +5,7 @@
     try {
       col.save();
     }
- catch (    SQLiteDiskIOException e) {
+ catch (    RuntimeException e) {
       Log.e(AnkiDroidApp.TAG,"Error on saving deck in background: " + e);
     }
   }

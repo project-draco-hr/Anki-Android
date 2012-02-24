@@ -1,10 +1,10 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
+  mDontSaveOnStop=false;
   if (resultCode == RESULT_DB_ERROR) {
     handleDbError();
   }
   if (requestCode == SHOW_STUDYOPTIONS && resultCode == RESULT_OK) {
-    mDontSaveOnStop=false;
     loadCounts();
   }
  else   if (requestCode == ADD_NOTE && resultCode != RESULT_CANCELED) {
