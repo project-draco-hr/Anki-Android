@@ -2,7 +2,7 @@
   Log.i(AnkiDroidApp.TAG,"doInBackgroundOpenCollection");
   Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
   String collectionFile=params[0].getString();
-  Collection oldCol=params[0].getCollection();
+  Collection oldCol=Collection.currentCollection();
   boolean reset=params[0].getBoolean();
   Collection col=null;
   if (oldCol == null || !oldCol.getPath().equals(collectionFile)) {
@@ -47,6 +47,7 @@
     }
   }
  else {
+    Log.i(AnkiDroidApp.TAG,"doInBackgroundOpenCollection: collection still open - reusing it");
     col=oldCol;
   }
   if (col == null) {
