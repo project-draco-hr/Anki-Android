@@ -4,6 +4,6 @@
     mStatisticBarsMax=view.getWidth();
     mStatisticBarsHeight=view.getHeight();
   }
-  Utils.updateProgressBars(mSessionProgressBar,(int)(mStatisticBarsMax * mSched.todaysProgress(mCurrentCard,false)),mStatisticBarsHeight);
-  Utils.updateProgressBars(mSessionProgressTotalBar,(int)(mStatisticBarsMax * mSched.todaysProgress(mCurrentCard,true)),mStatisticBarsHeight);
+  Utils.updateProgressBars(mSessionProgressBar,(int)(mStatisticBarsMax * mSched.todaysProgress(mCurrentCard,false,false)),mStatisticBarsHeight);
+  Utils.updateProgressBars(mSessionProgressTotalBar,(int)(mStatisticBarsMax * mSched.todaysProgress(mCurrentCard,true,false)),mStatisticBarsHeight);
 }

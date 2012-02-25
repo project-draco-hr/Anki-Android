@@ -5,6 +5,8 @@
   }
   super.onStop();
   if (!isFinishing()) {
+    int[] counts=mSched.counts(mCurrentCard);
+    WidgetStatus.update(this);
     UIUtils.saveCollectionInBackground(mSched.getCol());
   }
 }
