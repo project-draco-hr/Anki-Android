@@ -2,20 +2,12 @@
   if (mUnmountReceiver == null) {
     mUnmountReceiver=new BroadcastReceiver(){
       @Override public void onReceive(      Context context,      Intent intent){
-        String action=intent.getAction();
-        if (action.equals(Intent.ACTION_MEDIA_UNMOUNTED)) {
-          Log.i(AnkiDroidApp.TAG,"DeckPicker - mUnmountReceiver, Action = Media Unmounted");
-        }
- else         if (action.equals(Intent.ACTION_MEDIA_MOUNTED)) {
-          Log.i(AnkiDroidApp.TAG,"DeckPicker - mUnmountReceiver, Action = Media Mounted");
-          mDeckIsSelected=false;
-        }
+        showDialog(DIALOG_SD_CARD_NOT_MOUNTED);
       }
     }
 ;
     IntentFilter iFilter=new IntentFilter();
     iFilter.addAction(Intent.ACTION_MEDIA_UNMOUNTED);
-    iFilter.addAction(Intent.ACTION_MEDIA_MOUNTED);
     iFilter.addDataScheme("file");
     registerReceiver(mUnmountReceiver,iFilter);
   }

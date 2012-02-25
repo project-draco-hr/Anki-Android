@@ -1,8 +1,13 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
   mDontSaveOnStop=false;
-  if (resultCode == RESULT_DB_ERROR) {
+  if (resultCode == RESULT_MEDIA_EJECTED) {
+    showDialog(DIALOG_SD_CARD_NOT_MOUNTED);
+    return;
+  }
+ else   if (resultCode == RESULT_DB_ERROR) {
     handleDbError();
+    return;
   }
   if (requestCode == SHOW_STUDYOPTIONS && resultCode == RESULT_OK) {
     loadCounts();

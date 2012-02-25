@@ -23,6 +23,9 @@
       ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
     }
   }
+ else   if (!AnkiDroidApp.isSdCardMounted()) {
+    showDialog(DIALOG_SD_CARD_NOT_MOUNTED);
+  }
  else   if (!BackupManager.enoughDiscSpace(mPrefDeckPath)) {
     showDialog(DIALOG_NO_SPACE_LEFT);
   }

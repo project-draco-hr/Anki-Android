@@ -2,16 +2,13 @@
   if (mUnmountReceiver == null) {
     mUnmountReceiver=new BroadcastReceiver(){
       @Override public void onReceive(      Context context,      Intent intent){
-        String action=intent.getAction();
-        if (action.equals(Intent.ACTION_MEDIA_EJECT)) {
-          Log.i(AnkiDroidApp.TAG,"mUnmountReceiver - Action = Media Eject");
-          finishNoStorageAvailable();
-        }
+        Log.i(AnkiDroidApp.TAG,"mUnmountReceiver - Action = Media Eject");
+        finishNoStorageAvailable();
       }
     }
 ;
     IntentFilter iFilter=new IntentFilter();
-    iFilter.addAction(Intent.ACTION_MEDIA_EJECT);
+    iFilter.addAction(Intent.ACTION_MEDIA_UNMOUNTED);
     iFilter.addDataScheme("file");
     registerReceiver(mUnmountReceiver,iFilter);
   }
