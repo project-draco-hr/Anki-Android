@@ -1,0 +1,15 @@
+{
+  SpannableStringBuilder sb=new SpannableStringBuilder();
+  SpannableString hard=new SpannableString(contentService.mCol.getSched().nextIvlStr(card,2));
+  hard.setSpan(new ForegroundColorSpan(getResources().getColor(contentService.mCol.getSched().lrnButtons(card) ? R.color.widget_big_font_color : R.color.widget_big_font_color_green)),0,hard.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+  SpannableString easy=new SpannableString(contentService.mCol.getSched().nextIvlStr(card,3));
+  easy.setSpan(new ForegroundColorSpan(getResources().getColor(contentService.mCol.getSched().lrnButtons(card) ? R.color.widget_big_font_color_green : R.color.widget_big_font_color)),0,easy.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+  SpannableString veryEasy=new SpannableString(contentService.mCol.getSched().nextIvlStr(card,4));
+  veryEasy.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.widget_big_font_color)),0,veryEasy.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+  sb.append(hard);
+  sb.append(" \u2027 ");
+  sb.append(easy);
+  sb.append(" \u2027 ");
+  sb.append(veryEasy);
+  return sb;
+}

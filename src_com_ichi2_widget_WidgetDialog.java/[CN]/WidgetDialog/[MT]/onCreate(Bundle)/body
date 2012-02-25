@@ -1,0 +1,60 @@
+{
+  Themes.applyTheme(this,Themes.THEME_NO_THEME);
+  super.onCreate(savedInstanceState);
+  Intent intent=getIntent();
+  if (intent != null) {
+    String action=intent.getAction();
+    if (action != null) {
+      if (ACTION_SHOW_DECK_SELECTION_DIALOG.equals(action)) {
+        Collection col=Collection.currentCollection();
+        if (col == null) {
+          return;
+        }
+        ArrayList<CharSequence> dialogDeckItems=new ArrayList<CharSequence>();
+        final ArrayList<Long> dialogDeckIds=new ArrayList<Long>();
+        ArrayList<JSONObject> decks=col.getDecks().all();
+        Collections.sort(decks,new JSONNameComparator());
+        StyledDialog.Builder builder=new StyledDialog.Builder(this);
+        builder.setTitle(R.string.deck);
+        for (        JSONObject d : decks) {
+          try {
+            dialogDeckItems.add(DeckPicker.readableDeckName(d.getString("name").split("::")));
+            dialogDeckIds.add(d.getLong("id"));
+          }
+ catch (          JSONException e) {
+            throw new RuntimeException(e);
+          }
+        }
+        String[] items=new String[dialogDeckItems.size()];
+        dialogDeckItems.toArray(items);
+        builder.setItems(items,new DialogInterface.OnClickListener(){
+          public void onClick(          DialogInterface dialog,          int item){
+            Intent newIntent=new Intent(WidgetDialog.this,AnkiDroidWidgetBig.UpdateService.class);
+            newIntent.putExtra(DeckPicker.EXTRA_DECK_ID,dialogDeckIds.get(item));
+            newIntent.setAction(AnkiDroidWidgetBig.UpdateService.ACTION_OPENDECK);
+            startService(newIntent);
+          }
+        }
+);
+        builder.setOnDismissListener(new OnDismissListener(){
+          @Override public void onDismiss(          DialogInterface arg0){
+            WidgetDialog.this.finish();
+          }
+        }
+);
+        builder.show();
+      }
+ else       if (ACTION_SHOW_RESTRICTIONS_DIALOG.equals(action)) {
+        Resources res=getResources();
+        StyledDialog.Builder builder=new StyledDialog.Builder(this);
+        builder.setTitle(res.getString(R.string.widget_big)).setMessage(R.string.widget_big_restrictions_dialog).setOnDismissListener(new OnDismissListener(){
+          @Override public void onDismiss(          DialogInterface arg0){
+            WidgetDialog.this.finish();
+          }
+        }
+).setPositiveButton(res.getString(R.string.ok),null);
+        builder.show();
+      }
+    }
+  }
+}
