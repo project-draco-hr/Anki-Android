@@ -6,10 +6,10 @@
   int eta=0;
   boolean noDeck=true;
   try {
-    cursor=mMetaDb.query("widgetStatus",new String[]{"depth","newCards","lrnCards","dueCards","progress","eta"},null,null,null,null,null);
+    cursor=mMetaDb.query("widgetStatus",new String[]{"deckName","newCards","lrnCards","dueCards","progress","eta"},null,null,null,null,null);
     while (cursor.moveToNext()) {
       noDeck=false;
-      if (cursor.getInt(0) == 1) {
+      if (cursor.getString(0).split("::").length == 1) {
         due+=cursor.getInt(1) + cursor.getInt(2) + cursor.getInt(3);
         progress=cursor.getInt(4);
         eta=cursor.getInt(5);

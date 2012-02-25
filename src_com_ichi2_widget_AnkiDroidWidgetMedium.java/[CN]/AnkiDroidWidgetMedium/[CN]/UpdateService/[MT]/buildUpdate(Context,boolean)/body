@@ -1,7 +1,7 @@
 {
-  Log.i(AnkiDroidApp.TAG,"buildUpdate");
+  Log.i(AnkiDroidApp.TAG,"MediumWidget: buildUpdate");
   RemoteViews updateViews=new RemoteViews(context.getPackageName(),R.layout.widget);
-  Intent ankiDroidIntent=new Intent(context,StudyOptions.class);
+  Intent ankiDroidIntent=new Intent(context,DeckPicker.class);
   ankiDroidIntent.setAction(Intent.ACTION_MAIN);
   ankiDroidIntent.addCategory(Intent.CATEGORY_LAUNCHER);
   PendingIntent pendingAnkiDroidIntent=PendingIntent.getActivity(context,0,ankiDroidIntent,0);
@@ -51,7 +51,7 @@
     DeckStatus deckStatus=dueDecks.get(currentDueDeck);
     updateViews.setTextViewText(R.id.anki_droid_name,deckStatus.mDeckName);
     updateViews.setTextViewText(R.id.anki_droid_status,getDeckStatusString(deckStatus));
-    PendingIntent openPendingIntent=getOpenPendingIntent(context,"");
+    PendingIntent openPendingIntent=getOpenPendingIntent(context,deckStatus.mDeckId);
     updateViews.setOnClickPendingIntent(R.id.anki_droid_name,openPendingIntent);
     updateViews.setOnClickPendingIntent(R.id.anki_droid_status,openPendingIntent);
     if (currentDueDeck > 0) {

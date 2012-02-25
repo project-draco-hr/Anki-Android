@@ -9,6 +9,10 @@
     reloadCollection(savedInstanceState);
     return;
   }
+  Intent intent=getIntent();
+  if (intent != null && intent.hasExtra(DeckPicker.EXTRA_DECK_ID)) {
+    mCol.getDecks().select(intent.getLongExtra(DeckPicker.EXTRA_DECK_ID,1));
+  }
   initAllContentViews();
   if (mSwipeEnabled) {
     gestureDetector=new GestureDetector(new MyGestureDetector());

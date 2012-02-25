@@ -1,11 +1,6 @@
 {
   Log.i(AnkiDroidApp.TAG,"buildUpdate");
   RemoteViews updateViews=new RemoteViews(context.getPackageName(),R.layout.widget_small);
-  Intent ankiDroidIntent=new Intent(context,StudyOptions.class);
-  ankiDroidIntent.setAction(Intent.ACTION_MAIN);
-  ankiDroidIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-  PendingIntent pendingAnkiDroidIntent=PendingIntent.getActivity(context,0,ankiDroidIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-  updateViews.setOnClickPendingIntent(R.id.ankidroid_widget_small_layout,pendingAnkiDroidIntent);
   boolean mounted=AnkiDroidApp.isSdCardMounted();
   if (!mounted) {
     updateViews.setViewVisibility(R.id.widget_due,View.INVISIBLE);
@@ -70,5 +65,10 @@
       }
     }
   }
+  Intent ankiDroidIntent=new Intent(context,DeckPicker.class);
+  ankiDroidIntent.setAction(Intent.ACTION_MAIN);
+  ankiDroidIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+  PendingIntent pendingAnkiDroidIntent=PendingIntent.getActivity(context,0,ankiDroidIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+  updateViews.setOnClickPendingIntent(R.id.ankidroid_widget_small_layout,pendingAnkiDroidIntent);
   return updateViews;
 }
