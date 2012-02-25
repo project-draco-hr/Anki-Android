@@ -4,48 +4,32 @@
   if (!AnkiDroidApp.isSdCardMounted()) {
     return context;
   }
-  ArrayList<DeckStatus> decks;
-  if (sDeckStatus != null && mDecks != null && mDecks.length > 0) {
-    decks=new ArrayList<DeckStatus>(mDecks.length);
-    for (    DeckStatus m : mDecks) {
-      if (m.mDeckPath.equals(sDeckStatus.mDeckPath)) {
-        Log.i(AnkiDroidApp.TAG,"UpdateWidget - update information for deck " + sDeckStatus.mDeckPath);
-        decks.add(sDeckStatus);
-      }
+  ArrayList<DeckStatus> decks=new ArrayList<DeckStatus>();
+  try {
+    Collection col=Collection.currentCollection();
+    Object[] di;
+    float progress;
+    if (col == null) {
+      col=Collection.openCollection(AnkiDroidApp.getCollectionPath());
+      di=col.getSched().deckCounts();
+      progress=col.getSched().todaysProgress(null,true);
+      col.close(false);
+    }
  else {
-        Log.i(AnkiDroidApp.TAG,"UpdateWidget - copy information for deck " + m.mDeckPath);
-        decks.add(m);
-      }
+      di=col.getSched().deckCounts();
+      progress=col.getSched().todaysProgress(null,true);
+    }
+    int eta=(Integer)di[1];
+    for (    Object[] d : (TreeSet<Object[]>)di[0]) {
+      String[] name=((String[])d[0]);
+      int newCount=(Integer)d[2];
+      int lrnCount=(Integer)d[3];
+      int revCount=(Integer)d[4];
+      decks.add(new DeckStatus((Long)d[1],name.length,DeckPicker.readableDeckName(name),newCount,lrnCount,revCount,(int)(progress * 100),eta));
     }
   }
- else {
-    SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
-    String deckPath=preferences.getString("deckPath",AnkiDroidApp.getDefaultAnkiDroidDirectory());
-    File dir=new File(deckPath);
-    File[] fileList=dir.listFiles(new AnkiFileFilter());
-    if (fileList == null || fileList.length == 0) {
-      mDecks=EMPTY_DECK_STATUS;
-      return context;
-    }
-    decks=new ArrayList<DeckStatus>(fileList.length);
-    for (    File file : fileList) {
-      String absPath=null;
-      try {
-        absPath=file.getAbsolutePath();
-        String deckName=file.getName().replaceAll(".anki","");
-        Log.i(AnkiDroidApp.TAG,"WidgetStatus: Found deck: " + absPath);
-      }
- catch (      SQLException e) {
-        Log.i(AnkiDroidApp.TAG,"Widget: Problems on retrieving deck information");
-        Log.e(AnkiDroidApp.TAG,e.toString());
-        if (absPath != null) {
-        }
-      }
-    }
-  }
-  if (!decks.isEmpty() && decks.size() > 1) {
-    Log.i(AnkiDroidApp.TAG,"Sorting deck");
-    Collections.sort(decks,new ByNameComparator());
+ catch (  SQLException e) {
+    Log.i(AnkiDroidApp.TAG,"Widget: Problems on retrieving deck information");
   }
   mDecks=decks.toArray(EMPTY_DECK_STATUS);
   return context;

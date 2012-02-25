@@ -42,13 +42,8 @@
     if (dueCardsCount == 0 || updateDueDecksNow) {
       int[] counts=WidgetStatus.fetchSmall(context);
       dueCardsCount=counts[0];
-      reps=counts[1];
+      progress=counts[1];
       eta=counts[2];
-      int totalreps=reps + dueCardsCount;
-      int progress=0;
-      if (totalreps != 0) {
-        progress=(int)Math.round((100.0d * reps) / totalreps);
-      }
       if (dueCardsCount <= 0) {
         if (dueCardsCount == 0) {
           updateViews.setViewVisibility(R.id.ankidroid_widget_small_finish_layout,View.VISIBLE);

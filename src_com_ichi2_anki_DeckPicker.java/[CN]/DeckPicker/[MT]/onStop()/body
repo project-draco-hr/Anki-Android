@@ -4,7 +4,7 @@
   if (!mDontSaveOnStop) {
     WidgetStatus.update(this);
     if (isFinishing()) {
-      UIUtils.saveCollectionInBackground(mCol);
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CLOSE_DECK,mCloseCollectionHandler,new TaskData(mCol));
     }
   }
 }

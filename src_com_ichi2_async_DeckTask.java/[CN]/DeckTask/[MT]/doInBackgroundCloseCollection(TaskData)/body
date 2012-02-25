@@ -2,6 +2,7 @@
   Log.i(AnkiDroidApp.TAG,"doInBackgroundCloseCollection");
   Collection col=params[0].getCollection();
   if (col != null) {
+    WidgetStatus.waitToFinish();
     try {
       String path=col.getPath();
       col.close(true);

@@ -2,11 +2,21 @@
   if (mUnmountReceiver == null) {
     mUnmountReceiver=new BroadcastReceiver(){
       @Override public void onReceive(      Context context,      Intent intent){
+        if (intent.getAction().equals(Intent.ACTION_MEDIA_EJECT)) {
+          if (mCol != null) {
+            mCol.close();
+          }
+          showDialog(DIALOG_SD_CARD_NOT_MOUNTED);
+        }
+ else         if (intent.getAction().equals(Intent.ACTION_MEDIA_UNMOUNTED)) {
+          showDialog(DIALOG_LOAD_FAILED);
+        }
         showDialog(DIALOG_SD_CARD_NOT_MOUNTED);
       }
     }
 ;
     IntentFilter iFilter=new IntentFilter();
+    iFilter.addAction(Intent.ACTION_MEDIA_EJECT);
     iFilter.addAction(Intent.ACTION_MEDIA_UNMOUNTED);
     iFilter.addDataScheme("file");
     registerReceiver(mUnmountReceiver,iFilter);
