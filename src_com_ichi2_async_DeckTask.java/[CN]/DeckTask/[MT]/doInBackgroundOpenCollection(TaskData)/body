@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundOpenCollection");
   Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
   String collectionFile=params[0].getString();
   Collection oldCol=params[0].getCollection();
