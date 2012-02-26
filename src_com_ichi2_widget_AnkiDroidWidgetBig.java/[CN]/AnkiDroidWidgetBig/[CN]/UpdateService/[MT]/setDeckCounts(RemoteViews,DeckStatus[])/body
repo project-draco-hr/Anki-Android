@@ -4,7 +4,7 @@
   int eta=0;
   for (  DeckStatus d : decks) {
     namesSb.append(d.mDeckName).append("  \n");
-    duesSb.append(getDeckStatusString(d.mLrnCards,d.mDueCards,d.mNewCards,null)).append("\n");
+    duesSb.append(getDeckStatusString(d.mNewCards,d.mLrnCards,d.mDueCards,null)).append("\n");
     eta+=d.mEta;
   }
   int pos=namesSb.length() - 1;
