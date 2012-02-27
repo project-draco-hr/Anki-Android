@@ -39,6 +39,9 @@
   StringBuilder style=new StringBuilder();
   style.append(mCustomFontStyle);
   Log.i(AnkiDroidApp.TAG,"::style::" + style);
+  if (mNightMode) {
+    content=Models.invertColors(content);
+  }
   mCardContent=new SpannedString(mCardTemplate.replace("::content::",content).replace("::style::",style.toString()));
   Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
   fillFlashcard(mShowAnimations);
