@@ -11,6 +11,7 @@
     Log.i(AnkiDroidApp.TAG,"Resetting widget status");
     mMetaDb.execSQL("DROP TABLE IF EXISTS intentInformation;");
     Log.i(AnkiDroidApp.TAG,"Resetting intentInformation");
+    upgradeDB(mMetaDb,DATABASE_VERSION);
     return true;
   }
  catch (  Exception e) {
