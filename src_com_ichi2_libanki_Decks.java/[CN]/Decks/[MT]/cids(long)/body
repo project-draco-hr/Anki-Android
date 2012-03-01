@@ -1,8 +1,3 @@
 {
-  ArrayList<Long> cids=mCol.getDb().queryColumn(Long.class,"SELECT id FROM cards WHERE did = " + did,0);
-  long[] result=new long[cids.size()];
-  for (int i=0; i < cids.size(); i++) {
-    result[i]=cids.get(i);
-  }
-  return result;
+  return cids(did,false);
 }
