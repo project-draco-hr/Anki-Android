@@ -3,7 +3,13 @@
     SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
     String defaultFont=preferences.getString("defaultFont",null);
     if (defaultFont == null || "".equals(defaultFont)) {
-      mCustomDefaultFontCss="";
+      defaultFont=Themes.getReviewerFontName();
+      if (defaultFont == null || "".equals(defaultFont)) {
+        mCustomDefaultFontCss="";
+      }
+ else {
+        mCustomDefaultFontCss="BODY .question, BODY .answer { font-family: '" + defaultFont + "' }\n";
+      }
     }
  else {
       mCustomDefaultFontCss="BODY .question, BODY .answer { font-family: '" + defaultFont + "' }\n";
