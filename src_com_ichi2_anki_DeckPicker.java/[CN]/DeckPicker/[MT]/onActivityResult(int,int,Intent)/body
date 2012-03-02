@@ -35,5 +35,11 @@
  else   if (requestCode == LOG_IN_FOR_SYNC && resultCode == RESULT_OK) {
     sync();
   }
+ else   if (requestCode == LOG_IN_FOR_SHARED_DECK && resultCode == RESULT_OK) {
+    addSharedDeck();
+  }
+ else   if (requestCode == ADD_SHARED_DECKS) {
+    sync();
+  }
   BroadcastMessages.showDialog();
 }

@@ -1,10 +1,15 @@
 {
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-    Log.i(AnkiDroidApp.TAG,"Info - onBackPressed()");
-    setResult(RESULT_CANCELED);
-    finish();
-    if (UIUtils.getApiLevel() > 4) {
-      ActivityTransitionAnimation.slide(Info.this,ActivityTransitionAnimation.LEFT);
+    if (mType == TYPE_SHARED_DECKS && mWebView.canGoBack()) {
+      mWebView.goBack();
+    }
+ else {
+      Log.i(AnkiDroidApp.TAG,"Info - onBackPressed()");
+      setResult(RESULT_CANCELED);
+      finish();
+      if (UIUtils.getApiLevel() > 4) {
+        ActivityTransitionAnimation.slide(Info.this,ActivityTransitionAnimation.LEFT);
+      }
     }
     return true;
   }
