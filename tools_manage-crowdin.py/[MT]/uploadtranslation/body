@@ -1,10 +1,8 @@
 def uploadtranslation(language, filename, sourcefile):
-    if (language == 'zh-TW'):
-        pathlan = 'zh-rTW'
-    elif (language == 'zh-CN'):
-        pathlan = 'zh-rCN'
+    if (len(language) > 2):
+        pathlan = string.replace(language, '-', '-r')
     else:
-        pathlan = language[:2]
+        pathlan = language
     path = (('../res/values-' + pathlan) + '/')
     filename = (filename + '.xml')
     print ((('Update of Translation ' + language) + ' for ') + filename)
