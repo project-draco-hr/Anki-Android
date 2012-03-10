@@ -2,6 +2,7 @@
   File deckFile=new File(deckPath);
   AnkiDatabaseManager.closeDatabase(deckPath);
   String execString="sqlite3 " + deckPath + " .dump | sqlite3 "+ deckPath+ ".tmp";
+  Log.i(AnkiDroidApp.TAG,"repairDeck - Execute: " + execString);
   try {
     String[] cmd={"/system/bin/sh","-c",execString};
     Process process=Runtime.getRuntime().exec(cmd);
@@ -19,6 +20,7 @@
     if (!deckFile.renameTo(movedFile)) {
       return false;
     }
+    Log.i(AnkiDroidApp.TAG,"repairDeck - moved corrupt file to " + movedFile.getAbsolutePath());
     File repairedFile=new File(deckPath + ".tmp");
     if (!repairedFile.renameTo(deckFile)) {
       return false;

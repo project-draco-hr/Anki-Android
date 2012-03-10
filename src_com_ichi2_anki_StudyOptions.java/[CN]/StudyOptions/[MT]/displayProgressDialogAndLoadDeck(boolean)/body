@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"displayProgressDialogAndLoadDeck - Loading deck " + mDeckFilename);
   if (mDeckFilename != null && new File(mDeckFilename).exists()) {
     mToggleCram.setChecked(false);
     mToggleLimit.setEnabled(true);
@@ -12,8 +13,10 @@
   }
  else {
     if (mDeckFilename == null) {
+      Log.i(AnkiDroidApp.TAG,"displayProgressDialogAndLoadDeck - SD card unmounted.");
     }
  else     if (!new File(mDeckFilename).exists()) {
+      Log.i(AnkiDroidApp.TAG,"displayProgressDialogAndLoadDeck - The deck " + mDeckFilename + " does not exist.");
     }
   }
 }

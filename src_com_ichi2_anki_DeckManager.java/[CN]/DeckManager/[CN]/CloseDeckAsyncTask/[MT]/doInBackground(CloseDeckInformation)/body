@@ -1,4 +1,5 @@
 {
+  Log.d(AnkiDroidApp.TAG,"DeckManager.CloseDeckAsyncTask.doInBackground()");
   String deckpath=params[0].mDeckPath;
   int requestingActivity=params[0].mCaller;
   DeckInformation di=sLoadedDecks.get(deckpath);

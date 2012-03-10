@@ -1,6 +1,7 @@
 {
   StringBuilder stringBuilder=new StringBuilder();
   String contentLeft=content;
+  Log.i(AnkiDroidApp.TAG,"parseImages");
   Matcher matcher=sImagePattern.matcher(content);
   while (matcher.find()) {
     String img=matcher.group(1);

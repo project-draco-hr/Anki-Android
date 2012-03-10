@@ -8,10 +8,12 @@
         AsyncTask<CloseDeckInformation,Void,DeckInformation> closingTask=deckInformation.mClosingAsyncTask;
         if (closingTask != null && closingTask.getStatus() == AsyncTask.Status.RUNNING && !closingTask.isCancelled()) {
           if (deckInformation.mWaitForDeckTaskToFinish) {
+            Log.i(AnkiDroidApp.TAG,"DeckManager: deck " + deckpath + " is closing now, cancelling this");
             closingTask.cancel(true);
             deckInformation.mOpenedBy=new ArrayList<Integer>();
           }
  else {
+            Log.i(AnkiDroidApp.TAG,"DeckManager: deck " + deckpath + " is closing now, waiting for this to finish and reopening it");
             while (closingTask.getStatus() == AsyncTask.Status.RUNNING) {
               closingTask.get();
             }
@@ -20,13 +22,17 @@
         }
       }
  catch (      Exception e) {
+        Log.i(AnkiDroidApp.TAG,"DeckManager: An exception occurred while waiting for closing task of deck " + deckpath);
       }
       ArrayList<Integer> openList=deckInformation.mOpenedBy;
       if (!openList.contains(requestingActivity)) {
+        Log.i(AnkiDroidApp.TAG,"DeckManager: deck " + deckpath + " already loaded, adding requesting activity");
         openList.add(requestingActivity);
       }
  else {
+        Log.i(AnkiDroidApp.TAG,"DeckManager: deck " + deckpath + " already loaded by this activity!");
       }
+      Log.i(AnkiDroidApp.TAG,"DeckManager: deck " + deckpath + " is now opened by "+ openList.toString());
       deck=deckInformation.mDeck;
       if (requestingActivity == REQUESTING_ACTIVITY_SYNCCLIENT) {
         sendWidgetBigClosedNotification();
@@ -37,6 +43,7 @@
             cur=deck.getDB().getDatabase().rawQuery("PRAGMA journal_mode",null);
             if (cur.moveToFirst()) {
               if (!cur.getString(0).equalsIgnoreCase("delete")) {
+                Log.i(AnkiDroidApp.TAG,"DeckManager: Journal mode not set to delete, reloading deck");
                 deck.closeDeck();
                 deck=Deck.openDeck(deckpath,rebuild,true);
               }
@@ -55,6 +62,7 @@
       }
  else       if (rebuild) {
         if (!deckInformation.mInitiallyRebuilt) {
+          Log.i(AnkiDroidApp.TAG,"DeckManager: reopen deck in order to rebuild");
           if (deck != null) {
             deck.closeDeck(false);
           }
@@ -66,10 +74,12 @@
     }
  else {
       try {
+        Log.i(AnkiDroidApp.TAG,"DeckManager: try to load deck " + deckpath + " ("+ requestingActivity+ ")");
         if (doSafetyBackupIfNeeded) {
           BackupManager.safetyBackupNeeded(deckpath,BackupManager.SAFETY_BACKUP_THRESHOLD);
         }
         deck=Deck.openDeck(deckpath,rebuild,requestingActivity == REQUESTING_ACTIVITY_SYNCCLIENT);
+        Log.i(AnkiDroidApp.TAG,"DeckManager: Deck loaded!");
         sLoadedDecks.put(deckpath,new DeckInformation(deckpath,deck,requestingActivity,rebuild));
       }
  catch (      RuntimeException e) {

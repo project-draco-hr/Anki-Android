@@ -1,4 +1,5 @@
 {
+  Log.d(AnkiDroidApp.TAG,"WidgetStatus.UpdateDeckStatusAsyncTask.doInBackground()");
   Context context=params[0];
   if (!AnkiDroidApp.isSdCardMounted()) {
     return context;
@@ -8,9 +9,11 @@
     decks=new ArrayList<DeckStatus>(mDecks.length);
     for (    DeckStatus m : mDecks) {
       if (m.mDeckPath.equals(sDeckStatus.mDeckPath)) {
+        Log.i(AnkiDroidApp.TAG,"UpdateWidget - update information for deck " + sDeckStatus.mDeckPath);
         decks.add(sDeckStatus);
       }
  else {
+        Log.i(AnkiDroidApp.TAG,"UpdateWidget - copy information for deck " + m.mDeckPath);
         decks.add(m);
       }
     }
@@ -30,6 +33,7 @@
       try {
         absPath=file.getAbsolutePath();
         String deckName=file.getName().replaceAll(".anki","");
+        Log.i(AnkiDroidApp.TAG,"WidgetStatus: Found deck: " + absPath);
         Deck deck=DeckManager.getDeck(absPath,DeckManager.REQUESTING_ACTIVITY_WIDGETSTATUS,false);
         if (deck == null) {
           Log.e(AnkiDroidApp.TAG,"Widget: Skipping null deck: " + absPath);
@@ -49,6 +53,7 @@
         decks.add(new DeckStatus(absPath,deckName,newCards,dueCards,failedCards,eta,reps));
       }
  catch (      SQLException e) {
+        Log.i(AnkiDroidApp.TAG,"Widget: Problems on retrieving deck information");
         Log.e(AnkiDroidApp.TAG,e.toString());
         if (absPath != null) {
           BackupManager.restoreDeckIfMissing(absPath);
@@ -57,6 +62,7 @@
     }
   }
   if (!decks.isEmpty() && decks.size() > 1) {
+    Log.i(AnkiDroidApp.TAG,"Sorting deck");
     Collections.sort(decks,new ByNameComparator());
   }
   mDecks=decks.toArray(EMPTY_DECK_STATUS);

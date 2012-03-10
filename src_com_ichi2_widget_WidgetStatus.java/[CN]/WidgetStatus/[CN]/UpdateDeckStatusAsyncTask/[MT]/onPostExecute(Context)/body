@@ -1,4 +1,5 @@
 {
+  Log.d(AnkiDroidApp.TAG,"WidgetStatus.UpdateDeckStatusAsyncTask.onPostExecute()");
   MetaDB.storeWidgetStatus(context,mDecks);
   if (mediumWidget) {
     Intent intent;

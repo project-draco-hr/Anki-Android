@@ -1,5 +1,6 @@
 {
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+    Log.i(AnkiDroidApp.TAG,"DeckPicker - onBackPressed()");
     closeDeckPicker(true);
     return true;
   }

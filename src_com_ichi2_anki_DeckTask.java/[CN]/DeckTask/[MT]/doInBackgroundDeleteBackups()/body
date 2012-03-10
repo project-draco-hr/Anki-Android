@@ -1,3 +1,4 @@
 {
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundDeleteBackups");
   return new TaskData(BackupManager.deleteAllBackups());
 }

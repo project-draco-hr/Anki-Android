@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"deleteFieldModel, modelId = " + modelId + ", fieldModelId = "+ fieldModelId);
   getDB().delete(this,"fields","fieldModel = " + fieldModelId,null);
   getDB().getDatabase().execSQL("UPDATE facts SET modified = " + String.format(Utils.ENGLISH_LOCALE,"%f",Utils.now()) + " WHERE modelId = "+ modelId);
   String fieldName="";

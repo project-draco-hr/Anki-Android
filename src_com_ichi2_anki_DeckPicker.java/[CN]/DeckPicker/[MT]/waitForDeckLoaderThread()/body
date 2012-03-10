@@ -1,5 +1,6 @@
 {
   mDeckIsSelected=true;
+  Log.i(AnkiDroidApp.TAG,"DeckPicker - waitForDeckLoaderThread(), mDeckIsSelected set to true");
   mLock.lock();
   try {
     while (!mIsFinished) {

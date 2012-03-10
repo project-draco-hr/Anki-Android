@@ -1,6 +1,7 @@
 {
   handler.post(new Runnable(){
     @Override public void run(){
+      Log.d(LOG_TAG,"Service thread reports completion.");
       try {
         notifyOfResult(result);
       }
@@ -9,6 +10,7 @@ synchronized (VeecheckService.this) {
           thread=null;
           stopSelf();
         }
+        Log.d(LOG_TAG,"Service stopping.");
       }
     }
   }

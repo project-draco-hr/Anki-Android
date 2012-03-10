@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundGetTomorrowDue");
   File dir=new File(params[0]);
   File[] fileList=dir.listFiles(new WidgetStatus.AnkiFileFilter());
   DeckStatus[] todayDues=WidgetStatus.fetch(sContext);

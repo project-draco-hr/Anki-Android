@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"updateCard");
   if (mSimpleInterface) {
     fillFlashcard(mShowAnimations);
     return;
@@ -59,10 +60,13 @@
   if (this.isFenConversionEnabled()) {
     content=fenToChessboard(content);
   }
+  Log.i(AnkiDroidApp.TAG,"content card = \n" + content);
   StringBuilder style=new StringBuilder();
   style.append(mCustomFontStyle);
   style.append(getDeckStyle(mCurrentCard.mDeck.getDeckPath()));
+  Log.i(AnkiDroidApp.TAG,"::style::" + style);
   mCardContent=new SpannedString(mCardTemplate.replace("::content::",content).replace("::style::",style.toString()));
+  Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
   fillFlashcard(mShowAnimations);
   if (!mConfigurationChanged && mPlaySoundsAtStart)   playSounds();
 }
