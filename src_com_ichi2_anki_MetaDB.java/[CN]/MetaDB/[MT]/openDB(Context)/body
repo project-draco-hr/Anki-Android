@@ -4,7 +4,6 @@
     if (mMetaDb.needUpgrade(DATABASE_VERSION)) {
       mMetaDb=upgradeDB(mMetaDb,DATABASE_VERSION);
     }
-    Log.i(AnkiDroidApp.TAG,"Opening MetaDB");
   }
  catch (  Exception e) {
     Log.e("Error","Error opening MetaDB ",e);

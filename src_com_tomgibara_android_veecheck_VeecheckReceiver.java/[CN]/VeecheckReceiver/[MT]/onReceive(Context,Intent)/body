@@ -1,10 +1,8 @@
 {
-  Log.d(LOG_TAG,"Receiver called");
   String action=intent.getAction();
   if (action == null) {
     return;
   }
-  Log.v(LOG_TAG,"Receiver called with action: " + action);
   if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
     syncChecking(context);
   }

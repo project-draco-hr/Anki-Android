@@ -13,7 +13,6 @@
   if (mPrefFixArabic) {
     question=ArabicUtilities.reshapeSentence(question,true);
   }
-  Log.i(AnkiDroidApp.TAG,"question: '" + question + "'");
   String displayString="";
   if (mSimpleInterface) {
     mCardContent=Html.fromHtml(question);

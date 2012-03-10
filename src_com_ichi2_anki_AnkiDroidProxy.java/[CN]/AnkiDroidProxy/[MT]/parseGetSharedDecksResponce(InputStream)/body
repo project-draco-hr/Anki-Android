@@ -25,7 +25,6 @@
     }
     reader.endArray();
     reader.close();
-    Log.d(AnkiDroidApp.TAG,"parseGetSharedDecksResponce: found " + count + " shared decks");
   }
  catch (  Exception e) {
     Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));

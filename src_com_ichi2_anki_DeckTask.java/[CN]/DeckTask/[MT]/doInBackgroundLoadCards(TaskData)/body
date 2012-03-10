@@ -1,7 +1,6 @@
 {
   Deck deck=params[0].getDeck();
   int chunk=params[0].getInt();
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundLoadCards");
   String startId="";
   while (!this.isCancelled()) {
     ArrayList<HashMap<String,String>> cards=deck.getCards(chunk,startId);

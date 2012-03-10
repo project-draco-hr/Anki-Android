@@ -1,9 +1,7 @@
 {
-  Log.i(AnkiDroidApp.TAG,"BigWidget: OnStart");
   if (intent == null) {
   }
  else   if (contentService == null) {
-    Log.i(AnkiDroidApp.TAG,"binding content service");
     updateViews();
     tempIntent=intent;
     sContext=this;

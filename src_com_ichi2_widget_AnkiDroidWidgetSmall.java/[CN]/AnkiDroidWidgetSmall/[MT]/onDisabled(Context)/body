@@ -1,6 +1,5 @@
 {
   super.onDisabled(context);
-  Log.i(AnkiDroidApp.TAG,"SmallWidget: Widget disabled");
   SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
   preferences.edit().putBoolean("widgetSmallEnabled",false).commit();
 }

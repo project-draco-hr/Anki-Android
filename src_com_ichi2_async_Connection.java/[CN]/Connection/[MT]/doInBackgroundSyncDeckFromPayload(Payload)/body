@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"SyncDeckFromPayload");
   Deck deck=(Deck)data.data[0];
   SyncClient client=new SyncClient(deck);
   BufferedReader bufPython;
@@ -19,6 +18,5 @@ catch (  JSONException e) {
 catch (  IOException e) {
     e.printStackTrace();
   }
-  Log.i(AnkiDroidApp.TAG,"Synchronization from payload finished!");
   return data;
 }
