@@ -1,6 +1,3 @@
 {
-  startActivityForResult(new Intent(this,SharedDeckPicker.class),DOWNLOAD_SHARED_DECK);
-  if (Utils.getApiLevel() > 4) {
-    ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
-  }
+  startActivityForResultWithAnimation(new Intent(this,SharedDeckPicker.class),DOWNLOAD_SHARED_DECK,ActivityTransitionAnimation.RIGHT);
 }

@@ -3,7 +3,7 @@
   if (requestCode == PREFERENCES_UPDATE) {
     if (resultCode == StudyOptions.RESULT_RESTART) {
       setResult(StudyOptions.RESULT_RESTART);
-      finish();
+      finishWithoutAnimation();
     }
  else {
       SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());

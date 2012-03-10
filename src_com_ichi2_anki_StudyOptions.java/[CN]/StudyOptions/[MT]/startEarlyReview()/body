@@ -6,9 +6,6 @@
     deck.reset();
     Intent reviewer=new Intent(StudyOptions.this,Reviewer.class);
     reviewer.putExtra("deckFilename",mDeckFilename);
-    startActivityForResult(reviewer,REQUEST_REVIEW);
-    if (Utils.getApiLevel() > 4) {
-      ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
-    }
+    startActivityForResultWithAnimation(reviewer,REQUEST_REVIEW,ActivityTransitionAnimation.LEFT);
   }
 }

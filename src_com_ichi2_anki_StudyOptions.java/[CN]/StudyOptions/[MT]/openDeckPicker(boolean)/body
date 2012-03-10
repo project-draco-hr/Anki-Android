@@ -2,9 +2,5 @@
   Intent decksPicker=new Intent(StudyOptions.this,DeckPicker.class);
   mInDeckPicker=true;
   decksPicker.putExtra("showAnimation",showAnimation);
-  startActivityForResult(decksPicker,PICK_DECK_REQUEST);
-  if (showAnimation && Utils.getApiLevel() > 4) {
-    ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
-  }
-  Log.i(AnkiDroidApp.TAG,"openDeckPicker - Ending");
+  startActivityForResultWithAnimation(decksPicker,PICK_DECK_REQUEST,ActivityTransitionAnimation.RIGHT);
 }

@@ -1,0 +1,10 @@
+{
+  if (animationDisabled()) {
+    disableActivityAnimation();
+  }
+ else {
+    if (AnkiDroidApp.isEclairOrLater()) {
+      ActivityTransitionAnimation.slide(this,animation);
+    }
+  }
+}

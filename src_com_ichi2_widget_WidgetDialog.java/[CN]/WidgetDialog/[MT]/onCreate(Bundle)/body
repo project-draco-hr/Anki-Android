@@ -16,7 +16,7 @@
         }
 ,null,new OnDismissListener(){
           @Override public void onDismiss(          DialogInterface arg0){
-            WidgetDialog.this.finish();
+            WidgetDialog.this.finishWithoutAnimation();
           }
         }
 ).show();
@@ -26,7 +26,7 @@
         StyledDialog.Builder builder=new StyledDialog.Builder(this);
         builder.setTitle(res.getString(R.string.widget_big)).setMessage(R.string.widget_big_restrictions_dialog).setOnDismissListener(new OnDismissListener(){
           @Override public void onDismiss(          DialogInterface arg0){
-            WidgetDialog.this.finish();
+            WidgetDialog.this.finishWithoutAnimation();
           }
         }
 ).setPositiveButton(res.getString(R.string.ok),null);

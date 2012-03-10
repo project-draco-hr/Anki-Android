@@ -1,6 +1,3 @@
 {
-  finish();
-  if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-    ActivityTransitionAnimation.slide(DeckCreator.this,ActivityTransitionAnimation.LEFT);
-  }
+  finishWithAnimation(ActivityTransitionAnimation.LEFT);
 }

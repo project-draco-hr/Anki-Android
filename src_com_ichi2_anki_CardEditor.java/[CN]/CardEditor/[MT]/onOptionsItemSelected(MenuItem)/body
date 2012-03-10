@@ -12,10 +12,7 @@ for (FieldEditText current : mEditFields) {
 }
 intent.putExtra(EXTRA_CONTENTS,contents.toString());
 }
-startActivityForResult(intent,REQUEST_ADD);
-if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-ActivityTransitionAnimation.slide(CardEditor.this,ActivityTransitionAnimation.LEFT);
-}
+startActivityForResultWithAnimation(intent,REQUEST_ADD,ActivityTransitionAnimation.LEFT);
 return true;
 case MENU_RESET:
 if (mAddFact) {

@@ -14,7 +14,7 @@
       mNextCard=createWebView();
       mNextCard.setVisibility(View.GONE);
       mCardFrame.addView(mNextCard,0);
-      if (Integer.parseInt(android.os.Build.VERSION.SDK) < 8) {
+      if (!AnkiDroidApp.isFroyoOrLater()) {
         mCard.setFocusableInTouchMode(true);
       }
     }

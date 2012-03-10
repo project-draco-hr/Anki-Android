@@ -3,9 +3,11 @@
     mInReviewer=true;
     Intent reviewer=new Intent(StudyOptions.this,Reviewer.class);
     reviewer.putExtra("deckFilename",mDeckFilename);
-    startActivityForResult(reviewer,REQUEST_REVIEW);
-    if (Utils.getApiLevel() > 4 && mStartedByBigWidget == EXTRA_START_NOTHING) {
-      ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
+    if (mStartedByBigWidget == EXTRA_START_NOTHING) {
+      startActivityForResultWithAnimation(reviewer,REQUEST_REVIEW,ActivityTransitionAnimation.LEFT);
+    }
+ else {
+      startActivityForResultWithoutAnimation(reviewer,REQUEST_REVIEW);
     }
   }
  else   if (mCurrentContentView == CONTENT_CONGRATS) {

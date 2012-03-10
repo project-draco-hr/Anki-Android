@@ -8,10 +8,7 @@
         sAllCardsCache.addAll(mAllCards);
       }
       setResult(RESULT_OK);
-      finish();
-      if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
-        ActivityTransitionAnimation.slide(CardBrowser.this,ActivityTransitionAnimation.RIGHT);
-      }
+      finishWithAnimation(ActivityTransitionAnimation.RIGHT);
     }
  else {
       mSearchEditText.setText("");

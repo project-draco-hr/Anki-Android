@@ -13,16 +13,13 @@ case MENU_MORE_OPTIONS:
 showDialog(DIALOG_MORE);
 return true;
 case MENU_PREFERENCES:
-startActivityForResult(new Intent(StudyOptions.this,Preferences.class),PREFERENCES_UPDATE);
+startActivityForResultWithoutAnimation(new Intent(StudyOptions.this,Preferences.class),PREFERENCES_UPDATE);
 return true;
 case MENU_ADD_FACT:
 Intent intent=new Intent(StudyOptions.this,CardEditor.class);
 intent.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_STUDYOPTIONS);
 intent.putExtra(CardEditor.EXTRA_DECKPATH,DeckManager.getMainDeckPath());
-startActivityForResult(intent,ADD_FACT);
-if (Utils.getApiLevel() > 4) {
-ActivityTransitionAnimation.slide(StudyOptions.this,ActivityTransitionAnimation.LEFT);
-}
+startActivityForResultWithAnimation(intent,ADD_FACT,ActivityTransitionAnimation.LEFT);
 return true;
 case MENU_ROTATE:
 if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {

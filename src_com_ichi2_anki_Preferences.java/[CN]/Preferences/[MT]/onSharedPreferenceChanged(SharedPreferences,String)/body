@@ -98,6 +98,9 @@ if (decksDirectory.exists()) {
 AnkiDroidApp.createNoMediaFileIfMissing(decksDirectory);
 }
 }
+ else if (key.equals("eInkDisplay")) {
+boolean enableAnimation=!eInkDisplayPreference.isChecked();
+}
 }
  catch (BadTokenException e) {
 Log.e(AnkiDroidApp.TAG,"Preferences: BadTokenException on showDialog: " + e);
