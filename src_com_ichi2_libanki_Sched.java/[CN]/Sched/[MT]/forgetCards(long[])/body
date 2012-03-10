@@ -1,0 +1,5 @@
+{
+  mCol.getDb().execute("UPDATE cards SET type=0, ivl=0 WHERE id IN " + Utils.ids2str(ids));
+  int pmax=mCol.getDb().queryScalar("SELECT max(due) FROM cards WHERE type=0",false);
+  sortCards(ids,pmax + 1);
+}

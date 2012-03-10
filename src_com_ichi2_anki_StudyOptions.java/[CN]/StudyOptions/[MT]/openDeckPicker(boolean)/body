@@ -1,6 +1,0 @@
-{
-  Intent decksPicker=new Intent(StudyOptions.this,DeckPicker.class);
-  mInDeckPicker=true;
-  decksPicker.putExtra("showAnimation",showAnimation);
-  startActivityForResultWithAnimation(decksPicker,PICK_DECK_REQUEST,ActivityTransitionAnimation.RIGHT);
-}

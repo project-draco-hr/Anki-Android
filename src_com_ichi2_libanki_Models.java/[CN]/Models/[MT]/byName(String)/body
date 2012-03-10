@@ -1,0 +1,13 @@
+{
+  for (  JSONObject m : mModels.values()) {
+    try {
+      if (m.getString("name").equalsIgnoreCase(name)) {
+        return m;
+      }
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  return null;
+}

@@ -1,0 +1,8 @@
+{
+  double dx=screenPoint.getX() - mCenterX;
+  double dy=-(screenPoint.getY() - mCenterY);
+  double inRads=Math.atan2(dy,dx);
+  if (inRads < 0)   inRads=Math.abs(inRads);
+ else   inRads=2 * Math.PI - inRads;
+  return Math.toDegrees(inRads);
+}

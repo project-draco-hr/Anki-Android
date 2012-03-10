@@ -31,6 +31,6 @@
     sUpdateDeckStatusAsyncTask.execute(context);
   }
  else {
-    Log.d(AnkiDroidApp.TAG,"WidgetStatus.update(): not enabled");
+    Log.d(AnkiDroidApp.TAG,"WidgetStatus.update(): already running or not enabled");
   }
 }

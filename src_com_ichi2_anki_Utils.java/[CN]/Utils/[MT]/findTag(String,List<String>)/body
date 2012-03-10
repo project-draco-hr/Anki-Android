@@ -1,9 +1,0 @@
-{
-  String lowercase=tag.toLowerCase();
-  for (  String t : tags) {
-    if (t.toLowerCase().compareTo(lowercase) == 0) {
-      return true;
-    }
-  }
-  return false;
-}

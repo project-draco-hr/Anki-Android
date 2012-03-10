@@ -1,0 +1,52 @@
+{
+  mDeckList.clear();
+  int due=0;
+  for (  Object[] d : decks) {
+    HashMap<String,String> m=new HashMap<String,String>();
+    String[] name=((String[])d[0]);
+    m.put("name",readableDeckName(name));
+    m.put("did",((Long)d[1]).toString());
+    m.put("new",((Integer)d[2]).toString());
+    m.put("lrn",((Integer)d[3]).toString());
+    m.put("rev",((Integer)d[4]).toString());
+    m.put("complMat",((Float)d[5]).toString());
+    m.put("complAll",((Float)d[6]).toString());
+    if (name.length == 1) {
+      due+=Integer.parseInt(m.get("new")) + Integer.parseInt(m.get("lrn")) + Integer.parseInt(m.get("rev"));
+      m.put("sep","top");
+      if (mDeckList.size() > 0) {
+        HashMap<String,String> map=mDeckList.get(mDeckList.size() - 1);
+        if (map.get("sep").equals("top")) {
+          map.put("sep","ful");
+        }
+ else {
+          map.put("sep","bot");
+        }
+      }
+    }
+ else     if (mDeckList.size() > 0 && mDeckList.size() == decks.size() - 1) {
+      if (name.length == 1) {
+        m.put("sep","ful");
+      }
+ else {
+        m.put("sep","bot");
+      }
+    }
+ else {
+      m.put("sep","cen");
+    }
+    mDeckList.add(m);
+  }
+  mDeckListAdapter.notifyDataSetChanged();
+  Resources res=getResources();
+  if (count != -1) {
+    String time="-";
+    if (eta != -1) {
+      time=res.getQuantityString(R.plurals.deckpicker_title_minutes,eta,eta);
+    }
+    UIUtils.setActionBarSubtitle(this,res.getQuantityString(R.plurals.deckpicker_title,due,due,count,time));
+  }
+ else {
+    setTitle(res.getString(R.string.app_name));
+  }
+}

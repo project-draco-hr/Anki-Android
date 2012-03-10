@@ -2,13 +2,7 @@
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
     Log.i(AnkiDroidApp.TAG,"CardBrowser - onBackPressed()");
     if (mSearchEditText.getText().length() == 0 && !mShowOnlyMarSus && mSelectedTags.size() == 0) {
-      if (mPrefCacheCardBrowser) {
-        sCachedDeckPath=mDeck.getDeckPath();
-        sAllCardsCache=new ArrayList<HashMap<String,String>>();
-        sAllCardsCache.addAll(mAllCards);
-      }
-      setResult(RESULT_OK);
-      finishWithAnimation(ActivityTransitionAnimation.RIGHT);
+      closeCardBrowser();
     }
  else {
       mSearchEditText.setText("");

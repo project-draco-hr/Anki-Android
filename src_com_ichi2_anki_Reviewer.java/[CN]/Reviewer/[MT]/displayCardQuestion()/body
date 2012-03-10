@@ -1,6 +1,5 @@
 {
   sDisplayAnswer=false;
-  mIsAnswering=false;
   if (mButtonHeight == 0 && mRelativeButtonSize != 100) {
     mButtonHeight=mFlipCard.getHeight() * mRelativeButtonSize / 100;
     mFlipCard.setHeight(mButtonHeight);
@@ -9,7 +8,8 @@
     mEase3.setHeight(mButtonHeight);
     mEase4.setHeight(mButtonHeight);
   }
-  String question=getQuestion();
+  String question=mCurrentCard.getQuestion(mSimpleInterface);
+  updateMenuItems();
   if (mPrefFixArabic) {
     question=ArabicUtilities.reshapeSentence(question,true);
   }
@@ -30,9 +30,6 @@
       inputMethodManager.showSoftInput(mAnswerField,InputMethodManager.SHOW_FORCED);
     }
     displayString=enrichWithQADiv(question,false);
-    if (isQuestionDisplayed()) {
-      displayString=displayString + "<hr/>";
-    }
     if (mSpeakText && AnkiDroidApp.isDonutOrLater()) {
       ReadText.setLanguageInformation(Model.getModel(DeckManager.getMainDeck(),mCurrentCard.getCardModelId(),false).getId(),mCurrentCard.getCardModelId());
     }

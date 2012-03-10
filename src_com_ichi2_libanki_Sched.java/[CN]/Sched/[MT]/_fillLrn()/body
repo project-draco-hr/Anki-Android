@@ -1,0 +1,23 @@
+{
+  if (mLrnCount == 0) {
+    return false;
+  }
+  if (!mLrnQueue.isEmpty()) {
+    return true;
+  }
+  Cursor cur=null;
+  mLrnQueue.clear();
+  try {
+    cur=mCol.getDb().getDatabase().rawQuery("SELECT due, id FROM cards WHERE did IN " + _deckLimit() + " AND queue = 1 AND due < "+ mDayCutoff+ " LIMIT "+ mReportLimit,null);
+    while (cur.moveToNext()) {
+      mLrnQueue.add(new long[]{cur.getLong(0),cur.getLong(1)});
+    }
+    Collections.sort(mLrnQueue,new DueComparator());
+    return !mLrnQueue.isEmpty();
+  }
+  finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+}

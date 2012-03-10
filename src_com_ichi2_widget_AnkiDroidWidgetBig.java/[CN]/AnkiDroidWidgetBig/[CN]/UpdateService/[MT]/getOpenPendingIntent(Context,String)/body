@@ -1,6 +1,0 @@
-{
-  Intent ankiDroidIntent=new Intent(context,UpdateService.class);
-  ankiDroidIntent.setAction(ACTION_OPEN);
-  ankiDroidIntent.putExtra(EXTRA_DECK_PATH,deckPath);
-  return PendingIntent.getService(context,0,ankiDroidIntent,PendingIntent.FLAG_CANCEL_CURRENT);
-}

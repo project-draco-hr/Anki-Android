@@ -1,7 +1,3 @@
 {
-  Deck deck=DeckManager.getMainDeck();
-  if (deck != null) {
-    deck.reset();
-    updateValuesFromDeck();
-  }
+  updateValuesFromDeck(true);
 }

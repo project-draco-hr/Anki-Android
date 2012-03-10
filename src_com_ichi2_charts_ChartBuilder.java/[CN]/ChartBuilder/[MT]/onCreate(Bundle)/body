@@ -1,10 +1,34 @@
 {
+  Log.i(AnkiDroidApp.TAG,"ChartBuilder.OnCreate");
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   restorePreferences();
-  if (Statistics.sSeriesList == null) {
+  Resources res=getResources();
+  Stats stats=Stats.currentStats();
+  if (stats != null) {
+    mSeriesList=stats.getSeriesList();
+    mMeta=stats.getMetaInfo();
+  }
+ else   if (savedInstanceState != null) {
+    int len=savedInstanceState.getInt("seriesListLen");
+    mSeriesList=new double[len][];
+    for (int i=0; i < len; i++) {
+      mSeriesList[i]=(double[])savedInstanceState.getSerializable("seriesList" + i);
+    }
+    mMeta=(Object[])savedInstanceState.getSerializable("meta");
+  }
+ else {
+    finish();
+  }
+  String title=res.getString((Integer)mMeta[1]);
+  boolean backwards=(Boolean)mMeta[2];
+  int[] valueLabels=(int[])mMeta[3];
+  int[] barColors=(int[])mMeta[4];
+  int[] axisTitles=(int[])mMeta[5];
+  String subTitle=(String)mMeta[6];
+  if (mSeriesList == null || mSeriesList[0].length < 2) {
     Log.i(AnkiDroidApp.TAG,"ChartBuilder - Data variable empty, closing chartbuilder");
-    finishWithoutAnimation();
+    finish();
     return;
   }
   if (mFullScreen) {
@@ -13,50 +37,63 @@
   }
   View mainView=getLayoutInflater().inflate(R.layout.statistics,null);
   setContentView(mainView);
-  int[] colors=Themes.getChartColors();
-  mainView.setBackgroundColor(colors[1]);
+  mainView.setBackgroundColor(Color.WHITE);
   mTitle=(TextView)findViewById(R.id.statistics_title);
   if (mChartView == null) {
     if (mFullScreen) {
-      mTitle.setText(Statistics.sTitle);
-      mTitle.setTextColor(colors[0]);
+      mTitle.setText(title);
+      mTitle.setTextColor(Color.BLACK);
     }
  else {
-      setTitle(Statistics.sTitle);
+      setTitle(title);
+      UIUtils.setActionBarSubtitle(this,subTitle);
       mTitle.setVisibility(View.GONE);
     }
-    for (int i=0; i < Statistics.sSeriesList.length; i++) {
-      setDataset(i);
-      setRenderer(Statistics.sType,i);
+    for (int i=1; i < mSeriesList.length; i++) {
+      XYSeries series=new XYSeries(res.getString(valueLabels[i - 1]));
+      for (int j=0; j < mSeriesList[i].length; j++) {
+        series.add(mSeriesList[0][j],mSeriesList[i][j]);
+      }
+      mDataset.addSeries(series);
+      XYSeriesRenderer renderer=new XYSeriesRenderer();
+      renderer.setColor(res.getColor(barColors[i - 1]));
+      mRenderer.addSeriesRenderer(renderer);
     }
-    if (Statistics.sSeriesList.length == 1) {
+    if (mSeriesList.length == 1) {
       mRenderer.setShowLegend(false);
     }
-    mPan=new double[]{Statistics.xAxisData[0] - 1,Statistics.xAxisData[Statistics.xAxisData.length - 1] + 1};
+    if (backwards) {
+      mPan=new double[]{mSeriesList[0][0] - 0.5,0.5};
+    }
+ else {
+      mPan=new double[]{-0.5,mSeriesList[0][mSeriesList[0].length - 1] + 0.5};
+    }
     mRenderer.setLegendTextSize(17);
+    mRenderer.setBarSpacing(0.4);
     mRenderer.setLegendHeight(60);
     mRenderer.setAxisTitleTextSize(17);
     mRenderer.setLabelsTextSize(17);
     mRenderer.setXAxisMin(mPan[0]);
     mRenderer.setXAxisMax(mPan[1]);
     mRenderer.setYAxisMin(0);
-    mRenderer.setXTitle(Statistics.axisLabels[0]);
-    mRenderer.setYTitle(Statistics.axisLabels[1]);
-    mRenderer.setBackgroundColor(colors[1]);
-    mRenderer.setMarginsColor(colors[1]);
-    mRenderer.setAxesColor(colors[0]);
-    mRenderer.setLabelsColor(colors[0]);
+    mRenderer.setGridColor(Color.LTGRAY);
+    mRenderer.setShowGrid(true);
+    mRenderer.setXTitle(res.getStringArray(R.array.due_x_axis_title)[axisTitles[0]]);
+    mRenderer.setYTitle(res.getString(axisTitles[1]));
+    mRenderer.setBackgroundColor(Color.WHITE);
+    mRenderer.setMarginsColor(Color.WHITE);
+    mRenderer.setAxesColor(Color.BLACK);
+    mRenderer.setLabelsColor(Color.BLACK);
+    mRenderer.setYLabelsColor(0,Color.BLACK);
+    mRenderer.setYLabelsAngle(-90);
+    mRenderer.setXLabelsColor(Color.BLACK);
+    mRenderer.setXLabelsAlign(Align.CENTER);
+    mRenderer.setYLabelsAlign(Align.CENTER);
     mRenderer.setZoomEnabled(false,false);
-    if (Statistics.sSeriesList[0][0] > 100 || Statistics.sSeriesList[0][1] > 100 || Statistics.sSeriesList[0][Statistics.sSeriesList[0].length - 1] > 100) {
-      mRenderer.setMargins(new int[]{15,50,25,0});
-    }
- else {
-      mRenderer.setMargins(new int[]{15,42,25,0});
-    }
+    mRenderer.setMargins(new int[]{15,48,30,10});
+    mRenderer.setAntialiasing(true);
     mRenderer.setPanEnabled(true,false);
     mRenderer.setPanLimits(mPan);
-    mRenderer.setXLabelsAlign(Align.CENTER);
-    mRenderer.setYLabelsAlign(Align.RIGHT);
     mChartView=ChartFactory.getBarChartView(this,mDataset,mRenderer,BarChart.Type.STACKED);
     LinearLayout layout=(LinearLayout)findViewById(R.id.chart);
     layout.addView(mChartView,new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
@@ -74,8 +111,4 @@
     }
   }
 );
-  zoom=Statistics.sZoom;
-  if (zoom > 0) {
-    zoom();
-  }
 }

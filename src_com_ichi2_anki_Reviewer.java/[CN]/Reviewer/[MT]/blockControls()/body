@@ -2,29 +2,26 @@
   mCardFrame.setEnabled(false);
   mFlipCardLayout.setEnabled(false);
   mTouchLayer.setVisibility(View.INVISIBLE);
-  if (animationDisabled()) {
-  }
- else {
 switch (mCurrentEase) {
-case Card.EASE_FAILED:
-      mEase1Layout.setClickable(false);
-    mEase2Layout.setEnabled(false);
-  mEase3Layout.setEnabled(false);
+case EASE_FAILED:
+    mEase1Layout.setClickable(false);
+  mEase2Layout.setEnabled(false);
+mEase3Layout.setEnabled(false);
 mEase4Layout.setEnabled(false);
 break;
-case Card.EASE_HARD:
+case EASE_HARD:
 mEase1Layout.setEnabled(false);
 mEase2Layout.setClickable(false);
 mEase3Layout.setEnabled(false);
 mEase4Layout.setEnabled(false);
 break;
-case Card.EASE_MID:
+case EASE_MID:
 mEase1Layout.setEnabled(false);
 mEase2Layout.setEnabled(false);
 mEase3Layout.setClickable(false);
 mEase4Layout.setEnabled(false);
 break;
-case Card.EASE_EASY:
+case EASE_EASY:
 mEase1Layout.setEnabled(false);
 mEase2Layout.setEnabled(false);
 mEase3Layout.setEnabled(false);
@@ -36,7 +33,6 @@ mEase2Layout.setEnabled(false);
 mEase3Layout.setEnabled(false);
 mEase4Layout.setEnabled(false);
 break;
-}
 }
 if (mPrefTimer) {
 mCardTimer.setEnabled(false);

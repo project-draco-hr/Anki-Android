@@ -1,0 +1,44 @@
+{
+  Orientation or=mRenderer.getOrientation();
+  boolean showGridX=mRenderer.isShowGridX();
+  boolean showLabels=mRenderer.isShowLabels();
+  for (int i=0; i < maxScaleNumber; i++) {
+    paint.setTextAlign(mRenderer.getYLabelsAlign(i));
+    List<Double> yLabels=allYLabels.get(i);
+    int length=yLabels.size();
+    for (int j=0; j < length; j++) {
+      double label=yLabels.get(j);
+      Align axisAlign=mRenderer.getYAxisAlign(i);
+      boolean textLabel=mRenderer.getYTextLabel(label,i) != null;
+      float yLabel=(float)(bottom - yPixelsPerUnit[i] * (label - minY[i]));
+      if (or == Orientation.HORIZONTAL) {
+        if (showLabels && !textLabel) {
+          paint.setColor(mRenderer.getYLabelsColor(i));
+          if (axisAlign == Align.LEFT) {
+            canvas.drawLine(left + getLabelLinePos(axisAlign),yLabel,left,yLabel,paint);
+            drawText(canvas,getLabel(label),left - 10,yLabel - 2,paint,mRenderer.getYLabelsAngle());
+          }
+ else {
+            canvas.drawLine(right,yLabel,right + getLabelLinePos(axisAlign),yLabel,paint);
+            drawText(canvas,getLabel(label),right,yLabel - 2,paint,mRenderer.getYLabelsAngle());
+          }
+        }
+        if (showGridX) {
+          paint.setColor(mRenderer.getGridColor());
+          canvas.drawLine(left,yLabel,right,yLabel,paint);
+        }
+      }
+ else       if (or == Orientation.VERTICAL) {
+        if (showLabels && !textLabel) {
+          paint.setColor(mRenderer.getYLabelsColor(i));
+          canvas.drawLine(right - getLabelLinePos(axisAlign),yLabel,right,yLabel,paint);
+          drawText(canvas,getLabel(label),right + 10,yLabel - 2,paint,mRenderer.getYLabelsAngle());
+        }
+        if (showGridX) {
+          paint.setColor(mRenderer.getGridColor());
+          canvas.drawLine(right,yLabel,left,yLabel,paint);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  JSONArray result=new JSONArray();
+  try {
+    if (mCol.getServer()) {
+      JSONArray decks=new JSONArray();
+      for (      JSONObject g : mCol.getDecks().all()) {
+        if (g.getInt("usn") >= mMinUsn) {
+          decks.put(g);
+        }
+      }
+      JSONArray dconfs=new JSONArray();
+      for (      JSONObject g : mCol.getDecks().allConf()) {
+        if (g.getInt("usn") >= mMinUsn) {
+          dconfs.put(g);
+        }
+      }
+      result.put(decks);
+      result.put(dconfs);
+    }
+ else {
+      JSONArray decks=new JSONArray();
+      for (      JSONObject g : mCol.getDecks().all()) {
+        if (g.getInt("usn") == -1) {
+          g.put("usn",mMaxUsn);
+          decks.put(g);
+        }
+      }
+      JSONArray dconfs=new JSONArray();
+      for (      JSONObject g : mCol.getDecks().allConf()) {
+        if (g.getInt("usn") == -1) {
+          g.put("usn",mMaxUsn);
+          dconfs.put(g);
+        }
+      }
+      mCol.getDecks().save();
+      result.put(decks);
+      result.put(dconfs);
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  return result;
+}

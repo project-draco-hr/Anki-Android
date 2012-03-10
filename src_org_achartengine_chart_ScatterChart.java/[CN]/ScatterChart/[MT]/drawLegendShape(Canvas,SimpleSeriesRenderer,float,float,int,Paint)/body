@@ -1,0 +1,28 @@
+{
+  if (((XYSeriesRenderer)renderer).isFillPoints()) {
+    paint.setStyle(Style.FILL);
+  }
+ else {
+    paint.setStyle(Style.STROKE);
+  }
+switch (((XYSeriesRenderer)renderer).getPointStyle()) {
+case X:
+    drawX(canvas,paint,x + SHAPE_WIDTH,y);
+  break;
+case CIRCLE:
+drawCircle(canvas,paint,x + SHAPE_WIDTH,y);
+break;
+case TRIANGLE:
+drawTriangle(canvas,paint,new float[6],x + SHAPE_WIDTH,y);
+break;
+case SQUARE:
+drawSquare(canvas,paint,x + SHAPE_WIDTH,y);
+break;
+case DIAMOND:
+drawDiamond(canvas,paint,new float[8],x + SHAPE_WIDTH,y);
+break;
+case POINT:
+canvas.drawPoint(x + SHAPE_WIDTH,y,paint);
+break;
+}
+}

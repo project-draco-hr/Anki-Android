@@ -1,0 +1,25 @@
+{
+  JSONArray result=new JSONArray();
+  try {
+    if (mCol.getServer()) {
+      for (      JSONObject m : mCol.getModels().all()) {
+        if (m.getInt("usn") >= mMinUsn) {
+          result.put(m);
+        }
+      }
+    }
+ else {
+      for (      JSONObject m : mCol.getModels().all()) {
+        if (m.getInt("usn") == -1) {
+          m.put("usn",mMaxUsn);
+          result.put(m);
+        }
+      }
+      mCol.getModels().save();
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  return result;
+}

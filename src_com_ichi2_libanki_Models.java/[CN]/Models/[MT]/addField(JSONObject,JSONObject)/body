@@ -1,0 +1,16 @@
+{
+  try {
+    if (m.getLong("id") != 0) {
+      mCol.modSchema();
+    }
+    JSONArray ja=m.getJSONArray("flds");
+    ja.put(field);
+    m.put("flds",ja);
+    _updateFieldOrds(m);
+    save(m);
+    _transformFields(m);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

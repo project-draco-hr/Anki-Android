@@ -1,7 +1,0 @@
-{
-  if (mDownloadSuccessful) {
-    Intent intent=PersonalDeckPicker.this.getIntent();
-    setResult(RESULT_OK,intent);
-  }
-  finishWithAnimation(ActivityTransitionAnimation.LEFT);
-}

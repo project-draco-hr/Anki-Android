@@ -1,7 +1,0 @@
-{
-  Resources res=context.getResources();
-  int revFailedCards=failedCards + revCards;
-  String newCardsText=res.getQuantityString(R.plurals.studyoptions_congrats_new_cards,newCards,newCards);
-  String etaText=res.getQuantityString(R.plurals.studyoptions_congrats_eta,eta,eta);
-  return res.getQuantityString(R.plurals.studyoptions_congrats_message,revFailedCards,revFailedCards,newCardsText,etaText);
-}

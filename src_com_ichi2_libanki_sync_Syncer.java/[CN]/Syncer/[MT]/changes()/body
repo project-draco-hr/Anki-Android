@@ -1,0 +1,15 @@
+{
+  JSONObject o=new JSONObject();
+  try {
+    o.put("models",getModels());
+    o.put("decks",getDecks());
+    o.put("tags",getTags());
+    if (mLNewer) {
+      o.put("conf",getConf());
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  return o;
+}

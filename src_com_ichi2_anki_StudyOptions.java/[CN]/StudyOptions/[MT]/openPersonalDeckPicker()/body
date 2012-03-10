@@ -1,9 +1,0 @@
-{
-  if (AnkiDroidApp.isUserLoggedIn()) {
-    mCompat.invalidateOptionsMenu(this);
-    startActivityForResultWithAnimation(new Intent(StudyOptions.this,PersonalDeckPicker.class),DOWNLOAD_PERSONAL_DECK,ActivityTransitionAnimation.RIGHT);
-  }
- else {
-    showDialog(DIALOG_USER_NOT_LOGGED_IN);
-  }
-}

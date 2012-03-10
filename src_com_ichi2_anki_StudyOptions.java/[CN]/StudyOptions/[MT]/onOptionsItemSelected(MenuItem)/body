@@ -1,25 +1,13 @@
 {
 switch (item.getItemId()) {
-case MENU_HELP:
-    showDialog(DIALOG_SELECT_HELP);
+case android.R.id.home:
+    closeStudyOptions();
   return true;
-case MENU_OPEN:
-openDeckPicker();
-return true;
-case MENU_SYNC:
-syncDeck(null);
-return true;
-case MENU_MORE_OPTIONS:
-showDialog(DIALOG_MORE);
-return true;
 case MENU_PREFERENCES:
-startActivityForResultWithoutAnimation(new Intent(StudyOptions.this,Preferences.class),PREFERENCES_UPDATE);
-return true;
-case MENU_ADD_FACT:
-Intent intent=new Intent(StudyOptions.this,CardEditor.class);
-intent.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_STUDYOPTIONS);
-intent.putExtra(CardEditor.EXTRA_DECKPATH,DeckManager.getMainDeckPath());
-startActivityForResultWithAnimation(intent,ADD_FACT,ActivityTransitionAnimation.LEFT);
+startActivityForResult(new Intent(StudyOptions.this,Preferences.class),PREFERENCES_UPDATE);
+if (UIUtils.getApiLevel() > 4) {
+ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.FADE);
+}
 return true;
 case MENU_ROTATE:
 if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -30,7 +18,7 @@ setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 }
 return true;
 case MENU_ZEEMOTE:
-Log.d("Zeemote","Locale: " + mLocale);
+Log.d(AnkiDroidApp.TAG,"Zeemote: Locale: " + mLocale);
 if ((AnkiDroidApp.zeemoteController() != null)) {
 controllerUi.showControllerMenu();
 }

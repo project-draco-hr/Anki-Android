@@ -1,0 +1,41 @@
+{
+  super(context);
+  mOrd=ord;
+  mName=value[0];
+  mContext=context;
+  String content=value[1];
+  if (content == null) {
+    content="";
+  }
+ else {
+    content=content.replaceAll("<br(\\s*\\/*)>",NEW_LINE);
+  }
+  if (mPrefFixArabic) {
+    this.setText(ArabicUtilities.reshapeSentence(content));
+  }
+ else {
+    this.setText(content);
+  }
+  this.setMinimumWidth(400);
+  this.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      if (mCutMode) {
+        updateSpannables();
+      }
+    }
+  }
+);
+  if (ord == 0) {
+    this.addTextChangedListener(new TextWatcher(){
+      @Override public void afterTextChanged(      Editable arg0){
+        mTimerHandler.removeCallbacks(checkDuplicatesRunnable);
+        mTimerHandler.postDelayed(checkDuplicatesRunnable,WAIT_TIME_UNTIL_UPDATE);
+      }
+      @Override public void beforeTextChanged(      CharSequence arg0,      int arg1,      int arg2,      int arg3){
+      }
+      @Override public void onTextChanged(      CharSequence arg0,      int arg1,      int arg2,      int arg3){
+      }
+    }
+);
+  }
+}

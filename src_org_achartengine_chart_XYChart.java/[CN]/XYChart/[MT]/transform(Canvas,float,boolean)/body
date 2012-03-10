@@ -1,0 +1,12 @@
+{
+  if (inverse) {
+    canvas.scale(1 / mScale,mScale);
+    canvas.translate(mTranslate,-mTranslate);
+    canvas.rotate(-angle,mCenter.getX(),mCenter.getY());
+  }
+ else {
+    canvas.rotate(angle,mCenter.getX(),mCenter.getY());
+    canvas.translate(-mTranslate,mTranslate);
+    canvas.scale(mScale,1 / mScale);
+  }
+}

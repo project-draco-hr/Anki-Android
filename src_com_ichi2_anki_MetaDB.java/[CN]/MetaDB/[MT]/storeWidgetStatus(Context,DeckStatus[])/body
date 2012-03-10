@@ -2,12 +2,16 @@
   openDBIfClosed(context);
   try {
     mMetaDb.beginTransaction();
-    mMetaDb.execSQL("DELETE FROM widgetStatus");
-    for (    DeckStatus deck : decks) {
-      mMetaDb.execSQL("INSERT INTO widgetStatus(deckPath, deckName, newCards, dueCards, failedCards, eta, time) " + "VALUES (?, ?, ?, ?, ?, ?, ?)",new Object[]{deck.mDeckPath,deck.mDeckName,deck.mNewCards,deck.mDueCards,deck.mFailedCards,deck.mEta,deck.mTime});
+    try {
+      mMetaDb.execSQL("DELETE FROM widgetStatus");
+      for (      DeckStatus deck : decks) {
+        mMetaDb.execSQL("INSERT INTO widgetStatus(deckId, deckName, newCards, lrnCards, dueCards, progress, eta) " + "VALUES (?, ?, ?, ?, ?, ?, ?)",new Object[]{deck.mDeckId,deck.mDeckName,deck.mNewCards,deck.mLrnCards,deck.mDueCards,deck.mProgress,deck.mEta});
+      }
+      mMetaDb.setTransactionSuccessful();
     }
-    mMetaDb.setTransactionSuccessful();
-    mMetaDb.endTransaction();
+  finally {
+      mMetaDb.endTransaction();
+    }
   }
  catch (  IllegalStateException e) {
     Log.e(AnkiDroidApp.TAG,"MetaDB.storeWidgetStatus: failed",e);

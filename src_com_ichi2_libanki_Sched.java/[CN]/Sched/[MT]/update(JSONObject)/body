@@ -1,0 +1,21 @@
+{
+  boolean save=false;
+  for (  String t : new String[]{"new","rev","lrn","time"}) {
+    String k=t + "Today";
+    try {
+      if (g.getJSONArray(k).getInt(0) != mToday) {
+        save=true;
+        JSONArray ja=new JSONArray();
+        ja.put(mToday);
+        ja.put(0);
+        g.put(k,ja);
+      }
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  if (save) {
+    mCol.getDecks().save(g);
+  }
+}

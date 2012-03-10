@@ -1,0 +1,8 @@
+{
+  if (sCurrentCollection == null || sCurrentCollection.mClosing || sCurrentCollection.mDb == null) {
+    return null;
+  }
+ else {
+    return sCurrentCollection;
+  }
+}

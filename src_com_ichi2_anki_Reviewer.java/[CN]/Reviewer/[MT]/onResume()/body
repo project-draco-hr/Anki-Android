@@ -1,21 +1,6 @@
 {
   mInBackground=false;
   super.onResume();
-  Deck deck=DeckManager.getMainDeck();
-  if (deck == null) {
-    Log.e(AnkiDroidApp.TAG,"Reviewer: Deck already closed, returning to study options");
-    closeReviewer(RESULT_DECK_CLOSED,false);
-    return;
-  }
-  if (DeckManager.deckIsOpenedInBigWidget(deck.getDeckPath()) && mCurrentCard != null && !mInEditor) {
-    Log.i(AnkiDroidApp.TAG,"Reviewer: onResume: get card from big widget");
-    blockControls();
-    AnkiDroidWidgetBig.updateWidget(AnkiDroidWidgetBig.UpdateService.VIEW_NOT_SPECIFIED,true);
-    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,deck,null));
-  }
- else {
-    restartTimer();
-  }
   if (mShakeEnabled) {
     mSensorManager.registerListener(mSensorListener,mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_NORMAL);
   }

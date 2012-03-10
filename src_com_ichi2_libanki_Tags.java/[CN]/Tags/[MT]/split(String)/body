@@ -1,0 +1,11 @@
+{
+  ArrayList<String> list=new ArrayList<String>();
+  if (tags != null && tags.length() != 0) {
+    for (    String s : tags.split("\\s")) {
+      if (s.length() > 0) {
+        list.add(s);
+      }
+    }
+  }
+  return list;
+}

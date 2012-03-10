@@ -1,0 +1,23 @@
+{
+  String where;
+  if (type.equals("card")) {
+    where="AND c.id IN " + Utils.ids2str(ids);
+  }
+ else   if (type.equals("fact")) {
+    where="AND f.id IN " + Utils.ids2str(ids);
+  }
+ else   if (type.equals("model")) {
+    where="AND m.id IN " + Utils.ids2str(ids);
+  }
+ else   if (type.equals("all")) {
+    where="";
+  }
+ else {
+    throw new RuntimeException();
+  }
+  ArrayList<HashMap<String,String>> result=new ArrayList<HashMap<String,String>>();
+  for (  Object[] row : _qaData(where)) {
+    result.add(_renderQA(row));
+  }
+  return result;
+}

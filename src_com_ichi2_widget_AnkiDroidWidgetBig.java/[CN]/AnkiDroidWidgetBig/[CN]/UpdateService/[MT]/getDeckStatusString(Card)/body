@@ -1,0 +1,4 @@
+{
+  int[] counts=contentService.mCol.getSched().counts(card);
+  return getDeckStatusString(counts[0],counts[1],counts[2],card);
+}

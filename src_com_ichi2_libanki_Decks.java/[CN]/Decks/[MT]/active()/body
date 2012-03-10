@@ -1,0 +1,14 @@
+{
+  try {
+    String actv=mCol.getConf().getString("activeDecks");
+    JSONArray ja=new JSONArray(actv);
+    LinkedList<Long> result=new LinkedList<Long>();
+    for (int i=0; i < ja.length(); i++) {
+      result.add(ja.getLong(i));
+    }
+    return result;
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

@@ -1,7 +1,0 @@
-{
-  if (mDownloadSuccessful) {
-    Intent intent=SharedDeckPicker.this.getIntent();
-    setResult(RESULT_OK,intent);
-  }
-  finishWithAnimation(ActivityTransitionAnimation.LEFT);
-}

@@ -4,36 +4,41 @@
   View mainView=getLayoutInflater().inflate(R.layout.card_browser,null);
   setContentView(mainView);
   Themes.setContentStyle(mainView,Themes.CALLER_CARDBROWSER);
-  mDeck=DeckManager.getMainDeck();
-  if (mDeck == null) {
-    finishWithoutAnimation();
+  mCol=Collection.currentCollection();
+  if (mCol == null) {
+    reloadCollection(savedInstanceState);
     return;
   }
-  mDeck.resetUndo();
+  Intent i=getIntent();
+  mWholeCollection=i.hasExtra("fromDeckpicker") && i.getBooleanExtra("fromDeckpicker",false);
   mBackground=Themes.getCardBrowserBackground();
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
   mrelativeBrowserFontSize=preferences.getInt("relativeCardBrowserFontSize",DEFAULT_FONT_SIZE_RATIO);
   mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
   mPrefCacheCardBrowser=preferences.getBoolean("cardBrowserCache",false);
+  mOrder=preferences.getInt("cardBrowserOrder",CARD_ORDER_NONE);
   mCards=new ArrayList<HashMap<String,String>>();
   mAllCards=new ArrayList<HashMap<String,String>>();
   mCardsListView=(ListView)findViewById(R.id.card_browser_list);
-  mCardsAdapter=new SizeControlledListAdapter(this,mCards,R.layout.card_item,new String[]{"question","answer","flags"},new int[]{R.id.card_question,R.id.card_answer,R.id.card_item},mrelativeBrowserFontSize);
+  mCardsAdapter=new SizeControlledListAdapter(this,mCards,R.layout.card_item,new String[]{"sfld","tmpl","deck","flags"},new int[]{R.id.card_sfld,R.id.card_tmpl,R.id.card_deck,R.id.card_item},mrelativeBrowserFontSize);
   mCardsAdapter.setViewBinder(new SimpleAdapter.ViewBinder(){
     @Override public boolean setViewValue(    View view,    Object arg1,    String text){
       if (view.getId() == R.id.card_item) {
         int which=BACKGROUND_NORMAL;
-        if (text.equals("11")) {
-          which=BACKGROUND_MARKED_SUSPENDED;
-        }
- else         if (text.substring(1,2).equals("1")) {
+        if (text.equals("1")) {
           which=BACKGROUND_SUSPENDED;
         }
- else         if (text.substring(0,1).equals("1")) {
+ else         if (text.equals("2")) {
           which=BACKGROUND_MARKED;
+        }
+ else         if (text.equals("3")) {
+          which=BACKGROUND_MARKED_SUSPENDED;
         }
         view.setBackgroundResource(mBackground[which]);
         return true;
+      }
+ else       if (view.getId() == R.id.card_deck && text.length() > 0) {
+        view.setVisibility(View.VISIBLE);
       }
       return false;
     }
@@ -44,16 +49,13 @@
     @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
       Intent editCard=new Intent(CardBrowser.this,CardEditor.class);
       editCard.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_CARDBROWSER_EDIT);
-      editCard.putExtra(CardEditor.EXTRA_DECKPATH,DeckManager.getMainDeckPath());
       mPositionInCardsList=position;
-      mSelectedCard=mDeck.cardFromId(Long.parseLong(mCards.get(mPositionInCardsList).get("id")));
-      if (mSelectedCard == null) {
-        deleteCard(mCards.get(mPositionInCardsList).get("id"),mPositionInCardsList);
-        return;
+      long cardId=Long.parseLong(mCards.get(mPositionInCardsList).get("id"));
+      sCardBrowserCard=mCol.getCard(cardId);
+      startActivityForResult(editCard,EDIT_CARD);
+      if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+        ActivityTransitionAnimation.slide(CardBrowser.this,ActivityTransitionAnimation.LEFT);
       }
-      sEditorCard=mSelectedCard;
-      editCard.putExtra("callfromcardbrowser",true);
-      startActivityForResultWithAnimation(editCard,EDIT_CARD,ActivityTransitionAnimation.LEFT);
     }
   }
 );
@@ -71,8 +73,17 @@
   }
 );
   getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-  setTitle(mDeck.getDeckName());
-  allTags=null;
+  if (mWholeCollection) {
+    setTitle(getResources().getString(R.string.card_browser_all_decks));
+  }
+ else {
+    try {
+      setTitle(mCol.getDecks().current().getString("name"));
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
   mSelectedTags=new HashSet<String>();
   getCards();
 }

@@ -2,25 +2,18 @@
   if (data == null) {
     throw new NullPointerException("Null context for variable '" + name + "' on line "+ line);
   }
-  Key key=new Key(data.getClass(),name);
-  VariableFetcher fetcher=_fcache.get(key);
-  if (fetcher != null) {
-    try {
-      return fetcher.get(data,name);
-    }
- catch (    Exception e) {
-      fetcher=createFetcher(key);
-    }
+  Mustache.VariableFetcher fetcher;
+  if (Mustache.VariableFetcher.class.isInstance(data)) {
+    fetcher=Mustache.VariableFetcher.class.cast(data);
   }
  else {
-    fetcher=createFetcher(key);
+    fetcher=createFetcher(data.getClass(),name);
   }
   if (fetcher == null) {
     return null;
   }
   try {
     Object value=fetcher.get(data,name);
-    _fcache.put(key,fetcher);
     return value;
   }
  catch (  Exception e) {

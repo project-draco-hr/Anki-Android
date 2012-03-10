@@ -1,0 +1,31 @@
+{
+  if (!mXAxisSmart) {
+    return super.getXLabels(min,max,count);
+  }
+  if (mStartPoint == null) {
+    mStartPoint=min - (min % DAY) + DAY + new Date(Math.round(min)).getTimezoneOffset() * 60 * 1000;
+  }
+  if (count > 25) {
+    count=25;
+  }
+  final double cycleMath=(max - min) / count;
+  double cycle=DAY;
+  if (cycleMath <= DAY) {
+    while (cycleMath < cycle / 2) {
+      cycle=cycle / 2;
+    }
+  }
+ else {
+    while (cycleMath > cycle) {
+      cycle=cycle * 2;
+    }
+  }
+  final List<Double> result=new ArrayList<Double>();
+  double val=mStartPoint - Math.floor((mStartPoint - min) / cycle) * cycle;
+  int i=0;
+  while (val < max && i++ <= count) {
+    result.add(val);
+    val+=cycle;
+  }
+  return result;
+}

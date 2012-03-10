@@ -1,0 +1,8 @@
+{
+  try {
+    return mCol.getDb().queryColumn(Long.class,"SELECT id FROM notes WHERE mid = " + m.getLong("id"),0);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

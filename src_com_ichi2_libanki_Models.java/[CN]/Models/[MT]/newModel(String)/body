@@ -1,0 +1,16 @@
+{
+  JSONObject m;
+  try {
+    m=new JSONObject(defaultModel);
+    m.put("name",name);
+    m.put("mod",Utils.intNow());
+    m.put("flds",new JSONArray());
+    m.put("tmpls",new JSONArray());
+    m.put("tags",new JSONArray());
+    m.put("id",0);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  return m;
+}

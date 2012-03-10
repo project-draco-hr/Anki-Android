@@ -1,0 +1,10 @@
+{
+  JSONArray fi;
+  try {
+    fi=conf.getJSONObject("rev").getJSONArray("fi");
+    return (int)(ivl * Math.log(1 - (fi.getInt(0) / 100.0)) / Math.log(1 - (fi.getInt(1) / 100.0)));
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

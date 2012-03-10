@@ -1,0 +1,33 @@
+{
+  try {
+    if (fn == null) {
+      fn=Sched.class.getDeclaredMethod("_deckNewLimitSingle",JSONObject.class);
+    }
+    ArrayList<JSONObject> decks=mCol.getDecks().parents(did);
+    decks.add(mCol.getDecks().get(did));
+    int lim=-1;
+    int rem=0;
+    for (    JSONObject g : decks) {
+      rem=(Integer)fn.invoke(Sched.this,g);
+      if (lim == -1) {
+        lim=rem;
+      }
+ else {
+        lim=Math.min(rem,lim);
+      }
+    }
+    return lim;
+  }
+ catch (  IllegalArgumentException e) {
+    throw new RuntimeException(e);
+  }
+catch (  IllegalAccessException e) {
+    throw new RuntimeException(e);
+  }
+catch (  InvocationTargetException e) {
+    throw new RuntimeException(e);
+  }
+catch (  NoSuchMethodException e) {
+    throw new RuntimeException(e);
+  }
+}

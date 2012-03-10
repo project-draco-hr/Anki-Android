@@ -1,0 +1,24 @@
+{
+  if (!_fillNew()) {
+    return null;
+  }
+  long[] item=mNewQueue.remove();
+  try {
+    JSONObject conf=mCol.getDecks().confForDid(mNewDids.getFirst());
+    if (conf.getJSONObject("new").getBoolean("separate")) {
+      int n=mNewQueue.size();
+      while (!mNewQueue.isEmpty() && mNewQueue.getFirst()[1] == item[1]) {
+        mNewQueue.add(mNewQueue.remove());
+        n-=1;
+        if (n == 0) {
+          break;
+        }
+      }
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  mNewCount-=1;
+  return mCol.getCard(item[0]);
+}

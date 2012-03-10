@@ -1,0 +1,32 @@
+{
+  long[] ids=new long[data.length()];
+  try {
+    for (int i=0; i < data.length(); i++) {
+      ids[i]=data.getJSONArray(i).getLong(0);
+    }
+    HashMap<Long,Long> lmods=new HashMap<Long,Long>();
+    Cursor cur=null;
+    try {
+      cur=mCol.getDb().getDatabase().rawQuery("SELECT id, mod FROM " + table + " WHERE id IN "+ Utils.ids2str(ids)+ " AND "+ usnLim(),null);
+      while (cur.moveToNext()) {
+        lmods.put(cur.getLong(0),cur.getLong(1));
+      }
+    }
+  finally {
+      if (cur != null && !cur.isClosed()) {
+        cur.close();
+      }
+    }
+    ArrayList<Object[]> update=new ArrayList<Object[]>();
+    for (int i=0; i < data.length(); i++) {
+      JSONArray r=data.getJSONArray(i);
+      if (!lmods.containsKey(r.getLong(0)) || lmods.get(r.getLong(0)) < r.getLong(modIdx)) {
+        update.add(ConvUtils.jsonArray2Objects(r));
+      }
+    }
+    return update;
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

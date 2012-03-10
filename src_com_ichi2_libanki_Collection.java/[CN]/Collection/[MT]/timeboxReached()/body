@@ -1,0 +1,12 @@
+{
+  if (mSessionStartTime == 0) {
+    return false;
+  }
+  if (mSessionTimeLimit != 0 && Utils.now() > (mSessionStartTime + mSessionTimeLimit)) {
+    return true;
+  }
+  if (mSessionRepLimit != 0 && mSessionRepLimit <= mRepsToday - mSessionStartReps) {
+    return true;
+  }
+  return false;
+}

@@ -1,0 +1,13 @@
+{
+  if (mUseBackups && !(new File(path)).exists()) {
+    Log.e(AnkiDroidApp.TAG,"BackupManager: Collection " + path + " has been deleted by Android. Restoring it:");
+    File[] fl=BackupManager.getBackups(new File(path));
+    if (fl.length > 0) {
+      BackupManager.restoreBackup(path,fl[fl.length - 1].getAbsolutePath());
+      Log.e(AnkiDroidApp.TAG,"BackupManager: Collection " + path + " successfully restored");
+    }
+ else {
+      Log.e(AnkiDroidApp.TAG,"BackupManager: Collection " + path + " could not be restored");
+    }
+  }
+}

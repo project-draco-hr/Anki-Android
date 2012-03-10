@@ -1,0 +1,11 @@
+{
+  boolean leech=false;
+  if (ease == 1) {
+    leech=_rescheduleLapse(card);
+  }
+ else {
+    _rescheduleRev(card,ease);
+  }
+  _logRev(card,ease);
+  return leech;
+}

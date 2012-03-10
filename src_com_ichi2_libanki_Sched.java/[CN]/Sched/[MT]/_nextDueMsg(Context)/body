@@ -1,0 +1,12 @@
+{
+  StringBuilder sb=new StringBuilder();
+  if (revDue()) {
+    sb.append("\n\n");
+    sb.append(context.getString(R.string.studyoptions_congrats_more_rev));
+  }
+  if (newDue()) {
+    sb.append("\n\n");
+    sb.append(context.getString(R.string.studyoptions_congrats_more_new));
+  }
+  return sb.toString();
+}

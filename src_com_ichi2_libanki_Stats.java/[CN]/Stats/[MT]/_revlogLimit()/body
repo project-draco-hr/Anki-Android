@@ -1,0 +1,8 @@
+{
+  if (mWholeCollection) {
+    return "";
+  }
+ else {
+    return "cid IN (SELECT id FROM cards WHERE did IN " + Utils.ids2str(mCol.getDecks().active()) + ")";
+  }
+}

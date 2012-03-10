@@ -1,0 +1,8 @@
+{
+  ArrayList<JSONObject> decks=new ArrayList<JSONObject>();
+  Iterator<JSONObject> it=mDecks.values().iterator();
+  while (it.hasNext()) {
+    decks.add(it.next());
+  }
+  return decks;
+}

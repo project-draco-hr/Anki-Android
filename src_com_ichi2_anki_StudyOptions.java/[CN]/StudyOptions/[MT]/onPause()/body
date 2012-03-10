@@ -1,6 +1,6 @@
 {
-  if ((AnkiDroidApp.zeemoteController() != null) && (AnkiDroidApp.zeemoteController().isConnected())) {
-    Log.d("Zeemote","Removing listener in onPause");
+  if (mZeemoteEnabled && (AnkiDroidApp.zeemoteController() != null) && (AnkiDroidApp.zeemoteController().isConnected())) {
+    Log.d(AnkiDroidApp.TAG,"Zeemote: Removing listener in onPause");
     AnkiDroidApp.zeemoteController().removeButtonListener(this);
     AnkiDroidApp.zeemoteController().removeJoystickListener(adapter);
     adapter.removeButtonListener(this);

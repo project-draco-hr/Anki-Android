@@ -12,26 +12,37 @@
   mPostingFeedback=false;
   initAllAlertDialogs();
   getErrorFiles();
-  if (mReportErrorMode.equals(REPORT_ALWAYS)) {
-    try {
-      String feedback="Automatically sent";
-      Connection.sendFeedback(mSendListener,new Payload(new Object[]{mFeedbackUrl,mErrorUrl,feedback,mErrorReports,mNonce,getApplication(),true}));
-      if (mErrorReports.size() > 0) {
-        mPostingFeedback=true;
+  Intent i=getIntent();
+  mAllowFeedback=(i.hasExtra("request") && (i.getIntExtra("request",0) == DeckPicker.REPORT_FEEDBACK || i.getIntExtra("request",0) == DeckPicker.RESULT_DB_ERROR)) || mReportErrorMode.equals(REPORT_ASK);
+  if (!mAllowFeedback) {
+    if (mReportErrorMode.equals(REPORT_ALWAYS)) {
+      try {
+        String feedback="Automatically sent";
+        Connection.sendFeedback(mSendListener,new Payload(new Object[]{mFeedbackUrl,mErrorUrl,feedback,mErrorReports,mNonce,getApplication(),true}));
+        if (mErrorReports.size() > 0) {
+          mPostingFeedback=true;
+        }
+        if (feedback.length() > 0) {
+          mPostingFeedback=true;
+        }
       }
-      if (feedback.length() > 0) {
-        mPostingFeedback=true;
+ catch (      Exception e) {
+        Log.e(AnkiDroidApp.TAG,e.toString());
       }
+      finish();
+      if (UIUtils.getApiLevel() > 4) {
+        ActivityTransitionAnimation.slide(Feedback.this,ActivityTransitionAnimation.NONE);
+      }
+      return;
     }
- catch (    Exception e) {
-      Log.e(AnkiDroidApp.TAG,e.toString());
+ else     if (mReportErrorMode.equals(REPORT_NEVER)) {
+      deleteFiles(false,false);
+      finish();
+      if (UIUtils.getApiLevel() > 4) {
+        ActivityTransitionAnimation.slide(Feedback.this,ActivityTransitionAnimation.NONE);
+      }
+      return;
     }
-    closeFeedback();
-    return;
-  }
- else   if (mReportErrorMode.equals(REPORT_NEVER)) {
-    deleteFiles(false,false);
-    closeFeedback();
   }
   View mainView=getLayoutInflater().inflate(R.layout.feedback,null);
   setContentView(mainView);

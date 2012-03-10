@@ -1,7 +1,0 @@
-{
-  File decksDirectory=new File(mPrefDeckPath);
-  AnkiDroidApp.createDecksDirectoryIfMissing(decksDirectory);
-  mDeckFilename=mPrefDeckPath + "/" + SAMPLE_DECK_NAME;
-  savePreferences("deckFilename");
-  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_TUTORIAL,mLoadDeckHandler,new DeckTask.TaskData(mDeckFilename));
-}

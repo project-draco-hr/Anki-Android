@@ -1,0 +1,8 @@
+{
+  if (mCol.getServer()) {
+    return "usn >= " + mMinUsn;
+  }
+ else {
+    return "usn = -1";
+  }
+}

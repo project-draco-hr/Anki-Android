@@ -1,0 +1,23 @@
+{
+  try {
+    JSONArray decks=rchg.getJSONArray(0);
+    for (int i=0; i < decks.length(); i++) {
+      JSONObject r=decks.getJSONObject(i);
+      JSONObject l=mCol.getDecks().get(r.getLong("id"),false);
+      if (l == null || r.getLong("mod") > l.getLong("mod")) {
+        mCol.getDecks().update(r);
+      }
+    }
+    JSONArray confs=rchg.getJSONArray(1);
+    for (int i=0; i < confs.length(); i++) {
+      JSONObject r=confs.getJSONObject(i);
+      JSONObject l=mCol.getDecks().getConf(r.getLong("id"));
+      if (l == null || r.getLong("mod") > l.getLong("mod")) {
+        mCol.getDecks().updateConf(r);
+      }
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

@@ -1,0 +1,54 @@
+{
+  try {
+    ArrayList<String> a=new ArrayList<String>();
+    ArrayList<String> b=new ArrayList<String>();
+    String cloze="";
+    JSONArray reqstrs=new JSONArray();
+    if (t.has("cloze")) {
+    }
+    for (    String f : flds) {
+      a.add(cloze.length() > 0 ? cloze : "1");
+      b.add("");
+    }
+    Object[] data;
+    data=new Object[]{1l,1l,m.getLong("id"),1l,t.getInt("ord"),"",Utils.joinFields(a.toArray(new String[a.size()]))};
+    String full=mCol._renderQA(data).get("q");
+    data=new Object[]{1l,1l,m.getLong("id"),1l,t.getInt("ord"),"",Utils.joinFields(b.toArray(new String[b.size()]))};
+    String empty=mCol._renderQA(data).get("q");
+    if (full.equals(empty)) {
+      return new Object[]{"none",new JSONArray(),new JSONArray()};
+    }
+    String type="all";
+    JSONArray req=new JSONArray();
+    ArrayList<String> tmp=new ArrayList<String>();
+    for (int i=0; i < flds.size(); i++) {
+      tmp.clear();
+      tmp.addAll(a);
+      tmp.remove(i);
+      tmp.add(i,"");
+      data[6]=Utils.joinFields(tmp.toArray(new String[tmp.size()]));
+      if (mCol._renderQA(data).get("q").equals(empty)) {
+        req.put(i);
+      }
+    }
+    if (req.length() > 0) {
+      return new Object[]{type,req,reqstrs};
+    }
+    type="any";
+    req=new JSONArray();
+    for (int i=0; i < flds.size(); i++) {
+      tmp.clear();
+      tmp.addAll(b);
+      tmp.remove(i);
+      tmp.add(i,"1");
+      data[6]=Utils.joinFields(tmp.toArray(new String[tmp.size()]));
+      if (mCol._renderQA(data).get("q").equals(empty)) {
+        req.put(i);
+      }
+    }
+    return new Object[]{type,req,reqstrs};
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

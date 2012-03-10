@@ -1,6 +1,9 @@
 {
+  if (mInAnswer) {
+    return;
+  }
+  mInAnswer=true;
   mIsSelecting=false;
-  mIsAnswering=true;
   if (mPrefTextSelection) {
     clipboardSetText("");
     if (mLookUpIcon.getVisibility() == View.VISIBLE) {
@@ -8,24 +11,20 @@
       enableViewAnimation(mLookUpIcon,ViewAnimation.fade(ViewAnimation.FADE_OUT,mFadeDuration,0));
     }
   }
-  Deck deck=DeckManager.getMainDeck();
 switch (ease) {
-case Card.EASE_FAILED:
+case EASE_FAILED:
     mChosenAnswer.setText("\u2022");
   mChosenAnswer.setTextColor(mNext1.getTextColors());
-if ((deck.getDueCount() + deck.getNewCountToday()) == 1) {
-  mIsLastCard=true;
-}
 break;
-case Card.EASE_HARD:
+case EASE_HARD:
 mChosenAnswer.setText("\u2022\u2022");
 mChosenAnswer.setTextColor(mNext2.getTextColors());
 break;
-case Card.EASE_MID:
+case EASE_MID:
 mChosenAnswer.setText("\u2022\u2022\u2022");
 mChosenAnswer.setTextColor(mNext3.getTextColors());
 break;
-case Card.EASE_EASY:
+case EASE_EASY:
 mChosenAnswer.setText("\u2022\u2022\u2022\u2022");
 mChosenAnswer.setTextColor(mNext4.getTextColors());
 break;
@@ -36,5 +35,5 @@ Sound.stopSounds();
 mCurrentEase=ease;
 mSessionCurrReps++;
 setNextCardAnimation(false);
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(mCurrentEase,deck,mCurrentCard));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,mCurrentEase));
 }

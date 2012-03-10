@@ -6,11 +6,11 @@
   longClickHandler.removeCallbacks(startLongClickAction);
   Reviewer.this.setResult(result);
   setOutAnimation(true);
-  updateBigWidget(!mCardFrame.isEnabled());
   if (saveDeck) {
-    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SAVE_DECK,mSaveAndResetDeckHandler,new DeckTask.TaskData(DeckManager.getMainDeck(),0));
+    UIUtils.saveCollectionInBackground(mSched.getCol());
   }
- else {
-    finishWithAnimation(ActivityTransitionAnimation.RIGHT);
+  finish();
+  if (UIUtils.getApiLevel() > 4) {
+    ActivityTransitionAnimation.slide(Reviewer.this,ActivityTransitionAnimation.RIGHT);
   }
 }

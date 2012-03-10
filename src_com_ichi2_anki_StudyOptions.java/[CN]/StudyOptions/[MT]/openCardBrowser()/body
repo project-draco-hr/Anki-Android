@@ -1,4 +1,8 @@
 {
+  mDontSaveOnStop=true;
   Intent cardBrowser=new Intent(StudyOptions.this,CardBrowser.class);
-  startActivityForResultWithAnimation(cardBrowser,BROWSE_CARDS,ActivityTransitionAnimation.LEFT);
+  startActivityForResult(cardBrowser,BROWSE_CARDS);
+  if (UIUtils.getApiLevel() > 4) {
+    ActivityTransitionAnimation.slide(StudyOptions.this,ActivityTransitionAnimation.LEFT);
+  }
 }

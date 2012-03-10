@@ -1,0 +1,16 @@
+{
+  FORMAT.setMaximumFractionDigits(5);
+  List<Double> labels=new ArrayList<Double>();
+  double[] labelParams=computeLabels(start,end,approxNumLabels);
+  int numLabels=1 + (int)((labelParams[1] - labelParams[0]) / labelParams[2]);
+  for (int i=0; i < numLabels; i++) {
+    double z=labelParams[0] + i * labelParams[2];
+    try {
+      z=FORMAT.parse(FORMAT.format(z)).doubleValue();
+    }
+ catch (    ParseException e) {
+    }
+    labels.add(z);
+  }
+  return labels;
+}

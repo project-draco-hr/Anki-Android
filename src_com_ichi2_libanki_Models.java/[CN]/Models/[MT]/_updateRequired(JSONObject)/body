@@ -1,0 +1,31 @@
+{
+  JSONArray req=new JSONArray();
+  ArrayList<String> flds=new ArrayList<String>();
+  JSONArray fields;
+  try {
+    fields=m.getJSONArray("flds");
+    for (int i=0; i < fields.length(); i++) {
+      flds.add(fields.getJSONObject(i).getString("name"));
+    }
+    boolean cloze=false;
+    JSONArray templates=m.getJSONArray("tmpls");
+    for (int i=0; i < templates.length(); i++) {
+      JSONObject t=templates.getJSONObject(i);
+      Object[] ret=_reqForTemplate(m,flds,t);
+      if (((JSONArray)ret[2]).length() > 0) {
+        cloze=true;
+      }
+      JSONArray r=new JSONArray();
+      r.put(t.getInt("ord"));
+      r.put(ret[0]);
+      r.put(ret[1]);
+      r.put(ret[2]);
+      req.put(r);
+    }
+    m.put("req",req);
+    m.put("cloze",cloze);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

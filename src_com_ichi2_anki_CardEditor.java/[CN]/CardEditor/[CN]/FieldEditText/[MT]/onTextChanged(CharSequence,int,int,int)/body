@@ -6,14 +6,13 @@
       if (visibility == View.VISIBLE) {
         mFilledFields--;
         mCircle.setVisibility(View.GONE);
-        enableViewAnimation(mCircle,ViewAnimation.fade(ViewAnimation.FADE_OUT,300,0));
+        mCircle.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_OUT,300,0));
       }
     }
  else     if (visibility == View.GONE) {
       mFilledFields++;
       mCircle.setVisibility(View.VISIBLE);
-      enableViewAnimation(mCircle,ViewAnimation.fade(ViewAnimation.FADE_IN,300,0));
+      mCircle.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_IN,300,0));
     }
-    mSave.setEnabled(mFilledFields != 0 && (!mPrefFixArabic || mAddFact));
   }
 }

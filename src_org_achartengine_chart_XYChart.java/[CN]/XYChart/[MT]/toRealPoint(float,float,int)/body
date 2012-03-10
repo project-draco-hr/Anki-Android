@@ -1,0 +1,7 @@
+{
+  double realMinX=mRenderer.getXAxisMin(scale);
+  double realMaxX=mRenderer.getXAxisMax(scale);
+  double realMinY=mRenderer.getYAxisMin(scale);
+  double realMaxY=mRenderer.getYAxisMax(scale);
+  return new double[]{(screenX - mScreenR.left) * (realMaxX - realMinX) / mScreenR.width() + realMinX,(mScreenR.top + mScreenR.height() - screenY) * (realMaxY - realMinY) / mScreenR.height() + realMinY};
+}

@@ -1,23 +1,22 @@
 {
 switch (item.getItemId()) {
 case MENU_UNDO:
-    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mUndoRedoHandler,new DeckTask.TaskData(0,mDeck,0,true));
-  return true;
-case MENU_REDO:
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REDO,mUndoRedoHandler,new DeckTask.TaskData(0,mDeck,0,true));
-return true;
-case MENU_ADD_FACT:
-Intent intent=new Intent(CardBrowser.this,CardEditor.class);
+    return true;
+case MENU_ADD_NOTE:
+  Intent intent=new Intent(CardBrowser.this,CardEditor.class);
 intent.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_CARDBROWSER_ADD);
-intent.putExtra(CardEditor.EXTRA_DECKPATH,DeckManager.getMainDeckPath());
-startActivityForResultWithAnimation(intent,ADD_FACT,ActivityTransitionAnimation.LEFT);
+startActivityForResult(intent,ADD_NOTE);
+if (UIUtils.getApiLevel() > 4) {
+ActivityTransitionAnimation.slide(CardBrowser.this,ActivityTransitionAnimation.LEFT);
+}
 return true;
 case MENU_SHOW_MARKED:
 mShowOnlyMarSus=true;
 mSearchEditText.setHint(R.string.card_browser_show_marked);
 mCards.clear();
 for (int i=0; i < mAllCards.size(); i++) {
-if ((mAllCards.get(i).get("question").toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1 || mAllCards.get(i).get("answer").toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1) && mAllCards.get(i).get("flags").subSequence(0,1).equals("1")) {
+int flags=Integer.parseInt(mAllCards.get(i).get("flags"));
+if (flags == 2 || flags == 3) {
 mCards.add(mAllCards.get(i));
 }
 }
@@ -28,15 +27,15 @@ mShowOnlyMarSus=true;
 mSearchEditText.setHint(R.string.card_browser_show_suspended);
 mCards.clear();
 for (int i=0; i < mAllCards.size(); i++) {
-if ((mAllCards.get(i).get("question").toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1 || mAllCards.get(i).get("answer").toLowerCase().indexOf(mSearchEditText.getText().toString().toLowerCase()) != -1) && mAllCards.get(i).get("flags").subSequence(1,2).equals("1")) {
+int flags=Integer.parseInt(mAllCards.get(i).get("flags"));
+if (flags == 1 || flags == 3) {
 mCards.add(mAllCards.get(i));
 }
 }
 updateList();
 return true;
 case MENU_SELECT_TAG:
-recreateTagsDialog();
-mTagsDialog.show();
+showDialog(DIALOG_TAGS);
 return true;
 case MENU_CHANGE_ORDER:
 showDialog(DIALOG_ORDER);

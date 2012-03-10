@@ -1,9 +1,0 @@
-{
-  if (mPrefStartupDeckPicker && backPressed) {
-    setResult(StudyOptions.RESULT_CLOSE);
-    finishWithoutAnimation();
-  }
- else {
-    finishWithAnimation(ActivityTransitionAnimation.LEFT);
-  }
-}

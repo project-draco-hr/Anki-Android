@@ -1,5 +1,7 @@
 {
-  menu.findItem(MENU_UNDO).setEnabled(mDeck.undoAvailable());
-  menu.findItem(MENU_REDO).setEnabled(mDeck.redoAvailable());
+  if (mCol == null) {
+    return false;
+  }
+  menu.findItem(MENU_UNDO).setEnabled(mCol.undoAvailable());
   return true;
 }

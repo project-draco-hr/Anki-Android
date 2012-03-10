@@ -1,0 +1,10 @@
+{
+  int legendSize=renderer.getLegendHeight();
+  if (renderer.isShowLegend() && legendSize == 0) {
+    legendSize=defaultHeight;
+  }
+  if (!renderer.isShowLegend() && renderer.isShowLabels()) {
+    legendSize=(int)(renderer.getLabelsTextSize() * 4 / 3 + extraHeight);
+  }
+  return legendSize;
+}

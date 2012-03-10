@@ -1,25 +1,60 @@
 {
+  Resources res=getResources();
 switch (item.getItemId()) {
-case MENU_CREATE_DECK:
-    startActivityForResultWithAnimation(new Intent(DeckPicker.this,DeckCreator.class),CREATE_DECK,ActivityTransitionAnimation.RIGHT);
+case MENU_HELP:
+    showDialog(DIALOG_SELECT_HELP);
   return true;
+case MENU_CREATE_DECK:
+StyledDialog.Builder builder2=new StyledDialog.Builder(DeckPicker.this);
+builder2.setTitle(res.getString(R.string.new_deck));
+mDialogEditText=(EditText)new EditText(DeckPicker.this);
+builder2.setView(mDialogEditText,false,false);
+builder2.setPositiveButton(res.getString(R.string.create),new DialogInterface.OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+String deckName=mDialogEditText.getText().toString().replaceAll("[\'\"\\s\\n\\r\\[\\]\\(\\)]","");
+Log.i(AnkiDroidApp.TAG,"Creating deck: " + deckName);
+mCol.getDecks().id(deckName,true);
+loadCounts();
+}
+}
+);
+builder2.setNegativeButton(res.getString(R.string.cancel),null);
+builder2.create().show();
+return true;
 case MENU_ABOUT:
-startActivityWithoutAnimation(new Intent(DeckPicker.this,About.class));
+startActivity(new Intent(DeckPicker.this,Info.class));
+if (UIUtils.getApiLevel() > 4) {
+ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.RIGHT);
+}
 return true;
-case MENU_DOWNLOAD_PERSONAL_DECK:
-openPersonalDeckPicker();
-return true;
-case MENU_DOWNLOAD_SHARED_DECK:
-openSharedDeckPicker();
+case MENU_ADD_SHARED_DECK:
+if (mCol != null) {
+SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+String hkey=preferences.getString("hkey","");
+if (hkey.length() == 0) {
+showDialog(DIALOG_USER_NOT_LOGGED_IN_ADD_SHARED_DECK);
+}
+ else {
+addSharedDeck();
+}
+}
 return true;
 case MENU_MY_ACCOUNT:
-startActivityWithoutAnimation(new Intent(DeckPicker.this,MyAccount.class));
+startActivity(new Intent(DeckPicker.this,MyAccount.class));
 return true;
 case MENU_PREFERENCES:
-startActivityForResultWithoutAnimation(new Intent(DeckPicker.this,Preferences.class),PREFERENCES_UPDATE);
+startActivityForResult(new Intent(DeckPicker.this,Preferences.class),PREFERENCES_UPDATE);
 return true;
 case MENU_FEEDBACK:
-startActivityForResultWithoutAnimation(new Intent(DeckPicker.this,Feedback.class),REPORT_FEEDBACK);
+Intent i=new Intent(DeckPicker.this,Feedback.class);
+i.putExtra("request",REPORT_FEEDBACK);
+startActivityForResult(i,REPORT_FEEDBACK);
+if (UIUtils.getApiLevel() > 4) {
+ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
+}
+return true;
+case CHECK_DATABASE:
+integrityCheck();
 return true;
 default :
 return super.onOptionsItemSelected(item);

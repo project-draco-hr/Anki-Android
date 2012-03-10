@@ -1,7 +1,0 @@
-{
-  String notes="";
-  for (  Integer note : deck.upgradeNotes) {
-    notes=notes.concat(res.getString(note.intValue()) + "\n");
-  }
-  return notes;
-}

@@ -1,0 +1,10 @@
+{
+  float p1x=points[index1];
+  float p1y=points[index1 + 1];
+  float p2x=points[index2];
+  float p2y=points[index2 + 1];
+  float diffX=p2x - p1x;
+  float diffY=p2y - p1y;
+  result.setX(p1x + (diffX * multiplier));
+  result.setY(p1y + (diffY * multiplier));
+}

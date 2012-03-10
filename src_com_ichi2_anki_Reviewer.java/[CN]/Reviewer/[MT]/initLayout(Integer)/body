@@ -55,6 +55,7 @@
     mCard.setFocusableInTouchMode(true);
   }
   gestureDetector=new GestureDetector(new MyGestureDetector());
+  mProgressBar=(ProgressBar)findViewById(R.id.flashcard_progressbar);
   if (mShakeEnabled) {
     mSensorManager=(SensorManager)getSystemService(Context.SENSOR_SERVICE);
     mSensorManager.registerListener(mSensorListener,mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_NORMAL);
@@ -97,7 +98,7 @@
   mTextBarBlack=(TextView)findViewById(R.id.black_number);
   mTextBarBlue=(TextView)findViewById(R.id.blue_number);
   if (mShowProgressBars) {
-    mSessionYesBar=(View)findViewById(R.id.daily_bar);
+    mSessionProgressTotalBar=(View)findViewById(R.id.daily_bar);
     mSessionProgressBar=(View)findViewById(R.id.session_progress);
     mProgressBars=(LinearLayout)findViewById(R.id.progress_bars);
   }

@@ -1,0 +1,58 @@
+{
+  String snids=Utils.ids2str(nids);
+  HashMap<Long,HashMap<Integer,Long>> have=new HashMap<Long,HashMap<Integer,Long>>();
+  Cursor cur=null;
+  try {
+    cur=mDb.getDatabase().rawQuery("SELECT id, nid, ord FROM cards WHERE nid IN " + snids,null);
+    while (cur.moveToNext()) {
+      long nid=cur.getLong(1);
+      if (!have.containsKey(nids)) {
+        have.put(nid,null);
+      }
+      have.get(nid).put(cur.getInt(2),cur.getLong(0));
+    }
+  }
+  finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+  ArrayList<Object[]> data=new ArrayList<Object[]>();
+  long ts=Utils.maxID(mDb);
+  long now=Utils.intNow();
+  ArrayList<Long> rem=new ArrayList<Long>();
+  int usn=usn();
+  cur=null;
+  try {
+    cur=mDb.getDatabase().rawQuery("SELECT id, mid, did, flds FROM notes WHERE id IN " + snids,null);
+    while (cur.moveToNext()) {
+      JSONObject model=mModels.get(cur.getLong(1));
+      ArrayList<Integer> avail=mModels.availOrds(model,cur.getString(3));
+      long nid=cur.getLong(0);
+      JSONArray tmpls=model.getJSONArray("tmpls");
+      for (int i=0; i < tmpls.length(); i++) {
+        JSONObject t=tmpls.getJSONObject(i);
+        int tord=t.getInt("ord");
+        boolean doHave=have.containsKey(nid) && have.get(nid).containsKey(tord);
+        if (doHave && !avail.contains(tord)) {
+          rem.add(have.get(nid).get(tord));
+        }
+        if (!doHave && avail.contains(tord)) {
+          long did=t.getLong("did");
+          data.add(new Object[]{ts,nid,did != 0 ? did : cur.getLong(2),tord,now,usn,cur.getLong(0)});
+          ts+=1;
+        }
+      }
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+ finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+  mDb.executeMany("INSERT INTO cards VALUES (?, ?, ?, ?, ?, ?, 0, 0, ?, 0, 0, 0, 0, 0, 0, 0)",data);
+  return rem;
+}

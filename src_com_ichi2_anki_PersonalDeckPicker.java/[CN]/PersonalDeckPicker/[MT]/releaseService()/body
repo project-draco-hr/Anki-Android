@@ -1,7 +1,0 @@
-{
-  if (mConnection != null) {
-    Log.i(AnkiDroidApp.TAG,"Unbinding Service...");
-    unbindService(mConnection);
-    mConnection=null;
-  }
-}

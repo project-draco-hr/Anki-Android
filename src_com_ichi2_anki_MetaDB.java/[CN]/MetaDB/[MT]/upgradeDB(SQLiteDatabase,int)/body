@@ -14,7 +14,7 @@
     }
   }
  else {
-    mMetaDb.execSQL("CREATE TABLE IF NOT EXISTS widgetStatus (" + "deckPath TEXT NOT NULL PRIMARY KEY, " + "deckName TEXT NOT NULL, "+ "newCards INTEGER NOT NULL, "+ "dueCards INTEGER NOT NULL, "+ "failedCards INTEGER NOT NULL, "+ "eta INTEGER NOT NULL, "+ "time INTEGER NOT NULL)");
+    mMetaDb.execSQL("CREATE TABLE IF NOT EXISTS widgetStatus (" + "deckId INTEGER NOT NULL PRIMARY KEY, " + "deckName TEXT NOT NULL, "+ "newCards INTEGER NOT NULL, "+ "lrnCards INTEGER NOT NULL, "+ "dueCards INTEGER NOT NULL, "+ "progress INTEGER NOT NULL, "+ "eta INTEGER NOT NULL)");
   }
   mMetaDb.setVersion(databaseVersion);
   Log.i(AnkiDroidApp.TAG,"Upgrading Internal Database finished. New version: " + databaseVersion);

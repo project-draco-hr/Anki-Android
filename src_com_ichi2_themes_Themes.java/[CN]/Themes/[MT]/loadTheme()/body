@@ -1,6 +1,5 @@
 {
-  SharedPreferences preferences=PrefSettings.getSharedPrefs(mContext);
-  mCurrentTheme=Integer.parseInt(preferences.getString("theme","2"));
+  mCurrentTheme=3;
 switch (mCurrentTheme) {
 case THEME_ANDROID_DARK:
     mDialogBackgroundColor=R.color.card_browser_background;
@@ -157,14 +156,13 @@ mProgressbarsYoungColor=R.color.studyoptions_progressbar_young_blue;
 mProgressbarsDeckpickerYoungColor=R.color.deckpicker_progressbar_young_light;
 mReviewerBackground=R.color.white_background;
 mFlashcardBorder=R.drawable.white_bg_webview;
-mDeckpickerItemBorder=R.drawable.white_bg_deckpicker;
-mTitleStyle=R.drawable.flat_title;
+mTitleStyle=R.drawable.white_btn_default_normal;
 mTitleTextColor=mContext.getResources().getColor(R.color.black);
 mTextViewStyle=R.drawable.white_textview_padding;
 mWallpaper=R.drawable.white_wallpaper;
 mBackgroundColor=R.color.white_background;
 mToastBackground=R.drawable.white_toast_frame;
-mDialogBackgroundColor=mBackgroundColor;
+mDialogBackgroundColor=R.color.white;
 mBackgroundDarkColor=R.color.background_dark_blue;
 mReviewerProgressbar=R.color.reviewer_progressbar_session_blue;
 mCardbrowserItemBorder=new int[]{R.drawable.white_bg_cardbrowser,R.drawable.white_bg_cardbrowser_marked,R.drawable.white_bg_cardbrowser_suspended,R.drawable.white_bg_cardbrowser_marked_suspended};

@@ -1,11 +1,6 @@
 {
   Log.i(AnkiDroidApp.TAG,"buildUpdate");
   RemoteViews updateViews=new RemoteViews(context.getPackageName(),R.layout.widget_small);
-  Intent ankiDroidIntent=new Intent(context,StudyOptions.class);
-  ankiDroidIntent.setAction(Intent.ACTION_MAIN);
-  ankiDroidIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-  PendingIntent pendingAnkiDroidIntent=PendingIntent.getActivity(context,0,ankiDroidIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-  updateViews.setOnClickPendingIntent(R.id.ankidroid_widget_small_layout,pendingAnkiDroidIntent);
   boolean mounted=AnkiDroidApp.isSdCardMounted();
   if (!mounted) {
     updateViews.setViewVisibility(R.id.widget_due,View.INVISIBLE);
@@ -42,13 +37,8 @@
     if (dueCardsCount == 0 || updateDueDecksNow) {
       int[] counts=WidgetStatus.fetchSmall(context);
       dueCardsCount=counts[0];
-      reps=counts[1];
+      progress=counts[1];
       eta=counts[2];
-      int totalreps=reps + dueCardsCount;
-      int progress=0;
-      if (totalreps != 0) {
-        progress=(int)Math.round((100.0d * reps) / totalreps);
-      }
       if (dueCardsCount <= 0) {
         if (dueCardsCount == 0) {
           updateViews.setViewVisibility(R.id.ankidroid_widget_small_finish_layout,View.VISIBLE);
@@ -75,5 +65,10 @@
       }
     }
   }
+  Intent ankiDroidIntent=new Intent(context,DeckPicker.class);
+  ankiDroidIntent.setAction(Intent.ACTION_MAIN);
+  ankiDroidIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+  PendingIntent pendingAnkiDroidIntent=PendingIntent.getActivity(context,0,ankiDroidIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+  updateViews.setOnClickPendingIntent(R.id.ankidroid_widget_small_layout,pendingAnkiDroidIntent);
   return updateViews;
 }

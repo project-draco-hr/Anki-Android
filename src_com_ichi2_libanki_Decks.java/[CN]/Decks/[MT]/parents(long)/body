@@ -1,0 +1,20 @@
+{
+  ArrayList<JSONObject> list=new ArrayList<JSONObject>();
+  try {
+    String[] path=get(did).getString("name").split("::");
+    String deckpath=null;
+    for (int i=0; i < path.length - 1; i++) {
+      if (i == 0) {
+        deckpath=path[0];
+      }
+ else {
+        deckpath=deckpath + "::" + path[i];
+      }
+      list.add(get(mDeckIds.get(deckpath)));
+    }
+    return list;
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

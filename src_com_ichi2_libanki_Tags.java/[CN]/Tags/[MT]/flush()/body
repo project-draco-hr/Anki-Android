@@ -1,0 +1,17 @@
+{
+  if (mChanged) {
+    JSONObject tags=new JSONObject();
+    for (    Map.Entry<String,Integer> t : mTags.entrySet()) {
+      try {
+        tags.put(t.getKey(),t.getValue());
+      }
+ catch (      JSONException e) {
+        throw new RuntimeException(e);
+      }
+    }
+    ContentValues val=new ContentValues();
+    val.put("tags",tags.toString());
+    mCol.getDb().update("col",val);
+    mChanged=false;
+  }
+}

@@ -1,0 +1,7 @@
+{
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundDeleteDeck");
+  Collection col=params[0].getCollection();
+  long did=params[0].getLong();
+  col.getDecks().rem(did,true);
+  return doInBackgroundLoadDeckCounts(new TaskData(col));
+}

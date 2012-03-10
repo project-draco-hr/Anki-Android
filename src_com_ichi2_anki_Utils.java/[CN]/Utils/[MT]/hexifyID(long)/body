@@ -1,7 +1,0 @@
-{
-  if (id < 0) {
-    BigInteger bid=BigInteger.valueOf(id);
-    return bid.add(shiftID).toString(16);
-  }
-  return Long.toHexString(id);
-}

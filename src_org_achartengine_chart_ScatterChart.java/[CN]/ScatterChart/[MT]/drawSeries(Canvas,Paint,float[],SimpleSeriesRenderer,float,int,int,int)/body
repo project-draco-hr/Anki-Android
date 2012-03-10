@@ -1,0 +1,43 @@
+{
+  XYSeriesRenderer renderer=(XYSeriesRenderer)seriesRenderer;
+  paint.setColor(renderer.getColor());
+  if (renderer.isFillPoints()) {
+    paint.setStyle(Style.FILL);
+  }
+ else {
+    paint.setStyle(Style.STROKE);
+  }
+  int length=points.length;
+switch (renderer.getPointStyle()) {
+case X:
+    for (int i=0; i < length; i+=2) {
+      drawX(canvas,paint,points[i],points[i + 1]);
+    }
+  break;
+case CIRCLE:
+for (int i=0; i < length; i+=2) {
+  drawCircle(canvas,paint,points[i],points[i + 1]);
+}
+break;
+case TRIANGLE:
+float[] path=new float[6];
+for (int i=0; i < length; i+=2) {
+drawTriangle(canvas,paint,path,points[i],points[i + 1]);
+}
+break;
+case SQUARE:
+for (int i=0; i < length; i+=2) {
+drawSquare(canvas,paint,points[i],points[i + 1]);
+}
+break;
+case DIAMOND:
+path=new float[8];
+for (int i=0; i < length; i+=2) {
+drawDiamond(canvas,paint,path,points[i],points[i + 1]);
+}
+break;
+case POINT:
+canvas.drawPoints(points,paint);
+break;
+}
+}

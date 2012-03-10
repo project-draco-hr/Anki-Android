@@ -1,18 +1,7 @@
 {
-  DeckStatus[] decks=WidgetStatus.fetch(this);
-  int eta=0;
-  int reps=0;
-  int due=0;
-  for (  DeckStatus d : decks) {
-    eta+=d.mEta;
-    reps+=d.mTime;
-    due+=d.mFailedCards + d.mNewCards + d.mDueCards;
-  }
-  int totalreps=reps + due;
-  int progressTotal=0;
-  if (totalreps != 0) {
-    progressTotal=(int)Math.round((100.0d * reps) / totalreps);
-  }
+  int[] counts=WidgetStatus.fetchSmall(this);
+  int progressTotal=counts[1];
+  int eta=counts[2];
   updateViews.setProgressBar(R.id.widget_big_progress_total,100,progressTotal,false);
   if (eta == 0) {
     updateViews.setViewVisibility(R.id.widget_big_eta,View.INVISIBLE);
@@ -24,8 +13,8 @@
 switch (view) {
 case VIEW_SHOW_QUESTION:
 case VIEW_NOTHING_DUE:
-    updateViews.setTextViewText(R.id.widget_big_counts,getDeckStatusString(contentService.mLoadedDeck,contentService.mCurrentCard));
-  double sessionProgress=contentService.mLoadedDeck.getSessionProgress(true);
+    updateViews.setTextViewText(R.id.widget_big_counts,getDeckStatusString(contentService.mCurrentCard));
+  double sessionProgress=contentService.mCol.getSched().todaysProgress(contentService.mCurrentCard,false,false);
 if (sessionProgress == -1) {
   updateViews.setViewVisibility(R.id.widget_big_progress_frame_deck,View.INVISIBLE);
 }
@@ -46,7 +35,7 @@ updateViews.setTextViewText(R.id.widget_big_counts,"");
 updateViews.setViewVisibility(R.id.widget_big_progress_frame_deck,View.INVISIBLE);
 updateViews.setViewVisibility(R.id.widget_big_deckfield,View.VISIBLE);
 updateViews.setViewVisibility(R.id.widget_big_nothing_due,View.INVISIBLE);
-setDeckCounts(updateViews,decks);
+setDeckCounts(updateViews,WidgetStatus.fetch(this));
 updateViews.setViewVisibility(R.id.widget_big_totalcongrats,View.GONE);
 updateViews.setViewVisibility(R.id.widget_big_decketa,View.VISIBLE);
 updateViews.setTextViewText(R.id.widget_big_decketa,"???????????????\n" + getResources().getQuantityString(R.plurals.widget_big_eta,eta,eta));

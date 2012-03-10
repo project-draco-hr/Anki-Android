@@ -1,0 +1,11 @@
+{
+  try {
+    if ((sUpdateDeckStatusAsyncTask != null) && (sUpdateDeckStatusAsyncTask.getStatus() != AsyncTask.Status.FINISHED)) {
+      Log.i(AnkiDroidApp.TAG,"WidgetStatus: wait to finish");
+      sUpdateDeckStatusAsyncTask.get();
+    }
+  }
+ catch (  Exception e) {
+    return;
+  }
+}

@@ -1,0 +1,20 @@
+{
+  if (_fillLrn()) {
+    double cutoff=Utils.now();
+    if (collapse) {
+      try {
+        cutoff+=mCol.getConf().getInt("collapseTime");
+      }
+ catch (      JSONException e) {
+        throw new RuntimeException(e);
+      }
+    }
+    if (mLrnQueue.getFirst()[0] < cutoff) {
+      long id=mLrnQueue.remove()[1];
+      Card card=mCol.getCard(id);
+      mLrnCount-=card.getLeft();
+      return card;
+    }
+  }
+  return null;
+}

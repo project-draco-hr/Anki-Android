@@ -1,17 +1,19 @@
 {
   super.onActivityResult(requestCode,resultCode,data);
+  if (resultCode == DeckPicker.RESULT_DB_ERROR) {
+    closeReviewer(DeckPicker.RESULT_DB_ERROR,false);
+  }
+  if (resultCode == AnkiDroidApp.RESULT_TO_HOME) {
+    closeReviewer(AnkiDroidApp.RESULT_TO_HOME,true);
+  }
+ else   if (resultCode == DeckPicker.RESULT_MEDIA_EJECTED) {
+    finishNoStorageAvailable();
+  }
   if (requestCode == EDIT_CURRENT_CARD) {
     setInAnimation(true);
-    if (resultCode == RESULT_OK || resultCode == RESULT_EDIT_CARD_RESET) {
+    if (resultCode != RESULT_CANCELED) {
       Log.i(AnkiDroidApp.TAG,"Saving card...");
-      int showQuestion=sDisplayAnswer ? UPDATE_CARD_SHOW_ANSWER : UPDATE_CARD_SHOW_QUESTION;
-      if (resultCode == RESULT_EDIT_CARD_RESET) {
-        showQuestion=UPDATE_CARD_NEW_CARD;
-      }
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_FACT,mUpdateCardHandler,new DeckTask.TaskData(showQuestion,DeckManager.getMainDeck(),mCurrentCard));
-    }
- else     if (resultCode == StudyOptions.CONTENT_NO_EXTERNAL_STORAGE) {
-      finishNoStorageAvailable();
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_FACT,mUpdateCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,true));
     }
  else {
       mInEditor=false;

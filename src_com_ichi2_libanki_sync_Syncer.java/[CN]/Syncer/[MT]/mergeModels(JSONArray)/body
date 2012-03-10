@@ -1,0 +1,15 @@
+{
+  for (int i=0; i < rchg.length(); i++) {
+    try {
+      JSONObject r=rchg.getJSONObject(i);
+      JSONObject l;
+      l=mCol.getModels().get(r.getLong("id"));
+      if (l == null || r.getLong("mod") > l.getLong("mod")) {
+        mCol.getModels().update(r);
+      }
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
+}

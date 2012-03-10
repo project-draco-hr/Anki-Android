@@ -25,22 +25,30 @@
         }
       }
     }
- else     if (ACTION_OPENDECK.equals(action)) {
+ else     if (ACTION_OPENCOLLECTION.equals(action)) {
       showProgressDialog();
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK,mOpenDeckHandler,new DeckTask.TaskData(DeckManager.REQUESTING_ACTIVITY_BIGWIDGET,intent.getStringExtra(EXTRA_DECK_PATH)));
-    }
- else     if (ACTION_CLOSEDECK.equals(action)) {
-      if (contentService.mLoadedDeck != null) {
-        DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CLOSE_DECK,mCloseDeckHandler,new DeckTask.TaskData(contentService.mLoadedDeck.getDeckPath()));
+      if (contentService.mCol == null) {
+        contentService.mBigCurrentMessage=getResources().getString(R.string.open_collection);
+        DeckTask.launchDeckTask(DeckTask.TASK_TYPE_OPEN_COLLECTION,mOpenCollectionHandler,new DeckTask.TaskData(AnkiDroidApp.getCollectionPath()));
+        updateViews();
       }
  else {
-        updateViews(VIEW_DECKS);
+        showDeckSelectionDialog();
       }
     }
+ else     if (ACTION_OPENDECK.equals(action)) {
+      showProgressDialog();
+      if (contentService != null) {
+        contentService.mCol.getDecks().select(intent.getLongExtra(DeckPicker.EXTRA_DECK_ID,1));
+        DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_VALUES_FROM_DECK,mOpenDeckHandler,new DeckTask.TaskData(contentService.mCol.getSched(),true));
+      }
+    }
+ else     if (ACTION_CLOSEDECK.equals(action)) {
+      updateViews(VIEW_DECKS);
+    }
  else     if (ACTION_UNDO.equals(action)) {
-      if (contentService.mLoadedDeck != null) {
-        if (contentService.mLoadedDeck.undoAvailable()) {
-          DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mUpdateCardHandler,new DeckTask.TaskData(0,contentService.mLoadedDeck,contentService.mCurrentCard != null ? contentService.mCurrentCard.getId() : 0,true));
+      if (contentService.mCol != null) {
+        if (contentService.mCol.undoAvailable()) {
         }
       }
  else {
@@ -48,8 +56,7 @@
       }
     }
  else     if (ACTION_BURY_CARD.equals(action)) {
-      if (contentService.mLoadedDeck != null) {
-        DeckTask.launchDeckTask(DeckTask.TASK_TYPE_BURY_CARD,mUpdateCardHandler,new DeckTask.TaskData(0,contentService.mLoadedDeck,contentService.mCurrentCard));
+      if (contentService.mCol != null) {
       }
  else {
         updateViews(VIEW_DECKS);
@@ -61,11 +68,11 @@
         updateViews(VIEW_SHOW_ANSWER);
       }
  else {
-        if (contentService.mLoadedDeck != null) {
-          if (contentService.mCurrentCard.thinkingTime() > 12) {
-            contentService.mCurrentCard.setTimerStart(Utils.now() - 6);
+        if (contentService.mCol != null) {
+          if (contentService.mCurrentCard.timeTaken() > 12) {
+            contentService.mCurrentCard.setTimer(Utils.now() - 6);
           }
-          DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(ease,contentService.mLoadedDeck,contentService.mCurrentCard));
+          DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(contentService.mCol.getSched(),contentService.mCurrentCard,ease));
         }
  else {
           updateViews(VIEW_DECKS);
@@ -79,37 +86,10 @@
       this.startActivity(dialogIntent);
     }
  else     if (ACTION_OPEN.equals(action)) {
-      String deckpath=intent.getStringExtra(EXTRA_DECK_PATH);
-      Intent newIntent=StudyOptions.getLoadDeckIntent(this,deckpath);
-      if (deckpath != null) {
-        DeckManager.getDeck(deckpath,true,DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS);
-        if (contentService.mBigCurrentView != VIEW_NOTHING_DUE) {
-          newIntent.putExtra(StudyOptions.EXTRA_START,StudyOptions.EXTRA_START_REVIEWER);
-          startActivity(newIntent);
-          showProgressDialog();
-        }
- else {
-          startActivity(newIntent);
-        }
-      }
- else {
-        newIntent.putExtra(StudyOptions.EXTRA_START,StudyOptions.EXTRA_START_DECKPICKER);
-        startActivity(newIntent);
-      }
     }
  else     if (ACTION_CARDEDITOR.equals(action)) {
-      Intent editIntent=new Intent(this,CardEditor.class);
-      editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-      editIntent.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_BIGWIDGET_EDIT);
-      editIntent.putExtra(CardEditor.EXTRA_DECKPATH,contentService.mLoadedDeck.getDeckPath());
-      this.startActivity(editIntent);
     }
  else     if (ACTION_FACTADDER.equals(action)) {
-      Intent editIntent=new Intent(this,CardEditor.class);
-      editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-      editIntent.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_BIGWIDGET_ADD);
-      editIntent.putExtra(CardEditor.EXTRA_DECKPATH,contentService.mLoadedDeck.getDeckPath());
-      this.startActivity(editIntent);
     }
  else     if (ACTION_HELP.equals(action)) {
       if (contentService.mBigShowProgressDialog) {
@@ -122,30 +102,8 @@
       }
     }
  else     if (ACTION_LEARN_MORE.equals(action)) {
-      if (contentService.mLoadedDeck != null) {
-        contentService.mLoadedDeck.setupLearnMoreScheduler();
-        contentService.mLoadedDeck.reset();
-        contentService.setCard();
-        contentService.mBigShowProgressDialog=false;
-        contentService.mBigCurrentMessage=null;
-        updateViews(VIEW_SHOW_QUESTION);
-      }
- else {
-        updateViews(VIEW_DECKS);
-      }
     }
  else     if (ACTION_REVIEW_EARLY.equals(action)) {
-      if (contentService.mLoadedDeck != null) {
-        contentService.mLoadedDeck.setupReviewEarlyScheduler();
-        contentService.mLoadedDeck.reset();
-        contentService.setCard();
-        contentService.mBigShowProgressDialog=false;
-        contentService.mBigCurrentMessage=null;
-        updateViews(VIEW_SHOW_QUESTION);
-      }
- else {
-        updateViews(VIEW_DECKS);
-      }
     }
  else     if (ACTION_SHOW_TOMORROW_DUES.equals(action)) {
       if (contentService.mTomorrowDues == null) {

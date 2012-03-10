@@ -1,3 +1,0 @@
-{
-  mRevCount=(int)getDB().queryScalar(cardLimit(mActiveCramTags,null,"SELECT count(*) FROM cards c WHERE type BETWEEN 0 AND 2"));
-}

@@ -1,4 +1,12 @@
 {
-  setResult(RESULT_OK);
-  finishWithAnimation(ActivityTransitionAnimation.FADE);
+  if (getIntent().getIntExtra("request",0) == DeckPicker.RESULT_DB_ERROR) {
+    setResult(DeckPicker.RESULT_DB_ERROR);
+  }
+ else {
+    setResult(RESULT_OK);
+  }
+  finish();
+  if (UIUtils.getApiLevel() > 4) {
+    ActivityTransitionAnimation.slide(Feedback.this,ActivityTransitionAnimation.LEFT);
+  }
 }

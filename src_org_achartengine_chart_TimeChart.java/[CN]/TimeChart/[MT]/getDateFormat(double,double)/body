@@ -1,0 +1,20 @@
+{
+  if (mDateFormat != null) {
+    SimpleDateFormat format=null;
+    try {
+      format=new SimpleDateFormat(mDateFormat);
+      return format;
+    }
+ catch (    Exception e) {
+    }
+  }
+  DateFormat format=SimpleDateFormat.getDateInstance(SimpleDateFormat.MEDIUM);
+  double diff=end - start;
+  if (diff > DAY && diff < 5 * DAY) {
+    format=SimpleDateFormat.getDateTimeInstance(SimpleDateFormat.SHORT,SimpleDateFormat.SHORT);
+  }
+ else   if (diff < DAY) {
+    format=SimpleDateFormat.getTimeInstance(SimpleDateFormat.MEDIUM);
+  }
+  return format;
+}

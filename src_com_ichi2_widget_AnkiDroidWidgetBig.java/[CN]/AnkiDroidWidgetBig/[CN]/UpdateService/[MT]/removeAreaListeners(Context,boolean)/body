@@ -6,7 +6,7 @@
   getAnswerPendingIntent(context,3).cancel();
   getCardEditorPendingIntent(context).cancel();
   if (all) {
-    getOpenPendingIntent(context,null).cancel();
+    getOpenPendingIntent(context,0).cancel();
     getUndoPendingIntent(context).cancel();
   }
 }

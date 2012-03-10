@@ -1,9 +1,0 @@
-{
-  setTitle(getResources().getString(R.string.app_name));
-  if (mDeckInformation != null) {
-    mDeckInformation.setVisibility(View.INVISIBLE);
-    if (fade) {
-      enableViewAnimation(mDeckInformation,ViewAnimation.fade(ViewAnimation.FADE_OUT,500,0));
-    }
-  }
-}

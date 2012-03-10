@@ -1,0 +1,40 @@
+{
+  JSONObject conf=_lrnConf(card);
+  int type;
+  if (card.getType() == 2) {
+    type=2;
+  }
+ else {
+    type=0;
+  }
+  boolean leaving=false;
+  int lastLeft=card.getLeft();
+  if (ease == 3) {
+    _rescheduleAsRev(card,conf,true);
+    leaving=true;
+  }
+ else   if (ease == 2 && card.getLeft() - 1 <= 0) {
+    _rescheduleAsRev(card,conf,false);
+    leaving=true;
+  }
+ else {
+    if (ease == 2) {
+      card.setLeft(card.getLeft() - 1);
+    }
+ else {
+      card.setLeft(_startingLeft(card));
+    }
+    mLrnCount+=card.getLeft();
+    int delay=_delayForGrade(conf,card.getLeft());
+    if (card.getDue() < Utils.now()) {
+      delay*=(1 + (new Random().nextInt(25) / 100));
+    }
+    card.setDue((int)(Utils.now() + delay));
+    if (!mLrnQueue.isEmpty() && mRevCount == 0 && mNewCount == 0) {
+      long smallestDue=mLrnQueue.getFirst()[0];
+      card.setDue(Math.max(card.getDue(),smallestDue + 1));
+    }
+    _sortIntoLrn(card.getDue(),card.getId());
+  }
+  _logLrn(card,ease,conf,leaving,type,lastLeft);
+}

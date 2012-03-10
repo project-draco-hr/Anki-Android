@@ -21,6 +21,10 @@ case SLIDE_IN_FROM_BOTTOM:
 animation=new TranslateAnimation(Animation.RELATIVE_TO_SELF,0.0f,Animation.RELATIVE_TO_SELF,0.0f,Animation.RELATIVE_TO_SELF,+1.0f,Animation.RELATIVE_TO_SELF,0.0f);
 animation.setInterpolator(new DecelerateInterpolator());
 break;
+case SLIDE_IN_FROM_TOP:
+animation=new TranslateAnimation(Animation.RELATIVE_TO_SELF,0.0f,Animation.RELATIVE_TO_SELF,0.0f,Animation.RELATIVE_TO_SELF,-1.0f,Animation.RELATIVE_TO_SELF,0.0f);
+animation.setInterpolator(new DecelerateInterpolator());
+break;
 default :
 animation=null;
 }

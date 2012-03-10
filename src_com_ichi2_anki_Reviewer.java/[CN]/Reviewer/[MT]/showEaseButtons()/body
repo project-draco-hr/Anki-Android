@@ -1,41 +1,41 @@
 {
   Resources res=getResources();
   switchVisibility(mFlipCardLayout,View.GONE);
-  if (mCurrentCard.isRev()) {
+  boolean lrnCard=mSched.lrnButtons(mCurrentCard);
+  if (lrnCard) {
     mEase1.setText(res.getString(R.string.ease1_successive));
     mEase2.setText(res.getString(R.string.ease2_successive));
     mEase3.setText(res.getString(R.string.ease3_successive));
-    mEase4.setText(res.getString(R.string.ease4_successive));
   }
  else {
     mEase1.setText(res.getString(R.string.ease1_learning));
     mEase2.setText(res.getString(R.string.ease2_learning));
     mEase3.setText(res.getString(R.string.ease3_learning));
     mEase4.setText(res.getString(R.string.ease4_learning));
+    switchVisibility(mEase4Layout,View.VISIBLE);
   }
   switchVisibility(mEase1Layout,View.VISIBLE);
   switchVisibility(mEase2Layout,View.VISIBLE);
   switchVisibility(mEase3Layout,View.VISIBLE);
-  switchVisibility(mEase4Layout,View.VISIBLE);
-  if (mCurrentCard.isRev()) {
-    mEase3Layout.requestFocus();
-    mNext2.setTextColor(mNextTimeTextColor);
-    mEase2.setTextColor(mNextTimeTextColor);
-    mNext3.setTextColor(mNextTimeTextRecomColor);
-    mEase3.setTextColor(mNextTimeTextRecomColor);
-  }
- else {
+  if (lrnCard) {
     mEase2Layout.requestFocus();
     mNext2.setTextColor(mNextTimeTextRecomColor);
     mEase2.setTextColor(mNextTimeTextRecomColor);
     mNext3.setTextColor(mNextTimeTextColor);
     mEase3.setTextColor(mNextTimeTextColor);
   }
+ else {
+    mEase3Layout.requestFocus();
+    mNext2.setTextColor(mNextTimeTextColor);
+    mEase2.setTextColor(mNextTimeTextColor);
+    mNext3.setTextColor(mNextTimeTextRecomColor);
+    mEase3.setTextColor(mNextTimeTextRecomColor);
+  }
   if (mshowNextReviewTime) {
-    mNext1.setText(nextInterval(1));
-    mNext2.setText(nextInterval(2));
-    mNext3.setText(nextInterval(3));
-    mNext4.setText(nextInterval(4));
+    mNext1.setText(mSched.nextIvlStr(mCurrentCard,1));
+    mNext2.setText(mSched.nextIvlStr(mCurrentCard,2));
+    mNext3.setText(mSched.nextIvlStr(mCurrentCard,3));
+    mNext4.setText(lrnCard ? "" : mSched.nextIvlStr(mCurrentCard,4));
     switchVisibility(mNext1,View.VISIBLE);
     switchVisibility(mNext2,View.VISIBLE);
     switchVisibility(mNext3,View.VISIBLE);

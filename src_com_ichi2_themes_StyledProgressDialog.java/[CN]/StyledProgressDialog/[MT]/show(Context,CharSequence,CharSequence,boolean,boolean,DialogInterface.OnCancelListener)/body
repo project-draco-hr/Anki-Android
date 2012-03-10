@@ -23,6 +23,8 @@
     return null;
   }
   dialog.setContentView(layout);
+  dialog.setCancelable(cancelable);
+  dialog.setOnCancelListener(cancelListener);
   if (animationEnabled(context)) {
     dialog.show();
   }

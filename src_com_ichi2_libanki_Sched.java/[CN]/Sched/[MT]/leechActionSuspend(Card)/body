@@ -1,0 +1,15 @@
+{
+  JSONObject conf;
+  try {
+    conf=_cardConf(card).getJSONObject("lapse");
+    if (conf.getInt("leechAction") == 0) {
+      return true;
+    }
+ else {
+      return false;
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

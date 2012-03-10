@@ -1,0 +1,12 @@
+{
+  if (event.getAction() == MotionEvent.ACTION_DOWN) {
+    oldX=event.getX();
+    oldY=event.getY();
+  }
+  if (mRenderer != null && (mRenderer.isPanEnabled() || mRenderer.isZoomEnabled())) {
+    if (mTouchHandler.handleTouch(event)) {
+      return true;
+    }
+  }
+  return super.onTouchEvent(event);
+}

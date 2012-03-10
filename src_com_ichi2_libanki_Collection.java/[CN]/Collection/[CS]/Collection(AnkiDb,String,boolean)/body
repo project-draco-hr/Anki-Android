@@ -1,0 +1,22 @@
+{
+  mDb=db;
+  mServer=server;
+  mLastSave=Utils.now();
+  clearUndo();
+  mPath=path;
+  mMedia=new Media(this);
+  mModels=new Models(this);
+  mDecks=new Decks(this);
+  mTags=new Tags(this);
+  load();
+  if (mCrt == 0) {
+    mCrt=UIUtils.getDayStart() / 1000;
+  }
+  mUndoEnabled=false;
+  mSessionStartReps=0;
+  mSessionStartTime=0;
+  mLastSessionStart=0;
+  mStdSched=new Sched(this);
+  mSched=mStdSched;
+  cleanup();
+}

@@ -1,6 +1,4 @@
 {
   boolean sdCardAvailable=AnkiDroidApp.isSdCardMounted();
-  menu.findItem(SUBMENU_DOWNLOAD).setEnabled(sdCardAvailable);
-  menu.findItem(MENU_DOWNLOAD_PERSONAL_DECK).setVisible(sdCardAvailable);
   return true;
 }

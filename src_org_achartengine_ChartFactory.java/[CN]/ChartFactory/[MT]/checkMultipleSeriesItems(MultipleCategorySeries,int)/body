@@ -1,0 +1,8 @@
+{
+  int count=dataset.getCategoriesCount();
+  boolean equal=true;
+  for (int k=0; k < count && equal; k++) {
+    equal=dataset.getValues(k).length == dataset.getTitles(k).length;
+  }
+  return equal;
+}

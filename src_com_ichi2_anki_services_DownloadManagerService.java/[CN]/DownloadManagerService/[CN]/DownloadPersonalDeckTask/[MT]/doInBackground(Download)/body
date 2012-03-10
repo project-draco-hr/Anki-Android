@@ -4,7 +4,7 @@
   RandomAccessFile file=null;
   InflaterInputStream iis=null;
   try {
-    url=new URL(AnkiDroidProxy.SYNC_URL + "fulldown");
+    url=new URL(HttpSyncer.SYNC_URL + "fulldown");
     HttpURLConnection connection=(HttpURLConnection)url.openConnection();
     connection.setDoInput(true);
     connection.setDoOutput(true);

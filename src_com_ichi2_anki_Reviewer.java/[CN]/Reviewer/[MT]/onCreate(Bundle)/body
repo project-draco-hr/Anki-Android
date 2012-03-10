@@ -5,22 +5,30 @@
   mChangeBorderStyle=Themes.getTheme() == Themes.THEME_ANDROID_LIGHT || Themes.getTheme() == Themes.THEME_ANDROID_DARK;
   mCompat=Utils.createCompat();
   setVolumeControlStream(AudioManager.STREAM_MUSIC);
-  Deck deck=DeckManager.getMainDeck();
-  if (deck == null) {
-    finishNoStorageAvailable();
+  Collection col=Collection.currentCollection();
+  if (col == null) {
+    reloadCollection(savedInstanceState);
     return;
   }
  else {
-    mMediaDir=setupMedia(deck);
+    mSched=col.getSched();
+    mCollectionFilename=col.getPath();
+    mBaseUrl=Utils.getBaseUrl(col.getMedia().getDir());
     restorePreferences();
-    deck.resetUndo();
+    try {
+      String[] title=mSched.getCol().getDecks().current().getString("name").split("::");
+      setTitle(title[title.length - 1]);
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+    UIUtils.setActionBarSubtitle(this,"");
     if (mPrefFullscreenReview) {
       getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
       if (!AnkiDroidApp.isHoneycombOrLater()) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
       }
     }
-    requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
     registerExternalStorageListener();
     if (mNightMode) {
       mCurrentBackgroundColor=Themes.getNightModeCardBackground(this);
@@ -32,7 +40,7 @@
     initLayout(R.layout.flashcard);
     if (mPrefTextSelection) {
       clipboardSetText("");
-      Lookup.initialize(this,mDeckFilename);
+      Lookup.initialize(this,mCollectionFilename);
     }
     try {
       mCardTemplate=Utils.convertStreamToString(getAssets().open("card_template.html"));
@@ -41,17 +49,14 @@
  catch (    IOException e) {
       e.printStackTrace();
     }
-    long timelimit=deck.getSessionTimeLimit() * 1000;
-    Log.i(AnkiDroidApp.TAG,"SessionTimeLimit: " + timelimit + " ms.");
-    mSessionTimeLimit=System.currentTimeMillis() + timelimit;
     mSessionCurrReps=0;
-    if (mSpeakText && AnkiDroidApp.isDonutOrLater()) {
-      ReadText.initializeTts(this,mDeckFilename);
+    if (mSpeakText && Integer.valueOf(android.os.Build.VERSION.SDK) > 3) {
+      ReadText.initializeTts(this,mCollectionFilename);
     }
-    if (mPrefWhiteboard && MetaDB.getWhiteboardState(this,mDeckFilename) == 1) {
+    if (mPrefWhiteboard && MetaDB.getWhiteboardState(this,mCollectionFilename) == 1) {
       mShowWhiteboard=true;
       mWhiteboard.setVisibility(View.VISIBLE);
     }
-    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,deck,null));
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(mSched,null,0));
   }
 }

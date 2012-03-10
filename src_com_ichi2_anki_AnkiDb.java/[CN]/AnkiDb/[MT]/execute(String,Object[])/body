@@ -1,0 +1,15 @@
+{
+  String s=sql.trim().toLowerCase();
+  for (  String mo : MOD_SQLS) {
+    if (s.startsWith(mo)) {
+      mMod=true;
+      break;
+    }
+  }
+  if (object == null) {
+    this.getDatabase().execSQL(sql);
+  }
+ else {
+    this.getDatabase().execSQL(sql,object);
+  }
+}

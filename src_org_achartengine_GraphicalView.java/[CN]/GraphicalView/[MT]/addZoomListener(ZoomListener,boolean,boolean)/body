@@ -1,0 +1,11 @@
+{
+  if (onButtons) {
+    if (mZoomIn != null) {
+      mZoomIn.addZoomListener(listener);
+      mZoomOut.addZoomListener(listener);
+    }
+    if (onPinch) {
+      mTouchHandler.addZoomListener(listener);
+    }
+  }
+}

@@ -1,18 +1,18 @@
 {
   SpannableStringBuilder sb=new SpannableStringBuilder();
-  SpannableString red=new SpannableString(Integer.toString(failed));
-  red.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.widget_big_font_color_red)),0,red.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-  if (card != null && card.getType() == Card.TYPE_FAILED) {
+  SpannableString red=new SpannableString(Integer.toString(newCount));
+  red.setSpan(new ForegroundColorSpan(sColorBlue),0,red.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+  if (card != null && card.getType() == Card.TYPE_NEW) {
     red.setSpan(new UnderlineSpan(),0,red.length(),0);
   }
-  SpannableString black=new SpannableString(Integer.toString(rev));
-  black.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.widget_big_font_color)),0,black.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-  if (card != null && card.getType() == Card.TYPE_REV) {
+  SpannableString black=new SpannableString(Integer.toString(lrnCount));
+  black.setSpan(new ForegroundColorSpan(sColorRed),0,black.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+  if (card != null && card.getType() == Card.TYPE_LRN) {
     black.setSpan(new UnderlineSpan(),0,black.length(),0);
   }
-  SpannableString blue=new SpannableString(Integer.toString(newCount));
-  blue.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.widget_big_font_color_blue)),0,blue.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-  if (card != null && card.getType() == Card.TYPE_NEW) {
+  SpannableString blue=new SpannableString(Integer.toString(dueCount));
+  blue.setSpan(new ForegroundColorSpan(sColorGreen),0,blue.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+  if (card != null && card.getType() == Card.TYPE_REV) {
     blue.setSpan(new UnderlineSpan(),0,blue.length(),0);
   }
   sb.append(red);

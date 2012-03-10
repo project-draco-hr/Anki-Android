@@ -1,0 +1,28 @@
+{
+  JSONObject conf;
+  try {
+    conf=_cardConf(card).getJSONObject("lapse");
+    card.setLapses(card.getLapses() + 1);
+    card.setLastIvl(card.getIvl());
+    card.setIvl(_nextLapseIvl(card,conf));
+    card.setFactor(Math.max(1300,card.getFactor() - 200));
+    card.setDue(mToday + card.getIvl());
+    if (conf.getJSONArray("delays").length() > 0) {
+      card.setEDue(card.getDue());
+      card.setDue((int)(_delayForGrade(conf,0) + Utils.now()));
+      card.setLeft(conf.getJSONArray("delays").length());
+      card.setQueue(1);
+      mLrnCount+=card.getLeft();
+    }
+    if (!_checkLeech(card,conf) && conf.getJSONArray("delays").length() > 0) {
+      _sortIntoLrn(card.getDue(),card.getId());
+      return false;
+    }
+ else {
+      return true;
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

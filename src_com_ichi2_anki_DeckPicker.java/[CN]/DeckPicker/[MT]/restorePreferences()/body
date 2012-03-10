@@ -1,0 +1,21 @@
+{
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+  mPrefDeckPath=preferences.getString("deckPath",AnkiDroidApp.getDefaultAnkiDroidDirectory());
+  mLastTimeOpened=preferences.getLong("lastTimeOpened",0);
+  mSwipeEnabled=preferences.getBoolean("swipe",false);
+  final float gestureScale=getResources().getDisplayMetrics().density;
+  int sensibility=preferences.getInt("swipeSensibility",100);
+  if (sensibility != 100) {
+    float sens=(200 - sensibility) / 100.0f;
+    sSwipeMinDistance=(int)(SWIPE_MIN_DISTANCE_DIP * sens * gestureScale + 0.5f);
+    sSwipeThresholdVelocity=(int)(SWIPE_THRESHOLD_VELOCITY_DIP * sens * gestureScale + 0.5f);
+    sSwipeMaxOffPath=(int)(SWIPE_MAX_OFF_PATH_DIP * Math.sqrt(sens) * gestureScale + 0.5f);
+  }
+ else {
+    sSwipeMinDistance=(int)(SWIPE_MIN_DISTANCE_DIP * gestureScale + 0.5f);
+    sSwipeThresholdVelocity=(int)(SWIPE_THRESHOLD_VELOCITY_DIP * gestureScale + 0.5f);
+    sSwipeMaxOffPath=(int)(SWIPE_MAX_OFF_PATH_DIP * gestureScale + 0.5f);
+  }
+  mSwipeEnabled=preferences.getBoolean("swipe",false);
+  return preferences;
+}

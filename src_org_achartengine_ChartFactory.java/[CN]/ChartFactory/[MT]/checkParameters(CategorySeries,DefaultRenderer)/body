@@ -1,0 +1,5 @@
+{
+  if (dataset == null || renderer == null || dataset.getItemCount() != renderer.getSeriesRendererCount()) {
+    throw new IllegalArgumentException("Dataset and renderer should be not null and the dataset number of items should be equal to the number of series renderers");
+  }
+}

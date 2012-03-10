@@ -1,0 +1,14 @@
+{
+  JSONObject d=mCol.getDecks().confForDid(did);
+  int o;
+  try {
+    o=d.getJSONObject("rev").getInt("order");
+    if (o != 0) {
+      return "ORDER BY " + REV_ORDER_STRINGS[o - 1];
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  return "";
+}

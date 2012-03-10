@@ -1,0 +1,17 @@
+{
+  mMod=Utils.intNow();
+  mUsn=mCol.usn();
+  ContentValues values=new ContentValues();
+  values.put("mod",mMod);
+  values.put("usn",mUsn);
+  values.put("type",mType);
+  values.put("queue",mQueue);
+  values.put("due",mDue);
+  values.put("ivl",mIvl);
+  values.put("factor",mFactor);
+  values.put("reps",mReps);
+  values.put("lapses",mLapses);
+  values.put("left",mLeft);
+  values.put("edue",mEDue);
+  mCol.getDb().update("cards",values,"id = " + mId,null);
+}

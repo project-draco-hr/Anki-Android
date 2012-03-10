@@ -9,13 +9,13 @@
   keepScreenOnCheckBoxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("keepScreenOn");
   showAnswerCheckBoxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("timeoutAnswer");
   animationsCheckboxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("themeAnimations");
-  walModePreference=(CheckBoxPreference)getPreferenceScreen().findPreference("walMode");
   useBackupPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("useBackup");
   asyncModePreference=(CheckBoxPreference)getPreferenceScreen().findPreference("asyncMode");
   eInkDisplayPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("eInkDisplay");
   walModeInitiallySet=mPrefMan.getSharedPreferences().getBoolean("walMode",false);
   ListPreference listpref=(ListPreference)getPreferenceScreen().findPreference("theme");
-  animationsCheckboxPreference.setEnabled(listpref.getValue().equals("2"));
+  String theme=listpref.getValue();
+  animationsCheckboxPreference.setEnabled(theme.equals("2") || theme.equals("3"));
   zoomCheckboxPreference.setEnabled(!swipeCheckboxPreference.isChecked());
   initializeLanguageDialog();
   initializeCustomFontsDialog();
@@ -25,5 +25,4 @@
   for (  String key : mShowValueInSummSeek) {
     updateSeekBarPreference(key);
   }
-  enableWalSupport();
 }

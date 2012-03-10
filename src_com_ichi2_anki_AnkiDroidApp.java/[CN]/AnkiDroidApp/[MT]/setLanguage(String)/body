@@ -1,0 +1,12 @@
+{
+  Locale locale;
+  if (language.equals("")) {
+    locale=Locale.getDefault();
+  }
+ else {
+    locale=new Locale(language);
+  }
+  Configuration config=new Configuration();
+  config.locale=locale;
+  this.getResources().updateConfiguration(config,this.getResources().getDisplayMetrics());
+}

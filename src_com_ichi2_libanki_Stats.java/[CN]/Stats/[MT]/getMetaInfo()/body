@@ -1,0 +1,15 @@
+{
+  String title;
+  if (mWholeCollection) {
+    title=AnkiDroidApp.getInstance().getResources().getString(R.string.card_browser_all_decks);
+  }
+ else {
+    try {
+      title=mCol.getDecks().current().getString("name");
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  return new Object[]{mType,mTitle,mBackwards,mValueLabels,mColors,mAxisTitles,title};
+}

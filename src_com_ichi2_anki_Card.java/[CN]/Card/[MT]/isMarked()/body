@@ -1,9 +1,0 @@
-{
-  int markedId=mDeck.getMarketTagId();
-  if (markedId == -1) {
-    return false;
-  }
- else {
-    return (AnkiDatabaseManager.getDatabase(mDeck.getDeckPath()).queryScalar("SELECT count(*) FROM cardTags WHERE cardId = " + mId + " AND tagId = "+ markedId+ " LIMIT 1") != 0);
-  }
-}
