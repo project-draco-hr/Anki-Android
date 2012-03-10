@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"Creating new file... = " + destination);
   new File(destination).createNewFile();
   long startTimeMillis=System.currentTimeMillis();
   OutputStream output=new BufferedOutputStream(new FileOutputStream(destination));
@@ -6,17 +7,21 @@
   long sizeBytes=0;
   int len;
   if (source == null) {
+    Log.i(AnkiDroidApp.TAG,"source is null!");
   }
   while ((len=source.read(buf)) > 0) {
     output.write(buf,0,len);
     sizeBytes+=len;
+    Log.i(AnkiDroidApp.TAG,"Write...");
   }
   long endTimeMillis=System.currentTimeMillis();
+  Log.i(AnkiDroidApp.TAG,"Finished writing!");
   long durationSeconds=(endTimeMillis - startTimeMillis) / 1000;
   long sizeKb=sizeBytes / 1024;
   long speedKbSec=0;
   if (endTimeMillis != startTimeMillis) {
     speedKbSec=sizeKb * 1000 / (endTimeMillis - startTimeMillis);
   }
+  Log.d(AnkiDroidApp.TAG,"Utils.writeToFile: " + "Size: " + sizeKb + "Kb, "+ "Duration: "+ durationSeconds+ "s, "+ "Speed: "+ speedKbSec+ "Kb/s");
   output.close();
 }

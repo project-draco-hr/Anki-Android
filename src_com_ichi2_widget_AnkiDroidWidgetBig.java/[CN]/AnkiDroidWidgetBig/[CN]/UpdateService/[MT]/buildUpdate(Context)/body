@@ -9,6 +9,7 @@
   if (contentService.mBigCurrentView == VIEW_NOT_SPECIFIED) {
     contentService.mBigCurrentView=VIEW_DECKS;
   }
+  Log.i(AnkiDroidApp.TAG,"BigWidget: buildUpdate (" + contentService.mBigCurrentView + ")");
   if (contentService.mBigCurrentView == VIEW_DECKS || contentService.mBigCurrentView == VIEW_SHOW_HELP || contentService.mBigCurrentView == VIEW_CONGRATS) {
   }
  else   if (contentService.mLoadedDeck == null) {

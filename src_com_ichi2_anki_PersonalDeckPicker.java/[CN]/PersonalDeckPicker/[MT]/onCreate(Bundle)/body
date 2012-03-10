@@ -30,9 +30,11 @@
       if (new File(mDestination + "/" + deckName+ ".anki").exists()) {
         mDownloadOverwriteAlert.setMessage(getResources().getString(R.string.download_message,deckName));
         mDownloadOverwriteAlert.show();
+        Log.d(AnkiDroidApp.TAG,"Download Deck already exists");
       }
  else {
         downloadPersonalDeck(personalDeckDownload);
+        Log.d(AnkiDroidApp.TAG,"Download Deck not exists");
       }
     }
   }

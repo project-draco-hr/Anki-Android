@@ -12,6 +12,7 @@
       data.put("allCardPos",Integer.toString(i));
       mDeletedCards.add(data);
       mAllCards.remove(i);
+      Log.i(AnkiDroidApp.TAG,"Remove card from list");
       break;
     }
   }

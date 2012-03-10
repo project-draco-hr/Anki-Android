@@ -9,6 +9,7 @@
     }
   }
   if ((AnkiDroidApp.zeemoteController() != null) && (AnkiDroidApp.zeemoteController().isConnected())) {
+    Log.d("Zeemote","Adding listener in onResume");
     AnkiDroidApp.zeemoteController().addButtonListener(this);
     adapter=new JoystickToButtonAdapter();
     AnkiDroidApp.zeemoteController().addJoystickListener(adapter);

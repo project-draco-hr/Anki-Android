@@ -3,6 +3,7 @@
   Throwable exc=null;
   try {
     String data="p=" + URLEncoder.encode(password,"UTF-8") + "&u="+ URLEncoder.encode(username,"UTF-8")+ "&d="+ URLEncoder.encode(deckName,"UTF-8");
+    Log.i(AnkiDroidApp.TAG,"Data json = " + data);
     HttpPost httpPost=new HttpPost(AnkiDroidProxy.SYNC_URL + "fulldown");
     StringEntity entity=new StringEntity(data);
     httpPost.setEntity(entity);

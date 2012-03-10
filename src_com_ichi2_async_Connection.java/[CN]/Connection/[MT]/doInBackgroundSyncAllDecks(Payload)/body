@@ -1,10 +1,12 @@
 {
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundSyncAllDecks");
   ArrayList<HashMap<String,String>> decksChangelogs=new ArrayList<HashMap<String,String>>();
   String username=(String)data.data[0];
   String password=(String)data.data[1];
   DeckManager.closeAllDecks();
   ArrayList<HashMap<String,String>> decksToSync=(ArrayList<HashMap<String,String>>)data.data[2];
   for (  HashMap<String,String> deckToSync : decksToSync) {
+    Log.i(AnkiDroidApp.TAG,"Synchronizing deck");
     String deckPath=deckToSync.get("filepath");
     try {
       Deck deck=DeckManager.getDeck(deckPath,DeckManager.REQUESTING_ACTIVITY_SYNCCLIENT,true);

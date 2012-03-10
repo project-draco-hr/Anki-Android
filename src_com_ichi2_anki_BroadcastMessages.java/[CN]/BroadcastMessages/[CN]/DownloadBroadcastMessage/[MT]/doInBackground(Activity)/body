@@ -1,4 +1,5 @@
 {
+  Log.d(AnkiDroidApp.TAG,"BroadcastMessage.DownloadBroadcastMessage.doInBackground()");
   Activity activity=params[0];
   mActivity=activity;
   SharedPreferences prefs=PrefSettings.getSharedPrefs(activity);
@@ -8,6 +9,7 @@
     return activity;
   }
   try {
+    Log.i(AnkiDroidApp.TAG,"BroadcastMessage: download file " + FILE_URL);
     URL fileUrl;
     fileUrl=new URL(FILE_URL);
     URLConnection conn=fileUrl.openConnection();
@@ -24,14 +26,17 @@
         Element el=(Element)nl.item(i);
         mNum=Integer.parseInt(getXmlValue(el,NUM));
         if (mNum <= lastNum) {
+          Log.d(AnkiDroidApp.TAG,"BroadcastMessage - message " + mNum + " already shown");
           continue;
         }
         mMinVersion=getXmlValue(el,MIN_VERSION);
         if (mMinVersion != null && mMinVersion.length() > 0 && compareVersions(mMinVersion,currentVersion) > 0) {
+          Log.d(AnkiDroidApp.TAG,"BroadcastMessage - too low AnkiDroid version (" + currentVersion + "), message "+ mNum+ " only for >= "+ mMinVersion);
           continue;
         }
         mMaxVersion=getXmlValue(el,MAX_VERSION);
         if (mMaxVersion != null && mMaxVersion.length() > 0 && compareVersions(mMaxVersion,currentVersion) < 0) {
+          Log.d(AnkiDroidApp.TAG,"BroadcastMessage - too high AnkiDroid version (" + currentVersion + "), message "+ mNum+ " only for <= "+ mMaxVersion);
           continue;
         }
         mTitle=getXmlValue(el,TITLE);
@@ -42,6 +47,7 @@
           return activity;
         }
       }
+      Log.d(AnkiDroidApp.TAG,"BroadcastMessages: disable messaging system for today");
       prefs.edit().putBoolean("showBroadcastMessageToday",false).commit();
       mShowDialog=false;
     }

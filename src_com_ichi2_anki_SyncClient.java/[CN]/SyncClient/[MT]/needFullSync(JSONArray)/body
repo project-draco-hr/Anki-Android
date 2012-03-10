@@ -1,5 +1,7 @@
 {
+  Log.i(AnkiDroidApp.TAG,"needFullSync - lastSync = " + mDeck.getLastSync());
   if (mDeck.getLastSync() <= 0) {
+    Log.i(AnkiDroidApp.TAG,"deck.lastSync <= 0");
     return true;
   }
   int len=sums.length();
@@ -9,17 +11,23 @@
     while (keys.hasNext()) {
       String key=keys.next();
       JSONArray l=(JSONArray)summary.get(key);
+      Log.i(AnkiDroidApp.TAG,"Key " + key + ", length = "+ l.length());
       if (l.length() > 500) {
+        Log.i(AnkiDroidApp.TAG,"Length of key > 500");
         return true;
       }
     }
   }
   AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(mDeck.getDeckPath());
   if (ankiDB.queryScalar("SELECT count() FROM reviewHistory WHERE time > " + mDeck.getLastSync()) > 500) {
+    Log.i(AnkiDroidApp.TAG,"reviewHistory since lastSync > 500");
     return true;
   }
   Date lastDay=new Date(java.lang.Math.max(0,(long)(mDeck.getLastSync() - 60 * 60 * 24) * 1000));
+  Log.i(AnkiDroidApp.TAG,"lastDay = " + lastDay.toString() + ", lastDayInMillis = "+ lastDay.getTime());
+  Log.i(AnkiDroidApp.TAG,"Count stats = " + ankiDB.queryScalar("SELECT count() FROM stats WHERE day >= \"" + lastDay.toString() + "\""));
   if (ankiDB.queryScalar("SELECT count() FROM stats WHERE day >= \"" + lastDay.toString() + "\"") > 100) {
+    Log.i(AnkiDroidApp.TAG,"stats since lastDay > 100");
     return true;
   }
   return false;

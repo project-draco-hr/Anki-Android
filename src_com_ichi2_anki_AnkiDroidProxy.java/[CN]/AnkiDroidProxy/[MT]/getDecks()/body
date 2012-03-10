@@ -2,6 +2,7 @@
   String decksServer="{}";
   try {
     String data="p=" + URLEncoder.encode(mPassword,"UTF-8") + "&client="+ URLEncoder.encode("ankidroid-" + AnkiDroidApp.getPkgVersion(),"UTF-8")+ "&u="+ URLEncoder.encode(mUsername,"UTF-8")+ "&v="+ URLEncoder.encode(SYNC_VERSION,"UTF-8")+ "&d=None&sources="+ URLEncoder.encode("[]","UTF-8")+ "&libanki="+ URLEncoder.encode(AnkiDroidApp.LIBANKI_VERSION,"UTF-8")+ "&pversion=5";
+    Log.i(AnkiDroidApp.TAG,"Data json = " + data);
     HttpPost httpPost=new HttpPost(SYNC_URL + "getDecks");
     StringEntity entity=new StringEntity(data);
     httpPost.setEntity(entity);
@@ -17,6 +18,7 @@
     HttpEntity entityResponse=response.getEntity();
     InputStream content=entityResponse.getContent();
     decksServer=Utils.convertStreamToString(new InflaterInputStream(content));
+    Log.i(AnkiDroidApp.TAG,"getDecks response = " + decksServer);
   }
  catch (  UnsupportedEncodingException e) {
     Log.e(AnkiDroidApp.TAG,"getDecks - UnsupportedEncodingException = " + e.getMessage());

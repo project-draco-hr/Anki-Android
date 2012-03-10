@@ -12,9 +12,11 @@
  finally {
     }
     if (result.matched) {
+      Log.d(LOG_TAG,"Matching intent found.");
     }
  else {
       result=null;
+      Log.d(LOG_TAG,"No matching intent found.");
     }
   }
   finally {

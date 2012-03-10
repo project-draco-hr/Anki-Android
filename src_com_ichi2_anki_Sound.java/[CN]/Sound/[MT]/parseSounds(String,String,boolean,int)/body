@@ -2,6 +2,7 @@
   boolean soundAvailable=false;
   StringBuilder stringBuilder=new StringBuilder();
   String contentLeft=content;
+  Log.i(AnkiDroidApp.TAG,"parseSounds");
   Matcher matcher=sSoundPattern.matcher(content);
   while (matcher.find()) {
     soundAvailable=true;
@@ -14,6 +15,7 @@
     stringBuilder.append(contentLeft.substring(0,markerStart));
     stringBuilder.append("<a onclick=\"window.interface.playSound(this.title);\" title=\"" + soundPath + "\"><span style=\"padding:5px;display:inline-block;vertical-align:middle\"><img src=\"file:///android_asset/media_playback_start2.png\" /></span></a>");
     contentLeft=contentLeft.substring(markerStart + soundMarker.length());
+    Log.i(AnkiDroidApp.TAG,"Content left = " + contentLeft);
   }
   if (!soundAvailable && ttsEnabled && !ReadText.getLanguage(qa).equals(ReadText.NO_TTS)) {
     stringBuilder.append(content.substring(0,content.length() - 9));

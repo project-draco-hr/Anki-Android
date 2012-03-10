@@ -1,5 +1,6 @@
 {
   if (!isTaskRoot()) {
+    Log.i(AnkiDroidApp.TAG,"StudyOptions - onCreate: Detected multiple instance of this activity, closing it and return to root activity");
     Intent reloadIntent=new Intent(StudyOptions.this,StudyOptions.class);
     reloadIntent.setAction(Intent.ACTION_MAIN);
     if (getIntent() != null && getIntent().getExtras() != null) {
@@ -12,6 +13,7 @@
   }
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
+  Log.i(AnkiDroidApp.TAG,"StudyOptions - OnCreate()");
   Intent intent=getIntent();
   mStartedByBigWidget=intent.getIntExtra(EXTRA_START,EXTRA_START_NOTHING);
   if (hasErrorFiles() && mStartedByBigWidget == EXTRA_START_NOTHING) {
@@ -26,6 +28,7 @@
   initAllContentViews();
   if (Intent.ACTION_VIEW.equalsIgnoreCase(intent.getAction()) && intent.getDataString() != null) {
     mDeckFilename=Uri.parse(intent.getDataString()).getPath();
+    Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from VIEW intent: " + mDeckFilename);
   }
  else   if (Intent.ACTION_MAIN.equalsIgnoreCase(intent.getAction()) && mStartedByBigWidget != EXTRA_START_NOTHING) {
 switch (intent.getIntExtra(EXTRA_START,EXTRA_START_NOTHING)) {
@@ -43,12 +46,16 @@ break;
 }
  else if (Intent.ACTION_MAIN.equalsIgnoreCase(intent.getAction()) && intent.hasExtra(EXTRA_DECK)) {
 mDeckFilename=intent.getStringExtra(EXTRA_DECK);
+Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from MAIN intent: " + mDeckFilename);
 }
  else if (savedInstanceState != null) {
 mDeckFilename=savedInstanceState.getString("deckFilename");
+Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from savedInstanceState: " + mDeckFilename);
 }
  else {
+Log.i(AnkiDroidApp.TAG,"onCreate - " + preferences.getAll().toString());
 mDeckFilename=preferences.getString("deckFilename",null);
+Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from preferences: " + mDeckFilename);
 }
 if (!mSdCardAvailable) {
 showContentView(CONTENT_NO_EXTERNAL_STORAGE);
@@ -85,12 +92,15 @@ if (AnkiDroidApp.zeemoteController() == null) AnkiDroidApp.setZeemoteController(
 controllerUi=new ControllerAndroidUi(this,AnkiDroidApp.zeemoteController());
 com.zeemote.util.Strings zstrings=com.zeemote.util.Strings.getStrings();
 if (zstrings.isLocaleAvailable(mLocale)) {
+Log.d("Zeemote","Zeemote locale " + mLocale + " is available. Setting.");
 zstrings.setLocale(mLocale);
 }
  else {
+Log.d("Zeemote","Zeemote locale " + mLocale + " is not available.");
 }
 if (mZeemoteEnabled) {
 if (!AnkiDroidApp.zeemoteController().isConnected()) {
+Log.d("Zeemote","starting connection in onCreate");
 controllerUi.startConnectionProcess();
 }
 }

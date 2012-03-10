@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"DeckPicker - populateDeckList");
   if (!location.equals(mPrefDeckPath)) {
     mPrefDeckPath=location;
   }
@@ -18,8 +19,10 @@
   }
   mFileList=fileList;
   if (len > 0 && fileList != null) {
+    Log.i(AnkiDroidApp.TAG,"DeckPicker - populateDeckList, number of anki files = " + len);
     for (    File file : fileList) {
       String absPath=file.getAbsolutePath();
+      Log.i(AnkiDroidApp.TAG,"DeckPicker - populateDeckList, file:" + file.getName());
       try {
         HashMap<String,String> data=new HashMap<String,String>();
         data.put("name",file.getName().replaceAll(".anki",""));
@@ -40,7 +43,9 @@
     thread.start();
   }
  else {
+    Log.i(AnkiDroidApp.TAG,"populateDeckList - No decks found.");
     if (!AnkiDroidApp.isSdCardMounted()) {
+      Log.i(AnkiDroidApp.TAG,"populateDeckList - No sd card.");
       setTitle(R.string.deckpicker_title_nosdcard);
       showDialog(DIALOG_NO_SDCARD);
     }
@@ -58,4 +63,5 @@
   mDeckList.addAll(tree);
   mDeckListView.clearChoices();
   mDeckListAdapter.notifyDataSetChanged();
+  Log.i(AnkiDroidApp.TAG,"DeckPicker - populateDeckList, Ending");
 }

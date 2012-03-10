@@ -6,4 +6,5 @@
   if (showAnimation && Utils.getApiLevel() > 4) {
     ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
   }
+  Log.i(AnkiDroidApp.TAG,"openDeckPicker - Ending");
 }

@@ -28,6 +28,7 @@
       return;
     }
     if (resultCode != RESULT_OK) {
+      Log.i(AnkiDroidApp.TAG,"onActivityResult - Deck browser returned without picking new deck");
       if (mDeckFilename == null || !(new File(mDeckFilename).exists())) {
         DeckManager.closeMainDeck();
         mCompat.invalidateOptionsMenu(this);
@@ -48,11 +49,13 @@
       displayProgressDialogAndLoadDeck();
       return;
     }
+    Log.i(AnkiDroidApp.TAG,"onActivityResult = OK");
     mDeckFilename=intent.getExtras().getString(OPT_DB);
     savePreferences("deckFilename");
     if (mDeckFilename == null || !new File(mDeckFilename).exists()) {
       showContentView(CONTENT_NO_DECK);
     }
+    Log.i(AnkiDroidApp.TAG,"onActivityResult - deckSelected = " + deckSelected);
     if (DeckManager.getMainDeck() == null || !DeckManager.getMainDeckPath().equals(mDeckFilename)) {
       boolean updateAllCards=(requestCode == DOWNLOAD_SHARED_DECK);
       displayProgressDialogAndLoadDeck(updateAllCards);
@@ -70,6 +73,7 @@
     }
   }
  else   if (requestCode == REQUEST_REVIEW) {
+    Log.i(AnkiDroidApp.TAG,"Result code = " + resultCode);
     mInReviewer=false;
     AnkiDroidWidgetBig.updateWidget(AnkiDroidWidgetBig.UpdateService.VIEW_NOT_SPECIFIED,false);
 switch (resultCode) {

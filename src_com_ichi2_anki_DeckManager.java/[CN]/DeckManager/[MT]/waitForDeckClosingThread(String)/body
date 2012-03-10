@@ -3,6 +3,7 @@
   try {
     if ((deckInformation.mClosingAsyncTask != null) && deckInformation.mClosingAsyncTask.getStatus() == AsyncTask.Status.RUNNING && !deckInformation.mClosingAsyncTask.isCancelled()) {
       if (deckInformation.mWaitForDeckTaskToFinish) {
+        Log.i(AnkiDroidApp.TAG,"DeckManager: deck " + deckpath + " is closing now, cancelling this");
         deckInformation.mClosingAsyncTask.cancel(true);
         deckInformation.mOpenedBy=new ArrayList<Integer>();
       }
@@ -13,5 +14,6 @@
     }
   }
  catch (  Exception e) {
+    Log.i(AnkiDroidApp.TAG,"DeckManager: An exception occurred while waiting for closing task of deck " + deckpath);
   }
 }

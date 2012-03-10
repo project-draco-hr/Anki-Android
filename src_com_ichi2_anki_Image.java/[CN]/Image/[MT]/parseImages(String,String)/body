@@ -1,14 +1,17 @@
 {
   StringBuilder stringBuilder=new StringBuilder();
   String contentLeft=content;
+  Log.i(AnkiDroidApp.TAG,"parseImages");
   Matcher matcher=sImagePattern.matcher(content);
   while (matcher.find()) {
     String img=matcher.group(1);
+    Log.i(AnkiDroidApp.TAG,"Image " + matcher.groupCount() + ": "+ img);
     String imgTag=matcher.group();
     int markerStart=contentLeft.indexOf(imgTag);
     stringBuilder.append(contentLeft.substring(0,markerStart));
     stringBuilder.append("<img src=" + img + " onload=\"resizeImage();\">");
     contentLeft=contentLeft.substring(markerStart + imgTag.length());
+    Log.i(AnkiDroidApp.TAG,"Content left = " + contentLeft);
   }
   stringBuilder.append(contentLeft);
   return stringBuilder.toString();

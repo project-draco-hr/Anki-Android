@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"Service - onBind");
   restorePreferences();
   return mBinder;
 }

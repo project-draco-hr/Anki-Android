@@ -18,6 +18,8 @@
  else     if (tagIdx == 0) {
       newTags="";
     }
+    Log.i(AnkiDroidApp.TAG,"old tags = " + factTags);
+    Log.i(AnkiDroidApp.TAG,"new tags = " + newTags);
     if (newTags.length() < factTags.length()) {
       ContentValues values=new ContentValues();
       values.put("tags",newTags);

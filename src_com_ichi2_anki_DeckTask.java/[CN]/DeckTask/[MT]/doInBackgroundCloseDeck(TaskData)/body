@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundCloseDeck");
   String deckPath=params[0].getString();
   DeckManager.closeDeck(deckPath,false);
   return null;

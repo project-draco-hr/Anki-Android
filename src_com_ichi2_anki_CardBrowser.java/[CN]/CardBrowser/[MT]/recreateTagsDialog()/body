@@ -2,6 +2,7 @@
   Resources res=getResources();
   if (allTags == null) {
     String[] oldTags=DeckManager.getMainDeck().allTags_();
+    Log.i(AnkiDroidApp.TAG,"all tags: " + Arrays.toString(oldTags));
     allTags=new String[oldTags.length];
     for (int i=0; i < oldTags.length; i++) {
       allTags[i]=oldTags[i];
@@ -14,9 +15,11 @@
     @Override public void onClick(    DialogInterface dialog,    int which){
       String tag=allTags[which];
       if (mSelectedTags.contains(tag)) {
+        Log.i(AnkiDroidApp.TAG,"unchecked tag: " + tag);
         mSelectedTags.remove(tag);
       }
  else {
+        Log.i(AnkiDroidApp.TAG,"checked tag: " + tag);
         mSelectedTags.add(tag);
       }
     }

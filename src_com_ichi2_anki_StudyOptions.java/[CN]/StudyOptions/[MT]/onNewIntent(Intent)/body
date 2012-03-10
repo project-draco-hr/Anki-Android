@@ -1,6 +1,7 @@
 {
   super.onNewIntent(intent);
   String deck=intent.getStringExtra(EXTRA_DECK);
+  Log.d(AnkiDroidApp.TAG,"StudyOptions.onNewIntent: " + intent + ", deck="+ deck);
   if (deck != null && !deck.equals(mDeckFilename)) {
     mDeckFilename=deck;
     loadPreviousDeck();
