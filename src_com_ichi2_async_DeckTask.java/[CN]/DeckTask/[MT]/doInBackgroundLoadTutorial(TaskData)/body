@@ -3,7 +3,7 @@
   Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
   Collection col=params[0].getCollection();
   col.getDb().getDatabase().beginTransaction();
-  String title=res.getString(R.string.tutorial_title);
+  String title=res.getString(R.string.help_tutorial);
   try {
     long did=col.getDecks().id(title);
     JSONObject d=col.getDecks().get(did);
