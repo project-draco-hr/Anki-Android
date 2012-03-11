@@ -1,2 +1,12 @@
 {
+  InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+  inputMethodManager.hideSoftInputFromWindow(mUsername.getWindowToken(),0);
+  String username=mUsername.getText().toString();
+  String password=mPassword.getText().toString();
+  if (!"".equalsIgnoreCase(username) && !"".equalsIgnoreCase(password)) {
+    Connection.login(loginListener,new Connection.Payload(new Object[]{username,password}));
+  }
+ else {
+    mInvalidUserPassAlert.show();
+  }
 }

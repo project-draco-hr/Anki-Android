@@ -1,2 +1,11 @@
 {
+  double avgBatchTime=0.0;
+  avgBatchTime=0;
+  mRecentBatchTimings[((int)runningAvgCount) % sRunningAvgLength]=lastBatchTime;
+  int usedForAvg=Math.min(((int)runningAvgCount) + 1,sRunningAvgLength);
+  for (int i=0; i < usedForAvg; i++) {
+    avgBatchTime+=mRecentBatchTimings[i];
+  }
+  avgBatchTime/=usedForAvg;
+  download.setEstTimeToCompletion(Math.max(0,mTotalBatches - currentBatch - 1) * avgBatchTime / 1000.0);
 }
