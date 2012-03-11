@@ -2,13 +2,18 @@
 switch (which) {
 case GESTURE_NOTHING:
     break;
-case GESTURE_ANSWER_EASE1:
-  if (sDisplayAnswer) {
-    answerCard(EASE_FAILED);
-  }
- else {
+case GESTURE_SHOW_ANSWER:
+  if (!sDisplayAnswer) {
     displayCardAnswer();
   }
+break;
+case GESTURE_ANSWER_EASE1:
+if (sDisplayAnswer) {
+answerCard(EASE_FAILED);
+}
+ else {
+displayCardAnswer();
+}
 break;
 case GESTURE_ANSWER_EASE2:
 if (sDisplayAnswer) {
@@ -63,6 +68,9 @@ case GESTURE_CLEAR_WHITEBOARD:
 if (mPrefWhiteboard) {
 mWhiteboard.clear();
 }
+break;
+case GESTURE_PLAY_MEDIA:
+playSounds();
 break;
 }
 }
