@@ -4,11 +4,17 @@
   mCol.markReview(card);
   mReps+=1;
   card.setReps(card.getReps() + 1);
-  boolean wasNew=(card.getQueue() == 0) && (card.getType() != 2);
+  boolean wasNew=(card.getQueue() == 0);
   if (wasNew) {
     card.setQueue(1);
-    card.setType(1);
+    if (card.getType() == 0) {
+      card.setType(1);
+    }
     card.setLeft(_startingLeft(card));
+    if (card.getODid() != 0 && card.getType() == 2) {
+      card.setIvl(_dynIvlBoost(card));
+      card.setODue(mToday + card.getIvl());
+    }
     _updateStats(card,"new");
   }
   if (card.getQueue() == 1) {

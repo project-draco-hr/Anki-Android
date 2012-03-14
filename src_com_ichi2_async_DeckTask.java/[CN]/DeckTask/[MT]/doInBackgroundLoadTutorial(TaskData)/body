@@ -35,7 +35,6 @@
       }
       note.values()[0]=(i < len) ? questions[i] : sampleQuestions[i - len];
       note.values()[1]=(i < len) ? answers[i] : sampleAnswers[i - len];
-      note.setDid(did);
       col.addNote(note);
     }
     if (col.getSched().cardCount("(" + did + ")") == 0) {

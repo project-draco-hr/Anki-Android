@@ -17,7 +17,8 @@
   sb.append(mReps).append(", ");
   sb.append(mLapses).append(", ");
   sb.append(mLeft).append(", ");
-  sb.append(mEDue).append(", ");
+  sb.append(mODue).append(", ");
+  sb.append(mODid).append(", ");
   sb.append(mFlags).append(", ");
   sb.append("\"").append(mData).append("\")");
   mCol.getDb().execute(sb.toString());

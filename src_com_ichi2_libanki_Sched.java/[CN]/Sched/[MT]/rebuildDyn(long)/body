@@ -1,0 +1,22 @@
+{
+  if (did == 0) {
+    did=mCol.getDecks().selected();
+  }
+  JSONObject deck=mCol.getDecks().get(did);
+  if (!deck.has("dyn")) {
+    Log.e(AnkiDroidApp.TAG,"error: deck is not a dynamic deck");
+    return;
+  }
+  remDyn(did);
+  String order=_dynOrder(deck);
+  String limit;
+  try {
+    limit=" LIMIT " + deck.getInt("limit");
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  ArrayList<Long> ids=mCol.findCards(deck.getInt("search"),order + limit);
+  _moveToDyn(did,ids);
+  mCol.getDecks().select(did);
+}

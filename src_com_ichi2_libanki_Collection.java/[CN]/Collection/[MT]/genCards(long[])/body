@@ -24,7 +24,7 @@
   int usn=usn();
   cur=null;
   try {
-    cur=mDb.getDatabase().rawQuery("SELECT id, mid, did, flds FROM notes WHERE id IN " + snids,null);
+    cur=mDb.getDatabase().rawQuery("SELECT id, mid, flds FROM notes WHERE id IN " + snids,null);
     while (cur.moveToNext()) {
       JSONObject model=mModels.get(cur.getLong(1));
       ArrayList<Integer> avail=mModels.availOrds(model,cur.getString(3));
@@ -38,8 +38,7 @@
           rem.add(have.get(nid).get(tord));
         }
         if (!doHave && avail.contains(tord)) {
-          long did=t.getLong("did");
-          data.add(new Object[]{ts,nid,did != 0 ? did : cur.getLong(2),tord,now,usn,cur.getLong(0)});
+          data.add(new Object[]{ts,nid,cur.getLong(2),tord,now,usn,cur.getLong(0)});
           ts+=1;
         }
       }
@@ -53,6 +52,6 @@
       cur.close();
     }
   }
-  mDb.executeMany("INSERT INTO cards VALUES (?, ?, ?, ?, ?, ?, 0, 0, ?, 0, 0, 0, 0, 0, 0, 0)",data);
+  mDb.executeMany("INSERT INTO cards VALUES (?, ?, ?, ?, ?, ?, 0, 0, ?, 0, 0, 0, 0, 0, 0)",data);
   return rem;
 }

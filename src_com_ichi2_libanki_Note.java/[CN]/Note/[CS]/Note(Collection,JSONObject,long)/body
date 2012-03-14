@@ -9,7 +9,6 @@
     mGuId=Utils.guid64();
     mModel=model;
     try {
-      mDid=model.getLong("did");
       mMid=model.getLong("id");
       mTags=new ArrayList<String>();
       mFields=new String[model.getJSONArray("flds").length()];

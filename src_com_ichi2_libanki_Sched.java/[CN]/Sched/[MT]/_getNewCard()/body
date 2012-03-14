@@ -5,7 +5,7 @@
   long[] item=mNewQueue.remove();
   try {
     JSONObject conf=mCol.getDecks().confForDid(mNewDids.getFirst());
-    if (conf.getJSONObject("new").getBoolean("separate")) {
+    if (conf.getBoolean("dyn") || conf.getJSONObject("new").getBoolean("separate")) {
       int n=mNewQueue.size();
       while (!mNewQueue.isEmpty() && mNewQueue.getFirst()[1] == item[1]) {
         mNewQueue.add(mNewQueue.remove());

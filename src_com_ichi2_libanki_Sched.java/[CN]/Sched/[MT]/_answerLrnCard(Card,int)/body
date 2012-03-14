@@ -1,7 +1,10 @@
 {
   JSONObject conf=_lrnConf(card);
   int type;
-  if (card.getType() == 2) {
+  if (card.getODid() != 0) {
+    type=3;
+  }
+ else   if (card.getType() == 2) {
     type=2;
   }
  else {
@@ -23,6 +26,11 @@
     }
  else {
       card.setLeft(_startingLeft(card));
+      if (card.getODid() != 0) {
+        Log.e(AnkiDroidApp.TAG,"fixme: configurable failure handling");
+        card.setIvl(1);
+        card.setODue(mToday + 1);
+      }
     }
     mLrnCount+=card.getLeft();
     int delay=_delayForGrade(conf,card.getLeft());

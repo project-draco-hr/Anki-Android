@@ -1,0 +1,20 @@
+{
+  try {
+    JSONObject conf=_cardConf(card);
+    if (card.getODid() == 0) {
+      return conf.getJSONObject("new");
+    }
+    JSONObject oconf=mCol.getDecks().confForDid(card.getODid());
+    JSONObject dict=new JSONObject();
+    dict.put("ints",oconf.getJSONObject("new").getJSONArray("ints"));
+    dict.put("initialFactor",oconf.getJSONObject("new").getInt("initialFactor"));
+    dict.put("delays",conf.getJSONArray("delays"));
+    dict.put("separate",conf.getBoolean("separate"));
+    dict.put("order",NEW_CARDS_DUE);
+    dict.put("perDay",mReportLimit);
+    return dict;
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

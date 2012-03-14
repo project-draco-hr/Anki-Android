@@ -1,9 +1,4 @@
 {
   int total=(int)((Utils.now() - mTimerStarted) * 1000);
-  try {
-    return Math.min(total,deckConf().getInt("maxTaken") * 1000);
-  }
- catch (  JSONException e) {
-    throw new RuntimeException(e);
-  }
+  return Math.min(total,timeLimit());
 }
