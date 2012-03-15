@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundLoadTutorial");
   Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
   File sampleDeckFile=new File(params[0].getString());
   publishProgress(new TaskData(res.getString(R.string.tutorial_load)));

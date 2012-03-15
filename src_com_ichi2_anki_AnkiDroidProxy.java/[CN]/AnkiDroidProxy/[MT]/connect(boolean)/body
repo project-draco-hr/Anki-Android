@@ -6,10 +6,8 @@
       String status=jsonDecks.getString("status");
       if (ANKIWEB_STATUS_OK.equalsIgnoreCase(status)) {
         mDecks=jsonDecks.getJSONObject("decks");
-        Log.i(AnkiDroidApp.TAG,"Server decks = " + mDecks.toString());
         mTimestamp=jsonDecks.getDouble("timestamp");
         mTimediff=Math.abs(mTimestamp - Utils.now());
-        Log.i(AnkiDroidApp.TAG,"Server timestamp = " + mTimestamp);
         if (checkClocks && (mTimediff > 300)) {
           Log.e(AnkiDroidApp.TAG,"connect - The clock of the device and that of the server are unsynchronized!");
           return LOGIN_CLOCKS_UNSYNCED;

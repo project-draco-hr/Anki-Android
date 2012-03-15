@@ -30,7 +30,6 @@
     newCard.addToDb();
     newCardIds.add(newCard.getId());
     count++;
-    Log.i(AnkiDroidApp.TAG,entry.getKey().toString());
   }
   mCardCount+=count;
   mNewCount+=count;

@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundSortCards");
   Comparator<? super HashMap<String,String>> comparator=params[0].getComparator();
   Collections.sort(params[0].getCards(),comparator);
   return null;

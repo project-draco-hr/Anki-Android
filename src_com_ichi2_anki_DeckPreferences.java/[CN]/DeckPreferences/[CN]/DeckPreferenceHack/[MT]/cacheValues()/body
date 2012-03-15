@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"DeckPreferences - CacheValues");
   mValues.put("newCardsPDay",String.valueOf(DeckManager.getMainDeck().getNewCardsPerDay()));
   mValues.put("sessionQLimit",String.valueOf(DeckManager.getMainDeck().getSessionRepLimit()));
   mValues.put("sessionTLimit",String.valueOf(DeckManager.getMainDeck().getSessionTimeLimit() / 60));

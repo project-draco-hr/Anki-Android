@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundSetJournalMode");
   String path=params[0].getString();
   int len=0;
   File[] fileList;
@@ -12,7 +11,6 @@
     return null;
   }
   if (len > 0 && fileList != null) {
-    Log.i(AnkiDroidApp.TAG,"Set journal mode: number of anki files = " + len);
     for (    File file : fileList) {
       String filePath=file.getAbsolutePath();
       DeckManager.getDeck(filePath,DeckManager.REQUESTING_ACTIVITY_SYNCCLIENT);

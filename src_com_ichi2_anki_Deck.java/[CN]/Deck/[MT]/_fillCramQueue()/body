@@ -2,10 +2,8 @@
   if ((mRevCount != 0) && mRevQueue.isEmpty()) {
     Cursor cur=null;
     try {
-      Log.i(AnkiDroidApp.TAG,"fill cram queue: " + Arrays.toString(mActiveCramTags) + " "+ mCramOrder+ " "+ mQueueLimit);
       String sql="SELECT id, factId FROM cards c WHERE type BETWEEN 0 AND 2 ORDER BY " + mCramOrder + " LIMIT "+ mQueueLimit;
       sql=cardLimit(mActiveCramTags,null,sql);
-      Log.i(AnkiDroidApp.TAG,"SQL: " + sql);
       cur=getDB().getDatabase().rawQuery(sql,null);
       while (cur.moveToNext()) {
         QueueItem qi=new QueueItem(cur.getLong(0),cur.getLong(1));

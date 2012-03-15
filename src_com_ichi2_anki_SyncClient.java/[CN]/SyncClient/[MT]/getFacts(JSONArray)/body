@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"getFacts");
   JSONObject facts=new JSONObject();
   JSONArray factsArray=new JSONArray();
   JSONArray fieldsArray=new JSONArray();
@@ -11,7 +10,6 @@
   }
   facts.put("facts",factsArray);
   facts.put("fields",fieldsArray);
-  Log.i(AnkiDroidApp.TAG,"facts = ");
   Utils.printJSONObject(facts,false);
   return facts;
 }

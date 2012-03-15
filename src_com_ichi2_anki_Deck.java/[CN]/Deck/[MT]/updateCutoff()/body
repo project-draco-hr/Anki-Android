@@ -9,7 +9,6 @@
   cal.set(Calendar.SECOND,0);
   cal.set(Calendar.MILLISECOND,0);
   cal.getTimeInMillis();
-  Log.d(AnkiDroidApp.TAG,"New day happening at " + newday + " sec after 00:00 UTC");
   cal.add(Calendar.SECOND,newday);
   long cutoff=cal.getTimeInMillis() / 1000;
   while (cutoff < System.currentTimeMillis() / 1000) {

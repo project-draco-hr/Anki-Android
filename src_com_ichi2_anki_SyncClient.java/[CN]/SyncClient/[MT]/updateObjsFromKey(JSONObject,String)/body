@@ -1,18 +1,14 @@
 {
   if ("models".equalsIgnoreCase(key)) {
-    Log.i(AnkiDroidApp.TAG,"updateModels");
     updateModels(payloadReply.getJSONArray("added-models"));
   }
  else   if ("facts".equalsIgnoreCase(key)) {
-    Log.i(AnkiDroidApp.TAG,"updateFacts");
     updateFacts(payloadReply.getJSONObject("added-facts"));
   }
  else   if ("cards".equalsIgnoreCase(key)) {
-    Log.i(AnkiDroidApp.TAG,"updateCards");
     updateCards(payloadReply.getJSONArray("added-cards"));
   }
  else   if ("media".equalsIgnoreCase(key)) {
-    Log.i(AnkiDroidApp.TAG,"updateMedia");
     updateMedia(payloadReply.getJSONArray("added-media"));
   }
 }

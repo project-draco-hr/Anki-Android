@@ -17,7 +17,6 @@
     model.put("cardModels",bundleCardModels(id));
   }
   cursor.close();
-  Log.i(AnkiDroidApp.TAG,"Model = ");
   Utils.printJSONObject(model,false);
   return model;
 }

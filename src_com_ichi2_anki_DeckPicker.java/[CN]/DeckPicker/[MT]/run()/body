@@ -1,14 +1,11 @@
 {
-  Log.i(AnkiDroidApp.TAG,"Thread run - Beginning");
   if (mFileList != null && mFileList.length > 0) {
     mLock.lock();
     try {
-      Log.i(AnkiDroidApp.TAG,"Thread run - Inside lock");
       mIsFinished=false;
       int i=0;
       for (      File file : mFileList) {
         i++;
-        Log.i(AnkiDroidApp.TAG,"Thread run - Before break mDeckIsSelected = " + mDeckIsSelected);
         if (mDeckIsSelected) {
           break;
         }
@@ -17,7 +14,6 @@
         Bundle data=new Bundle();
         Message msg;
         if (BackupManager.isActivated() && BackupManager.safetyBackupNeeded(path,BackupManager.SAFETY_BACKUP_THRESHOLD)) {
-          Log.i(AnkiDroidApp.TAG,"DeckPicker - Safety backup for deck " + path + "needed");
           data.putString("absPath",path);
           data.putInt("msgtype",MSG_CREATING_BACKUP);
           msg=Message.obtain();

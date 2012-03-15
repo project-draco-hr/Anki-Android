@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"CardEditor: onCreate");
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   registerExternalStorageListener();
@@ -24,7 +23,6 @@
     mDeckPath=savedInstanceState.getString("deckFilename");
     mCaller=savedInstanceState.getInt("caller");
     mAddFact=savedInstanceState.getBoolean("addFact");
-    Log.i(AnkiDroidApp.TAG,"onCreate - deckFilename from savedInstanceState: " + mDeckPath);
     DeckManager.getDeck(mDeckPath,DeckManager.REQUESTING_ACTIVITY_CARDEDITOR);
   }
  else {
@@ -36,12 +34,10 @@
       }
     }
   }
-  Log.i(AnkiDroidApp.TAG,"Caller: " + mCaller);
 switch (mCaller) {
 case CALLER_NOCALLER:
-    Log.i(AnkiDroidApp.TAG,"CardEditor: no caller could be identified, closing");
-  finish();
-return;
+    finish();
+  return;
 case CALLER_REVIEWER:
 Card revCard=Reviewer.getEditorCard();
 if (revCard == null) {

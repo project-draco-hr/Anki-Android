@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundRepairDeck");
   String deckPath=params[0].getString();
   DeckManager.closeDeck(deckPath,false);
   return new TaskData(BackupManager.repairDeck(deckPath));
