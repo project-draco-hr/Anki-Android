@@ -1,12 +1,2 @@
 {
-  Matcher m=sHebrewPattern.matcher(text);
-  StringBuffer sb=new StringBuffer();
-  while (m.find()) {
-    String hebrewText=m.group();
-    Matcher mv=sHebrewVowelsPattern.matcher(hebrewText);
-    hebrewText=mv.replaceAll("");
-    m.appendReplacement(sb,hebrewText);
-  }
-  m.appendTail(sb);
-  return sb.toString();
 }

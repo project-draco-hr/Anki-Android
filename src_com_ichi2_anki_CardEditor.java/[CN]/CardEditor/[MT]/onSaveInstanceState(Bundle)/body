@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"onSaveInstanceState: " + path);
   outState.putBoolean("addFact",mAddNote);
   outState.putInt("caller",mCaller);
   Log.i(AnkiDroidApp.TAG,"onSaveInstanceState - Ending");
