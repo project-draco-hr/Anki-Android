@@ -1,11 +1,11 @@
 {
   super.onPostExecute(result);
   HashMap<String,Object> results=(HashMap<String,Object>)result.result;
-  Deck deck=(Deck)results.get("deck");
-  DeckManager.closeDeck(deck.getDeckPath());
+  Decks deck=(Decks)results.get("deck");
   SharedDeckDownload download=(SharedDeckDownload)result.data[0];
   SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
   Editor editor=pref.edit();
+  Log.i(AnkiDroidApp.TAG,"Finished deck " + download.getFilename() + " "+ result.success);
   if (result.success) {
     editor.putLong("numUpdatedCards:" + mDestination + "/tmp/"+ download.getFilename()+ ".anki.updating",0);
     editor.commit();

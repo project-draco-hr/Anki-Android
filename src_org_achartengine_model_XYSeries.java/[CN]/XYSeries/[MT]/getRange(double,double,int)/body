@@ -1,0 +1,17 @@
+{
+  SortedMap<Double,Double> headMap=mXY.headMap(start);
+  if (headMap.size() != 0) {
+    start=headMap.lastKey();
+  }
+  SortedMap<Double,Double> tailMap=mXY.tailMap(stop);
+  if (tailMap.size() != 0) {
+    Collection<Double> tailCollection=tailMap.keySet();
+    if (tailMap.size() > 1) {
+      stop=(Double)tailCollection.toArray()[1];
+    }
+ else {
+      stop+=tailMap.firstKey();
+    }
+  }
+  return mXY.subMap(start,stop);
+}

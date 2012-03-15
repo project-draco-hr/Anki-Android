@@ -1,0 +1,41 @@
+{
+  SimpleSeriesRenderer renderer=mRenderer.getSeriesRendererAt(seriesIndex);
+  if (renderer.isGradientEnabled()) {
+    float minY=(float)toScreenPoint(new double[]{0,renderer.getGradientStopValue()},scale)[1];
+    float maxY=(float)toScreenPoint(new double[]{0,renderer.getGradientStartValue()},scale)[1];
+    float gradientMinY=Math.max(minY,yMin);
+    float gradientMaxY=Math.min(maxY,yMax);
+    int gradientMinColor=renderer.getGradientStopColor();
+    int gradientMaxColor=renderer.getGradientStartColor();
+    int gradientStartColor=gradientMaxColor;
+    int gradientStopColor=gradientMinColor;
+    if (yMin < minY) {
+      paint.setColor(gradientMinColor);
+      canvas.drawRect(Math.round(xMin),Math.round(yMin),Math.round(xMax),Math.round(gradientMinY),paint);
+    }
+ else {
+      gradientStopColor=getGradientPartialColor(gradientMinColor,gradientMaxColor,(maxY - gradientMinY) / (maxY - minY));
+    }
+    if (yMax > maxY) {
+      paint.setColor(gradientMaxColor);
+      canvas.drawRect(Math.round(xMin),Math.round(gradientMaxY),Math.round(xMax),Math.round(yMax),paint);
+    }
+ else {
+      gradientStartColor=getGradientPartialColor(gradientMaxColor,gradientMinColor,(gradientMaxY - minY) / (maxY - minY));
+    }
+    GradientDrawable gradient=new GradientDrawable(Orientation.BOTTOM_TOP,new int[]{gradientStartColor,gradientStopColor});
+    gradient.setBounds(Math.round(xMin),Math.round(gradientMinY),Math.round(xMax),Math.round(gradientMaxY));
+    gradient.draw(canvas);
+  }
+ else {
+    if (Math.abs(yMin - yMax) < 1) {
+      if (yMin < yMax) {
+        yMax=yMin + 1;
+      }
+ else {
+        yMax=yMin - 1;
+      }
+    }
+    canvas.drawRect(Math.round(xMin),Math.round(yMin),Math.round(xMax),Math.round(yMax),paint);
+  }
+}

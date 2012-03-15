@@ -1,0 +1,5 @@
+{
+  int lastIvl=-(_delayForGrade(conf,lastLeft));
+  int ivl=leaving ? card.getIvl() : -(_delayForGrade(conf,card.getLeft()));
+  log(card.getId(),mCol.usn(),ease,ivl,lastIvl,card.getFactor(),card.timeTaken(),type);
+}

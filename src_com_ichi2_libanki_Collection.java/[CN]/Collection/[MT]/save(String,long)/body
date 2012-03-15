@@ -1,0 +1,13 @@
+{
+  mModels.flush();
+  mDecks.flush();
+  mTags.flush();
+  if (mDb.getMod()) {
+    flush(mod);
+    mDb.commit();
+    lock();
+    mDb.setMod(false);
+  }
+  _markOp(name);
+  mLastSave=Utils.now();
+}

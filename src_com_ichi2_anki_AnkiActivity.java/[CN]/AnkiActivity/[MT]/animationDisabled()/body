@@ -1,0 +1,5 @@
+{
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(this);
+  boolean eInkDisplay=preferences.getBoolean("eInkDisplay",false);
+  return eInkDisplay;
+}

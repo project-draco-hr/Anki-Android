@@ -1,0 +1,23 @@
+{
+  double diff=Math.toRadians(90);
+  int needleSinValue=(int)(NEEDLE_RADIUS * Math.sin(angle - diff));
+  int needleCosValue=(int)(NEEDLE_RADIUS * Math.cos(angle - diff));
+  int needleX=(int)(radius * Math.sin(angle));
+  int needleY=(int)(radius * Math.cos(angle));
+  int needleCenterX=centerX + needleX;
+  int needleCenterY=centerY + needleY;
+  float[] points;
+  if (arrow) {
+    int arrowBaseX=centerX + (int)(radius * 0.85 * Math.sin(angle));
+    int arrowBaseY=centerY + (int)(radius * 0.85 * Math.cos(angle));
+    points=new float[]{arrowBaseX - needleSinValue,arrowBaseY - needleCosValue,needleCenterX,needleCenterY,arrowBaseX + needleSinValue,arrowBaseY + needleCosValue};
+    float width=paint.getStrokeWidth();
+    paint.setStrokeWidth(5);
+    canvas.drawLine(centerX,centerY,needleCenterX,needleCenterY,paint);
+    paint.setStrokeWidth(width);
+  }
+ else {
+    points=new float[]{centerX - needleSinValue,centerY - needleCosValue,needleCenterX,needleCenterY,centerX + needleSinValue,centerY + needleCosValue};
+  }
+  drawPath(canvas,points,paint,true);
+}

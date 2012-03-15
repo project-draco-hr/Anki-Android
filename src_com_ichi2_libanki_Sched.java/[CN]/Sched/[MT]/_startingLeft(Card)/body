@@ -1,0 +1,9 @@
+{
+  try {
+    JSONObject conf=_newConf(card);
+    return conf.getJSONArray("delays").length();
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

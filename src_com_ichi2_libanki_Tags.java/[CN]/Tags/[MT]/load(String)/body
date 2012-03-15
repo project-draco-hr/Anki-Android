@@ -1,0 +1,14 @@
+{
+  try {
+    JSONObject tags=new JSONObject(json);
+    Iterator i=tags.keys();
+    while (i.hasNext()) {
+      String t=(String)i.next();
+      mTags.put(t,tags.getInt(t));
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  mChanged=false;
+}

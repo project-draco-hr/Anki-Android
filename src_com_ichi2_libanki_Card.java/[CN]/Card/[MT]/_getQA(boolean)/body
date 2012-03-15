@@ -1,0 +1,16 @@
+{
+  if (mQA == null || reload) {
+    mQA=new HashMap<String,String>();
+    Note n=note();
+    JSONObject m=model();
+    Object[] data;
+    try {
+      data=new Object[]{mId,n.getId(),m.getLong("id"),mDid,mOrd,n.stringTags(),n.joinedFields()};
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+    mQA=mCol._renderQA(data);
+  }
+  return mQA;
+}

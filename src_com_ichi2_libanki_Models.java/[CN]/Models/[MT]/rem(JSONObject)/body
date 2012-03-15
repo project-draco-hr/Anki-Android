@@ -1,0 +1,16 @@
+{
+  mCol.modSchema();
+  try {
+    long id=m.getLong("id");
+    boolean current=current().getLong("id") == id;
+    mCol.remCards(Utils.arrayList2array(mCol.getDb().queryColumn(Long.class,"SELECT id FROM cards WHERE nid IN (SELECT id FROM notes WHERE mid = " + id + ")",0)));
+    mModels.remove(id);
+    save();
+    if (current) {
+      setCurrent(mModels.values().iterator().next());
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

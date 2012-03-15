@@ -1,0 +1,14 @@
+{
+  try {
+    mergeModels(rchg.getJSONArray("models"));
+    mergeDecks(rchg.getJSONArray("decks"));
+    mergeTags(rchg.getJSONArray("tags"));
+    if (rchg.has("conf")) {
+      mergeConf(rchg.getJSONObject("conf"));
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  prepareToChunk();
+}

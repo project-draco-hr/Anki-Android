@@ -1,0 +1,6 @@
+{
+  mChart=chart;
+  if (chart instanceof XYChart) {
+    mRenderer=((XYChart)chart).getRenderer();
+  }
+}

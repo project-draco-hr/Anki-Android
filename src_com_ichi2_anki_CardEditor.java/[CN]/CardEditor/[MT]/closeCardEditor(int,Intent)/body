@@ -1,0 +1,24 @@
+{
+  if (intent != null) {
+    setResult(result,intent);
+  }
+ else {
+    setResult(result);
+  }
+  finish();
+  if (mCaller == CALLER_CARDEDITOR_INTENT_ADD || mCaller == CALLER_BIGWIDGET_EDIT || mCaller == CALLER_BIGWIDGET_ADD) {
+    if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+      ActivityTransitionAnimation.slide(CardEditor.this,ActivityTransitionAnimation.FADE);
+    }
+  }
+ else   if (mCaller == CALLER_INDICLASH) {
+    if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+      ActivityTransitionAnimation.slide(CardEditor.this,ActivityTransitionAnimation.NONE);
+    }
+  }
+ else {
+    if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+      ActivityTransitionAnimation.slide(CardEditor.this,ActivityTransitionAnimation.RIGHT);
+    }
+  }
+}

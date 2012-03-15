@@ -1,63 +1,37 @@
 {
+  Log.d(AnkiDroidApp.TAG,"WidgetStatus.UpdateDeckStatusAsyncTask.doInBackground()");
   Context context=params[0];
   if (!AnkiDroidApp.isSdCardMounted()) {
     return context;
   }
-  ArrayList<DeckStatus> decks;
-  if (sDeckStatus != null && mDecks != null && mDecks.length > 0) {
-    decks=new ArrayList<DeckStatus>(mDecks.length);
-    for (    DeckStatus m : mDecks) {
-      if (m.mDeckPath.equals(sDeckStatus.mDeckPath)) {
-        decks.add(sDeckStatus);
-      }
+  ArrayList<DeckStatus> decks=new ArrayList<DeckStatus>();
+  try {
+    Collection col=Collection.currentCollection();
+    Object[] di;
+    float progress;
+    if (col == null) {
+      col=Collection.openCollection(AnkiDroidApp.getCollectionPath());
+      di=col.getSched().deckCounts();
+      progress=col.getSched().todaysProgress(null,true,true);
+      col.close(false);
+    }
  else {
-        decks.add(m);
+      di=col.getSched().deckCounts();
+      progress=col.getSched().todaysProgress(null,true,true);
+    }
+    int eta=(Integer)di[1];
+    for (    Object[] d : (TreeSet<Object[]>)di[0]) {
+      String[] sname=(String[])d[0];
+      StringBuilder name=new StringBuilder();
+      name.append(sname[0]);
+      for (int i=1; i < sname.length; i++) {
+        name.append("::").append(sname[i]);
       }
+      decks.add(new DeckStatus((Long)d[1],name.toString(),(Integer)d[2],(Integer)d[3],(Integer)d[4],(int)(progress * 100),eta));
     }
   }
- else {
-    SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
-    String deckPath=preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory() + "/AnkiDroid");
-    File dir=new File(deckPath);
-    File[] fileList=dir.listFiles(new AnkiFileFilter());
-    if (fileList == null || fileList.length == 0) {
-      mDecks=EMPTY_DECK_STATUS;
-      return context;
-    }
-    decks=new ArrayList<DeckStatus>(fileList.length);
-    for (    File file : fileList) {
-      String absPath=null;
-      try {
-        absPath=file.getAbsolutePath();
-        String deckName=file.getName().replaceAll(".anki","");
-        Deck deck=DeckManager.getDeck(absPath,DeckManager.REQUESTING_ACTIVITY_WIDGETSTATUS,false);
-        if (deck == null) {
-          Log.e(AnkiDroidApp.TAG,"Widget: Skipping null deck: " + absPath);
-          continue;
-        }
-        int dueCards=0;
-        int newCards=0;
-        int failedCards=deck.getFailedSoonCount();
-        int eta=0;
-        int reps=deck.getSessionFinishedCards();
-        if (!deck.hasFinishScheduler()) {
-          dueCards=deck.getRevCount();
-          newCards=deck.getNewCountToday();
-          eta=deck.getETA();
-        }
-        DeckManager.closeDeck(absPath,DeckManager.REQUESTING_ACTIVITY_WIDGETSTATUS);
-        decks.add(new DeckStatus(absPath,deckName,newCards,dueCards,failedCards,eta,reps));
-      }
- catch (      SQLException e) {
-        Log.e(AnkiDroidApp.TAG,e.toString());
-        if (absPath != null) {
-          BackupManager.restoreDeckIfMissing(absPath);
-        }
-      }
-    }
-  }
-  if (!decks.isEmpty() && decks.size() > 1) {
-    Collections.sort(decks,new ByNameComparator());
+ catch (  SQLException e) {
+    Log.i(AnkiDroidApp.TAG,"Widget: Problems on retrieving deck information");
   }
   mDecks=decks.toArray(EMPTY_DECK_STATUS);
   return context;

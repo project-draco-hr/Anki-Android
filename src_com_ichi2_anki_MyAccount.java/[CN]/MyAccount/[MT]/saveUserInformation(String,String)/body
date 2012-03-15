@@ -2,6 +2,6 @@
   SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
   Editor editor=preferences.edit();
   editor.putString("username",username);
-  editor.putString("password",password);
+  editor.putString("hkey",hkey);
   editor.commit();
 }

@@ -1,7 +1,0 @@
-{
-  BigInteger bid=new BigInteger(id,16);
-  if (bid.compareTo(maxID) >= 0) {
-    bid.subtract(shiftID);
-  }
-  return bid.longValue();
-}

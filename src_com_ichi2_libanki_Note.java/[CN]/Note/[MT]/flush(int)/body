@@ -1,0 +1,11 @@
+{
+  _preFlush();
+  mMod=mod != 0 ? mod : Utils.intNow();
+  mUsn=mCol.usn();
+  String sfld=Utils.stripHTML(mFields[mCol.getModels().sortIdx(mModel)]);
+  String tags=stringTags();
+  long csum=Utils.fieldChecksum(mFields[0]);
+  mCol.getDb().getDatabase().execSQL("INSERT OR REPLACE INTO notes VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",new Object[]{mId,mGuId,mMid,mMod,mUsn,tags,joinedFields(),sfld,csum,mFlags,mData});
+  mCol.getTags().register(mTags);
+  _postFlush();
+}

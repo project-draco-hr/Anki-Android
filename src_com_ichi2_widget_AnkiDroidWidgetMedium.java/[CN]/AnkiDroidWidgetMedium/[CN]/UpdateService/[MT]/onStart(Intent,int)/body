@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"MediumWidget: OnStart");
   boolean updateDueDecksNow=true;
   if (intent != null) {
     if (ACTION_NEXT.equals(intent.getAction())) {
@@ -13,10 +14,11 @@
       updateDueDecksNow=false;
     }
  else     if (ACTION_OPEN.equals(intent.getAction())) {
-      startActivity(StudyOptions.getLoadDeckIntent(this,intent.getData().getPath()));
+      startActivity(DeckPicker.getLoadDeckIntent(this,intent.getLongExtra(DeckPicker.EXTRA_DECK_ID,1)));
       updateDueDecksNow=false;
     }
  else     if (ACTION_UPDATE.equals(intent.getAction())) {
+      Log.d(AnkiDroidApp.TAG,"AnkiDroidWidget.UpdateService: UPDATE");
     }
   }
   RemoteViews updateViews=buildUpdate(this,updateDueDecksNow);

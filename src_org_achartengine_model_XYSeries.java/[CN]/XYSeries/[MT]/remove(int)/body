@@ -1,0 +1,8 @@
+{
+  XYEntry<Double,Double> removedEntry=mXY.removeByIndex(index);
+  double removedX=removedEntry.getKey();
+  double removedY=removedEntry.getValue();
+  if (removedX == mMinX || removedX == mMaxX || removedY == mMinY || removedY == mMaxY) {
+    initRange();
+  }
+}

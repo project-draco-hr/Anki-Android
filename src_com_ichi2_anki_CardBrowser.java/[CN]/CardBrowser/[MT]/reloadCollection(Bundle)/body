@@ -1,0 +1,25 @@
+{
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_OPEN_COLLECTION,new DeckTask.TaskListener(){
+    @Override public void onPostExecute(    DeckTask.TaskData result){
+      mCol=result.getCollection();
+      Collection.putCurrentCollection(mCol);
+      if (mCol == null) {
+        finish();
+      }
+ else {
+        onCreate(savedInstanceState);
+      }
+    }
+    @Override public void onPreExecute(){
+      mProgressDialog=StyledProgressDialog.show(CardBrowser.this,"",getResources().getString(R.string.open_collection),true,true,new OnCancelListener(){
+        @Override public void onCancel(        DialogInterface arg0){
+          finish();
+        }
+      }
+);
+    }
+    @Override public void onProgressUpdate(    DeckTask.TaskData... values){
+    }
+  }
+,new DeckTask.TaskData(PrefSettings.getSharedPrefs(getBaseContext()).getString("deckPath",AnkiDroidApp.getDefaultAnkiDroidDirectory()) + AnkiDroidApp.COLLECTION_PATH));
+}

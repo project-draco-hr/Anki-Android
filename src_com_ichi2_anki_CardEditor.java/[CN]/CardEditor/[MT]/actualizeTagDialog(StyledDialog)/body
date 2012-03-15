@@ -1,0 +1,31 @@
+{
+  TreeSet<String> tags=new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+  for (  String tag : mCol.getTags().all()) {
+    tags.add(tag);
+  }
+  tags.addAll(selectedTags);
+  int len=tags.size();
+  allTags=new String[len];
+  boolean[] checked=new boolean[len];
+  int i=0;
+  for (  String t : tags) {
+    allTags[i++]=t;
+    if (selectedTags.contains(t)) {
+      checked[i - 1]=true;
+    }
+  }
+  ad.setMultiChoiceItems(allTags,checked,new DialogInterface.OnClickListener(){
+    @Override public void onClick(    DialogInterface arg0,    int which){
+      String tag=allTags[which];
+      if (selectedTags.contains(tag)) {
+        Log.i(AnkiDroidApp.TAG,"unchecked tag: " + tag);
+        selectedTags.remove(tag);
+      }
+ else {
+        Log.i(AnkiDroidApp.TAG,"checked tag: " + tag);
+        selectedTags.add(tag);
+      }
+    }
+  }
+);
+}

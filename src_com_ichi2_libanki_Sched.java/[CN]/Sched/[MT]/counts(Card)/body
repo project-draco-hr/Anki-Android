@@ -1,0 +1,16 @@
+{
+  int[] counts=new int[3];
+  counts[0]=mNewCount;
+  counts[1]=mLrnCount;
+  counts[2]=mRevCount;
+  if (card != null) {
+    int idx=countIdx(card);
+    if (idx == 1) {
+      counts[1]+=card.getLeft();
+    }
+ else {
+      counts[idx]+=1;
+    }
+  }
+  return counts;
+}

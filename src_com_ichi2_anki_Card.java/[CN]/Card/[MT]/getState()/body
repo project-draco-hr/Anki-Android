@@ -1,9 +1,0 @@
-{
-  if (isNew()) {
-    return STATE_NEW;
-  }
- else   if (mInterval > MATURE_THRESHOLD) {
-    return STATE_MATURE;
-  }
-  return STATE_YOUNG;
-}

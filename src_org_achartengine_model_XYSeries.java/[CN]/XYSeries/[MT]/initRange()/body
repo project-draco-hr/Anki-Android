@@ -1,0 +1,12 @@
+{
+  mMinX=MathHelper.NULL_VALUE;
+  mMaxX=-MathHelper.NULL_VALUE;
+  mMinY=MathHelper.NULL_VALUE;
+  mMaxY=-MathHelper.NULL_VALUE;
+  int length=getItemCount();
+  for (int k=0; k < length; k++) {
+    double x=getX(k);
+    double y=getY(k);
+    updateRange(x,y);
+  }
+}

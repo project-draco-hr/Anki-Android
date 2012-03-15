@@ -1,0 +1,16 @@
+{
+  String key=type + "Today";
+  long did=card.getDid();
+  ArrayList<JSONObject> list=mCol.getDecks().parents(did);
+  list.add(mCol.getDecks().get(did));
+  for (  JSONObject g : list) {
+    try {
+      JSONArray a=g.getJSONArray(key);
+      a.put(1,a.getInt(1) + cnt);
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+    mCol.getDecks().save(g);
+  }
+}

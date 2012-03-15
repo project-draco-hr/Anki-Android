@@ -1,27 +1,45 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
-  if (requestCode == PREFERENCES_UPDATE) {
-    if (resultCode == StudyOptions.RESULT_RESTART) {
-      setResult(StudyOptions.RESULT_RESTART);
-      finish();
+  mDontSaveOnStop=false;
+  if (resultCode == RESULT_MEDIA_EJECTED) {
+    showDialog(DIALOG_SD_CARD_NOT_MOUNTED);
+    return;
+  }
+ else   if (resultCode == RESULT_DB_ERROR) {
+    handleDbError();
+    return;
+  }
+  if (requestCode == SHOW_STUDYOPTIONS && resultCode == RESULT_OK) {
+    loadCounts();
+  }
+ else   if (requestCode == ADD_NOTE && resultCode != RESULT_CANCELED) {
+    loadCounts();
+  }
+ else   if (requestCode == REPORT_ERROR) {
+    showStartupScreensAndDialogs(PrefSettings.getSharedPrefs(getBaseContext()),3);
+  }
+ else   if (requestCode == SHOW_INFO_WELCOME || requestCode == SHOW_INFO_NEW_VERSION) {
+    if (resultCode == RESULT_OK) {
+      showStartupScreensAndDialogs(PrefSettings.getSharedPrefs(getBaseContext()),requestCode == SHOW_INFO_WELCOME ? 1 : 2);
     }
  else {
-      SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
-      BackupManager.initBackup();
-      if (!mPrefDeckPath.equals(preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory())) || mPrefDeckOrder != Integer.parseInt(preferences.getString("deckOrder","0"))) {
-        populateDeckList(preferences.getString("deckPath",AnkiDroidApp.getStorageDirectory()));
-      }
+      finish();
     }
   }
- else   if ((requestCode == CREATE_DECK || requestCode == DOWNLOAD_PERSONAL_DECK || requestCode == DOWNLOAD_SHARED_DECK) && resultCode == RESULT_OK) {
-    populateDeckList(mPrefDeckPath);
+ else   if (requestCode == PREFERENCES_UPDATE) {
+  }
+ else   if ((requestCode == CREATE_DECK || requestCode == DOWNLOAD_SHARED_DECK) && resultCode == RESULT_OK) {
   }
  else   if (requestCode == REPORT_FEEDBACK && resultCode == RESULT_OK) {
   }
- else   if (requestCode == LOG_IN_FOR_DOWNLOAD && resultCode == RESULT_OK) {
-    openPersonalDeckPicker();
-  }
  else   if (requestCode == LOG_IN_FOR_SYNC && resultCode == RESULT_OK) {
-    syncAllDecks();
+    sync();
   }
+ else   if (requestCode == LOG_IN_FOR_SHARED_DECK && resultCode == RESULT_OK) {
+    addSharedDeck();
+  }
+ else   if (requestCode == ADD_SHARED_DECKS) {
+    sync();
+  }
+  BroadcastMessages.showDialog();
 }

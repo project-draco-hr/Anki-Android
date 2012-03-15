@@ -1,0 +1,4 @@
+{
+  mCol.setDirty();
+  mCol.getDb().execute("UPDATE cards SET queue = -2 WHERE nid = " + nid);
+}

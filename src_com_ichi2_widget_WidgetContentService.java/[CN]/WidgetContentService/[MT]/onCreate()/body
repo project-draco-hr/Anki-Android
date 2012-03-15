@@ -3,9 +3,10 @@
   SharedPreferences prefs=PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext());
   String path=prefs.getString("lastWidgetDeck","");
   if (path != null && path.length() > 0 && AnkiDroidApp.isSdCardMounted()) {
-    mLoadedDeck=DeckManager.getDeck(path,DeckManager.REQUESTING_ACTIVITY_BIGWIDGET,true);
-    if (mLoadedDeck != null) {
-      mCurrentCard=mLoadedDeck.getCard();
+    Log.i(AnkiDroidApp.TAG,"BigWidget: reloading deck " + path);
+    mCol=Collection.currentCollection();
+    if (mCol != null) {
+      mCurrentCard=mCol.getSched().getCard();
     }
   }
 }

@@ -1,0 +1,10 @@
+{
+  try {
+    JSONObject jo=new JSONObject();
+    jo.put("v",SYNC_VER);
+    return super.req("meta",super.getInputStream(jo.toString()));
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

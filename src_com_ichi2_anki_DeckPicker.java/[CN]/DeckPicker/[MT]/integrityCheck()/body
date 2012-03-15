@@ -1,0 +1,24 @@
+{
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CHECK_DATABASE,new DeckTask.TaskListener(){
+    @Override public void onPreExecute(){
+      mProgressDialog=StyledProgressDialog.show(DeckPicker.this,"",getResources().getString(R.string.check_db_message),true);
+    }
+    @Override public void onPostExecute(    TaskData result){
+      if (mProgressDialog.isShowing()) {
+        mProgressDialog.dismiss();
+      }
+      if (result.getBoolean()) {
+        StyledDialog dialog=(StyledDialog)onCreateDialog(DIALOG_OK);
+        dialog.setTitle(getResources().getString(R.string.check_db_title));
+        dialog.setMessage(String.format(Utils.ENGLISH_LOCALE,getResources().getString(R.string.check_db_result_message),Math.round(result.getLong() / 1024)));
+        dialog.show();
+      }
+ else {
+        showDialog(DIALOG_DB_ERROR);
+      }
+    }
+    @Override public void onProgressUpdate(    TaskData... values){
+    }
+  }
+,new DeckTask.TaskData(mCol));
+}

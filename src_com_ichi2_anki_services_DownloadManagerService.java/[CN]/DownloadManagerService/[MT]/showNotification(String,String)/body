@@ -3,14 +3,12 @@
   Resources res=getResources();
   Notification notification=new Notification(R.drawable.anki,res.getString(R.string.download_finished),System.currentTimeMillis());
   String deckPath=mDestination + "/" + deckFilename+ ".anki";
-  Intent loadDeckIntent=StudyOptions.getLoadDeckIntent(this,deckPath);
-  PendingIntent contentIntent=PendingIntent.getActivity(this,0,loadDeckIntent,0);
-  notification.setLatestEventInfo(this,deckTitle,res.getString(R.string.deck_downloaded),contentIntent);
   notification.flags|=Notification.FLAG_AUTO_CANCEL;
   notification.defaults|=Notification.DEFAULT_VIBRATE;
   notification.ledARGB=0xff0000ff;
   notification.ledOnMS=500;
   notification.ledOffMS=1000;
   notification.flags|=Notification.FLAG_SHOW_LIGHTS;
+  Log.i(AnkiDroidApp.TAG,"Sending notification...");
   mNotificationManager.notify(getNextNotificationId(),notification);
 }

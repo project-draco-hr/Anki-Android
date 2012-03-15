@@ -1,0 +1,11 @@
+{
+  XYChart chart=null;
+  int length=xyChartTypes.length;
+  for (int i=0; i < length && chart == null; i++) {
+    XYChart newChart=(XYChart)xyChartTypes[i].newInstance();
+    if (type.equals(newChart.getChartType())) {
+      chart=newChart;
+    }
+  }
+  return chart;
+}

@@ -1,0 +1,13 @@
+{
+  graphicalView=view;
+  zoomR=graphicalView.getZoomRectangle();
+  if (chart instanceof XYChart) {
+    mRenderer=((XYChart)chart).getRenderer();
+  }
+ else {
+    mRenderer=((RoundChart)chart).getRenderer();
+  }
+  if (mRenderer.isPanEnabled()) {
+    mPan=new Pan(chart);
+  }
+}

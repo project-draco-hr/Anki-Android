@@ -1,0 +1,36 @@
+{
+  super(context);
+  mChart=chart;
+  mHandler=new Handler();
+  if (mChart instanceof XYChart) {
+    mRenderer=((XYChart)mChart).getRenderer();
+  }
+ else {
+    mRenderer=((RoundChart)mChart).getRenderer();
+  }
+  if (mRenderer.isZoomButtonsVisible()) {
+    zoomInImage=BitmapFactory.decodeStream(GraphicalView.class.getResourceAsStream("image/zoom_in.png"));
+    zoomOutImage=BitmapFactory.decodeStream(GraphicalView.class.getResourceAsStream("image/zoom_out.png"));
+    fitZoomImage=BitmapFactory.decodeStream(GraphicalView.class.getResourceAsStream("image/zoom-1.png"));
+  }
+  if (mRenderer instanceof XYMultipleSeriesRenderer && ((XYMultipleSeriesRenderer)mRenderer).getMarginsColor() == XYMultipleSeriesRenderer.NO_COLOR) {
+    ((XYMultipleSeriesRenderer)mRenderer).setMarginsColor(mPaint.getColor());
+  }
+  if (mRenderer.isZoomEnabled() && mRenderer.isZoomButtonsVisible() || mRenderer.isExternalZoomEnabled()) {
+    mZoomIn=new Zoom(mChart,true,mRenderer.getZoomRate());
+    mZoomOut=new Zoom(mChart,false,mRenderer.getZoomRate());
+    mFitZoom=new FitZoom(mChart);
+  }
+  int version=7;
+  try {
+    version=Integer.valueOf(Build.VERSION.SDK);
+  }
+ catch (  Exception e) {
+  }
+  if (version < 7) {
+    mTouchHandler=new TouchHandlerOld(this,mChart);
+  }
+ else {
+    mTouchHandler=new TouchHandler(this,mChart);
+  }
+}

@@ -1,9 +1,13 @@
 {
   super.onActivityResult(requestCode,resultCode,data);
-  if (requestCode == EDIT_CARD && resultCode == RESULT_OK) {
-    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_FACT,mUpdateCardHandler,new DeckTask.TaskData(0,mDeck,mSelectedCard));
+  if (resultCode == DeckPicker.RESULT_DB_ERROR) {
+    closeCardBrowser(DeckPicker.RESULT_DB_ERROR);
   }
- else   if (requestCode == ADD_FACT && resultCode == RESULT_OK) {
+  if (requestCode == EDIT_CARD && resultCode != RESULT_CANCELED) {
+    Log.i(AnkiDroidApp.TAG,"CardBrowser: Saving card...");
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_FACT,mUpdateCardHandler,new DeckTask.TaskData(mCol.getSched(),sCardBrowserCard,false));
+  }
+ else   if (requestCode == ADD_NOTE && resultCode == RESULT_OK) {
     getCards();
   }
 }

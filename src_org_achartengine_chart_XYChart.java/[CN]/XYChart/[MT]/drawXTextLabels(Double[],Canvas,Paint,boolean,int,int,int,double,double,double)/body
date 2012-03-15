@@ -1,0 +1,18 @@
+{
+  boolean showCustomTextGrid=mRenderer.isShowCustomTextGrid();
+  if (showLabels) {
+    paint.setColor(mRenderer.getXLabelsColor());
+    for (    Double location : xTextLabelLocations) {
+      if (minX <= location && location <= maxX) {
+        float xLabel=(float)(left + xPixelsPerUnit * (location.doubleValue() - minX));
+        paint.setColor(mRenderer.getXLabelsColor());
+        canvas.drawLine(xLabel,bottom,xLabel,bottom + mRenderer.getLabelsTextSize() / 3,paint);
+        drawText(canvas,mRenderer.getXTextLabel(location),xLabel,bottom + mRenderer.getLabelsTextSize() * 4 / 3,paint,mRenderer.getXLabelsAngle());
+        if (showCustomTextGrid) {
+          paint.setColor(mRenderer.getGridColor());
+          canvas.drawLine(xLabel,bottom,xLabel,top,paint);
+        }
+      }
+    }
+  }
+}

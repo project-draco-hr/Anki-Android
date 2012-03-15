@@ -1,0 +1,28 @@
+{
+  Card card=new Card(this);
+  card.setNid(note.getId());
+  try {
+    card.setOrd(template.getInt("ord"));
+  }
+ catch (  JSONException e) {
+    new RuntimeException(e);
+  }
+  long did;
+  try {
+    did=template.getLong("did");
+  }
+ catch (  JSONException e) {
+    did=0;
+  }
+  try {
+    card.setDid(did != 0 ? did : note.model().getLong("did"));
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  card.setDue(_dueForDid(card.getDid(),due));
+  if (flush) {
+    card.flush();
+  }
+  return card;
+}

@@ -1,0 +1,40 @@
+{
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundUpdateNote");
+  Sched sched=params[0].getSched();
+  Collection col=sched.getCol();
+  Card editCard=params[0].getCard();
+  Note editNote=editCard.note();
+  boolean fromReviewer=params[0].getBoolean();
+  try {
+    col.getDb().getDatabase().beginTransaction();
+    try {
+      editNote.flush();
+      editCard.flush();
+      if (fromReviewer) {
+        Card newCard;
+        if (col.getDecks().active().contains(editCard.getDid())) {
+          newCard=editCard;
+          newCard.load();
+          newCard.getQuestion(true);
+        }
+ else {
+          newCard=sched.getCard();
+        }
+        publishProgress(new TaskData(newCard));
+      }
+ else {
+        publishProgress(new TaskData(editCard));
+      }
+      col.getDb().getDatabase().setTransactionSuccessful();
+    }
+  finally {
+      col.getDb().getDatabase().endTransaction();
+    }
+  }
+ catch (  RuntimeException e) {
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundUpdateNote - RuntimeException on updating fact: " + e);
+    AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundUpdateNote");
+    return new TaskData(false);
+  }
+  return new TaskData(true);
+}

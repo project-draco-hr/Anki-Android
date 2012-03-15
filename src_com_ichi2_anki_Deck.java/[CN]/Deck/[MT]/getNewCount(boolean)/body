@@ -1,8 +1,0 @@
-{
-  if (restrictToActive) {
-    return getNewCount();
-  }
- else {
-    return (int)getDB().queryScalar("SELECT count(*) from cards WHERE type = 2");
-  }
-}

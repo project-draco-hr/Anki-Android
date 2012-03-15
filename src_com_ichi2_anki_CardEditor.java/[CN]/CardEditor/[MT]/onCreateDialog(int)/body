@@ -3,45 +3,187 @@
   Resources res=getResources();
   StyledDialog.Builder builder=new StyledDialog.Builder(this);
 switch (id) {
-case DIALOG_TAGS:
-    dialog=createDialogTags(builder,res);
-  break;
+case DIALOG_TAGS_SELECT:
+    builder.setTitle(R.string.card_details_tags);
+  builder.setPositiveButton(res.getString(R.string.select),new OnClickListener(){
+    @Override public void onClick(    DialogInterface dialog,    int which){
+      if (mAddNote) {
+        try {
+          JSONArray ja=new JSONArray();
+          for (          String t : selectedTags) {
+            ja.put(t);
+          }
+          mCol.getModels().current().put("tags",ja);
+          mCol.getModels().setChanged();
+        }
+ catch (        JSONException e) {
+          throw new RuntimeException(e);
+        }
+        mEditorNote.setTags(selectedTags);
+      }
+      mCurrentTags=selectedTags;
+      updateTags();
+    }
+  }
+);
+builder.setNegativeButton(res.getString(R.string.cancel),null);
+mNewTagEditText=(EditText)new EditText(this);
+mNewTagEditText.setHint(R.string.add_new_tag);
+InputFilter filter=new InputFilter(){
+public CharSequence filter(CharSequence source,int start,int end,Spanned dest,int dstart,int dend){
+for (int i=start; i < end; i++) {
+if (source.charAt(i) == ' ' || source.charAt(i) == ',') {
+  return "";
+}
+}
+return null;
+}
+}
+;
+mNewTagEditText.setFilters(new InputFilter[]{filter});
+ImageView mAddTextButton=new ImageView(this);
+mAddTextButton.setImageResource(R.drawable.ic_addtag);
+mAddTextButton.setOnClickListener(new View.OnClickListener(){
+@Override public void onClick(View v){
+String tag=mNewTagEditText.getText().toString();
+if (tag.length() != 0) {
+if (mEditorNote.hasTag(tag)) {
+mNewTagEditText.setText("");
+return;
+}
+selectedTags.add(tag);
+actualizeTagDialog(mTagsDialog);
+mNewTagEditText.setText("");
+}
+}
+}
+);
+FrameLayout frame=new FrameLayout(this);
+FrameLayout.LayoutParams params=new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT,Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+params.rightMargin=10;
+mAddTextButton.setLayoutParams(params);
+frame.addView(mNewTagEditText);
+frame.addView(mAddTextButton);
+builder.setView(frame,false,true);
+dialog=builder.create();
+mTagsDialog=dialog;
+break;
 case DIALOG_DECK_SELECT:
-dialog=createDialogDeckSelect(builder,res);
+ArrayList<CharSequence> dialogDeckItems=new ArrayList<CharSequence>();
+final ArrayList<Long> dialogDeckIds=new ArrayList<Long>();
+ArrayList<JSONObject> decks=mCol.getDecks().all();
+Collections.sort(decks,new JSONNameComparator());
+builder.setTitle(R.string.deck);
+for (JSONObject d : decks) {
+try {
+dialogDeckItems.add(DeckPicker.readableDeckName(d.getString("name").split("::")));
+dialogDeckIds.add(d.getLong("id"));
+}
+ catch (JSONException e) {
+throw new RuntimeException(e);
+}
+}
+String[] items=new String[dialogDeckItems.size()];
+dialogDeckItems.toArray(items);
+builder.setItems(items,new DialogInterface.OnClickListener(){
+public void onClick(DialogInterface dialog,int item){
+long newId=dialogDeckIds.get(item);
+if (mCurrentDid != newId) {
+if (mAddNote) {
+try {
+mEditorNote.model().put("did",newId);
+mCol.getModels().setChanged();
+}
+ catch (JSONException e) {
+throw new RuntimeException(e);
+}
+}
+mCurrentDid=newId;
+updateDeck();
+}
+}
+}
+);
+if (!mAddNote) {
+LinearLayout ll=new LinearLayout(this);
+ll.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));
+LayoutParams lp=new LinearLayout.LayoutParams(0,LayoutParams.WRAP_CONTENT,1);
+mMoveNoteTooToggle=new ToggleButton(this);
+mMoveNoteTooToggle.setSingleLine();
+mMoveNoteTooToggle.setLayoutParams(lp);
+mMoveNoteTooToggle.setText(R.string.cardeditor_move_note_too);
+ll.addView(mMoveNoteTooToggle);
+Button origButton=new Button(this);
+origButton.setSingleLine();
+origButton.setText(R.string.cardeditor_move_to_notes_deck);
+origButton.setBackgroundResource(R.drawable.white_btn_small);
+origButton.setLayoutParams(lp);
+origButton.setOnClickListener(new View.OnClickListener(){
+@Override public void onClick(View v){
+updateDeck();
+mDeckSelectDialog.dismiss();
+}
+}
+);
+ll.addView(origButton);
+builder.setView(ll,false,true);
+}
+dialog=builder.create();
+mDeckSelectDialog=dialog;
 break;
 case DIALOG_MODEL_SELECT:
-dialog=createDialogModelSelect(builder,res);
-break;
-case DIALOG_CARD_MODEL_SELECT:
-builder.setTitle(res.getString(R.string.select_card_model));
-builder.setPositiveButton(res.getString(R.string.select),new OnClickListener(){
-@Override public void onClick(DialogInterface dialog,int which){
-mSelectedCardModels.clear();
-mSelectedCardModels.putAll(mNewSelectedCardModels);
-cardModelsChanged();
+ArrayList<CharSequence> dialogItems=new ArrayList<CharSequence>();
+final ArrayList<Long> dialogIds=new ArrayList<Long>();
+ArrayList<JSONObject> models=mCol.getModels().all();
+Collections.sort(models,new JSONNameComparator());
+builder.setTitle(R.string.note_type);
+for (JSONObject m : models) {
+try {
+dialogItems.add(m.getString("name"));
+dialogIds.add(m.getLong("id"));
+}
+ catch (JSONException e) {
+throw new RuntimeException(e);
+}
+}
+String[] items2=new String[dialogItems.size()];
+dialogItems.toArray(items2);
+builder.setItems(items2,new DialogInterface.OnClickListener(){
+public void onClick(DialogInterface dialog,int item){
+long oldModelId;
+try {
+oldModelId=mCol.getModels().current().getLong("id");
+}
+ catch (JSONException e) {
+throw new RuntimeException(e);
+}
+long newId=dialogIds.get(item);
+if (oldModelId != newId) {
+mCol.getModels().setCurrent(mCol.getModels().get(newId));
+int size=mEditFields.size();
+String[] oldValues=new String[size];
+for (int i=0; i < size; i++) {
+oldValues[i]=mEditFields.get(i).getText().toString();
+}
+setNote();
+if ((mSourceText == null || mSourceText.length() == 0) && (mTargetText == null || mTargetText.length() == 0)) {
+for (int i=0; i < Math.min(size,mEditFields.size()); i++) {
+mEditFields.get(i).setText(oldValues[i]);
+}
+}
+mTimerHandler.removeCallbacks(checkDuplicatesRunnable);
+duplicateCheck(false);
+}
 }
 }
 );
-builder.setNegativeButton(res.getString(R.string.cancel),new OnClickListener(){
-@Override public void onClick(DialogInterface dialog,int which){
-}
-}
-);
-mCardModelDialog=builder.create();
-dialog=mCardModelDialog;
+dialog=builder.create();
 break;
 case DIALOG_RESET_CARD:
 builder.setTitle(res.getString(R.string.reset_card_dialog_title));
 builder.setMessage(res.getString(R.string.reset_card_dialog_message));
 builder.setPositiveButton(res.getString(R.string.yes),new OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
-for (long cardId : mDeck.getCardsFromFactId(mEditorFact.getId())) {
-mDeck.cardFromId(cardId).resetCard();
-}
-mDeck.reset();
-setResult(Reviewer.RESULT_EDIT_CARD_RESET);
-mCardReset=true;
-Themes.showThemedToast(CardEditor.this,getResources().getString(R.string.reset_card_dialog_confirmation),true);
 }
 }
 );

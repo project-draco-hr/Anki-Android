@@ -1,0 +1,3 @@
+{
+  mCol.getDb().execute("UPDATE cards SET queue = type, mod = " + Utils.intNow() + ", usn = "+ mCol.usn()+ " WHERE queue = -1 AND id IN "+ Utils.ids2str(ids));
+}

@@ -1,0 +1,28 @@
+{
+  if (card.getType() == 2) {
+    if (card.getODid() != 0) {
+      return _dynIvlBoost(card);
+    }
+    return card.getIvl();
+  }
+  int ideal;
+  JSONArray ja;
+  try {
+    ja=conf.getJSONArray("ints");
+    if (!early) {
+      ideal=ja.getInt(0);
+    }
+ else {
+      ideal=ja.getInt(1);
+    }
+    if (adj) {
+      return _adjRevIvl(card,ideal);
+    }
+ else {
+      return ideal;
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

@@ -1,0 +1,17 @@
+{
+  if (mWholeCollection) {
+    ArrayList<Long> ids=new ArrayList<Long>();
+    for (    JSONObject d : mCol.getDecks().all()) {
+      try {
+        ids.add(d.getLong("id"));
+      }
+ catch (      JSONException e) {
+        throw new RuntimeException(e);
+      }
+    }
+    return Utils.ids2str(Utils.arrayList2array(ids));
+  }
+ else {
+    return mCol.getSched()._deckLimit();
+  }
+}

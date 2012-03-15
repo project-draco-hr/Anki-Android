@@ -1,0 +1,25 @@
+{
+  Cursor cursor=null;
+  try {
+    cursor=mCol.getDb().getDatabase().rawQuery("SELECT guid, mid, mod, usn, tags, flds, flags, data FROM notes WHERE id = " + mId,null);
+    if (!cursor.moveToFirst()) {
+      Log.w(AnkiDroidApp.TAG,"Notes.load(): No result from query.");
+      return;
+    }
+    mGuId=cursor.getString(0);
+    mMid=cursor.getLong(1);
+    mMod=cursor.getLong(2);
+    mUsn=cursor.getInt(3);
+    mFields=Utils.splitFields(cursor.getString(5));
+    mTags=mCol.getTags().split(cursor.getString(4));
+    mData=cursor.getString(6);
+    mScm=mCol.getScm();
+  }
+  finally {
+    if (cursor != null) {
+      cursor.close();
+    }
+  }
+  mModel=mCol.getModels().get(mMid);
+  mFMap=mCol.getModels().orderedFields(mModel);
+}

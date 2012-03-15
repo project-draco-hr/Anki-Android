@@ -1,4 +1,10 @@
 {
+  int len=mEditFields.size();
+  if (len < 2) {
+    return;
+  }
+  mSourcePosition=Math.min(mSourcePosition,len - 1);
+  mTargetPosition=Math.min(mTargetPosition,len - 1);
   FieldEditText field=mEditFields.get(mSourcePosition);
   Editable sourceText=field.getText();
   boolean sourceCutMode=field.getCutMode();
@@ -7,10 +13,10 @@
   Editable targetText=field.getText();
   boolean targetCutMode=field.getCutMode();
   FieldEditText.WordRow[] targetCutString=field.getCutString();
-  if (mEditFields.size() > mSourcePosition) {
+  if (len > mSourcePosition) {
     mEditFields.get(mSourcePosition).setText("");
   }
-  if (mEditFields.size() > mTargetPosition) {
+  if (len > mTargetPosition) {
     mEditFields.get(mTargetPosition).setText("");
   }
   if (reset) {

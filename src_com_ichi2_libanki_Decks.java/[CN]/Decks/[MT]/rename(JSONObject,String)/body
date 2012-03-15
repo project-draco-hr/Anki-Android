@@ -1,0 +1,25 @@
+{
+  if (allNames().contains(newName) || newName.length() == 0) {
+    return false;
+  }
+  String oldName;
+  try {
+    oldName=g.getString("name");
+    for (    JSONObject grp : all()) {
+      if (grp.getString("name").startsWith(oldName + "::")) {
+        String on=grp.getString("name");
+        String nn=on.replace(oldName + "::",newName + "::");
+        grp.put("name",nn);
+        mDeckIds.put(nn,mDeckIds.remove(on));
+      }
+    }
+    g.put("name",newName);
+    mDeckIds.put(newName,mDeckIds.remove(oldName));
+    save(g);
+    _ensureParents(newName);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  return true;
+}

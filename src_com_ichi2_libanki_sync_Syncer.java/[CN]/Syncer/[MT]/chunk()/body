@@ -1,0 +1,52 @@
+{
+  JSONObject buf=new JSONObject();
+  try {
+    buf.put("done",false);
+    int lim=2500;
+    List<Integer> colTypes=null;
+    while (!mTablesLeft.isEmpty() && lim > 0) {
+      String curTable=mTablesLeft.getFirst();
+      if (mCursor == null) {
+        mCursor=cursorForTable(curTable);
+        colTypes=columnTypesForQuery(curTable);
+      }
+      JSONArray rows=new JSONArray();
+      int count=mCursor.getColumnCount();
+      while (mCursor.moveToNext() && mCursor.getPosition() <= lim) {
+        JSONArray r=new JSONArray();
+        for (int i=0; i < count; i++) {
+switch (colTypes.get(i).intValue()) {
+case TYPE_STRING:
+            r.put(mCursor.getString(i));
+          break;
+case TYPE_FLOAT:
+        r.put(mCursor.getDouble(i));
+      break;
+case TYPE_INTEGER:
+    r.put(mCursor.getLong(i));
+  break;
+}
+}
+rows.put(r);
+}
+int fetched=rows.length();
+if (fetched != lim) {
+mTablesLeft.removeFirst();
+mCursor.close();
+mCursor=null;
+if (!mCol.getServer()) {
+mCol.getDb().execute("UPDATE " + curTable + " SET usn="+ mMaxUsn+ " WHERE usn=-1");
+}
+}
+buf.put(curTable,rows);
+lim-=fetched;
+}
+if (mTablesLeft.isEmpty()) {
+buf.put("done",true);
+}
+}
+ catch (JSONException e) {
+throw new RuntimeException(e);
+}
+return buf;
+}

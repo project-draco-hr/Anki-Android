@@ -1,17 +1,20 @@
 {
 switch (item.getItemId()) {
+case android.R.id.home:
+    closeReviewer(AnkiDroidApp.RESULT_TO_HOME,true);
+  return true;
 case MENU_WHITEBOARD:
-    mShowWhiteboard=!mShowWhiteboard;
-  if (mShowWhiteboard) {
-    mWhiteboard.setVisibility(View.VISIBLE);
-    item.setTitle(R.string.hide_whiteboard);
-    MetaDB.storeWhiteboardState(this,mDeckFilename,1);
-  }
+mShowWhiteboard=!mShowWhiteboard;
+if (mShowWhiteboard) {
+mWhiteboard.setVisibility(View.VISIBLE);
+item.setTitle(R.string.hide_whiteboard);
+MetaDB.storeWhiteboardState(this,mCollectionFilename,1);
+}
  else {
-    mWhiteboard.setVisibility(View.GONE);
-    item.setTitle(R.string.show_whiteboard);
-    MetaDB.storeWhiteboardState(this,mDeckFilename,0);
-  }
+mWhiteboard.setVisibility(View.GONE);
+item.setTitle(R.string.show_whiteboard);
+MetaDB.storeWhiteboardState(this,mCollectionFilename,0);
+}
 return true;
 case MENU_CLEAR_WHITEBOARD:
 mWhiteboard.clear();
@@ -20,28 +23,29 @@ case MENU_EDIT:
 return editCard();
 case MENU_REMOVE_BURY:
 setNextCardAnimation(false);
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_BURY_CARD,mDismissCardHandler,new DeckTask.TaskData(0,DeckManager.getMainDeck(),mCurrentCard));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,0));
 return true;
-case MENU_REMOVE_SUSPEND:
+case MENU_REMOVE_SUSPEND_CARD:
 setNextCardAnimation(false);
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SUSPEND_CARD,mDismissCardHandler,new DeckTask.TaskData(0,DeckManager.getMainDeck(),mCurrentCard));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,1));
+return true;
+case MENU_REMOVE_SUSPEND_NOTE:
+setNextCardAnimation(false);
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,2));
 return true;
 case MENU_REMOVE_DELETE:
-showDeleteCardDialog();
+showDeleteNoteDialog();
 return true;
 case MENU_SEARCH:
 lookUpOrSelectText();
 return true;
 case MENU_MARK:
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_MARK_CARD,mMarkCardHandler,new DeckTask.TaskData(0,DeckManager.getMainDeck(),mCurrentCard));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_MARK_CARD,mMarkCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,0));
 return true;
 case MENU_UNDO:
-setNextCardAnimation(true);
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mUpdateCardHandler,new DeckTask.TaskData(UPDATE_CARD_SHOW_QUESTION,DeckManager.getMainDeck(),mCurrentCard.getId(),false));
+undo();
 return true;
-case MENU_REDO:
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REDO,mUpdateCardHandler,new DeckTask.TaskData(UPDATE_CARD_SHOW_QUESTION,DeckManager.getMainDeck(),mCurrentCard.getId(),false));
-return true;
+default :
+return super.onOptionsItemSelected(item);
 }
-return false;
 }

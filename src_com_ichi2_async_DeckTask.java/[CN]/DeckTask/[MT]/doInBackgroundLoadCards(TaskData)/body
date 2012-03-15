@@ -1,0 +1,7 @@
+{
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundLoadCards");
+  Collection col=params[0].getCollection();
+  boolean wholeCollection=params[0].getBoolean();
+  publishProgress(new TaskData(col.findCards(wholeCollection)));
+  return null;
+}

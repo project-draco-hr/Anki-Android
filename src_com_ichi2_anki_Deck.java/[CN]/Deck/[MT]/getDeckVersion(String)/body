@@ -1,4 +1,0 @@
-{
-  int version=(int)AnkiDatabaseManager.getDatabase(path).queryScalar("SELECT version FROM decks LIMIT 1");
-  return version;
-}

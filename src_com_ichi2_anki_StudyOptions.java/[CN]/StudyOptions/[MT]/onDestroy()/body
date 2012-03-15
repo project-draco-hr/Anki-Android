@@ -1,15 +1,12 @@
 {
   super.onDestroy();
-  if (!isFinishing()) {
-    DeckManager.closeMainDeck(DeckManager.REQUESTING_ACTIVITY_STUDYOPTIONS);
-    mCompat.invalidateOptionsMenu(StudyOptions.this);
-    MetaDB.closeDB();
-  }
+  Log.i(AnkiDroidApp.TAG,"StudyOptions - onDestroy()");
   if (mUnmountReceiver != null) {
     unregisterReceiver(mUnmountReceiver);
   }
-  if ((AnkiDroidApp.zeemoteController() != null) && (AnkiDroidApp.zeemoteController().isConnected())) {
+  if (mZeemoteEnabled && (AnkiDroidApp.zeemoteController() != null) && (AnkiDroidApp.zeemoteController().isConnected())) {
     try {
+      Log.d("Zeemote","trying to disconnect in onDestroy...");
       AnkiDroidApp.zeemoteController().disconnect();
     }
  catch (    IOException ex) {

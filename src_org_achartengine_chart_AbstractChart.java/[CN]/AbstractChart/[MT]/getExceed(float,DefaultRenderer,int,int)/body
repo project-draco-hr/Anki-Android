@@ -1,0 +1,7 @@
+{
+  boolean exceed=currentWidth > right;
+  if (isVertical(renderer)) {
+    exceed=currentWidth > width;
+  }
+  return exceed;
+}

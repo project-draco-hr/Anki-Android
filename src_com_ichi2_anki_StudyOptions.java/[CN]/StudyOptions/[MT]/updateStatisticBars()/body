@@ -1,12 +1,19 @@
 {
-  if (mStatisticBarsMax == 0) {
-    mStatisticBarsMax=mBarsMax.getWidth();
-    mStatisticBarsHeight=mBarsMax.getHeight();
+  mBarsMax.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener(){
+    @Override public void onGlobalLayout(){
+      mBarsMax.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+      int maxWidth=mBarsMax.getWidth() + 1;
+      int height=mBarsMax.getHeight();
+      int mat=(int)(mProgressMature * maxWidth);
+      Utils.updateProgressBars(mGlobalMatBar,mat,height);
+      Utils.updateProgressBars(mGlobalBar,(int)(mProgressAll * maxWidth) - mat,height);
+      if (mGlobalMatBar.getVisibility() == View.INVISIBLE) {
+        mGlobalMatBar.setVisibility(View.VISIBLE);
+        mGlobalMatBar.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_IN,100,0));
+        mGlobalBar.setVisibility(View.VISIBLE);
+        mGlobalBar.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_IN,100,0));
+      }
+    }
   }
-  Utils.updateProgressBars(this,mDailyBar,mProgressTodayYes,mStatisticBarsMax,mStatisticBarsHeight,true);
-  Utils.updateProgressBars(this,mMatureBar,mProgressMatureYes,mStatisticBarsMax,mStatisticBarsHeight,true);
-  Utils.updateProgressBars(this,mGlobalMatLimitBar,mProgressMatureLimit,mStatisticBarsMax,mStatisticBarsHeight,false);
-  Utils.updateProgressBars(this,mGlobalLimitBar,(mProgressAllLimit == 1.0) ? 1.0 : mProgressAllLimit - mProgressMatureLimit,mStatisticBarsMax,mStatisticBarsHeight,false);
-  Utils.updateProgressBars(this,mGlobalMatBar,mProgressMature,mStatisticBarsMax,mStatisticBarsHeight,false);
-  Utils.updateProgressBars(this,mGlobalBar,(mProgressAll == 1.0) ? 1.0 : mProgressAll - mProgressMature,mStatisticBarsMax,mStatisticBarsHeight,false);
+);
 }

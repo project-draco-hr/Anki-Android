@@ -1,8 +1,0 @@
-{
-  super.onNewIntent(intent);
-  String deck=intent.getStringExtra(EXTRA_DECK);
-  if (deck != null && !deck.equals(mDeckFilename)) {
-    mDeckFilename=deck;
-    loadPreviousDeck();
-  }
-}

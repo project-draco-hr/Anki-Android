@@ -1,0 +1,10 @@
+{
+  float angle=-mRenderer.getOrientation().getAngle() + extraAngle;
+  if (angle != 0) {
+    canvas.rotate(angle,x,y);
+  }
+  canvas.drawText(text,x,y,paint);
+  if (angle != 0) {
+    canvas.rotate(-angle,x,y);
+  }
+}

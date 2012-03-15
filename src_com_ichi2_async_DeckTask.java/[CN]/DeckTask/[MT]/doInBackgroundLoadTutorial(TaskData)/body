@@ -1,0 +1,60 @@
+{
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundLoadTutorial");
+  Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
+  Collection col=params[0].getCollection();
+  col.getDb().getDatabase().beginTransaction();
+  String title=res.getString(R.string.help_tutorial);
+  try {
+    long did=col.getDecks().id(title);
+    JSONObject d=col.getDecks().get(did);
+    for (    String t : new String[]{"new","rev","lrn","time"}) {
+      String k=t + "Today";
+      JSONArray ja=new JSONArray();
+      ja.put(col.getSched().getToday());
+      ja.put(0);
+      d.put(k,ja);
+    }
+    col.getDecks().save(d);
+    if (col.getSched().cardCount("(" + did + ")") > 0) {
+      col.remCards(col.getDecks().cids(did));
+    }
+    JSONObject model=col.getModels().byName(title);
+    if (model == null) {
+      model=col.getModels().addBasicModel(title,false);
+    }
+    model.put("did",did);
+    String[] questions=res.getStringArray(R.array.tutorial_questions);
+    String[] answers=res.getStringArray(R.array.tutorial_answers);
+    String[] sampleQuestions=res.getStringArray(R.array.tutorial_capitals_questions);
+    String[] sampleAnswers=res.getStringArray(R.array.tutorial_capitals_answers);
+    int len=Math.min(questions.length,answers.length);
+    for (int i=0; i < len + Math.min(sampleQuestions.length,sampleAnswers.length); i++) {
+      Note note=col.newNote(model);
+      if (note.values().length < 2) {
+        return new TaskData(false);
+      }
+      note.values()[0]=(i < len) ? questions[i] : sampleQuestions[i - len];
+      note.values()[1]=(i < len) ? answers[i] : sampleAnswers[i - len];
+      col.addNote(note);
+    }
+    if (col.getSched().cardCount("(" + did + ")") == 0) {
+      col.getDecks().rem(did,true);
+      return new TaskData(false);
+    }
+ else {
+      col.save();
+      col.getDecks().select(did);
+      col.getDb().getDatabase().setTransactionSuccessful();
+      return new TaskData(true);
+    }
+  }
+ catch (  SQLException e) {
+    throw new RuntimeException(e);
+  }
+catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+ finally {
+    col.getDb().getDatabase().endTransaction();
+  }
+}

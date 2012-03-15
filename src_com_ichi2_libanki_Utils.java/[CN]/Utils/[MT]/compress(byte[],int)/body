@@ -1,0 +1,12 @@
+{
+  Deflater compressor=new Deflater(comp,true);
+  compressor.setInput(bytesToCompress);
+  compressor.finish();
+  ByteArrayOutputStream bos=new ByteArrayOutputStream(bytesToCompress.length);
+  byte[] buf=new byte[65536];
+  while (!compressor.finished()) {
+    bos.write(buf,0,compressor.deflate(buf));
+  }
+  bos.close();
+  return bos.toByteArray();
+}

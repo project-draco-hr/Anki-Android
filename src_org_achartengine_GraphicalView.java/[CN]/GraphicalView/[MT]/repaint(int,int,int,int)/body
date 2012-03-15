@@ -1,0 +1,8 @@
+{
+  mHandler.post(new Runnable(){
+    public void run(){
+      invalidate(left,top,right,bottom);
+    }
+  }
+);
+}

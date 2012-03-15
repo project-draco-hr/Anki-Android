@@ -1,0 +1,23 @@
+{
+  for (double i=min; i <= max; i+=ticks) {
+    double angle=getAngleForValue(i,minAngle,maxAngle,min,max);
+    double sinValue=Math.sin(angle);
+    double cosValue=Math.cos(angle);
+    int x1=Math.round(centerX + (float)(shortRadius * sinValue));
+    int y1=Math.round(centerY + (float)(shortRadius * cosValue));
+    int x2=Math.round(centerX + (float)(longRadius * sinValue));
+    int y2=Math.round(centerY + (float)(longRadius * cosValue));
+    canvas.drawLine(x1,y1,x2,y2,paint);
+    if (labels) {
+      paint.setTextAlign(Align.LEFT);
+      if (x1 <= x2) {
+        paint.setTextAlign(Align.RIGHT);
+      }
+      String text=i + "";
+      if (Math.round(i) == (long)i) {
+        text=(long)i + "";
+      }
+      canvas.drawText(text,x1,y1,paint);
+    }
+  }
+}

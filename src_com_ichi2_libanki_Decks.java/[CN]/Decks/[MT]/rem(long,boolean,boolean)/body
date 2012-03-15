@@ -1,0 +1,33 @@
+{
+  if (did == 1) {
+    return;
+  }
+  mCol._logRem(new long[]{did},Sched.REM_DECK);
+  if (!mDecks.containsKey(did)) {
+    return;
+  }
+  JSONObject deck=get(did);
+  try {
+    if (deck.getBoolean("dyn")) {
+      mCol.getSched().remDyn(did);
+    }
+ else {
+      if (childrenToo) {
+        for (        long id : children(did).values()) {
+          rem(id,cardsToo);
+        }
+      }
+      if (cardsToo) {
+        mCol.remCards(cids(did));
+      }
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  mDecks.remove(did);
+  if (active().contains(did)) {
+    select((long)(mDecks.keySet().iterator().next()));
+  }
+  save();
+}

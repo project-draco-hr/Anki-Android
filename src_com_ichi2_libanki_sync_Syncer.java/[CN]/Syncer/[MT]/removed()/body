@@ -1,0 +1,41 @@
+{
+  JSONArray cards=new JSONArray();
+  JSONArray notes=new JSONArray();
+  JSONArray decks=new JSONArray();
+  Cursor cur=null;
+  try {
+    cur=mCol.getDb().getDatabase().rawQuery("SELECT oid, type FROM graves WHERE usn" + (mCol.getServer() ? (" >= " + mMinUsn) : (" = -1")),null);
+    while (cur.moveToNext()) {
+      int type=cur.getInt(1);
+switch (type) {
+case Sched.REM_CARD:
+        cards.put(cur.getLong(0));
+      break;
+case Sched.REM_NOTE:
+    notes.put(cur.getLong(0));
+  break;
+case Sched.REM_DECK:
+decks.put(cur.getLong(0));
+break;
+}
+}
+}
+  finally {
+if (cur != null && !cur.isClosed()) {
+cur.close();
+}
+}
+if (!mCol.getServer()) {
+mCol.getDb().execute("UPDATE graves SET usn=" + mMaxUsn + " WHERE usn=-1");
+}
+JSONObject o=new JSONObject();
+try {
+o.put("cards",cards);
+o.put("notes",notes);
+o.put("decks",decks);
+}
+ catch (JSONException e) {
+throw new RuntimeException(e);
+}
+return o;
+}

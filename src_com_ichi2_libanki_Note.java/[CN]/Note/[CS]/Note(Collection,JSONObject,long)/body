@@ -1,0 +1,26 @@
+{
+  mCol=col;
+  if (id != 0) {
+    mId=id;
+    load();
+  }
+ else {
+    mId=Utils.timestampID(mCol.getDb(),"notes");
+    mGuId=Utils.guid64();
+    mModel=model;
+    try {
+      mMid=model.getLong("id");
+      mTags=new ArrayList<String>();
+      mFields=new String[model.getJSONArray("flds").length()];
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+    for (int i=0; i < mFields.length; i++) {
+      mFields[i]="";
+    }
+    mData="";
+    mFMap=mCol.getModels().orderedFields(mModel);
+    mScm=mCol.getScm();
+  }
+}

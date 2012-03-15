@@ -1,8 +1,0 @@
-{
-  JSONArray models=new JSONArray();
-  int nbIds=ids.length();
-  for (int i=0; i < nbIds; i++) {
-    models.put(bundleModel(ids.getLong(i)));
-  }
-  return models;
-}

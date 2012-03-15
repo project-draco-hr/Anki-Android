@@ -2,17 +2,22 @@
 switch (which) {
 case GESTURE_NOTHING:
     break;
-case GESTURE_ANSWER_EASE1:
-  if (sDisplayAnswer) {
-    answerCard(Card.EASE_FAILED);
-  }
- else {
+case GESTURE_SHOW_ANSWER:
+  if (!sDisplayAnswer) {
     displayCardAnswer();
   }
 break;
+case GESTURE_ANSWER_EASE1:
+if (sDisplayAnswer) {
+answerCard(EASE_FAILED);
+}
+ else {
+displayCardAnswer();
+}
+break;
 case GESTURE_ANSWER_EASE2:
 if (sDisplayAnswer) {
-answerCard(Card.EASE_HARD);
+answerCard(EASE_HARD);
 }
  else {
 displayCardAnswer();
@@ -20,7 +25,7 @@ displayCardAnswer();
 break;
 case GESTURE_ANSWER_EASE3:
 if (sDisplayAnswer) {
-answerCard(Card.EASE_MID);
+answerCard(EASE_MID);
 }
  else {
 displayCardAnswer();
@@ -28,7 +33,7 @@ displayCardAnswer();
 break;
 case GESTURE_ANSWER_EASE4:
 if (sDisplayAnswer) {
-answerCard(Card.EASE_EASY);
+answerCard(EASE_EASY);
 }
  else {
 displayCardAnswer();
@@ -36,12 +41,7 @@ displayCardAnswer();
 break;
 case GESTURE_ANSWER_RECOMMENDED:
 if (sDisplayAnswer) {
-if (mCurrentCard.isRev()) {
-answerCard(Card.EASE_MID);
-}
- else {
-answerCard(Card.EASE_HARD);
-}
+answerCard(getRecommendedEase());
 }
  else {
 displayCardAnswer();
@@ -49,52 +49,28 @@ displayCardAnswer();
 break;
 case GESTURE_ANSWER_BETTER_THAN_RECOMMENDED:
 if (sDisplayAnswer) {
-if (mCurrentCard.isRev()) {
-answerCard(Card.EASE_EASY);
-}
- else {
-answerCard(Card.EASE_MID);
-}
+answerCard(getRecommendedEase() + 1);
 }
 break;
 case GESTURE_EXIT:
 closeReviewer(RESULT_DEFAULT,false);
 break;
-case GESTURE_UNDO:
-if (DeckManager.getMainDeck().undoAvailable()) {
-setNextCardAnimation(true);
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mUpdateCardHandler,new DeckTask.TaskData(UPDATE_CARD_SHOW_QUESTION,DeckManager.getMainDeck(),mCurrentCard.getId(),false));
-}
-break;
-case GESTURE_REDO:
-if (DeckManager.getMainDeck().redoAvailable()) {
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REDO,mUpdateCardHandler,new DeckTask.TaskData(UPDATE_CARD_SHOW_QUESTION,DeckManager.getMainDeck(),mCurrentCard.getId(),false));
-}
-break;
 case GESTURE_EDIT:
 editCard();
-break;
-case GESTURE_MARK:
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_MARK_CARD,mMarkCardHandler,new DeckTask.TaskData(0,DeckManager.getMainDeck(),mCurrentCard));
 break;
 case GESTURE_LOOKUP:
 lookUpOrSelectText();
 break;
-case GESTURE_BURY:
-setNextCardAnimation(false);
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_BURY_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,DeckManager.getMainDeck(),mCurrentCard));
-break;
-case GESTURE_SUSPEND:
-setNextCardAnimation(false);
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SUSPEND_CARD,mAnswerCardHandler,new DeckTask.TaskData(0,DeckManager.getMainDeck(),mCurrentCard));
-break;
 case GESTURE_DELETE:
-showDeleteCardDialog();
+showDeleteNoteDialog();
 break;
 case GESTURE_CLEAR_WHITEBOARD:
 if (mPrefWhiteboard) {
 mWhiteboard.clear();
 }
+break;
+case GESTURE_PLAY_MEDIA:
+playSounds();
 break;
 }
 }

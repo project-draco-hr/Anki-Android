@@ -1,0 +1,10 @@
+{
+  int result;
+  if (mChanged) {
+    result=RESULT_OK;
+  }
+ else {
+    result=RESULT_CANCELED;
+  }
+  closeCardEditor(result,intent);
+}

@@ -1,0 +1,7 @@
+{
+  int alpha=Math.round(fraction * Color.alpha(minColor) + (1 - fraction) * Color.alpha(maxColor));
+  int r=Math.round(fraction * Color.red(minColor) + (1 - fraction) * Color.red(maxColor));
+  int g=Math.round(fraction * Color.green(minColor) + (1 - fraction) * Color.green(maxColor));
+  int b=Math.round(fraction * Color.blue(minColor) + (1 - fraction) * Color.blue((maxColor)));
+  return Color.argb(alpha,r,g,b);
+}

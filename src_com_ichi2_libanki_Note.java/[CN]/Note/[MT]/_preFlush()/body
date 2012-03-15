@@ -1,0 +1,3 @@
+{
+  mNewlyAdded=mCol.getDb().queryScalar("SELECT 1 FROM cards WHERE nid = " + mId,false) == 0;
+}

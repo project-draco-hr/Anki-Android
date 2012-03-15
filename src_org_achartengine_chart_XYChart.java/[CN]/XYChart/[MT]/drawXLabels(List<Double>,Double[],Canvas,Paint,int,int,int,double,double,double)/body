@@ -1,0 +1,19 @@
+{
+  int length=xLabels.size();
+  boolean showLabels=mRenderer.isShowLabels();
+  boolean showGridY=mRenderer.isShowGridY();
+  for (int i=0; i < length; i++) {
+    double label=xLabels.get(i);
+    float xLabel=(float)(left + xPixelsPerUnit * (label - minX));
+    if (showLabels) {
+      paint.setColor(mRenderer.getXLabelsColor());
+      canvas.drawLine(xLabel,bottom,xLabel,bottom + mRenderer.getLabelsTextSize() / 3,paint);
+      drawText(canvas,getLabel(label),xLabel,bottom + mRenderer.getLabelsTextSize() * 4 / 3,paint,mRenderer.getXLabelsAngle());
+    }
+    if (showGridY) {
+      paint.setColor(mRenderer.getGridColor());
+      canvas.drawLine(xLabel,bottom,xLabel,top,paint);
+    }
+  }
+  drawXTextLabels(xTextLabelLocations,canvas,paint,showLabels,left,top,bottom,xPixelsPerUnit,minX,maxX);
+}

@@ -1,3 +1,0 @@
-{
-  return getDB().queryColumn(String.class,"SELECT tags FROM facts WHERE id IN " + Utils.ids2str(factIds),0);
-}

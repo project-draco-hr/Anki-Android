@@ -1,0 +1,30 @@
+{
+  Cursor cursor=null;
+  try {
+    cursor=mDb.getDatabase().rawQuery("SELECT crt, mod, scm, dty, usn, ls, conf, " + "models, decks, dconf, tags FROM col",null);
+    if (!cursor.moveToFirst()) {
+      return false;
+    }
+    mCrt=cursor.getLong(0);
+    mMod=cursor.getLong(1);
+    mScm=cursor.getLong(2);
+    mDty=cursor.getInt(3) == 1;
+    mUsn=cursor.getInt(4);
+    mLs=cursor.getLong(5);
+    try {
+      mConf=new JSONObject(cursor.getString(6));
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+    mModels.load(cursor.getString(7));
+    mDecks.load(cursor.getString(8),cursor.getString(9));
+    mTags.load(cursor.getString(10));
+    return true;
+  }
+  finally {
+    if (cursor != null) {
+      cursor.close();
+    }
+  }
+}

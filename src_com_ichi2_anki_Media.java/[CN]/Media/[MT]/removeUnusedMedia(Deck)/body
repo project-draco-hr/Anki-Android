@@ -1,7 +1,0 @@
-{
-  ArrayList<Long> ids=deck.getDB().queryColumn(Long.class,"SELECT id FROM media WHERE size = 0",0);
-  for (  Long id : ids) {
-    deck.getDB().getDatabase().execSQL(String.format(Utils.ENGLISH_LOCALE,"INSERT INTO mediaDeleted " + "VALUES (%d, %f)",id.longValue(),Utils.now()));
-  }
-  deck.getDB().getDatabase().execSQL("DELETE FROM media WHERE size = 0");
-}

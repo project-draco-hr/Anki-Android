@@ -1,0 +1,7 @@
+{
+  String[] fields=new String[mEditFields.size()];
+  for (int i=0; i < mEditFields.size(); i++) {
+    fields[i]=mEditFields.get(i).getText().toString();
+  }
+  return Utils.joinFields(fields);
+}

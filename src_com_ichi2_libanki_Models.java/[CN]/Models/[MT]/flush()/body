@@ -1,0 +1,17 @@
+{
+  if (mChanged) {
+    JSONObject array=new JSONObject();
+    try {
+      for (      Map.Entry<Long,JSONObject> o : mModels.entrySet()) {
+        array.put(Long.toString(o.getKey()),o.getValue());
+      }
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+    ContentValues val=new ContentValues();
+    val.put("models",array.toString());
+    mCol.getDb().update("col",val);
+    mChanged=false;
+  }
+}

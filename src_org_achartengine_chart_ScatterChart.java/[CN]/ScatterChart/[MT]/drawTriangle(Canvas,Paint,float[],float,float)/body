@@ -1,0 +1,9 @@
+{
+  path[0]=x;
+  path[1]=y - size - size / 2;
+  path[2]=x - size;
+  path[3]=y + size;
+  path[4]=x + size;
+  path[5]=path[3];
+  drawPath(canvas,path,paint,true);
+}

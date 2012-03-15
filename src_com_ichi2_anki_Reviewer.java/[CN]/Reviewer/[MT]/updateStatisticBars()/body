@@ -4,7 +4,6 @@
     mStatisticBarsMax=view.getWidth();
     mStatisticBarsHeight=view.getHeight();
   }
-  Deck deck=DeckManager.getMainDeck();
-  Utils.updateProgressBars(this,mSessionProgressBar,deck.getSessionProgress(),mStatisticBarsMax,mStatisticBarsHeight,true,false);
-  Utils.updateProgressBars(this,mSessionYesBar,deck.getProgress(false),mStatisticBarsMax,mStatisticBarsHeight,true);
+  Utils.updateProgressBars(mSessionProgressBar,(int)(mStatisticBarsMax * mSched.todaysProgress(mCurrentCard,false,false)),mStatisticBarsHeight);
+  Utils.updateProgressBars(mSessionProgressTotalBar,(int)(mStatisticBarsMax * mSched.todaysProgress(mCurrentCard,true,false)),mStatisticBarsHeight);
 }

@@ -1,0 +1,23 @@
+{
+  if ((new File(path)).exists() && !moveDatabaseToBrokenFolder(path,false)) {
+    return RETURN_ERROR;
+  }
+  File backupFile=new File(backupPath);
+  File colFile=new File(path);
+  if (getFreeDiscSpace(colFile) < colFile.length() + (MIN_FREE_SPACE * 1024 * 1024)) {
+    Log.e(AnkiDroidApp.TAG,"Not enough space on sd card to restore " + colFile.getName() + ".");
+    return RETURN_NOT_ENOUGH_SPACE;
+  }
+  try {
+    InputStream stream=new FileInputStream(backupFile);
+    Utils.writeToFile(stream,colFile.getAbsolutePath());
+    stream.close();
+    colFile.setLastModified(backupFile.lastModified());
+  }
+ catch (  IOException e) {
+    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
+    Log.e(AnkiDroidApp.TAG,"Restore of file " + colFile.getName() + " failed.");
+    return RETURN_ERROR;
+  }
+  return RETURN_DECK_RESTORED;
+}

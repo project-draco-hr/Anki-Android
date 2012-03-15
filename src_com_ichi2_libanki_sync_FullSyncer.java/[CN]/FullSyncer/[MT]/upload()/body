@@ -1,0 +1,33 @@
+{
+  mCon.publishProgress(R.string.sync_check_upload_file);
+  if (!mCol.getDb().queryString("PRAGMA integrity_check").equalsIgnoreCase("ok")) {
+    return new Object[]{"dbError"};
+  }
+  mCol.beforeUpload();
+  String filePath=mCol.getPath();
+  mCol.close();
+  HttpResponse ret;
+  mCon.publishProgress(R.string.sync_uploading_message);
+  try {
+    ret=super.req("upload",new FileInputStream(filePath));
+    if (ret == null) {
+      return null;
+    }
+    int status=ret.getStatusLine().getStatusCode();
+    if (status != 200) {
+      return new Object[]{"error",status,ret.getStatusLine().getReasonPhrase()};
+    }
+ else {
+      return new Object[]{super.stream2String(ret.getEntity().getContent())};
+    }
+  }
+ catch (  FileNotFoundException e) {
+    throw new RuntimeException(e);
+  }
+catch (  IllegalStateException e) {
+    throw new RuntimeException(e);
+  }
+catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+}

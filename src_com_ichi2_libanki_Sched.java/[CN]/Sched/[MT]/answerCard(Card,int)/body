@@ -1,0 +1,38 @@
+{
+  Log.i(AnkiDroidApp.TAG,"answerCard - ease:" + ease);
+  boolean isLeech=false;
+  mCol.markReview(card);
+  mReps+=1;
+  card.setReps(card.getReps() + 1);
+  boolean wasNew=(card.getQueue() == 0);
+  if (wasNew) {
+    card.setQueue(1);
+    if (card.getType() == 0) {
+      card.setType(1);
+    }
+    card.setLeft(_startingLeft(card));
+    if (card.getODid() != 0 && card.getType() == 2) {
+      card.setIvl(_dynIvlBoost(card));
+      card.setODue(mToday + card.getIvl());
+    }
+    _updateStats(card,"new");
+  }
+  if (card.getQueue() == 1) {
+    _answerLrnCard(card,ease);
+    if (!wasNew) {
+      _updateStats(card,"lrn");
+    }
+  }
+ else   if (card.getQueue() == 2) {
+    isLeech=_answerRevCard(card,ease);
+    _updateStats(card,"rev");
+  }
+ else {
+    throw new RuntimeException("Invalid queue");
+  }
+  _updateStats(card,"time",card.timeTaken());
+  card.setMod(Utils.intNow());
+  card.setUsn(mCol.usn());
+  card.flushSched();
+  return isLeech;
+}

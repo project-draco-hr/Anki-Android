@@ -1,0 +1,9 @@
+{
+  JSONObject conf=_cardConf(card);
+  if (card.getType() == 2) {
+    return _lapseConf(card);
+  }
+ else {
+    return _newConf(card);
+  }
+}

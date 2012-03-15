@@ -1,0 +1,26 @@
+{
+  if (card.getQueue() == 0) {
+    card.setLeft(_startingLeft(card));
+  }
+  JSONObject conf=_lrnConf(card);
+  try {
+    if (ease == 1) {
+      return _delayForGrade(conf,conf.getJSONArray("delays").length());
+    }
+ else     if (ease == 3) {
+      return _graduatingIvl(card,conf,true,false) * 86400;
+    }
+ else {
+      int left=card.getLeft() - 1;
+      if (left <= 0) {
+        return _graduatingIvl(card,conf,false,false) * 86400;
+      }
+ else {
+        return _delayForGrade(conf,left);
+      }
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

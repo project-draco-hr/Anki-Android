@@ -1,9 +1,0 @@
-{
-  long cardId=0;
-  if (!mRedoStack.isEmpty()) {
-    cardId=undoredo(mRedoStack,mUndoStack,oldCardId,inReview);
-    commitToDB();
-    reset();
-  }
-  return cardId;
-}

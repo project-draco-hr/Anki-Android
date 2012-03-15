@@ -1,5 +1,6 @@
 {
-  contentService.mLoadedDeck=null;
+  Log.d(AnkiDroidApp.TAG,"DeckManager.CloseDeckAsyncTask.onPostExecute()");
+  contentService.mCol=null;
   contentService.mCurrentCard=null;
   contentService.mBigCurrentMessage=null;
   contentService.mWaitForAsyncTask=false;

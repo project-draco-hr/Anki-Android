@@ -7,6 +7,6 @@
   }
  catch (  IllegalArgumentException e) {
     Log.e(AnkiDroidApp.TAG,"Free space could not be retrieved: " + e);
-    return StudyOptions.MIN_FREE_SPACE * 1024 * 1024;
+    return MIN_FREE_SPACE * 1024 * 1024;
   }
 }

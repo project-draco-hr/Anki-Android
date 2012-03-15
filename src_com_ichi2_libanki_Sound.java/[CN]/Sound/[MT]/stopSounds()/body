@@ -1,0 +1,9 @@
+{
+  if (sMediaPlayer != null) {
+    sMediaPlayer.stop();
+    releaseSound();
+  }
+  if (AnkiDroidApp.isDonutOrLater()) {
+    ReadText.stopTts();
+  }
+}

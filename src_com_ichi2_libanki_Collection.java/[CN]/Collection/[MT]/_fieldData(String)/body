@@ -1,0 +1,16 @@
+{
+  ArrayList<Object[]> result=new ArrayList<Object[]>();
+  Cursor cur=null;
+  try {
+    cur=mDb.getDatabase().rawQuery("SELECT id, mid, flds FROM notes WHERE id IN " + snids,null);
+    while (cur.moveToNext()) {
+      result.add(new Object[]{cur.getLong(0),cur.getLong(1),cur.getString(2)});
+    }
+  }
+  finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+  return result;
+}

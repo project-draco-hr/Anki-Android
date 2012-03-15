@@ -1,30 +1,36 @@
 {
-  if (mDeckPickerDecks == null) {
-    initBackup();
-  }
-  if (!mUseBackups || mDeckPickerDecks.contains(deckpath)) {
+  if (!PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).getBoolean("useBackup",true)) {
     return false;
   }
-  File[] deckBackups=getDeckBackups(new File(deckpath));
+  File collectionFile=new File(path);
+  File[] deckBackups=getBackups(collectionFile);
   int len=deckBackups.length;
   if (len == 0) {
     return true;
   }
-  String backupDateString=deckBackups[len - 1].getName().replaceAll("^.*-(\\d{4}-\\d{2}-\\d{2}).anki$","$1");
-  Date backupDate;
-  try {
-    backupDate=new SimpleDateFormat("yyyy-MM-dd").parse(backupDateString);
+ else   if (deckBackups[len - 1].lastModified() == collectionFile.lastModified()) {
+    return false;
   }
- catch (  ParseException e) {
-    Log.e(AnkiDroidApp.TAG,"BackupManager - safetyBackupNeeded - Error on parsing backups: " + e);
+  SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd-HH-mm");
+  Calendar cal=new GregorianCalendar();
+  cal.setTimeInMillis(System.currentTimeMillis());
+  Date lastBackupDate=null;
+  while (lastBackupDate == null && len > 0) {
+    try {
+      len--;
+      lastBackupDate=df.parse(deckBackups[len].getName().replaceAll("^.*-(\\d{4}-\\d{2}-\\d{2}-\\d{2}-\\d{2}).anki2$","$1"));
+    }
+ catch (    ParseException e) {
+      lastBackupDate=null;
+    }
+  }
+  if (lastBackupDate == null) {
     return true;
   }
-  Date target=Utils.genToday(Utils.utcOffset() + (days * 86400));
-  if (backupDate.before(target)) {
+ else   if (lastBackupDate.getTime() + days * 24 * 3600000 < Utils.intNow(1000)) {
     return true;
   }
  else {
-    mDeckPickerDecks.add(deckpath);
     return false;
   }
 }

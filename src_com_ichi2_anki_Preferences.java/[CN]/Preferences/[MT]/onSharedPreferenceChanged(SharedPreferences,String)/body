@@ -9,16 +9,15 @@
     }
  else     if (key.equals("language")) {
       Intent intent=this.getIntent();
-      setResult(StudyOptions.RESULT_RESTART,intent);
-      finish();
+      closePreferences();
     }
  else     if (key.equals("startup_mode")) {
       Intent intent=this.getIntent();
-      setResult(StudyOptions.RESULT_RESTART,intent);
-      finish();
+      closePreferences();
     }
  else     if (key.equals("theme")) {
-      if (!sharedPreferences.getString("theme","2").equals("2")) {
+      String theme=sharedPreferences.getString("theme","3");
+      if (theme.equals("2") || theme.equals("3")) {
         animationsCheckboxPreference.setChecked(false);
         animationsCheckboxPreference.setEnabled(false);
       }
@@ -26,7 +25,7 @@
         animationsCheckboxPreference.setEnabled(true);
       }
       Themes.loadTheme();
-switch (Integer.parseInt(sharedPreferences.getString("theme","2"))) {
+switch (Integer.parseInt(sharedPreferences.getString("theme","3"))) {
 case Themes.THEME_ANDROID_DARK:
 case Themes.THEME_ANDROID_LIGHT:
 case Themes.THEME_BLUE:
@@ -40,8 +39,8 @@ sharedPreferences.edit().putString("defaultFont","OpenSans-Regular").commit();
 break;
 }
 Intent intent=this.getIntent();
-setResult(StudyOptions.RESULT_RESTART,intent);
-finish();
+setResult(DeckPicker.RESULT_RESTART,intent);
+closePreferences();
 }
  else if (Arrays.asList(mShowValueInSummList).contains(key)) {
 updateListPreference(key);
@@ -51,20 +50,6 @@ updateSeekBarPreference(key);
 }
  else if (key.equals("writeAnswers") && sharedPreferences.getBoolean("writeAnswers",false)) {
 showDialog(DIALOG_WRITE_ANSWERS);
-}
- else if (key.equals("walMode") && !lockCheckAction) {
-lockCheckAction=true;
-if (sharedPreferences.getBoolean("walMode",false)) {
-showDialog(DIALOG_WAL);
-}
- else if (walModeInitiallySet) {
-walModeInitiallySet=false;
-dialogMessage=getResources().getString(R.string.wal_mode_set_message);
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SET_ALL_DECKS_JOURNAL_MODE,mDeckOperationHandler,new DeckTask.TaskData(DeckManager.getMainDeck(),PrefSettings.getSharedPrefs(getBaseContext()).getString("deckPath",AnkiDroidApp.getStorageDirectory())));
-}
- else {
-lockCheckAction=false;
-}
 }
  else if (key.equals("useBackup")) {
 if (lockCheckAction) {
@@ -93,10 +78,13 @@ setReloadDeck();
 }
 }
  else if (key.equals("deckPath")) {
-File decksDirectory=new File(sharedPreferences.getString("deckPath",AnkiDroidApp.getStorageDirectory()));
+File decksDirectory=new File(sharedPreferences.getString("deckPath",AnkiDroidApp.getDefaultAnkiDroidDirectory()));
 if (decksDirectory.exists()) {
 AnkiDroidApp.createNoMediaFileIfMissing(decksDirectory);
 }
+}
+ else if (key.equals("eInkDisplay")) {
+boolean enableAnimation=!eInkDisplayPreference.isChecked();
 }
 }
  catch (BadTokenException e) {

@@ -1,0 +1,15 @@
+{
+  try {
+    byte[] tmp=new byte[4096];
+    int len;
+    while ((len=mInputStream.read(tmp)) != -1) {
+      outstream.write(tmp,0,len);
+      bytesSent+=len;
+      publishProgress();
+    }
+    outstream.flush();
+  }
+  finally {
+    mInputStream.close();
+  }
+}

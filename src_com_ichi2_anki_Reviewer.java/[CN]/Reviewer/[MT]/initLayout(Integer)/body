@@ -24,6 +24,7 @@
       mSetTextIsSelectable=TextView.class.getMethod("setTextIsSelectable",boolean.class);
     }
  catch (    Throwable e) {
+      Log.i(AnkiDroidApp.TAG,"mSetTextIsSelectable could not be found due to a too low Android version (< 3.0)");
       mSetTextIsSelectable=null;
     }
     if (mSetTextIsSelectable != null) {
@@ -50,10 +51,11 @@
     mCardFrame.addView(mNextCard,0);
     mCustomFontStyle=getCustomFontsStyle() + getDefaultFontStyle();
   }
-  if (Integer.parseInt(android.os.Build.VERSION.SDK) < 8 && !mSimpleInterface) {
+  if (!AnkiDroidApp.isFroyoOrLater() && !mSimpleInterface) {
     mCard.setFocusableInTouchMode(true);
   }
   gestureDetector=new GestureDetector(new MyGestureDetector());
+  mProgressBar=(ProgressBar)findViewById(R.id.flashcard_progressbar);
   if (mShakeEnabled) {
     mSensorManager=(SensorManager)getSystemService(Context.SENSOR_SERVICE);
     mSensorManager.registerListener(mSensorListener,mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_NORMAL);
@@ -96,7 +98,7 @@
   mTextBarBlack=(TextView)findViewById(R.id.black_number);
   mTextBarBlue=(TextView)findViewById(R.id.blue_number);
   if (mShowProgressBars) {
-    mSessionYesBar=(View)findViewById(R.id.daily_bar);
+    mSessionProgressTotalBar=(View)findViewById(R.id.daily_bar);
     mSessionProgressBar=(View)findViewById(R.id.session_progress);
     mProgressBars=(LinearLayout)findViewById(R.id.progress_bars);
   }

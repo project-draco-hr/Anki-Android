@@ -1,0 +1,9 @@
+{
+  for (  long id : ids) {
+    ContentValues values=new ContentValues();
+    values.put("usn",usn());
+    values.put("oid",id);
+    values.put("type",type);
+    mDb.insert("graves",null,values);
+  }
+}

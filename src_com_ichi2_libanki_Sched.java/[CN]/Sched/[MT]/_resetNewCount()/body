@@ -1,0 +1,8 @@
+{
+  try {
+    mNewCount=_walkingCount(Sched.class.getDeclaredMethod("_deckNewLimitSingle",JSONObject.class),Sched.class.getDeclaredMethod("_cntFnNew",long.class,int.class));
+  }
+ catch (  NoSuchMethodException e) {
+    throw new RuntimeException(e);
+  }
+}

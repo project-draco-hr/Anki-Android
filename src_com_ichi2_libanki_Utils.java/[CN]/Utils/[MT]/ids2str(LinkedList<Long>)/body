@@ -1,0 +1,12 @@
+{
+  StringBuilder sb=new StringBuilder();
+  sb.append("(");
+  for (  long id : ids) {
+    if (sb.length() > 1) {
+      sb.append(", ");
+    }
+    sb.append(id);
+  }
+  sb.append(")");
+  return sb.toString();
+}

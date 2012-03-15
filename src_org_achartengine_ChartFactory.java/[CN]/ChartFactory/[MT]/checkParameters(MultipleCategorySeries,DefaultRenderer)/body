@@ -1,0 +1,5 @@
+{
+  if (dataset == null || renderer == null || !checkMultipleSeriesItems(dataset,renderer.getSeriesRendererCount())) {
+    throw new IllegalArgumentException("Titles and values should be not null and the dataset number of items should be equal to the number of series renderers");
+  }
+}

@@ -1,0 +1,3 @@
+{
+  return mCol.getDb().queryScalar("SELECT count() FROM (SELECT id FROM cards WHERE did = " + did + " AND queue = 2 and due <= "+ mToday+ " LIMIT "+ lim+ ")");
+}

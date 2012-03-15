@@ -1,24 +1,15 @@
 {
   super.onResume();
-  if ((AnkiDroidApp.zeemoteController() != null) && (AnkiDroidApp.zeemoteController().isConnected())) {
+  if (mZeemoteEnabled && (AnkiDroidApp.zeemoteController() != null) && (AnkiDroidApp.zeemoteController().isConnected())) {
+    Log.d("Zeemote","Adding listener in onResume");
     AnkiDroidApp.zeemoteController().addButtonListener(this);
     adapter=new JoystickToButtonAdapter();
     AnkiDroidApp.zeemoteController().addJoystickListener(adapter);
     adapter.addButtonListener(this);
   }
-  if ((mCurrentContentView == CONTENT_STUDY_OPTIONS || mCurrentContentView == CONTENT_SESSION_COMPLETE) && (mProgressDialog == null || !mProgressDialog.isShowing())) {
-    if (mTextDeckName.getVisibility() != View.VISIBLE) {
-      showDeckInformation(true);
-    }
- else {
-      updateValuesFromDeck();
+  if (mCol != null) {
+    if (Utils.now() > mCol.getSched().getDayCutoff()) {
+      updateValuesFromDeck(true);
     }
   }
-  if (Utils.isNewDay(PrefSettings.getSharedPrefs(getBaseContext()).getLong("lastTimeOpened",0)) && (mCurrentContentView == CONTENT_STUDY_OPTIONS || mCurrentContentView == CONTENT_SESSION_COMPLETE)) {
-    BackupManager.initBackup();
-    if (!DeckTask.taskIsRunning()) {
-      displayProgressDialogAndLoadDeck();
-    }
-  }
-  BroadcastMessages.showDialog();
 }

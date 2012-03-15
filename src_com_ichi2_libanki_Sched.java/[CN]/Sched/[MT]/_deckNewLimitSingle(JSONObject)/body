@@ -1,0 +1,12 @@
+{
+  try {
+    if (g.getBoolean("dyn")) {
+      return mReportLimit;
+    }
+    JSONObject c=mCol.getDecks().confForDid(g.getLong("id"));
+    return Math.max(0,c.getJSONObject("new").getInt("perDay") - g.getJSONArray("newToday").getInt(1));
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

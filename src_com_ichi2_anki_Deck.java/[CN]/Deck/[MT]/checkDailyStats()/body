@@ -1,5 +1,0 @@
-{
-  if (!Utils.genToday(mUtcOffset).toString().equals(mDailyStats.getDay().toString())) {
-    mDailyStats=Stats.dailyStats(this);
-  }
-}

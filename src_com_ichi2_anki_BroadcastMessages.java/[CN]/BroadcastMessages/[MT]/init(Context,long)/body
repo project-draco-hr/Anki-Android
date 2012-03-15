@@ -1,5 +1,0 @@
-{
-  if (Utils.isNewDay(lastTimeOpened)) {
-    PrefSettings.getSharedPrefs(context).edit().putBoolean("showBroadcastMessageToday",true).commit();
-  }
-}

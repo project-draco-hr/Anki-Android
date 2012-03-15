@@ -1,26 +1,29 @@
 {
+  Log.i(AnkiDroidApp.TAG,"onConfigurationChanged");
+  mDontSaveOnStop=true;
+  CharSequence title=mTextDeckName.getText();
+  CharSequence desc=mTextDeckDescription.getText();
+  int descVisibility=mTextDeckDescription.getVisibility();
+  CharSequence newToday=mTextTodayNew.getText();
+  CharSequence lrnToday=mTextTodayLrn.getText();
+  CharSequence revToday=mTextTodayRev.getText();
+  CharSequence newTotal=mTextNewTotal.getText();
+  CharSequence total=mTextTotal.getText();
+  CharSequence eta=mTextETA.getText();
   super.onConfigurationChanged(newConfig);
-  setLanguage(mLocale);
-  hideDeckInformation(false);
-  boolean cramChecked=mToggleCram.isChecked();
-  boolean limitChecked=mToggleLimit.isChecked();
-  boolean limitEnabled=mToggleLimit.isEnabled();
-  boolean nightModeChecekd=mNightMode.isChecked();
-  boolean swapQA=mSwapQA.isChecked();
-  int limitBarVisibility=View.GONE;
-  if (mDailyBar != null) {
-    limitBarVisibility=mGlobalLimitFrame.getVisibility();
-  }
+  mDontSaveOnStop=false;
   initAllContentViews();
-  updateValuesFromDeck();
-  showContentView();
-  mToggleCram.setChecked(cramChecked);
-  mToggleLimit.setChecked(limitChecked);
-  mToggleLimit.setEnabled(limitEnabled);
-  mNightMode.setChecked(nightModeChecekd);
-  mSwapQA.setChecked(swapQA);
-  if (mDailyBar != null) {
-    mGlobalLimitFrame.setVisibility(limitBarVisibility);
-  }
-  showDeckInformation(false);
+  showContentView(mCurrentContentView,false);
+  mTextDeckName.setText(title);
+  mTextDeckName.setVisibility(View.VISIBLE);
+  mTextDeckDescription.setText(desc);
+  mTextDeckDescription.setVisibility(descVisibility);
+  mDeckCounts.setVisibility(View.VISIBLE);
+  mTextTodayNew.setText(newToday);
+  mTextTodayLrn.setText(lrnToday);
+  mTextTodayRev.setText(revToday);
+  mTextNewTotal.setText(newTotal);
+  mTextTotal.setText(total);
+  mTextETA.setText(eta);
+  updateStatisticBars();
 }

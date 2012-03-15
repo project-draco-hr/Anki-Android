@@ -1,0 +1,5 @@
+{
+  for (int k=0; k < points.length; k+=2) {
+    drawText(canvas,getLabel(series.getY(startIndex + k / 2)),points[k],points[k + 1] - renderer.getChartValuesSpacing(),paint,0);
+  }
+}

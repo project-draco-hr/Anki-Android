@@ -1,0 +1,5 @@
+{
+  checkParameters(dataset,renderer);
+  XYChart chart=new BubbleChart(dataset,renderer);
+  return new GraphicalView(context,chart);
+}

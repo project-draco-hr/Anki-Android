@@ -1,0 +1,8 @@
+{
+  XYSeries xySeries=new XYSeries(mTitle);
+  int k=0;
+  for (  double value : mValues) {
+    xySeries.add(++k,value);
+  }
+  return xySeries;
+}

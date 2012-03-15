@@ -1,0 +1,61 @@
+{
+  mType=type;
+  mBackwards=false;
+  mTitle=R.string.stats_forecast;
+  mValueLabels=new int[]{R.string.statistics_young,R.string.statistics_mature};
+  mColors=new int[]{R.color.stats_young,R.color.stats_mature};
+  mAxisTitles=new int[]{type,R.string.stats_cards};
+  int end=0;
+  int chunk=0;
+switch (type) {
+case TYPE_MONTH:
+    end=31;
+  chunk=1;
+break;
+case TYPE_YEAR:
+end=52;
+chunk=7;
+break;
+case TYPE_LIFE:
+end=-1;
+chunk=30;
+break;
+}
+String lim="";
+if (end != -1) {
+lim+=" AND day <= " + end;
+}
+ArrayList<int[]> dues=new ArrayList<int[]>();
+Cursor cur=null;
+try {
+cur=mCol.getDb().getDatabase().rawQuery("SELECT (due - " + mCol.getSched().getToday() + ")/"+ chunk+ " AS day, "+ "count(), "+ "sum(CASE WHEN ivl >= 21 THEN 1 ELSE 0 END) "+ "FROM cards WHERE did IN "+ _limit()+ " AND queue = 2"+ lim+ " GROUP BY day ORDER BY day",null);
+while (cur.moveToNext()) {
+dues.add(new int[]{cur.getInt(0),cur.getInt(1),cur.getInt(2)});
+}
+}
+  finally {
+if (cur != null && !cur.isClosed()) {
+cur.close();
+}
+}
+if (dues.size() == 0 || dues.get(0)[0] > 0) {
+dues.add(0,new int[]{0,0,0});
+}
+if (end == -1 && dues.size() < 2) {
+end=31;
+}
+if (type != TYPE_LIFE && dues.get(dues.size() - 1)[0] < end) {
+dues.add(new int[]{end,0,0});
+}
+ else if (type == TYPE_LIFE && dues.size() < 2) {
+dues.add(new int[]{Math.max(12,dues.get(dues.size() - 1)[0] + 1),0,0});
+}
+mSeriesList=new double[3][dues.size()];
+for (int i=0; i < dues.size(); i++) {
+int[] data=dues.get(i);
+mSeriesList[0][i]=data[0];
+mSeriesList[1][i]=data[1];
+mSeriesList[2][i]=data[2];
+}
+return dues.size() > 0;
+}

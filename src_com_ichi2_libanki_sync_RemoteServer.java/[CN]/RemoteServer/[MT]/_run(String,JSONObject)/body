@@ -1,0 +1,29 @@
+{
+  HttpResponse ret=super.req(cmd,super.getInputStream(data.toString()));
+  if (ret == null) {
+    return null;
+  }
+  String s="";
+  try {
+    int resultType=ret.getStatusLine().getStatusCode();
+    if (resultType == 200) {
+      s=super.stream2String(ret.getEntity().getContent());
+      if (!s.equalsIgnoreCase("null") && s.length() != 0) {
+        return new JSONObject(s);
+      }
+    }
+    JSONObject o=new JSONObject();
+    o.put("errorType",resultType);
+    o.put("errorReason",s.equals("null") ? "null result (" + cmd + ")" : ret.getStatusLine().getReasonPhrase());
+    return o;
+  }
+ catch (  IllegalStateException e) {
+    throw new RuntimeException(e);
+  }
+catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

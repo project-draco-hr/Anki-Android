@@ -1,0 +1,3 @@
+{
+  return mDb.queryScalar("SELECT 1 FROM cards LIMIT 1",false) == 0;
+}

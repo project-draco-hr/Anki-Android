@@ -1,0 +1,39 @@
+{
+  if (skip < 1 && preferences.getLong("lastTimeOpened",0) == 0) {
+    Intent infoIntent=new Intent(this,Info.class);
+    infoIntent.putExtra(Info.TYPE_EXTRA,Info.TYPE_WELCOME);
+    startActivityForResult(infoIntent,SHOW_INFO_WELCOME);
+    if (skip != 0 && UIUtils.getApiLevel() > 4) {
+      ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
+    }
+  }
+ else   if (skip < 2 && !preferences.getString("lastVersion","").equals(AnkiDroidApp.getPkgVersion())) {
+    preferences.edit().putBoolean("showBroadcastMessageToday",true).commit();
+    Intent infoIntent=new Intent(this,Info.class);
+    infoIntent.putExtra(Info.TYPE_EXTRA,Info.TYPE_NEW_VERSION);
+    startActivityForResult(infoIntent,SHOW_INFO_NEW_VERSION);
+    if (skip != 0 && UIUtils.getApiLevel() > 4) {
+      ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
+    }
+  }
+ else   if (skip < 3 && hasErrorFiles()) {
+    Intent i=new Intent(this,Feedback.class);
+    startActivityForResult(i,REPORT_ERROR);
+    if (skip != 0 && UIUtils.getApiLevel() > 4) {
+      ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
+    }
+  }
+ else   if (!AnkiDroidApp.isSdCardMounted()) {
+    showDialog(DIALOG_SD_CARD_NOT_MOUNTED);
+  }
+ else   if (!BackupManager.enoughDiscSpace(mPrefDeckPath)) {
+    showDialog(DIALOG_NO_SPACE_LEFT);
+  }
+ else   if (preferences.getBoolean("noSpaceLeft",false)) {
+    showDialog(DIALOG_BACKUP_NO_SPACE_LEFT);
+    preferences.edit().putBoolean("noSpaceLeft",false).commit();
+  }
+ else   if (mCol == null) {
+    loadCollection();
+  }
+}

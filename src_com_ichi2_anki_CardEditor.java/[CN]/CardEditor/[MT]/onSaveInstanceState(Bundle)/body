@@ -1,10 +1,5 @@
 {
-  if (mDeck != null) {
-    String path=mDeck.getDeckPath();
-    if (path != null) {
-      outState.putString("deckFilename",path);
-      outState.putBoolean("addFact",mAddFact);
-      outState.putInt("caller",mCaller);
-    }
-  }
+  outState.putBoolean("addFact",mAddNote);
+  outState.putInt("caller",mCaller);
+  Log.i(AnkiDroidApp.TAG,"onSaveInstanceState - Ending");
 }

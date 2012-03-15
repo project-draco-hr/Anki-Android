@@ -1,0 +1,87 @@
+{
+  if (name.length() == 0) {
+    return null;
+  }
+  String txt=_fields.get(name);
+  if (txt != null) {
+    return txt;
+  }
+  String[] parts=name.split(":",3);
+  String mod=null, extra=null, tag=null;
+  if (parts.length == 1 || parts[0].length() == 0) {
+    return null;
+  }
+ else   if (parts.length == 2) {
+    mod=parts[0];
+    tag=parts[1];
+  }
+ else   if (parts.length == 3) {
+    mod=parts[0];
+    extra=parts[1];
+    tag=parts[2];
+  }
+  txt=_fields.get(tag);
+  Log.d(AnkiDroidApp.TAG,"Processing field modifier " + mod + ": extra = "+ extra+ ", field "+ tag+ " = "+ txt);
+  if (mod.equals("text")) {
+    if (txt != null) {
+      return Utils.stripHTML(txt);
+    }
+    return "";
+  }
+ else   if (mod.equals("type")) {
+    Log.e(AnkiDroidApp.TAG,"Unimplemented field modifier: " + mod);
+    return null;
+  }
+ else   if (mod.equals("cq") || mod.equals("ca")) {
+    if (txt == null || extra == null)     return "";
+    int ord;
+    try {
+      ord=Integer.parseInt(extra);
+    }
+ catch (    NumberFormatException e) {
+      return "";
+    }
+    if (ord < 0)     return "";
+    String rx="\\{\\{c" + ord + "::(.*?)(?:::(.*?))?\\}\\}";
+    Matcher m=Pattern.compile(rx).matcher(txt);
+    String clozetxt=null;
+    if (mod.equals("ca")) {
+      clozetxt=m.replaceAll("<span class=\"cloze\">$1</span>");
+    }
+ else {
+      StringBuffer sb=new StringBuffer();
+      while (m.find()) {
+        if (m.group(2) != null) {
+          m.appendReplacement(sb,"<span class=\"cloze\">[...$2]</span>");
+        }
+ else {
+          m.appendReplacement(sb,"<span class=\"cloze\">[...]</span>");
+        }
+      }
+      m.appendTail(sb);
+      clozetxt=sb.toString();
+    }
+    if (clozetxt.equals(txt)) {
+      return "";
+    }
+    clozetxt=clozetxt.replaceAll("\\{\\{c[0-9]+::(.*?)(?:::(.*?))?\\}\\}","$1");
+    Log.d(AnkiDroidApp.TAG,"Cloze: ord=" + ord + ", txt="+ clozetxt);
+    return clozetxt;
+  }
+ else   if (mod.equals("kanjionly")) {
+    if (txt == null)     return txt;
+    return txt.replaceAll(rubyr,"$1");
+  }
+ else   if (mod.equals("readingonly")) {
+    if (txt == null)     return txt;
+    return txt.replaceAll(rubyr,"$2");
+  }
+ else   if (mod.equals("furigana")) {
+    if (txt == null)     return txt;
+    return txt.replaceAll(rubyr,"<ruby><rb>$1</rb><rt>$2</rt></ruby>");
+  }
+ else {
+    Log.w(AnkiDroidApp.TAG,"Unknown field modifier: " + mod);
+    return txt;
+  }
+}

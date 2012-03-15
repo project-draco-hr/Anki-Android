@@ -1,0 +1,8 @@
+{
+  if (simple) {
+    return _getQA(false).get("a").replaceAll("<hr[^>]*>","<br>???????????????<br>");
+  }
+ else {
+    return css() + _getQA(false).get("a");
+  }
+}

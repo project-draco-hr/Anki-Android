@@ -1,0 +1,9 @@
+{
+  JSONObject c=current();
+  try {
+    select(c.getLong("id"));
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

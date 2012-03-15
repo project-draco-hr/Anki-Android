@@ -1,27 +1,24 @@
 {
+  Log.i(AnkiDroidApp.TAG,"DownloadMissingMedia");
   HashMap<String,String> missingPaths=new HashMap<String,String>();
   HashMap<String,String> missingSums=new HashMap<String,String>();
-  Deck deck=(Deck)data.data[0];
+  Decks deck=(Decks)data.data[0];
   data.result=deck;
-  String syncName=deck.getDeckName();
+  String syncName="";
   data.success=false;
   data.data=new Object[]{0,0,0};
-  if (!deck.hasKey("mediaURL")) {
-    data.success=true;
-    return data;
-  }
-  String urlbase=deck.getVar("mediaURL");
+  String urlbase="";
   if (urlbase.equals("")) {
     data.success=true;
     return data;
   }
-  String mdir=deck.mediaDir(true);
+  String mdir="";
   int totalMissing=0;
   int missing=0;
   int grabbed=0;
   Cursor cursor=null;
   try {
-    cursor=deck.getDB().getDatabase().rawQuery("SELECT filename, originalPath FROM media",null);
+    cursor=null;
     String path=null;
     String f=null;
     while (cursor.moveToNext()) {
@@ -31,6 +28,7 @@
       if (!file.exists()) {
         missingPaths.put(f,path);
         missingSums.put(f,cursor.getString(1));
+        Log.i(AnkiDroidApp.TAG,"Missing file: " + f);
       }
     }
   }
@@ -65,13 +63,15 @@
         FileOutputStream fos=new FileOutputStream(path);
         while ((readbytes=bis.read(buf,0,4096)) != -1) {
           fos.write(buf,0,readbytes);
+          Log.i(AnkiDroidApp.TAG,"Downloaded " + readbytes + " file: "+ path);
         }
         fos.close();
         sum=missingSums.get(file);
-        if (sum.equals("") || sum.equals(Utils.fileChecksum(path))) {
+        if (true) {
           grabbed++;
         }
  else {
+          Log.i(AnkiDroidApp.TAG,"Downloaded media file " + path + " failed checksum.");
           File f=new File(path);
           f.delete();
           missing++;

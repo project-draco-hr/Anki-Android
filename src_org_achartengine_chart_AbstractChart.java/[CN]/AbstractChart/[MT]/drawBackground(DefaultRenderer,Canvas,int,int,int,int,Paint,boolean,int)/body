@@ -1,0 +1,12 @@
+{
+  if (renderer.isApplyBackgroundColor() || newColor) {
+    if (newColor) {
+      paint.setColor(color);
+    }
+ else {
+      paint.setColor(renderer.getBackgroundColor());
+    }
+    paint.setStyle(Style.FILL);
+    canvas.drawRect(x,y,x + width,y + height,paint);
+  }
+}

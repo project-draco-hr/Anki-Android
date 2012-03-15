@@ -1,0 +1,13 @@
+{
+  LinkedList<Card> old=new LinkedList<Card>();
+  if (mUndo[0] != null) {
+    if ((Integer)mUndo[0] == 1) {
+      old.addAll((LinkedList<Card>)mUndo[2]);
+    }
+    clearUndo();
+  }
+  mUndo[0]=1;
+  mUndo[1]="review";
+  old.add(card.clone());
+  mUndo[2]=old;
+}

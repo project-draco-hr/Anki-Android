@@ -1,0 +1,15 @@
+{
+  int exponent=(int)Math.floor(Math.log10(val));
+  double rval=val * Math.pow(10,-exponent);
+  if (rval > 5.0) {
+    rval=10.0;
+  }
+ else   if (rval > 2.0) {
+    rval=5.0;
+  }
+ else   if (rval > 1.0) {
+    rval=2.0;
+  }
+  rval*=Math.pow(10,exponent);
+  return rval;
+}

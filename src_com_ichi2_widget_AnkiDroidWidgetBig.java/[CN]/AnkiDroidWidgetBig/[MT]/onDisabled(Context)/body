@@ -1,5 +1,6 @@
 {
   super.onDisabled(context);
+  Log.i(AnkiDroidApp.TAG,"BigWidget: Widget disabled");
   SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
   preferences.edit().putBoolean("widgetBigEnabled",false).commit();
 }

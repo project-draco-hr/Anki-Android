@@ -1,0 +1,11 @@
+{
+  if (dataset == null || renderer == null || types == null || dataset.getSeriesCount() != types.length) {
+    throw new IllegalArgumentException("Datasets, renderers and types should be not null and the datasets series count should be equal to the types length");
+  }
+  checkParameters(dataset,renderer);
+  Intent intent=new Intent(context,GraphicalActivity.class);
+  CombinedXYChart chart=new CombinedXYChart(dataset,renderer,types);
+  intent.putExtra(CHART,chart);
+  intent.putExtra(TITLE,activityTitle);
+  return intent;
+}

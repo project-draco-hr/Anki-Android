@@ -1,0 +1,7 @@
+{
+  double minX=mRenderer.getXAxisMin(scale);
+  double maxX=mRenderer.getXAxisMax(scale);
+  double minY=mRenderer.getYAxisMin(scale);
+  double maxY=mRenderer.getYAxisMax(scale);
+  return new double[]{minX,maxX,minY,maxY};
+}

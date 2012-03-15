@@ -1,0 +1,13 @@
+{
+  if (tags == null || tags.size() == 0) {
+    return "";
+  }
+ else {
+    StringBuilder result=new StringBuilder(128);
+    result.append(" ");
+    for (    String tag : tags) {
+      result.append(tag).append(" ");
+    }
+    return result.toString();
+  }
+}

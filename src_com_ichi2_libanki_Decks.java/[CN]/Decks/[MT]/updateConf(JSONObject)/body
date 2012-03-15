@@ -1,0 +1,9 @@
+{
+  try {
+    mDconf.put(g.getLong("id"),g);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  save();
+}

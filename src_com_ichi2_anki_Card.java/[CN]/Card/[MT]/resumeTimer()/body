@@ -1,8 +1,0 @@
-{
-  if (!Double.isNaN(mTimerStarted) && !Double.isNaN(mTimerStopped)) {
-    mTimerStarted+=Utils.now() - mTimerStopped;
-    mTimerStopped=Double.NaN;
-  }
- else {
-  }
-}
