@@ -1,2 +1,49 @@
 {
+  Log.i(AnkiDroidApp.TAG,"updateCard");
+  if (mSimpleInterface) {
+    fillFlashcard(mShowAnimations);
+    return;
+  }
+  Boolean isJapaneseModel=false;
+  content=recalculateHardCodedFontSize(content,mDisplayFontSize);
+  if (mCurrentCard != null) {
+    final String japaneseModelTag="Japanese";
+    int nightBackground=Themes.getNightModeCardBackground(this);
+  }
+ else {
+    mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
+  }
+  int questionStartsAt=content.indexOf("<a name=\"question\"></a><hr/>");
+  String question="";
+  String answer="";
+  Sound.resetSounds();
+  int qa=MetaDB.LANGUAGES_QA_QUESTION;
+  if (sDisplayAnswer) {
+    qa=MetaDB.LANGUAGES_QA_ANSWER;
+  }
+  answer=Sound.parseSounds(mBaseUrl,content,mSpeakText,qa);
+  if (mPrefUseRubySupport && isJapaneseModel) {
+    content=RubyParser.ankiStripKanji(question) + RubyParser.ankiRubyToMarkup(answer);
+  }
+ else {
+    content=question + answer;
+  }
+  content=content.replace("font-weight:600;","font-weight:700;");
+  if (isHebrewFixEnabled()) {
+    content=applyFixForHebrew(content);
+  }
+  if (this.isFenConversionEnabled()) {
+    content=fenToChessboard(content);
+  }
+  Log.i(AnkiDroidApp.TAG,"content card = \n" + content);
+  StringBuilder style=new StringBuilder();
+  style.append(mCustomFontStyle);
+  Log.i(AnkiDroidApp.TAG,"::style::" + style);
+  if (mNightMode) {
+    content=Models.invertColors(content);
+  }
+  mCardContent=new SpannedString(mCardTemplate.replace("::content::",content).replace("::style::",style.toString()));
+  Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
+  fillFlashcard(mShowAnimations);
+  if (!mConfigurationChanged && mPlaySoundsAtStart)   playSounds();
 }
