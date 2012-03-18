@@ -38,7 +38,7 @@
       bos.write(buf.toString().getBytes("UTF-8"));
     }
     bos.close();
-    HttpPost httpPost=new HttpPost(SYNC_URL + method);
+    HttpPost httpPost=new HttpPost(Collection.SYNC_URL + method);
     HttpEntity entity=new ProgressByteEntity(bos.toByteArray());
     httpPost.setEntity(entity);
     httpPost.setHeader("Content-type","multipart/form-data; boundary=" + BOUNDARY);
