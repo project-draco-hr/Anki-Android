@@ -1,8 +1,5 @@
 {
   try {
-    if (d.getBoolean("dyn")) {
-      return mReportLimit;
-    }
     JSONObject c=mCol.getDecks().confForDid(d.getLong("id"));
     return Math.max(0,c.getJSONObject("rev").getInt("perDay") - d.getJSONArray("revToday").getInt(1));
   }

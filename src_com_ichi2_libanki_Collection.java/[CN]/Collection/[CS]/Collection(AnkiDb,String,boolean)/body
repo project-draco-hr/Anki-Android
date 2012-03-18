@@ -16,6 +16,7 @@
   mSessionStartReps=0;
   mSessionStartTime=0;
   mLastSessionStart=0;
-  mSched=new Sched(this);
+  mStdSched=new Sched(this);
+  mSched=mStdSched;
   cleanup();
 }

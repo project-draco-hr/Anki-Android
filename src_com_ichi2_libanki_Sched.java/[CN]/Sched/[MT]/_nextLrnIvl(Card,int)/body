@@ -1,5 +1,6 @@
 {
   if (card.getQueue() == 0) {
+    card.setType(1);
     card.setLeft(_startingLeft(card));
   }
   JSONObject conf=_lrnConf(card);

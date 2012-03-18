@@ -1,0 +1,8 @@
+{
+  for (  Card c : cards()) {
+    if (c.getDid() != mDid && c.template().has("did")) {
+      c.setDid(mDid);
+      c.flush();
+    }
+  }
+}

@@ -4,7 +4,7 @@
       return _nextLrnIvl(card,ease);
     }
  else     if (ease == 1) {
-      JSONObject conf=_lapseConf(card);
+      JSONObject conf=_cardConf(card).getJSONObject("lapse");
       if (conf.getJSONArray("delays").length() > 0) {
         return conf.getJSONArray("delays").getInt(0) * 60;
       }

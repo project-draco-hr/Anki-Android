@@ -91,6 +91,7 @@ long newId=dialogDeckIds.get(item);
 if (mCurrentDid != newId) {
 if (mAddNote) {
 try {
+mEditorNote.setDid(newId);
 mEditorNote.model().put("did",newId);
 mCol.getModels().setChanged();
 }
@@ -120,6 +121,7 @@ origButton.setBackgroundResource(R.drawable.white_btn_small);
 origButton.setLayoutParams(lp);
 origButton.setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
+mCurrentDid=mEditorNote.getDid();
 updateDeck();
 mDeckSelectDialog.dismiss();
 }

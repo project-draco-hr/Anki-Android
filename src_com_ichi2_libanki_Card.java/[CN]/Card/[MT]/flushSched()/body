@@ -12,7 +12,6 @@
   values.put("reps",mReps);
   values.put("lapses",mLapses);
   values.put("left",mLeft);
-  values.put("odue",mODue);
-  values.put("odid",mODid);
+  values.put("edue",mEDue);
   mCol.getDb().update("cards",values,"id = " + mId,null);
 }

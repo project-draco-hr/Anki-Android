@@ -1,0 +1,10 @@
+{
+  if (!mSched.getName().equals("std")) {
+    cleanup();
+    mSched=mStdSched;
+    return true;
+  }
+ else {
+    return false;
+  }
+}

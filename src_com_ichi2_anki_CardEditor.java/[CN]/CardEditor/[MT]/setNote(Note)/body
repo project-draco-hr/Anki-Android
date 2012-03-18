@@ -3,6 +3,7 @@
     if (note == null) {
       boolean firstCard=mEditorNote == null;
       mEditorNote=mCol.newNote();
+      mCurrentDid=mEditorNote.getDid();
       if (firstCard && mCaller == CALLER_STUDYOPTIONS && mCurrentDid != mCol.getDecks().current().getLong("id")) {
         mCurrentDid=mCol.getDecks().current().getLong("id");
         ArrayList<JSONObject> models=mCol.getModels().all();

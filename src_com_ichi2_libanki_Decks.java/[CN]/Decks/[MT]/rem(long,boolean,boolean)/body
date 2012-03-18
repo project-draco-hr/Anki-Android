@@ -6,24 +6,13 @@
   if (!mDecks.containsKey(did)) {
     return;
   }
-  JSONObject deck=get(did);
-  try {
-    if (deck.getBoolean("dyn")) {
-      mCol.getSched().remDyn(did);
-    }
- else {
-      if (childrenToo) {
-        for (        long id : children(did).values()) {
-          rem(id,cardsToo);
-        }
-      }
-      if (cardsToo) {
-        mCol.remCards(cids(did));
-      }
+  if (childrenToo) {
+    for (    long id : children(did).values()) {
+      rem(id,cardsToo);
     }
   }
- catch (  JSONException e) {
-    throw new RuntimeException(e);
+  if (cardsToo) {
+    mCol.remCards(cids(did));
   }
   mDecks.remove(did);
   if (active().contains(did)) {

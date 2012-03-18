@@ -1,14 +1,8 @@
 {
-  JSONObject deck=get(did);
-  if (deck.has("conf")) {
-    try {
-      JSONObject conf=getConf(deck.getLong("conf"));
-      conf.put("dyn",false);
-      return conf;
-    }
- catch (    JSONException e) {
-      throw new RuntimeException(e);
-    }
+  try {
+    return getConf(get(did).getLong("conf"));
   }
-  return deck;
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
 }

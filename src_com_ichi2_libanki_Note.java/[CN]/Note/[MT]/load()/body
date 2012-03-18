@@ -1,18 +1,19 @@
 {
   Cursor cursor=null;
   try {
-    cursor=mCol.getDb().getDatabase().rawQuery("SELECT guid, mid, mod, usn, tags, flds, flags, data FROM notes WHERE id = " + mId,null);
+    cursor=mCol.getDb().getDatabase().rawQuery("SELECT guid, mid, did, mod, usn, tags, flds, flags, data FROM notes WHERE id = " + mId,null);
     if (!cursor.moveToFirst()) {
       Log.w(AnkiDroidApp.TAG,"Notes.load(): No result from query.");
       return;
     }
     mGuId=cursor.getString(0);
     mMid=cursor.getLong(1);
-    mMod=cursor.getLong(2);
-    mUsn=cursor.getInt(3);
-    mFields=Utils.splitFields(cursor.getString(5));
-    mTags=mCol.getTags().split(cursor.getString(4));
-    mData=cursor.getString(6);
+    mDid=cursor.getLong(2);
+    mMod=cursor.getLong(3);
+    mUsn=cursor.getInt(4);
+    mFields=Utils.splitFields(cursor.getString(6));
+    mTags=mCol.getTags().split(cursor.getString(5));
+    mData=cursor.getString(7);
     mScm=mCol.getScm();
   }
   finally {

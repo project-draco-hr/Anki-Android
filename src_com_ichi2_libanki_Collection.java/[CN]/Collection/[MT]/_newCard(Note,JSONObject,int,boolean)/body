@@ -14,12 +14,7 @@
  catch (  JSONException e) {
     did=0;
   }
-  try {
-    card.setDid(did != 0 ? did : note.model().getLong("did"));
-  }
- catch (  JSONException e) {
-    throw new RuntimeException(e);
-  }
+  card.setDid(did != 0 ? did : note.getDid());
   card.setDue(_dueForDid(card.getDid(),due));
   if (flush) {
     card.flush();

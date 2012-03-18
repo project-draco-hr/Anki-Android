@@ -1,6 +1,6 @@
 {
   for (  Object[] n : newerRows(notes,"notes",4)) {
-    mCol.getDb().execute("INSERT OR REPLACE INTO notes VALUES (?,?,?,?,?,?,?,?,?,?,?)",n);
+    mCol.getDb().execute("INSERT OR REPLACE INTO notes VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",n);
     mCol.updateFieldCache(new long[]{(Long)n[0]});
   }
 }

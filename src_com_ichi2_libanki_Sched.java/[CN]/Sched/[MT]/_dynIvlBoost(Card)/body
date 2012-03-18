@@ -1,9 +1,0 @@
-{
-  if (card.getODid() == 0 || card.getType() != 2 || card.getFactor() == 0) {
-    Log.e(AnkiDroidApp.TAG,"error: deck is not a dynamic deck");
-    return 0;
-  }
-  long elapsed=card.getIvl() - card.getODue() - mToday;
-  double factor=((card.getFactor() / 1000.0) + 1.2) / 2.0;
-  return Math.max(1,Math.max(card.getIvl(),(int)(elapsed * factor)));
-}
