@@ -3,9 +3,14 @@
     did=mCol.getDecks().selected();
   }
   JSONObject deck=mCol.getDecks().get(did);
-  if (!deck.has("dyn")) {
-    Log.e(AnkiDroidApp.TAG,"error: deck is not a dynamic deck");
-    return;
+  try {
+    if (deck.getInt("dyn") == 0) {
+      Log.e(AnkiDroidApp.TAG,"error: deck is not a dynamic deck");
+      return;
+    }
+  }
+ catch (  JSONException e1) {
+    throw new RuntimeException(e1);
   }
   remDyn(did);
   String order=_dynOrder(deck);
