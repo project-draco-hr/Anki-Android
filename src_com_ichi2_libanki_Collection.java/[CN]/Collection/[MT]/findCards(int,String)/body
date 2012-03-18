@@ -1,0 +1,11 @@
+{
+  String q="1 = 1";
+  String query;
+  if (false) {
+  }
+ else {
+    query="SELECT c.id FROM cards c, notes n WHERE " + q + " AND c.nid=n.id "+ order;
+  }
+  ArrayList<Long> res=mDb.queryColumn(Long.class,query,0);
+  return res;
+}
