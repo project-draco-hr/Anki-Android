@@ -26,6 +26,9 @@
   View studyoptionsFrame=findViewById(R.id.studyoptions_fragment);
   mFragmented=studyoptionsFrame != null && studyoptionsFrame.getVisibility() == View.VISIBLE;
   Themes.setContentStyle(mainView,Themes.CALLER_DECKPICKER);
+  if (mFragmented) {
+    mainView.setBackgroundResource(R.drawable.white_wallpaper_deckpicker_fragments);
+  }
   registerExternalStorageListener();
   mAddButton=(ImageButton)findViewById(R.id.deckpicker_add);
   mAddButton.setOnClickListener(new OnClickListener(){
