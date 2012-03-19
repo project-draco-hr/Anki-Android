@@ -1,0 +1,35 @@
+{
+  if (deckId != 0) {
+    mCol.getDecks().select(deckId);
+  }
+  if (mFragmented) {
+    StudyOptionsFragment details=(StudyOptionsFragment)getSupportFragmentManager().findFragmentById(R.id.studyoptions_fragment);
+    if (details == null || details.getShownIndex() != id) {
+      details=StudyOptionsFragment.newInstance(id);
+      FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+      ft.replace(R.id.studyoptions_fragment,details);
+      ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+      ft.commit();
+    }
+  }
+ else {
+    mDontSaveOnStop=true;
+    Intent intent=new Intent();
+    intent.putExtra("index",id);
+    intent.setClass(this,StudyOptionsActivity.class);
+    if (deckId != 0) {
+      intent.putExtra(EXTRA_DECK_ID,deckId);
+    }
+    startActivityForResult(intent,SHOW_STUDYOPTIONS);
+    if (deckId != 0) {
+      if (UIUtils.getApiLevel() > 4) {
+        ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.NONE);
+      }
+    }
+ else {
+      if (UIUtils.getApiLevel() > 4) {
+        ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
+      }
+    }
+  }
+}

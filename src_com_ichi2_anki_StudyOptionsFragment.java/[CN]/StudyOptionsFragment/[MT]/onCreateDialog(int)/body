@@ -1,0 +1,20 @@
+{
+  StyledDialog dialog=null;
+  Resources res=getResources();
+  StyledDialog.Builder builder=new StyledDialog.Builder(getActivity());
+switch (id) {
+case DIALOG_STATISTIC_TYPE:
+    dialog=ChartBuilder.getStatisticsDialog(getActivity(),new DialogInterface.OnClickListener(){
+      @Override public void onClick(      DialogInterface dialog,      int which){
+        DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_STATISTICS,mLoadStatisticsHandler,new DeckTask.TaskData(mCol,which,false));
+      }
+    }
+);
+  break;
+case DIALOG_CRAM:
+default :
+dialog=null;
+}
+dialog.setOwnerActivity(getActivity());
+return dialog;
+}

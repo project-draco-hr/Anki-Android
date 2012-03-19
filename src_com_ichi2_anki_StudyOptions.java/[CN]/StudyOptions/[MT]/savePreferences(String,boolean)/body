@@ -1,6 +1,0 @@
-{
-  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
-  Editor editor=preferences.edit();
-  editor.putBoolean(name,value);
-  editor.commit();
-}
