@@ -24,6 +24,7 @@
   mGlobalMatBar.setVisibility(View.INVISIBLE);
   mGlobalBar.setVisibility(View.INVISIBLE);
   mDeckCounts=(LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_deckcounts);
+  mDeckChart=(LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_chart);
   mButtonStart.setOnClickListener(mButtonClickListener);
   mToggleCram.setOnClickListener(mButtonClickListener);
   mToggleNight.setOnClickListener(mButtonClickListener);

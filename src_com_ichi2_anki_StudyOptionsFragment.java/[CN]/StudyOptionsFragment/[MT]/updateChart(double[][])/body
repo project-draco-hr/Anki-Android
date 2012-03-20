@@ -9,7 +9,6 @@
     r=new XYSeriesRenderer();
     r.setColor(res.getColor(R.color.stats_mature));
     renderer.addSeriesRenderer(r);
-    double[][] serieslist=Stats.getSmallDueStats(mCol);
     for (int i=1; i < serieslist.length; i++) {
       XYSeries series=new XYSeries("");
       for (int j=0; j < serieslist[i].length; j++) {
@@ -39,5 +38,9 @@
     renderer.setPanEnabled(true,false);
     GraphicalView chartView=ChartFactory.getBarChartView(getActivity(),dataset,renderer,BarChart.Type.STACKED);
     mSmallChart.addView(chartView,new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
+    if (mDeckChart.getVisibility() == View.INVISIBLE) {
+      mDeckChart.setVisibility(View.VISIBLE);
+      mDeckChart.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_IN,500,0));
+    }
   }
 }

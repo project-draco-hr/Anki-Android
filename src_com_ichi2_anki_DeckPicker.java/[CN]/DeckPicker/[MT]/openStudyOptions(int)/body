@@ -1,7 +1,4 @@
 {
-  if (deckId != 0) {
-    mCol.getDecks().select(deckId);
-  }
   if (mFragmented) {
     Fragment frag=(Fragment)getSupportFragmentManager().findFragmentById(R.id.studyoptions_fragment);
     if (frag == null || !(frag instanceof StudyOptionsFragment) || ((StudyOptionsFragment)frag).getShownIndex() != id) {
@@ -17,9 +14,6 @@
     Intent intent=new Intent();
     intent.putExtra("index",id);
     intent.setClass(this,StudyOptionsActivity.class);
-    if (deckId != 0) {
-      intent.putExtra(EXTRA_DECK_ID,deckId);
-    }
     startActivityForResult(intent,SHOW_STUDYOPTIONS);
     if (UIUtils.getApiLevel() > 4) {
       ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
