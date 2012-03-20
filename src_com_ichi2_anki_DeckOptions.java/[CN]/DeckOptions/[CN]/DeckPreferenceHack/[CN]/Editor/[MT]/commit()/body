@@ -58,9 +58,6 @@
  else       if (entry.getKey().equals("revPerDay")) {
         mOptions.getJSONObject("rev").put("perDay",Integer.parseInt((String)entry.getValue()));
       }
- else       if (entry.getKey().equals("revOrder")) {
-        mOptions.getJSONObject("rev").put("order",Integer.parseInt((String)entry.getValue()));
-      }
  else       if (entry.getKey().equals("revSpaceMax")) {
         mOptions.getJSONObject("rev").put("fuzz",Integer.parseInt((String)entry.getValue()) / 100.0f);
       }
