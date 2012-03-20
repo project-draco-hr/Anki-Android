@@ -2,6 +2,7 @@
   if (container == null) {
     return null;
   }
+  mFragmented=getActivity().getClass() != CramDeckActivity.class;
   View main=inflater.inflate(R.layout.cram_deck,null);
   mCramDeckName=(EditText)main.findViewById(R.id.cram_deck_name);
   mCramDeckName.addTextChangedListener(new TextWatcher(){
@@ -56,7 +57,7 @@
     return null;
   }
   mDeck=mCol.getDecks().current();
-  if (getActivity().getClass() == CramDeckActivity.class) {
+  if (!mFragmented) {
     main.setBackgroundResource(R.drawable.white_wallpaper);
   }
   return main;
