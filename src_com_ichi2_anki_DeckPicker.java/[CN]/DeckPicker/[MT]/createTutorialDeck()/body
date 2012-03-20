@@ -5,6 +5,7 @@
     }
     @Override public void onPostExecute(    TaskData result){
       if (result.getBoolean()) {
+        loadCounts();
         openStudyOptions();
       }
  else {
