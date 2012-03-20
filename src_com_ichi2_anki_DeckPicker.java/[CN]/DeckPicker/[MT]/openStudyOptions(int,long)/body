@@ -3,9 +3,9 @@
     mCol.getDecks().select(deckId);
   }
   if (mFragmented) {
-    StudyOptionsFragment details=(StudyOptionsFragment)getSupportFragmentManager().findFragmentById(R.id.studyoptions_fragment);
-    if (details == null || details.getShownIndex() != id) {
-      details=StudyOptionsFragment.newInstance(id);
+    Fragment frag=(Fragment)getSupportFragmentManager().findFragmentById(R.id.studyoptions_fragment);
+    if (frag == null || !(frag instanceof StudyOptionsFragment) || ((StudyOptionsFragment)frag).getShownIndex() != id) {
+      StudyOptionsFragment details=StudyOptionsFragment.newInstance(id);
       FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
       ft.replace(R.id.studyoptions_fragment,details);
       ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
