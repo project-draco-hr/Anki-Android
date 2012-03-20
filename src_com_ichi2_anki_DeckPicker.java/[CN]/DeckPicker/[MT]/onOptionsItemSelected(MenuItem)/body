@@ -56,6 +56,14 @@ return true;
 case CHECK_DATABASE:
 integrityCheck();
 return true;
+case StudyOptionsActivity.MENU_ROTATE:
+if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+}
+ else {
+this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+}
+return true;
 default :
 return super.onOptionsItemSelected(item);
 }
