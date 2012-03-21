@@ -1,0 +1,23 @@
+{
+switch (item.getItemId()) {
+case android.R.id.home:
+    closeStudyOptions();
+  return true;
+case MENU_PREFERENCES:
+startActivityForResult(new Intent(this,Preferences.class),StudyOptionsFragment.PREFERENCES_UPDATE);
+if (UIUtils.getApiLevel() > 4) {
+ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.FADE);
+}
+return true;
+case MENU_ROTATE:
+if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+}
+ else {
+this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+}
+return true;
+default :
+return super.onOptionsItemSelected(item);
+}
+}

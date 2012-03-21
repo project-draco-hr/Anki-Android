@@ -10,7 +10,7 @@
     dict.put("leechFails",oconf.getJSONObject("lapse").getInt("leechFails"));
     dict.put("leechAction",oconf.getJSONObject("lapse").getInt("leechAction"));
     dict.put("delays",conf.getJSONArray("delays"));
-    dict.put("mult",conf.getInt("mult"));
+    dict.put("mult",conf.getInt("fmult"));
     return dict;
   }
  catch (  JSONException e) {

@@ -1,8 +1,0 @@
-{
-  Intent intent=new Intent(StudyOptions.this,CardEditor.class);
-  intent.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_STUDYOPTIONS);
-  startActivityForResult(intent,ADD_NOTE);
-  if (UIUtils.getApiLevel() > 4) {
-    ActivityTransitionAnimation.slide(StudyOptions.this,ActivityTransitionAnimation.LEFT);
-  }
-}

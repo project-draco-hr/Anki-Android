@@ -18,7 +18,6 @@
     mValues.put("newSeparate",Boolean.toString(newOptions.getBoolean("separate")));
     JSONObject revOptions=mOptions.getJSONObject("rev");
     mValues.put("revPerDay",revOptions.getString("perDay"));
-    mValues.put("revOrder",revOptions.getString("order"));
     mValues.put("revSpaceMax",Integer.toString((int)(revOptions.getDouble("fuzz") * 100)));
     mValues.put("revSpaceMin",revOptions.getString("minSpace"));
     mValues.put("easyBonus",Integer.toString((int)(revOptions.getDouble("ease4") * 100)));

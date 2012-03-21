@@ -24,7 +24,7 @@
       }
       if (!mRevQueue.isEmpty()) {
         try {
-          if (mCol.getDecks().get(did).getBoolean("dyn")) {
+          if (mCol.getDecks().get(did).getInt("dyn") != 0) {
           }
  else {
             Random r=new Random();

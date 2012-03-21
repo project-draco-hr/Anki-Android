@@ -1,0 +1,11 @@
+{
+  if (mFragmented) {
+    FragmentTransaction ft=getFragmentManager().beginTransaction();
+    ft.remove(CramDeckFragment.this);
+    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+    ft.commit();
+  }
+ else {
+    ((CramDeckActivity)getActivity()).closeCramDeckAdder();
+  }
+}

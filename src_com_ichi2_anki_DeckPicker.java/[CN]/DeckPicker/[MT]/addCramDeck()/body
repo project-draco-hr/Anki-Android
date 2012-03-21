@@ -1,0 +1,22 @@
+{
+  if (mFragmented) {
+    Fragment frag=(Fragment)getSupportFragmentManager().findFragmentById(R.id.studyoptions_fragment);
+    if (!(frag instanceof CramDeckFragment)) {
+      CramDeckFragment details=CramDeckFragment.newInstance(CRAM_DECK_FRAGMENT);
+      FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+      ft.replace(R.id.studyoptions_fragment,details);
+      ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+      ft.commit();
+    }
+  }
+ else {
+    mDontSaveOnStop=true;
+    Intent intent=new Intent();
+    intent.putExtra("index",CRAM_DECK_FRAGMENT);
+    intent.setClass(this,CramDeckActivity.class);
+    startActivityForResult(intent,ADD_CRAM_DECK);
+    if (UIUtils.getApiLevel() > 4) {
+      ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
+    }
+  }
+}

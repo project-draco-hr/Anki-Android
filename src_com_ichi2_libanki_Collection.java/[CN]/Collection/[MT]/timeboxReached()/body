@@ -1,12 +1,15 @@
 {
-  if (mSessionStartTime == 0) {
-    return false;
+  try {
+    if (mConf.getLong("timeLim") != 0) {
+      return null;
+    }
+    double elapsed=Utils.now() - mStartTime;
+    if (elapsed > mConf.getLong("timeLim")) {
+      return new Long[]{mConf.getLong("timeLim"),(long)(mRepsToday - mStartReps)};
+    }
   }
-  if (mSessionTimeLimit != 0 && Utils.now() > (mSessionStartTime + mSessionTimeLimit)) {
-    return true;
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
   }
-  if (mSessionRepLimit != 0 && mSessionRepLimit <= mRepsToday - mSessionStartReps) {
-    return true;
-  }
-  return false;
+  return null;
 }

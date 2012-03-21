@@ -1,6 +1,6 @@
 {
   try {
-    if (g.getBoolean("dyn")) {
+    if (g.getInt("dyn") != 0) {
       return mReportLimit;
     }
     JSONObject c=mCol.getDecks().confForDid(g.getLong("id"));

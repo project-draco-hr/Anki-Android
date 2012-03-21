@@ -1,3 +1,5 @@
 {
-  overridePendingTransition(R.anim.none,R.anim.none);
+  if (AnkiDroidApp.isEclairOrLater()) {
+    ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.NONE);
+  }
 }

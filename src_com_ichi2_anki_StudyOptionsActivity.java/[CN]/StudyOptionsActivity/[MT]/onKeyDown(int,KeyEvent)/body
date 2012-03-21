@@ -1,0 +1,8 @@
+{
+  if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+    Log.i(AnkiDroidApp.TAG,"StudyOptions - onBackPressed()");
+    closeStudyOptions();
+    return true;
+  }
+  return super.onKeyDown(keyCode,event);
+}

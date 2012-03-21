@@ -8,7 +8,7 @@
   }
   JSONObject deck=get(did);
   try {
-    if (deck.getBoolean("dyn")) {
+    if (deck.getInt("dyn") != 0) {
       mCol.getSched().remDyn(did);
     }
  else {

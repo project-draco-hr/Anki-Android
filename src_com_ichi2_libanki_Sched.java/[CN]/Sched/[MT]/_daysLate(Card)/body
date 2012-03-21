@@ -1,3 +1,4 @@
 {
-  return Math.max(0,mToday - card.getDue());
+  long due=card.getODid() != 0 ? card.getODue() : card.getDue();
+  return Math.max(0,mToday - due);
 }
