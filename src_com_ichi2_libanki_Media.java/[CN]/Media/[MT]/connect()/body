@@ -1,3 +1,8 @@
 {
   String path=mDir + ".db";
+  File file=new File(path);
+  mMediaDb=AnkiDatabaseManager.getDatabase(path);
+  if (!file.exists()) {
+    _initDB();
+  }
 }

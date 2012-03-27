@@ -1,0 +1,7 @@
+{
+  if (mMediaDb != null) {
+    mMediaDb.execute("create table media (fname text primary key, csum text, mod int)");
+    mMediaDb.execute("create table meta (dirMod int, usn int); insert into meta values (0, 0)");
+    mMediaDb.execute("create table log (fname text primary key, type int)");
+  }
+}
