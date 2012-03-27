@@ -1,4 +1,9 @@
 {
   super(context,data,resource,from,to);
   this.fontSizeScalePcent=fontSizeScalePcent;
+  mTibetan=AnkiDroidApp.isTibetan();
+  mTibTypeface=null;
+  if (mTibetan) {
+    mTibTypeface=AnkiDroidApp.getTibetanTypeface();
+  }
 }

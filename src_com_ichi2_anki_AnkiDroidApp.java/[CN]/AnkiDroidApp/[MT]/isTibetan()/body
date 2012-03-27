@@ -1,0 +1,14 @@
+{
+  SharedPreferences preferences=PrefSettings.getSharedPrefs(getInstance());
+  if (preferences.getBoolean("enableTibetan",false)) {
+    bTibetan=true;
+  }
+ else {
+    bTibetan=false;
+  }
+  if (bTibetan && mTibTypeface == null) {
+    String fileName="fonts/DDC_Uchen.ttf";
+    mTibTypeface=Typeface.createFromAsset(getInstance().getAssets(),fileName);
+  }
+  return bTibetan;
+}
