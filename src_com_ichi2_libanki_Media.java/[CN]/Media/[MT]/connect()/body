@@ -1,8 +1,16 @@
 {
   String path=mDir + ".db";
-  File file=new File(path);
-  mMediaDb=AnkiDatabaseManager.getDatabase(path);
-  if (!file.exists()) {
-    _initDB();
+  File mediaDbFile=new File(path);
+  if (!mediaDbFile.exists()) {
+    InputStream stream;
+    try {
+      stream=AnkiDroidApp.getAppResources().getAssets().open("collection.media.db");
+      Utils.writeToFile(stream,path);
+      stream.close();
+    }
+ catch (    IOException e) {
+      Log.e(AnkiDroidApp.TAG,"Error initialising " + path,e);
+    }
   }
+  mMediaDb=AnkiDatabaseManager.getDatabase(path);
 }
