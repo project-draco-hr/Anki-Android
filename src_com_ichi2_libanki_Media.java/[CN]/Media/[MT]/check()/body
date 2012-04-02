@@ -1,0 +1,32 @@
+{
+  File mdir=new File(getDir());
+  List<List<String>> result=new ArrayList<List<String>>();
+  List<String> unused=new ArrayList<String>();
+  Normalizer.Form form=Normalizer.Form.NFD;
+  Set<String> normrefs=new HashSet<String>();
+  for (  String f : allMedia()) {
+    if (Normalizer.isNormalized(f,form)) {
+      f=Normalizer.normalize(f,form);
+    }
+    normrefs.add(f);
+  }
+  for (  File file : mdir.listFiles()) {
+    if (file.isDirectory()) {
+      continue;
+    }
+    String nfile=file.getName();
+    if (!Normalizer.isNormalized(nfile,form)) {
+      nfile=Normalizer.normalize(nfile,form);
+    }
+    if (!normrefs.contains(nfile)) {
+      unused.add(file.getName());
+    }
+ else {
+      normrefs.remove(nfile);
+    }
+  }
+  List<String> nohave=new ArrayList<String>(normrefs);
+  result.add(nohave);
+  result.add(unused);
+  return result;
+}

@@ -1,9 +1,9 @@
 {
-  Matcher styleMatcher=stylePattern.matcher(s);
-  s=styleMatcher.replaceAll("");
-  Matcher scriptMatcher=scriptPattern.matcher(s);
-  s=scriptMatcher.replaceAll("");
-  Matcher tagMatcher=tagPattern.matcher(s);
-  s=tagMatcher.replaceAll("");
+  Matcher htmlMatcher=stylePattern.matcher(s);
+  s=htmlMatcher.replaceAll("");
+  htmlMatcher=scriptPattern.matcher(s);
+  s=htmlMatcher.replaceAll("");
+  htmlMatcher=tagPattern.matcher(s);
+  s=htmlMatcher.replaceAll("");
   return entsToTxt(s);
 }

@@ -1,0 +1,8 @@
+{
+  Matcher m=null;
+  for (  Pattern p : sMediaRegexps) {
+    m=p.matcher(txt);
+    txt=m.replaceAll("");
+  }
+  return txt;
+}

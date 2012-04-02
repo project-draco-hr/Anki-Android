@@ -1,0 +1,11 @@
+{
+  StringBuffer sb=new StringBuffer();
+  Matcher matcher=sEntityPattern.matcher(latex);
+  while (matcher.find()) {
+    matcher.appendReplacement(sb,Html.fromHtml(matcher.group(1)).toString());
+  }
+  matcher.appendTail(sb);
+  latex=sb.toString().replaceAll("<br( /)?>","\n");
+  latex=Utils.stripHTML(latex);
+  return latex;
+}
