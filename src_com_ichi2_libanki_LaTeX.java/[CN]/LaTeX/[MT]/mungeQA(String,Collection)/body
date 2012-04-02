@@ -1,0 +1,22 @@
+{
+  StringBuffer sb=new StringBuffer();
+  String contentLeft=html;
+  Matcher matcher=sStandardPattern.matcher(contentLeft);
+  while (matcher.find()) {
+    matcher.appendReplacement(sb,_imgLink(col,matcher.group(1)));
+  }
+  matcher.appendTail(sb);
+  contentLeft=html;
+  matcher=sExpressionPattern.matcher(contentLeft);
+  while (matcher.find()) {
+    matcher.appendReplacement(sb,_imgLink(col,"$" + matcher.group(1) + "$"));
+  }
+  matcher.appendTail(sb);
+  contentLeft=html;
+  matcher=sMathPattern.matcher(contentLeft);
+  while (matcher.find()) {
+    matcher.appendReplacement(sb,_imgLink(col,"\\begin{displaymath}" + matcher.group(1) + "\\end{displaymath}"));
+  }
+  matcher.appendTail(sb);
+  return sb.toString();
+}

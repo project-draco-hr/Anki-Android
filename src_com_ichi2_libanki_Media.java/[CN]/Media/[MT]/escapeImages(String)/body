@@ -1,0 +1,18 @@
+{
+  Matcher m=sMediaRegexps[1].matcher(string);
+  StringBuffer sb=new StringBuffer();
+  while (m.find()) {
+    if (sRemoteFilePattern.matcher(m.group(2)).find()) {
+      m.appendReplacement(sb,m.group());
+    }
+ else {
+      String tagBegin=m.group(1).substring(0,m.start(2));
+      String fname=m.group(2);
+      String tagEnd=m.group(1).substring(m.end(2));
+      String tag=tagBegin + Uri.encode(fname) + tagEnd;
+      m.appendReplacement(sb,tag);
+    }
+  }
+  m.appendTail(sb);
+  return sb.toString();
+}

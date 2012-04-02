@@ -1,4 +1,5 @@
 {
+  mCol=col;
   mDir=col.getPath().replaceFirst("\\.anki2$",".media");
   File fd=new File(mDir);
   if (!fd.exists()) {
