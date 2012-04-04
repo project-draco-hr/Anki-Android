@@ -8,7 +8,9 @@
     soundAvailable=true;
     String sound=matcher.group(1);
     String soundPath=soundDir + Uri.encode(sound);
-    if (!sSoundPaths.containsKey(qa))     sSoundPaths.put(qa,new ArrayList<String>());
+    if (!sSoundPaths.containsKey(qa)) {
+      sSoundPaths.put(qa,new ArrayList<String>());
+    }
     sSoundPaths.get(qa).add(soundPath);
     String soundMarker=matcher.group();
     int markerStart=contentLeft.indexOf(soundMarker);
