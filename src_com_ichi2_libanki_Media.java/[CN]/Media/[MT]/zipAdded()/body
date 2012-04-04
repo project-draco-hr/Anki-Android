@@ -1,0 +1,52 @@
+{
+  File f=new File(mCol.getPath().replaceFirst("collection\\.anki2$","tmpsync.zip"));
+  String sql="select fname from log where type = " + Integer.toString(MEDIA_ADD);
+  List<String> filenames=mMediaDb.queryColumn(String.class,sql,0);
+  List<String> fnames=new ArrayList<String>();
+  try {
+    ZipOutputStream zos=new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(f)));
+    JSONObject files=new JSONObject();
+    int cnt=0;
+    long sz=0;
+    byte buffer[]=new byte[2048];
+    boolean finished=true;
+    for (    String fname : filenames) {
+      fnames.add(fname);
+      BufferedInputStream bis=new BufferedInputStream(new FileInputStream(fname),2048);
+      ZipEntry entry=new ZipEntry(Integer.toString(cnt));
+      zos.putNextEntry(entry);
+      int count=0;
+      while ((count=bis.read(buffer,0,2048)) != -1) {
+        zos.write(buffer,0,count);
+      }
+      bis.close();
+      files.put(Integer.toString(cnt),fname);
+      File file=new File(fname);
+      sz+=file.length();
+      if (sz > SYNC_ZIP_SIZE) {
+        finished=false;
+        break;
+      }
+      cnt+=1;
+    }
+    if (finished) {
+      zos.putNextEntry(new ZipEntry("_finished"));
+    }
+    zos.putNextEntry(new ZipEntry("_meta"));
+    zos.write(files.toString().getBytes());
+    zos.close();
+  }
+ catch (  FileNotFoundException e) {
+    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
+    return null;
+  }
+catch (  IOException e) {
+    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
+    return null;
+  }
+catch (  JSONException e) {
+    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
+    return null;
+  }
+  return new Pair<File,List<String>>(f,fnames);
+}
