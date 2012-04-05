@@ -1,0 +1,9 @@
+{
+  if (!fnames.isEmpty()) {
+    ArrayList<Object[]> args=new ArrayList<Object[]>();
+    for (    String fname : fnames) {
+      args.add(new Object[]{fname});
+    }
+    mMediaDb.executeMany("delete from log where fname = ?",args);
+  }
+}
