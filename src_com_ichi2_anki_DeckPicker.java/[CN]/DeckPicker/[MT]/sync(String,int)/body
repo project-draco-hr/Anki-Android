@@ -7,7 +7,7 @@
     }
  else {
       mSyncButton.setClickable(false);
-      Connection.sync(mSyncListener,new Connection.Payload(new Object[]{hkey,false,syncConflictResolution}));
+      Connection.sync(mSyncListener,new Connection.Payload(new Object[]{hkey,false,syncConflictResolution,syncMediaUsn}));
     }
   }
 }

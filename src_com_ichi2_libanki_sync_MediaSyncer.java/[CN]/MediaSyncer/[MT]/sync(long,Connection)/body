@@ -1,0 +1,40 @@
+{
+  con.publishProgress(R.string.sync_media_find);
+  mCol.getMedia().findChanges();
+  long lUsn=mCol.getMedia().usn();
+  if (lUsn == mediaUsn && !mCol.getMedia().hasChanged()) {
+    return "noChanges";
+  }
+  con.publishProgress(R.string.sync_media_remove);
+  List<String> lRem=removed();
+  JSONArray rRem=mServer.remove(lRem,lUsn);
+  remove(rRem);
+  con.publishProgress(R.string.sync_media_from_server);
+  while (true) {
+    long usn=mCol.getMedia().usn();
+    File zip=mServer.files(usn,mCol.getPath().replaceFirst("collection\\.anki2$","tmpSyncFromServer.zip"));
+    if (zip == null) {
+      break;
+    }
+    if (addFiles(zip)) {
+      break;
+    }
+  }
+  con.publishProgress(R.string.sync_media_to_server);
+  while (true) {
+    Pair<File,List<String>> zipAdded=files();
+    if (zipAdded.second == null || zipAdded.second.size() == 0) {
+      break;
+    }
+    long usn=mServer.addFiles(zipAdded.first);
+    zipAdded.first.delete();
+    mCol.getMedia().forgetAdded(zipAdded.second);
+    mCol.getMedia().setUsn(usn);
+  }
+  long sMediaSanity=mServer.mediaSanity();
+  long cMediaSanity=mediaSanity();
+  if (sMediaSanity != cMediaSanity) {
+    throw new RuntimeException("Media sanity check failed. Please copy and paste the text below:\n" + cMediaSanity + "\n"+ sMediaSanity);
+  }
+  return "success";
+}

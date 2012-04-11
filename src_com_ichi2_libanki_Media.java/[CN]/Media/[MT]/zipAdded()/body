@@ -1,5 +1,5 @@
 {
-  File f=new File(mCol.getPath().replaceFirst("collection\\.anki2$","tmpsync.zip"));
+  File f=new File(mCol.getPath().replaceFirst("collection\\.anki2$","tmpSyncToServer.zip"));
   String sql="select fname from log where type = " + Integer.toString(MEDIA_ADD);
   List<String> filenames=mMediaDb.queryColumn(String.class,sql,0);
   List<String> fnames=new ArrayList<String>();
