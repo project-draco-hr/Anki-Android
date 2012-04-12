@@ -1,44 +1,30 @@
 {
   boolean finished=false;
   ZipFile z=null;
-  try {
-    z=new ZipFile(zipData,ZipFile.OPEN_READ);
-  }
- catch (  ZipException e) {
-    Log.e(AnkiDroidApp.TAG,"Error opening " + zipData.getAbsolutePath() + " as a zip file.",e);
-    return false;
-  }
-catch (  IOException e) {
-    Log.e(AnkiDroidApp.TAG,"Error accessing " + zipData.getAbsolutePath(),e);
-  }
   ArrayList<Object[]> media=new ArrayList<Object[]>();
   long sizecnt=0;
-  ZipEntry metaEntry=z.getEntry("_meta");
-  if (metaEntry.getSize() >= 100000) {
-    Log.e(AnkiDroidApp.TAG,"Size for _meta entry found too big (" + z.getEntry("_meta").getSize() + ")");
-    return false;
-  }
   byte buffer[]=new byte[100000];
-  try {
-    z.getInputStream(metaEntry).read(buffer);
-  }
- catch (  IOException e) {
-    Log.e(AnkiDroidApp.TAG,"Error accessing _meta file in zip " + zipData.getAbsolutePath(),e);
-  }
   JSONObject meta=null;
   try {
+    z=new ZipFile(zipData,ZipFile.OPEN_READ);
+    ZipEntry metaEntry=z.getEntry("_meta");
+    if (metaEntry.getSize() >= 100000) {
+      Log.e(AnkiDroidApp.TAG,"Size for _meta entry found too big (" + z.getEntry("_meta").getSize() + ")");
+      return false;
+    }
+    z.getInputStream(metaEntry).read(buffer);
     meta=new JSONObject(buffer.toString());
-  }
- catch (  JSONException e) {
-    Log.e(AnkiDroidApp.TAG,"Error constructing JSONObject for meta entry",e);
-    return false;
-  }
-  ZipEntry usnEntry=z.getEntry("_usn");
-  try {
+    ZipEntry usnEntry=z.getEntry("_usn");
     z.getInputStream(usnEntry).read(buffer);
   }
- catch (  IOException e) {
-    Log.e(AnkiDroidApp.TAG,"Error accessing _usn file in zip " + zipData.getAbsolutePath(),e);
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+catch (  ZipException e) {
+    throw new RuntimeException(e);
+  }
+catch (  IOException e) {
+    throw new RuntimeException(e);
   }
   int nextUsn=Integer.parseInt(buffer.toString());
   for (  ZipEntry zentry : Collections.list(z.entries())) {
@@ -61,8 +47,8 @@ catch (  IOException e) {
       try {
         Utils.writeToFile(z.getInputStream(zentry),name);
       }
- catch (      IOException e1) {
-        Log.e(AnkiDroidApp.TAG,"Error writing synced media file " + name,e1);
+ catch (      IOException e) {
+        throw new RuntimeException(e);
       }
       String csum=Utils.fileChecksum(name);
       media.add(new Object[]{name,csum,_mtime(name)});

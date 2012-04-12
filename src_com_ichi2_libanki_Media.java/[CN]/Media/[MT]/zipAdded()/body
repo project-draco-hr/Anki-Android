@@ -37,16 +37,13 @@
     zos.close();
   }
  catch (  FileNotFoundException e) {
-    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
-    return null;
+    throw new RuntimeException(e);
   }
 catch (  IOException e) {
-    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
-    return null;
+    throw new RuntimeException(e);
   }
 catch (  JSONException e) {
-    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
-    return null;
+    throw new RuntimeException(e);
   }
   return new Pair<File,List<String>>(f,fnames);
 }

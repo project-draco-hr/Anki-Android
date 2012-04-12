@@ -10,7 +10,7 @@
     }
   }
  catch (  SQLException e) {
-    Log.e(AnkiDroidApp.TAG,"Error when checking for changed media",e);
+    throw new RuntimeException(e);
   }
  finally {
     if (cur != null) {
@@ -33,7 +33,7 @@
     }
  else {
       if ((f.lastModified() / 1000) != cache.get(fname).second) {
-        if (Utils.fileChecksum(f.getAbsolutePath()).compareTo(cache.get(fname).first) != 0) {
+        if (_checksum(f.getAbsolutePath()).compareTo(cache.get(fname).first) != 0) {
           added.add(fname);
         }
       }
