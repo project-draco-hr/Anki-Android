@@ -14,9 +14,13 @@
       for (      JSONObject m : mModels.all()) {
         updateFieldCache(Utils.arrayList2array(mModels.nids(m)));
       }
+      mConf.put("nextPos",mDb.queryScalar("SELECT max(due) + 1 FROM cards WHERE type = 0",false));
       mDb.getDatabase().setTransactionSuccessful();
     }
-  finally {
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+ finally {
       mDb.getDatabase().endTransaction();
     }
   }

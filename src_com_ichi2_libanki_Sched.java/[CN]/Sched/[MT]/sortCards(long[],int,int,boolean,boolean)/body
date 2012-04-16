@@ -17,7 +17,7 @@
     int low=mCol.getDb().queryScalar("SELECT min(due) FROM cards WHERE due >= " + start + " AND type = 0 AND id NOT IN "+ scids,false);
     if (low != 0) {
       int shiftby=high - low + 1;
-      mCol.getDb().execute("UPDATE cards SET mod = " + now + ", usn = "+ mCol.usn()+ ", due = due + "+ shiftby+ " WHERE id NOT IN "+ scids+ " AND due >= "+ low);
+      mCol.getDb().execute("UPDATE cards SET mod = " + now + ", usn = "+ mCol.usn()+ ", due = due + "+ shiftby+ " WHERE id NOT IN "+ scids+ " AND due >= "+ low+ " AND queue = 0");
     }
   }
   ArrayList<Object[]> d=new ArrayList<Object[]>();

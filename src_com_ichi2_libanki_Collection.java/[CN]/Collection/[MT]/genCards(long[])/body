@@ -38,7 +38,7 @@
           rem.add(have.get(nid).get(tord));
         }
         if (!doHave && avail.contains(tord)) {
-          data.add(new Object[]{ts,nid,cur.getLong(2),tord,now,usn,cur.getLong(0)});
+          data.add(new Object[]{ts,nid,cur.getLong(2),tord,now,usn,nextID("pos")});
           ts+=1;
         }
       }

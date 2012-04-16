@@ -1,6 +1,6 @@
 {
-  String[] path=name.split("::");
   String s="";
+  String[] path=name.split("::");
   for (int i=0; i < path.length - 1; i++) {
     if (i == 0) {
       s=path[0];
@@ -8,6 +8,9 @@
  else {
       s=s + "::" + path[i];
     }
-    id(s);
+    long did=id(s);
+    s=name(did);
   }
+  name=s + "::" + path[path.length - 1];
+  return name;
 }
