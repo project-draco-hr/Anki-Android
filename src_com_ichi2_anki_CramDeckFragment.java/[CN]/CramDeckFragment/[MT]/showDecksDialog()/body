@@ -1,2 +1,46 @@
 {
+  if (mDecksDialog == null) {
+    ArrayList<CharSequence> dialogDeckItems=new ArrayList<CharSequence>();
+    final ArrayList<Long> dialogDeckIds=new ArrayList<Long>();
+    ArrayList<JSONObject> decks=mCol.getDecks().all();
+    String currentName;
+    try {
+      currentName=mDeck.getString("name");
+      for (      JSONObject d : decks) {
+        if (d.getString("name").equals(currentName)) {
+          decks.remove(d);
+        }
+      }
+    }
+ catch (    JSONException e1) {
+      throw new RuntimeException(e1);
+    }
+    Collections.sort(decks,new JSONNameComparator());
+    StyledDialog.Builder builder=new StyledDialog.Builder(getActivity());
+    builder.setTitle(R.string.deck);
+    for (    JSONObject d : decks) {
+      try {
+        dialogDeckItems.add(DeckPicker.readableDeckName(d.getString("name").split("::")));
+        dialogDeckIds.add(d.getLong("id"));
+      }
+ catch (      JSONException e) {
+        throw new RuntimeException(e);
+      }
+    }
+    String[] items=new String[dialogDeckItems.size()];
+    dialogDeckItems.toArray(items);
+    builder.setItems(items,new DialogInterface.OnClickListener(){
+      public void onClick(      DialogInterface dialog,      int item){
+        try {
+          mDeckLabel.setText("\'deck:" + mCol.getDecks().get(dialogDeckIds.get(item)).getString("name") + "\'");
+        }
+ catch (        JSONException e) {
+          throw new RuntimeException(e);
+        }
+      }
+    }
+);
+    mDecksDialog=builder.create();
+  }
+  mDecksDialog.show();
 }
