@@ -16,7 +16,7 @@ catch (    IOException e) {
       throw new RuntimeException(e);
     }
     if (!s.equalsIgnoreCase("null") && s.length() != 0) {
-      return Long.getLong(s);
+      return Long.parseLong(s);
     }
   }
   Log.e(AnkiDroidApp.TAG,"Error in RemoteMediaServer.mediaSanity(): " + ret.getStatusLine().getReasonPhrase());

@@ -24,6 +24,7 @@
   while (true) {
     Pair<File,List<String>> zipAdded=files();
     if (zipAdded.second == null || zipAdded.second.size() == 0) {
+      zipAdded.first.delete();
       break;
     }
     long usn=mServer.addFiles(zipAdded.first);

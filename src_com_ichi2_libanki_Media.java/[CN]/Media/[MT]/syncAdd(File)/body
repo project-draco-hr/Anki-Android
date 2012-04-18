@@ -5,17 +5,14 @@
   long sizecnt=0;
   byte buffer[]=new byte[100000];
   JSONObject meta=null;
+  int nextUsn=0;
   try {
     z=new ZipFile(zipData,ZipFile.OPEN_READ);
     ZipEntry metaEntry=z.getEntry("_meta");
-    if (metaEntry.getSize() >= 100000) {
-      Log.e(AnkiDroidApp.TAG,"Size for _meta entry found too big (" + z.getEntry("_meta").getSize() + ")");
-      return false;
-    }
-    z.getInputStream(metaEntry).read(buffer);
-    meta=new JSONObject(buffer.toString());
+    meta=new JSONObject(Utils.convertStreamToString(z.getInputStream(metaEntry)));
     ZipEntry usnEntry=z.getEntry("_usn");
-    z.getInputStream(usnEntry).read(buffer);
+    String usnstr=Utils.convertStreamToString(z.getInputStream(usnEntry));
+    nextUsn=Integer.parseInt(usnstr);
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);
@@ -26,17 +23,16 @@ catch (  ZipException e) {
 catch (  IOException e) {
     throw new RuntimeException(e);
   }
-  int nextUsn=Integer.parseInt(buffer.toString());
   for (  ZipEntry zentry : Collections.list(z.entries())) {
     sizecnt+=zentry.getSize();
     if (sizecnt > 100 * 1024 * 1024) {
       Log.e(AnkiDroidApp.TAG,"Media zip file exceeds 100MB uncompressed, aborting unzipping");
       return false;
     }
-    if (zentry.getName() == "_meta" || zentry.getName() == "_usn") {
+    if (zentry.getName().compareTo("_meta") == 0 || zentry.getName().compareTo("_usn") == 0) {
       continue;
     }
- else     if (zentry.getName() == "_finished") {
+ else     if (zentry.getName().compareTo("_finished") == 0) {
       finished=true;
     }
  else {
@@ -45,12 +41,12 @@ catch (  IOException e) {
         continue;
       }
       try {
-        Utils.writeToFile(z.getInputStream(zentry),name);
+        Utils.writeToFile(z.getInputStream(zentry),getDir() + "/" + name);
       }
  catch (      IOException e) {
         throw new RuntimeException(e);
       }
-      String csum=Utils.fileChecksum(name);
+      String csum=Utils.fileChecksum(getDir() + "/" + name);
       media.add(new Object[]{name,csum,_mtime(name)});
       mMediaDb.execute("delete from log where fname = ?",new String[]{name});
     }

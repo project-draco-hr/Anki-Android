@@ -4,7 +4,7 @@
     if (f == "") {
       continue;
     }
-    File file=new File(f);
+    File file=new File(getDir() + "/" + f);
     if (file.exists()) {
       file.delete();
     }

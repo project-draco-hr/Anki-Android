@@ -3,7 +3,7 @@
   Map<String,Boolean> used=new HashMap<String,Boolean>();
   Cursor cur=null;
   try {
-    cur=mMediaDb.getDatabase().query("media",new String[]{"name","csum","mod"},null,null,null,null,null);
+    cur=mMediaDb.getDatabase().query("media",new String[]{"fname","csum","mod"},null,null,null,null,null);
     while (cur.moveToNext()) {
       cache.put(cur.getString(0),new Pair<String,Long>(cur.getString(1),cur.getLong(1)));
       used.put(cur.getString(0),false);
