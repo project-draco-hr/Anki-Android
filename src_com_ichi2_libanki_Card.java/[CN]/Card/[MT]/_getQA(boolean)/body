@@ -1,7 +1,7 @@
 {
   if (mQA == null || reload) {
     mQA=new HashMap<String,String>();
-    Note n=note();
+    Note n=note(reload);
     JSONObject m=model();
     Object[] data;
     try {

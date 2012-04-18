@@ -1,6 +1,7 @@
 {
   if (card.getType() == 2) {
-    card.setDue(card.getODue());
+    card.setDue(Math.max(mToday + 1,card.getODue()));
+    card.setODue(0);
   }
  else {
     _rescheduleNew(card,conf,early);

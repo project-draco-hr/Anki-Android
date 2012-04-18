@@ -14,7 +14,7 @@
     return 0;
   }
   if (name.matches(".*::.*")) {
-    _ensureParents(name);
+    name=_ensureParents(name);
   }
   JSONObject g;
   long id;
