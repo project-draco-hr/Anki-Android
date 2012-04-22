@@ -47,6 +47,12 @@
         int tord=t.getInt("ord");
         boolean doHave=have.containsKey(nid) && have.get(nid).containsKey(tord);
         if (!doHave) {
+          long ndid=t.getLong("did");
+          if (ndid != 0) {
+            did=ndid;
+          }
+          if (getDecks().isDyn(did)) {
+          }
           data.add(new Object[]{ts,nid,cur.getLong(2),tord,now,usn,nextID("pos")});
           ts+=1;
         }

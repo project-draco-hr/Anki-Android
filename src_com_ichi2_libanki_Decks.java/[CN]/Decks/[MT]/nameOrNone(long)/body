@@ -1,0 +1,12 @@
+{
+  JSONObject deck=get(did,false);
+  if (deck != null) {
+    try {
+      return deck.getString("name");
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  return null;
+}
