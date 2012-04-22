@@ -1,0 +1,30 @@
+{
+  JSONObject data=new JSONObject();
+  try {
+    data.put("fnames",fnames);
+    data.put("minUsn",minUsn);
+    HttpResponse ret=super.req("remove",super.getInputStream(data.toString()));
+    if (ret == null) {
+      return null;
+    }
+    String s="";
+    int resultType=ret.getStatusLine().getStatusCode();
+    if (resultType == 200) {
+      s=super.stream2String(ret.getEntity().getContent());
+      if (!s.equalsIgnoreCase("null") && s.length() != 0) {
+        return new JSONArray(s);
+      }
+    }
+    Log.e(AnkiDroidApp.TAG,"Error in RemoteMediaServer.remove(): " + ret.getStatusLine().getReasonPhrase());
+    return new JSONArray();
+  }
+ catch (  IllegalStateException e) {
+    throw new RuntimeException(e);
+  }
+catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

@@ -9,7 +9,7 @@
       stream.close();
     }
  catch (    IOException e) {
-      Log.e(AnkiDroidApp.TAG,"Error initialising " + path,e);
+      throw new RuntimeException(e);
     }
   }
   mMediaDb=AnkiDatabaseManager.getDatabase(path);

@@ -1,56 +1,38 @@
 {
   boolean finished=false;
   ZipFile z=null;
-  try {
-    z=new ZipFile(zipData,ZipFile.OPEN_READ);
-  }
- catch (  ZipException e) {
-    Log.e(AnkiDroidApp.TAG,"Error opening " + zipData.getAbsolutePath() + " as a zip file.",e);
-    return false;
-  }
-catch (  IOException e) {
-    Log.e(AnkiDroidApp.TAG,"Error accessing " + zipData.getAbsolutePath(),e);
-  }
   ArrayList<Object[]> media=new ArrayList<Object[]>();
   long sizecnt=0;
-  ZipEntry metaEntry=z.getEntry("_meta");
-  if (metaEntry.getSize() >= 100000) {
-    Log.e(AnkiDroidApp.TAG,"Size for _meta entry found too big (" + z.getEntry("_meta").getSize() + ")");
-    return false;
-  }
   byte buffer[]=new byte[100000];
-  try {
-    z.getInputStream(metaEntry).read(buffer);
-  }
- catch (  IOException e) {
-    Log.e(AnkiDroidApp.TAG,"Error accessing _meta file in zip " + zipData.getAbsolutePath(),e);
-  }
   JSONObject meta=null;
+  int nextUsn=0;
   try {
-    meta=new JSONObject(buffer.toString());
+    z=new ZipFile(zipData,ZipFile.OPEN_READ);
+    ZipEntry metaEntry=z.getEntry("_meta");
+    meta=new JSONObject(Utils.convertStreamToString(z.getInputStream(metaEntry)));
+    ZipEntry usnEntry=z.getEntry("_usn");
+    String usnstr=Utils.convertStreamToString(z.getInputStream(usnEntry));
+    nextUsn=Integer.parseInt(usnstr);
   }
  catch (  JSONException e) {
-    Log.e(AnkiDroidApp.TAG,"Error constructing JSONObject for meta entry",e);
-    return false;
+    throw new RuntimeException(e);
   }
-  ZipEntry usnEntry=z.getEntry("_usn");
-  try {
-    z.getInputStream(usnEntry).read(buffer);
+catch (  ZipException e) {
+    throw new RuntimeException(e);
   }
- catch (  IOException e) {
-    Log.e(AnkiDroidApp.TAG,"Error accessing _usn file in zip " + zipData.getAbsolutePath(),e);
+catch (  IOException e) {
+    throw new RuntimeException(e);
   }
-  int nextUsn=Integer.parseInt(buffer.toString());
   for (  ZipEntry zentry : Collections.list(z.entries())) {
     sizecnt+=zentry.getSize();
     if (sizecnt > 100 * 1024 * 1024) {
       Log.e(AnkiDroidApp.TAG,"Media zip file exceeds 100MB uncompressed, aborting unzipping");
       return false;
     }
-    if (zentry.getName() == "_meta" || zentry.getName() == "_usn") {
+    if (zentry.getName().compareTo("_meta") == 0 || zentry.getName().compareTo("_usn") == 0) {
       continue;
     }
- else     if (zentry.getName() == "_finished") {
+ else     if (zentry.getName().compareTo("_finished") == 0) {
       finished=true;
     }
  else {
@@ -59,12 +41,12 @@ catch (  IOException e) {
         continue;
       }
       try {
-        Utils.writeToFile(z.getInputStream(zentry),name);
+        Utils.writeToFile(z.getInputStream(zentry),getDir() + "/" + name);
       }
- catch (      IOException e1) {
-        Log.e(AnkiDroidApp.TAG,"Error writing synced media file " + name,e1);
+ catch (      IOException e) {
+        throw new RuntimeException(e);
       }
-      String csum=Utils.fileChecksum(name);
+      String csum=Utils.fileChecksum(getDir() + "/" + name);
       media.add(new Object[]{name,csum,_mtime(name)});
       mMediaDb.execute("delete from log where fname = ?",new String[]{name});
     }
