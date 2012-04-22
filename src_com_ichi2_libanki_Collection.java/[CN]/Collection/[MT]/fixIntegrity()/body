@@ -15,6 +15,10 @@
         updateFieldCache(Utils.arrayList2array(mModels.nids(m)));
       }
       mConf.put("nextPos",mDb.queryScalar("SELECT max(due) + 1 FROM cards WHERE type = 0",false));
+      ids=mDb.queryColumn(Long.class,"SELECT id FROM cards WHERE queue = 2 AND due > 10000",0);
+      if (ids.size() > 0) {
+        mDb.execute("UPDATE cards SET due = 0, mod = " + Utils.intNow() + ", usn = "+ usn()+ " WHERE id IN "+ Utils.ids2str(Utils.arrayList2array(ids)));
+      }
       mDb.getDatabase().setTransactionSuccessful();
     }
  catch (    JSONException e) {

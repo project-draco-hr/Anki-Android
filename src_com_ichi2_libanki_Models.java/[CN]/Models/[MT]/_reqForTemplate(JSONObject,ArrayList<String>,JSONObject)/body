@@ -2,12 +2,8 @@
   try {
     ArrayList<String> a=new ArrayList<String>();
     ArrayList<String> b=new ArrayList<String>();
-    String cloze="";
-    JSONArray reqstrs=new JSONArray();
-    if (t.has("cloze")) {
-    }
     for (    String f : flds) {
-      a.add(cloze.length() > 0 ? cloze : "1");
+      b.add("1");
       b.add("");
     }
     Object[] data;
@@ -32,7 +28,7 @@
       }
     }
     if (req.length() > 0) {
-      return new Object[]{type,req,reqstrs};
+      return new Object[]{type,req};
     }
     type="any";
     req=new JSONArray();
@@ -46,7 +42,7 @@
         req.put(i);
       }
     }
-    return new Object[]{type,req,reqstrs};
+    return new Object[]{type,req};
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);
