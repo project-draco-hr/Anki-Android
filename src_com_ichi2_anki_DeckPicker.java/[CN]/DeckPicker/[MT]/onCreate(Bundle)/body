@@ -128,7 +128,9 @@
 );
   mDeckListView.setOnItemClickListener(mDeckSelHandler);
   mDeckListView.setAdapter(mDeckListAdapter);
-  mDeckListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+  if (mFragmented) {
+    mDeckListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+  }
   registerForContextMenu(mDeckListView);
   showStartupScreensAndDialogs(preferences,0);
   if (mSwipeEnabled) {
