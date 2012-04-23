@@ -1,5 +1,8 @@
 {
   _updateCutoff();
+  if (mClearOverdue) {
+    removeFailed(true);
+  }
   _resetLrn();
   _resetRev();
   _resetNew();

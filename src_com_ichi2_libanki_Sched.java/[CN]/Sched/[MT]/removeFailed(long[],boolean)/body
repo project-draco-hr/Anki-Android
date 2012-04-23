@@ -1,0 +1,13 @@
+{
+  String extra;
+  if (ids != null && ids.length > 0) {
+    extra=" AND id IN " + Utils.ids2str(ids);
+  }
+ else {
+    extra=" AND did IN " + Utils.ids2str(mCol.getDecks().allIds());
+  }
+  if (expiredOnly) {
+    extra+=" AND odue <= " + mToday;
+  }
+  mCol.getDb().execute("UPDATE cards SET due = odue, queue = 2, mod = " + Utils.intNow() + ", usn = "+ mCol.usn()+ " WHERE queue = 1 AND type = 2 "+ extra);
+}
