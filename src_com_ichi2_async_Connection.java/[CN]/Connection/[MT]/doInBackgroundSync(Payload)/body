@@ -39,7 +39,6 @@
     }
   }
  else {
-    mediaUsn=(Integer)data.data[0];
     try {
       server=new FullSyncer(col,hkey,this);
       if (conflictResolution.equals("upload")) {
