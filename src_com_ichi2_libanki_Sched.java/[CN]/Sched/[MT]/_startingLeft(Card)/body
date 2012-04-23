@@ -1,6 +1,6 @@
 {
   try {
-    JSONObject conf=_newConf(card);
+    JSONObject conf=_lrnConf(card);
     return conf.getJSONArray("delays").length();
   }
  catch (  JSONException e) {

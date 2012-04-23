@@ -1,8 +1,3 @@
 {
-  try {
-    return get(did).getString("name");
-  }
- catch (  JSONException e) {
-    throw new RuntimeException(e);
-  }
+  return name(did,false);
 }

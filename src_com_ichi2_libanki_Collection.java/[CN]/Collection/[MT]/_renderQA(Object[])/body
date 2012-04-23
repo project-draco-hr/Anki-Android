@@ -11,7 +11,13 @@
   try {
     fields.put("Type",(String)model.get("name"));
     fields.put("Deck",mDecks.name((Long)data[3]));
-    JSONObject template=model.getJSONArray("tmpls").getJSONObject((Integer)data[4]);
+    JSONObject template;
+    if (model.getInt("type") == Sched.MODEL_STD) {
+      template=model.getJSONArray("tmpls").getJSONObject((Integer)data[4]);
+    }
+ else {
+      template=model.getJSONArray("tmpls").getJSONObject(0);
+    }
     fields.put("Card",template.getString("name"));
     Models.fieldParser fparser=new Models.fieldParser(fields);
     HashMap<String,String> d=new HashMap<String,String>();

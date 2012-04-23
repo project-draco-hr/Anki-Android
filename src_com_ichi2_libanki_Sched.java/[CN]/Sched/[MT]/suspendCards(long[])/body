@@ -1,3 +1,5 @@
 {
+  remFromDyn(ids);
+  removeFailed(ids);
   mCol.getDb().execute("UPDATE cards SET queue = -1, mod = " + Utils.intNow() + ", usn = "+ mCol.usn()+ " WHERE id IN "+ Utils.ids2str(ids));
 }
