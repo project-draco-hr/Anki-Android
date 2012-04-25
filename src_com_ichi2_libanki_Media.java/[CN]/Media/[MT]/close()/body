@@ -1,5 +1,5 @@
 {
-  mMediaDb.closeDatabase();
+  AnkiDatabaseManager.closeDatabase(mMediaDbFilename);
   mMediaDb=null;
   mCol=null;
 }
