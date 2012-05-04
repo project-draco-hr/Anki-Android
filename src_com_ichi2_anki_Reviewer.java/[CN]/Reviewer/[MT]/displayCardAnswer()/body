@@ -6,6 +6,9 @@
   sDisplayAnswer=true;
   setFlipCardAnimation();
   String answer=mCurrentCard.getAnswer(mSimpleInterface);
+  if (typeAnswer()) {
+    answer=typeAnsAnswerFilter(answer);
+  }
   String displayString="";
   if (mSimpleInterface) {
     mCardContent=Html.fromHtml(answer);
@@ -24,7 +27,7 @@
       mAnswerField.setVisibility(View.GONE);
       if (mCurrentCard != null) {
         String userAnswer=mAnswerField.getText().toString();
-        Matcher matcher=sSpanPattern.matcher(Utils.stripHTMLMedia(ArabicUtilities.reshapeSentence(comparedFieldAnswer,true)));
+        Matcher matcher=sSpanPattern.matcher(Utils.stripHTMLMedia(ArabicUtilities.reshapeSentence(mTypeCorrect,true)));
         String correctAnswer=matcher.replaceAll("");
         matcher=sBrPattern.matcher(correctAnswer);
         correctAnswer=matcher.replaceAll("\n");
@@ -35,7 +38,7 @@
         Log.i(AnkiDroidApp.TAG,"correct answer = " + correctAnswer);
         DiffEngine diff=new DiffEngine();
         StringBuffer span=new StringBuffer();
-        span.append("<span class=\"").append(comparedFieldClass).append("\">");
+        span.append("<span style=\"font-family: '").append(mTypeFont).append("'; font-size: ").append(mTypeSize).append("px\">");
         span.append(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer)));
         span.append("</span>");
         span.append("<br/>").append(answer);
