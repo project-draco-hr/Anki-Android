@@ -5,13 +5,20 @@
     if (lf == 0) {
       return false;
     }
-    if (lf >= card.getLapses() && (card.getLapses() - lf) % Math.max(lf / 2,1) == 0) {
+    if (card.getLapses() >= lf && (card.getLapses() - lf) % Math.max(lf / 2,1) == 0) {
       Note n=card.note();
       n.addTag("leech");
       n.flush();
       if (conf.getInt("leechAction") == 0) {
-        suspendCards(new long[]{card.getId()});
-        card.load();
+        if (card.getODue() != 0) {
+          card.setDue(card.getODue());
+        }
+        if (card.getODid() != 0) {
+          card.setDid(card.getODid());
+        }
+        card.setODue(0);
+        card.setODid(0);
+        card.setQueue(-1);
       }
       return true;
     }

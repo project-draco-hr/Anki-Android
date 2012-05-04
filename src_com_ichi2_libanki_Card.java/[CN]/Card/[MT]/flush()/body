@@ -1,25 +1,2 @@
 {
-  mMod=Utils.intNow();
-  mUsn=mCol.usn();
-  StringBuilder sb=new StringBuilder();
-  sb.append("INSERT OR REPLACE INTO cards VALUES (");
-  sb.append(mId).append(", ");
-  sb.append(mNid).append(", ");
-  sb.append(mDid).append(", ");
-  sb.append(mOrd).append(", ");
-  sb.append(mMod).append(", ");
-  sb.append(mUsn).append(", ");
-  sb.append(mType).append(", ");
-  sb.append(mQueue).append(", ");
-  sb.append(mDue).append(", ");
-  sb.append(mIvl).append(", ");
-  sb.append(mFactor).append(", ");
-  sb.append(mReps).append(", ");
-  sb.append(mLapses).append(", ");
-  sb.append(mLeft).append(", ");
-  sb.append(mODue).append(", ");
-  sb.append(mODid).append(", ");
-  sb.append(mFlags).append(", ");
-  sb.append("\"").append(mData).append("\")");
-  mCol.getDb().execute(sb.toString());
 }
