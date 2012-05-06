@@ -52,8 +52,10 @@
             did=ndid;
           }
           if (getDecks().isDyn(did)) {
+            did=1;
           }
-          data.add(new Object[]{ts,nid,cur.getLong(2),tord,now,usn,nextID("pos")});
+          did=mDecks.get(did).getLong("id");
+          data.add(new Object[]{ts,nid,did,tord,now,usn,nextID("pos")});
           ts+=1;
         }
       }

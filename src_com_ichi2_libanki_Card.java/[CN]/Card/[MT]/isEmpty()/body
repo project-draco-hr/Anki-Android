@@ -1,0 +1,7 @@
+{
+  ArrayList<Integer> ords=mCol.getModels().availOrds(model(),Utils.joinFields(note().getFields()));
+  if (ords.contains(mOrd)) {
+    return true;
+  }
+  return false;
+}
