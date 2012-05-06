@@ -24,16 +24,16 @@
         }
       }
     }
- else     if (mDeckList.size() > 0 && mDeckList.size() == decks.size() - 1) {
+ else {
+      m.put("sep","cen");
+    }
+    if (mDeckList.size() > 0 && mDeckList.size() == decks.size() - 1) {
       if (name.length == 1) {
         m.put("sep","ful");
       }
  else {
         m.put("sep","bot");
       }
-    }
- else {
-      m.put("sep","cen");
     }
     mDeckList.add(m);
   }
