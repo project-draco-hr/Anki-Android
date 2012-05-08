@@ -1,0 +1,12 @@
+{
+  Pattern re=Pattern.compile("\\{\\{c" + idx + "::(.+?)\\}\\}");
+  Matcher m=re.matcher(txt);
+  if (!m.find()) {
+    return null;
+  }
+  String result=m.group(1);
+  while (m.find()) {
+    result+=", " + m.group(1);
+  }
+  return result;
+}

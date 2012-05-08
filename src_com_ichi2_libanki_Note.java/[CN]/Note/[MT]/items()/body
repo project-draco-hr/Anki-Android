@@ -1,7 +1,8 @@
 {
-  String[][] result=new String[mFMap.length][2];
-  for (int i=0; i < mFMap.length; i++) {
-    result[i][0]=mFMap[i];
+  String[][] result=new String[mFMap.size()][2];
+  for (  String fname : mFMap.keySet()) {
+    int i=mFMap.get(fname).intValue();
+    result[i][0]=fname;
     result[i][1]=mFields[i];
   }
   return result;
