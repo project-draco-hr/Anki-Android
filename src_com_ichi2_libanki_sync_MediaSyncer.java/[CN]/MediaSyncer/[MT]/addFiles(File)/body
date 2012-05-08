@@ -1,0 +1,5 @@
+{
+  boolean result=mCol.getMedia().syncAdd(zip);
+  zip.delete();
+  return result;
+}

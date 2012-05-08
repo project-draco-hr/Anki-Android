@@ -1,7 +1,7 @@
 {
   Resources res=getResources();
   switchVisibility(mFlipCardLayout,View.GONE);
-  boolean lrnCard=mSched.lrnButtons(mCurrentCard);
+  boolean lrnCard=mSched.answerButtons(mCurrentCard) == 3;
   if (lrnCard) {
     mEase1.setText(res.getString(R.string.ease1_successive));
     mEase2.setText(res.getString(R.string.ease2_successive));

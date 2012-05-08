@@ -19,7 +19,7 @@
   JSONObject g;
   long id;
   try {
-    g=new JSONObject(defaultDeck);
+    g=new JSONObject(type);
     g.put("name",name);
     id=Utils.intNow(1000);
     while (mDecks.containsKey(id)) {

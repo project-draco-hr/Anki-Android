@@ -8,7 +8,7 @@
       Utils.copyFile(new File(opath),newMediaFile);
     }
  catch (    IOException e) {
-      Log.e(AnkiDroidApp.TAG,"Could not copy file " + opath + " to location "+ dst,e);
+      throw new RuntimeException(e);
     }
     return base;
   }
@@ -39,7 +39,7 @@
     Utils.copyFile(new File(opath),newMediaFile);
   }
  catch (  IOException e) {
-    Log.e(AnkiDroidApp.TAG,"Could not copy file " + opath + " to location "+ newMediaFile.getAbsolutePath(),e);
+    throw new RuntimeException(e);
   }
   return newMediaFile.getName();
 }

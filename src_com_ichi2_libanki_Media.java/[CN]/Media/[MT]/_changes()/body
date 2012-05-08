@@ -1,0 +1,49 @@
+{
+  Map<String,Pair<String,Long>> cache=new HashMap<String,Pair<String,Long>>();
+  Map<String,Boolean> used=new HashMap<String,Boolean>();
+  Cursor cur=null;
+  try {
+    cur=mMediaDb.getDatabase().query("media",new String[]{"fname","csum","mod"},null,null,null,null,null);
+    while (cur.moveToNext()) {
+      cache.put(cur.getString(0),new Pair<String,Long>(cur.getString(1),cur.getLong(1)));
+      used.put(cur.getString(0),false);
+    }
+  }
+ catch (  SQLException e) {
+    throw new RuntimeException(e);
+  }
+ finally {
+    if (cur != null) {
+      cur.close();
+    }
+  }
+  List<String> added=new ArrayList<String>();
+  List<String> removed=new ArrayList<String>();
+  File mediaDir=new File(getDir());
+  for (  File f : mediaDir.listFiles()) {
+    if (f.isDirectory()) {
+      continue;
+    }
+    String fname=f.getName();
+    if (fname.compareTo("thumbs.db") == 0) {
+      continue;
+    }
+    if (!cache.containsKey(fname)) {
+      added.add(fname);
+    }
+ else {
+      if ((f.lastModified() / 1000) != cache.get(fname).second) {
+        if (_checksum(f.getAbsolutePath()).compareTo(cache.get(fname).first) != 0) {
+          added.add(fname);
+        }
+      }
+      used.put(fname,true);
+    }
+  }
+  for (  String fname : used.keySet()) {
+    if (!used.get(fname)) {
+      removed.add(fname);
+    }
+  }
+  return new Pair<List<String>,List<String>>(added,removed);
+}

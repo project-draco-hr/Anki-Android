@@ -6,13 +6,18 @@
   StringBuilder style=new StringBuilder();
   try {
     BufferedReader styleReader=new BufferedReader(new InputStreamReader(new FileInputStream(styleFile)));
-    while (true) {
-      String line=styleReader.readLine();
-      if (line == null) {
-        break;
+    try {
+      while (true) {
+        String line=styleReader.readLine();
+        if (line == null) {
+          break;
+        }
+        style.append(line);
+        style.append('\n');
       }
-      style.append(line);
-      style.append('\n');
+    }
+  finally {
+      styleReader.close();
     }
   }
  catch (  IOException e) {

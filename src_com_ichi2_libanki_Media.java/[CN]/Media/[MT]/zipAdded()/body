@@ -1,5 +1,5 @@
 {
-  File f=new File(mCol.getPath().replaceFirst("collection\\.anki2$","tmpsync.zip"));
+  File f=new File(mCol.getPath().replaceFirst("collection\\.anki2$","tmpSyncToServer.zip"));
   String sql="select fname from log where type = " + Integer.toString(MEDIA_ADD);
   List<String> filenames=mMediaDb.queryColumn(String.class,sql,0);
   List<String> fnames=new ArrayList<String>();
@@ -37,16 +37,13 @@
     zos.close();
   }
  catch (  FileNotFoundException e) {
-    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
-    return null;
+    throw new RuntimeException(e);
   }
 catch (  IOException e) {
-    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
-    return null;
+    throw new RuntimeException(e);
   }
 catch (  JSONException e) {
-    Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
-    return null;
+    throw new RuntimeException(e);
   }
   return new Pair<File,List<String>>(f,fnames);
 }

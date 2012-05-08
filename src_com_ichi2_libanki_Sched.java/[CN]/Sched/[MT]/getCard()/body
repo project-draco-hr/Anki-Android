@@ -1,5 +1,8 @@
 {
   _checkDay();
+  if (!mHaveQueues) {
+    reset();
+  }
   Card card=_getCard();
   if (card != null) {
     card.startTimer();

@@ -1,0 +1,8 @@
+{
+  long mod=mMediaDb.queryLongScalar("select dirMod from meta");
+  long mtime=_mtime(getDir());
+  if (mod != 0 && mod == mtime) {
+    return 0;
+  }
+  return mtime;
+}
