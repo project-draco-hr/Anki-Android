@@ -12,12 +12,17 @@
     }
     publishProgress(new TaskData(res.getString(R.string.open_collection)));
     Log.i(AnkiDroidApp.TAG,"doInBackgroundOpenCollection - File exists -> Loading collection...");
-    col=Collection.openCollection(collectionFile);
-    SharedPreferences prefs=PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext());
-    if (prefs.contains("createTutorial") && prefs.getBoolean("createTutorial",false)) {
-      prefs.edit().remove("createTutorial").commit();
-      publishProgress(new TaskData(res.getString(R.string.tutorial_load)));
-      doInBackgroundLoadTutorial(new TaskData(col));
+    try {
+      col=Collection.openCollection(collectionFile);
+      SharedPreferences prefs=PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext());
+      if (prefs.contains("createTutorial") && prefs.getBoolean("createTutorial",false)) {
+        prefs.edit().remove("createTutorial").commit();
+        publishProgress(new TaskData(res.getString(R.string.tutorial_load)));
+        doInBackgroundLoadTutorial(new TaskData(col));
+      }
+    }
+ catch (    RuntimeException e) {
+      BackupManager.restoreCollectionIfMissing(collectionFile);
     }
   }
  else {
@@ -27,9 +32,15 @@
   if (col == null) {
     return new TaskData(col);
   }
-  if (reset) {
-    col.getSched().reset();
+  try {
+    if (reset) {
+      col.getSched().reset();
+    }
+    TreeSet<Object[]> decks=col.getSched().deckDueTree(false);
+    return new TaskData(col,decks,0);
   }
-  TreeSet<Object[]> decks=col.getSched().deckDueTree(false);
-  return new TaskData(col,decks,0);
+ catch (  RuntimeException e) {
+    col=null;
+    return new TaskData(col);
+  }
 }
