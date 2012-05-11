@@ -20,7 +20,7 @@
     }
     JSONObject model=col.getModels().byName(title);
     if (model == null) {
-      model=col.getModels().addBasicModel(title,false);
+      model=col.getModels().addBasicModel(col,title);
     }
     model.put("did",did);
     String[] questions=res.getStringArray(R.array.tutorial_questions);

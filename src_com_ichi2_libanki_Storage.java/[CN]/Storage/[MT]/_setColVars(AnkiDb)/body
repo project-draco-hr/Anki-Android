@@ -1,0 +1,23 @@
+{
+  try {
+    JSONObject g=new JSONObject(Decks.defaultDeck);
+    g.put("id",1);
+    g.put("name","Default");
+    g.put("conf",1);
+    g.put("mod",Utils.intNow());
+    JSONObject gc=new JSONObject(Decks.defaultConf);
+    gc.put("id",1);
+    JSONObject ag=new JSONObject();
+    ag.put("1",g);
+    JSONObject agc=new JSONObject();
+    agc.put("1",gc);
+    ContentValues values=new ContentValues();
+    values.put("conf",Decks.defaultConf);
+    values.put("decks",ag.toString());
+    values.put("dconf",agc.toString());
+    db.update("col",values);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

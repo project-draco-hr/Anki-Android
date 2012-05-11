@@ -1,0 +1,23 @@
+{
+  Models mm=col.getModels();
+  JSONObject m=mm.newModel("Cloze");
+  try {
+    m.put("type",Sched.MODEL_CLOZE);
+    String txt="Text";
+    JSONObject fm=mm.newField(txt);
+    mm.addField(m,fm);
+    fm=mm.newField("Extra");
+    mm.addField(m,fm);
+    JSONObject t=mm.newTemplate("Cloze");
+    String fmt="{{cloze:" + txt + "}}";
+    m.put("css",m.getString("css") + ".cloze {" + "font-weight: bold;"+ "color: blue;"+ "}");
+    t.put("qfmt",fmt);
+    t.put("afmt",fmt + "<br>\n{{Extra}}");
+    mm.addTemplate(m,t);
+    mm.add(m);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  return m;
+}

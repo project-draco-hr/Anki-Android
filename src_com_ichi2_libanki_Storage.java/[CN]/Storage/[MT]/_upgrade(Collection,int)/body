@@ -1,0 +1,53 @@
+{
+  try {
+    if (ver < 3) {
+      for (      JSONObject d : col.getDecks().all()) {
+        d.put("dyn",0);
+        d.put("collapsed",false);
+        col.getDecks().save(d);
+      }
+    }
+    if (ver < 4) {
+      col.modSchema();
+      ArrayList<JSONObject> clozes=new ArrayList<JSONObject>();
+      for (      JSONObject m : col.getModels().all()) {
+        if (!m.getJSONArray("tmpls").getJSONObject(0).getString("qfmt").contains("{{cloze:")) {
+          m.put("type",Sched.MODEL_STD);
+        }
+ else {
+          clozes.add(m);
+        }
+      }
+      for (      JSONObject m : clozes) {
+        _upgradeClozeModel(col,m);
+      }
+      col.getDb().execute("UPDATE col SET ver = 4");
+    }
+    if (ver < 5) {
+      col.getDb().execute("UPDATE cards SET odue = 0 WHERE queue = 2");
+      col.getDb().execute("UPDATE col SET ver = 5");
+    }
+    if (ver < 6) {
+      col.modSchema();
+      for (      JSONObject m : col.getModels().all()) {
+        m.put("css",new JSONObject(Models.defaultModel).getString("css"));
+        JSONArray ar=m.getJSONArray("tmpls");
+        for (int i=0; i < ar.length(); i++) {
+          JSONObject t=ar.getJSONObject(i);
+          m.put("css",m.getString("css") + "\n" + t.getString("css").replace(".card ",".card" + t.getInt("ord") + 1));
+          t.remove("css");
+        }
+        col.getModels().save(m);
+      }
+      col.getDb().execute("UPDATE col SET ver = 6");
+    }
+    if (ver < 7) {
+      col.modSchema();
+      col.getDb().execute("UPDATE cards SET odue = 0 WHERE (type = 1 OR queue = 2) AND NOT odid");
+      col.getDb().execute("UPDATE col SET ver = 7");
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

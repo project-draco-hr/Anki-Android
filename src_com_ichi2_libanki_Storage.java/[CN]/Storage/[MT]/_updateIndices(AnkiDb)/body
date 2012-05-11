@@ -1,0 +1,3 @@
+{
+  db.execute("create index if not exists ix_notes_usn on notes (usn);" + "create index if not exists ix_cards_usn on cards (usn);" + "create index if not exists ix_revlog_usn on revlog (usn);"+ "create index if not exists ix_cards_nid on cards (nid);"+ "create index if not exists ix_cards_sched on cards (did, queue, due);"+ "create index if not exists ix_revlog_cid on revlog (cid);"+ "create index if not exists ix_notes_csum on notes (csum);)");
+}
