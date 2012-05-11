@@ -19,5 +19,5 @@
     db.execute("UPDATE col SET var = 3");
     _updateIndices(db);
   }
-  return db.queryScalar("SELECT ver FROM col");
+  return ver;
 }
