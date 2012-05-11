@@ -12,7 +12,7 @@
     JSONObject agc=new JSONObject();
     agc.put("1",gc);
     ContentValues values=new ContentValues();
-    values.put("conf",Decks.defaultConf);
+    values.put("conf",Collection.defaultConf);
     values.put("decks",ag.toString());
     values.put("dconf",agc.toString());
     db.update("col",values);
