@@ -4,13 +4,8 @@
   mTextDeckName=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_name);
   mTextDeckDescription=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_description);
   mButtonStart=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_start);
-  mToggleCram=(ToggleButton)mStudyOptionsView.findViewById(R.id.studyoptions_cram);
-  mToggleNight=(ToggleButton)mStudyOptionsView.findViewById(R.id.studyoptions_night);
-  mToggleNight.setChecked(mInvertedColors);
-  mAddNote=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_add);
-  mCardBrowser=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_card_browser);
-  mStatisticsButton=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_statistics);
-  mDeckOptions=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_options);
+  mStatisticsButton=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_statistics);
+  mDeckOptions=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_options);
   mGlobalBar=(View)mStudyOptionsView.findViewById(R.id.studyoptions_global_bar);
   mGlobalMatBar=(View)mStudyOptionsView.findViewById(R.id.studyoptions_global_mat_bar);
   mBarsMax=(View)mStudyOptionsView.findViewById(R.id.studyoptions_progressbar_content);
@@ -26,10 +21,6 @@
   mDeckCounts=(LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_deckcounts);
   mDeckChart=(LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_chart);
   mButtonStart.setOnClickListener(mButtonClickListener);
-  mToggleCram.setOnClickListener(mButtonClickListener);
-  mToggleNight.setOnClickListener(mButtonClickListener);
-  mAddNote.setOnClickListener(mButtonClickListener);
-  mCardBrowser.setOnClickListener(mButtonClickListener);
   mStatisticsButton.setOnClickListener(mButtonClickListener);
   mDeckOptions.setOnClickListener(mButtonClickListener);
   mCongratsView=inflater.inflate(R.layout.studyoptions_congrats,null);
