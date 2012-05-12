@@ -124,11 +124,7 @@ break;
 }
 break;
 case CALLER_DECKPICKER_DECK:
-if (view.getId() == R.id.deckpicker_bar_mat) {
-}
- else if (view.getId() == R.id.deckpicker_bar_all) {
-}
- else if (view.getId() == R.id.deckpicker_deck) {
+if (view.getId() == R.id.deckpicker_deck) {
 view.setBackgroundResource(mDeckpickerItemBorder);
 }
 break;

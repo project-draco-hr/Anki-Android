@@ -33,11 +33,7 @@
     return new TaskData(col);
   }
   try {
-    if (reset) {
-      col.getSched().reset();
-    }
-    TreeSet<Object[]> decks=col.getSched().deckDueTree(false);
-    return new TaskData(col,decks,0);
+    return new TaskData(col,doInBackgroundLoadDeckCounts(new TaskData(col)).getObjArray());
   }
  catch (  RuntimeException e) {
     col=null;
