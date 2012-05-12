@@ -15,6 +15,8 @@ if (UIUtils.getApiLevel() > 4) {
 ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.LEFT);
 }
 return true;
+case MENU_STATISTICS:
+return true;
 case MENU_CREATE_DECK:
 StyledDialog.Builder builder2=new StyledDialog.Builder(DeckPicker.this);
 builder2.setTitle(res.getString(R.string.new_deck));
