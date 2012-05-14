@@ -227,7 +227,7 @@ dialog=ChartBuilder.getStatisticsDialog(this,new DialogInterface.OnClickListener
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_STATISTICS,mLoadStatisticsHandler,new DeckTask.TaskData(mCol,which,true));
 }
 }
-);
+,mFragmented);
 break;
 case DIALOG_CONTEXT_MENU:
 String[] entries=new String[2];

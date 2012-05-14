@@ -27,34 +27,36 @@
   mFragmented=studyoptionsFrame != null && studyoptionsFrame.getVisibility() == View.VISIBLE;
   Themes.setContentStyle(mainView,Themes.CALLER_DECKPICKER);
   registerExternalStorageListener();
-  mAddButton=(ImageButton)findViewById(R.id.deckpicker_add);
-  mAddButton.setOnClickListener(new OnClickListener(){
-    @Override public void onClick(    View v){
-      addNote();
+  if (!mFragmented) {
+    mAddButton=(ImageButton)findViewById(R.id.deckpicker_add);
+    mAddButton.setOnClickListener(new OnClickListener(){
+      @Override public void onClick(      View v){
+        addNote();
+      }
     }
-  }
 );
-  mCardsButton=(ImageButton)findViewById(R.id.deckpicker_card_browser);
-  mCardsButton.setOnClickListener(new OnClickListener(){
-    @Override public void onClick(    View v){
-      openCardBrowser();
+    mCardsButton=(ImageButton)findViewById(R.id.deckpicker_card_browser);
+    mCardsButton.setOnClickListener(new OnClickListener(){
+      @Override public void onClick(      View v){
+        openCardBrowser();
+      }
     }
-  }
 );
-  mStatsButton=(ImageButton)findViewById(R.id.statistics_all_button);
-  mStatsButton.setOnClickListener(new OnClickListener(){
-    @Override public void onClick(    View v){
-      showDialog(DIALOG_SELECT_STATISTICS_TYPE);
+    mStatsButton=(ImageButton)findViewById(R.id.statistics_all_button);
+    mStatsButton.setOnClickListener(new OnClickListener(){
+      @Override public void onClick(      View v){
+        showDialog(DIALOG_SELECT_STATISTICS_TYPE);
+      }
     }
-  }
 );
-  mSyncButton=(ImageButton)findViewById(R.id.sync_all_button);
-  mSyncButton.setOnClickListener(new OnClickListener(){
-    @Override public void onClick(    View v){
-      sync();
+    mSyncButton=(ImageButton)findViewById(R.id.sync_all_button);
+    mSyncButton.setOnClickListener(new OnClickListener(){
+      @Override public void onClick(      View v){
+        sync();
+      }
     }
-  }
 );
+  }
   mDeckList=new ArrayList<HashMap<String,String>>();
   mDeckListView=(ListView)findViewById(R.id.files);
   mDeckListAdapter=new SimpleAdapter(this,mDeckList,R.layout.deck_item,new String[]{"name","new","lrn","rev","sep"},new int[]{R.id.DeckPickerName,R.id.deckpicker_new,R.id.deckpicker_lrn,R.id.deckpicker_rev,R.id.DeckPickerName});
