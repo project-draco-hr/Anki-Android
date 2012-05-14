@@ -230,10 +230,7 @@ DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_STATISTICS,mLoadStatisticsHandle
 );
 break;
 case DIALOG_CONTEXT_MENU:
-String[] entries=new String[5];
-entries[CONTEXT_MENU_DECK_SUMMARY]="XXXsum";
-entries[CONTEXT_MENU_CUSTOM_DICTIONARY]=res.getString(R.string.contextmenu_deckpicker_set_custom_dictionary);
-entries[CONTEXT_MENU_RESET_LANGUAGE]=res.getString(R.string.contextmenu_deckpicker_reset_language_assignments);
+String[] entries=new String[2];
 entries[CONTEXT_MENU_RENAME_DECK]=res.getString(R.string.contextmenu_deckpicker_rename_deck);
 entries[CONTEXT_MENU_DELETE_DECK]=res.getString(R.string.contextmenu_deckpicker_delete_deck);
 builder.setTitle("Context Menu");

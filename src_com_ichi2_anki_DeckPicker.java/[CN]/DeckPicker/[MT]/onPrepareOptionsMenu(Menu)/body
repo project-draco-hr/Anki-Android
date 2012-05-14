@@ -1,4 +1,11 @@
 {
   boolean sdCardAvailable=AnkiDroidApp.isSdCardMounted();
+  menu.findItem(MENU_SYNC).setEnabled(sdCardAvailable);
+  menu.findItem(MENU_ADD_NOTE).setEnabled(sdCardAvailable);
+  menu.findItem(MENU_STATISTICS).setEnabled(sdCardAvailable);
+  menu.findItem(MENU_CARDBROWSER).setEnabled(sdCardAvailable);
+  menu.findItem(MENU_CREATE_DECK).setEnabled(sdCardAvailable);
+  menu.findItem(MENU_CREATE_DYNAMIC_DECK).setEnabled(sdCardAvailable);
+  menu.findItem(CHECK_DATABASE).setEnabled(sdCardAvailable);
   return true;
 }

@@ -33,6 +33,9 @@ loadCounts();
 builder2.setNegativeButton(res.getString(R.string.cancel),null);
 builder2.create().show();
 return true;
+case MENU_CREATE_DYNAMIC_DECK:
+addCramDeck();
+return true;
 case MENU_ABOUT:
 startActivity(new Intent(DeckPicker.this,Info.class));
 if (UIUtils.getApiLevel() > 4) {
