@@ -30,24 +30,14 @@
   mAddButton=(ImageButton)findViewById(R.id.deckpicker_add);
   mAddButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View v){
-      Intent intent=new Intent(DeckPicker.this,CardEditor.class);
-      intent.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_DECKPICKER);
-      startActivityForResult(intent,ADD_NOTE);
-      if (UIUtils.getApiLevel() > 4) {
-        ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.LEFT);
-      }
+      addNote();
     }
   }
 );
   mCardsButton=(ImageButton)findViewById(R.id.deckpicker_card_browser);
   mCardsButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View v){
-      Intent cardBrowser=new Intent(DeckPicker.this,CardBrowser.class);
-      cardBrowser.putExtra("fromDeckpicker",true);
-      startActivityForResult(cardBrowser,BROWSE_CARDS);
-      if (UIUtils.getApiLevel() > 4) {
-        ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.LEFT);
-      }
+      openCardBrowser();
     }
   }
 );
@@ -62,13 +52,6 @@
   mSyncButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View v){
       sync();
-    }
-  }
-);
-  mCramButton=(ImageButton)findViewById(R.id.cram_deck_button);
-  mCramButton.setOnClickListener(new OnClickListener(){
-    @Override public void onClick(    View v){
-      addCramDeck();
     }
   }
 );
