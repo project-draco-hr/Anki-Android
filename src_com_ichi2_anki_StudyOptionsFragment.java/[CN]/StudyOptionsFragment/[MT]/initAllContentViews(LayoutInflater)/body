@@ -4,7 +4,11 @@
   mTextDeckName=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_name);
   mTextDeckDescription=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_description);
   mButtonStart=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_start);
-  if (!mFragmented) {
+  if (mFragmented) {
+    Button but=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_options);
+    but.setOnClickListener(mButtonClickListener);
+  }
+ else {
     mAddNote=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_add);
     mCardBrowser=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_card_browser);
     mStatisticsButton=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_statistics);
