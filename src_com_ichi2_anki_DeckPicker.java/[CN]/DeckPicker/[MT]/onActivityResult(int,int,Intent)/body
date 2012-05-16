@@ -15,6 +15,9 @@
  else   if (requestCode == ADD_NOTE && resultCode != RESULT_CANCELED) {
     loadCounts();
   }
+ else   if (requestCode == ADD_CRAM_DECK) {
+    loadCounts();
+  }
  else   if (requestCode == REPORT_ERROR) {
     showStartupScreensAndDialogs(PrefSettings.getSharedPrefs(getBaseContext()),3);
   }

@@ -1,0 +1,37 @@
+{
+  try {
+    long id;
+    String extra;
+    if (val.toLowerCase().equals("current")) {
+      id=mCol.getDecks().current().getLong("id");
+    }
+ else     if (val.toLowerCase().equals("none")) {
+      if (isNeg) {
+        extra="";
+      }
+ else {
+        extra="NOT";
+      }
+      mLims.getJSONArray("preds").put("c.did " + extra + " IN "+ Utils.ids2str(mCol.getDecks().allIds()));
+      return;
+    }
+ else {
+      id=mCol.getDecks().id(val,false);
+    }
+    ArrayList<Long> ids=new ArrayList<Long>();
+    ids.add(id);
+    for (    Long a : mCol.getDecks().children(id).values()) {
+      ids.add(a);
+    }
+    String sids=Utils.ids2str(Utils.arrayList2array(ids));
+    if (!isNeg) {
+      mLims.getJSONArray("preds").put("(c.odid IN " + sids + " OR c.did IN "+ sids+ ")");
+    }
+ else {
+      mLims.getJSONArray("preds").put("((CASE c.odid WHEN 0 then 1 else c.odid NOT IN " + sids + " END) AND c.did NOT IN "+ sids+ ")");
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

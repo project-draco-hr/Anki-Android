@@ -1,0 +1,143 @@
+{
+  int type=0;
+  try {
+    ArrayList<JSONObject> tokens=new ArrayList<JSONObject>();
+    ArrayList<Object[]> res=new ArrayList<Object[]>();
+    ArrayList<String> allowedfields=fieldNames(mCol);
+    Matcher matcher=allPattern.matcher(mQuery + " ");
+    while (matcher.find()) {
+      String value=matcher.group(2) != null ? matcher.group(2) : (matcher.group(5) != null ? matcher.group(5) : matcher.group(8));
+      boolean isNeg=(matcher.group(1) != null && matcher.group(1).equals("-")) || (matcher.group(4) != null && matcher.group(4).equals("-")) || (matcher.group(7) != null && matcher.group(7).equals("-"));
+      if (value != null) {
+        JSONObject o=new JSONObject();
+        o.put("value",value);
+        o.put("is_neg",isNeg);
+        tokens.add(o);
+      }
+    }
+    boolean intoken=false;
+    boolean isNeg=false;
+    String field="";
+    ArrayList<JSONObject> phraselog=new ArrayList<JSONObject>();
+    for (int c=0; c < tokens.size(); c++) {
+      JSONObject token=tokens.get(c);
+      boolean doprocess=true;
+      if (token.getString("value").length() == 0) {
+        if (intoken && type == SEARCH_FIELD && field.length() > 0) {
+          addSearchFieldToken(field,"*",isNeg,res,allowedfields,phraselog);
+          phraselog.clear();
+        }
+        intoken=false;
+        doprocess=false;
+      }
+      if (intoken) {
+        if (type == SEARCH_FIELD && field.length() > 0) {
+          addSearchFieldToken(field,token.getString("value"),isNeg,res,allowedfields,phraselog);
+          intoken=false;
+          doprocess=false;
+        }
+ else         if (type == SEARCH_FIELD && field.length() == 0) {
+          if (token.getString("value").startsWith(":") && phraselog.size() == 1) {
+            field=phraselog.get(0).getString("value");
+            String[] parts=token.getString("value").split(":",1);
+            JSONObject o=new JSONObject();
+            o.put("value",token.getString("value"));
+            o.put("is_neg",false);
+            o.put("type",SEARCH_PHRASE);
+            phraselog.add(o);
+            if (parts[1].length() > 0) {
+              addSearchFieldToken(field,parts[1],isNeg,res,allowedfields,phraselog);
+              intoken=false;
+              doprocess=false;
+            }
+            doprocess=false;
+          }
+ else {
+            intoken=false;
+          }
+        }
+        if (!intoken && !doprocess) {
+          phraselog.clear();
+        }
+      }
+      if (!intoken) {
+        for (        JSONObject p : phraselog) {
+          res.add(new Object[]{p.getString("value"),p.getBoolean("is_neg"),p.getInt("type")});
+        }
+        phraselog.clear();
+      }
+      if (!intoken && doprocess) {
+        field="";
+        isNeg=token.getBoolean("is_neg");
+        String val=token.getString("value");
+        if (val.startsWith("tag:")) {
+          token.put("value",val.substring(4));
+          type=SEARCH_TAG;
+        }
+ else         if (val.startsWith("is:")) {
+          token.put("value",val.substring(3));
+          type=SEARCH_TYPE;
+        }
+ else         if (val.startsWith("note:")) {
+          token.put("value",val.substring(5));
+          type=SEARCH_MODEL;
+        }
+ else         if (val.startsWith("deck:")) {
+          token.put("value",val.substring(5));
+          type=SEARCH_DECK;
+        }
+ else         if (val.startsWith("nid:") && val.length() > 4) {
+          String dec=val.substring(4);
+          try {
+            Integer.parseInt(dec);
+            token.put("value",val.substring(4));
+          }
+ catch (          Exception e) {
+            try {
+              for (              String d : dec.split(",")) {
+                Integer.parseInt(d);
+              }
+              token.put("value",val.substring(4));
+            }
+ catch (            Exception e2) {
+              token.put("value","0");
+            }
+          }
+          type=SEARCH_NID;
+        }
+ else         if (val.startsWith("card:")) {
+          token.put("value",val.substring(5));
+          type=SEARCH_TEMPLATE;
+        }
+ else {
+          type=SEARCH_FIELD;
+          intoken=true;
+          String[] parts=token.getString("value").split(":",1);
+          JSONObject o=new JSONObject();
+          o.put("value",token.getString("value"));
+          o.put("is_neg",isNeg);
+          o.put("type",SEARCH_PHRASE);
+          phraselog.add(o);
+          if (parts.length == 2 && parts[0].length() > 0) {
+            field=parts[0];
+            if (parts[1].length() > 0) {
+              addSearchFieldToken(field,parts[1],isNeg,res,allowedfields,phraselog);
+            }
+            intoken=false;
+            doprocess=false;
+          }
+          if (!intoken) {
+            phraselog.clear();
+          }
+        }
+        if (!intoken && doprocess) {
+          res.add(new Object[]{token.getString("value"),isNeg,type});
+        }
+      }
+    }
+    return res;
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

@@ -4,6 +4,11 @@
   mTextDeckName=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_name);
   mTextDeckDescription=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_description);
   mButtonStart=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_start);
+  if (mCol != null && mCol.getDecks().isDyn(mCol.getDecks().selected())) {
+    Button rebBut=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_rebuild_cram);
+    rebBut.setOnClickListener(mButtonClickListener);
+    rebBut.setVisibility(View.VISIBLE);
+  }
   if (mFragmented) {
     Button but=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_options);
     but.setOnClickListener(mButtonClickListener);
