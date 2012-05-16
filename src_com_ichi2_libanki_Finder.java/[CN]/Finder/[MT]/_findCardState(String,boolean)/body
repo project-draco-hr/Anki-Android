@@ -1,0 +1,36 @@
+{
+  String cond=null;
+  int n;
+  if (val.equals("review") || val.equals("new") || val.equals("learn")) {
+    if (val.equals("review")) {
+      n=2;
+    }
+ else     if (val.equals("new")) {
+      n=0;
+    }
+ else {
+      n=1;
+    }
+    cond="type = " + n;
+  }
+ else   if (val.equals("suspended")) {
+    cond="queue = -1";
+  }
+ else   if (val.equals("due")) {
+    cond="(queue = 2 AND due <= " + mCol.getSched().getToday();
+  }
+  if (neg) {
+    cond="NOT (" + cond + ")";
+  }
+  try {
+    if (cond.length() > 0) {
+      mLims.getJSONArray("preds").put(cond);
+    }
+ else {
+      mLims.put("valid",false);
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

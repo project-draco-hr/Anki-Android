@@ -1,0 +1,37 @@
+{
+  mOrder=order;
+  mQuery=query;
+  _findLimits();
+  try {
+    if (!mLims.getBoolean("valid")) {
+      return new ArrayList<Long>();
+    }
+    JSONArray ja=mLims.getJSONArray("preds");
+    StringBuilder sb=new StringBuilder();
+    for (int i=0; i < ja.length(); i++) {
+      sb.append(ja.getString(i));
+      if (i < ja.length() - 1) {
+        sb.append(" AND ");
+      }
+    }
+    String q=sb.toString();
+    if (q.length() == 0) {
+      q="1";
+    }
+    JSONObject args=mLims.getJSONObject("args");
+    order=_order();
+    query="SELECT c.id FROM cards c, notes n WHERE " + q + " AND c.nid=n.id "+ order;
+    JSONArray names=args.names();
+    for (int i=0; i < names.length(); i++) {
+      query=query.replace(":" + names.getString(i),"\'" + args.getString(names.getString(i)) + "\'");
+    }
+    ArrayList<Long> res=mCol.getDb().queryColumn(Long.class,query,0);
+    if (order.length() == 0 && mCol.getConf().getBoolean("sortBackwards")) {
+      Collections.reverse(res);
+    }
+    return res;
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

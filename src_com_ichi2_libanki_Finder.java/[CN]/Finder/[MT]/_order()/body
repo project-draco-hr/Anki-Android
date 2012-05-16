@@ -1,0 +1,57 @@
+{
+  if (mOrder != null && mOrder.length() > 0) {
+    return mOrder;
+  }
+  String type;
+  try {
+    type=mCol.getConf().getString("sortType");
+    if (type.length() == 0) {
+      return null;
+    }
+    String sort;
+    if (type.startsWith("note")) {
+      if (type.startsWith("noteCrt")) {
+        sort="n.id, c.ord";
+      }
+ else       if (type.startsWith("noteMod")) {
+        sort="n.mod, c.ord";
+      }
+ else       if (type.startsWith("noteFld")) {
+        sort="n.sfld COLLATE NOCASE, c.ord";
+      }
+ else {
+        throw new RuntimeException("wrong sort type");
+      }
+    }
+ else     if (type.startsWith("card")) {
+      if (type.startsWith("cardMod")) {
+        sort="c.mod";
+      }
+ else       if (type.startsWith("cardReps")) {
+        sort="c.reps";
+      }
+ else       if (type.startsWith("cardDue")) {
+        sort="c.due";
+      }
+ else       if (type.startsWith("cardEase")) {
+        sort="c.factor";
+      }
+ else       if (type.startsWith("cardLapses")) {
+        sort="c.lapses";
+      }
+ else       if (type.startsWith("cardIvl")) {
+        sort="c.ivl";
+      }
+ else {
+        throw new RuntimeException("wrong sort type");
+      }
+    }
+ else {
+      throw new RuntimeException("wrong sort type");
+    }
+    return " ORDER BY " + sort;
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}
