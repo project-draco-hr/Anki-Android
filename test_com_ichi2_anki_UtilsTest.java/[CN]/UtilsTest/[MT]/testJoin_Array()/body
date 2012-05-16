@@ -1,9 +1,0 @@
-{
-  assertEquals("",Utils.join("",new String[]{}));
-  assertEquals("",Utils.join("+",new String[]{}));
-  assertEquals("a",Utils.join("+",new String[]{"a"}));
-  assertEquals("a+b",Utils.join("+",new String[]{"a","b"}));
-  assertEquals("a b",Utils.join(" ",new String[]{"a","b"}));
-  assertEquals("a, b",Utils.join(", ",new String[]{"a","b"}));
-  assertEquals("a, b, a, c",Utils.join(", ",new String[]{"a","b","a","c"}));
-}

@@ -1,7 +1,0 @@
-{
-  assertTrue(CardsQuery.getRawQuery(10,null).contains(Utils.join(", ",CardsQuery.PROJECTION)));
-  assertTrue(CardsQuery.getRawQuery(10,null).contains(" LIMIT 10"));
-  assertTrue(CardsQuery.getRawQuery(20,null).contains(" LIMIT 20"));
-  assertFalse(CardsQuery.getRawQuery(10,null).contains(" AND cards.id > "));
-  assertTrue(CardsQuery.getRawQuery(10,"1234").contains(" AND cards.id > 1234 "));
-}
