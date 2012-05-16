@@ -19,7 +19,7 @@
   String search;
   try {
     limit=" LIMIT " + deck.getInt("limit");
-    search=deck.getInt("search") + " -is:suspended";
+    search=deck.getString("search") + " -is:suspended";
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);
