@@ -8,7 +8,7 @@
   JSONObject t=mm.newTemplate("Card 1");
   try {
     t.put("qfmt","{{Front}}");
-    t.put("afmt",t.getString("qfmt") + "\n\n<hr id=answer>\n\n{{Back}}");
+    t.put("afmt","{{FrontSide}}\n\n<hr id=answer>\n\n{{Back}}");
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);

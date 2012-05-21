@@ -17,6 +17,6 @@
       throw new RuntimeException(e);
     }
   }
-  interval=_ivlForFI(conf,interval);
+  interval=_ivlWithFactor(conf,interval);
   return Math.max(card.getIvl() + (ease == 4 ? 2 : 1),(int)interval);
 }

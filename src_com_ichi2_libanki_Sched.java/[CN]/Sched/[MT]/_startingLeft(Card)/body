@@ -1,7 +1,9 @@
 {
   try {
     JSONObject conf=_lrnConf(card);
-    return conf.getJSONArray("delays").length();
+    int tot=conf.getJSONArray("delays").length();
+    int tod=_leftToday(conf.getJSONArray("delays"),tot);
+    return tot + tod * 1000;
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);

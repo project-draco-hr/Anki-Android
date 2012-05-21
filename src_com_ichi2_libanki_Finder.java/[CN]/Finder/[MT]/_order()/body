@@ -31,7 +31,7 @@
         sort="c.reps";
       }
  else       if (type.startsWith("cardDue")) {
-        sort="c.due";
+        sort="c.type, c.due";
       }
  else       if (type.startsWith("cardEase")) {
         sort="c.factor";

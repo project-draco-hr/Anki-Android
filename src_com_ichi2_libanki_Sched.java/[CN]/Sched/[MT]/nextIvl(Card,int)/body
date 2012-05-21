@@ -1,6 +1,6 @@
 {
   try {
-    if (card.getQueue() == 0 || card.getQueue() == 1) {
+    if (card.getQueue() == 0 || card.getQueue() == 1 || card.getQueue() == 3) {
       return _nextLrnIvl(card,ease);
     }
  else     if (ease == 1) {

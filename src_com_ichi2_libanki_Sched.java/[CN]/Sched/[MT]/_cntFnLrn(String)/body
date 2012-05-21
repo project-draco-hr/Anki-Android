@@ -1,3 +1,3 @@
 {
-  return (int)mCol.getDb().queryScalar("SELECT sum(left) FROM (SELECT left FROM cards WHERE did IN " + dids + " AND queue = 1 AND due < "+ mDayCutoff+ " LIMIT "+ mReportLimit+ ")",false);
+  return (int)mCol.getDb().queryScalar("SELECT sum(left / 1000) FROM (SELECT left FROM cards WHERE did IN " + dids + " AND queue = 1 AND due < "+ mDayCutoff+ " LIMIT "+ mReportLimit+ ")",false);
 }

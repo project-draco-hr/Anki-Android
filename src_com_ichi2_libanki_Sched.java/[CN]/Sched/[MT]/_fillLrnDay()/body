@@ -1,0 +1,35 @@
+{
+  if (mLrnCount == 0) {
+    return false;
+  }
+  if (!mLrnDayQueue.isEmpty()) {
+    return true;
+  }
+  while (mLrnDids.size() > 0) {
+    long did=mLrnDids.getFirst();
+    mLrnDayQueue.clear();
+    Cursor cur=null;
+    try {
+      cur=mCol.getDb().getDatabase().rawQuery("SELECT id FROM cards WHERE did = " + did + " AND queue = 3 AND due <= "+ mToday+ " LIMIT "+ mQueueLimit,null);
+      while (cur.moveToNext()) {
+        mLrnDayQueue.add(new long[]{cur.getLong(0)});
+      }
+    }
+  finally {
+      if (cur != null && !cur.isClosed()) {
+        cur.close();
+      }
+    }
+    if (mLrnDayQueue.size() > 0) {
+      Random r=new Random();
+      r.setSeed(mToday);
+      Collections.shuffle(mLrnDayQueue,r);
+      if (mLrnDayQueue.size() < mQueueLimit) {
+        mLrnDids.remove();
+      }
+      return true;
+    }
+    mLrnDids.remove();
+  }
+  return false;
+}

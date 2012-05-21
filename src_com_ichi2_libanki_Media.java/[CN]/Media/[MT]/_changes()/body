@@ -28,6 +28,10 @@
     if (fname.compareTo("thumbs.db") == 0) {
       continue;
     }
+    if (f.length() == 0) {
+      f.delete();
+      continue;
+    }
     if (!cache.containsKey(fname)) {
       added.add(fname);
     }

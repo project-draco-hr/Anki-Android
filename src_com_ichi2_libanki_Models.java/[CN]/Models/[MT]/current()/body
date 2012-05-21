@@ -1,18 +1,16 @@
 {
   JSONObject m;
   try {
-    m=get(mCol.getConf().getLong("curModel"));
-    if (m != null) {
-      return m;
+    m=get(mCol.getDecks().current().getLong("mid"));
+    if (m == null) {
+      m=get(mCol.getConf().getLong("curModel"));
     }
- else {
+    if (m == null) {
       if (!mModels.isEmpty()) {
-        return mModels.values().iterator().next();
-      }
- else {
-        return null;
+        m=mModels.values().iterator().next();
       }
     }
+    return m;
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);

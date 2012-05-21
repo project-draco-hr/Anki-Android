@@ -1,0 +1,7 @@
+{
+  if (_fillLrnDay()) {
+    mLrnCount-=1;
+    return mCol.getCard(mLrnDayQueue.remove()[1]);
+  }
+  return null;
+}

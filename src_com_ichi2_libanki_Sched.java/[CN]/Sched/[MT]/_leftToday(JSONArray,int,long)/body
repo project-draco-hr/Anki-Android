@@ -1,0 +1,19 @@
+{
+  if (now == 0) {
+    now=Utils.intNow();
+  }
+  int ok=0;
+  for (int i=0; i < delays.length() - left; i++) {
+    try {
+      now+=delays.getInt(i + left) * 60;
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+    if (now > mDayCutoff) {
+      break;
+    }
+    ok=i;
+  }
+  return ok + 1;
+}
