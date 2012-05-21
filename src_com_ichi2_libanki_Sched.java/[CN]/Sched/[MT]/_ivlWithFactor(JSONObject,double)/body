@@ -1,6 +1,6 @@
 {
   try {
-    return ivl * conf.getInt("ivlfct");
+    return ivl * conf.getDouble("ivlfct");
   }
  catch (  JSONException e) {
     return 1;
