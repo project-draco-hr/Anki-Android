@@ -41,7 +41,7 @@
         return new Object[]{"fullSync"};
       }
       mLNewer=mLMod > mRMod;
-      con.publishProgress(R.string.sync_deletions_message);
+      publishProgress(con,R.string.sync_deletions_message);
       Log.i(AnkiDroidApp.TAG,"Sync: collection removed data");
       JSONObject lrem=removed();
       JSONObject o=new JSONObject();
@@ -60,7 +60,7 @@
       }
       Log.i(AnkiDroidApp.TAG,"Sync: applying removed data");
       remove(rrem);
-      con.publishProgress(R.string.sync_small_objects_message);
+      publishProgress(con,R.string.sync_small_objects_message);
       Log.i(AnkiDroidApp.TAG,"Sync: collection small changes");
       JSONObject lchg=changes();
       JSONObject sch=new JSONObject();
@@ -77,7 +77,7 @@
       }
       Log.i(AnkiDroidApp.TAG,"Sync: mergin small changes");
       mergeChanges(lchg,rchg);
-      con.publishProgress(R.string.sync_download_chunk);
+      publishProgress(con,R.string.sync_download_chunk);
       while (true) {
         Log.i(AnkiDroidApp.TAG,"Sync: downloading chunked data");
         JSONObject chunk=mServer.chunk();
@@ -95,7 +95,7 @@
           break;
         }
       }
-      con.publishProgress(R.string.sync_upload_chunk);
+      publishProgress(con,R.string.sync_upload_chunk);
       while (true) {
         Log.i(AnkiDroidApp.TAG,"Sync: collecting chunked data");
         JSONObject chunk=chunk();
@@ -129,7 +129,7 @@
       if (error) {
         return new Object[]{"error",200,"sanity check failed:\nlocal: " + c.toString() + "\nremote: "+ s.toString()};
       }
-      con.publishProgress(R.string.sync_finish_message);
+      publishProgress(con,R.string.sync_finish_message);
       Log.i(AnkiDroidApp.TAG,"Sync: sending finish command");
       long mod=mServer.finish();
       if (mod == 0) {
@@ -137,7 +137,7 @@
       }
       Log.i(AnkiDroidApp.TAG,"Sync: finishing");
       finish(mod);
-      con.publishProgress(R.string.sync_writing_db);
+      publishProgress(con,R.string.sync_writing_db);
       mCol.getDb().getDatabase().setTransactionSuccessful();
     }
   finally {
