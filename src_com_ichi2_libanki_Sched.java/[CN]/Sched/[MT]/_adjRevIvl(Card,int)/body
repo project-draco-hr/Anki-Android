@@ -8,10 +8,10 @@
       return idealIvl;
     }
  else {
-      int leeway=Math.max(conf.getInt("minSpace"),(int)(idealIvl * conf.getInt("fuzz")));
+      int leeway=Math.max(conf.getInt("minSpace"),(int)(idealIvl * conf.getDouble("fuzz")));
       int fudge=0;
       if (leeway != 0) {
-        for (int diff=1; diff <= leeway + 1; diff++) {
+        for (int diff=1; diff < leeway + 1; diff++) {
           if ((idealIvl - diff >= 1) && !dues.contains(idealDue - diff)) {
             fudge=-diff;
             break;
