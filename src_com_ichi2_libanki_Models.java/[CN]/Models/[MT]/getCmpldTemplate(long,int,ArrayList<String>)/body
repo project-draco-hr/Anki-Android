@@ -1,5 +1,5 @@
 {
-  if (args != null) {
+  if (args != null && args.size() != 0) {
     return compileTemplate(modelId,ord,args);
   }
   if (!mCmpldTemplateMap.containsKey(modelId)) {

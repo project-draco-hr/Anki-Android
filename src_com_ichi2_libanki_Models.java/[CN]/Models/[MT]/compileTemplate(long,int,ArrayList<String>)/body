@@ -5,7 +5,7 @@
   try {
     String qfmt;
     String afmt;
-    if (args != null) {
+    if (args != null && args.size() > 1) {
       qfmt=args.get(0);
       afmt=args.get(1);
     }
