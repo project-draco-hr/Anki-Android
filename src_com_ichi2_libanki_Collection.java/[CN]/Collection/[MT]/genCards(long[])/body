@@ -8,11 +8,11 @@
     while (cur.moveToNext()) {
       long nid=cur.getLong(1);
       if (!have.containsKey(nids)) {
-        have.put(nid,null);
+        have.put(nid,new HashMap<Integer,Long>());
       }
       have.get(nid).put(cur.getInt(2),cur.getLong(0));
       long did=cur.getLong(3);
-      if (!dids.containsKey(nid)) {
+      if (dids.containsKey(nid)) {
         if (dids.get(nid) != 0 && dids.get(nid) != did) {
           dids.put(nid,0l);
         }
@@ -37,9 +37,9 @@
     cur=mDb.getDatabase().rawQuery("SELECT id, mid, flds FROM notes WHERE id IN " + snids,null);
     while (cur.moveToNext()) {
       JSONObject model=mModels.get(cur.getLong(1));
-      ArrayList<Integer> avail=mModels.availOrds(model,cur.getString(3));
+      ArrayList<Integer> avail=mModels.availOrds(model,cur.getString(2));
       long nid=cur.getLong(0);
-      long did=dids.get(nids);
+      long did=dids.get(nid);
       if (did == 0) {
         did=model.getLong("did");
       }
@@ -47,9 +47,14 @@
         int tord=t.getInt("ord");
         boolean doHave=have.containsKey(nid) && have.get(nid).containsKey(tord);
         if (!doHave) {
-          long ndid=t.getLong("did");
-          if (ndid != 0) {
-            did=ndid;
+          long ndid;
+          try {
+            ndid=t.getLong("did");
+            if (ndid != 0) {
+              did=ndid;
+            }
+          }
+ catch (          JSONException e) {
           }
           if (getDecks().isDyn(did)) {
             did=1;
@@ -76,6 +81,6 @@
       cur.close();
     }
   }
-  mDb.executeMany("INSERT INTO cards VALUES (?, ?, ?, ?, ?, ?, 0, 0, ?, 0, 0, 0, 0, 0, 0)",data);
+  mDb.executeMany("INSERT INTO cards VALUES (?,?,?,?,?,?,0,0,?,0,0,0,0,0,0,0,0,\"\")",data);
   return rem;
 }
