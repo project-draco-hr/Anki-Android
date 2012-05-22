@@ -3,11 +3,21 @@
   JSONObject template;
   Template[] t=new Template[2];
   try {
-    template=model.getJSONArray("tmpls").getJSONObject(ord);
-    String format=template.getString("qfmt").replace("{{cloze:","{{cq:" + (ord + 1) + ":");
+    String qfmt;
+    String afmt;
+    if (args != null) {
+      qfmt=args.get(0);
+      afmt=args.get(1);
+    }
+ else {
+      template=model.getJSONArray("tmpls").getJSONObject(ord);
+      qfmt=template.getString("qfmt");
+      afmt=template.getString("afmt");
+    }
+    String format=qfmt.replace("{{cloze:","{{cq:" + (ord + 1) + ":");
     Log.i(AnkiDroidApp.TAG,"Compiling question template \"" + format + "\"");
     t[0]=Mustache.compiler().compile(format);
-    format=template.getString("afmt").replace("{{cloze:","{{ca:" + (ord + 1) + ":");
+    format=afmt.replace("{{cloze:","{{ca:" + (ord + 1) + ":");
     Log.i(AnkiDroidApp.TAG,"Compiling answer template \"" + format + "\"");
     t[1]=Mustache.compiler().compile(format);
   }
