@@ -33,5 +33,6 @@ catch (    NoSuchMethodException e) {
       throw new RuntimeException(e);
     }
   }
+  Collections.sort(dids,new DeckDueListComparator());
   return dids;
 }
