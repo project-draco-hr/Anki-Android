@@ -10,7 +10,7 @@
     extra+=" AND odue <= " + mToday;
   }
   boolean mod=mCol.getDb().getMod();
-  mCol.getDb().execute("UPDATE cards SET due = odue, queue = 2, mod = " + Utils.intNow() + ", usn = "+ mCol.usn()+ " WHERE queue = 1 AND type = 2 "+ extra);
+  mCol.getDb().execute(String.format(Locale.US,"update cards set " + "due = odue, queue = 2, mod = %d, usn = %d, odue = 0 " + "where queue = 1 and type = 2 %s",Utils.intNow(),mCol.usn(),extra));
   if (expiredOnly) {
     mCol.getDb().setMod(mod);
   }

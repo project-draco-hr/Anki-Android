@@ -12,7 +12,7 @@
   for (int c=0; c < nids.size(); c++) {
     due.put(nids.get(c),(long)(start + c * step));
   }
-  int high=start + step * nids.size();
+  int high=start + step * (nids.size() - 1);
   if (shift) {
     int low=mCol.getDb().queryScalar("SELECT min(due) FROM cards WHERE due >= " + start + " AND type = 0 AND id NOT IN "+ scids,false);
     if (low != 0) {
