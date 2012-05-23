@@ -1,0 +1,4 @@
+{
+  List<Long> cids=mCol.getDb().queryColumn(Long.class,"select id from cards where did = " + did,0);
+  sortCards(Utils.toPrimitive(cids),1,1,false,false);
+}
