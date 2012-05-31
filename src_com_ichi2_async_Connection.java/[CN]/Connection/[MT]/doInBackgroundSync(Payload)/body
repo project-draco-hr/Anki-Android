@@ -11,7 +11,7 @@
     return data;
   }
   String path=col.getPath();
-  HttpSyncer server=new RemoteServer(this,hkey);
+  BasicHttpSyncer server=new RemoteServer(this,hkey);
   Syncer client=new Syncer(col,server);
   boolean noChanges=false;
   if (conflictResolution == null) {
@@ -51,7 +51,7 @@
           data.data=new Object[]{Collection.openCollection(path)};
           return data;
         }
-        if (!((String)ret[0]).equals(HttpSyncer.ANKIWEB_STATUS_OK)) {
+        if (!((String)ret[0]).equals(BasicHttpSyncer.ANKIWEB_STATUS_OK)) {
           data.success=false;
           data.result=ret;
           data.data=new Object[]{Collection.openCollection(path)};

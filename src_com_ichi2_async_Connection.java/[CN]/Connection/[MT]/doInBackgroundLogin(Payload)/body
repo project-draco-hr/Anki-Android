@@ -1,7 +1,7 @@
 {
   String username=(String)data.data[0];
   String password=(String)data.data[1];
-  HttpSyncer server=new RemoteServer(this,null);
+  BasicHttpSyncer server=new RemoteServer(this,null);
   HttpResponse ret=server.hostKey(username,password);
   String hostkey=null;
   boolean valid=false;
