@@ -1,7 +1,7 @@
 {
   for (  String t : tags) {
     if (!mTags.containsKey(t)) {
-      mTags.put(t,usn == 0 ? mCol.usn() : usn);
+      mTags.put(t,usn == -99 ? mCol.usn() : usn);
       mChanged=true;
     }
   }
