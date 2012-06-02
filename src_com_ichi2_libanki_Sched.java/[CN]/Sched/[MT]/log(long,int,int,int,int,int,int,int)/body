@@ -1,6 +1,6 @@
 {
   try {
-    mCol.getDb().getDatabase().execSQL("INSERT INTO revlog VALUES (?,?,?,?,?,?,?,?,?)",new Object[]{Utils.now() * 1000,id,usn,ease,ivl,lastIvl,factor,timeTaken,type});
+    mCol.getDb().execute("INSERT INTO revlog VALUES (?,?,?,?,?,?,?,?,?)",new Object[]{Utils.now() * 1000,id,usn,ease,ivl,lastIvl,factor,timeTaken,type});
   }
  catch (  SQLiteConstraintException e) {
     try {
