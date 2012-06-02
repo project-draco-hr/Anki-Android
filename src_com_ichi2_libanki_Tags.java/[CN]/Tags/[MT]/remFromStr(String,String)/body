@@ -1,0 +1,9 @@
+{
+  List<String> currentTags=split(tags);
+  for (  String tag : split(deltags)) {
+    if (currentTags.contains(tag)) {
+      currentTags.remove(tag);
+    }
+  }
+  return join(currentTags);
+}

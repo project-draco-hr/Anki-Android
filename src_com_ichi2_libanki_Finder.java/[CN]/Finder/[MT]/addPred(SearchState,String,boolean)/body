@@ -1,0 +1,33 @@
+{
+  if (txt == null || txt.length() == 0) {
+    if (s.isnot) {
+      s.isnot=false;
+      return;
+    }
+ else {
+      s.bad=true;
+      return;
+    }
+  }
+ else   if (txt.equals("skip")) {
+    return;
+  }
+  if (s.join) {
+    if (s.isor) {
+      s.q+=" or ";
+      s.isor=false;
+    }
+ else {
+      s.q+=" and ";
+    }
+  }
+  if (s.isnot) {
+    s.q+=" not ";
+    s.isnot=false;
+  }
+  if (wrap) {
+    txt="(" + txt + ")";
+  }
+  s.q+=txt;
+  s.join=true;
+}

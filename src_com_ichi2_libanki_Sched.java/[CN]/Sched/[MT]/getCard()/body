@@ -5,6 +5,7 @@
   }
   Card card=_getCard();
   if (card != null) {
+    mReps+=1;
     card.startTimer();
   }
   return card;

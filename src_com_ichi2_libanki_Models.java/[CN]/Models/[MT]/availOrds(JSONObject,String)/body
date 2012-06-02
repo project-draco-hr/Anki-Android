@@ -20,7 +20,8 @@
  else       if (type.equals("all")) {
         boolean ok=true;
         for (int j=0; j < req.length(); j++) {
-          if (fields.length <= j || fields[j] == null || fields[j].length() == 0) {
+          int idx=req.getInt(j);
+          if (fields[idx] == null || fields[idx].length() == 0) {
             ok=false;
             break;
           }
@@ -32,7 +33,8 @@
  else       if (type.equals("any")) {
         boolean ok=false;
         for (int j=0; j < req.length(); j++) {
-          if (fields.length <= j || fields[j] == null || fields[j].length() == 0) {
+          int idx=req.getInt(j);
+          if (fields[idx] != null && fields[idx].length() != 0) {
             ok=true;
             break;
           }

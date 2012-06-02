@@ -1,0 +1,37 @@
+{
+  search+=String.format(Locale.US," '%s:*'",fieldName);
+  String sql="select id, mid, flds from notes where id in " + Utils.ids2str(col.findNotes(search).toArray(new Long[]{}));
+  Cursor cur=null;
+  Map<Long,Integer> fields=new HashMap<Long,Integer>();
+  Map<String,List<Long>> vals=new HashMap<String,List<Long>>();
+  List<Pair<String,List<Long>>> dupes=new ArrayList<Pair<String,List<Long>>>();
+  try {
+    cur=col.getDb().getDatabase().rawQuery(sql,null);
+    while (cur.moveToNext()) {
+      long nid=cur.getLong(0);
+      long mid=cur.getLong(1);
+      String[] flds=Utils.splitFields(cur.getString(2));
+      if (!fields.containsKey(mid)) {
+        JSONObject model=col.getModels().get(mid);
+        fields.put(mid,col.getModels().fieldMap(model).get(fieldName).first);
+      }
+      String val=flds[fields.get(mid)];
+      if (val.equals("")) {
+        continue;
+      }
+      if (!vals.containsKey(val)) {
+        vals.put(val,new ArrayList<Long>());
+      }
+      vals.get(val).add(nid);
+      if (vals.get(val).size() == 2) {
+        dupes.add(new Pair<String,List<Long>>(val,vals.get(val)));
+      }
+    }
+  }
+  finally {
+    if (cur != null) {
+      cur.close();
+    }
+  }
+  return dupes;
+}

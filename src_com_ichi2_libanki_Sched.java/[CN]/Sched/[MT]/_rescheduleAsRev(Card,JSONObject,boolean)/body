@@ -1,6 +1,12 @@
 {
-  if (card.getType() == 2) {
-    card.setDue(Math.max(mToday + 1,card.getODue()));
+  boolean lapse=(card.getType() == 2);
+  if (lapse) {
+    if (_resched(card)) {
+      card.setDue(Math.max(mToday + 1,card.getODue()));
+    }
+ else {
+      card.setDue(card.getODue());
+    }
     card.setODue(0);
   }
  else {
@@ -8,9 +14,15 @@
   }
   card.setQueue(2);
   card.setType(2);
+  boolean resched=_resched(card);
   if (card.getODid() != 0) {
     card.setDid(card.getODid());
     card.setODue(0);
     card.setODid(0);
+    if (!resched && !lapse) {
+      card.setType(0);
+      card.setQueue(card.getType());
+      card.setDue(mCol.nextID("pos"));
+    }
   }
 }

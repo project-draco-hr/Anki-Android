@@ -8,11 +8,17 @@
       return _delayForGrade(conf,conf.getJSONArray("delays").length());
     }
  else     if (ease == 3) {
+      if (!_resched(card)) {
+        return 0;
+      }
       return _graduatingIvl(card,conf,true,false) * 86400;
     }
  else {
       int left=card.getLeft() % 1000 - 1;
       if (left <= 0) {
+        if (!_resched(card)) {
+          return 0;
+        }
         return _graduatingIvl(card,conf,false,false) * 86400;
       }
  else {

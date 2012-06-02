@@ -8,7 +8,7 @@
     m.put("flds",ja);
     _updateFieldOrds(m);
     save(m);
-    _transformFields(m);
+    _transformFields(m,new TransformFieldAdd());
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);

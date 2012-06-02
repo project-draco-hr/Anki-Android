@@ -1,0 +1,12 @@
+{
+  JSONObject m2=null;
+  try {
+    m2=new JSONObject(m.toString());
+    m2.put("name",m2.getString("name") + " copy");
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  add(m2);
+  return m2;
+}

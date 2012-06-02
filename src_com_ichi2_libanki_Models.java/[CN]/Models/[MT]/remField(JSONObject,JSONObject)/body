@@ -1,0 +1,29 @@
+{
+  mCol.modSchema();
+  try {
+    JSONArray ja=m.getJSONArray("flds");
+    JSONArray ja2=new JSONArray();
+    int idx=-1;
+    for (int i=0; i < ja.length(); ++i) {
+      if (field.equals(ja.getJSONObject(i))) {
+        idx=i;
+        continue;
+      }
+      ja2.put(ja.get(i));
+    }
+    m.put("flds",ja2);
+    int sortf=m.getInt("sortf");
+    if (sortf >= m.getJSONArray("flds").length()) {
+      m.put("sortf",sortf - 1);
+    }
+    _updateFieldOrds(m);
+    _transformFields(m,new TransformFieldDelete(idx));
+    if (idx == sortIdx(m)) {
+      mCol.updateFieldCache(Utils.toPrimitive(nids(m)));
+    }
+    renameField(m,field,null);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

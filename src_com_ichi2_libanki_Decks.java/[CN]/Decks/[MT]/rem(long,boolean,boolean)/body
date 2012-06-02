@@ -9,7 +9,7 @@
   JSONObject deck=get(did);
   try {
     if (deck.getInt("dyn") != 0) {
-      mCol.getSched().remDyn(did);
+      mCol.getSched().emptyDyn(did);
       if (childrenToo) {
         for (        long id : children(did).values()) {
           rem(id,cardsToo);

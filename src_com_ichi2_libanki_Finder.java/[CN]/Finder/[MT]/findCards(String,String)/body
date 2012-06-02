@@ -1,0 +1,33 @@
+{
+  String[] tokens=_tokenize(query);
+  Pair<String,String[]> res1=_where(tokens);
+  String preds=res1.first;
+  String[] args=res1.second;
+  List<Long> res=new ArrayList<Long>();
+  if (preds == null) {
+    return res;
+  }
+  Pair<String,Boolean> res2=_order(_order);
+  String order=res2.first;
+  boolean rev=res2.second;
+  String sql=_query(preds,order);
+  Cursor cur=null;
+  try {
+    cur=mCol.getDb().getDatabase().rawQuery(sql,args);
+    while (cur.moveToNext()) {
+      res.add(cur.getLong(0));
+    }
+  }
+ catch (  SQLException e) {
+    return new ArrayList<Long>();
+  }
+ finally {
+    if (cur != null) {
+      cur.close();
+    }
+  }
+  if (rev) {
+    Collections.reverse(res);
+  }
+  return res;
+}

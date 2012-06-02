@@ -1,0 +1,34 @@
+{
+  Matcher m=fPropPattern.matcher(_val);
+  if (!m.matches()) {
+    return "";
+  }
+  String prop=m.group(1).toLowerCase();
+  String cmp=m.group(2);
+  String sval=m.group(3);
+  int val;
+  try {
+    if (prop.equals("ease")) {
+      val=(int)(Double.parseDouble(sval) * 1000);
+    }
+ else {
+      val=Integer.parseInt(sval);
+    }
+  }
+ catch (  NumberFormatException e) {
+    return "";
+  }
+  if (!fValidProps.contains(prop)) {
+    return "";
+  }
+  String q="";
+  if (prop.equals("due")) {
+    val+=mCol.getSched().getToday();
+    q="(c.queue in (2,3)) and ";
+  }
+ else   if (prop.equals("ease")) {
+    prop="factor";
+  }
+  q+=String.format(Locale.US,"(%s %s %s)",prop,cmp,val);
+  return q;
+}

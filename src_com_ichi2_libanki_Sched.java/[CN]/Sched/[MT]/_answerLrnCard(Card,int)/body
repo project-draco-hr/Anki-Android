@@ -33,7 +33,8 @@
  else {
       card.setLeft(_startingLeft(card));
       if (card.getODid() != 0) {
-        if (conf.has("mult")) {
+        boolean resched=_resched(card);
+        if (conf.has("mult") && resched) {
           try {
             card.setIvl(Math.max(1,card.getIvl() * conf.getInt("mult")));
           }
@@ -43,7 +44,9 @@
         }
  else {
         }
-        card.setODue(mToday + 1);
+        if (resched) {
+          card.setODue(mToday + 1);
+        }
       }
     }
     int delay=_delayForGrade(conf,card.getLeft());

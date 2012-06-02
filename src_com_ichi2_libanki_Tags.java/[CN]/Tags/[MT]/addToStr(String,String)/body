@@ -1,3 +1,7 @@
 {
-  return "";
+  Set<String> currentTags=new HashSet<String>(split(tags));
+  currentTags.addAll(split(addtags));
+  List<String> curTags=new ArrayList<String>(currentTags);
+  Collections.sort(curTags);
+  return join(curTags);
 }

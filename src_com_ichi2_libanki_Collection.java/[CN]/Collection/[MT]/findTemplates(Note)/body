@@ -1,5 +1,5 @@
 {
   JSONObject model=note.model();
-  ArrayList<Integer> avail=mModels.availOrds(model,Utils.joinFields(note.values()));
+  ArrayList<Integer> avail=mModels.availOrds(model,Utils.joinFields(note.getFields()));
   return _tmplsFromOrds(model,avail);
 }
