@@ -1,0 +1,36 @@
+{
+  if (val.equals("*")) {
+    return "skip";
+  }
+ else   if (val.equals("filtered")) {
+    return "c.odid";
+  }
+  List<Long> ids=null;
+  try {
+    if (val.toLowerCase().equals("current")) {
+      ids=dids(mCol.getDecks().current().getLong("id"));
+    }
+ else     if (!val.contains("*")) {
+      ids=dids(mCol.getDecks().id(val,false));
+    }
+ else {
+      ids=new ArrayList<Long>();
+      val=val.replace("*",".*");
+      for (      JSONObject d : mCol.getDecks().all()) {
+        if (d.getString("name").matches("(?i)" + val)) {
+          for (          long id : dids(d.getLong("id"))) {
+            ids.add(id);
+          }
+        }
+      }
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  if (ids == null || ids.size() == 0) {
+    return "";
+  }
+  String sids=Utils.ids2str(ids);
+  return String.format(Locale.US,"c.did in %s or c.odid in %s",sids,sids);
+}

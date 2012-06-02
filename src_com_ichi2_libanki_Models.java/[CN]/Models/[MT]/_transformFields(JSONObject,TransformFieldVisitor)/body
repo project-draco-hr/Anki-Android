@@ -1,0 +1,24 @@
+{
+  try {
+    if (m.getLong("id") == 0) {
+      return;
+    }
+    ArrayList<Object[]> r=new ArrayList<Object[]>();
+    Cursor cur=null;
+    try {
+      cur=mCol.getDb().getDatabase().rawQuery("select id, flds from notes where mid = " + m.getLong("id"),null);
+      while (cur.moveToNext()) {
+        r.add(new Object[]{Utils.joinFields((String[])fn.transform(Utils.splitFields(cur.getString(1)))),Utils.intNow(),mCol.usn(),cur.getLong(0)});
+      }
+    }
+  finally {
+      if (cur != null) {
+        cur.close();
+      }
+    }
+    mCol.getDb().executeMany("update notes set flds=?,mod=?,usn=? where id = ?",r);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

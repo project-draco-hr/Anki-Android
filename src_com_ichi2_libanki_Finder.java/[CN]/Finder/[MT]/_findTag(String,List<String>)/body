@@ -1,0 +1,14 @@
+{
+  if (val.equals("none")) {
+    return "tags = \"\"";
+  }
+  val=val.replace("*","%");
+  if (!val.startsWith("%")) {
+    val="% " + val;
+  }
+  if (!val.endsWith("%")) {
+    val+=" %";
+  }
+  args.add(val);
+  return "n.tags like ?";
+}

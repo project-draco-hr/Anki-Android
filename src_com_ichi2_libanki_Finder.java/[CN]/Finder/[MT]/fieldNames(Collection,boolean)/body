@@ -1,25 +1,23 @@
 {
-  TreeSet<String> fields=new TreeSet<String>();
-  ArrayList<String> names=new ArrayList<String>();
-  for (  JSONObject m : col.getModels().all()) {
-    try {
+  Set<String> fields=new HashSet<String>();
+  List<String> names=new ArrayList<String>();
+  try {
+    for (    JSONObject m : col.getModels().all()) {
       JSONArray flds=m.getJSONArray("flds");
-      for (int i=0; i < flds.length(); i++) {
-        String name=flds.getJSONObject(i).getString("name");
-        if (!fields.contains(name.toLowerCase())) {
-          names.add(name);
-          fields.add(name.toLowerCase());
+      for (int fi=0; fi < flds.length(); ++fi) {
+        JSONObject f=flds.getJSONObject(fi);
+        if (!fields.contains(f.getString("name").toLowerCase())) {
+          names.add(f.getString("name"));
+          fields.add(f.getString("name").toLowerCase());
         }
       }
     }
- catch (    JSONException e) {
-      throw new RuntimeException(e);
-    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
   }
   if (downcase) {
     return new ArrayList<String>(fields);
   }
- else {
-    return names;
-  }
+  return names;
 }

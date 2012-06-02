@@ -1,8 +1,13 @@
 {
   card.setLastIvl(card.getIvl());
-  _updateRevIvl(card,ease);
-  card.setFactor(Math.max(1300,card.getFactor() + FACTOR_ADDITION_VALUES[ease - 2]));
-  card.setDue(mToday + card.getIvl());
+  if (_resched(card)) {
+    _updateRevIvl(card,ease);
+    card.setFactor(Math.max(1300,card.getFactor() + FACTOR_ADDITION_VALUES[ease - 2]));
+    card.setDue(mToday + card.getIvl());
+  }
+ else {
+    card.setDue(card.getODue());
+  }
   if (card.getODid() != 0) {
     card.setDid(card.getODid());
     card.setODid(0);

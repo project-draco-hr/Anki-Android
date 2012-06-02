@@ -6,30 +6,17 @@
   try {
     if (deck.getInt("dyn") == 0) {
       Log.e(AnkiDroidApp.TAG,"error: deck is not a dynamic deck");
-      return;
+      return null;
     }
   }
  catch (  JSONException e1) {
     throw new RuntimeException(e1);
   }
-  remDyn(did);
-  String order=_dynOrder(deck);
-  String limit;
-  ArrayList<Long> ids;
-  String search;
-  try {
-    limit=" LIMIT " + deck.getInt("limit");
-    search=deck.getString("search") + " -is:suspended";
+  emptyDyn(did);
+  List<Long> ids=_fillDyn(deck);
+  if (ids.isEmpty()) {
+    return null;
   }
- catch (  JSONException e) {
-    throw new RuntimeException(e);
-  }
-  try {
-    ids=mCol.findCards(search,order + limit);
-  }
- catch (  RuntimeException e) {
-    ids=new ArrayList<Long>();
-  }
-  _moveToDyn(did,ids);
   mCol.getDecks().select(did);
+  return ids;
 }

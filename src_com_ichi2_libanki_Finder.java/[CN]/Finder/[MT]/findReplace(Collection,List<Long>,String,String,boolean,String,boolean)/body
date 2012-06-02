@@ -1,0 +1,73 @@
+{
+  Map<Long,Integer> mmap=new HashMap<Long,Integer>();
+  if (field != null) {
+    try {
+      for (      JSONObject m : col.getModels().all()) {
+        JSONArray flds=m.getJSONArray("flds");
+        for (int fi=0; fi < flds.length(); ++fi) {
+          JSONObject f=flds.getJSONObject(fi);
+          if (f.getString("name").equals(field)) {
+            mmap.put(m.getLong("id"),f.getInt("ord"));
+          }
+        }
+      }
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+    if (mmap.isEmpty()) {
+      return 0;
+    }
+  }
+  if (!isRegex) {
+    src=Pattern.quote(src);
+  }
+  if (fold) {
+    src="(?i)" + src;
+  }
+  Pattern regex=Pattern.compile(src);
+  ArrayList<Object[]> d=new ArrayList<Object[]>();
+  String sql="select id, mid, flds from notes where id in " + Utils.ids2str(nids.toArray(new Long[]{}));
+  nids=new ArrayList<Long>();
+  Cursor cur=null;
+  try {
+    cur=col.getDb().getDatabase().rawQuery(sql,null);
+    while (cur.moveToNext()) {
+      String flds=cur.getString(2);
+      String origFlds=flds;
+      String[] sflds=Utils.splitFields(flds);
+      if (field != null) {
+        long mid=cur.getLong(1);
+        if (!mmap.containsKey(mid)) {
+          continue;
+        }
+        int ord=mmap.get(mid);
+        sflds[ord]=regex.matcher(sflds[ord]).replaceAll(dst);
+      }
+ else {
+        for (int i=0; i < sflds.length; ++i) {
+          sflds[i]=regex.matcher(sflds[i]).replaceAll(dst);
+        }
+      }
+      flds=Utils.joinFields(sflds);
+      if (!flds.equals(origFlds)) {
+        long nid=cur.getLong(0);
+        nids.add(nid);
+        d.add(new Object[]{flds,Utils.intNow(),col.usn(),nid});
+      }
+    }
+  }
+  finally {
+    if (cur != null) {
+      cur.close();
+    }
+  }
+  if (d.isEmpty()) {
+    return 0;
+  }
+  col.getDb().executeMany("update notes set flds=?,mod=?,usn=? where id=?",d);
+  long[] pnids=Utils.toPrimitive(nids);
+  col.updateFieldCache(pnids);
+  col.genCards(pnids);
+  return d.size();
+}

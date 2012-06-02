@@ -1,0 +1,33 @@
+{
+  String[] tokens=_tokenize(query);
+  Pair<String,String[]> res1=_where(tokens);
+  String preds=res1.first;
+  String[] args=res1.second;
+  List<Long> res=new ArrayList<Long>();
+  if (preds == null) {
+    return res;
+  }
+  if (preds.equals("")) {
+    preds="1";
+  }
+ else {
+    preds="(" + preds + ")";
+  }
+  String sql="select distinct(n.id) from cards c, notes n where c.nid=n.id and " + preds;
+  Cursor cur=null;
+  try {
+    cur=mCol.getDb().getDatabase().rawQuery(sql,args);
+    while (cur.moveToNext()) {
+      res.add(cur.getLong(0));
+    }
+  }
+ catch (  SQLException e) {
+    return new ArrayList<Long>();
+  }
+ finally {
+    if (cur != null) {
+      cur.close();
+    }
+  }
+  return res;
+}

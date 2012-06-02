@@ -1,0 +1,45 @@
+{
+  List<String> newTags=split(tags);
+  if (newTags == null || newTags.isEmpty()) {
+    return;
+  }
+  register(newTags);
+  String l;
+  if (add) {
+    l="tags not ";
+  }
+ else {
+    l="tags ";
+  }
+  StringBuilder lim=new StringBuilder();
+  for (  String t : newTags) {
+    if (lim.length() != 0) {
+      lim.append(" or ");
+    }
+    lim.append(l).append("like '% ").append(t).append(" %'");
+  }
+  Cursor cur=null;
+  List<Long> nids=new ArrayList<Long>();
+  ArrayList<Object[]> res=new ArrayList<Object[]>();
+  try {
+    cur=mCol.getDb().getDatabase().rawQuery(String.format(Locale.US,"select id, tags from notes where id in %s and (%s)",Utils.ids2str(ids),lim),null);
+    if (add) {
+      while (cur.moveToNext()) {
+        nids.add(cur.getLong(0));
+        res.add(new Object[]{addToStr(tags,cur.getString(1)),Utils.intNow(),mCol.usn(),cur.getLong(0)});
+      }
+    }
+ else {
+      while (cur.moveToNext()) {
+        nids.add(cur.getLong(0));
+        res.add(new Object[]{remFromStr(tags,cur.getString(1)),Utils.intNow(),mCol.usn(),cur.getLong(0)});
+      }
+    }
+  }
+  finally {
+    if (cur != null) {
+      cur.close();
+    }
+  }
+  mCol.getDb().executeMany("update notes set tags=:t,mod=:n,usn=:u where id = :id",res);
+}

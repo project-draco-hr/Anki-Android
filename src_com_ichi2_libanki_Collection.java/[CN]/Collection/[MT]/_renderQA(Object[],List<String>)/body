@@ -1,0 +1,35 @@
+{
+  String[] flist=Utils.splitFields((String)data[6]);
+  Map<String,String> fields=new HashMap<String,String>();
+  long modelId=(Long)data[2];
+  JSONObject model=mModels.get(modelId);
+  Map<String,Pair<Integer,JSONObject>> fmap=mModels.fieldMap(model);
+  for (  String fname : fmap.keySet()) {
+    fields.put(fname,flist[fmap.get(fname).first]);
+  }
+  fields.put("Tags",(String)data[5]);
+  try {
+    fields.put("Type",(String)model.get("name"));
+    fields.put("Deck",mDecks.name((Long)data[3]));
+    JSONObject template;
+    if (model.getInt("type") == Sched.MODEL_STD) {
+      template=model.getJSONArray("tmpls").getJSONObject((Integer)data[4]);
+    }
+ else {
+      template=model.getJSONArray("tmpls").getJSONObject(0);
+    }
+    fields.put("Card",template.getString("name"));
+    fields.put("c" + (((Integer)data[4]) + 1),"1");
+    Models.fieldParser fparser=new Models.fieldParser(fields);
+    HashMap<String,String> d=new HashMap<String,String>();
+    d.put("id",Long.toString((Long)data[0]));
+    d.put("q",mModels.getCmpldTemplate(modelId,(Integer)data[4],args)[0].execute(fparser));
+    fields.put("FrontSide",d.get("id"));
+    fparser=new Models.fieldParser(fields);
+    d.put("a",mModels.getCmpldTemplate(modelId,(Integer)data[4],args)[1].execute(fparser));
+    return d;
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

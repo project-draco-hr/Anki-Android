@@ -5,12 +5,17 @@
       return conf.getJSONObject("lapse");
     }
     JSONObject oconf=mCol.getDecks().confForDid(card.getODid());
+    JSONArray delays=conf.optJSONArray("delays");
+    if (delays == null) {
+      delays=oconf.getJSONObject("lapse").getJSONArray("delays");
+    }
     JSONObject dict=new JSONObject();
     dict.put("minInt",oconf.getJSONObject("lapse").getInt("minInt"));
     dict.put("leechFails",oconf.getJSONObject("lapse").getInt("leechFails"));
     dict.put("leechAction",oconf.getJSONObject("lapse").getInt("leechAction"));
-    dict.put("delays",conf.getJSONArray("delays"));
-    dict.put("mult",conf.getInt("fmult"));
+    dict.put("mult",oconf.getJSONObject("lapse").getInt("mult"));
+    dict.put("delays",delays);
+    dict.put("resched",conf.getBoolean("resched"));
     return dict;
   }
  catch (  JSONException e) {

@@ -1,0 +1,65 @@
+{
+  char inQuote=0;
+  List<String> tokens=new ArrayList<String>();
+  String token="";
+  for (int i=0; i < query.length(); ++i) {
+    char c=query.charAt(i);
+    if (c == '\'' || c == '"') {
+      if (inQuote != 0) {
+        if (c == inQuote) {
+          inQuote=0;
+        }
+ else {
+          token+=c;
+        }
+      }
+ else       if (token.length() != 0) {
+        if (token.endsWith(":")) {
+          inQuote=c;
+        }
+ else {
+          token+=c;
+        }
+      }
+ else {
+        inQuote=c;
+      }
+    }
+ else     if (c == ' ') {
+      if (inQuote != 0) {
+        token+=c;
+      }
+ else       if (token.length() != 0) {
+        tokens.add(token);
+        token="";
+      }
+    }
+ else     if (c == '(' || c == ')') {
+      if (inQuote != 0) {
+        token+=c;
+      }
+ else {
+        if (c == ')' && token.length() != 0) {
+          tokens.add(token);
+          token="";
+        }
+        tokens.add(String.valueOf(c));
+      }
+    }
+ else     if (c == '-') {
+      if (token.length() != 0) {
+        token+=c;
+      }
+ else       if (tokens.size() == 0 || !tokens.get(tokens.size() - 1).equals("not")) {
+        tokens.add("not");
+      }
+    }
+ else {
+      token+=c;
+    }
+  }
+  if (token.length() != 0) {
+    tokens.add(token);
+  }
+  return tokens.toArray(new String[]{});
+}

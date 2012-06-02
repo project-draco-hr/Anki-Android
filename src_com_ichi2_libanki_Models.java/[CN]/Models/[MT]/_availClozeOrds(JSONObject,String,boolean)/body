@@ -1,0 +1,30 @@
+{
+  String[] sflds=Utils.splitFields(flds);
+  Map<String,Pair<Integer,JSONObject>> map=fieldMap(m);
+  Set<Integer> ords=new HashSet<Integer>();
+  Matcher matcher1=null;
+  try {
+    matcher1=fClozePattern1.matcher(m.getJSONArray("tmpls").getJSONObject(0).getString("qfmt"));
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  while (matcher1.find()) {
+    String fname=matcher1.group(1);
+    if (!map.containsKey(fname)) {
+      continue;
+    }
+    int ord=map.get(fname).first;
+    Matcher matcher2=fClozePattern2.matcher(sflds[ord]);
+    while (matcher2.find()) {
+      ords.add(Integer.getInteger(matcher2.group(1)) - 1);
+    }
+  }
+  if (ords.contains(-1)) {
+    ords.remove(-1);
+  }
+  if (ords.isEmpty() && allowEmpty) {
+    return new ArrayList<Integer>(Arrays.asList(new Integer[]{0}));
+  }
+  return new ArrayList<Integer>(ords);
+}

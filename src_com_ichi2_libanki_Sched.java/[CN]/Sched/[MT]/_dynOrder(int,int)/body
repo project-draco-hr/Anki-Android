@@ -1,0 +1,29 @@
+{
+  String t;
+switch (o) {
+case DYN_OLDEST:
+    t="c.mod";
+  break;
+case DYN_RANDOM:
+t="random()";
+break;
+case DYN_SMALLINT:
+t="ivl";
+break;
+case DYN_BIGINT:
+t="ivl desc";
+break;
+case DYN_LAPSES:
+t="lapses desc";
+break;
+case DYN_ADDED:
+t="n.id";
+break;
+case DYN_DUE:
+t="c.due";
+break;
+default :
+throw new RuntimeException("Sched._dynOrder: Unexpected order for dynamic deck " + o);
+}
+return t + " limit " + l;
+}
