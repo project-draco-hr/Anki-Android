@@ -51,7 +51,7 @@
     httpPost.setHeader("Content-type","multipart/form-data; boundary=" + BOUNDARY);
     SchemeRegistry schemeRegistry=new SchemeRegistry();
     schemeRegistry.register(new Scheme("http",PlainSocketFactory.getSocketFactory(),80));
-    schemeRegistry.register(new Scheme("https",new EasySSLSocketFactory(),443));
+    schemeRegistry.register(new Scheme("https",newSslSocketFactory(),443));
     HttpParams params=new BasicHttpParams();
     params.setParameter(ConnManagerPNames.MAX_TOTAL_CONNECTIONS,30);
     params.setParameter(ConnManagerPNames.MAX_CONNECTIONS_PER_ROUTE,new ConnPerRouteBean(30));
