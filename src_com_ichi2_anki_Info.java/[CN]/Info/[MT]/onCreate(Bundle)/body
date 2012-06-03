@@ -89,11 +89,6 @@ builder.setMessage("At the moment, it's still necessary to log in manually.\nPle
 builder.setPositiveButton("ok",null);
 builder.show();
 break;
-case TYPE_CREATE_ACCOUNT:
-mWebView.loadUrl(res.getString(R.string.ankionline_sign_up_url));
-mWebView.setWebViewClient(new CustomWebViewClient());
-continueButton.setText(res.getString(R.string.download_button_return));
-break;
 default :
 finish();
 break;

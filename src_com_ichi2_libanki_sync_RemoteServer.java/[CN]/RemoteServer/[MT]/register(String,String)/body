@@ -1,0 +1,14 @@
+{
+  try {
+    JSONObject jo=new JSONObject();
+    jo.put("u",URLEncoder.encode(user,"UTF-8"));
+    jo.put("p",URLEncoder.encode(pw,"UTF-8"));
+    return super.req("register",null,6,false,jo);
+  }
+ catch (  JSONException e) {
+    return null;
+  }
+catch (  UnsupportedEncodingException e) {
+    return null;
+  }
+}
