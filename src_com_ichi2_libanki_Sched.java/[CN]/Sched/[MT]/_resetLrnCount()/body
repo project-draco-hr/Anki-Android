@@ -1,3 +1,4 @@
 {
   mLrnCount=_cntFnLrn(_deckLimit());
+  mLrnCount+=(int)mCol.getDb().queryScalar("SELECT count() FROM cards WHERE did IN " + _deckLimit() + " AND queue = 3 AND due <= "+ mToday+ " LIMIT "+ mReportLimit,false);
 }

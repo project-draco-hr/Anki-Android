@@ -1,17 +1,19 @@
 {
-  String[] fields=Utils.splitFields(flds);
-  for (  String f : fields) {
-    f=f.trim();
-  }
-  ArrayList<Integer> avail=new ArrayList<Integer>();
   try {
+    if (m.getInt("type") == Sched.MODEL_CLOZE) {
+      return _availClozeOrds(m,flds);
+    }
+    String[] fields=Utils.splitFields(flds);
+    for (    String f : fields) {
+      f=f.trim();
+    }
+    ArrayList<Integer> avail=new ArrayList<Integer>();
     JSONArray reqArray=m.getJSONArray("req");
     for (int i=0; i < reqArray.length(); i++) {
       JSONArray sr=reqArray.getJSONArray(i);
       int ord=sr.getInt(0);
       String type=sr.getString(1);
       JSONArray req=sr.getJSONArray(2);
-      JSONArray reqstrs=sr.getJSONArray(3);
       if (type.equals("none")) {
         continue;
       }
@@ -39,21 +41,11 @@
           continue;
         }
       }
-      boolean ok=true;
-      for (int j=0; j < reqstrs.length(); j++) {
-        if (!flds.matches(reqstrs.getString(i))) {
-          ok=false;
-          break;
-        }
-      }
-      if (!ok) {
-        continue;
-      }
       avail.add(ord);
     }
+    return avail;
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
-  return avail;
 }

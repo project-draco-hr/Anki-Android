@@ -3,6 +3,7 @@
   String hkey=(String)data.data[0];
   boolean media=(Boolean)data.data[1];
   String conflictResolution=(String)data.data[2];
+  int mediaUsn=(Integer)data.data[3];
   Collection col=Collection.currentCollection();
   if (col == null) {
     data.success=false;
@@ -17,6 +18,7 @@
     Log.i(AnkiDroidApp.TAG,"Sync - starting sync");
     publishProgress(R.string.sync_prepare_syncing);
     Object[] ret=client.sync(this);
+    mediaUsn=client.getmMediaUsn();
     if (ret == null) {
       data.success=false;
       data.result=new Object[]{"genericError"};
@@ -26,6 +28,7 @@
     if (!retCode.equals("noChanges") && !retCode.equals("success")) {
       data.success=false;
       data.result=ret;
+      data.data=new Object[]{mediaUsn};
       return data;
     }
     col.save();
@@ -78,8 +81,18 @@
       col=Collection.openCollection(path);
     }
   }
-  boolean noMediaChanges=true;
+  boolean noMediaChanges=false;
   if (media) {
+    server=new RemoteMediaServer(hkey,this);
+    MediaSyncer mediaClient=new MediaSyncer(col,(RemoteMediaServer)server);
+    String ret=mediaClient.sync(mediaUsn,this);
+    if (ret.equals("noChanges")) {
+      publishProgress(R.string.sync_media_no_changes);
+      noMediaChanges=true;
+    }
+ else {
+      publishProgress(R.string.sync_media_success);
+    }
   }
   if (noChanges && noMediaChanges) {
     data.success=false;
@@ -88,7 +101,7 @@
   }
  else {
     data.success=true;
-    TreeSet<Object[]> decks=col.getSched().deckDueTree(true);
+    TreeSet<Object[]> decks=col.getSched().deckDueTree(Sched.DECK_INFORMATION_SIMPLE_COUNTS);
     int[] counts=new int[]{0,0,0};
     for (    Object[] deck : decks) {
       if (((String[])deck[0]).length == 1) {

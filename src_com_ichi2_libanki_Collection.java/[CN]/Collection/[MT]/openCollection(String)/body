@@ -1,5 +1,4 @@
 {
-  AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(path);
-  sCurrentCollection=new Collection(ankiDB,path);
+  sCurrentCollection=Storage.Collection(path);
   return sCurrentCollection;
 }

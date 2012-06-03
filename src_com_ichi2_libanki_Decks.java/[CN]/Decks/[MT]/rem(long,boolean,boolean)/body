@@ -10,6 +10,11 @@
   try {
     if (deck.getInt("dyn") != 0) {
       mCol.getSched().remDyn(did);
+      if (childrenToo) {
+        for (        long id : children(did).values()) {
+          rem(id,cardsToo);
+        }
+      }
     }
  else {
       if (childrenToo) {
@@ -18,7 +23,8 @@
         }
       }
       if (cardsToo) {
-        mCol.remCards(cids(did));
+        ArrayList<Long> cids=mCol.getDb().queryColumn(Long.class,"SELECT id FROM cards WHERE did = " + did + " OR odid = "+ did,0);
+        mCol.remCards(Utils.arrayList2array(cids));
       }
     }
   }

@@ -64,14 +64,5 @@
     this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
   }
   mSimpleInterface=preferences.getBoolean("simpleInterface",false);
-  mZeemoteGestureA=Integer.parseInt(preferences.getString("zeemoteActionA","14"));
-  mZeemoteGestureB=Integer.parseInt(preferences.getString("zeemoteActionB","13"));
-  mZeemoteGestureC=Integer.parseInt(preferences.getString("zeemoteActionC","8"));
-  mZeemoteGestureD=Integer.parseInt(preferences.getString("zeemoteActionD","1"));
-  mZeemoteGestureUp=Integer.parseInt(preferences.getString("zeemoteActionUp","5"));
-  mZeemoteGestureDown=Integer.parseInt(preferences.getString("zeemoteActionDown","2"));
-  mZeemoteGestureLeft=Integer.parseInt(preferences.getString("zeemoteActionLeft","3"));
-  mZeemoteGestureRight=Integer.parseInt(preferences.getString("zeemoteActionRight","4"));
-  mZeemoteGestureShowAnswer=preferences.getBoolean("zeemoteShowAnswer",false);
   return preferences;
 }

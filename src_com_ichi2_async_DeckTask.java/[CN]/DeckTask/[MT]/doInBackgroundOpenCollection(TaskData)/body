@@ -6,32 +6,11 @@
   boolean reset=params[0].getBoolean();
   Collection col=null;
   if (oldCol == null || !oldCol.getPath().equals(collectionFile)) {
-    File dbFile=new File(collectionFile);
-    if (!dbFile.exists()) {
-      Log.i(AnkiDroidApp.TAG,"doInBackgroundOpenCollection: db file does not exist. Creating it...");
-      publishProgress(new TaskData(res.getString(R.string.create_collection)));
-      AnkiDroidApp.createDirectoryIfMissing(dbFile.getParentFile());
-      try {
-        InputStream stream=res.getAssets().open("collection.anki2");
-        Utils.writeToFile(stream,collectionFile);
-        stream.close();
-        AnkiDb ankiDB=AnkiDatabaseManager.getDatabase(collectionFile);
-        ankiDB.execute("UPDATE col SET crt = 0");
-        AnkiDatabaseManager.closeDatabase(collectionFile);
-      }
- catch (      IOException e) {
-        Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
-        Log.e(AnkiDroidApp.TAG,"doInBackgroundOpenCollection - The copy of collection.anki2 to the SD card failed.");
-        col=null;
-        return new TaskData(col);
-      }
-      publishProgress(new TaskData(res.getString(R.string.open_collection)));
-    }
- else     if (BackupManager.safetyBackupNeeded(collectionFile)) {
+    if (BackupManager.safetyBackupNeeded(collectionFile)) {
       publishProgress(new TaskData(res.getString(R.string.backup_collection)));
       BackupManager.performBackup(collectionFile);
-      publishProgress(new TaskData(res.getString(R.string.open_collection)));
     }
+    publishProgress(new TaskData(res.getString(R.string.open_collection)));
     Log.i(AnkiDroidApp.TAG,"doInBackgroundOpenCollection - File exists -> Loading collection...");
     try {
       col=Collection.openCollection(collectionFile);
@@ -54,11 +33,7 @@
     return new TaskData(col);
   }
   try {
-    if (reset) {
-      col.getSched().reset();
-    }
-    TreeSet<Object[]> decks=col.getSched().deckDueTree(false);
-    return new TaskData(col,decks,0);
+    return new TaskData(col,doInBackgroundLoadDeckCounts(new TaskData(col)).getObjArray());
   }
  catch (  RuntimeException e) {
     col=null;

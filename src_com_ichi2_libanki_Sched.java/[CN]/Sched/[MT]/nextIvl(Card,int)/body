@@ -1,12 +1,12 @@
 {
   try {
-    if (card.getQueue() == 0 || card.getQueue() == 1) {
+    if (card.getQueue() == 0 || card.getQueue() == 1 || card.getQueue() == 3) {
       return _nextLrnIvl(card,ease);
     }
  else     if (ease == 1) {
       JSONObject conf=_lapseConf(card);
       if (conf.getJSONArray("delays").length() > 0) {
-        return conf.getJSONArray("delays").getInt(0) * 60;
+        return (int)(conf.getJSONArray("delays").getDouble(0) * 60.0);
       }
       return _nextLapseIvl(card,conf) * 86400;
     }

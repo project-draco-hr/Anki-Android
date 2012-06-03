@@ -108,7 +108,7 @@ updateViews.setOnClickPendingIntent(R.id.widget_big_ease3,getAnswerPendingIntent
 updateViews.setOnClickPendingIntent(R.id.widget_big_ease4,getAnswerPendingIntent(context,4));
 updateViews.setTextViewText(R.id.widget_big_message,getNextTimeString(contentService.mCurrentCard));
 updateViews.setOnClickPendingIntent(R.id.widget_big_bottomleft,getAnswerPendingIntent(this,1));
-if (!contentService.mCol.getSched().lrnButtons(contentService.mCurrentCard)) {
+if (contentService.mCol.getSched().answerButtons(contentService.mCurrentCard) == 4) {
 updateViews.setViewVisibility(R.id.widget_big_ease2_normal,View.INVISIBLE);
 updateViews.setViewVisibility(R.id.widget_big_ease2_rec,View.VISIBLE);
 updateViews.setViewVisibility(R.id.widget_big_ease3_normal,View.INVISIBLE);

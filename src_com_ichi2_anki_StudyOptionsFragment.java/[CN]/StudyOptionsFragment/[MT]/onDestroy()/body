@@ -1,13 +1,4 @@
 {
   super.onDestroy();
   Log.i(AnkiDroidApp.TAG,"StudyOptions - onDestroy()");
-  if (mZeemoteEnabled && (AnkiDroidApp.zeemoteController() != null) && (AnkiDroidApp.zeemoteController().isConnected())) {
-    try {
-      Log.d("Zeemote","trying to disconnect in onDestroy...");
-      AnkiDroidApp.zeemoteController().disconnect();
-    }
- catch (    IOException ex) {
-      Log.e("Zeemote","Error on zeemote disconnection in onDestroy: " + ex.getMessage());
-    }
-  }
 }

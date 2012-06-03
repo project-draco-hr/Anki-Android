@@ -16,37 +16,55 @@
     _rescheduleAsRev(card,conf,true);
     leaving=true;
   }
- else   if (ease == 2 && card.getLeft() - 1 <= 0) {
+ else   if (ease == 2 && (card.getLeft() % 1000) - 1 <= 0) {
     _rescheduleAsRev(card,conf,false);
     leaving=true;
   }
  else {
     if (ease == 2) {
-      card.setLeft(card.getLeft() - 1);
+      int left=(card.getLeft() % 1000) - 1;
+      try {
+        card.setLeft(_leftToday(conf.getJSONArray("delays"),left) * 1000 + left);
+      }
+ catch (      JSONException e) {
+        throw new RuntimeException(e);
+      }
     }
  else {
       card.setLeft(_startingLeft(card));
       if (card.getODid() != 0) {
-        try {
-          card.setIvl(Math.max(1,card.getIvl() * conf.getInt("mult")));
+        if (conf.has("mult")) {
+          try {
+            card.setIvl(Math.max(1,card.getIvl() * conf.getInt("mult")));
+          }
+ catch (          JSONException e) {
+            throw new RuntimeException(e);
+          }
         }
- catch (        JSONException e) {
-          throw new RuntimeException(e);
+ else {
         }
         card.setODue(mToday + 1);
       }
     }
-    mLrnCount+=card.getLeft();
     int delay=_delayForGrade(conf,card.getLeft());
     if (card.getDue() < Utils.now()) {
       delay*=(1 + (new Random().nextInt(25) / 100));
     }
     card.setDue((int)(Utils.now() + delay));
-    if (!mLrnQueue.isEmpty() && mRevCount == 0 && mNewCount == 0) {
-      long smallestDue=mLrnQueue.getFirst()[0];
-      card.setDue(Math.max(card.getDue(),smallestDue + 1));
+    if (card.getDue() < mDayCutoff) {
+      mLrnCount+=card.getLeft() / 1000;
+      card.setQueue(1);
+      if (!mLrnQueue.isEmpty() && mRevCount == 0 && mNewCount == 0) {
+        long smallestDue=mLrnQueue.getFirst()[0];
+        card.setDue(Math.max(card.getDue(),smallestDue + 1));
+      }
+      _sortIntoLrn(card.getDue(),card.getId());
     }
-    _sortIntoLrn(card.getDue(),card.getId());
+ else {
+      long ahead=((card.getDue() - mDayCutoff) / 86400) + 1;
+      card.setDue(mToday + ahead);
+      card.setQueue(3);
+    }
   }
   _logLrn(card,ease,conf,leaving,type,lastLeft);
 }

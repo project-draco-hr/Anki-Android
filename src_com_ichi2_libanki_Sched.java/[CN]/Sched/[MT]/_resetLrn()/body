@@ -1,4 +1,6 @@
 {
   _resetLrnCount();
   mLrnQueue.clear();
+  mLrnDayQueue.clear();
+  mLrnDids=mCol.getDecks().active();
 }

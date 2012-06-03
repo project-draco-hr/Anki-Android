@@ -1,0 +1,29 @@
+{
+  try {
+    m.put("type",Sched.MODEL_CLOZE);
+    JSONObject t=m.getJSONArray("tmpls").getJSONObject(0);
+    for (    String type : new String[]{"qfmt","afmt"}) {
+      t.put(type,t.getString(type).replaceAll("{{cloze:1:(.+?)}}","{{cloze:$1}}"));
+    }
+    t.put("name","Cloze");
+    JSONArray ja=m.getJSONArray("tmpls");
+    ArrayList<JSONObject> rem=new ArrayList<JSONObject>();
+    for (int i=1; i < ja.length(); i++) {
+      JSONObject ta=ja.getJSONObject(i);
+      if (!ta.getString("afmt").contains("{{cloze:")) {
+        rem.add(ta);
+      }
+    }
+    for (    JSONObject r : rem) {
+      col.getModels().remTemplate(m,r);
+    }
+    JSONArray newArray=new JSONArray();
+    newArray.put(ja.get(0));
+    m.put("tmpls",newArray);
+    col.getModels()._updateTemplOrds(m);
+    col.getModels().save(m);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

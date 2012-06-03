@@ -4,7 +4,7 @@
   long t=Utils.intNow();
   int u=mCol.usn();
   for (long c=0; c < ids.size(); c++) {
-    data.add(new Object[]{did,-1000 + c,t,u,ids.get((int)c)});
+    data.add(new Object[]{did,-100000 + c,t,u,ids.get((int)c)});
   }
   String queue;
   try {
@@ -12,7 +12,7 @@
       queue="0";
     }
  else {
-      queue="(CASE WHEN type = 2 AND (odue OR due) <= " + mToday + " THEN 2 ELSE 0 END)";
+      queue="(CASE WHEN type = 2 AND (CASE WHEN odue THEN odue <= " + mToday + " ELSE due <= "+ mToday+ " END) THEN 2 ELSE 0 END)";
     }
   }
  catch (  JSONException e) {

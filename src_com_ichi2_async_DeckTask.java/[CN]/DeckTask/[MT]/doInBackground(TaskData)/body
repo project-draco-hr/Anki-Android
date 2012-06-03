@@ -54,6 +54,8 @@ case TASK_TYPE_RESTORE_IF_MISSING:
 return doInBackgroundRestoreIfMissing(params);
 case TASK_TYPE_DELETE_DECK:
 return doInBackgroundDeleteDeck(params);
+case TASK_TYPE_REBUILD_CRAM:
+return doInBackgroundRebuildCram(params);
 default :
 return null;
 }

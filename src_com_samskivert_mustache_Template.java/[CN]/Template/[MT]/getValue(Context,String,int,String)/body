@@ -1,0 +1,11 @@
+{
+  while (ctx != null) {
+    Object value=getValueIn(ctx.data,name,line);
+    if (value != null) {
+      return value;
+    }
+    ctx=ctx.parent;
+  }
+  Log.e(AnkiDroidApp.TAG,"Could not retrieve from context name '" + name + "' on line "+ line);
+  return defaultValue;
+}

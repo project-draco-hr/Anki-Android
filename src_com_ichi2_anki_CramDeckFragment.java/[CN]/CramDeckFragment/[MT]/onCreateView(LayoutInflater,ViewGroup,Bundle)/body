@@ -24,6 +24,7 @@
   mDeckLabel=(TextView)main.findViewById(R.id.cram_deck_decks_text);
   mDecks.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View v){
+      showDecksDialog();
     }
   }
 );
@@ -35,12 +36,15 @@
     @Override public void onClick(    View v){
       try {
         mDeck.put("steps",DeckOptions.getDelays(mSteps.getText().toString()));
+        mDeck.put("search",mDeckLabel.getText().toString());
         mDeck.put("limit",Integer.parseInt(mLimit.getText().toString()));
         mDeck.put("fmult",Integer.parseInt(mLimit.getText().toString()) / 100.0);
       }
  catch (      JSONException e) {
         throw new RuntimeException(e);
       }
+      mCol.getSched().rebuildDyn(mCol.getDecks().id("Cram 1"));
+      mCol.save();
       closeCramDeckAdder();
     }
   }
@@ -57,6 +61,29 @@
     return null;
   }
   mDeck=mCol.getDecks().current();
+  try {
+    if (mDeck.getInt("dyn") == 0) {
+      String currentDeckName=mDeck.getString("name");
+      ArrayList<String> names=mCol.getDecks().allNames();
+      int n=1;
+      String cramDeckName="Cram 1";
+      while (names.contains(cramDeckName)) {
+        n++;
+        cramDeckName="Cram " + n;
+      }
+      mCol.getDecks().newDyn(cramDeckName);
+      mDeck=mCol.getDecks().current();
+      mDeck.put("search","\'deck:" + currentDeckName + "\'");
+    }
+    mCramDeckName.setText(mDeck.getString("name"));
+    mDeckLabel.setText(mDeck.getString("search"));
+    mSteps.setText(DeckOptions.getDelays(mDeck.getJSONArray("delays")));
+    mLimit.setText(Integer.toString(mDeck.getInt("limit")));
+    mInterval.setText(Integer.toString((int)(mDeck.getDouble("fmult") * 100)));
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
   if (!mFragmented) {
     main.setBackgroundResource(R.drawable.white_wallpaper);
   }

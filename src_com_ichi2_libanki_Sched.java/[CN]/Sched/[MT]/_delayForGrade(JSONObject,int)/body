@@ -1,15 +1,16 @@
 {
+  left=left % 1000;
   try {
-    int delay;
+    double delay;
     JSONArray ja=conf.getJSONArray("delays");
     int len=ja.length();
     try {
-      delay=conf.getJSONArray("delays").getInt(len - left);
+      delay=ja.getDouble(len - left);
     }
  catch (    JSONException e) {
-      delay=conf.getJSONArray("delays").getInt(0);
+      delay=ja.getDouble(0);
     }
-    return delay * 60;
+    return (int)(delay * 60.0);
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);

@@ -1,0 +1,15 @@
+{
+  if (allowedfields.contains(field.toLowerCase())) {
+    res.add(new Object[]{field + ":" + value,isNeg,SEARCH_FIELD});
+  }
+ else {
+    for (    JSONObject p : phraselog) {
+      try {
+        res.add(new Object[]{p.getString("value"),p.getBoolean("is_neg"),p.getInt("type")});
+      }
+ catch (      JSONException e) {
+        throw new RuntimeException(e);
+      }
+    }
+  }
+}

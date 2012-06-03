@@ -35,6 +35,9 @@
  catch (        JSONException e) {
           throw new RuntimeException(e);
         }
+        if (mRevQueue.size() < lim) {
+          mRevDids.remove();
+        }
         return true;
       }
     }

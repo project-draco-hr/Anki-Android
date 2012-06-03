@@ -1,6 +1,6 @@
 {
   _resetNewCount();
-  mNewDids=mCol.getDecks().active();
+  mNewDids=new LinkedList<Long>(mCol.getDecks().active());
   mNewQueue.clear();
   _updateNewCardRatio();
 }

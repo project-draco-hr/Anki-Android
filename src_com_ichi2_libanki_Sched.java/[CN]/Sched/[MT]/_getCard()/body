@@ -10,6 +10,10 @@
   if (c != null) {
     return c;
   }
+  c=_getLrnDayCard();
+  if (c != null) {
+    return c;
+  }
   c=_getNewCard();
   if (c != null) {
     return c;

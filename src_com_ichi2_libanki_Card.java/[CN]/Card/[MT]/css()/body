@@ -1,6 +1,6 @@
 {
   try {
-    return (new StringBuilder()).append("<style>").append(template().get("css")).append("</style>").toString();
+    return (new StringBuilder()).append("<style>").append(model().get("css")).append("</style>").toString();
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);

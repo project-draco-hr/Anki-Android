@@ -17,7 +17,7 @@
     }
     _updateStats(card,"new");
   }
-  if (card.getQueue() == 1) {
+  if (card.getQueue() == 1 || card.getQueue() == 3) {
     _answerLrnCard(card,ease);
     if (!wasNew) {
       _updateStats(card,"lrn");

@@ -1,8 +1,4 @@
 {
   Log.i(AnkiDroidApp.TAG,"DeckPicker - onPause");
-  if ((AnkiDroidApp.zeemoteController() != null) && (AnkiDroidApp.zeemoteController().isConnected())) {
-    Log.d("Zeemote","Removing listener in onPause");
-    adapter=null;
-  }
   super.onPause();
 }

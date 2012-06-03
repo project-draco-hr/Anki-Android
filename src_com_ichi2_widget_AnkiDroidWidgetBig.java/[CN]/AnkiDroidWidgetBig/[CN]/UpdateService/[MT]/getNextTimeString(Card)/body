@@ -5,7 +5,7 @@
   SpannableString easy=new SpannableString(contentService.mCol.getSched().nextIvlStr(card,3));
   SpannableString veryEasy=null;
   again.setSpan(new ForegroundColorSpan(sColorRed),0,again.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-  if (contentService.mCol.getSched().lrnButtons(card)) {
+  if (contentService.mCol.getSched().answerButtons(card) == 3) {
     hard.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.widget_big_font_color_green)),0,hard.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     easy.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.widget_big_font_color)),0,easy.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
   }
@@ -20,7 +20,7 @@
   sb.append(hard);
   sb.append(" \u2027 ");
   sb.append(easy);
-  if (!contentService.mCol.getSched().lrnButtons(card)) {
+  if (contentService.mCol.getSched().answerButtons(card) == 4) {
     sb.append(" \u2027 ");
     sb.append(veryEasy);
   }

@@ -9,9 +9,8 @@ case DIALOG_STATISTIC_TYPE:
         DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_STATISTICS,mLoadStatisticsHandler,new DeckTask.TaskData(mCol,which,false));
       }
     }
-);
+,mFragmented);
   break;
-case DIALOG_CRAM:
 default :
 dialog=null;
 }

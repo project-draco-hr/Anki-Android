@@ -1,8 +1,5 @@
 {
-  if (Utils.now() > mDayCutoff) {
-    _updateCutoff();
-  }
-  TreeSet<Object[]> decks=deckDueTree(true);
+  TreeSet<Object[]> decks=deckDueTree(DECK_INFORMATION_SIMPLE_COUNTS);
   int[] counts=new int[]{0,0,0};
   for (  Object[] deck : decks) {
     if (((String[])deck[0]).length == 1) {

@@ -1,0 +1,46 @@
+{
+  mTypeCorrect=null;
+  String q=mCurrentCard.getQuestion(false);
+  Matcher m=sTypeAnsPat.matcher(q);
+  int clozeIdx=0;
+  if (!m.find()) {
+    return;
+  }
+  String fld=m.group(1);
+  if (fld.startsWith("cloze:",0)) {
+    clozeIdx=mCurrentCard.getOrd() + 1;
+    fld=fld.split(":")[1];
+  }
+  try {
+    JSONArray ja=mCurrentCard.model().getJSONArray("flds");
+    for (int i=0; i < ja.length(); i++) {
+      String name=(String)(ja.getJSONObject(i).get("name"));
+      if (name.equals(fld)) {
+        mTypeCorrect=mCurrentCard.note().getitem(name);
+        if (clozeIdx != 0) {
+          mTypeCorrect=contentForCloze(mTypeCorrect,clozeIdx);
+        }
+        mTypeFont=(String)(ja.getJSONObject(i).get("font"));
+        mTypeSize=(Integer)(ja.getJSONObject(i).get("size"));
+        break;
+      }
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  if (mTypeCorrect == null) {
+    if (clozeIdx != 0) {
+      mTypeWarning="Please run Tools>Maintenance>Empty Cards";
+    }
+ else {
+      mTypeWarning="Type answer: unknown field " + fld;
+    }
+  }
+ else   if (mTypeCorrect.equals("")) {
+    mTypeCorrect=null;
+  }
+ else {
+    mTypeWarning=null;
+  }
+}

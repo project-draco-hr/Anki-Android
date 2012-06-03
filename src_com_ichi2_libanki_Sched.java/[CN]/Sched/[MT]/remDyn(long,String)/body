@@ -1,0 +1,6 @@
+{
+  if (lim == null) {
+    lim="did = " + did;
+  }
+  mCol.getDb().execute("UPDATE cards SET did = odid, queue = (CASE WHEN type = 1 THEN 0 ELSE type END), type = (CASE WHEN type = 1 THEN 0 ELSE type END), due = odue, odue = 0, odid = 0, usn = " + mCol.usn() + ", mod = "+ Utils.intNow()+ " WHERE "+ lim);
+}

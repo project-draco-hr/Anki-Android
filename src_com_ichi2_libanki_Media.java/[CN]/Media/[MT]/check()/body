@@ -14,6 +14,9 @@
     if (file.isDirectory()) {
       continue;
     }
+    if (file.getName().startsWith("_")) {
+      continue;
+    }
     String nfile=file.getName();
     if (!Normalizer.isNormalized(nfile,form)) {
       nfile=Normalizer.normalize(nfile,form);

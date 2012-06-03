@@ -6,7 +6,7 @@
   if (card != null) {
     int idx=countIdx(card);
     if (idx == 1) {
-      counts[1]+=card.getLeft();
+      counts[1]+=card.getLeft() / 1000;
     }
  else {
       counts[idx]+=1;

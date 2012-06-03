@@ -1,19 +1,5 @@
 {
-  ArrayList<JSONObject> ok=new ArrayList<JSONObject>();
   JSONObject model=note.model();
   ArrayList<Integer> avail=mModels.availOrds(model,Utils.joinFields(note.values()));
-  JSONArray tmpls;
-  try {
-    tmpls=model.getJSONArray("tmpls");
-    for (int i=0; i < tmpls.length(); i++) {
-      JSONObject t=tmpls.getJSONObject(i);
-      if (avail.contains(t.getInt("ord"))) {
-        ok.add(t);
-      }
-    }
-  }
- catch (  JSONException e) {
-    throw new RuntimeException(e);
-  }
-  return ok;
+  return _tmplsFromOrds(model,avail);
 }

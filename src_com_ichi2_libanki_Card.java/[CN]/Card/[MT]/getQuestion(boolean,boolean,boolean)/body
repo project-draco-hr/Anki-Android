@@ -1,0 +1,8 @@
+{
+  if (simple) {
+    return _getQA(reload).get("q");
+  }
+ else {
+    return css() + _getQA(reload).get("q");
+  }
+}

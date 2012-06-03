@@ -1,0 +1,5 @@
+{
+  boolean mod=mCol.getDb().getMod();
+  mCol.getDb().execute("UPDATE cards SET did = 1 WHERE did NOT IN " + Utils.ids2str(allIds()));
+  mCol.getDb().setMod(mod);
+}

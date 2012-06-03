@@ -12,7 +12,7 @@
     if (mLrnQueue.getFirst()[0] < cutoff) {
       long id=mLrnQueue.remove()[1];
       Card card=mCol.getCard(id);
-      mLrnCount-=card.getLeft();
+      mLrnCount-=card.getLeft() / 1000;
       return card;
     }
   }

@@ -1,5 +1,5 @@
 {
-  mDatabase=SQLiteDatabase.openDatabase(ankiFilename,null,SQLiteDatabase.OPEN_READWRITE | SQLiteDatabase.NO_LOCALIZED_COLLATORS);
+  mDatabase=SQLiteDatabase.openDatabase(ankiFilename,null,(SQLiteDatabase.OPEN_READWRITE + SQLiteDatabase.CREATE_IF_NECESSARY) | SQLiteDatabase.NO_LOCALIZED_COLLATORS);
   if (mDatabase != null) {
     if (UIUtils.getApiLevel() >= 11) {
       queryString("PRAGMA journal_mode = WAL");

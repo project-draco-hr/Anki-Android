@@ -1,0 +1,37 @@
+{
+  try {
+    val=val.replace("*","%");
+    if (!mFull) {
+      mLims.getJSONObject("args").put("_text_" + c,"%" + val + "%");
+      String txt="sfld LIKE :_text_" + c + " ESCAPE \'\\\\\' OR flds LIKE :_text_"+ c+ " ESCAPE \'\\\\\'";
+      if (!neg) {
+        mLims.getJSONArray("preds").put(txt);
+      }
+ else {
+        mLims.getJSONArray("preds").put("NOT " + txt);
+      }
+    }
+ else {
+      ArrayList<Long> nids=new ArrayList<Long>();
+      String extra=neg ? "NOT" : "";
+      Cursor cur=null;
+      try {
+        cur=mCol.getDb().getDatabase().rawQuery("SELECT id, flds FROM notes",null);
+        while (cur.moveToNext()) {
+          if (Utils.stripHTML(cur.getString(1)).contains(val)) {
+            nids.add(cur.getLong(0));
+          }
+        }
+      }
+  finally {
+        if (cur != null && !cur.isClosed()) {
+          cur.close();
+        }
+      }
+      mLims.getJSONArray("preds").put("n.id " + extra + " IN "+ Utils.ids2str(Utils.arrayList2array(nids)));
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

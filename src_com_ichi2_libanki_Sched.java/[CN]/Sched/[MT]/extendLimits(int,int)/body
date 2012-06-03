@@ -1,0 +1,23 @@
+{
+  JSONObject cur=mCol.getDecks().current();
+  ArrayList<JSONObject> decks=new ArrayList<JSONObject>();
+  decks.add(cur);
+  try {
+    decks.addAll(mCol.getDecks().parents(cur.getLong("id")));
+    for (    long did : mCol.getDecks().children(cur.getLong("id")).values()) {
+      decks.add(mCol.getDecks().get(did));
+    }
+    for (    JSONObject g : decks) {
+      JSONArray ja=g.getJSONArray("newToday");
+      ja.put(1,ja.getInt(1) - newc);
+      g.put("newToday",ja);
+      ja=g.getJSONArray("revToday");
+      ja.put(1,ja.getInt(1) - rev);
+      g.put("revToday",ja);
+      mCol.getDecks().save(g);
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

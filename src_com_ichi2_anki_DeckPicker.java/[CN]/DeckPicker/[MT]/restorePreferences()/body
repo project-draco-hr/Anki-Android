@@ -16,6 +16,5 @@
     sSwipeThresholdVelocity=(int)(SWIPE_THRESHOLD_VELOCITY_DIP * gestureScale + 0.5f);
     sSwipeMaxOffPath=(int)(SWIPE_MAX_OFF_PATH_DIP * gestureScale + 0.5f);
   }
-  mSwipeEnabled=preferences.getBoolean("swipe",false);
   return preferences;
 }

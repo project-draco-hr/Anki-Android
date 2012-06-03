@@ -1,0 +1,8 @@
+{
+  Intent cardBrowser=new Intent(DeckPicker.this,CardBrowser.class);
+  cardBrowser.putExtra("fromDeckpicker",true);
+  startActivityForResult(cardBrowser,BROWSE_CARDS);
+  if (UIUtils.getApiLevel() > 4) {
+    ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.LEFT);
+  }
+}

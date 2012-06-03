@@ -26,58 +26,40 @@
   View studyoptionsFrame=findViewById(R.id.studyoptions_fragment);
   mFragmented=studyoptionsFrame != null && studyoptionsFrame.getVisibility() == View.VISIBLE;
   Themes.setContentStyle(mainView,Themes.CALLER_DECKPICKER);
-  if (mFragmented) {
-    mainView.setBackgroundResource(R.drawable.white_wallpaper_deckpicker_fragments);
-  }
   registerExternalStorageListener();
-  mAddButton=(ImageButton)findViewById(R.id.deckpicker_add);
-  mAddButton.setOnClickListener(new OnClickListener(){
-    @Override public void onClick(    View v){
-      Intent intent=new Intent(DeckPicker.this,CardEditor.class);
-      intent.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_DECKPICKER);
-      startActivityForResult(intent,ADD_NOTE);
-      if (UIUtils.getApiLevel() > 4) {
-        ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.LEFT);
+  if (!mFragmented) {
+    mAddButton=(ImageButton)findViewById(R.id.deckpicker_add);
+    mAddButton.setOnClickListener(new OnClickListener(){
+      @Override public void onClick(      View v){
+        addNote();
       }
     }
-  }
 );
-  mCardsButton=(ImageButton)findViewById(R.id.deckpicker_card_browser);
-  mCardsButton.setOnClickListener(new OnClickListener(){
-    @Override public void onClick(    View v){
-      Intent cardBrowser=new Intent(DeckPicker.this,CardBrowser.class);
-      cardBrowser.putExtra("fromDeckpicker",true);
-      startActivityForResult(cardBrowser,BROWSE_CARDS);
-      if (UIUtils.getApiLevel() > 4) {
-        ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.LEFT);
+    mCardsButton=(ImageButton)findViewById(R.id.deckpicker_card_browser);
+    mCardsButton.setOnClickListener(new OnClickListener(){
+      @Override public void onClick(      View v){
+        openCardBrowser();
       }
     }
-  }
 );
-  mStatsButton=(ImageButton)findViewById(R.id.statistics_all_button);
-  mStatsButton.setOnClickListener(new OnClickListener(){
-    @Override public void onClick(    View v){
-      showDialog(DIALOG_SELECT_STATISTICS_TYPE);
+    mStatsButton=(ImageButton)findViewById(R.id.statistics_all_button);
+    mStatsButton.setOnClickListener(new OnClickListener(){
+      @Override public void onClick(      View v){
+        showDialog(DIALOG_SELECT_STATISTICS_TYPE);
+      }
     }
-  }
 );
-  mSyncButton=(ImageButton)findViewById(R.id.sync_all_button);
-  mSyncButton.setOnClickListener(new OnClickListener(){
-    @Override public void onClick(    View v){
-      sync();
+    mSyncButton=(ImageButton)findViewById(R.id.sync_all_button);
+    mSyncButton.setOnClickListener(new OnClickListener(){
+      @Override public void onClick(      View v){
+        sync();
+      }
     }
-  }
 );
-  mCramButton=(ImageButton)findViewById(R.id.cram_deck_button);
-  mCramButton.setOnClickListener(new OnClickListener(){
-    @Override public void onClick(    View v){
-      addCramDeck();
-    }
   }
-);
   mDeckList=new ArrayList<HashMap<String,String>>();
   mDeckListView=(ListView)findViewById(R.id.files);
-  mDeckListAdapter=new SimpleAdapter(this,mDeckList,R.layout.deck_item,new String[]{"name","new","lrn","rev","complMat","complAll","sep"},new int[]{R.id.DeckPickerName,R.id.deckpicker_new,R.id.deckpicker_lrn,R.id.deckpicker_rev,R.id.deckpicker_bar_mat,R.id.deckpicker_bar_all,R.id.DeckPickerName});
+  mDeckListAdapter=new SimpleAdapter(this,mDeckList,R.layout.deck_item,new String[]{"name","new","lrn","rev","sep"},new int[]{R.id.DeckPickerName,R.id.deckpicker_new,R.id.deckpicker_lrn,R.id.deckpicker_rev,R.id.DeckPickerName});
   mDeckListAdapter.setViewBinder(new SimpleAdapter.ViewBinder(){
     @Override public boolean setViewValue(    View view,    Object data,    String text){
       if (view.getId() == R.id.DeckPickerName) {
@@ -100,34 +82,15 @@
         }
         return false;
       }
- else       if (view.getId() == R.id.deckpicker_bar_mat || view.getId() == R.id.deckpicker_bar_all) {
-        if (text.length() > 0 && !text.equals("-1.0")) {
-          Utils.updateProgressBars(view,(int)UIUtils.getDensityAdjustedValue(DeckPicker.this,3.4f),(int)(Double.parseDouble(text) * ((View)view.getParent().getParent().getParent()).getHeight()));
-          View parent=(View)view.getParent().getParent();
-          if (parent.getVisibility() == View.INVISIBLE) {
-            parent.setVisibility(View.VISIBLE);
-            parent.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_IN,500,0));
-          }
-        }
-        return true;
-      }
- else       if (view.getVisibility() == View.INVISIBLE) {
-        if (!text.equals("-1")) {
-          view.setVisibility(View.VISIBLE);
-          view.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_IN,500,0));
-          return false;
-        }
-      }
- else       if (text.equals("-1")) {
-        view.setVisibility(View.INVISIBLE);
-        return false;
-      }
       return false;
     }
   }
 );
   mDeckListView.setOnItemClickListener(mDeckSelHandler);
   mDeckListView.setAdapter(mDeckListAdapter);
+  if (mFragmented) {
+    mDeckListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+  }
   registerForContextMenu(mDeckListView);
   showStartupScreensAndDialogs(preferences,0);
   if (mSwipeEnabled) {

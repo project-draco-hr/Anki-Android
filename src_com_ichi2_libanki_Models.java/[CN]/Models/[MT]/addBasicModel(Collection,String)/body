@@ -1,0 +1,19 @@
+{
+  Models mm=col.getModels();
+  JSONObject m=mm.newModel(name);
+  JSONObject fm=mm.newField("Front");
+  mm.addField(m,fm);
+  fm=mm.newField("Back");
+  mm.addField(m,fm);
+  JSONObject t=mm.newTemplate("Card 1");
+  try {
+    t.put("qfmt","{{Front}}");
+    t.put("afmt","{{FrontSide}}\n\n<hr id=answer>\n\n{{Back}}");
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  mm.addTemplate(m,t);
+  mm.add(m);
+  return m;
+}

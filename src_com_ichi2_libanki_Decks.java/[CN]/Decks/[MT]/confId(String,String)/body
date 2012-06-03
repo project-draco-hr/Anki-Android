@@ -1,0 +1,21 @@
+{
+  JSONObject c;
+  long id;
+  try {
+    c=new JSONObject(defaultConf);
+    while (true) {
+      id=Utils.intNow(1000);
+      if (!mDconf.containsKey(new Long(id))) {
+        break;
+      }
+    }
+    c.put("id",id);
+    c.put("name",name);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  mDconf.put(new Long(id),c);
+  save(c);
+  return id;
+}
