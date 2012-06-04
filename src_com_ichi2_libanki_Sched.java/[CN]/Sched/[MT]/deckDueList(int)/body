@@ -1,8 +1,5 @@
 {
   _checkDay();
-  if (mClearOverdue) {
-    removeFailed(true);
-  }
   mCol.getDecks().recoverOrphans();
   ArrayList<Object[]> dids=new ArrayList<Object[]>();
   for (  JSONObject g : mCol.getDecks().all()) {
