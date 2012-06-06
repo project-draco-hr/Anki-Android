@@ -7,7 +7,9 @@
   if (mCol != null && mCol.getDecks().isDyn(mCol.getDecks().selected())) {
     Button rebBut=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_rebuild_cram);
     rebBut.setOnClickListener(mButtonClickListener);
-    rebBut.setVisibility(View.VISIBLE);
+    Button emptyBut=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_empty_cram);
+    emptyBut.setOnClickListener(mButtonClickListener);
+    ((LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_cram_buttons)).setVisibility(View.VISIBLE);
   }
   if (mFragmented) {
     Button but=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_options);
