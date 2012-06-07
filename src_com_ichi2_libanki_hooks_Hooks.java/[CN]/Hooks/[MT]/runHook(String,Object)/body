@@ -1,0 +1,8 @@
+{
+  List<Hook> _hook=hooks.get(hook);
+  if (_hook != null) {
+    for (    Hook func : _hook) {
+      func.runHook(args);
+    }
+  }
+}

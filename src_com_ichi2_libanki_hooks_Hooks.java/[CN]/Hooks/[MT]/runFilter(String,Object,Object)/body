@@ -1,0 +1,9 @@
+{
+  List<Hook> _hook=hooks.get(hook);
+  if (_hook != null) {
+    for (    Hook func : _hook) {
+      arg=func.runFilter(arg,args);
+    }
+  }
+  return arg;
+}

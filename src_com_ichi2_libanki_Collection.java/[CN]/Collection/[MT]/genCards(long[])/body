@@ -7,7 +7,7 @@
     cur=mDb.getDatabase().rawQuery("SELECT id, nid, ord, did FROM cards WHERE nid IN " + snids,null);
     while (cur.moveToNext()) {
       long nid=cur.getLong(1);
-      if (!have.containsKey(nids)) {
+      if (!have.containsKey(nid)) {
         have.put(nid,new HashMap<Integer,Long>());
       }
       have.get(nid).put(cur.getInt(2),cur.getLong(0));
@@ -64,7 +64,7 @@
           ts+=1;
         }
       }
-      if (have.containsKey(nids)) {
+      if (have.containsKey(nid)) {
         for (        Map.Entry<Integer,Long> n : have.get(nid).entrySet()) {
           if (!avail.contains(n.getKey())) {
             rem.add(n.getValue());
