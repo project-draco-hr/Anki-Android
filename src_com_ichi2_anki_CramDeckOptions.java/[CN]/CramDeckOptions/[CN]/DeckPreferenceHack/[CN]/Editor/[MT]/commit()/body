@@ -1,0 +1,83 @@
+{
+  Log.d(AnkiDroidApp.TAG,"CramDeckOptions - commit() changes back to database");
+  try {
+    for (    Entry<String,Object> entry : mUpdate.valueSet()) {
+      Log.i(AnkiDroidApp.TAG,"Change value for key '" + entry.getKey() + "': "+ entry.getValue());
+      if (entry.getKey().equals("search")) {
+        JSONArray ar=mDeck.getJSONArray("terms");
+        ar.getJSONArray(0).put(0,(String)entry.getValue());
+        mDeck.put("terms",ar);
+      }
+ else       if (entry.getKey().equals("limit")) {
+        JSONArray ar=mDeck.getJSONArray("terms");
+        ar.getJSONArray(0).put(1,(String)entry.getValue());
+        mDeck.put("terms",ar);
+      }
+ else       if (entry.getKey().equals("order")) {
+        JSONArray ar=mDeck.getJSONArray("terms");
+        ar.getJSONArray(0).put(2,(String)entry.getValue());
+        mDeck.put("terms",ar);
+      }
+ else       if (entry.getKey().equals("resched")) {
+        mDeck.put("resched",(Boolean)entry.getValue());
+      }
+ else       if (entry.getKey().equals("stepsOn")) {
+        boolean on=(Boolean)entry.getValue();
+        if (on) {
+          mDeck.put("delays",getDelays((String)mValues.get("steps")));
+        }
+ else {
+          mValues.put("steps","1 10");
+          mDeck.put("delays",null);
+        }
+      }
+ else       if (entry.getKey().equals("steps")) {
+        String steps=(String)entry.getValue();
+        if (steps.matches("[0-9\\s]*")) {
+          mDeck.put("delays",getDelays(steps));
+        }
+      }
+ else       if (entry.getKey().equals("preset")) {
+        int i=Integer.parseInt((String)entry.getValue());
+        if (i > 0) {
+          JSONObject presetValues=new JSONObject(dynExamples[i]);
+          JSONArray ar=presetValues.names();
+          for (int j=0; j < ar.length(); j++) {
+            String name=ar.getString(j);
+            if (name.equals("steps")) {
+              mUpdate.put("stepsOn",true);
+            }
+            if (name.equals("resched")) {
+              mUpdate.put(name,presetValues.getBoolean(name));
+              mValues.put(name,Boolean.toString(presetValues.getBoolean(name)));
+            }
+ else {
+              mUpdate.put(name,presetValues.getString(name));
+              mValues.put(name,presetValues.getString(name));
+            }
+          }
+          mUpdate.put("preset","0");
+          commit();
+        }
+      }
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  try {
+    mCol.getDecks().save(mDeck);
+  }
+ catch (  RuntimeException e) {
+    Log.e(AnkiDroidApp.TAG,"CramDeckOptions - RuntimeException on saving deck: " + e);
+    AnkiDroidApp.saveExceptionReportFile(e,"CramDeckOptionsSaveDeck");
+    setResult(DeckPicker.RESULT_DB_ERROR);
+    finish();
+  }
+  cacheValues();
+  updateSummaries();
+  for (  OnSharedPreferenceChangeListener listener : listeners) {
+    listener.onSharedPreferenceChanged(DeckPreferenceHack.this,null);
+  }
+  return true;
+}

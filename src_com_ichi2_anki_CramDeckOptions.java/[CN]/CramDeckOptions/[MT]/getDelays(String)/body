@@ -1,0 +1,7 @@
+{
+  JSONArray ja=new JSONArray();
+  for (  String s : delays.split(" ")) {
+    ja.put(Integer.parseInt(s));
+  }
+  return ja;
+}

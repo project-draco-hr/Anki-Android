@@ -12,6 +12,16 @@
     closeStudyOptions(DeckPicker.RESULT_MEDIA_EJECTED);
   }
  else   if (requestCode == DECK_OPTIONS) {
+    JSONObject deck=mCol.getDecks().current();
+    try {
+      if (deck.has("empty") && deck.getBoolean("empty")) {
+        rebuildCramDeck();
+        deck.remove("empty");
+      }
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
     resetAndUpdateValuesFromDeck();
   }
  else   if (requestCode == ADD_NOTE && resultCode != getActivity().RESULT_CANCELED) {
