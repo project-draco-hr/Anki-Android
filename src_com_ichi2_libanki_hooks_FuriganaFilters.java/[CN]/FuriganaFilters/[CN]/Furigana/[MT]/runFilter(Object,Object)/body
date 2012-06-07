@@ -1,0 +1,9 @@
+{
+  Matcher m=r.matcher((String)arg);
+  StringBuffer sb=new StringBuffer();
+  while (m.find()) {
+    m.appendReplacement(sb,noSound(m,ruby));
+  }
+  m.appendTail(sb);
+  return sb.toString();
+}

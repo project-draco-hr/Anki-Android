@@ -1,6 +1,7 @@
 {
   super.onCreate();
   sInstance=this;
+  sInstance.mHooks=new Hooks();
   Connection.setContext(getApplicationContext());
   CustomExceptionHandler customExceptionHandler=CustomExceptionHandler.getInstance();
   customExceptionHandler.init(sInstance.getApplicationContext());
