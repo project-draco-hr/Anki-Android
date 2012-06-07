@@ -20,13 +20,43 @@
     }
     fields.put("Card",template.getString("name"));
     fields.put("c" + (((Integer)data[4]) + 1),"1");
-    Models.fieldParser fparser=new Models.fieldParser(fields);
     HashMap<String,String> d=new HashMap<String,String>();
     d.put("id",Long.toString((Long)data[0]));
-    d.put("q",mModels.getCmpldTemplate(modelId,(Integer)data[4],args)[0].execute(fparser));
+    String qfmt=template.getString("qfmt");
+    String afmt=template.getString("afmt");
+    String html;
+    String format;
+    Models.fieldParser fparser=new Models.fieldParser(fields);
+    Matcher m=sRegexPattern.matcher(qfmt);
+    if (m.find()) {
+      format=m.replaceFirst(String.format(Locale.US,"{{cq:%d:",((Integer)data[4]) + 1));
+      html=Mustache.compiler().compile(format).execute(fparser);
+    }
+ else {
+      html=mModels.getCmpldTemplate(modelId,(Integer)data[4],args)[0].execute(fparser);
+    }
+    d.put("q",html);
+    if (model.getInt("type") == Sched.MODEL_CLOZE) {
+      if (getModels()._availClozeOrds(model,(String)data[6],false).size() == 0) {
+        d.put("q","Please edit this note and add some cloze deletions.");
+      }
+    }
     fields.put("FrontSide",d.get("q"));
     fparser=new Models.fieldParser(fields);
-    d.put("a",mModels.getCmpldTemplate(modelId,(Integer)data[4],args)[1].execute(fparser));
+    m=sRegexPattern.matcher(afmt);
+    if (m.find()) {
+      format=m.replaceFirst(String.format(Locale.US,"{{ca:%d:",((Integer)data[4]) + 1));
+      html=Mustache.compiler().compile(format).execute(fparser);
+    }
+ else {
+      html=mModels.getCmpldTemplate(modelId,(Integer)data[4],args)[1].execute(fparser);
+    }
+    d.put("a",html);
+    if (model.getInt("type") == Sched.MODEL_CLOZE) {
+      if (getModels()._availClozeOrds(model,(String)data[6],false).size() == 0) {
+        d.put("q",AnkiDroidApp.getAppResources().getString(com.ichi2.anki2.R.string.empty_cloze_warning,String.format(Locale.US,"<a href=%s#cloze>%s</a>",HELP_SITE,AnkiDroidApp.getAppResources().getString(com.ichi2.anki2.R.string.help_cloze))));
+      }
+    }
     return d;
   }
  catch (  JSONException e) {

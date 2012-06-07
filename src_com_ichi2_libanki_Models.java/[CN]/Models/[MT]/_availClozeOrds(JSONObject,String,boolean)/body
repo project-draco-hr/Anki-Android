@@ -17,7 +17,7 @@
     int ord=map.get(fname).first;
     Matcher matcher2=fClozePattern2.matcher(sflds[ord]);
     while (matcher2.find()) {
-      ords.add(Integer.getInteger(matcher2.group(1)) - 1);
+      ords.add(Integer.parseInt(matcher2.group(1)) - 1);
     }
   }
   if (ords.contains(-1)) {
