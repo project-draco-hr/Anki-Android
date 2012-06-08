@@ -3,13 +3,13 @@
   Collection col=sched.getCol();
   try {
     col.getDb().getDatabase().beginTransaction();
+    Card newCard;
     try {
-      Card newCard=col.undo();
+      long cid=col.undo();
       col.reset();
-      if (newCard != null) {
-        if (!sched.removeCardFromQueues(newCard)) {
-          newCard=sched.getCard();
-        }
+      if (cid != 0) {
+        newCard=col.getCard(cid);
+        col.reset();
       }
  else {
         newCard=sched.getCard();
