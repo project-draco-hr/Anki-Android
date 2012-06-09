@@ -49,17 +49,30 @@
     HttpEntity entity=new ProgressByteEntity(bos.toByteArray());
     httpPost.setEntity(entity);
     httpPost.setHeader("Content-type","multipart/form-data; boundary=" + BOUNDARY);
+    SharedPreferences preferences=PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getApplicationContext());
     SchemeRegistry schemeRegistry=new SchemeRegistry();
     schemeRegistry.register(new Scheme("http",PlainSocketFactory.getSocketFactory(),80));
-    schemeRegistry.register(new Scheme("https",newSslSocketFactory(),443));
+    if (preferences.getBoolean("sslAcceptAll",false)) {
+      Log.e(AnkiDroidApp.TAG,"SSL certificate check is disabled");
+      schemeRegistry.register(new Scheme("https",new EasySSLSocketFactory(),443));
+    }
+ else {
+      schemeRegistry.register(new Scheme("https",newSslSocketFactory(),443));
+    }
     HttpParams params=new BasicHttpParams();
     params.setParameter(ConnManagerPNames.MAX_TOTAL_CONNECTIONS,30);
     params.setParameter(ConnManagerPNames.MAX_CONNECTIONS_PER_ROUTE,new ConnPerRouteBean(30));
     params.setParameter(HttpProtocolParams.USE_EXPECT_CONTINUE,false);
     HttpProtocolParams.setVersion(params,HttpVersion.HTTP_1_1);
-    ClientConnectionManager cm=new SingleClientConnManager(params,schemeRegistry);
-    DefaultHttpClient httpClient=new DefaultHttpClient(cm,params);
-    return httpClient.execute(httpPost);
+    ThreadSafeClientConnManager cm=new ThreadSafeClientConnManager(params,schemeRegistry);
+    try {
+      DefaultHttpClient httpClient=new DefaultHttpClient(cm,params);
+      return httpClient.execute(httpPost);
+    }
+ catch (    SSLException e) {
+      preferences.edit().putBoolean("sslAcceptAll",true).commit();
+      return req(method,fobj,comp,hkey,registerData);
+    }
   }
  catch (  UnsupportedEncodingException e) {
     throw new RuntimeException(e);
