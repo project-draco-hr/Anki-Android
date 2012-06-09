@@ -35,7 +35,7 @@
 switch (resultCode) {
 case Reviewer.RESULT_SESSION_COMPLETED:
 default :
-      setStudyOptionsView(true);
+      resetAndUpdateValuesFromDeck();
     break;
 case Reviewer.RESULT_NO_MORE_CARDS:
   setCongratsView();
