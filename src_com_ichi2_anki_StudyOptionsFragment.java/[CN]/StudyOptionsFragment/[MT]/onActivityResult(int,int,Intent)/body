@@ -35,10 +35,10 @@
 switch (resultCode) {
 case Reviewer.RESULT_SESSION_COMPLETED:
 default :
-      showContentView(CONTENT_STUDY_OPTIONS,mDontSaveOnStop);
+      setStudyOptionsView(true);
     break;
 case Reviewer.RESULT_NO_MORE_CARDS:
-  getActivity().setContentView(showContentView(CONTENT_CONGRATS,mDontSaveOnStop));
+  setCongratsView();
 break;
 }
 mDontSaveOnStop=false;
@@ -48,6 +48,6 @@ mDontSaveOnStop=false;
 resetAndUpdateValuesFromDeck();
 }
  else if (requestCode == STATISTICS && mCurrentContentView == CONTENT_CONGRATS) {
-showContentView(CONTENT_STUDY_OPTIONS);
+setStudyOptionsView(true);
 }
 }

@@ -1,0 +1,9 @@
+{
+  mCurrentContentView=CONTENT_CONGRATS;
+  if (mFragmented) {
+    ((DeckPicker)getActivity()).setStudyContentView(CONTENT_CONGRATS);
+  }
+ else {
+    ((StudyOptionsActivity)getActivity()).setStudyContentView(CONTENT_CONGRATS);
+  }
+}

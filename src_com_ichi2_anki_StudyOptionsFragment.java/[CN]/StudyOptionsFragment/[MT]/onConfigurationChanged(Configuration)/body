@@ -12,7 +12,9 @@
   CharSequence eta=mTextETA.getText();
   super.onConfigurationChanged(newConfig);
   mDontSaveOnStop=false;
-  showContentView(mCurrentContentView,false);
+  if (mCurrentContentView == CONTENT_CONGRATS) {
+    setCongratsView();
+  }
   mTextDeckName.setText(title);
   mTextDeckName.setVisibility(View.VISIBLE);
   mTextDeckDescription.setText(desc);

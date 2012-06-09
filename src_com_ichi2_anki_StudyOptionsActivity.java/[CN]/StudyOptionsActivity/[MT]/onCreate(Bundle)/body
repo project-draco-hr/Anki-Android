@@ -1,8 +1,6 @@
 {
   super.onCreate(savedInstanceState);
   if (savedInstanceState == null) {
-    Fragment details=new StudyOptionsFragment();
-    details.setArguments(getIntent().getExtras());
-    getSupportFragmentManager().beginTransaction().add(android.R.id.content,details).commit();
+    setStudyContentView(StudyOptionsFragment.CONTENT_STUDY_OPTIONS);
   }
 }
