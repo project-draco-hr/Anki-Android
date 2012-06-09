@@ -13,7 +13,7 @@
     dict.put("minInt",oconf.getJSONObject("lapse").getInt("minInt"));
     dict.put("leechFails",oconf.getJSONObject("lapse").getInt("leechFails"));
     dict.put("leechAction",oconf.getJSONObject("lapse").getInt("leechAction"));
-    dict.put("mult",oconf.getJSONObject("lapse").getInt("mult"));
+    dict.put("mult",oconf.getJSONObject("lapse").getDouble("mult"));
     dict.put("delays",delays);
     dict.put("resched",conf.getBoolean("resched"));
     return dict;
