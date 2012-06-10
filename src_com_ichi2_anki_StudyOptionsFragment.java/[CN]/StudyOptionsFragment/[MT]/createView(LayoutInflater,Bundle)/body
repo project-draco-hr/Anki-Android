@@ -31,5 +31,6 @@
  else {
     mCompat=new CompatV3();
   }
-  return setView(true);
+  resetAndUpdateValuesFromDeck();
+  return mStudyOptionsView;
 }
