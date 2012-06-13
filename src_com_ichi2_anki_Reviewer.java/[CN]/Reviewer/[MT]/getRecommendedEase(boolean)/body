@@ -1,0 +1,12 @@
+{
+switch (mSched.answerButtons(mCurrentCard)) {
+case 2:
+    return EASE_HARD;
+case 3:
+  return easy ? EASE_MID : EASE_HARD;
+case 4:
+return easy ? EASE_EASY : EASE_MID;
+default :
+return 0;
+}
+}

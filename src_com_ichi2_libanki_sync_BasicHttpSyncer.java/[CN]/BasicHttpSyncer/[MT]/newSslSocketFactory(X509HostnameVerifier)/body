@@ -9,7 +9,7 @@
       in.close();
     }
     SSLSocketFactory sf=new SSLSocketFactory(trusted);
-    sf.setHostnameVerifier(SSLSocketFactory.STRICT_HOSTNAME_VERIFIER);
+    sf.setHostnameVerifier(ver);
     return sf;
   }
  catch (  Exception e) {

@@ -52,12 +52,12 @@
     SharedPreferences preferences=PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getApplicationContext());
     SchemeRegistry schemeRegistry=new SchemeRegistry();
     schemeRegistry.register(new Scheme("http",PlainSocketFactory.getSocketFactory(),80));
-    if (preferences.getBoolean("sslAcceptAll",false)) {
+    if (preferences.getBoolean("sslAcceptAll",true)) {
       Log.e(AnkiDroidApp.TAG,"SSL certificate check is disabled");
       schemeRegistry.register(new Scheme("https",new EasySSLSocketFactory(),443));
     }
  else {
-      schemeRegistry.register(new Scheme("https",newSslSocketFactory(),443));
+      schemeRegistry.register(new Scheme("https",newSslSocketFactory(SSLSocketFactory.STRICT_HOSTNAME_VERIFIER),443));
     }
     HttpParams params=new BasicHttpParams();
     params.setParameter(ConnManagerPNames.MAX_TOTAL_CONNECTIONS,30);
@@ -70,8 +70,14 @@
       return httpClient.execute(httpPost);
     }
  catch (    SSLException e) {
-      preferences.edit().putBoolean("sslAcceptAll",true).commit();
-      return req(method,fobj,comp,hkey,registerData);
+      if (!preferences.getBoolean("sslAcceptAll",false)) {
+        Log.e(AnkiDroidApp.TAG,"workaround for android < 3.0: disabling ssl certificate check");
+        preferences.edit().putBoolean("sslAcceptAll",true).commit();
+        return req(method,fobj,comp,hkey,registerData);
+      }
+ else {
+        return null;
+      }
     }
   }
  catch (  UnsupportedEncodingException e) {
