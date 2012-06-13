@@ -35,6 +35,7 @@
  else {
       html=mModels.getCmpldTemplate(modelId,(Integer)data[4],args)[0].execute(fparser);
     }
+    html=(String)AnkiDroidApp.getHooks().runFilter("mungeQA",html,"q",fields,model,data,this);
     d.put("q",html);
     if (model.getInt("type") == Sched.MODEL_CLOZE) {
       if (getModels()._availClozeOrds(model,(String)data[6],false).size() == 0) {
@@ -51,6 +52,7 @@
  else {
       html=mModels.getCmpldTemplate(modelId,(Integer)data[4],args)[1].execute(fparser);
     }
+    html=(String)AnkiDroidApp.getHooks().runFilter("mungeQA",html,"a",fields,model,data,this);
     d.put("a",html);
     if (model.getInt("type") == Sched.MODEL_CLOZE) {
       if (getModels()._availClozeOrds(model,(String)data[6],false).size() == 0) {
