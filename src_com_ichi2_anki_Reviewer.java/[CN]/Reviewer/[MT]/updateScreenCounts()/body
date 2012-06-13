@@ -15,6 +15,9 @@
   SpannableString newCount=new SpannableString(String.valueOf(counts[0]));
   SpannableString lrnCount=new SpannableString(String.valueOf(counts[1]));
   SpannableString revCount=new SpannableString(String.valueOf(counts[2]));
+  if (mPrefHideDueCount) {
+    revCount=new SpannableString("???");
+  }
 switch (mCurrentCard.getQueue()) {
 case Card.TYPE_NEW:
     newCount.setSpan(new UnderlineSpan(),0,newCount.length(),0);

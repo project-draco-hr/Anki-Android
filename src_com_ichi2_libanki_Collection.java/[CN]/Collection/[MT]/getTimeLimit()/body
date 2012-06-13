@@ -1,0 +1,10 @@
+{
+  long timebox=0;
+  try {
+    timebox=mConf.getLong("timeLim");
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  return timebox;
+}

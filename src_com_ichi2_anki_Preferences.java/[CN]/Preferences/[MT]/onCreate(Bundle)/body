@@ -11,6 +11,8 @@
   animationsCheckboxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("themeAnimations");
   useBackupPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("useBackup");
   asyncModePreference=(CheckBoxPreference)getPreferenceScreen().findPreference("asyncMode");
+  hideDueCountPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("hideDueCount");
+  overtimePreference=(CheckBoxPreference)getPreferenceScreen().findPreference("overtime");
   eInkDisplayPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("eInkDisplay");
   ListPreference listpref=(ListPreference)getPreferenceScreen().findPreference("theme");
   String theme=listpref.getValue();
