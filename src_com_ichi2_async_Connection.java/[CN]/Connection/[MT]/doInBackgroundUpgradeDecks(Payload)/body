@@ -1,0 +1,128 @@
+{
+  String path=(String)data.data[0];
+  File ankiDir=new File(path);
+  if (!ankiDir.isDirectory()) {
+    data.success=false;
+    return data;
+  }
+  File[] fileList=ankiDir.listFiles(new OldAnkiDeckFilter());
+  JSONObject map=new JSONObject();
+  byte[] buf=new byte[1024];
+  String zipFilename=path + "/upload.zip";
+  String colFilename=path + "/collection.anki2";
+  try {
+    ZipOutputStream zos=new ZipOutputStream(new FileOutputStream(zipFilename));
+    int n=1;
+    for (    File f : fileList) {
+      String tmpName=n + ".anki";
+      FileInputStream in=new FileInputStream(f.getAbsolutePath());
+      ZipEntry ze=new ZipEntry(tmpName);
+      zos.putNextEntry(ze);
+      int len;
+      while ((len=in.read(buf)) > 0) {
+        zos.write(buf,0,len);
+      }
+      zos.closeEntry();
+      map.put(tmpName,f.getName());
+      n++;
+    }
+    ZipEntry ze=new ZipEntry("map.json");
+    zos.putNextEntry(ze);
+    InputStream in=new ByteArrayInputStream(map.toString().getBytes("UTF-8"));
+    int len;
+    while ((len=in.read(buf)) > 0) {
+      zos.write(buf,0,len);
+    }
+    zos.closeEntry();
+    zos.close();
+  }
+ catch (  FileNotFoundException e) {
+    throw new RuntimeException(e);
+  }
+catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  File zipFile=new File(zipFilename);
+  if (zipFile.length() > 50 * 1024 * 1024) {
+    data.success=false;
+    return data;
+  }
+  BasicHttpSyncer h=new BasicHttpSyncer(null,null);
+  publishProgress(new Object[]{R.string.upgrade_decks_upload});
+  try {
+    HttpResponse resp=h.req("upgrade/upload",new FileInputStream(zipFile),0,false);
+    String result=h.stream2String(resp.getEntity().getContent());
+    String key;
+    if (result.startsWith("ok:")) {
+      key=result.split(":")[1];
+    }
+ else {
+      data.success=false;
+      return data;
+    }
+    while (true) {
+      result=h.stream2String(h.req("upgrade/status?key=" + key).getEntity().getContent());
+      if (result.equals("error")) {
+        data.success=false;
+        return data;
+      }
+ else       if (result.startsWith("waiting:")) {
+        publishProgress(new Object[]{R.string.upgrade_decks_upload,result.split(":")[1]});
+      }
+ else       if (result.equals("upgrading")) {
+        publishProgress(new Object[]{R.string.upgrade_decks_upgrade_started});
+      }
+ else       if (result.equals("ready")) {
+        break;
+      }
+ else {
+        data.success=false;
+        return data;
+      }
+      Thread.sleep(1000);
+    }
+    publishProgress(new Object[]{R.string.upgrade_decks_downloading});
+    resp=h.req("upgrade/download?key=" + key);
+    if (resp == null) {
+      data.success=false;
+      return data;
+    }
+    InputStream cont=resp.getEntity().getContent();
+    if (!h.writeToFile(cont,colFilename)) {
+      data.success=false;
+      return data;
+    }
+    publishProgress(new Object[]{R.string.sync_check_download_file});
+    publishProgress(R.string.sync_check_download_file);
+    try {
+      AnkiDb d=AnkiDatabaseManager.getDatabase(colFilename);
+      if (!d.queryString("PRAGMA integrity_check").equalsIgnoreCase("ok")) {
+        data.success=false;
+        return data;
+      }
+    }
+  finally {
+      AnkiDatabaseManager.closeDatabase(colFilename);
+    }
+    data.success=true;
+    return data;
+  }
+ catch (  FileNotFoundException e) {
+    throw new RuntimeException(e);
+  }
+catch (  InterruptedException e) {
+    throw new RuntimeException(e);
+  }
+catch (  IllegalStateException e) {
+    throw new RuntimeException(e);
+  }
+catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+ finally {
+    (new File(zipFilename)).delete();
+  }
+}

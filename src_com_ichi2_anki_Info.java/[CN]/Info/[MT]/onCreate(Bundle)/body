@@ -20,6 +20,8 @@ case TYPE_WELCOME:
 case TYPE_NEW_VERSION:
     PrefSettings.getSharedPrefs(Info.this.getBaseContext()).edit().putString("lastVersion",AnkiDroidApp.getPkgVersion()).commit();
   break;
+case TYPE_UPGRADE_DECKS:
+break;
 }
 finish();
 if (UIUtils.getApiLevel() > 4) {
@@ -78,6 +80,7 @@ sb.append("</li>");
 sb.append("</ul>");
 sb.append("</body></html>");
 mWebView.loadDataWithBaseURL("",sb.toString(),"text/html","utf-8",null);
+PrefSettings.getSharedPrefs(Info.this.getBaseContext()).edit().putBoolean("sslAcceptAll",false).commit();
 break;
 case TYPE_SHARED_DECKS:
 mWebView.loadUrl(res.getString(R.string.shared_decks_url));
@@ -88,6 +91,24 @@ StyledDialog.Builder builder=new StyledDialog.Builder(this);
 builder.setMessage("At the moment, it's still necessary to log in manually.\nPlease log in here and choose then your deck");
 builder.setPositiveButton("ok",null);
 builder.show();
+break;
+case TYPE_UPGRADE_DECKS:
+mWebView.loadDataWithBaseURL("","your decks need to be upgraded","text/html","utf-8",null);
+Button but=(Button)findViewById(R.id.info_tutorial);
+but.setVisibility(View.VISIBLE);
+but.setText("upgrade");
+but.setOnClickListener(new OnClickListener(){
+@Override public void onClick(View arg0){
+Connection.upgradeDecks(mUpgradeListener,new Connection.Payload(new Object[]{"/sdcard/AnkiDroid"}));
+}
+}
+);
+StyledDialog.Builder builder2=new StyledDialog.Builder(this);
+builder2.setTitle(res.getString(R.string.connection_error_title));
+builder2.setIcon(android.R.drawable.ic_dialog_alert);
+builder2.setMessage(res.getString(R.string.connection_needed));
+builder2.setPositiveButton(res.getString(R.string.ok),null);
+mNoConnectionAlert=builder2.create();
 break;
 default :
 finish();

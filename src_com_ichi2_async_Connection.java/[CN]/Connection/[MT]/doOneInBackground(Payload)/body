@@ -10,6 +10,8 @@ case TASK_TYPE_SEND_CRASH_REPORT:
 return doInBackgroundSendFeedback(data);
 case TASK_TYPE_DOWNLOAD_MEDIA:
 return doInBackgroundDownloadMissingMedia(data);
+case TASK_TYPE_UPGRADE_DECKS:
+return doInBackgroundUpgradeDecks(data);
 default :
 return null;
 }

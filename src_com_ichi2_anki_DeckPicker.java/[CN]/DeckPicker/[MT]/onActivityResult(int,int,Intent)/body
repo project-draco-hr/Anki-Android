@@ -19,6 +19,9 @@
     loadCounts();
   }
  else   if (requestCode == REPORT_ERROR) {
+    showStartupScreensAndDialogs(PrefSettings.getSharedPrefs(getBaseContext()),4);
+  }
+ else   if (requestCode == SHOW_INFO_UPGRADE_DECKS) {
     showStartupScreensAndDialogs(PrefSettings.getSharedPrefs(getBaseContext()),3);
   }
  else   if (requestCode == SHOW_INFO_WELCOME || requestCode == SHOW_INFO_NEW_VERSION) {

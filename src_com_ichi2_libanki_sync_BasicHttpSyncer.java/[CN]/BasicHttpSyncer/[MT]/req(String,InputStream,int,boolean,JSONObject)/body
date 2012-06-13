@@ -42,6 +42,9 @@
     if (method.equals("register")) {
       url=url + "account/signup" + "?username="+ registerData.getString("u")+ "&password="+ registerData.getString("p");
     }
+ else     if (method.startsWith("upgrade")) {
+      url=url + method;
+    }
  else {
       url=url + "sync/" + method;
     }
