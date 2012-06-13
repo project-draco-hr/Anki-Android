@@ -1,0 +1,8 @@
+{
+  try {
+    mConf.put("timeLim",seconds);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

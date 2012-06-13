@@ -1,10 +1,7 @@
 {
   try {
-    if (mConf.getLong("timeLim") != 0) {
-      return null;
-    }
     double elapsed=Utils.now() - mStartTime;
-    if (elapsed > mConf.getLong("timeLim")) {
+    if (elapsed > mConf.getLong("timeLim") && !mOvertime) {
       return new Long[]{mConf.getLong("timeLim"),(long)(mRepsToday - mStartReps)};
     }
   }
