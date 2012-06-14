@@ -15,8 +15,16 @@
     ZipOutputStream zos=new ZipOutputStream(new FileOutputStream(zipFilename));
     int n=1;
     for (    File f : fileList) {
+      String deckPath=f.getAbsolutePath();
+      try {
+        AnkiDb d=AnkiDatabaseManager.getDatabase(deckPath);
+        d.queryString("PRAGMA journal_mode = DELETE");
+      }
+  finally {
+        AnkiDatabaseManager.closeDatabase(deckPath);
+      }
       String tmpName=n + ".anki";
-      FileInputStream in=new FileInputStream(f.getAbsolutePath());
+      FileInputStream in=new FileInputStream(deckPath);
       ZipEntry ze=new ZipEntry(tmpName);
       zos.putNextEntry(ze);
       int len;
