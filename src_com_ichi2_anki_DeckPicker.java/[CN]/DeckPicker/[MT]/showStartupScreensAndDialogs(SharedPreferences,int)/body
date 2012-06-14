@@ -16,7 +16,7 @@
       ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
     }
   }
- else   if (skip < 3 && upgradeNeeded()) {
+ else   if (skip < 3 && true) {
     Intent upgradeIntent=new Intent(this,Info.class);
     upgradeIntent.putExtra(Info.TYPE_EXTRA,Info.TYPE_UPGRADE_DECKS);
     startActivityForResult(upgradeIntent,SHOW_INFO_UPGRADE_DECKS);
