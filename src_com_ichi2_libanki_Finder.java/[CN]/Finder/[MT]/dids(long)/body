@@ -1,0 +1,10 @@
+{
+  if (did == 0) {
+    return null;
+  }
+  TreeMap<String,Long> children=mCol.getDecks().children(did);
+  List<Long> res=new ArrayList<Long>();
+  res.add(did);
+  res.addAll(children.values());
+  return res;
+}

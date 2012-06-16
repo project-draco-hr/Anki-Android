@@ -1,0 +1,15 @@
+{
+  if (!hooks.containsKey(hook) || hooks.get(hook) == null) {
+    hooks.put(hook,new ArrayList<Hook>());
+  }
+  boolean found=false;
+  for (  Hook h : hooks.get(hook)) {
+    if (func.equals(h)) {
+      found=true;
+      break;
+    }
+  }
+  if (!found) {
+    hooks.get(hook).add(func);
+  }
+}

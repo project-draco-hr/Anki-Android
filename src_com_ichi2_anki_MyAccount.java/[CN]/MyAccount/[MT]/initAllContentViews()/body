@@ -15,12 +15,7 @@
   Button signUpButton=(Button)mLoginToMyAccountView.findViewById(R.id.sign_up_button);
   signUpButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View v){
-      Intent intent=new Intent(MyAccount.this,Info.class);
-      intent.putExtra(Info.TYPE_EXTRA,Info.TYPE_CREATE_ACCOUNT);
-      startActivity(intent);
-      if (UIUtils.getApiLevel() > 4) {
-        ActivityTransitionAnimation.slide(MyAccount.this,ActivityTransitionAnimation.RIGHT);
-      }
+      setContentView(mRegisterView);
     }
   }
 );
@@ -32,6 +27,31 @@
   logoutButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View v){
       logout();
+    }
+  }
+);
+  mRegisterView=getLayoutInflater().inflate(R.layout.my_account_register,null);
+  Themes.setWallpaper(mRegisterView);
+  mUsername1=(EditText)mRegisterView.findViewById(R.id.username1);
+  mPassword1=(EditText)mRegisterView.findViewById(R.id.password1);
+  mUsername2=(EditText)mRegisterView.findViewById(R.id.username2);
+  mPassword2=(EditText)mRegisterView.findViewById(R.id.password2);
+  Button registerButton=(Button)mRegisterView.findViewById(R.id.register_button);
+  registerButton.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View v){
+      if (mUsername1.getText().toString().length() > 0 && mPassword1.getText().toString().length() > 0 && mUsername1.getText().toString().equals(mUsername2.getText().toString()) && mPassword1.getText().toString().equals(mPassword2.getText().toString())) {
+        register();
+      }
+ else {
+        mRegisterAlert.show();
+      }
+    }
+  }
+);
+  Button cancelButton=(Button)mRegisterView.findViewById(R.id.cancel_button);
+  cancelButton.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View v){
+      finishWithAnimation(ActivityTransitionAnimation.FADE);
     }
   }
 );

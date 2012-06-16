@@ -4,10 +4,15 @@
   mTextDeckName=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_name);
   mTextDeckDescription=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_description);
   mButtonStart=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_start);
+  mButtonUp=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_limitup);
+  mButtonDown=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_limitdown);
+  mToggleLimitToggle=(ToggleButton)mStudyOptionsView.findViewById(R.id.studyoptions_limittoggle);
   if (mCol != null && mCol.getDecks().isDyn(mCol.getDecks().selected())) {
     Button rebBut=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_rebuild_cram);
     rebBut.setOnClickListener(mButtonClickListener);
-    rebBut.setVisibility(View.VISIBLE);
+    Button emptyBut=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_empty_cram);
+    emptyBut.setOnClickListener(mButtonClickListener);
+    ((LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_cram_buttons)).setVisibility(View.VISIBLE);
   }
   if (mFragmented) {
     Button but=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_options);
@@ -38,12 +43,18 @@
   mDeckCounts=(LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_deckcounts);
   mDeckChart=(LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_chart);
   mButtonStart.setOnClickListener(mButtonClickListener);
+  mButtonUp.setOnClickListener(mButtonClickListener);
+  mButtonDown.setOnClickListener(mButtonClickListener);
+  mToggleLimitToggle.setOnClickListener(mButtonClickListener);
   mCongratsView=inflater.inflate(R.layout.studyoptions_congrats,null);
   Themes.setWallpaper(mCongratsView);
   mTextCongratsMessage=(TextView)mCongratsView.findViewById(R.id.studyoptions_congrats_message);
   Themes.setTextViewStyle(mTextCongratsMessage);
   mTextCongratsMessage.setOnClickListener(mButtonClickListener);
   mButtonCongratsOpenOtherDeck=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_open_other_deck);
+  if (mFragmented) {
+    mButtonCongratsOpenOtherDeck.setVisibility(View.GONE);
+  }
   mButtonCongratsFinish=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_finish);
   mButtonCongratsOpenOtherDeck.setOnClickListener(mButtonClickListener);
   mButtonCongratsFinish.setOnClickListener(mButtonClickListener);

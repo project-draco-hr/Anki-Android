@@ -1,2 +1,37 @@
 {
+  try {
+    assert(m.getJSONArray("tmpls").length() > 1);
+    JSONArray ja=m.getJSONArray("tmpls");
+    int ord=-1;
+    for (int i=0; i < ja.length(); ++i) {
+      if (ja.get(i).equals(template)) {
+        ord=i;
+        break;
+      }
+    }
+    String sql=String.format(Locale.US,"select c.id from cards c, notes f where c.nid=f.id and mid = %d and ord = %d",m.getLong("id"),ord);
+    long[] cids=Utils.toPrimitive(mCol.getDb().queryColumn(Long.class,sql,0));
+    sql=String.format(Locale.US,"select nid, count() from cards where nid in (select nid from cards where id in %s) group by nid having count() < 2 limit 1",Utils.ids2str(cids));
+    if (mCol.getDb().queryScalar(sql,false) != 0) {
+      return false;
+    }
+    mCol.modSchema();
+    mCol.remCards(cids);
+    mCol.getDb().execute("update cards set ord = ord - 1, usn = ?, mod = ? where nid in (select id from notes where mid = ?) and ord > ?",new Object[]{mCol.usn(),Utils.intNow(),m.getLong("id"),ord});
+    JSONArray tmpls=m.getJSONArray("tmpls");
+    JSONArray ja2=new JSONArray();
+    for (int i=0; i < tmpls.length(); ++i) {
+      if (template.equals(tmpls.getJSONObject(i))) {
+        continue;
+      }
+      ja2.put(tmpls.get(i));
+    }
+    m.put("tmpls",ja2);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  _updateTemplOrds(m);
+  save(m);
+  return true;
 }

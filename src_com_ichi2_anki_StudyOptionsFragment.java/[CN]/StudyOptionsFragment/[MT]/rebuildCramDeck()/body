@@ -1,0 +1,4 @@
+{
+  mProgressDialog=StyledProgressDialog.show(getActivity(),"",getResources().getString(R.string.rebuild_cram_deck),true);
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REBUILD_CRAM,mUpdateValuesFromDeckListener,new DeckTask.TaskData(mCol,mCol.getDecks().selected()));
+}

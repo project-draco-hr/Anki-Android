@@ -5,5 +5,12 @@
   }
   long elapsed=card.getIvl() - (card.getODue() - mToday);
   double factor=((card.getFactor() / 1000.0) + 1.2) / 2.0;
-  return Math.max(1,Math.max(card.getIvl(),(int)(elapsed * factor)));
+  int ivl=Math.max(1,Math.max(card.getIvl(),(int)(elapsed * factor)));
+  JSONObject conf=_revConf(card);
+  try {
+    return Math.min(conf.getInt("maxIvl"),ivl);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
 }

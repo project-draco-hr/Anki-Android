@@ -18,5 +18,11 @@
     }
   }
   interval=_ivlWithFactor(conf,interval);
-  return Math.max(card.getIvl() + (ease == 4 ? 2 : 1),(int)interval);
+  int intinterval=Math.max(card.getIvl() + (ease == 4 ? 2 : 1),(int)interval);
+  try {
+    return Math.min(intinterval,conf.getInt("maxIvl"));
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
 }

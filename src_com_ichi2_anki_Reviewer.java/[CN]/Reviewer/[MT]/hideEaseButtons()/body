@@ -3,13 +3,6 @@
   switchVisibility(mEase2Layout,View.GONE);
   switchVisibility(mEase3Layout,View.GONE);
   switchVisibility(mEase4Layout,View.GONE);
-  if (mshowNextReviewTime) {
-    int visibility=typeAnswer() ? View.GONE : View.INVISIBLE;
-    switchVisibility(mNext1,visibility);
-    switchVisibility(mNext2,visibility);
-    switchVisibility(mNext3,visibility);
-    switchVisibility(mNext4,visibility);
-  }
   if (mFlipCardLayout.getVisibility() != View.VISIBLE) {
     switchVisibility(mFlipCardLayout,View.VISIBLE);
     mFlipCardLayout.requestFocus();

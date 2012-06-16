@@ -1,0 +1,64 @@
+{
+  SearchState s=new SearchState();
+  List<String> args=new ArrayList<String>();
+  for (  String token : tokens) {
+    if (s.bad) {
+      return new Pair<String,String[]>(null,null);
+    }
+    if (token.equals("not")) {
+      s.isnot=true;
+    }
+ else     if (token.toLowerCase().equals("or")) {
+      s.isor=true;
+    }
+ else     if (token.equals("(")) {
+      addPred(s,token,false);
+      s.join=false;
+    }
+ else     if (token.equals(")")) {
+      s.q+=")";
+    }
+ else     if (token.contains(":")) {
+      String[] spl=token.split(":",2);
+      String cmd=spl[0].toLowerCase();
+      String val=spl[1];
+      if (cmd.equals("tag")) {
+        addPred(s,_findTag(val,args));
+      }
+ else       if (cmd.equals("is")) {
+        addPred(s,_findCardState(val));
+      }
+ else       if (cmd.equals("nid")) {
+        addPred(s,_findNids(val));
+      }
+ else       if (cmd.equals("card")) {
+        addPred(s,_findTemplate(val));
+      }
+ else       if (cmd.equals("note")) {
+        addPred(s,_findModel(val));
+      }
+ else       if (cmd.equals("deck")) {
+        addPred(s,_findDeck(val));
+      }
+ else       if (cmd.equals("prop")) {
+        addPred(s,_findProp(val));
+      }
+ else       if (cmd.equals("rated")) {
+        addPred(s,_findRated(val));
+      }
+ else       if (cmd.equals("added")) {
+        addPred(s,_findAdded(val));
+      }
+ else {
+        addPred(s,_findField(cmd,val));
+      }
+    }
+ else {
+      addPred(s,_findText(token,args));
+    }
+  }
+  if (s.bad) {
+    return new Pair<String,String[]>(null,null);
+  }
+  return new Pair<String,String[]>(s.q,args.toArray(new String[]{}));
+}

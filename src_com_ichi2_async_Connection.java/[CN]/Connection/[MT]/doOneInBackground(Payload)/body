@@ -2,12 +2,16 @@
 switch (data.taskType) {
 case TASK_TYPE_LOGIN:
     return doInBackgroundLogin(data);
+case TASK_TYPE_REGISTER:
+  return doInBackgroundRegister(data);
 case TASK_TYPE_SYNC:
-  return doInBackgroundSync(data);
+return doInBackgroundSync(data);
 case TASK_TYPE_SEND_CRASH_REPORT:
 return doInBackgroundSendFeedback(data);
 case TASK_TYPE_DOWNLOAD_MEDIA:
 return doInBackgroundDownloadMissingMedia(data);
+case TASK_TYPE_UPGRADE_DECKS:
+return doInBackgroundUpgradeDecks(data);
 default :
 return null;
 }

@@ -1,0 +1,26 @@
+{
+  super.onCreate(icicle);
+  mCol=Collection.currentCollection();
+  if (mCol == null) {
+    finish();
+    return;
+  }
+  mDeck=mCol.getDecks().current();
+  try {
+    if (mCol == null || mDeck.getInt("dyn") != 1) {
+      Log.i(AnkiDroidApp.TAG,"CramDeckOptions - No Collection loaded or deck is not a dyn deck");
+      finish();
+      return;
+    }
+ else {
+      mPref=new DeckPreferenceHack();
+      mPref.registerOnSharedPreferenceChangeListener(this);
+      this.addPreferencesFromResource(R.xml.cram_deck_options);
+      this.buildLists();
+      this.updateSummaries();
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

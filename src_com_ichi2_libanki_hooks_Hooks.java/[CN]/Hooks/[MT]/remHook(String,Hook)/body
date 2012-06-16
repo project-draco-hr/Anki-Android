@@ -1,0 +1,10 @@
+{
+  if (hooks.containsKey(hook) && hooks.get(hook) != null) {
+    for (    Hook h : hooks.get(hook)) {
+      if (func.equals(h)) {
+        hooks.get(hook).remove(h);
+        break;
+      }
+    }
+  }
+}

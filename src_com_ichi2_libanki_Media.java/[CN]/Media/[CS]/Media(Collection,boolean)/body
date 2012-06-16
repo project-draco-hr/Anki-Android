@@ -1,0 +1,16 @@
+{
+  mCol=col;
+  if (server) {
+    mDir=null;
+    return;
+  }
+  mDir=col.getPath().replaceFirst("\\.anki2$",".media");
+  mMediaDbFilename=mDir + ".db";
+  File fd=new File(mDir);
+  if (!fd.exists()) {
+    if (!fd.mkdir()) {
+      Log.e(AnkiDroidApp.TAG,"Cannot create media directory: " + mDir);
+    }
+  }
+  connect();
+}

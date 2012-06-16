@@ -5,10 +5,14 @@
       return conf.getJSONObject("new");
     }
     JSONObject oconf=mCol.getDecks().confForDid(card.getODid());
+    JSONArray delays=conf.optJSONArray("delays");
+    if (delays == null) {
+      delays=oconf.getJSONObject("new").getJSONArray("delays");
+    }
     JSONObject dict=new JSONObject();
     dict.put("ints",oconf.getJSONObject("new").getJSONArray("ints"));
     dict.put("initialFactor",oconf.getJSONObject("new").getInt("initialFactor"));
-    dict.put("delays",conf.getJSONArray("delays"));
+    dict.put("delays",delays);
     dict.put("separate",conf.getBoolean("separate"));
     dict.put("order",NEW_CARDS_DUE);
     dict.put("perDay",mReportLimit);

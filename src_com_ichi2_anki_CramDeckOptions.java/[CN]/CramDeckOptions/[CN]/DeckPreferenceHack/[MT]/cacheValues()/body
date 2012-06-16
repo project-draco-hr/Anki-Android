@@ -1,0 +1,21 @@
+{
+  Log.i(AnkiDroidApp.TAG,"CramDeckOptions - CacheValues");
+  try {
+    JSONArray ar=mDeck.getJSONArray("terms").getJSONArray(0);
+    mValues.put("search",ar.getString(0));
+    mValues.put("limit",ar.getString(1));
+    mValues.put("order",ar.getString(2));
+    try {
+      mValues.put("steps",getDelays(mDeck.getJSONArray("delays")));
+      mValues.put("stepsOn",Boolean.toString(true));
+    }
+ catch (    JSONException e) {
+      mValues.put("steps","1 10");
+      mValues.put("stepsOn",Boolean.toString(false));
+    }
+    mValues.put("resched",Boolean.toString(mDeck.getBoolean("resched")));
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

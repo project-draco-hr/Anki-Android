@@ -21,8 +21,8 @@
     mValues.put("revSpaceMax",Integer.toString((int)(revOptions.getDouble("fuzz") * 100)));
     mValues.put("revSpaceMin",revOptions.getString("minSpace"));
     mValues.put("easyBonus",Integer.toString((int)(revOptions.getDouble("ease4") * 100)));
-    mValues.put("revDesForIdx",revOptions.getJSONArray("fi").getString(0));
-    mValues.put("revAssForIdx",revOptions.getJSONArray("fi").getString(1));
+    mValues.put("revIvlFct",revOptions.getString("ivlFct"));
+    mValues.put("revMaxIvl",revOptions.getString("maxIvl"));
     JSONObject lapOptions=mOptions.getJSONObject("lapse");
     mValues.put("lapSteps",getDelays(lapOptions.getJSONArray("delays")));
     mValues.put("lapNewIvl",Integer.toString((int)(lapOptions.getDouble("mult") * 100)));

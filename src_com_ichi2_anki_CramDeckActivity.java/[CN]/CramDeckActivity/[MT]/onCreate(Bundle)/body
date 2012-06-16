@@ -1,8 +1,0 @@
-{
-  super.onCreate(savedInstanceState);
-  if (savedInstanceState == null) {
-    Fragment details=new CramDeckFragment();
-    details.setArguments(getIntent().getExtras());
-    getSupportFragmentManager().beginTransaction().add(android.R.id.content,details).commit();
-  }
-}

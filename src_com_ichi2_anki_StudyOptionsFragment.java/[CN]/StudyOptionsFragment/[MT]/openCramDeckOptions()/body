@@ -1,0 +1,7 @@
+{
+  Intent i=new Intent(getActivity(),CramDeckOptions.class);
+  startActivityForResult(i,DECK_OPTIONS);
+  if (UIUtils.getApiLevel() > 4) {
+    ActivityTransitionAnimation.slide(getActivity(),ActivityTransitionAnimation.FADE);
+  }
+}

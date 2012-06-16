@@ -4,7 +4,7 @@
   mLastSave=Utils.now();
   clearUndo();
   mPath=path;
-  mMedia=new Media(this);
+  mMedia=new Media(this,server);
   mModels=new Models(this);
   mDecks=new Decks(this);
   mTags=new Tags(this);
@@ -14,6 +14,7 @@
   }
   mStartReps=0;
   mStartTime=0;
+  mOvertime=false;
   mSched=new Sched(this);
   cleanup();
 }

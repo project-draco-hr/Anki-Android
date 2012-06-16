@@ -1,0 +1,33 @@
+{
+  Integer num=null;
+  try {
+    num=Integer.parseInt(val) - 1;
+  }
+ catch (  NumberFormatException e) {
+    num=null;
+  }
+  if (num != null) {
+    return "c.ord = " + num;
+  }
+  List<String> lims=new ArrayList<String>();
+  try {
+    for (    JSONObject m : mCol.getModels().all()) {
+      JSONArray tmpls=m.getJSONArray("tmpls");
+      for (int ti=0; ti < tmpls.length(); ++ti) {
+        JSONObject t=tmpls.getJSONObject(ti);
+        if (t.getString("name").equalsIgnoreCase(val)) {
+          if (m.getInt("type") == Sched.MODEL_CLOZE) {
+            lims.add(String.format(Locale.US,"(n.mid = %s)",m.getLong("id")));
+          }
+ else {
+            lims.add(String.format(Locale.US,"(n.mid = %s and c.ord = %s)",m.getLong("id"),t.getInt("ord")));
+          }
+        }
+      }
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  return Utils.join(" or ",lims.toArray(new String[]{}));
+}

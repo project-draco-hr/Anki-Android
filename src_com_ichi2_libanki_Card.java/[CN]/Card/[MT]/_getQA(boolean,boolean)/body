@@ -11,7 +11,7 @@
  catch (    JSONException e) {
       throw new RuntimeException(e);
     }
-    ArrayList<String> args=new ArrayList<String>();
+    List<String> args=new ArrayList<String>();
     if (browser) {
       try {
         args.add(t.getString("bqfmt"));

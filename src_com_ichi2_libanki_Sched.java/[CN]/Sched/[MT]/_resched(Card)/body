@@ -1,0 +1,12 @@
+{
+  JSONObject conf=_cardConf(card);
+  try {
+    if (conf.getInt("dyn") == 0) {
+      return true;
+    }
+    return conf.getBoolean("resched");
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

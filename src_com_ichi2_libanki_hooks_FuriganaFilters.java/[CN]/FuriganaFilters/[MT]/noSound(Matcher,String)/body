@@ -1,0 +1,8 @@
+{
+  if (match.group(2).startsWith("sound:")) {
+    return match.group(0);
+  }
+ else {
+    return r.matcher(match.group(0)).replaceAll(repl);
+  }
+}

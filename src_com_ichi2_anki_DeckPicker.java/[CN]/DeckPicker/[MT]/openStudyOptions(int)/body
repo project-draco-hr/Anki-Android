@@ -1,13 +1,6 @@
 {
   if (mFragmented) {
-    Fragment frag=(Fragment)getSupportFragmentManager().findFragmentById(R.id.studyoptions_fragment);
-    if (frag == null || !(frag instanceof StudyOptionsFragment) || ((StudyOptionsFragment)frag).getShownIndex() != id) {
-      StudyOptionsFragment details=StudyOptionsFragment.newInstance(id);
-      FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
-      ft.replace(R.id.studyoptions_fragment,details);
-      ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-      ft.commit();
-    }
+    setStudyContentView(StudyOptionsFragment.CONTENT_STUDY_OPTIONS);
   }
  else {
     mDontSaveOnStop=true;

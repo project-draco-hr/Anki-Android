@@ -1,0 +1,6 @@
+{
+  val=val.replace("*","%");
+  args.add("%" + val + "%");
+  args.add("%" + val + "%");
+  return "(n.sfld like ? escape '\\' or n.flds like ? escape '\\')";
+}

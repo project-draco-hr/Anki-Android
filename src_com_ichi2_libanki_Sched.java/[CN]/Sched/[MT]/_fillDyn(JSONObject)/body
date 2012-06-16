@@ -1,0 +1,21 @@
+{
+  JSONArray terms;
+  List<Long> ids;
+  try {
+    terms=deck.getJSONArray("terms").getJSONArray(0);
+    String search=terms.getString(0);
+    int limit=terms.getInt(1);
+    int order=terms.getInt(2);
+    String orderlimit=_dynOrder(order,limit);
+    search+=" -is:suspended -deck:filtered";
+    ids=mCol.findCards(search,orderlimit);
+    if (ids.isEmpty()) {
+      return ids;
+    }
+    _moveToDyn(deck.getLong("id"),ids);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  return ids;
+}

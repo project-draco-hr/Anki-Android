@@ -1,0 +1,15 @@
+{
+  LinkedList<Long> ids=new LinkedList<Long>();
+  val=val.toLowerCase();
+  try {
+    for (    JSONObject m : mCol.getModels().all()) {
+      if (m.getString("name").toLowerCase().equals(val)) {
+        ids.add(m.getLong("id"));
+      }
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  return "n.mid in " + Utils.ids2str(ids);
+}

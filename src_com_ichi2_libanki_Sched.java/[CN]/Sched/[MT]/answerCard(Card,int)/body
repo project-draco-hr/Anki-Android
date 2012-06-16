@@ -2,7 +2,6 @@
   Log.i(AnkiDroidApp.TAG,"answerCard - ease:" + ease);
   boolean isLeech=false;
   mCol.markReview(card);
-  mReps+=1;
   card.setReps(card.getReps() + 1);
   boolean wasNew=(card.getQueue() == 0);
   if (wasNew) {
@@ -12,8 +11,10 @@
     }
     card.setLeft(_startingLeft(card));
     if (card.getODid() != 0 && card.getType() == 2) {
-      card.setIvl(_dynIvlBoost(card));
-      card.setODue(mToday + card.getIvl());
+      if (_resched(card)) {
+        card.setIvl(_dynIvlBoost(card));
+        card.setODue(mToday + card.getIvl());
+      }
     }
     _updateStats(card,"new");
   }

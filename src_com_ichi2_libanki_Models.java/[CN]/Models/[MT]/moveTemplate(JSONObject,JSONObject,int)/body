@@ -1,0 +1,37 @@
+{
+  try {
+    JSONArray ja=m.getJSONArray("tmpls");
+    int oldidx=-1;
+    ArrayList<JSONObject> l=new ArrayList<JSONObject>();
+    HashMap<Integer,Integer> oldidxs=new HashMap<Integer,Integer>();
+    for (int i=0; i < ja.length(); ++i) {
+      if (ja.get(i).equals(template)) {
+        oldidx=i;
+        if (idx == oldidx) {
+          return;
+        }
+      }
+      JSONObject t=ja.getJSONObject(i);
+      oldidxs.put(t.hashCode(),t.getInt("ord"));
+      l.add(t);
+    }
+    l.remove(oldidx);
+    l.add(idx,template);
+    m.put("tmpls",new JSONArray(l));
+    _updateTemplOrds(m);
+    StringBuilder sb=new StringBuilder();
+    ja=m.getJSONArray("tmpls");
+    for (int i=0; i < ja.length(); ++i) {
+      JSONObject t=ja.getJSONObject(i);
+      sb.append("when ord = ").append(oldidxs.get(t.hashCode())).append(" then ").append(t.getInt("ord"));
+      if (i != ja.length() - 1) {
+        sb.append(" ");
+      }
+    }
+    save(m);
+    mCol.getDb().execute(String.format(Locale.US,"update cards set ord = (case %s end),usn=?,mod=? where nid in (select id from notes where mid = ?)",sb.toString()),new Object[]{mCol.usn(),Utils.intNow(),m.getLong("id")});
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

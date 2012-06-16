@@ -1,8 +1,6 @@
 {
-  try {
-    mLims.getJSONArray("preds").put("n.id IN (" + val + ")");
+  if (fNidsPattern.matcher(val).find()) {
+    return "";
   }
- catch (  JSONException e) {
-    throw new RuntimeException(e);
-  }
+  return "n.id in (" + val + ")";
 }

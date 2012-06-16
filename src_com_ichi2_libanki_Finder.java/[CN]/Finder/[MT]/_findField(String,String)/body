@@ -1,0 +1,44 @@
+{
+  val=val.replace("*","%");
+  Map<Long,Object[]> mods=new HashMap<Long,Object[]>();
+  try {
+    for (    JSONObject m : mCol.getModels().all()) {
+      JSONArray flds=m.getJSONArray("flds");
+      for (int fi=0; fi < flds.length(); ++fi) {
+        JSONObject f=flds.getJSONObject(fi);
+        if (f.getString("name").equalsIgnoreCase(field)) {
+          mods.put(m.getLong("id"),new Object[]{m,f.getInt("ord")});
+        }
+      }
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  if (mods.isEmpty()) {
+    return "";
+  }
+  String regex=val.replace("_",".").replace("%",".*");
+  LinkedList<Long> nids=new LinkedList<Long>();
+  Cursor cur=null;
+  try {
+    cur=mCol.getDb().getDatabase().rawQuery(String.format(Locale.US,"select id, mid, flds from notes where mid in %s and flds like ? escape '\\'",Utils.ids2str(new LinkedList<Long>(mods.keySet()))),new String[]{"%" + val + "%"});
+    while (cur.moveToNext()) {
+      String[] flds=Utils.splitFields(cur.getString(2));
+      int ord=(Integer)mods.get(cur.getLong(1))[1];
+      String strg=flds[ord];
+      if (Pattern.compile(regex,Pattern.CASE_INSENSITIVE).matcher(strg).matches()) {
+        nids.add(cur.getLong(0));
+      }
+    }
+  }
+  finally {
+    if (cur != null) {
+      cur.close();
+    }
+  }
+  if (nids.isEmpty()) {
+    return "";
+  }
+  return "n.id in " + Utils.ids2str(nids);
+}

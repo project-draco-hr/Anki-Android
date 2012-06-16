@@ -1,0 +1,7 @@
+{
+  int ivl=nextIvl(card,ease);
+  if (ivl == 0) {
+    return "";
+  }
+  return Utils.fmtTimeSpan(ivl,_short);
+}

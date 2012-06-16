@@ -1,0 +1,7 @@
+{
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundEmptyCram");
+  Collection col=params[0].getCollection();
+  long did=params[0].getLong();
+  col.getSched().emptyDyn(did);
+  return doInBackgroundUpdateValuesFromDeck(new DeckTask.TaskData(col.getSched(),true));
+}

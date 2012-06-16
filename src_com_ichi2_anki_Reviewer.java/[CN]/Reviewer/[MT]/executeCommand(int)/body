@@ -41,7 +41,7 @@ displayCardAnswer();
 break;
 case GESTURE_ANSWER_RECOMMENDED:
 if (sDisplayAnswer) {
-answerCard(getRecommendedEase());
+answerCard(getRecommendedEase(false));
 }
  else {
 displayCardAnswer();
@@ -49,7 +49,7 @@ displayCardAnswer();
 break;
 case GESTURE_ANSWER_BETTER_THAN_RECOMMENDED:
 if (sDisplayAnswer) {
-answerCard(getRecommendedEase() + 1);
+answerCard(getRecommendedEase(true));
 }
 break;
 case GESTURE_EXIT:

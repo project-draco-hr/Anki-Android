@@ -12,6 +12,16 @@
     closeStudyOptions(DeckPicker.RESULT_MEDIA_EJECTED);
   }
  else   if (requestCode == DECK_OPTIONS) {
+    JSONObject deck=mCol.getDecks().current();
+    try {
+      if (deck.has("empty") && deck.getBoolean("empty")) {
+        rebuildCramDeck();
+        deck.remove("empty");
+      }
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
     resetAndUpdateValuesFromDeck();
   }
  else   if (requestCode == ADD_NOTE && resultCode != getActivity().RESULT_CANCELED) {
@@ -25,10 +35,11 @@
 switch (resultCode) {
 case Reviewer.RESULT_SESSION_COMPLETED:
 default :
-      showContentView(CONTENT_STUDY_OPTIONS,mDontSaveOnStop);
+      resetAndUpdateValuesFromDeck();
     break;
 case Reviewer.RESULT_NO_MORE_CARDS:
-  showContentView(CONTENT_CONGRATS,mDontSaveOnStop);
+  mTextCongratsMessage.setText(mCol.getSched().finishedMsg(getActivity()));
+setFragmentContentView(mStudyOptionsView,mCongratsView);
 break;
 }
 mDontSaveOnStop=false;
@@ -38,6 +49,7 @@ mDontSaveOnStop=false;
 resetAndUpdateValuesFromDeck();
 }
  else if (requestCode == STATISTICS && mCurrentContentView == CONTENT_CONGRATS) {
-showContentView(CONTENT_STUDY_OPTIONS);
+resetAndUpdateValuesFromDeck();
+setFragmentContentView(mCongratsView,mStudyOptionsView);
 }
 }

@@ -1,0 +1,27 @@
+{
+  mCol.modSchema();
+  try {
+    String pat=String.format("\\{\\{([:#^/]|[^:#/^}][^:}]*?:|)%s\\}\\}",Pattern.quote(field.getString("name")));
+    if (newName == null) {
+      newName="";
+    }
+    String repl="{{$1" + newName + "}}";
+    JSONArray tmpls=m.getJSONArray("tmpls");
+    for (int i=0; i < tmpls.length(); ++i) {
+      JSONObject t=tmpls.getJSONObject(i);
+      for (      String fmt : new String[]{"qfmt","afmt"}) {
+        if (!newName.equals("")) {
+          t.put(fmt,t.getString(fmt).replaceAll(pat,repl));
+        }
+ else {
+          t.put(fmt,t.getString(fmt).replaceAll(pat,""));
+        }
+      }
+    }
+    field.put("name",newName);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  save(m);
+}

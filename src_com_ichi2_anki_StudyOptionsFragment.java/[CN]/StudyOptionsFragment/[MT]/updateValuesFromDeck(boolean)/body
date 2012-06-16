@@ -1,7 +1,12 @@
 {
   String fullName;
+  JSONObject deck=mCol.getDecks().current();
   try {
-    fullName=mCol.getDecks().current().getString("name");
+    fullName=deck.getString("name");
+    if (deck.has("empty") && deck.getBoolean("empty")) {
+      openCramDeckOptions();
+      return;
+    }
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);

@@ -1,0 +1,14 @@
+{
+  String s="";
+  JSONArray flds;
+  try {
+    flds=m.getJSONArray("flds");
+    for (int i=0; i < flds.length(); ++i) {
+      s+=flds.getJSONObject(i).getString("name");
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  return Utils.fieldChecksum(s);
+}

@@ -1,0 +1,6 @@
+{
+  LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,ViewGroup.LayoutParams.FILL_PARENT);
+  ViewGroup parent=(ViewGroup)oldView.getParent();
+  parent.removeAllViews();
+  parent.addView(newView);
+}

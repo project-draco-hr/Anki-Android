@@ -1,0 +1,21 @@
+{
+  ArrayList<String> list=new ArrayList<String>();
+  try {
+    if (dyn) {
+      for (      JSONObject x : mDecks.values()) {
+        list.add(x.getString("name"));
+      }
+    }
+ else {
+      for (      JSONObject x : mDecks.values()) {
+        if (!x.getBoolean("dyn")) {
+          list.add(x.getString("name"));
+        }
+      }
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  return list;
+}

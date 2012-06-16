@@ -2,14 +2,18 @@
   JSONObject conf;
   try {
     conf=_lapseConf(card);
-    card.setLapses(card.getLapses() + 1);
     card.setLastIvl(card.getIvl());
-    card.setIvl(_nextLapseIvl(card,conf));
-    card.setFactor(Math.max(1300,card.getFactor() - 200));
-    card.setDue(mToday + card.getIvl());
+    if (_resched(card)) {
+      card.setLapses(card.getLapses() + 1);
+      card.setIvl(_nextLapseIvl(card,conf));
+      card.setFactor(Math.max(1300,card.getFactor() - 200));
+      card.setDue(mToday + card.getIvl());
+    }
     int delay=0;
     if (conf.getJSONArray("delays").length() > 0) {
-      card.setODue(card.getDue());
+      if (card.getODue() == 0) {
+        card.setODue(card.getDue());
+      }
       delay=_delayForGrade(conf,0);
       card.setDue((long)(delay + Utils.now()));
       int left=conf.getJSONArray("delays").length();

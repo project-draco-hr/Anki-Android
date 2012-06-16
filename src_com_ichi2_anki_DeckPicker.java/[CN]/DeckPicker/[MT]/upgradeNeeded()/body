@@ -1,0 +1,9 @@
+{
+  if ((new File(AnkiDroidApp.getCollectionPath())).exists()) {
+    return false;
+  }
+  if ((new File(AnkiDroidApp.getDefaultAnkiDroidDirectory())).listFiles(new OldAnkiDeckFilter()).length > 0) {
+    return true;
+  }
+  return false;
+}

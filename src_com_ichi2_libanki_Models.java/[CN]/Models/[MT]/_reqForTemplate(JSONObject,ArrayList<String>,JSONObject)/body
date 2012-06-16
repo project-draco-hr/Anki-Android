@@ -3,7 +3,7 @@
     ArrayList<String> a=new ArrayList<String>();
     ArrayList<String> b=new ArrayList<String>();
     for (    String f : flds) {
-      a.add("1");
+      a.add("ankiflag");
       b.add("");
     }
     Object[] data;
@@ -20,10 +20,9 @@
     for (int i=0; i < flds.size(); i++) {
       tmp.clear();
       tmp.addAll(a);
-      tmp.remove(i);
-      tmp.add(i,"");
+      tmp.set(i,"");
       data[6]=Utils.joinFields(tmp.toArray(new String[tmp.size()]));
-      if (mCol._renderQA(data).get("q").equals(empty)) {
+      if (!mCol._renderQA(data,new ArrayList<String>()).get("q").contains("ankiflag")) {
         req.put(i);
       }
     }
@@ -35,10 +34,9 @@
     for (int i=0; i < flds.size(); i++) {
       tmp.clear();
       tmp.addAll(b);
-      tmp.remove(i);
-      tmp.add(i,"1");
+      tmp.set(i,"1");
       data[6]=Utils.joinFields(tmp.toArray(new String[tmp.size()]));
-      if (mCol._renderQA(data).get("q").equals(empty)) {
+      if (!mCol._renderQA(data).get("q").equals(empty)) {
         req.put(i);
       }
     }

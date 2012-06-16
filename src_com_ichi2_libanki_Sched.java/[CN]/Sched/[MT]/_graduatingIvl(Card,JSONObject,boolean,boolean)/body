@@ -1,7 +1,14 @@
 {
   if (card.getType() == 2) {
     if (card.getODid() != 0) {
-      return _dynIvlBoost(card);
+      try {
+        if (conf.getBoolean("resched")) {
+          return _dynIvlBoost(card);
+        }
+      }
+ catch (      JSONException e) {
+        throw new RuntimeException(e);
+      }
     }
     return card.getIvl();
   }

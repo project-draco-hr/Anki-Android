@@ -1,0 +1,39 @@
+{
+  String username=(String)data.data[0];
+  String password=(String)data.data[1];
+  BasicHttpSyncer server=new RemoteServer(this,null);
+  HttpResponse ret=server.register(username,password);
+  String hostkey=null;
+  boolean valid=false;
+  data.returnType=ret.getStatusLine().getStatusCode();
+  String status=null;
+  if (data.returnType == 200) {
+    try {
+      JSONObject jo=(new JSONObject(server.stream2String(ret.getEntity().getContent())));
+      status=jo.getString("status");
+      if (status.equals("ok")) {
+        hostkey=jo.getString("hkey");
+        valid=(hostkey != null) && (hostkey.length() > 0);
+      }
+    }
+ catch (    JSONException e) {
+    }
+catch (    IllegalStateException e) {
+      throw new RuntimeException(e);
+    }
+catch (    IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  if (valid) {
+    data.success=true;
+    data.data=new String[]{username,hostkey};
+  }
+ else {
+    data.success=false;
+    if (status != null) {
+      data.data=new String[]{status};
+    }
+  }
+  return data;
+}

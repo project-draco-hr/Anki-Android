@@ -10,9 +10,12 @@
   CharSequence newTotal=mTextNewTotal.getText();
   CharSequence total=mTextTotal.getText();
   CharSequence eta=mTextETA.getText();
+  long timelimit=mCol.getTimeLimit() / 60;
   super.onConfigurationChanged(newConfig);
   mDontSaveOnStop=false;
-  showContentView(mCurrentContentView,false);
+  if (mCurrentContentView == CONTENT_CONGRATS) {
+    setFragmentContentView(mStudyOptionsView,mCongratsView);
+  }
   mTextDeckName.setText(title);
   mTextDeckName.setVisibility(View.VISIBLE);
   mTextDeckDescription.setText(desc);
@@ -24,5 +27,9 @@
   mTextNewTotal.setText(newTotal);
   mTextTotal.setText(total);
   mTextETA.setText(eta);
+  mToggleLimitToggle.setChecked(timelimit > 0 ? true : false);
+  if (timelimit > 0) {
+    mToggleLimitToggle.setText(String.valueOf(timelimit));
+  }
   updateStatisticBars();
 }

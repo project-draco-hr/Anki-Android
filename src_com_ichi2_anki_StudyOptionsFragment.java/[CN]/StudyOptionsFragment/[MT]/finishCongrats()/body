@@ -2,7 +2,7 @@
   mStudyOptionsView.setVisibility(View.INVISIBLE);
   mCongratsView.setVisibility(View.INVISIBLE);
   mCongratsView.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_OUT,500,0));
-  showContentView(CONTENT_STUDY_OPTIONS);
+  setFragmentContentView(mCongratsView,mStudyOptionsView);
   mStudyOptionsView.setVisibility(View.VISIBLE);
   mStudyOptionsView.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_IN,500,0));
   mCongratsView.setVisibility(View.VISIBLE);
