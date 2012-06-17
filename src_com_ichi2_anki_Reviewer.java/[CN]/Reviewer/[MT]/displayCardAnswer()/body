@@ -6,9 +6,7 @@
   sDisplayAnswer=true;
   setFlipCardAnimation();
   String answer=mCurrentCard.getAnswer(mSimpleInterface);
-  if (typeAnswer()) {
-    answer=typeAnsAnswerFilter(answer);
-  }
+  answer=typeAnsAnswerFilter(answer);
   String displayString="";
   if (mSimpleInterface) {
     mCardContent=Html.fromHtml(answer);
