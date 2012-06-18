@@ -1,8 +1,8 @@
 {
   Set<String> files=new HashSet<String>();
-  List<String> fldsList=mMediaDb.queryColumn(String.class,"select flds from notes",0);
+  List<String> fldsList=mCol.getDb().queryColumn(String.class,"select flds from notes",0);
   for (  String flds : fldsList) {
-    List<String> fList=filesInStr(flds,false);
+    List<String> fList=filesInStr(flds);
     for (    String f : fList) {
       files.add(f);
     }

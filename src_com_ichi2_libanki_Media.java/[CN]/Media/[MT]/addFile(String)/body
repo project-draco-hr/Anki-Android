@@ -1,8 +1,8 @@
 {
   String mdir=getDir();
-  String base=new File(opath).getName().replaceAll("[][<>:/\\&]","");
-  String dst=mdir + base;
-  File newMediaFile=new File(dst);
+  String base=fDangerousCharacters.matcher(new File(opath).getName()).replaceAll("");
+  File newMediaFile=new File(mdir,base);
+  String dst=newMediaFile.getAbsolutePath();
   if (!newMediaFile.exists()) {
     try {
       Utils.copyFile(new File(opath),newMediaFile);
@@ -25,16 +25,26 @@
     root=base.substring(0,extIndex);
     ext=base.substring(extIndex);
   }
-  int num=1;
-  StringBuilder sb=new StringBuilder(mdir);
-  sb.append("/").append(root).append(" (");
-  do {
-    StringBuilder sb2=new StringBuilder(sb);
-    sb2.append(num).append(ext);
-    newMediaFile=new File(sb2.toString());
-    num+=1;
+  StringBuilder sb=null;
+  String path=null;
+  Matcher m=null;
+  int n=0;
+  while (true) {
+    sb=new StringBuilder(mdir);
+    path=sb.append(File.separatorChar).append(root).append(ext).toString();
+    newMediaFile=new File(path);
+    if (!newMediaFile.exists()) {
+      break;
+    }
+    m=fFileOrdinal.matcher(root);
+    if (!m.find()) {
+      root=root.concat(" (1)");
+    }
+ else {
+      n=Integer.parseInt(m.group(1));
+      root=m.replaceFirst(String.format(Locale.US," (%d)",n + 1));
+    }
   }
- while (newMediaFile.exists());
   try {
     Utils.copyFile(new File(opath),newMediaFile);
   }
