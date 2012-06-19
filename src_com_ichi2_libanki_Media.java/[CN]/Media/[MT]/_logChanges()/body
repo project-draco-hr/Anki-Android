@@ -5,7 +5,7 @@
   ArrayList<Object[]> mediaRem=new ArrayList<Object[]>();
   for (  String f : result.first) {
     long mt=_mtime(f);
-    String csum=_checksum(getDir() + "/" + f);
+    String csum=_checksum(getDir().concat(File.separator).concat(f));
     media.add(new Object[]{f,csum,mt});
     log.add(new Object[]{f,MEDIA_ADD});
   }
