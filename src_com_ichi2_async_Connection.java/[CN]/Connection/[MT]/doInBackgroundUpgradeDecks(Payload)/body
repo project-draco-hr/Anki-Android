@@ -3,6 +3,7 @@
   File ankiDir=new File(path);
   if (!ankiDir.isDirectory()) {
     data.success=false;
+    data.data=new Object[]{"wrong anki directory"};
     return data;
   }
   File[] fileList=ankiDir.listFiles(new OldAnkiDeckFilter());
@@ -14,8 +15,16 @@
     ZipOutputStream zos=new ZipOutputStream(new FileOutputStream(zipFilename));
     int n=1;
     for (    File f : fileList) {
+      String deckPath=f.getAbsolutePath();
+      try {
+        AnkiDb d=AnkiDatabaseManager.getDatabase(deckPath);
+        d.queryString("PRAGMA journal_mode = DELETE");
+      }
+  finally {
+        AnkiDatabaseManager.closeDatabase(deckPath);
+      }
       String tmpName=n + ".anki";
-      FileInputStream in=new FileInputStream(f.getAbsolutePath());
+      FileInputStream in=new FileInputStream(deckPath);
       ZipEntry ze=new ZipEntry(tmpName);
       zos.putNextEntry(ze);
       int len;
@@ -48,6 +57,7 @@ catch (  JSONException e) {
   File zipFile=new File(zipFilename);
   if (zipFile.length() > 50 * 1024 * 1024) {
     data.success=false;
+    data.data=new Object[]{"more than 50 mb, please upgrade via desktop"};
     return data;
   }
   BasicHttpSyncer h=new BasicHttpSyncer(null,null);
@@ -61,12 +71,14 @@ catch (  JSONException e) {
     }
  else {
       data.success=false;
+      data.data=new Object[]{"error when uploading"};
       return data;
     }
     while (true) {
       result=h.stream2String(h.req("upgrade/status?key=" + key).getEntity().getContent());
       if (result.equals("error")) {
         data.success=false;
+        data.data=new Object[]{"error"};
         return data;
       }
  else       if (result.startsWith("waiting:")) {
@@ -80,6 +92,7 @@ catch (  JSONException e) {
       }
  else {
         data.success=false;
+        data.data=new Object[]{"error"};
         return data;
       }
       Thread.sleep(1000);
@@ -88,11 +101,14 @@ catch (  JSONException e) {
     resp=h.req("upgrade/download?key=" + key);
     if (resp == null) {
       data.success=false;
+      data.data=new Object[]{"error downloading file"};
       return data;
     }
     InputStream cont=resp.getEntity().getContent();
     if (!h.writeToFile(cont,colFilename)) {
       data.success=false;
+      data.data=new Object[]{"error writing on the sd card"};
+      (new File(colFilename)).delete();
       return data;
     }
     publishProgress(new Object[]{R.string.sync_check_download_file});
@@ -101,6 +117,7 @@ catch (  JSONException e) {
       AnkiDb d=AnkiDatabaseManager.getDatabase(colFilename);
       if (!d.queryString("PRAGMA integrity_check").equalsIgnoreCase("ok")) {
         data.success=false;
+        data.data=new Object[]{"downloaded file was corrupt"};
         return data;
       }
     }
