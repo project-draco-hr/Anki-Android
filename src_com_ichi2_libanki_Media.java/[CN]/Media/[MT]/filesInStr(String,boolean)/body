@@ -2,11 +2,11 @@
   List<String> l=new ArrayList<String>();
   string=LaTeX.mungeQA(string,mCol);
   Matcher m=null;
-  for (  Pattern p : sMediaRegexps) {
+  for (  Pattern p : fMediaRegexps) {
     m=p.matcher(string);
     while (m.find()) {
       String fname=m.group(2);
-      if (includeRemote || (!sRemoteFilePattern.matcher(fname.toLowerCase()).find())) {
+      if (includeRemote || (!fRemoteFilePattern.matcher(fname.toLowerCase()).find())) {
         l.add(fname);
       }
     }

@@ -1,8 +1,8 @@
 {
-  Matcher m=sMediaRegexps[1].matcher(string);
+  Matcher m=fMediaRegexps[1].matcher(string);
   StringBuffer sb=new StringBuffer();
   while (m.find()) {
-    if (sRemoteFilePattern.matcher(m.group(2)).find()) {
+    if (fRemoteFilePattern.matcher(m.group(2)).find()) {
       m.appendReplacement(sb,m.group());
     }
  else {
