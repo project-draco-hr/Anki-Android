@@ -5,7 +5,7 @@
   Normalizer.Form form=Normalizer.Form.NFD;
   Set<String> normrefs=new HashSet<String>();
   for (  String f : allMedia()) {
-    if (Normalizer.isNormalized(f,form)) {
+    if (!Normalizer.isNormalized(f,form)) {
       f=Normalizer.normalize(f,form);
     }
     normrefs.add(f);

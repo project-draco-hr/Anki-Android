@@ -1,6 +1,6 @@
 {
   Matcher m=null;
-  for (  Pattern p : sMediaRegexps) {
+  for (  Pattern p : fMediaRegexps) {
     m=p.matcher(txt);
     txt=m.replaceAll("");
   }

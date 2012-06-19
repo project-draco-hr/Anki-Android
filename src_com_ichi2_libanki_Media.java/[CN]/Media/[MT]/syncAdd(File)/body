@@ -39,13 +39,14 @@ catch (  IOException e) {
       if (illegal(name)) {
         continue;
       }
+      String path=getDir().concat(File.separator).concat(name);
       try {
-        Utils.writeToFile(z.getInputStream(zentry),getDir() + "/" + name);
+        Utils.writeToFile(z.getInputStream(zentry),path);
       }
  catch (      IOException e) {
         throw new RuntimeException(e);
       }
-      String csum=Utils.fileChecksum(getDir() + "/" + name);
+      String csum=Utils.fileChecksum(path);
       media.add(new Object[]{name,csum,_mtime(name)});
       mMediaDb.execute("delete from log where fname = ?",new String[]{name});
     }

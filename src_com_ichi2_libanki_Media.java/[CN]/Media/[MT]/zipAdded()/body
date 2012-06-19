@@ -12,7 +12,8 @@
     boolean finished=true;
     for (    String fname : filenames) {
       fnames.add(fname);
-      BufferedInputStream bis=new BufferedInputStream(new FileInputStream(fname),2048);
+      File file=new File(getDir(),fname);
+      BufferedInputStream bis=new BufferedInputStream(new FileInputStream(file),2048);
       ZipEntry entry=new ZipEntry(Integer.toString(cnt));
       zos.putNextEntry(entry);
       int count=0;
@@ -21,7 +22,6 @@
       }
       bis.close();
       files.put(Integer.toString(cnt),fname);
-      File file=new File(fname);
       sz+=file.length();
       if (sz > SYNC_ZIP_SIZE) {
         finished=false;
