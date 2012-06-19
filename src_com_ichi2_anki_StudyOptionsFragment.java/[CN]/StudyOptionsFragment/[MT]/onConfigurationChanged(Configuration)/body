@@ -27,9 +27,5 @@
   mTextNewTotal.setText(newTotal);
   mTextTotal.setText(total);
   mTextETA.setText(eta);
-  mToggleLimitToggle.setChecked(timelimit > 0 ? true : false);
-  if (timelimit > 0) {
-    mToggleLimitToggle.setText(String.valueOf(timelimit));
-  }
   updateStatisticBars();
 }
