@@ -31,7 +31,7 @@ case 3:
 col.remNotes(new long[]{note.getId()});
 break;
 }
-publishProgress(new TaskData(col.getSched().getCard(),0));
+publishProgress(new TaskData(getCard(col.getSched()),0));
 col.getDb().getDatabase().setTransactionSuccessful();
 }
   finally {

@@ -18,7 +18,7 @@
           newCard.getQuestion(true);
         }
  else {
-          newCard=sched.getCard();
+          newCard=getCard(sched);
         }
         publishProgress(new TaskData(newCard));
       }

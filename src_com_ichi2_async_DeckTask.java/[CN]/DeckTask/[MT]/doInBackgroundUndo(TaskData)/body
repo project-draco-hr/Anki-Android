@@ -6,13 +6,14 @@
     Card newCard;
     try {
       long cid=col.undo();
-      col.reset();
       if (cid != 0) {
         newCard=col.getCard(cid);
         col.reset();
+        sHadCardQueue=true;
       }
  else {
-        newCard=sched.getCard();
+        col.reset();
+        newCard=getCard(sched);
       }
       publishProgress(new TaskData(newCard,0));
       col.getDb().getDatabase().setTransactionSuccessful();

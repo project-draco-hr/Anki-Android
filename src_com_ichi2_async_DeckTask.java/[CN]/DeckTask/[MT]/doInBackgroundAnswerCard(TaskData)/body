@@ -15,7 +15,7 @@
         }
       }
       if (newCard == null) {
-        newCard=sched.getCard();
+        newCard=getCard(sched);
       }
       if (newCard != null) {
         newCard._getQA(true);

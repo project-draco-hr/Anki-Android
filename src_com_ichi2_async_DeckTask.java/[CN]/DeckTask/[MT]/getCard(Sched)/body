@@ -1,0 +1,7 @@
+{
+  if (sHadCardQueue) {
+    sched.reset();
+    sHadCardQueue=false;
+  }
+  return sched.getCard();
+}
