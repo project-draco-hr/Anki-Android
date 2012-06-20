@@ -5,7 +5,7 @@
     if (s.bad) {
       return new Pair<String,String[]>(null,null);
     }
-    if (token.equals("not")) {
+    if (token.equals("-")) {
       s.isnot=true;
     }
  else     if (token.toLowerCase().equals("or")) {

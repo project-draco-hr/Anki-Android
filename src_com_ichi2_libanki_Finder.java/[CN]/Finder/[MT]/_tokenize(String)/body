@@ -50,8 +50,8 @@
       if (token.length() != 0) {
         token+=c;
       }
- else       if (tokens.size() == 0 || !tokens.get(tokens.size() - 1).equals("not")) {
-        tokens.add("not");
+ else       if (tokens.size() == 0 || !tokens.get(tokens.size() - 1).equals("-")) {
+        tokens.add("-");
       }
     }
  else {
