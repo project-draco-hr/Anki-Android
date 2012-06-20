@@ -1,3 +1,7 @@
 {
-  return _groupChildren(grps,0);
+  TreeSet<Object[]> set=new TreeSet<Object[]>(new DeckNameCompare());
+  for (  Object[] g : grps) {
+    set.add(new Object[]{((String)g[0]).split("::"),g[1],g[2],g[3],g[4]});
+  }
+  return _groupChildrenMain(set);
 }

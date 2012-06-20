@@ -1,0 +1,7 @@
+{
+  if (lim == 0) {
+    return 0;
+  }
+  lim=Math.min(lim,mReportLimit);
+  return mCol.getDb().queryScalar("SELECT count() FROM (SELECT 1 FROM cards WHERE did = " + did + " AND queue = 0 LIMIT "+ lim+ ")",false);
+}

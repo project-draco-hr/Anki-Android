@@ -1,35 +1,44 @@
 {
   _checkDay();
   mCol.getDecks().recoverOrphans();
-  ArrayList<Object[]> dids=new ArrayList<Object[]>();
-  for (  JSONObject g : mCol.getDecks().all()) {
-    try {
-      long did=g.getLong("id");
-      int newCount=-1;
-      int lrnCount=-1;
-      int revCount=-1;
-      float matProgress=-1.0f;
-      float allProgress=-1.0f;
-      if (counts > DECK_INFORMATION_NAMES) {
-        LinkedList<Long> ldid=new LinkedList<Long>();
-        ldid.add(did);
-        for (        Long c : mCol.getDecks().children(did).values()) {
-          ldid.add(c);
-        }
-        String didLimit=Utils.ids2str(ldid);
-        newCount=_walkingCount(ldid,Sched.class.getDeclaredMethod("_deckNewLimitSingle",JSONObject.class),Sched.class.getDeclaredMethod("_cntFnNew",long.class,int.class));
-        lrnCount=_cntFnLrn(didLimit);
-        revCount=_walkingCount(ldid,Sched.class.getDeclaredMethod("_deckRevLimitSingle",JSONObject.class),Sched.class.getDeclaredMethod("_cntFnRev",long.class,int.class));
+  ArrayList<JSONObject> decks=mCol.getDecks().all();
+  Collections.sort(decks,new DeckDueListComparator());
+  HashMap<String,Integer[]> lims=new HashMap<String,Integer[]>();
+  ArrayList<Object[]> data=new ArrayList<Object[]>();
+  try {
+    for (    JSONObject deck : decks) {
+      String p;
+      String[] parts=deck.getString("name").split("::");
+      if (parts.length < 2) {
+        p="";
       }
-      dids.add(new Object[]{g.getString("name"),did,newCount,lrnCount,revCount,matProgress,allProgress});
-    }
- catch (    JSONException e) {
-      throw new RuntimeException(e);
-    }
-catch (    NoSuchMethodException e) {
-      throw new RuntimeException(e);
+ else {
+        StringBuilder sb=new StringBuilder();
+        for (int i=0; i < parts.length - 1; i++) {
+          sb.append(parts[i]);
+          if (i < parts.length - 2) {
+            sb.append("::");
+          }
+        }
+        p=sb.toString();
+      }
+      int nlim=_deckNewLimitSingle(deck);
+      if (p.length() > 0) {
+        nlim=Math.min(nlim,lims.get(p)[0]);
+      }
+      int newC=_newForDeck(deck.getLong("id"),nlim);
+      int lrn=_lrnForDeck(deck.getLong("id"));
+      int rlim=_deckRevLimitSingle(deck);
+      if (p.length() > 0) {
+        rlim=Math.min(rlim,lims.get(p)[1]);
+      }
+      int rev=_revForDeck(deck.getLong("id"),rlim);
+      data.add(new Object[]{deck.getString("name"),deck.getLong("id"),newC,lrn,rev});
+      lims.put(deck.getString("name"),new Integer[]{nlim,rlim});
     }
   }
-  Collections.sort(dids,new DeckDueListComparator());
-  return dids;
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  return data;
 }

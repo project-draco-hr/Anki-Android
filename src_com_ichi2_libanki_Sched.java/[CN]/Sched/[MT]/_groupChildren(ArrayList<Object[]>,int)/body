@@ -1,7 +1,0 @@
-{
-  TreeSet<Object[]> set=new TreeSet<Object[]>(new DeckNameCompare());
-  for (  Object[] g : grps) {
-    set.add(new Object[]{((String)g[0]).split("::"),g[1],g[2],g[3],g[4],g[5],g[6]});
-  }
-  return set;
-}
