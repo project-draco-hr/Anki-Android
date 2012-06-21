@@ -1,5 +1,5 @@
 {
-  SharedPreferences preferences=PrefSettings.getSharedPrefs(getInstance());
+  SharedPreferences preferences=getSharedPrefs(getInstance());
   if (preferences.getBoolean("enableTibetan",false)) {
     bTibetan=true;
   }

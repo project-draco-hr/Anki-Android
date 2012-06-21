@@ -15,10 +15,10 @@
       setResult(RESULT_OK);
 switch (mType) {
 case TYPE_WELCOME:
-        PrefSettings.getSharedPrefs(Info.this.getBaseContext()).edit().putLong("lastTimeOpened",System.currentTimeMillis()).commit();
+        AnkiDroidApp.getSharedPrefs(Info.this.getBaseContext()).edit().putLong("lastTimeOpened",System.currentTimeMillis()).commit();
       break;
 case TYPE_NEW_VERSION:
-    PrefSettings.getSharedPrefs(Info.this.getBaseContext()).edit().putString("lastVersion",AnkiDroidApp.getPkgVersion()).commit();
+    AnkiDroidApp.getSharedPrefs(Info.this.getBaseContext()).edit().putString("lastVersion",AnkiDroidApp.getPkgVersion()).commit();
   break;
 case TYPE_UPGRADE_DECKS:
 break;
@@ -56,7 +56,7 @@ tutBut.setVisibility(View.VISIBLE);
 tutBut.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
 setResult(RESULT_OK);
-Editor edit=PrefSettings.getSharedPrefs(Info.this.getBaseContext()).edit();
+Editor edit=AnkiDroidApp.getSharedPrefs(Info.this.getBaseContext()).edit();
 edit.putLong("lastTimeOpened",System.currentTimeMillis());
 edit.putBoolean("createTutorial",true);
 edit.commit();
@@ -80,7 +80,7 @@ sb.append("</li>");
 sb.append("</ul>");
 sb.append("</body></html>");
 mWebView.loadDataWithBaseURL("",sb.toString(),"text/html","utf-8",null);
-PrefSettings.getSharedPrefs(Info.this.getBaseContext()).edit().putBoolean("sslAcceptAll",false).commit();
+AnkiDroidApp.getSharedPrefs(Info.this.getBaseContext()).edit().putBoolean("sslAcceptAll",false).commit();
 break;
 case TYPE_SHARED_DECKS:
 mWebView.loadUrl(res.getString(R.string.shared_decks_url));

@@ -1,6 +1,6 @@
 {
   super.onEnabled(context);
   Log.i(AnkiDroidApp.TAG,"SmallWidget: Widget enabled");
-  SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
+  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(context);
   preferences.edit().putBoolean("widgetSmallEnabled",true).commit();
 }

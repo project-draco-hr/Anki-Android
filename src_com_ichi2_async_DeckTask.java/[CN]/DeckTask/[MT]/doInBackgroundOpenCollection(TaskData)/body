@@ -14,7 +14,7 @@
     Log.i(AnkiDroidApp.TAG,"doInBackgroundOpenCollection - File exists -> Loading collection...");
     try {
       col=Collection.openCollection(collectionFile);
-      SharedPreferences prefs=PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext());
+      SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext());
       if (prefs.contains("createTutorial") && prefs.getBoolean("createTutorial",false)) {
         prefs.edit().remove("createTutorial").commit();
         publishProgress(new TaskData(res.getString(R.string.tutorial_load)));

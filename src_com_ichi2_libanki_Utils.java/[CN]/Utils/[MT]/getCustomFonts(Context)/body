@@ -1,5 +1,5 @@
 {
-  SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
+  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(context);
   String deckPath=preferences.getString("deckPath",AnkiDroidApp.getDefaultAnkiDroidDirectory());
   String fontsPath=deckPath + "/fonts/";
   File fontsDir=new File(fontsPath);

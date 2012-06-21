@@ -10,7 +10,7 @@ builder.setSingleChoiceItems(getResources().getStringArray(R.array.card_browser_
   @Override public void onClick(  DialogInterface arg0,  int which){
     if (which != mOrder) {
       mOrder=which;
-      PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).edit().putInt("cardBrowserOrder",mOrder).commit();
+      AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).edit().putInt("cardBrowserOrder",mOrder).commit();
       if (mOrder != CARD_ORDER_NONE) {
         DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_CARD_BROWSER_LIST,mSortCardsHandler,new DeckTask.TaskData(mAllCards,new HashMapCompare()));
       }

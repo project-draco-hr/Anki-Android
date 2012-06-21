@@ -1,6 +1,6 @@
 {
   sDeckStatus=deckStatus;
-  SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
+  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(context);
   if (preferences.getBoolean("widgetMediumEnabled",false)) {
     mediumWidget=true;
   }

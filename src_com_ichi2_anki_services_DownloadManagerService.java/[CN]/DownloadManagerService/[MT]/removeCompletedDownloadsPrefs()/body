@@ -8,7 +8,7 @@
       filenames.add(file.getName());
     }
   }
-  SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
+  SharedPreferences pref=AnkiDroidApp.getSharedPrefs(getBaseContext());
   Matcher sharedPrefMatcher;
   Editor editor=pref.edit();
   boolean sharedPreferencesChanged=false;

@@ -157,7 +157,7 @@ showDialog(DIALOG_DECK_SELECT);
 }
 }
 );
-SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
 mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
 if (mPrefFixArabic && !mAddNote) {
 mSave.setEnabled(false);

@@ -1,5 +1,5 @@
 {
-  SharedPreferences prefs=PrefSettings.getSharedPrefs(activity);
+  SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(activity);
   if (!prefs.getBoolean("showBroadcastMessages",true)) {
     return;
   }

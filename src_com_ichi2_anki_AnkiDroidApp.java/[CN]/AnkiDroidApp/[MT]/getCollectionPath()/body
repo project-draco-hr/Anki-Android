@@ -1,4 +1,4 @@
 {
-  String deckPath=PrefSettings.getSharedPrefs(sInstance.getApplicationContext()).getString("deckPath",AnkiDroidApp.getDefaultAnkiDroidDirectory());
+  String deckPath=getSharedPrefs(sInstance.getApplicationContext()).getString("deckPath",AnkiDroidApp.getDefaultAnkiDroidDirectory());
   return deckPath + AnkiDroidApp.COLLECTION_PATH;
 }

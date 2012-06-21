@@ -1,5 +1,5 @@
 {
-  SharedPreferences preferences=PrefSettings.getSharedPrefs(getBaseContext());
+  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
   mPrefDeckPath=preferences.getString("deckPath",AnkiDroidApp.getDefaultAnkiDroidDirectory());
   mLastTimeOpened=preferences.getLong("lastTimeOpened",0);
   mSwipeEnabled=preferences.getBoolean("swipe",false);

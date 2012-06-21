@@ -2,7 +2,7 @@
   Log.i(AnkiDroidApp.TAG,"BroadcastMessage.DownloadBroadcastMessage.doInBackground()");
   Activity activity=params[0];
   mActivity=activity;
-  SharedPreferences prefs=PrefSettings.getSharedPrefs(activity);
+  SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(activity);
   int lastNum=prefs.getInt("lastMessageNum",-1);
   if (lastNum == -1) {
     prefs.edit().putInt("lastMessageNum",0).commit();

@@ -6,7 +6,7 @@
     mDictionary=customDictionary;
   }
  else {
-    SharedPreferences preferences=PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext());
+    SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext());
     mDictionary=Integer.parseInt(preferences.getString("dictionary",Integer.toString(DICTIONARY_COLORDICT)));
   }
 switch (mDictionary) {

@@ -1,7 +1,7 @@
 {
   Log.i(AnkiDroidApp.TAG,"NotificationService: OnStart");
   Context context=AnkiDroidApp.getInstance().getBaseContext();
-  SharedPreferences preferences=PrefSettings.getSharedPrefs(context);
+  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(context);
   int minimumCardsDueForNotification=Integer.parseInt(preferences.getString("minimumCardsDueForNotification","25"));
   int dueCardsCount=WidgetStatus.fetchDue(context);
   if (dueCardsCount >= minimumCardsDueForNotification) {

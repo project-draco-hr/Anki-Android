@@ -19,14 +19,14 @@
     loadCounts();
   }
  else   if (requestCode == REPORT_ERROR) {
-    showStartupScreensAndDialogs(PrefSettings.getSharedPrefs(getBaseContext()),4);
+    showStartupScreensAndDialogs(AnkiDroidApp.getSharedPrefs(getBaseContext()),4);
   }
  else   if (requestCode == SHOW_INFO_UPGRADE_DECKS) {
-    showStartupScreensAndDialogs(PrefSettings.getSharedPrefs(getBaseContext()),3);
+    showStartupScreensAndDialogs(AnkiDroidApp.getSharedPrefs(getBaseContext()),3);
   }
  else   if (requestCode == SHOW_INFO_WELCOME || requestCode == SHOW_INFO_NEW_VERSION) {
     if (resultCode == RESULT_OK) {
-      showStartupScreensAndDialogs(PrefSettings.getSharedPrefs(getBaseContext()),requestCode == SHOW_INFO_WELCOME ? 1 : 2);
+      showStartupScreensAndDialogs(AnkiDroidApp.getSharedPrefs(getBaseContext()),requestCode == SHOW_INFO_WELCOME ? 1 : 2);
     }
  else {
       finish();

@@ -6,10 +6,9 @@
   CustomExceptionHandler customExceptionHandler=CustomExceptionHandler.getInstance();
   customExceptionHandler.init(sInstance.getApplicationContext());
   Thread.setDefaultUncaughtExceptionHandler(customExceptionHandler);
-  SharedPreferences preferences=PrefSettings.getSharedPrefs(this);
-  if (preferences.getString(PrefSettings.KEY_CHECK_URI,null) == null) {
+  SharedPreferences preferences=getSharedPrefs(this);
+  if (!preferences.contains("deckPath")) {
     Editor editor=preferences.edit();
-    editor.putString(PrefSettings.KEY_CHECK_URI,"http://ankidroid.googlecode.com/files/last_release.xml");
     String deckPath=getDefaultAnkiDroidDirectory();
     createDirectoryIfMissing(new File(deckPath));
     editor.putString("deckPath",deckPath);
