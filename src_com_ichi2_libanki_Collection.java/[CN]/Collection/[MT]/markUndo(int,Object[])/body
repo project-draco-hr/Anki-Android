@@ -1,0 +1,10 @@
+{
+switch (type) {
+case UNDO_REVIEW:
+    mUndo.add(new Object[]{type,((Card)o[0]).clone()});
+  break;
+case UNDO_EDIT_NOTE:
+mUndo.add(new Object[]{type,((Note)o[0]).clone(),o[1],o[2]});
+break;
+}
+}

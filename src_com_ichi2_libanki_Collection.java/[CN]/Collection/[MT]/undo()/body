@@ -1,9 +1,36 @@
 {
-  if (((Integer)mUndo[0]) == 1) {
-    return _undoReview();
-  }
- else {
-    _undoOp();
-    return 0;
-  }
+  Object[] data=mUndo.removeLast();
+switch ((Integer)data[0]) {
+case UNDO_REVIEW:
+    Card c=(Card)data[1];
+  c.flush();
+long last=mDb.queryLongScalar("SELECT id FROM revlog WHERE cid = " + c.getId() + " ORDER BY id DESC LIMIT 1");
+mDb.execute("DELETE FROM revlog WHERE id = " + last);
+int n=c.getQueue() == 3 ? 1 : c.getQueue();
+String type=(new String[]{"new","lrn","rev"})[n];
+mSched._updateStats(c,type,-1);
+return c.getId();
+case UNDO_EDIT_NOTE:
+Note note=(Note)data[1];
+note.flush();
+long cid=(Long)data[2];
+Card card=null;
+if ((Boolean)data[3]) {
+Card newCard=getCard(cid);
+if (getDecks().active().contains(newCard.getDid())) {
+card=newCard;
+card.load();
+card.getQuestion(true);
+}
+}
+if (card == null) {
+card=getSched().getCard();
+}
+if (card != null) {
+return card.getId();
+}
+return 0;
+default :
+return 0;
+}
 }

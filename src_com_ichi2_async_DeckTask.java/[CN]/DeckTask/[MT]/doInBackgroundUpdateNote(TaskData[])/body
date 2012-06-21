@@ -5,6 +5,7 @@
   Card editCard=params[0].getCard();
   Note editNote=editCard.note();
   boolean fromReviewer=params[0].getBoolean();
+  col.markUndo(Collection.UNDO_EDIT_NOTE,new Object[]{col.getNote(editNote.getId()),editCard.getId(),fromReviewer});
   try {
     col.getDb().getDatabase().beginTransaction();
     try {
