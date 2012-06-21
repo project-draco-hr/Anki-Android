@@ -9,20 +9,16 @@
     try {
 switch (type) {
 case 0:
-        long[] cardIds=Utils.arrayList2array(col.getDb().queryColumn(Long.class,"SELECT id FROM cards WHERE nid = " + note.getId(),0));
-      ArrayList<Card> undoCards=new ArrayList<Card>();
-    for (    long c : cardIds) {
-      undoCards.add(col.getCard(c));
-    }
-  col.markUndo(Collection.UNDO_BURY_NOTE,new Object[]{col.getDirty(),undoCards,card.getId()});
-sched.buryNote(note.getId());
-break;
+        col.markUndo(Collection.UNDO_BURY_NOTE,new Object[]{col.getDirty(),note.cards(),card.getId()});
+      sched.buryNote(note.getId());
+    break;
 case 1:
+  col.markUndo(Collection.UNDO_SUSPEND_CARD,new Object[]{card});
 if (card.getQueue() == -1) {
-sched.unsuspendCards(new long[]{card.getId()});
+  sched.unsuspendCards(new long[]{card.getId()});
 }
  else {
-sched.suspendCards(new long[]{card.getId()});
+  sched.suspendCards(new long[]{card.getId()});
 }
 break;
 case 2:
@@ -31,6 +27,7 @@ long[] cids=new long[cards.size()];
 for (int i=0; i < cards.size(); i++) {
 cids[i]=cards.get(i).getId();
 }
+col.markUndo(Collection.UNDO_SUSPEND_NOTE,new Object[]{cards,card.getId()});
 sched.suspendCards(cids);
 break;
 case 3:

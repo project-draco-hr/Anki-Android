@@ -9,6 +9,12 @@ break;
 case UNDO_BURY_NOTE:
 mUndo.add(new Object[]{type,o[0],o[1],o[2]});
 break;
+case UNDO_SUSPEND_CARD:
+mUndo.add(new Object[]{type,o[0]});
+break;
+case UNDO_SUSPEND_NOTE:
+mUndo.add(new Object[]{type,o[0],o[1]});
+break;
 }
 while (mUndo.size() > UNDO_SIZE_MAX) {
 mUndo.removeFirst();
