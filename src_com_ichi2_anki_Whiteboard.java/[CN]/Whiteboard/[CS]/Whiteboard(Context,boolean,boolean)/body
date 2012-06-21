@@ -25,7 +25,7 @@
   mPaint.setStyle(Paint.Style.STROKE);
   mPaint.setStrokeJoin(Paint.Join.ROUND);
   mPaint.setStrokeCap(Paint.Cap.ROUND);
-  int wbStrokeWidth=PrefSettings.getSharedPrefs(context).getInt("whiteBoardStrokeWidth",6);
+  int wbStrokeWidth=AnkiDroidApp.getSharedPrefs(context).getInt("whiteBoardStrokeWidth",6);
   mPaint.setStrokeWidth((float)wbStrokeWidth);
   createBitmap();
   mPath=new Path();

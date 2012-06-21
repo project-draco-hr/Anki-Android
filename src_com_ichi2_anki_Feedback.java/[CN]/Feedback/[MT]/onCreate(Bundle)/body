@@ -3,7 +3,7 @@
   super.onCreate(savedInstanceState);
   Resources res=getResources();
   Context context=getBaseContext();
-  SharedPreferences sharedPreferences=PrefSettings.getSharedPrefs(context);
+  SharedPreferences sharedPreferences=AnkiDroidApp.getSharedPrefs(context);
   mReportErrorMode=sharedPreferences.getString("reportErrorMode",REPORT_ASK);
   mNonce=UUID.randomUUID().getMostSignificantBits();
   mFeedbackUrl=res.getString(R.string.feedback_post_url);

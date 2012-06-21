@@ -1,5 +1,5 @@
 {
-  SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
+  SharedPreferences pref=AnkiDroidApp.getSharedPrefs(getBaseContext());
   int notificationCounter=pref.getInt("notificationCounter",0);
   notificationCounter++;
   Editor editor=pref.edit();

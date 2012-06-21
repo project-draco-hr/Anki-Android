@@ -52,7 +52,7 @@
     HttpEntity entity=new ProgressByteEntity(bos.toByteArray());
     httpPost.setEntity(entity);
     httpPost.setHeader("Content-type","multipart/form-data; boundary=" + BOUNDARY);
-    SharedPreferences preferences=PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getApplicationContext());
+    SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getApplicationContext());
     SchemeRegistry schemeRegistry=new SchemeRegistry();
     schemeRegistry.register(new Scheme("http",PlainSocketFactory.getSocketFactory(),80));
     if (preferences.getBoolean("sslAcceptAll",true)) {

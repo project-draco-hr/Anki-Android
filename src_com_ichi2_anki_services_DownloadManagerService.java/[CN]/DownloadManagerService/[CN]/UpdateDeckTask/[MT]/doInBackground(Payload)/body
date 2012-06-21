@@ -4,7 +4,7 @@
     HashMap<String,Object> results=(HashMap<String,Object>)data.result;
     Decks deck=(Decks)results.get("deck");
     SharedDeckDownload download=(SharedDeckDownload)args[0].data[0];
-    SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
+    SharedPreferences pref=AnkiDroidApp.getSharedPrefs(getBaseContext());
     String updatedCardsPref="numUpdatedCards:" + mDestination + "/tmp/"+ download.getFilename()+ ".anki.updating";
     long totalCards=0;
     download.setNumTotalCards((int)totalCards);

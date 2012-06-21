@@ -1,7 +1,0 @@
-{
-  IntentFilter[] filters=new IntentFilter[1];
-  IntentFilter filter=new IntentFilter(Intent.ACTION_VIEW);
-  filter.addDataScheme("http");
-  filters[0]=filter;
-  return new DefaultNotifier(this,NOTIFICATION_ID,filters,new Intent(this,Notification.class),R.drawable.anki,R.string.notify_ticker,R.string.notify_title,R.string.notify_message);
-}

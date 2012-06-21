@@ -1,5 +1,5 @@
 {
-  if (!PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).getBoolean("useBackup",true)) {
+  if (!AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).getBoolean("useBackup",true)) {
     return false;
   }
   File collectionFile=new File(path);

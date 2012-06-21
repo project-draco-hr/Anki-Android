@@ -1,7 +1,0 @@
-{
-  Notification n=new Notification(iconId,context.getText(tickerId),System.currentTimeMillis());
-  n.contentIntent=intent;
-  n.flags=Notification.FLAG_AUTO_CANCEL;
-  n.setLatestEventInfo(context,context.getText(titleId),context.getText(messageId),intent);
-  return n;
-}

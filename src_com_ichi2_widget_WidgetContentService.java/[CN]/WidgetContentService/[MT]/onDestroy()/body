@@ -5,5 +5,5 @@
       cardId=mCurrentCard.getId();
     }
   }
-  PrefSettings.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).edit().putLong("lastWidgetCard",cardId).commit();
+  AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).edit().putLong("lastWidgetCard",cardId).commit();
 }

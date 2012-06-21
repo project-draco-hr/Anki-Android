@@ -5,7 +5,7 @@
     notifySharedDeckObservers();
     String unzippedDeckName=unzipSharedDeckFile(mDestination + "/tmp/" + download.getFilename()+ ".zip",download.getFilename());
     download.setTitle(unzippedDeckName);
-    SharedPreferences pref=PrefSettings.getSharedPrefs(getBaseContext());
+    SharedPreferences pref=AnkiDroidApp.getSharedPrefs(getBaseContext());
     Editor editor=pref.edit();
     editor.putLong("numUpdatedCards:" + mDestination + "/tmp/"+ download.getFilename()+ ".anki.updating",0);
     editor.commit();

@@ -110,7 +110,7 @@
         showProgressDialog();
         contentService.mWaitForAsyncTask=true;
         AsyncTask<String,Void,DeckStatus[]> getTomorrowDuesAsyncTask=new GetTomorrowDueAsyncTask();
-        getTomorrowDuesAsyncTask.execute(PrefSettings.getSharedPrefs(AnkiDroidWidgetBig.UpdateService.this).getString("deckPath",AnkiDroidApp.getStorageDirectory() + "/AnkiDroid"));
+        getTomorrowDuesAsyncTask.execute(AnkiDroidApp.getSharedPrefs(AnkiDroidWidgetBig.UpdateService.this).getString("deckPath",AnkiDroidApp.getStorageDirectory() + "/AnkiDroid"));
       }
  else {
         updateViews(VIEW_CONGRATS);
