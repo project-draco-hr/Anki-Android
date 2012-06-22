@@ -31,6 +31,25 @@ col.markUndo(Collection.UNDO_SUSPEND_NOTE,new Object[]{cards,card.getId()});
 sched.suspendCards(cids);
 break;
 case 3:
+Cursor cur=null;
+ArrayList<Card> allCards=note.cards();
+long[] cids=new long[allCards.size()];
+for (int i=0; i < allCards.size(); i++) {
+cids[i]=allCards.get(i).getId();
+}
+ArrayList<Object[]> revLogData=new ArrayList<Object[]>();
+try {
+cur=col.getDb().getDatabase().rawQuery("SELECT * FROM revlog WHERE cid IN " + Utils.ids2str(cids),null);
+while (cur.moveToNext()) {
+revLogData.add(new Object[]{cur.getLong(0),cur.getLong(1),cur.getInt(2),cur.getInt(3),cur.getInt(4),cur.getInt(5),cur.getInt(6),cur.getInt(7),cur.getInt(8)});
+}
+}
+  finally {
+if (cur != null && !cur.isClosed()) {
+cur.close();
+}
+}
+col.markUndo(Collection.UNDO_DELETE_NOTE,new Object[]{note,allCards,card.getId(),revLogData});
 col.remNotes(new long[]{note.getId()});
 break;
 }
