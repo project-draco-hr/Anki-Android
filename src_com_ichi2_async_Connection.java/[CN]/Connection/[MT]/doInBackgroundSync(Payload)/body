@@ -81,6 +81,9 @@
       col=Collection.openCollection(path);
     }
   }
+  if (!noChanges) {
+    col.clearUndo();
+  }
   boolean noMediaChanges=false;
   if (media) {
     server=new RemoteMediaServer(hkey,this);

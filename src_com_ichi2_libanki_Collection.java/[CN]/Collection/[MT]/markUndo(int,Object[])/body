@@ -10,13 +10,16 @@ case UNDO_BURY_NOTE:
 mUndo.add(new Object[]{type,o[0],o[1],o[2]});
 break;
 case UNDO_SUSPEND_CARD:
-mUndo.add(new Object[]{type,o[0].clone()});
+mUndo.add(new Object[]{type,((Card)o[0]).clone()});
 break;
 case UNDO_SUSPEND_NOTE:
 mUndo.add(new Object[]{type,o[0],o[1]});
 break;
 case UNDO_DELETE_NOTE:
 mUndo.add(new Object[]{type,o[0],o[1],o[2],o[3]});
+break;
+case UNDO_MARK_NOTE:
+mUndo.add(new Object[]{type,o[0],o[1],o[2]});
 break;
 }
 while (mUndo.size() > UNDO_SIZE_MAX) {

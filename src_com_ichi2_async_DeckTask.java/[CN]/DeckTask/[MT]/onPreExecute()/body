@@ -1,3 +1,6 @@
 {
-  mListener.onPreExecute();
+  if (!mPreOperationDone) {
+    mListener.onPreExecute();
+    mPreOperationDone=true;
+  }
 }

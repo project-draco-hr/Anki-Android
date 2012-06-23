@@ -1,7 +1,9 @@
 {
   _preFlush();
   mMod=mod != 0 ? mod : Utils.intNow();
-  mUsn=mCol.usn();
+  if (changeUsn) {
+    mUsn=mCol.usn();
+  }
   String sfld=Utils.stripHTML(mFields[mCol.getModels().sortIdx(mModel)]);
   String tags=stringTags();
   long csum=Utils.fieldChecksum(mFields[0]);
