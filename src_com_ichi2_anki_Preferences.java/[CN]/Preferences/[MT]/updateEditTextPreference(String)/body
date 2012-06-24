@@ -1,0 +1,24 @@
+{
+  EditTextPreference pref=(EditTextPreference)getPreferenceScreen().findPreference(key);
+  String entry;
+  try {
+    entry=pref.getText();
+  }
+ catch (  NullPointerException e) {
+    Log.e(AnkiDroidApp.TAG,"Error getting set preference value of " + key + ": "+ e);
+    entry="?";
+  }
+  if (mListsToUpdate.containsKey(key)) {
+    pref.setSummary(replaceString(mListsToUpdate.get(key),entry));
+  }
+ else {
+    String oldsum=(String)pref.getSummary();
+    if (oldsum.contains("XXX")) {
+      mListsToUpdate.put(key,oldsum);
+      pref.setSummary(replaceString(oldsum,entry));
+    }
+ else {
+      pref.setSummary(entry);
+    }
+  }
+}
