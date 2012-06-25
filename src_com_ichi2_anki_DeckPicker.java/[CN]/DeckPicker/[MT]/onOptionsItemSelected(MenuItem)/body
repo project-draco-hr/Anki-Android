@@ -105,6 +105,17 @@ this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 }
 return true;
+case StudyOptionsActivity.MENU_NIGHT:
+SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(this);
+if (preferences.getBoolean("invertedColors",false)) {
+preferences.edit().putBoolean("invertedColors",false).commit();
+item.setIcon(R.drawable.ic_menu_recent_history);
+}
+ else {
+preferences.edit().putBoolean("invertedColors",true).commit();
+item.setIcon(R.drawable.ic_menu_recent_history_black);
+}
+return true;
 default :
 return super.onOptionsItemSelected(item);
 }
