@@ -55,11 +55,27 @@ break;
 case GESTURE_EXIT:
 closeReviewer(RESULT_DEFAULT,false);
 break;
+case GESTURE_UNDO:
+if (mSched.getCol().undoAvailable()) {
+undo();
+}
+break;
 case GESTURE_EDIT:
 editCard();
 break;
+case GESTURE_MARK:
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_MARK_CARD,mMarkCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,0));
+break;
 case GESTURE_LOOKUP:
 lookUpOrSelectText();
+break;
+case GESTURE_BURY:
+setNextCardAnimation(false);
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,0));
+break;
+case GESTURE_SUSPEND:
+setNextCardAnimation(false);
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,1));
 break;
 case GESTURE_DELETE:
 showDeleteNoteDialog();
