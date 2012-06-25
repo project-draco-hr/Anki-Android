@@ -1,0 +1,8 @@
+{
+  try {
+    return mCol.getDb().queryScalar(String.format(Locale.US,"select count() from notes where mid = %d",m.getLong("id")));
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}
