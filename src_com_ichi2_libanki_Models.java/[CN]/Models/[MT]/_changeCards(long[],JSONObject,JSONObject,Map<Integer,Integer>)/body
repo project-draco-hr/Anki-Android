@@ -1,0 +1,48 @@
+{
+  List<Object[]> d=new ArrayList<Object[]>();
+  List<Long> deleted=new ArrayList<Long>();
+  Cursor cur=null;
+  int omType;
+  int nmType;
+  int nflds;
+  try {
+    omType=oldModel.getInt("type");
+    nmType=newModel.getInt("type");
+    nflds=newModel.getJSONArray("flds").length();
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  try {
+    cur=mCol.getDb().getDatabase().rawQuery("select id, ord from cards where nid in ".concat(Utils.ids2str(nids)),null);
+    while (cur.moveToNext()) {
+      Integer newOrd;
+      long cid=cur.getLong(0);
+      int ord=cur.getInt(1);
+      if (omType == Sched.MODEL_CLOZE) {
+        newOrd=cur.getInt(1);
+        if (nmType != Sched.MODEL_CLOZE) {
+          if (nflds <= ord) {
+            newOrd=null;
+          }
+        }
+      }
+ else {
+        newOrd=map.get(ord);
+      }
+      if (newOrd != null) {
+        d.add(new Object[]{newOrd,mCol.usn(),Utils.intNow(),cid});
+      }
+ else {
+        deleted.add(cid);
+      }
+    }
+  }
+  finally {
+    if (cur != null) {
+      cur.close();
+    }
+  }
+  mCol.getDb().executeMany("update cards set ord=?,usn=?,mod=? where id=?",d);
+  mCol.remCards(Utils.toPrimitive(deleted));
+}

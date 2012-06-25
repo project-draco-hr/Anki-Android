@@ -1,0 +1,42 @@
+{
+  List<Object[]> d=new ArrayList<Object[]>();
+  int nfields;
+  long mid;
+  try {
+    nfields=newModel.getJSONArray("flds").length();
+    mid=newModel.getLong("id");
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  Cursor cur=null;
+  try {
+    cur=mCol.getDb().getDatabase().rawQuery("select id, flds from notes where id in ".concat(Utils.ids2str(nids)),null);
+    while (cur.moveToNext()) {
+      long nid=cur.getLong(0);
+      String[] flds=Utils.splitFields(cur.getString(1));
+      Map<Integer,String> newflds=new HashMap<Integer,String>();
+      for (      Integer old : map.keySet()) {
+        newflds.put(map.get(old),flds[old]);
+      }
+      List<String> flds2=new ArrayList<String>();
+      for (int c=0; c < nfields; ++c) {
+        if (newflds.containsKey(c)) {
+          flds2.add(newflds.get(c));
+        }
+ else {
+          flds2.add("");
+        }
+      }
+      String joinedFlds=Utils.joinFields(flds2.toArray(new String[]{}));
+      d.add(new Object[]{joinedFlds,mid,Utils.intNow(),mCol.usn(),nid});
+    }
+  }
+  finally {
+    if (cur != null) {
+      cur.close();
+    }
+  }
+  mCol.getDb().executeMany("update notes set flds=?,mid=?,mod=?,usn=? where id = ?",d);
+  mCol.updateFieldCache(nids);
+}

@@ -10,9 +10,7 @@
   }
   setInterface();
   String question=mCurrentCard.getQuestion(mCurrentSimpleInterface);
-  if (typeAnswer()) {
-    question=typeAnsQuestionFilter(question);
-  }
+  question=typeAnsQuestionFilter(question);
   updateMenuItems();
   if (mPrefFixArabic) {
     question=ArabicUtilities.reshapeSentence(question,true);
