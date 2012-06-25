@@ -1,0 +1,83 @@
+{
+  try {
+    int doneCurrent=0;
+    int[] leftCurrent=new int[]{0,0,0};
+    String[] cs=new String[]{"new","lrn","rev"};
+    long currentDid=0;
+    long currentParentDid=0;
+    if (counts != null || mNonSelectedDecksProgress == null) {
+      if (mNonSelectedDecksProgress == null) {
+        mNonSelectedDecksProgress=new HashMap<Long,Pair<Integer,int[]>>();
+      }
+      mNonSelectedDecksProgress.clear();
+      if (counts == null) {
+        counts=(TreeSet<Object[]>)deckCounts()[0];
+      }
+      int done=0;
+      for (      Object[] d : counts) {
+        if (((String[])d[0]).length == 1) {
+          JSONObject deck=mCol.getDecks().get((Long)d[1]);
+          for (          String s : cs) {
+            done+=deck.getJSONArray(s + "Today").getInt(1);
+          }
+          mNonSelectedDecksProgress.put((Long)d[1],new Pair<Integer,int[]>(done,new int[]{(Integer)d[2],(Integer)d[3],(Integer)d[4]}));
+        }
+      }
+      mNonSelectedDecksCleared=false;
+    }
+    if (card != null) {
+      JSONObject deck=mCol.getDecks().current();
+      currentDid=deck.getLong("id");
+      String[] name=deck.getString("name").split(" ");
+      if (name.length > 1) {
+        currentParentDid=mCol.getDecks().id(name[0],false);
+      }
+      for (      String s : cs) {
+        doneCurrent+=deck.getJSONArray(s + "Today").getInt(1);
+      }
+      int idx=countIdx(card);
+      leftCurrent=new int[]{mNewCount + (idx == 1 ? 0 : 1),mLrnCount + (idx == 1 ? card.getLeft() / 1000 : 0),mRevCount + (idx == 1 ? 0 : 1)};
+    }
+    if (!mNonSelectedDecksCleared) {
+      if (mNonSelectedDecksProgress.containsKey(currentDid)) {
+        mNonSelectedDecksProgress.remove(currentDid);
+        mNonSelectedDecksCleared=true;
+      }
+ else       if (mNonSelectedDecksProgress.containsKey(currentParentDid)) {
+        Pair<Integer,int[]> c=mNonSelectedDecksProgress.get(currentParentDid);
+        int[] left=c.second;
+        left[0]-=leftCurrent[0];
+        left[1]-=leftCurrent[1];
+        left[2]-=leftCurrent[2];
+        mNonSelectedDecksProgress.put(currentParentDid,new Pair<Integer,int[]>(c.first - doneCurrent,left));
+        mNonSelectedDecksCleared=true;
+      }
+    }
+    int doneAll=0;
+    int[] leftAll=new int[]{0,0,0};
+    for (    Pair<Integer,int[]> d : mNonSelectedDecksProgress.values()) {
+      doneAll+=d.first;
+      leftAll[0]+=d.second[0];
+      leftAll[1]+=d.second[1];
+      leftAll[2]+=d.second[2];
+    }
+    doneAll+=doneCurrent;
+    leftAll[0]+=leftCurrent[0];
+    leftAll[1]+=leftCurrent[1];
+    leftAll[2]+=leftCurrent[2];
+    int totalAll=doneAll + leftAll[0] + leftAll[1]+ leftAll[2];
+    int totalCurrent=doneCurrent + leftCurrent[0] + leftCurrent[1]+ leftCurrent[2];
+    float progressCurrent=-1;
+    if (totalCurrent != 0) {
+      progressCurrent=(float)doneCurrent / (float)totalCurrent;
+    }
+    float progressTotal=-1;
+    if (totalAll != 0) {
+      progressTotal=(float)doneAll / (float)totalAll;
+    }
+    return new float[]{progressCurrent,progressTotal,totalAll - doneAll,eta ? eta(leftAll,false) : -1};
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}
