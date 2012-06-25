@@ -40,6 +40,9 @@ return true;
 case MENU_CHANGE_ORDER:
 showDialog(DIALOG_ORDER);
 return true;
+case MENU_FIELD:
+showDialog(DIALOG_FIELD);
+return true;
 }
 return false;
 }
