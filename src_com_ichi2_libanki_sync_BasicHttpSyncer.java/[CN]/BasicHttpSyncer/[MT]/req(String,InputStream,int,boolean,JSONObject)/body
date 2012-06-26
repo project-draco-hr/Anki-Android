@@ -52,35 +52,24 @@
     HttpEntity entity=new ProgressByteEntity(bos.toByteArray());
     httpPost.setEntity(entity);
     httpPost.setHeader("Content-type","multipart/form-data; boundary=" + BOUNDARY);
-    SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getApplicationContext());
-    SchemeRegistry schemeRegistry=new SchemeRegistry();
-    schemeRegistry.register(new Scheme("http",PlainSocketFactory.getSocketFactory(),80));
-    if (preferences.getBoolean("sslAcceptAll",true)) {
-      Log.e(AnkiDroidApp.TAG,"SSL certificate check is disabled");
-      schemeRegistry.register(new Scheme("https",new EasySSLSocketFactory(),443));
-    }
- else {
-      schemeRegistry.register(new Scheme("https",newSslSocketFactory(SSLSocketFactory.STRICT_HOSTNAME_VERIFIER),443));
-    }
     HttpParams params=new BasicHttpParams();
     params.setParameter(ConnManagerPNames.MAX_TOTAL_CONNECTIONS,30);
     params.setParameter(ConnManagerPNames.MAX_CONNECTIONS_PER_ROUTE,new ConnPerRouteBean(30));
-    params.setParameter(HttpProtocolParams.USE_EXPECT_CONTINUE,false);
+    params.setParameter(CoreProtocolPNames.USE_EXPECT_CONTINUE,false);
     HttpProtocolParams.setVersion(params,HttpVersion.HTTP_1_1);
-    ThreadSafeClientConnManager cm=new ThreadSafeClientConnManager(params,schemeRegistry);
+    HttpConnectionParams.setConnectionTimeout(params,10000);
+    HttpConnectionParams.setSoTimeout(params,10000);
+    SchemeRegistry registry=new SchemeRegistry();
+    registry.register(new Scheme("http",PlainSocketFactory.getSocketFactory(),80));
+    registry.register(new Scheme("https",new EasySSLSocketFactory(),443));
+    ThreadSafeClientConnManager cm=new ThreadSafeClientConnManager(params,registry);
     try {
-      DefaultHttpClient httpClient=new DefaultHttpClient(cm,params);
+      HttpClient httpClient=new DefaultHttpClient(cm,params);
       return httpClient.execute(httpPost);
     }
  catch (    SSLException e) {
-      if (!preferences.getBoolean("sslAcceptAll",false)) {
-        Log.e(AnkiDroidApp.TAG,"workaround for android < 3.0: disabling ssl certificate check");
-        preferences.edit().putBoolean("sslAcceptAll",true).commit();
-        return req(method,fobj,comp,hkey,registerData);
-      }
- else {
-        return null;
-      }
+      Log.e(AnkiDroidApp.TAG,"SSLException while building HttpClient",e);
+      throw new RuntimeException(e);
     }
   }
  catch (  UnsupportedEncodingException e) {

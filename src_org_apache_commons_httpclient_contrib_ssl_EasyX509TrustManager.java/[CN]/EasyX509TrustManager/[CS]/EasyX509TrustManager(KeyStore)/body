@@ -6,5 +6,5 @@
   if (trustmanagers.length == 0) {
     throw new NoSuchAlgorithmException("no trust manager found");
   }
-  this.standardTrustManager=(X509TrustManager)trustmanagers[0];
+  standardTrustManager=(X509TrustManager)trustmanagers[0];
 }
