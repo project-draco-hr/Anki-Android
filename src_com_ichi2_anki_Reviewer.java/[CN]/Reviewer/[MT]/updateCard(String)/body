@@ -1,6 +1,6 @@
 {
   Log.i(AnkiDroidApp.TAG,"updateCard");
-  if (mSimpleInterface) {
+  if (mCurrentSimpleInterface) {
     fillFlashcard(mShowAnimations);
     return;
   }

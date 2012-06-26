@@ -4,7 +4,7 @@
     closeReviewer(RESULT_DEFAULT,false);
     return true;
   }
-  if (!mSimpleInterface) {
+  if (!mCurrentSimpleInterface) {
     if (keyCode == 92) {
       mCard.pageUp(false);
       if (mDoubleScrolling) {

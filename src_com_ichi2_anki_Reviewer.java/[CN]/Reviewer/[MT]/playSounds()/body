@@ -5,10 +5,10 @@
   }
  else {
     if (sDisplayAnswer) {
-      ReadText.textToSpeech(Utils.stripHTML(mCurrentCard.getAnswer(mSimpleInterface)),qa);
+      ReadText.textToSpeech(Utils.stripHTML(mCurrentCard.getAnswer(mCurrentSimpleInterface)),qa);
     }
  else {
-      ReadText.textToSpeech(Utils.stripHTML(mCurrentCard.getQuestion(mSimpleInterface)),qa);
+      ReadText.textToSpeech(Utils.stripHTML(mCurrentCard.getQuestion(mCurrentSimpleInterface)),qa);
     }
   }
 }

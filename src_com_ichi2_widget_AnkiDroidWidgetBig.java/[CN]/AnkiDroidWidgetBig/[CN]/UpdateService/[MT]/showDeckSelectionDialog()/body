@@ -1,6 +1,0 @@
-{
-  Intent ankiDroidIntent=new Intent(UpdateService.this,WidgetDialog.class);
-  ankiDroidIntent.setAction(WidgetDialog.ACTION_SHOW_DECK_SELECTION_DIALOG);
-  ankiDroidIntent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS | Intent.FLAG_ACTIVITY_NEW_TASK);
-  startActivity(ankiDroidIntent);
-}

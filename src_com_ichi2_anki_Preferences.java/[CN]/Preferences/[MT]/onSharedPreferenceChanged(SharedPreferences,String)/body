@@ -48,6 +48,9 @@ updateListPreference(key);
  else if (Arrays.asList(mShowValueInSummSeek).contains(key)) {
 updateSeekBarPreference(key);
 }
+ else if (Arrays.asList(mShowValueInSummEditText).contains(key)) {
+updateEditTextPreference(key);
+}
  else if (key.equals("writeAnswers") && sharedPreferences.getBoolean("writeAnswers",false)) {
 showDialog(DIALOG_WRITE_ANSWERS);
 }

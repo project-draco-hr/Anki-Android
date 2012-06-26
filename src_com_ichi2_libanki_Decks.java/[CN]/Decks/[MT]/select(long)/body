@@ -10,7 +10,6 @@
     }
     mCol.getConf().put("activeDecks",ja);
     mChanged=true;
-    mCol.getSched().resetTotalProgress();
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);

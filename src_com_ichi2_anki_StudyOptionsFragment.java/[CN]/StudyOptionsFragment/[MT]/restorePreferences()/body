@@ -2,6 +2,5 @@
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getActivity().getBaseContext());
   mSwipeEnabled=preferences.getBoolean("swipe",false);
   mPrefHideDueCount=preferences.getBoolean("hideDueCount",true);
-  mInvertedColors=preferences.getBoolean("invertedColors",false);
   return preferences;
 }

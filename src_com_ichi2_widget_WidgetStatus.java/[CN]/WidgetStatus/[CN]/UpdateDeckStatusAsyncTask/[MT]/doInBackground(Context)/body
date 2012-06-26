@@ -4,35 +4,24 @@
   if (!AnkiDroidApp.isSdCardMounted()) {
     return context;
   }
-  ArrayList<DeckStatus> decks=new ArrayList<DeckStatus>();
   try {
-    Collection col=Collection.currentCollection();
-    Object[] di;
-    float progress;
-    if (col == null) {
-      col=Collection.openCollection(AnkiDroidApp.getCollectionPath());
-      di=col.getSched().deckCounts();
-      progress=col.getSched().todaysProgress(null,true,true);
-      col.close(false);
+    if (sSmallWidgetStatus == null) {
+      Collection col=Collection.currentCollection();
+      if (col == null) {
+        col=Collection.openCollection(AnkiDroidApp.getCollectionPath());
+        mSmallWidgetStatus=col.getSched().progressToday(null,null,true);
+        col.close(false);
+      }
+ else {
+        mSmallWidgetStatus=col.getSched().progressToday(null,null,true);
+      }
     }
  else {
-      di=col.getSched().deckCounts();
-      progress=col.getSched().todaysProgress(null,true,true);
-    }
-    int eta=(Integer)di[1];
-    for (    Object[] d : (TreeSet<Object[]>)di[0]) {
-      String[] sname=(String[])d[0];
-      StringBuilder name=new StringBuilder();
-      name.append(sname[0]);
-      for (int i=1; i < sname.length; i++) {
-        name.append("::").append(sname[i]);
-      }
-      decks.add(new DeckStatus((Long)d[1],name.toString(),(Integer)d[2],(Integer)d[3],(Integer)d[4],(int)(progress * 100),eta));
+      mSmallWidgetStatus=sSmallWidgetStatus;
     }
   }
  catch (  SQLException e) {
     Log.i(AnkiDroidApp.TAG,"Widget: Problems on retrieving deck information");
   }
-  mDecks=decks.toArray(EMPTY_DECK_STATUS);
   return context;
 }

@@ -66,5 +66,14 @@
     this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
   }
   mSimpleInterface=preferences.getBoolean("simpleInterface",false);
+  if (mSimpleInterface) {
+    String tags=preferences.getString("simpleInterfaceExcludeTags","").replace(","," ");
+    mSimpleInterfaceExcludeTags=new ArrayList<String>();
+    for (    String t : tags.split(" ")) {
+      if (t.length() > 0) {
+        mSimpleInterfaceExcludeTags.add(t);
+      }
+    }
+  }
   return preferences;
 }

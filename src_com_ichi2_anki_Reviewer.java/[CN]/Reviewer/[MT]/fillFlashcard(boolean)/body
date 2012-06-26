@@ -1,7 +1,7 @@
 {
   if (!flip) {
     Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
-    if (mSimpleInterface) {
+    if (mCurrentSimpleInterface) {
       mSimpleCard.setText(mCardContent);
     }
  else     if (mRefreshWebview) {
