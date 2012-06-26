@@ -9,6 +9,7 @@
       if (cid != 0) {
         newCard=col.getCard(cid);
         col.reset();
+        col.getSched().decrementCounts(newCard);
         sHadCardQueue=true;
       }
  else {
