@@ -1,4 +1,13 @@
 {
+  int icon;
+  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(this);
+  if (preferences.getBoolean("invertedColors",false)) {
+    icon=R.drawable.ic_menu_recent_history_black;
+  }
+ else {
+    icon=R.drawable.ic_menu_recent_history;
+  }
+  UIUtils.addMenuItemInActionBar(menu,Menu.NONE,MENU_NIGHT,Menu.NONE,R.string.night_mode,icon);
   UIUtils.addMenuItem(menu,Menu.NONE,MENU_PREFERENCES,Menu.NONE,R.string.menu_preferences,R.drawable.ic_menu_preferences);
   UIUtils.addMenuItem(menu,Menu.NONE,MENU_ROTATE,Menu.NONE,R.string.menu_rotate,android.R.drawable.ic_menu_always_landscape_portrait);
   return true;

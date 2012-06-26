@@ -1,19 +1,10 @@
 {
   openDBIfClosed(context);
   Cursor cursor=null;
-  int due=0;
-  int progress=0;
-  int eta=0;
-  boolean noDeck=true;
   try {
-    cursor=mMetaDb.query("widgetStatus",new String[]{"deckName","newCards","lrnCards","dueCards","progress","eta"},null,null,null,null,null);
+    cursor=mMetaDb.query("smallWidgetStatus",new String[]{"progress","left","eta"},null,null,null,null,null);
     while (cursor.moveToNext()) {
-      noDeck=false;
-      if (cursor.getString(0).split("::").length == 1) {
-        due+=cursor.getInt(1) + cursor.getInt(2) + cursor.getInt(3);
-        progress=cursor.getInt(4);
-        eta=cursor.getInt(5);
-      }
+      return (new int[]{cursor.getInt(0),cursor.getInt(1),cursor.getInt(2)});
     }
   }
  catch (  SQLiteException e) {
@@ -24,5 +15,5 @@
       cursor.close();
     }
   }
-  return new int[]{noDeck ? -1 : due,progress,eta};
+  return null;
 }

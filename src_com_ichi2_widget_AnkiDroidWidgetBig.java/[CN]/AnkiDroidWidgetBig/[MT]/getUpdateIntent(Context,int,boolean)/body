@@ -1,6 +1,0 @@
-{
-  Intent intent=new Intent(context,AnkiDroidWidgetBig.UpdateService.class);
-  intent.putExtra(UpdateService.EXTRA_VIEW,view);
-  intent.putExtra(UpdateService.EXTRA_PROGRESSDIALOG,showProgressDialog);
-  return intent.setAction(UpdateService.ACTION_UPDATE);
-}

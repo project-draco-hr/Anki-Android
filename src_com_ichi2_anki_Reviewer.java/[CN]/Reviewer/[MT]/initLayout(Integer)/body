@@ -15,43 +15,10 @@
     mClipboard=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
   }
   mCardFrame.removeAllViews();
-  if (mSimpleInterface) {
-    mSimpleCard=new TextView(this);
-    Themes.setRegularFont(mSimpleCard);
-    mSimpleCard.setTextSize(mSimpleCard.getTextSize() * mDisplayFontSize / 100);
-    mSimpleCard.setGravity(Gravity.CENTER);
-    try {
-      mSetTextIsSelectable=TextView.class.getMethod("setTextIsSelectable",boolean.class);
-    }
- catch (    Throwable e) {
-      Log.i(AnkiDroidApp.TAG,"mSetTextIsSelectable could not be found due to a too low Android version (< 3.0)");
-      mSetTextIsSelectable=null;
-    }
-    if (mSetTextIsSelectable != null) {
-      try {
-        mSetTextIsSelectable.invoke(mSimpleCard,true);
-      }
- catch (      Exception e) {
-        Log.e(AnkiDroidApp.TAG,e.toString());
-      }
-    }
-    mSimpleCard.setClickable(true);
-    mCardFrame.addView(mSimpleCard);
-  }
- else {
-    mCard=createWebView();
-    mCardFrame.addView(mCard);
-  }
   if (!mChangeBorderStyle) {
     ((View)findViewById(R.id.flashcard_border)).setVisibility(View.VISIBLE);
   }
-  if (mRefreshWebview && !mSimpleInterface) {
-    mNextCard=createWebView();
-    mNextCard.setVisibility(View.GONE);
-    mCardFrame.addView(mNextCard,0);
-    mCustomFontStyle=getCustomFontsStyle() + getDefaultFontStyle();
-  }
-  if (!AnkiDroidApp.isFroyoOrLater() && !mSimpleInterface) {
+  if (!AnkiDroidApp.isFroyoOrLater() && (mCard != null)) {
     mCard.setFocusableInTouchMode(true);
   }
   gestureDetector=new GestureDetector(new MyGestureDetector());
