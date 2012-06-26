@@ -1,0 +1,30 @@
+{
+  int chainLength=certificates.length;
+  if (certificates.length > 1) {
+    int currIndex;
+    for (currIndex=0; currIndex < certificates.length; ++currIndex) {
+      boolean foundNext=false;
+      for (int nextIndex=currIndex + 1; nextIndex < certificates.length; ++nextIndex) {
+        if (certificates[currIndex].getIssuerDN().equals(certificates[nextIndex].getSubjectDN())) {
+          foundNext=true;
+          if (nextIndex != currIndex + 1) {
+            X509Certificate tempCertificate=certificates[nextIndex];
+            certificates[nextIndex]=certificates[currIndex + 1];
+            certificates[currIndex + 1]=tempCertificate;
+          }
+          break;
+        }
+      }
+      if (!foundNext) {
+        break;
+      }
+    }
+    chainLength=currIndex + 1;
+    X509Certificate lastCertificate=certificates[chainLength - 1];
+    Date now=new Date();
+    if (lastCertificate.getSubjectDN().equals(lastCertificate.getIssuerDN()) && now.after(lastCertificate.getNotAfter())) {
+      --chainLength;
+    }
+  }
+  standardTrustManager.checkServerTrusted(certificates,authType);
+}

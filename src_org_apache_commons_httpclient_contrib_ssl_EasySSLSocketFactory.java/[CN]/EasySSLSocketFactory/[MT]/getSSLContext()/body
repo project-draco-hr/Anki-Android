@@ -1,0 +1,6 @@
+{
+  if (sslcontext == null) {
+    sslcontext=createEasySSLContext();
+  }
+  return sslcontext;
+}
