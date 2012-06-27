@@ -9,11 +9,11 @@
       Collection col=Collection.currentCollection();
       if (col == null) {
         col=Collection.openCollection(AnkiDroidApp.getCollectionPath());
-        mSmallWidgetStatus=col.getSched().progressToday(null,null,true);
+        mSmallWidgetStatus=col.getSched().progressToday(sDeckCounts,null,true);
         col.close(false);
       }
  else {
-        mSmallWidgetStatus=col.getSched().progressToday(null,null,true);
+        mSmallWidgetStatus=col.getSched().progressToday(sDeckCounts,null,true);
       }
     }
  else {

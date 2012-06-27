@@ -2,9 +2,14 @@
   Log.i(AnkiDroidApp.TAG,"DeckPicker - onStop");
   super.onStop();
   if (!mDontSaveOnStop) {
-    WidgetStatus.update(this);
     if (isFinishing()) {
       DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CLOSE_DECK,mCloseCollectionHandler,new TaskData(mCol));
+    }
+ else {
+      StudyOptionsFragment frag=getFragment();
+      if (!(frag != null && !frag.dbSaveNecessary())) {
+        UIUtils.saveCollectionInBackground(mCol);
+      }
     }
   }
 }

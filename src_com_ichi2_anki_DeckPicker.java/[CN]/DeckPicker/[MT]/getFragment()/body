@@ -1,0 +1,7 @@
+{
+  Fragment frag=(Fragment)getSupportFragmentManager().findFragmentById(R.id.studyoptions_fragment);
+  if (frag != null && (frag instanceof StudyOptionsFragment)) {
+    return (StudyOptionsFragment)frag;
+  }
+  return null;
+}

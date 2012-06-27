@@ -47,4 +47,5 @@
  else {
     setTitle(res.getString(R.string.app_name));
   }
+  WidgetStatus.update(this,decks);
 }
