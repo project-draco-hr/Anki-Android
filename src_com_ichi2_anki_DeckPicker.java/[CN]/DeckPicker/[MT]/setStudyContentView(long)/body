@@ -1,0 +1,10 @@
+{
+  Fragment frag=(Fragment)getSupportFragmentManager().findFragmentById(R.id.studyoptions_fragment);
+  if (frag == null || !(frag instanceof StudyOptionsFragment) || ((StudyOptionsFragment)frag).getShownIndex() != deckId) {
+    StudyOptionsFragment details=StudyOptionsFragment.newInstance(deckId);
+    FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+    ft.replace(R.id.studyoptions_fragment,details);
+    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+    ft.commit();
+  }
+}

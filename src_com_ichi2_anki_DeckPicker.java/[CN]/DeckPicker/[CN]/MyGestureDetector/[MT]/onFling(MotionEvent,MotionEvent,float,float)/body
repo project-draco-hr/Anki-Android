@@ -2,7 +2,7 @@
   if (mSwipeEnabled) {
     try {
       if (e1.getX() - e2.getX() > sSwipeMinDistance && Math.abs(velocityX) > sSwipeThresholdVelocity && Math.abs(e1.getY() - e2.getY()) < sSwipeMaxOffPath) {
-        openStudyOptions();
+        openStudyOptions(mCol.getDecks().selected());
       }
     }
  catch (    Exception e) {

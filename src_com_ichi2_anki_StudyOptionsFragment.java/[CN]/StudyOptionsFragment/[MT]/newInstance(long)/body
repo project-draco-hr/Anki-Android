@@ -1,7 +1,7 @@
 {
   StudyOptionsFragment f=new StudyOptionsFragment();
   Bundle args=new Bundle();
-  args.putInt("index",index);
+  args.putLong("deckId",deckId);
   f.setArguments(args);
   return f;
 }

@@ -1,11 +1,11 @@
 {
   if (mFragmented) {
-    setStudyContentView(StudyOptionsFragment.CONTENT_STUDY_OPTIONS);
+    setStudyContentView(deckId);
   }
  else {
     mDontSaveOnStop=true;
     Intent intent=new Intent();
-    intent.putExtra("index",id);
+    intent.putExtra("index",deckId);
     intent.setClass(this,StudyOptionsActivity.class);
     startActivityForResult(intent,SHOW_STUDYOPTIONS);
     if (UIUtils.getApiLevel() > 4) {

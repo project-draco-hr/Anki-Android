@@ -55,7 +55,7 @@ mCol.getDecks().get(id).put("empty",true);
  catch (JSONException e) {
 throw new RuntimeException(e);
 }
-openStudyOptions();
+openStudyOptions(id);
 }
 }
 );
