@@ -1,5 +1,5 @@
 {
-  Fragment mCurrentFragment=new StudyOptionsFragment();
+  mCurrentFragment=new StudyOptionsFragment();
   mCurrentFragment.setArguments(getIntent().getExtras());
   getSupportFragmentManager().beginTransaction().add(android.R.id.content,mCurrentFragment).commit();
 }
