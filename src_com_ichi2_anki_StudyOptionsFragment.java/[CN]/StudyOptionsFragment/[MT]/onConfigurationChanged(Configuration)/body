@@ -10,11 +10,10 @@
   CharSequence newTotal=mTextNewTotal.getText();
   CharSequence total=mTextTotal.getText();
   CharSequence eta=mTextETA.getText();
-  long timelimit=mCol.getTimeLimit() / 60;
   super.onConfigurationChanged(newConfig);
   mDontSaveOnStop=false;
   if (mCurrentContentView == CONTENT_CONGRATS) {
-    setFragmentContentView(mStudyOptionsView,mCongratsView);
+    setFragmentContentView(mCongratsView);
   }
   mTextDeckName.setText(title);
   mTextDeckName.setVisibility(View.VISIBLE);

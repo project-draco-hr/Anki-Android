@@ -39,7 +39,7 @@ default :
     break;
 case Reviewer.RESULT_NO_MORE_CARDS:
   mTextCongratsMessage.setText(mCol.getSched().finishedMsg(getActivity()));
-setFragmentContentView(mStudyOptionsView,mCongratsView);
+setFragmentContentView(mCongratsView);
 break;
 }
 mDontSaveOnStop=false;
@@ -50,6 +50,6 @@ resetAndUpdateValuesFromDeck();
 }
  else if (requestCode == STATISTICS && mCurrentContentView == CONTENT_CONGRATS) {
 resetAndUpdateValuesFromDeck();
-setFragmentContentView(mCongratsView,mStudyOptionsView);
+setFragmentContentView(mStudyOptionsView);
 }
 }
