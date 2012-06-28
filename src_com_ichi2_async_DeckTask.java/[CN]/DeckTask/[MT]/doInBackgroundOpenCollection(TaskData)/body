@@ -37,6 +37,6 @@
   }
  catch (  RuntimeException e) {
     col=null;
-    return new TaskData(col);
+    throw new RuntimeException(e);
   }
 }

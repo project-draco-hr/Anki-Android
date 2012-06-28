@@ -1,7 +1,7 @@
 {
   if (sCurrentCollection == null || !sCurrentCollection.mPath.equals(path)) {
     sCurrentCollection=Storage.Collection(path);
+    sCurrentCollection.mOpenedByWidget=openedByWidget;
   }
-  sCurrentCollection.mOpenedByWidget=openedByWidget;
   return sCurrentCollection;
 }
