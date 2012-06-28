@@ -48,4 +48,19 @@
     setTitle(res.getString(R.string.app_name));
   }
   WidgetStatus.update(this,decks);
+  if (mFragmented && getFragment() == null) {
+    long did=mCol.getDecks().selected();
+    for (int i=0; i < mDeckList.size(); i++) {
+      if (Long.parseLong(mDeckList.get(i).get("did")) == did) {
+        final int lastPosition=i;
+        mDeckListView.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener(){
+          @Override public void onGlobalLayout(){
+            mDeckListView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+            mDeckListView.performItemClick(null,lastPosition,0);
+          }
+        }
+);
+      }
+    }
+  }
 }
