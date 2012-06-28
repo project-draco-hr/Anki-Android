@@ -2,6 +2,6 @@
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   if (savedInstanceState == null) {
-    loadContent();
+    loadContent(getIntent().getBooleanExtra("onlyFnsMsg",false));
   }
 }

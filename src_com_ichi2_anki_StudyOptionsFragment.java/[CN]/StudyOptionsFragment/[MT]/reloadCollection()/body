@@ -15,7 +15,7 @@
         closeStudyOptions();
       }
  else {
-        ((StudyOptionsActivity)getActivity()).loadContent();
+        ((StudyOptionsActivity)getActivity()).loadContent(false);
       }
     }
     @Override public void onPreExecute(){

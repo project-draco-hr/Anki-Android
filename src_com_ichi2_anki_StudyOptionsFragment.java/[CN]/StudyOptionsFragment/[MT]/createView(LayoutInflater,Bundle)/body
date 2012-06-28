@@ -27,6 +27,11 @@
  else {
     mCompat=new CompatV3();
   }
+  if (getArguments().getBoolean("onlyFnsMsg")) {
+    mTextCongratsMessage.setText(mCol.getSched().finishedMsg(getActivity()));
+    mButtonCongratsFinish.setVisibility(View.GONE);
+    return mCongratsView;
+  }
   resetAndUpdateValuesFromDeck();
   return mStudyOptionsView;
 }
