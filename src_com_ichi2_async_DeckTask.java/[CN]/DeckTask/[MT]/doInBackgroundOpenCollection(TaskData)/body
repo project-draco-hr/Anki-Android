@@ -3,8 +3,8 @@
   Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
   String collectionFile=params[0].getString();
   Collection oldCol=Collection.currentCollection();
-  boolean reset=params[0].getBoolean();
   Collection col=null;
+  publishProgress(new TaskData(res.getString(R.string.open_collection)));
   if (oldCol == null || !oldCol.getPath().equals(collectionFile)) {
     if (BackupManager.safetyBackupNeeded(collectionFile)) {
       publishProgress(new TaskData(res.getString(R.string.backup_collection)));
