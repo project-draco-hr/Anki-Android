@@ -3,5 +3,8 @@
     sCurrentCollection=Storage.Collection(path);
     sCurrentCollection.mOpenedByWidget=openedByWidget;
   }
+ else {
+    sCurrentCollection.mOpenedByWidget=false;
+  }
   return sCurrentCollection;
 }

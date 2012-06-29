@@ -17,9 +17,6 @@ case TASK_TYPE_OPEN_COLLECTION:
     return doInBackgroundOpenCollection(params);
 case TASK_TYPE_LOAD_DECK_COUNTS:
   return doInBackgroundLoadDeckCounts(params);
-case TASK_TYPE_OPEN_COLLECTION_AND_UPDATE_CARDS:
-TaskData taskData=doInBackgroundOpenCollection(params);
-return taskData;
 case TASK_TYPE_SAVE_COLLECTION:
 return doInBackgroundSaveCollection(params);
 case TASK_TYPE_ANSWER_CARD:
