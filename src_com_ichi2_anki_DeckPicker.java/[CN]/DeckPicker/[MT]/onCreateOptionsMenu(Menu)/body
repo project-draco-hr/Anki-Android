@@ -6,10 +6,10 @@
     int icon;
     SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(this);
     if (preferences.getBoolean("invertedColors",false)) {
-      icon=R.drawable.ic_menu_recent_history_black;
+      icon=R.drawable.ic_menu_night_checked;
     }
  else {
-      icon=R.drawable.ic_menu_recent_history;
+      icon=R.drawable.ic_menu_night;
     }
     UIUtils.addMenuItemInActionBar(menu,Menu.NONE,StudyOptionsActivity.MENU_NIGHT,Menu.NONE,R.string.night_mode,icon);
     UIUtils.addMenuItemInActionBar(menu,Menu.NONE,MENU_STATISTICS,Menu.NONE,R.string.statistics_menu,R.drawable.ic_menu_statistics);
