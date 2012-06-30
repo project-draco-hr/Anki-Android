@@ -1,0 +1,8 @@
+{
+  if (context instanceof AnkiActivity) {
+    return ((AnkiActivity)context).animationEnabled();
+  }
+ else {
+    return true;
+  }
+}
