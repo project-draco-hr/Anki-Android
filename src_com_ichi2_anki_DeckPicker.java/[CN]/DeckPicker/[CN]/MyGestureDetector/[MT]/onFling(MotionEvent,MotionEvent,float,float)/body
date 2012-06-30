@@ -1,7 +1,7 @@
 {
   if (mSwipeEnabled && !mFragmented) {
     try {
-      if (e1.getX() - e2.getX() > sSwipeMinDistance && Math.abs(velocityX) > sSwipeThresholdVelocity && Math.abs(e1.getY() - e2.getY()) < sSwipeMaxOffPath) {
+      if (e1.getX() - e2.getX() > AnkiDroidApp.sSwipeMinDistance && Math.abs(velocityX) > AnkiDroidApp.sSwipeThresholdVelocity && Math.abs(e1.getY() - e2.getY()) < AnkiDroidApp.sSwipeMaxOffPath) {
         mDontSaveOnStop=true;
         float pos=e1.getY();
         for (int j=0; j < mDeckListView.getChildCount(); j++) {
