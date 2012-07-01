@@ -1,7 +1,5 @@
 {
   try {
-    this.mMainLayout.setVisibility(View.GONE);
-    this.mMainLayout.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_OUT,500,0));
     super.dismiss();
   }
  catch (  BadTokenException e) {
