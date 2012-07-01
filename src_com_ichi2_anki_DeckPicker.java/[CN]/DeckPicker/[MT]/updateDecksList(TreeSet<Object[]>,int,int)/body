@@ -44,8 +44,6 @@
     }
     UIUtils.setActionBarSubtitle(this,res.getQuantityString(R.plurals.deckpicker_title,due,due,count,time));
   }
- else {
-    setTitle(res.getString(R.string.app_name));
-  }
+  setTitle(res.getString(R.string.app_name));
   WidgetStatus.update(this,decks);
 }

@@ -5,6 +5,9 @@
     DeckTask.launchDeckTask(DeckTask.TASK_TYPE_OPEN_COLLECTION,mOpenCollectionHandler,new DeckTask.TaskData(path));
   }
  else {
+    if (mOpenCollectionDialog != null && mOpenCollectionDialog.isShowing()) {
+      mOpenCollectionDialog.dismiss();
+    }
     mCol=col;
     loadCounts();
   }

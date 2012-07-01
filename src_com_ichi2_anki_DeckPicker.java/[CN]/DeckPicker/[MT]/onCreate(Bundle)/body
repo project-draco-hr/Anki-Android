@@ -13,6 +13,13 @@
     finish();
     startActivityIfNeeded(reloadIntent,0);
   }
+  if (Collection.currentCollection() == null) {
+    setTitle("");
+    mOpenCollectionHandler.onPreExecute();
+  }
+ else {
+    setTitle(getResources().getString(R.string.app_name));
+  }
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   SharedPreferences preferences=restorePreferences();
