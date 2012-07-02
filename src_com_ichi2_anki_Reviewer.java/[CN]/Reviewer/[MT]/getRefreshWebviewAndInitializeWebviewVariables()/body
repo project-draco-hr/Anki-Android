@@ -11,7 +11,7 @@
  catch (  Throwable e) {
     Log.i(AnkiDroidApp.TAG,"setScrollbarFadingEnabled could not be found due to a too low Android version (< 2.1)");
   }
-  if (mCustomFontFiles.length != 0) {
+  if (mCustomFontFiles.size() != 0) {
     return true;
   }
   return false;

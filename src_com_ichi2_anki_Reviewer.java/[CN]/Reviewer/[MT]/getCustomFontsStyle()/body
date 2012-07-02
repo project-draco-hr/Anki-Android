@@ -1,9 +1,7 @@
 {
   StringBuilder builder=new StringBuilder();
-  for (  String fontPath : mCustomFontFiles) {
-    String fontFace=String.format("@font-face {font-family: \"%s\"; src: url(\"file://%s\");}",Utils.removeExtension((new File(fontPath)).getName()),fontPath);
-    Log.d(AnkiDroidApp.TAG,"adding to style: " + fontFace);
-    builder.append(fontFace);
+  for (  AnkiFont font : mCustomFontFiles) {
+    builder.append(font.getStyle());
     builder.append('\n');
   }
   return builder.toString();
