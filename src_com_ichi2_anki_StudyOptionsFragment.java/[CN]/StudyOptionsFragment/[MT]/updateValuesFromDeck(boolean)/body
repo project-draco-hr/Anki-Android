@@ -3,7 +3,22 @@
   JSONObject deck=mCol.getDecks().current();
   try {
     fullName=deck.getString("name");
-    if (deck.has("empty") && deck.getBoolean("empty")) {
+    String[] name=fullName.split("::");
+    StringBuilder nameBuilder=new StringBuilder();
+    if (name.length > 0) {
+      nameBuilder.append(name[0]);
+    }
+    if (name.length > 1) {
+      nameBuilder.append("\n").append(name[1]);
+    }
+    if (name.length > 3) {
+      nameBuilder.append("...");
+    }
+    if (name.length > 2) {
+      nameBuilder.append("\n").append(name[name.length - 1]);
+    }
+    mTextDeckName.setText(nameBuilder.toString());
+    if (deck.getInt("dyn") != 0 && deck.has("empty") && deck.getBoolean("empty")) {
       openCramDeckOptions();
       return;
     }
@@ -11,21 +26,6 @@
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
-  String[] name=fullName.split("::");
-  StringBuilder nameBuilder=new StringBuilder();
-  if (name.length > 0) {
-    nameBuilder.append(name[0]);
-  }
-  if (name.length > 1) {
-    nameBuilder.append("\n").append(name[1]);
-  }
-  if (name.length > 3) {
-    nameBuilder.append("...");
-  }
-  if (name.length > 2) {
-    nameBuilder.append("\n").append(name[name.length - 1]);
-  }
-  mTextDeckName.setText(nameBuilder.toString());
   if (!mFragmented) {
     getActivity().setTitle(fullName);
   }
@@ -37,5 +37,5 @@
  else {
     mTextDeckDescription.setVisibility(View.GONE);
   }
-  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_VALUES_FROM_DECK,mUpdateValuesFromDeckListener,new DeckTask.TaskData(mCol.getSched(),reset));
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_VALUES_FROM_DECK,mUpdateValuesFromDeckListener,new DeckTask.TaskData(mCol,new Object[]{reset,mSmallChart != null}));
 }

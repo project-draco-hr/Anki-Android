@@ -1,0 +1,8 @@
+{
+  try {
+    super.dismiss();
+  }
+ catch (  BadTokenException e) {
+    Log.e(AnkiDroidApp.TAG,"Could not dismiss dialog: " + e);
+  }
+}

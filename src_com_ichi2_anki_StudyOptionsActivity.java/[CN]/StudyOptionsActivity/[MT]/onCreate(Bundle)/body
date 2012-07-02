@@ -1,6 +1,7 @@
 {
+  Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   if (savedInstanceState == null) {
-    setStudyContentView(StudyOptionsFragment.CONTENT_STUDY_OPTIONS);
+    loadContent(getIntent().getBooleanExtra("onlyFnsMsg",false));
   }
 }

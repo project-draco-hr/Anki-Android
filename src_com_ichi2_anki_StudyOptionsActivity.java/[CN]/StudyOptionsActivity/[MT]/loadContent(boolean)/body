@@ -1,0 +1,5 @@
+{
+  mCurrentFragment=StudyOptionsFragment.newInstance(0,onlyFnsMsg);
+  mCurrentFragment.setArguments(getIntent().getExtras());
+  getSupportFragmentManager().beginTransaction().add(android.R.id.content,mCurrentFragment).commit();
+}

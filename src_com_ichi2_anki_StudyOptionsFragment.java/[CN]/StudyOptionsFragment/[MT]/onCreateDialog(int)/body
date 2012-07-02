@@ -1,7 +1,5 @@
 {
   StyledDialog dialog=null;
-  Resources res=getResources();
-  StyledDialog.Builder builder=new StyledDialog.Builder(getActivity());
 switch (id) {
 case DIALOG_STATISTIC_TYPE:
     dialog=ChartBuilder.getStatisticsDialog(getActivity(),new DialogInterface.OnClickListener(){

@@ -1,8 +1,23 @@
 {
-  if (mSwipeEnabled) {
+  if (mSwipeEnabled && !mFragmented) {
     try {
-      if (e1.getX() - e2.getX() > sSwipeMinDistance && Math.abs(velocityX) > sSwipeThresholdVelocity && Math.abs(e1.getY() - e2.getY()) < sSwipeMaxOffPath) {
-        openStudyOptions();
+      if (e1.getX() - e2.getX() > AnkiDroidApp.sSwipeMinDistance && Math.abs(velocityX) > AnkiDroidApp.sSwipeThresholdVelocity && Math.abs(e1.getY() - e2.getY()) < AnkiDroidApp.sSwipeMaxOffPath) {
+        mDontSaveOnStop=true;
+        float pos=e1.getY();
+        for (int j=0; j < mDeckListView.getChildCount(); j++) {
+          View v=mDeckListView.getChildAt(j);
+          if (v.getY() + v.getHeight() > pos) {
+            HashMap<String,String> data=(HashMap<String,String>)mDeckListAdapter.getItem(j);
+            mCol.getDecks().select(Long.parseLong(data.get("did")));
+            mCol.reset();
+            Intent reviewer=new Intent(DeckPicker.this,Reviewer.class);
+            startActivityForResult(reviewer,REQUEST_REVIEW);
+            if (UIUtils.getApiLevel() > 4) {
+              ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.LEFT);
+            }
+            return true;
+          }
+        }
       }
     }
  catch (    Exception e) {

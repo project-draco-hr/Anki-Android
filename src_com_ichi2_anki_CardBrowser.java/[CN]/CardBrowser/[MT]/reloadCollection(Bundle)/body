@@ -11,7 +11,7 @@
       }
     }
     @Override public void onPreExecute(){
-      mProgressDialog=StyledProgressDialog.show(CardBrowser.this,"",getResources().getString(R.string.open_collection),true,true,new OnCancelListener(){
+      mOpenCollectionDialog=StyledOpenCollectionDialog.show(CardBrowser.this,getResources().getString(R.string.open_collection),new OnCancelListener(){
         @Override public void onCancel(        DialogInterface arg0){
           finish();
         }

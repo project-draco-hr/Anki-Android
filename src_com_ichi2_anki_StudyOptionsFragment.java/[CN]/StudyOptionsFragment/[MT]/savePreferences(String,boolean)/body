@@ -1,6 +1,0 @@
-{
-  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getActivity().getBaseContext());
-  Editor editor=preferences.edit();
-  editor.putBoolean(name,value);
-  editor.commit();
-}

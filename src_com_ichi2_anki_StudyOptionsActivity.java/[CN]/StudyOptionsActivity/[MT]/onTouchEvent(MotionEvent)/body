@@ -1,0 +1,8 @@
+{
+  if (mCurrentFragment != null) {
+    return ((StudyOptionsFragment)mCurrentFragment).onTouchEvent(event);
+  }
+ else {
+    return false;
+  }
+}

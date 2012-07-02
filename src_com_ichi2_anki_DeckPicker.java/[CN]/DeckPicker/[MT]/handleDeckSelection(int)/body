@@ -2,6 +2,7 @@
   String deckFilename=null;
   @SuppressWarnings("unchecked") HashMap<String,String> data=(HashMap<String,String>)mDeckListAdapter.getItem(id);
   Log.i(AnkiDroidApp.TAG,"Selected " + deckFilename);
-  mCol.getDecks().select(Long.parseLong(data.get("did")));
-  openStudyOptions(id);
+  long deckId=Long.parseLong(data.get("did"));
+  mCol.getDecks().select(deckId);
+  openStudyOptions(deckId);
 }

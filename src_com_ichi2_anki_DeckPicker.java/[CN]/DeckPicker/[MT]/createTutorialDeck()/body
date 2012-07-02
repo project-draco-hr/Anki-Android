@@ -6,7 +6,7 @@
     @Override public void onPostExecute(    TaskData result){
       if (result.getBoolean()) {
         loadCounts();
-        openStudyOptions();
+        openStudyOptions(mCol.getDecks().selected());
       }
  else {
         Themes.showThemedToast(DeckPicker.this,getResources().getString(R.string.tutorial_loading_error),false);

@@ -1,0 +1,8 @@
+{
+  StudyOptionsFragment f=new StudyOptionsFragment();
+  Bundle args=new Bundle();
+  args.putLong("deckId",deckId);
+  args.putBoolean("onlyFnsMsg",onlyFnsMsg);
+  f.setArguments(args);
+  return f;
+}

@@ -1,11 +1,14 @@
 {
   Log.i(AnkiDroidApp.TAG,"doInBackgroundLoadDeckCounts");
   Collection col=params[0].getCollection();
+  if (col == null) {
+    return null;
+  }
   try {
     return new TaskData(col.getSched().deckCounts());
   }
  catch (  RuntimeException e) {
     Log.e(AnkiDroidApp.TAG,"doInBackgroundLoadDeckCounts - error: " + e);
-    return null;
+    throw new RuntimeException(e);
   }
 }

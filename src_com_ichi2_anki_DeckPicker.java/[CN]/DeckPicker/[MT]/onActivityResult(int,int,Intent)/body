@@ -45,5 +45,24 @@
  else   if (requestCode == ADD_SHARED_DECKS) {
     sync();
   }
-  BroadcastMessages.showDialog();
+ else   if (requestCode == REQUEST_REVIEW) {
+    Log.i(AnkiDroidApp.TAG,"Result code = " + resultCode);
+switch (resultCode) {
+case Reviewer.RESULT_SESSION_COMPLETED:
+default :
+      loadCounts();
+    break;
+case Reviewer.RESULT_NO_MORE_CARDS:
+  mDontSaveOnStop=true;
+Intent i=new Intent();
+i.setClass(this,StudyOptionsActivity.class);
+i.putExtra("onlyFnsMsg",true);
+startActivityForResult(i,SHOW_STUDYOPTIONS);
+if (UIUtils.getApiLevel() > 4) {
+ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
+}
+break;
+}
+}
+BroadcastMessages.showDialog();
 }

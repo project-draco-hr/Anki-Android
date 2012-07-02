@@ -1,7 +1,8 @@
 {
   Log.i(AnkiDroidApp.TAG,"doInBackgroundRebuildCram");
   Collection col=params[0].getCollection();
+  boolean fragmented=params[0].getBoolean();
   long did=params[0].getLong();
   col.getSched().rebuildDyn(did);
-  return doInBackgroundUpdateValuesFromDeck(new DeckTask.TaskData(col.getSched(),true));
+  return doInBackgroundUpdateValuesFromDeck(new DeckTask.TaskData(col,new Object[]{true,fragmented}));
 }
