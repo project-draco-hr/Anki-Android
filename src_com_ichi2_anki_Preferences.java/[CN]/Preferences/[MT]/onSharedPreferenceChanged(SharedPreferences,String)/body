@@ -32,10 +32,10 @@ case Themes.THEME_BLUE:
         sharedPreferences.edit().putString("defaultFont","").commit();
       break;
 case Themes.THEME_FLAT:
-    sharedPreferences.edit().putString("defaultFont","OpenSans-Regular").commit();
+    sharedPreferences.edit().putString("defaultFont","OpenSans").commit();
   break;
 case Themes.THEME_WHITE:
-sharedPreferences.edit().putString("defaultFont","OpenSans-Regular").commit();
+sharedPreferences.edit().putString("defaultFont","OpenSans").commit();
 break;
 }
 Intent intent=this.getIntent();
