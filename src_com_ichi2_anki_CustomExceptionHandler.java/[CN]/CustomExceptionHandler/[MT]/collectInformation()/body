@@ -21,6 +21,7 @@
     mInformation.put("Time",Long.toString(android.os.Build.TIME));
     mInformation.put("TotalInternalMemory",Long.toString(getTotalInternalMemorySize()));
     mInformation.put("AvailableInternalMemory",Long.toString(getAvailableInternalMemorySize()));
+    mInformation.put("Locale",AnkiDroidApp.getAppResources().getConfiguration().locale.toString());
     Log.i(AnkiDroidApp.TAG,"Information collected");
   }
  catch (  Exception e) {
