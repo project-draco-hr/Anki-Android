@@ -29,6 +29,12 @@ values.add(1);
 }
 options.add(res.getString(R.string.backup_error_menu_repair));
 values.add(2);
+options.add(res.getString(R.string.backup_restore));
+values.add(3);
+options.add(res.getString(R.string.backup_full_sync_from_server));
+values.add(4);
+options.add(res.getString(R.string.backup_del_collection));
+values.add(5);
 String[] titles=new String[options.size()];
 mRepairValues=new int[options.size()];
 for (int i=0; i < options.size(); i++) {
@@ -48,9 +54,12 @@ case 2:
 showDialog(DIALOG_REPAIR_COLLECTION);
 return;
 case 3:
-showDialog(DIALOG_RESTORE_BACKUP);
 return;
 case 4:
+showDialog(DIALOG_FULL_SYNC_FROM_SERVER);
+return;
+case 5:
+showDialog(DIALOG_NEW_COLLECTION);
 return;
 }
 }
