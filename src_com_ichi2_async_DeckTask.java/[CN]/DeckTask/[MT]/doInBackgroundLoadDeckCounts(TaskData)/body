@@ -9,6 +9,6 @@
   }
  catch (  RuntimeException e) {
     Log.e(AnkiDroidApp.TAG,"doInBackgroundLoadDeckCounts - error: " + e);
-    throw new RuntimeException(e);
+    return null;
   }
 }

@@ -11,32 +11,25 @@
       BackupManager.performBackup(collectionFile);
     }
     publishProgress(new TaskData(res.getString(R.string.open_collection)));
-    Log.i(AnkiDroidApp.TAG,"doInBackgroundOpenCollection - File exists -> Loading collection...");
     try {
       col=Collection.openCollection(collectionFile);
-      SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext());
-      if (prefs.contains("createTutorial") && prefs.getBoolean("createTutorial",false)) {
-        prefs.edit().remove("createTutorial").commit();
-        publishProgress(new TaskData(res.getString(R.string.tutorial_load)));
-        doInBackgroundLoadTutorial(new TaskData(col));
-      }
     }
  catch (    RuntimeException e) {
       BackupManager.restoreCollectionIfMissing(collectionFile);
+      Log.e(AnkiDroidApp.TAG,"doInBackgroundOpenCollection - RuntimeException on opening collection: " + e);
+      AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundOpenCollection");
+      return new TaskData(false);
+    }
+    SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext());
+    if (prefs.contains("createTutorial") && prefs.getBoolean("createTutorial",false)) {
+      prefs.edit().remove("createTutorial").commit();
+      publishProgress(new TaskData(res.getString(R.string.tutorial_load)));
+      doInBackgroundLoadTutorial(new TaskData(col));
     }
   }
  else {
     Log.i(AnkiDroidApp.TAG,"doInBackgroundOpenCollection: collection still open - reusing it");
     col=oldCol;
   }
-  if (col == null) {
-    return new TaskData(col);
-  }
-  try {
-    return new TaskData(col,doInBackgroundLoadDeckCounts(new TaskData(col)).getObjArray());
-  }
- catch (  RuntimeException e) {
-    col=null;
-    throw new RuntimeException(e);
-  }
+  return new TaskData(col,doInBackgroundLoadDeckCounts(new TaskData(col)).getObjArray());
 }

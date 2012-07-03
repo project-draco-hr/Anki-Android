@@ -30,7 +30,7 @@
  catch (  RuntimeException e) {
     Log.e(AnkiDroidApp.TAG,"doInBackgroundAnswerCard - RuntimeException on answering card: " + e);
     AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundAnswerCard");
-    throw new RuntimeException(e);
+    return new TaskData(false);
   }
   return new TaskData(true);
 }

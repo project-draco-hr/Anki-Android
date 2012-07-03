@@ -49,10 +49,12 @@
     }
   }
  catch (  SQLException e) {
-    throw new RuntimeException(e);
+    AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundLoadTutorial");
+    return new DeckTask.TaskData(false);
   }
 catch (  JSONException e) {
-    throw new RuntimeException(e);
+    AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundLoadTutorial");
+    return new DeckTask.TaskData(false);
   }
  finally {
     col.getDb().getDatabase().endTransaction();
