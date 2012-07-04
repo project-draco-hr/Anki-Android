@@ -1,5 +1,5 @@
 {
-  if ((new File(path)).exists() && !moveDatabaseToBrokenFolder(path,false)) {
+  if (!(new File(path)).exists() || !moveDatabaseToBrokenFolder(path,false)) {
     return RETURN_ERROR;
   }
   File backupFile=new File(backupPath);
