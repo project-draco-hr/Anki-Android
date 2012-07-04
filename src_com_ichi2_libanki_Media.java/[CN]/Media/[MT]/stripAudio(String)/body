@@ -1,4 +1,4 @@
 {
-  Matcher m=fMediaRegexps[0].matcher(txt);
+  Matcher m=fSoundRegexps.matcher(txt);
   return m.replaceAll("");
 }
