@@ -3,7 +3,7 @@
   mCol.setServer(true);
   try {
     mCol._remNotes(Utils.jsonArrayToLongArray(graves.getJSONArray("notes")));
-    mCol.remCards(Utils.jsonArrayToLongArray(graves.getJSONArray("cards")));
+    mCol.remCards(Utils.jsonArrayToLongArray(graves.getJSONArray("cards")),false);
     JSONArray decks=graves.getJSONArray("decks");
     for (int i=0; i < decks.length(); i++) {
       mCol.getDecks().rem(decks.getLong(i),false,false);

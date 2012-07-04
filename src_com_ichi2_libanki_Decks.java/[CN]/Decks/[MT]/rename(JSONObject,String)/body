@@ -2,7 +2,6 @@
   if (allNames().contains(newName) || newName.length() == 0) {
     return false;
   }
-  newName=_ensureParents(newName);
   String oldName;
   try {
     oldName=g.getString("name");
@@ -17,6 +16,8 @@
     g.put("name",newName);
     mDeckIds.put(newName,mDeckIds.remove(oldName));
     save(g);
+    newName=_ensureParents(newName);
+    maybeAddToActive();
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);

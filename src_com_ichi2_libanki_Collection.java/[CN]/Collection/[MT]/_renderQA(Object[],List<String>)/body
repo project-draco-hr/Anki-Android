@@ -42,7 +42,7 @@
         d.put("q","Please edit this note and add some cloze deletions.");
       }
     }
-    fields.put("FrontSide",d.get("q"));
+    fields.put("FrontSide",mMedia.stripAudio(d.get("q")));
     fparser=new Models.fieldParser(fields);
     m=sRegexPattern.matcher(afmt);
     if (m.find()) {

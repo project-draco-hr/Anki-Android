@@ -8,6 +8,12 @@
       delay=ja.getDouble(len - left);
     }
  catch (    JSONException e) {
+      if (conf.has("delays")) {
+        delay=conf.getJSONArray("delays").getDouble(0);
+      }
+ else {
+        delay=1;
+      }
       delay=ja.getDouble(0);
     }
     return (int)(delay * 60.0);
