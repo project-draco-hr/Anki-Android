@@ -43,7 +43,6 @@
     }
     try {
       mCardTemplate=Utils.convertStreamToString(getAssets().open("card_template.html"));
-      mCardTemplate=mCardTemplate.replaceFirst("var availableWidth = \\d*;","var availableWidth = " + getAvailableWidthInCard() + ";");
     }
  catch (    IOException e) {
       e.printStackTrace();

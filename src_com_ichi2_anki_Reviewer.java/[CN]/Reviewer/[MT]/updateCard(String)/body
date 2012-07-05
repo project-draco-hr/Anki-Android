@@ -42,6 +42,7 @@
   if (mNightMode) {
     content=Models.invertColors(content);
   }
+  mCardTemplate=mCardTemplate.replaceFirst("var availableWidth = \\d*;",String.format(Locale.US,"var availableWidth = %d;",getAvailableWidthInCard()));
   mCardContent=new SpannedString(mCardTemplate.replace("::content::",content).replace("::style::",style.toString()));
   Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
   fillFlashcard(mShowAnimations);
