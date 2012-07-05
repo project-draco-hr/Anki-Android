@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"openCollection");
   if (sCurrentCollection == null || !sCurrentCollection.mPath.equals(path)) {
     sCurrentCollection=Storage.Collection(path);
     sCurrentCollection.mOpenedByWidget=openedByWidget;

@@ -3,10 +3,16 @@
   StyledDialog ad=(StyledDialog)dialog;
 switch (id) {
 case DIALOG_DELETE_DECK:
-    mCurrentDid=Long.parseLong(mDeckList.get(mContextMenuPosition).get("did"));
-  ad.setMessage(String.format(res.getString(R.string.delete_deck_message),"\'" + mCol.getDecks().name(mCurrentDid) + "\'"));
+    if (mCol == null || mDeckList == null) {
+      return;
+    }
+  mCurrentDid=Long.parseLong(mDeckList.get(mContextMenuPosition).get("did"));
+ad.setMessage(String.format(res.getString(R.string.delete_deck_message),"\'" + mCol.getDecks().name(mCurrentDid) + "\'"));
 break;
 case DIALOG_CONTEXT_MENU:
+if (mCol == null || mDeckList == null) {
+return;
+}
 mCurrentDid=Long.parseLong(mDeckList.get(mContextMenuPosition).get("did"));
 ad.setTitle(mCol.getDecks().name(mCurrentDid));
 break;
