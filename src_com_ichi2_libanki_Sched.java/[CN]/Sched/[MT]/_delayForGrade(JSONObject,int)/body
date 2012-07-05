@@ -8,7 +8,7 @@
       delay=ja.getDouble(len - left);
     }
  catch (    JSONException e) {
-      if (conf.getJSONArray("delays").length > 0) {
+      if (conf.getJSONArray("delays").length() > 0) {
         delay=conf.getJSONArray("delays").getDouble(0);
       }
  else {
