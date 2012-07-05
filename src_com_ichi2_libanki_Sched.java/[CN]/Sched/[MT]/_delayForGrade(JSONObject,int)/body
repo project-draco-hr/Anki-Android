@@ -12,9 +12,8 @@
         delay=conf.getJSONArray("delays").getDouble(0);
       }
  else {
-        delay=1;
+        delay=1.0;
       }
-      delay=ja.getDouble(0);
     }
     return (int)(delay * 60.0);
   }
