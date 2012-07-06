@@ -4,13 +4,8 @@
     fillFlashcard(mShowAnimations);
     return;
   }
-  Boolean isJapaneseModel=false;
   content=recalculateHardCodedFontSize(content,mDisplayFontSize);
-  if (mCurrentCard != null) {
-    final String japaneseModelTag="Japanese";
-    int nightBackground=Themes.getNightModeCardBackground(this);
-  }
- else {
+  if (mCurrentCard == null) {
     mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
   }
   int questionStartsAt=content.indexOf("<a name=\"question\"></a><hr/>");
@@ -22,12 +17,7 @@
     qa=MetaDB.LANGUAGES_QA_ANSWER;
   }
   answer=Sound.parseSounds(mBaseUrl,content,mSpeakText,qa);
-  if (mPrefUseRubySupport && isJapaneseModel) {
-    content=RubyParser.ankiStripKanji(question) + RubyParser.ankiRubyToMarkup(answer);
-  }
- else {
-    content=question + answer;
-  }
+  content=question + answer;
   content=content.replace("font-weight:600;","font-weight:700;");
   if (isHebrewFixEnabled()) {
     content=applyFixForHebrew(content);

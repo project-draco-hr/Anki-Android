@@ -34,8 +34,6 @@
         correctAnswer=matcher.replaceAll("\n");
         matcher=Sound.sSoundPattern.matcher(correctAnswer);
         correctAnswer=matcher.replaceAll("");
-        matcher=Image.sImagePattern.matcher(correctAnswer);
-        correctAnswer=matcher.replaceAll("");
         Log.i(AnkiDroidApp.TAG,"correct answer = " + correctAnswer);
         DiffEngine diff=new DiffEngine();
         StringBuffer span=new StringBuffer();
