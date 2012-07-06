@@ -24,8 +24,11 @@
     if (typeAnswer()) {
       mAnswerField.setVisibility(View.GONE);
       if (mCurrentCard != null) {
+        if (mPrefFixArabic) {
+          mTypeCorrect=ArabicUtilities.reshapeSentence(mTypeCorrect,true);
+        }
         String userAnswer=mAnswerField.getText().toString();
-        Matcher matcher=sSpanPattern.matcher(Utils.stripHTMLMedia(ArabicUtilities.reshapeSentence(mTypeCorrect,true)));
+        Matcher matcher=sSpanPattern.matcher(Utils.stripHTMLMedia(mTypeCorrect));
         String correctAnswer=matcher.replaceAll("");
         matcher=sBrPattern.matcher(correctAnswer);
         correctAnswer=matcher.replaceAll("\n");
