@@ -51,7 +51,7 @@ updateSeekBarPreference(key);
  else if (Arrays.asList(mShowValueInSummEditText).contains(key)) {
 updateEditTextPreference(key);
 }
- else if (key.equals("writeAnswers") && sharedPreferences.getBoolean("writeAnswers",false)) {
+ else if (key.equals("writeAnswers") && sharedPreferences.getBoolean("writeAnswers",true)) {
 showDialog(DIALOG_WRITE_ANSWERS);
 }
  else if (key.equals("useBackup")) {
@@ -88,6 +88,14 @@ AnkiDroidApp.createNoMediaFileIfMissing(decksDirectory);
 }
  else if (key.equals("eInkDisplay")) {
 boolean enableAnimation=!eInkDisplayPreference.isChecked();
+}
+ else if (key.equals("convertFenText")) {
+if (convertFenText.isChecked()) {
+ChessFilter.install(AnkiDroidApp.getHooks());
+}
+ else {
+ChessFilter.uninstall(AnkiDroidApp.getHooks());
+}
 }
 }
  catch (BadTokenException e) {

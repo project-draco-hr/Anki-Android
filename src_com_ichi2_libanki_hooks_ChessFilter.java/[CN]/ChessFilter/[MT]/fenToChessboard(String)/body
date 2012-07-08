@@ -1,0 +1,21 @@
+{
+  Boolean showBlack=false;
+  Matcher mf=fFenPattern.matcher(text);
+  StringBuffer sb=new StringBuffer();
+  while (mf.find()) {
+    if (mf.group(1) != null) {
+      Matcher mo=fFenOrientationPattern.matcher(mf.group(1));
+      if (mo.find() && mo.group(1) != null && mo.group(1).equalsIgnoreCase("black")) {
+        showBlack=true;
+      }
+    }
+    try {
+      mf.appendReplacement(sb,"<script type=\"text/javascript\">document.write(" + String.format(Locale.US,fRenderFen,mf.group(2),showBlack) + ");</script>");
+    }
+ catch (    Throwable e) {
+      Log.e(AnkiDroidApp.TAG,"Chess boom!",e);
+    }
+  }
+  mf.appendTail(sb);
+  return sb.toString();
+}
