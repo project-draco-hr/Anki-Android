@@ -4,5 +4,5 @@
   customFontsPreference.setEntryValues(getCustomFonts(""));
   ListPreference browserEditorCustomFontsPreference=(ListPreference)getPreferenceScreen().findPreference("browserEditorFont");
   browserEditorCustomFontsPreference.setEntries(getCustomFonts("System default"));
-  browserEditorCustomFontsPreference.setEntryValues(getCustomFonts(""));
+  browserEditorCustomFontsPreference.setEntryValues(getCustomFonts("",true));
 }

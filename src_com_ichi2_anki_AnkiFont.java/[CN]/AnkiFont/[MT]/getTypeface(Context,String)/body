@@ -1,0 +1,8 @@
+{
+  if (path.startsWith(fAssetPathPrefix)) {
+    return Typeface.createFromAsset(ctx.getAssets(),path.replaceFirst("/android_asset/",""));
+  }
+ else {
+    return Typeface.createFromFile(path);
+  }
+}
