@@ -87,7 +87,8 @@ AnkiDroidApp.createNoMediaFileIfMissing(decksDirectory);
 }
 }
  else if (key.equals("eInkDisplay")) {
-boolean enableAnimation=!eInkDisplayPreference.isChecked();
+animationsCheckboxPreference.setChecked(false);
+animationsCheckboxPreference.setEnabled(!eInkDisplayPreference.isChecked());
 }
  else if (key.equals("convertFenText")) {
 if (convertFenText.isChecked()) {
