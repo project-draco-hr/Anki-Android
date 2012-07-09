@@ -3,7 +3,7 @@
   if (txt.trim().length() == 0) {
     return "";
   }
-  String tag=(String)args[2];
+  Resources res=(Resources)args[1];
   String domid=String.format(Locale.US,"hint%d",txt.hashCode());
-  return String.format(Locale.US,"<a href=\"#\" onclick=\"" + "this.style.display='none';document.getElementById('%s').style.display='block';" + "return false;\">%s</a><div id=\"%s\" style=\"display: none\">%s</div>",domid,String.format(Locale.US,"Show %s",tag),domid,txt);
+  return String.format(Locale.US,"<a href=\"#\" onclick=\"" + "this.style.display='none';document.getElementById('%s').style.display='block';" + "return false;\">%s</a><div id=\"%s\" style=\"display: none\">%s</div>",domid,res.getString(R.string.show_hint),domid,txt);
 }
