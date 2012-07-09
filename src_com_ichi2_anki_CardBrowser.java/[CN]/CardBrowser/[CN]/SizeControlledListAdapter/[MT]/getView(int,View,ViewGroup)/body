@@ -13,8 +13,8 @@
         if ((fontSizeScalePcent < 99 || fontSizeScalePcent > 101) && (Math.abs(originalTextSize - currentSize) < 0.1)) {
           ((TextView)child).setTextSize(TypedValue.COMPLEX_UNIT_SP,originalTextSize * (fontSizeScalePcent / 100.0f));
         }
-        if (mTibetan) {
-          ((TextView)child).setTypeface(mTibTypeface);
+        if (mCustomTypeface != null) {
+          ((TextView)child).setTypeface(mCustomTypeface);
         }
       }
     }

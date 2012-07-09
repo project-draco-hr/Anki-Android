@@ -4,14 +4,13 @@
   mPrefOvertime=preferences.getBoolean("overtime",true);
   mPrefTimer=preferences.getBoolean("timer",true);
   mPrefWhiteboard=preferences.getBoolean("whiteboard",false);
-  mPrefWriteAnswers=preferences.getBoolean("writeAnswers",false);
+  mPrefWriteAnswers=preferences.getBoolean("writeAnswers",true);
   mPrefTextSelection=preferences.getBoolean("textSelection",true);
   mLongClickWorkaround=preferences.getBoolean("textSelectionLongclickWorkaround",false);
   mNightMode=preferences.getBoolean("invertedColors",false);
   mInvertedColors=mNightMode;
   mBlackWhiteboard=preferences.getBoolean("blackWhiteboard",true);
   mSwapQA=preferences.getBoolean("swapqa",false);
-  mPrefUseRubySupport=preferences.getBoolean("useRubySupport",false);
   mPrefFullscreenReview=preferences.getBoolean("fullscreenReview",false);
   mshowNextReviewTime=preferences.getBoolean("showNextReviewTime",true);
   mZoomEnabled=preferences.getBoolean("zoom",false);
@@ -20,7 +19,6 @@
   mInputWorkaround=preferences.getBoolean("inputWorkaround",false);
   mPrefFixHebrew=preferences.getBoolean("fixHebrewText",false);
   mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
-  mPrefConvertFen=preferences.getBoolean("convertFenText",false);
   mSpeakText=preferences.getBoolean("tts",false);
   mPlaySoundsAtStart=preferences.getBoolean("playSoundsAtStart",true);
   mShowProgressBars=preferences.getBoolean("progressBars",true);
