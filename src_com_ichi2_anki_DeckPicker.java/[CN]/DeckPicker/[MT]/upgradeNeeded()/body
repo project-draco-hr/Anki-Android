@@ -1,4 +1,8 @@
 {
+  if (!AnkiDroidApp.isSdCardMounted()) {
+    showDialog(DIALOG_SD_CARD_NOT_MOUNTED);
+    return false;
+  }
   if ((new File(AnkiDroidApp.getCollectionPath())).exists()) {
     return false;
   }
