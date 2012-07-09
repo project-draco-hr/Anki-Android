@@ -4,4 +4,5 @@
   if (savedInstanceState == null) {
     loadContent(getIntent().getBooleanExtra("onlyFnsMsg",false));
   }
+  registerExternalStorageListener();
 }
