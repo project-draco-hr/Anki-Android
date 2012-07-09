@@ -6,7 +6,7 @@
     Log.i(AnkiDroidApp.TAG,"Resetting widget status");
     mMetaDb.execSQL("DROP TABLE IF EXISTS widgetStatus;");
     mMetaDb.execSQL("DROP TABLE IF EXISTS smallWidgetStatus;");
-    openDB(context);
+    upgradeDB(mMetaDb,DATABASE_VERSION);
     return true;
   }
  catch (  Exception e) {

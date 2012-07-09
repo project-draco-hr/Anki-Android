@@ -29,6 +29,7 @@
     }
   }
  catch (  SQLiteException e) {
+    upgradeDB(mMetaDb,DATABASE_VERSION);
     Log.e(AnkiDroidApp.TAG,"Error while querying intentInformation",e);
   }
  finally {

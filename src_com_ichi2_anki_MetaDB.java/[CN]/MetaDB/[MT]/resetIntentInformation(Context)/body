@@ -5,7 +5,7 @@
   try {
     Log.i(AnkiDroidApp.TAG,"Resetting intent information");
     mMetaDb.execSQL("DROP TABLE IF EXISTS intentInformation;");
-    openDB(context);
+    upgradeDB(mMetaDb,DATABASE_VERSION);
     return true;
   }
  catch (  Exception e) {
