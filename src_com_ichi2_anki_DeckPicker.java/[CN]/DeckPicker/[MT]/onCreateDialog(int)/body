@@ -321,7 +321,11 @@ finish();
 dialog=builder.create();
 break;
 case DIALOG_RESTORE_BACKUP:
-mBackups=BackupManager.getBackups(new File(AnkiDroidApp.getCollectionPath()));
+File[] files=BackupManager.getBackups(new File(AnkiDroidApp.getCollectionPath()));
+mBackups=new File[files.length];
+for (int i=0; i < files.length; i++) {
+mBackups[i]=files[files.length - 1 - i];
+}
 if (mBackups.length == 0) {
 builder.setTitle(getResources().getString(R.string.backup_restore));
 builder.setMessage(res.getString(R.string.backup_restore_no_backups));
