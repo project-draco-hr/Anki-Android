@@ -142,11 +142,7 @@ for (int i=0; i < size; i++) {
 oldValues[i]=mEditFields.get(i).getText().toString();
 }
 setNote();
-if ((mSourceText == null || mSourceText.length() == 0) && (mTargetText == null || mTargetText.length() == 0)) {
-for (int i=0; i < Math.min(size,mEditFields.size()); i++) {
-mEditFields.get(i).setText(oldValues[i]);
-}
-}
+resetEditFields(oldValues);
 mTimerHandler.removeCallbacks(checkDuplicatesRunnable);
 duplicateCheck(false);
 }

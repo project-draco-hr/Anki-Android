@@ -15,12 +15,7 @@ return true;
 case MENU_RESET:
 if (mAddNote) {
 if (mCaller == CALLER_INDICLASH || mCaller == CALLER_CARDEDITOR_INTENT_ADD) {
-if (mSourceText != null) {
-mEditFields.get(0).setText(mSourceText);
-}
-if (mTargetText != null) {
-mEditFields.get(1).setText(mTargetText);
-}
+resetEditFields(mSourceText);
 }
  else {
 setEditFieldTexts(getIntent().getStringExtra(EXTRA_CONTENTS));
