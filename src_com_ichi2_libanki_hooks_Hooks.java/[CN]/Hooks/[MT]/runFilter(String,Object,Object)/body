@@ -1,8 +1,16 @@
 {
   List<Hook> _hook=hooks.get(hook);
+  String funcName="";
   if (_hook != null) {
-    for (    Hook func : _hook) {
-      arg=func.runFilter(arg,args);
+    try {
+      for (      Hook func : _hook) {
+        funcName=func.getClass().getCanonicalName();
+        arg=func.runFilter(arg,args);
+      }
+    }
+ catch (    Exception e) {
+      Log.e(AnkiDroidApp.TAG,String.format(Locale.US,"Exception while running hook %s:%s",hook,funcName),e);
+      return String.format(Locale.US,"Error in filter %s:",hook,funcName);
     }
   }
   return arg;
