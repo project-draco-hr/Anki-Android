@@ -11,10 +11,6 @@
       Intent intent=this.getIntent();
       closePreferences();
     }
- else     if (key.equals("startup_mode")) {
-      Intent intent=this.getIntent();
-      closePreferences();
-    }
  else     if (key.equals("theme")) {
       String theme=sharedPreferences.getString("theme","3");
       if (theme.equals("2") || theme.equals("3")) {
