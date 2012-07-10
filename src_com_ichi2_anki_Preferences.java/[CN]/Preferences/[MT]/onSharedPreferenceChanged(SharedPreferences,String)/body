@@ -98,6 +98,14 @@ ChessFilter.install(AnkiDroidApp.getHooks());
 ChessFilter.uninstall(AnkiDroidApp.getHooks());
 }
 }
+ else if (key.equals("fixHebrewText")) {
+if (fixHebrewText.isChecked()) {
+HebrewFixFilter.install(AnkiDroidApp.getHooks());
+}
+ else {
+HebrewFixFilter.uninstall(AnkiDroidApp.getHooks());
+}
+}
 }
  catch (BadTokenException e) {
 Log.e(AnkiDroidApp.TAG,"Preferences: BadTokenException on showDialog: " + e);
