@@ -1,4 +1,8 @@
 {
+  if (!AnkiDroidApp.isSdCardMounted()) {
+    showDialog(DIALOG_SD_CARD_NOT_MOUNTED);
+    return;
+  }
   String path=AnkiDroidApp.getCollectionPath();
   Collection col=Collection.currentCollection();
   if (col == null || !col.getPath().equals(path)) {

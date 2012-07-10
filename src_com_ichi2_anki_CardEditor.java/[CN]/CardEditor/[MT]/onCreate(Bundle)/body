@@ -81,20 +81,22 @@ break;
 case CALLER_INDICLASH:
 Bundle extras=intent.getExtras();
 if (ACTION_CREATE_FLASHCARD.equals(intent.getAction())) {
-mSourceText=extras.getString(SOURCE_TEXT);
-mTargetText=extras.getString(TARGET_TEXT);
+mSourceText=new String[2];
+mSourceText[0]=extras.getString(SOURCE_TEXT);
+mSourceText[1]=extras.getString(TARGET_TEXT);
 }
  else {
 Pair<String,String> messages=new Pair<String,String>(extras.getString(Intent.EXTRA_SUBJECT),extras.getString(Intent.EXTRA_TEXT));
 Pair<String,String> cleanMessages=new FilterFacade(getBaseContext()).filter(messages);
-mSourceText=cleanMessages.first;
-mTargetText=cleanMessages.second;
+mSourceText=new String[2];
+mSourceText[0]=cleanMessages.first;
+mSourceText[1]=cleanMessages.second;
 }
-if (mSourceText == null && mTargetText == null) {
+if (mSourceText == null) {
 finish();
 return;
 }
-if (mSourceText.equals("Aedict Notepad") && addFromAedict(mTargetText)) {
+if (mSourceText[0].equals("Aedict Notepad") && addFromAedict(mSourceText[1])) {
 finish();
 return;
 }
@@ -106,13 +108,13 @@ if (mAddNote) {
 setTitle(R.string.cardeditor_title_add_note);
 String contents=null;
 if (mSourceText != null) {
-if (mAedictIntent && (mEditFields.size() == 3) && mTargetText.contains("[")) {
-contents=mTargetText.replaceFirst("\\[","\u001f");
+if (mAedictIntent && (mEditFields.size() == 3) && mSourceText[1].contains("[")) {
+contents=mSourceText[1].replaceFirst("\\[","\u001f");
 contents=contents.substring(0,contents.length() - 1);
 }
  else {
-mEditFields.get(0).setText(mSourceText);
-mEditFields.get(1).setText(mTargetText);
+mEditFields.get(0).setText(mSourceText[0]);
+mEditFields.get(1).setText(mSourceText[1]);
 }
 }
  else {
@@ -139,10 +141,10 @@ if (content.length() > mEditFields.size() - 1) {
 MetaDB.saveIntentInformation(CardEditor.this,content);
 populateEditFields();
 mSourceText=null;
-mTargetText=null;
+Themes.showThemedToast(CardEditor.this,getResources().getString(R.string.CardEditorLaterMessage),false);
+}
 if (mCaller == CALLER_INDICLASH || mCaller == CALLER_CARDEDITOR_INTENT_ADD) {
 closeCardEditor();
-}
 }
 }
 }
@@ -191,8 +193,6 @@ if (modified) {
 mEditorNote.setTags(mCurrentTags);
 if (changedDid) {
 mCurrentEditedCard.setDid(mCurrentDid);
-if (mMoveNoteTooToggle.isChecked()) {
-}
 }
 mChanged=true;
 }

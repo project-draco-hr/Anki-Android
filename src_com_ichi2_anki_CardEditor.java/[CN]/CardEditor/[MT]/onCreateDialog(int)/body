@@ -104,30 +104,6 @@ updateDeck();
 }
 }
 );
-if (!mAddNote) {
-LinearLayout ll=new LinearLayout(this);
-ll.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));
-LayoutParams lp=new LinearLayout.LayoutParams(0,LayoutParams.WRAP_CONTENT,1);
-mMoveNoteTooToggle=new ToggleButton(this);
-mMoveNoteTooToggle.setSingleLine();
-mMoveNoteTooToggle.setLayoutParams(lp);
-mMoveNoteTooToggle.setText(R.string.cardeditor_move_note_too);
-ll.addView(mMoveNoteTooToggle);
-Button origButton=new Button(this);
-origButton.setSingleLine();
-origButton.setText(R.string.cardeditor_move_to_notes_deck);
-origButton.setBackgroundResource(R.drawable.white_btn_small);
-origButton.setLayoutParams(lp);
-origButton.setOnClickListener(new View.OnClickListener(){
-@Override public void onClick(View v){
-updateDeck();
-mDeckSelectDialog.dismiss();
-}
-}
-);
-ll.addView(origButton);
-builder.setView(ll,false,true);
-}
 dialog=builder.create();
 mDeckSelectDialog=dialog;
 break;
@@ -166,11 +142,7 @@ for (int i=0; i < size; i++) {
 oldValues[i]=mEditFields.get(i).getText().toString();
 }
 setNote();
-if ((mSourceText == null || mSourceText.length() == 0) && (mTargetText == null || mTargetText.length() == 0)) {
-for (int i=0; i < Math.min(size,mEditFields.size()); i++) {
-mEditFields.get(i).setText(oldValues[i]);
-}
-}
+resetEditFields(oldValues);
 mTimerHandler.removeCallbacks(checkDuplicatesRunnable);
 duplicateCheck(false);
 }

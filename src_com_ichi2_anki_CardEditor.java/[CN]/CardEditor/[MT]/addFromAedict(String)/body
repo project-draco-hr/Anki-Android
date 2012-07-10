@@ -8,8 +8,8 @@
         if (notepad_lines.length > i + 1) {
           String[] entry_lines=notepad_lines[i + 1].split(":");
           if (entry_lines.length > 1) {
-            mSourceText=entry_lines[1];
-            mTargetText=entry_lines[0];
+            mSourceText[0]=entry_lines[1];
+            mSourceText[1]=entry_lines[0];
             mAedictIntent=true;
           }
  else {

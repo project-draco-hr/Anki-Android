@@ -9,19 +9,17 @@
       item.put("id",Integer.toString(cursor.getInt(0)));
       String fields=cursor.getString(1);
       String[] split=Utils.splitFields(fields);
-      String source="";
-      String target="";
-      for (      String s : split) {
-        if (s.length() > 0) {
-          if (source.length() == 0) {
-            source=s;
-          }
- else           if (target.length() == 0) {
-            target=s;
-          }
+      String source=null;
+      String target=null;
+      for (int i=0; i < split.length; i++) {
+        if (source == null || source.length() == 0) {
+          source=split[i];
+        }
+ else         if (target == null || target.length() == 0) {
+          target=split[i];
+        }
  else {
-            break;
-          }
+          break;
         }
       }
       item.put("source",source);
@@ -31,6 +29,7 @@
     }
   }
  catch (  SQLiteException e) {
+    upgradeDB(mMetaDb,DATABASE_VERSION);
     Log.e(AnkiDroidApp.TAG,"Error while querying intentInformation",e);
   }
  finally {

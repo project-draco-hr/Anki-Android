@@ -3,16 +3,20 @@
     mUnmountReceiver=new BroadcastReceiver(){
       @Override public void onReceive(      Context context,      Intent intent){
         if (intent.getAction().equals(Intent.ACTION_MEDIA_EJECT)) {
-          showDialog(DIALOG_SD_CARD_NOT_MOUNTED);
-          if (mCol != null) {
-            mCol.close();
+          if (mNotMountedDialog == null || !mNotMountedDialog.isShowing()) {
+            mNotMountedDialog=StyledOpenCollectionDialog.show(StudyOptionsActivity.this,getResources().getString(R.string.sd_card_not_mounted),new OnCancelListener(){
+              @Override public void onCancel(              DialogInterface arg0){
+                finish();
+              }
+            }
+);
           }
         }
  else         if (intent.getAction().equals(Intent.ACTION_MEDIA_MOUNTED)) {
           if (mNotMountedDialog != null && mNotMountedDialog.isShowing()) {
             mNotMountedDialog.dismiss();
           }
-          loadCollection();
+          ((StudyOptionsFragment)mCurrentFragment).reloadCollection();
         }
       }
     }

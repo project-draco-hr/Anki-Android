@@ -5,7 +5,7 @@
   try {
     Log.i(AnkiDroidApp.TAG,"Resetting all language assignments");
     mMetaDb.execSQL("DROP TABLE IF EXISTS languages;");
-    openDB(context);
+    upgradeDB(mMetaDb,DATABASE_VERSION);
     return true;
   }
  catch (  Exception e) {
