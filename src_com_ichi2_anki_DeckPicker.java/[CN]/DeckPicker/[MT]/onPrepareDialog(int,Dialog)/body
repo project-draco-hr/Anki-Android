@@ -17,6 +17,7 @@ mCurrentDid=Long.parseLong(mDeckList.get(mContextMenuPosition).get("did"));
 ad.setTitle(mCol.getDecks().name(mCurrentDid));
 break;
 case DIALOG_SYNC_LOG:
+case DIALOG_SYNC_ERROR:
 ad.setMessage(mDialogMessage);
 break;
 case DIALOG_DB_ERROR:
