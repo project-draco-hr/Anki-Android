@@ -26,7 +26,7 @@
       throw new RuntimeException(e);
     }
   }
- else   if (requestCode == ADD_NOTE && resultCode != getActivity().RESULT_CANCELED) {
+ else   if (requestCode == ADD_NOTE && resultCode != Activity.RESULT_CANCELED) {
     resetAndUpdateValuesFromDeck();
   }
  else   if (requestCode == REQUEST_REVIEW) {
@@ -43,7 +43,7 @@ break;
 }
 mDontSaveOnStop=false;
 }
- else if (requestCode == BROWSE_CARDS && resultCode == getActivity().RESULT_OK) {
+ else if (requestCode == BROWSE_CARDS && resultCode == Activity.RESULT_OK) {
 mDontSaveOnStop=false;
 resetAndUpdateValuesFromDeck();
 }
