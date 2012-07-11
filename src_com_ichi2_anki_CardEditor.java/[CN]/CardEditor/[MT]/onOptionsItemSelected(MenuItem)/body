@@ -8,7 +8,7 @@ if (item.getItemId() == MENU_COPY_CARD) {
   intent.putExtra(EXTRA_CONTENTS,getFieldsText());
 }
 startActivityForResult(intent,REQUEST_ADD);
-if (Integer.valueOf(android.os.Build.VERSION.SDK) > 4) {
+if (UIUtils.getApiLevel() > 4) {
 ActivityTransitionAnimation.slide(CardEditor.this,ActivityTransitionAnimation.LEFT);
 }
 return true;
