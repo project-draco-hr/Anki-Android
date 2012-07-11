@@ -33,6 +33,11 @@
     }
   }
  else   if (requestCode == PREFERENCES_UPDATE) {
+    String newLanguage=AnkiDroidApp.getSharedPrefs(this).getString("language","");
+    if (!AnkiDroidApp.getLanguage().equals(newLanguage)) {
+      AnkiDroidApp.setLanguage(newLanguage);
+      mInvalidateMenu=true;
+    }
   }
  else   if (requestCode == REPORT_FEEDBACK && resultCode == RESULT_OK) {
   }

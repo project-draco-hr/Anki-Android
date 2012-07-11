@@ -1,6 +1,6 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
-  Log.i(AnkiDroidApp.TAG,"StudyOptions: onActivityResult");
+  Log.i(AnkiDroidApp.TAG,"StudyOptionsFragment: onActivityResult");
   if (resultCode == DeckPicker.RESULT_DB_ERROR) {
     closeStudyOptions(DeckPicker.RESULT_DB_ERROR);
   }
@@ -26,11 +26,8 @@
       throw new RuntimeException(e);
     }
   }
- else   if (requestCode == ADD_NOTE && resultCode != getActivity().RESULT_CANCELED) {
+ else   if (requestCode == ADD_NOTE && resultCode != Activity.RESULT_CANCELED) {
     resetAndUpdateValuesFromDeck();
-  }
- else   if (requestCode == PREFERENCES_UPDATE) {
-    restorePreferences();
   }
  else   if (requestCode == REQUEST_REVIEW) {
     Log.i(AnkiDroidApp.TAG,"Result code = " + resultCode);
@@ -46,7 +43,7 @@ break;
 }
 mDontSaveOnStop=false;
 }
- else if (requestCode == BROWSE_CARDS && resultCode == getActivity().RESULT_OK) {
+ else if (requestCode == BROWSE_CARDS && resultCode == Activity.RESULT_OK) {
 mDontSaveOnStop=false;
 resetAndUpdateValuesFromDeck();
 }
