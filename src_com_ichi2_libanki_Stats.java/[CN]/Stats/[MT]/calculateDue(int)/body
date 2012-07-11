@@ -28,7 +28,7 @@ lim+=" AND day <= " + end;
 ArrayList<int[]> dues=new ArrayList<int[]>();
 Cursor cur=null;
 try {
-cur=mCol.getDb().getDatabase().rawQuery("SELECT (due - " + mCol.getSched().getToday() + ")/"+ chunk+ " AS day, "+ "count(), "+ "sum(CASE WHEN ivl >= 21 THEN 1 ELSE 0 END) "+ "FROM cards WHERE did IN "+ _limit()+ " AND queue = 2"+ lim+ " GROUP BY day ORDER BY day",null);
+cur=mCol.getDb().getDatabase().rawQuery("SELECT (due - " + mCol.getSched().getToday() + ")/"+ chunk+ " AS day, "+ "count(), "+ "sum(CASE WHEN ivl >= 21 THEN 1 ELSE 0 END) "+ "FROM cards WHERE did IN "+ _limit()+ " AND queue IN (2,3)"+ lim+ " GROUP BY day ORDER BY day",null);
 while (cur.moveToNext()) {
 dues.add(new int[]{cur.getInt(0),cur.getInt(1),cur.getInt(2)});
 }
