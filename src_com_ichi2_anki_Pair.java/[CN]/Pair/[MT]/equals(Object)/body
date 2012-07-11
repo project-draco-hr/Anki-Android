@@ -1,0 +1,9 @@
+{
+  if (!(obj instanceof Pair)) {
+    return false;
+  }
+  if (this == obj) {
+    return true;
+  }
+  return equal(first,((Pair<?,?>)obj).first) && equal(second,((Pair<?,?>)obj).second);
+}

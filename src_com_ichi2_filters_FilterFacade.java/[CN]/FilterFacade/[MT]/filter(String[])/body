@@ -1,5 +1,5 @@
 {
-  Pair<String,String> result=new Pair<String,String>(messages.first,messages.second);
+  String[] result=new String[]{messages[0],messages[1]};
   for (  CardFilter cardFilter : filters) {
     result=cardFilter.filter(result,AnkiDroidApp.getSharedPrefs(context));
   }
