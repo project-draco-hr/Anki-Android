@@ -1,6 +1,6 @@
 {
   super.onStop();
-  if (!isFinishing() && mCurrentFragment != null && ((StudyOptionsFragment)mCurrentFragment).dbSaveNecessary()) {
+  if (!isFinishing() && mCurrentFragment != null && mCurrentFragment.dbSaveNecessary()) {
     WidgetStatus.update(this);
     UIUtils.saveCollectionInBackground(Collection.currentCollection());
   }

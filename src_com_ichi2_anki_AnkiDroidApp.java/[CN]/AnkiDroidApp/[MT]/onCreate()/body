@@ -7,6 +7,7 @@
   customExceptionHandler.init(sInstance.getApplicationContext());
   Thread.setDefaultUncaughtExceptionHandler(customExceptionHandler);
   SharedPreferences preferences=getSharedPrefs(this);
+  sInstance.mLanguage=mLanguage=preferences.getString("language","");
   if (!preferences.contains("deckPath")) {
     Editor editor=preferences.edit();
     String deckPath=getDefaultAnkiDroidDirectory();
