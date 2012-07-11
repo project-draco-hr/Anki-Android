@@ -18,6 +18,7 @@
   eInkDisplayPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("eInkDisplay");
   ListPreference listpref=(ListPreference)getPreferenceScreen().findPreference("theme");
   convertFenText=(CheckBoxPreference)getPreferenceScreen().findPreference("convertFenText");
+  fixHebrewText=(CheckBoxPreference)getPreferenceScreen().findPreference("fixHebrewText");
   String theme=listpref.getValue();
   animationsCheckboxPreference.setEnabled(theme.equals("2") || theme.equals("3"));
   zoomCheckboxPreference.setEnabled(!swipeCheckboxPreference.isChecked());

@@ -16,7 +16,7 @@
           if (mNotMountedDialog != null && mNotMountedDialog.isShowing()) {
             mNotMountedDialog.dismiss();
           }
-          ((StudyOptionsFragment)mCurrentFragment).reloadCollection();
+          mCurrentFragment.reloadCollection();
         }
       }
     }

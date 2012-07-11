@@ -8,11 +8,6 @@
       keepScreenOnCheckBoxPreference.setChecked(showAnswerCheckBoxPreference.isChecked());
     }
  else     if (key.equals("language")) {
-      Intent intent=this.getIntent();
-      closePreferences();
-    }
- else     if (key.equals("startup_mode")) {
-      Intent intent=this.getIntent();
       closePreferences();
     }
  else     if (key.equals("theme")) {
@@ -96,6 +91,14 @@ ChessFilter.install(AnkiDroidApp.getHooks());
 }
  else {
 ChessFilter.uninstall(AnkiDroidApp.getHooks());
+}
+}
+ else if (key.equals("fixHebrewText")) {
+if (fixHebrewText.isChecked()) {
+HebrewFixFilter.install(AnkiDroidApp.getHooks());
+}
+ else {
+HebrewFixFilter.uninstall(AnkiDroidApp.getHooks());
 }
 }
 }

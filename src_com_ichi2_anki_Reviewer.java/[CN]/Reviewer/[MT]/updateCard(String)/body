@@ -19,9 +19,6 @@
   answer=Sound.parseSounds(mBaseUrl,content,mSpeakText,qa);
   content=question + answer;
   content=content.replace("font-weight:600;","font-weight:700;");
-  if (isHebrewFixEnabled()) {
-    content=applyFixForHebrew(content);
-  }
   Log.i(AnkiDroidApp.TAG,"content card = \n" + content);
   StringBuilder style=new StringBuilder();
   style.append(mCustomFontStyle);
