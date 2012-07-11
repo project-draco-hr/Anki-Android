@@ -1,5 +1,11 @@
 {
   super.onCreate();
+  if (UIUtils.getApiLevel() >= 11) {
+    mCompat=new CompatV11();
+  }
+ else {
+    mCompat=new CompatV4();
+  }
   sInstance=this;
   sInstance.mHooks=new Hooks();
   Connection.setContext(getApplicationContext());
