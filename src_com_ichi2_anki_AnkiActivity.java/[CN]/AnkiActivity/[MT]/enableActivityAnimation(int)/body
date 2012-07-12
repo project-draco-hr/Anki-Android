@@ -3,7 +3,7 @@
     disableActivityAnimation();
   }
  else {
-    if (AnkiDroidApp.isEclairOrLater()) {
+    if (UIUtils.getApiLevel() > 4) {
       ActivityTransitionAnimation.slide(this,animation);
     }
   }

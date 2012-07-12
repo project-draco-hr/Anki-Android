@@ -1,0 +1,6 @@
+{
+  if (!Normalizer.isNormalized(txt,Normalizer.Form.NFD)) {
+    return Normalizer.normalize(txt,Normalizer.Form.NFD);
+  }
+  return txt;
+}

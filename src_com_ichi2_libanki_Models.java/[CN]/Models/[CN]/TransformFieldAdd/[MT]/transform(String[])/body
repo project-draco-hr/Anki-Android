@@ -1,5 +1,6 @@
 {
-  String[] f=Arrays.copyOf(fields,fields.length + 1);
+  String[] f=new String[fields.length + 1];
+  System.arraycopy(fields,0,f,0,fields.length);
   f[fields.length]="";
   return f;
 }

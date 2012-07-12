@@ -21,12 +21,6 @@
     }
 ;
   }
-  if (UIUtils.getApiLevel() >= 11) {
-    mCompat=new CompatV11();
-  }
- else {
-    mCompat=new CompatV3();
-  }
   if (getArguments().getBoolean("onlyFnsMsg")) {
     mTextCongratsMessage.setText(mCol.getSched().finishedMsg(getActivity()));
     mButtonCongratsFinish.setVisibility(View.GONE);
