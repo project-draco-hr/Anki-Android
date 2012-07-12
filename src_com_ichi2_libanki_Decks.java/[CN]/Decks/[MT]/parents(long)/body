@@ -10,7 +10,7 @@
  else {
         deckpath=deckpath + "::" + path[i];
       }
-      list.add(get(mDeckIds.get(deckpath)));
+      list.add(get(id(deckpath,false)));
     }
     return list;
   }

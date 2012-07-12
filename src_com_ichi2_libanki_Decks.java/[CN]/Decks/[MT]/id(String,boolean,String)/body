@@ -27,7 +27,6 @@
     }
     g.put("id",id);
     mDecks.put(id,g);
-    mDeckIds.put(name,id);
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);

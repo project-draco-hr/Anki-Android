@@ -10,12 +10,10 @@
         String on=grp.getString("name");
         String nn=on.replace(oldName + "::",newName + "::");
         grp.put("name",nn);
-        mDeckIds.put(nn,mDeckIds.remove(on));
         save(grp);
       }
     }
     g.put("name",newName);
-    mDeckIds.put(newName,mDeckIds.remove(oldName));
     save(g);
     newName=_ensureParents(newName);
     maybeAddToActive();
