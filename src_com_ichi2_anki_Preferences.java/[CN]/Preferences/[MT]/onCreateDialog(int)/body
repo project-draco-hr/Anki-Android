@@ -25,7 +25,6 @@ builder.setPositiveButton(res.getString(R.string.yes),new OnClickListener(){
 @Override public void onClick(DialogInterface arg0,int arg1){
 lockCheckAction=true;
 asyncModePreference.setChecked(true);
-setReloadDeck();
 }
 }
 );

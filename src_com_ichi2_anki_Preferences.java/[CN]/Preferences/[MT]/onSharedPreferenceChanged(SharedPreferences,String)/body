@@ -58,9 +58,6 @@ lockCheckAction=true;
 useBackupPreference.setChecked(true);
 showDialog(DIALOG_BACKUP);
 }
- else {
-setReloadDeck();
-}
 }
  else if (key.equals("asyncMode")) {
 if (lockCheckAction) {
@@ -70,9 +67,6 @@ lockCheckAction=false;
 lockCheckAction=true;
 asyncModePreference.setChecked(false);
 showDialog(DIALOG_ASYNC);
-}
- else {
-setReloadDeck();
 }
 }
  else if (key.equals("deckPath")) {
