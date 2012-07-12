@@ -11,6 +11,7 @@
         String nn=on.replace(oldName + "::",newName + "::");
         grp.put("name",nn);
         mDeckIds.put(nn,mDeckIds.remove(on));
+        save(grp);
       }
     }
     g.put("name",newName);
