@@ -2,13 +2,10 @@
   if (mUnmountReceiver == null) {
     mUnmountReceiver=new BroadcastReceiver(){
       @Override public void onReceive(      Context context,      Intent intent){
-        if (intent.getAction().equals(Intent.ACTION_MEDIA_EJECT)) {
+        if (intent.getAction().equals(SdCardReceiver.MEDIA_EJECT)) {
           showDialog(DIALOG_SD_CARD_NOT_MOUNTED);
-          if (mCol != null) {
-            mCol.close();
-          }
         }
- else         if (intent.getAction().equals(Intent.ACTION_MEDIA_MOUNTED)) {
+ else         if (intent.getAction().equals(SdCardReceiver.MEDIA_MOUNT)) {
           if (mNotMountedDialog != null && mNotMountedDialog.isShowing()) {
             mNotMountedDialog.dismiss();
           }
@@ -18,9 +15,8 @@
     }
 ;
     IntentFilter iFilter=new IntentFilter();
-    iFilter.addAction(Intent.ACTION_MEDIA_EJECT);
-    iFilter.addAction(Intent.ACTION_MEDIA_MOUNTED);
-    iFilter.addDataScheme("file");
+    iFilter.addAction(SdCardReceiver.MEDIA_EJECT);
+    iFilter.addAction(SdCardReceiver.MEDIA_MOUNT);
     registerReceiver(mUnmountReceiver,iFilter);
   }
 }

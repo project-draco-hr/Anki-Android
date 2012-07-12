@@ -1,10 +1,10 @@
 {
   super.onDestroy();
   Log.i(AnkiDroidApp.TAG,"Reviewer - onDestroy()");
-  if (mUnmountReceiver != null) {
-    unregisterReceiver(mUnmountReceiver);
-  }
   if (mSpeakText && AnkiDroidApp.isDonutOrLater()) {
     ReadText.releaseTts();
+  }
+  if (mUnmountReceiver != null) {
+    unregisterReceiver(mUnmountReceiver);
   }
 }

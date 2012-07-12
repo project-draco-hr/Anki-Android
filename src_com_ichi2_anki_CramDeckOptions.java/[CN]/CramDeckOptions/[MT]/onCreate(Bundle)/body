@@ -6,6 +6,7 @@
     return;
   }
   mDeck=mCol.getDecks().current();
+  registerExternalStorageListener();
   try {
     if (mCol == null || mDeck.getInt("dyn") != 1) {
       Log.i(AnkiDroidApp.TAG,"CramDeckOptions - No Collection loaded or deck is not a dyn deck");

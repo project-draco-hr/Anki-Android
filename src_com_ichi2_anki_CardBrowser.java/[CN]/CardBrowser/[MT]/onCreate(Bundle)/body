@@ -9,6 +9,7 @@
     reloadCollection(savedInstanceState);
     return;
   }
+  registerExternalStorageListener();
   Intent i=getIntent();
   mWholeCollection=i.hasExtra("fromDeckpicker") && i.getBooleanExtra("fromDeckpicker",false);
   mBackground=Themes.getCardBrowserBackground();

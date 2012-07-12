@@ -1,4 +1,5 @@
 {
+  mSavedInstanceState=savedInstanceState;
   DeckTask.launchDeckTask(DeckTask.TASK_TYPE_OPEN_COLLECTION,new DeckTask.TaskListener(){
     @Override public void onPostExecute(    DeckTask.TaskData result){
       if (mProgressDialog.isShowing()) {
@@ -15,7 +16,7 @@
         finish();
       }
  else {
-        onCreate(savedInstanceState);
+        onCreate(mSavedInstanceState);
       }
     }
     @Override public void onPreExecute(){
