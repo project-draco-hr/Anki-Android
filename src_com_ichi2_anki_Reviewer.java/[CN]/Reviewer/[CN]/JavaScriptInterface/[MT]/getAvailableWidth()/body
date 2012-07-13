@@ -1,0 +1,6 @@
+{
+  if (mCtx.mAvailableInCardWidth == 0) {
+    mCtx.mAvailableInCardWidth=mCtx.calcAvailableInCardWidth();
+  }
+  return mCtx.mAvailableInCardWidth;
+}
