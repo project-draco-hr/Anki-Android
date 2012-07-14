@@ -7,7 +7,7 @@
   }
   webView.getSettings().setJavaScriptEnabled(true);
   webView.setWebChromeClient(new AnkiDroidWebChromeClient());
-  webView.addJavascriptInterface(new JavaScriptInterface(),"interface");
+  webView.addJavascriptInterface(new JavaScriptInterface(this),"ankidroid");
   if (AnkiDroidApp.isFroyoOrLater()) {
     webView.setFocusableInTouchMode(false);
   }
@@ -21,6 +21,5 @@
       mSetScrollbarBarFading=null;
     }
   }
-  mScaleInPercent=webView.getScale();
   return webView;
 }

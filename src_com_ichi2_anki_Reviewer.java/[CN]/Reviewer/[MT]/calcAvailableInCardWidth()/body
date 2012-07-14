@@ -1,0 +1,6 @@
+{
+  if (mCard != null && mCardFrame != null) {
+    return (int)((mCardFrame.getWidth() - mCardFrame.getPaddingLeft() - mCardFrame.getPaddingRight()) / mCard.getScale()) - mCard.getPaddingLeft() - mCard.getPaddingRight();
+  }
+  return 0;
+}
