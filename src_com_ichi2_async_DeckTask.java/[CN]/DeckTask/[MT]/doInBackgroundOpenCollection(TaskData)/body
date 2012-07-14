@@ -1,7 +1,9 @@
 {
   Log.i(AnkiDroidApp.TAG,"doInBackgroundOpenCollection");
+  long time=Utils.intNow(1000);
   Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
   String collectionFile=params[0].getString();
+  SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext());
   Collection oldCol=Collection.currentCollection();
   Collection col=null;
   publishProgress(new TaskData(res.getString(R.string.open_collection)));
@@ -20,7 +22,6 @@
       AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundOpenCollection");
       return new TaskData(false);
     }
-    SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext());
     if (prefs.contains("createTutorial") && prefs.getBoolean("createTutorial",false)) {
       prefs.edit().remove("createTutorial").commit();
       publishProgress(new TaskData(res.getString(R.string.tutorial_load)));
@@ -35,6 +36,16 @@
   DeckTask.TaskData result=doInBackgroundLoadDeckCounts(new TaskData(col));
   if (result != null) {
     counts=result.getObjArray();
+  }
+  if (prefs.getBoolean("splashScreen",false)) {
+    long millies=Utils.intNow(1000) - time;
+    if (millies < 1000) {
+      try {
+        Thread.sleep(1200 - millies);
+      }
+ catch (      InterruptedException e) {
+      }
+    }
   }
   return new TaskData(col,counts);
 }
