@@ -12,6 +12,10 @@
   Button continueButton=(Button)findViewById(R.id.info_continue);
   continueButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View arg0){
+      if (mType == TYPE_ABOUT) {
+        Info.this.startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("market://details?id=com.ichi2.anki")));
+        return;
+      }
       setResult(RESULT_OK);
 switch (mType) {
 case TYPE_WELCOME:
@@ -42,6 +46,7 @@ sb.append(String.format(content[3],res.getString(R.string.link_translation),res.
 sb.append(String.format(content[4],res.getString(R.string.licence_wiki),res.getString(R.string.link_source))).append("<br/><br/>");
 sb.append("</body></html>");
 mWebView.loadDataWithBaseURL("",sb.toString(),"text/html","utf-8",null);
+((Button)findViewById(R.id.info_continue)).setText(res.getString(R.string.info_rate));
 break;
 case TYPE_WELCOME:
 sb.append("<html><body text=\"#000000\" link=\"#E37068\" alink=\"#E37068\" vlink=\"#E37068\">");

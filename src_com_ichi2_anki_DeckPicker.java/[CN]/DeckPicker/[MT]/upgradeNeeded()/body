@@ -3,10 +3,14 @@
     showDialog(DIALOG_SD_CARD_NOT_MOUNTED);
     return false;
   }
+  File dir=new File(AnkiDroidApp.getDefaultAnkiDroidDirectory());
+  if (!dir.isDirectory()) {
+    dir.mkdirs();
+  }
   if ((new File(AnkiDroidApp.getCollectionPath())).exists()) {
     return false;
   }
-  if ((new File(AnkiDroidApp.getDefaultAnkiDroidDirectory())).listFiles(new OldAnkiDeckFilter()).length > 0) {
+  if (dir.listFiles(new OldAnkiDeckFilter()).length > 0) {
     return true;
   }
   return false;

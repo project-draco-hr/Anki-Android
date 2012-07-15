@@ -38,6 +38,7 @@
       AnkiDroidApp.setLanguage(newLanguage);
       mInvalidateMenu=true;
     }
+    restorePreferences();
   }
  else   if (requestCode == REPORT_FEEDBACK && resultCode == RESULT_OK) {
   }
