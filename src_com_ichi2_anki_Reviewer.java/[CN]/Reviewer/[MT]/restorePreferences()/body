@@ -22,6 +22,7 @@
   mSpeakText=preferences.getBoolean("tts",false);
   mPlaySoundsAtStart=preferences.getBoolean("playSoundsAtStart",true);
   mShowProgressBars=preferences.getBoolean("progressBars",true);
+  mPrefFadeScrollbars=preferences.getBoolean("fadeScrollbars",false);
   mPrefUseTimer=preferences.getBoolean("timeoutAnswer",false);
   mWaitAnswerSecond=preferences.getInt("timeoutAnswerSeconds",20);
   mWaitQuestionSecond=preferences.getInt("timeoutQuestionSeconds",60);

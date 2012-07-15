@@ -24,7 +24,7 @@
         publishProgress(new TaskData(newCard));
       }
  else {
-        publishProgress(new TaskData(editCard));
+        publishProgress(new TaskData(editCard,editNote.stringTags()));
       }
       col.getDb().getDatabase().setTransactionSuccessful();
     }
