@@ -78,6 +78,8 @@ AnkiDroidApp.createNoMediaFileIfMissing(decksDirectory);
  else if (key.equals("eInkDisplay")) {
 animationsCheckboxPreference.setChecked(false);
 animationsCheckboxPreference.setEnabled(!eInkDisplayPreference.isChecked());
+fadeScrollbars.setChecked(false);
+fadeScrollbars.setEnabled(!eInkDisplayPreference.isChecked());
 }
  else if (key.equals("convertFenText")) {
 if (convertFenText.isChecked()) {
