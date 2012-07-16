@@ -1,8 +1,6 @@
 {
   super(context,data,resource,from,to);
   this.fontSizeScalePcent=fontSizeScalePcent;
-  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
-  String customFont=preferences.getString("browserEditorFont","");
   if (!customFont.equals("")) {
     mCustomTypeface=AnkiFont.getTypeface(context,customFont);
   }

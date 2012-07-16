@@ -1,0 +1,38 @@
+{
+  Calendar cal=Calendar.getInstance();
+  DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+  Resources res=context.getResources();
+  StringBuilder builder=new StringBuilder();
+  builder.append("<html><body ><table><colgroup><col span=\"1\" style=\"width: 40%;\"></col><col span=\"1\" style=\"width: 60%;\"></col></colgroup><tr><td valign=\"top\">");
+  builder.append(res.getString(R.string.card_details_question));
+  builder.append("</td><td>");
+  builder.append(c._getQA(false).get("q"));
+  builder.append("</td></tr><tr><td valign=\"top\">");
+  builder.append(res.getString(R.string.card_details_answer));
+  builder.append("</td><td>");
+  builder.append(Utils.stripHTML(c._getQA(false).get("a")));
+  builder.append("</td></tr><tr><td valign=\"top\">");
+  long next=0;
+  if (c.getType() == 1 || c.getType() == 2) {
+    if (c.getODid() != 0 || c.getQueue() < 0) {
+      next=0;
+    }
+ else {
+      if (c.getQueue() == 2 || c.getQueue() == 3) {
+        next=Utils.intNow(1000) + ((c.getDue() - col.getSched().getToday()) * 86400000);
+      }
+ else {
+        next=c.getDue();
+      }
+    }
+    if (next != 0) {
+      cal.setTimeInMillis(next);
+      builder.append(res.getString(R.string.card_details_due));
+      builder.append("</td><td>");
+      builder.append(df.format(cal.getTime()));
+      builder.append("</td></tr><tr><td valign=\"top\">");
+    }
+  }
+  builder.append("</table></html></body>");
+  return builder.toString();
+}
