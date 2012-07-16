@@ -1,6 +1,8 @@
 def uploadtranslation(language, filename, sourcefile):
     if (len(language) > 2):
         pathlan = string.replace(language, '-', '-r')
+        if (not os.path.exists(('../res/values-' + pathlan))):
+            pathlan = pathlan[:2]
     else:
         pathlan = language
     path = (('../res/values-' + pathlan) + '/')

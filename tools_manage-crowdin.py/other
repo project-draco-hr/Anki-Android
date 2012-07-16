@@ -1,6 +1,8 @@
 import pycurl
 import StringIO
 import sys
+import string
+import os
 CROWDIN_KEY = ''
 PROJECT_IDENTIFIER = 'ankidroid'
 path = '../res/values/'
@@ -37,7 +39,7 @@ elif (sel == 't'):
                 for s in files:
                     uploadtranslation(language, s, s)
             else:
-                uploadtranslation(language, files[(int(selu) - 1)], s)
+                uploadtranslation(language, files[(int(selu) - 1)], sourcefile)
     elif (selu == 'all'):
         for s in files:
             uploadtranslation(language, s, s)
