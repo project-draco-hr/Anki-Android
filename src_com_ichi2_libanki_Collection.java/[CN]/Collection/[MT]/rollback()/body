@@ -1,7 +1,0 @@
-{
-  if (getDb().getDatabase().inTransaction()) {
-    getDb().getDatabase().endTransaction();
-  }
-  load();
-  lock();
-}

@@ -13,7 +13,10 @@
       }
     }
  else {
-      rollback();
+      if (getDb().getDatabase().inTransaction()) {
+        getDb().getDatabase().endTransaction();
+      }
+      lock();
     }
     AnkiDatabaseManager.closeDatabase(mPath);
     mDb=null;
