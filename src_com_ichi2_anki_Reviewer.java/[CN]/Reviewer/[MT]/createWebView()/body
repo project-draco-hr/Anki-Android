@@ -8,18 +8,13 @@
   webView.getSettings().setJavaScriptEnabled(true);
   webView.setWebChromeClient(new AnkiDroidWebChromeClient());
   webView.addJavascriptInterface(new JavaScriptInterface(this),"ankidroid");
-  if (AnkiDroidApp.isFroyoOrLater()) {
+  if (UIUtils.getApiLevel() > 7) {
     webView.setFocusableInTouchMode(false);
   }
-  Log.i(AnkiDroidApp.TAG,"Focusable = " + webView.isFocusable() + ", Focusable in touch mode = "+ webView.isFocusableInTouchMode());
-  if (mSetScrollbarBarFading != null) {
-    try {
-      mSetScrollbarBarFading.invoke(webView,false);
-    }
- catch (    Throwable e) {
-      Log.i(AnkiDroidApp.TAG,"setScrollbarFadingEnabled could not be set due to a too low Android version (< 2.1)");
-      mSetScrollbarBarFading=null;
-    }
+  if (UIUtils.getApiLevel() > 4) {
+    webView.setScrollbarFadingEnabled(mPrefFadeScrollbars);
   }
+  Log.i(AnkiDroidApp.TAG,String.format(Locale.US,"Focusable = %s, Focusable in touch mode = %s",webView.isFocusable(),webView.isFocusableInTouchMode()));
+  Log.i(AnkiDroidApp.TAG,"Fade scrollbars: " + webView.isScrollbarFadingEnabled());
   return webView;
 }
