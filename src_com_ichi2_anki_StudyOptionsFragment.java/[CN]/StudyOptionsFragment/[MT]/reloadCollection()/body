@@ -14,7 +14,7 @@
       if (mCol == null) {
         closeStudyOptions();
       }
- else {
+ else       if (!mFragmented) {
         ((StudyOptionsActivity)getActivity()).loadContent(false);
       }
     }
