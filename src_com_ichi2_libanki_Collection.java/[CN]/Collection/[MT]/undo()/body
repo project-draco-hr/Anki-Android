@@ -55,7 +55,6 @@ c4.flush(false);
 ids.add(c4.getId());
 }
 mDb.execute("DELETE FROM graves WHERE oid IN " + Utils.ids2str(Utils.arrayList2array(ids)));
-mDb.executeMany("INSERT INTO revlog VALUES (?,?,?,?,?,?,?,?,?)",(ArrayList<Object[]>)data[4]);
 return (Long)data[3];
 case UNDO_MARK_NOTE:
 Note note3=getNote((Long)data[1]);

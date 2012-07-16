@@ -6,7 +6,6 @@
   long[] nids=Utils.arrayList2array(mDb.queryColumn(Long.class,"SELECT nid FROM cards WHERE id IN " + sids,0));
   _logRem(ids,Sched.REM_CARD);
   mDb.execute("DELETE FROM cards WHERE id IN " + sids);
-  mDb.execute("DELETE FROM revlog WHERE cid IN " + sids);
   if (!notes) {
     return;
   }
