@@ -255,6 +255,7 @@ builder.setMessage(res.getString(R.string.repair_deck_dialog,BackupManager.BROKE
 builder.setIcon(R.drawable.ic_dialog_alert);
 builder.setPositiveButton(res.getString(R.string.yes),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
+mCol=null;
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REPAIR_DECK,mRepairDeckHandler,new DeckTask.TaskData(mCol,AnkiDroidApp.getCollectionPath()));
 }
 }
