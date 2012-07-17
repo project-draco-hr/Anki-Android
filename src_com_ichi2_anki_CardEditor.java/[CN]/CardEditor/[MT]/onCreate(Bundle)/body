@@ -22,7 +22,7 @@
   if (mCaller == CALLER_INDICLASH && preferences.getBoolean("intentAdditionInstantAdd",false)) {
     fetchIntentInformation(intent);
     MetaDB.saveIntentInformation(CardEditor.this,Utils.joinFields(mSourceText));
-    Themes.showThemedToast(CardEditor.this,getResources().getString(R.string.CardEditorLaterMessage),false);
+    Themes.showThemedToast(CardEditor.this,getResources().getString(R.string.app_name) + ": " + getResources().getString(R.string.CardEditorLaterMessage),false);
     finish();
     return;
   }
