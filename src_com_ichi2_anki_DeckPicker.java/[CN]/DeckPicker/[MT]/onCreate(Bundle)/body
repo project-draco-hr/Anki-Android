@@ -10,7 +10,7 @@
     }
     reloadIntent.addCategory(Intent.CATEGORY_LAUNCHER);
     reloadIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    finish();
+    finishWithAnimation();
     startActivityIfNeeded(reloadIntent,0);
   }
   if (Collection.currentCollection() == null) {
