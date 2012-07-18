@@ -6,6 +6,7 @@
     o.put("tags",getTags());
     if (mLNewer) {
       o.put("conf",getConf());
+      o.put("crt",mCol.getCrt());
     }
   }
  catch (  JSONException e) {

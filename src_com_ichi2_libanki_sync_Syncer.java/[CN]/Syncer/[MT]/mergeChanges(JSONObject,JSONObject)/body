@@ -6,6 +6,9 @@
     if (rchg.has("conf")) {
       mergeConf(rchg.getJSONObject("conf"));
     }
+    if (rchg.has("crt")) {
+      mCol.setCrt(rchg.getLong("crt"));
+    }
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);
