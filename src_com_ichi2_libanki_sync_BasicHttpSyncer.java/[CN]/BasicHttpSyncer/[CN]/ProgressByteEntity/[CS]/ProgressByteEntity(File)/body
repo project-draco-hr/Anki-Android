@@ -1,0 +1,10 @@
+{
+  super();
+  mLength=file.length();
+  try {
+    mInputStream=new BufferedInputStream(new FileInputStream(file));
+  }
+ catch (  FileNotFoundException e) {
+    throw new RuntimeException(e);
+  }
+}

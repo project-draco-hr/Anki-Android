@@ -1,4 +1,5 @@
 {
+  File tmpFileBuffer=null;
   try {
     String bdry="--" + BOUNDARY;
     StringWriter buf=new StringWriter();
@@ -8,7 +9,10 @@
       buf.write(bdry + "\r\n");
       buf.write("Content-Disposition: form-data; name=\"k\"\r\n\r\n" + mHKey + "\r\n");
     }
-    ByteArrayOutputStream bos=new ByteArrayOutputStream();
+    tmpFileBuffer=File.createTempFile("syncer",".tmp",new File(AnkiDroidApp.getCacheStorageDirectory()));
+    FileOutputStream fos=new FileOutputStream(tmpFileBuffer);
+    BufferedOutputStream bos=new BufferedOutputStream(fos);
+    GZIPOutputStream tgt;
     if (fobj != null) {
       buf.write(bdry + "\r\n");
       buf.write("Content-Disposition: form-data; name=\"data\"; filename=\"data\"\r\nContent-Type: application/octet-stream\r\n\r\n");
@@ -18,18 +22,17 @@
       BufferedInputStream bfobj=new BufferedInputStream(fobj);
       byte[] chunk=new byte[65536];
       if (comp != 0) {
-        GZIPOutputStream tgt=new GZIPOutputStream(new BufferedOutputStream(bos));
+        tgt=new GZIPOutputStream(bos);
         while ((len=bfobj.read(chunk)) > 0) {
           tgt.write(chunk,0,len);
         }
         tgt.close();
+        bos=new BufferedOutputStream(new FileOutputStream(tmpFileBuffer,true));
       }
  else {
-        BufferedOutputStream tgt=new BufferedOutputStream(bos);
         while ((len=bfobj.read(chunk)) > 0) {
-          tgt.write(chunk,0,len);
+          bos.write(chunk,0,len);
         }
-        tgt.close();
       }
       bos.write(("\r\n" + bdry + "--\r\n").getBytes("UTF-8"));
     }
@@ -37,6 +40,7 @@
       buf.close();
       bos.write(buf.toString().getBytes("UTF-8"));
     }
+    bos.flush();
     bos.close();
     String url=Collection.SYNC_URL;
     if (method.equals("register")) {
@@ -49,7 +53,7 @@
       url=url + "sync/" + method;
     }
     HttpPost httpPost=new HttpPost(url);
-    HttpEntity entity=new ProgressByteEntity(bos.toByteArray());
+    HttpEntity entity=new ProgressByteEntity(tmpFileBuffer);
     httpPost.setEntity(entity);
     httpPost.setHeader("Content-type","multipart/form-data; boundary=" + BOUNDARY);
     HttpParams params=new BasicHttpParams();
@@ -57,8 +61,7 @@
     params.setParameter(ConnManagerPNames.MAX_CONNECTIONS_PER_ROUTE,new ConnPerRouteBean(30));
     params.setParameter(CoreProtocolPNames.USE_EXPECT_CONTINUE,false);
     HttpProtocolParams.setVersion(params,HttpVersion.HTTP_1_1);
-    HttpConnectionParams.setConnectionTimeout(params,10000);
-    HttpConnectionParams.setSoTimeout(params,10000);
+    HttpConnectionParams.setSoTimeout(params,20000);
     SchemeRegistry registry=new SchemeRegistry();
     registry.register(new Scheme("http",PlainSocketFactory.getSocketFactory(),80));
     registry.register(new Scheme("https",new EasySSLSocketFactory(),443));
@@ -76,9 +79,15 @@
     throw new RuntimeException(e);
   }
 catch (  IOException e) {
+    Log.e(AnkiDroidApp.TAG,"BasicHttpSyncer.sync: IOException",e);
     return null;
   }
 catch (  JSONException e) {
     throw new RuntimeException(e);
+  }
+ finally {
+    if (tmpFileBuffer != null && tmpFileBuffer.exists()) {
+      tmpFileBuffer.delete();
+    }
   }
 }
