@@ -22,14 +22,19 @@
     showStartupScreensAndDialogs(AnkiDroidApp.getSharedPrefs(getBaseContext()),4);
   }
  else   if (requestCode == SHOW_INFO_UPGRADE_DECKS) {
-    showStartupScreensAndDialogs(AnkiDroidApp.getSharedPrefs(getBaseContext()),3);
+    if (resultCode == RESULT_CANCELED) {
+      finishWithAnimation();
+    }
+ else {
+      showStartupScreensAndDialogs(AnkiDroidApp.getSharedPrefs(getBaseContext()),3);
+    }
   }
  else   if (requestCode == SHOW_INFO_WELCOME || requestCode == SHOW_INFO_NEW_VERSION) {
     if (resultCode == RESULT_OK) {
       showStartupScreensAndDialogs(AnkiDroidApp.getSharedPrefs(getBaseContext()),requestCode == SHOW_INFO_WELCOME ? 1 : 2);
     }
  else {
-      finish();
+      finishWithAnimation();
     }
   }
  else   if (requestCode == PREFERENCES_UPDATE) {
@@ -65,7 +70,7 @@ i.setClass(this,StudyOptionsActivity.class);
 i.putExtra("onlyFnsMsg",true);
 startActivityForResult(i,SHOW_STUDYOPTIONS);
 if (UIUtils.getApiLevel() > 4) {
-ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
+ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
 }
 break;
 }

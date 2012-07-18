@@ -99,14 +99,23 @@ builder.show();
 break;
 case TYPE_UPGRADE_DECKS:
 sb.append("<html><body>");
-sb.append(res.getString(R.string.upgrade_decks_message));
+File[] fileList=(new File(AnkiDroidApp.getDefaultAnkiDroidDirectory())).listFiles(new OldAnkiDeckFilter());
+StringBuilder fsb=new StringBuilder();
+fsb.append("<ul>");
+for (File f : fileList) {
+fsb.append("<li>").append(f.getName().replace(".anki","")).append("</li>");
+}
+fsb.append("</ul>");
+sb.append(res.getString(R.string.upgrade_decks_message,fsb.toString()));
 sb.append("<ul><li>");
 sb.append(res.getString(R.string.upgrade_decks_message_pos1,AnkiDroidApp.getDefaultAnkiDroidDirectory()));
 sb.append("</li><li>");
 sb.append(res.getString(R.string.upgrade_decks_message_pos2,res.getString(R.string.link_anki)));
 sb.append("</li><li>");
 sb.append(res.getString(R.string.upgrade_decks_message_pos3));
-sb.append("</li></ul></body></html>");
+sb.append("</li></ul>");
+sb.append(res.getString(R.string.upgrade_decks_message_finish));
+sb.append("</body></html>");
 mWebView.loadDataWithBaseURL("",sb.toString(),"text/html","utf-8",null);
 Button but=(Button)findViewById(R.id.info_tutorial);
 but.setVisibility(View.VISIBLE);
