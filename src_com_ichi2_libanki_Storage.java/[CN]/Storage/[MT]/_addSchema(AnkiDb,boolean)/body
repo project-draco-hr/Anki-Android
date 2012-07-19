@@ -4,7 +4,7 @@
   db.execute("create table if not exists cards (" + "   id              integer primary key," + "  nid             integer not null,"+ "  did             integer not null,"+ "  ord             integer not null,"+ "  mod             integer not null,"+ " usn             integer not null,"+ " type            integer not null,"+ " queue           integer not null,"+ "    due             integer not null,"+ "   ivl             integer not null,"+ "  factor          integer not null,"+ " reps            integer not null,"+ "   lapses          integer not null,"+ "   left            integer not null,"+ "   odue            integer not null,"+ "   odid            integer not null,"+ "   flags           integer not null,"+ "   data            text not null"+ ");");
   db.execute("create table if not exists revlog (" + "   id              integer primary key," + "   cid             integer not null,"+ "   usn             integer not null,"+ "   ease            integer not null,"+ "   ivl             integer not null,"+ "   lastIvl         integer not null,"+ "   factor          integer not null,"+ "   time            integer not null,"+ "   type            integer not null"+ ");");
   db.execute("create table if not exists graves (" + "    usn             integer not null," + "    oid             integer not null,"+ "    type            integer not null"+ ")");
-  db.execute("INSERT OR IGNORE INTO col VALUES(1,0,0," + Collection.SCHEMA_VERSION + ","+ Utils.intNow(1000)+ ",0,0,0,\'\',\'{}\',\'\',\'\',\'{}\')");
+  db.execute(String.format(Locale.US,"INSERT OR IGNORE INTO col VALUES(1,0,0,%d,%d,0,0,0,'','{}','','','{}')",Utils.intNow(1000),Collection.SCHEMA_VERSION));
   if (setColConf) {
     _setColVars(db);
   }
