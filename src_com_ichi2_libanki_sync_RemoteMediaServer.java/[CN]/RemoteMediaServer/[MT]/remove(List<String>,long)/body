@@ -1,7 +1,7 @@
 {
   JSONObject data=new JSONObject();
   try {
-    data.put("fnames",fnames);
+    data.put("fnames",new JSONArray(fnames));
     data.put("minUsn",minUsn);
     HttpResponse ret=super.req("remove",super.getInputStream(data.toString()));
     if (ret == null) {

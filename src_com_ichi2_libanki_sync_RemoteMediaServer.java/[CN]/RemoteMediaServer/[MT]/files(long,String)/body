@@ -4,6 +4,7 @@
     data.put("minUsn",minUsn);
     HttpResponse ret=super.req("files",super.getInputStream(data.toString()));
     if (ret == null) {
+      Log.e(AnkiDroidApp.TAG,"RemoteMediaServer.files: Exception during request");
       return null;
     }
     int resultType=ret.getStatusLine().getStatusCode();
@@ -11,7 +12,10 @@
       super.writeToFile(ret.getEntity().getContent(),tmpMediaZip);
       return new File(tmpMediaZip);
     }
-    return null;
+ else {
+      Log.e(AnkiDroidApp.TAG,"RemoteMediaServer.files: Request returned " + resultType);
+      return null;
+    }
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);

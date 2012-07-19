@@ -61,7 +61,7 @@
     params.setParameter(ConnManagerPNames.MAX_CONNECTIONS_PER_ROUTE,new ConnPerRouteBean(30));
     params.setParameter(CoreProtocolPNames.USE_EXPECT_CONTINUE,false);
     HttpProtocolParams.setVersion(params,HttpVersion.HTTP_1_1);
-    HttpConnectionParams.setSoTimeout(params,20000);
+    HttpConnectionParams.setSoTimeout(params,SYNC_TIMEOUT);
     SchemeRegistry registry=new SchemeRegistry();
     registry.register(new Scheme("http",PlainSocketFactory.getSocketFactory(),80));
     registry.register(new Scheme("https",new EasySSLSocketFactory(),443));
