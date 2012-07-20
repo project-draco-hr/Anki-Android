@@ -9,9 +9,9 @@
         break;
       }
     }
-    String sql=String.format(Locale.US,"select c.id from cards c, notes f where c.nid=f.id and mid = %d and ord = %d",m.getLong("id"),ord);
+    String sql="select c.id from cards c, notes f where c.nid=f.id and mid = " + m.getLong("id") + " and ord = "+ ord;
     long[] cids=Utils.toPrimitive(mCol.getDb().queryColumn(Long.class,sql,0));
-    sql=String.format(Locale.US,"select nid, count() from cards where nid in (select nid from cards where id in %s) group by nid having count() < 2 limit 1",Utils.ids2str(cids));
+    sql="select nid, count() from cards where nid in (select nid from cards where id in " + Utils.ids2str(cids) + ") group by nid having count() < 2 limit 1";
     if (mCol.getDb().queryScalar(sql,false) != 0) {
       return false;
     }

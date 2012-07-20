@@ -22,7 +22,7 @@
   LinkedList<Long> nids=new LinkedList<Long>();
   Cursor cur=null;
   try {
-    cur=mCol.getDb().getDatabase().rawQuery(String.format(Locale.US,"select id, mid, flds from notes where mid in %s and flds like ? escape '\\'",Utils.ids2str(new LinkedList<Long>(mods.keySet()))),new String[]{"%" + val + "%"});
+    cur=mCol.getDb().getDatabase().rawQuery("select id, mid, flds from notes where mid in " + Utils.ids2str(new LinkedList<Long>(mods.keySet())) + " and flds like ? escape '\\'",new String[]{"%" + val + "%"});
     while (cur.moveToNext()) {
       String[] flds=Utils.splitFields(cur.getString(2));
       int ord=(Integer)mods.get(cur.getLong(1))[1];

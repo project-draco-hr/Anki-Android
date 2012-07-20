@@ -29,7 +29,7 @@
     return "";
   }
  else   if (mod.equals("type")) {
-    return String.format(Locale.US,"[[%s]]",tag_name);
+    return "[[" + tag_name + "]]";
   }
  else   if (mod.equals("cq") || mod.equals("ca")) {
     if (txt != null && txt.length() != 0 && extra != null && extra.length() != 0) {
@@ -47,7 +47,7 @@
       txt=(String)AnkiDroidApp.getHooks().runFilter("fmod_" + mod,txt,extra,AnkiDroidApp.getAppResources(),tag,tag_name);
     }
     if (txt == null) {
-      return String.format(Locale.US,"{unknown field %s}",tag_name);
+      return "{unknown field " + tag_name + "}";
     }
     return txt;
   }

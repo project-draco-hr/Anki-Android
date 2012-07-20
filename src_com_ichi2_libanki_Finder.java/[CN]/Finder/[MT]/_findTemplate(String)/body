@@ -17,10 +17,10 @@
         JSONObject t=tmpls.getJSONObject(ti);
         if (t.getString("name").equalsIgnoreCase(val)) {
           if (m.getInt("type") == Sched.MODEL_CLOZE) {
-            lims.add(String.format(Locale.US,"(n.mid = %s)",m.getLong("id")));
+            lims.add("(n.mid = " + m.getLong("id") + ")");
           }
  else {
-            lims.add(String.format(Locale.US,"(n.mid = %s and c.ord = %s)",m.getLong("id"),t.getInt("ord")));
+            lims.add("(n.mid = " + m.getLong("id") + " and c.ord = "+ t.getInt("ord")+ ")");
           }
         }
       }

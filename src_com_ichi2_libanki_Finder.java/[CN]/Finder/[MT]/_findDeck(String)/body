@@ -32,5 +32,5 @@
     return "";
   }
   String sids=Utils.ids2str(ids);
-  return String.format(Locale.US,"c.did in %s or c.odid in %s",sids,sids);
+  return "c.did in " + sids + " or c.odid in "+ sids;
 }

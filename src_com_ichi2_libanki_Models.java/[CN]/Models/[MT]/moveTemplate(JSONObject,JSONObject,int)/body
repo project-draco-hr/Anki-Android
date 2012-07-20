@@ -29,7 +29,7 @@
       }
     }
     save(m);
-    mCol.getDb().execute(String.format(Locale.US,"update cards set ord = (case %s end),usn=?,mod=? where nid in (select id from notes where mid = ?)",sb.toString()),new Object[]{mCol.usn(),Utils.intNow(),m.getLong("id")});
+    mCol.getDb().execute("update cards set ord = (case " + sb.toString() + " end),usn=?,mod=? where nid in (select id from notes where mid = ?)",new Object[]{mCol.usn(),Utils.intNow(),m.getLong("id")});
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);

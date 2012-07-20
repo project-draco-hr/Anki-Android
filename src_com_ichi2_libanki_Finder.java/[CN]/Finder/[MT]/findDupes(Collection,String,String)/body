@@ -1,8 +1,8 @@
 {
   if (search != null && search.length() > 0) {
-    search=String.format(Locale.US,"(%s) ",search);
+    search="(" + search + ") ";
   }
-  search+=String.format(Locale.US,"'%s:*'",fieldName);
+  search+="'" + fieldName + ":*'";
   String sql="select id, mid, flds from notes where id in " + Utils.ids2str(col.findNotes(search).toArray(new Long[]{}));
   Cursor cur=null;
   Map<Long,Integer> fields=new HashMap<Long,Integer>();

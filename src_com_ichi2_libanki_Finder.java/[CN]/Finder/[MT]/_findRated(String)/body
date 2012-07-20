@@ -16,5 +16,5 @@
     ease="and ease=" + r[1];
   }
   long cutoff=(mCol.getSched().getDayCutoff() - 86400 * days) * 1000;
-  return String.format(Locale.US,"c.id in (select cid from revlog where id>%d %s)",cutoff,ease);
+  return "c.id in (select cid from revlog where id>" + cutoff + " "+ ease+ ")";
 }

@@ -42,7 +42,7 @@
     }
  else {
       n=Integer.parseInt(m.group(1));
-      root=m.replaceFirst(String.format(Locale.US," (%d)",n + 1));
+      root=m.replaceFirst(" (" + String.valueOf(n + 1) + ")");
     }
   }
   try {
