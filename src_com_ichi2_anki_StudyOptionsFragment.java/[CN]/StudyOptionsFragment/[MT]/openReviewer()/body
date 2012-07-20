@@ -2,7 +2,7 @@
   mDontSaveOnStop=true;
   Intent reviewer=new Intent(getActivity(),Reviewer.class);
   startActivityForResult(reviewer,REQUEST_REVIEW);
-  if (UIUtils.getApiLevel() > 4) {
+  if (AnkiDroidApp.SDK_VERSION > 4) {
     ActivityTransitionAnimation.slide(getActivity(),ActivityTransitionAnimation.LEFT);
   }
   mCol.startTimebox();

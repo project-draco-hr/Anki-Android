@@ -24,7 +24,7 @@
     UIUtils.setActionBarSubtitle(this,"");
     if (mPrefFullscreenReview) {
       getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-      if (!AnkiDroidApp.isHoneycombOrLater()) {
+      if (AnkiDroidApp.SDK_VERSION <= 11) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
       }
     }

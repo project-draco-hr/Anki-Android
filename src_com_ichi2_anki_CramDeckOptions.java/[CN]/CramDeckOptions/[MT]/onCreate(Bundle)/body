@@ -1,5 +1,5 @@
 {
-  if (AnkiDroidApp.getSdkVersion() >= 7 && AnkiDroidApp.getSdkVersion() <= 10) {
+  if (AnkiDroidApp.SDK_VERSION >= 7 && AnkiDroidApp.SDK_VERSION <= 10) {
     Themes.applyTheme(this,Themes.THEME_ANDROID_DARK);
   }
   super.onCreate(icicle);

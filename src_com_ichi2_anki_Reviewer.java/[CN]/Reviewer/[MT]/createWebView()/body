@@ -8,10 +8,10 @@
   webView.getSettings().setJavaScriptEnabled(true);
   webView.setWebChromeClient(new AnkiDroidWebChromeClient());
   webView.addJavascriptInterface(new JavaScriptInterface(this),"ankidroid");
-  if (UIUtils.getApiLevel() > 7) {
+  if (AnkiDroidApp.SDK_VERSION > 7) {
     webView.setFocusableInTouchMode(false);
   }
-  if (UIUtils.getApiLevel() > 4) {
+  if (AnkiDroidApp.SDK_VERSION > 4) {
     webView.setScrollbarFadingEnabled(mPrefFadeScrollbars);
   }
   Log.i(AnkiDroidApp.TAG,String.format(Locale.US,"Focusable = %s, Focusable in touch mode = %s",webView.isFocusable(),webView.isFocusableInTouchMode()));

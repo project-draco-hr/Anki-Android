@@ -7,7 +7,7 @@
       Log.i(AnkiDroidApp.TAG,"Info - onBackPressed()");
       setResult(RESULT_CANCELED);
       finish();
-      if (UIUtils.getApiLevel() > 4) {
+      if (AnkiDroidApp.SDK_VERSION > 4) {
         ActivityTransitionAnimation.slide(Info.this,ActivityTransitionAnimation.LEFT);
       }
     }

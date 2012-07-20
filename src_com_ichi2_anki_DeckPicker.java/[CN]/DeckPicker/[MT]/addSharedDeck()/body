@@ -2,7 +2,7 @@
   Intent intent=new Intent(DeckPicker.this,Info.class);
   intent.putExtra(Info.TYPE_EXTRA,Info.TYPE_SHARED_DECKS);
   startActivityForResult(intent,ADD_SHARED_DECKS);
-  if (UIUtils.getApiLevel() > 4) {
+  if (AnkiDroidApp.SDK_VERSION > 4) {
     ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.RIGHT);
   }
 }

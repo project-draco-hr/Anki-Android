@@ -2,7 +2,7 @@
   mDontSaveOnStop=true;
   Intent cardBrowser=new Intent(getActivity(),CardBrowser.class);
   startActivityForResult(cardBrowser,BROWSE_CARDS);
-  if (UIUtils.getApiLevel() > 4) {
+  if (AnkiDroidApp.SDK_VERSION > 4) {
     ActivityTransitionAnimation.slide(getActivity(),ActivityTransitionAnimation.LEFT);
   }
 }

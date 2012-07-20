@@ -8,7 +8,7 @@
     intent.putExtra("index",deckId);
     intent.setClass(this,StudyOptionsActivity.class);
     startActivityForResult(intent,SHOW_STUDYOPTIONS);
-    if (UIUtils.getApiLevel() > 4) {
+    if (AnkiDroidApp.SDK_VERSION > 4) {
       ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
     }
   }

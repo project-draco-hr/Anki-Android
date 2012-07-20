@@ -6,7 +6,7 @@
     setResult(RESULT_OK);
   }
   finish();
-  if (UIUtils.getApiLevel() > 4) {
+  if (AnkiDroidApp.SDK_VERSION > 4) {
     ActivityTransitionAnimation.slide(Feedback.this,ActivityTransitionAnimation.LEFT);
   }
 }

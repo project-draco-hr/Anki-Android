@@ -64,7 +64,7 @@ builder3.create().show();
 return true;
 case MENU_ABOUT:
 startActivity(new Intent(DeckPicker.this,Info.class));
-if (UIUtils.getApiLevel() > 4) {
+if (AnkiDroidApp.SDK_VERSION > 4) {
 ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.RIGHT);
 }
 return true;
@@ -90,7 +90,7 @@ case MENU_FEEDBACK:
 Intent i=new Intent(DeckPicker.this,Feedback.class);
 i.putExtra("request",REPORT_FEEDBACK);
 startActivityForResult(i,REPORT_FEEDBACK);
-if (UIUtils.getApiLevel() > 4) {
+if (AnkiDroidApp.SDK_VERSION > 4) {
 ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
 }
 return true;

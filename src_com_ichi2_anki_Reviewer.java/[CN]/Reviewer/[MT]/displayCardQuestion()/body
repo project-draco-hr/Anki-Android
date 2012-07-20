@@ -32,7 +32,7 @@
       inputMethodManager.showSoftInput(mAnswerField,InputMethodManager.SHOW_FORCED);
     }
     displayString=enrichWithQADiv(question,false);
-    if (mSpeakText && AnkiDroidApp.isDonutOrLater()) {
+    if (mSpeakText) {
     }
   }
   updateCard(displayString);

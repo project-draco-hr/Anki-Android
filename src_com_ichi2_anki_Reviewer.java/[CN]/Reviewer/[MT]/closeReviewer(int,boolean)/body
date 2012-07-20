@@ -11,7 +11,7 @@
     UIUtils.saveCollectionInBackground(mSched.getCol());
   }
   finish();
-  if (UIUtils.getApiLevel() > 4) {
+  if (AnkiDroidApp.SDK_VERSION > 4) {
     ActivityTransitionAnimation.slide(Reviewer.this,ActivityTransitionAnimation.RIGHT);
   }
 }

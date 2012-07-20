@@ -1,6 +1,6 @@
 {
   super.onCreate();
-  if (UIUtils.getApiLevel() >= 11) {
+  if (AnkiDroidApp.SDK_VERSION >= 11) {
     mCompat=new CompatV11();
   }
  else {

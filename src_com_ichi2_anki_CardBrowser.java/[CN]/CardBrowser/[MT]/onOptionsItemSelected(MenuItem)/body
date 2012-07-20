@@ -6,7 +6,7 @@ case MENU_ADD_NOTE:
   Intent intent=new Intent(CardBrowser.this,CardEditor.class);
 intent.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_CARDBROWSER_ADD);
 startActivityForResult(intent,ADD_NOTE);
-if (UIUtils.getApiLevel() > 4) {
+if (AnkiDroidApp.SDK_VERSION > 4) {
 ActivityTransitionAnimation.slide(CardBrowser.this,ActivityTransitionAnimation.LEFT);
 }
 return true;

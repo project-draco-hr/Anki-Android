@@ -18,7 +18,7 @@
   if (!mChangeBorderStyle) {
     ((View)findViewById(R.id.flashcard_border)).setVisibility(View.VISIBLE);
   }
-  if (!AnkiDroidApp.isFroyoOrLater() && (mCard != null)) {
+  if (AnkiDroidApp.SDK_VERSION <= 7 && (mCard != null)) {
     mCard.setFocusableInTouchMode(true);
   }
   gestureDetector=new GestureDetector(new MyGestureDetector());

@@ -55,7 +55,7 @@
       long cardId=Long.parseLong(mCards.get(mPositionInCardsList).get("id"));
       sCardBrowserCard=mCol.getCard(cardId);
       startActivityForResult(editCard,EDIT_CARD);
-      if (UIUtils.getApiLevel() > 4) {
+      if (AnkiDroidApp.SDK_VERSION > 4) {
         ActivityTransitionAnimation.slide(CardBrowser.this,ActivityTransitionAnimation.LEFT);
       }
     }

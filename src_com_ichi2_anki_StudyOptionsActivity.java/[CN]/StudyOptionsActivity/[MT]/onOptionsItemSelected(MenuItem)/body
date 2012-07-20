@@ -5,7 +5,7 @@ case android.R.id.home:
   return true;
 case MENU_PREFERENCES:
 startActivityForResult(new Intent(this,Preferences.class),StudyOptionsFragment.PREFERENCES_UPDATE);
-if (UIUtils.getApiLevel() > 4) {
+if (AnkiDroidApp.SDK_VERSION > 4) {
 ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.FADE);
 }
 return true;

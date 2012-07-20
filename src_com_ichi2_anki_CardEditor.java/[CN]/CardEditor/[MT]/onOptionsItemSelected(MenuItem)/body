@@ -8,7 +8,7 @@ if (item.getItemId() == MENU_COPY_CARD) {
   intent.putExtra(EXTRA_CONTENTS,getFieldsText());
 }
 startActivityForResult(intent,REQUEST_ADD);
-if (UIUtils.getApiLevel() > 4) {
+if (AnkiDroidApp.SDK_VERSION > 4) {
 ActivityTransitionAnimation.slide(CardEditor.this,ActivityTransitionAnimation.LEFT);
 }
 return true;
