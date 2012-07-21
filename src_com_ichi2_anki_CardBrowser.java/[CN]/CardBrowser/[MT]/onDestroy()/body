@@ -1,0 +1,7 @@
+{
+  super.onDestroy();
+  if (mUnmountReceiver != null) {
+    unregisterReceiver(mUnmountReceiver);
+  }
+  Log.i(AnkiDroidApp.TAG,"CardBrowser - onDestroy()");
+}
