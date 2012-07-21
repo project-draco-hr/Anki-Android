@@ -1,7 +1,0 @@
-{
-  String style=String.format("@font-face {font-family: \"%s\"; src: url(\"file://%s\");}",mName,mPath);
-  if (mFamily.equalsIgnoreCase(mName)) {
-    return style;
-  }
-  return String.format("%s\n@font-face {font-family: \"%s\"; %s %s %s src: url(\"file://%s\");}",style,mFamily,mWeight,mStyle,mStretch,mPath);
-}

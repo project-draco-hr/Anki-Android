@@ -8,39 +8,39 @@
   }
   Typeface tf=getTypeface(ctx,mPath);
   if (tf.isBold() || mName.toLowerCase().contains("bold")) {
-    mWeight="font-weight: bolder;";
+    mAttributes.add("font-weight: bolder;");
     mFamily=mFamily.replaceFirst("(?i)-?Bold","");
   }
  else   if (mName.toLowerCase().contains("light")) {
-    mWeight="font-weight: lighter;";
+    mAttributes.add("font-weight: lighter;");
     mFamily=mFamily.replaceFirst("(?i)-?Light","");
   }
  else {
-    mWeight="font-weight: normal;";
+    mAttributes.add("font-weight: normal;");
   }
   if (tf.isItalic() || mName.toLowerCase().contains("italic")) {
-    mStyle="font-style: italic;";
+    mAttributes.add("font-style: italic;");
     mFamily=mFamily.replaceFirst("(?i)-?Italic","");
   }
  else   if (mName.toLowerCase().contains("oblique")) {
-    mStyle="font-style: oblique;";
+    mAttributes.add("font-style: oblique;");
     mFamily=mFamily.replaceFirst("(?i)-?Oblique","");
   }
  else {
-    mStyle="font-style: normal;";
+    mAttributes.add("font-style: normal;");
   }
   if (mName.toLowerCase().contains("condensed") || mName.toLowerCase().contains("narrow")) {
-    mStretch="font-stretch: condensed;";
+    mAttributes.add("font-stretch: condensed;");
     mFamily=mFamily.replaceFirst("(?i)-?Condensed","");
     mFamily=mFamily.replaceFirst("(?i)-?Narrow(er)?","");
   }
  else   if (mName.toLowerCase().contains("expanded") || mName.toLowerCase().contains("wide")) {
-    mStretch="font-stretch: expanded;";
+    mAttributes.add("font-stretch: expanded;");
     mFamily=mFamily.replaceFirst("(?i)-?Expanded","");
     mFamily=mFamily.replaceFirst("(?i)-?Wide(r)?","");
   }
  else {
-    mStretch="font-stretch: normal;";
+    mAttributes.add("font-stretch: normal;");
   }
   mFamily=mFamily.replaceFirst("(?i)-?Regular","");
 }

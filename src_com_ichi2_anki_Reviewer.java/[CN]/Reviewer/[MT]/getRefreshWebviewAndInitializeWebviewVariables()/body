@@ -1,11 +1,15 @@
 {
-  mCustomFontFiles=Utils.getCustomFonts(getBaseContext());
+  List<AnkiFont> fonts=Utils.getCustomFonts(getBaseContext());
+  mCustomFonts=new HashMap<String,AnkiFont>();
+  for (  AnkiFont f : fonts) {
+    mCustomFonts.put(f.getName(),f);
+  }
   for (  String s : new String[]{"nook"}) {
     if (android.os.Build.DEVICE.toLowerCase().indexOf(s) != -1 || android.os.Build.MODEL.toLowerCase().indexOf(s) != -1) {
       return true;
     }
   }
-  if (mCustomFontFiles.size() != 0) {
+  if (mCustomFonts.size() != 0) {
     return true;
   }
   return false;

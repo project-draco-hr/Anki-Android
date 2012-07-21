@@ -1,0 +1,7 @@
+{
+  StringBuilder sb=new StringBuilder("font-family: \"").append(mFamily).append("\";");
+  for (  String attr : mAttributes) {
+    sb.append(" ").append(attr);
+  }
+  return sb.toString();
+}
