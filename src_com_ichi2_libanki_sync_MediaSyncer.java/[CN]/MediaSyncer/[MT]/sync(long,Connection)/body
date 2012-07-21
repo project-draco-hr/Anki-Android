@@ -1,11 +1,13 @@
 {
   con.publishProgress(R.string.sync_media_find);
+  Log.i(AnkiDroidApp.TAG,"MediaSync: finding changed media");
   mCol.getMedia().findChanges();
   long lUsn=mCol.getMedia().usn();
   if (lUsn == mediaUsn && !mCol.getMedia().hasChanged()) {
     return "noChanges";
   }
   con.publishProgress(R.string.sync_media_remove);
+  Log.i(AnkiDroidApp.TAG,"MediaSync: handling deleted media");
   List<String> lRem=removed();
   JSONArray rRem=mServer.remove(lRem,lUsn);
   if (rRem == null) {
@@ -14,6 +16,7 @@
   }
   remove(rRem);
   con.publishProgress(R.string.sync_media_from_server);
+  Log.i(AnkiDroidApp.TAG,"MediaSync: receing media from server");
   while (true) {
     long usn=mCol.getMedia().usn();
     File zip=mServer.files(usn,mCol.getPath().replaceFirst("collection\\.anki2$","tmpSyncFromServer.zip"));
@@ -25,6 +28,7 @@
     }
   }
   con.publishProgress(R.string.sync_media_to_server);
+  Log.i(AnkiDroidApp.TAG,"MediaSync: sending media to server");
   while (true) {
     Pair<File,List<String>> zipAdded=files();
     if (zipAdded.second == null || zipAdded.second.size() == 0) {
@@ -36,6 +40,7 @@
     mCol.getMedia().forgetAdded(zipAdded.second);
     mCol.getMedia().setUsn(usn);
   }
+  Log.i(AnkiDroidApp.TAG,"MediaSync: sanity check");
   long sMediaSanity=mServer.mediaSanity();
   long cMediaSanity=mediaSanity();
   if (sMediaSanity != cMediaSanity) {

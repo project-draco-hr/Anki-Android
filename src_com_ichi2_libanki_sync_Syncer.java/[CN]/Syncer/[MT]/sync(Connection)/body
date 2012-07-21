@@ -75,7 +75,7 @@
         Log.i(AnkiDroidApp.TAG,"Sync: error - returning");
         return new Object[]{"error",rchg.get("errorType"),rchg.get("errorReason")};
       }
-      Log.i(AnkiDroidApp.TAG,"Sync: mergin small changes");
+      Log.i(AnkiDroidApp.TAG,"Sync: merging small changes");
       mergeChanges(lchg,rchg);
       publishProgress(con,R.string.sync_download_chunk);
       while (true) {
