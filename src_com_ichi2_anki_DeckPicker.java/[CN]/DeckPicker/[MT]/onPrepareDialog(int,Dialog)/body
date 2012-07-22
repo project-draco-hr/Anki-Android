@@ -3,18 +3,18 @@
   StyledDialog ad=(StyledDialog)dialog;
 switch (id) {
 case DIALOG_DELETE_DECK:
-    if (mCol == null || mDeckList == null) {
+    if (AnkiDroidApp.colIsOpen() || mDeckList == null) {
       return;
     }
   mCurrentDid=Long.parseLong(mDeckList.get(mContextMenuPosition).get("did"));
-ad.setMessage(String.format(res.getString(R.string.delete_deck_message),"\'" + mCol.getDecks().name(mCurrentDid) + "\'"));
+ad.setMessage(String.format(res.getString(R.string.delete_deck_message),"\'" + AnkiDroidApp.getCol().getDecks().name(mCurrentDid) + "\'"));
 break;
 case DIALOG_CONTEXT_MENU:
-if (mCol == null || mDeckList == null) {
+if (!AnkiDroidApp.colIsOpen() || mDeckList == null) {
 return;
 }
 mCurrentDid=Long.parseLong(mDeckList.get(mContextMenuPosition).get("did"));
-ad.setTitle(mCol.getDecks().name(mCurrentDid));
+ad.setTitle(AnkiDroidApp.getCol().getDecks().name(mCurrentDid));
 break;
 case DIALOG_SYNC_LOG:
 case DIALOG_SYNC_ERROR:
@@ -26,7 +26,7 @@ break;
 case DIALOG_ERROR_HANDLING:
 ArrayList<String> options=new ArrayList<String>();
 ArrayList<Integer> values=new ArrayList<Integer>();
-if (mCol == null) {
+if (AnkiDroidApp.getCol() == null) {
 options.add(res.getString(R.string.backup_retry_opening));
 values.add(0);
 }

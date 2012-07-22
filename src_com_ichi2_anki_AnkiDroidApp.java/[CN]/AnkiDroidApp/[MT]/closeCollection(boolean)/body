@@ -1,0 +1,15 @@
+{
+  mLock.lock();
+  Log.i(AnkiDroidApp.TAG,"closeCollection");
+  try {
+    sInstance.mAccessThreadCount--;
+    if (sInstance.mAccessThreadCount == 0 && sInstance.mCurrentCollection != null) {
+      Collection col=sInstance.mCurrentCollection;
+      sInstance.mCurrentCollection=null;
+      col.close(save);
+    }
+  }
+  finally {
+    mLock.unlock();
+  }
+}

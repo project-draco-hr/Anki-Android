@@ -3,7 +3,7 @@
     Themes.applyTheme(this,Themes.THEME_ANDROID_DARK);
   }
   super.onCreate(icicle);
-  mCol=Collection.currentCollection();
+  mCol=AnkiDroidApp.getCol();
   if (mCol == null) {
     finish();
     return;

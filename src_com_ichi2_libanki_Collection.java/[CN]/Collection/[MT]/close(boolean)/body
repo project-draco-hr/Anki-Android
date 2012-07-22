@@ -1,5 +1,4 @@
 {
-  mClosing=true;
   if (mDb != null) {
     cleanup();
     if (save) {
@@ -21,7 +20,7 @@
     AnkiDatabaseManager.closeDatabase(mPath);
     mDb=null;
     mMedia.close();
+    AnkiDroidApp.resetAccessThreadCount();
     Log.i(AnkiDroidApp.TAG,"Collection closed");
   }
-  sCurrentCollection=null;
 }

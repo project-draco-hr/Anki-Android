@@ -13,12 +13,12 @@
     finishWithAnimation();
     startActivityIfNeeded(reloadIntent,0);
   }
-  if (Collection.currentCollection() == null) {
-    setTitle("");
-    mOpenCollectionHandler.onPreExecute();
+  if (AnkiDroidApp.colIsOpen()) {
+    setTitle(getResources().getString(R.string.app_name));
   }
  else {
-    setTitle(getResources().getString(R.string.app_name));
+    setTitle("");
+    mOpenCollectionHandler.onPreExecute();
   }
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);

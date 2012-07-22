@@ -8,14 +8,17 @@
           View v=mDeckListView.getChildAt(j);
           if (v.getY() + v.getHeight() > pos) {
             HashMap<String,String> data=(HashMap<String,String>)mDeckListAdapter.getItem(j);
-            mCol.getDecks().select(Long.parseLong(data.get("did")));
-            mCol.reset();
-            Intent reviewer=new Intent(DeckPicker.this,Reviewer.class);
-            startActivityForResult(reviewer,REQUEST_REVIEW);
-            if (AnkiDroidApp.SDK_VERSION > 4) {
-              ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.LEFT);
+            Collection col=AnkiDroidApp.getCol();
+            if (col != null) {
+              col.getDecks().select(Long.parseLong(data.get("did")));
+              col.reset();
+              Intent reviewer=new Intent(DeckPicker.this,Reviewer.class);
+              startActivityForResult(reviewer,REQUEST_REVIEW);
+              if (AnkiDroidApp.SDK_VERSION > 4) {
+                ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.LEFT);
+              }
+              return true;
             }
-            return true;
           }
         }
       }

@@ -1,0 +1,21 @@
+{
+  mLock.lock();
+  Log.i(AnkiDroidApp.TAG,"openCollection: " + path);
+  try {
+    if (sInstance.mCurrentCollection == null || !sInstance.mCurrentCollection.getPath().equals(path)) {
+      if (sInstance.mCurrentCollection != null) {
+        sInstance.mCurrentCollection.close();
+        sInstance.mAccessThreadCount=0;
+      }
+      sInstance.mCurrentCollection=Storage.Collection(path);
+      sInstance.mAccessThreadCount++;
+    }
+ else {
+      sInstance.mAccessThreadCount++;
+    }
+    return sInstance.mCurrentCollection;
+  }
+  finally {
+    mLock.unlock();
+  }
+}

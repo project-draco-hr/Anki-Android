@@ -1,9 +1,0 @@
-{
-  if (sCurrentCollection == null || sCurrentCollection.mClosing || sCurrentCollection.mDb == null) {
-    return null;
-  }
- else {
-    sCurrentCollection.mOpenedByWidget=false;
-    return sCurrentCollection;
-  }
-}

@@ -6,7 +6,7 @@
     @Override public void onPostExecute(    TaskData result){
       if (result.getBoolean()) {
         loadCounts();
-        openStudyOptions(mCol.getDecks().selected());
+        openStudyOptions(AnkiDroidApp.getCol().getDecks().selected());
       }
  else {
         Themes.showThemedToast(DeckPicker.this,getResources().getString(R.string.tutorial_loading_error),false);
@@ -23,5 +23,5 @@
     @Override public void onProgressUpdate(    TaskData... values){
     }
   }
-,new DeckTask.TaskData(mCol));
+,new DeckTask.TaskData(AnkiDroidApp.getCol()));
 }

@@ -1,5 +1,5 @@
 {
-  if (mCol != null) {
-    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK_COUNTS,mLoadCountsHandler,new TaskData(mCol));
+  if (AnkiDroidApp.colIsOpen()) {
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK_COUNTS,mLoadCountsHandler,new TaskData(AnkiDroidApp.getCol()));
   }
 }

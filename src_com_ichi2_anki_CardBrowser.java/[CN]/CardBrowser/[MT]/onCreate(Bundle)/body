@@ -4,7 +4,7 @@
   View mainView=getLayoutInflater().inflate(R.layout.card_browser,null);
   setContentView(mainView);
   Themes.setContentStyle(mainView,Themes.CALLER_CARDBROWSER);
-  mCol=Collection.currentCollection();
+  mCol=AnkiDroidApp.getCol();
   if (mCol == null) {
     reloadCollection(savedInstanceState);
     return;

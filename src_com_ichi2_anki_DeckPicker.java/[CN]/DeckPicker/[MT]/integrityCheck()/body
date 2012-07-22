@@ -1,5 +1,5 @@
 {
-  if (mCol == null) {
+  if (AnkiDroidApp.colIsOpen()) {
     loadCollection();
     return;
   }
@@ -24,5 +24,5 @@
     @Override public void onProgressUpdate(    TaskData... values){
     }
   }
-,new DeckTask.TaskData(mCol));
+,new DeckTask.TaskData(AnkiDroidApp.getCol()));
 }

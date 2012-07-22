@@ -2,7 +2,7 @@
   super.onCreate(savedInstanceState);
   Log.i(AnkiDroidApp.TAG,"StudyOptions - createView()");
   restorePreferences();
-  mCol=Collection.currentCollection();
+  mCol=AnkiDroidApp.getCol();
   if (mCol == null) {
     reloadCollection();
     return null;

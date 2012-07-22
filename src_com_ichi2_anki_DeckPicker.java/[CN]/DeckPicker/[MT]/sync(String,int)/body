@@ -1,5 +1,5 @@
 {
-  if (mCol != null) {
+  if (AnkiDroidApp.colIsOpen()) {
     SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
     String hkey=preferences.getString("hkey","");
     if (hkey.length() == 0) {

@@ -26,7 +26,7 @@
     finish();
     return;
   }
-  mCol=Collection.currentCollection();
+  mCol=AnkiDroidApp.getCol();
   if (mCol == null) {
     reloadCollection(savedInstanceState);
     return;

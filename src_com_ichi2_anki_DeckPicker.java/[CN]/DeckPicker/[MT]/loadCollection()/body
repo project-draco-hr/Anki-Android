@@ -4,7 +4,7 @@
     return;
   }
   String path=AnkiDroidApp.getCollectionPath();
-  Collection col=Collection.currentCollection();
+  Collection col=AnkiDroidApp.getCol();
   if (col == null || !col.getPath().equals(path)) {
     DeckTask.launchDeckTask(DeckTask.TASK_TYPE_OPEN_COLLECTION,mOpenCollectionHandler,new DeckTask.TaskData(path));
   }
@@ -12,7 +12,6 @@
     if (mOpenCollectionDialog != null && mOpenCollectionDialog.isShowing()) {
       mOpenCollectionDialog.dismiss();
     }
-    mCol=col;
     loadCounts();
   }
 }

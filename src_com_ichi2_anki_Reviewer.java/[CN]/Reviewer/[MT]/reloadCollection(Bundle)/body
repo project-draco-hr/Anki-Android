@@ -10,13 +10,11 @@
           Log.e(AnkiDroidApp.TAG,"onPostExecute - Dialog dismiss Exception = " + e.getMessage());
         }
       }
-      Collection col=result.getCollection();
-      Collection.putCurrentCollection(col);
-      if (col == null) {
-        finish();
+      if (AnkiDroidApp.colIsOpen()) {
+        onCreate(mSavedInstanceState);
       }
  else {
-        onCreate(mSavedInstanceState);
+        finish();
       }
     }
     @Override public void onPreExecute(){

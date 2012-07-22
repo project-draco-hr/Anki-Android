@@ -4,7 +4,7 @@
   Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
   String collectionFile=params[0].getString();
   SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext());
-  Collection oldCol=Collection.currentCollection();
+  Collection oldCol=AnkiDroidApp.getCol();
   Collection col=null;
   publishProgress(new TaskData(res.getString(R.string.open_collection)));
   if (oldCol == null || !oldCol.getPath().equals(collectionFile)) {
@@ -14,7 +14,7 @@
     }
     publishProgress(new TaskData(res.getString(R.string.open_collection)));
     try {
-      col=Collection.openCollection(collectionFile);
+      col=AnkiDroidApp.openCollection(collectionFile);
     }
  catch (    RuntimeException e) {
       BackupManager.restoreCollectionIfMissing(collectionFile);

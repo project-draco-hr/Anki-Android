@@ -129,7 +129,7 @@ catch (  JSONException e) {
   finally {
       AnkiDatabaseManager.closeDatabase(colFilename);
     }
-    Collection col=Collection.openCollection(colFilename);
+    Collection col=AnkiDroidApp.openCollection(colFilename);
     ArrayList<String> decks=col.getDecks().allNames(false);
     ArrayList<String> failed=new ArrayList<String>();
     for (    File f : fileList) {

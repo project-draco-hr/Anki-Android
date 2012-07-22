@@ -25,7 +25,7 @@ builder2.setPositiveButton(res.getString(R.string.create),new DialogInterface.On
 @Override public void onClick(DialogInterface dialog,int which){
 String deckName=mDialogEditText.getText().toString().replaceAll("[\'\"\\s\\n\\r\\[\\]\\(\\)]","");
 Log.i(AnkiDroidApp.TAG,"Creating deck: " + deckName);
-mCol.getDecks().id(deckName,true);
+AnkiDroidApp.getCol().getDecks().id(deckName,true);
 loadCounts();
 }
 }
@@ -37,7 +37,7 @@ case MENU_CREATE_DYNAMIC_DECK:
 StyledDialog.Builder builder3=new StyledDialog.Builder(DeckPicker.this);
 builder3.setTitle(res.getString(R.string.new_deck));
 mDialogEditText=(EditText)new EditText(DeckPicker.this);
-ArrayList<String> names=mCol.getDecks().allNames();
+ArrayList<String> names=AnkiDroidApp.getCol().getDecks().allNames();
 int n=1;
 String cramDeckName="Cram 1";
 while (names.contains(cramDeckName)) {
@@ -48,9 +48,9 @@ mDialogEditText.setText(cramDeckName);
 builder3.setView(mDialogEditText,false,false);
 builder3.setPositiveButton(res.getString(R.string.create),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
-long id=mCol.getDecks().newDyn(mDialogEditText.getText().toString());
+long id=AnkiDroidApp.getCol().getDecks().newDyn(mDialogEditText.getText().toString());
 try {
-mCol.getDecks().get(id).put("empty",true);
+AnkiDroidApp.getCol().getDecks().get(id).put("empty",true);
 }
  catch (JSONException e) {
 throw new RuntimeException(e);
@@ -69,7 +69,7 @@ ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.RI
 }
 return true;
 case MENU_ADD_SHARED_DECK:
-if (mCol != null) {
+if (AnkiDroidApp.getCol() != null) {
 SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
 String hkey=preferences.getString("hkey","");
 if (hkey.length() == 0) {

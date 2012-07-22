@@ -1,5 +1,5 @@
 {
-  Collection.currentCollection().setOvertime(false);
+  AnkiDroidApp.getCol().setOvertime(false);
   mTimeoutHandler.removeCallbacks(mShowAnswerTask);
   mTimeoutHandler.removeCallbacks(mShowQuestionTask);
   mTimerHandler.removeCallbacks(removeChosenAnswerText);
@@ -8,7 +8,7 @@
   Reviewer.this.setResult(result);
   setOutAnimation(true);
   if (saveDeck) {
-    UIUtils.saveCollectionInBackground(mSched.getCol());
+    UIUtils.saveCollectionInBackground();
   }
   finish();
   if (AnkiDroidApp.SDK_VERSION > 4) {

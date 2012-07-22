@@ -3,12 +3,12 @@
   super.onStop();
   if (!mDontSaveOnStop) {
     if (isFinishing()) {
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CLOSE_DECK,mCloseCollectionHandler,new TaskData(mCol));
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CLOSE_DECK,mCloseCollectionHandler,new TaskData(AnkiDroidApp.getCol()));
     }
  else {
       StudyOptionsFragment frag=getFragment();
       if (!(frag != null && !frag.dbSaveNecessary())) {
-        UIUtils.saveCollectionInBackground(mCol);
+        UIUtils.saveCollectionInBackground();
       }
     }
   }

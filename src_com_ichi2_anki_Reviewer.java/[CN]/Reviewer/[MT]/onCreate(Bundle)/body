@@ -4,7 +4,7 @@
   Log.i(AnkiDroidApp.TAG,"Reviewer - onCreate");
   mChangeBorderStyle=Themes.getTheme() == Themes.THEME_ANDROID_LIGHT || Themes.getTheme() == Themes.THEME_ANDROID_DARK;
   setVolumeControlStream(AudioManager.STREAM_MUSIC);
-  Collection col=Collection.currentCollection();
+  Collection col=AnkiDroidApp.getCol();
   if (col == null) {
     reloadCollection(savedInstanceState);
     return;

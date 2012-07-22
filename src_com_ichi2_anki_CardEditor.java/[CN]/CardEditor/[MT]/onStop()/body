@@ -2,6 +2,6 @@
   super.onStop();
   if (!isFinishing()) {
     WidgetStatus.update(this);
-    UIUtils.saveCollectionInBackground(mCol);
+    UIUtils.saveCollectionInBackground();
   }
 }
