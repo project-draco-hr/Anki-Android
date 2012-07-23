@@ -1,8 +1,0 @@
-{
-  if (mCurrentCard != null) {
-  }
-  if (mPrefTimer && mSavedTimer != 0) {
-    mCardTimer.setBase(SystemClock.elapsedRealtime() - mSavedTimer);
-    mCardTimer.start();
-  }
-}

@@ -16,7 +16,6 @@
       DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_FACT,mUpdateCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,true));
     }
  else {
-      mInEditor=false;
       fillFlashcard(mShowAnimations);
     }
   }
