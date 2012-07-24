@@ -23,6 +23,7 @@
   if (mPrefTextSelection) {
     item=menu.add(Menu.NONE,MENU_SEARCH,Menu.NONE,res.getString(R.string.menu_select));
     item.setIcon(R.drawable.ic_menu_search);
+    item.setEnabled(Lookup.isAvailable());
   }
   return true;
 }
