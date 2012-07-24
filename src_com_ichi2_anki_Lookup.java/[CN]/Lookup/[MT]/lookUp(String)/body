@@ -1,5 +1,7 @@
 {
-  mCurrentCard=card;
+  if (!mIsDictionaryAvailable) {
+    return false;
+  }
   text=text.trim().replaceAll("[,;:\\s\\(\\[\\)\\]\\.]*$","").replaceAll("^[,;:\\s\\(\\[\\)\\]\\.]*","");
 switch (mDictionary) {
 case DICTIONARY_AEDICT:

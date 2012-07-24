@@ -1,0 +1,5 @@
+{
+  Resources res=getResources();
+  menu.findItem(MENU_SEARCH).setTitle(clipboardHasText() ? Lookup.getSearchStringTitle() : res.getString(R.string.menu_select));
+  return true;
+}

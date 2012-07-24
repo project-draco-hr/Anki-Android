@@ -4,7 +4,7 @@ switch (id) {
 case DIALOG_STATISTIC_TYPE:
     dialog=ChartBuilder.getStatisticsDialog(getActivity(),new DialogInterface.OnClickListener(){
       @Override public void onClick(      DialogInterface dialog,      int which){
-        DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_STATISTICS,mLoadStatisticsHandler,new DeckTask.TaskData(mCol,which,false));
+        DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_STATISTICS,mLoadStatisticsHandler,new DeckTask.TaskData(AnkiDroidApp.getCol(),which,false));
       }
     }
 ,mFragmented);

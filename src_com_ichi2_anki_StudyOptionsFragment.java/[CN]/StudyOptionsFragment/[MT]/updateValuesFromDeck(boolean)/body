@@ -1,6 +1,9 @@
 {
   String fullName;
-  JSONObject deck=mCol.getDecks().current();
+  if (!AnkiDroidApp.colIsOpen()) {
+    return;
+  }
+  JSONObject deck=AnkiDroidApp.getCol().getDecks().current();
   try {
     fullName=deck.getString("name");
     String[] name=fullName.split("::");
@@ -29,7 +32,7 @@
   if (!mFragmented) {
     getActivity().setTitle(fullName);
   }
-  String desc=mCol.getDecks().getActualDescription();
+  String desc=AnkiDroidApp.getCol().getDecks().getActualDescription();
   if (desc.length() > 0) {
     mTextDeckDescription.setText(desc);
     mTextDeckDescription.setVisibility(View.VISIBLE);
@@ -37,5 +40,5 @@
  else {
     mTextDeckDescription.setVisibility(View.GONE);
   }
-  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_VALUES_FROM_DECK,mUpdateValuesFromDeckListener,new DeckTask.TaskData(mCol,new Object[]{reset,mSmallChart != null}));
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_VALUES_FROM_DECK,mUpdateValuesFromDeckListener,new DeckTask.TaskData(AnkiDroidApp.getCol(),new Object[]{reset,mSmallChart != null}));
 }
