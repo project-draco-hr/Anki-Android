@@ -1,89 +1,47 @@
 {
-  if (null == content || 0 == content.trim().length()) {
-    return "";
+  if (percentage == 100 || null == content || 0 == content.trim().length()) {
+    return content.trim();
   }
-  StringBuilder sb=new StringBuilder(content);
-  boolean fontSizeFound=true;
+  StringBuffer sb=new StringBuffer();
   int spanTagDepth=0;
   int outerRelativeSpanTagDepth=100;
-  int start=0;
-  int posSpan=0;
-  int posFontSize=0;
-  int posUnit=0;
-  int intSize;
   double doubleSize;
-  boolean isRelativeUnit=true;
-  String sizeS;
-  DecimalFormatSymbols symbols=new DecimalFormatSymbols();
-  symbols.setDecimalSeparator('.');
-  DecimalFormat dFormat=new DecimalFormat("0.##",symbols);
-  while (fontSizeFound) {
-    posFontSize=sb.indexOf("font-size:",start);
-    if (-1 == posFontSize) {
-      fontSizeFound=false;
-      continue;
-    }
- else {
-      posSpan=sb.indexOf("</span>",start);
-      while (-1 != posSpan && posSpan < posFontSize) {
-        spanTagDepth-=1;
-        posSpan=sb.indexOf("</span>",posSpan + 7);
-      }
-      start=posFontSize + 10;
-      for (int a=0; a < ABSOLUTE_CSS_UNITS.length; a++) {
-        posUnit=sb.indexOf(ABSOLUTE_CSS_UNITS[a],start);
-        if (-1 != posUnit) {
-          isRelativeUnit=false;
-          break;
-        }
-      }
-      if (-1 == posUnit) {
-        for (int a=0; a < RELATIVE_CSS_UNITS.length; a++) {
-          posUnit=sb.indexOf(RELATIVE_CSS_UNITS[a],start);
-          if (-1 != posUnit) {
-            isRelativeUnit=true;
-            break;
-          }
-        }
-      }
-    }
-    if (-1 == posUnit) {
-      fontSizeFound=false;
-      continue;
-    }
- else     if (17 < (posUnit - posFontSize)) {
-      continue;
-    }
- else {
-      spanTagDepth+=1;
-      start=posUnit + 3;
-      sizeS=sb.substring(posFontSize + 10,posUnit).trim();
-      if (isRelativeUnit) {
-        if (outerRelativeSpanTagDepth >= spanTagDepth) {
-          outerRelativeSpanTagDepth=spanTagDepth;
-          try {
-            doubleSize=dFormat.parse(sizeS).doubleValue();
-          }
- catch (          ParseException e) {
-            continue;
-          }
-          doubleSize=doubleSize * percentage / 100;
-          sizeS=dFormat.format(doubleSize);
-        }
+  int lastMatch=0;
+  String contentPart;
+  Matcher m2;
+  Matcher m=fFontSizePattern.matcher(content);
+  while (m.find()) {
+    contentPart=content.substring(lastMatch,m.start());
+    m2=fSpanDivPattern.matcher(contentPart);
+    while (m2.find()) {
+      if (m2.group(1).equals("/")) {
+        --spanTagDepth;
       }
  else {
-        try {
-          intSize=Integer.parseInt(sizeS);
-        }
- catch (        NumberFormatException e) {
-          start=posFontSize + 10;
-          continue;
-        }
-        intSize=intSize * percentage / 100;
-        sizeS=Integer.toString(intSize);
+        ++spanTagDepth;
       }
-      sb.replace(posFontSize + 10,posUnit,sizeS);
+      if (spanTagDepth < outerRelativeSpanTagDepth) {
+        outerRelativeSpanTagDepth=100;
+      }
     }
+    lastMatch=m.end();
+    try {
+      doubleSize=Double.parseDouble(m.group(1));
+      doubleSize=doubleSize * percentage / 100;
+    }
+ catch (    NumberFormatException e) {
+      continue;
+    }
+    if (fRelativeCssUnits.contains(m.group(2))) {
+      if (outerRelativeSpanTagDepth < spanTagDepth) {
+        m.appendReplacement(sb,m.group());
+        continue;
+      }
+      outerRelativeSpanTagDepth=spanTagDepth;
+    }
+    m.appendReplacement(sb,String.format(Locale.US,"font-size:%.2f%s;",doubleSize,m.group(2)));
   }
-  return sb.toString();
+  m.appendTail(sb);
+  String a=sb.toString();
+  return a;
 }
