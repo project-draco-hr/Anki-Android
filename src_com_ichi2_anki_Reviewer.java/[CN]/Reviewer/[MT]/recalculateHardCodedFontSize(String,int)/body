@@ -3,8 +3,8 @@
     return content.trim();
   }
   StringBuffer sb=new StringBuffer();
-  int spanTagDepth=0;
-  int outerRelativeSpanTagDepth=100;
+  int tagDepth=0;
+  int lastRelUnitnTagDepth=100;
   double doubleSize;
   int lastMatch=0;
   String contentPart;
@@ -15,13 +15,13 @@
     m2=fSpanDivPattern.matcher(contentPart);
     while (m2.find()) {
       if (m2.group(1).equals("/")) {
-        --spanTagDepth;
+        --tagDepth;
       }
  else {
-        ++spanTagDepth;
+        ++tagDepth;
       }
-      if (spanTagDepth < outerRelativeSpanTagDepth) {
-        outerRelativeSpanTagDepth=100;
+      if (tagDepth < lastRelUnitnTagDepth) {
+        lastRelUnitnTagDepth=100;
       }
     }
     lastMatch=m.end();
@@ -33,11 +33,11 @@
       continue;
     }
     if (fRelativeCssUnits.contains(m.group(2))) {
-      if (outerRelativeSpanTagDepth < spanTagDepth) {
+      if (lastRelUnitnTagDepth < tagDepth) {
         m.appendReplacement(sb,m.group());
         continue;
       }
-      outerRelativeSpanTagDepth=spanTagDepth;
+      lastRelUnitnTagDepth=tagDepth;
     }
     m.appendReplacement(sb,String.format(Locale.US,"font-size:%.2f%s;",doubleSize,m.group(2)));
   }
