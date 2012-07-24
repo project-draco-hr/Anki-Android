@@ -3,8 +3,7 @@
   Log.i(AnkiDroidApp.TAG,"StudyOptions - createView()");
   restorePreferences();
   mFragmented=getActivity().getClass() != StudyOptionsActivity.class;
-  mCol=AnkiDroidApp.getCol();
-  if (mCol == null) {
+  if (!AnkiDroidApp.colIsOpen()) {
     reloadCollection();
     return null;
   }
@@ -22,7 +21,7 @@
 ;
   }
   if (getArguments().getBoolean("onlyFnsMsg")) {
-    mTextCongratsMessage.setText(mCol.getSched().finishedMsg(getActivity()));
+    mTextCongratsMessage.setText(AnkiDroidApp.getCol().getSched().finishedMsg(getActivity()));
     mButtonCongratsFinish.setVisibility(View.GONE);
     return mCongratsView;
   }

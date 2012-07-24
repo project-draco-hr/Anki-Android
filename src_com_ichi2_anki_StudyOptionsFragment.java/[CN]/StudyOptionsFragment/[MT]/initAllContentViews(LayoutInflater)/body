@@ -4,7 +4,7 @@
   mTextDeckName=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_name);
   mTextDeckDescription=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_description);
   mButtonStart=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_start);
-  if (mCol != null && mCol.getDecks().isDyn(mCol.getDecks().selected())) {
+  if (AnkiDroidApp.colIsOpen() && AnkiDroidApp.getCol().getDecks().isDyn(AnkiDroidApp.getCol().getDecks().selected())) {
     Button rebBut=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_rebuild_cram);
     rebBut.setOnClickListener(mButtonClickListener);
     Button emptyBut=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_empty_cram);

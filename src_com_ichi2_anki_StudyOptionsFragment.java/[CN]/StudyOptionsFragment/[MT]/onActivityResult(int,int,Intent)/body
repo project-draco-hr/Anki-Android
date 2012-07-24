@@ -13,7 +13,7 @@
   }
  else   if (requestCode == DECK_OPTIONS) {
     try {
-      JSONObject deck=mCol.getDecks().current();
+      JSONObject deck=AnkiDroidApp.getCol().getDecks().current();
       if (deck.getInt("dyn") != 0 && deck.has("empty") && deck.getBoolean("empty")) {
         deck.remove("empty");
         rebuildCramDeck();
@@ -37,7 +37,7 @@ default :
       resetAndUpdateValuesFromDeck();
     break;
 case Reviewer.RESULT_NO_MORE_CARDS:
-  mTextCongratsMessage.setText(mCol.getSched().finishedMsg(getActivity()));
+  mTextCongratsMessage.setText(AnkiDroidApp.getCol().getSched().finishedMsg(getActivity()));
 setFragmentContentView(mCongratsView);
 break;
 }
