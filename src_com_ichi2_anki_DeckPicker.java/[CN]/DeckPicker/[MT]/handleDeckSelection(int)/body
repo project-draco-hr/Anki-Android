@@ -1,4 +1,7 @@
 {
+  if (!AnkiDroidApp.colIsOpen()) {
+    loadCollection();
+  }
   String deckFilename=null;
   @SuppressWarnings("unchecked") HashMap<String,String> data=(HashMap<String,String>)mDeckListAdapter.getItem(id);
   Log.i(AnkiDroidApp.TAG,"Selected " + deckFilename);
