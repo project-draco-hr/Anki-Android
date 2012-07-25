@@ -1,0 +1,36 @@
+{
+  StringBuffer sb=new StringBuffer();
+  Matcher m1=fHtmlColorPattern.matcher(text);
+  while (m1.find()) {
+    String color=HtmlColors.nameToHex(m1.group(2));
+    Matcher m2=null;
+    try {
+      if (color.length() == 4 && color.charAt(0) == '#') {
+        m2=fShortHexColorPattern.matcher(color);
+        if (m2.find()) {
+          color=String.format(Locale.US,"#%x%x%x",0xf - Integer.parseInt(m2.group(1),16),0xf - Integer.parseInt(m2.group(2),16),0xf - Integer.parseInt(m2.group(3),16));
+        }
+      }
+ else       if (color.length() == 7 && color.charAt(0) == '#') {
+        m2=fLongHexColorPattern.matcher(color);
+        if (m2.find()) {
+          color=String.format(Locale.US,"#%02x%02x%02x",0xff - Integer.parseInt(m2.group(1),16),0xff - Integer.parseInt(m2.group(2),16),0xff - Integer.parseInt(m2.group(3),16));
+        }
+      }
+ else       if (color.length() > 9 && color.toLowerCase().startsWith("rgb")) {
+        m2=fRgbColorPattern.matcher(color);
+        if (m2.find()) {
+          color=String.format(Locale.US,"rgb(%d, %d, %d)",0xff - Integer.parseInt(m2.group(1)),0xff - Integer.parseInt(m2.group(2)),0xff - Integer.parseInt(m2.group(3)));
+        }
+      }
+    }
+ catch (    NumberFormatException e) {
+    }
+    m1.appendReplacement(sb,m1.group(1) + color + m1.group(3));
+  }
+  m1.appendTail(sb);
+  String invertedText=sb.toString();
+  Matcher mc=fClozeStylePattern.matcher(invertedText);
+  invertedText=mc.replaceAll("$10088ff$2");
+  return invertedText;
+}
