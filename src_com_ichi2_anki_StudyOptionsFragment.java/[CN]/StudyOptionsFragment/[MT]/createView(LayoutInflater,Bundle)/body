@@ -2,12 +2,11 @@
   super.onCreate(savedInstanceState);
   Log.i(AnkiDroidApp.TAG,"StudyOptions - createView()");
   restorePreferences();
-  mCol=AnkiDroidApp.getCol();
-  if (mCol == null) {
+  mFragmented=getActivity().getClass() != StudyOptionsActivity.class;
+  if (!AnkiDroidApp.colIsOpen()) {
     reloadCollection();
     return null;
   }
-  mFragmented=getActivity().getClass() != StudyOptionsActivity.class;
   initAllContentViews(inflater);
   if (mSwipeEnabled) {
     gestureDetector=new GestureDetector(new MyGestureDetector());
@@ -22,7 +21,7 @@
 ;
   }
   if (getArguments().getBoolean("onlyFnsMsg")) {
-    mTextCongratsMessage.setText(mCol.getSched().finishedMsg(getActivity()));
+    mTextCongratsMessage.setText(AnkiDroidApp.getCol().getSched().finishedMsg(getActivity()));
     mButtonCongratsFinish.setVisibility(View.GONE);
     return mCongratsView;
   }

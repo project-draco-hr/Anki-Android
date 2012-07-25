@@ -35,7 +35,7 @@ FieldEditText field=(FieldEditText)focus;
 if (!field.isSelected()) {
 field.selectAll();
 }
-Lookup.lookUp(field.getText().toString().substring(field.getSelectionStart(),field.getSelectionEnd()),null);
+Lookup.lookUp(field.getText().toString().substring(field.getSelectionStart(),field.getSelectionEnd()));
 }
 return true;
 case MENU_RESET_CARD_PROGRESS:

@@ -9,8 +9,7 @@
           Log.e(AnkiDroidApp.TAG,"onPostExecute - Dialog dismiss Exception = " + e.getMessage());
         }
       }
-      mCol=result.getCollection();
-      if (mCol == null) {
+      if (!AnkiDroidApp.colIsOpen()) {
         closeStudyOptions();
       }
  else       if (!mFragmented) {
