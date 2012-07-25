@@ -119,7 +119,7 @@ builder.setIcon(R.drawable.ic_dialog_alert);
 builder.setSingleChoiceItems(new String[]{"1"},0,null);
 builder.setOnCancelListener(new OnCancelListener(){
 @Override public void onCancel(DialogInterface dialog){
-if (!AnkiDroidApp.colIsOpen()) {
+if (mLoadFailed) {
 showDialog(DIALOG_LOAD_FAILED);
 }
  else {
@@ -130,7 +130,7 @@ showDialog(DIALOG_DB_ERROR);
 );
 builder.setNegativeButton(res.getString(R.string.cancel),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
-if (!AnkiDroidApp.colIsOpen()) {
+if (mLoadFailed) {
 showDialog(DIALOG_LOAD_FAILED);
 }
  else {
@@ -277,6 +277,39 @@ case DIALOG_SYNC_ERROR:
 builder.setPositiveButton(res.getString(R.string.sync_conflict_local),mSyncConflictResolutionListener);
 builder.setNeutralButton(res.getString(R.string.sync_conflict_remote),mSyncConflictResolutionListener);
 builder.setNegativeButton(res.getString(R.string.sync_conflict_cancel),mSyncConflictResolutionListener);
+builder.setTitle(res.getString(R.string.sync_log_title));
+dialog=builder.create();
+break;
+case DIALOG_SYNC_UPGRADE_REQUIRED:
+builder.setMessage(res.getString(R.string.upgrade_required,res.getString(R.string.link_anki)));
+builder.setPositiveButton(res.getString(R.string.retry),new DialogInterface.OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+sync("download",mSyncMediaUsn);
+}
+}
+);
+builder.setNegativeButton(res.getString(R.string.cancel),new DialogInterface.OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+if (mLoadFailed) {
+showDialog(DIALOG_LOAD_FAILED);
+}
+ else {
+showDialog(DIALOG_DB_ERROR);
+}
+}
+}
+);
+builder.setOnCancelListener(new OnCancelListener(){
+@Override public void onCancel(DialogInterface arg0){
+if (mLoadFailed) {
+showDialog(DIALOG_LOAD_FAILED);
+}
+ else {
+showDialog(DIALOG_DB_ERROR);
+}
+}
+}
+);
 builder.setTitle(res.getString(R.string.sync_log_title));
 dialog=builder.create();
 break;
