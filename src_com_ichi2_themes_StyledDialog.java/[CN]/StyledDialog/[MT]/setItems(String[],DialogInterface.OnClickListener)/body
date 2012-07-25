@@ -1,0 +1,5 @@
+{
+  View main=super.getWindow().getDecorView();
+  ((View)main.findViewById(R.id.listViewPanel)).setVisibility(View.VISIBLE);
+  setItems(1,(ListView)super.getWindow().getDecorView().findViewById(R.id.listview),values,0,null,listener);
+}
