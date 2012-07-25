@@ -1,4 +1,5 @@
 {
+  AnkiDatabaseManager.closeDatabase(AnkiDroidApp.getCollectionPath());
   DeckTask.launchDeckTask(DeckTask.TASK_TYPE_RESTORE_IF_MISSING,new DeckTask.TaskListener(){
     @Override public void onPreExecute(){
       mProgressDialog=StyledProgressDialog.show(DeckPicker.this,"",getResources().getString(R.string.backup_restore_if_missing),true);
