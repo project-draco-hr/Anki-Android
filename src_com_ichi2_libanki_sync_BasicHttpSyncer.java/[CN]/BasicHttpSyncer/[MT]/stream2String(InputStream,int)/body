@@ -1,0 +1,21 @@
+{
+  BufferedReader rd;
+  try {
+    rd=new BufferedReader(new InputStreamReader(stream,"UTF-8"),Math.min(4096,maxSize));
+    String line;
+    StringBuilder sb=new StringBuilder();
+    while ((line=rd.readLine()) != null && (maxSize == -1 || sb.length() < maxSize)) {
+      sb.append(line);
+      bytesReceived+=line.length();
+      publishProgress();
+    }
+    rd.close();
+    return sb.toString();
+  }
+ catch (  UnsupportedEncodingException e) {
+    throw new RuntimeException(e);
+  }
+catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+}
