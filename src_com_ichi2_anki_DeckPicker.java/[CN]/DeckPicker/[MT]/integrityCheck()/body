@@ -18,7 +18,7 @@
         dialog.show();
       }
  else {
-        showDialog(DIALOG_DB_ERROR);
+        handleDbError();
       }
     }
     @Override public void onProgressUpdate(    TaskData... values){

@@ -13,12 +13,23 @@
 catch (  IOException e1) {
     return null;
   }
-  String path=mCol.getPath();
-  mCol.close(false);
-  mCol=null;
+  String path=AnkiDroidApp.getCollectionPath();
+  if (mCol != null) {
+    mCol.close(false);
+    mCol=null;
+  }
   String tpath=path + ".tmp";
   if (!super.writeToFile(cont,tpath)) {
     return new Object[]{"sdAccessError"};
+  }
+  try {
+    FileInputStream fis=new FileInputStream(tpath);
+    if (super.stream2String(fis,15).equals("upgradeRequired")) {
+      return new Object[]{"upgradeRequired"};
+    }
+  }
+ catch (  FileNotFoundException e1) {
+    throw new RuntimeException(e1);
   }
   mCon.publishProgress(R.string.sync_check_download_file);
   try {
@@ -30,15 +41,6 @@ catch (  IOException e1) {
   }
  catch (  SQLiteDatabaseCorruptException e) {
     Log.e(AnkiDroidApp.TAG,"Full sync - downloaded file corrupt");
-    try {
-      FileInputStream fis=new FileInputStream(tpath);
-      if (super.stream2String(fis).equals("upgradeRequired")) {
-        return new Object[]{"upgradeRequired"};
-      }
-    }
- catch (    FileNotFoundException e1) {
-      throw new RuntimeException(e1);
-    }
     return new Object[]{"remoteDbError"};
   }
  finally {
