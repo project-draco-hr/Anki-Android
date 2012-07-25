@@ -7,7 +7,7 @@
   boolean colCorruptFullSync=false;
   Collection col=AnkiDroidApp.getCol();
   if (col == null) {
-    if (conflictResolution.equals("download")) {
+    if (conflictResolution != null && conflictResolution.equals("download")) {
       colCorruptFullSync=true;
     }
  else {
