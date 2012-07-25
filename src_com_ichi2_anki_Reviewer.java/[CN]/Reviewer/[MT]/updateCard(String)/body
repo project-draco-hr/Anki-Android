@@ -23,7 +23,7 @@
   style.append(mCustomFontStyle);
   Log.i(AnkiDroidApp.TAG,"::style::" + style);
   if (mNightMode) {
-    content=Models.invertColors(content);
+    content=HtmlColors.invertColors(content);
   }
   mCardContent=new SpannedString(mCardTemplate.replace("::content::",content).replace("::style::",style.toString()));
   Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);

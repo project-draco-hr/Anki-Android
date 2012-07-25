@@ -38,7 +38,7 @@
         DiffEngine diff=new DiffEngine();
         StringBuffer span=new StringBuffer();
         span.append("<span style=\"font-family: '").append(mTypeFont).append("'; font-size: ").append(mTypeSize).append("px\">");
-        span.append(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer)));
+        span.append(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer),mNightMode));
         span.append("</span>");
         span.append("<br/>").append(answer);
         displayString=enrichWithQADiv(span.toString(),true);
