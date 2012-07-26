@@ -8,7 +8,6 @@
   if (mCurrentCard == null) {
     mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
   }
-  int questionStartsAt=content.indexOf("<a name=\"question\"></a><hr/>");
   String question="";
   String answer="";
   Sound.resetSounds();
@@ -24,8 +23,9 @@
   style.append(mCustomFontStyle);
   Log.i(AnkiDroidApp.TAG,"::style::" + style);
   if (mNightMode) {
-    content=Models.invertColors(content);
+    content=HtmlColors.invertColors(content);
   }
+  content=SmpToHtmlEntity(content);
   mCardContent=new SpannedString(mCardTemplate.replace("::content::",content).replace("::style::",style.toString()));
   Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
   fillFlashcard(mShowAnimations);

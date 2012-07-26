@@ -10,14 +10,12 @@
   mNightMode=preferences.getBoolean("invertedColors",false);
   mInvertedColors=mNightMode;
   mBlackWhiteboard=preferences.getBoolean("blackWhiteboard",true);
-  mSwapQA=preferences.getBoolean("swapqa",false);
   mPrefFullscreenReview=preferences.getBoolean("fullscreenReview",false);
   mshowNextReviewTime=preferences.getBoolean("showNextReviewTime",true);
   mZoomEnabled=preferences.getBoolean("zoom",false);
   mDisplayFontSize=preferences.getInt("relativeDisplayFontSize",100);
   mRelativeButtonSize=preferences.getInt("answerButtonSize",100);
   mInputWorkaround=preferences.getBoolean("inputWorkaround",false);
-  mPrefFixHebrew=preferences.getBoolean("fixHebrewText",false);
   mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
   mSpeakText=preferences.getBoolean("tts",false);
   mPlaySoundsAtStart=preferences.getBoolean("playSoundsAtStart",true);
@@ -52,7 +50,6 @@
     mAnimationDurationTurn=animationDuration;
     mAnimationDurationMove=animationDuration;
   }
-  mLocale=preferences.getString("language","");
   if (preferences.getBoolean("fixOrientation",false)) {
     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
       setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);

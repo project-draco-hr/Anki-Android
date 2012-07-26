@@ -48,7 +48,7 @@
       e.printStackTrace();
     }
     mSessionCurrReps=0;
-    if (mSpeakText && Integer.valueOf(android.os.Build.VERSION.SDK) > 3) {
+    if (mSpeakText) {
       ReadText.initializeTts(this,mCollectionFilename);
     }
     if (mPrefWhiteboard && MetaDB.getWhiteboardState(this,mCollectionFilename) == 1) {
