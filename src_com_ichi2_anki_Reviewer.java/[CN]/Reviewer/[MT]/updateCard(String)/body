@@ -25,6 +25,7 @@
   if (mNightMode) {
     content=HtmlColors.invertColors(content);
   }
+  content=SmpToHtmlEntity(content);
   mCardContent=new SpannedString(mCardTemplate.replace("::content::",content).replace("::style::",style.toString()));
   Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
   fillFlashcard(mShowAnimations);
