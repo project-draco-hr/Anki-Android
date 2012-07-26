@@ -3,14 +3,14 @@
   StyledDialog ad=(StyledDialog)dialog;
 switch (id) {
 case DIALOG_DELETE_DECK:
-    if (AnkiDroidApp.colIsOpen() || mDeckList == null) {
+    if (AnkiDroidApp.colIsOpen() || mDeckList == null || mDeckList.size() == 0) {
       return;
     }
   mCurrentDid=Long.parseLong(mDeckList.get(mContextMenuPosition).get("did"));
 ad.setMessage(String.format(res.getString(R.string.delete_deck_message),"\'" + AnkiDroidApp.getCol().getDecks().name(mCurrentDid) + "\'"));
 break;
 case DIALOG_CONTEXT_MENU:
-if (!AnkiDroidApp.colIsOpen() || mDeckList == null) {
+if (!AnkiDroidApp.colIsOpen() || mDeckList == null || mDeckList.size() == 0) {
 return;
 }
 mCurrentDid=Long.parseLong(mDeckList.get(mContextMenuPosition).get("did"));
@@ -21,7 +21,14 @@ case DIALOG_SYNC_ERROR:
 ad.setMessage(mDialogMessage);
 break;
 case DIALOG_DB_ERROR:
+mLoadFailed=false;
 ad.getButton(Dialog.BUTTON3).setEnabled(hasErrorFiles());
+break;
+case DIALOG_LOAD_FAILED:
+mLoadFailed=true;
+if (mOpenCollectionDialog != null && mOpenCollectionDialog.isShowing()) {
+mOpenCollectionDialog.setMessage(res.getString(R.string.col_load_failed));
+}
 break;
 case DIALOG_ERROR_HANDLING:
 ArrayList<String> options=new ArrayList<String>();
@@ -48,7 +55,7 @@ for (int i=0; i < options.size(); i++) {
 titles[i]=options.get(i);
 mRepairValues[i]=values.get(i);
 }
-ad.setSingleChoiceItems(titles,0,new DialogInterface.OnClickListener(){
+ad.setItems(titles,new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 switch (mRepairValues[which]) {
 case 0:
