@@ -8,18 +8,20 @@
       cnt=_import();
     }
   finally {
-      mSrc.close(false);
+      AnkiDatabaseManager.closeDatabase(mSrc.getPath());
     }
     JSONObject media=new JSONObject(Utils.convertStreamToString(new FileInputStream(fileDir + "/media")));
     String mediaDir=mCol.getMedia().getDir() + "/";
     JSONArray names=media.names();
-    for (int i=0; i < names.length(); i++) {
-      String n=names.getString(i);
-      String o=media.getString(n);
-      File of=new File(mediaDir + o);
-      if (!of.exists()) {
-        File newFile=new File(fileDir + "/" + n);
-        newFile.renameTo(of);
+    if (names != null) {
+      for (int i=0; i < names.length(); i++) {
+        String n=names.getString(i);
+        String o=media.getString(n);
+        File of=new File(mediaDir + o);
+        if (!of.exists()) {
+          File newFile=new File(fileDir + "/" + n);
+          newFile.renameTo(of);
+        }
       }
     }
     File dir=new File(fileDir);
