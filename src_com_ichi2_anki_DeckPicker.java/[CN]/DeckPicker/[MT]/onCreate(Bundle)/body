@@ -8,10 +8,16 @@
     if (intent != null && intent.getExtras() != null) {
       reloadIntent.putExtras(intent.getExtras());
     }
+    if (intent != null && intent.getData() != null) {
+      reloadIntent.setData(intent.getData());
+    }
     reloadIntent.addCategory(Intent.CATEGORY_LAUNCHER);
     reloadIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    finishWithAnimation();
+    finish();
     startActivityIfNeeded(reloadIntent,0);
+  }
+  if (intent.getData() != null) {
+    mImportPath=getIntent().getData().getEncodedPath();
   }
   if (AnkiDroidApp.colIsOpen()) {
     setTitle(getResources().getString(R.string.app_name));

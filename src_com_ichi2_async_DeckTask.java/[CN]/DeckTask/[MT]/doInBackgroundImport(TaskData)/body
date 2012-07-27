@@ -1,0 +1,31 @@
+{
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundImport");
+  Collection col=params[0].getCollection();
+  String path=params[0].getString();
+  Anki2Importer imp=new Anki2Importer(col,path);
+  int addedCount=-1;
+  try {
+    AnkiDb ankiDB=col.getDb();
+    ankiDB.getDatabase().beginTransaction();
+    try {
+      addedCount=imp.run();
+      ankiDB.getDatabase().setTransactionSuccessful();
+    }
+  finally {
+      ankiDB.getDatabase().endTransaction();
+    }
+    ankiDB.execute("VACUUM");
+    ankiDB.execute("ANALYZE");
+    Object[] counts=null;
+    if (addedCount != -1) {
+      DeckTask.TaskData result=doInBackgroundLoadDeckCounts(new TaskData(col));
+      if (result != null) {
+        counts=result.getObjArray();
+      }
+    }
+    return new TaskData(addedCount,counts,true);
+  }
+ catch (  RuntimeException e) {
+    throw new RuntimeException(e);
+  }
+}

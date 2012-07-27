@@ -1,0 +1,30 @@
+{
+  try {
+    if (mDecks.containsKey(did)) {
+      return mDecks.get(did);
+    }
+    JSONObject g=mSrc.getDecks().get(did);
+    String name=g.getString("name");
+    if (mDeckPrefix != null) {
+      String[] tmpname=name.split("::");
+      name=mDeckPrefix;
+      if (tmpname.length > 1) {
+        for (int i=0; i < tmpname.length - 2; i++) {
+          name+="::" + tmpname[i + 1];
+        }
+      }
+    }
+    long newid=mDst.getDecks().id(name);
+    if (g.has("conf") && g.getLong("conf") != 1) {
+      mDst.getDecks().updateConf(mSrc.getDecks().getConf(g.getLong("conf")));
+      JSONObject g2=mDst.getDecks().get(newid);
+      g2.put("conf",g.getLong("conf"));
+      mDst.getDecks().save(g2);
+    }
+    mDecks.put(did,newid);
+    return newid;
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

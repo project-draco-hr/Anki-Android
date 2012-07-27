@@ -1,0 +1,20 @@
+{
+  try {
+    if (mNeedCards) {
+      mDst.getConf().put("nextPos",mDst.getDb().queryLongScalar("SELECT max(due) + 1 FROM cards WHERE type = 0",false));
+    }
+ else {
+      for (      long mid : mModelMap.values()) {
+        JSONObject m=mDst.getModels().get(mid);
+        if (!m.has("needWizard") || m.getInt("needWizard") == 0) {
+          m.put("needWizard",2);
+          mDst.getModels().save(m);
+        }
+      }
+    }
+    mDst.save();
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

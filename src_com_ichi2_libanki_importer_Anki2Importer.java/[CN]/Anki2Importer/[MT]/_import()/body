@@ -1,0 +1,13 @@
+{
+  mDecks=new HashMap<Long,Long>();
+  if (mDeckPrefix != null) {
+    long id=mDst.getDecks().id(mDeckPrefix);
+    mDst.getDecks().select(id);
+  }
+  _prepareTS();
+  _prepareModels();
+  _importNotes();
+  int cnt=_importCards();
+  _postImport();
+  return cnt;
+}
