@@ -11,34 +11,40 @@
   if (resultCode == DeckPicker.RESULT_MEDIA_EJECTED) {
     closeStudyOptions(DeckPicker.RESULT_MEDIA_EJECTED);
   }
- else   if (requestCode == DECK_OPTIONS) {
-    try {
-      JSONObject deck=AnkiDroidApp.getCol().getDecks().current();
-      if (deck.getInt("dyn") != 0 && deck.has("empty") && deck.getBoolean("empty")) {
-        deck.remove("empty");
-        rebuildCramDeck();
-      }
  else {
-        resetAndUpdateValuesFromDeck();
+    if (!AnkiDroidApp.colIsOpen()) {
+      reloadCollection();
+      mDontSaveOnStop=false;
+      return;
+    }
+    if (requestCode == DECK_OPTIONS) {
+      try {
+        JSONObject deck=AnkiDroidApp.getCol().getDecks().current();
+        if (deck.getInt("dyn") != 0 && deck.has("empty") && deck.getBoolean("empty")) {
+          deck.remove("empty");
+          rebuildCramDeck();
+        }
+ else {
+          resetAndUpdateValuesFromDeck();
+        }
+      }
+ catch (      JSONException e) {
+        throw new RuntimeException(e);
       }
     }
- catch (    JSONException e) {
-      throw new RuntimeException(e);
+ else     if (requestCode == ADD_NOTE && resultCode != Activity.RESULT_CANCELED) {
+      resetAndUpdateValuesFromDeck();
     }
-  }
- else   if (requestCode == ADD_NOTE && resultCode != Activity.RESULT_CANCELED) {
-    resetAndUpdateValuesFromDeck();
-  }
- else   if (requestCode == REQUEST_REVIEW) {
-    Log.i(AnkiDroidApp.TAG,"Result code = " + resultCode);
+ else     if (requestCode == REQUEST_REVIEW) {
+      Log.i(AnkiDroidApp.TAG,"Result code = " + resultCode);
 switch (resultCode) {
 case Reviewer.RESULT_SESSION_COMPLETED:
 default :
-      resetAndUpdateValuesFromDeck();
-    break;
+        resetAndUpdateValuesFromDeck();
+      break;
 case Reviewer.RESULT_NO_MORE_CARDS:
-  mTextCongratsMessage.setText(AnkiDroidApp.getCol().getSched().finishedMsg(getActivity()));
-setFragmentContentView(mCongratsView);
+    mTextCongratsMessage.setText(AnkiDroidApp.getCol().getSched().finishedMsg(getActivity()));
+  setFragmentContentView(mCongratsView);
 break;
 }
 mDontSaveOnStop=false;
@@ -50,5 +56,6 @@ resetAndUpdateValuesFromDeck();
  else if (requestCode == STATISTICS && mCurrentContentView == CONTENT_CONGRATS) {
 resetAndUpdateValuesFromDeck();
 setFragmentContentView(mStudyOptionsView);
+}
 }
 }

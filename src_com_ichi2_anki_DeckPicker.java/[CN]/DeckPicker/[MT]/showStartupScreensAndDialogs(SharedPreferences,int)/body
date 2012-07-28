@@ -41,6 +41,9 @@
     showDialog(DIALOG_BACKUP_NO_SPACE_LEFT);
     preferences.edit().putBoolean("noSpaceLeft",false).commit();
   }
+ else   if (mImportPath != null && AnkiDroidApp.colIsOpen()) {
+    showDialog(DIALOG_IMPORT);
+  }
  else   if (!AnkiDroidApp.colIsOpen()) {
     loadCollection();
   }
