@@ -1,0 +1,37 @@
+{
+  try {
+    String fileDir=AnkiDroidApp.getDefaultAnkiDroidDirectory() + "/tmpzip";
+    Utils.unzip(mFile,fileDir);
+    _prepareFiles(fileDir + "/collection.anki2");
+    int cnt=-1;
+    try {
+      cnt=_import();
+    }
+  finally {
+      AnkiDatabaseManager.closeDatabase(mSrc.getPath());
+    }
+    JSONObject media=new JSONObject(Utils.convertStreamToString(new FileInputStream(fileDir + "/media")));
+    String mediaDir=mCol.getMedia().getDir() + "/";
+    JSONArray names=media.names();
+    if (names != null) {
+      for (int i=0; i < names.length(); i++) {
+        String n=names.getString(i);
+        String o=media.getString(n);
+        File of=new File(mediaDir + o);
+        if (!of.exists()) {
+          File newFile=new File(fileDir + "/" + n);
+          newFile.renameTo(of);
+        }
+      }
+    }
+    File dir=new File(fileDir);
+    BackupManager.removeDir(dir);
+    return cnt;
+  }
+ catch (  IOException e) {
+    return -1;
+  }
+catch (  JSONException e) {
+    return -1;
+  }
+}

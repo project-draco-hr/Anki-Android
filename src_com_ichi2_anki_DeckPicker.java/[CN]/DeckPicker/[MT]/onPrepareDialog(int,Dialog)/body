@@ -16,6 +16,7 @@ return;
 mCurrentDid=Long.parseLong(mDeckList.get(mContextMenuPosition).get("did"));
 ad.setTitle(AnkiDroidApp.getCol().getDecks().name(mCurrentDid));
 break;
+case DIALOG_IMPORT_LOG:
 case DIALOG_SYNC_LOG:
 case DIALOG_SYNC_ERROR:
 ad.setMessage(mDialogMessage);
