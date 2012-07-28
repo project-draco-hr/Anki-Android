@@ -2,10 +2,14 @@
   StyledDialog ad=(StyledDialog)dialog;
 switch (id) {
 case DIALOG_TAGS_SELECT:
-    selectedTags=new ArrayList<String>();
-  for (  String s : mEditorNote.getTags()) {
-    selectedTags.add(s);
-  }
+    if (mEditorNote == null) {
+      dialog=null;
+      return;
+    }
+  selectedTags=new ArrayList<String>();
+for (String s : mEditorNote.getTags()) {
+  selectedTags.add(s);
+}
 actualizeTagDialog(ad);
 break;
 case DIALOG_INTENT_INFORMATION:
