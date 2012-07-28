@@ -1,2 +1,3 @@
 {
+  return new Pair<Long,Long>(mMediaDb.queryLongScalar("select count() from log"),mMediaDb.queryLongScalar("select count() from media"));
 }
