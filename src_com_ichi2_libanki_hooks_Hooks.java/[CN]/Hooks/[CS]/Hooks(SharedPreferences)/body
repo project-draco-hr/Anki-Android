@@ -1,0 +1,12 @@
+{
+  hooks=new HashMap<String,List<Hook>>();
+  new FuriganaFilters().install(this);
+  new HintFilter().install(this);
+  new LaTeX().installHook(this);
+  if (prefs.getBoolean("fixHebrewText",false)) {
+    HebrewFixFilter.install(this);
+  }
+  if (prefs.getBoolean("convertFenText",false)) {
+    ChessFilter.install(this);
+  }
+}

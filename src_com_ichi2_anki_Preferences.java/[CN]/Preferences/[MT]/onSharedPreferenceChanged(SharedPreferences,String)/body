@@ -92,6 +92,7 @@ ChessFilter.uninstall(AnkiDroidApp.getHooks());
  else if (key.equals("fixHebrewText")) {
 if (fixHebrewText.isChecked()) {
 HebrewFixFilter.install(AnkiDroidApp.getHooks());
+showDialog(DIALOG_HEBREW_FONT);
 }
  else {
 HebrewFixFilter.uninstall(AnkiDroidApp.getHooks());

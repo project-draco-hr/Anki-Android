@@ -1,0 +1,26 @@
+{
+  StringBuffer sb=new StringBuffer(text.length());
+  int codePoint=0;
+  for (int i=0; i < text.length(); i++) {
+    codePoint=text.codePointAt(i);
+    if (codePoint >= 1424 && codePoint < 1536) {
+      sb.append(String.valueOf((char)(codePoint - 400)));
+    }
+ else     if (codePoint >= 64281 && codePoint < 64336) {
+      sb.append(String.valueOf((char)(codePoint - 63138)));
+    }
+ else     if (codePoint >= 59393 && codePoint < 59398) {
+      sb.append(String.valueOf((char)(codePoint - 58257)));
+    }
+ else     if (codePoint >= 59408 && codePoint < 59410) {
+      sb.append(String.valueOf((char)(codePoint - 58267)));
+    }
+ else     if (codePoint >= 1114131 && codePoint < 1114132) {
+      sb.append(String.valueOf((char)(codePoint - 1112933)));
+    }
+ else {
+      sb.append((text.charAt(i)));
+    }
+  }
+  return sb.toString();
+}
