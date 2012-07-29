@@ -97,7 +97,7 @@
     col.clearUndo();
   }
   boolean noMediaChanges=false;
-  boolean mediaError=false;
+  String mediaError=null;
   if (media) {
     server=new RemoteMediaServer(hkey,this);
     MediaSyncer mediaClient=new MediaSyncer(col,(RemoteMediaServer)server);
@@ -105,12 +105,15 @@
     try {
       ret=mediaClient.sync(mediaUsn,this);
       if (ret == null) {
-        mediaError=true;
+        mediaError=AnkiDroidApp.getAppResources().getString(R.string.sync_media_error);
       }
  else {
         if (ret.equals("noChanges")) {
           publishProgress(R.string.sync_media_no_changes);
           noMediaChanges=true;
+        }
+        if (ret.equals("sanityFailed")) {
+          mediaError=AnkiDroidApp.getAppResources().getString(R.string.sync_media_sanity_failed);
         }
  else {
           publishProgress(R.string.sync_media_success);
@@ -119,7 +122,7 @@
     }
  catch (    RuntimeException e) {
       AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundSync-mediaSync");
-      mediaError=true;
+      mediaError=e.getLocalizedMessage();
     }
   }
   if (noChanges && noMediaChanges) {

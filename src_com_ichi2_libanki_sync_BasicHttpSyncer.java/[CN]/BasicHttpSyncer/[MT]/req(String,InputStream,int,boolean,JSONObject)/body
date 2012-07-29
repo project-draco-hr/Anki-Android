@@ -23,14 +23,14 @@
       byte[] chunk=new byte[65536];
       if (comp != 0) {
         tgt=new GZIPOutputStream(bos);
-        while ((len=bfobj.read(chunk)) > 0) {
+        while ((len=bfobj.read(chunk)) >= 0) {
           tgt.write(chunk,0,len);
         }
         tgt.close();
         bos=new BufferedOutputStream(new FileOutputStream(tmpFileBuffer,true));
       }
  else {
-        while ((len=bfobj.read(chunk)) > 0) {
+        while ((len=bfobj.read(chunk)) >= 0) {
           bos.write(chunk,0,len);
         }
       }
