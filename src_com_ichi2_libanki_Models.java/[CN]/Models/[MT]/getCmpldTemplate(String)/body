@@ -1,0 +1,6 @@
+{
+  if (!mCmpldTemplateMap.containsKey(format)) {
+    mCmpldTemplateMap.put(format,Mustache.compiler().compile(format));
+  }
+  return mCmpldTemplateMap.get(format);
+}
