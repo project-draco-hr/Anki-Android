@@ -10,12 +10,12 @@
     mCompat=new CompatV4();
   }
   sInstance=this;
-  sInstance.mHooks=new Hooks();
   Connection.setContext(getApplicationContext());
   CustomExceptionHandler customExceptionHandler=CustomExceptionHandler.getInstance();
   customExceptionHandler.init(sInstance.getApplicationContext());
   Thread.setDefaultUncaughtExceptionHandler(customExceptionHandler);
   SharedPreferences preferences=getSharedPrefs(this);
+  sInstance.mHooks=new Hooks(preferences);
   sInstance.mLanguage=mLanguage=preferences.getString("language","");
   if (!preferences.contains("deckPath")) {
     Editor editor=preferences.edit();

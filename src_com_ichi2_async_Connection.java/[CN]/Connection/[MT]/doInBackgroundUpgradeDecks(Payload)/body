@@ -28,7 +28,7 @@
       ZipEntry ze=new ZipEntry(tmpName);
       zos.putNextEntry(ze);
       int len;
-      while ((len=in.read(buf)) > 0) {
+      while ((len=in.read(buf)) >= 0) {
         zos.write(buf,0,len);
       }
       zos.closeEntry();
@@ -39,7 +39,7 @@
     zos.putNextEntry(ze);
     InputStream in=new ByteArrayInputStream(map.toString().getBytes("UTF-8"));
     int len;
-    while ((len=in.read(buf)) > 0) {
+    while ((len=in.read(buf)) >= 0) {
       zos.write(buf,0,len);
     }
     zos.closeEntry();
@@ -132,14 +132,40 @@ catch (  JSONException e) {
     Collection col=AnkiDroidApp.openCollection(colFilename);
     ArrayList<String> decks=col.getDecks().allNames(false);
     ArrayList<String> failed=new ArrayList<String>();
+    ArrayList<File> mediaDirs=new ArrayList<File>();
     for (    File f : fileList) {
-      String name=f.getName().replace(".anki","");
+      String name=f.getName().replaceFirst("\\.anki$","");
       if (!decks.contains(name)) {
         failed.add(name);
       }
+ else {
+        mediaDirs.add(new File(f.getAbsolutePath().replaceFirst("\\.anki$",".media")));
+      }
     }
+    File newMediaDir=new File(col.getMedia().getDir());
     AnkiDroidApp.closeCollection(false);
-    data.data=new Object[]{failed};
+    publishProgress(new Object[]{R.string.upgrade_decks_media});
+    ArrayList<String> failedMedia=new ArrayList<String>();
+    File curMediaDir=null;
+    for (    File mediaDir : mediaDirs) {
+      curMediaDir=mediaDir;
+      if (!curMediaDir.exists() || !curMediaDir.isDirectory()) {
+        curMediaDir=new File(AnkiDroidApp.getDropboxDir(),mediaDir.getName());
+        if (!curMediaDir.exists() || !curMediaDir.isDirectory()) {
+          continue;
+        }
+      }
+      for (      File m : curMediaDir.listFiles()) {
+        try {
+          Utils.copyFile(m,new File(newMediaDir,m.getName()));
+        }
+ catch (        IOException e) {
+          failedMedia.add(curMediaDir.getName().replaceFirst("\\.media$",".anki"));
+          break;
+        }
+      }
+    }
+    data.data=new Object[]{failed,failedMedia,newMediaDir.getAbsolutePath()};
     data.success=true;
     return data;
   }

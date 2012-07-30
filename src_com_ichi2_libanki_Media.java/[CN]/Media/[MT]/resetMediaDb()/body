@@ -1,0 +1,6 @@
+{
+  mMediaDb.execute("delete from log");
+  mMediaDb.execute("delete from media");
+  mMediaDb.execute("delete from meta");
+  mMediaDb.execute("insert into meta values(0,0)");
+}
