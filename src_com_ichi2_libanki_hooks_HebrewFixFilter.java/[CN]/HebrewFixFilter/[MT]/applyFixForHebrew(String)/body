@@ -1,3 +1,12 @@
 {
-  return sHebrewVowelsPattern.matcher(text).replaceAll("");
+  Matcher m=sHebrewPattern.matcher(text);
+  StringBuffer sb=new StringBuffer();
+  while (m.find()) {
+    String hebrewText=m.group();
+    String reversed=new StringBuffer(hebrewText).reverse().toString();
+    String translated=translate(reversed);
+    m.appendReplacement(sb,"<span style=\"font-family:Tohu;\">" + translated + "</span>");
+  }
+  m.appendTail(sb);
+  return sb.toString();
 }
