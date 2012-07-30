@@ -44,7 +44,7 @@
  else   if (mImportPath != null && AnkiDroidApp.colIsOpen()) {
     showDialog(DIALOG_IMPORT);
   }
- else   if (!AnkiDroidApp.colIsOpen()) {
+ else {
     loadCollection();
   }
 }

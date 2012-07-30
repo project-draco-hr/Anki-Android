@@ -7,7 +7,7 @@
   Collection oldCol=AnkiDroidApp.getCol();
   Collection col=null;
   publishProgress(new TaskData(res.getString(R.string.open_collection)));
-  if (oldCol == null || !oldCol.getPath().equals(collectionFile)) {
+  if (!(AnkiDroidApp.colIsOpen() && oldCol.getPath().equals(collectionFile))) {
     if (BackupManager.safetyBackupNeeded(collectionFile)) {
       publishProgress(new TaskData(res.getString(R.string.backup_collection)));
       BackupManager.performBackup(collectionFile);
