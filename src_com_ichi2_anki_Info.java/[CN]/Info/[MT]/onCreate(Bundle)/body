@@ -126,6 +126,14 @@ Connection.upgradeDecks(mUpgradeListener,new Connection.Payload(new Object[]{Ank
 }
 }
 );
+Button syncButton=(Button)findViewById(R.id.info_sync);
+syncButton.setVisibility(View.VISIBLE);
+syncButton.setOnClickListener(new OnClickListener(){
+@Override public void onClick(View arg0){
+downloadCollection();
+}
+}
+);
 StyledDialog.Builder builder2=new StyledDialog.Builder(this);
 builder2.setTitle(res.getString(R.string.connection_error_title));
 builder2.setIcon(R.drawable.ic_dialog_alert);

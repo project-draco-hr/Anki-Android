@@ -1,0 +1,6 @@
+{
+  super.onActivityResult(requestCode,resultCode,intent);
+  if (requestCode == LOG_IN_FOR_SYNC && resultCode == RESULT_OK) {
+    downloadCollection();
+  }
+}
