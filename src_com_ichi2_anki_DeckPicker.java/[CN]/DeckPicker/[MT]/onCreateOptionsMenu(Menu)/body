@@ -22,6 +22,8 @@
   item.setIcon(R.drawable.ic_menu_add);
   item=menu.add(Menu.NONE,MENU_ADD_SHARED_DECK,Menu.NONE,R.string.menu_get_shared_decks);
   item.setIcon(R.drawable.ic_menu_download);
+  item=menu.add(Menu.NONE,MENU_IMPORT,Menu.NONE,R.string.menu_import);
+  item.setIcon(R.drawable.ic_menu_download);
   item=menu.add(Menu.NONE,MENU_PREFERENCES,Menu.NONE,R.string.menu_preferences);
   item.setIcon(R.drawable.ic_menu_preferences);
   item=menu.add(Menu.NONE,MENU_MY_ACCOUNT,Menu.NONE,R.string.menu_my_account);

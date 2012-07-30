@@ -82,5 +82,25 @@ return;
 }
 );
 break;
+case DIALOG_IMPORT_SELECT:
+List<File> fileList=Utils.getImportableDecks(this);
+if (fileList.size() == 0) {
+Themes.showThemedToast(DeckPicker.this,getResources().getString(R.string.import_no_file_found),false);
+}
+ad.setEnabled(fileList.size() != 0);
+String[] tts=new String[fileList.size()];
+mImportValues=new String[fileList.size()];
+for (int i=0; i < tts.length; i++) {
+tts[i]=fileList.get(i).getName().replace(".apkg","");
+mImportValues[i]=fileList.get(i).getAbsolutePath();
+}
+ad.setItems(tts,new DialogInterface.OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+mImportPath=mImportValues[which];
+showDialog(DIALOG_IMPORT);
+}
+}
+);
+break;
 }
 }

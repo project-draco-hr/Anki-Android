@@ -1,0 +1,3 @@
+{
+  return AnkiDroidApp.getSharedPrefs(context).getString("deckPath",AnkiDroidApp.getDefaultAnkiDroidDirectory());
+}
