@@ -99,7 +99,7 @@ builder.show();
 break;
 case TYPE_UPGRADE_DECKS:
 sb.append("<html><body>");
-File[] fileList=(new File(AnkiDroidApp.getDefaultAnkiDroidDirectory())).listFiles(new OldAnkiDeckFilter());
+File[] fileList=(new File(AnkiDroidApp.getCurrentAnkiDroidDirectory(this))).listFiles(new OldAnkiDeckFilter());
 StringBuilder fsb=new StringBuilder();
 fsb.append("<ul>");
 for (File f : fileList) {
@@ -108,7 +108,7 @@ fsb.append("<li>").append(f.getName().replace(".anki","")).append("</li>");
 fsb.append("</ul>");
 sb.append(res.getString(R.string.upgrade_decks_message,fsb.toString()));
 sb.append("<ul><li>");
-sb.append(res.getString(R.string.upgrade_decks_message_pos1,AnkiDroidApp.getDefaultAnkiDroidDirectory()));
+sb.append(res.getString(R.string.upgrade_decks_message_pos1,AnkiDroidApp.getCurrentAnkiDroidDirectory(this)));
 sb.append("</li><li>");
 sb.append(res.getString(R.string.upgrade_decks_message_pos2,res.getString(R.string.link_anki)));
 sb.append("</li><li>");
@@ -122,7 +122,7 @@ but.setVisibility(View.VISIBLE);
 but.setText(res.getString(R.string.upgrade_decks_button));
 but.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
-Connection.upgradeDecks(mUpgradeListener,new Connection.Payload(new Object[]{AnkiDroidApp.getDefaultAnkiDroidDirectory()}));
+Connection.upgradeDecks(mUpgradeListener,new Connection.Payload(new Object[]{AnkiDroidApp.getCurrentAnkiDroidDirectory(Info.this)}));
 }
 }
 );

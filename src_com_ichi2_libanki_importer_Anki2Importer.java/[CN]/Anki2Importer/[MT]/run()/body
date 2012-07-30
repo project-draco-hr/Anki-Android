@@ -1,6 +1,6 @@
 {
   try {
-    String fileDir=AnkiDroidApp.getDefaultAnkiDroidDirectory() + "/tmpzip";
+    String fileDir=AnkiDroidApp.getCurrentAnkiDroidDirectory(AnkiDroidApp.getInstance().getBaseContext()) + "/tmpzip";
     Utils.unzip(mFile,fileDir);
     _prepareFiles(fileDir + "/collection.anki2");
     int cnt=-1;

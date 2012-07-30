@@ -3,7 +3,7 @@
     showDialog(DIALOG_SD_CARD_NOT_MOUNTED);
     return false;
   }
-  File dir=new File(AnkiDroidApp.getDefaultAnkiDroidDirectory());
+  File dir=new File(AnkiDroidApp.getCurrentAnkiDroidDirectory(this));
   if (!dir.isDirectory()) {
     dir.mkdirs();
   }
