@@ -1,3 +1,3 @@
 {
-  return sInstance.mCurrentCollection != null && sInstance.mCurrentCollection.getDb() != null && sInstance.mCurrentCollection.getDb().getDatabase().isOpen();
+  return sInstance.mCurrentCollection != null && sInstance.mCurrentCollection.getDb() != null && sInstance.mCurrentCollection.getDb().getDatabase() != null && sInstance.mCurrentCollection.getDb().getDatabase().isOpen();
 }
