@@ -6,7 +6,7 @@
   int mediaUsn=(Integer)data.data[3];
   boolean colCorruptFullSync=false;
   Collection col=AnkiDroidApp.getCol();
-  if (col == null) {
+  if (!AnkiDroidApp.isColOpen()) {
     if (conflictResolution != null && conflictResolution.equals("download")) {
       colCorruptFullSync=true;
     }
