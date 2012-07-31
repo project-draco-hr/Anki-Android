@@ -1,5 +1,8 @@
 {
   Log.i(AnkiDroidApp.TAG,"onConfigurationChanged");
+  if (mTextDeckName == null) {
+    return;
+  }
   mDontSaveOnStop=true;
   CharSequence title=mTextDeckName.getText();
   CharSequence desc=mTextDeckDescription.getText();
