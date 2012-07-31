@@ -85,7 +85,14 @@
       }
       col=AnkiDroidApp.openCollection(path);
     }
- catch (    RuntimeException e) {
+ catch (    OutOfMemoryError e) {
+      AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundSync-fullSync");
+      data.success=false;
+      data.result=new Object[]{"OutOfMemoryError"};
+      data.data=new Object[]{mediaUsn};
+      return data;
+    }
+catch (    RuntimeException e) {
       AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundSync-fullSync");
       data.success=false;
       data.result=new Object[]{"IOException"};
