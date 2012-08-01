@@ -6,7 +6,7 @@
   int mediaUsn=(Integer)data.data[3];
   boolean colCorruptFullSync=false;
   Collection col=AnkiDroidApp.getCol();
-  if (col == null) {
+  if (!AnkiDroidApp.colIsOpen()) {
     if (conflictResolution != null && conflictResolution.equals("download")) {
       colCorruptFullSync=true;
     }
@@ -85,7 +85,14 @@
       }
       col=AnkiDroidApp.openCollection(path);
     }
- catch (    RuntimeException e) {
+ catch (    OutOfMemoryError e) {
+      AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundSync-fullSync");
+      data.success=false;
+      data.result=new Object[]{"OutOfMemoryError"};
+      data.data=new Object[]{mediaUsn};
+      return data;
+    }
+catch (    RuntimeException e) {
       AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundSync-fullSync");
       data.success=false;
       data.result=new Object[]{"IOException"};

@@ -1,3 +1,5 @@
 {
-  mClipboard.setText(text);
+  if (mClipboard != null) {
+    mClipboard.setText(text);
+  }
 }
