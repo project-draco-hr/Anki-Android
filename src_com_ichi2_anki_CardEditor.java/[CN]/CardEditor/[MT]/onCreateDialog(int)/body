@@ -138,6 +138,14 @@ throw new RuntimeException(e);
 long newId=dialogIds.get(item);
 if (oldModelId != newId) {
 mCol.getModels().setCurrent(mCol.getModels().get(newId));
+JSONObject cdeck=mCol.getDecks().current();
+try {
+cdeck.put("mid",newId);
+}
+ catch (JSONException e) {
+throw new RuntimeException(e);
+}
+mCol.getDecks().save(cdeck);
 int size=mEditFields.size();
 String[] oldValues=new String[size];
 for (int i=0; i < size; i++) {
