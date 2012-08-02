@@ -1,8 +1,21 @@
 {
-  if (path.startsWith(fAssetPathPrefix)) {
-    return Typeface.createFromAsset(ctx.getAssets(),path.replaceFirst("/android_asset/",""));
-  }
+  try {
+    if (path.startsWith(fAssetPathPrefix)) {
+      return Typeface.createFromAsset(ctx.getAssets(),path.replaceFirst("/android_asset/",""));
+    }
  else {
-    return Typeface.createFromFile(path);
+      return Typeface.createFromFile(path);
+    }
+  }
+ catch (  RuntimeException e) {
+    Log.w(AnkiDroidApp.TAG,"AnkiFont.getTypeface: " + e.getMessage() + " - File: "+ path);
+    if (!corruptFonts.contains(path)) {
+      String name=new File(path).getName();
+      Resources res=AnkiDroidApp.getAppResources();
+      Toast toast=Toast.makeText(ctx,res.getString(R.string.corrupt_font,name),Toast.LENGTH_LONG);
+      toast.show();
+      corruptFonts.add(path);
+    }
+    return null;
   }
 }
