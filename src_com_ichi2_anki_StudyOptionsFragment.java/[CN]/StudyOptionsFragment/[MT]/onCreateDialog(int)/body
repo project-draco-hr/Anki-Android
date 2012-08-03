@@ -1,5 +1,7 @@
 {
   StyledDialog dialog=null;
+  Resources res=getResources();
+  StyledDialog.Builder builder=new StyledDialog.Builder(this.getActivity());
 switch (id) {
 case DIALOG_STATISTIC_TYPE:
     dialog=ChartBuilder.getStatisticsDialog(getActivity(),new DialogInterface.OnClickListener(){
@@ -9,6 +11,37 @@ case DIALOG_STATISTIC_TYPE:
     }
 ,mFragmented);
   break;
+case DIALOG_LEARN_MORE:
+builder.setTitle(res.getString(R.string.learnmore_title));
+builder.setContentView(mLearnMoreView);
+builder.setCancelable(true);
+builder.setNegativeButton(R.string.cancel,null);
+builder.setPositiveButton(R.string.ok,new DialogInterface.OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+if (AnkiDroidApp.colIsOpen()) {
+try {
+int n=Integer.parseInt(((EditText)mLearnMoreView.findViewById(R.id.learnmore_extend_new_limit)).getText().toString());
+int r=Integer.parseInt(((EditText)mLearnMoreView.findViewById(R.id.learnmore_extend_rev_limit)).getText().toString());
+Collection col=AnkiDroidApp.getCol();
+JSONObject deck=col.getDecks().current();
+deck.put("extendNew",n);
+deck.put("extendRev",r);
+col.getDecks().save(deck);
+col.getSched().extendLimits(n,r);
+finishCongrats();
+resetAndUpdateValuesFromDeck();
+}
+ catch (NumberFormatException e) {
+}
+catch (JSONException e) {
+throw new RuntimeException(e);
+}
+}
+}
+}
+);
+dialog=builder.create();
+break;
 default :
 dialog=null;
 }
