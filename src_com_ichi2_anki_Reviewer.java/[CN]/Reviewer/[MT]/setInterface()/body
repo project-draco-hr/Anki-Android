@@ -14,7 +14,7 @@
   }
   if (mCurrentSimpleInterface) {
     if (mSimpleCard == null) {
-      mSimpleCard=new TextView(this);
+      mSimpleCard=new ScrollTextView(this);
       Themes.setRegularFont(mSimpleCard);
       mSimpleCard.setTextSize(mSimpleCard.getTextSize() * mDisplayFontSize / 100);
       mSimpleCard.setGravity(Gravity.CENTER);
