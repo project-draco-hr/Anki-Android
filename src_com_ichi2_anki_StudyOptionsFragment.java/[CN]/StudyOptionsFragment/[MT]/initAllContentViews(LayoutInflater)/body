@@ -52,12 +52,14 @@
   mTextCongratsMessage=(TextView)mCongratsView.findViewById(R.id.studyoptions_congrats_message);
   Themes.setTextViewStyle(mTextCongratsMessage);
   mTextCongratsMessage.setOnClickListener(mButtonClickListener);
+  mButtonCongratsUndo=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_undo);
   mButtonCongratsLearnMore=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_learnmore);
   mButtonCongratsOpenOtherDeck=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_open_other_deck);
   if (mFragmented) {
     mButtonCongratsOpenOtherDeck.setVisibility(View.GONE);
   }
   mButtonCongratsFinish=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_finish);
+  mButtonCongratsUndo.setOnClickListener(mButtonClickListener);
   mButtonCongratsLearnMore.setOnClickListener(mButtonClickListener);
   mButtonCongratsOpenOtherDeck.setOnClickListener(mButtonClickListener);
   mButtonCongratsFinish.setOnClickListener(mButtonClickListener);

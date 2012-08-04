@@ -1,6 +1,4 @@
 {
-  mOptionsMenu=menu;
-  MenuItem item;
   Resources res=getResources();
   UIUtils.addMenuItemInActionBar(menu,Menu.NONE,MENU_MARK,Menu.NONE,R.string.menu_mark_card,R.drawable.ic_menu_mark);
   UIUtils.addMenuItemInActionBar(menu,Menu.NONE,MENU_UNDO,Menu.NONE,R.string.undo,R.drawable.ic_menu_revert_disabled);
@@ -21,7 +19,7 @@
   removeDeckSubMenu.add(Menu.NONE,MENU_REMOVE_SUSPEND_NOTE,Menu.NONE,R.string.menu_suspend_note);
   removeDeckSubMenu.add(Menu.NONE,MENU_REMOVE_DELETE,Menu.NONE,R.string.menu_delete_note);
   if (mPrefTextSelection) {
-    item=menu.add(Menu.NONE,MENU_SEARCH,Menu.NONE,res.getString(R.string.menu_select));
+    MenuItem item=menu.add(Menu.NONE,MENU_SEARCH,Menu.NONE,res.getString(R.string.menu_select));
     item.setIcon(R.drawable.ic_menu_search);
     item.setEnabled(Lookup.isAvailable());
   }

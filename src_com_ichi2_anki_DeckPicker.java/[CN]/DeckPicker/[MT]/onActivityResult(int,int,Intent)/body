@@ -15,6 +15,9 @@
  else   if (requestCode == ADD_NOTE && resultCode != RESULT_CANCELED) {
     loadCounts();
   }
+ else   if (requestCode == BROWSE_CARDS && (resultCode == Activity.RESULT_OK || resultCode == Activity.RESULT_CANCELED)) {
+    loadCounts();
+  }
  else   if (requestCode == ADD_CRAM_DECK) {
     loadCounts();
   }

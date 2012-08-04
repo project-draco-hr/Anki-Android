@@ -43,13 +43,21 @@ default :
         resetAndUpdateValuesFromDeck();
       break;
 case Reviewer.RESULT_NO_MORE_CARDS:
-    mTextCongratsMessage.setText(AnkiDroidApp.getCol().getSched().finishedMsg(getActivity()));
-  setFragmentContentView(mCongratsView);
+    if (!AnkiDroidApp.getCol().undoAvailable()) {
+      mButtonCongratsUndo.setEnabled(false);
+      mButtonCongratsUndo.setVisibility(View.GONE);
+    }
+ else {
+      Resources res=AnkiDroidApp.getAppResources();
+      mButtonCongratsUndo.setText(res.getString(R.string.studyoptions_congrats_undo,AnkiDroidApp.getCol().undoName(res)));
+    }
+  mTextCongratsMessage.setText(AnkiDroidApp.getCol().getSched().finishedMsg(getActivity()));
+setFragmentContentView(mCongratsView);
 break;
 }
 mDontSaveOnStop=false;
 }
- else if (requestCode == BROWSE_CARDS && resultCode == Activity.RESULT_OK) {
+ else if (requestCode == BROWSE_CARDS && (resultCode == Activity.RESULT_OK || resultCode == Activity.RESULT_CANCELED)) {
 mDontSaveOnStop=false;
 resetAndUpdateValuesFromDeck();
 }

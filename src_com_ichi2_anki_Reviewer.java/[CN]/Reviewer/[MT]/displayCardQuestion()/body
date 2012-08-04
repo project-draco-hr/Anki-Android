@@ -11,7 +11,6 @@
   setInterface();
   String question=mCurrentCard.getQuestion(mCurrentSimpleInterface);
   question=typeAnsQuestionFilter(question);
-  updateMenuItems();
   if (mPrefFixArabic) {
     question=ArabicUtilities.reshapeSentence(question,true);
   }
