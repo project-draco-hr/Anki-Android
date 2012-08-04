@@ -1,0 +1,9 @@
+{
+  if (mUndo.size() > 0) {
+    int undoType=((Integer)mUndo.getLast()[0]).intValue();
+    if (undoType >= 0 && undoType < fUndoNames.length) {
+      return res.getString(fUndoNames[undoType]);
+    }
+  }
+  return "";
+}
