@@ -14,6 +14,16 @@
   if (mFragmented) {
     Button but=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_options);
     but.setOnClickListener(mButtonClickListener);
+    mFragmentedCram=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_new_filtercram);
+    if (AnkiDroidApp.colIsOpen() && AnkiDroidApp.getCol().getDecks().isDyn(AnkiDroidApp.getCol().getDecks().selected())) {
+      mFragmentedCram.setEnabled(false);
+      mFragmentedCram.setVisibility(View.GONE);
+    }
+ else {
+      mFragmentedCram.setEnabled(true);
+      mFragmentedCram.setVisibility(View.VISIBLE);
+    }
+    mFragmentedCram.setOnClickListener(mButtonClickListener);
   }
  else {
     mAddNote=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_add);

@@ -1,3 +1,5 @@
 {
-  commit();
+  if (mAllowCommit) {
+    commit();
+  }
 }

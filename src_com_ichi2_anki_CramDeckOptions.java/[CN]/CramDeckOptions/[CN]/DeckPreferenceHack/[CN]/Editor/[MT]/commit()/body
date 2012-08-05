@@ -51,6 +51,16 @@
               mUpdate.put(name,presetValues.getBoolean(name));
               mValues.put(name,Boolean.toString(presetValues.getBoolean(name)));
             }
+ else             if (name.equals("search")) {
+              if (mPresetSearchSuffix != null) {
+                mUpdate.put(name,presetValues.getString(name) + " " + mPresetSearchSuffix);
+                mValues.put(name,presetValues.getString(name) + " " + mPresetSearchSuffix);
+              }
+ else {
+                mUpdate.put(name,presetValues.getString(name));
+                mValues.put(name,presetValues.getString(name));
+              }
+            }
  else {
               mUpdate.put(name,presetValues.getString(name));
               mValues.put(name,presetValues.getString(name));

@@ -49,13 +49,7 @@ builder3.setView(mDialogEditText,false,false);
 builder3.setPositiveButton(res.getString(R.string.create),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 long id=AnkiDroidApp.getCol().getDecks().newDyn(mDialogEditText.getText().toString());
-try {
-AnkiDroidApp.getCol().getDecks().get(id).put("empty",true);
-}
- catch (JSONException e) {
-throw new RuntimeException(e);
-}
-openStudyOptions(id);
+openStudyOptions(id,new Bundle());
 }
 }
 );

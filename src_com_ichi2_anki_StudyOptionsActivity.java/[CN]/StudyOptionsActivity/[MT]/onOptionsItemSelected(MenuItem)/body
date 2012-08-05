@@ -1,4 +1,5 @@
 {
+  Resources res=this.getResources();
 switch (item.getItemId()) {
 case android.R.id.home:
     closeStudyOptions();
@@ -27,6 +28,38 @@ item.setIcon(R.drawable.ic_menu_night);
 preferences.edit().putBoolean("invertedColors",true).commit();
 item.setIcon(R.drawable.ic_menu_night_checked);
 }
+return true;
+case DeckPicker.MENU_CREATE_DYNAMIC_DECK:
+StyledDialog.Builder builder=new StyledDialog.Builder(StudyOptionsActivity.this);
+builder.setTitle(res.getString(R.string.new_deck));
+mDialogEditText=new EditText(StudyOptionsActivity.this);
+ArrayList<String> names=AnkiDroidApp.getCol().getDecks().allNames();
+int n=1;
+String cramDeckName="Cram 1";
+while (names.contains(cramDeckName)) {
+n++;
+cramDeckName="Cram " + n;
+}
+mDialogEditText.setText(cramDeckName);
+builder.setView(mDialogEditText,false,false);
+builder.setPositiveButton(res.getString(R.string.create),new DialogInterface.OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+long id;
+Bundle initialConfig=new Bundle();
+try {
+initialConfig.putString("searchSuffix","'deck:" + AnkiDroidApp.getCol().getDecks().current().getString("name") + "'");
+id=AnkiDroidApp.getCol().getDecks().newDyn(mDialogEditText.getText().toString());
+AnkiDroidApp.getCol().getDecks().get(id);
+}
+ catch (JSONException e) {
+throw new RuntimeException(e);
+}
+loadContent(false,initialConfig);
+}
+}
+);
+builder.setNegativeButton(res.getString(R.string.cancel),null);
+builder.create().show();
 return true;
 default :
 return super.onOptionsItemSelected(item);
