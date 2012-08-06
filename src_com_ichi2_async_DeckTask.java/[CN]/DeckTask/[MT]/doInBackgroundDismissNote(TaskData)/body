@@ -11,14 +11,15 @@ switch (type) {
 case 0:
         col.markUndo(Collection.UNDO_BURY_NOTE,new Object[]{col.getDirty(),note.cards(),card.getId()});
       sched.buryNote(note.getId());
-    break;
+    sHadCardQueue=true;
+  break;
 case 1:
-  col.markUndo(Collection.UNDO_SUSPEND_CARD,new Object[]{card});
+col.markUndo(Collection.UNDO_SUSPEND_CARD,new Object[]{card});
 if (card.getQueue() == -1) {
-  sched.unsuspendCards(new long[]{card.getId()});
+sched.unsuspendCards(new long[]{card.getId()});
 }
  else {
-  sched.suspendCards(new long[]{card.getId()});
+sched.suspendCards(new long[]{card.getId()});
 }
 break;
 case 2:
@@ -29,6 +30,7 @@ cids[i]=cards.get(i).getId();
 }
 col.markUndo(Collection.UNDO_SUSPEND_NOTE,new Object[]{cards,card.getId()});
 sched.suspendCards(cids);
+sHadCardQueue=true;
 break;
 case 3:
 ArrayList<Card> allCs=note.cards();
@@ -38,6 +40,7 @@ cardIds[i]=allCs.get(i).getId();
 }
 col.markUndo(Collection.UNDO_DELETE_NOTE,new Object[]{note,allCs,card.getId()});
 col.remNotes(new long[]{note.getId()});
+sHadCardQueue=true;
 break;
 }
 publishProgress(new TaskData(getCard(col.getSched()),0));
