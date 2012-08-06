@@ -1,0 +1,12 @@
+{
+  mCurrentFragment=StudyOptionsFragment.newInstance(0,false,null);
+  Bundle args=getIntent().getExtras();
+  if (onlyFnsMsg) {
+    args.putBoolean("onlyFnsMsg",onlyFnsMsg);
+  }
+  if (cramConfig != null) {
+    args.putBundle("cramInitialConfig",cramConfig);
+  }
+  mCurrentFragment.setArguments(args);
+  getSupportFragmentManager().beginTransaction().add(android.R.id.content,mCurrentFragment).commit();
+}

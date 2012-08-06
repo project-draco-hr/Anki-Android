@@ -1,0 +1,16 @@
+{
+  if (mFragmented) {
+    setStudyContentView(deckId,cramInitialConfig);
+  }
+ else {
+    mDontSaveOnStop=true;
+    Intent intent=new Intent();
+    intent.putExtra("index",deckId);
+    intent.putExtra("cramInitialConfig",cramInitialConfig);
+    intent.setClass(this,StudyOptionsActivity.class);
+    startActivityForResult(intent,SHOW_STUDYOPTIONS);
+    if (AnkiDroidApp.SDK_VERSION > 4) {
+      ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
+    }
+  }
+}

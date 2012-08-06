@@ -3,6 +3,7 @@
   Bundle args=new Bundle();
   args.putLong("deckId",deckId);
   args.putBoolean("onlyFnsMsg",onlyFnsMsg);
+  args.putBundle("cramInitialConfig",cramInitialConfig);
   f.setArguments(args);
   return f;
 }

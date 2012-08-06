@@ -1,4 +1,5 @@
 {
+  mAllowCommit=false;
   for (  String key : mPref.mValues.keySet()) {
     Preference pref=this.findPreference(key);
     String value=null;
@@ -15,6 +16,9 @@
  else {
       value=this.mPref.getString(key,"");
     }
+    if (pref instanceof EditTextPreference) {
+      ((EditTextPreference)pref).setText(value);
+    }
     if (!mPref.mSummaries.containsKey(key)) {
       CharSequence s=pref.getSummary();
       mPref.mSummaries.put(key,s != null ? pref.getSummary().toString() : null);
@@ -27,4 +31,5 @@
       pref.setSummary(value);
     }
   }
+  mAllowCommit=true;
 }

@@ -18,18 +18,21 @@
       return;
     }
     if (requestCode == DECK_OPTIONS) {
-      try {
-        JSONObject deck=AnkiDroidApp.getCol().getDecks().current();
-        if (deck.getInt("dyn") != 0 && deck.has("empty") && deck.getBoolean("empty")) {
-          deck.remove("empty");
-          rebuildCramDeck();
+      if (mCramInitialConfig != null) {
+        mCramInitialConfig=null;
+        try {
+          JSONObject deck=AnkiDroidApp.getCol().getDecks().current();
+          if (deck.getInt("dyn") != 0 && deck.has("empty")) {
+            deck.remove("empty");
+          }
         }
- else {
-          resetAndUpdateValuesFromDeck();
+ catch (        JSONException e) {
+          throw new RuntimeException(e);
         }
+        rebuildCramDeck();
       }
- catch (      JSONException e) {
-        throw new RuntimeException(e);
+ else {
+        resetAndUpdateValuesFromDeck();
       }
     }
  else     if (requestCode == ADD_NOTE && resultCode != Activity.RESULT_CANCELED) {

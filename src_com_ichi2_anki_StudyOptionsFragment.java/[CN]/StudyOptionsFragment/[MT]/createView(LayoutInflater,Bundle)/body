@@ -26,6 +26,7 @@
     mButtonCongratsFinish.setVisibility(View.GONE);
     return mCongratsView;
   }
+  mCramInitialConfig=getArguments().getBundle("cramInitialConfig");
   resetAndUpdateValuesFromDeck();
   return mStudyOptionsView;
 }

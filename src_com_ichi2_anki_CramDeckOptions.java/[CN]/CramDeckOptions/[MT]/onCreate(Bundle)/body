@@ -9,10 +9,16 @@
     return;
   }
   mDeck=mCol.getDecks().current();
+  Bundle initialConfig=getIntent().getBundleExtra("cramInitialConfig");
+  if (initialConfig != null) {
+    if (initialConfig.containsKey("searchSuffix")) {
+      mPresetSearchSuffix=initialConfig.getString("searchSuffix");
+    }
+  }
   registerExternalStorageListener();
   try {
     if (mCol == null || mDeck.getInt("dyn") != 1) {
-      Log.i(AnkiDroidApp.TAG,"CramDeckOptions - No Collection loaded or deck is not a dyn deck");
+      Log.w(AnkiDroidApp.TAG,"CramDeckOptions - No Collection loaded or deck is not a dyn deck");
       finish();
       return;
     }

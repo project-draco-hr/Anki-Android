@@ -1,0 +1,8 @@
+{
+  Intent i=new Intent(getActivity(),CramDeckOptions.class);
+  i.putExtra("cramInitialConfig",initialConfig);
+  startActivityForResult(i,DECK_OPTIONS);
+  if (AnkiDroidApp.SDK_VERSION > 4) {
+    ActivityTransitionAnimation.slide(getActivity(),ActivityTransitionAnimation.FADE);
+  }
+}
