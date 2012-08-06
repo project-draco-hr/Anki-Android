@@ -13,8 +13,6 @@
  else       if (e1.getX() - e2.getX() > AnkiDroidApp.sSwipeMinDistance && Math.abs(velocityX) > AnkiDroidApp.sSwipeThresholdVelocity && Math.abs(e1.getY() - e2.getY()) < AnkiDroidApp.sSwipeMaxOffPath && !mIsXScrolling && !mIsSelecting) {
         executeCommand(mGestureSwipeLeft);
       }
-      mIsXScrolling=false;
-      mIsYScrolling=false;
     }
  catch (    Exception e) {
       Log.e(AnkiDroidApp.TAG,"onFling Exception = " + e.getMessage());
