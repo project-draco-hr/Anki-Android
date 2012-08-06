@@ -1,0 +1,13 @@
+{
+  try {
+    for (    JSONObject o : mCol.getDecks().all()) {
+      JSONObject conf=mCol.getDecks().confForDid(o.getLong("id"));
+      if (!conf.has("replayq")) {
+        conf.put("replayq",true);
+        mCol.getDecks().save(conf);
+      }
+    }
+  }
+ catch (  JSONException e1) {
+  }
+}

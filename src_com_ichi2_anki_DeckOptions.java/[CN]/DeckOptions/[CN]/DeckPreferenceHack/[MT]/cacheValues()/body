@@ -8,6 +8,7 @@
     mValues.put("maxAnswerTime",mOptions.getString("maxTaken"));
     mValues.put("showAnswerTimer",Boolean.toString(mOptions.getString("timer").equals("1")));
     mValues.put("autoPlayAudio",Boolean.toString(mOptions.getBoolean("autoplay")));
+    mValues.put("replayQuestion",Boolean.toString(mOptions.getBoolean("replayq")));
     JSONObject newOptions=mOptions.getJSONObject("new");
     mValues.put("newSteps",getDelays(newOptions.getJSONArray("delays")));
     mValues.put("newGradIvl",newOptions.getJSONArray("ints").getString(0));
@@ -31,6 +32,7 @@
     mValues.put("lapLeechAct",lapOptions.getString("leechAction"));
   }
  catch (  JSONException e) {
-    throw new RuntimeException(e);
+    addMissingValues();
+    finish();
   }
 }

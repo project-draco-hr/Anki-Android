@@ -25,6 +25,9 @@
  else       if (entry.getKey().equals("autoPlayAudio")) {
         mOptions.put("autoplay",(Boolean)entry.getValue());
       }
+ else       if (entry.getKey().equals("replayQuestion")) {
+        mOptions.put("replayq",(Boolean)entry.getValue());
+      }
  else       if (entry.getKey().equals("newSteps")) {
         String steps=(String)entry.getValue();
         if (steps.matches("[0-9\\s]*")) {
