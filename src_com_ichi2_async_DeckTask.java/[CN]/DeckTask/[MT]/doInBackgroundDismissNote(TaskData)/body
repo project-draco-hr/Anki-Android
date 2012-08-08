@@ -21,6 +21,7 @@ sched.unsuspendCards(new long[]{card.getId()});
  else {
 sched.suspendCards(new long[]{card.getId()});
 }
+sHadCardQueue=true;
 break;
 case 2:
 ArrayList<Card> cards=note.cards();
