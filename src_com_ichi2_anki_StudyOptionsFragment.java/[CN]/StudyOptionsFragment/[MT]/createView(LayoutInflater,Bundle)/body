@@ -7,7 +7,6 @@
     reloadCollection();
     return null;
   }
-  AnkiDroidApp.getCol().clearUndo();
   initAllContentViews(inflater);
   if (mSwipeEnabled) {
     gestureDetector=new GestureDetector(new MyGestureDetector());
@@ -22,9 +21,12 @@
 ;
   }
   if (getArguments().getBoolean("onlyFnsMsg")) {
-    mTextCongratsMessage.setText(AnkiDroidApp.getCol().getSched().finishedMsg(getActivity()));
+    prepareCongratsView();
     mButtonCongratsFinish.setVisibility(View.GONE);
     return mCongratsView;
+  }
+ else {
+    AnkiDroidApp.getCol().clearUndo();
   }
   mCramInitialConfig=getArguments().getBundle("cramInitialConfig");
   resetAndUpdateValuesFromDeck();
