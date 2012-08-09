@@ -6,8 +6,10 @@
         float pos=e1.getY();
         for (int j=0; j < mDeckListView.getChildCount(); j++) {
           View v=mDeckListView.getChildAt(j);
-          if (v.getY() + v.getHeight() > pos) {
-            HashMap<String,String> data=(HashMap<String,String>)mDeckListAdapter.getItem(j);
+          Rect rect=new Rect();
+          v.getHitRect(rect);
+          if (rect.top < pos && rect.bottom > pos) {
+            HashMap<String,String> data=(HashMap<String,String>)mDeckListAdapter.getItem(mDeckListView.getPositionForView(v));
             Collection col=AnkiDroidApp.getCol();
             if (col != null) {
               col.getDecks().select(Long.parseLong(data.get("did")));
