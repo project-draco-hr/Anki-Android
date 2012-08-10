@@ -22,6 +22,10 @@ if (AnkiDroidApp.colIsOpen()) {
 try {
 int n=Integer.parseInt(((EditText)mLearnMoreView.findViewById(R.id.learnmore_extend_new_limit)).getText().toString());
 int r=Integer.parseInt(((EditText)mLearnMoreView.findViewById(R.id.learnmore_extend_rev_limit)).getText().toString());
+Editor prefEd=AnkiDroidApp.getSharedPrefs(getActivity()).edit();
+prefEd.putInt("extendNew",n);
+prefEd.putInt("extendRev",r);
+prefEd.commit();
 Collection col=AnkiDroidApp.getCol();
 JSONObject deck=col.getDecks().current();
 deck.put("extendNew",n);
@@ -55,6 +59,7 @@ builder.setPositiveButton(R.string.ok,new DialogInterface.OnClickListener(){
 if (AnkiDroidApp.colIsOpen()) {
 try {
 int days=Integer.parseInt(((EditText)mReviewEarlyView.findViewById(R.id.reviewearly_days_ahead)).getText().toString());
+AnkiDroidApp.getSharedPrefs(getActivity()).edit().putInt("reviewAhead",days).commit();
 Collection col=AnkiDroidApp.getCol();
 JSONObject deck=col.getDecks().current();
 String search="prop:due<=" + String.valueOf(days) + " 'deck:"+ deck.getString("name")+ "'";
