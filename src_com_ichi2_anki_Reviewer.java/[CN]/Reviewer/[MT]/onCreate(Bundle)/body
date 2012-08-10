@@ -16,12 +16,12 @@
     restorePreferences();
     try {
       String[] title=mSched.getCol().getDecks().current().getString("name").split("::");
-      setTitle(title[title.length - 1]);
+      AnkiDroidApp.getCompat().setTitle(this,title[title.length - 1],mInvertedColors);
     }
  catch (    JSONException e) {
       throw new RuntimeException(e);
     }
-    UIUtils.setActionBarSubtitle(this,"");
+    AnkiDroidApp.getCompat().setSubtitle(this,"",mInvertedColors);
     if (mPrefFullscreenReview) {
       getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
       if (AnkiDroidApp.SDK_VERSION <= 11) {
