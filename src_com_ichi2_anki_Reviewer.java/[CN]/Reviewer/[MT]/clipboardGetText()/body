@@ -1,3 +1,8 @@
 {
-  return mClipboard.getText();
+  if (mClipboard != null) {
+    return mClipboard.getText();
+  }
+ else {
+    return "";
+  }
 }

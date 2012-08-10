@@ -4,11 +4,7 @@
   }
   mIsSelecting=false;
   if (mPrefTextSelection) {
-    clipboardSetText("");
-    if (mLookUpIcon.getVisibility() == View.VISIBLE) {
-      mLookUpIcon.setVisibility(View.GONE);
-      enableViewAnimation(mLookUpIcon,ViewAnimation.fade(ViewAnimation.FADE_OUT,mFadeDuration,0));
-    }
+    hideLookupButton();
   }
 switch (ease) {
 case EASE_FAILED:

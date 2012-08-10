@@ -1,0 +1,7 @@
+{
+  if (mPrefTextSelection && mLookUpIcon.getVisibility() != View.GONE) {
+    mLookUpIcon.setVisibility(View.GONE);
+    enableViewAnimation(mLookUpIcon,ViewAnimation.fade(ViewAnimation.FADE_OUT,mFadeDuration,0));
+    clipboardSetText("");
+  }
+}
