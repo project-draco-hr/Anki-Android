@@ -4,7 +4,6 @@
     fillFlashcard(mShowAnimations);
     return;
   }
-  content=recalculateHardCodedFontSize(content,mDisplayFontSize);
   if (mCurrentCard == null) {
     mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
   }
@@ -21,6 +20,9 @@
   Log.i(AnkiDroidApp.TAG,"content card = \n" + content);
   StringBuilder style=new StringBuilder();
   style.append(mCustomFontStyle);
+  float relativeFontScale=250 * ((float)mDisplayFontSize / 100);
+  String fontScaleStyle=String.format("BODY { font-size: %s%%; }",relativeFontScale);
+  style.append(fontScaleStyle);
   Log.i(AnkiDroidApp.TAG,"::style::" + style);
   if (mNightMode) {
     content=HtmlColors.invertColors(content);
