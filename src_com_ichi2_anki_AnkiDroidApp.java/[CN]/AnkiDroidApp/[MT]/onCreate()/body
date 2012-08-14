@@ -3,6 +3,9 @@
   if (android.os.Build.MODEL.toLowerCase().equals("nook") || android.os.Build.DEVICE.toLowerCase().equals("nook")) {
     mCompat=new CompatV4();
   }
+ else   if (AnkiDroidApp.SDK_VERSION >= 11) {
+    mCompat=new CompatV11();
+  }
  else   if (AnkiDroidApp.SDK_VERSION >= 9) {
     mCompat=new CompatV9();
   }
