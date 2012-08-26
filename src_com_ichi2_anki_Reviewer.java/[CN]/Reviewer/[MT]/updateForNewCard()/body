@@ -9,8 +9,4 @@
   if (mPrefWhiteboard && !mShowAnimations) {
     mWhiteboard.clear();
   }
-  if (mPrefTimer) {
-    mCardTimer.setBase(SystemClock.elapsedRealtime());
-    mCardTimer.start();
-  }
 }
