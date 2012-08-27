@@ -1,0 +1,11 @@
+{
+  mShowTimer=mCurrentCard.showTimer();
+  if (mShowTimer && mCardTimer.getVisibility() == View.INVISIBLE) {
+    switchVisibility(mCardTimer,View.VISIBLE);
+  }
+ else   if (!mShowTimer && mCardTimer.getVisibility() != View.INVISIBLE) {
+    switchVisibility(mCardTimer,View.INVISIBLE);
+  }
+  mCardTimer.setBase(SystemClock.elapsedRealtime());
+  mCardTimer.start();
+}

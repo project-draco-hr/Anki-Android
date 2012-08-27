@@ -1,6 +1,6 @@
 {
   try {
-    return (int)(card.getIvl() * conf.getDouble("mult")) + 1;
+    return Math.max(conf.getInt("minInt"),(int)(card.getIvl() * conf.getDouble("mult")));
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);

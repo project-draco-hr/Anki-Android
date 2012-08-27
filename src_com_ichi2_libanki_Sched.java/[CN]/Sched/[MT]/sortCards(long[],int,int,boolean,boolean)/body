@@ -1,7 +1,13 @@
 {
   String scids=Utils.ids2str(cids);
   long now=Utils.intNow();
-  ArrayList<Long> nids=mCol.getDb().queryColumn(Long.class,"SELECT DISTINCT nid FROM cards WHERE type = 0 AND id IN " + scids + " ORDER BY nid",0);
+  ArrayList<Long> nids=new ArrayList<Long>();
+  for (  long id : cids) {
+    long nid=mCol.getDb().queryScalar("SELECT nid FROM cards WHERE id = " + id);
+    if (!nids.contains(nid)) {
+      nids.add(nid);
+    }
+  }
   if (nids.size() == 0) {
     return;
   }

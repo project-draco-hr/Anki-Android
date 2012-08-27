@@ -21,6 +21,9 @@
       g2.put("conf",g.getLong("conf"));
       mDst.getDecks().save(g2);
     }
+    JSONObject deck=mDst.getDecks().get(newid);
+    deck.put("desc",g.getString("desc"));
+    mDst.getDecks().save(deck);
     mDecks.put(did,newid);
     return newid;
   }

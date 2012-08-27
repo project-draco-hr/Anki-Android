@@ -1,26 +1,22 @@
 {
-  long delay=_daysLate(card);
-  double interval=0;
-  JSONObject conf=_revConf(card);
-  double fct=card.getFactor() / 1000.0;
-  if (ease == 2) {
-    interval=(card.getIvl() + delay / 4) * 1.2;
-  }
- else   if (ease == 3) {
-    interval=(card.getIvl() + delay / 2) * fct;
-  }
- else   if (ease == 4) {
-    try {
-      interval=(card.getIvl() + delay) * fct * conf.getDouble("ease4");
-    }
- catch (    JSONException e) {
-      throw new RuntimeException(e);
-    }
-  }
-  interval=_ivlWithFactor(conf,interval);
-  int intinterval=Math.max(card.getIvl() + (ease == 4 ? 2 : 1),(int)interval);
   try {
-    return Math.min(intinterval,conf.getInt("maxIvl"));
+    long delay=_daysLate(card);
+    int interval=0;
+    JSONObject conf=_revConf(card);
+    double fct=card.getFactor() / 1000.0;
+    int ivl2=_constrainedIvl((int)((card.getIvl() + delay / 4) * 1.2),conf,card.getIvl());
+    int ivl3=_constrainedIvl((int)((card.getIvl() + delay / 2) * fct),conf,ivl2);
+    int ivl4=_constrainedIvl((int)((card.getIvl() + delay) * fct * conf.getDouble("ease4")),conf,ivl3);
+    if (ease == 2) {
+      interval=ivl2;
+    }
+ else     if (ease == 3) {
+      interval=ivl3;
+    }
+ else     if (ease == 4) {
+      interval=ivl4;
+    }
+    return Math.min(interval,conf.getInt("maxIvl"));
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);

@@ -29,7 +29,6 @@
         }
         existing.put((Long)note[0],true);
         note[2]=lmid;
-        note[3]=Utils.intNow();
         note[4]=usn;
         add.add(note);
         dirty.add((Long)note[0]);

@@ -2,7 +2,6 @@
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
   mPrefHideDueCount=preferences.getBoolean("hideDueCount",false);
   mPrefOvertime=preferences.getBoolean("overtime",true);
-  mPrefTimer=preferences.getBoolean("timer",true);
   mPrefWhiteboard=preferences.getBoolean("whiteboard",false);
   mPrefWriteAnswers=preferences.getBoolean("writeAnswers",true);
   mPrefTextSelection=preferences.getBoolean("textSelection",true);
