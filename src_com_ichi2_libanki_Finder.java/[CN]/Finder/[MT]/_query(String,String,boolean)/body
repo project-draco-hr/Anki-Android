@@ -1,0 +1,24 @@
+{
+  String sql;
+  if (forCardBrowser) {
+    sql="select c.id, n.sfld, c.did, c.queue, n.tags from cards c, notes n where c.nid=n.id and ";
+  }
+ else {
+    if (!preds.contains("n.") && !order.contains("n.")) {
+      sql="select c.id from cards c where ";
+    }
+ else {
+      sql="select c.id from cards c, notes n where c.nid=n.id and ";
+    }
+  }
+  if (preds.length() != 0) {
+    sql+="(" + preds + ")";
+  }
+ else {
+    sql+="1";
+  }
+  if (order != null && order.length() != 0) {
+    sql+=" " + order;
+  }
+  return sql;
+}

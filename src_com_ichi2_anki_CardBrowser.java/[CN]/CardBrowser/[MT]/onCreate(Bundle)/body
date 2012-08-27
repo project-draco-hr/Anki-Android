@@ -9,6 +9,10 @@
     reloadCollection(savedInstanceState);
     return;
   }
+  mDeckNames=new HashMap<String,String>();
+  for (  long did : mCol.getDecks().allIds()) {
+    mDeckNames.put(String.valueOf(did),mCol.getDecks().name(did));
+  }
   registerExternalStorageListener();
   Intent i=getIntent();
   mWholeCollection=i.hasExtra("fromDeckpicker") && i.getBooleanExtra("fromDeckpicker",false);
@@ -18,11 +22,28 @@
   String sflCustomFont=preferences.getString("browserEditorFont","");
   mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
   mPrefCacheCardBrowser=preferences.getBoolean("cardBrowserCache",false);
-  mOrder=preferences.getInt("cardBrowserOrder",CARD_ORDER_NONE);
+  Resources res=getResources();
+  mOrderByFields=res.getStringArray(R.array.card_browser_order_labels);
+  try {
+    mOrder=CARD_ORDER_NONE;
+    String colOrder=mCol.getConf().getString("sortType");
+    for (int c=0; c < fSortTypes.length; ++c) {
+      if (fSortTypes[c].equals(colOrder)) {
+        mOrder=c;
+        break;
+      }
+    }
+    mOrderAsc=mCol.getConf().getBoolean("sortBackwards");
+    if (fSortTypes[mOrder].equals("noteFld")) {
+      mOrderAsc=!mOrderAsc;
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
   mCards=new ArrayList<HashMap<String,String>>();
-  mAllCards=new ArrayList<HashMap<String,String>>();
   mCardsListView=(ListView)findViewById(R.id.card_browser_list);
-  mCardsAdapter=new SizeControlledListAdapter(this,mCards,R.layout.card_item,new String[]{"sfld","tmpl","deck","flags"},new int[]{R.id.card_sfld,R.id.card_tmpl,R.id.card_deck,R.id.card_item},sflRelativeFontSize,sflCustomFont);
+  mCardsAdapter=new SizeControlledListAdapter(this,mCards,R.layout.card_item,new String[]{"sfld","deck","flags"},new int[]{R.id.card_sfld,R.id.card_deck,R.id.card_item},sflRelativeFontSize,sflCustomFont);
   mCardsAdapter.setViewBinder(new SimpleAdapter.ViewBinder(){
     @Override public boolean setViewValue(    View view,    Object arg1,    String text){
       if (view.getId() == R.id.card_item) {
@@ -63,29 +84,32 @@
 );
   registerForContextMenu(mCardsListView);
   mSearchEditText=(EditText)findViewById(R.id.card_browser_search);
-  mSearchEditText.addTextChangedListener(new TextWatcher(){
-    public void afterTextChanged(    Editable s){
-      mTimerHandler.removeCallbacks(updateList);
-      mTimerHandler.postDelayed(updateList,WAIT_TIME_UNTIL_UPDATE);
-    }
-    public void beforeTextChanged(    CharSequence s,    int start,    int count,    int after){
-    }
-    public void onTextChanged(    CharSequence s,    int start,    int before,    int count){
+  getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+  mSearchButton=(ImageButton)findViewById(R.id.card_browser_search_button);
+  mSearchButton.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      mSearchTerms=mSearchEditText.getText().toString().toLowerCase();
+      if (mSearchTerms.length() == 0) {
+        mSearchEditText.setHint(R.string.downloaddeck_search);
+      }
+      searchCards();
     }
   }
 );
-  getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+  mSearchTerms="";
   if (mWholeCollection) {
-    setTitle(getResources().getString(R.string.card_browser_all_decks));
+    mRestrictOnDeck="";
+    setTitle(res.getString(R.string.card_browser_all_decks));
   }
  else {
     try {
-      setTitle(mCol.getDecks().current().getString("name"));
+      String deckName=mCol.getDecks().current().getString("name");
+      mRestrictOnDeck="deck:'" + deckName + "' ";
+      setTitle(deckName);
     }
  catch (    JSONException e) {
       throw new RuntimeException(e);
     }
   }
   mSelectedTags=new HashSet<String>();
-  getCards();
 }

@@ -20,7 +20,7 @@
         sort="n.sfld COLLATE NOCASE, c.ord";
       }
  else {
-        throw new RuntimeException("wrong sort type");
+        throw new RuntimeException("wrong sort type " + type);
       }
     }
  else     if (type.startsWith("card")) {
@@ -43,13 +43,21 @@
         sort="c.ivl";
       }
  else {
-        throw new RuntimeException("wrong sort type");
+        throw new RuntimeException("wrong sort type " + type);
       }
     }
  else {
-      throw new RuntimeException("wrong sort type");
+      throw new RuntimeException("wrong sort type " + type);
     }
-    return new Pair<String,Boolean>(" ORDER BY " + sort,mCol.getConf().getBoolean("sortBackwards"));
+    boolean sortBackwards=false;
+    int sortBackwardsInt=mCol.getConf().optInt("sortBackwards",-1);
+    if (sortBackwardsInt == -1) {
+      sortBackwards=mCol.getConf().getBoolean("sortBackwards");
+    }
+ else     if (sortBackwardsInt > 0) {
+      sortBackwards=true;
+    }
+    return new Pair<String,Boolean>(" ORDER BY " + sort,sortBackwards);
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);

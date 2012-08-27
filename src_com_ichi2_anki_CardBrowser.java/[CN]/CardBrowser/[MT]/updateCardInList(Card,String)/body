@@ -1,14 +1,11 @@
 {
   Note note=card.note();
   for (  Card c : note.cards()) {
-    int aPos=getPosition(mAllCards,c.getId());
     int pos=getPosition(mCards,c.getId());
     if (updatedCardTags != null) {
-      mAllCards.get(aPos).put("tags",updatedCardTags);
       mCards.get(pos).put("tags",updatedCardTags);
     }
     String sfld=note.getSFld();
-    mAllCards.get(aPos).put("sfld",sfld);
     mCards.get(pos).put("sfld",sfld);
     if (mWholeCollection) {
       String deckName;
@@ -18,11 +15,9 @@
  catch (      JSONException e) {
         throw new RuntimeException(e);
       }
-      mAllCards.get(aPos).put("deck",deckName);
       mCards.get(pos).put("deck",deckName);
     }
     String flags=Integer.toString((c.getQueue() == -1 ? 1 : 0) + (note.hasTag("marked") ? 2 : 0));
-    mAllCards.get(aPos).put("flags",flags);
     mCards.get(pos).put("flags",flags);
   }
   updateList();

@@ -2,7 +2,6 @@
   ArrayList<Card> cards=card.note().cards();
   for (  Card c : cards) {
     mCards.remove(getPosition(mCards,c.getId()));
-    mAllCards.remove(getPosition(mAllCards,c.getId()));
   }
   updateList();
 }
