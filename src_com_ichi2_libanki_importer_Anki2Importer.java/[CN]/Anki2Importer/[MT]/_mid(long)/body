@@ -4,9 +4,6 @@
       return mModelMap.get(mid);
     }
     JSONObject src=new JSONObject(mSrc.getModels().get(mid).toString());
-    if (!mNeedCards) {
-      src.put("needWizard",1);
-    }
     if (!mDst.getModels().have(mid)) {
       mDst.getModels().update(src);
       if (mDeckPrefix != null) {

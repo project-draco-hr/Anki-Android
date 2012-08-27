@@ -1,0 +1,9 @@
+{
+  double newIvl=ivl;
+  try {
+    newIvl=ivl * conf.getDouble("ivlFct");
+  }
+ catch (  JSONException e) {
+  }
+  return (int)Math.max(newIvl,prev + 1);
+}

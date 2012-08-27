@@ -1,7 +1,4 @@
 {
-  if (!mNeedCards) {
-    return 0;
-  }
   mCards=new HashMap<String,HashMap<Integer,Long>>();
   HashMap<Long,Boolean> existing=new HashMap<Long,Boolean>();
   Cursor cursor=null;
