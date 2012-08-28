@@ -10,7 +10,7 @@
   Pair<String,Boolean> res2=_order(_order);
   String order=res2.first;
   boolean rev=res2.second;
-  String sql=_query(preds,order);
+  String sql=_query(preds,order,false);
   Cursor cur=null;
   try {
     cur=mCol.getDb().getDatabase().rawQuery(sql,args);

@@ -70,10 +70,7 @@
     mProgressBars=(LinearLayout)findViewById(R.id.progress_bars);
   }
   mCardTimer=(Chronometer)findViewById(R.id.card_time);
-  if (mPrefTimer && (mConfigurationChanged)) {
-    switchVisibility(mCardTimer,View.VISIBLE);
-  }
-  if (mShowProgressBars && (mConfigurationChanged)) {
+  if (mShowProgressBars && mProgressBars.getVisibility() != View.VISIBLE) {
     switchVisibility(mProgressBars,View.VISIBLE);
   }
   mChosenAnswer=(TextView)findViewById(R.id.choosen_answer);

@@ -1,7 +1,6 @@
 {
-  if (mPrefTimer) {
-    mCardTimer.stop();
-  }
+  mCardTimer.stop();
   if (mCurrentCard != null) {
+    mCurrentCard.stopTimer();
   }
 }

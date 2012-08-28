@@ -8,6 +8,7 @@
     DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_FACT,mUpdateCardHandler,new DeckTask.TaskData(mCol.getSched(),sCardBrowserCard,false));
   }
  else   if (requestCode == ADD_NOTE && resultCode == RESULT_OK) {
-    getCards();
+    mSearchTerms=mSearchEditText.getText().toString().toLowerCase();
+    searchCards();
   }
 }
