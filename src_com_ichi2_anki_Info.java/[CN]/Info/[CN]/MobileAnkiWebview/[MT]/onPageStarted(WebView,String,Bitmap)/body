@@ -1,0 +1,15 @@
+{
+  if (mUrl != null && mUrl.equals(url)) {
+    super.onPageStarted(view,url,favicon);
+  }
+ else   if (url.matches(".*/shared/download/[0-9]*")) {
+    Connection.downloadSharedDeck(mDownloadDeckListener,new Connection.Payload(new Object[]{url}));
+  }
+ else {
+    mLoadingLayer.setVisibility(View.VISIBLE);
+    mWebView=view;
+    mUrl=url;
+    AsyncTask<String,Void,String> parseShareDecks=new ParseSharedDecks();
+    parseShareDecks.execute(url);
+  }
+}

@@ -1,0 +1,61 @@
+{
+  Log.i(AnkiDroidApp.TAG,"Info.ParseSharedDecks.doInBackground()");
+  HttpGet pageGet=new HttpGet(params[0]);
+  HttpClient client=new DefaultHttpClient();
+  ResponseHandler<String> handler=new ResponseHandler<String>(){
+    @Override public String handleResponse(    HttpResponse response) throws ClientProtocolException, IOException {
+      HttpEntity entity=response.getEntity();
+      String html;
+      if (entity != null) {
+        html=EntityUtils.toString(entity);
+        return html;
+      }
+ else {
+        return null;
+      }
+    }
+  }
+;
+  String pageHTML=null;
+  try {
+    while (pageHTML == null) {
+      pageHTML=client.execute(pageGet,handler);
+    }
+  }
+ catch (  ClientProtocolException e) {
+    pageHTML="error";
+  }
+catch (  IOException e) {
+    pageHTML="error";
+  }
+  Pattern pattern=Pattern.compile("</*div(\\sid=\\\"content\\\")*");
+  Matcher matcher=pattern.matcher(pageHTML);
+  int start=-1;
+  int end=0;
+  int inner=0;
+  while (matcher.find()) {
+    if (matcher.group().length() > 8) {
+      start=matcher.start();
+    }
+ else     if (start >= 0) {
+      if (matcher.group().equals("<div")) {
+        inner++;
+      }
+ else {
+        if (inner == 0) {
+          end=matcher.end();
+          break;
+        }
+ else {
+          inner--;
+        }
+      }
+    }
+  }
+  if (start == -1 || end <= 0) {
+    return "error";
+  }
+ else {
+    return mShareDecksTemplate.replace("::content::",pageHTML.substring(start,end));
+  }
+}

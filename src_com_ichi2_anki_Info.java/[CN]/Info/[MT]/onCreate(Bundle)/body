@@ -88,14 +88,18 @@ mWebView.loadDataWithBaseURL("",sb.toString(),"text/html","utf-8",null);
 AnkiDroidApp.getSharedPrefs(Info.this.getBaseContext()).edit().putBoolean("sslAcceptAll",false).commit();
 break;
 case TYPE_SHARED_DECKS:
+mLoadingLayer=(RelativeLayout)findViewById(R.id.info_loading_layer);
+mLoadingLayer.setVisibility(View.VISIBLE);
+try {
+mShareDecksTemplate=Utils.convertStreamToString(getAssets().open("shared_decks_template.html"));
+}
+ catch (IOException e) {
+e.printStackTrace();
+}
+mWebView.setWebViewClient(new MobileAnkiWebview());
 mWebView.loadUrl(res.getString(R.string.shared_decks_url));
-mWebView.setWebViewClient(new CustomWebViewClient());
 mWebView.getSettings().setJavaScriptEnabled(true);
 continueButton.setText(res.getString(R.string.download_button_return));
-StyledDialog.Builder builder=new StyledDialog.Builder(this);
-builder.setMessage("At the moment, it's still necessary to log in manually.\nPlease log in here and choose then your deck");
-builder.setPositiveButton("ok",null);
-builder.show();
 break;
 case TYPE_UPGRADE_DECKS:
 sb.append("<html><body>");
