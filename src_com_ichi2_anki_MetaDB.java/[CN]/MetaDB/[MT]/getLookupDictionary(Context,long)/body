@@ -1,0 +1,22 @@
+{
+  openDBIfClosed(context);
+  Cursor cur=null;
+  try {
+    cur=mMetaDb.rawQuery("SELECT dictionary FROM customDictionary" + " WHERE did = " + did,null);
+    if (cur.moveToNext()) {
+      return cur.getInt(0);
+    }
+ else {
+      return -1;
+    }
+  }
+ catch (  Exception e) {
+    Log.e("Error","Error retrieving custom dictionary from MetaDB ",e);
+    return -1;
+  }
+ finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+}

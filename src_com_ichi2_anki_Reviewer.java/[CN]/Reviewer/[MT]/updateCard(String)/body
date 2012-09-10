@@ -1,33 +1,37 @@
 {
   Log.i(AnkiDroidApp.TAG,"updateCard");
+  Lookup.initialize(this,mCurrentCard.getDid());
   if (mCurrentSimpleInterface) {
     fillFlashcard(mShowAnimations);
-    return;
   }
-  content=recalculateHardCodedFontSize(content,mDisplayFontSize);
-  if (mCurrentCard == null) {
-    mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
+ else {
+    content=recalculateHardCodedFontSize(content,mDisplayFontSize);
+    if (mCurrentCard == null) {
+      mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
+    }
+    String question="";
+    String answer="";
+    Sound.resetSounds();
+    int qa=MetaDB.LANGUAGES_QA_QUESTION;
+    if (sDisplayAnswer) {
+      qa=MetaDB.LANGUAGES_QA_ANSWER;
+    }
+    answer=Sound.parseSounds(mBaseUrl,content,mSpeakText,qa);
+    content=question + answer;
+    content=content.replace("font-weight:600;","font-weight:700;");
+    Log.i(AnkiDroidApp.TAG,"content card = \n" + content);
+    StringBuilder style=new StringBuilder();
+    style.append(mCustomFontStyle);
+    Log.i(AnkiDroidApp.TAG,"::style::" + style);
+    if (mNightMode) {
+      content=HtmlColors.invertColors(content);
+    }
+    content=SmpToHtmlEntity(content);
+    mCardContent=new SpannedString(mCardTemplate.replace("::content::",content).replace("::style::",style.toString()));
+    Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
+    fillFlashcard(mShowAnimations);
   }
-  String question="";
-  String answer="";
-  Sound.resetSounds();
-  int qa=MetaDB.LANGUAGES_QA_QUESTION;
-  if (sDisplayAnswer) {
-    qa=MetaDB.LANGUAGES_QA_ANSWER;
+  if (!mConfigurationChanged) {
+    playSounds();
   }
-  answer=Sound.parseSounds(mBaseUrl,content,mSpeakText,qa);
-  content=question + answer;
-  content=content.replace("font-weight:600;","font-weight:700;");
-  Log.i(AnkiDroidApp.TAG,"content card = \n" + content);
-  StringBuilder style=new StringBuilder();
-  style.append(mCustomFontStyle);
-  Log.i(AnkiDroidApp.TAG,"::style::" + style);
-  if (mNightMode) {
-    content=HtmlColors.invertColors(content);
-  }
-  content=SmpToHtmlEntity(content);
-  mCardContent=new SpannedString(mCardTemplate.replace("::content::",content).replace("::style::",style.toString()));
-  Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
-  fillFlashcard(mShowAnimations);
-  if (!mConfigurationChanged && mPlaySoundsAtStart)   playSounds();
 }

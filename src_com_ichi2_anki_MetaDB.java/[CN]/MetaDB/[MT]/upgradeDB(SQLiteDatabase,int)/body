@@ -1,9 +1,14 @@
 {
   Log.i(AnkiDroidApp.TAG,"Upgrading Internal Database..");
   Log.i(AnkiDroidApp.TAG,"Applying changes for version: 0");
-  mMetaDb.execSQL("CREATE TABLE IF NOT EXISTS languages (" + " _id INTEGER PRIMARY KEY AUTOINCREMENT, " + "deckpath TEXT NOT NULL, modelid INTEGER NOT NULL, "+ "cardmodelid INTEGER NOT NULL, "+ "qa INTEGER, "+ "language TEXT)");
-  mMetaDb.execSQL("CREATE TABLE IF NOT EXISTS whiteboardState (" + "_id INTEGER PRIMARY KEY AUTOINCREMENT, " + "deckpath TEXT NOT NULL, "+ "state INTEGER)");
-  mMetaDb.execSQL("CREATE TABLE IF NOT EXISTS customDictionary (" + "_id INTEGER PRIMARY KEY AUTOINCREMENT, " + "deckpath TEXT NOT NULL, "+ "dictionary INTEGER)");
+  if (mMetaDb.getVersion() < 4) {
+    mMetaDb.execSQL("DROP TABLE IF EXISTS languages;");
+    mMetaDb.execSQL("DROP TABLE IF EXISTS customDictionary;");
+    mMetaDb.execSQL("DROP TABLE IF EXISTS whiteboardState;");
+  }
+  mMetaDb.execSQL("CREATE TABLE IF NOT EXISTS languages (" + " _id INTEGER PRIMARY KEY AUTOINCREMENT, " + "did INTEGER NOT NULL, ord INTEGER, "+ "qa INTEGER, "+ "language TEXT)");
+  mMetaDb.execSQL("CREATE TABLE IF NOT EXISTS whiteboardState (" + "_id INTEGER PRIMARY KEY AUTOINCREMENT, " + "did INTEGER NOT NULL, "+ "state INTEGER)");
+  mMetaDb.execSQL("CREATE TABLE IF NOT EXISTS customDictionary (" + "_id INTEGER PRIMARY KEY AUTOINCREMENT, " + "did INTEGER NOT NULL, "+ "dictionary INTEGER)");
   mMetaDb.execSQL("CREATE TABLE IF NOT EXISTS intentInformation (" + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "fields TEXT NOT NULL)");
   mMetaDb.execSQL("CREATE TABLE IF NOT EXISTS smallWidgetStatus (" + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "progress INTEGER NOT NULL, left INTEGER NOT NULL, eta INTEGER NOT NULL)");
   Cursor c=mMetaDb.rawQuery("PRAGMA table_info(widgetStatus)",null);

@@ -1,7 +1,6 @@
 {
   Log.i(AnkiDroidApp.TAG,"Playing " + soundPath + " has listener? "+ Boolean.toString(playAllListener != null));
   if (soundPath.substring(0,3).equals("tts")) {
-    ReadText.textToSpeech(soundPath.substring(4,soundPath.length()),Integer.parseInt(soundPath.substring(3,4)));
   }
  else {
     if (sMediaPlayer == null)     sMediaPlayer=new MediaPlayer();

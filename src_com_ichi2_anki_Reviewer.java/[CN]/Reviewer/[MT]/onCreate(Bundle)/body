@@ -39,7 +39,6 @@
     initLayout(R.layout.flashcard);
     if (mPrefTextSelection) {
       clipboardSetText("");
-      Lookup.initialize(this,mCollectionFilename);
     }
     try {
       mCardTemplate=Utils.convertStreamToString(getAssets().open("card_template.html"));
@@ -49,9 +48,9 @@
     }
     mSessionCurrReps=0;
     if (mSpeakText) {
-      ReadText.initializeTts(this,mCollectionFilename);
+      ReadText.initializeTts(this);
     }
-    if (mPrefWhiteboard && MetaDB.getWhiteboardState(this,mCollectionFilename) == 1) {
+    if (mPrefWhiteboard && mCurrentCard != null && MetaDB.getWhiteboardState(this,mCurrentCard.getDid()) == 1) {
       mShowWhiteboard=true;
       mWhiteboard.setVisibility(View.VISIBLE);
     }
