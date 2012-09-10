@@ -8,7 +8,7 @@
       card.setIvl(_nextLapseIvl(card,conf));
       card.setFactor(Math.max(1300,card.getFactor() - 200));
       card.setDue(mToday + card.getIvl());
-      if (card.getODid != 0) {
+      if (card.getODid() != 0) {
         card.setODue(card.getDue());
       }
     }

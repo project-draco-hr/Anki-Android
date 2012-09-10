@@ -1,2 +1,12 @@
 {
+  try {
+    int cnt=mCol.getDb().queryScalar("SELECT sum(left / 1000) FROM (SELECT left FROM cards WHERE did = " + did + " AND queue = 1 AND due < "+ (Utils.intNow() + mCol.getConf().getInt("collapseTime"))+ " LIMIT "+ mReportLimit+ ")",false);
+    return cnt + mCol.getDb().queryScalar("SELECT count() FROM (SELECT 1 FROM cards WHERE did = " + did + " AND queue = 3 AND due < "+ mToday+ " LIMIT "+ mReportLimit+ ")",false);
+  }
+ catch (  SQLException e) {
+    throw new RuntimeException(e);
+  }
+catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
 }
