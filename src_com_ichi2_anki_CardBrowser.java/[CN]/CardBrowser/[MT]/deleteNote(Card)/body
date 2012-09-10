@@ -1,8 +1,11 @@
 {
   ArrayList<Card> cards=card.note().cards();
+  int pos;
   for (  Card c : cards) {
-    mCards.remove(getPosition(mCards,c.getId()));
-    mAllCards.remove(getPosition(mAllCards,c.getId()));
+    pos=getPosition(mCards,c.getId());
+    if (pos >= 0 && pos < mCards.size()) {
+      mCards.remove(pos);
+    }
   }
   updateList();
 }

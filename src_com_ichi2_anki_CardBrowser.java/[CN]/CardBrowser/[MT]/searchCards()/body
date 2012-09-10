@@ -1,0 +1,7 @@
+{
+  String searchText=mRestrictOnDeck + mSearchTerms;
+  if (mCol != null) {
+    mCards.clear();
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SEARCH_CARDS,mSearchCardsHandler,new DeckTask.TaskData(new Object[]{mCol,mDeckNames,searchText,((mOrder == CARD_ORDER_NONE) ? "" : "true")}));
+  }
+}

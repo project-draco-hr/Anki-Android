@@ -11,28 +11,16 @@ ActivityTransitionAnimation.slide(CardBrowser.this,ActivityTransitionAnimation.L
 }
 return true;
 case MENU_SHOW_MARKED:
-mShowOnlyMarSus=true;
+mSearchTerms="tag:marked";
+mSearchEditText.setText("");
 mSearchEditText.setHint(R.string.card_browser_show_marked);
-mCards.clear();
-for (int i=0; i < mAllCards.size(); i++) {
-int flags=Integer.parseInt(mAllCards.get(i).get("flags"));
-if (flags == 2 || flags == 3) {
-mCards.add(mAllCards.get(i));
-}
-}
-updateList();
+searchCards();
 return true;
 case MENU_SELECT_SUSPENDED:
-mShowOnlyMarSus=true;
+mSearchTerms="is:suspended";
+mSearchEditText.setText("");
 mSearchEditText.setHint(R.string.card_browser_show_suspended);
-mCards.clear();
-for (int i=0; i < mAllCards.size(); i++) {
-int flags=Integer.parseInt(mAllCards.get(i).get("flags"));
-if (flags == 1 || flags == 3) {
-mCards.add(mAllCards.get(i));
-}
-}
-updateList();
+searchCards();
 return true;
 case MENU_SELECT_TAG:
 showDialog(DIALOG_TAGS);
