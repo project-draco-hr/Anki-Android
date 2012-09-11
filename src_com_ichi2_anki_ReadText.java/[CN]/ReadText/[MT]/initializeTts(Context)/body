@@ -13,7 +13,22 @@
  else {
         Log.e(AnkiDroidApp.TAG,"Initialization of TTS failed");
       }
+      mTts.setOnUtteranceProgressListener(new UtteranceProgressListener(){
+        @Override public void onDone(        String arg0){
+          if (mTextQueue.size() > 0) {
+            String[] text=mTextQueue.remove(0);
+            speak(text[0],text[1]);
+          }
+        }
+        @Override public void onError(        String arg0){
+        }
+        @Override public void onStart(        String arg0){
+        }
+      }
+);
     }
   }
 );
+  mTtsParams=new HashMap<String,String>();
+  mTtsParams.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID,"stringId");
 }

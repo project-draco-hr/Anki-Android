@@ -1,5 +1,8 @@
 {
   if (mTts != null) {
+    if (mTextQueue != null) {
+      mTextQueue.clear();
+    }
     mTts.stop();
   }
 }
