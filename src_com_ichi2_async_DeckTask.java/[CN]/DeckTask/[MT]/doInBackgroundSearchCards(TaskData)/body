@@ -11,5 +11,5 @@
  else {
     publishProgress(result);
   }
-  return null;
+  return new TaskData(col.cardCount(col.getDecks().active()));
 }

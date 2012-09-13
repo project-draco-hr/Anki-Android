@@ -241,7 +241,8 @@ DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_STATISTICS,mLoadStatisticsHandle
 ,mFragmented);
 break;
 case DIALOG_CONTEXT_MENU:
-String[] entries=new String[2];
+String[] entries=new String[3];
+entries[CONTEXT_MENU_COLLAPSE_DECK]=res.getString(R.string.contextmenu_deckpicker_collapse_deck);
 entries[CONTEXT_MENU_RENAME_DECK]=res.getString(R.string.contextmenu_deckpicker_rename_deck);
 entries[CONTEXT_MENU_DELETE_DECK]=res.getString(R.string.contextmenu_deckpicker_delete_deck);
 builder.setTitle("Context Menu");
