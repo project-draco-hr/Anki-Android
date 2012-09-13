@@ -4,8 +4,12 @@
     val=conf.getBoolean(name);
   }
  catch (  JSONException e) {
-    conf.put(name,val);
-    mCol.save();
+    try {
+      conf.put(name,val);
+    }
+ catch (    JSONException e1) {
+    }
+    col.save();
   }
   return val;
 }
