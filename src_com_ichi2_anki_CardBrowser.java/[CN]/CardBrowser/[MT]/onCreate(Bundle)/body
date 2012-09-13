@@ -33,7 +33,7 @@
         break;
       }
     }
-    mOrderAsc=mCol.getConf().getBoolean("sortBackwards");
+    mOrderAsc=Upgrade.upgradeJSONIfNecessary(mCol,mCol.getConf(),"sortBackwards",false);
     if (fSortTypes[mOrder].equals("noteFld")) {
       mOrderAsc=!mOrderAsc;
     }
