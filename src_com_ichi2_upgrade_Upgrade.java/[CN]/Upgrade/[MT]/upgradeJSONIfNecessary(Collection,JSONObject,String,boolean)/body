@@ -1,0 +1,15 @@
+{
+  boolean val=defaultValue;
+  try {
+    val=conf.getBoolean(name);
+  }
+ catch (  JSONException e) {
+    try {
+      conf.put(name,val);
+    }
+ catch (    JSONException e1) {
+    }
+    col.save();
+  }
+  return val;
+}

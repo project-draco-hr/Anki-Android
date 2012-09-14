@@ -14,6 +14,13 @@ if (!AnkiDroidApp.colIsOpen() || mDeckList == null || mDeckList.size() == 0) {
 return;
 }
 mCurrentDid=Long.parseLong(mDeckList.get(mContextMenuPosition).get("did"));
+try {
+ad.changeListItem(CONTEXT_MENU_COLLAPSE_DECK,getResources().getString(AnkiDroidApp.getCol().getDecks().get(mCurrentDid).getBoolean("collapsed") ? R.string.contextmenu_deckpicker_inflate_deck : R.string.contextmenu_deckpicker_collapse_deck));
+}
+ catch (NotFoundException e) {
+}
+catch (JSONException e) {
+}
 ad.setTitle(AnkiDroidApp.getCol().getDecks().name(mCurrentDid));
 break;
 case DIALOG_IMPORT_LOG:

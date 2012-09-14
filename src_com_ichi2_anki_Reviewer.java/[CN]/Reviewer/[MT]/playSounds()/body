@@ -1,6 +1,7 @@
 {
   try {
-    if (!mSched.getCol().getDecks().confForDid(mCurrentCard.getDid()).getBoolean("autoplay")) {
+    long did=mCurrentCard.getODid();
+    if (!mSched.getCol().getDecks().confForDid(did == 0 ? mCurrentCard.getDid() : did).getBoolean("autoplay")) {
       return;
     }
     if (!mSpeakText) {
