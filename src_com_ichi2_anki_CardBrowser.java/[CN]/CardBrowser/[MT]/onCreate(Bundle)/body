@@ -21,7 +21,6 @@
   int sflRelativeFontSize=preferences.getInt("relativeCardBrowserFontSize",DEFAULT_FONT_SIZE_RATIO);
   String sflCustomFont=preferences.getString("browserEditorFont","");
   mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
-  mPrefCacheCardBrowser=preferences.getBoolean("cardBrowserCache",false);
   Resources res=getResources();
   mOrderByFields=res.getStringArray(R.array.card_browser_order_labels);
   try {
@@ -112,5 +111,7 @@
     }
   }
   mSelectedTags=new HashSet<String>();
-  searchCards();
+  if (!preferences.getBoolean("cardBrowserNoSearchOnOpen",false)) {
+    searchCards();
+  }
 }
