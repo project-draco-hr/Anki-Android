@@ -34,7 +34,7 @@
   }
   String desc=AnkiDroidApp.getCol().getDecks().getActualDescription();
   if (desc.length() > 0) {
-    mTextDeckDescription.setText(desc);
+    mTextDeckDescription.setText(Html.fromHtml(desc));
     mTextDeckDescription.setVisibility(View.VISIBLE);
   }
  else {
