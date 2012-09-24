@@ -1,13 +1,18 @@
 {
-  if (did == 1) {
-    return;
-  }
-  mCol._logRem(new long[]{did},Sched.REM_DECK);
-  if (!mDecks.containsKey(did)) {
-    return;
-  }
-  JSONObject deck=get(did);
   try {
+    if (did == 1) {
+      JSONObject deck=get(did);
+      if (deck.getString("name").contains("::")) {
+        deck.put("name","Default");
+        save(deck);
+      }
+      return;
+    }
+    mCol._logRem(new long[]{did},Sched.REM_DECK);
+    if (!mDecks.containsKey(did)) {
+      return;
+    }
+    JSONObject deck=get(did);
     if (deck.getInt("dyn") != 0) {
       mCol.getSched().emptyDyn(did);
       if (childrenToo) {

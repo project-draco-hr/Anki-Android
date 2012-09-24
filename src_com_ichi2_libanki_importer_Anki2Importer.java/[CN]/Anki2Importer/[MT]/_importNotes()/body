@@ -18,6 +18,7 @@
   ArrayList<Object[]> add=new ArrayList<Object[]>();
   ArrayList<Long> dirty=new ArrayList<Long>();
   int usn=mDst.usn();
+  int dupes=0;
   try {
     cursor=mSrc.getDb().getDatabase().rawQuery("SELECT * FROM notes",null);
     while (cursor.moveToNext()) {
@@ -35,6 +36,7 @@
         mNotes.put((String)note[1],new Object[]{note[0],note[3],note[2]});
       }
  else {
+        dupes+=1;
       }
     }
   }
@@ -42,6 +44,8 @@
     if (cursor != null) {
       cursor.close();
     }
+  }
+  if (dupes != 0) {
   }
   mDst.getDb().executeMany("INSERT OR REPLACE INTO NOTES VALUES (?,?,?,?,?,?,?,?,?,?,?)",add);
   long[] dis=Utils.arrayList2array(dirty);

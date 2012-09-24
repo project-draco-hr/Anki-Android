@@ -19,11 +19,14 @@ break;
 case DYN_ADDED:
 t="n.id";
 break;
+case DYN_REVADDED:
+t="n.id desc";
+break;
 case DYN_DUE:
 t="c.due";
 break;
 default :
-throw new RuntimeException("Sched._dynOrder: Unexpected order for dynamic deck " + o);
+t="c.due";
 }
 return t + " limit " + l;
 }
