@@ -36,6 +36,9 @@
       break;
     }
     long usn=mServer.addFiles(zipAdded.first);
+    if (usn == 0) {
+      return null;
+    }
     zipAdded.first.delete();
     mCol.getMedia().forgetAdded(zipAdded.second);
     mCol.getMedia().setUsn(usn);

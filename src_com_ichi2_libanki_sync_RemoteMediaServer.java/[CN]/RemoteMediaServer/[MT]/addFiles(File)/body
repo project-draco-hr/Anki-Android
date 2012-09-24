@@ -1,6 +1,6 @@
 {
   try {
-    HttpResponse ret=super.req("addFiles",new FileInputStream(zip));
+    HttpResponse ret=super.req("addFiles",0,new FileInputStream(zip));
     if (ret == null) {
       return 0;
     }
