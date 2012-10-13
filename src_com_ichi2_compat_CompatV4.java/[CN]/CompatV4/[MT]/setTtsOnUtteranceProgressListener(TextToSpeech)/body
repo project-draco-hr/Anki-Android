@@ -1,0 +1,11 @@
+{
+  tts.setOnUtteranceCompletedListener(new OnUtteranceCompletedListener(){
+    @Override public void onUtteranceCompleted(    String utteranceId){
+      if (ReadText.sTextQueue.size() > 0) {
+        String[] text=ReadText.sTextQueue.remove(0);
+        ReadText.speak(text[0],text[1]);
+      }
+    }
+  }
+);
+}
