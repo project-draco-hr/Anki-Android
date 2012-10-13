@@ -2,6 +2,12 @@
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   Log.i(AnkiDroidApp.TAG,"Reviewer - onCreate");
+  if (mPrefFullscreenReview) {
+    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    if (AnkiDroidApp.SDK_VERSION <= 11) {
+      requestWindowFeature(Window.FEATURE_NO_TITLE);
+    }
+  }
   mChangeBorderStyle=Themes.getTheme() == Themes.THEME_ANDROID_LIGHT || Themes.getTheme() == Themes.THEME_ANDROID_DARK;
   setVolumeControlStream(AudioManager.STREAM_MUSIC);
   Collection col=AnkiDroidApp.getCol();
@@ -22,12 +28,6 @@
       throw new RuntimeException(e);
     }
     AnkiDroidApp.getCompat().setSubtitle(this,"",mInvertedColors);
-    if (mPrefFullscreenReview) {
-      getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-      if (AnkiDroidApp.SDK_VERSION <= 11) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-      }
-    }
     registerExternalStorageListener();
     if (mNightMode) {
       mCurrentBackgroundColor=Themes.getNightModeCardBackground(this);
