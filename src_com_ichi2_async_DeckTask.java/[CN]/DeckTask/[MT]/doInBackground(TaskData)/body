@@ -64,6 +64,8 @@ case TASK_TYPE_EMPTY_CRAM:
 return doInBackgroundEmptyCram(params);
 case TASK_TYPE_IMPORT:
 return doInBackgroundImport(params);
+case TASK_TYPE_IMPORT_REPLACE:
+return doInBackgroundImportReplace(params);
 default :
 return null;
 }
