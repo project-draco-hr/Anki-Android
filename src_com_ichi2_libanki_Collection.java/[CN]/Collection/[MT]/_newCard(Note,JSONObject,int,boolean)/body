@@ -16,7 +16,13 @@
   }
   try {
     card.setDid(did != 0 ? did : note.model().getLong("did"));
-    card.setDid(mDecks.get(card.getDid()).getLong("id"));
+    JSONObject deck=mDecks.get(card.getDid());
+    if (deck.getInt("dyn") == 1) {
+      card.setDid(1);
+    }
+ else {
+      card.setDid(deck.getLong("id"));
+    }
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);
