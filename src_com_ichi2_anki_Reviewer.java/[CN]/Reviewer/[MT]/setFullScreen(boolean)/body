@@ -1,0 +1,10 @@
+{
+  WindowManager.LayoutParams attrs=getWindow().getAttributes();
+  if (fullScreen) {
+    attrs.flags|=WindowManager.LayoutParams.FLAG_FULLSCREEN;
+  }
+ else {
+    attrs.flags&=(~WindowManager.LayoutParams.FLAG_FULLSCREEN);
+  }
+  getWindow().setAttributes(attrs);
+}
