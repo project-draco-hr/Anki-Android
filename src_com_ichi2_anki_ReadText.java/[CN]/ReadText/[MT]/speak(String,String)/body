@@ -5,7 +5,7 @@
   }
  else {
     if (mTts.isSpeaking()) {
-      mTextQueue.add(new String[]{text,loc});
+      sTextQueue.add(new String[]{text,loc});
     }
  else {
       mTts.speak(mTextToSpeak,TextToSpeech.QUEUE_FLUSH,mTtsParams);

@@ -17,8 +17,9 @@ catch (    UnsupportedEncodingException e) {
     }
     BigInteger biginteger=new BigInteger(1,digest);
     result=biginteger.toString(16);
-    if (result.length() < 32) {
-      result="00000000000000000000000000000000".substring(0,32 - result.length()) + result;
+    if (result.length() < 40) {
+      String zeroes="0000000000000000000000000000000000000000";
+      result=zeroes.substring(0,zeroes.length() - result.length()) + result;
     }
   }
   return result;

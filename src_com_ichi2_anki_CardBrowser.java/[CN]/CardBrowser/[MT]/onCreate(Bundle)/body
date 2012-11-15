@@ -32,6 +32,9 @@
         break;
       }
     }
+    if (mOrder == 1 && preferences.getBoolean("cardBrowserNoSorting",false)) {
+      mOrder=0;
+    }
     mOrderAsc=Upgrade.upgradeJSONIfNecessary(mCol,mCol.getConf(),"sortBackwards",false);
     if (fSortTypes[mOrder].equals("noteFld")) {
       mOrderAsc=!mOrderAsc;

@@ -1,7 +1,6 @@
 {
-  StringBuffer sb=new StringBuffer();
   latex=latex.replace("&nbsp;"," ");
-  latex=sb.toString().replaceAll("<br( /)?>","\n");
+  latex=latex.replaceAll("<br( /)?>","\n");
   latex=latex.replaceAll("<.+?>"," ");
   latex=Utils.stripHTML(latex);
   return latex;

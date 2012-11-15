@@ -13,7 +13,14 @@ builder.setSingleChoiceItems(res.getStringArray(R.array.card_browser_order_label
     mOrder=which;
     mOrderAsc=false;
     try {
-      mCol.getConf().put("sortType",fSortTypes[mOrder]);
+      if (mOrder == 0) {
+        mCol.getConf().put("sortType",fSortTypes[1]);
+        AnkiDroidApp.getSharedPrefs(getBaseContext()).edit().putBoolean("cardBrowserNoSorting",true).commit();
+      }
+ else {
+        mCol.getConf().put("sortType",fSortTypes[mOrder]);
+        AnkiDroidApp.getSharedPrefs(getBaseContext()).edit().putBoolean("cardBrowserNoSorting",false).commit();
+      }
       if (fSortTypes[mOrder].equals("noteFld")) {
         mOrderAsc=true;
       }

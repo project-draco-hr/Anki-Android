@@ -1,0 +1,60 @@
+{
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundImportReplace");
+  Collection col=params[0].getCollection();
+  String path=params[0].getString();
+  String fileDir=AnkiDroidApp.getCurrentAnkiDroidDirectory(AnkiDroidApp.getInstance().getBaseContext()) + "/tmpzip";
+  File dir=new File(fileDir);
+  if (dir.exists()) {
+    BackupManager.removeDir(dir);
+  }
+  String colFile=fileDir + "/collection.anki2";
+  if (!Utils.unzip(path,fileDir) || !(new File(colFile)).exists()) {
+    return new TaskData(-2,null,true);
+  }
+  String colPath=col.getPath();
+  AnkiDroidApp.closeCollection(true);
+  BackupManager.performBackup(colPath,true);
+  File f=new File(colFile);
+  f.renameTo(new File(colPath));
+  int addedCount=-1;
+  try {
+    col=AnkiDroidApp.openCollection(colPath);
+    JSONObject media=new JSONObject(Utils.convertStreamToString(new FileInputStream(fileDir + "/media")));
+    String mediaDir=col.getMedia().getDir() + "/";
+    JSONArray names=media.names();
+    if (names != null) {
+      for (int i=0; i < names.length(); i++) {
+        String n=names.getString(i);
+        String o=media.getString(n);
+        File of=new File(mediaDir + o);
+        if (!of.exists()) {
+          of.delete();
+        }
+        File newFile=new File(fileDir + "/" + n);
+        newFile.renameTo(of);
+      }
+    }
+    BackupManager.removeDir(dir);
+    Object[] counts=null;
+    DeckTask.TaskData result=doInBackgroundLoadDeckCounts(new TaskData(col));
+    if (result != null) {
+      counts=result.getObjArray();
+    }
+    return new TaskData(addedCount,counts,true);
+  }
+ catch (  RuntimeException e) {
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundImportReplace - RuntimeException on reopening collection: " + e);
+    AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundImportReplace1");
+    return new TaskData(false);
+  }
+catch (  FileNotFoundException e) {
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundImportReplace - RuntimeException on reopening collection: " + e);
+    AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundImportReplace2");
+    return new TaskData(false);
+  }
+catch (  JSONException e) {
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundImportReplace - RuntimeException on reopening collection: " + e);
+    AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundImportReplace3");
+    return new TaskData(false);
+  }
+}
