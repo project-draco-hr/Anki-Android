@@ -8,7 +8,7 @@
   String type;
   try {
     type=mCol.getConf().getString("sortType");
-    String sort;
+    String sort=null;
     if (type.startsWith("note")) {
       if (type.startsWith("noteCrt")) {
         sort="n.id, c.ord";
@@ -18,9 +18,6 @@
       }
  else       if (type.startsWith("noteFld")) {
         sort="n.sfld COLLATE NOCASE, c.ord";
-      }
- else {
-        throw new RuntimeException("wrong sort type " + type);
       }
     }
  else     if (type.startsWith("card")) {
@@ -42,12 +39,9 @@
  else       if (type.startsWith("cardIvl")) {
         sort="c.ivl";
       }
- else {
-        throw new RuntimeException("wrong sort type " + type);
-      }
     }
- else {
-      throw new RuntimeException("wrong sort type " + type);
+    if (sort == null) {
+      sort="n.id, c.ord";
     }
     boolean sortBackwards=Upgrade.upgradeJSONIfNecessary(mCol,mCol.getConf(),"sortBackwards",false);
     return new Pair<String,Boolean>(" ORDER BY " + sort,sortBackwards);

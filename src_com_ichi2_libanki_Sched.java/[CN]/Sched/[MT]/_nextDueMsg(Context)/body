@@ -8,5 +8,9 @@
     sb.append("\n\n");
     sb.append(context.getString(R.string.studyoptions_congrats_more_new));
   }
+  if (mHaveCustomStudy && mCol.getDecks().current().getInt("dyn") == 0) {
+    sb.append("\n\n");
+    sb.append(context.getString(R.string.studyoptions_congrats_custom));
+  }
   return sb.toString();
 }

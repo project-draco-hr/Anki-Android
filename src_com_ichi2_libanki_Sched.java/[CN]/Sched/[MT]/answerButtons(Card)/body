@@ -5,7 +5,7 @@
     }
     JSONObject conf=_lapseConf(card);
     try {
-      if (conf.getJSONArray("delays").length() > 1) {
+      if (card.getType() == 0 || conf.getJSONArray("delays").length() > 1) {
         return 3;
       }
     }

@@ -7,6 +7,10 @@
   ArrayList<Object[]> data=new ArrayList<Object[]>();
   try {
     for (    JSONObject deck : decks) {
+      if (lims.containsKey(deck.getString("name"))) {
+        mCol.getDecks().rem(deck.getLong("id"),false,true);
+        return deckDueList(counts);
+      }
       String p;
       String[] parts=deck.getString("name").split("::");
       if (parts.length < 2) {
@@ -24,6 +28,10 @@
       }
       int nlim=_deckNewLimitSingle(deck);
       if (p.length() > 0) {
+        if (!lims.containsKey(p)) {
+          mCol.getDecks().rem(deck.getLong("id"),false,true);
+          return deckDueList(counts);
+        }
         nlim=Math.min(nlim,lims.get(p)[0]);
       }
       int newC=_newForDeck(deck.getLong("id"),nlim);

@@ -34,6 +34,9 @@
     while (cursor.moveToNext()) {
       Object[] card=new Object[]{cursor.getString(0),cursor.getLong(1),cursor.getLong(2),cursor.getLong(3),cursor.getLong(4),cursor.getInt(5),cursor.getLong(6),cursor.getInt(7),cursor.getInt(8),cursor.getInt(9),cursor.getLong(10),cursor.getLong(11),cursor.getLong(12),cursor.getInt(13),cursor.getInt(14),cursor.getInt(15),cursor.getLong(16),cursor.getLong(17),cursor.getInt(18),cursor.getString(19)};
       String guid=(String)card[0];
+      if (mChangedGuids.containsKey(guid)) {
+        guid=mChangedGuids.get(guid);
+      }
       if (!mNotes.containsKey(guid)) {
         continue;
       }
@@ -58,6 +61,20 @@
       card[5]=usn;
       if ((Integer)card[7] == 2 || (Integer)card[7] == 3) {
         card[8]=(Long)card[8] - aheadBy;
+      }
+      if ((Integer)card[15] != 0) {
+        card[15]=0;
+        card[8]=card[14];
+        card[14]=0;
+        if ((Integer)card[6] == 1) {
+          card[7]=0;
+        }
+ else {
+          card[7]=card[6];
+        }
+        if ((Integer)card[6] == 1) {
+          card[6]=0;
+        }
       }
       cards.add(card);
       Cursor cur2=null;

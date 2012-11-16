@@ -1,0 +1,3 @@
+{
+  return mCol.getDb().queryScalar("SELECT count() FROM cards WHERE did IN (SELECT id FROM cards WHERE did IN " + Utils.ids2str(mCol.getDecks().active()) + " AND queue = 2 LIMIT "+ mReportLimit+ ")",false);
+}

@@ -1,3 +1,5 @@
 {
+  boolean mod=mCol.getDb().getMod();
   mCol.getDb().execute("UPDATE cards SET queue = type WHERE queue = -2");
+  mCol.getDb().setMod(mod);
 }
