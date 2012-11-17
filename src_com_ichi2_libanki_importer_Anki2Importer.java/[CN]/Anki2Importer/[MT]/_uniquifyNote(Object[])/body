@@ -1,0 +1,22 @@
+{
+  String origGuid=(String)note[GUID];
+  long srcMid=(Long)note[MID];
+  long dstMid=_mid(srcMid);
+  if (srcMid == dstMid) {
+    return !mNotes.containsKey(origGuid);
+  }
+  note[MID]=dstMid;
+  if (!mNotes.containsKey(origGuid)) {
+    return true;
+  }
+  while (true) {
+    note[GUID]=Utils.incGuid((String)note[GUID]);
+    mChangedGuids.put(origGuid,(String)note[GUID]);
+    if (!mNotes.containsKey((String)note[GUID])) {
+      return true;
+    }
+    if (dstMid == (Long)mNotes.get((String)note[GUID])[MID]) {
+      return false;
+    }
+  }
+}

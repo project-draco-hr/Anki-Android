@@ -1,0 +1,3 @@
+{
+  return new StringBuffer(_incGuid(new StringBuffer(guid).reverse().toString())).reverse().toString();
+}
