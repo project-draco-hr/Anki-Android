@@ -190,8 +190,14 @@ return null;
 }
 builder.setTitle(res.getString(R.string.delete_deck_title));
 builder.setIcon(R.drawable.ic_dialog_alert);
+boolean isDyn=AnkiDroidApp.getCol().getDecks().isDyn(mCurrentDid);
+if (isDyn) {
+builder.setMessage(String.format(res.getString(R.string.delete_cram_deck_message),"\'" + AnkiDroidApp.getCol().getDecks().name(mCurrentDid) + "\'"));
+}
+ else {
 builder.setMessage(String.format(res.getString(R.string.delete_deck_message),"\'" + AnkiDroidApp.getCol().getDecks().name(mCurrentDid) + "\'"));
-builder.setPositiveButton(res.getString(R.string.delete_deck_confirm),new DialogInterface.OnClickListener(){
+}
+builder.setPositiveButton(res.getString(R.string.yes),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 if (AnkiDroidApp.getCol().getDecks().selected() == mCurrentDid) {
 Fragment frag=(Fragment)getSupportFragmentManager().findFragmentById(R.id.studyoptions_fragment);
