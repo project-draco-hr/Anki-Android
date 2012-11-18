@@ -1,0 +1,7 @@
+{
+  mSearchTerms=mSearchEditText.getText().toString().toLowerCase();
+  if (mSearchTerms.length() == 0) {
+    mSearchEditText.setHint(R.string.downloaddeck_search);
+  }
+  searchCards();
+}
