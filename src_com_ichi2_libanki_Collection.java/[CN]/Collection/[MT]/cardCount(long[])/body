@@ -1,0 +1,3 @@
+{
+  return mDb.queryScalar("SELECT count() FROM cards WHERE did IN " + Utils.ids2str(ls));
+}

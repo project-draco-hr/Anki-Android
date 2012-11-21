@@ -1,6 +1,12 @@
 {
   try {
-    JSONObject conf=_lrnConf(card);
+    JSONObject conf;
+    if (card.getType() == 2) {
+      conf=_lapseConf(card);
+    }
+ else {
+      conf=_lrnConf(card);
+    }
     int tot=conf.getJSONArray("delays").length();
     int tod=_leftToday(conf.getJSONArray("delays"),tot);
     return tot + tod * 1000;

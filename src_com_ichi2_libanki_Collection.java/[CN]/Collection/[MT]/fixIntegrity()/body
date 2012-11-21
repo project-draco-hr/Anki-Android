@@ -1,5 +1,6 @@
 {
   File file=new File(mPath);
+  ArrayList<String> problems=new ArrayList<String>();
   long oldSize=file.length();
   try {
     mDb.getDatabase().beginTransaction();
@@ -10,19 +11,38 @@
       }
       ArrayList<Long> ids=mDb.queryColumn(Long.class,"SELECT id FROM notes WHERE mid NOT IN " + Utils.ids2str(mModels.ids()),0);
       if (ids.size() != 0) {
+        problems.add("Deleted " + ids.size() + " note(s) with missing note type.");
         _remNotes(Utils.arrayList2array(ids));
+      }
+      for (      JSONObject m : mModels.all()) {
+        if (m.getInt("type") != Sched.MODEL_STD) {
+          continue;
+        }
+        ArrayList<Integer> ords=new ArrayList<Integer>();
+        JSONArray tmpls=m.getJSONArray("tmpls");
+        for (int t=0; t < tmpls.length(); t++) {
+          ords.add(tmpls.getJSONObject(t).getInt("ord"));
+        }
+        ids=mDb.queryColumn(Long.class,"SELECT id FROM cards WHERE ord NOT IN " + Utils.ids2str(ords) + " AND nid IN (SELECT id FROM notes WHERE mid = "+ m.getLong("id"),0);
+        if (ids.size() > 0) {
+          problems.add("Deleted " + ids.size() + " card(s) with missing template.");
+          remCards(Utils.arrayList2array(ids));
+        }
       }
       ids=mDb.queryColumn(Long.class,"SELECT id FROM notes WHERE id NOT IN (SELECT DISTINCT nid FROM cards)",0);
       if (ids.size() != 0) {
+        problems.add("Deleted " + ids.size() + " note(s) with missing no cards.");
         _remNotes(Utils.arrayList2array(ids));
       }
       mTags.registerNotes();
       for (      JSONObject m : mModels.all()) {
         updateFieldCache(Utils.arrayList2array(mModels.nids(m)));
       }
+      mDb.execute("UPDATE cards SET due = 1000000, mod = " + Utils.intNow() + ", usn = "+ usn()+ " WHERE due > 1000000 AND queue = 0");
       mConf.put("nextPos",mDb.queryScalar("SELECT max(due) + 1 FROM cards WHERE type = 0",false));
       ids=mDb.queryColumn(Long.class,"SELECT id FROM cards WHERE queue = 2 AND due > 10000",0);
       if (ids.size() > 0) {
+        problems.add("Reviews had incorrect due date.");
         mDb.execute("UPDATE cards SET due = 0, mod = " + Utils.intNow() + ", usn = "+ usn()+ " WHERE id IN "+ Utils.ids2str(Utils.arrayList2array(ids)));
       }
       mDb.getDatabase().setTransactionSuccessful();
@@ -42,5 +62,8 @@
   optimize();
   file=new File(mPath);
   long newSize=file.length();
+  if (problems.size() > 0) {
+    modSchema();
+  }
   return (long)((oldSize - newSize) / 1024);
 }

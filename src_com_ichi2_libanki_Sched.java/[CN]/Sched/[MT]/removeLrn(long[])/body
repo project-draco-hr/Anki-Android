@@ -1,0 +1,11 @@
+{
+  String extra;
+  if (ids != null && ids.length > 0) {
+    extra=" AND id IN " + Utils.ids2str(ids);
+  }
+ else {
+    extra=" AND did IN " + Utils.ids2str(mCol.getDecks().allIds());
+  }
+  mCol.getDb().execute("update cards set due = odue, queue = 2, mod = " + Utils.intNow() + ", usn = "+ mCol.usn()+ ", odue = 0 where queue IN (1,3) and type = 2 "+ extra);
+  forgetCards(Utils.arrayList2array(mCol.getDb().queryColumn(Long.class,"SELECT id FROM cards WHERE queue IN (1,3) " + extra,0)));
+}

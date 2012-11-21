@@ -1,0 +1,17 @@
+{
+  String name="Basic (and reversed card)";
+  Models mm=col.getModels();
+  JSONObject m=addBasicModel(col);
+  try {
+    m.put("name",name);
+    JSONObject t=mm.newTemplate("Card 2");
+    t.put("qfmt","{{Back}}");
+    t.put("afmt","{{FrontSide}}\n\n<hr id=answer>\n\n{{Front}}");
+    mm.addTemplate(m,t);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  mm.add(m);
+  return m;
+}

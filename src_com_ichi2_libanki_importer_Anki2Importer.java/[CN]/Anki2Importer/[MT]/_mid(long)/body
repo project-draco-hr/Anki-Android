@@ -1,41 +1,27 @@
 {
   try {
-    if (mModelMap.containsKey(mid)) {
-      return mModelMap.get(mid);
+    if (mModelMap.containsKey(srcMid)) {
+      return mModelMap.get(srcMid);
     }
-    JSONObject src=new JSONObject(mSrc.getModels().get(mid).toString());
-    if (!mDst.getModels().have(mid)) {
-      mDst.getModels().update(src);
-      if (mDeckPrefix != null) {
-        src.put("did",mDst.getDecks().current().getLong("id"));
-        if (!mDeckPrefix.equals("shared")) {
-          src.put("name",src.getString("name") + " (" + mDeckPrefix+ ")");
-        }
+    long mid=srcMid;
+    JSONObject srcModel=new JSONObject(mSrc.getModels().get(srcMid).toString());
+    long srcScm=mSrc.getModels().scmhash(srcModel);
+    while (true) {
+      if (!mDst.getModels().have(mid)) {
+        JSONObject model=new JSONObject(srcModel.toString());
+        model.put("id",mid);
+        mDst.getModels().update(model);
+        break;
       }
-      mDst.getModels().save(src);
-      mModelMap.put(mid,mid);
-      return mid;
-    }
-    JSONObject dst=mDst.getModels().get(mid);
-    long shash=mSrc.getModels().scmhash(src);
-    long dhash=mSrc.getModels().scmhash(dst);
-    if (shash == dhash) {
-      mModelMap.put(mid,mid);
-      return mid;
-    }
-    JSONArray vers=dst.getJSONArray("vers");
-    for (int i=0; i < vers.length(); i++) {
-      JSONObject m=mDst.getModels().get(vers.getLong(i));
-      if (mDst.getModels().scmhash(m) == shash) {
-        mModelMap.put(mid,m.getLong("id"));
-        return m.getLong("id");
+      JSONObject dstModel=new JSONObject(mDst.getModels().get(mid).toString());
+      long dstScm=mDst.getModels().scmhash(dstModel);
+      if (srcScm == dstScm) {
+        break;
       }
+      mid+=1;
     }
-    mDst.getModels().add(src);
-    vers.put(src.getLong("id"));
-    dst.put("vers",vers);
-    mDst.getModels().save(dst);
-    return src.getLong("id");
+    mModelMap.put(srcMid,mid);
+    return mid;
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);

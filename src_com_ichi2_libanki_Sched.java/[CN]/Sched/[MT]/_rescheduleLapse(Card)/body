@@ -24,9 +24,8 @@
     }
     delay=_delayForGrade(conf,0);
     card.setDue((long)(delay + Utils.now()));
+    card.setLeft(_startingLeft(card));
     if (card.getDue() < mDayCutoff) {
-      int left=conf.getJSONArray("delays").length();
-      card.setLeft(left + _leftToday(conf.getJSONArray("delays"),left) * 1000);
       mLrnCount+=card.getLeft() / 1000;
       card.setQueue(1);
       _sortIntoLrn(card.getDue(),card.getId());

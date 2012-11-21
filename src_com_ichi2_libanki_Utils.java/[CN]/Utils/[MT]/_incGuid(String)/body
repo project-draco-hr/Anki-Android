@@ -1,0 +1,11 @@
+{
+  String table=ALL_CHARACTERS + BASE91_EXTRA_CHARS;
+  int idx=table.indexOf(guid.substring(0,1));
+  if (idx + 1 == table.length()) {
+    guid=table.substring(0,1) + _incGuid(guid.substring(1,guid.length()));
+  }
+ else {
+    guid=table.substring(idx + 1) + guid.substring(1,guid.length());
+  }
+  return guid;
+}
