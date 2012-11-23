@@ -57,23 +57,23 @@
   mDeckChart=(LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_chart);
   mButtonStart.setOnClickListener(mButtonClickListener);
   mCongratsView=inflater.inflate(R.layout.studyoptions_congrats,null);
-  mLearnMoreView=inflater.inflate(R.layout.styled_learn_more_dialog,null);
-  mReviewEarlyView=inflater.inflate(R.layout.styled_review_early_dialog,null);
+  mCustomStudyDetailsView=inflater.inflate(R.layout.styled_custom_study_details_dialog,null);
+  mCustomStudyTextView1=(TextView)mCustomStudyDetailsView.findViewById(R.id.custom_study_details_text1);
+  mCustomStudyTextView2=(TextView)mCustomStudyDetailsView.findViewById(R.id.custom_study_details_text2);
+  mCustomStudyEditText=(EditText)mCustomStudyDetailsView.findViewById(R.id.custom_study_details_edittext2);
   Themes.setWallpaper(mCongratsView);
   mTextCongratsMessage=(TextView)mCongratsView.findViewById(R.id.studyoptions_congrats_message);
   Themes.setTextViewStyle(mTextCongratsMessage);
   mTextCongratsMessage.setOnClickListener(mButtonClickListener);
   mButtonCongratsUndo=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_undo);
-  mButtonCongratsLearnMore=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_learnmore);
-  mButtonCongratsReviewEarly=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_reviewearly);
+  mButtonCongratsCustomStudy=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_customstudy);
   mButtonCongratsOpenOtherDeck=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_open_other_deck);
   if (mFragmented) {
     mButtonCongratsOpenOtherDeck.setVisibility(View.GONE);
   }
   mButtonCongratsFinish=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_finish);
   mButtonCongratsUndo.setOnClickListener(mButtonClickListener);
-  mButtonCongratsLearnMore.setOnClickListener(mButtonClickListener);
-  mButtonCongratsReviewEarly.setOnClickListener(mButtonClickListener);
+  mButtonCongratsCustomStudy.setOnClickListener(mButtonClickListener);
   mButtonCongratsOpenOtherDeck.setOnClickListener(mButtonClickListener);
   mButtonCongratsFinish.setOnClickListener(mButtonClickListener);
 }

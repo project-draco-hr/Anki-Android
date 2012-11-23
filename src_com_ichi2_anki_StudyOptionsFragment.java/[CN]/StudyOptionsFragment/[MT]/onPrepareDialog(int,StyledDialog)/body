@@ -1,12 +1,4 @@
 {
 switch (id) {
-case DIALOG_LEARN_MORE:
-    SharedPreferences pref=AnkiDroidApp.getSharedPrefs(getActivity());
-  ((EditText)mLearnMoreView.findViewById(R.id.learnmore_extend_new_limit)).setText(Integer.toString(pref.getInt("extendNew",10)));
-((EditText)mLearnMoreView.findViewById(R.id.learnmore_extend_rev_limit)).setText(Integer.toString(pref.getInt("extendRev",50)));
-break;
-case DIALOG_REVIEW_EARLY:
-((EditText)mReviewEarlyView.findViewById(R.id.reviewearly_days_ahead)).setText(Integer.toString(AnkiDroidApp.getSharedPrefs(getActivity()).getInt("reviewAhead",1)));
-break;
-}
+  }
 }
