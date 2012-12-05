@@ -1,0 +1,13 @@
+{
+  try {
+    for (    JSONObject m : mDecks.values()) {
+      if (m.get("name").equals(name)) {
+        return m;
+      }
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  return null;
+}

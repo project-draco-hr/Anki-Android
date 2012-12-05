@@ -1,0 +1,45 @@
+{
+  JSONObject dyn;
+  if (AnkiDroidApp.colIsOpen()) {
+    Collection col=AnkiDroidApp.getCol();
+    try {
+      String deckName=col.getDecks().current().getString("name");
+      String customStudyDeck=getResources().getString(R.string.custom_study_deck_name);
+      JSONObject cur=col.getDecks().byName(customStudyDeck);
+      if (cur != null) {
+        if (cur.getInt("dyn") != 1) {
+          StyledDialog.Builder builder=new StyledDialog.Builder(getActivity());
+          builder.setMessage(R.string.custom_study_deck_exists);
+          builder.setNegativeButton(getResources().getString(R.string.cancel),new OnClickListener(){
+            @Override public void onClick(            DialogInterface dialog,            int which){
+            }
+          }
+);
+          builder.create().show();
+          return;
+        }
+ else {
+          col.getSched().emptyDyn(cur.getLong("id"));
+          dyn=cur;
+          col.getDecks().select(cur.getLong("id"));
+        }
+      }
+ else {
+        long did=col.getDecks().newDyn(customStudyDeck);
+        dyn=col.getDecks().get(did);
+      }
+      dyn.put("delays",delays);
+      JSONArray ar=dyn.getJSONArray("terms");
+      ar.getJSONArray(0).put(0,new StringBuilder("deck:\"").append(deckName).append("\" ").append(terms[0]).toString());
+      ar.getJSONArray(0).put(1,terms[1]);
+      ar.getJSONArray(0).put(2,terms[2]);
+      dyn.put("resched",resched);
+      finishCongrats();
+      mProgressDialog=StyledProgressDialog.show(getActivity(),"",getResources().getString(R.string.rebuild_custom_study_deck),true);
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REBUILD_CRAM,mRebuildCustomStudyListener,new DeckTask.TaskData(AnkiDroidApp.getCol(),AnkiDroidApp.getCol().getDecks().selected(),mFragmented));
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
+}
