@@ -62,7 +62,7 @@
       if ((Integer)card[7] == 2 || (Integer)card[7] == 3) {
         card[8]=(Long)card[8] - aheadBy;
       }
-      if ((Integer)card[15] != 0) {
+      if ((Long)card[15] != 0) {
         card[15]=0;
         card[8]=card[14];
         card[14]=0;
