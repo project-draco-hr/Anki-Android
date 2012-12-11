@@ -1,21 +1,27 @@
 {
   if (mDb != null) {
     cleanup();
-    if (save) {
-      getDb().getDatabase().beginTransaction();
-      try {
-        save();
-        getDb().getDatabase().setTransactionSuccessful();
-      }
+    try {
+      SQLiteDatabase db=getDb().getDatabase();
+      if (save) {
+        db.beginTransaction();
+        try {
+          save();
+          db.setTransactionSuccessful();
+        }
   finally {
-        getDb().getDatabase().endTransaction();
+          db.endTransaction();
+        }
+      }
+ else {
+        if (db.inTransaction()) {
+          db.endTransaction();
+        }
+        lock();
       }
     }
- else {
-      if (getDb().getDatabase().inTransaction()) {
-        getDb().getDatabase().endTransaction();
-      }
-      lock();
+ catch (    RuntimeException e) {
+      AnkiDroidApp.saveExceptionReportFile(e,"closeDB");
     }
     AnkiDatabaseManager.closeDatabase(mPath);
     mDb=null;
