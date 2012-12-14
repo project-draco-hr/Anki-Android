@@ -22,8 +22,8 @@ styledDialog.setButtonOnClickListener(Dialog.BUTTON_POSITIVE,new DialogInterface
       deck.put("extendNew",n);
       col.getDecks().save(deck);
       col.getSched().extendLimits(n,0);
-      finishCongrats();
       resetAndUpdateValuesFromDeck();
+      finishCongrats();
     }
  catch (    NumberFormatException e) {
     }
@@ -53,8 +53,8 @@ JSONObject deck=col.getDecks().current();
 deck.put("extendRev",n);
 col.getDecks().save(deck);
 col.getSched().extendLimits(0,n);
-finishCongrats();
 resetAndUpdateValuesFromDeck();
+finishCongrats();
 }
  catch (NumberFormatException e) {
 }
