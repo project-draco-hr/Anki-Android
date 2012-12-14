@@ -1,6 +1,6 @@
 {
   try {
-    String fileDir=AnkiDroidApp.getCurrentAnkiDroidDirectory(AnkiDroidApp.getInstance().getBaseContext()) + "/tmpzip";
+    String fileDir=AnkiDroidApp.getCurrentAnkiDroidDirectory() + "/tmpzip";
     String colFile=fileDir + "/collection.anki2";
     if (!Utils.unzip(mFile,fileDir) || !(new File(colFile)).exists()) {
       return -2;

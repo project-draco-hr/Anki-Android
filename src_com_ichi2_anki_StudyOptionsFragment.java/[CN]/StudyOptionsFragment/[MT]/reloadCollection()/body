@@ -27,5 +27,5 @@
     @Override public void onProgressUpdate(    DeckTask.TaskData... values){
     }
   }
-,new DeckTask.TaskData(AnkiDroidApp.getCurrentAnkiDroidDirectory(getActivity()) + AnkiDroidApp.COLLECTION_PATH));
+,new DeckTask.TaskData(AnkiDroidApp.getCurrentAnkiDroidDirectory() + AnkiDroidApp.COLLECTION_PATH));
 }

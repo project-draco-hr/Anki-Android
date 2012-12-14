@@ -1,0 +1,9 @@
+{
+  SharedPreferences prefs=getSharedPrefs(sInstance.getApplicationContext());
+  if (prefs.getBoolean("internalMemory",false)) {
+    return getInternalMemoryDirectory();
+  }
+ else {
+    return prefs.getString("deckPath",AnkiDroidApp.getDefaultAnkiDroidDirectory());
+  }
+}

@@ -2,5 +2,5 @@
   SharedPreferences pref=AnkiDroidApp.getSharedPrefs(getBaseContext());
   mUsername=pref.getString("username","");
   mPassword=pref.getString("password","");
-  mDestination=AnkiDroidApp.getCurrentAnkiDroidDirectory(getBaseContext());
+  mDestination=AnkiDroidApp.getCurrentAnkiDroidDirectory();
 }

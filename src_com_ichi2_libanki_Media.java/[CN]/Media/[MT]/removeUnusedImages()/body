@@ -1,6 +1,6 @@
 {
   List<String> listOfUnusedMedia=check().get(1);
-  String mediaDir=AnkiDroidApp.getCurrentAnkiDroidDirectory(AnkiDroidApp.getInstance().getBaseContext()) + "/collection.media/";
+  String mediaDir=AnkiDroidApp.getCurrentAnkiDroidDirectory() + "/collection.media/";
   for (  String mediaName : listOfUnusedMedia) {
     File mediaFile=new File(mediaDir + mediaName);
     if (mediaFile.exists()) {
