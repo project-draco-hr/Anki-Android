@@ -18,7 +18,7 @@
   if (mods.isEmpty()) {
     return "";
   }
-  String regex=val.replace("_",".").replace("%",".*");
+  String regex=Pattern.quote(val).replace("\\Q_\\E",".").replace("\\Q%\\E",".*");
   LinkedList<Long> nids=new LinkedList<Long>();
   Cursor cur=null;
   try {
