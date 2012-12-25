@@ -8,7 +8,7 @@
   httpParams.setParameter(CoreProtocolPNames.USE_EXPECT_CONTINUE,false);
   httpParams.setParameter(CoreProtocolPNames.USER_AGENT,"AnkiDroid-" + AnkiDroidApp.getPkgVersion());
   HttpProtocolParams.setVersion(httpParams,HttpVersion.HTTP_1_1);
-  HttpConnectionParams.setSoTimeout(httpParams,CONN_TIMEOUT);
+  HttpConnectionParams.setSoTimeout(httpParams,Connection.CONN_TIMEOUT);
   SchemeRegistry registry=new SchemeRegistry();
   registry.register(new Scheme("http",PlainSocketFactory.getSocketFactory(),80));
   registry.register(new Scheme("https",new EasySSLSocketFactory(),443));
