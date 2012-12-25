@@ -2,20 +2,39 @@
   String url=(String)data.data[0];
   String colFilename=AnkiDroidApp.getCurrentAnkiDroidDirectory() + "/tmpImportFile.apkg";
   URL fileUrl;
-  URLConnection conn;
-  InputStream cont;
+  HttpsURLConnection conn;
+  InputStream cont=null;
   try {
     fileUrl=new URL(url);
-    conn=fileUrl.openConnection();
+    SSLContext context=SSLContext.getInstance("TLS");
+    context.init(null,new TrustManager[]{new EasyX509TrustManager(null)},null);
+    conn=(HttpsURLConnection)fileUrl.openConnection();
+    conn.setSSLSocketFactory(context.getSocketFactory());
     conn.setConnectTimeout(10000);
     conn.setReadTimeout(10000);
     cont=conn.getInputStream();
   }
- catch (  MalformedURLException e2) {
+ catch (  MalformedURLException e) {
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundDownloadSharedDeck: ",e);
     data.success=false;
     return data;
   }
 catch (  IOException e) {
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundDownloadSharedDeck: ",e);
+    data.success=false;
+    return data;
+  }
+catch (  NoSuchAlgorithmException e) {
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundDownloadSharedDeck: ",e);
+    data.success=false;
+    return data;
+  }
+catch (  KeyStoreException e) {
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundDownloadSharedDeck: ",e);
+    return data;
+  }
+catch (  KeyManagementException e) {
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundDownloadSharedDeck: ",e);
     data.success=false;
     return data;
   }
