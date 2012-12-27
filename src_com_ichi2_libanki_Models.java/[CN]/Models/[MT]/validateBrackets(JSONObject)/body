@@ -1,0 +1,18 @@
+{
+  String s=value.toString();
+  int count=0;
+  for (  char c : s.toCharArray()) {
+switch (c) {
+case '{':
+      count++;
+    break;
+case '}':
+  count--;
+if (count < 0) {
+  return false;
+}
+break;
+}
+}
+return (count == 0);
+}
