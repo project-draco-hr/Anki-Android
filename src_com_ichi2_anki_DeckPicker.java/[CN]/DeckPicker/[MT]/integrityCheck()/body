@@ -1,5 +1,5 @@
 {
-  if (AnkiDroidApp.colIsOpen()) {
+  if (!AnkiDroidApp.colIsOpen()) {
     loadCollection();
     return;
   }

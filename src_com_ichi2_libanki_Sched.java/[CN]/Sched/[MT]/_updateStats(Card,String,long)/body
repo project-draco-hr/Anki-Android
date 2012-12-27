@@ -6,7 +6,7 @@
   for (  JSONObject g : list) {
     try {
       JSONArray a=g.getJSONArray(key);
-      a.put(1,a.getInt(1) + cnt);
+      a.put(1,a.getLong(1) + l);
     }
  catch (    JSONException e) {
       throw new RuntimeException(e);

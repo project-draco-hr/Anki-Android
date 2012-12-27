@@ -1,7 +1,18 @@
 {
   Log.i(AnkiDroidApp.TAG,"Info.ParseSharedDecks.doInBackground()");
   HttpGet pageGet=new HttpGet(params[0]);
-  HttpClient client=new DefaultHttpClient();
+  HostnameVerifier hostnameVerifier=org.apache.http.conn.ssl.SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER;
+  HttpParams httpParams=new BasicHttpParams();
+  httpParams.setParameter(ConnManagerPNames.MAX_TOTAL_CONNECTIONS,30);
+  httpParams.setParameter(ConnManagerPNames.MAX_CONNECTIONS_PER_ROUTE,new ConnPerRouteBean(30));
+  httpParams.setParameter(CoreProtocolPNames.USE_EXPECT_CONTINUE,false);
+  httpParams.setParameter(CoreProtocolPNames.USER_AGENT,"AnkiDroid-" + AnkiDroidApp.getPkgVersion());
+  HttpProtocolParams.setVersion(httpParams,HttpVersion.HTTP_1_1);
+  HttpConnectionParams.setSoTimeout(httpParams,Connection.CONN_TIMEOUT);
+  SchemeRegistry registry=new SchemeRegistry();
+  registry.register(new Scheme("http",PlainSocketFactory.getSocketFactory(),80));
+  registry.register(new Scheme("https",new EasySSLSocketFactory(),443));
+  ThreadSafeClientConnManager cm=new ThreadSafeClientConnManager(httpParams,registry);
   ResponseHandler<String> handler=new ResponseHandler<String>(){
     @Override public String handleResponse(    HttpResponse response) throws ClientProtocolException, IOException {
       HttpEntity entity=response.getEntity();
@@ -18,15 +29,19 @@
 ;
   String pageHTML=null;
   try {
+    HttpClient client=new DefaultHttpClient(cm,httpParams);
     while (pageHTML == null) {
       pageHTML=client.execute(pageGet,handler);
     }
   }
  catch (  ClientProtocolException e) {
-    pageHTML="error";
+    pageHTML="ClientProtocolException: " + e.getMessage();
+  }
+catch (  SSLException e) {
+    pageHTML="SSLException: " + e.getMessage();
   }
 catch (  IOException e) {
-    pageHTML="error";
+    pageHTML="IOException: " + e.getMessage();
   }
   Pattern pattern=Pattern.compile("</*div(\\sid=\\\"content\\\")*");
   Matcher matcher=pattern.matcher(pageHTML);

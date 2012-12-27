@@ -90,7 +90,7 @@ return;
 );
 break;
 case DIALOG_IMPORT_SELECT:
-List<File> fileList=Utils.getImportableDecks(this);
+List<File> fileList=Utils.getImportableDecks();
 if (fileList.size() == 0) {
 Themes.showThemedToast(DeckPicker.this,getResources().getString(R.string.import_no_file_found),false);
 }

@@ -1,6 +1,6 @@
 {
   SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext());
-  File directory=new File(prefs.getString("deckPath",AnkiDroidApp.getStorageDirectory()) + BACKUP_SUFFIX);
+  File directory=new File(prefs.getString("deckPath",AnkiDroidApp.getCurrentAnkiDroidDirectory()) + BACKUP_SUFFIX);
   if (!directory.isDirectory()) {
     directory.mkdirs();
   }

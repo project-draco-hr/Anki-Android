@@ -41,12 +41,19 @@
     }
   }
  else   if (requestCode == PREFERENCES_UPDATE) {
-    String newLanguage=AnkiDroidApp.getSharedPrefs(this).getString("language","");
+    String oldPath=mPrefDeckPath;
+    SharedPreferences pref=restorePreferences();
+    String newLanguage=pref.getString("language","");
     if (!AnkiDroidApp.getLanguage().equals(newLanguage)) {
       AnkiDroidApp.setLanguage(newLanguage);
       mInvalidateMenu=true;
     }
-    restorePreferences();
+    if (mNotMountedDialog != null && mNotMountedDialog.isShowing() && pref.getBoolean("internalMemory",false)) {
+      showStartupScreensAndDialogs(pref,0);
+    }
+ else     if (!mPrefDeckPath.equals(oldPath)) {
+      loadCollection();
+    }
   }
  else   if (requestCode == REPORT_FEEDBACK && resultCode == RESULT_OK) {
   }

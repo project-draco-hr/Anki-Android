@@ -70,7 +70,7 @@ showDialog(DIALOG_ASYNC);
 }
 }
  else if (key.equals("deckPath")) {
-File decksDirectory=new File(AnkiDroidApp.getCurrentAnkiDroidDirectory(this));
+File decksDirectory=new File(AnkiDroidApp.getCurrentAnkiDroidDirectory());
 if (decksDirectory.exists()) {
 AnkiDroidApp.createNoMediaFileIfMissing(decksDirectory);
 }

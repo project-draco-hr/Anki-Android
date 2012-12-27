@@ -2,6 +2,9 @@
   if (mUnmountReceiver == null) {
     mUnmountReceiver=new BroadcastReceiver(){
       @Override public void onReceive(      Context context,      Intent intent){
+        if (AnkiDroidApp.getSharedPrefs(getBaseContext()).getBoolean("internalMemory",false)) {
+          return;
+        }
         if (intent.getAction().equals(SdCardReceiver.MEDIA_EJECT)) {
           showDialog(DIALOG_SD_CARD_NOT_MOUNTED);
         }

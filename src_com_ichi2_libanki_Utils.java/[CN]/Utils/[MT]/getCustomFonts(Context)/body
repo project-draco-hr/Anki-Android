@@ -1,5 +1,5 @@
 {
-  String deckPath=AnkiDroidApp.getCurrentAnkiDroidDirectory(context);
+  String deckPath=AnkiDroidApp.getCurrentAnkiDroidDirectory();
   String fontsPath=deckPath + "/fonts/";
   File fontsDir=new File(fontsPath);
   int fontsCount=0;

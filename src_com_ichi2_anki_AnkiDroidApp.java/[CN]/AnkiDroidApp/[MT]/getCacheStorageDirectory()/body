@@ -1,5 +1,5 @@
 {
-  File cache=new File(getStorageDirectory() + "/Android/data/" + AnkiDroidApp.getInstance().getPackageName()+ "."+ AnkiDroidApp.getAppName()+ "/cache/");
+  File cache=new File(getInternalMemoryDirectory() + "/cache");
   if (!cache.exists()) {
     cache.mkdirs();
   }

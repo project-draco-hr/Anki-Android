@@ -73,28 +73,36 @@
   mInvalidateMenu=false;
   mDeckList=new ArrayList<HashMap<String,String>>();
   mDeckListView=(ListView)findViewById(R.id.files);
-  mDeckListAdapter=new SimpleAdapter(this,mDeckList,R.layout.deck_item,new String[]{"name","new","lrn","rev","sep"},new int[]{R.id.DeckPickerName,R.id.deckpicker_new,R.id.deckpicker_lrn,R.id.deckpicker_rev,R.id.DeckPickerName});
+  mDeckListAdapter=new SimpleAdapter(this,mDeckList,R.layout.deck_item,new String[]{"name","new","lrn","rev","sep","dyn"},new int[]{R.id.DeckPickerName,R.id.deckpicker_new,R.id.deckpicker_lrn,R.id.deckpicker_rev,R.id.deckpicker_deck,R.id.DeckPickerName});
   mDeckListAdapter.setViewBinder(new SimpleAdapter.ViewBinder(){
     @Override public boolean setViewValue(    View view,    Object data,    String text){
-      if (view.getId() == R.id.DeckPickerName) {
-        View parent=(View)view.getParent().getParent();
+      if (view.getId() == R.id.deckpicker_deck) {
         if (text.equals("top")) {
-          parent.setBackgroundResource(R.drawable.white_deckpicker_top);
+          view.setBackgroundResource(R.drawable.white_deckpicker_top);
           return true;
         }
  else         if (text.equals("bot")) {
-          parent.setBackgroundResource(R.drawable.white_deckpicker_bottom);
+          view.setBackgroundResource(R.drawable.white_deckpicker_bottom);
           return true;
         }
  else         if (text.equals("ful")) {
-          parent.setBackgroundResource(R.drawable.white_deckpicker_full);
+          view.setBackgroundResource(R.drawable.white_deckpicker_full);
           return true;
         }
  else         if (text.equals("cen")) {
-          parent.setBackgroundResource(R.drawable.white_deckpicker_center);
+          view.setBackgroundResource(R.drawable.white_deckpicker_center);
           return true;
         }
-        return false;
+      }
+ else       if (view.getId() == R.id.DeckPickerName) {
+        if (text.equals("d0")) {
+          ((TextView)view).setTextColor(getResources().getColor(R.color.non_dyn_deck));
+          return true;
+        }
+ else         if (text.equals("d1")) {
+          ((TextView)view).setTextColor(getResources().getColor(R.color.dyn_deck));
+          return true;
+        }
       }
       return false;
     }

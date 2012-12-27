@@ -1,4 +1,5 @@
 {
+  mCurrentContentView=CONTENT_CONGRATS;
   if (!AnkiDroidApp.colIsOpen() || !AnkiDroidApp.getCol().undoAvailable()) {
     mButtonCongratsUndo.setEnabled(false);
     mButtonCongratsUndo.setVisibility(View.GONE);

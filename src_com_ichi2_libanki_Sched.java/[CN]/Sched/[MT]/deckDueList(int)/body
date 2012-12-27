@@ -1,6 +1,7 @@
 {
   _checkDay();
   mCol.getDecks().recoverOrphans();
+  unburyCards();
   ArrayList<JSONObject> decks=mCol.getDecks().all();
   Collections.sort(decks,new DeckDueListComparator());
   HashMap<String,Integer[]> lims=new HashMap<String,Integer[]>();

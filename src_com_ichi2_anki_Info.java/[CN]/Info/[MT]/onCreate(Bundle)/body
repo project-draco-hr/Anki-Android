@@ -103,7 +103,7 @@ continueButton.setText(res.getString(R.string.download_button_return));
 break;
 case TYPE_UPGRADE_DECKS:
 sb.append("<html><body>");
-File[] fileList=(new File(AnkiDroidApp.getCurrentAnkiDroidDirectory(this))).listFiles(new OldAnkiDeckFilter());
+File[] fileList=(new File(AnkiDroidApp.getCurrentAnkiDroidDirectory())).listFiles(new OldAnkiDeckFilter());
 StringBuilder fsb=new StringBuilder();
 fsb.append("<ul>");
 for (File f : fileList) {
@@ -112,7 +112,7 @@ fsb.append("<li>").append(f.getName().replace(".anki","")).append("</li>");
 fsb.append("</ul>");
 sb.append(res.getString(R.string.upgrade_decks_message,fsb.toString()));
 sb.append("<ul><li>");
-sb.append(res.getString(R.string.upgrade_decks_message_pos1,AnkiDroidApp.getCurrentAnkiDroidDirectory(this)));
+sb.append(res.getString(R.string.upgrade_decks_message_pos1,AnkiDroidApp.getCurrentAnkiDroidDirectory()));
 sb.append("</li><li>");
 sb.append(res.getString(R.string.upgrade_decks_message_pos2,res.getString(R.string.link_anki)));
 sb.append("</li><li>");
@@ -132,7 +132,7 @@ setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
  else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 }
-Connection.upgradeDecks(mUpgradeListener,new Connection.Payload(new Object[]{AnkiDroidApp.getCurrentAnkiDroidDirectory(Info.this)}));
+Connection.upgradeDecks(mUpgradeListener,new Connection.Payload(new Object[]{AnkiDroidApp.getCurrentAnkiDroidDirectory()}));
 }
 }
 );

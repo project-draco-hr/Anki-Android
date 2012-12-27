@@ -13,6 +13,7 @@
     m.put("new",((Integer)d[2]).toString());
     m.put("lrn",((Integer)d[3]).toString());
     m.put("rev",((Integer)d[4]).toString());
+    m.put("dyn",((Boolean)d[5]) ? "d1" : "d0");
     if (name.length == 1) {
       due+=Integer.parseInt(m.get("new")) + Integer.parseInt(m.get("lrn")) + Integer.parseInt(m.get("rev"));
       m.put("sep","top");

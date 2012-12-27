@@ -2,7 +2,7 @@
   Log.i(AnkiDroidApp.TAG,"doInBackgroundImportReplace");
   Collection col=params[0].getCollection();
   String path=params[0].getString();
-  String fileDir=AnkiDroidApp.getCurrentAnkiDroidDirectory(AnkiDroidApp.getInstance().getBaseContext()) + "/tmpzip";
+  String fileDir=AnkiDroidApp.getCurrentAnkiDroidDirectory() + "/tmpzip";
   File dir=new File(fileDir);
   if (dir.exists()) {
     BackupManager.removeDir(dir);

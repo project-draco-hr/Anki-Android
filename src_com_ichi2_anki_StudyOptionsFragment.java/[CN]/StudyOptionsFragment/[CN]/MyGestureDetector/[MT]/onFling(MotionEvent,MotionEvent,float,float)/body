@@ -5,8 +5,8 @@
         if (mCongratsView != null && mCongratsView.getVisibility() == View.VISIBLE) {
           if (AnkiDroidApp.colIsOpen()) {
             AnkiDroidApp.getCol().undo();
-            finishCongrats();
             resetAndUpdateValuesFromDeck();
+            finishCongrats();
           }
         }
  else {

@@ -1,5 +1,5 @@
 {
-  String deckPath=AnkiDroidApp.getCurrentAnkiDroidDirectory(context);
+  String deckPath=AnkiDroidApp.getCurrentAnkiDroidDirectory();
   File dir=new File(deckPath);
   int deckCount=0;
   File[] deckList=null;
