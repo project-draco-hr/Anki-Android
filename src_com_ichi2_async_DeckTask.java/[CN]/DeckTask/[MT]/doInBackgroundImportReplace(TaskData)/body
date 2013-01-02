@@ -8,7 +8,7 @@
     BackupManager.removeDir(dir);
   }
   String colFile=fileDir + "/collection.anki2";
-  if (!Utils.unzip(path,fileDir) || !(new File(colFile)).exists()) {
+  if (!Utils.unzip(path,fileDir) || !(new File(colFile)).exists() || !Storage.Collection(colFile).validCollection()) {
     return new TaskData(-2,null,true);
   }
   String colPath=col.getPath();

@@ -1,0 +1,9 @@
+{
+  Iterator<Entry<Long,JSONObject>> iterator=mModels.entrySet().iterator();
+  while (iterator.hasNext()) {
+    if (!validateBrackets(iterator.next().getValue())) {
+      return false;
+    }
+  }
+  return true;
+}
