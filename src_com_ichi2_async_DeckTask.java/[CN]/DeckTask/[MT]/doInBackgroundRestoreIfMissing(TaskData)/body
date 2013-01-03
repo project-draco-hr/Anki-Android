@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundRestoreIfMissing");
   String path=params[0].getString();
   BackupManager.restoreCollectionIfMissing(path);
   return null;

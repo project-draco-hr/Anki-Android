@@ -3,9 +3,7 @@
   if (!prefs.getBoolean("showBroadcastMessages",true)) {
     return;
   }
-  Log.i(AnkiDroidApp.TAG,"BroadcastMessages: checkForNewMessages");
   if (!prefs.getBoolean("showBroadcastMessageToday",true)) {
-    Log.i(AnkiDroidApp.TAG,"BroadcastMessages: already shown today");
     return;
   }
   AsyncTask<Activity,Void,Context> checkForNewMessage=new DownloadBroadcastMessage();

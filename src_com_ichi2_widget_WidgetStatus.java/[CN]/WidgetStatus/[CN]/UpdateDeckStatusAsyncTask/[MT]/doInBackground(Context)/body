@@ -1,5 +1,4 @@
 {
-  Log.d(AnkiDroidApp.TAG,"WidgetStatus.UpdateDeckStatusAsyncTask.doInBackground()");
   Context context=params[0];
   if (!AnkiDroidApp.isSdCardMounted()) {
     return context;
@@ -15,7 +14,6 @@
     }
   }
  catch (  SQLException e) {
-    Log.i(AnkiDroidApp.TAG,"Widget: Problems on retrieving deck information");
   }
   return context;
 }

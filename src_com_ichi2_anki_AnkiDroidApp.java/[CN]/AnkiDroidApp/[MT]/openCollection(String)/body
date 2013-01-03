@@ -1,6 +1,5 @@
 {
   mLock.lock();
-  Log.i(AnkiDroidApp.TAG,"openCollection: " + path);
   try {
     if (!colIsOpen() || !sInstance.mCurrentCollection.getPath().equals(path)) {
       if (colIsOpen()) {

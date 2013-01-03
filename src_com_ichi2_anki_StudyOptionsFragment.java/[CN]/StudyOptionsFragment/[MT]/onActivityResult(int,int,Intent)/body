@@ -1,6 +1,5 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
-  Log.i(AnkiDroidApp.TAG,"StudyOptionsFragment: onActivityResult");
   if (resultCode == DeckPicker.RESULT_DB_ERROR) {
     closeStudyOptions(DeckPicker.RESULT_DB_ERROR);
   }
@@ -39,7 +38,6 @@
       resetAndUpdateValuesFromDeck();
     }
  else     if (requestCode == REQUEST_REVIEW) {
-      Log.i(AnkiDroidApp.TAG,"Result code = " + resultCode);
 switch (resultCode) {
 case Reviewer.RESULT_SESSION_COMPLETED:
 default :

@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"DeckPicker - onStop");
   super.onStop();
   if (!mDontSaveOnStop) {
     if (isFinishing()) {

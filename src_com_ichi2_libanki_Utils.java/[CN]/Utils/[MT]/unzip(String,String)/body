@@ -9,7 +9,6 @@
     ZipEntry ze=zis.getNextEntry();
     while (ze != null) {
       String name=ze.getName();
-      Log.i(AnkiDroidApp.TAG,"uncompress " + name);
       int n;
       FileOutputStream fos=new FileOutputStream(targetDirectory + "/" + name);
       while ((n=zis.read(buf,0,1024)) > -1) {

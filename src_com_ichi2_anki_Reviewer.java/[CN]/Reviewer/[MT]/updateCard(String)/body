@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"updateCard");
   Lookup.initialize(this,mCurrentCard.getDid());
   if (mCurrentSimpleInterface) {
     fillFlashcard(mShowAnimations);
@@ -19,16 +18,13 @@
     answer=Sound.parseSounds(mBaseUrl,content,mSpeakText,qa);
     content=question + answer;
     content=content.replace("font-weight:600;","font-weight:700;");
-    Log.i(AnkiDroidApp.TAG,"content card = \n" + content);
     StringBuilder style=new StringBuilder();
     style.append(mCustomFontStyle);
-    Log.i(AnkiDroidApp.TAG,"::style::" + style);
     if (mNightMode) {
       content=HtmlColors.invertColors(content);
     }
     content=SmpToHtmlEntity(content);
     mCardContent=new SpannedString(mCardTemplate.replace("::content::",content).replace("::style::",style.toString()));
-    Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
     fillFlashcard(mShowAnimations);
   }
   if (!mConfigurationChanged) {

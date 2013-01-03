@@ -1,6 +1,5 @@
 {
   mLock.lock();
-  Log.i(AnkiDroidApp.TAG,"closeCollection");
   try {
     sInstance.mAccessThreadCount--;
     if (sInstance.mAccessThreadCount == 0 && sInstance.mCurrentCollection != null) {

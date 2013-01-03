@@ -36,12 +36,10 @@
       editor.putBoolean(pausedPref,true);
       editor.commit();
       data.success=false;
-      Log.i(AnkiDroidApp.TAG,"pausing deck " + download.getFilename());
     }
  else     if (download.getStatus() == SharedDeckDownload.STATUS_CANCELLED) {
       data.success=false;
     }
-    Log.i(AnkiDroidApp.TAG,"Time to update deck = " + download.getEstTimeToCompletion() + " sec.");
   }
  else {
     data.success=false;

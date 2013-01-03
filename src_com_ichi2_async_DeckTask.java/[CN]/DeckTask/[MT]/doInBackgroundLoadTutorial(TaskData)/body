@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundLoadTutorial");
   Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
   Collection col=params[0].getCollection();
   col.getDb().getDatabase().beginTransaction();

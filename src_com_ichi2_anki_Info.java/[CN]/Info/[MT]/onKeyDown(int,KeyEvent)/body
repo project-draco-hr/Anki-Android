@@ -4,7 +4,6 @@
       mWebView.goBack();
     }
  else {
-      Log.i(AnkiDroidApp.TAG,"Info - onBackPressed()");
       setResult(RESULT_CANCELED);
       finish();
       if (AnkiDroidApp.SDK_VERSION > 4) {

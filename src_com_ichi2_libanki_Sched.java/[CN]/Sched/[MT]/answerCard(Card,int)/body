@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"answerCard - ease:" + ease);
   boolean isLeech=false;
   mCol.markUndo(Collection.UNDO_REVIEW,new Object[]{card});
   card.setReps(card.getReps() + 1);

@@ -2,7 +2,6 @@
   boolean soundAvailable=false;
   StringBuilder stringBuilder=new StringBuilder();
   String contentLeft=content;
-  Log.i(AnkiDroidApp.TAG,"parseSounds");
   Matcher matcher=sSoundPattern.matcher(content);
   while (matcher.find()) {
     soundAvailable=true;
@@ -17,7 +16,6 @@
     stringBuilder.append(contentLeft.substring(0,markerStart));
     stringBuilder.append("<a onclick=\"window.ankidroid.playSound(this.title);\" title=\"" + soundPath + "\"><span style=\"padding:5px;display:inline-block;vertical-align:middle\"><img src=\"file:///android_asset/media_playback_start2.png\" /></span></a>");
     contentLeft=contentLeft.substring(markerStart + soundMarker.length());
-    Log.i(AnkiDroidApp.TAG,"Content left = " + contentLeft);
   }
   stringBuilder.append(contentLeft);
   return stringBuilder.toString();
