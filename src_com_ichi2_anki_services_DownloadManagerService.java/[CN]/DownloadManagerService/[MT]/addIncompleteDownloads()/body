@@ -1,9 +1,11 @@
 {
+  Log.i(AnkiDroidApp.TAG,"DownloadManagerService - Adding incomplete downloads:");
   File dir=new File(mDestination + "/tmp/");
   File[] fileList=dir.listFiles(new IncompleteDownloadsFilter());
   if (fileList != null) {
     for (    File file : fileList) {
       String filename=file.getName();
+      Log.i(AnkiDroidApp.TAG,"Filename = " + filename);
       if (filename.endsWith(".anki.tmp")) {
         Download download=new Download(filename.substring(0,filename.length() - ".anki.tmp".length()));
         download.setDownloaded(file.length());

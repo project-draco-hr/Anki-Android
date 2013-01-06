@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"uncaughtException");
   collectInformation();
   Date ts=new Date();
   TimeZone tz=TimeZone.getDefault();
@@ -33,6 +34,7 @@
   }
   reportInformation.append("End Inner exceptions");
   printWriter.close();
+  Log.i(AnkiDroidApp.TAG,"report infomation string created");
   saveReportToFile(reportInformation.toString());
   if (t != null) {
     mPreviousHandler.uncaughtException(t,e);
