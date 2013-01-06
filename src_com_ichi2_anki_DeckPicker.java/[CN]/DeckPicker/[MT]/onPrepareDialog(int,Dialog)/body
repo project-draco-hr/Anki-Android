@@ -3,11 +3,16 @@
   StyledDialog ad=(StyledDialog)dialog;
 switch (id) {
 case DIALOG_DELETE_DECK:
-    if (AnkiDroidApp.colIsOpen() || mDeckList == null || mDeckList.size() == 0) {
+    if (!AnkiDroidApp.colIsOpen() || mDeckList == null || mDeckList.size() == 0) {
       return;
     }
-  mCurrentDid=Long.parseLong(mDeckList.get(mContextMenuPosition).get("did"));
-ad.setMessage(String.format(res.getString(R.string.delete_deck_message),"\'" + AnkiDroidApp.getCol().getDecks().name(mCurrentDid) + "\'"));
+  boolean isDyn=AnkiDroidApp.getCol().getDecks().isDyn(mCurrentDid);
+if (isDyn) {
+  ad.setMessage(String.format(res.getString(R.string.delete_cram_deck_message),"\'" + AnkiDroidApp.getCol().getDecks().name(mCurrentDid) + "\'"));
+}
+ else {
+  ad.setMessage(String.format(res.getString(R.string.delete_deck_message),"\'" + AnkiDroidApp.getCol().getDecks().name(mCurrentDid) + "\'"));
+}
 break;
 case DIALOG_CONTEXT_MENU:
 if (!AnkiDroidApp.colIsOpen() || mDeckList == null || mDeckList.size() == 0) {
