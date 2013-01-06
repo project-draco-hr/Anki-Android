@@ -2,8 +2,11 @@
   Payload data=params[0];
   SharedDeckDownload download=(SharedDeckDownload)data.data[0];
   String deckFilename=mDestination + "/tmp/" + download.getFilename()+ ".anki.updating";
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundLoadDeck - deckFilename = " + deckFilename);
+  Log.i(AnkiDroidApp.TAG,"loadDeck - SD card mounted and existent file -> Loading deck...");
   try {
     Decks deck=null;
+    Log.i(AnkiDroidApp.TAG,"Deck loaded!");
     HashMap<String,Object> results=new HashMap<String,Object>();
     results.put("deck",deck);
     results.put("position",download.getNumUpdatedCards());
@@ -11,11 +14,13 @@
     return data;
   }
  catch (  SQLException e) {
+    Log.i(AnkiDroidApp.TAG,"The database " + deckFilename + " could not be opened = "+ e.getMessage());
     data.success=false;
     data.exception=e;
     return data;
   }
 catch (  CursorIndexOutOfBoundsException e) {
+    Log.i(AnkiDroidApp.TAG,"The deck has no cards = " + e.getMessage());
     data.success=false;
     data.exception=e;
     return data;
