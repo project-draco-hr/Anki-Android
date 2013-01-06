@@ -4,6 +4,7 @@
     closeCardBrowser(DeckPicker.RESULT_DB_ERROR);
   }
   if (requestCode == EDIT_CARD && resultCode != RESULT_CANCELED) {
+    Log.i(AnkiDroidApp.TAG,"CardBrowser: Saving card...");
     DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_FACT,mUpdateCardHandler,new DeckTask.TaskData(mCol.getSched(),sCardBrowserCard,false));
   }
  else   if (requestCode == ADD_NOTE && resultCode == RESULT_OK) {

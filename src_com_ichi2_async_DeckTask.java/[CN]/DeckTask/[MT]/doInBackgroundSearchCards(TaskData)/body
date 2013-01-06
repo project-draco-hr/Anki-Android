@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundSearchCards");
   Collection col=(Collection)params[0].getObjArray()[0];
   HashMap<String,String> deckNames=(HashMap<String,String>)params[0].getObjArray()[1];
   String query=(String)params[0].getObjArray()[2];

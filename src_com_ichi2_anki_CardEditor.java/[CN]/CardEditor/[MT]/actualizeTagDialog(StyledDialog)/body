@@ -18,9 +18,11 @@
     @Override public void onClick(    DialogInterface arg0,    int which){
       String tag=allTags[which];
       if (selectedTags.contains(tag)) {
+        Log.i(AnkiDroidApp.TAG,"unchecked tag: " + tag);
         selectedTags.remove(tag);
       }
  else {
+        Log.i(AnkiDroidApp.TAG,"checked tag: " + tag);
         selectedTags.add(tag);
       }
     }
