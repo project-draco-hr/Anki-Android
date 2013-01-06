@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundUpdateNote");
   Sched sched=params[0].getSched();
   Collection col=sched.getCol();
   Card editCard=params[0].getCard();

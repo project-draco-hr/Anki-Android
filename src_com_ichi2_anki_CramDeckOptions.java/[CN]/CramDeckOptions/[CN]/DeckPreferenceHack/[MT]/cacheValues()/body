@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"CramDeckOptions - CacheValues");
   try {
     JSONArray ar=mDeck.getJSONArray("terms").getJSONArray(0);
     mValues.put("search",ar.getString(0));

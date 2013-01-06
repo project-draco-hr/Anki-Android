@@ -1,4 +1,5 @@
 {
+  Log.d(AnkiDroidApp.TAG,"BroadcastMessage.DownloadBroadcastMessage.onPostExecute()");
   if (!mShowDialog) {
     return;
   }
@@ -40,6 +41,7 @@
   }
   try {
     mDialog=builder.create();
+    Log.d(AnkiDroidApp.TAG,"BroadcastMessages: show dialog");
     mDialog.setOwnerActivity(mActivity);
     mDialog.show();
   }

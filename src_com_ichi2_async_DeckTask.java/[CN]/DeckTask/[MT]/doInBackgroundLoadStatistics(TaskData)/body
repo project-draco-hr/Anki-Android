@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundLoadStatistics");
   Collection col=params[0].getCollection();
   int type=params[0].getInt();
   boolean wholeCollection=params[0].getBoolean();

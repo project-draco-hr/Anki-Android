@@ -1,5 +1,6 @@
 {
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+    Log.i(AnkiDroidApp.TAG,"DeckOptions - onBackPressed()");
     finish();
     if (AnkiDroidApp.SDK_VERSION > 4) {
       ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.FADE);
