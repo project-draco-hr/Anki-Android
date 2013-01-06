@@ -1,10 +1,8 @@
 {
 switch (item.getItemId()) {
-case MENU_UNDO:
-    return true;
 case MENU_ADD_NOTE:
-  Intent intent=new Intent(CardBrowser.this,CardEditor.class);
-intent.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_CARDBROWSER_ADD);
+    Intent intent=new Intent(CardBrowser.this,CardEditor.class);
+  intent.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_CARDBROWSER_ADD);
 startActivityForResult(intent,ADD_NOTE);
 if (AnkiDroidApp.SDK_VERSION > 4) {
 ActivityTransitionAnimation.slide(CardBrowser.this,ActivityTransitionAnimation.LEFT);
@@ -27,9 +25,6 @@ showDialog(DIALOG_TAGS);
 return true;
 case MENU_CHANGE_ORDER:
 showDialog(DIALOG_ORDER);
-return true;
-case MENU_FIELD:
-showDialog(DIALOG_FIELD);
 return true;
 }
 return false;
