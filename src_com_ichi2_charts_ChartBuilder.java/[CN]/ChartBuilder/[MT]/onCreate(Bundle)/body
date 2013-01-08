@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"ChartBuilder.OnCreate");
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   restorePreferences();
@@ -26,6 +27,7 @@
   int[] axisTitles=(int[])mMeta[5];
   String subTitle=(String)mMeta[6];
   if (mSeriesList == null || mSeriesList[0].length < 2) {
+    Log.i(AnkiDroidApp.TAG,"ChartBuilder - Data variable empty, closing chartbuilder");
     finish();
     return;
   }

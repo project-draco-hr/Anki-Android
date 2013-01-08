@@ -1,5 +1,6 @@
 {
   super.onPause();
+  Log.i(AnkiDroidApp.TAG,"Reviewer - onPause()");
   mTimeoutHandler.removeCallbacks(mShowAnswerTask);
   mTimeoutHandler.removeCallbacks(mShowQuestionTask);
   longClickHandler.removeCallbacks(longClickTestRunnable);

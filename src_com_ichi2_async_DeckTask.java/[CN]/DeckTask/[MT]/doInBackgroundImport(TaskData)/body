@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundImport");
   Collection col=params[0].getCollection();
   String path=params[0].getString();
   Anki2Importer imp=new Anki2Importer(col,path);
