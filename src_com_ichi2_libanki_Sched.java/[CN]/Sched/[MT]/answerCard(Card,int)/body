@@ -3,8 +3,8 @@
   boolean isLeech=false;
   mCol.markUndo(Collection.UNDO_REVIEW,new Object[]{card});
   card.setReps(card.getReps() + 1);
-  boolean wasNew=(card.getQueue() == 0);
-  if (wasNew) {
+  card.setWasNew((card.getQueue() == 0));
+  if (card.getWasNew()) {
     card.setQueue(1);
     if (card.getType() == 0) {
       card.setType(1);
@@ -20,7 +20,7 @@
   }
   if (card.getQueue() == 1 || card.getQueue() == 3) {
     _answerLrnCard(card,ease);
-    if (!wasNew) {
+    if (!card.getWasNew()) {
       _updateStats(card,"lrn");
     }
   }

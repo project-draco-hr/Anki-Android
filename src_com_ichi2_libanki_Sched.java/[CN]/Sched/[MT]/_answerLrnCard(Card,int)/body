@@ -1,7 +1,7 @@
 {
   JSONObject conf=_lrnConf(card);
   int type;
-  if (card.getODid() != 0) {
+  if (card.getODid() != 0 && !card.getWasNew()) {
     type=3;
   }
  else   if (card.getType() == 2) {
