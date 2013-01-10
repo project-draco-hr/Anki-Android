@@ -68,7 +68,7 @@
   file=new File(mPath);
   long newSize=file.length();
   if (problems.size() > 0) {
-    modSchema();
+    modSchema(false);
   }
   return (long)((oldSize - newSize) / 1024);
 }
