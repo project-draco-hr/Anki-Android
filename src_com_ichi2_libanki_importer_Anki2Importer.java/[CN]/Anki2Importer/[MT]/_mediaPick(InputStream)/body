@@ -1,0 +1,28 @@
+{
+  try {
+    ByteArrayOutputStream baos=new ByteArrayOutputStream();
+    byte[] buf=new byte[MEDIAPICKLIMIT];
+    int readLen=0;
+    int readSoFar=0;
+    while (true) {
+      readLen=is.read(buf);
+      baos.write(buf);
+      if (readLen == -1) {
+        break;
+      }
+      readSoFar+=readLen;
+      if (readSoFar > MEDIAPICKLIMIT) {
+        break;
+      }
+    }
+    is.close();
+    byte[] result=baos.toByteArray();
+    return Arrays.copyOf(result,MEDIAPICKLIMIT);
+  }
+ catch (  FileNotFoundException e) {
+    return null;
+  }
+catch (  IOException e) {
+    return null;
+  }
+}
