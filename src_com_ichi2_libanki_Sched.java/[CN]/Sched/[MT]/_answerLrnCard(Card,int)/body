@@ -32,21 +32,19 @@
     }
  else {
       card.setLeft(_startingLeft(card));
-      if (card.getODid() != 0) {
-        boolean resched=_resched(card);
-        if (conf.has("mult") && resched) {
-          try {
-            card.setIvl(Math.max(1,(int)(card.getIvl() * conf.getDouble("mult"))));
-          }
- catch (          JSONException e) {
-            throw new RuntimeException(e);
-          }
+      boolean resched=_resched(card);
+      if (conf.has("mult") && resched) {
+        try {
+          card.setIvl(Math.max(1,(int)(card.getIvl() * conf.getDouble("mult"))));
         }
+ catch (        JSONException e) {
+          throw new RuntimeException(e);
+        }
+      }
  else {
-        }
-        if (resched) {
-          card.setODue(mToday + 1);
-        }
+      }
+      if (resched && card.getODid() != 0) {
+        card.setODue(mToday + 1);
       }
     }
     int delay=_delayForGrade(conf,card.getLeft());
