@@ -4,7 +4,7 @@
   }
   long csum=Utils.fieldChecksum(val);
   for (  String flds : mCol.getDb().queryColumn(String.class,"SELECT flds FROM notes WHERE csum = " + csum + " AND id != "+ (mId != 0 ? mId : 0)+ " AND mid = "+ mMid,0)) {
-    if (Utils.stripHTML(Utils.splitFields(flds)[0]).equals(Utils.stripHTML(val))) {
+    if (Utils.stripHTMLMedia(Utils.splitFields(flds)[0]).equals(Utils.stripHTMLMedia(val))) {
       return 2;
     }
   }
