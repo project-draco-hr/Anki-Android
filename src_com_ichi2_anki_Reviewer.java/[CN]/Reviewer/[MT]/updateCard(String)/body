@@ -18,13 +18,14 @@
     answer=Sound.parseSounds(mBaseUrl,content,mSpeakText,qa);
     content=question + answer;
     content=content.replace("font-weight:600;","font-weight:700;");
+    String cardClass="card card" + (mCurrentCard.getOrd() + 1);
     StringBuilder style=new StringBuilder();
     style.append(mCustomFontStyle);
     if (mNightMode) {
       content=HtmlColors.invertColors(content);
     }
     content=SmpToHtmlEntity(content);
-    mCardContent=new SpannedString(mCardTemplate.replace("::content::",content).replace("::style::",style.toString()));
+    mCardContent=new SpannedString(mCardTemplate.replace("::content::",content).replace("::style::",style.toString()).replace("::class::",cardClass));
     fillFlashcard(mShowAnimations);
   }
   if (!mConfigurationChanged) {
