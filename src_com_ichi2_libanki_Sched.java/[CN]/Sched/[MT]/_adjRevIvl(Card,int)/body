@@ -1,4 +1,7 @@
 {
+  if (getSpreadRev()) {
+    idealIvl=_fuzzedIvl(idealIvl);
+  }
   int idealDue=mToday + idealIvl;
   JSONObject conf;
   try {
