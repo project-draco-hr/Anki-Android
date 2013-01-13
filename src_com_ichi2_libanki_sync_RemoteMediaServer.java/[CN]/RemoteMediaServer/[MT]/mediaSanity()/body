@@ -3,7 +3,7 @@
   if (ret == null) {
     return 0;
   }
-  String s="";
+  String s;
   int resultType=ret.getStatusLine().getStatusCode();
   if (resultType == 200) {
     try {
@@ -15,7 +15,7 @@
 catch (    IOException e) {
       throw new RuntimeException(e);
     }
-    if (!s.equalsIgnoreCase("null") && s.length() != 0) {
+    if (s != null && !s.equalsIgnoreCase("null") && s.length() != 0) {
       return Long.parseLong(s);
     }
   }

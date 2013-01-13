@@ -274,9 +274,9 @@ showDialog(DIALOG_ERROR_HANDLING);
 dialog=builder.create();
 break;
 case DIALOG_SYNC_SANITY_ERROR:
-builder.setPositiveButton(res.getString(R.string.sync_conflict_local),mSyncConflictResolutionListener);
-builder.setNeutralButton(res.getString(R.string.sync_conflict_remote),mSyncConflictResolutionListener);
-builder.setNegativeButton(res.getString(R.string.sync_conflict_cancel),mSyncConflictResolutionListener);
+builder.setPositiveButton(res.getString(R.string.sync_conflict_local),mSyncSanityFailListener);
+builder.setNeutralButton(res.getString(R.string.sync_conflict_remote),mSyncSanityFailListener);
+builder.setNegativeButton(res.getString(R.string.sync_conflict_cancel),mSyncSanityFailListener);
 builder.setTitle(res.getString(R.string.sync_log_title));
 dialog=builder.create();
 break;
