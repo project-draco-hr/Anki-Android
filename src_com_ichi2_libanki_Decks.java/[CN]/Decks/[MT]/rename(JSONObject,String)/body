@@ -9,7 +9,7 @@
     for (    JSONObject grp : all()) {
       if (grp.getString("name").startsWith(oldName + "::")) {
         String on=grp.getString("name");
-        String nn=on.replace(oldName + "::",newName + "::");
+        String nn=on.replaceFirst("\\Q" + oldName + "::\\E",newName + "::");
         grp.put("name",nn);
         save(grp);
       }

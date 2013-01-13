@@ -1,0 +1,4 @@
+{
+  int[] minMax=_fuzzedIvlRange(ivl);
+  return (new Random().nextInt(minMax[1] - minMax[0] + 1)) + minMax[0];
+}

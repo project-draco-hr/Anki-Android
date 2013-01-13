@@ -1,4 +1,39 @@
 {
   String[] fs=Utils.splitFields(fields);
+  for (int i=0; i < fs.length; ++i) {
+    for (    Pattern p : Media.fMediaRegexps) {
+      Matcher m=p.matcher(fs[i]);
+      StringBuffer sb=new StringBuffer();
+      while (m.find()) {
+        String fname=m.group(2);
+        InputStream srcData=_srcMediaData(fname);
+        InputStream dstData=_dstMediaData(fname);
+        if (srcData == null) {
+          m.appendReplacement(sb,m.group(0));
+          continue;
+        }
+        int extPos=fname.lastIndexOf(".");
+        if (extPos <= 0) {
+          extPos=fname.length();
+        }
+        String lname=String.format(Locale.US,"%s_%d%s",fname.substring(0,extPos),mid,fname.substring(extPos));
+        if (mDst.getMedia().have(lname)) {
+          m.appendReplacement(sb,m.group(0).replace(fname,lname));
+          continue;
+        }
+ else         if (dstData == null || srcData == dstData) {
+          if (dstData == null) {
+            _writeDstMedia(fname,srcData);
+          }
+          m.appendReplacement(sb,m.group(0));
+          continue;
+        }
+        _writeDstMedia(lname,srcData);
+        m.appendReplacement(sb,m.group(0).replace(fname,lname));
+      }
+      m.appendTail(sb);
+      fs[i]=sb.toString();
+    }
+  }
   return fields;
 }
