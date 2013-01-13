@@ -1,7 +1,7 @@
 {
   InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
   inputMethodManager.hideSoftInputFromWindow(mUsername.getWindowToken(),0);
-  String username=mUsername1.getText().toString();
+  String username=mUsername1.getText().toString().trim();
   String password=mPassword1.getText().toString();
   if (!"".equalsIgnoreCase(username) && !"".equalsIgnoreCase(password)) {
     Connection.register(registerListener,new Connection.Payload(new Object[]{username,password}));
