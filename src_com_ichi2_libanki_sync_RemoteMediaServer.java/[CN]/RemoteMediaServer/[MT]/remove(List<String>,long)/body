@@ -3,15 +3,15 @@
   try {
     data.put("fnames",new JSONArray(fnames));
     data.put("minUsn",minUsn);
-    HttpResponse ret=super.req("remove",super.getInputStream(data.toString()));
+    HttpResponse ret=super.req("remove",getInputStream(data.toString()));
     if (ret == null) {
       return null;
     }
-    String s="";
+    String s;
     int resultType=ret.getStatusLine().getStatusCode();
     if (resultType == 200) {
       s=super.stream2String(ret.getEntity().getContent());
-      if (!s.equalsIgnoreCase("null") && s.length() != 0) {
+      if (s != null && !s.equalsIgnoreCase("null") && s.length() != 0) {
         return new JSONArray(s);
       }
     }

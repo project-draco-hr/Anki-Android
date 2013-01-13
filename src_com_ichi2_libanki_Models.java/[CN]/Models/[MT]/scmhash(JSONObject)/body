@@ -16,5 +16,5 @@
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
-  return Utils.fieldChecksum(s);
+  return Utils.checksum(s);
 }

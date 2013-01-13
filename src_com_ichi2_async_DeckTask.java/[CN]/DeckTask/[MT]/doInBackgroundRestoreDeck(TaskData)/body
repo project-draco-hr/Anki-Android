@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundRestoreDeck");
   Object[] data=params[0].getObjArray();
   Collection col=(Collection)data[0];
   if (col != null) {

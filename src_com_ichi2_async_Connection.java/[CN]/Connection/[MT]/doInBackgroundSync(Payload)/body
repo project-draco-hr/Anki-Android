@@ -21,6 +21,7 @@
   Syncer client=new Syncer(col,server);
   boolean noChanges=false;
   if (conflictResolution == null) {
+    Log.i(AnkiDroidApp.TAG,"Sync - starting sync");
     publishProgress(R.string.sync_prepare_syncing);
     Object[] ret=client.sync(this);
     mediaUsn=client.getmMediaUsn();
@@ -36,7 +37,6 @@
       data.data=new Object[]{mediaUsn};
       return data;
     }
-    col.save();
     if (retCode.equals("noChanges")) {
       noChanges=true;
     }
@@ -47,6 +47,7 @@
     try {
       server=new FullSyncer(col,hkey,this);
       if (conflictResolution.equals("upload")) {
+        Log.i(AnkiDroidApp.TAG,"Sync - fullsync - upload collection");
         publishProgress(R.string.sync_preparing_full_sync_message);
         Object[] ret=server.upload();
         if (ret == null) {
@@ -63,6 +64,7 @@
         }
       }
  else       if (conflictResolution.equals("download")) {
+        Log.i(AnkiDroidApp.TAG,"Sync - fullsync - download collection");
         publishProgress(R.string.sync_downloading_message);
         Object[] ret=server.download();
         if (ret == null) {

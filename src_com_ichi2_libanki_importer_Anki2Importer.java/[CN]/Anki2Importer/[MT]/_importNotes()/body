@@ -31,6 +31,7 @@
         }
         existing.put((Long)note[0],true);
         note[4]=usn;
+        note[6]=_mungeMedia((Long)note[MID],(String)note[6]);
         add.add(note);
         dirty.add((Long)note[0]);
         mNotes.put((String)note[GUID],new Object[]{note[0],note[3],note[MID]});

@@ -14,6 +14,16 @@
         }
       }
     }
+    String head="";
+    String[] parents=name.split("::");
+    for (int i=0; i < parents.length - 1; ++i) {
+      if (head.length() > 0) {
+        head=head.concat("::");
+      }
+      head=head.concat(parents[i]);
+      long idInSrc=mSrc.getDecks().id(head);
+      _did(idInSrc);
+    }
     long newid=mDst.getDecks().id(name);
     if (g.has("conf") && g.getLong("conf") != 1) {
       mDst.getDecks().updateConf(mSrc.getDecks().getConf(g.getLong("conf")));

@@ -5,17 +5,19 @@
     }
     long mid=srcMid;
     JSONObject srcModel=new JSONObject(mSrc.getModels().get(srcMid).toString());
-    long srcScm=mSrc.getModels().scmhash(srcModel);
+    String srcScm=mSrc.getModels().scmhash(srcModel);
     while (true) {
       if (!mDst.getModels().have(mid)) {
         JSONObject model=new JSONObject(srcModel.toString());
         model.put("id",mid);
+        model.put("mod",Utils.intNow());
+        model.put("usn",mCol.usn());
         mDst.getModels().update(model);
         break;
       }
       JSONObject dstModel=new JSONObject(mDst.getModels().get(mid).toString());
-      long dstScm=mDst.getModels().scmhash(dstModel);
-      if (srcScm == dstScm) {
+      String dstScm=mDst.getModels().scmhash(dstModel);
+      if (srcScm.equals(dstScm)) {
         break;
       }
       mid+=1;

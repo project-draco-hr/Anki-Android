@@ -24,6 +24,7 @@ builder2.setView(mDialogEditText,false,false);
 builder2.setPositiveButton(res.getString(R.string.create),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 String deckName=mDialogEditText.getText().toString().replaceAll("[\'\"\\n\\r\\[\\]\\(\\)]","");
+Log.i(AnkiDroidApp.TAG,"Creating deck: " + deckName);
 AnkiDroidApp.getCol().getDecks().id(deckName,true);
 loadCounts();
 }
