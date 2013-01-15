@@ -25,11 +25,20 @@
     showStartupScreensAndDialogs(AnkiDroidApp.getSharedPrefs(getBaseContext()),4);
   }
  else   if (requestCode == SHOW_INFO_UPGRADE_DECKS) {
-    if (resultCode == RESULT_CANCELED) {
-      finishWithAnimation();
+    if (intent != null && intent.hasExtra(Info.TYPE_UPGRADE_STAGE)) {
+      int type=intent.getIntExtra(Info.TYPE_UPGRADE_STAGE,Info.UPGRADE_SCREEN_BASIC1);
+      if (type == Info.UPGRADE_CONTINUE) {
+        showStartupScreensAndDialogs(AnkiDroidApp.getSharedPrefs(getBaseContext()),3);
+      }
+ else {
+        if (type == Info.UPGRADE_IMPORT) {
+          mImportPath="";
+        }
+        showUpgradeScreen(true,type,!intent.hasExtra(Info.TYPE_ANINAMTION_RIGHT));
+      }
     }
  else {
-      showStartupScreensAndDialogs(AnkiDroidApp.getSharedPrefs(getBaseContext()),3);
+      finishWithAnimation();
     }
   }
  else   if (requestCode == SHOW_INFO_WELCOME || requestCode == SHOW_INFO_NEW_VERSION) {
