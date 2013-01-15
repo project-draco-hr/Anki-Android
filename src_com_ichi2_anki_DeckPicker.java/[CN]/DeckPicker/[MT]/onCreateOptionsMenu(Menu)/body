@@ -35,7 +35,7 @@
   item.setIcon(R.drawable.ic_menu_send);
   item=menu.add(Menu.NONE,MENU_ABOUT,Menu.NONE,R.string.menu_about);
   item.setIcon(R.drawable.ic_menu_info_details);
-  item=menu.add(Menu.NONE,MENU_REUPGRADE,Menu.NONE,"Restart upgrade process");
+  item=menu.add(Menu.NONE,MENU_REUPGRADE,Menu.NONE,R.string.restart_upgrade_process);
   item.setIcon(R.drawable.ic_menu_preferences);
   return true;
 }
