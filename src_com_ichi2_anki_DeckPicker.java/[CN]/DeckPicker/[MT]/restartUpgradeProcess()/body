@@ -5,6 +5,7 @@
   builder.setMessage(getString(R.string.deck_upgrade_rename_warning,UPGRADE_OLD_COLLECTION_RENAME));
   builder.setPositiveButton(android.R.string.yes,new DialogInterface.OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int which){
+      AnkiDroidApp.closeCollection(true);
       String path=AnkiDroidApp.getCollectionPath();
       int i=0;
       String newPath=path.replace("collection.anki2",UPGRADE_OLD_COLLECTION_RENAME + i);
