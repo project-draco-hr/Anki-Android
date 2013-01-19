@@ -1,0 +1,9 @@
+{
+  Intent upgradeIntent=new Intent(this,Info.class);
+  upgradeIntent.putExtra(Info.TYPE_EXTRA,Info.TYPE_UPGRADE_DECKS);
+  upgradeIntent.putExtra(Info.TYPE_UPGRADE_STAGE,stage);
+  startActivityForResult(upgradeIntent,SHOW_INFO_UPGRADE_DECKS);
+  if (animation && AnkiDroidApp.SDK_VERSION > 4) {
+    ActivityTransitionAnimation.slide(this,left ? ActivityTransitionAnimation.LEFT : ActivityTransitionAnimation.RIGHT);
+  }
+}
