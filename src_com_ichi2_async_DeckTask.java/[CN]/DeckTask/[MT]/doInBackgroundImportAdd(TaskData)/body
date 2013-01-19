@@ -23,14 +23,11 @@
       ankiDB.execute("VACUUM");
       ankiDB.execute("ANALYZE");
     }
-    Object[] counts=null;
-    if (addedCount != -1) {
-      DeckTask.TaskData result=doInBackgroundLoadDeckCounts(new TaskData(col));
-      if (result != null) {
-        counts=result.getObjArray();
-      }
+    DeckTask.TaskData result=doInBackgroundLoadDeckCounts(new TaskData(col));
+    if (result == null) {
+      return null;
     }
-    return new TaskData(addedCount,counts,true);
+    return new TaskData(addedCount,result.getObjArray(),true);
   }
  catch (  RuntimeException e) {
     Log.e(AnkiDroidApp.TAG,"doInBackgroundImportAdd - RuntimeException on importing cards: " + e);

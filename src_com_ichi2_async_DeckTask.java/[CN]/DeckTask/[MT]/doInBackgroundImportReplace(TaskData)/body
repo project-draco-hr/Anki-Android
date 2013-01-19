@@ -52,12 +52,11 @@
       }
     }
     BackupManager.removeDir(dir);
-    Object[] counts=null;
     DeckTask.TaskData result=doInBackgroundLoadDeckCounts(new TaskData(col));
-    if (result != null) {
-      counts=result.getObjArray();
+    if (result == null) {
+      return null;
     }
-    return new TaskData(addedCount,counts,true);
+    return new TaskData(addedCount,result.getObjArray(),true);
   }
  catch (  RuntimeException e) {
     Log.e(AnkiDroidApp.TAG,"doInBackgroundImportReplace - RuntimeException on reopening collection: " + e);
