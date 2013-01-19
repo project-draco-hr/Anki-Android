@@ -113,6 +113,9 @@ preferences.edit().putBoolean("invertedColors",true).commit();
 item.setIcon(R.drawable.ic_menu_night_checked);
 }
 return true;
+case MENU_REUPGRADE:
+restartUpgradeProcess();
+return true;
 default :
 return super.onOptionsItemSelected(item);
 }

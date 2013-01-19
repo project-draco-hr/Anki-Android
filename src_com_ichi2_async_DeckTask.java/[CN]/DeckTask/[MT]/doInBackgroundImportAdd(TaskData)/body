@@ -1,7 +1,8 @@
 {
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundImport");
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundImportAdd");
   Collection col=params[0].getCollection();
   String path=params[0].getString();
+  boolean clean=params[0].getBoolean();
   Anki2Importer imp=new Anki2Importer(col,path);
   int addedCount=-1;
   try {
@@ -13,6 +14,10 @@
     }
   finally {
       ankiDB.getDatabase().endTransaction();
+      if (clean) {
+        File tmpFile=new File(path);
+        tmpFile.delete();
+      }
     }
     if (addedCount >= 0) {
       ankiDB.execute("VACUUM");
@@ -28,8 +33,8 @@
     return new TaskData(addedCount,counts,true);
   }
  catch (  RuntimeException e) {
-    Log.e(AnkiDroidApp.TAG,"doInBackgroundImport - RuntimeException on importing cards: " + e);
-    AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundImport");
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundImportAdd - RuntimeException on importing cards: " + e);
+    AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundImportAdd");
     return new TaskData(false);
   }
 }

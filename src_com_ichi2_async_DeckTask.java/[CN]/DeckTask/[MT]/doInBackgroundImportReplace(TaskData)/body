@@ -24,9 +24,13 @@
       tmpCol.close();
     }
   }
-  String colPath=col.getPath();
-  AnkiDroidApp.closeCollection(true);
-  BackupManager.performBackup(colPath,true);
+  String colPath;
+  if (col != null) {
+    colPath=col.getPath();
+    AnkiDroidApp.closeCollection(true);
+    BackupManager.performBackup(colPath,true);
+  }
+  colPath=AnkiDroidApp.getCollectionPath();
   File f=new File(colFile);
   f.renameTo(new File(colPath));
   int addedCount=-1;

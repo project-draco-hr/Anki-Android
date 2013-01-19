@@ -3,15 +3,38 @@
     if (mType == TYPE_SHARED_DECKS && mWebView.canGoBack()) {
       mWebView.goBack();
     }
+ else     if (mType == TYPE_UPGRADE_DECKS && mUpgradeStage != UPGRADE_SCREEN_BASIC1) {
+      Intent result=new Intent();
+      result.putExtra(TYPE_ANINAMTION_RIGHT,true);
+switch (mUpgradeStage) {
+case UPGRADE_SCREEN_BASIC2:
+        result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_BASIC1);
+      break;
+case UPGRADE_SCREEN_MORE_OPTIONS:
+    result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_BASIC1);
+  break;
+case UPGRADE_SCREEN_WEB_UPGRADE:
+result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_BASIC2);
+break;
+case UPGRADE_SCREEN_PC_UPGRADE:
+result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_BASIC2);
+break;
+case UPGRADE_SCREEN_MANUAL_UPGRADE:
+result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_BASIC2);
+break;
+case UPGRADE_SCREEN_AUTO_UPGRADE:
+result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_PC_UPGRADE);
+break;
+}
+setResult(RESULT_OK,result);
+finishWithAnimation(false);
+}
  else {
-      Log.i(AnkiDroidApp.TAG,"Info - onBackPressed()");
-      setResult(RESULT_CANCELED);
-      finish();
-      if (AnkiDroidApp.SDK_VERSION > 4) {
-        ActivityTransitionAnimation.slide(Info.this,ActivityTransitionAnimation.LEFT);
-      }
-    }
-    return true;
-  }
-  return super.onKeyDown(keyCode,event);
+Log.i(AnkiDroidApp.TAG,"Info - onBackPressed()");
+setResult(RESULT_CANCELED);
+finishWithAnimation();
+}
+return true;
+}
+return super.onKeyDown(keyCode,event);
 }

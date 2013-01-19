@@ -1,0 +1,6 @@
+{
+  finish();
+  if (AnkiDroidApp.SDK_VERSION > 4) {
+    ActivityTransitionAnimation.slide(Info.this,left ? ActivityTransitionAnimation.LEFT : ActivityTransitionAnimation.RIGHT);
+  }
+}

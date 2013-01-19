@@ -109,7 +109,20 @@ mImportValues[i]=fileList.get(i).getAbsolutePath();
 ad.setItems(tts,new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 mImportPath=mImportValues[which];
+switch (mImportMethod) {
+case IMPORT_METHOD_ADD:
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_IMPORT,mImportAddListener,new TaskData(AnkiDroidApp.getCol(),mImportPath,false));
+mImportPath=null;
+break;
+case IMPORT_METHOD_REPLACE:
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_IMPORT_REPLACE,mImportReplaceListener,new TaskData(AnkiDroidApp.getCol(),mImportPath));
+mImportPath=null;
+break;
+case IMPORT_METHOD_ASK:
+default :
 showDialog(DIALOG_IMPORT);
+}
+mImportMethod=IMPORT_METHOD_ASK;
 }
 }
 );
