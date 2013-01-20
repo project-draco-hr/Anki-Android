@@ -37,6 +37,9 @@
  else       if (cmd.equals("note")) {
         addPred(s,_findModel(val));
       }
+ else       if (cmd.equals("mid")) {
+        addPred(s,_findMid(val));
+      }
  else       if (cmd.equals("deck")) {
         addPred(s,_findDeck(val));
       }
