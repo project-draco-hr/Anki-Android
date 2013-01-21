@@ -1,0 +1,15 @@
+{
+  JSONObject m=null;
+  if (forDeck) {
+    m=get(mCol.getDecks().current().optLong("mid",-1));
+  }
+  if (m == null) {
+    m=get(mCol.getConf().optLong("curModel",-1));
+  }
+  if (m == null) {
+    if (!mModels.isEmpty()) {
+      m=mModels.values().iterator().next();
+    }
+  }
+  return m;
+}

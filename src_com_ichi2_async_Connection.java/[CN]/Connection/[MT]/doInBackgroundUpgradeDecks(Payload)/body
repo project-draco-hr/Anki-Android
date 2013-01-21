@@ -10,7 +10,7 @@
   JSONObject map=new JSONObject();
   byte[] buf=new byte[1024];
   String zipFilename=path + "/upload.zip";
-  String colFilename=path + "/collection.anki2";
+  String colFilename=path + AnkiDroidApp.COLLECTION_PATH;
   try {
     ZipOutputStream zos=new ZipOutputStream(new FileOutputStream(zipFilename));
     int n=1;
@@ -143,7 +143,6 @@ catch (  JSONException e) {
       }
     }
     File newMediaDir=new File(col.getMedia().getDir());
-    AnkiDroidApp.closeCollection(false);
     publishProgress(new Object[]{R.string.upgrade_decks_media});
     ArrayList<String> failedMedia=new ArrayList<String>();
     File curMediaDir=null;

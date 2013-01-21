@@ -8,7 +8,7 @@
   setContentView(R.layout.info);
   mWebView=(WebView)findViewById(R.id.info);
   mWebView.setBackgroundColor(res.getColor(Themes.getBackgroundColor()));
-  Themes.setWallpaper((View)mWebView.getParent());
+  Themes.setWallpaper((View)mWebView.getParent().getParent().getParent());
   Button continueButton=(Button)findViewById(R.id.info_continue);
   continueButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View arg0){
@@ -27,10 +27,7 @@ case TYPE_NEW_VERSION:
 case TYPE_UPGRADE_DECKS:
 break;
 }
-finish();
-if (AnkiDroidApp.SDK_VERSION > 4) {
-ActivityTransitionAnimation.slide(Info.this,ActivityTransitionAnimation.LEFT);
-}
+finishWithAnimation();
 }
 }
 );
@@ -65,10 +62,7 @@ Editor edit=AnkiDroidApp.getSharedPrefs(Info.this.getBaseContext()).edit();
 edit.putLong("lastTimeOpened",System.currentTimeMillis());
 edit.putBoolean("createTutorial",true);
 edit.commit();
-finish();
-if (AnkiDroidApp.SDK_VERSION > 4) {
-ActivityTransitionAnimation.slide(Info.this,ActivityTransitionAnimation.LEFT);
-}
+finishWithAnimation();
 }
 }
 );
@@ -103,28 +97,132 @@ continueButton.setText(res.getString(R.string.download_button_return));
 break;
 case TYPE_UPGRADE_DECKS:
 sb.append("<html><body>");
-File[] fileList=(new File(AnkiDroidApp.getCurrentAnkiDroidDirectory())).listFiles(new OldAnkiDeckFilter());
-StringBuilder fsb=new StringBuilder();
-fsb.append("<ul>");
-for (File f : fileList) {
-fsb.append("<li>").append(f.getName().replace(".anki","")).append("</li>");
-}
-fsb.append("</ul>");
-sb.append(res.getString(R.string.upgrade_decks_message,fsb.toString()));
-sb.append("<ul><li>");
-sb.append(res.getString(R.string.upgrade_decks_message_pos1,AnkiDroidApp.getCurrentAnkiDroidDirectory()));
-sb.append("</li><li>");
-sb.append(res.getString(R.string.upgrade_decks_message_pos2,res.getString(R.string.link_anki)));
-sb.append("</li><li>");
-sb.append(res.getString(R.string.upgrade_decks_message_pos3));
-sb.append("</li></ul>");
-sb.append(res.getString(R.string.upgrade_decks_message_finish));
-sb.append("</body></html>");
-mWebView.loadDataWithBaseURL("",sb.toString(),"text/html","utf-8",null);
 Button but=(Button)findViewById(R.id.info_tutorial);
 but.setVisibility(View.VISIBLE);
-but.setText(res.getString(R.string.upgrade_decks_button));
+Button syncButton=(Button)findViewById(R.id.info_sync);
+syncButton.setVisibility(View.VISIBLE);
+mUpgradeStage=getIntent().getIntExtra(TYPE_UPGRADE_STAGE,-1);
+switch (mUpgradeStage) {
+case UPGRADE_SCREEN_BASIC1:
+sb.append(getString(R.string.deck_upgrade_major_warning));
+but.setText(R.string.later);
 but.setOnClickListener(new OnClickListener(){
+@Override public void onClick(View arg0){
+Themes.showThemedToast(Info.this,getString(R.string.deck_upgrade_start_again_to_upgrade_toast),false);
+setResult(RESULT_CANCELED);
+finish();
+}
+}
+);
+syncButton.setText(R.string.more_options);
+syncButton.setOnClickListener(new OnClickListener(){
+@Override public void onClick(View arg0){
+Intent result=new Intent();
+result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_MORE_OPTIONS);
+setResult(RESULT_OK,result);
+finishWithAnimation();
+}
+}
+);
+continueButton.setText(R.string.now);
+continueButton.setOnClickListener(new OnClickListener(){
+@Override public void onClick(View arg0){
+Intent result=new Intent();
+result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_BASIC2);
+setResult(RESULT_OK,result);
+finishWithAnimation();
+}
+}
+);
+break;
+case UPGRADE_SCREEN_BASIC2:
+sb.append(getString(R.string.deck_upgrade_recommended_method));
+but.setText(R.string.back);
+but.setOnClickListener(new OnClickListener(){
+@Override public void onClick(View arg0){
+Intent result=new Intent();
+result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_BASIC1);
+result.putExtra(TYPE_ANINAMTION_RIGHT,true);
+setResult(RESULT_OK,result);
+finishWithAnimation(false);
+}
+}
+);
+syncButton.setText(android.R.string.no);
+syncButton.setOnClickListener(new OnClickListener(){
+@Override public void onClick(View arg0){
+Intent result=new Intent();
+result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_WEB_UPGRADE);
+setResult(RESULT_OK,result);
+finishWithAnimation();
+}
+}
+);
+continueButton.setText(android.R.string.yes);
+continueButton.setOnClickListener(new OnClickListener(){
+@Override public void onClick(View arg0){
+Intent result=new Intent();
+result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_PC_UPGRADE);
+setResult(RESULT_OK,result);
+finishWithAnimation();
+}
+}
+);
+break;
+case UPGRADE_SCREEN_MORE_OPTIONS:
+sb.append(getString(R.string.deck_upgrade_more_options));
+but.setText(R.string.upgrade_decks_button);
+but.setText(R.string.back);
+but.setOnClickListener(new OnClickListener(){
+@Override public void onClick(View arg0){
+Intent result=new Intent();
+result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_BASIC1);
+result.putExtra(TYPE_ANINAMTION_RIGHT,true);
+setResult(RESULT_OK,result);
+finishWithAnimation(false);
+}
+}
+);
+syncButton.setText(R.string.deck_upgrade_create_new_collection);
+syncButton.setOnClickListener(new OnClickListener(){
+@Override public void onClick(View arg0){
+StyledDialog.Builder builder=new StyledDialog.Builder(Info.this);
+builder.setTitle(R.string.deck_upgrade_create_new_collection_title);
+builder.setIcon(R.drawable.ic_dialog_alert);
+builder.setMessage(R.string.deck_upgrade_not_import_warning);
+Resources res=getResources();
+builder.setPositiveButton(android.R.string.yes,new DialogInterface.OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+Intent result=new Intent();
+result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_CONTINUE);
+setResult(RESULT_OK,result);
+finishWithAnimation();
+}
+}
+);
+builder.setNegativeButton(android.R.string.no,null);
+builder.show();
+}
+}
+);
+continueButton.setVisibility(View.GONE);
+break;
+case UPGRADE_SCREEN_WEB_UPGRADE:
+sb.append(getString(R.string.deck_upgrade_via_web));
+but.setText(R.string.back);
+but.setOnClickListener(new OnClickListener(){
+@Override public void onClick(View arg0){
+Intent result=new Intent();
+result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_BASIC2);
+result.putExtra(TYPE_ANINAMTION_RIGHT,true);
+setResult(RESULT_OK,result);
+finishWithAnimation(false);
+}
+}
+);
+syncButton.setVisibility(View.GONE);
+continueButton.setText(android.R.string.yes);
+continueButton.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
 if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -136,14 +234,91 @@ Connection.upgradeDecks(mUpgradeListener,new Connection.Payload(new Object[]{Ank
 }
 }
 );
-Button syncButton=(Button)findViewById(R.id.info_sync);
-syncButton.setVisibility(View.VISIBLE);
+break;
+case UPGRADE_SCREEN_PC_UPGRADE:
+sb.append(getString(R.string.deck_upgrade_via_anki_desktop));
+but.setText(R.string.back);
+but.setOnClickListener(new OnClickListener(){
+@Override public void onClick(View arg0){
+Intent result=new Intent();
+result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_BASIC2);
+result.putExtra(TYPE_ANINAMTION_RIGHT,true);
+setResult(RESULT_OK,result);
+finishWithAnimation(false);
+}
+}
+);
+syncButton.setText(R.string.usb);
+syncButton.setOnClickListener(new OnClickListener(){
+@Override public void onClick(View arg0){
+Intent result=new Intent();
+result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_MANUAL_UPGRADE);
+setResult(RESULT_OK,result);
+finishWithAnimation();
+}
+}
+);
+continueButton.setText(R.string.ankiweb);
+continueButton.setOnClickListener(new OnClickListener(){
+@Override public void onClick(View arg0){
+Intent result=new Intent();
+result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_AUTO_UPGRADE);
+setResult(RESULT_OK,result);
+finishWithAnimation();
+}
+}
+);
+break;
+case UPGRADE_SCREEN_MANUAL_UPGRADE:
+sb.append(getString(R.string.deck_upgrade_manual));
+but.setText(R.string.back);
+but.setOnClickListener(new OnClickListener(){
+@Override public void onClick(View arg0){
+Intent result=new Intent();
+result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_BASIC2);
+result.putExtra(TYPE_ANINAMTION_RIGHT,true);
+setResult(RESULT_OK,result);
+finishWithAnimation(false);
+}
+}
+);
+syncButton.setText(R.string._import);
+syncButton.setOnClickListener(new OnClickListener(){
+@Override public void onClick(View arg0){
+Intent result=new Intent();
+result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_IMPORT);
+setResult(RESULT_OK,result);
+finishWithAnimation(false);
+}
+}
+);
+continueButton.setVisibility(View.GONE);
+break;
+case UPGRADE_SCREEN_AUTO_UPGRADE:
+sb.append(getString(R.string.deck_upgrade_auto_upgrade));
+but.setText(R.string.back);
+but.setOnClickListener(new OnClickListener(){
+@Override public void onClick(View arg0){
+Intent result=new Intent();
+result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_PC_UPGRADE);
+result.putExtra(TYPE_ANINAMTION_RIGHT,true);
+setResult(RESULT_OK,result);
+finishWithAnimation(false);
+}
+}
+);
+syncButton.setText(R.string.download);
 syncButton.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
 downloadCollection();
 }
 }
 );
+continueButton.setVisibility(View.GONE);
+break;
+}
+sb.append("</body></html>");
+mWebView.loadDataWithBaseURL("",sb.toString(),"text/html","utf-8",null);
 StyledDialog.Builder builder2=new StyledDialog.Builder(this);
 builder2.setTitle(res.getString(R.string.connection_error_title));
 builder2.setIcon(R.drawable.ic_dialog_alert);

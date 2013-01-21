@@ -17,12 +17,8 @@
     }
   }
  else   if (skip < 3 && upgradeNeeded()) {
-    Intent upgradeIntent=new Intent(this,Info.class);
-    upgradeIntent.putExtra(Info.TYPE_EXTRA,Info.TYPE_UPGRADE_DECKS);
-    startActivityForResult(upgradeIntent,SHOW_INFO_UPGRADE_DECKS);
-    if (skip != 0 && AnkiDroidApp.SDK_VERSION > 4) {
-      ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
-    }
+    AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).edit().putString("lastUpgradeVersion",AnkiDroidApp.getPkgVersion()).commit();
+    showUpgradeScreen(skip != 0,Info.UPGRADE_SCREEN_BASIC1);
   }
  else   if (skip < 4 && hasErrorFiles()) {
     Intent i=new Intent(this,Feedback.class);
@@ -45,6 +41,28 @@
     showDialog(DIALOG_IMPORT);
   }
  else {
-    loadCollection();
+    if (!preferences.getString("lastUpgradeVersion","").equals(AnkiDroidApp.getPkgVersion()) && (new File(AnkiDroidApp.getCurrentAnkiDroidDirectory()).listFiles(new OldAnkiDeckFilter()).length) > 0) {
+      StyledDialog.Builder builder=new StyledDialog.Builder(DeckPicker.this);
+      builder.setTitle(R.string.deck_upgrade_title);
+      builder.setIcon(R.drawable.ic_dialog_alert);
+      builder.setMessage(R.string.deck_upgrade_already_upgraded);
+      builder.setPositiveButton(R.string.restart,new DialogInterface.OnClickListener(){
+        @Override public void onClick(        DialogInterface dialog,        int which){
+          restartUpgradeProcess();
+        }
+      }
+);
+      builder.setCancelable(false);
+      builder.setNegativeButton(R.string.do_nothing,new DialogInterface.OnClickListener(){
+        @Override public void onClick(        DialogInterface dialog,        int which){
+          AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).edit().putString("lastUpgradeVersion",AnkiDroidApp.getPkgVersion()).commit();
+        }
+      }
+);
+      builder.show();
+    }
+ else {
+      loadCollection();
+    }
   }
 }

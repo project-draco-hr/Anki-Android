@@ -25,11 +25,34 @@
     showStartupScreensAndDialogs(AnkiDroidApp.getSharedPrefs(getBaseContext()),4);
   }
  else   if (requestCode == SHOW_INFO_UPGRADE_DECKS) {
-    if (resultCode == RESULT_CANCELED) {
-      finishWithAnimation();
+    if (intent != null && intent.hasExtra(Info.TYPE_UPGRADE_STAGE)) {
+      int type=intent.getIntExtra(Info.TYPE_UPGRADE_STAGE,Info.UPGRADE_SCREEN_BASIC1);
+      if (type == Info.UPGRADE_CONTINUE) {
+        showStartupScreensAndDialogs(AnkiDroidApp.getSharedPrefs(getBaseContext()),3);
+      }
+ else       if (type == Info.UPGRADE_IMPORT) {
+        mImportPath="";
+        mImportMethod=IMPORT_METHOD_REPLACE;
+        if (Utils.getImportableDecks().size() == 0) {
+          Themes.showThemedToast(DeckPicker.this,getResources().getString(R.string.import_no_file_found),false);
+          showUpgradeScreen(true,Info.UPGRADE_SCREEN_MANUAL_UPGRADE,!intent.hasExtra(Info.TYPE_ANINAMTION_RIGHT));
+        }
+ else {
+          showDialog(DIALOG_IMPORT_SELECT);
+        }
+      }
+ else {
+        showUpgradeScreen(true,type,!intent.hasExtra(Info.TYPE_ANINAMTION_RIGHT));
+      }
+    }
+ else     if (resultCode == RESULT_OK) {
+      if (!AnkiDroidApp.colIsOpen()) {
+        AnkiDroidApp.openCollection(AnkiDroidApp.getCollectionPath());
+      }
+      loadCounts();
     }
  else {
-      showStartupScreensAndDialogs(AnkiDroidApp.getSharedPrefs(getBaseContext()),3);
+      finishWithAnimation();
     }
   }
  else   if (requestCode == SHOW_INFO_WELCOME || requestCode == SHOW_INFO_NEW_VERSION) {
@@ -68,7 +91,8 @@
       mImportPath=intent.getStringExtra("importPath");
     }
     if (AnkiDroidApp.colIsOpen() && mImportPath != null) {
-      showDialog(DIALOG_IMPORT);
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_IMPORT,mImportAddListener,new TaskData(AnkiDroidApp.getCol(),mImportPath,true));
+      mImportPath=null;
     }
   }
  else   if (requestCode == REQUEST_REVIEW) {
