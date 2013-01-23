@@ -37,7 +37,7 @@
     }
     ZipEntry ze=new ZipEntry("map.json");
     zos.putNextEntry(ze);
-    InputStream in=new ByteArrayInputStream(map.toString().getBytes("UTF-8"));
+    InputStream in=new ByteArrayInputStream(Utils.jsonToString(map).getBytes("UTF-8"));
     int len;
     while ((len=in.read(buf)) >= 0) {
       zos.write(buf,0,len);

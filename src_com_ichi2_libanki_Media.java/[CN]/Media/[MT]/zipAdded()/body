@@ -36,7 +36,7 @@
       zos.closeEntry();
     }
     zos.putNextEntry(new ZipEntry("_meta"));
-    zos.write(files.toString().getBytes());
+    zos.write(Utils.jsonToString(files).getBytes());
     zos.close();
   }
  catch (  FileNotFoundException e) {
