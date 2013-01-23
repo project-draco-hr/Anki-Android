@@ -10,7 +10,7 @@
       }
     }
     ContentValues val=new ContentValues();
-    val.put("tags",tags.toString());
+    val.put("tags",Utils.jsonToString(tags));
     mCol.getDb().update("col",val);
     mChanged=false;
   }

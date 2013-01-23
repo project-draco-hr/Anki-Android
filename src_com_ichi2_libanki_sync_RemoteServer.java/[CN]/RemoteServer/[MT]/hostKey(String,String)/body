@@ -3,7 +3,7 @@
     JSONObject jo=new JSONObject();
     jo.put("u",user);
     jo.put("p",pw);
-    return super.req("hostKey",super.getInputStream(jo.toString()),false);
+    return super.req("hostKey",super.getInputStream(Utils.jsonToString(jo)),false);
   }
  catch (  JSONException e) {
     return null;
