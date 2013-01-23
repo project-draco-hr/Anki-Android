@@ -13,8 +13,8 @@
     agc.put("1",gc);
     ContentValues values=new ContentValues();
     values.put("conf",Collection.defaultConf);
-    values.put("decks",ag.toString());
-    values.put("dconf",agc.toString());
+    values.put("decks",Utils.jsonToString(ag));
+    values.put("dconf",Utils.jsonToString(agc));
     db.update("col",values);
   }
  catch (  JSONException e) {

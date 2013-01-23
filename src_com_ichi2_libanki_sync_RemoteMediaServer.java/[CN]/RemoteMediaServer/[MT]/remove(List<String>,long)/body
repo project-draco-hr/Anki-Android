@@ -3,7 +3,7 @@
   try {
     data.put("fnames",new JSONArray(fnames));
     data.put("minUsn",minUsn);
-    HttpResponse ret=super.req("remove",getInputStream(data.toString()));
+    HttpResponse ret=super.req("remove",getInputStream(Utils.jsonToString(data)));
     if (ret == null) {
       return null;
     }

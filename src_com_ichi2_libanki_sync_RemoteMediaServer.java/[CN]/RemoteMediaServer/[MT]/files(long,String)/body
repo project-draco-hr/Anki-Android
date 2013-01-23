@@ -2,7 +2,7 @@
   JSONObject data=new JSONObject();
   try {
     data.put("minUsn",minUsn);
-    HttpResponse ret=super.req("files",getInputStream(data.toString()));
+    HttpResponse ret=super.req("files",getInputStream(Utils.jsonToString(data)));
     if (ret == null) {
       Log.e(AnkiDroidApp.TAG,"RemoteMediaServer.files: Exception during request");
       return null;
