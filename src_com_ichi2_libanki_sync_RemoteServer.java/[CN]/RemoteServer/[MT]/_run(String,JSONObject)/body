@@ -1,5 +1,5 @@
 {
-  HttpResponse ret=super.req(cmd,super.getInputStream(data.toString()));
+  HttpResponse ret=super.req(cmd,super.getInputStream(Utils.jsonToString(data)));
   if (ret == null) {
     return null;
   }

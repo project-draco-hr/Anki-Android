@@ -1,7 +1,7 @@
 {
   JSONObject m2=null;
   try {
-    m2=new JSONObject(m.toString());
+    m2=new JSONObject(Utils.jsonToString(m));
     m2.put("name",m2.getString("name") + " copy");
   }
  catch (  JSONException e) {

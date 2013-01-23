@@ -10,7 +10,7 @@
       throw new RuntimeException(e);
     }
     ContentValues val=new ContentValues();
-    val.put("models",array.toString());
+    val.put("models",Utils.jsonToString(array));
     mCol.getDb().update("col",val);
     mChanged=false;
   }

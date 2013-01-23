@@ -5,7 +5,7 @@
   JSONObject deck=mCol.getDecks().get(did);
   try {
     if (deck.getInt("dyn") == 0) {
-      Log.e(AnkiDroidApp.TAG,"error: deck is not a dynamic deck");
+      Log.e(AnkiDroidApp.TAG,"error: deck is not a filtered deck");
       return null;
     }
   }
