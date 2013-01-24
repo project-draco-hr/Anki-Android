@@ -148,7 +148,7 @@ finishWithAnimation(false);
 }
 }
 );
-syncButton.setText(android.R.string.no);
+syncButton.setText(R.string.no);
 syncButton.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
 Intent result=new Intent();
@@ -158,7 +158,7 @@ finishWithAnimation();
 }
 }
 );
-continueButton.setText(android.R.string.yes);
+continueButton.setText(R.string.yes);
 continueButton.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
 Intent result=new Intent();
@@ -191,7 +191,7 @@ builder.setTitle(R.string.deck_upgrade_create_new_collection_title);
 builder.setIcon(R.drawable.ic_dialog_alert);
 builder.setMessage(R.string.deck_upgrade_not_import_warning);
 Resources res=getResources();
-builder.setPositiveButton(android.R.string.yes,new DialogInterface.OnClickListener(){
+builder.setPositiveButton(R.string.yes,new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 Intent result=new Intent();
 result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_CONTINUE);
@@ -200,7 +200,7 @@ finishWithAnimation();
 }
 }
 );
-builder.setNegativeButton(android.R.string.no,null);
+builder.setNegativeButton(R.string.no,null);
 builder.show();
 }
 }
@@ -221,7 +221,7 @@ finishWithAnimation(false);
 }
 );
 syncButton.setVisibility(View.GONE);
-continueButton.setText(android.R.string.yes);
+continueButton.setText(R.string.yes);
 continueButton.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
 if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {

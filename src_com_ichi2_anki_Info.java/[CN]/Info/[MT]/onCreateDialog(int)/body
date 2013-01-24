@@ -23,7 +23,7 @@ dialog=builder.create();
 break;
 case DIALOG_SYNC_LOG:
 builder.setTitle(R.string.sync_log_title);
-builder.setPositiveButton(android.R.string.ok,null);
+builder.setPositiveButton(R.string.ok,null);
 dialog=builder.create();
 break;
 case DIALOG_SYNC_UPGRADE_REQUIRED:
@@ -34,7 +34,7 @@ downloadCollection();
 }
 }
 );
-builder.setNegativeButton(android.R.string.cancel,null);
+builder.setNegativeButton(R.string.cancel,null);
 builder.setTitle(R.string.sync_log_title);
 dialog=builder.create();
 break;
