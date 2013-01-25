@@ -1,0 +1,8 @@
+{
+  if (mCancelCallback != null) {
+    mCancelCallback.cancelAllConnections();
+  }
+  if (mListener instanceof CancellableTaskListener) {
+    ((CancellableTaskListener)mListener).onCancelled();
+  }
+}

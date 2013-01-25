@@ -1,4 +1,5 @@
 {
+  mCancelCallback=new CancelCallback();
   String path=(String)data.data[0];
   File ankiDir=new File(path);
   if (!ankiDir.isDirectory()) {
@@ -61,25 +62,28 @@ catch (  JSONException e) {
     return data;
   }
   BasicHttpSyncer h=new BasicHttpSyncer(null,null);
-  publishProgress(new Object[]{R.string.upgrade_decks_upload});
+  publishProgress(new Object[]{R.string.upgrade_decks_upload,null,true});
   try {
-    HttpResponse resp=h.req("upgrade/upload",new FileInputStream(zipFile),0,false);
-    if (resp == null) {
+    HttpResponse resp=h.req("upgrade/upload",new FileInputStream(zipFile),0,false,null,mCancelCallback);
+    if (resp == null && !isCancelled()) {
       data.success=false;
       data.data=new Object[]{"error when uploading"};
       return data;
     }
-    String result=h.stream2String(resp.getEntity().getContent());
-    String key;
-    if (result.startsWith("ok:")) {
-      key=result.split(":")[1];
-    }
+    String result;
+    String key=null;
+    if (!isCancelled()) {
+      result=h.stream2String(resp.getEntity().getContent());
+      if (result != null && result.startsWith("ok:")) {
+        key=result.split(":")[1];
+      }
  else {
-      data.success=false;
-      data.data=new Object[]{"error when uploading"};
-      return data;
+        data.success=false;
+        data.data=new Object[]{"error when uploading"};
+        return data;
+      }
     }
-    while (true) {
+    while (true && !isCancelled()) {
       result=h.stream2String(h.req("upgrade/status?key=" + key).getEntity().getContent());
       if (result.equals("error")) {
         data.success=false;
@@ -102,8 +106,16 @@ catch (  JSONException e) {
       }
       Thread.sleep(1000);
     }
-    publishProgress(new Object[]{R.string.upgrade_decks_downloading});
-    resp=h.req("upgrade/download?key=" + key);
+    if (!isCancelled()) {
+      publishProgress(new Object[]{R.string.upgrade_decks_downloading});
+      resp=h.req("upgrade/download?key=" + key,null,6,true,null,mCancelCallback);
+    }
+    publishProgress(new Object[]{R.string.upgrade_decks_downloading,null,false});
+    if (isCancelled()) {
+      data.success=false;
+      data.data=new Object[]{"cancelled"};
+      return data;
+    }
     if (resp == null) {
       data.success=false;
       data.data=new Object[]{"error downloading file"};
