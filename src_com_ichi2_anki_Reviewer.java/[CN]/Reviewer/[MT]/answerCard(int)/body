@@ -28,7 +28,6 @@ mTimerHandler.removeCallbacks(removeChosenAnswerText);
 mTimerHandler.postDelayed(removeChosenAnswerText,mShowChosenAnswerLength);
 Sound.stopSounds();
 mCurrentEase=ease;
-mSessionCurrReps++;
 setNextCardAnimation(false);
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,mCurrentEase));
 }
