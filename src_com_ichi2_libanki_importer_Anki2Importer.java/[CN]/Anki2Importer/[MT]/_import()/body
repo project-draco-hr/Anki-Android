@@ -12,6 +12,7 @@
   Log.i(AnkiDroidApp.TAG,"Import - importing cards");
   int cnt=_importCards();
   Log.i(AnkiDroidApp.TAG,"Import - finishing");
+  publishProgress(true,100,100,false);
   _postImport();
   return cnt;
 }

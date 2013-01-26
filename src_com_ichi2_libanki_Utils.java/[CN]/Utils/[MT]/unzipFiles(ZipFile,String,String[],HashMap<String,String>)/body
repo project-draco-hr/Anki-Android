@@ -1,0 +1,64 @@
+{
+  byte[] buf=new byte[FILE_COPY_BUFFER_SIZE];
+  File dir=new File(targetDirectory);
+  if (!dir.exists() && !dir.mkdirs()) {
+    Log.e(AnkiDroidApp.TAG,"Utils.unzipFiles: Could not create target directory: " + targetDirectory);
+    return false;
+  }
+  if (zipEntryToFilenameMap == null) {
+    zipEntryToFilenameMap=new HashMap<String,String>();
+  }
+  BufferedInputStream zis=null;
+  BufferedOutputStream bos=null;
+  try {
+    for (    String requestedEntry : zipEntries) {
+      ZipEntry ze=zipFile.getEntry(requestedEntry);
+      if (ze != null) {
+        String name=ze.getName();
+        if (zipEntryToFilenameMap.containsKey(name)) {
+          name=zipEntryToFilenameMap.get(name);
+        }
+        File destFile=new File(dir,name);
+        File parentDir=destFile.getParentFile();
+        if (!parentDir.exists() && !parentDir.mkdirs()) {
+          return false;
+        }
+        if (!ze.isDirectory()) {
+          Log.i(AnkiDroidApp.TAG,"uncompress " + name);
+          zis=new BufferedInputStream(zipFile.getInputStream(ze));
+          bos=new BufferedOutputStream(new FileOutputStream(destFile),FILE_COPY_BUFFER_SIZE);
+          int n;
+          while ((n=zis.read(buf,0,FILE_COPY_BUFFER_SIZE)) != -1) {
+            bos.write(buf,0,n);
+          }
+          bos.flush();
+          bos.close();
+          zis.close();
+        }
+      }
+    }
+  }
+ catch (  IOException e) {
+    Log.e(AnkiDroidApp.TAG,"Utils.unzipFiles: Error while unzipping archive.",e);
+    return false;
+  }
+ finally {
+    try {
+      if (bos != null) {
+        bos.close();
+      }
+    }
+ catch (    IOException e) {
+      Log.e(AnkiDroidApp.TAG,"Utils.unzipFiles: Error while closing output stream.",e);
+    }
+    try {
+      if (zis != null) {
+        zis.close();
+      }
+    }
+ catch (    IOException e) {
+      Log.e(AnkiDroidApp.TAG,"Utils.unzipFiles: Error while closing zip input stream.",e);
+    }
+  }
+  return true;
+}

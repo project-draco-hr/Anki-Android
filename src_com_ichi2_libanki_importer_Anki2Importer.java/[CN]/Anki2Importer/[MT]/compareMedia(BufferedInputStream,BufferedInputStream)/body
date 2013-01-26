@@ -1,0 +1,6 @@
+{
+  byte[] lhbytes=_mediaPick(lhis);
+  byte[] rhbytes=_mediaPick(rhis);
+  boolean result=Arrays.equals(lhbytes,rhbytes);
+  return result;
+}
