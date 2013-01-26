@@ -1,0 +1,6 @@
+{
+  ThreadSafeClientConnManager connectionManager=mConnectionManager.get();
+  if (connectionManager != null) {
+    connectionManager.shutdown();
+  }
+}

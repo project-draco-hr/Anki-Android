@@ -3,24 +3,27 @@
   builder.setTitle(R.string.deck_upgrade_title);
   builder.setIcon(R.drawable.ic_dialog_alert);
   builder.setMessage(getString(R.string.deck_upgrade_rename_warning,UPGRADE_OLD_COLLECTION_RENAME));
-  builder.setPositiveButton(android.R.string.yes,new DialogInterface.OnClickListener(){
+  builder.setPositiveButton(R.string.yes,new DialogInterface.OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int which){
       AnkiDroidApp.closeCollection(true);
-      String path=AnkiDroidApp.getCollectionPath();
-      int i=0;
-      String newPath=path.replace("collection.anki2",UPGRADE_OLD_COLLECTION_RENAME + i);
-      while ((new File(newPath)).exists()) {
-        i++;
-        newPath=path.replace("collection.anki2",UPGRADE_OLD_COLLECTION_RENAME + i);
+      String path=AnkiDroidApp.getCurrentAnkiDroidDirectory();
+      File apkgExport=new File(path,UPGRADE_OLD_COLLECTION_RENAME);
+      if (apkgExport.exists()) {
+        int i=0;
+        File altname;
+        do {
+          altname=new File(path,UPGRADE_OLD_COLLECTION_RENAME + i);
+          ++i;
+        }
+ while (altname.exists());
+        apkgExport.renameTo(altname);
       }
-      (new File(path)).renameTo(new File(newPath));
-      showUpgradeScreen(true,Info.UPGRADE_SCREEN_BASIC1);
-      AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).edit().putString("lastUpgradeVersion",AnkiDroidApp.getPkgVersion()).commit();
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_EXPORT_APKG,mUpgradeExportListener,new DeckTask.TaskData(new Object[]{AnkiDroidApp.getCollectionPath(),apkgExport.getAbsolutePath(),false}));
     }
   }
 );
   builder.setCancelable(false);
-  builder.setNegativeButton(android.R.string.no,new DialogInterface.OnClickListener(){
+  builder.setNegativeButton(R.string.no,new DialogInterface.OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int which){
       AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).edit().putString("lastUpgradeVersion",AnkiDroidApp.getPkgVersion()).commit();
     }

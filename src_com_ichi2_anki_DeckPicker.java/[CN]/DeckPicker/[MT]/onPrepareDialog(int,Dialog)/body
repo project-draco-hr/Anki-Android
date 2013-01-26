@@ -97,7 +97,7 @@ break;
 case DIALOG_IMPORT_SELECT:
 List<File> fileList=Utils.getImportableDecks();
 if (fileList.size() == 0) {
-Themes.showThemedToast(DeckPicker.this,getResources().getString(R.string.import_no_file_found),false);
+Themes.showThemedToast(DeckPicker.this,getResources().getString(R.string.upgrade_import_no_file_found),false);
 }
 ad.setEnabled(fileList.size() != 0);
 String[] tts=new String[fileList.size()];
