@@ -3,6 +3,9 @@
     return false;
   }
   File collectionFile=new File(path);
+  if (!collectionFile.exists()) {
+    return false;
+  }
   File[] deckBackups=getBackups(collectionFile);
   int len=deckBackups.length;
   if (len == 0) {
