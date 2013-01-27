@@ -108,24 +108,10 @@
           break;
         }
       }
-      JSONArray c=sanityCheck();
-      JSONArray s=mServer.sanityCheck();
-      if (c == null || s == null || s.getString(0).equals("error")) {
+      JSONObject c=sanityCheck();
+      JSONObject sanity=mServer.sanityCheck2(c);
+      if (sanity == null || !sanity.optString("status","bad").equals("ok")) {
         return new Object[]{"sanityCheckError",null};
-      }
-      boolean error=false;
-      for (int i=0; i < s.getJSONArray(0).length(); i++) {
-        if (c.getJSONArray(0).getLong(i) != s.getJSONArray(0).getLong(i)) {
-          error=true;
-        }
-      }
-      for (int i=1; i < s.length(); i++) {
-        if (c.getLong(i) != s.getLong(i)) {
-          error=true;
-        }
-      }
-      if (error) {
-        return new Object[]{"sanityCheckError","sanity check failed: local: " + c.toString() + ", remote: "+ s.toString()};
       }
       publishProgress(con,R.string.sync_finish_message);
       Log.i(AnkiDroidApp.TAG,"Sync: sending finish command");
