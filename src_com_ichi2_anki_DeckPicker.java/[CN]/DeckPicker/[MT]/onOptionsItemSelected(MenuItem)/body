@@ -77,9 +77,6 @@ return true;
 case MENU_IMPORT:
 showDialog(DIALOG_IMPORT_HINT);
 return true;
-case MENU_MY_ACCOUNT:
-startActivity(new Intent(DeckPicker.this,MyAccount.class));
-return true;
 case MENU_PREFERENCES:
 startActivityForResult(new Intent(DeckPicker.this,Preferences.class),PREFERENCES_UPDATE);
 return true;
