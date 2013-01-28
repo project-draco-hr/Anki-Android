@@ -35,7 +35,7 @@
       boolean resched=_resched(card);
       if (conf.has("mult") && resched) {
         try {
-          card.setIvl(Math.max(1,(int)(card.getIvl() * conf.getDouble("mult"))));
+          card.setIvl(Math.max(Math.max(1,(int)(card.getIvl() * conf.getDouble("mult"))),conf.getInt("minInt")));
         }
  catch (        JSONException e) {
           throw new RuntimeException(e);
