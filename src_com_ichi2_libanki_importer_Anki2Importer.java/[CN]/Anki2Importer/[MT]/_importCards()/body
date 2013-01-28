@@ -59,7 +59,7 @@
       card[2]=_did((Long)card[2]);
       card[4]=Utils.intNow();
       card[5]=usn;
-      if ((Integer)card[7] == 2 || (Integer)card[7] == 3) {
+      if ((Integer)card[7] == 2 || (Integer)card[7] == 3 || (Integer)card[6] == 2) {
         card[8]=(Long)card[8] - aheadBy;
       }
       if ((Long)card[15] != 0) {
