@@ -1,0 +1,5 @@
+{
+  if (mProgress != null && mResources != null) {
+    mProgress.publishProgress(new DeckTask.TaskData(mResources.getString(R.string.import_add_progress,(unpacking ? CHECKMARK : "-"),notesDone,cardsDone,(cleanup ? CHECKMARK : "-"))));
+  }
+}

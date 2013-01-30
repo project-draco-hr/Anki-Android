@@ -3,7 +3,7 @@
   HashMap<Long,Boolean> existing=new HashMap<Long,Boolean>();
   Cursor cursor=null;
   try {
-    cursor=mDst.getDb().getDatabase().rawQuery("SELECT f.guid, c.ord, c.id FROM cards c, notes f WHERE c.nid = f.id",null);
+    cursor=mDst.getDb().getDatabase().query("cards c, notes f",new String[]{"f.guid","c.ord","c.id"},"c.nid = f.id",null,null,null,null);
     while (cursor.moveToNext()) {
       long cid=cursor.getLong(2);
       existing.put(cid,true);
@@ -31,6 +31,8 @@
   long aheadBy=mSrc.getSched().getToday() - mDst.getSched().getToday();
   try {
     cursor=mSrc.getDb().getDatabase().rawQuery("SELECT f.guid, f.mid, c.* FROM cards c, notes f WHERE c.nid = f.id",null);
+    int total=cursor.getCount();
+    int ci=0;
     while (cursor.moveToNext()) {
       Object[] card=new Object[]{cursor.getString(0),cursor.getLong(1),cursor.getLong(2),cursor.getLong(3),cursor.getLong(4),cursor.getInt(5),cursor.getLong(6),cursor.getInt(7),cursor.getInt(8),cursor.getInt(9),cursor.getLong(10),cursor.getLong(11),cursor.getLong(12),cursor.getInt(13),cursor.getInt(14),cursor.getInt(15),cursor.getLong(16),cursor.getLong(17),cursor.getInt(18),cursor.getString(19)};
       String guid=(String)card[0];
@@ -79,7 +81,7 @@
       cards.add(card);
       Cursor cur2=null;
       try {
-        cur2=mDst.getDb().getDatabase().rawQuery("SELECT * FROM revlog WHERE cid = ?",new String[]{Long.toString(scid)});
+        cur2=mDst.getDb().getDatabase().query("revlog",new String[]{"id","cid","usn","ease","ivl","lastIvl","factor","time","type"},"cid = ?",new String[]{Long.toString(scid)},null,null,null);
         while (cur2.moveToNext()) {
           Object[] rev=new Object[]{cur2.getLong(0),cur2.getLong(1),cur2.getInt(2),cur2.getInt(3),cur2.getLong(4),cur2.getLong(5),cur2.getLong(6),cur2.getLong(7),cur2.getInt(8)};
           rev[1]=card[0];
@@ -93,6 +95,8 @@
         }
       }
       cnt+=1;
+      ++ci;
+      publishProgress(true,100,ci * 100 / total,false);
     }
   }
   finally {
