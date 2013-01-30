@@ -1,0 +1,66 @@
+{
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundExportApkg");
+  Object[] data=params[0].getObjArray();
+  String colPath=(String)data[0];
+  String apkgPath=(String)data[1];
+  boolean includeMedia=(Boolean)data[2];
+  byte[] buf=new byte[1024];
+  try {
+    try {
+      AnkiDb d=AnkiDatabaseManager.getDatabase(colPath);
+      d.queryString("PRAGMA journal_mode = DELETE");
+    }
+ catch (    SQLiteDatabaseCorruptException e) {
+      return new TaskData(false);
+    }
+ finally {
+      AnkiDatabaseManager.closeDatabase(colPath);
+    }
+    ZipOutputStream zos=new ZipOutputStream(new FileOutputStream(apkgPath));
+    FileInputStream colFin=new FileInputStream(colPath);
+    ZipEntry ze=new ZipEntry("collection.anki2");
+    zos.putNextEntry(ze);
+    int len;
+    while ((len=colFin.read(buf)) >= 0) {
+      zos.write(buf,0,len);
+    }
+    zos.closeEntry();
+    colFin.close();
+    JSONObject media=new JSONObject();
+    if (includeMedia) {
+      File mediaDir=new File(AnkiDroidApp.getCurrentAnkiDroidMediaDir());
+      if (mediaDir.exists() && mediaDir.isDirectory()) {
+        File[] mediaFiles=mediaDir.listFiles();
+        int c=0;
+        for (        File f : mediaFiles) {
+          FileInputStream mediaFin=new FileInputStream(f);
+          ze=new ZipEntry(Integer.toString(c));
+          zos.putNextEntry(ze);
+          while ((len=mediaFin.read(buf)) >= 0) {
+            zos.write(buf,0,len);
+          }
+          zos.closeEntry();
+          media.put(Integer.toString(c),f.getName());
+        }
+      }
+    }
+    ze=new ZipEntry("media");
+    zos.putNextEntry(ze);
+    InputStream mediaIn=new ByteArrayInputStream(Utils.jsonToString(media).getBytes("UTF-8"));
+    while ((len=mediaIn.read(buf)) >= 0) {
+      zos.write(buf,0,len);
+    }
+    zos.closeEntry();
+    zos.close();
+  }
+ catch (  FileNotFoundException e) {
+    return new TaskData(false);
+  }
+catch (  IOException e) {
+    return new TaskData(false);
+  }
+catch (  JSONException e) {
+    return new TaskData(false);
+  }
+  return new TaskData(true);
+}

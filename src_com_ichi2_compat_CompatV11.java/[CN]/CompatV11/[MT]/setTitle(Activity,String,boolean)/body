@@ -1,7 +1,9 @@
 {
   ActionBar ab=activity.getActionBar();
-  CharacterStyle span=new ForegroundColorSpan(activity.getResources().getColor(inverted ? R.color.white : R.color.black));
-  SpannableStringBuilder ssb=new SpannableStringBuilder(title);
-  ssb.setSpan(span,0,ssb.length(),0);
-  ab.setTitle(ssb);
+  if (ab != null) {
+    CharacterStyle span=new ForegroundColorSpan(activity.getResources().getColor(inverted ? R.color.white : R.color.black));
+    SpannableStringBuilder ssb=new SpannableStringBuilder(title);
+    ssb.setSpan(span,0,ssb.length(),0);
+    ab.setTitle(ssb);
+  }
 }

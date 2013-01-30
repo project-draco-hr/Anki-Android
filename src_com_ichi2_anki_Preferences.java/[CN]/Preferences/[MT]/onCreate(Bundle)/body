@@ -18,6 +18,7 @@
   fadeScrollbars=(CheckBoxPreference)getPreferenceScreen().findPreference("fadeScrollbars");
   convertFenText=(CheckBoxPreference)getPreferenceScreen().findPreference("convertFenText");
   fixHebrewText=(CheckBoxPreference)getPreferenceScreen().findPreference("fixHebrewText");
+  syncAccount=(Preference)getPreferenceScreen().findPreference("syncAccount");
   zoomCheckboxPreference.setEnabled(!swipeCheckboxPreference.isChecked());
   initializeLanguageDialog();
   initializeCustomFontsDialog();

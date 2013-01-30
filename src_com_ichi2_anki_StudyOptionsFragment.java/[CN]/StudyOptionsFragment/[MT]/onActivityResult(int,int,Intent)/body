@@ -41,7 +41,6 @@
  else     if (requestCode == REQUEST_REVIEW) {
       Log.i(AnkiDroidApp.TAG,"Result code = " + resultCode);
 switch (resultCode) {
-case Reviewer.RESULT_SESSION_COMPLETED:
 default :
         resetAndUpdateValuesFromDeck();
       break;

@@ -4,8 +4,8 @@
       return null;
     }
     double elapsed=Utils.now() - mStartTime;
-    if (elapsed > mConf.getLong("timeLim") && !mOvertime) {
-      return new Long[]{mConf.getLong("timeLim"),(long)(mRepsToday - mStartReps)};
+    if (elapsed > mConf.getLong("timeLim")) {
+      return new Long[]{mConf.getLong("timeLim"),(long)(mSched.getReps() - mStartReps)};
     }
   }
  catch (  JSONException e) {

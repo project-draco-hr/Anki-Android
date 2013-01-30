@@ -5,7 +5,7 @@
     }
  else     if (mType == TYPE_UPGRADE_DECKS && mUpgradeStage != UPGRADE_SCREEN_BASIC1) {
       Intent result=new Intent();
-      result.putExtra(TYPE_ANINAMTION_RIGHT,true);
+      result.putExtra(TYPE_ANIMATION_RIGHT,true);
 switch (mUpgradeStage) {
 case UPGRADE_SCREEN_BASIC2:
         result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_BASIC1);

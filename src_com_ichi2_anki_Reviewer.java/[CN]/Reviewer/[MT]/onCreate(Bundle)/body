@@ -21,14 +21,6 @@
     mBaseUrl=Utils.getBaseUrl(col.getMedia().getDir());
     restorePreferences();
     setFullScreen(mPrefFullscreenReview);
-    try {
-      String[] title=mSched.getCol().getDecks().current().getString("name").split("::");
-      AnkiDroidApp.getCompat().setTitle(this,title[title.length - 1],mInvertedColors);
-    }
- catch (    JSONException e) {
-      throw new RuntimeException(e);
-    }
-    AnkiDroidApp.getCompat().setSubtitle(this,"",mInvertedColors);
     registerExternalStorageListener();
     if (mNightMode) {
       mCurrentBackgroundColor=Themes.getNightModeCardBackground(this);
@@ -38,6 +30,14 @@
     }
     mRefreshWebview=getRefreshWebviewAndInitializeWebviewVariables();
     initLayout(R.layout.flashcard);
+    try {
+      String[] title=mSched.getCol().getDecks().current().getString("name").split("::");
+      AnkiDroidApp.getCompat().setTitle(this,title[title.length - 1],mInvertedColors);
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+    AnkiDroidApp.getCompat().setSubtitle(this,"",mInvertedColors);
     if (mPrefTextSelection) {
       clipboardSetText("");
     }
@@ -47,7 +47,6 @@
  catch (    IOException e) {
       e.printStackTrace();
     }
-    mSessionCurrReps=0;
     if (mSpeakText) {
       ReadText.initializeTts(this);
     }
@@ -56,5 +55,6 @@
       mWhiteboard.setVisibility(View.VISIBLE);
     }
     DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(mSched,null,0));
+    mSched.setReps(mSched.getReps() - 1);
   }
 }
