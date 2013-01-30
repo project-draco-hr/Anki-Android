@@ -1,6 +1,6 @@
 {
   try {
-    return new FileInputStream(new File(fname,dir));
+    return new BufferedInputStream(new FileInputStream(new File(dir,fname)),MEDIAPICKLIMIT * 2);
   }
  catch (  FileNotFoundException e) {
     return null;

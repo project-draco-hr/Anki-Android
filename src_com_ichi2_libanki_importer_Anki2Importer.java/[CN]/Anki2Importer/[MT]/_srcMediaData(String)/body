@@ -1,3 +1,11 @@
 {
-  return _mediaData(fname,mSrc.getMedia().getDir());
+  if (nameToNum.containsKey(fname)) {
+    try {
+      return new BufferedInputStream(mZip.getInputStream(mZip.getEntry(nameToNum.get(fname))));
+    }
+ catch (    IOException e) {
+      Log.e(AnkiDroidApp.TAG,"Could not extract media file " + fname + "from mZip file.");
+    }
+  }
+  return null;
 }

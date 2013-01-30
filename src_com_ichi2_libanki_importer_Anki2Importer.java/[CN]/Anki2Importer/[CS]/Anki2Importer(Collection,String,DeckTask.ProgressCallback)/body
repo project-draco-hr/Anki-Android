@@ -1,0 +1,11 @@
+{
+  mCol=col;
+  mZip=new ZipFile(new File(file),ZipFile.OPEN_READ);
+  mTotal=0;
+  mLog=new ArrayList<String>();
+  mProgress=progressCallback;
+  if (mProgress != null) {
+    mResources=mProgress.getResources();
+  }
+  nameToNum=new HashMap<String,String>();
+}
