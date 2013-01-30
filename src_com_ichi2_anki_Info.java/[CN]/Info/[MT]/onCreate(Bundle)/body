@@ -103,6 +103,7 @@ but.setVisibility(View.VISIBLE);
 Button syncButton=(Button)findViewById(R.id.info_sync);
 syncButton.setVisibility(View.VISIBLE);
 mUpgradeStage=getIntent().getIntExtra(TYPE_UPGRADE_STAGE,-1);
+boolean reupgrading=false;
 switch (mUpgradeStage) {
 case UPGRADE_SCREEN_BASIC1:
 sb.append(getString(R.string.deck_upgrade_major_warning));
@@ -149,7 +150,7 @@ finishWithAnimation(false);
 }
 }
 );
-syncButton.setText(R.string.no);
+syncButton.setText(getString(R.string.internet));
 syncButton.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
 Intent result=new Intent();
@@ -159,7 +160,7 @@ finishWithAnimation();
 }
 }
 );
-continueButton.setText(R.string.yes);
+continueButton.setText(getString(R.string.pc));
 continueButton.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
 Intent result=new Intent();
@@ -171,7 +172,15 @@ finishWithAnimation();
 );
 break;
 case UPGRADE_SCREEN_MORE_OPTIONS:
-sb.append(getString(R.string.deck_upgrade_more_options));
+if (new File(AnkiDroidApp.getCollectionPath()).exists()) {
+setTitle(getString(R.string.exit_wizard));
+reupgrading=true;
+sb.append(getString(R.string.deck_upgrade_more_options_exit));
+}
+ else {
+sb.append(getString(R.string.deck_upgrade_more_options_new_collection));
+}
+sb.append(getString(R.string.deck_upgrade_more_options_downgrade));
 but.setText(R.string.upgrade_decks_button);
 but.setText(R.string.back);
 but.setOnClickListener(new OnClickListener(){
@@ -184,6 +193,19 @@ finishWithAnimation(false);
 }
 }
 );
+if (reupgrading) {
+syncButton.setText(getString(R.string.upgrade_deck_dont_upgrade));
+syncButton.setOnClickListener(new OnClickListener(){
+@Override public void onClick(View arg0){
+Intent result=new Intent();
+result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_CONTINUE);
+setResult(RESULT_OK,result);
+finishWithAnimation();
+}
+}
+);
+}
+ else {
 syncButton.setText(R.string.deck_upgrade_create_new_collection);
 syncButton.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
@@ -205,6 +227,7 @@ builder.show();
 }
 }
 );
+}
 continueButton.setVisibility(View.GONE);
 break;
 case UPGRADE_SCREEN_WEB_UPGRADE:
