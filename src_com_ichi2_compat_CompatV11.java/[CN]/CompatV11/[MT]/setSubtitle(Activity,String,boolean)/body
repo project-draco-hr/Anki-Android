@@ -1,12 +1,14 @@
 {
   ActionBar ab=activity.getActionBar();
-  if (inverted) {
-    CharacterStyle span=new ForegroundColorSpan(activity.getResources().getColor(inverted ? R.color.white : R.color.black));
-    SpannableStringBuilder ssb=new SpannableStringBuilder(title);
-    ssb.setSpan(span,0,ssb.length(),0);
-    ab.setSubtitle(ssb);
-  }
+  if (ab != null) {
+    if (inverted) {
+      CharacterStyle span=new ForegroundColorSpan(activity.getResources().getColor(inverted ? R.color.white : R.color.black));
+      SpannableStringBuilder ssb=new SpannableStringBuilder(title);
+      ssb.setSpan(span,0,ssb.length(),0);
+      ab.setSubtitle(ssb);
+    }
  else {
-    ab.setSubtitle(title);
+      ab.setSubtitle(title);
+    }
   }
 }

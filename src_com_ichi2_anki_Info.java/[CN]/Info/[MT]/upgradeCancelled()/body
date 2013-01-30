@@ -1,0 +1,16 @@
+{
+  StyledDialog.Builder builder=new StyledDialog.Builder(Info.this);
+  builder.setTitle(getString(R.string.upgrade_deck_cancelled_title));
+  builder.setIcon(R.drawable.ic_dialog_alert);
+  builder.setMessage(getString(R.string.upgrade_deck_cancelled_description));
+  builder.setPositiveButton(R.string.ok,new DialogInterface.OnClickListener(){
+    @Override public void onClick(    DialogInterface dialogInterface,    int i){
+      Intent result=new Intent();
+      result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_BASIC1);
+      setResult(RESULT_OK,result);
+      finishWithAnimation();
+    }
+  }
+);
+  builder.show();
+}

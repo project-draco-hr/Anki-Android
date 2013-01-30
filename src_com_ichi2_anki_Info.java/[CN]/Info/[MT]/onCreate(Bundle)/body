@@ -96,12 +96,14 @@ mWebView.getSettings().setJavaScriptEnabled(true);
 continueButton.setText(res.getString(R.string.download_button_return));
 break;
 case TYPE_UPGRADE_DECKS:
+setTitle(R.string.deck_upgrade_title);
 sb.append("<html><body>");
 Button but=(Button)findViewById(R.id.info_tutorial);
 but.setVisibility(View.VISIBLE);
 Button syncButton=(Button)findViewById(R.id.info_sync);
 syncButton.setVisibility(View.VISIBLE);
 mUpgradeStage=getIntent().getIntExtra(TYPE_UPGRADE_STAGE,-1);
+boolean reupgrading=false;
 switch (mUpgradeStage) {
 case UPGRADE_SCREEN_BASIC1:
 sb.append(getString(R.string.deck_upgrade_major_warning));
@@ -142,13 +144,13 @@ but.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
 Intent result=new Intent();
 result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_BASIC1);
-result.putExtra(TYPE_ANINAMTION_RIGHT,true);
+result.putExtra(TYPE_ANIMATION_RIGHT,true);
 setResult(RESULT_OK,result);
 finishWithAnimation(false);
 }
 }
 );
-syncButton.setText(android.R.string.no);
+syncButton.setText(getString(R.string.internet));
 syncButton.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
 Intent result=new Intent();
@@ -158,7 +160,7 @@ finishWithAnimation();
 }
 }
 );
-continueButton.setText(android.R.string.yes);
+continueButton.setText(getString(R.string.pc));
 continueButton.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
 Intent result=new Intent();
@@ -170,19 +172,40 @@ finishWithAnimation();
 );
 break;
 case UPGRADE_SCREEN_MORE_OPTIONS:
-sb.append(getString(R.string.deck_upgrade_more_options));
+if (new File(AnkiDroidApp.getCollectionPath()).exists()) {
+setTitle(getString(R.string.exit_wizard));
+reupgrading=true;
+sb.append(getString(R.string.deck_upgrade_more_options_exit));
+}
+ else {
+sb.append(getString(R.string.deck_upgrade_more_options_new_collection));
+}
+sb.append(getString(R.string.deck_upgrade_more_options_downgrade));
 but.setText(R.string.upgrade_decks_button);
 but.setText(R.string.back);
 but.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
 Intent result=new Intent();
 result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_BASIC1);
-result.putExtra(TYPE_ANINAMTION_RIGHT,true);
+result.putExtra(TYPE_ANIMATION_RIGHT,true);
 setResult(RESULT_OK,result);
 finishWithAnimation(false);
 }
 }
 );
+if (reupgrading) {
+syncButton.setText(getString(R.string.upgrade_deck_dont_upgrade));
+syncButton.setOnClickListener(new OnClickListener(){
+@Override public void onClick(View arg0){
+Intent result=new Intent();
+result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_CONTINUE);
+setResult(RESULT_OK,result);
+finishWithAnimation();
+}
+}
+);
+}
+ else {
 syncButton.setText(R.string.deck_upgrade_create_new_collection);
 syncButton.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
@@ -190,8 +213,7 @@ StyledDialog.Builder builder=new StyledDialog.Builder(Info.this);
 builder.setTitle(R.string.deck_upgrade_create_new_collection_title);
 builder.setIcon(R.drawable.ic_dialog_alert);
 builder.setMessage(R.string.deck_upgrade_not_import_warning);
-Resources res=getResources();
-builder.setPositiveButton(android.R.string.yes,new DialogInterface.OnClickListener(){
+builder.setPositiveButton(R.string.yes,new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 Intent result=new Intent();
 result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_CONTINUE);
@@ -200,11 +222,12 @@ finishWithAnimation();
 }
 }
 );
-builder.setNegativeButton(android.R.string.no,null);
+builder.setNegativeButton(R.string.no,null);
 builder.show();
 }
 }
 );
+}
 continueButton.setVisibility(View.GONE);
 break;
 case UPGRADE_SCREEN_WEB_UPGRADE:
@@ -214,23 +237,18 @@ but.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
 Intent result=new Intent();
 result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_BASIC2);
-result.putExtra(TYPE_ANINAMTION_RIGHT,true);
+result.putExtra(TYPE_ANIMATION_RIGHT,true);
 setResult(RESULT_OK,result);
 finishWithAnimation(false);
 }
 }
 );
 syncButton.setVisibility(View.GONE);
-continueButton.setText(android.R.string.yes);
+continueButton.setText(R.string.yes);
 continueButton.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
-if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-}
- else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-}
-Connection.upgradeDecks(mUpgradeListener,new Connection.Payload(new Object[]{AnkiDroidApp.getCurrentAnkiDroidDirectory()}));
+lockScreenOrientation();
+Connection.upgradeDecks(mWebUpgradeListener,new Connection.Payload(new Object[]{AnkiDroidApp.getCurrentAnkiDroidDirectory()}));
 }
 }
 );
@@ -242,7 +260,7 @@ but.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
 Intent result=new Intent();
 result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_BASIC2);
-result.putExtra(TYPE_ANINAMTION_RIGHT,true);
+result.putExtra(TYPE_ANIMATION_RIGHT,true);
 setResult(RESULT_OK,result);
 finishWithAnimation(false);
 }
@@ -276,7 +294,7 @@ but.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
 Intent result=new Intent();
 result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_BASIC2);
-result.putExtra(TYPE_ANINAMTION_RIGHT,true);
+result.putExtra(TYPE_ANIMATION_RIGHT,true);
 setResult(RESULT_OK,result);
 finishWithAnimation(false);
 }
@@ -285,10 +303,15 @@ finishWithAnimation(false);
 syncButton.setText(R.string._import);
 syncButton.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
-Intent result=new Intent();
-result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_IMPORT);
-setResult(RESULT_OK,result);
-finishWithAnimation(false);
+File apkgFile=new File(AnkiDroidApp.getCurrentAnkiDroidDirectory(),DeckPicker.IMPORT_REPLACE_COLLECTION_NAME);
+List<File> importables=Utils.getImportableDecks();
+if (importables == null || !importables.contains(apkgFile)) {
+Themes.showThemedToast(Info.this,getResources().getString(R.string.upgrade_import_no_file_found,DeckPicker.IMPORT_REPLACE_COLLECTION_NAME),false);
+}
+ else {
+lockScreenOrientation();
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_IMPORT_REPLACE,mUpgradeImportListener,new DeckTask.TaskData(AnkiDroidApp.getCol(),apkgFile.getAbsolutePath()));
+}
 }
 }
 );
@@ -301,16 +324,28 @@ but.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
 Intent result=new Intent();
 result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_PC_UPGRADE);
-result.putExtra(TYPE_ANINAMTION_RIGHT,true);
+result.putExtra(TYPE_ANIMATION_RIGHT,true);
 setResult(RESULT_OK,result);
 finishWithAnimation(false);
 }
 }
 );
-syncButton.setText(R.string.download);
+syncButton.setText(getString(R.string.upgrade_deck_sync_from_ankiweb));
 syncButton.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
+StyledDialog.Builder builder=new StyledDialog.Builder(Info.this);
+builder.setTitle(R.string.upgrade_deck_sync_from_ankiweb);
+builder.setIcon(R.drawable.ic_dialog_alert);
+builder.setMessage(getString(R.string.upgrade_deck_have_you_synced));
+builder.setPositiveButton(R.string.confirm,new DialogInterface.OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+lockScreenOrientation();
 downloadCollection();
+}
+}
+);
+builder.setNegativeButton(R.string.back,null);
+builder.show();
 }
 }
 );
