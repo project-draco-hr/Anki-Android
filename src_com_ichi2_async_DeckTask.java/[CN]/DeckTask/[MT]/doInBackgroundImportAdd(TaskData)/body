@@ -1,11 +1,16 @@
 {
   Log.i(AnkiDroidApp.TAG,"doInBackgroundImportAdd");
+  Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
   Collection col=params[0].getCollection();
   String path=params[0].getString();
-  boolean clean=params[0].getBoolean();
-  Anki2Importer imp=new Anki2Importer(col,path);
+  boolean sharedDeckImport=params[0].getBoolean();
+  ProgressCallback pc=null;
+  if (!sharedDeckImport) {
+    pc=new ProgressCallback(this,res);
+  }
   int addedCount=-1;
   try {
+    Anki2Importer imp=new Anki2Importer(col,path,pc);
     AnkiDb ankiDB=col.getDb();
     ankiDB.getDatabase().beginTransaction();
     try {
@@ -14,7 +19,7 @@
     }
   finally {
       ankiDB.getDatabase().endTransaction();
-      if (clean) {
+      if (sharedDeckImport) {
         File tmpFile=new File(path);
         tmpFile.delete();
       }
@@ -23,6 +28,7 @@
       ankiDB.execute("VACUUM");
       ankiDB.execute("ANALYZE");
     }
+    publishProgress(new TaskData(res.getString(R.string.import_update_counts)));
     DeckTask.TaskData result=doInBackgroundLoadDeckCounts(new TaskData(col));
     if (result == null) {
       return null;
@@ -30,7 +36,12 @@
     return new TaskData(addedCount,result.getObjArray(),true);
   }
  catch (  RuntimeException e) {
-    Log.e(AnkiDroidApp.TAG,"doInBackgroundImportAdd - RuntimeException on importing cards: " + e);
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundImportAdd - RuntimeException on importing cards: ",e);
+    AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundImportAdd");
+    return new TaskData(false);
+  }
+catch (  IOException e) {
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundImportAdd - IOException on importing cards: ",e);
     AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundImportAdd");
     return new TaskData(false);
   }

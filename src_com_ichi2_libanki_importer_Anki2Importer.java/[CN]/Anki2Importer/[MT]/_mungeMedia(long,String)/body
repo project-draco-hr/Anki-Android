@@ -6,8 +6,8 @@
       StringBuffer sb=new StringBuffer();
       while (m.find()) {
         String fname=m.group(2);
-        InputStream srcData=_srcMediaData(fname);
-        InputStream dstData=_dstMediaData(fname);
+        BufferedInputStream srcData=_srcMediaData(fname);
+        BufferedInputStream dstData=_dstMediaData(fname);
         if (srcData == null) {
           m.appendReplacement(sb,m.group(0));
           continue;
@@ -21,7 +21,7 @@
           m.appendReplacement(sb,m.group(0).replace(fname,lname));
           continue;
         }
- else         if (dstData == null || srcData == dstData) {
+ else         if (dstData == null || compareMedia(srcData,dstData)) {
           if (dstData == null) {
             _writeDstMedia(fname,srcData);
           }

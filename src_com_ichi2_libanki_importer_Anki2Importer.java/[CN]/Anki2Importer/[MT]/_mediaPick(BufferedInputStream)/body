@@ -1,9 +1,10 @@
 {
   try {
-    ByteArrayOutputStream baos=new ByteArrayOutputStream();
+    ByteArrayOutputStream baos=new ByteArrayOutputStream(MEDIAPICKLIMIT * 2);
     byte[] buf=new byte[MEDIAPICKLIMIT];
-    int readLen=0;
+    int readLen;
     int readSoFar=0;
+    is.mark(MEDIAPICKLIMIT * 2);
     while (true) {
       readLen=is.read(buf);
       baos.write(buf);
@@ -15,9 +16,10 @@
         break;
       }
     }
-    is.close();
-    byte[] result=baos.toByteArray();
-    return Arrays.copyOf(result,MEDIAPICKLIMIT);
+    is.reset();
+    byte[] result=new byte[MEDIAPICKLIMIT];
+    System.arraycopy(baos.toByteArray(),0,result,0,Math.min(baos.size(),MEDIAPICKLIMIT));
+    return result;
   }
  catch (  FileNotFoundException e) {
     return null;
