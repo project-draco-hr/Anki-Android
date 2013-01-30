@@ -1,0 +1,12 @@
+{
+  super.onResume();
+  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
+  if (preferences.getString("hkey","").length() > 0) {
+    String username=preferences.getString("username","");
+    Resources res=getResources();
+    syncAccount.setSummary(String.format(res.getString(R.string.sync_account_summ_logged_in),username));
+  }
+ else {
+    syncAccount.setSummary(R.string.sync_account_summ_logged_out);
+  }
+}
