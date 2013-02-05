@@ -76,7 +76,7 @@
         mOptions.getJSONObject("rev").put("ease4",Integer.parseInt((String)entry.getValue()) / 100.0f);
       }
  else       if (entry.getKey().equals("revIvlFct")) {
-        mOptions.getJSONObject("rev").put("ivlFct",Double.parseDouble((String)entry.getValue()));
+        mOptions.getJSONObject("rev").put("ivlFct",Integer.parseInt((String)entry.getValue()) / 100.0f);
       }
  else       if (entry.getKey().equals("revMaxIvl")) {
         mOptions.getJSONObject("rev").put("maxIvl",Integer.parseInt((String)entry.getValue()));
