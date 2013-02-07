@@ -10,7 +10,7 @@
     mValues.put("autoPlayAudio",Boolean.toString(mOptions.getBoolean("autoplay")));
     mValues.put("replayQuestion",Boolean.toString(mOptions.getBoolean("replayq")));
     JSONObject newOptions=mOptions.getJSONObject("new");
-    mValues.put("newSteps",getDelays(newOptions.getJSONArray("delays")));
+    mValues.put("newSteps",getSteps(newOptions.getJSONArray("delays")));
     mValues.put("newGradIvl",newOptions.getJSONArray("ints").getString(0));
     mValues.put("newEasy",newOptions.getJSONArray("ints").getString(1));
     mValues.put("newFactor",Integer.toString(newOptions.getInt("initialFactor") / 10));
@@ -25,7 +25,7 @@
     mValues.put("revIvlFct",Integer.toString((int)(revOptions.getDouble("ivlFct") * 100)));
     mValues.put("revMaxIvl",revOptions.getString("maxIvl"));
     JSONObject lapOptions=mOptions.getJSONObject("lapse");
-    mValues.put("lapSteps",getDelays(lapOptions.getJSONArray("delays")));
+    mValues.put("lapSteps",getSteps(lapOptions.getJSONArray("delays")));
     mValues.put("lapNewIvl",Integer.toString((int)(lapOptions.getDouble("mult") * 100)));
     mValues.put("lapMinIvl",lapOptions.getString("minInt"));
     mValues.put("lapLeechThres",lapOptions.getString("leechFails"));
