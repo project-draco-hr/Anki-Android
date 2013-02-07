@@ -50,7 +50,12 @@
         mOptions.getJSONObject("new").put("initialFactor",(int)(Integer.parseInt((String)entry.getValue()) * 10));
       }
  else       if (entry.getKey().equals("newOrder")) {
-        mOptions.getJSONObject("new").put("order",Integer.parseInt((String)entry.getValue()));
+        int oldValue=mOptions.getJSONObject("new").getInt("order");
+        int newValue=Integer.parseInt((String)entry.getValue());
+        if (oldValue != newValue) {
+          mOptions.getJSONObject("new").put("order",Integer.parseInt((String)entry.getValue()));
+          DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REORDER,mReorderHandler,new DeckTask.TaskData(new Object[]{mCol,mOptions}));
+        }
       }
  else       if (entry.getKey().equals("newPerDay")) {
         mOptions.getJSONObject("new").put("perDay",Integer.parseInt((String)entry.getValue()));
