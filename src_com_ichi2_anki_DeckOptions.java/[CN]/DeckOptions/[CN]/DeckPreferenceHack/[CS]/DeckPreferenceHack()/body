@@ -1,3 +1,23 @@
 {
+  mNumericOptions.put("maxAnswerTime",new OptionRange(30,3600));
+  mNumericOptions.put("newFactor",new OptionRange(100,999));
+  mNumericOptions.put("newOrder",new OptionRange(0,Integer.MAX_VALUE));
+  mNumericOptions.put("newPerDay",new OptionRange(0,9999));
+  mNumericOptions.put("newGradIvl",new OptionRange(1,99));
+  mNumericOptions.put("newEasy",new OptionRange(1,99));
+  mNumericOptions.put("revPerDay",new OptionRange(0,9999));
+  mNumericOptions.put("revSpaceMax",new OptionRange(0,100));
+  mNumericOptions.put("revSpaceMin",new OptionRange(0,99));
+  mNumericOptions.put("easyBonus",new OptionRange(100,1000));
+  mNumericOptions.put("revIvlFct",new OptionRange(0,999));
+  mNumericOptions.put("revMaxIvl",new OptionRange(1,99999));
+  mNumericOptions.put("lapMinIvl",new OptionRange(1,99));
+  mNumericOptions.put("lapLeechThres",new OptionRange(0,99));
+  mNumericOptions.put("lapLeechAct",new OptionRange(0,Integer.MAX_VALUE));
+  mNumericOptions.put("lapNewIvl",new OptionRange(0,100));
+  mBoolOptions.add("showAnswerTimer");
+  mBoolOptions.add("autoPlayAudio");
+  mBoolOptions.add("replayQuestion");
+  mBoolOptions.add("newSeparate");
   this.cacheValues();
 }

@@ -66,6 +66,8 @@ case TASK_TYPE_IMPORT:
 return doInBackgroundImportAdd(params);
 case TASK_TYPE_IMPORT_REPLACE:
 return doInBackgroundImportReplace(params);
+case TASK_TYPE_REORDER:
+return doInBackgroundReorder(params);
 case TASK_TYPE_EXPORT_APKG:
 return doInBackgroundExportApkg(params);
 default :
