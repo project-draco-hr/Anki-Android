@@ -30,6 +30,7 @@
     mValues.put("lapMinIvl",lapOptions.getString("minInt"));
     mValues.put("lapLeechThres",lapOptions.getString("leechFails"));
     mValues.put("lapLeechAct",lapOptions.getString("leechAction"));
+    mValues.put("currentConf",mCol.getDecks().getConf(mDeck.getLong("conf")).getString("name"));
   }
  catch (  JSONException e) {
     addMissingValues();

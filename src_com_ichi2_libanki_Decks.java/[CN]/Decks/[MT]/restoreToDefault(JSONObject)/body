@@ -1,0 +1,16 @@
+{
+  try {
+    int oldOrder=conf.getJSONObject("new").getInt("order");
+    JSONObject newConf=new JSONObject(defaultConf);
+    newConf.put("id",conf.getLong("id"));
+    newConf.put("name",conf.getString("name"));
+    mDconf.put(conf.getLong("id"),newConf);
+    save(newConf);
+    if (oldOrder == 0) {
+      mCol.getSched().resortConf(newConf);
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

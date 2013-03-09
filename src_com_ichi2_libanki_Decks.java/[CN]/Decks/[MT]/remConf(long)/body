@@ -1,0 +1,18 @@
+{
+  mCol.modSchema();
+  mDconf.remove(Long.valueOf(id));
+  for (  JSONObject g : all()) {
+    if (!g.has("conf")) {
+      continue;
+    }
+    try {
+      if (g.getString("conf").equals(Long.toString(id))) {
+        g.put("conf",1);
+        save(g);
+      }
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
+}

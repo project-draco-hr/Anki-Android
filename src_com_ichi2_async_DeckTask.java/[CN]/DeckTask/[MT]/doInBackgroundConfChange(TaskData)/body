@@ -1,0 +1,27 @@
+{
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundConfChange");
+  Object[] data=params[0].getObjArray();
+  Collection col=(Collection)data[0];
+  JSONObject deck=(JSONObject)data[1];
+  JSONObject conf=(JSONObject)data[2];
+  try {
+    long newConfId=conf.getLong("id");
+    int oldOrder=col.getDecks().getConf(deck.getLong("conf")).getJSONObject("new").getInt("order");
+    int newOrder=col.getDecks().getConf(newConfId).getJSONObject("new").getInt("order");
+    if (oldOrder != newOrder) {
+switch (newOrder) {
+case 0:
+        col.getSched().randomizeCards(deck.getLong("id"));
+      break;
+case 1:
+    col.getSched().orderCards(deck.getLong("id"));
+  break;
+}
+}
+col.getDecks().setConf(deck,newConfId);
+return new TaskData(true);
+}
+ catch (JSONException e) {
+return new TaskData(false);
+}
+}

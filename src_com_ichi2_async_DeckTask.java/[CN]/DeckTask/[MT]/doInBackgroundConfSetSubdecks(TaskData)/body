@@ -1,0 +1,25 @@
+{
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundConfSetSubdecks");
+  Object[] data=params[0].getObjArray();
+  Collection col=(Collection)data[0];
+  JSONObject deck=(JSONObject)data[1];
+  JSONObject conf=(JSONObject)data[2];
+  try {
+    TreeMap<String,Long> children=col.getDecks().children(deck.getLong("id"));
+    for (    Map.Entry<String,Long> entry : children.entrySet()) {
+      JSONObject child=col.getDecks().get(entry.getValue());
+      if (child.getInt("dyn") == 1) {
+        continue;
+      }
+      TaskData newParams=new TaskData(new Object[]{col,child,conf});
+      boolean changed=doInBackgroundConfChange(newParams).getBoolean();
+      if (!changed) {
+        return new TaskData(false);
+      }
+    }
+    return new TaskData(true);
+  }
+ catch (  JSONException e) {
+    return new TaskData(false);
+  }
+}
