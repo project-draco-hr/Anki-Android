@@ -1,6 +1,13 @@
 {
+  Resources res=getResources();
   for (  String key : mPref.mValues.keySet()) {
     Preference pref=this.findPreference(key);
+    if (key.equals("deckConf")) {
+      String groupName=getOptionsGroupName();
+      int count=getOptionsGroupCount();
+      pref.setSummary(res.getQuantityString(R.plurals.deck_conf_group_summ,count,groupName,count));
+      continue;
+    }
     String value=null;
     if (pref == null) {
       continue;
@@ -27,4 +34,6 @@
       pref.setSummary(value);
     }
   }
+  int subDeckCount=getSubdeckCount();
+  this.findPreference("confSetSubdecks").setSummary(res.getQuantityString(R.plurals.deck_conf_set_subdecks_summ,subDeckCount,subDeckCount));
 }

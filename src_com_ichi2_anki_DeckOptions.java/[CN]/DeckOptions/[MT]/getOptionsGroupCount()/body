@@ -1,0 +1,18 @@
+{
+  int count=0;
+  try {
+    long conf=mDeck.getLong("conf");
+    for (    JSONObject deck : mCol.getDecks().all()) {
+      if (deck.getInt("dyn") == 1) {
+        continue;
+      }
+      if (deck.getLong("conf") == conf) {
+        count++;
+      }
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  return count;
+}

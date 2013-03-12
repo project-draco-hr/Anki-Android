@@ -2,10 +2,10 @@
   JSONObject c;
   long id;
   try {
-    c=new JSONObject(defaultConf);
+    c=new JSONObject(cloneFrom);
     while (true) {
       id=Utils.intNow(1000);
-      if (!mDconf.containsKey(new Long(id))) {
+      if (!mDconf.containsKey(Long.valueOf(id))) {
         break;
       }
     }
@@ -15,7 +15,7 @@
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
-  mDconf.put(new Long(id),c);
+  mDconf.put(Long.valueOf(id),c);
   save(c);
   return id;
 }

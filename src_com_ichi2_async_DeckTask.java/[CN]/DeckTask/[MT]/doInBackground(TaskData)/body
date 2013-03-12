@@ -66,10 +66,18 @@ case TASK_TYPE_IMPORT:
 return doInBackgroundImportAdd(params);
 case TASK_TYPE_IMPORT_REPLACE:
 return doInBackgroundImportReplace(params);
-case TASK_TYPE_REORDER:
-return doInBackgroundReorder(params);
 case TASK_TYPE_EXPORT_APKG:
 return doInBackgroundExportApkg(params);
+case TASK_TYPE_REORDER:
+return doInBackgroundReorder(params);
+case TASK_TYPE_CONF_CHANGE:
+return doInBackgroundConfChange(params);
+case TASK_TYPE_CONF_RESET:
+return doInBackgroundConfReset(params);
+case TASK_TYPE_CONF_REMOVE:
+return doInBackgroundConfRemove(params);
+case TASK_TYPE_CONF_SET_SUBDECKS:
+return doInBackgroundConfSetSubdecks(params);
 default :
 return null;
 }

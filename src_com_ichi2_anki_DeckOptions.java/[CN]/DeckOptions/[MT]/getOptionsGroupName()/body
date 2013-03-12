@@ -1,0 +1,9 @@
+{
+  long confId=mPref.getLong("deckConf",0);
+  try {
+    return mCol.getDecks().getConf(confId).getString("name");
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}
