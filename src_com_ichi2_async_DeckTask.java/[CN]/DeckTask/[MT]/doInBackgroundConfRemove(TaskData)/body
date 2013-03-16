@@ -4,9 +4,10 @@
   Collection col=(Collection)data[0];
   JSONObject conf=(JSONObject)data[1];
   try {
-    int oldOrder=conf.getJSONObject("new").getInt("order");
-    if (oldOrder == 0) {
-      conf.getJSONObject("new").put("order",1);
+    int order=conf.getJSONObject("new").getInt("order");
+    int defaultOrder=col.getDecks().getConf(1).getJSONObject("new").getInt("order");
+    if (order != defaultOrder) {
+      conf.getJSONObject("new").put("order",defaultOrder);
       col.getSched().resortConf(conf);
     }
     col.getDecks().remConf(conf.getLong("id"));
