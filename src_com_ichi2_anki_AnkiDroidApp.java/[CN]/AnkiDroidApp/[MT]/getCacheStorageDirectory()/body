@@ -1,7 +1,3 @@
 {
-  File cache=new File(getInternalMemoryDirectory() + "/cache");
-  if (!cache.exists()) {
-    cache.mkdirs();
-  }
-  return cache.getAbsolutePath();
+  return sInstance.getCacheDir().getAbsolutePath();
 }
