@@ -1,13 +1,11 @@
 {
-  Locale locale;
-  if (language.equals("")) {
-    locale=Locale.getDefault();
+  boolean languageChanged=false;
+  Configuration config=getInstance().getResources().getConfiguration();
+  final Locale newLocale=TextUtils.isEmpty(language) ? Locale.getDefault() : new Locale(language);
+  if (!config.locale.equals(newLocale)) {
+    languageChanged=true;
+    config.locale=newLocale;
+    getInstance().getResources().updateConfiguration(config,getInstance().getResources().getDisplayMetrics());
   }
- else {
-    locale=new Locale(language);
-  }
-  Configuration config=new Configuration();
-  config.locale=locale;
-  getInstance().getResources().updateConfiguration(config,getInstance().getResources().getDisplayMetrics());
-  getInstance().mLanguage=language;
+  return languageChanged;
 }

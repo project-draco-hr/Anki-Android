@@ -1,6 +1,6 @@
 {
   super.onCreate();
-  if (android.os.Build.MODEL.toLowerCase().equals("nook") || android.os.Build.DEVICE.toLowerCase().equals("nook")) {
+  if (android.os.Build.MODEL.toLowerCase(Locale.US).equals("nook") || android.os.Build.DEVICE.toLowerCase(Locale.US).equals("nook")) {
     mCompat=new CompatV4();
   }
  else   if (AnkiDroidApp.SDK_VERSION >= 15) {
@@ -25,7 +25,7 @@
   Thread.setDefaultUncaughtExceptionHandler(customExceptionHandler);
   SharedPreferences preferences=getSharedPrefs(this);
   sInstance.mHooks=new Hooks(preferences);
-  sInstance.mLanguage=mLanguage=preferences.getString("language","");
+  setLanguage(preferences.getString("language",""));
   if (!preferences.contains("deckPath")) {
     Editor editor=preferences.edit();
     String deckPath=getDefaultAnkiDroidDirectory();
