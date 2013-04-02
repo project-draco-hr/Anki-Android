@@ -1,13 +1,13 @@
 {
   if (mCustomDefaultFontCss == null) {
     SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
-    String defaultFont=preferences.getString("defaultFont",null);
-    if (defaultFont != null && !"".equals(defaultFont) && mCustomFonts.containsKey(defaultFont)) {
-      mCustomDefaultFontCss="BODY .question, BODY .answer { " + mCustomFonts.get(defaultFont).getCSS() + " }\n";
+    AnkiFont defaultFont=getCustomFontsMap().get(preferences.getString("defaultFont",null));
+    if (defaultFont != null) {
+      mCustomDefaultFontCss="BODY .question, BODY .answer { " + defaultFont.getCSS() + " }\n";
     }
  else {
-      defaultFont=Themes.getReviewerFontName();
-      if (defaultFont == null || "".equals(defaultFont)) {
+      String defaultFontName=Themes.getReviewerFontName();
+      if (TextUtils.isEmpty(defaultFontName)) {
         mCustomDefaultFontCss="";
       }
  else {

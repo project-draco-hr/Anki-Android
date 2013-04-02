@@ -4,7 +4,7 @@
     if (mCurrentSimpleInterface && mSimpleCard != null) {
       mSimpleCard.setText(mCardContent);
     }
- else     if (mRefreshWebview && mCard != null && mNextCard != null) {
+ else     if (!mUseQuickUpdate && mCard != null && mNextCard != null) {
       mNextCard.setBackgroundColor(mCurrentBackgroundColor);
       mNextCard.loadDataWithBaseURL(mBaseUrl,mCardContent.toString(),"text/html","utf-8",null);
       mNextCard.setVisibility(View.VISIBLE);

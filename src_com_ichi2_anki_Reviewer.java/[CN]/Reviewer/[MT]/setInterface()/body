@@ -47,7 +47,7 @@
     if (mCard == null) {
       mCard=createWebView();
       mCardFrame.addView(mCard);
-      if (mRefreshWebview) {
+      if (!mUseQuickUpdate) {
         mNextCard=createWebView();
         mNextCard.setVisibility(View.GONE);
         mCardFrame.addView(mNextCard,0);
