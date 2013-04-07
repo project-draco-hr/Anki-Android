@@ -6,7 +6,7 @@
     mValues.put("limit",ar.getString(1));
     mValues.put("order",ar.getString(2));
     try {
-      mValues.put("steps",getDelays(mDeck.getJSONArray("delays")));
+      mValues.put("steps",StepsPreference.convertFromJSON(mDeck.getJSONArray("delays")));
       mValues.put("stepsOn",Boolean.toString(true));
     }
  catch (    JSONException e) {

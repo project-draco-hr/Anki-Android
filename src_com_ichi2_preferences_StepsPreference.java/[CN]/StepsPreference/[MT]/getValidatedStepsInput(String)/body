@@ -1,0 +1,25 @@
+{
+  if (TextUtils.isEmpty(steps)) {
+    return "";
+  }
+  StringBuilder sb=new StringBuilder();
+  for (  String s : steps.split("\\s+")) {
+    try {
+      float f=Float.parseFloat(s);
+      if (f <= 0 || Float.isInfinite(f)) {
+        return null;
+      }
+      int i=(int)f;
+      if (i == f) {
+        sb.append(i).append(" ");
+      }
+ else {
+        sb.append(f).append(" ");
+      }
+    }
+ catch (    NumberFormatException e) {
+      return null;
+    }
+  }
+  return sb.toString().trim();
+}

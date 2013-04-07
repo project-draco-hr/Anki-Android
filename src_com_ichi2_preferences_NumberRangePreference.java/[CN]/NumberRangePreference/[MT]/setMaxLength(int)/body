@@ -1,0 +1,7 @@
+{
+  InputFilter[] filters=getEditText().getFilters();
+  InputFilter[] newFilters=new InputFilter[filters.length + 1];
+  System.arraycopy(filters,0,newFilters,0,filters.length);
+  newFilters[newFilters.length - 1]=new InputFilter.LengthFilter(max);
+  this.getEditText().setFilters(newFilters);
+}

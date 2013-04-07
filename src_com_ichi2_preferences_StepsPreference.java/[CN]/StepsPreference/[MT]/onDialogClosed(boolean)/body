@@ -1,0 +1,14 @@
+{
+  if (positiveResult) {
+    String validated=getValidatedStepsInput(getEditText().getText().toString());
+    if (validated == null) {
+      Themes.showThemedToast(getContext(),getContext().getResources().getString(R.string.steps_error),false);
+    }
+ else     if (TextUtils.isEmpty(validated) && !mAllowEmpty) {
+      Themes.showThemedToast(getContext(),getContext().getResources().getString(R.string.steps_min_error),false);
+    }
+ else {
+      setText(validated);
+    }
+  }
+}

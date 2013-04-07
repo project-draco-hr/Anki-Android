@@ -1,0 +1,7 @@
+{
+  JSONArray ja=new JSONArray();
+  for (  String s : TextUtils.split(steps," ")) {
+    ja.put(s);
+  }
+  return ja;
+}

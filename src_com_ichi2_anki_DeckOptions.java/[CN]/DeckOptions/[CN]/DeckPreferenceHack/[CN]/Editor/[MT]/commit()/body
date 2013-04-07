@@ -3,149 +3,131 @@
   try {
     for (    Entry<String,Object> entry : mUpdate.valueSet()) {
       String key=entry.getKey();
-      Log.i(AnkiDroidApp.TAG,"Change value for key '" + key + "': "+ entry.getValue());
-      if (mNumericOptions.containsKey(key)) {
-        int value=getValidatedNumericInput(key,entry.getValue());
-        if (key.equals("maxAnswerTime")) {
-          mOptions.put("maxTaken",value);
+      Object value=entry.getValue();
+      Log.i(AnkiDroidApp.TAG,"Change value for key '" + key + "': "+ value);
+      if (key.equals("maxAnswerTime")) {
+        mOptions.put("maxTaken",Integer.parseInt((String)value));
+      }
+ else       if (key.equals("newFactor")) {
+        mOptions.getJSONObject("new").put("initialFactor",Integer.parseInt((String)value) * 10);
+      }
+ else       if (key.equals("newOrder")) {
+        int newValue=Integer.parseInt((String)value);
+        int oldValue=mOptions.getJSONObject("new").getInt("order");
+        if (oldValue != newValue) {
+          mOptions.getJSONObject("new").put("order",newValue);
+          DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REORDER,mConfChangeHandler,new DeckTask.TaskData(new Object[]{mCol,mOptions}));
         }
- else         if (key.equals("newFactor")) {
-          mOptions.getJSONObject("new").put("initialFactor",value * 10);
-        }
- else         if (key.equals("newOrder")) {
-          int oldValue=mOptions.getJSONObject("new").getInt("order");
-          if (oldValue != value) {
-            mOptions.getJSONObject("new").put("order",value);
-            DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REORDER,mConfChangeHandler,new DeckTask.TaskData(new Object[]{mCol,mOptions}));
-          }
-          mOptions.getJSONObject("new").put("order",value);
-        }
- else         if (key.equals("newPerDay")) {
-          mOptions.getJSONObject("new").put("perDay",value);
-        }
- else         if (key.equals("newGradIvl")) {
-          JSONArray ja=new JSONArray();
-          ja.put(value);
-          ja.put(mOptions.getJSONObject("new").getJSONArray("ints").get(1));
-          mOptions.getJSONObject("new").put("ints",ja);
-        }
- else         if (key.equals("newEasy")) {
-          JSONArray ja=new JSONArray();
-          ja.put(mOptions.getJSONObject("new").getJSONArray("ints").get(0));
-          ja.put(value);
-          mOptions.getJSONObject("new").put("ints",ja);
-        }
- else         if (key.equals("revPerDay")) {
-          mOptions.getJSONObject("rev").put("perDay",value);
-        }
- else         if (key.equals("revSpaceMax")) {
-          mOptions.getJSONObject("rev").put("fuzz",value / 100.0f);
-        }
- else         if (key.equals("revSpaceMin")) {
-          mOptions.getJSONObject("rev").put("minSpace",value);
-        }
- else         if (key.equals("easyBonus")) {
-          mOptions.getJSONObject("rev").put("ease4",value / 100.0f);
-        }
- else         if (key.equals("revIvlFct")) {
-          mOptions.getJSONObject("rev").put("ivlFct",value / 100.0f);
-        }
- else         if (key.equals("revMaxIvl")) {
-          mOptions.getJSONObject("rev").put("maxIvl",value);
-        }
- else         if (key.equals("lapMinIvl")) {
-          mOptions.getJSONObject("lapse").put("minInt",value);
-        }
- else         if (key.equals("lapLeechThres")) {
-          mOptions.getJSONObject("lapse").put("leechFails",value);
-        }
- else         if (key.equals("lapLeechAct")) {
-          mOptions.getJSONObject("lapse").put("leechAction",value);
-        }
- else         if (key.equals("lapNewIvl")) {
-          mOptions.getJSONObject("lapse").put("mult",value / 100.0f);
+        mOptions.getJSONObject("new").put("order",Integer.parseInt((String)value));
+      }
+ else       if (key.equals("newPerDay")) {
+        mOptions.getJSONObject("new").put("perDay",Integer.parseInt((String)value));
+      }
+ else       if (key.equals("newGradIvl")) {
+        JSONArray ja=new JSONArray();
+        ja.put(Integer.parseInt((String)value));
+        ja.put(mOptions.getJSONObject("new").getJSONArray("ints").get(1));
+        mOptions.getJSONObject("new").put("ints",ja);
+      }
+ else       if (key.equals("newEasy")) {
+        JSONArray ja=new JSONArray();
+        ja.put(mOptions.getJSONObject("new").getJSONArray("ints").get(0));
+        ja.put(Integer.parseInt((String)value));
+        mOptions.getJSONObject("new").put("ints",ja);
+      }
+ else       if (key.equals("revPerDay")) {
+        mOptions.getJSONObject("rev").put("perDay",Integer.parseInt((String)value));
+      }
+ else       if (key.equals("revSpaceMax")) {
+        mOptions.getJSONObject("rev").put("fuzz",Integer.parseInt((String)value) / 100.0f);
+      }
+ else       if (key.equals("revSpaceMin")) {
+        mOptions.getJSONObject("rev").put("minSpace",Integer.parseInt((String)value));
+      }
+ else       if (key.equals("easyBonus")) {
+        mOptions.getJSONObject("rev").put("ease4",Integer.parseInt((String)value) / 100.0f);
+      }
+ else       if (key.equals("revIvlFct")) {
+        mOptions.getJSONObject("rev").put("ivlFct",Integer.parseInt((String)value) / 100.0f);
+      }
+ else       if (key.equals("revMaxIvl")) {
+        mOptions.getJSONObject("rev").put("maxIvl",Integer.parseInt((String)value));
+      }
+ else       if (key.equals("lapMinIvl")) {
+        mOptions.getJSONObject("lapse").put("minInt",Integer.parseInt((String)value));
+      }
+ else       if (key.equals("lapLeechThres")) {
+        mOptions.getJSONObject("lapse").put("leechFails",Integer.parseInt((String)value));
+      }
+ else       if (key.equals("lapLeechAct")) {
+        mOptions.getJSONObject("lapse").put("leechAction",Integer.parseInt((String)value));
+      }
+ else       if (key.equals("lapNewIvl")) {
+        mOptions.getJSONObject("lapse").put("mult",Integer.parseInt((String)value) / 100.0f);
+      }
+ else       if (key.equals("showAnswerTimer")) {
+        mOptions.put("timer",(Boolean)value ? 1 : 0);
+      }
+ else       if (key.equals("autoPlayAudio")) {
+        mOptions.put("autoplay",(Boolean)value);
+      }
+ else       if (key.equals("replayQuestion")) {
+        mOptions.put("replayq",(Boolean)value);
+      }
+ else       if (key.equals("newSeparate")) {
+        mOptions.getJSONObject("new").put("separate",(Boolean)value);
+      }
+ else       if (key.equals("name")) {
+        if (!mCol.getDecks().rename(mDeck,(String)value)) {
+          Themes.showThemedToast(DeckOptions.this,getResources().getString(R.string.rename_error,mDeck.get("name")),false);
         }
       }
- else {
-        if (key.equals("showAnswerTimer")) {
-          mOptions.put("timer",(Boolean)entry.getValue() ? 1 : 0);
+ else       if (key.equals("desc")) {
+        mDeck.put("desc",(String)value);
+        mCol.getDecks().save(mDeck);
+      }
+ else       if (key.equals("newSteps")) {
+        mOptions.getJSONObject("new").put("delays",StepsPreference.convertToJSON((String)value));
+      }
+ else       if (key.equals("lapSteps")) {
+        mOptions.getJSONObject("lapse").put("delays",StepsPreference.convertToJSON((String)value));
+      }
+ else       if (key.equals("deckConf")) {
+        long newConfId=Long.parseLong((String)value);
+        mOptions=mCol.getDecks().getConf(newConfId);
+        DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CONF_CHANGE,mConfChangeHandler,new DeckTask.TaskData(new Object[]{mCol,mDeck,mOptions}));
+      }
+ else       if (key.equals("confRename")) {
+        String newName=(String)value;
+        if (!TextUtils.isEmpty(newName)) {
+          mOptions.put("name",newName);
         }
- else         if (key.equals("autoPlayAudio")) {
-          mOptions.put("autoplay",(Boolean)entry.getValue());
+      }
+ else       if (key.equals("confReset")) {
+        if ((Boolean)value) {
+          DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CONF_RESET,mConfChangeHandler,new DeckTask.TaskData(new Object[]{mCol,mOptions}));
         }
- else         if (key.equals("replayQuestion")) {
-          mOptions.put("replayq",(Boolean)entry.getValue());
-        }
- else         if (key.equals("newSeparate")) {
-          mOptions.getJSONObject("new").put("separate",(Boolean)entry.getValue());
-        }
- else         if (key.equals("name")) {
-          if (!mCol.getDecks().rename(mDeck,(String)entry.getValue())) {
-            Themes.showThemedToast(DeckOptions.this,getResources().getString(R.string.rename_error,mDeck.get("name")),false);
-          }
-        }
- else         if (key.equals("desc")) {
-          mDeck.put("desc",(String)entry.getValue());
+      }
+ else       if (key.equals("confAdd")) {
+        String newName=(String)value;
+        if (!TextUtils.isEmpty(newName)) {
+          long id=mCol.getDecks().confId(newName,mOptions.toString());
+          mDeck.put("conf",id);
           mCol.getDecks().save(mDeck);
         }
- else         if (key.equals("newSteps")) {
-          JSONArray steps=getValidatedStepsInput((String)entry.getValue());
-          if (steps == null) {
-            Themes.showThemedToast(DeckOptions.this,getResources().getString(R.string.steps_error),false);
-          }
- else           if (steps.length() == 0) {
-            Themes.showThemedToast(DeckOptions.this,getResources().getString(R.string.steps_min_error),false);
-          }
+      }
+ else       if (key.equals("confRemove")) {
+        if (mOptions.getLong("id") == 1) {
+          Themes.showThemedToast(DeckOptions.this,getResources().getString(R.string.default_conf_delete_error),false);
+        }
  else {
-            mOptions.getJSONObject("new").put("delays",steps);
-          }
+          DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CONF_REMOVE,mConfChangeHandler,new DeckTask.TaskData(new Object[]{mCol,mOptions}));
+          mDeck.put("conf",1);
         }
- else         if (key.equals("lapSteps")) {
-          JSONArray steps=getValidatedStepsInput((String)entry.getValue());
-          if (steps != null) {
-            mOptions.getJSONObject("lapse").put("delays",steps);
-          }
- else {
-            Themes.showThemedToast(DeckOptions.this,getResources().getString(R.string.steps_error),false);
-          }
-        }
- else         if (key.equals("deckConf")) {
-          long newConfId=Long.parseLong((String)entry.getValue());
-          mOptions=mCol.getDecks().getConf(newConfId);
-          DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CONF_CHANGE,mConfChangeHandler,new DeckTask.TaskData(new Object[]{mCol,mDeck,mOptions}));
-        }
- else         if (key.equals("confRename")) {
-          String newName=(String)entry.getValue();
-          if (!TextUtils.isEmpty(newName)) {
-            mOptions.put("name",newName);
-          }
-        }
- else         if (key.equals("confReset")) {
-          if ((Boolean)entry.getValue()) {
-            DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CONF_RESET,mConfChangeHandler,new DeckTask.TaskData(new Object[]{mCol,mOptions}));
-          }
-        }
- else         if (key.equals("confAdd")) {
-          String newName=(String)entry.getValue();
-          if (!TextUtils.isEmpty(newName)) {
-            long id=mCol.getDecks().confId(newName,mOptions.toString());
-            mDeck.put("conf",id);
-            mCol.getDecks().save(mDeck);
-          }
-        }
- else         if (key.equals("confRemove")) {
-          if (mOptions.getLong("id") == 1) {
-            Themes.showThemedToast(DeckOptions.this,getResources().getString(R.string.default_conf_delete_error),false);
-          }
- else {
-            DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CONF_REMOVE,mConfChangeHandler,new DeckTask.TaskData(new Object[]{mCol,mOptions}));
-            mDeck.put("conf",1);
-          }
-        }
- else         if (key.equals("confSetSubdecks")) {
-          if ((Boolean)entry.getValue()) {
-            DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CONF_SET_SUBDECKS,mConfChangeHandler,new DeckTask.TaskData(new Object[]{mCol,mDeck,mOptions}));
-          }
+      }
+ else       if (key.equals("confSetSubdecks")) {
+        if ((Boolean)value) {
+          DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CONF_SET_SUBDECKS,mConfChangeHandler,new DeckTask.TaskData(new Object[]{mCol,mDeck,mOptions}));
         }
       }
     }

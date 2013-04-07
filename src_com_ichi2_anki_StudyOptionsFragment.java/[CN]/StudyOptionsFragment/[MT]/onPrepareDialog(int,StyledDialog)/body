@@ -26,6 +26,7 @@ styledDialog.setButtonOnClickListener(Dialog.BUTTON_POSITIVE,new DialogInterface
       finishCongrats();
     }
  catch (    NumberFormatException e) {
+      Themes.showThemedToast(getActivity().getBaseContext(),getResources().getString(R.string.custom_study_invalid_number),false);
     }
 catch (    JSONException e) {
       throw new RuntimeException(e);
@@ -57,6 +58,7 @@ resetAndUpdateValuesFromDeck();
 finishCongrats();
 }
  catch (NumberFormatException e) {
+Themes.showThemedToast(getActivity().getBaseContext(),getResources().getString(R.string.custom_study_invalid_number),false);
 }
 catch (JSONException e) {
 throw new RuntimeException(e);
@@ -72,15 +74,18 @@ mCustomStudyTextView2.setText(res.getString(R.string.custom_study_forgotten));
 mCustomStudyEditText.setText(Integer.toString(AnkiDroidApp.getSharedPrefs(getActivity()).getInt("forgottenDays",2)));
 styledDialog.setButtonOnClickListener(Dialog.BUTTON_POSITIVE,new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
-int forgottenDays=Integer.parseInt(((EditText)mCustomStudyEditText).getText().toString());
 JSONArray ar=new JSONArray();
 try {
+int forgottenDays=Integer.parseInt(((EditText)mCustomStudyEditText).getText().toString());
 ar.put(0,1);
+createFilteredDeck(ar,new Object[]{String.format(Locale.US,"rated:%d:1",forgottenDays),9999,Sched.DYN_RANDOM},false);
 }
- catch (JSONException e) {
+ catch (NumberFormatException e) {
+Themes.showThemedToast(getActivity().getBaseContext(),getResources().getString(R.string.custom_study_invalid_number),false);
+}
+catch (JSONException e) {
 throw new RuntimeException(e);
 }
-createFilteredDeck(ar,new Object[]{String.format(Locale.US,"rated:%d:1",forgottenDays),9999,Sched.DYN_RANDOM},false);
 }
 }
 );
@@ -91,8 +96,13 @@ mCustomStudyTextView2.setText(res.getString(R.string.custom_study_ahead));
 mCustomStudyEditText.setText(Integer.toString(AnkiDroidApp.getSharedPrefs(getActivity()).getInt("aheadDays",1)));
 styledDialog.setButtonOnClickListener(Dialog.BUTTON_POSITIVE,new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
+try {
 int days=Integer.parseInt(((EditText)mCustomStudyEditText).getText().toString());
 createFilteredDeck(new JSONArray(),new Object[]{String.format(Locale.US,"prop:due<=%d",days),9999,Sched.DYN_DUE},true);
+}
+ catch (NumberFormatException e) {
+Themes.showThemedToast(getActivity().getBaseContext(),getResources().getString(R.string.custom_study_invalid_number),false);
+}
 }
 }
 );
@@ -103,8 +113,13 @@ mCustomStudyTextView2.setText(res.getString(R.string.custom_study_random));
 mCustomStudyEditText.setText(Integer.toString(AnkiDroidApp.getSharedPrefs(getActivity()).getInt("randomCards",100)));
 styledDialog.setButtonOnClickListener(Dialog.BUTTON_POSITIVE,new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
+try {
 int randomCards=Integer.parseInt(((EditText)mCustomStudyEditText).getText().toString());
 createFilteredDeck(new JSONArray(),new Object[]{"",randomCards,Sched.DYN_RANDOM},true);
+}
+ catch (NumberFormatException e) {
+Themes.showThemedToast(getActivity().getBaseContext(),getResources().getString(R.string.custom_study_invalid_number),false);
+}
 }
 }
 );
