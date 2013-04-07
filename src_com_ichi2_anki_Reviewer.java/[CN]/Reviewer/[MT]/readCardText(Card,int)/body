@@ -1,0 +1,8 @@
+{
+  if (MetaDB.LANGUAGES_QA_QUESTION == cardSide) {
+    ReadText.textToSpeech(Utils.stripHTML(card.getQuestion(true)),getDeckIdForCard(card),card.getOrd(),MetaDB.LANGUAGES_QA_QUESTION);
+  }
+ else   if (MetaDB.LANGUAGES_QA_ANSWER == cardSide) {
+    ReadText.textToSpeech(Utils.stripHTML(card.getPureAnswerForReading()),getDeckIdForCard(card),card.getOrd(),MetaDB.LANGUAGES_QA_ANSWER);
+  }
+}
