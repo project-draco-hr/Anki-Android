@@ -1,0 +1,21 @@
+{
+  int valueInt;
+  if (TextUtils.isEmpty(input)) {
+    valueInt=mMin;
+  }
+ else {
+    try {
+      valueInt=Integer.parseInt(input);
+    }
+ catch (    NumberFormatException e) {
+      valueInt=mMin;
+    }
+  }
+  if (valueInt < mMin) {
+    valueInt=mMin;
+  }
+ else   if (valueInt > mMax) {
+    valueInt=mMax;
+  }
+  return String.valueOf(valueInt);
+}

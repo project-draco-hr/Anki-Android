@@ -24,7 +24,7 @@
  else       if (entry.getKey().equals("stepsOn")) {
         boolean on=(Boolean)entry.getValue();
         if (on) {
-          mDeck.put("delays",getDelays((String)mValues.get("steps")));
+          mDeck.put("delays",StepsPreference.convertToJSON((String)mValues.get("steps")));
         }
  else {
           mValues.put("steps","1 10");
@@ -32,10 +32,7 @@
         }
       }
  else       if (entry.getKey().equals("steps")) {
-        String steps=(String)entry.getValue();
-        if (steps.matches("[0-9\\s]*")) {
-          mDeck.put("delays",getDelays(steps));
-        }
+        mDeck.put("delays",StepsPreference.convertToJSON((String)entry.getValue()));
       }
  else       if (entry.getKey().equals("preset")) {
         int i=Integer.parseInt((String)entry.getValue());
