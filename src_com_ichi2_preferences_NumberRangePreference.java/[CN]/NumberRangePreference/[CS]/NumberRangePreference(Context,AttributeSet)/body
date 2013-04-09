@@ -1,7 +1,3 @@
 {
-  super(context,attrs);
-  mMin=attrs.getAttributeIntValue(AnkiDroidApp.APP_NAMESPACE,"min",0);
-  mMax=attrs.getAttributeIntValue(AnkiDroidApp.APP_NAMESPACE,"max",Integer.MAX_VALUE);
-  int maxLength=String.valueOf(mMax).length();
-  setMaxLength(maxLength);
+  this(context,attrs,0);
 }
