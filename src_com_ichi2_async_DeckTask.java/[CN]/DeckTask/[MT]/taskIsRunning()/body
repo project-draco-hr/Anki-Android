@@ -1,6 +1,6 @@
 {
   try {
-    if ((sInstance != null) && (sInstance.getStatus() != AsyncTask.Status.FINISHED)) {
+    if ((sLatestInstance != null) && (sLatestInstance.getStatus() != AsyncTask.Status.FINISHED)) {
       return true;
     }
   }
