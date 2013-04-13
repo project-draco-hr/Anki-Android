@@ -30,6 +30,20 @@
     content=SmpToHtmlEntity(content);
     mCardContent=new SpannedString(mCardTemplate.replace("::content::",content).replace("::style::",style.toString()).replace("::class::",cardClass));
     Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
+    if (SAVE_CARD_CONTENT) {
+      try {
+        FileOutputStream f=new FileOutputStream(new File(AnkiDroidApp.getCurrentAnkiDroidDirectory(),"card.html"));
+        try {
+          f.write(mCardContent.toString().getBytes());
+        }
+  finally {
+          f.close();
+        }
+      }
+ catch (      IOException e) {
+        Log.d(AnkiDroidApp.TAG,"failed to save card",e);
+      }
+    }
     fillFlashcard(mShowAnimations);
   }
   if (!mConfigurationChanged) {
