@@ -28,7 +28,7 @@
  else {
       mCurrentBackgroundColor=Color.WHITE;
     }
-    mRefreshWebview=getRefreshWebviewAndInitializeWebviewVariables();
+    mUseQuickUpdate=shouldUseQuickUpdate();
     initLayout(R.layout.flashcard);
     try {
       String[] title=mSched.getCol().getDecks().current().getString("name").split("::");
