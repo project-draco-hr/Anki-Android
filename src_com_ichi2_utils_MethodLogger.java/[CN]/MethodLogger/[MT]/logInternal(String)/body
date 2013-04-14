@@ -1,0 +1,22 @@
+{
+  StackTraceElement[] stack=Thread.currentThread().getStackTrace();
+  int size=stack.length;
+  int logInternalIndex=0;
+  for (; logInternalIndex < size; ++logInternalIndex) {
+    if (TextUtils.equals(stack[logInternalIndex].getClassName(),MethodLogger.class.getName()) && TextUtils.equals(stack[logInternalIndex].getMethodName(),"logInternal")) {
+      break;
+    }
+  }
+  if (logInternalIndex + 2 >= size) {
+    throw new IllegalStateException("there should always be a caller for this method");
+  }
+  StackTraceElement caller=stack[logInternalIndex + 2];
+  String callerClass=caller.getClassName();
+  String callerMethod=caller.getMethodName();
+  if (TextUtils.isEmpty(message)) {
+    Log.d(AnkiDroidApp.TAG,String.format("called: %s.%s()",callerClass,callerMethod));
+  }
+ else {
+    Log.d(AnkiDroidApp.TAG,String.format("called: %s.%s(): %s",callerClass,callerMethod,message));
+  }
+}

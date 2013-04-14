@@ -1,4 +1,5 @@
 {
+  super.onProgressUpdate(values);
   if (mListener != null) {
     mListener.onProgressUpdate(values);
   }

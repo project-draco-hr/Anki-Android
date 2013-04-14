@@ -1,4 +1,5 @@
 {
+  super.onPostExecute(data);
   if (mListener != null) {
     mListener.onPostExecute(data);
   }

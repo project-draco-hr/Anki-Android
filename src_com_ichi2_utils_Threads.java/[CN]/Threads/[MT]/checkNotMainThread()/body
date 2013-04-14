@@ -1,0 +1,5 @@
+{
+  if (isOnMainThread()) {
+    throw new IllegalStateException("must not be called on the main thread");
+  }
+}

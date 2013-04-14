@@ -1,4 +1,5 @@
 {
+  super.onPostExecute(download);
   Log.i(AnkiDroidApp.TAG,"on post execute");
   if (download.getStatus() == Download.STATUS_COMPLETE) {
     showNotification(download.getTitle(),download.getFilename());

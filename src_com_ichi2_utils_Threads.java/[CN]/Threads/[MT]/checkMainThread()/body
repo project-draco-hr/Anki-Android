@@ -1,0 +1,5 @@
+{
+  if (!isOnMainThread()) {
+    throw new IllegalStateException("must be called on the main thread instead of " + Thread.currentThread());
+  }
+}

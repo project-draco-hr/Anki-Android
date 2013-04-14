@@ -1,4 +1,5 @@
 {
+  super.doInBackground(params);
   if (mPreviousTask != null && mPreviousTask.getStatus() != AsyncTask.Status.FINISHED) {
     Log.i(AnkiDroidApp.TAG,"Waiting for " + mPreviousTask.mType + " to finish before starting "+ mType);
     if (mType == TASK_TYPE_OPEN_COLLECTION && mPreviousTask.mType == TASK_TYPE_CLOSE_DECK) {

@@ -1,4 +1,5 @@
 {
+  super.onCancelled();
   if (mCancelCallback != null) {
     mCancelCallback.cancelAllConnections();
   }
