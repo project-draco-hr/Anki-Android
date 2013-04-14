@@ -1,7 +1,7 @@
 {
   try {
-    if ((sInstance != null) && (sInstance.getStatus() != AsyncTask.Status.FINISHED)) {
-      sInstance.cancel(true);
+    if ((sLatestInstance != null) && (sLatestInstance.getStatus() != AsyncTask.Status.FINISHED)) {
+      sLatestInstance.cancel(true);
     }
   }
  catch (  Exception e) {

@@ -1,15 +1,20 @@
 {
-  try {
-    if ((sOldInstance != null) && (sOldInstance.getStatus() != AsyncTask.Status.FINISHED)) {
-      Log.i(AnkiDroidApp.TAG,"Waiting for " + sOldInstance.mType + " to finish before starting "+ sInstance.mType);
-      if (mType == TASK_TYPE_OPEN_COLLECTION && sOldInstance.mType == TASK_TYPE_CLOSE_DECK) {
-        publishProgress(new TaskData(AnkiDroidApp.getInstance().getBaseContext().getResources().getString(R.string.finish_operation)));
-      }
-      sOldInstance.get();
+  if (mPreviousTask != null && mPreviousTask.getStatus() != AsyncTask.Status.FINISHED) {
+    Log.i(AnkiDroidApp.TAG,"Waiting for " + mPreviousTask.mType + " to finish before starting "+ mType);
+    if (mType == TASK_TYPE_OPEN_COLLECTION && mPreviousTask.mType == TASK_TYPE_CLOSE_DECK) {
+      publishProgress(new TaskData(AnkiDroidApp.getInstance().getBaseContext().getResources().getString(R.string.finish_operation)));
     }
-  }
- catch (  Exception e) {
-    Log.e(AnkiDroidApp.TAG,"doInBackground - Got exception while waiting for thread to finish: " + e.getMessage());
+    try {
+      mPreviousTask.get();
+    }
+ catch (    InterruptedException e) {
+      Thread.currentThread().interrupt();
+      Log.e(AnkiDroidApp.TAG,"interrupted while waiting for previous task: " + mPreviousTask.mType,e);
+      return null;
+    }
+catch (    ExecutionException e) {
+      Log.e(AnkiDroidApp.TAG,"previously running task failed with exception: " + mPreviousTask.mType,e);
+    }
   }
 switch (mType) {
 case TASK_TYPE_OPEN_COLLECTION:
