@@ -80,6 +80,7 @@ return doInBackgroundConfRemove(params);
 case TASK_TYPE_CONF_SET_SUBDECKS:
 return doInBackgroundConfSetSubdecks(params);
 default :
+Log.e(AnkiDroidApp.TAG,"unknown task type: " + mType);
 return null;
 }
 }
