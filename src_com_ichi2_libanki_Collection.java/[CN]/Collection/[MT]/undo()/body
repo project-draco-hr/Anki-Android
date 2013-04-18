@@ -21,7 +21,7 @@ Card newCard=getCard(cid);
 if (getDecks().active().contains(newCard.getDid())) {
 card=newCard;
 card.load();
-card.getQuestion(true);
+card.getQuestion(true,true);
 }
 }
 if (card == null) {
