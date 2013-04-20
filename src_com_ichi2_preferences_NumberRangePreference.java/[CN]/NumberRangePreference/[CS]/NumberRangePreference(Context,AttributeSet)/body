@@ -1,3 +1,6 @@
 {
-  this(context,attrs,0);
+  super(context,attrs);
+  mMin=getMinFromAttributes(attrs);
+  mMax=getMaxFromAttributes(attrs);
+  updateLengthLimit();
 }

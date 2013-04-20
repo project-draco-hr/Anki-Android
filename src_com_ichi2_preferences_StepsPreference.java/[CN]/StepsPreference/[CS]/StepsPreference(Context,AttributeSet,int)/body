@@ -1,9 +1,4 @@
 {
   super(context,attrs,defStyle);
-  if (attrs != null) {
-    mAllowEmpty=attrs.getAttributeBooleanValue(AnkiDroidApp.APP_NAMESPACE,"allowEmpty",true);
-  }
- else {
-    mAllowEmpty=true;
-  }
+  mAllowEmpty=getAllowEmptyFromAttributes(attrs);
 }

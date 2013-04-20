@@ -1,12 +1,6 @@
 {
   super(context,attrs,defStyle);
-  if (attrs != null) {
-    mMin=attrs.getAttributeIntValue(AnkiDroidApp.APP_NAMESPACE,"min",0);
-    mMax=attrs.getAttributeIntValue(AnkiDroidApp.APP_NAMESPACE,"max",Integer.MAX_VALUE);
-  }
- else {
-    mMin=0;
-    mMax=Integer.MAX_VALUE;
-  }
-  setMaxLength(String.valueOf(mMax).length());
+  mMin=getMinFromAttributes(attrs);
+  mMax=getMaxFromAttributes(attrs);
+  updateLengthLimit();
 }
