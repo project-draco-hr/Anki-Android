@@ -1,4 +1,5 @@
 {
+  super.doInBackground(args);
   Payload data=doInBackgroundLoadDeck(args);
   if (data.returnType == 0) {
     HashMap<String,Object> results=(HashMap<String,Object>)data.result;

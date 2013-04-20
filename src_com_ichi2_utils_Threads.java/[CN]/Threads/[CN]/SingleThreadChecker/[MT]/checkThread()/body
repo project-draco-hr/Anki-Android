@@ -1,0 +1,9 @@
+{
+  if (mThread == null) {
+    mThread=Thread.currentThread();
+    return;
+  }
+  if (mThread != Thread.currentThread()) {
+    throw new IllegalStateException("must be called from single thread: " + mThread + " instead of "+ Thread.currentThread());
+  }
+}

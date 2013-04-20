@@ -1,0 +1,6 @@
+{
+  if (thread == null) {
+    throw new IllegalArgumentException("thread should not be null");
+  }
+  return new SingleThreadChecker(thread);
+}

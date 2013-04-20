@@ -1,4 +1,5 @@
 {
+  super.onPostExecute(context);
   Log.d(AnkiDroidApp.TAG,"BroadcastMessage.DownloadBroadcastMessage.onPostExecute()");
   if (!mShowDialog) {
     return;
