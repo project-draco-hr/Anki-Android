@@ -1,0 +1,9 @@
+{
+  File file=new File(getAudioPath());
+  if (file.exists()) {
+    return String.format("[sound:%s]",file.getName());
+  }
+ else {
+    return "";
+  }
+}

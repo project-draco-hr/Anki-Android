@@ -1,0 +1,9 @@
+{
+  File file=new File(getImagePath());
+  if (file.exists()) {
+    return String.format("<img src='%s'/>",file.getName());
+  }
+ else {
+    return "";
+  }
+}

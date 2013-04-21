@@ -1,0 +1,11 @@
+{
+switch (mStatus) {
+case PLAYING:
+case PAUSED:
+    setEnabled(false);
+  break;
+default :
+setEnabled(true);
+break;
+}
+}

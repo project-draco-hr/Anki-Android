@@ -1,0 +1,21 @@
+{
+  try {
+    if (imageView != null) {
+      Drawable dr=imageView.getDrawable();
+      if (dr == null) {
+        return;
+      }
+      if (!(dr instanceof BitmapDrawable)) {
+        return;
+      }
+      BitmapDrawable bd=(BitmapDrawable)imageView.getDrawable();
+      if (bd.getBitmap() != null) {
+        bd.getBitmap().recycle();
+        imageView.setImageBitmap(null);
+      }
+    }
+  }
+ catch (  Exception e) {
+    Log.e("free image view",e.getMessage());
+  }
+}

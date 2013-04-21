@@ -1,0 +1,12 @@
+{
+  if (noteSrc instanceof MultimediaEditableNote) {
+    MultimediaEditableNote mmNote=(MultimediaEditableNote)noteSrc;
+    if (mmNote.getModelId() != editorNoteDst.getMid()) {
+      throw new RuntimeException("Source and Destination Note ID do not match.");
+    }
+    int totalFields=mmNote.getNumberOfFields();
+    for (int i=0; i < totalFields; i++) {
+      editorNoteDst.values()[i]=mmNote.getField(i).getFormattedValue();
+    }
+  }
+}

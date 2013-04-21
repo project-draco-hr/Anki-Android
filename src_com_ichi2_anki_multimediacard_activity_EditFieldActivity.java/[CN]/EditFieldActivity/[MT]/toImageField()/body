@@ -1,0 +1,6 @@
+{
+  if (mField.getType() != EFieldType.IMAGE) {
+    mField=new ImageField();
+    recreateEditingUi();
+  }
+}

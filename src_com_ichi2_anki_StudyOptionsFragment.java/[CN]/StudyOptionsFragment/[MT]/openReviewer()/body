@@ -2,8 +2,6 @@
   mDontSaveOnStop=true;
   Intent reviewer=new Intent(getActivity(),Reviewer.class);
   startActivityForResult(reviewer,REQUEST_REVIEW);
-  if (AnkiDroidApp.SDK_VERSION > 4) {
-    ActivityTransitionAnimation.slide(getActivity(),ActivityTransitionAnimation.LEFT);
-  }
+  animateLeft();
   AnkiDroidApp.getCol().startTimebox();
 }

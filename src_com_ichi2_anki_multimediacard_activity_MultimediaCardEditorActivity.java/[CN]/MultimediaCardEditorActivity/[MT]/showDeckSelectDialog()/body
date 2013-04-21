@@ -1,0 +1,43 @@
+{
+  StyledDialog dialog=null;
+  StyledDialog.Builder builder=new StyledDialog.Builder(this);
+  ArrayList<CharSequence> dialogDeckItems=new ArrayList<CharSequence>();
+  final ArrayList<Long> dialogDeckIds=new ArrayList<Long>();
+  ArrayList<JSONObject> decks=mCol.getDecks().all();
+  Collections.sort(decks,new JSONNameComparator());
+  builder.setTitle(R.string.deck);
+  for (  JSONObject d : decks) {
+    try {
+      if (d.getInt("dyn") == 0) {
+        dialogDeckItems.add(d.getString("name"));
+        dialogDeckIds.add(d.getLong("id"));
+      }
+    }
+ catch (    JSONException e) {
+      Log.e("Multimedia Editor",e.getMessage());
+    }
+  }
+  String[] items=new String[dialogDeckItems.size()];
+  dialogDeckItems.toArray(items);
+  builder.setItems(items,new DialogInterface.OnClickListener(){
+    @Override public void onClick(    DialogInterface dialog,    int item){
+      long newId=dialogDeckIds.get(item);
+      if (mCurrentDid != newId) {
+        if (mAddNote) {
+          try {
+            mEditorNote.model().put("did",newId);
+            mCol.getModels().setChanged();
+          }
+ catch (          JSONException e) {
+            Log.e("Multimedia Editor",e.getMessage());
+          }
+        }
+        mCurrentDid=newId;
+        createEditorUI(mNote);
+      }
+    }
+  }
+);
+  dialog=builder.create();
+  return dialog;
+}

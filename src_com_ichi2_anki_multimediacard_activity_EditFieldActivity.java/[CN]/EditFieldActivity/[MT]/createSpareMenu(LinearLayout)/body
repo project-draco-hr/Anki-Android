@@ -1,0 +1,39 @@
+{
+  LayoutParams pars=new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT,1);
+  Button toTextButton=new Button(this);
+  toTextButton.setText(gtxt(R.string.multimedia_editor_field_editing_text));
+  toTextButton.setOnClickListener(new View.OnClickListener(){
+    public void onClick(    View v){
+      toTextField();
+    }
+  }
+);
+  linearLayout.addView(toTextButton,pars);
+  Button toImageButton=new Button(this);
+  toImageButton.setText(gtxt(R.string.multimedia_editor_field_editing_image));
+  toImageButton.setOnClickListener(new View.OnClickListener(){
+    public void onClick(    View v){
+      toImageField();
+    }
+  }
+);
+  linearLayout.addView(toImageButton,pars);
+  Button toAudioButton=new Button(this);
+  toAudioButton.setText(gtxt(R.string.multimedia_editor_field_editing_audio));
+  toAudioButton.setOnClickListener(new View.OnClickListener(){
+    public void onClick(    View v){
+      toAudioField();
+    }
+  }
+);
+  linearLayout.addView(toAudioButton,pars);
+  Button doneButton=new Button(this);
+  doneButton.setText(gtxt(R.string.multimedia_editor_field_editing_done));
+  doneButton.setOnClickListener(new View.OnClickListener(){
+    public void onClick(    View v){
+      done();
+    }
+  }
+);
+  linearLayout.addView(doneButton,pars);
+}

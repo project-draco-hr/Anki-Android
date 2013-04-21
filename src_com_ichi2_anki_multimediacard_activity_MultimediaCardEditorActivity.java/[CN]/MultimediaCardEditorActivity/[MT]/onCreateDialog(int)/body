@@ -1,0 +1,11 @@
+{
+switch (id) {
+case DIALOG_MODEL_SELECT:
+    return showModelSelectDialog();
+case DIALOG_DECK_SELECT:
+  return showDeckSelectDialog();
+default :
+break;
+}
+return null;
+}

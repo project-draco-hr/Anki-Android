@@ -1,0 +1,6 @@
+{
+  i.putExtra(EXTRA_FIELD_INDEX,index);
+  i.putExtra(EXTRA_FIELD,field);
+  i.putExtra(EXTRA_WHOLE_NOTE,mNote);
+  startActivityForResult(i,REQUEST_CODE_EDIT_FIELD);
+}

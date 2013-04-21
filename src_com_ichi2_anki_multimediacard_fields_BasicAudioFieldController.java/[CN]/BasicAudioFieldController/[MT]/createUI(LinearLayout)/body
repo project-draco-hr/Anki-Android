@@ -1,0 +1,31 @@
+{
+  origAudioPath=mField.getAudioPath();
+  boolean bExist=false;
+  if (origAudioPath != null) {
+    File f=new File(origAudioPath);
+    if (f.exists()) {
+      tempAudioPath=f.getAbsolutePath();
+      bExist=true;
+    }
+  }
+  if (!bExist) {
+    File file=null;
+    try {
+      file=File.createTempFile("ankidroid_audiorec",".3gp",DiskUtil.getStoringDirectory());
+      tempAudioPath=file.getAbsolutePath();
+    }
+ catch (    IOException e) {
+      Log.e(AnkiDroidApp.TAG,"Could not create temporary audio file. " + e.getMessage());
+      tempAudioPath=null;
+    }
+  }
+  AudioView audioView=AudioView.createRecorderInstance(mActivity,R.drawable.av_play,R.drawable.av_pause,R.drawable.av_stop,R.drawable.av_rec,R.drawable.av_rec_stop,tempAudioPath);
+  audioView.setOnRecordingFinishEventListener(new AudioView.OnRecordingFinishEventListener(){
+    @Override public void onRecordingFinish(    View v){
+      mField.setAudioPath(tempAudioPath);
+      mField.setHasTemporaryMedia(true);
+    }
+  }
+);
+  layout.addView(audioView,LinearLayout.LayoutParams.FILL_PARENT);
+}

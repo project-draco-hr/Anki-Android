@@ -1,0 +1,14 @@
+{
+  String imageUrl=mImages.get(mCurrentImage);
+  try {
+    progressDialog=ProgressDialog.show(this,gtxt(R.string.multimedia_editor_progress_wait_title),gtxt(R.string.multimedia_editor_imgs_saving_image),true,false);
+    mDownloadMp3Task=new DownloadFileTask();
+    mDownloadMp3Task.setActivity(this);
+    mDownloadMp3Task.setAddress(imageUrl);
+    mDownloadMp3Task.execute();
+  }
+ catch (  Exception e) {
+    progressDialog.dismiss();
+    returnFailure(gtxt(R.string.multimedia_editor_something_wrong));
+  }
+}

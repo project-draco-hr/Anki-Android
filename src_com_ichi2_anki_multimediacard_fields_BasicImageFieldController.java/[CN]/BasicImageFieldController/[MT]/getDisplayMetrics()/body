@@ -1,0 +1,7 @@
+{
+  if (mMetrics == null) {
+    mMetrics=new DisplayMetrics();
+    mActivity.getWindowManager().getDefaultDisplay().getMetrics(mMetrics);
+  }
+  return mMetrics;
+}

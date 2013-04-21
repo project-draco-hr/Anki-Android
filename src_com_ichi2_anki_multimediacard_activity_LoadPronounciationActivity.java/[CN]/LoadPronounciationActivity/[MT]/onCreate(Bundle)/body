@@ -1,0 +1,37 @@
+{
+  super.onCreate(savedInstanceState);
+  if (savedInstanceState != null) {
+    boolean b=savedInstanceState.getBoolean(BUNDLE_KEY_SHUT_OFF,false);
+    if (b) {
+      finishCancel();
+      return;
+    }
+  }
+  setContentView(R.layout.activity_load_pronounciation);
+  mSource=getIntent().getExtras().getString(EXTRA_SOURCE);
+  LinearLayout linearLayout=(LinearLayout)findViewById(R.id.layoutInLoadPronActivity);
+  mLanguageLister=new LanguageListerBeolingus(this);
+  mSpinnerFrom=new Spinner(this);
+  ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,mLanguageLister.getLanguages());
+  adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+  mSpinnerFrom.setAdapter(adapter);
+  linearLayout.addView(mSpinnerFrom);
+  Button buttonLoadPronunciation=new Button(this);
+  buttonLoadPronunciation.setText(gtxt(R.string.multimedia_editor_pron_load));
+  linearLayout.addView(buttonLoadPronunciation);
+  buttonLoadPronunciation.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View v){
+      onLoadPronunciation(v);
+    }
+  }
+);
+  mSaveButton=new Button(this);
+  mSaveButton.setText("Save");
+  mSaveButton.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View v){
+    }
+  }
+);
+  mActivity=this;
+  mStopped=false;
+}

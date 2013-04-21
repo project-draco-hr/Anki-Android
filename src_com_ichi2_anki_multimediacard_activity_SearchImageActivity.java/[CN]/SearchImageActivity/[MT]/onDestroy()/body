@@ -1,0 +1,6 @@
+{
+  super.onDestroy();
+  if (mWebView != null) {
+    mWebView.clearCache(true);
+  }
+}

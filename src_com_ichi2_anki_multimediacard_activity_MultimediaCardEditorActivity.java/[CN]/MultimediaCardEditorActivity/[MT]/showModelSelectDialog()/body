@@ -1,0 +1,40 @@
+{
+  StyledDialog dialog=null;
+  StyledDialog.Builder builder=new StyledDialog.Builder(this);
+  ArrayList<CharSequence> dialogItems=new ArrayList<CharSequence>();
+  final ArrayList<Long> dialogIds=new ArrayList<Long>();
+  ArrayList<JSONObject> models=mCol.getModels().all();
+  Collections.sort(models,new JSONNameComparator());
+  builder.setTitle(R.string.note_type);
+  for (  JSONObject m : models) {
+    try {
+      dialogItems.add(m.getString("name"));
+      dialogIds.add(m.getLong("id"));
+    }
+ catch (    JSONException e) {
+      Log.e("Multimedia Editor",e.getMessage());
+    }
+  }
+  String[] items2=new String[dialogItems.size()];
+  dialogItems.toArray(items2);
+  builder.setItems(items2,new DialogInterface.OnClickListener(){
+    @Override public void onClick(    DialogInterface dialog,    int item){
+      long oldModelId;
+      try {
+        oldModelId=mCol.getModels().current().getLong("id");
+      }
+ catch (      JSONException e) {
+        Log.e("Multimedia Editor",e.getMessage());
+        return;
+      }
+      long newId=dialogIds.get(item);
+      if (oldModelId != newId) {
+        changeCurrentModel(newId);
+        createEditorUI(mNote);
+      }
+    }
+  }
+);
+  dialog=builder.create();
+  return dialog;
+}

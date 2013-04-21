@@ -1,0 +1,22 @@
+{
+  final String PICK_RESULT_ACTION="colordict.intent.action.PICK_RESULT";
+  final String SEARCH_ACTION="colordict.intent.action.SEARCH";
+  final String EXTRA_QUERY="EXTRA_QUERY";
+  final String EXTRA_FULLSCREEN="EXTRA_FULLSCREEN";
+  final String EXTRA_HEIGHT="EXTRA_HEIGHT";
+  final String EXTRA_WIDTH="EXTRA_WIDTH";
+  final String EXTRA_GRAVITY="EXTRA_GRAVITY";
+  final String EXTRA_MARGIN_LEFT="EXTRA_MARGIN_LEFT";
+  final String EXTRA_MARGIN_TOP="EXTRA_MARGIN_TOP";
+  final String EXTRA_MARGIN_BOTTOM="EXTRA_MARGIN_BOTTOM";
+  final String EXTRA_MARGIN_RIGHT="EXTRA_MARGIN_RIGHT";
+  Intent intent=new Intent(PICK_RESULT_ACTION);
+  intent.putExtra(EXTRA_QUERY,mEditText.getText().toString());
+  intent.putExtra(EXTRA_FULLSCREEN,false);
+  intent.putExtra(EXTRA_GRAVITY,Gravity.BOTTOM);
+  if (!isIntentAvailable(mActivity,intent)) {
+    showToast(gtxt(R.string.multimedia_editor_trans_install_color_dict));
+    return;
+  }
+  mActivity.startActivityForResult(intent,REQUEST_CODE_TRANSLATE_COLORDICT);
+}

@@ -1,0 +1,52 @@
+{
+  super.onCreate(savedInstanceState);
+  if (savedInstanceState != null) {
+    boolean b=savedInstanceState.getBoolean(BUNDLE_KEY_SHUT_OFF,false);
+    if (b) {
+      finishCancel();
+      return;
+    }
+  }
+  setContentView(R.layout.activity_search_image);
+  try {
+    mSource=getIntent().getExtras().getString(EXTRA_SOURCE).toString();
+  }
+ catch (  Exception e) {
+    mSource="";
+  }
+  mWebView=(WebView)findViewById(R.id.ImageSearchWebView);
+  mWebView.setWebViewClient(new WebViewClient(){
+    @Override public void onPageFinished(    WebView view,    String url){
+      super.onPageFinished(view,url);
+      processPageLoadFinished();
+    }
+    @Override public void onPageStarted(    WebView view,    String url,    Bitmap favicon){
+      super.onPageStarted(view,url,favicon);
+      processPageLoadStarted();
+    }
+  }
+);
+  mPickButton=(Button)findViewById(R.id.ImageSearchPick);
+  mPickButton.setEnabled(false);
+  mPickButton.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View v){
+      pickImage();
+    }
+  }
+);
+  mNextButton=(Button)findViewById(R.id.ImageSearchNext);
+  mNextButton.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View v){
+      nextClicked();
+    }
+  }
+);
+  mPrevButton=(Button)findViewById(R.id.ImageSearchPrev);
+  mPrevButton.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View v){
+      prevClicked();
+    }
+  }
+);
+  mPrevButton.setEnabled(false);
+}

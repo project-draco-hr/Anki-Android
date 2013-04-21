@@ -1,0 +1,25 @@
+{
+  try {
+    URL url=new URL(UrlToFile);
+    String extension=UrlToFile.substring(UrlToFile.length() - 4);
+    HttpURLConnection urlConnection=(HttpURLConnection)url.openConnection();
+    urlConnection.setRequestMethod(method);
+    urlConnection.setRequestProperty("Referer","com.ichi2.anki");
+    urlConnection.setRequestProperty("User-Agent","Mozilla/5.0 ( compatible ) ");
+    urlConnection.setRequestProperty("Accept","*/*");
+    urlConnection.connect();
+    File file=File.createTempFile(prefix,extension,DiskUtil.getStoringDirectory());
+    FileOutputStream fileOutput=new FileOutputStream(file);
+    InputStream inputStream=urlConnection.getInputStream();
+    byte[] buffer=new byte[1024];
+    int bufferLength=0;
+    while ((bufferLength=inputStream.read(buffer)) > 0) {
+      fileOutput.write(buffer,0,bufferLength);
+    }
+    fileOutput.close();
+    return file.getAbsolutePath();
+  }
+ catch (  Exception e) {
+    return "FAILED " + e.getMessage();
+  }
+}

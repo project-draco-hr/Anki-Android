@@ -1,0 +1,6 @@
+{
+  Intent resultData=new Intent();
+  resultData.putExtra(EXTRA_TRANSLATION,mTranslation);
+  setResult(RESULT_OK,resultData);
+  finish();
+}

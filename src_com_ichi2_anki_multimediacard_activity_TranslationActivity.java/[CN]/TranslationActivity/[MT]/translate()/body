@@ -1,0 +1,14 @@
+{
+  progressDialog=ProgressDialog.show(this,getText(R.string.multimedia_editor_progress_wait_title),getText(R.string.multimedia_editor_trans_translating_online),true,false);
+  progressDialog.setCancelable(true);
+  progressDialog.setOnCancelListener(this);
+  mWebServiceAddress=computeAddress();
+  try {
+    mTranslationLoadPost=new BackgroundPost();
+    mTranslationLoadPost.execute();
+  }
+ catch (  Exception e) {
+    progressDialog.dismiss();
+    showToast(getText(R.string.multimedia_editor_something_wrong));
+  }
+}

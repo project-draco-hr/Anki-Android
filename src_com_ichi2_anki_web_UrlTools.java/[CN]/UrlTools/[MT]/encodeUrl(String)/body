@@ -1,0 +1,8 @@
+{
+  try {
+    return URLEncoder.encode(s,"utf-8");
+  }
+ catch (  UnsupportedEncodingException e) {
+    return s;
+  }
+}

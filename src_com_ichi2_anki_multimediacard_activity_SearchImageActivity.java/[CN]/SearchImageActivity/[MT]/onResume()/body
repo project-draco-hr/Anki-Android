@@ -1,0 +1,9 @@
+{
+  super.onResume();
+  progressDialog=ProgressDialog.show(this,getText(R.string.multimedia_editor_progress_wait_title),getText(R.string.multimedia_editor_imgs_searching_for_images),true,false);
+  progressDialog.setCancelable(true);
+  progressDialog.setOnCancelListener(this);
+  BackgroundPost p=new BackgroundPost();
+  p.setQuery(mSource);
+  p.execute();
+}

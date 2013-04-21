@@ -1,0 +1,20 @@
+{
+  if (pronunciationPageHtml.startsWith("FAILED")) {
+    return "no";
+  }
+  String mp3=MP3_STOPPER;
+  if (!pronunciationPageHtml.contains(mp3)) {
+    return "no";
+  }
+  int indMp3=pronunciationPageHtml.indexOf(mp3);
+  int indAddrEnd=indMp3 + ".mp3".length();
+  int addrStart=0;
+  while (indMp3 > 0) {
+    indMp3-=1;
+    if (pronunciationPageHtml.charAt(indMp3) == '\"') {
+      addrStart=indMp3 + 1;
+      break;
+    }
+  }
+  return "http://dict.tu-chemnitz.de" + pronunciationPageHtml.substring(addrStart,indAddrEnd);
+}

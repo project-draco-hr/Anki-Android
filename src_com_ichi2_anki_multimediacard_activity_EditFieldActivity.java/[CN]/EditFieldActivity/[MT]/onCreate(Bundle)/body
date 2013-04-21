@@ -1,0 +1,20 @@
+{
+  super.onCreate(savedInstanceState);
+  if (savedInstanceState != null) {
+    boolean b=savedInstanceState.getBoolean(BUNDLE_KEY_SHUT_OFF,false);
+    if (b) {
+      finishCancel();
+      return;
+    }
+  }
+  setContentView(R.layout.activity_edit_text);
+  mField=(IField)this.getIntent().getExtras().getSerializable(MultimediaCardEditorActivity.EXTRA_FIELD);
+  mNote=(IMultimediaEditableNote)this.getIntent().getSerializableExtra(MultimediaCardEditorActivity.EXTRA_WHOLE_NOTE);
+  mFieldIndex=this.getIntent().getIntExtra(MultimediaCardEditorActivity.EXTRA_FIELD_INDEX,0);
+  recreateEditingUi();
+  int currentapiVersion=android.os.Build.VERSION.SDK_INT;
+  if (currentapiVersion <= android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
+    LinearLayout linearLayout=(LinearLayout)findViewById(R.id.LinearLayoutForSpareMenuFieldEdit);
+    createSpareMenu(linearLayout);
+  }
+}

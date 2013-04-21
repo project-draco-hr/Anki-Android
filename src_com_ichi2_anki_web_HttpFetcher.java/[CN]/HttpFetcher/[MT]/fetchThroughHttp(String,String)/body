@@ -1,0 +1,21 @@
+{
+  try {
+    HttpClient httpClient=new DefaultHttpClient();
+    HttpContext localContext=new BasicHttpContext();
+    HttpGet httpGet=new HttpGet(address);
+    HttpResponse response=httpClient.execute(httpGet,localContext);
+    if (!response.getStatusLine().toString().contains("OK")) {
+      return "FAILED";
+    }
+    BufferedReader reader=new BufferedReader(new InputStreamReader(response.getEntity().getContent(),Charset.forName(encoding)));
+    StringBuilder stringBuilder=new StringBuilder();
+    String line=null;
+    while ((line=reader.readLine()) != null) {
+      stringBuilder.append(line);
+    }
+    return stringBuilder.toString();
+  }
+ catch (  Exception e) {
+    return "FAILED with exception: " + e.getMessage();
+  }
+}

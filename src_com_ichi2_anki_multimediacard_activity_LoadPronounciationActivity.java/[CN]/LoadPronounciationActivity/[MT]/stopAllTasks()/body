@@ -1,0 +1,9 @@
+{
+  AsyncTask<?,?,?> t;
+  t=mPostTranslation;
+  TaskOperations.stopTaskGracefully(t);
+  t=mPostPronunciation;
+  TaskOperations.stopTaskGracefully(t);
+  t=mDownloadMp3Task;
+  TaskOperations.stopTaskGracefully(t);
+}

@@ -1,0 +1,15 @@
+{
+  IControllerFactory controllerFactory=BasicControllerFactory.getInstance();
+  mFieldController=controllerFactory.createControllerForField(mField);
+  if (mFieldController == null) {
+    Log.d(AnkiDroidApp.TAG,"Field controller creation failed");
+    return;
+  }
+  mFieldController.setField(mField);
+  mFieldController.setFieldIndex(mFieldIndex);
+  mFieldController.setNote(mNote);
+  mFieldController.setEditingActivity(this);
+  LinearLayout linearLayout=(LinearLayout)findViewById(R.id.LinearLayoutInScrollViewFieldEdit);
+  linearLayout.removeAllViews();
+  mFieldController.createUI(linearLayout);
+}

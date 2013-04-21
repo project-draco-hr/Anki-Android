@@ -1,0 +1,13 @@
+{
+switch (item.getItemId()) {
+case R.id.multimedia_delete_note:
+    delete();
+  return true;
+case R.id.multimedia_save_note:
+save();
+return true;
+case android.R.id.home:
+return true;
+}
+return super.onOptionsItemSelected(item);
+}

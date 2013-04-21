@@ -1,0 +1,39 @@
+{
+  int currentapiVersion=android.os.Build.VERSION.SDK_INT;
+  if (currentapiVersion <= android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
+    LinearLayout linearLayout=(LinearLayout)findViewById(R.id.LinearLayoutForSpareMenu);
+    createSpareMenu(linearLayout);
+  }
+  mEditorLayout=(LinearLayout)findViewById(R.id.LinearLayoutInScrollView);
+  LinearLayout mToolsLayout=(LinearLayout)findViewById(R.id.LinearLayoutForButtons);
+  LayoutParams pars=new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT,1);
+  Button swapButton=new Button(this);
+  swapButton.setText(gtxt(R.string.multimedia_editor_activity_swap_button));
+  mToolsLayout.addView(swapButton,pars);
+  swapButton.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View v){
+      swap();
+    }
+  }
+);
+  LinearLayout mButtonsLayout=new LinearLayout(this);
+  mButtonsLayout.setOrientation(LinearLayout.HORIZONTAL);
+  mToolsLayout.addView(mButtonsLayout,pars);
+  pars=new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT,1);
+  mModelButton=new Button(this);
+  mModelButton.setOnClickListener(new OnClickListener(){
+    @SuppressWarnings("deprecation") @Override public void onClick(    View v){
+      showDialog(DIALOG_MODEL_SELECT);
+    }
+  }
+);
+  mButtonsLayout.addView(mModelButton,pars);
+  mDeckButton=new Button(this);
+  mDeckButton.setOnClickListener(new OnClickListener(){
+    @SuppressWarnings("deprecation") @Override public void onClick(    View v){
+      showDialog(DIALOG_DECK_SELECT);
+    }
+  }
+);
+  mButtonsLayout.addView(mDeckButton,pars);
+}

@@ -1,0 +1,50 @@
+{
+  if (mStopped) {
+    return;
+  }
+  if (post.getAddress().contentEquals(mTranslationAddress)) {
+    mTranslation=result;
+    if (mTranslation.startsWith("FAILED")) {
+      failNoPronunciation();
+      return;
+    }
+    mPronunciationAddress=BeolingusParser.getPronounciationAddressFromTranslation(mTranslation,mSource);
+    if (mPronunciationAddress.contentEquals("no")) {
+      failNoPronunciation();
+      if (!mSource.toLowerCase(Locale.getDefault()).contentEquals(mSource)) {
+        showToastLong(gtxt(R.string.multimedia_editor_word_search_try_lower_case));
+      }
+      return;
+    }
+    try {
+      showProgressDialog(gtxt(R.string.multimedia_editor_pron_looking_up));
+      mPostPronunciation=new BackgroundPost();
+      mPostPronunciation.setAddress(mPronunciationAddress);
+      mPostPronunciation.execute();
+    }
+ catch (    Exception e) {
+      progressDialog.dismiss();
+      showToast(gtxt(R.string.multimedia_editor_something_wrong));
+    }
+    return;
+  }
+  if (post.getAddress().contentEquals(mPronunciationAddress)) {
+    mPronunciationPage=result;
+    mMp3Address=BeolingusParser.getMp3AddressFromPronounciation(mPronunciationPage);
+    if (mMp3Address.contentEquals("no")) {
+      failNoPronunciation();
+      return;
+    }
+    try {
+      showProgressDialog(gtxt(R.string.multimedia_editor_general_downloading));
+      mDownloadMp3Task=new DownloadFileTask();
+      mDownloadMp3Task.setAddress(mMp3Address);
+      mDownloadMp3Task.execute();
+    }
+ catch (    Exception e) {
+      progressDialog.dismiss();
+      showToast(gtxt(R.string.multimedia_editor_something_wrong));
+    }
+    return;
+  }
+}

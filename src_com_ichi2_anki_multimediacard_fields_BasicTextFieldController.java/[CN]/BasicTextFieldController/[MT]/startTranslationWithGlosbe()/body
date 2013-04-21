@@ -1,0 +1,6 @@
+{
+  String source=mEditText.getText().toString();
+  Intent intent=new Intent(mActivity,TranslationActivity.class);
+  intent.putExtra(TranslationActivity.EXTRA_SOURCE,source);
+  mActivity.startActivityForResult(intent,REQUEST_CODE_TRANSLATE_GLOSBE);
+}

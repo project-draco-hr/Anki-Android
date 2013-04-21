@@ -1,0 +1,7 @@
+{
+  String str=downloadFileToSdCardMethod(UrlToFile,context,prefix,"GET");
+  if (str.startsWith("FAIL")) {
+    str=downloadFileToSdCardMethod(UrlToFile,context,prefix,"POST");
+  }
+  return str;
+}

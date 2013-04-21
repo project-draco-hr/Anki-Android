@@ -1,0 +1,58 @@
+{
+  String tmpMediaPath=null;
+switch (field.getType()) {
+case AUDIO:
+    tmpMediaPath=field.getAudioPath();
+  break;
+case IMAGE:
+tmpMediaPath=field.getImagePath();
+break;
+case TEXT:
+default :
+break;
+}
+if (tmpMediaPath != null) {
+try {
+File inFile=new File(tmpMediaPath);
+if (inFile.exists()) {
+Collection col=AnkiDroidApp.getCol();
+String mediaDir=col.getMedia().getDir() + "/";
+File mediaDirFile=new File(mediaDir);
+File parent=inFile.getParentFile();
+if (mediaDirFile.getAbsolutePath().contentEquals(parent.getAbsolutePath())) {
+return;
+}
+File outFile=new File(mediaDir + inFile.getName());
+if (!outFile.exists()) {
+if (field.hasTemporaryMedia()) {
+  inFile.renameTo(outFile);
+}
+ else {
+  InputStream in=new FileInputStream(tmpMediaPath);
+  OutputStream out=new FileOutputStream(outFile.getAbsolutePath());
+  byte[] buf=new byte[1024];
+  int len;
+  while ((len=in.read(buf)) > 0) {
+    out.write(buf,0,len);
+  }
+  in.close();
+  out.close();
+}
+switch (field.getType()) {
+case AUDIO:
+  field.setAudioPath(outFile.getAbsolutePath());
+break;
+case IMAGE:
+field.setImagePath(outFile.getAbsolutePath());
+break;
+default :
+break;
+}
+}
+}
+}
+ catch (IOException e) {
+throw new RuntimeException(e);
+}
+}
+}

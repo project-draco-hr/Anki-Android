@@ -1,0 +1,6 @@
+{
+  if (mField.getType() != EFieldType.TEXT) {
+    mField=new TextField();
+    recreateEditingUi();
+  }
+}

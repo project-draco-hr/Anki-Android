@@ -1,0 +1,6 @@
+{
+  if (mFieldController != null) {
+    mFieldController.onActivityResult(requestCode,resultCode,data);
+  }
+  super.onActivityResult(requestCode,resultCode,data);
+}

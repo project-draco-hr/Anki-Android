@@ -1,0 +1,42 @@
+{
+  String pronounciationIndicator=PRONUNC_STOPPER;
+  if (!translationHtml.contains(pronounciationIndicator)) {
+    return "no";
+  }
+  int indIndicator=0;
+  do {
+    indIndicator=translationHtml.indexOf(pronounciationIndicator,indIndicator + 1);
+    if (indIndicator == -1) {
+      return "no";
+    }
+    String title="title=\"";
+    int indTitle=translationHtml.indexOf(title,indIndicator);
+    if (indTitle == -1) {
+      return "no";
+    }
+    int indNextQuote=translationHtml.indexOf("\"",indTitle + title.length());
+    if (indNextQuote == -1) {
+      return "no";
+    }
+    String titleValue=translationHtml.substring(indTitle + title.length(),indNextQuote);
+    if (!titleValue.contentEquals(wordToSearchFor)) {
+      continue;
+    }
+    break;
+  }
+ while (true);
+  String href="href=\"";
+  while (indIndicator > 0) {
+    indIndicator-=1;
+    if (!translationHtml.substring(indIndicator,indIndicator + href.length()).contentEquals(href)) {
+      continue;
+    }
+    break;
+  }
+  int indNextQuote=translationHtml.indexOf("\"",indIndicator + href.length());
+  if (indNextQuote == -1) {
+    return "no";
+  }
+  String pronounciationAddress=translationHtml.substring(indIndicator + href.length(),indNextQuote);
+  return "http://dict.tu-chemnitz.de" + pronounciationAddress;
+}

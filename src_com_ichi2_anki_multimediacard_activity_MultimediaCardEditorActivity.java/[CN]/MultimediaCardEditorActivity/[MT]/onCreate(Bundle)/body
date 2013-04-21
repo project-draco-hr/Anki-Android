@@ -1,0 +1,14 @@
+{
+  super.onCreate(savedInstanceState);
+  if (savedInstanceState != null) {
+    boolean b=savedInstanceState.getBoolean(BUNDLE_KEY_SHUT_OFF,false);
+    if (b) {
+      finishCancel();
+      return;
+    }
+  }
+  setContentView(R.layout.activity_multimedia_card_editor);
+  initData();
+  initUI();
+  createEditorUI(mNote);
+}

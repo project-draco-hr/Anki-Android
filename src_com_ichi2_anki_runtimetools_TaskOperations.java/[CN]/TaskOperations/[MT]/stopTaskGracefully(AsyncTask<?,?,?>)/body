@@ -1,0 +1,7 @@
+{
+  if (t != null) {
+    if (t.getStatus() == Status.RUNNING) {
+      t.cancel(true);
+    }
+  }
+}

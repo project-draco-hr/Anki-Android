@@ -1,0 +1,21 @@
+{
+  try {
+    String ip=getLocalIpAddress();
+    URL url=new URL("https://ajax.googleapis.com/ajax/services/search/images?" + "v=1.0&q=Q&userip=IP".replaceAll("Q",getQuery()).replaceAll("IP",UrlTools.encodeUrl(ip)));
+    URLConnection connection=url.openConnection();
+    connection.addRequestProperty("Referer","anki.ichi2.com");
+    String line;
+    StringBuilder builder=new StringBuilder();
+    BufferedReader reader=new BufferedReader(new InputStreamReader(connection.getInputStream()));
+    while ((line=reader.readLine()) != null) {
+      builder.append(line);
+    }
+    Gson gson=new Gson();
+    ImageSearchResponse resp=gson.fromJson(builder.toString(),ImageSearchResponse.class);
+    resp.setOk(true);
+    return resp;
+  }
+ catch (  Exception e) {
+    return new ImageSearchResponse();
+  }
+}

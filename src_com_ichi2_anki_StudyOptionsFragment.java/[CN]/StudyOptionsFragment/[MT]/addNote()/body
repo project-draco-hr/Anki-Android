@@ -1,8 +1,6 @@
 {
-  Intent intent=new Intent(getActivity(),CardEditor.class);
+  Intent intent=new Intent(getActivity(),MultimediaCardEditorActivity.class);
   intent.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_STUDYOPTIONS);
   startActivityForResult(intent,ADD_NOTE);
-  if (AnkiDroidApp.SDK_VERSION > 4) {
-    ActivityTransitionAnimation.slide(getActivity(),ActivityTransitionAnimation.LEFT);
-  }
+  animateLeft();
 }

@@ -1,0 +1,7 @@
+{
+  int fieldCount=noteNew.getNumberOfFields();
+  for (int i=0; i < fieldCount; i++) {
+    IField newField=noteNew.getField(i);
+    importMediaToDirectory(newField);
+  }
+}

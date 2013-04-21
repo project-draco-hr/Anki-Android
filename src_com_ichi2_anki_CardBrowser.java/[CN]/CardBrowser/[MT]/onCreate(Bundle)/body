@@ -72,11 +72,12 @@
   mCardsListView.setAdapter(mCardsAdapter);
   mCardsListView.setOnItemClickListener(new OnItemClickListener(){
     @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
-      Intent editCard=new Intent(CardBrowser.this,CardEditor.class);
-      editCard.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_CARDBROWSER_EDIT);
       mPositionInCardsList=position;
       long cardId=Long.parseLong(mCards.get(mPositionInCardsList).get("id"));
       sCardBrowserCard=mCol.getCard(cardId);
+      Intent editCard=new Intent(CardBrowser.this,MultimediaCardEditorActivity.class);
+      editCard.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_CARDBROWSER_EDIT);
+      editCard.putExtra(MultimediaCardEditorActivity.EXTRA_CARD_ID,sCardBrowserCard.getId());
       startActivityForResult(editCard,EDIT_CARD);
       if (AnkiDroidApp.SDK_VERSION > 4) {
         ActivityTransitionAnimation.slide(CardBrowser.this,ActivityTransitionAnimation.LEFT);

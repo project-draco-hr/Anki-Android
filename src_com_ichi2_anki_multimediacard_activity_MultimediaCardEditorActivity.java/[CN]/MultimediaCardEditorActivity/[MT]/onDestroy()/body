@@ -1,0 +1,14 @@
+{
+  super.onDestroy();
+  if (mEditorLayout == null) {
+    return;
+  }
+  int n=mEditorLayout.getChildCount();
+  for (int i=0; i < n; ++i) {
+    View child=mEditorLayout.getChildAt(i);
+    if (child instanceof ImageView) {
+      ImageView iv=(ImageView)child;
+      BitmapUtil.freeImageView(iv);
+    }
+  }
+}

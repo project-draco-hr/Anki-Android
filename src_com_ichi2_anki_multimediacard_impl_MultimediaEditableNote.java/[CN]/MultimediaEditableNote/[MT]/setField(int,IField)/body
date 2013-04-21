@@ -1,0 +1,15 @@
+{
+  if (index >= 0 && index < getNumberOfFields()) {
+    if (getField(index) == field) {
+      if (field.isModified()) {
+        setThisModified();
+      }
+    }
+ else {
+      setThisModified();
+    }
+    getFieldsPrivate().set(index,field);
+    return true;
+  }
+  return false;
+}

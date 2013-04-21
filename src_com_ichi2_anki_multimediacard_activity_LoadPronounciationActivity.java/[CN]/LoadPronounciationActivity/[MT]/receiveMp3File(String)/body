@@ -1,0 +1,19 @@
+{
+  if (mStopped) {
+    return;
+  }
+  if (result == null) {
+    failNoPronunciation();
+    return;
+  }
+  if (result.startsWith("FAIL")) {
+    failNoPronunciation();
+    return;
+  }
+  progressDialog.dismiss();
+  showToast(gtxt(R.string.multimedia_editor_general_done));
+  Intent resultData=new Intent();
+  resultData.putExtra(EXTRA_PRONUNCIATION_FILE_PATH,result);
+  setResult(RESULT_OK,resultData);
+  finish();
+}

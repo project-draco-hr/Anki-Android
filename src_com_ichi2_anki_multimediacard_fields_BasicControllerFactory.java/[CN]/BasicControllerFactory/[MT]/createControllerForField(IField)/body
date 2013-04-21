@@ -1,0 +1,14 @@
+{
+  EFieldType type=field.getType();
+switch (type) {
+case TEXT:
+    return new BasicTextFieldController();
+case IMAGE:
+  return new BasicImageFieldController();
+case AUDIO:
+return new BasicAudioFieldController();
+default :
+break;
+}
+return null;
+}
