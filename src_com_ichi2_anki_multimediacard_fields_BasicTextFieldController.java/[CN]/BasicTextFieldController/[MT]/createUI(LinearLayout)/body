@@ -1,0 +1,18 @@
+{
+  mEditText=new EditText(mActivity);
+  mEditText.setMinLines(3);
+  mEditText.setText(mField.getText());
+  layout.addView(mEditText,LinearLayout.LayoutParams.FILL_PARENT);
+  LinearLayout layoutTools=new LinearLayout(mActivity);
+  layoutTools.setOrientation(LinearLayout.HORIZONTAL);
+  layout.addView(layoutTools);
+  LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT,1);
+  createCloneButton(layoutTools,p);
+  createClearButton(layoutTools,p);
+  LinearLayout layoutTools2=new LinearLayout(mActivity);
+  layoutTools2.setOrientation(LinearLayout.HORIZONTAL);
+  layout.addView(layoutTools2);
+  createTranslateButton(layoutTools2,p);
+  createPronounceButton(layoutTools2,p);
+  createSearchImageButton(layoutTools2,p);
+}

@@ -1,0 +1,18 @@
+{
+  Button btnPronounce=new Button(mActivity);
+  btnPronounce.setText(gtxt(R.string.multimedia_editor_text_field_editing_say));
+  btnPronounce.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View v){
+      String source=mEditText.getText().toString();
+      if (source.length() == 0) {
+        showToast(gtxt(R.string.multimedia_editor_text_field_editing_no_text));
+        return;
+      }
+      Intent intent=new Intent(mActivity,LoadPronounciationActivity.class);
+      intent.putExtra(LoadPronounciationActivity.EXTRA_SOURCE,source);
+      mActivity.startActivityForResult(intent,REQUEST_CODE_PRONOUNCIATION);
+    }
+  }
+);
+  layoutTools.addView(btnPronounce,p);
+}

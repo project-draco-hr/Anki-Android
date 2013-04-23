@@ -1,5 +1,5 @@
 {
-  Intent intent=new Intent(DeckPicker.this,CardEditor.class);
+  Intent intent=new Intent(DeckPicker.this,MultimediaCardEditorActivity.class);
   intent.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_DECKPICKER);
   startActivityForResult(intent,ADD_NOTE);
   if (AnkiDroidApp.SDK_VERSION > 4) {

@@ -1,0 +1,6 @@
+{
+  Collection col=AnkiDroidApp.getCol();
+  String mediaDir=col.getMedia().getDir() + "/";
+  File mediaDirFile=new File(mediaDir);
+  return mediaDirFile;
+}

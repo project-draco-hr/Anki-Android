@@ -1,0 +1,22 @@
+{
+  DialogInterface.OnClickListener dialogClickListener=new DialogInterface.OnClickListener(){
+    @Override public void onClick(    DialogInterface dialog,    int which){
+switch (which) {
+case DialogInterface.BUTTON_POSITIVE:
+        if (mAddNote) {
+          finish();
+        }
+ else {
+          setResult(RESULT_DELETED);
+          finish();
+        }
+      break;
+case DialogInterface.BUTTON_NEGATIVE:
+    break;
+}
+}
+}
+;
+AlertDialog.Builder builder=new AlertDialog.Builder(this);
+builder.setMessage(gtxt(R.string.multimedia_editor_activity_delete_question)).setPositiveButton(gtxt(R.string.multimedia_editor_activity_delete_confirm),dialogClickListener).setNegativeButton(gtxt(R.string.multimedia_editor_activity_delete_reject),dialogClickListener).show();
+}

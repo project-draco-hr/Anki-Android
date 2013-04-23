@@ -1,0 +1,19 @@
+{
+switch (item.getItemId()) {
+case R.id.multimedia_edit_field_to_text:
+    toTextField();
+  return true;
+case R.id.multimedia_edit_field_to_image:
+toImageField();
+return true;
+case R.id.multimedia_edit_field_to_audio:
+toAudioField();
+return true;
+case R.id.multimedia_edit_field_done:
+done();
+return true;
+case android.R.id.home:
+return true;
+}
+return super.onOptionsItemSelected(item);
+}

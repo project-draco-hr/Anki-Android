@@ -7,5 +7,9 @@
       mCards.remove(pos);
     }
   }
+  pos=getPosition(mCards,card.getId());
+  if (pos >= 0 && pos < mCards.size()) {
+    mCards.remove(pos);
+  }
   updateList();
 }

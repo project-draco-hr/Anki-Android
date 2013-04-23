@@ -1,0 +1,21 @@
+{
+  LayoutParams pars=new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT,1);
+  Button saveButton=new Button(this);
+  saveButton.setText(getString(R.string.CardEditorSaveButton));
+  saveButton.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      save();
+    }
+  }
+);
+  linearLayout.addView(saveButton,pars);
+  Button deleteButton=new Button(this);
+  deleteButton.setText(getString(R.string.menu_delete_note));
+  deleteButton.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      delete();
+    }
+  }
+);
+  linearLayout.addView(deleteButton,pars);
+}

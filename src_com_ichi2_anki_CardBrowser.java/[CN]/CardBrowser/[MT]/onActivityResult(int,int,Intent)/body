@@ -3,7 +3,11 @@
   if (resultCode == DeckPicker.RESULT_DB_ERROR) {
     closeCardBrowser(DeckPicker.RESULT_DB_ERROR);
   }
-  if (requestCode == EDIT_CARD && resultCode != RESULT_CANCELED) {
+  if (requestCode == EDIT_CARD && resultCode == MultimediaCardEditorActivity.RESULT_DELETED) {
+    deleteNote(sCardBrowserCard);
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDeleteNoteHandler,new DeckTask.TaskData(mCol.getSched(),sCardBrowserCard,3));
+  }
+ else   if (requestCode == EDIT_CARD && resultCode != RESULT_CANCELED) {
     Log.i(AnkiDroidApp.TAG,"CardBrowser: Saving card...");
     DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_FACT,mUpdateCardHandler,new DeckTask.TaskData(mCol.getSched(),sCardBrowserCard,false));
   }

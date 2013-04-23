@@ -1,0 +1,14 @@
+{
+  String address="http://dict.tu-chemnitz.de/dings.cgi?lang=en&service=SERVICE&opterrors=0&optpro=0&query=Welt";
+  String strFrom=mSpinnerFrom.getSelectedItem().toString();
+  String langCodeFrom=mLanguageLister.getCodeFor(strFrom);
+  String query;
+  try {
+    query=URLEncoder.encode(mSource,"utf-8");
+  }
+ catch (  UnsupportedEncodingException e) {
+    query=mSource.replace(" ","%20");
+  }
+  address=address.replaceAll("SERVICE",langCodeFrom).replaceAll("Welt",query);
+  return address;
+}

@@ -1,0 +1,42 @@
+{
+  if (requestCode == REQUEST_CODE_TRANSLATE_GLOSBE && resultCode == Activity.RESULT_OK) {
+    try {
+      String translation=data.getExtras().get(TranslationActivity.EXTRA_TRANSLATION).toString();
+      mEditText.setText(translation);
+    }
+ catch (    Exception e) {
+      showToast(gtxt(R.string.multimedia_editor_trans_translation_failed));
+    }
+  }
+ else   if (requestCode == REQUEST_CODE_PRONOUNCIATION && resultCode == Activity.RESULT_OK) {
+    try {
+      String pronuncPath=data.getExtras().get(LoadPronounciationActivity.EXTRA_PRONUNCIATION_FILE_PATH).toString();
+      File f=new File(pronuncPath);
+      if (!f.exists()) {
+        showToast(gtxt(R.string.multimedia_editor_pron_pronunciation_failed));
+      }
+      AudioField af=new AudioField();
+      af.setAudioPath(pronuncPath);
+      af.setHasTemporaryMedia(true);
+      mActivity.handleFieldChanged(af);
+    }
+ catch (    Exception e) {
+      showToast(gtxt(R.string.multimedia_editor_pron_pronunciation_failed));
+    }
+  }
+ else   if (requestCode == REQUEST_CODE_TRANSLATE_COLORDICT && resultCode == Activity.RESULT_OK) {
+    String text=data.getStringExtra(Intent.EXTRA_TEXT);
+    mEditText.setText(text);
+  }
+ else   if (requestCode == REQUEST_CODE_IMAGE_SEARCH && resultCode == Activity.RESULT_OK) {
+    String imgPath=data.getExtras().get(SearchImageActivity.EXTRA_IMAGE_FILE_PATH).toString();
+    File f=new File(imgPath);
+    if (!f.exists()) {
+      showToast(gtxt(R.string.multimedia_editor_imgs_failed));
+    }
+    ImageField imgField=new ImageField();
+    imgField.setImagePath(imgPath);
+    imgField.setHasTemporaryMedia(true);
+    mActivity.handleFieldChanged(imgField);
+  }
+}

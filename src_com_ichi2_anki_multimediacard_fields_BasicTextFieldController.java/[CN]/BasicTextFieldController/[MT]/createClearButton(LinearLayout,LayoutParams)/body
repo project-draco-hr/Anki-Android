@@ -1,0 +1,11 @@
+{
+  Button clearButton=new Button(mActivity);
+  clearButton.setText(gtxt(R.string.multimedia_editor_text_field_editing_clear));
+  layoutTools.addView(clearButton,p);
+  clearButton.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View v){
+      mEditText.setText("");
+    }
+  }
+);
+}

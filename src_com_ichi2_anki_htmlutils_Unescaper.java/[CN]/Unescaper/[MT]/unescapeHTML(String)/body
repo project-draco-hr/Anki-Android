@@ -1,0 +1,52 @@
+{
+  char[] chars=s.toCharArray();
+  char[] escaped=new char[chars.length];
+  int pos=0;
+  for (int i=0; i < chars.length; ) {
+    if (chars[i] != '&') {
+      escaped[pos++]=chars[i++];
+      continue;
+    }
+    int j=i + 1;
+    if (j < chars.length && chars[j] == '#')     j++;
+    for (; j < chars.length; j++) {
+      if (!Character.isLetterOrDigit(chars[j]))       break;
+    }
+    boolean replaced=false;
+    if (j < chars.length && chars[j] == ';') {
+      if (s.charAt(i + 1) == '#') {
+        try {
+          long charcode=0;
+          char ch=s.charAt(i + 2);
+          if (ch == 'x' || ch == 'X') {
+            charcode=Long.parseLong(new String(chars,i + 3,j - i - 3),16);
+          }
+ else           if (Character.isDigit(ch)) {
+            charcode=Long.parseLong(new String(chars,i + 2,j - i - 2));
+          }
+          if (charcode > 0 && charcode < 65536) {
+            escaped[pos++]=(char)charcode;
+            replaced=true;
+          }
+        }
+ catch (        NumberFormatException ex) {
+        }
+      }
+ else {
+        String key=new String(chars,i,j - i + 1);
+        Character repl=escapeStrings.get(key);
+        if (repl != null) {
+          escaped[pos++]=repl.charValue();
+          replaced=true;
+        }
+      }
+      j++;
+    }
+    if (!replaced) {
+      System.arraycopy(chars,i,escaped,pos,j - i);
+      pos+=j - i;
+    }
+    i=j;
+  }
+  return new String(escaped,0,pos);
+}

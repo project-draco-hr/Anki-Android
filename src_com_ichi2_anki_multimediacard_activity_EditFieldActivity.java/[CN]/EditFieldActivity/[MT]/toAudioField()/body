@@ -1,0 +1,6 @@
+{
+  if (mField.getType() != EFieldType.AUDIO) {
+    mField=new AudioField();
+    recreateEditingUi();
+  }
+}

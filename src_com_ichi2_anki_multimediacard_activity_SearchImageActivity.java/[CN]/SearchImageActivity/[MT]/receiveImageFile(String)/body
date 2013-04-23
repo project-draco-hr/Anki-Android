@@ -1,0 +1,7 @@
+{
+  dismissCarefullyProgressDialog();
+  Intent resultData=new Intent();
+  resultData.putExtra(EXTRA_IMAGE_FILE_PATH,result);
+  setResult(RESULT_OK,resultData);
+  finish();
+}

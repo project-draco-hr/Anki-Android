@@ -1,0 +1,15 @@
+{
+switch (mStatus) {
+case IDLE:
+case STOPPED:
+    setImageResource(mResPlayImage);
+  setEnabled(true);
+break;
+case RECORDING:
+setEnabled(false);
+break;
+default :
+setEnabled(true);
+break;
+}
+}

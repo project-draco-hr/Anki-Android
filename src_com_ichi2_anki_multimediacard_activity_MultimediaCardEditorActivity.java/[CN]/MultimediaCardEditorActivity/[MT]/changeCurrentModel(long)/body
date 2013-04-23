@@ -1,0 +1,26 @@
+{
+  try {
+    JSONObject currentModel=mCol.getModels().get(newId);
+    mCol.getModels().setCurrent(currentModel);
+    JSONObject cdeck=mCol.getDecks().current();
+    cdeck.put("mid",newId);
+    mCol.getDecks().save(cdeck);
+    int size=mNote.getNumberOfFields();
+    String[] oldValues=new String[size];
+    for (int i=0; i < size; i++) {
+      oldValues[i]=mNote.getField(i).getFormattedValue();
+    }
+    mEditorNote=new Note(mCol,currentModel);
+    mEditorNote.model().put("did",mCurrentDid);
+    MultimediaEditableNote newNote=NoteService.createEmptyNote(currentModel);
+    for (int i=0; i < newNote.getNumberOfFields(); i++) {
+      if (i < mNote.getNumberOfFields()) {
+        newNote.setField(i,mNote.getField(i));
+      }
+    }
+    mNote=newNote;
+  }
+ catch (  JSONException e) {
+    Log.e("Multimedia Editor",e.getMessage());
+  }
+}

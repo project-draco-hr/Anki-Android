@@ -1,0 +1,8 @@
+{
+  this(context,resPlay,resPause,resStop,audioPath);
+  mResRecordImage=resRecord;
+  mResRecordStopImage=resRecordStop;
+  this.setOrientation(HORIZONTAL);
+  mRecord=new RecordButton(context);
+  addView(mRecord,new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
+}

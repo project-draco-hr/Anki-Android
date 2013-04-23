@@ -1,0 +1,36 @@
+{
+  Button btnTranslate=new Button(mActivity);
+  btnTranslate.setText(gtxt(R.string.multimedia_editor_text_field_editing_translate));
+  btnTranslate.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View v){
+      String source=mEditText.getText().toString();
+      if (source.length() == 0) {
+        showToast(gtxt(R.string.multimedia_editor_text_field_editing_no_text));
+        return;
+      }
+      if (source.contains(" ")) {
+        showToast(gtxt(R.string.multimedia_editor_text_field_editing_many_words));
+      }
+      PickStringDialogFragment fragment=new PickStringDialogFragment();
+      ArrayList<String> translationSources=new ArrayList<String>();
+      translationSources.add("Glosbe.com");
+      translationSources.add("ColorDict");
+      fragment.setChoices(translationSources);
+      fragment.setOnclickListener(new DialogInterface.OnClickListener(){
+        @Override public void onClick(        DialogInterface dialog,        int which){
+          if (which == 0) {
+            startTranslationWithGlosbe();
+          }
+ else           if (which == 1) {
+            startTranslationWithColorDict();
+          }
+        }
+      }
+);
+      fragment.setTitle(gtxt(R.string.multimedia_editor_trans_pick_translation_source));
+      fragment.show(mActivity.getSupportFragmentManager(),"pick.translation.source");
+    }
+  }
+);
+  layoutTool.addView(btnTranslate,ps);
+}

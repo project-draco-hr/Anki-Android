@@ -1,0 +1,15 @@
+{
+  if (mCurrentImage <= 0) {
+    mCurrentImage=0;
+    mPrevButton.setEnabled(false);
+    mNextButton.setEnabled(mImages.size() > 0);
+  }
+  if (mCurrentImage > 0) {
+    mCurrentImage=Math.min(mImages.size() - 1,mCurrentImage);
+    mPrevButton.setEnabled(true);
+    mNextButton.setEnabled(mCurrentImage < mImages.size() - 1);
+  }
+  String source=makeImageCodeTemplate();
+  source=source.replaceAll("URL",mImages.get(mCurrentImage));
+  mWebView.loadData(source,"text/html",null);
+}

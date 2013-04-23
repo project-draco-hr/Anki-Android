@@ -1,0 +1,28 @@
+{
+  try {
+    if (mNote == null) {
+      finishCancel();
+      return;
+    }
+ else {
+      for (int i=0; i < mNote.getNumberOfFields(); ++i) {
+        IField f=mNote.getField(i);
+        if (f == null) {
+          finishCancel();
+          return;
+        }
+      }
+    }
+    LinearLayout linearLayout=mEditorLayout;
+    linearLayout.removeAllViews();
+    for (int i=0; i < note.getNumberOfFields(); ++i) {
+      createNewViewer(linearLayout,note.getField(i),i);
+    }
+    mModelButton.setText(gtxt(R.string.multimedia_editor_activity_note_type) + " : " + mEditorNote.model().getString("name"));
+    mDeckButton.setText(gtxt(R.string.multimedia_editor_activity_deck) + " : " + mCol.getDecks().get(mCurrentDid).getString("name"));
+  }
+ catch (  JSONException e) {
+    Log.e("Multimedia Editor",e.getMessage());
+    return;
+  }
+}

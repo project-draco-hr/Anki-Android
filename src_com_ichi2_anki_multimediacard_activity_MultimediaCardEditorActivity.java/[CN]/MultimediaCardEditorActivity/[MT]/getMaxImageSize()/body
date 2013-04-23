@@ -1,0 +1,6 @@
+{
+  DisplayMetrics metrics=getDisplayMetrics();
+  int height=metrics.heightPixels;
+  int width=metrics.widthPixels;
+  return (int)Math.min(height * 0.4,width * 0.6);
+}

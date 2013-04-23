@@ -1,0 +1,25 @@
+{
+  ArrayList<String> theImages=new ArrayList<String>();
+  do {
+    if (response == null)     break;
+    if (response.getOk() == false)     break;
+    ResponseData rdata=response.getResponseData();
+    if (rdata == null)     break;
+    List<Result> results=rdata.getResults();
+    if (results == null)     break;
+    for (    Result result : results) {
+      if (result == null) {
+        continue;
+      }
+      String url=result.getUrl();
+      if (url != null) {
+        theImages.add(url);
+      }
+    }
+    if (theImages.size() == 0)     break;
+    proceedWithImages(theImages);
+    return;
+  }
+ while (false);
+  returnFailure(gtxt(R.string.multimedia_editor_imgs_no_results));
+}

@@ -1,0 +1,13 @@
+{
+  super(context);
+  mContext=context;
+  mResPlayImage=resPlay;
+  mResPauseImage=resPause;
+  mResStopImage=resStop;
+  mAudioPath=audioPath;
+  this.setOrientation(HORIZONTAL);
+  mPlayPause=new PlayPauseButton(context);
+  addView(mPlayPause,new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
+  mStop=new StopButton(context);
+  addView(mStop,new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
+}

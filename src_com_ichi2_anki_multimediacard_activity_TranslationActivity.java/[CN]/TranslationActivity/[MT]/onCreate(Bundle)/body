@@ -1,0 +1,48 @@
+{
+  super.onCreate(savedInstanceState);
+  if (savedInstanceState != null) {
+    boolean b=savedInstanceState.getBoolean(BUNDLE_KEY_SHUT_OFF,false);
+    if (b) {
+      finishCancel();
+      return;
+    }
+  }
+  setContentView(R.layout.activity_translation);
+  try {
+    mSource=getIntent().getExtras().getString(EXTRA_SOURCE).toString();
+  }
+ catch (  Exception e) {
+    mSource="";
+  }
+  mTranslation=mSource;
+  LinearLayout linearLayout=(LinearLayout)findViewById(R.id.MainLayoutInTranslationActivity);
+  TextView tv=new TextView(this);
+  tv.setText(getText(R.string.multimedia_editor_trans_poweredglosbe));
+  linearLayout.addView(tv);
+  TextView tvFrom=new TextView(this);
+  tvFrom.setText(getText(R.string.multimedia_editor_trans_from));
+  linearLayout.addView(tvFrom);
+  mLanguageLister=new LanguagesListerGlosbe(this);
+  mSpinnerFrom=new Spinner(this);
+  ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,mLanguageLister.getLanguages());
+  adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+  mSpinnerFrom.setAdapter(adapter);
+  linearLayout.addView(mSpinnerFrom);
+  TextView tvTo=new TextView(this);
+  tvTo.setText(getText(R.string.multimedia_editor_trans_to));
+  linearLayout.addView(tvTo);
+  mSpinnerTo=new Spinner(this);
+  ArrayAdapter<String> adapterTo=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,mLanguageLister.getLanguages());
+  adapterTo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+  mSpinnerTo.setAdapter(adapterTo);
+  linearLayout.addView(mSpinnerTo);
+  Button btnDone=new Button(this);
+  btnDone.setText(getText(R.string.multimedia_editor_trans_translate));
+  btnDone.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View v){
+      translate();
+    }
+  }
+);
+  linearLayout.addView(btnDone);
+}

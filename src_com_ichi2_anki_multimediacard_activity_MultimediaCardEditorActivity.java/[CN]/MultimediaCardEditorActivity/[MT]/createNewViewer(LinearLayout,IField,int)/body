@@ -1,0 +1,47 @@
+{
+  final MultimediaCardEditorActivity context=this;
+switch (field.getType()) {
+case TEXT:
+    TextView textView=new TextView(this);
+  textView.setText(field.getText());
+linearLayout.addView(textView,LinearLayout.LayoutParams.MATCH_PARENT);
+break;
+case IMAGE:
+ImageView imgView=new ImageView(this);
+LinearLayout.LayoutParams p=new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
+File f=new File(field.getImagePath());
+Bitmap b=BitmapUtil.decodeFile(f,getMaxImageSize());
+int currentapiVersion=android.os.Build.VERSION.SDK_INT;
+if (currentapiVersion >= android.os.Build.VERSION_CODES.ECLAIR) {
+b=ExifUtil.rotateFromCamera(f,b);
+}
+imgView.setImageBitmap(b);
+imgView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+imgView.setAdjustViewBounds(true);
+DisplayMetrics metrics=new DisplayMetrics();
+getWindowManager().getDefaultDisplay().getMetrics(metrics);
+int height=metrics.heightPixels;
+int width=metrics.widthPixels;
+imgView.setMaxHeight((int)Math.round(height * 0.6));
+imgView.setMaxWidth((int)Math.round(width * 0.7));
+linearLayout.addView(imgView,p);
+break;
+case AUDIO:
+AudioView audioView=AudioView.createPlayerInstance(this,R.drawable.av_play,R.drawable.av_pause,R.drawable.av_stop,field.getAudioPath());
+linearLayout.addView(audioView);
+break;
+default :
+Log.e("multimedia editor","Unsupported field type found");
+break;
+}
+Button editButtonText=new Button(this);
+editButtonText.setText(gtxt(R.string.multimedia_editor_activity_edit_button));
+linearLayout.addView(editButtonText,LinearLayout.LayoutParams.MATCH_PARENT);
+editButtonText.setOnClickListener(new View.OnClickListener(){
+@Override public void onClick(View v){
+Intent i=new Intent(context,EditFieldActivity.class);
+putExtrasAndStartEditActivity(field,index,i);
+}
+}
+);
+}

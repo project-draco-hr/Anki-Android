@@ -1,0 +1,6 @@
+{
+  dismissCarefullyProgressDialog();
+  progressDialog=ProgressDialog.show(this,gtxt(R.string.multimedia_editor_progress_wait_title),message,true,false);
+  progressDialog.setCancelable(true);
+  progressDialog.setOnCancelListener(this);
+}

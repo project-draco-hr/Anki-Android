@@ -1,0 +1,14 @@
+{
+  if (requestCode == REQUEST_CODE_EDIT_FIELD) {
+    if (resultCode == RESULT_OK) {
+      IField field=(IField)data.getSerializableExtra(EditFieldActivity.EXTRA_RESULT_FIELD);
+      int index=data.getIntExtra(EditFieldActivity.EXTRA_RESULT_FIELD_INDEX,-1);
+      if (index == -1) {
+        return;
+      }
+      mNote.setField(index,field);
+      createEditorUI(mNote);
+    }
+    super.onActivityResult(requestCode,resultCode,data);
+  }
+}

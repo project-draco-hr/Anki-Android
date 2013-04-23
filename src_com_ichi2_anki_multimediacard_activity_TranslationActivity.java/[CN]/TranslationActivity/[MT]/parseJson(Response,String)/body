@@ -1,0 +1,38 @@
+{
+  ArrayList<String> res=new ArrayList<String>();
+  List<Tuc> tucs=resp.getTuc();
+  if (tucs == null) {
+    return res;
+  }
+  for (  Tuc tuc : tucs) {
+    if (tuc == null) {
+      continue;
+    }
+    List<Meaning> meanings=tuc.getMeanings();
+    if (meanings != null) {
+      for (      Meaning meaning : meanings) {
+        if (meaning == null) {
+          continue;
+        }
+        if (meaning.getLanguage() == null) {
+          continue;
+        }
+        if (meaning.getLanguage().contentEquals(languageCodeTo)) {
+          String unescappedString=Unescaper.unescapeHTML(meaning.getText());
+          res.add(unescappedString);
+        }
+      }
+    }
+    Phrase phrase=tuc.getPhrase();
+    if (phrase != null) {
+      if (phrase.getLanguageCode() == null) {
+        continue;
+      }
+      if (phrase.getLanguageCode().contentEquals(languageCodeTo)) {
+        String unescappedString=Unescaper.unescapeHTML(phrase.getText());
+        res.add(unescappedString);
+      }
+    }
+  }
+  return res;
+}

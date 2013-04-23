@@ -1,0 +1,36 @@
+{
+  try {
+    mCol=AnkiDroidApp.getCol();
+    Intent callerIntent=getIntent();
+    long cardId=callerIntent.getLongExtra(EXTRA_CARD_ID,0);
+    if (cardId != 0) {
+      mCard=mCol.getCard(cardId);
+      mCurrentDid=mCard.getDid();
+      mEditorNote=mCard.note();
+      mCol.getModels().setCurrent(mEditorNote.model());
+      mNote=NoteService.createEmptyNote(mEditorNote.model());
+      NoteService.updateMultimediaNoteFromJsonNote(mEditorNote,mNote);
+      mAddNote=false;
+    }
+ else {
+      mCurrentDid=mCol.getDecks().current().getLong("id");
+      if (mCol.getDecks().isDyn(mCurrentDid)) {
+        mCurrentDid=1;
+      }
+      mAddNote=true;
+      JSONObject currentModel=mCol.getModels().current();
+      mNote=NoteService.createEmptyNote(currentModel);
+      if (mNote == null) {
+        Log.e("Multimedia Editor","Cannot create a Note");
+        throw new Exception("Could not create a not");
+      }
+      mEditorNote=new Note(mCol,currentModel);
+      mEditorNote.model().put("did",mCurrentDid);
+    }
+  }
+ catch (  Exception e) {
+    Log.e("Multimedia Editor",e.getMessage());
+    finishCancel();
+    return;
+  }
+}

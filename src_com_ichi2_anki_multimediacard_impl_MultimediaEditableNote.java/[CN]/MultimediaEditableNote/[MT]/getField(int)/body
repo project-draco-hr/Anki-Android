@@ -1,0 +1,6 @@
+{
+  if (index >= 0 && index < getNumberOfFields()) {
+    return getFieldsPrivate().get(index);
+  }
+  return null;
+}

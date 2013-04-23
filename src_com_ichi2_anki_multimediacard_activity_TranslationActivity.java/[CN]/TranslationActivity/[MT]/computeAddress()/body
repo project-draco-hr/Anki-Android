@@ -1,0 +1,16 @@
+{
+  String address="http://glosbe.com/gapi/translate?from=FROMLANG&dest=TOLANG&format=json&phrase=SOURCE&pretty=true";
+  String strFrom=mSpinnerFrom.getSelectedItem().toString();
+  String langCodeFrom=mLanguageLister.getCodeFor(strFrom);
+  String strTo=mSpinnerTo.getSelectedItem().toString();
+  mLangCodeTo=mLanguageLister.getCodeFor(strTo);
+  String query;
+  try {
+    query=URLEncoder.encode(mSource,"utf-8");
+  }
+ catch (  UnsupportedEncodingException e) {
+    query=mSource.replace(" ","%20");
+  }
+  address=address.replaceAll("FROMLANG",langCodeFrom).replaceAll("TOLANG",mLangCodeTo).replaceAll("SOURCE",query);
+  return address;
+}

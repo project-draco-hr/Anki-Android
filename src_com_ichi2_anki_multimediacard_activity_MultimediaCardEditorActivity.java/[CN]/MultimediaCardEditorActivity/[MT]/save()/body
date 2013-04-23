@@ -1,0 +1,22 @@
+{
+  NoteService.saveMedia((MultimediaEditableNote)mNote);
+  NoteService.updateJsonNoteFromMultimediaNote(mNote,mEditorNote);
+  TaskListener listener=new TaskListener(){
+    @Override public void onProgressUpdate(    TaskData... values){
+    }
+    @Override public void onPreExecute(){
+    }
+    @Override public void onPostExecute(    TaskData result){
+    }
+  }
+;
+  if (mAddNote) {
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ADD_FACT,listener,new DeckTask.TaskData(mEditorNote));
+  }
+ else {
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_FACT,listener,new DeckTask.TaskData(mCol.getSched(),mCard,false));
+  }
+  setResult(Activity.RESULT_OK);
+  finish();
+  animateRight();
+}

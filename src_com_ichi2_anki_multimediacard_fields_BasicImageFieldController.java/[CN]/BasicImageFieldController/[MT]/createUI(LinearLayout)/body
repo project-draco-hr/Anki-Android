@@ -1,0 +1,43 @@
+{
+  mImagePreview=new ImageView(mActivity);
+  DisplayMetrics metrics=getDisplayMetrics();
+  int height=metrics.heightPixels;
+  int width=metrics.widthPixels;
+  LinearLayout.LayoutParams p=new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT);
+  setPreviewImage(mField.getImagePath(),getMaxImageSize());
+  mImagePreview.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+  mImagePreview.setAdjustViewBounds(true);
+  mImagePreview.setMaxHeight((int)Math.round(height * 0.4));
+  mImagePreview.setMaxWidth((int)Math.round(width * 0.6));
+  mBtnGallery=new Button(mActivity);
+  mBtnGallery.setText(gtxt(R.string.multimedia_editor_image_field_editing_galery));
+  mBtnGallery.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      Intent i=new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+      mActivity.startActivityForResult(i,ACTIVITY_SELECT_IMAGE);
+    }
+  }
+);
+  mBtnCamera=new Button(mActivity);
+  mBtnCamera.setText(gtxt(R.string.multimedia_editor_image_field_editing_photo));
+  mBtnCamera.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      Intent cameraIntent=new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+      File image;
+      try {
+        image=File.createTempFile("ankidroid_img",".jpg");
+        mTempCameraImagePath=image.getPath();
+        Uri uriSavedImage=Uri.fromFile(image);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,uriSavedImage);
+        mActivity.startActivityForResult(cameraIntent,ACTIVITY_TAKE_PICTURE);
+      }
+ catch (      IOException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+);
+  layout.addView(mImagePreview,LinearLayout.LayoutParams.FILL_PARENT,p);
+  layout.addView(mBtnGallery,LinearLayout.LayoutParams.FILL_PARENT);
+  layout.addView(mBtnCamera,LinearLayout.LayoutParams.FILL_PARENT);
+}

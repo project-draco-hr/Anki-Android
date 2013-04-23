@@ -1,0 +1,14 @@
+{
+  String message=gtxt(R.string.multimedia_editor_searching_word);
+  showProgressDialog(message);
+  mTranslationAddress=computeAddressOfTranslationPage();
+  try {
+    mPostTranslation=new BackgroundPost();
+    mPostTranslation.setAddress(mTranslationAddress);
+    mPostTranslation.execute();
+  }
+ catch (  Exception e) {
+    progressDialog.dismiss();
+    showToast(gtxt(R.string.multimedia_editor_something_wrong));
+  }
+}
