@@ -1,4 +1,5 @@
 {
+  getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
   int maxLength=String.valueOf(mMax).length();
   InputFilter[] filters=getEditText().getFilters();
   InputFilter[] newFilters=new InputFilter[filters.length + 1];
