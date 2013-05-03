@@ -1,0 +1,13 @@
+{
+  if (TextUtils.isEmpty(input)) {
+    return mMin;
+  }
+ else {
+    try {
+      return getValidatedRangeFromInt(Integer.parseInt(input));
+    }
+ catch (    NumberFormatException e) {
+      return mMin;
+    }
+  }
+}

@@ -37,15 +37,6 @@ Intent intent=this.getIntent();
 setResult(DeckPicker.RESULT_RESTART,intent);
 closePreferences();
 }
- else if (Arrays.asList(mShowValueInSummList).contains(key)) {
-updateListPreference(key);
-}
- else if (Arrays.asList(mShowValueInSummSeek).contains(key)) {
-updateSeekBarPreference(key);
-}
- else if (Arrays.asList(mShowValueInSummEditText).contains(key)) {
-updateEditTextPreference(key);
-}
  else if (key.equals("writeAnswers") && sharedPreferences.getBoolean("writeAnswers",true)) {
 showDialog(DIALOG_WRITE_ANSWERS);
 }
@@ -98,8 +89,57 @@ showDialog(DIALOG_HEBREW_FONT);
 HebrewFixFilter.uninstall(AnkiDroidApp.getHooks());
 }
 }
+ else if (key.equals("showProgress")) {
+mCol.getConf().put("dueCounts",showProgress.isChecked());
+mCol.setMod();
+}
+ else if (key.equals("showEstimates")) {
+mCol.getConf().put("estTimes",showEstimates.isChecked());
+mCol.setMod();
+}
+ else if (key.equals("newSpread")) {
+mCol.getConf().put("newSpread",Integer.parseInt(newSpread.getValue()));
+mCol.setMod();
+}
+ else if (key.equals("timeLimit")) {
+mCol.getConf().put("timeLim",timeLimit.getValue() * 60);
+mCol.setMod();
+}
+ else if (key.equals("learnCutoff")) {
+mCol.getConf().put("collapseTime",learnCutoff.getValue() * 60);
+mCol.setMod();
+}
+ else if (key.equals("useCurrent")) {
+mCol.getConf().put("addToCur",useCurrent.getValue().equals("0") ? true : false);
+mCol.setMod();
+}
+ else if (key.equals("dayOffset")) {
+int hours=dayOffset.getValue();
+Calendar date=(Calendar)mStartDate.clone();
+date.set(Calendar.HOUR_OF_DAY,hours);
+mCol.setCrt(date.getTimeInMillis() / 1000);
+mCol.setMod();
+}
+if (Arrays.asList(mShowValueInSummList).contains(key)) {
+updateListPreference(key);
+}
+ else if (Arrays.asList(mShowValueInSummSeek).contains(key)) {
+updateSeekBarPreference(key);
+}
+ else if (Arrays.asList(mShowValueInSummEditText).contains(key)) {
+updateEditTextPreference(key);
+}
+ else if (Arrays.asList(mShowValueInSummNumRange).contains(key)) {
+updateNumberRangePreference(key);
+}
 }
  catch (BadTokenException e) {
 Log.e(AnkiDroidApp.TAG,"Preferences: BadTokenException on showDialog: " + e);
+}
+catch (NumberFormatException e) {
+throw new RuntimeException();
+}
+catch (JSONException e) {
+throw new RuntimeException();
 }
 }

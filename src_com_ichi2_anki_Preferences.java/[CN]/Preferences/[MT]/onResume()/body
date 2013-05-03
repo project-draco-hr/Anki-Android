@@ -1,5 +1,6 @@
 {
   super.onResume();
+  getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
   String username=preferences.getString("username","");
   if (TextUtils.isEmpty(username)) {

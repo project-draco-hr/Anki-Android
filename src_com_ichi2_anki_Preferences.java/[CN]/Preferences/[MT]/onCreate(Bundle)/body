@@ -3,10 +3,10 @@
     Themes.applyTheme(this,Themes.THEME_ANDROID_DARK);
   }
   super.onCreate(savedInstanceState);
+  mCol=AnkiDroidApp.getCol();
   mPrefMan=getPreferenceManager();
   mPrefMan.setSharedPreferencesName(AnkiDroidApp.SHARED_PREFS_NAME);
   addPreferencesFromResource(R.xml.preferences);
-  getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
   swipeCheckboxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("swipe");
   zoomCheckboxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("zoom");
   keepScreenOnCheckBoxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("keepScreenOn");
@@ -19,9 +19,46 @@
   convertFenText=(CheckBoxPreference)getPreferenceScreen().findPreference("convertFenText");
   fixHebrewText=(CheckBoxPreference)getPreferenceScreen().findPreference("fixHebrewText");
   syncAccount=(Preference)getPreferenceScreen().findPreference("syncAccount");
+  showEstimates=(CheckBoxPreference)getPreferenceScreen().findPreference("showEstimates");
+  showProgress=(CheckBoxPreference)getPreferenceScreen().findPreference("showProgress");
+  learnCutoff=(NumberRangePreference)getPreferenceScreen().findPreference("learnCutoff");
+  timeLimit=(NumberRangePreference)getPreferenceScreen().findPreference("timeLimit");
+  useCurrent=(ListPreference)getPreferenceScreen().findPreference("useCurrent");
+  newSpread=(ListPreference)getPreferenceScreen().findPreference("newSpread");
+  dayOffset=(SeekBarPreference)getPreferenceScreen().findPreference("dayOffset");
   zoomCheckboxPreference.setEnabled(!swipeCheckboxPreference.isChecked());
   initializeLanguageDialog();
   initializeCustomFontsDialog();
+  if (mCol != null) {
+    mStartDate=GregorianCalendar.getInstance();
+    Timestamp timestamp=new Timestamp(mCol.getCrt() * 1000);
+    mStartDate.setTimeInMillis(timestamp.getTime());
+    dayOffset.setValue(mStartDate.get(Calendar.HOUR_OF_DAY));
+    try {
+      JSONObject conf=mCol.getConf();
+      learnCutoff.setValue(conf.getInt("collapseTime") / 60);
+      timeLimit.setValue(conf.getInt("timeLim") / 60);
+      showEstimates.setChecked(conf.getBoolean("estTimes"));
+      showProgress.setChecked(conf.getBoolean("dueCounts"));
+      newSpread.setValueIndex(conf.getInt("newSpread"));
+      useCurrent.setValueIndex(conf.getBoolean("addToCur") ? 0 : 1);
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException();
+    }
+catch (    NumberFormatException e) {
+      throw new RuntimeException();
+    }
+  }
+ else {
+    dayOffset.setEnabled(false);
+    learnCutoff.setEnabled(false);
+    timeLimit.setEnabled(false);
+    showEstimates.setEnabled(false);
+    showProgress.setEnabled(false);
+    newSpread.setEnabled(false);
+    useCurrent.setEnabled(false);
+  }
   for (  String key : mShowValueInSummList) {
     updateListPreference(key);
   }
@@ -30,6 +67,9 @@
   }
   for (  String key : mShowValueInSummEditText) {
     updateEditTextPreference(key);
+  }
+  for (  String key : mShowValueInSummNumRange) {
+    updateNumberRangePreference(key);
   }
   if (AnkiDroidApp.SDK_VERSION <= 4) {
     fadeScrollbars.setChecked(false);

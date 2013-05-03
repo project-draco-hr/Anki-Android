@@ -1,0 +1,22 @@
+{
+  NumberRangePreference numPref=(NumberRangePreference)getPreferenceScreen().findPreference(key);
+  try {
+    String value=Integer.toString(numPref.getValue());
+    if (mListsToUpdate.containsKey(key)) {
+      numPref.setSummary(replaceString(mListsToUpdate.get(key),value));
+    }
+ else {
+      String oldSum=(String)numPref.getSummary();
+      if (oldSum.contains("XXX")) {
+        mListsToUpdate.put(key,oldSum);
+        numPref.setSummary(replaceString(oldSum,value));
+      }
+ else {
+        numPref.setSummary(value);
+      }
+    }
+  }
+ catch (  NullPointerException e) {
+    Log.e(AnkiDroidApp.TAG,"Exception when updating NumberRangePreference: " + e);
+  }
+}
