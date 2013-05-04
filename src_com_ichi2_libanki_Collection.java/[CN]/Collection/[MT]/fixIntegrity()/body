@@ -51,6 +51,11 @@
         mDb.execute("UPDATE cards SET due = 0, mod = " + Utils.intNow() + ", usn = "+ usn()+ " WHERE id IN "+ Utils.ids2str(Utils.arrayList2array(ids)));
       }
       mDb.getDatabase().setTransactionSuccessful();
+      int ixs=mDb.queryScalar("select count(name) from sqlite_master where type = 'index'");
+      if (ixs < 7) {
+        problems.add("Indices were missing.");
+        Storage.addIndices(mDb);
+      }
     }
  catch (    JSONException e) {
       throw new RuntimeException(e);
