@@ -1,0 +1,8 @@
+{
+  assertEquals("\"",HtmlUtil.unescape("&quot;"));
+  assertEquals("&",HtmlUtil.unescape("&amp;"));
+  assertEquals("<",HtmlUtil.unescape("&lt;"));
+  assertEquals(">",HtmlUtil.unescape("&gt;"));
+  assertEquals("??",HtmlUtil.unescape("&euml;"));
+  assertEquals("\u039B",HtmlUtil.unescape("&Lambda;"));
+}
