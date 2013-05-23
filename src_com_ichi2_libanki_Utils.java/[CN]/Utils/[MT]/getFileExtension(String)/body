@@ -1,0 +1,7 @@
+{
+  int dotPosition=filename.lastIndexOf('.');
+  if (dotPosition == -1) {
+    return "";
+  }
+  return filename.substring(dotPosition);
+}
