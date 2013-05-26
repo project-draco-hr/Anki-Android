@@ -1,5 +1,11 @@
 {
   if (mClipboard != null) {
-    mClipboard.setText(text);
+    try {
+      mClipboard.setText(text);
+    }
+ catch (    NullPointerException e) {
+      Log.e(AnkiDroidApp.TAG,"Clipboard error. Disabling text selection setting.");
+      AnkiDroidApp.getSharedPrefs(getBaseContext()).edit().putBoolean("textSelection",false).commit();
+    }
   }
 }
