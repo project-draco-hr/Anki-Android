@@ -9,4 +9,13 @@
     mButtonCongratsUndo.setText(res.getString(R.string.studyoptions_congrats_undo,AnkiDroidApp.getCol().undoName(res)));
   }
   mTextCongratsMessage.setText(AnkiDroidApp.getCol().getSched().finishedMsg(getActivity()));
+  try {
+    if (AnkiDroidApp.getCol().getDecks().current().getInt("dyn") == 1) {
+      mButtonCongratsCustomStudy.setEnabled(false);
+      mButtonCongratsCustomStudy.setVisibility(View.GONE);
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException();
+  }
 }
