@@ -1,0 +1,8 @@
+{
+  for (int i=0; i < mDeckList.size(); i++) {
+    if (Long.parseLong(mDeckList.get(i).get("did")) == did) {
+      mDeckListView.setItemChecked(i,true);
+      break;
+    }
+  }
+}
