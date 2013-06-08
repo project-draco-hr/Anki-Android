@@ -35,6 +35,9 @@
       ar.getJSONArray(0).put(2,terms[2]);
       dyn.put("resched",resched);
       if (mFragmented) {
+        Bundle config=new Bundle();
+        config.putString("searchSuffix","'deck:" + dyn.getString("name") + "'");
+        initAllContentViews(getLayoutInflater(config));
         finishCongrats();
       }
  else {
