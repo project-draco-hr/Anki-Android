@@ -1,7 +1,29 @@
 {
   JSONArray ja=new JSONArray();
-  for (  String s : TextUtils.split(steps," ")) {
-    ja.put(s);
+  steps=steps.trim();
+  if (TextUtils.isEmpty(steps)) {
+    return ja;
+  }
+  try {
+    for (    String s : steps.split("\\s+")) {
+      float f=Float.parseFloat(s);
+      if (f <= 0) {
+        return null;
+      }
+      int i=(int)f;
+      if (i == f) {
+        ja.put(i);
+      }
+ else {
+        ja.put(f);
+      }
+    }
+  }
+ catch (  NumberFormatException e) {
+    return null;
+  }
+catch (  JSONException e) {
+    return null;
   }
   return ja;
 }

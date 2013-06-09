@@ -1,25 +1,18 @@
 {
-  if (TextUtils.isEmpty(steps)) {
-    return "";
+  JSONArray ja=convertToJSON(steps);
+  if (ja == null) {
+    return null;
   }
-  StringBuilder sb=new StringBuilder();
-  for (  String s : steps.split("\\s+")) {
-    try {
-      float f=Float.parseFloat(s);
-      if (f <= 0 || Float.isInfinite(f)) {
-        return null;
-      }
-      int i=(int)f;
-      if (i == f) {
-        sb.append(i).append(" ");
-      }
  else {
-        sb.append(f).append(" ");
+    StringBuilder sb=new StringBuilder();
+    try {
+      for (int i=0; i < ja.length(); i++) {
+        sb.append(ja.getString(i)).append(" ");
       }
+      return sb.toString().trim();
     }
- catch (    NumberFormatException e) {
-      return null;
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
     }
   }
-  return sb.toString().trim();
 }
