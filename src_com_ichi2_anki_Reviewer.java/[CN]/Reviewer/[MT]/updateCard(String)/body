@@ -20,6 +20,9 @@
     content=question + answer;
     content=content.replace("font-weight:600;","font-weight:700;");
     String cardClass="card card" + (mCurrentCard.getOrd() + 1);
+    if (mPrefCenterVertically) {
+      cardClass+=" vertically_centered";
+    }
     Log.i(AnkiDroidApp.TAG,"content card = \n" + content);
     StringBuilder style=new StringBuilder();
     style.append(mCustomFontStyle);
