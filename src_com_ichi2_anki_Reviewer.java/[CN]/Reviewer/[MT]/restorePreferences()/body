@@ -9,7 +9,6 @@
   mInvertedColors=mNightMode;
   mBlackWhiteboard=preferences.getBoolean("blackWhiteboard",true);
   mPrefFullscreenReview=preferences.getBoolean("fullscreenReview",false);
-  mshowNextReviewTime=preferences.getBoolean("showNextReviewTime",true);
   mZoomEnabled=preferences.getBoolean("zoom",false);
   mDisplayFontSize=preferences.getInt("relativeDisplayFontSize",100);
   mRelativeButtonSize=preferences.getInt("answerButtonSize",100);
@@ -71,6 +70,13 @@
         mSimpleInterfaceExcludeTags.add(t);
       }
     }
+  }
+  try {
+    mShowNextReviewTime=AnkiDroidApp.getCol().getConf().getBoolean("estTimes");
+    mShowRemainingCardCount=AnkiDroidApp.getCol().getConf().getBoolean("dueCounts");
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException();
   }
   return preferences;
 }

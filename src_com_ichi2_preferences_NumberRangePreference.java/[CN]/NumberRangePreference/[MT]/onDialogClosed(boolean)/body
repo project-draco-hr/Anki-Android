@@ -1,6 +1,6 @@
 {
   if (positiveResult) {
-    String validated=getValidatedRange(getEditText().getText().toString());
-    setText(validated);
+    int validated=getValidatedRangeFromString(getEditText().getText().toString());
+    setValue(validated);
   }
 }

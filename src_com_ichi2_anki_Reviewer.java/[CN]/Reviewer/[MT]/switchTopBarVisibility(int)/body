@@ -5,8 +5,10 @@
   if (mShowProgressBars) {
     switchVisibility(mProgressBars,visible,true);
   }
-  switchVisibility(mTextBarRed,visible,true);
-  switchVisibility(mTextBarBlack,visible,true);
-  switchVisibility(mTextBarBlue,visible,true);
+  if (mShowRemainingCardCount) {
+    switchVisibility(mTextBarRed,visible,true);
+    switchVisibility(mTextBarBlack,visible,true);
+    switchVisibility(mTextBarBlue,visible,true);
+  }
   switchVisibility(mChosenAnswer,visible,true);
 }

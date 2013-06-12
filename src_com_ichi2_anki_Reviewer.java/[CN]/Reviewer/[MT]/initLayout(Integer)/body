@@ -51,7 +51,7 @@
   mNext4=(TextView)findViewById(R.id.nextTime4);
   mNext1.setTextColor(res.getColor(R.color.next_time_failed_color));
   mNext2.setTextColor(res.getColor(R.color.next_time_usual_color));
-  if (!mshowNextReviewTime) {
+  if (!mShowNextReviewTime) {
     ((TextView)findViewById(R.id.nextTimeflip)).setVisibility(View.GONE);
     mNext1.setVisibility(View.GONE);
     mNext2.setVisibility(View.GONE);
@@ -64,6 +64,11 @@
   mTextBarRed=(TextView)findViewById(R.id.red_number);
   mTextBarBlack=(TextView)findViewById(R.id.black_number);
   mTextBarBlue=(TextView)findViewById(R.id.blue_number);
+  if (!mShowRemainingCardCount) {
+    mTextBarRed.setVisibility(View.GONE);
+    mTextBarBlack.setVisibility(View.GONE);
+    mTextBarBlue.setVisibility(View.GONE);
+  }
   if (mShowProgressBars) {
     mSessionProgressTotalBar=(View)findViewById(R.id.daily_bar);
     mSessionProgressBar=(View)findViewById(R.id.session_progress);

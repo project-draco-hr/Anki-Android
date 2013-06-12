@@ -1,8 +1,10 @@
 {
   mCardFrame.setVisibility(View.VISIBLE);
-  mTextBarRed.setVisibility(View.VISIBLE);
-  mTextBarBlack.setVisibility(View.VISIBLE);
-  mTextBarBlue.setVisibility(View.VISIBLE);
+  if (mShowRemainingCardCount) {
+    mTextBarRed.setVisibility(View.VISIBLE);
+    mTextBarBlack.setVisibility(View.VISIBLE);
+    mTextBarBlue.setVisibility(View.VISIBLE);
+  }
   mChosenAnswer.setVisibility(View.VISIBLE);
   mFlipCardLayout.setVisibility(View.VISIBLE);
   if (mPrefWhiteboard) {
