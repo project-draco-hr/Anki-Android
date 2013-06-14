@@ -29,6 +29,7 @@
     Log.i(AnkiDroidApp.TAG,"::style::" + style);
     if (mNightMode) {
       content=HtmlColors.invertColors(content);
+      cardClass+=" night_mode";
     }
     content=SmpToHtmlEntity(content);
     mCardContent=new SpannedString(mCardTemplate.replace("::content::",content).replace("::style::",style.toString()).replace("::class::",cardClass));
