@@ -1,0 +1,4 @@
+{
+  assertEquals("??",HtmlUtil.unescape("<b>&#235;</b>"));
+  assertEquals("??",HtmlUtil.unescape("<a href='http://www.example.com/'>&#235;</a>"));
+}

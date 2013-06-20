@@ -1,0 +1,8 @@
+{
+  assertEquals("&",HtmlUtil.unescape("&#38;"));
+  assertEquals("<",HtmlUtil.unescape("&#60;"));
+  assertEquals(">",HtmlUtil.unescape("&#62;"));
+  assertEquals("A",HtmlUtil.unescape("&#65;"));
+  assertEquals("??",HtmlUtil.unescape("&#235;"));
+  assertEquals("\u039B",HtmlUtil.unescape("&#923;"));
+}
