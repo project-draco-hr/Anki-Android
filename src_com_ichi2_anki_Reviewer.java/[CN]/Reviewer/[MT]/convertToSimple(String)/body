@@ -1,4 +1,3 @@
 {
-  text=text.replaceAll("</div>$","").replaceAll("(</div>)*<div>","<br>");
   return Html.fromHtml(text,mSimpleInterfaceImagegetter,mSimpleInterfaceTagHandler);
 }
