@@ -1,7 +1,7 @@
 {
   publishProgress(false,0,0,false);
   try {
-    String tempDir=AnkiDroidApp.getCurrentAnkiDroidDirectory() + "/tmpzip";
+    String tempDir=AnkiDroidApp.getCurrentAnkiDroidDirectory() + "/tmpzip-" + UUID.randomUUID().toString();
     String colFile=tempDir + "/collection.anki2";
     if (!Utils.unzipFiles(mZip,tempDir,new String[]{"collection.anki2","media"},null) || !(new File(colFile)).exists() || !Storage.Collection(colFile).validCollection()) {
       return -2;
