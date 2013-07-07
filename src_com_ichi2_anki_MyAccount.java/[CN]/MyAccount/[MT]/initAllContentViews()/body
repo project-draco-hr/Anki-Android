@@ -36,6 +36,8 @@
   mPassword1=(EditText)mRegisterView.findViewById(R.id.password1);
   mUsername2=(EditText)mRegisterView.findViewById(R.id.username2);
   mPassword2=(EditText)mRegisterView.findViewById(R.id.password2);
+  TextView terms=(TextView)mRegisterView.findViewById(R.id.terms_link);
+  terms.setMovementMethod(LinkMovementMethod.getInstance());
   Button registerButton=(Button)mRegisterView.findViewById(R.id.register_button);
   registerButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View v){
