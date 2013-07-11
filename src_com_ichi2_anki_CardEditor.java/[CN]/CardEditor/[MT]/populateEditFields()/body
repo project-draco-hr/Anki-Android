@@ -16,14 +16,11 @@
     TextView label=newTextbox.getLabel();
     label.setTextColor(Color.BLACK);
     label.setPadding((int)UIUtils.getDensityAdjustedValue(this,3.4f),0,0,0);
-    ImageView circle=newTextbox.getCircle();
     mEditFields.add(newTextbox);
     FrameLayout frame=new FrameLayout(this);
     FrameLayout.LayoutParams params=new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT,Gravity.RIGHT | Gravity.CENTER_VERTICAL);
     params.rightMargin=10;
-    circle.setLayoutParams(params);
     frame.addView(newTextbox);
-    frame.addView(circle);
     mFieldsLayoutContainer.addView(label);
     mFieldsLayoutContainer.addView(frame);
   }
