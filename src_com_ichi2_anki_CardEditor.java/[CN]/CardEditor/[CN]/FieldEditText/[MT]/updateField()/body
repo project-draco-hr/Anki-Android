@@ -1,9 +1,5 @@
 {
-  if (mCutMode) {
-    updateContentAfterWordSelection(FieldEditText.this.getText());
-  }
   String newValue=this.getText().toString().replace(NEW_LINE,"<br>");
-  ;
   if (!mEditorNote.values()[mOrd].equals(newValue)) {
     mEditorNote.values()[mOrd]=newValue;
     return true;

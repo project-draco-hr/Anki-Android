@@ -2,7 +2,6 @@
   super(context);
   mOrd=ord;
   mName=value[0];
-  mContext=context;
   String content=value[1];
   if (content == null) {
     content="";
@@ -17,14 +16,6 @@
     this.setText(content);
   }
   this.setMinimumWidth(400);
-  this.setOnClickListener(new View.OnClickListener(){
-    @Override public void onClick(    View v){
-      if (mCutMode) {
-        updateSpannables();
-      }
-    }
-  }
-);
   if (ord == 0) {
     this.addTextChangedListener(new TextWatcher(){
       @Override public void afterTextChanged(      Editable arg0){
