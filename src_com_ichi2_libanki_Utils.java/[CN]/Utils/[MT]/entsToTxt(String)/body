@@ -1,4 +1,5 @@
 {
+  html=html.replace("&nbsp;"," ");
   Matcher htmlEntities=htmlEntitiesPattern.matcher(html);
   StringBuffer sb=new StringBuffer();
   while (htmlEntities.find()) {
