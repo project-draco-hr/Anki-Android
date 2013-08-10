@@ -1,5 +1,5 @@
 {
-  Intent intent=new Intent(getActivity(),MultimediaCardEditorActivity.class);
+  Intent intent=new Intent(getActivity(),CardEditor.class);
   intent.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_STUDYOPTIONS);
   startActivityForResult(intent,ADD_NOTE);
   animateLeft();
