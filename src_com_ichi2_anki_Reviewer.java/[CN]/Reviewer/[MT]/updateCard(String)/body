@@ -26,6 +26,9 @@
     Log.i(AnkiDroidApp.TAG,"content card = \n" + content);
     StringBuilder style=new StringBuilder();
     style.append(mCustomFontStyle);
+    if (mRelativeImageSize != 100) {
+      style.append(String.format("img { zoom: %s }\n",mRelativeImageSize / 100.0));
+    }
     Log.i(AnkiDroidApp.TAG,"::style::" + style);
     if (mNightMode) {
       content=HtmlColors.invertColors(content);
