@@ -43,7 +43,17 @@
  else {
     if (!preferences.getString("lastUpgradeVersion","").equals(AnkiDroidApp.getPkgVersion())) {
       preferences.edit().putString("lastUpgradeVersion",AnkiDroidApp.getPkgVersion()).commit();
-      loadCollection();
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_OPEN_COLLECTION,new Listener(){
+        @Override public void onPostExecute(        DeckTask task,        TaskData result){
+          mOpenCollectionHandler.onPostExecute(result);
+          integrityCheck();
+        }
+        @Override public void onPreExecute(        DeckTask task){
+        }
+        @Override public void onProgressUpdate(        DeckTask task,        TaskData... values){
+        }
+      }
+,new DeckTask.TaskData(AnkiDroidApp.getCollectionPath()));
     }
  else {
       loadCollection();
