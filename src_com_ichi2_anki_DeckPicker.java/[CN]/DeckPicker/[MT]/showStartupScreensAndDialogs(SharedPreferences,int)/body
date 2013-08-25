@@ -41,26 +41,19 @@
     showDialog(DIALOG_IMPORT);
   }
  else {
-    if (!preferences.getString("lastUpgradeVersion","").equals(AnkiDroidApp.getPkgVersion()) && (new File(AnkiDroidApp.getCurrentAnkiDroidDirectory()).listFiles(new OldAnkiDeckFilter()).length) > 0) {
-      StyledDialog.Builder builder=new StyledDialog.Builder(DeckPicker.this);
-      builder.setTitle(R.string.deck_upgrade_title);
-      builder.setIcon(R.drawable.ic_dialog_alert);
-      builder.setMessage(R.string.deck_upgrade_already_upgraded);
-      builder.setPositiveButton(R.string.yes,new DialogInterface.OnClickListener(){
-        @Override public void onClick(        DialogInterface dialog,        int which){
-          restartUpgradeProcess();
+    if (!preferences.getString("lastUpgradeVersion","").equals(AnkiDroidApp.getPkgVersion())) {
+      preferences.edit().putString("lastUpgradeVersion",AnkiDroidApp.getPkgVersion()).commit();
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_OPEN_COLLECTION,new Listener(){
+        @Override public void onPostExecute(        DeckTask task,        TaskData result){
+          mOpenCollectionHandler.onPostExecute(result);
+          integrityCheck();
+        }
+        @Override public void onPreExecute(        DeckTask task){
+        }
+        @Override public void onProgressUpdate(        DeckTask task,        TaskData... values){
         }
       }
-);
-      builder.setCancelable(false);
-      builder.setNegativeButton(R.string.no,new DialogInterface.OnClickListener(){
-        @Override public void onClick(        DialogInterface dialog,        int which){
-          AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).edit().putString("lastUpgradeVersion",AnkiDroidApp.getPkgVersion()).commit();
-          loadCollection();
-        }
-      }
-);
-      builder.show();
+,new DeckTask.TaskData(AnkiDroidApp.getCollectionPath()));
     }
  else {
       loadCollection();
