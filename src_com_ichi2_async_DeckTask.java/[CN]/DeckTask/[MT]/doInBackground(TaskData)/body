@@ -16,6 +16,9 @@
 catch (    ExecutionException e) {
       Log.e(AnkiDroidApp.TAG,"previously running task failed with exception: " + mPreviousTask.mType,e);
     }
+catch (    CancellationException e) {
+      Log.e(AnkiDroidApp.TAG,"previously running task was cancelled: " + mPreviousTask.mType,e);
+    }
   }
 switch (mType) {
 case TASK_TYPE_OPEN_COLLECTION:
