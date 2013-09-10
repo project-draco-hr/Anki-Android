@@ -1,8 +1,4 @@
 {
-  if (mClipboard != null) {
-    return mClipboard.getText();
-  }
- else {
-    return "";
-  }
+  CharSequence text=mClipboard != null ? mClipboard.getText() : null;
+  return text != null ? text : "";
 }
