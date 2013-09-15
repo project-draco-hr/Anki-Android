@@ -1,0 +1,28 @@
+{
+  if (!sKanjiInfo.isEmpty()) {
+    return;
+  }
+  File file;
+  InputStream is;
+  is=this.getResources().openRawResource(R.raw.kanji_info);
+  BufferedReader reader=new BufferedReader(new InputStreamReader(is));
+  String line;
+  try {
+    while (reader.ready()) {
+      line=reader.readLine();
+      if (line.length() == 0 || line.startsWith("#")) {
+        continue;
+      }
+      try {
+        String[] kanjiInfoPair=line.split(" ",2);
+        sKanjiInfo.put(kanjiInfoPair[0],kanjiInfoPair[1]);
+      }
+ catch (      IndexOutOfBoundsException e) {
+        Log.i(AnkiDroidApp.TAG,"Malformed entry in kanji_info.txt: " + line);
+      }
+    }
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+}

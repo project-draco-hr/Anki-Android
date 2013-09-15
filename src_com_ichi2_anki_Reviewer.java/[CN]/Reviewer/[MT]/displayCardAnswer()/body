@@ -7,6 +7,9 @@
   setFlipCardAnimation();
   String answer=mCurrentCard.getAnswer(mCurrentSimpleInterface);
   answer=typeAnsAnswerFilter(answer);
+  if (mDisplayKanjiInfo) {
+    answer=answer + addKanjiInfo(mCurrentCard.getQuestion(mCurrentSimpleInterface));
+  }
   String displayString="";
   if (mCurrentSimpleInterface) {
     mCardContent=convertToSimple(answer);

@@ -24,6 +24,7 @@
   mWaitQuestionSecond=preferences.getInt("timeoutQuestionSeconds",60);
   mScrollingButtons=preferences.getBoolean("scrolling_buttons",false);
   mDoubleScrolling=preferences.getBoolean("double_scrolling",false);
+  mDisplayKanjiInfo=preferences.getBoolean("displayKanjiInfo",false);
   mPrefCenterVertically=preferences.getBoolean("centerVertically",false);
   mGesturesEnabled=AnkiDroidApp.initiateGestures(this,preferences);
   if (mGesturesEnabled) {

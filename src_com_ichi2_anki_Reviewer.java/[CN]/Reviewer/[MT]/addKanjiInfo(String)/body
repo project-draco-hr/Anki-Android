@@ -1,0 +1,13 @@
+{
+  loadKanjiInfo();
+  String kanjiInfo;
+  kanjiInfo="\n\n<br/><br/><table style=\"color: #000000; background-color: #FFFFFF\">\n";
+  for (int i=0; i < answer.length(); i++) {
+    String chr=(answer.substring(i,i + 1));
+    if (sKanjiInfo.containsKey(chr)) {
+      kanjiInfo=kanjiInfo + "<tr><td>" + chr+ "</td><td>"+ sKanjiInfo.get(chr)+ "</td></tr>\n";
+    }
+  }
+  kanjiInfo=kanjiInfo + "</table>\n";
+  return kanjiInfo;
+}
