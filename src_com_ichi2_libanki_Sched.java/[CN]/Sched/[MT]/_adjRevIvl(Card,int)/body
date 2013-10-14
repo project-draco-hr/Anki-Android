@@ -1,5 +1,5 @@
 {
-  if (getSpreadRev()) {
+  if (mSpreadRev) {
     idealIvl=_fuzzedIvl(idealIvl);
   }
   int idealDue=mToday + idealIvl;
