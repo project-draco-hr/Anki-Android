@@ -1,5 +1,5 @@
 {
-  TreeSet<Object[]> decks=deckDueTree(0);
+  TreeSet<Object[]> decks=deckDueTree();
   int[] counts=new int[]{0,0,0};
   for (  Object[] deck : decks) {
     if (((String[])deck[0]).length == 1) {

@@ -10,7 +10,7 @@
     for (    JSONObject deck : decks) {
       if (lims.containsKey(deck.getString("name"))) {
         mCol.getDecks().rem(deck.getLong("id"),false,true);
-        return deckDueList(counts);
+        return deckDueList();
       }
       String p;
       String[] parts=deck.getString("name").split("::");
@@ -31,7 +31,7 @@
       if (p.length() > 0) {
         if (!lims.containsKey(p)) {
           mCol.getDecks().rem(deck.getLong("id"),false,true);
-          return deckDueList(counts);
+          return deckDueList();
         }
         nlim=Math.min(nlim,lims.get(p)[0]);
       }
