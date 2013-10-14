@@ -1,0 +1,5 @@
+{
+  long[] nonNew=Utils.arrayList2array(mCol.getDb().queryColumn(Long.class,String.format(Locale.US,"select id from cards where id in %s and (queue != 0 or type != 0)",Utils.ids2str(ids)),0));
+  mCol.getDb().execute("update cards set reps=0, lapses=0 where id in " + Utils.ids2str(nonNew));
+  forgetCards(nonNew);
+}
