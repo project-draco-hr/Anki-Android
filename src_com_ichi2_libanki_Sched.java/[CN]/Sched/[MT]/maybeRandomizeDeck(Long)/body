@@ -1,0 +1,14 @@
+{
+  if (did == null) {
+    did=mCol.getDecks().selected();
+  }
+  JSONObject conf=mCol.getDecks().confForDid(did);
+  try {
+    if (conf.getJSONObject("new").getInt("order") == NEW_CARDS_RANDOM) {
+      randomizeCards(did);
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}
