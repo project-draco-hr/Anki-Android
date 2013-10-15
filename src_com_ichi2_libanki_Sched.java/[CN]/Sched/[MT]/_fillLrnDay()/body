@@ -12,7 +12,7 @@
     try {
       cur=mCol.getDb().getDatabase().rawQuery("SELECT id FROM cards WHERE did = " + did + " AND queue = 3 AND due <= "+ mToday+ " LIMIT "+ mQueueLimit,null);
       while (cur.moveToNext()) {
-        mLrnDayQueue.add(new long[]{cur.getLong(0)});
+        mLrnDayQueue.add(cur.getLong(0));
       }
     }
   finally {

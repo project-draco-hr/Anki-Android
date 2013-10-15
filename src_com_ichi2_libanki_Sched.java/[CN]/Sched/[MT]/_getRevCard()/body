@@ -1,7 +1,7 @@
 {
   if (_fillRev()) {
     mRevCount-=1;
-    return mCol.getCard(mRevQueue.remove()[0]);
+    return mCol.getCard(mRevQueue.remove());
   }
  else {
     return null;
