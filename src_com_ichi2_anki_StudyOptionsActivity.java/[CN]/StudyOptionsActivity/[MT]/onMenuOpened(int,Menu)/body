@@ -1,5 +1,5 @@
 {
-  if (mInvalidateMenu) {
+  if (menu != null && mInvalidateMenu) {
     menu.clear();
     onCreateOptionsMenu(menu);
     mInvalidateMenu=false;
