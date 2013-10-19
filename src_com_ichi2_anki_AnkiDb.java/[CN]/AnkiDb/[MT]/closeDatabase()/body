@@ -1,6 +1,6 @@
 {
   if (mDatabase != null) {
-    queryString("PRAGMA journal_mode = DELETE");
+    setDeleteJournalMode();
     mDatabase.close();
     Log.i(AnkiDroidApp.TAG,"AnkiDb - closeDatabase, database " + mDatabase.getPath() + " closed = "+ !mDatabase.isOpen());
     mDatabase=null;

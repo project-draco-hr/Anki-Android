@@ -1,0 +1,13 @@
+{
+  try {
+    SQLiteDatabase db=getDatabase();
+    if (db.inTransaction()) {
+      db.endTransaction();
+    }
+    db.disableWriteAheadLogging();
+  }
+ catch (  Exception e) {
+    Log.e(AnkiDroidApp.TAG,"AnkiDb - setDeleteJournalMode, attempting to proceed after following exception: " + e);
+  }
+  queryString("PRAGMA journal_mode = DELETE");
+}

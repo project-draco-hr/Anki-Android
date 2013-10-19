@@ -20,7 +20,6 @@
       String deckPath=f.getAbsolutePath();
       try {
         AnkiDb d=AnkiDatabaseManager.getDatabase(deckPath);
-        d.queryString("PRAGMA journal_mode = DELETE");
       }
  catch (      SQLiteDatabaseCorruptException e) {
         corruptFiles.add(f.getName());

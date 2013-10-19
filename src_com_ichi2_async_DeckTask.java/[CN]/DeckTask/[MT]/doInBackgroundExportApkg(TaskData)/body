@@ -8,7 +8,6 @@
   try {
     try {
       AnkiDb d=AnkiDatabaseManager.getDatabase(colPath);
-      d.queryString("PRAGMA journal_mode = DELETE");
     }
  catch (    SQLiteDatabaseCorruptException e) {
       return new TaskData(false);

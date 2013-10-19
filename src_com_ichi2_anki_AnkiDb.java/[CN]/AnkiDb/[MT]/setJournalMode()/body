@@ -1,12 +1,8 @@
 {
-  String journalMode="WAL";
-  if (AnkiDroidApp.SDK_VERSION <= 10) {
-    journalMode="DELETE";
+  if (AnkiDroidApp.SDK_VERSION >= 11) {
+    queryString("PRAGMA journal_mode = WAL");
   }
- else   if (android.os.Build.BRAND.equals("NOOK")) {
-    if (android.os.Build.MODEL.equals("BNTV400") || android.os.Build.MODEL.equals("BNTV600")) {
-      journalMode="DELETE";
-    }
+ else {
+    setDeleteJournalMode();
   }
-  queryString("PRAGMA journal_mode = " + journalMode);
 }
