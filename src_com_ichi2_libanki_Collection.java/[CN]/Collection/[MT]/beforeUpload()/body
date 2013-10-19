@@ -1,13 +1,16 @@
 {
-  String[] tables=new String[]{"notes","cards","revlog","graves"};
+  String[] tables=new String[]{"notes","cards","revlog"};
   for (  String t : tables) {
     mDb.execute("UPDATE " + t + " SET usn=0 WHERE usn=-1");
   }
+  mDb.execute("delete from graves");
   mUsn+=1;
   mModels.beforeUpload();
   mTags.beforeUpload();
   mDecks.beforeUpload();
   modSchema();
   mLs=mScm;
+  mDb.execute("vacuum");
+  mDb.execute("analyze");
   close();
 }
