@@ -1,7 +1,9 @@
 {
   LinkedList<Long> toBury=new LinkedList<Long>();
-  JSONObject conf=_newConf(card);
-  boolean buryNew=conf.optBoolean("bury",true);
+  JSONObject nconf=_newConf(card);
+  boolean buryNew=nconf.optBoolean("bury",true);
+  JSONObject rconf=_revConf(card);
+  boolean buryRev=rconf.optBoolean("bury",true);
   Cursor cur=null;
   try {
     cur=mCol.getDb().getDatabase().rawQuery(String.format(Locale.US,"select id, queue from cards where nid=? and id!=? " + "and (queue=0 or (queue=2 and due<=?))",new Object[]{card.getNid(),card.getId(),mToday}),null);
@@ -9,7 +11,9 @@
       long cid=cur.getLong(0);
       int queue=cur.getInt(1);
       if (queue == 2) {
-        toBury.add(cid);
+        if (buryRev) {
+          toBury.add(cid);
+        }
         mRevQueue.remove(cid);
       }
  else {
