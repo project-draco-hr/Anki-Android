@@ -14,10 +14,10 @@
     }
     int delay=0;
     if (_checkLeech(card,conf) && card.getQueue() == -1) {
-      return new Pair<Integer,Boolean>(delay,true);
+      return delay;
     }
     if (conf.getJSONArray("delays").length() == 0) {
-      return new Pair<Integer,Boolean>(delay,false);
+      return delay;
     }
     if (card.getODue() == 0) {
       card.setODue(card.getDue());
@@ -29,14 +29,13 @@
       mLrnCount+=card.getLeft() / 1000;
       card.setQueue(1);
       _sortIntoLrn(card.getDue(),card.getId());
-      return new Pair<Integer,Boolean>(delay,false);
     }
  else {
       long ahead=((card.getDue() - mDayCutoff) / 86400) + 1;
       card.setDue(mToday + ahead);
       card.setQueue(3);
     }
-    return new Pair<Integer,Boolean>(delay,true);
+    return delay;
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);

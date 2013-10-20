@@ -1,8 +1,5 @@
 {
-  int[] counts=new int[3];
-  counts[0]=mNewCount;
-  counts[1]=mLrnCount;
-  counts[2]=mRevCount;
+  int[] counts={mNewCount,mLrnCount,mRevCount};
   if (card != null) {
     int idx=countIdx(card);
     if (idx == 1) {

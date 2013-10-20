@@ -1,14 +1,10 @@
 {
   int delay=0;
-  boolean leech=false;
   if (ease == 1) {
-    Pair<Integer,Boolean> res=_rescheduleLapse(card);
-    delay=res.first;
-    leech=res.second;
+    delay=_rescheduleLapse(card);
   }
  else {
     _rescheduleRev(card,ease);
   }
   _logRev(card,ease,delay);
-  return leech;
 }

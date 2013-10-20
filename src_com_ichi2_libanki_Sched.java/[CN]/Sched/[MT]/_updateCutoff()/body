@@ -1,9 +1,6 @@
 {
   mToday=(int)((Utils.now() - mCol.getCrt()) / 86400);
   mDayCutoff=mCol.getCrt() + ((mToday + 1) * 86400);
-  for (  JSONObject d : mCol.getDecks().all()) {
-    update(d);
-  }
   for (  JSONObject deck : mCol.getDecks().all()) {
     update(deck);
   }

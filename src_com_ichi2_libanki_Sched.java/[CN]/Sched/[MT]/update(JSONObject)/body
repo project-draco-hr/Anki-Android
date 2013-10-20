@@ -1,12 +1,12 @@
 {
   for (  String t : new String[]{"new","rev","lrn","time"}) {
-    String k=t + "Today";
+    String key=t + "Today";
     try {
-      if (g.getJSONArray(k).getInt(0) != mToday) {
+      if (g.getJSONArray(key).getInt(0) != mToday) {
         JSONArray ja=new JSONArray();
         ja.put(mToday);
         ja.put(0);
-        g.put(k,ja);
+        g.put(key,ja);
       }
     }
  catch (    JSONException e) {

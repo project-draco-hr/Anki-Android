@@ -1,3 +1,37 @@
 {
-  return _walkingCount(null,limFn,cntFn);
+  int tot=0;
+  HashMap<Long,Integer> pcounts=new HashMap<Long,Integer>();
+  try {
+    for (    long did : mCol.getDecks().active()) {
+      int lim=(Integer)limFn.invoke(Sched.this,mCol.getDecks().get(did));
+      if (lim == 0) {
+        continue;
+      }
+      ArrayList<JSONObject> parents=mCol.getDecks().parents(did);
+      for (      JSONObject p : parents) {
+        long id=p.getLong("id");
+        if (!pcounts.containsKey(id)) {
+          pcounts.put(id,(Integer)limFn.invoke(Sched.this,p));
+        }
+        lim=Math.min(pcounts.get(id),lim);
+      }
+      int cnt=(Integer)cntFn.invoke(Sched.this,did,lim);
+      for (      JSONObject p : parents) {
+        long id=p.getLong("id");
+        pcounts.put(id,pcounts.get(id) - cnt);
+      }
+      pcounts.put(did,lim - cnt);
+      tot+=cnt;
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+catch (  InvocationTargetException e) {
+    throw new RuntimeException(e);
+  }
+catch (  IllegalAccessException e) {
+    throw new RuntimeException(e);
+  }
+  return tot;
 }

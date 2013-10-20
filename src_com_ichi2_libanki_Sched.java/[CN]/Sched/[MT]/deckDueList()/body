@@ -12,22 +12,16 @@
         return deckDueList();
       }
       String p;
-      String[] parts=deck.getString("name").split("::");
-      if (parts.length < 2) {
-        p="";
+      List<String> parts=Arrays.asList(deck.getString("name").split("::"));
+      if (parts.size() < 2) {
+        p=null;
       }
  else {
-        StringBuilder sb=new StringBuilder();
-        for (int i=0; i < parts.length - 1; i++) {
-          sb.append(parts[i]);
-          if (i < parts.length - 2) {
-            sb.append("::");
-          }
-        }
-        p=sb.toString();
+        parts=parts.subList(0,parts.size() - 1);
+        p=TextUtils.join("::",parts);
       }
       int nlim=_deckNewLimitSingle(deck);
-      if (p.length() > 0) {
+      if (!TextUtils.isEmpty(p)) {
         if (!lims.containsKey(p)) {
           mCol.getDecks().rem(deck.getLong("id"),false,true);
           return deckDueList();
@@ -37,7 +31,7 @@
       int newC=_newForDeck(deck.getLong("id"),nlim);
       int lrn=_lrnForDeck(deck.getLong("id"));
       int rlim=_deckRevLimitSingle(deck);
-      if (p.length() > 0) {
+      if (!TextUtils.isEmpty(p)) {
         rlim=Math.min(rlim,lims.get(p)[1]);
       }
       int rev=_revForDeck(deck.getLong("id"),rlim);
