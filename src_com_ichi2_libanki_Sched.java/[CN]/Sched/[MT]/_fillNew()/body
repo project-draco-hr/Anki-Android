@@ -8,13 +8,13 @@
   while (!mNewDids.isEmpty()) {
     long did=mNewDids.getFirst();
     int lim=Math.min(mQueueLimit,_deckNewLimit(did));
-    mNewQueue.clear();
     Cursor cur=null;
     if (lim != 0) {
+      mNewQueue.clear();
       try {
-        cur=mCol.getDb().getDatabase().rawQuery("SELECT id, due FROM cards WHERE did = " + did + " AND queue = 0 LIMIT "+ lim,null);
+        cur=mCol.getDb().getDatabase().rawQuery("SELECT id FROM cards WHERE did = " + did + " AND queue = 0 LIMIT "+ lim,null);
         while (cur.moveToNext()) {
-          mNewQueue.add(new long[]{cur.getLong(0),cur.getLong(1)});
+          mNewQueue.add(cur.getLong(0));
         }
       }
   finally {
@@ -28,5 +28,6 @@
     }
     mNewDids.remove();
   }
+  mNewCount=0;
   return false;
 }

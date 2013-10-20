@@ -9,10 +9,7 @@
     ankiDB.getDatabase().beginTransaction();
     try {
       if (oldCard != null) {
-        oldCardLeech=sched.answerCard(oldCard,ease) ? 1 : 0;
-        if (oldCardLeech != 0) {
-          oldCardLeech+=sched.leechActionSuspend(oldCard) ? 1 : 0;
-        }
+        sched.answerCard(oldCard,ease);
       }
       if (newCard == null) {
         newCard=getCard(sched);

@@ -2,33 +2,5 @@
   if (mSpreadRev) {
     idealIvl=_fuzzedIvl(idealIvl);
   }
-  int idealDue=mToday + idealIvl;
-  JSONObject conf;
-  try {
-    conf=_revConf(card);
-    ArrayList<Integer> dues=mCol.getDb().queryColumn(Integer.class,"SELECT due FROM cards WHERE nid = " + card.getNid() + " AND type = 2 AND id != "+ card.getId(),0);
-    if (dues.size() == 0 || !dues.contains(idealDue)) {
-      return idealIvl;
-    }
- else {
-      int leeway=Math.max(conf.getInt("minSpace"),(int)(idealIvl * conf.getDouble("fuzz")));
-      int fudge=0;
-      if (leeway != 0) {
-        for (int diff=1; diff < leeway + 1; diff++) {
-          if ((idealIvl - diff >= 1) && !dues.contains(idealDue - diff)) {
-            fudge=-diff;
-            break;
-          }
- else           if (!dues.contains(idealDue + diff)) {
-            fudge=diff;
-            break;
-          }
-        }
-      }
-      return idealIvl + fudge;
-    }
-  }
- catch (  JSONException e) {
-    throw new RuntimeException(e);
-  }
+  return idealIvl;
 }

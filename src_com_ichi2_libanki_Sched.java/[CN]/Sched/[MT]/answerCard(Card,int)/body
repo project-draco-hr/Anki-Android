@@ -1,7 +1,9 @@
 {
   Log.i(AnkiDroidApp.TAG,"answerCard - ease:" + ease);
-  boolean isLeech=false;
-  mCol.markUndo(Collection.UNDO_REVIEW,new Object[]{card});
+  mCol.markReview(card);
+  if (mBurySiblingsOnAnswer) {
+    _burySiblings(card);
+  }
   card.setReps(card.getReps() + 1);
   card.setWasNew((card.getType() == 0));
   boolean wasNewQ=(card.getQueue() == 0);
@@ -26,7 +28,7 @@
     }
   }
  else   if (card.getQueue() == 2) {
-    isLeech=_answerRevCard(card,ease);
+    _answerRevCard(card,ease);
     _updateStats(card,"rev");
   }
  else {
@@ -36,5 +38,4 @@
   card.setMod(Utils.intNow());
   card.setUsn(mCol.usn());
   card.flushSched();
-  return isLeech;
 }

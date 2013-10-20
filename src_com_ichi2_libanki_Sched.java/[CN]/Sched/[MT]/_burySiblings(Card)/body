@@ -1,0 +1,29 @@
+{
+  LinkedList<Long> toBury=new LinkedList<Long>();
+  JSONObject conf=_newConf(card);
+  boolean buryNew=conf.optBoolean("bury",true);
+  Cursor cur=null;
+  try {
+    cur=mCol.getDb().getDatabase().rawQuery(String.format(Locale.US,"select id, queue from cards where nid=? and id!=? " + "and (queue=0 or (queue=2 and due<=?))",new Object[]{card.getNid(),card.getId(),mToday}),null);
+    while (cur.moveToNext()) {
+      long cid=cur.getLong(0);
+      int queue=cur.getInt(1);
+      if (queue == 2) {
+        toBury.add(cid);
+        mRevQueue.remove(cid);
+      }
+ else {
+        if (buryNew) {
+          toBury.add(cid);
+          mNewQueue.remove(cid);
+        }
+      }
+    }
+  }
+  finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+  mCol.getDb().execute("update cards set queue=-2,mod=?,usn=? where id in " + Utils.ids2str(toBury),new Object[]{Utils.now(),mCol.usn()});
+}

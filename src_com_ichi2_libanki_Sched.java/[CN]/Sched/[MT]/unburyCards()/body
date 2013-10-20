@@ -1,5 +1,9 @@
 {
-  boolean mod=mCol.getDb().getMod();
-  mCol.getDb().execute("UPDATE cards SET queue = type WHERE queue = -2");
-  mCol.getDb().setMod(mod);
+  try {
+    mCol.getConf().put("lastUnburied",mToday);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  mCol.getDb().execute("update cards set mod=?,usn=?,queue=type where queue = -2",new Object[]{Utils.intNow(),mCol.usn()});
 }

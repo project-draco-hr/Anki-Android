@@ -7,4 +7,8 @@
   for (  JSONObject deck : mCol.getDecks().all()) {
     update(deck);
   }
+  int unburied=mCol.getConf().optInt("lastUnburied",0);
+  if (unburied < mToday) {
+    unburyCards();
+  }
 }

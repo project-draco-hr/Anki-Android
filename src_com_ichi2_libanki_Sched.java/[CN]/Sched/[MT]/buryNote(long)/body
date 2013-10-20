@@ -1,6 +1,5 @@
 {
-  mCol.setDirty();
   long[] cids=Utils.arrayList2array(mCol.getDb().queryColumn(Long.class,"SELECT id FROM cards WHERE nid = " + nid + " AND queue >= 0",0));
   removeLrn(cids);
-  mCol.getDb().execute("UPDATE cards SET queue = -2 WHERE id IN " + Utils.ids2str(cids));
+  mCol.getDb().execute("update cards set queue=-2,mod=?,usn=? where id in " + Utils.ids2str(cids),new Object[]{Utils.now(),mCol.usn()});
 }

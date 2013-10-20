@@ -5,8 +5,12 @@
   }
   Card card=_getCard();
   if (card != null) {
+    if (!mBurySiblingsOnAnswer) {
+      _burySiblings(card);
+    }
     mReps+=1;
     card.startTimer();
+    return card;
   }
-  return card;
+  return null;
 }

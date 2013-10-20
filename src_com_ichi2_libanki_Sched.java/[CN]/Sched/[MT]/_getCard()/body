@@ -4,7 +4,10 @@
     return c;
   }
   if (_timeForNewCard()) {
-    return _getNewCard();
+    c=_getNewCard();
+    if (c != null) {
+      return c;
+    }
   }
   c=_getRevCard();
   if (c != null) {
