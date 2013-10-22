@@ -1,6 +1,10 @@
 {
   if (mDb != null) {
-    cleanup();
+    if (!mConf.optBoolean("newBury",false)) {
+      boolean mod=mDb.getMod();
+      mSched.unburyCards();
+      mDb.setMod(mod);
+    }
     try {
       SQLiteDatabase db=getDb().getDatabase();
       if (save) {

@@ -15,5 +15,9 @@
   mStartReps=0;
   mStartTime=0;
   mSched=new Sched(this);
-  cleanup();
+  if (!mConf.optBoolean("newBury",false)) {
+    boolean mod=mDb.getMod();
+    mSched.unburyCards();
+    mDb.setMod(mod);
+  }
 }

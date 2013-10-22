@@ -1,6 +1,5 @@
 {
   mCol.save();
-  mCol.cleanup();
   HttpResponse ret=mServer.meta();
   if (ret == null) {
     return null;
