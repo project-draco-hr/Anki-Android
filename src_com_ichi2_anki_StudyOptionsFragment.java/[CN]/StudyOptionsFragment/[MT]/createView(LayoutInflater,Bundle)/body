@@ -22,7 +22,6 @@
   }
   if (getArguments().getBoolean("onlyFnsMsg")) {
     prepareCongratsView();
-    mButtonCongratsFinish.setVisibility(View.GONE);
     return mCongratsView;
   }
  else {

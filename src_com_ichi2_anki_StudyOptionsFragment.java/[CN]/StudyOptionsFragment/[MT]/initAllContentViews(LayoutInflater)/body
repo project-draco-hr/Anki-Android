@@ -66,14 +66,14 @@
   Themes.setTextViewStyle(mTextCongratsMessage);
   mTextCongratsMessage.setOnClickListener(mButtonClickListener);
   mButtonCongratsUndo=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_undo);
+  mButtonCongratsUnbury=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_unbury);
   mButtonCongratsCustomStudy=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_customstudy);
   mButtonCongratsOpenOtherDeck=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_open_other_deck);
   if (mFragmented) {
     mButtonCongratsOpenOtherDeck.setVisibility(View.GONE);
   }
-  mButtonCongratsFinish=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_finish);
   mButtonCongratsUndo.setOnClickListener(mButtonClickListener);
+  mButtonCongratsUnbury.setOnClickListener(mButtonClickListener);
   mButtonCongratsCustomStudy.setOnClickListener(mButtonClickListener);
   mButtonCongratsOpenOtherDeck.setOnClickListener(mButtonClickListener);
-  mButtonCongratsFinish.setOnClickListener(mButtonClickListener);
 }

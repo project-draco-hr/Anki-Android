@@ -8,6 +8,9 @@
     Resources res=AnkiDroidApp.getAppResources();
     mButtonCongratsUndo.setText(res.getString(R.string.studyoptions_congrats_undo,AnkiDroidApp.getCol().undoName(res)));
   }
+  if (AnkiDroidApp.colIsOpen() && !AnkiDroidApp.getCol().getSched().haveBuried()) {
+    mButtonCongratsUnbury.setVisibility(View.GONE);
+  }
   mTextCongratsMessage.setText(AnkiDroidApp.getCol().getSched().finishedMsg(getActivity()));
   try {
     if (AnkiDroidApp.getCol().getDecks().current().getInt("dyn") == 1) {
