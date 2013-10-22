@@ -35,14 +35,11 @@
         ja.put((Integer)value);
         mOptions.getJSONObject("new").put("ints",ja);
       }
+ else       if (key.equals("newBury")) {
+        mOptions.getJSONObject("new").put("bury",(Boolean)value);
+      }
  else       if (key.equals("revPerDay")) {
         mOptions.getJSONObject("rev").put("perDay",(Integer)value);
-      }
- else       if (key.equals("revSpaceMax")) {
-        mOptions.getJSONObject("rev").put("fuzz",(Integer)value / 100.0f);
-      }
- else       if (key.equals("revSpaceMin")) {
-        mOptions.getJSONObject("rev").put("minSpace",(Integer)value);
       }
  else       if (key.equals("easyBonus")) {
         mOptions.getJSONObject("rev").put("ease4",(Integer)value / 100.0f);
@@ -52,6 +49,9 @@
       }
  else       if (key.equals("revMaxIvl")) {
         mOptions.getJSONObject("rev").put("maxIvl",(Integer)value);
+      }
+ else       if (key.equals("revBury")) {
+        mOptions.getJSONObject("rev").put("bury",(Boolean)value);
       }
  else       if (key.equals("lapMinIvl")) {
         mOptions.getJSONObject("lapse").put("minInt",(Integer)value);
@@ -73,9 +73,6 @@
       }
  else       if (key.equals("replayQuestion")) {
         mOptions.put("replayq",(Boolean)value);
-      }
- else       if (key.equals("newSeparate")) {
-        mOptions.getJSONObject("new").put("separate",(Boolean)value);
       }
  else       if (key.equals("name")) {
         if (!mCol.getDecks().rename(mDeck,(String)value)) {
