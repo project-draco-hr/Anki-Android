@@ -14,7 +14,8 @@
   }
   SubMenu removeDeckSubMenu=menu.addSubMenu(Menu.NONE,MENU_REMOVE,Menu.NONE,R.string.menu_dismiss_note);
   removeDeckSubMenu.setIcon(R.drawable.ic_menu_stop);
-  removeDeckSubMenu.add(Menu.NONE,MENU_REMOVE_BURY,Menu.NONE,R.string.menu_bury_note);
+  removeDeckSubMenu.add(Menu.NONE,MENU_REMOVE_BURY_CARD,Menu.NONE,R.string.menu_bury_card);
+  removeDeckSubMenu.add(Menu.NONE,MENU_REMOVE_BURY_NOTE,Menu.NONE,R.string.menu_bury_note);
   removeDeckSubMenu.add(Menu.NONE,MENU_REMOVE_SUSPEND_CARD,Menu.NONE,R.string.menu_suspend_card);
   removeDeckSubMenu.add(Menu.NONE,MENU_REMOVE_SUSPEND_NOTE,Menu.NONE,R.string.menu_suspend_note);
   removeDeckSubMenu.add(Menu.NONE,MENU_REMOVE_DELETE,Menu.NONE,R.string.menu_delete_note);

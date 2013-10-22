@@ -8,11 +8,16 @@
     col.getDb().getDatabase().beginTransaction();
     try {
 switch (type) {
-case 0:
-        col.markUndo(Collection.UNDO_BURY_NOTE,new Object[]{col.getDirty(),note.cards(),card.getId()});
-      sched.buryNote(note.getId());
+case 4:
+        col.markUndo(Collection.UNDO_BURY_CARD,new Object[]{col.getDirty(),note.cards(),card.getId()});
+      sched.buryCards(new long[]{card.getId()});
     sHadCardQueue=true;
   break;
+case 0:
+col.markUndo(Collection.UNDO_BURY_NOTE,new Object[]{col.getDirty(),note.cards(),card.getId()});
+sched.buryNote(note.getId());
+sHadCardQueue=true;
+break;
 case 1:
 col.markUndo(Collection.UNDO_SUSPEND_CARD,new Object[]{card});
 if (card.getQueue() == -1) {

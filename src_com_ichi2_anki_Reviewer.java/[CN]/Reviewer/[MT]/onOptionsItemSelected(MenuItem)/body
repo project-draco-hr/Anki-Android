@@ -21,7 +21,11 @@ mWhiteboard.clear();
 return true;
 case MENU_EDIT:
 return editCard();
-case MENU_REMOVE_BURY:
+case MENU_REMOVE_BURY_CARD:
+setNextCardAnimation(false);
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,4));
+return true;
+case MENU_REMOVE_BURY_NOTE:
 setNextCardAnimation(false);
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,0));
 return true;
