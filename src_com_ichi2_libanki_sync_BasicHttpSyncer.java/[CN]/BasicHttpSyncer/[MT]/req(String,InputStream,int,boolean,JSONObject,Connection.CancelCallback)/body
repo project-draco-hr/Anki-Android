@@ -3,11 +3,15 @@
   try {
     String bdry="--" + BOUNDARY;
     StringWriter buf=new StringWriter();
-    buf.write(bdry + "\r\n");
-    buf.write("Content-Disposition: form-data; name=\"c\"\r\n\r\n" + (comp != 0 ? 1 : 0) + "\r\n");
+    HashMap<String,Object> vars=new HashMap<String,Object>();
+    vars.put("c",comp != 0 ? 1 : 0);
     if (hkey) {
+      vars.put("k",mHKey);
+      vars.put("s",mSKey);
+    }
+    for (    String key : vars.keySet()) {
       buf.write(bdry + "\r\n");
-      buf.write("Content-Disposition: form-data; name=\"k\"\r\n\r\n" + mHKey + "\r\n");
+      buf.write(String.format(Locale.US,"Content-Disposition: form-data; name=\"%s\"\r\n\r\n%s\r\n",key,vars.get(key)));
     }
     tmpFileBuffer=File.createTempFile("syncer",".tmp",new File(AnkiDroidApp.getCacheStorageDirectory()));
     FileOutputStream fos=new FileOutputStream(tmpFileBuffer);
