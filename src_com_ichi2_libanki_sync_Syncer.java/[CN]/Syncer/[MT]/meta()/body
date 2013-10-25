@@ -1,8 +1,11 @@
 {
-  JSONArray o=new JSONArray();
-  o.put(mCol.getMod());
-  o.put(mCol.getScm());
-  o.put(mCol.getUsnForSync());
-  o.put(Utils.intNow());
-  return o;
+  JSONObject j=new JSONObject();
+  j.put("mod",mCol.getMod());
+  j.put("scm",mCol.getScm());
+  j.put("usn",mCol.getUsnForSync());
+  j.put("ts",Utils.intNow());
+  j.put("musn",0);
+  j.put("msg","");
+  j.put("cont",true);
+  return j;
 }

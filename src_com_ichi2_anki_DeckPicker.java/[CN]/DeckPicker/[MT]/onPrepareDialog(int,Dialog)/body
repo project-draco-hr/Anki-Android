@@ -31,7 +31,15 @@ break;
 case DIALOG_IMPORT_LOG:
 case DIALOG_SYNC_LOG:
 case DIALOG_SYNC_SANITY_ERROR:
+if (!TextUtils.isEmpty(mDialogMessage) && !TextUtils.isEmpty(mSyncMessage)) {
+ad.setMessage(mDialogMessage + "\n\n" + mSyncMessage);
+}
+ else if (!TextUtils.isEmpty(mDialogMessage)) {
 ad.setMessage(mDialogMessage);
+}
+ else {
+ad.setMessage(mSyncMessage);
+}
 break;
 case DIALOG_DB_ERROR:
 mLoadFailed=false;
