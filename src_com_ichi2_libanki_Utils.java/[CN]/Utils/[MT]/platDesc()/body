@@ -1,0 +1,4 @@
+{
+  String model=android.os.Build.MODEL.replace(',',' ').replace(':',' ');
+  return String.format(Locale.US,"android:%s:%s",android.os.Build.VERSION.RELEASE,model);
+}
