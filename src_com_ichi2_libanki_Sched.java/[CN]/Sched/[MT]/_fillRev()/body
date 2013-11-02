@@ -43,6 +43,9 @@
     }
     mRevDids.remove();
   }
-  mRevCount=0;
+  if (mRevCount != 0) {
+    _resetRev();
+    return _fillRev();
+  }
   return false;
 }

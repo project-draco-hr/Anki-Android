@@ -28,6 +28,9 @@
     }
     mNewDids.remove();
   }
-  mNewCount=0;
+  if (mNewCount != 0) {
+    _resetNew();
+    return _fillNew();
+  }
   return false;
 }
