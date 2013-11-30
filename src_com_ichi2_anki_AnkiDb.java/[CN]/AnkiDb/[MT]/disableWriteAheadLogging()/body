@@ -1,0 +1,11 @@
+{
+  SQLiteDatabase db=getDatabase();
+  if (db.inTransaction()) {
+    db.endTransaction();
+  }
+  try {
+    db.disableWriteAheadLogging();
+  }
+ catch (  NoSuchMethodError e) {
+  }
+}
