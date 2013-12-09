@@ -1,6 +1,9 @@
 {
   super.onCreate();
-  if (android.os.Build.MODEL.toLowerCase(Locale.US).equals("nook") || android.os.Build.DEVICE.toLowerCase(Locale.US).equals("nook")) {
+  if (isNookHdPlus() && AnkiDroidApp.SDK_VERSION == 15) {
+    mCompat=new CompatV15NookHdPlus();
+  }
+ else   if (isNook()) {
     mCompat=new CompatV4();
   }
  else   if (AnkiDroidApp.SDK_VERSION >= 16) {
