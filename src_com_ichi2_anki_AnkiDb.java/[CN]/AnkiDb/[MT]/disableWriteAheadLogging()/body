@@ -3,9 +3,5 @@
   if (db.inTransaction()) {
     db.endTransaction();
   }
-  try {
-    AnkiDroidApp.getCompat().disableDatabaseWriteAheadLogging(db);
-  }
- catch (  NoSuchMethodError e) {
-  }
+  AnkiDroidApp.getCompat().disableDatabaseWriteAheadLogging(db);
 }
