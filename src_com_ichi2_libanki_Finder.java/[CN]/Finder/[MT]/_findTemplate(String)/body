@@ -29,5 +29,5 @@
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
-  return Utils.join(" or ",lims.toArray(new String[]{}));
+  return Utils.join(" or ",lims.toArray(new String[lims.size()]));
 }

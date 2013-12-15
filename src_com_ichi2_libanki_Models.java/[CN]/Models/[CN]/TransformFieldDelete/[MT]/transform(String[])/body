@@ -1,5 +1,5 @@
 {
   ArrayList<String> fl=new ArrayList<String>(Arrays.asList(fields));
   fl.remove(idx);
-  return fl.toArray(new String[]{});
+  return fl.toArray(new String[fl.size()]);
 }

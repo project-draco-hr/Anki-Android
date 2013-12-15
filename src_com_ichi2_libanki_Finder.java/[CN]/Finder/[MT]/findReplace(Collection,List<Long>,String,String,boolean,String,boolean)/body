@@ -27,7 +27,7 @@
   }
   Pattern regex=Pattern.compile(src);
   ArrayList<Object[]> d=new ArrayList<Object[]>();
-  String sql="select id, mid, flds from notes where id in " + Utils.ids2str(nids.toArray(new Long[]{}));
+  String sql="select id, mid, flds from notes where id in " + Utils.ids2str(nids.toArray(new Long[nids.size()]));
   nids=new ArrayList<Long>();
   Cursor cur=null;
   try {

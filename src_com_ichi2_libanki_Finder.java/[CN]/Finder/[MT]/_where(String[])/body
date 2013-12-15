@@ -63,5 +63,5 @@
   if (s.bad) {
     return new Pair<String,String[]>(null,null);
   }
-  return new Pair<String,String[]>(s.q,args.toArray(new String[]{}));
+  return new Pair<String,String[]>(s.q,args.toArray(new String[args.size()]));
 }
