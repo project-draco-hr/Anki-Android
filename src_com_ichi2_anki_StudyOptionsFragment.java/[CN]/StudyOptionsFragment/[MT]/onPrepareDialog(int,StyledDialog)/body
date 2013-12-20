@@ -136,18 +136,6 @@ createFilteredDeck(new JSONArray(),new Object[]{"is:new added:" + previewDays,99
 }
 );
 break;
-case CUSTOM_STUDY_TAGS:
-mCustomStudyTextView1.setText("");
-mCustomStudyTextView2.setText(res.getString(R.string.custom_study_tags));
-mCustomStudyEditText.setText(AnkiDroidApp.getSharedPrefs(getActivity()).getString("customTags",""));
-styledDialog.setButtonOnClickListener(Dialog.BUTTON_POSITIVE,new DialogInterface.OnClickListener(){
-@Override public void onClick(DialogInterface dialog,int which){
-String tags=((EditText)mCustomStudyEditText).getText().toString();
-createFilteredDeck(new JSONArray(),new Object[]{"(is:new or is:due) " + tags,9999,Sched.DYN_RANDOM},true);
-}
-}
-);
-break;
 }
 }
 }
