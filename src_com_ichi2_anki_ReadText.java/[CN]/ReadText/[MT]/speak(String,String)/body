@@ -4,11 +4,6 @@
     Log.e(AnkiDroidApp.TAG,"Error loading locale " + loc.toString());
   }
  else {
-    if (mTts.isSpeaking()) {
-      sTextQueue.add(new String[]{text,loc});
-    }
- else {
-      mTts.speak(mTextToSpeak,TextToSpeech.QUEUE_FLUSH,mTtsParams);
-    }
+    mTts.speak(mTextToSpeak,TextToSpeech.QUEUE_FLUSH,mTtsParams);
   }
 }
