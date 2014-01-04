@@ -2,6 +2,6 @@
   StringBuilder appName=new StringBuilder();
   appName.append(AnkiDroidApp.getAppName());
   appName.append(" v");
-  appName.append(AnkiDroidApp.getPkgVersion());
+  appName.append(AnkiDroidApp.getPkgVersionName());
   return appName.toString();
 }

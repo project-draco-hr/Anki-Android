@@ -7,7 +7,7 @@
   httpParams.setParameter(ConnManagerPNames.MAX_TOTAL_CONNECTIONS,30);
   httpParams.setParameter(ConnManagerPNames.MAX_CONNECTIONS_PER_ROUTE,new ConnPerRouteBean(30));
   httpParams.setParameter(CoreProtocolPNames.USE_EXPECT_CONTINUE,false);
-  httpParams.setParameter(CoreProtocolPNames.USER_AGENT,"AnkiDroid-" + AnkiDroidApp.getPkgVersion());
+  httpParams.setParameter(CoreProtocolPNames.USER_AGENT,"AnkiDroid-" + AnkiDroidApp.getPkgVersionName());
   HttpProtocolParams.setVersion(httpParams,HttpVersion.HTTP_1_1);
   HttpConnectionParams.setSoTimeout(httpParams,Connection.CONN_TIMEOUT);
   SchemeRegistry registry=new SchemeRegistry();
