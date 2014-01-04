@@ -22,7 +22,7 @@ case TYPE_WELCOME:
         AnkiDroidApp.getSharedPrefs(Info.this.getBaseContext()).edit().putLong("lastTimeOpened",System.currentTimeMillis()).commit();
       break;
 case TYPE_NEW_VERSION:
-    AnkiDroidApp.getSharedPrefs(Info.this.getBaseContext()).edit().putString("lastVersion",AnkiDroidApp.getPkgVersion()).commit();
+    AnkiDroidApp.getSharedPrefs(Info.this.getBaseContext()).edit().putString("lastVersion",AnkiDroidApp.getPkgVersionName()).commit();
   break;
 case TYPE_UPGRADE_DECKS:
 break;

@@ -1,0 +1,11 @@
+{
+  Context context=sInstance.getApplicationContext();
+  try {
+    PackageInfo pInfo=context.getPackageManager().getPackageInfo(context.getPackageName(),0);
+    return pInfo.versionCode;
+  }
+ catch (  PackageManager.NameNotFoundException e) {
+    Log.e(TAG,"Couldn't find package named " + context.getPackageName(),e);
+  }
+  return 0;
+}
