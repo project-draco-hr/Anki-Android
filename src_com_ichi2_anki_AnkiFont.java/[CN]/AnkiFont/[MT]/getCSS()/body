@@ -1,7 +1,22 @@
 {
-  StringBuilder sb=new StringBuilder("font-family: \"").append(mFamily).append("\" !important;");
+  StringBuilder sb=new StringBuilder("font-family: \"").append(mFamily);
+  if (mIsOverride) {
+    sb.append("\" !important;");
+  }
+ else {
+    sb.append("\";");
+  }
   for (  String attr : mAttributes) {
     sb.append(" ").append(attr);
+    if (mIsOverride) {
+      if (sb.charAt(sb.length() - 1) == ';') {
+        sb.deleteCharAt(sb.length() - 1);
+        sb.append(" !important;");
+      }
+ else {
+        Log.d(AnkiDroidApp.TAG,"AnkiFont.getCSS() - unable to set a font attribute important while override is set.");
+      }
+    }
   }
   return sb.toString();
 }

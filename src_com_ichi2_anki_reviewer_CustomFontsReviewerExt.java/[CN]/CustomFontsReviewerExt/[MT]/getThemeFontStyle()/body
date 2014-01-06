@@ -1,0 +1,12 @@
+{
+  if (mThemeFontStyle == null) {
+    String themeFontName=Themes.getReviewerFontName();
+    if (TextUtils.isEmpty(themeFontName)) {
+      mThemeFontStyle="";
+    }
+ else {
+      mThemeFontStyle=String.format("BODY {" + "font-family: '%s';" + "font-weight: normal;"+ "font-style: normal;"+ "font-stretch: normal;"+ "}\n",themeFontName);
+    }
+  }
+  return mThemeFontStyle;
+}
