@@ -1,11 +1,9 @@
 {
   super.onPostExecute(download);
-  Log.i(AnkiDroidApp.TAG,"on post execute");
   if (download.getStatus() == Download.STATUS_COMPLETE) {
     showNotification(download.getTitle(),download.getFilename());
   }
  else   if (download.getStatus() == Download.STATUS_ERROR) {
-    Log.i(AnkiDroidApp.TAG,"deleting file");
     new File(mDestination + "/tmp/" + download.getFilename()+ ".anki.tmp").delete();
     Log.e(AnkiDroidApp.TAG,"Error while downloading personal deck.");
   }

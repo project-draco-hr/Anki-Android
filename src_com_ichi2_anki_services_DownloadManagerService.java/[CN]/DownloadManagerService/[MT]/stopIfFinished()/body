@@ -1,8 +1,6 @@
 {
   if (!hasMoreWork()) {
     boolean deleted=new File(mDestination + "/tmp").delete();
-    Log.i(AnkiDroidApp.TAG,mDestination + "/tmp folder was deleted = " + deleted);
-    Log.i(AnkiDroidApp.TAG,"Service stopping itself...");
     stopSelf();
   }
 }
