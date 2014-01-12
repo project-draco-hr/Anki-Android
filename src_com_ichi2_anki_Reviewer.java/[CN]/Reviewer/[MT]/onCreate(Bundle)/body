@@ -1,4 +1,5 @@
 {
+  mExtensions=new ReviewerExtRegistry(getBaseContext());
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   Log.i(AnkiDroidApp.TAG,"Reviewer - onCreate");
