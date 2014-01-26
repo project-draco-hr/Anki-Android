@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"updateCard");
   Lookup.initialize(this,mCurrentCard.getDid());
   if (mCurrentSimpleInterface) {
     fillFlashcard(mShowAnimations);
@@ -22,17 +23,20 @@
     if (mPrefCenterVertically) {
       cardClass+=" vertically_centered";
     }
+    Log.i(AnkiDroidApp.TAG,"content card = \n" + content);
     StringBuilder style=new StringBuilder();
     style.append(mCustomFontStyle);
     if (mRelativeImageSize != 100) {
       style.append(String.format("img { zoom: %s }\n",mRelativeImageSize / 100.0));
     }
+    Log.i(AnkiDroidApp.TAG,"::style::" + style);
     if (mNightMode) {
       content=HtmlColors.invertColors(content);
       cardClass+=" night_mode";
     }
     content=SmpToHtmlEntity(content);
     mCardContent=new SpannedString(mCardTemplate.replace("::content::",content).replace("::style::",style.toString()).replace("::class::",cardClass));
+    Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
     if (SAVE_CARD_CONTENT) {
       try {
         FileOutputStream f=new FileOutputStream(new File(AnkiDroidApp.getCurrentAnkiDroidDirectory(),"card.html"));
@@ -44,6 +48,7 @@
         }
       }
  catch (      IOException e) {
+        Log.d(AnkiDroidApp.TAG,"failed to save card",e);
       }
     }
     fillFlashcard(mShowAnimations);

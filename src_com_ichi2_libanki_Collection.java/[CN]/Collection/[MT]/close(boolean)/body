@@ -30,5 +30,6 @@
     AnkiDatabaseManager.closeDatabase(mPath);
     mDb=null;
     mMedia.close();
+    Log.i(AnkiDroidApp.TAG,"Collection closed");
   }
 }

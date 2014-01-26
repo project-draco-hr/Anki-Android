@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"DownloadMissingMedia");
   HashMap<String,String> missingPaths=new HashMap<String,String>();
   HashMap<String,String> missingSums=new HashMap<String,String>();
   Decks deck=(Decks)data.data[0];
@@ -27,6 +28,7 @@
       if (!file.exists()) {
         missingPaths.put(f,path);
         missingSums.put(f,cursor.getString(1));
+        Log.i(AnkiDroidApp.TAG,"Missing file: " + f);
       }
     }
   }
@@ -61,6 +63,7 @@
         FileOutputStream fos=new FileOutputStream(path);
         while ((readbytes=bis.read(buf,0,4096)) != -1) {
           fos.write(buf,0,readbytes);
+          Log.i(AnkiDroidApp.TAG,"Downloaded " + readbytes + " file: "+ path);
         }
         fos.close();
         sum=missingSums.get(file);
@@ -68,6 +71,7 @@
           grabbed++;
         }
  else {
+          Log.i(AnkiDroidApp.TAG,"Downloaded media file " + path + " failed checksum.");
           File f=new File(path);
           f.delete();
           missing++;

@@ -1,5 +1,6 @@
 {
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+    Log.i(AnkiDroidApp.TAG,"StudyOptions - onBackPressed()");
     if (mCurrentFragment != null && mCurrentFragment.congratsShowing()) {
       mCurrentFragment.finishCongrats();
       return true;

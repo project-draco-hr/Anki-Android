@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"answerCard - ease:" + ease);
   mCol.markReview(card);
   if (mBurySiblingsOnAnswer) {
     _burySiblings(card);

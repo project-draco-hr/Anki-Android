@@ -2,6 +2,7 @@
   openDBIfClosed(context);
   try {
     mMetaDb.execSQL("INSERT INTO intentInformation (fields) " + " VALUES (?);",new Object[]{fields});
+    Log.i(AnkiDroidApp.TAG,"Store intentInformation: " + fields);
   }
  catch (  Exception e) {
     Log.e("Error","Error storing intentInformation in MetaDB ",e);
