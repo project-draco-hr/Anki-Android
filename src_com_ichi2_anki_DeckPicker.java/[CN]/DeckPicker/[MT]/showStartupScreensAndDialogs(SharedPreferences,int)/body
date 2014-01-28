@@ -7,7 +7,7 @@
       ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
     }
   }
- else   if (skip < 2 && !preferences.getString("lastVersion","").equals(AnkiDroidApp.getPkgVersion())) {
+ else   if (skip < 2 && !preferences.getString("lastVersion","").equals(AnkiDroidApp.getPkgVersionName())) {
     preferences.edit().putBoolean("showBroadcastMessageToday",true).commit();
     Intent infoIntent=new Intent(this,Info.class);
     infoIntent.putExtra(Info.TYPE_EXTRA,Info.TYPE_NEW_VERSION);
@@ -17,7 +17,7 @@
     }
   }
  else   if (skip < 3 && upgradeNeeded()) {
-    AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).edit().putString("lastUpgradeVersion",AnkiDroidApp.getPkgVersion()).commit();
+    AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).edit().putInt("lastUpgradeVersion",AnkiDroidApp.getPkgVersionCode()).commit();
     showUpgradeScreen(skip != 0,Info.UPGRADE_SCREEN_BASIC1);
   }
  else   if (skip < 4 && hasErrorFiles()) {
@@ -41,8 +41,27 @@
     showDialog(DIALOG_IMPORT);
   }
  else {
-    if (!preferences.getString("lastUpgradeVersion","").equals(AnkiDroidApp.getPkgVersion())) {
-      preferences.edit().putString("lastUpgradeVersion",AnkiDroidApp.getPkgVersion()).commit();
+    int current=AnkiDroidApp.getPkgVersionCode();
+    int previous;
+    if (!preferences.contains("lastUpgradeVersion")) {
+      previous=current;
+    }
+ else {
+      try {
+        previous=preferences.getInt("lastUpgradeVersion",current);
+      }
+ catch (      ClassCastException e) {
+        String s=preferences.getString("lastUpgradeVersion","");
+        if (s.equals("2.0.2")) {
+          previous=40;
+        }
+ else {
+          previous=0;
+        }
+      }
+    }
+    preferences.edit().putInt("lastUpgradeVersion",current).commit();
+    if (previous < AnkiDroidApp.CHECK_DB_AT_VERSION) {
       DeckTask.launchDeckTask(DeckTask.TASK_TYPE_OPEN_COLLECTION,new Listener(){
         @Override public void onPostExecute(        DeckTask task,        TaskData result){
           mOpenCollectionHandler.onPostExecute(result);

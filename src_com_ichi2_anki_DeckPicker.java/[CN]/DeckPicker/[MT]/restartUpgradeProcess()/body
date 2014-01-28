@@ -25,7 +25,7 @@
   builder.setCancelable(false);
   builder.setNegativeButton(R.string.no,new DialogInterface.OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int which){
-      AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).edit().putString("lastUpgradeVersion",AnkiDroidApp.getPkgVersion()).commit();
+      AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).edit().putInt("lastUpgradeVersion",AnkiDroidApp.getPkgVersionCode()).commit();
     }
   }
 );
