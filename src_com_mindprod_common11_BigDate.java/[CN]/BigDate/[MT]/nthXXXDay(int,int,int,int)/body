@@ -1,9 +1,0 @@
-{
-  int dayOfWeekOf1st=BigDate.dayOfWeek(BigDate.toOrdinal(yyyy,mm,1));
-  int dayOfMonthOfFirstDesiredDay=(dayOfWeek - dayOfWeekOf1st + 7) % 7 + 1;
-  int dayOfMonthOfNthDesiredDay=dayOfMonthOfFirstDesiredDay + (which - 1) * 7;
-  if (which >= 5 && dayOfMonthOfNthDesiredDay > daysInMonth(mm,yyyy)) {
-    dayOfMonthOfNthDesiredDay-=7;
-  }
-  return dayOfMonthOfNthDesiredDay;
-}
