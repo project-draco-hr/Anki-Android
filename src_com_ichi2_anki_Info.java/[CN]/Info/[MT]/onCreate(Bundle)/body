@@ -9,6 +9,8 @@
   mWebView=(WebView)findViewById(R.id.info);
   mWebView.setBackgroundColor(res.getColor(Themes.getBackgroundColor()));
   Themes.setWallpaper((View)mWebView.getParent().getParent().getParent());
+  TextView termsAndConditionsView=(TextView)findViewById(R.id.info_terms_and_conditions);
+  termsAndConditionsView.setMovementMethod(LinkMovementMethod.getInstance());
   Button continueButton=(Button)findViewById(R.id.info_continue);
   continueButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View arg0){
@@ -94,6 +96,7 @@ e.printStackTrace();
 mWebView.setWebViewClient(new MobileAnkiWebview());
 mWebView.loadUrl(res.getString(R.string.shared_decks_url));
 mWebView.getSettings().setJavaScriptEnabled(true);
+termsAndConditionsView.setVisibility(View.VISIBLE);
 continueButton.setText(res.getString(R.string.download_button_return));
 break;
 case TYPE_UPGRADE_DECKS:
