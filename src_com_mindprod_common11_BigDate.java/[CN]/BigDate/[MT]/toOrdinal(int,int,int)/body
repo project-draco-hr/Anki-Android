@@ -1,7 +1,0 @@
-{
-  if ((yyyy == 0) && (mm == 0) && (dd == 0)) {
-    return NULL_ORDINAL;
-  }
-  int missingDayAdjust=(yyyy == OJC_lastYYYY && ((mm == OJC_lastMM && dd > OJC_lastDD) || mm > OJC_lastMM)) ? missingDays : 0;
-  return jan01OfYear(yyyy) + daysInYearPriorToMonth(mm,isLeap(yyyy)) - missingDayAdjust + dd - 1;
-}

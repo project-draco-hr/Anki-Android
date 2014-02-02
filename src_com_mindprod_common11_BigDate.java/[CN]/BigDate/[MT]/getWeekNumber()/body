@@ -1,9 +1,0 @@
-{
-  if (ordinal < Jan_01_Leap100RuleYear) {
-    return 0;
-  }
-  int jan01=jan01OfYear(yyyy);
-  int jan01DayOfWeek=dayOfWeek(jan01);
-  int sundayOnOrBeforeJan01Ordinal=jan01 - jan01DayOfWeek;
-  return ((ordinal - sundayOnOrBeforeJan01Ordinal) / 7) + 1;
-}
