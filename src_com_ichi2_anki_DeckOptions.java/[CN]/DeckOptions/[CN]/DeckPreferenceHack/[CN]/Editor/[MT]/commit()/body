@@ -1,10 +1,8 @@
 {
-  Log.d(AnkiDroidApp.TAG,"DeckOptions - commit() changes back to database");
   try {
     for (    Entry<String,Object> entry : mUpdate.valueSet()) {
       String key=entry.getKey();
       Object value=entry.getValue();
-      Log.i(AnkiDroidApp.TAG,"Change value for key '" + key + "': "+ value);
       if (key.equals("maxAnswerTime")) {
         mOptions.put("maxTaken",(Integer)value);
       }

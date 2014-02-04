@@ -3,5 +3,4 @@
   df.setTimeZone(TimeZone.getTimeZone("GMT"));
   Calendar cal=new GregorianCalendar(TimeZone.getTimeZone("GMT"));
   cal.setTimeInMillis((long)date * 1000);
-  Log.d(AnkiDroidApp.TAG,"Value of " + name + ": "+ cal.getTime().toGMTString());
 }

@@ -1,8 +1,6 @@
 {
   ZipInputStream zipInputStream=null;
-  Log.i(AnkiDroidApp.TAG,"unzipSharedDeckFile");
   if (zipFilename.endsWith(".zip")) {
-    Log.i(AnkiDroidApp.TAG,"zipFilename ends with .zip");
     try {
       zipInputStream=new ZipInputStream(new FileInputStream(new File(zipFilename)));
       if (new File(mDestination + "/" + title+ ".anki").exists()) {
@@ -12,13 +10,10 @@
       String deckFilename=partialDeckPath + ".anki.updating";
       ZipEntry zipEntry=null;
       while ((zipEntry=zipInputStream.getNextEntry()) != null) {
-        Log.i(AnkiDroidApp.TAG,"zipEntry = " + zipEntry.getName());
         if ("shared.anki".equalsIgnoreCase(zipEntry.getName())) {
           Utils.writeToFile(zipInputStream,deckFilename);
         }
  else         if (zipEntry.getName().startsWith("shared.media/",0)) {
-          Log.i(AnkiDroidApp.TAG,"Folder created = " + new File(partialDeckPath + ".media/").mkdir());
-          Log.i(AnkiDroidApp.TAG,"Destination = " + AnkiDroidApp.getCurrentAnkiDroidDirectory() + "/"+ title+ ".media/"+ zipEntry.getName().replace("shared.media/",""));
           Utils.writeToFile(zipInputStream,partialDeckPath + ".media/" + zipEntry.getName().replace("shared.media/",""));
         }
       }
