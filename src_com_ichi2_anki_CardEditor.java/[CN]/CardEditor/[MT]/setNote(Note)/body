@@ -1,7 +1,6 @@
 {
   try {
     if (note == null) {
-      mCurrentDid=mCol.getDecks().current().getLong("id");
       if (mCol.getDecks().isDyn(mCurrentDid)) {
         mCurrentDid=1;
       }
