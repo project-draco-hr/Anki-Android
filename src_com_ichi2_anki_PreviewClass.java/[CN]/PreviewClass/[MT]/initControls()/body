@@ -1,0 +1,8 @@
+{
+  mCardFrame.setVisibility(View.VISIBLE);
+  mChosenAnswer.setVisibility(View.VISIBLE);
+  if (mPrefWhiteboard) {
+    mWhiteboard.setVisibility(mShowWhiteboard ? View.VISIBLE : View.GONE);
+  }
+  mAnswerField.setVisibility(typeAnswer() ? View.VISIBLE : View.GONE);
+}

@@ -1,0 +1,62 @@
+{
+  setContentView(layout);
+  mMainLayout=findViewById(R.id.main_layout);
+  Themes.setContentStyle(mMainLayout,Themes.CALLER_REVIEWER);
+  mCardContainer=(FrameLayout)findViewById(R.id.flashcard_frame);
+  mCardFrame=(FrameLayout)findViewById(R.id.flashcard);
+  mTouchLayer=(FrameLayout)findViewById(R.id.touch_layer);
+  mTouchLayer.setOnTouchListener(mGestureListener);
+  gestureDetector=new GestureDetector(new MyGestureDetector());
+  mCardFrame.removeAllViews();
+  mCardFrame.setVisibility(View.GONE);
+  mTouchLayer.setVisibility(View.GONE);
+  if (!mChangeBorderStyle) {
+    ((View)findViewById(R.id.flashcard_border)).setVisibility(View.VISIBLE);
+  }
+  if (AnkiDroidApp.SDK_VERSION <= 7 && (mCard != null)) {
+    mCard.setFocusableInTouchMode(true);
+  }
+  Resources res=getResources();
+  mEase1Layout=(LinearLayout)findViewById(R.id.flashcard_layout_ease1);
+  mEase2Layout=(LinearLayout)findViewById(R.id.flashcard_layout_ease2);
+  mEase3Layout=(LinearLayout)findViewById(R.id.flashcard_layout_ease3);
+  mEase4Layout=(LinearLayout)findViewById(R.id.flashcard_layout_ease4);
+  mNext1=(TextView)findViewById(R.id.nextTime1);
+  mNext2=(TextView)findViewById(R.id.nextTime2);
+  mNext3=(TextView)findViewById(R.id.nextTime3);
+  mNext4=(TextView)findViewById(R.id.nextTime4);
+  mNext1.setTextColor(res.getColor(R.color.next_time_failed_color));
+  mNext2.setTextColor(res.getColor(R.color.next_time_usual_color));
+  if (!mshowNextReviewTime) {
+    ((TextView)findViewById(R.id.nextTimeflip)).setVisibility(View.GONE);
+    mNext1.setVisibility(View.GONE);
+    mNext2.setVisibility(View.GONE);
+    mNext3.setVisibility(View.GONE);
+    mNext4.setVisibility(View.GONE);
+  }
+  mFlipCard=(Button)findViewById(R.id.flip_card);
+  mFlipCardLayout=(LinearLayout)findViewById(R.id.flashcard_layout_flip);
+  mFlipCardLayout.setOnClickListener(mFlipCardListener);
+  mFlipCard.setVisibility(View.GONE);
+  mFlipCardLayout.setVisibility(View.GONE);
+  mChosenAnswer=(TextView)findViewById(R.id.choosen_answer);
+  if (mPrefWhiteboard) {
+    mWhiteboard=new Whiteboard(this,mInvertedColors,mBlackWhiteboard);
+    FrameLayout.LayoutParams lp2=new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT);
+    mWhiteboard.setLayoutParams(lp2);
+    FrameLayout fl=(FrameLayout)findViewById(R.id.whiteboard);
+    fl.addView(mWhiteboard);
+  }
+  mAnswerField=(EditText)findViewById(R.id.answer_field);
+  mNextTimeTextColor=getResources().getColor(R.color.next_time_usual_color);
+  mNextTimeTextRecomColor=getResources().getColor(R.color.next_time_recommended_color);
+  mForegroundColor=getResources().getColor(R.color.next_time_usual_color);
+  try {
+    top_bar=(RelativeLayout)findViewById(R.id.top_bar);
+    top_bar.setVisibility(View.GONE);
+  }
+ catch (  Exception er) {
+    er.printStackTrace();
+  }
+  initControls();
+}

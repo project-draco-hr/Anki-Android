@@ -1,0 +1,7 @@
+{
+  Matcher m=sTypeAnsPat.matcher(buf);
+  if (mTypeWarning != null) {
+    return m.replaceFirst(mTypeWarning);
+  }
+  return m.replaceFirst("");
+}
