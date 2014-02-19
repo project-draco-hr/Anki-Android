@@ -28,7 +28,7 @@
           flds2.add("");
         }
       }
-      String joinedFlds=Utils.joinFields(flds2.toArray(new String[]{}));
+      String joinedFlds=Utils.joinFields(flds2.toArray(new String[flds2.size()]));
       d.add(new Object[]{joinedFlds,mid,Utils.intNow(),mCol.usn(),nid});
     }
   }
