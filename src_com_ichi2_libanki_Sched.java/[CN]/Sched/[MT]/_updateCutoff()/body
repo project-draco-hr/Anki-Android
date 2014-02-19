@@ -1,6 +1,27 @@
 {
-  mToday=(int)((Utils.now() - mCol.getCrt()) / 86400);
-  mDayCutoff=mCol.getCrt() + ((mToday + 1) * 86400);
+  mToday=0;
+  Calendar crt=GregorianCalendar.getInstance();
+  crt.setTimeInMillis(mCol.getCrt() * 1000);
+  Calendar fromNow=GregorianCalendar.getInstance();
+  int yearSpan=fromNow.get(Calendar.YEAR) - crt.get(Calendar.YEAR);
+  if (yearSpan > 1) {
+    int toJump=365 * (yearSpan - 1);
+    fromNow.add(Calendar.YEAR,-toJump);
+    if (fromNow.compareTo(crt) < 0) {
+      fromNow=GregorianCalendar.getInstance();
+    }
+ else {
+      mToday+=toJump;
+    }
+  }
+  while (fromNow.compareTo(crt) > 0) {
+    fromNow.add(Calendar.DAY_OF_MONTH,-1);
+    if (fromNow.compareTo(crt) >= 0) {
+      mToday++;
+    }
+  }
+  crt.add(Calendar.DAY_OF_YEAR,mToday + 1);
+  mDayCutoff=crt.getTimeInMillis() / 1000;
   for (  JSONObject deck : mCol.getDecks().all()) {
     update(deck);
   }
