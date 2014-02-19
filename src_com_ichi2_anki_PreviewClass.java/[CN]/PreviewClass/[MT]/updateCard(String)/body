@@ -1,0 +1,29 @@
+{
+  if (mCurrentSimpleInterface) {
+    fillFlashcard(mShowAnimations);
+  }
+ else {
+    content=recalculateHardCodedFontSize(content,mDisplayFontSize);
+    if (mCurrentCard == null) {
+      mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
+    }
+    String question="";
+    String answer="";
+    Sound.resetSounds();
+    int qa=MetaDB.LANGUAGES_QA_QUESTION;
+    if (sDisplayAnswer) {
+      qa=MetaDB.LANGUAGES_QA_ANSWER;
+    }
+    answer=Sound.parseSounds(mBaseUrl,content,mSpeakText,qa);
+    content=question + answer;
+    content=content.replace("font-weight:600;","font-weight:700;");
+    StringBuilder style=new StringBuilder();
+    style.append(mCustomFontStyle);
+    if (mNightMode) {
+      content=HtmlColors.invertColors(content);
+    }
+    content=SmpToHtmlEntity(content);
+    mCardContent=new SpannedString(mCardTemplate.replace("::content::",content).replace("::style::",style.toString()));
+    fillFlashcard(mShowAnimations);
+  }
+}

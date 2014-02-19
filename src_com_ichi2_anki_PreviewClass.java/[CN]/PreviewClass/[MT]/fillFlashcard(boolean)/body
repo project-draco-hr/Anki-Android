@@ -1,0 +1,41 @@
+{
+  if (!flip) {
+    Display display=getWindowManager().getDefaultDisplay();
+    Integer width=display.getWidth();
+    Integer height=display.getHeight() / 2;
+    String file_contents=mCardContent.toString();
+    file_contents=file_contents.replace("newImg.width",width.toString());
+    file_contents=file_contents.replace("newImg.height",height.toString());
+    file_contents=file_contents.replace("<head>","<head><meta name='viewport' content='width=device-width,initial-scale=1,minimum-scale=1,user-scalable=yes'/>");
+    if (mCurrentSimpleInterface && mSimpleCard != null) {
+      mSimpleCard.setText(mCardContent);
+    }
+ else     if (mRefreshWebview && mCard != null && mNextCard != null) {
+      mNextCard.setBackgroundColor(mCurrentBackgroundColor);
+      mNextCard.loadDataWithBaseURL(mBaseUrl,file_contents,"text/html","utf-8",null);
+      mNextCard.setVisibility(View.VISIBLE);
+      mCardFrame.removeView(mCard);
+      mCard.destroy();
+      mCard=mNextCard;
+      mNextCard=createWebView();
+      mNextCard.setVisibility(View.GONE);
+      mCardFrame.addView(mNextCard,0);
+      if (AnkiDroidApp.SDK_VERSION <= 7) {
+        mCard.setFocusableInTouchMode(true);
+      }
+    }
+ else     if (mCard != null) {
+      mCard.loadDataWithBaseURL(mBaseUrl,file_contents,"text/html","utf-8",null);
+      mCard.setBackgroundColor(mCurrentBackgroundColor);
+    }
+    if (mChangeBorderStyle) {
+    }
+  }
+ else {
+    Animation3D rotation;
+    boolean directionToLeft=true;
+    mCardContainer.setDrawingCacheEnabled(true);
+    mCardContainer.setDrawingCacheBackgroundColor(Themes.getBackgroundColor());
+    mCardContainer.clearAnimation();
+  }
+}
