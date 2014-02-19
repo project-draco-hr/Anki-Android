@@ -1,0 +1,32 @@
+{
+  RadioGroup rg=new RadioGroup(context);
+  final RadioButton[] radioButtonCards=new RadioButton[3];
+  rg.setOrientation(RadioGroup.HORIZONTAL);
+  RadioGroup.LayoutParams lp=new RadioGroup.LayoutParams(0,LayoutParams.MATCH_PARENT,1);
+  int height=context.getResources().getDrawable(R.drawable.white_btn_radio).getIntrinsicHeight();
+  String[] text=res.getStringArray(R.array.cards_for_tag_filtered_deck_labels);
+  for (int i=0; i < radioButtonCards.length; i++) {
+    radioButtonCards[i]=new RadioButton(context);
+    radioButtonCards[i].setClickable(true);
+    radioButtonCards[i].setText(text[i]);
+    radioButtonCards[i].setHeight(height * 2);
+    radioButtonCards[i].setSingleLine();
+    radioButtonCards[i].setGravity(Gravity.CENTER_VERTICAL);
+    rg.addView(radioButtonCards[i],lp);
+  }
+  rg.check(0);
+  rg.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+    @Override public void onCheckedChanged(    RadioGroup arg0,    int arg1){
+      int checked=arg0.getCheckedRadioButtonId();
+      for (int i=0; i < 3; i++) {
+        if (arg0.getChildAt(i).getId() == checked) {
+          mSelectedOption=i;
+          break;
+        }
+      }
+    }
+  }
+);
+  rg.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,height));
+  return rg;
+}
