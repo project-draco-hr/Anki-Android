@@ -43,7 +43,6 @@ sb.append(String.format(content[1],res.getString(R.string.link_issue_tracker),re
 sb.append(String.format(content[2],res.getString(R.string.link_wikipedia_open_source),res.getString(R.string.link_contribution),res.getString(R.string.link_contribution_contributors))).append(" ");
 sb.append(String.format(content[3],res.getString(R.string.link_translation),res.getString(R.string.link_donation))).append("<br/><br/>");
 sb.append(String.format(content[4],res.getString(R.string.licence_wiki),res.getString(R.string.link_source))).append("<br/><br/>");
-sb.append(String.format(content[5])).append("<br/><br/>");
 sb.append("</body></html>");
 mWebView.loadDataWithBaseURL("",sb.toString(),"text/html","utf-8",null);
 ((Button)findViewById(R.id.info_continue)).setText(res.getString(R.string.info_rate));

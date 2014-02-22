@@ -1,0 +1,13 @@
+{
+  if (mDefaultFontStyle == null) {
+    SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(context);
+    AnkiFont defaultFont=customFontsMap.get(preferences.getString("defaultFont",null));
+    if (defaultFont != null) {
+      mDefaultFontStyle="BODY { " + defaultFont.getCSS() + " }\n";
+    }
+ else {
+      mDefaultFontStyle="";
+    }
+  }
+  return mDefaultFontStyle;
+}
