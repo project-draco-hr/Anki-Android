@@ -2,16 +2,12 @@
   boolean soundAvailable=false;
   StringBuilder stringBuilder=new StringBuilder();
   String contentLeft=content;
-  Log.i(AnkiDroidApp.TAG,"parseSounds");
+  Log.i(AnkiDroidApp.TAG,"expandSounds");
   Matcher matcher=sSoundPattern.matcher(content);
   while (matcher.find()) {
     soundAvailable=true;
     String sound=matcher.group(1);
     String soundPath=soundDir + Uri.encode(sound);
-    if (!sSoundPaths.containsKey(qa)) {
-      sSoundPaths.put(qa,new ArrayList<String>());
-    }
-    sSoundPaths.get(qa).add(soundPath);
     String soundMarker=matcher.group();
     int markerStart=contentLeft.indexOf(soundMarker);
     stringBuilder.append(contentLeft.substring(0,markerStart));
