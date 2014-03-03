@@ -15,10 +15,14 @@
     if (sDisplayAnswer) {
       qa=MetaDB.LANGUAGES_QA_ANSWER;
       answer=mCurrentCard.getPureAnswerForReading();
-      Sound.addSounds(mBaseUrl,answer,qa);
+      if (!mAnswerSoundsAdded) {
+        Sound.addSounds(mBaseUrl,answer,qa);
+        mAnswerSoundsAdded=true;
+      }
     }
  else {
       Sound.resetSounds();
+      mAnswerSoundsAdded=false;
       qa=MetaDB.LANGUAGES_QA_QUESTION;
       question=mCurrentCard.getQuestion(mCurrentSimpleInterface);
       Sound.addSounds(mBaseUrl,question,qa);
