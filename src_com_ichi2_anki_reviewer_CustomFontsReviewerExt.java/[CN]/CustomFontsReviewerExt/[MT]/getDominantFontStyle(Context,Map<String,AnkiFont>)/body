@@ -1,9 +1,9 @@
 {
   if (mDominantFontStyle == null) {
     mDominantFontStyle=getOverrideFontStyle(context,customFontsMap);
-    if (mDominantFontStyle.isEmpty()) {
+    if (TextUtils.isEmpty(mDominantFontStyle)) {
       mDominantFontStyle=getDefaultFontStyle(context,customFontsMap);
-      if (mDominantFontStyle.isEmpty()) {
+      if (TextUtils.isEmpty(mDominantFontStyle)) {
         mDominantFontStyle=getThemeFontStyle();
       }
     }
