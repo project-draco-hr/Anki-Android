@@ -5,6 +5,7 @@
  else {
     if (sMediaPlayer == null)     sMediaPlayer=new MediaPlayer();
  else     sMediaPlayer.reset();
+    if (sAudioManager == null)     sAudioManager=(AudioManager)AnkiDroidApp.getInstance().getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
     try {
       URI soundURI=new URI(soundPath);
       soundPath=new File(soundURI).getAbsolutePath();
@@ -12,6 +13,7 @@
       sMediaPlayer.setVolume(AudioManager.STREAM_MUSIC,AudioManager.STREAM_MUSIC);
       sMediaPlayer.prepare();
       if (playAllListener != null)       sMediaPlayer.setOnCompletionListener(playAllListener);
+      sAudioManager.requestAudioFocus(afChangeListener,AudioManager.STREAM_MUSIC,AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK);
       sMediaPlayer.start();
     }
  catch (    Exception e) {
