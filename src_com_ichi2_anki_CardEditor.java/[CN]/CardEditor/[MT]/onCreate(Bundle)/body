@@ -199,6 +199,13 @@ for (FieldEditText f : mEditFields) {
 modified=modified | f.updateField();
 }
 if (mAddNote) {
+try {
+mEditorNote.model().put("did",mCurrentDid);
+mCol.getModels().setChanged();
+}
+ catch (JSONException e) {
+throw new RuntimeException(e);
+}
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ADD_FACT,mSaveFactHandler,new DeckTask.TaskData(mEditorNote));
 }
  else {
