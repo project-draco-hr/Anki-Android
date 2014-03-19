@@ -4,6 +4,7 @@
   mTextDeckName=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_name);
   mTextDeckDescription=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_description);
   mButtonStart=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_start);
+  mButtonCustomStudy=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_custom);
   if (AnkiDroidApp.colIsOpen() && AnkiDroidApp.getCol().getDecks().isDyn(AnkiDroidApp.getCol().getDecks().selected())) {
     Button rebBut=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_rebuild_cram);
     rebBut.setOnClickListener(mButtonClickListener);
@@ -35,7 +36,7 @@
     }
     mCardBrowser=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_card_browser);
     mStatisticsButton=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_statistics);
-    mDeckOptions=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_options);
+    mDeckOptions=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_options);
     mAddNote.setOnClickListener(mButtonClickListener);
     mCardBrowser.setOnClickListener(mButtonClickListener);
     mStatisticsButton.setOnClickListener(mButtonClickListener);
@@ -56,6 +57,7 @@
   mDeckCounts=(LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_deckcounts);
   mDeckChart=(LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_chart);
   mButtonStart.setOnClickListener(mButtonClickListener);
+  mButtonCustomStudy.setOnClickListener(mButtonClickListener);
   mCongratsView=inflater.inflate(R.layout.studyoptions_congrats,null);
   mCustomStudyDetailsView=inflater.inflate(R.layout.styled_custom_study_details_dialog,null);
   mCustomStudyTextView1=(TextView)mCustomStudyDetailsView.findViewById(R.id.custom_study_details_text1);
