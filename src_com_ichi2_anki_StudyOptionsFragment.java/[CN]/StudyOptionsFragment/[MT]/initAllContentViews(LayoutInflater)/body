@@ -11,6 +11,7 @@
     Button emptyBut=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_empty_cram);
     emptyBut.setOnClickListener(mButtonClickListener);
     ((LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_cram_buttons)).setVisibility(View.VISIBLE);
+    ((LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_regular_buttons)).setVisibility(View.GONE);
   }
   if (mFragmented) {
     Button but=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_options);
@@ -37,10 +38,12 @@
     mCardBrowser=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_card_browser);
     mStatisticsButton=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_statistics);
     mDeckOptions=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_options);
+    mCramOptions=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_options_cram);
     mAddNote.setOnClickListener(mButtonClickListener);
     mCardBrowser.setOnClickListener(mButtonClickListener);
     mStatisticsButton.setOnClickListener(mButtonClickListener);
     mDeckOptions.setOnClickListener(mButtonClickListener);
+    mCramOptions.setOnClickListener(mButtonClickListener);
   }
   mGlobalBar=(View)mStudyOptionsView.findViewById(R.id.studyoptions_global_bar);
   mGlobalMatBar=(View)mStudyOptionsView.findViewById(R.id.studyoptions_global_mat_bar);
