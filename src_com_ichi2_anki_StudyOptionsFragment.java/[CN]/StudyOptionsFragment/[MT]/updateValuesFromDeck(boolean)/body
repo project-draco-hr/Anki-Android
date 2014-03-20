@@ -37,10 +37,11 @@
     if (deck.getInt("dyn") == 0) {
       desc=AnkiDroidApp.getCol().getDecks().getActualDescription();
       mTextDeckDescription.setMaxLines(3);
+      mTextDeckDescription.setEllipsize(TextUtils.TruncateAt.END);
     }
  else {
       desc=getResources().getString(R.string.dyn_deck_desc);
-      mTextDeckDescription.setMaxLines(5);
+      mTextDeckDescription.setMaxLines(10);
     }
   }
  catch (  JSONException e) {

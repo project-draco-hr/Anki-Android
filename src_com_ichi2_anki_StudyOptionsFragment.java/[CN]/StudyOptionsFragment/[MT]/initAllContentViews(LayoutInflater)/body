@@ -5,6 +5,8 @@
   mTextDeckDescription=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_description);
   mButtonStart=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_start);
   mButtonCustomStudy=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_custom);
+  mDeckOptions=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_options);
+  mCramOptions=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_options_cram);
   if (AnkiDroidApp.colIsOpen() && AnkiDroidApp.getCol().getDecks().isDyn(AnkiDroidApp.getCol().getDecks().selected())) {
     Button rebBut=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_rebuild_cram);
     rebBut.setOnClickListener(mButtonClickListener);
@@ -13,21 +15,7 @@
     ((LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_cram_buttons)).setVisibility(View.VISIBLE);
     ((LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_regular_buttons)).setVisibility(View.GONE);
   }
-  if (mFragmented) {
-    Button but=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_options);
-    but.setOnClickListener(mButtonClickListener);
-    mFragmentedCram=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_new_filtercram);
-    if (AnkiDroidApp.colIsOpen() && AnkiDroidApp.getCol().getDecks().isDyn(AnkiDroidApp.getCol().getDecks().selected())) {
-      mFragmentedCram.setEnabled(false);
-      mFragmentedCram.setVisibility(View.GONE);
-    }
- else {
-      mFragmentedCram.setEnabled(true);
-      mFragmentedCram.setVisibility(View.VISIBLE);
-    }
-    mFragmentedCram.setOnClickListener(mButtonClickListener);
-  }
- else {
+  if (!mFragmented) {
     mAddNote=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_add);
     if (AnkiDroidApp.colIsOpen()) {
       Collection col=AnkiDroidApp.getCol();
@@ -37,13 +25,11 @@
     }
     mCardBrowser=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_card_browser);
     mStatisticsButton=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_statistics);
-    mDeckOptions=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_options);
-    mCramOptions=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_options_cram);
     mAddNote.setOnClickListener(mButtonClickListener);
     mCardBrowser.setOnClickListener(mButtonClickListener);
     mStatisticsButton.setOnClickListener(mButtonClickListener);
-    mDeckOptions.setOnClickListener(mButtonClickListener);
-    mCramOptions.setOnClickListener(mButtonClickListener);
+  }
+ else {
   }
   mGlobalBar=(View)mStudyOptionsView.findViewById(R.id.studyoptions_global_bar);
   mGlobalMatBar=(View)mStudyOptionsView.findViewById(R.id.studyoptions_global_mat_bar);
@@ -61,6 +47,8 @@
   mDeckChart=(LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_chart);
   mButtonStart.setOnClickListener(mButtonClickListener);
   mButtonCustomStudy.setOnClickListener(mButtonClickListener);
+  mDeckOptions.setOnClickListener(mButtonClickListener);
+  mCramOptions.setOnClickListener(mButtonClickListener);
   mCongratsView=inflater.inflate(R.layout.studyoptions_congrats,null);
   mCustomStudyDetailsView=inflater.inflate(R.layout.styled_custom_study_details_dialog,null);
   mCustomStudyTextView1=(TextView)mCustomStudyDetailsView.findViewById(R.id.custom_study_details_text1);
