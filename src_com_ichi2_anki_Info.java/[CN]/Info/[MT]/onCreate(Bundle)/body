@@ -153,7 +153,8 @@ finishWithAnimation(false);
 }
 }
 );
-syncButton.setText(getString(R.string.internet));
+syncButton.setEnabled(false);
+syncButton.setText("N/A");
 syncButton.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
 Intent result=new Intent();
@@ -279,7 +280,8 @@ finishWithAnimation();
 }
 }
 );
-continueButton.setText(R.string.ankiweb);
+continueButton.setEnabled(false);
+continueButton.setText("N/A");
 continueButton.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
 Intent result=new Intent();
