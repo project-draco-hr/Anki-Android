@@ -2,7 +2,7 @@ languages = ['ar', 'bg', 'ca', 'cs', 'de', 'el', 'es-AR', 'es-ES', 'et', 'fa', '
 localizedRegions = ['es', 'pt', 'zh']
 fileNames = ['01-core', '02-strings', '03-dialogs', '04-network', '05-feedback', '06-statistics', '07-cardbrowser', '08-widget', '09-backup', '10-preferences', '11-arrays', '12-tutorial', '13-newfeatures', '14-marketdescription', '15-markettitle']
 anyError = False
-titleFile = '../docs/marketing/localized_description/ankidroid-titles.txt'
+titleFile = 'docs/marketing/localized_description/ankidroid-titles.txt'
 titleString = 'AnkiDroid Flashcards'
 import os
 import zipfile
@@ -25,7 +25,7 @@ for language in languages:
     else:
         androidLanguage = language[:2]
     print ('\ncopying language files for: ' + androidLanguage)
-    valuesDirectory = (('../res/values-' + androidLanguage) + '/')
+    valuesDirectory = (('res/values-' + androidLanguage) + '/')
     createIfNotExisting(valuesDirectory)
     for f in fileNames:
         fileExt = fileExtFor(f)
@@ -35,11 +35,11 @@ for language in languages:
             break
         else:
             anyError = False
-valuesDirectory = '../res/values/'
+valuesDirectory = 'res/values/'
 createIfNotExisting(valuesDirectory)
 f = '12-tutorial'
 fileExt = fileExtFor(f)
-source = open((('../assets/' + 'tutorial') + fileExt))
+source = open((('assets/' + 'tutorial') + fileExt))
 print 
 update(valuesDirectory, f, source.read(), fileExt, False)
 print '\nremoving crowdin-file\n'
