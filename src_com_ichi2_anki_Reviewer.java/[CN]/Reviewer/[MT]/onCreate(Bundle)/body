@@ -50,6 +50,29 @@
     }
     if (mSpeakText) {
       ReadText.initializeTts(this);
+      mTTSProgressDialog=new ProgressDialog(this);
+      new AsyncTask<String,Void,Void>(){
+        @Override protected void onPreExecute(){
+          mTTSProgressDialog.setMessage("Init TTS");
+          mTTSProgressDialog.show();
+        }
+        @Override protected Void doInBackground(        String... params){
+          while (ReadText.mTTSInitDone == false) {
+            try {
+              Thread.sleep(500);
+            }
+ catch (            InterruptedException e) {
+              e.printStackTrace();
+            }
+          }
+          return null;
+        }
+        @Override protected void onPostExecute(        Void res){
+          mTTSProgressDialog.dismiss();
+          DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(mSched,null,0));
+        }
+      }
+.execute();
     }
     if (mPrefWhiteboard && mCurrentCard != null && MetaDB.getWhiteboardState(this,mCurrentCard.getDid()) == 1) {
       mShowWhiteboard=true;
