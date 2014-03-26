@@ -9,13 +9,19 @@
     }
     String question="";
     String answer="";
-    Sound.resetSounds();
-    int qa=MetaDB.LANGUAGES_QA_QUESTION;
+    int qa=-1;
     if (sDisplayAnswer) {
       qa=MetaDB.LANGUAGES_QA_ANSWER;
+      answer=mCurrentCard.getPureAnswerForReading();
+      Sound.addSounds(mBaseUrl,answer,qa);
     }
-    answer=Sound.parseSounds(mBaseUrl,content,mSpeakText,qa);
-    content=question + answer;
+ else {
+      Sound.resetSounds();
+      qa=MetaDB.LANGUAGES_QA_QUESTION;
+      question=mCurrentCard.getQuestion(mCurrentSimpleInterface);
+      Sound.addSounds(mBaseUrl,question,qa);
+    }
+    content=Sound.expandSounds(mBaseUrl,content,mSpeakText,qa);
     content=content.replace("font-weight:600;","font-weight:700;");
     StringBuilder style=new StringBuilder();
     style.append(mCustomFontStyle);
