@@ -1,7 +1,6 @@
 {
   Log.d(AnkiDroidApp.TAG,"DeckOptions - commit() changes back to database");
   try {
-    mOptions.put("replayq",false);
     for (    Entry<String,Object> entry : mUpdate.valueSet()) {
       String key=entry.getKey();
       Object value=entry.getValue();
