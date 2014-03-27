@@ -211,6 +211,8 @@ modified=modified || changedDid;
 if (modified) {
 mEditorNote.setTags(mCurrentTags);
 if (changedDid) {
+AnkiDroidApp.getCol().getSched().remFromDyn(new long[]{mCurrentEditedCard.getId()});
+mCurrentEditedCard.load();
 mCurrentEditedCard.setDid(mCurrentDid);
 }
 mChanged=true;
