@@ -3,5 +3,6 @@
   if (mCol != null) {
     mCards.clear();
     DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SEARCH_CARDS,mSearchCardsHandler,new DeckTask.TaskData(new Object[]{mCol,mDeckNames,searchText,((mOrder == CARD_ORDER_NONE) ? "" : "true")}));
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_RENDER_BROWSER_QA,mRenderQAHandler,new DeckTask.TaskData(new Object[]{mCol,mCards}));
   }
 }

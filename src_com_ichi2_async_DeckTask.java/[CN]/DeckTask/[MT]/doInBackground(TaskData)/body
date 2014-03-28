@@ -83,6 +83,8 @@ case TASK_TYPE_CONF_REMOVE:
 return doInBackgroundConfRemove(params);
 case TASK_TYPE_CONF_SET_SUBDECKS:
 return doInBackgroundConfSetSubdecks(params);
+case TASK_TYPE_RENDER_BROWSER_QA:
+return doInBackgroundRenderBrowserQA(params);
 default :
 Log.e(AnkiDroidApp.TAG,"unknown task type: " + mType);
 return null;

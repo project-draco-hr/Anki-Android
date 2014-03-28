@@ -22,7 +22,7 @@
       tmp.addAll(a);
       tmp.set(i,"");
       data[6]=Utils.joinFields(tmp.toArray(new String[tmp.size()]));
-      if (!mCol._renderQA(data,new ArrayList<String>()).get("q").contains("ankiflag")) {
+      if (!mCol._renderQA(data).get("q").contains("ankiflag")) {
         req.put(i);
       }
     }

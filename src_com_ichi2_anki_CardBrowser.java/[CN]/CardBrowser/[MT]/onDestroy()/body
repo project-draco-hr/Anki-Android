@@ -1,5 +1,6 @@
 {
   super.onDestroy();
+  DeckTask.cancelTask();
   if (mUnmountReceiver != null) {
     unregisterReceiver(mUnmountReceiver);
   }

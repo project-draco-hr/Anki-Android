@@ -1,0 +1,11 @@
+{
+  String s=txt.replace("<br>"," ");
+  s=s.replace("<br />"," ");
+  s=s.replace("<div>"," ");
+  s=s.replace("\n"," ");
+  s=s.replaceAll("\\[sound:[^]]+\\]","");
+  s=s.replaceAll("\\[\\[type:[^]]+\\]\\]","");
+  s=Utils.stripHTMLMedia(s);
+  s=s.trim();
+  return s;
+}
