@@ -1,7 +1,6 @@
 {
   mReviewer=context;
   mTTSInitDone=false;
-  Log.i(AnkiDroidApp.TAG,"initializeTts");
   final TTSInitListener listener=new TTSInitListener();
   mTts=new TextToSpeech(context,listener);
 }

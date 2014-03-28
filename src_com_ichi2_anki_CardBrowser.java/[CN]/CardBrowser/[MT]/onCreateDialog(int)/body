@@ -66,11 +66,9 @@ builder.setMultiChoiceItems(allTags,new boolean[allTags.length],new DialogInterf
 @Override public void onClick(DialogInterface dialog,int which){
 String tag=allTags[which];
 if (mSelectedTags.contains(tag)) {
-Log.i(AnkiDroidApp.TAG,"unchecked tag: " + tag);
 mSelectedTags.remove(tag);
 }
  else {
-Log.i(AnkiDroidApp.TAG,"checked tag: " + tag);
 mSelectedTags.add(tag);
 }
 }

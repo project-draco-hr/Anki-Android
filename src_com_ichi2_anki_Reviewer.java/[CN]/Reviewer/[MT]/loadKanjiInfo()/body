@@ -18,7 +18,6 @@
         sKanjiInfo.put(kanjiInfoPair[0],kanjiInfoPair[1]);
       }
  catch (      IndexOutOfBoundsException e) {
-        Log.i(AnkiDroidApp.TAG,"Malformed entry in kanji_info.txt: " + line);
       }
     }
   }

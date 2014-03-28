@@ -7,7 +7,6 @@
   File[] deckBackups=getBackups(collectionFile);
   int len=deckBackups.length;
   if (len > 0 && deckBackups[len - 1].lastModified() == collectionFile.lastModified()) {
-    Log.i(AnkiDroidApp.TAG,"performBackup: No backup necessary due to no collection changes");
     return;
   }
   SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd-HH-mm");
@@ -24,7 +23,6 @@
     }
   }
   if (lastBackupDate != null && lastBackupDate.getTime() + interval * 3600000 > Utils.intNow(1000) && !force) {
-    Log.i(AnkiDroidApp.TAG,"performBackup: No backup created. Last backup younger than 5 hours");
     return;
   }
   String backupFilename;
@@ -37,7 +35,6 @@
   }
   File backupFile=new File(getBackupDirectory().getPath(),backupFilename);
   if (backupFile.exists()) {
-    Log.i(AnkiDroidApp.TAG,"performBackup: No new backup created. File already exists");
     return;
   }
   if (getFreeDiscSpace(collectionFile) < collectionFile.length() + (MIN_FREE_SPACE * 1024 * 1024)) {

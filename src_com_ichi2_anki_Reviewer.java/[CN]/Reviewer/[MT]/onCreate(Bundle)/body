@@ -2,7 +2,6 @@
   mExtensions=new ReviewerExtRegistry(getBaseContext());
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
-  Log.i(AnkiDroidApp.TAG,"Reviewer - onCreate");
   if (mPrefFullscreenReview) {
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
     if (AnkiDroidApp.SDK_VERSION <= 11) {

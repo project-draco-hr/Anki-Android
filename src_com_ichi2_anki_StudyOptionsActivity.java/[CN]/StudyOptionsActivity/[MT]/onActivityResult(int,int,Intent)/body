@@ -1,6 +1,5 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
-  Log.i(AnkiDroidApp.TAG,"StudyOptionsActivity: onActivityResult");
   String newLanguage=AnkiDroidApp.getSharedPrefs(this).getString("language","");
   if (AnkiDroidApp.setLanguage(newLanguage)) {
     mInvalidateMenu=true;

@@ -1,6 +1,5 @@
 {
   super.onPostExecute(context);
-  Log.d(AnkiDroidApp.TAG,"WidgetStatus.UpdateDeckStatusAsyncTask.onPostExecute()");
   MetaDB.storeSmallWidgetStatus(context,mSmallWidgetStatus);
   if (smallWidget) {
     Intent intent;
