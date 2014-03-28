@@ -42,9 +42,17 @@
     family=family.replaceFirst("(?i)-?Expanded","");
     family=family.replaceFirst("(?i)-?Wide(r)?","");
   }
- else {
-    attributes.add("font-stretch: normal;");
+  AnkiFont createdFont=new AnkiFont(name,family,attributes,path);
+  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(ctx);
+  String overrideFont=preferences.getString("overrideFont","");
+  if (overrideFont.equalsIgnoreCase(name)) {
+    createdFont.setAsOverride();
   }
-  family=family.replaceFirst("(?i)-?Regular","");
-  return new AnkiFont(name,family,attributes,path);
+ else {
+    String defaultFont=preferences.getString("defaultFont","");
+    if (defaultFont.equalsIgnoreCase(name)) {
+      createdFont.setAsDefault();
+    }
+  }
+  return createdFont;
 }

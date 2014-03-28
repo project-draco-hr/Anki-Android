@@ -1,8 +1,8 @@
 def update(valuesDirectory, f, source, fileExt, isCrowdin, language=''):
     if (f == '14-marketdescription'):
-        newfile = ((('../docs/marketing/localized_description/marketdescription' + '-') + language) + fileExt)
+        newfile = ((('docs/marketing/localized_description/marketdescription' + '-') + language) + fileExt)
         file(newfile, 'w').write(source)
-        oldContent = open('../docs/marketing/localized_description/oldVersionJustToCompareWith.txt').readlines()
+        oldContent = open('docs/marketing/localized_description/oldVersionJustToCompareWith.txt').readlines()
         newContent = open(newfile).readlines()
         for i in range(0, len(oldContent)):
             if (oldContent[i] != newContent[i]):

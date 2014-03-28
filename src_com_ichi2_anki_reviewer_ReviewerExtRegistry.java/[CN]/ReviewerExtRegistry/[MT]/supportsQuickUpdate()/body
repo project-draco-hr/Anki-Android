@@ -1,0 +1,8 @@
+{
+  for (  ReviewerExt ext : mReviewerExts) {
+    if (!ext.supportsQuickUpdate()) {
+      return false;
+    }
+  }
+  return true;
+}

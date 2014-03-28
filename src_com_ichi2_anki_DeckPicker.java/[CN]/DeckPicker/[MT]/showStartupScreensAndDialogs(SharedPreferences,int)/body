@@ -42,30 +42,36 @@
   }
  else {
     int current=AnkiDroidApp.getPkgVersionCode();
-    int previous;
+    int previousTemp;
     if (!preferences.contains("lastUpgradeVersion")) {
-      previous=current;
+      previousTemp=current;
     }
  else {
       try {
-        previous=preferences.getInt("lastUpgradeVersion",current);
+        previousTemp=preferences.getInt("lastUpgradeVersion",current);
       }
  catch (      ClassCastException e) {
         String s=preferences.getString("lastUpgradeVersion","");
         if (s.equals("2.0.2")) {
-          previous=40;
+          previousTemp=40;
         }
  else {
-          previous=0;
+          previousTemp=0;
         }
       }
     }
+    final int previous=previousTemp;
     preferences.edit().putInt("lastUpgradeVersion",current).commit();
-    if (previous < AnkiDroidApp.CHECK_DB_AT_VERSION) {
+    if (previous < AnkiDroidApp.CHECK_DB_AT_VERSION || previous < AnkiDroidApp.CHECK_PREFERENCES_AT_VERSION) {
       DeckTask.launchDeckTask(DeckTask.TASK_TYPE_OPEN_COLLECTION,new Listener(){
         @Override public void onPostExecute(        DeckTask task,        TaskData result){
           mOpenCollectionHandler.onPostExecute(result);
-          integrityCheck();
+          if (previous < AnkiDroidApp.CHECK_DB_AT_VERSION) {
+            integrityCheck();
+          }
+          if (previous < AnkiDroidApp.CHECK_PREFERENCES_AT_VERSION) {
+            upgradePreferences(previous);
+          }
         }
         @Override public void onPreExecute(        DeckTask task){
         }

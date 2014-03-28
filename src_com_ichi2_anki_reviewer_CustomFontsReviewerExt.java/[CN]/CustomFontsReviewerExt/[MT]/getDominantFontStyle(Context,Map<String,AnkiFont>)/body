@@ -1,0 +1,12 @@
+{
+  if (mDominantFontStyle == null) {
+    mDominantFontStyle=getOverrideFontStyle(context,customFontsMap);
+    if (TextUtils.isEmpty(mDominantFontStyle)) {
+      mDominantFontStyle=getDefaultFontStyle(context,customFontsMap);
+      if (TextUtils.isEmpty(mDominantFontStyle)) {
+        mDominantFontStyle=getThemeFontStyle();
+      }
+    }
+  }
+  return mDominantFontStyle;
+}

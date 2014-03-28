@@ -1,0 +1,6 @@
+{
+  if (overrideFontPreference != null && defaultFontPreference != null) {
+    Boolean overrideIsSet=!TextUtils.isEmpty(overrideFontPreference.getValue());
+    defaultFontPreference.setEnabled(!overrideIsSet);
+  }
+}

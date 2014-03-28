@@ -2,5 +2,6 @@
   if (container == null) {
     return null;
   }
+  mSelectedTags=new HashSet<String>();
   return createView(inflater,savedInstanceState);
 }

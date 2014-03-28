@@ -1,0 +1,13 @@
+{
+  super.onScrollChanged(horiz,vert,oldHoriz,oldVert);
+  if (Math.abs(horiz - oldHoriz) > Math.abs(vert - oldVert)) {
+    mIsXScrolling=true;
+    scrollHandler.removeCallbacks(scrollXRunnable);
+    scrollHandler.postDelayed(scrollXRunnable,300);
+  }
+ else {
+    mIsYScrolling=true;
+    scrollHandler.removeCallbacks(scrollYRunnable);
+    scrollHandler.postDelayed(scrollYRunnable,300);
+  }
+}

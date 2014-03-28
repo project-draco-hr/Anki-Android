@@ -1,0 +1,13 @@
+{
+  if (mOverrideFontStyle == null) {
+    SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(context);
+    AnkiFont overrideFont=customFontsMap.get(preferences.getString("overrideFont",null));
+    if (overrideFont != null) {
+      mOverrideFontStyle="BODY, .card, * { " + overrideFont.getCSS() + " }\n";
+    }
+ else {
+      mOverrideFontStyle="";
+    }
+  }
+  return mOverrideFontStyle;
+}

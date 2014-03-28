@@ -17,11 +17,87 @@ builder1.setIcon(android.R.drawable.ic_menu_sort_by_size);
 builder1.setItems(res.getStringArray(R.array.custom_study_options_labels),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 mCustomDialogChoice=which;
+if (which == CUSTOM_STUDY_TAGS - 1) {
+  showDialog(DIALOG_CUSTOM_STUDY_TAGS);
+  return;
+}
 showDialog(DIALOG_CUSTOM_STUDY_DETAILS);
 }
 }
 );
 builder1.setCancelable(true);
+dialog=builder1.create();
+break;
+case DIALOG_CUSTOM_STUDY_TAGS:
+if (!AnkiDroidApp.colIsOpen()) {
+}
+Context context=getActivity().getBaseContext();
+RadioGroup rg=formatRGCardType(context,res);
+mSelectWhichCards=rg;
+builder1.setView(rg,false,true);
+Collection col;
+col=AnkiDroidApp.getCol();
+allTags=col.getTags().all();
+builder1.setTitle(R.string.studyoptions_limit_select_tags);
+builder1.setMultiChoiceItems(allTags,new boolean[allTags.length],new DialogInterface.OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+String tag=allTags[which];
+if (mSelectedTags.contains(tag)) {
+mSelectedTags.remove(tag);
+}
+ else {
+mSelectedTags.add(tag);
+}
+}
+}
+);
+builder1.setPositiveButton(res.getString(R.string.select),new OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+mCustomStudyEditText.setText("");
+String tags=mSelectedTags.toString();
+mCustomStudyEditText.setHint(getResources().getString(R.string.card_browser_tags_shown,tags.substring(1,tags.length() - 1)));
+StringBuilder sb=new StringBuilder();
+switch (mSelectedOption) {
+case 1:
+sb.append("is:new ");
+break;
+case 2:
+sb.append("is:due ");
+break;
+default :
+break;
+}
+int i=0;
+for (String tag : mSelectedTags) {
+if (i != 0) {
+sb.append("or ");
+}
+ else {
+sb.append("(");
+}
+sb.append("tag:").append(tag).append(" ");
+i++;
+}
+if (i > 0) {
+sb.append(")");
+}
+mSearchTerms=sb.toString();
+createFilteredDeck(new JSONArray(),new Object[]{mSearchTerms,9999,Sched.DYN_RANDOM},false);
+}
+}
+);
+builder1.setNegativeButton(res.getString(R.string.cancel),new OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+mSelectedTags.clear();
+}
+}
+);
+builder1.setOnCancelListener(new OnCancelListener(){
+@Override public void onCancel(DialogInterface dialog){
+mSelectedTags.clear();
+}
+}
+);
 dialog=builder1.create();
 break;
 case DIALOG_CUSTOM_STUDY_DETAILS:
@@ -33,6 +109,7 @@ dialog=builder1.create();
 break;
 default :
 dialog=null;
+break;
 }
 dialog.setOwnerActivity(getActivity());
 return dialog;

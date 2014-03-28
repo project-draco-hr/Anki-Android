@@ -3,5 +3,5 @@
   ArrayList<String> fl=new ArrayList<String>(Arrays.asList(fields));
   fl.remove(oldidx);
   fl.add(idx,val);
-  return fl.toArray(new String[]{});
+  return fl.toArray(new String[fl.size()]);
 }

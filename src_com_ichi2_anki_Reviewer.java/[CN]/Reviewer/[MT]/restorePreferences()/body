@@ -15,7 +15,7 @@
   mRelativeButtonSize=preferences.getInt("answerButtonSize",100);
   mInputWorkaround=preferences.getBoolean("inputWorkaround",false);
   mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
-  mPrefForceQuickUpdate=preferences.getBoolean("forceQuickUpdate",true);
+  mPrefForceQuickUpdate=preferences.getBoolean("forceQuickUpdate",false);
   mSpeakText=preferences.getBoolean("tts",false);
   mShowProgressBars=preferences.getBoolean("progressBars",true);
   mPrefFadeScrollbars=preferences.getBoolean("fadeScrollbars",false);
@@ -24,6 +24,7 @@
   mWaitQuestionSecond=preferences.getInt("timeoutQuestionSeconds",60);
   mScrollingButtons=preferences.getBoolean("scrolling_buttons",false);
   mDoubleScrolling=preferences.getBoolean("double_scrolling",false);
+  mDisplayKanjiInfo=preferences.getBoolean("displayKanjiInfo",false);
   mPrefCenterVertically=preferences.getBoolean("centerVertically",false);
   mGesturesEnabled=AnkiDroidApp.initiateGestures(this,preferences);
   if (mGesturesEnabled) {

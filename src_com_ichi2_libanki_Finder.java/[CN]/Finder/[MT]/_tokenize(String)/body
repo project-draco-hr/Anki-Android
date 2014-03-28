@@ -61,5 +61,5 @@
   if (token.length() != 0) {
     tokens.add(token);
   }
-  return tokens.toArray(new String[]{});
+  return tokens.toArray(new String[tokens.size()]);
 }

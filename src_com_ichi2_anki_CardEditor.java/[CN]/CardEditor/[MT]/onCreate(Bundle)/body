@@ -38,6 +38,7 @@
   mSave=(Button)findViewById(R.id.CardEditorSaveButton);
   mCancel=(Button)findViewById(R.id.CardEditorCancelButton);
   mLater=(Button)findViewById(R.id.CardEditorLaterButton);
+  mPreviewButton=(Button)findViewById(R.id.CardEditorPreviewButton);
   mDeckButton=(TextView)findViewById(R.id.CardEditorDeckText);
   mModelButton=(TextView)findViewById(R.id.CardEditorModelText);
   mTagsButton=(TextView)findViewById(R.id.CardEditorTagText);
@@ -48,6 +49,13 @@
     }
   }
 );
+  if (Preferences.COMING_FROM_ADD) {
+    mPreviewButton.setVisibility(View.GONE);
+  }
+ else {
+    mPreviewButton.setVisibility(View.VISIBLE);
+  }
+  Preferences.COMING_FROM_ADD=false;
   mAedictIntent=false;
 switch (mCaller) {
 case CALLER_NOCALLER:
@@ -108,7 +116,7 @@ setTitle(R.string.cardeditor_title_add_note);
 String contents=null;
 if (mSourceText != null) {
 if (mAedictIntent && (mEditFields.size() == 3) && mSourceText[1].contains("[")) {
-contents=mSourceText[1].replaceFirst("\\[","\u001f");
+contents=mSourceText[1].replaceFirst("\\[","\u001f" + mSourceText[0] + "\u001f");
 contents=contents.substring(0,contents.length() - 1);
 }
  else {
@@ -200,6 +208,8 @@ modified=modified || changedDid;
 if (modified) {
 mEditorNote.setTags(mCurrentTags);
 if (changedDid) {
+AnkiDroidApp.getCol().getSched().remFromDyn(new long[]{mCurrentEditedCard.getId()});
+mCurrentEditedCard.load();
 mCurrentEditedCard.setDid(mCurrentDid);
 }
 mChanged=true;
@@ -212,6 +222,12 @@ closeCardEditor();
 mCancel.setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
 closeCardEditor();
+}
+}
+);
+mPreviewButton.setOnClickListener(new View.OnClickListener(){
+@Override public void onClick(View v){
+openReviewer();
 }
 }
 );

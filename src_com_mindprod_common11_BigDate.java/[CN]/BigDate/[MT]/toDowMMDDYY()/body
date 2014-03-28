@@ -1,6 +1,0 @@
-{
-  if (ordinal == NULL_ORDINAL) {
-    return "";
-  }
-  return dayAbbr[getDayOfWeek()] + " " + StringTools.toLZ(mm,2)+ "/"+ StringTools.toLZ(dd,2)+ "/"+ StringTools.toLZ(yyyy % 100,2);
-}

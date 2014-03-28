@@ -1,0 +1,29 @@
+{
+  sDisplayAnswer=false;
+  setInterface();
+  String question=mCurrentCard.getQuestion(mCurrentSimpleInterface);
+  question=typeAnsQuestionFilter(question);
+  if (mPrefFixArabic) {
+    question=ArabicUtilities.reshapeSentence(question,true);
+  }
+  String displayString="";
+  if (mCurrentSimpleInterface) {
+    mCardContent=convertToSimple(question);
+    if (mCardContent.length() == 0) {
+      SpannableString hint=new SpannableString(getResources().getString(R.string.simple_interface_hint,R.string.card_details_question));
+      hint.setSpan(new StyleSpan(Typeface.ITALIC),0,mCardContent.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      mCardContent=hint;
+    }
+  }
+ else {
+    if (typeAnswer()) {
+      mAnswerField.setVisibility(View.VISIBLE);
+      InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+      inputMethodManager.showSoftInput(mAnswerField,InputMethodManager.SHOW_FORCED);
+    }
+    displayString=enrichWithQADiv(question,false);
+    if (mSpeakText) {
+    }
+  }
+  updateCard(displayString);
+}

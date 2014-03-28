@@ -2,5 +2,5 @@
   if (mPrefForceQuickUpdate) {
     return true;
   }
-  return getCustomFontsMap().size() == 0 && !isNookDevice();
+  return mExtensions.supportsQuickUpdate() && !isNookDevice();
 }

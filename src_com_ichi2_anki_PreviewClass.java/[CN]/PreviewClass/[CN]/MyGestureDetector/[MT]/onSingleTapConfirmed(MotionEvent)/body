@@ -1,0 +1,26 @@
+{
+  if (mGesturesEnabled && !mIsSelecting) {
+    int height=mTouchLayer.getHeight();
+    int width=mTouchLayer.getWidth();
+    float posX=e.getX();
+    float posY=e.getY();
+    if (posX > posY / height * width) {
+      if (posY > height * (1 - posX / width)) {
+        executeCommand(mGestureTapRight);
+      }
+ else {
+        executeCommand(mGestureTapTop);
+      }
+    }
+ else {
+      if (posY > height * (1 - posX / width)) {
+        executeCommand(mGestureTapBottom);
+      }
+ else {
+        executeCommand(mGestureTapLeft);
+      }
+    }
+  }
+  mIsSelecting=false;
+  return false;
+}

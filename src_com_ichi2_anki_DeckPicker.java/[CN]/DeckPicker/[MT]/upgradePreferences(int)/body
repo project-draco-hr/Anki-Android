@@ -1,0 +1,7 @@
+{
+  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
+  if (previousVersionCode < 20100108) {
+    preferences.edit().putString("overrideFont",preferences.getString("defaultFont","")).commit();
+    preferences.edit().putString("defaultFont","").commit();
+  }
+}

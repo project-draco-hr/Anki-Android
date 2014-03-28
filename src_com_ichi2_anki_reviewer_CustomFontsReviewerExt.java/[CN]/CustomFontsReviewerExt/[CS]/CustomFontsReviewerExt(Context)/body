@@ -1,0 +1,5 @@
+{
+  Map<String,AnkiFont> customFontsMap=getCustomFontsMap(context);
+  mCustomStyle=getCustomFontsStyle(customFontsMap) + getDominantFontStyle(context,customFontsMap);
+  mSupportsQuickUpdate=customFontsMap.size() == 0;
+}

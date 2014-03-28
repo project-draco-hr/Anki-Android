@@ -1,7 +1,0 @@
-{
-  String s=Integer.toHexString(h);
-  if (s.length() < 8) {
-    s="00000000".substring(0,8 - s.length()) + s;
-  }
-  return "0x" + s;
-}

@@ -1,0 +1,8 @@
+{
+  StringBuilder builder=new StringBuilder();
+  for (  AnkiFont font : customFontsMap.values()) {
+    builder.append(font.getDeclaration());
+    builder.append('\n');
+  }
+  return builder.toString();
+}

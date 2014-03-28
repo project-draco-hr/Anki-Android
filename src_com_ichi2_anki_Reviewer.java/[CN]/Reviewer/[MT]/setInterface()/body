@@ -51,7 +51,6 @@
         mNextCard.setVisibility(View.GONE);
         mCardFrame.addView(mNextCard,0);
         mCard.setBackgroundColor(mCurrentBackgroundColor);
-        mCustomFontStyle=getCustomFontsStyle() + getDefaultFontStyle();
       }
     }
     if (mCard.getVisibility() != View.VISIBLE || (mSimpleCard != null && mSimpleCard.getVisibility() == View.VISIBLE)) {

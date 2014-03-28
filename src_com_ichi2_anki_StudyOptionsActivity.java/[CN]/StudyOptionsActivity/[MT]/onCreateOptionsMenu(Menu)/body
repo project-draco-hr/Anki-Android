@@ -12,7 +12,7 @@
   UIUtils.addMenuItem(menu,Menu.NONE,MENU_PREFERENCES,Menu.NONE,R.string.menu_preferences,R.drawable.ic_menu_preferences);
   UIUtils.addMenuItem(menu,Menu.NONE,MENU_ROTATE,Menu.NONE,R.string.menu_rotate,android.R.drawable.ic_menu_always_landscape_portrait);
   if (AnkiDroidApp.colIsOpen() && !AnkiDroidApp.getCol().getDecks().isDyn(AnkiDroidApp.getCol().getDecks().selected())) {
-    UIUtils.addMenuItem(menu,Menu.NONE,DeckPicker.MENU_CREATE_DYNAMIC_DECK,Menu.NONE,R.string.studyoptions_new_filtercram,R.drawable.ic_menu_add);
+    UIUtils.addMenuItem(menu,Menu.NONE,DeckPicker.MENU_CREATE_DYNAMIC_DECK,Menu.NONE,R.string.new_dynamic_deck,R.drawable.ic_menu_add);
   }
   return true;
 }
