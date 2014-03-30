@@ -1,0 +1,30 @@
+{
+  String[] keys={"answer","deck","question","tags"};
+  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
+  Resources res=getResources();
+  int sflRelativeFontSize=preferences.getInt("relativeCardBrowserFontSize",DEFAULT_FONT_SIZE_RATIO);
+  String sflCustomFont=preferences.getString("browserEditorFont","");
+  mCardsAdapter=new SizeControlledListAdapter(this,mCards,R.layout.card_item_browser,new String[]{"sfld",keys[column2]},new int[]{R.id.card_sfld,R.id.card_column2},sflRelativeFontSize,sflCustomFont);
+  mCardsAdapter.setViewBinder(new SimpleAdapter.ViewBinder(){
+    @Override public boolean setViewValue(    View view,    Object arg1,    String text){
+      if (view.getId() == R.id.card_item_browser) {
+        int which=BACKGROUND_NORMAL;
+        if (text.equals("1")) {
+          which=BACKGROUND_SUSPENDED;
+        }
+ else         if (text.equals("2")) {
+          which=BACKGROUND_MARKED;
+        }
+ else         if (text.equals("3")) {
+          which=BACKGROUND_MARKED_SUSPENDED;
+        }
+        view.setBackgroundResource(mBackground[which]);
+        return true;
+      }
+      return false;
+    }
+  }
+);
+  mCardsColumn2Header.setText(res.getStringArray(R.array.browser_column2_headings)[column2]);
+  mCardsListView.setAdapter(mCardsAdapter);
+}

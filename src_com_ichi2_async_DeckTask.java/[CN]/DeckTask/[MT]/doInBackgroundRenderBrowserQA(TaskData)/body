@@ -1,5 +1,5 @@
 {
-  final int initialInterval=10;
+  final int initialInterval=15;
   final int refreshInterval=250;
   int numRendered=0;
   Log.i(AnkiDroidApp.TAG,"doInBackgroundRenderBrowserQA");
@@ -12,8 +12,8 @@
     if (a.startsWith(q)) {
       a=a.replaceFirst(q,"");
     }
-    item.put("q",q);
-    item.put("a",a);
+    item.put("question",q);
+    item.put("answer",a);
     if (isCancelled()) {
       return null;
     }

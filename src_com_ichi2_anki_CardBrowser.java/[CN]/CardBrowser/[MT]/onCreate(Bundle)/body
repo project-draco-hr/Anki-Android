@@ -18,9 +18,6 @@
   mWholeCollection=i.hasExtra("fromDeckpicker") && i.getBooleanExtra("fromDeckpicker",false);
   mBackground=Themes.getCardBrowserBackground();
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
-  int sflRelativeFontSize=preferences.getInt("relativeCardBrowserFontSize",DEFAULT_FONT_SIZE_RATIO);
-  String sflCustomFont=preferences.getString("browserEditorFont","");
-  mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
   Resources res=getResources();
   mOrderByFields=res.getStringArray(R.array.card_browser_order_labels);
   try {
@@ -46,30 +43,15 @@
   mCards=new ArrayList<HashMap<String,String>>();
   mCardsListView=(ListView)findViewById(R.id.card_browser_list);
   mCardsColumn1Header=(TextView)findViewById(R.id.browser_column1_header);
+  mField=AnkiDroidApp.getSharedPrefs(getBaseContext()).getInt("cardBrowserColumn2",0);
   mCardsColumn2Header=(TextView)findViewById(R.id.browser_column2_header);
-  mCardsColumn2Header.setText(res.getString(R.string.browser_column2_answer));
-  mCardsAdapter=new SizeControlledListAdapter(this,mCards,R.layout.card_item_browser,new String[]{"sfld","a"},new int[]{R.id.card_sfld,R.id.card_column2},sflRelativeFontSize,sflCustomFont);
-  mCardsAdapter.setViewBinder(new SimpleAdapter.ViewBinder(){
-    @Override public boolean setViewValue(    View view,    Object arg1,    String text){
-      if (view.getId() == R.id.card_item_browser) {
-        int which=BACKGROUND_NORMAL;
-        if (text.equals("1")) {
-          which=BACKGROUND_SUSPENDED;
-        }
- else         if (text.equals("2")) {
-          which=BACKGROUND_MARKED;
-        }
- else         if (text.equals("3")) {
-          which=BACKGROUND_MARKED_SUSPENDED;
-        }
-        view.setBackgroundResource(mBackground[which]);
-        return true;
-      }
-      return false;
+  mCardsColumn2Header.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      showDialog(DIALOG_SELECT_COLUMN2);
     }
   }
 );
-  mCardsListView.setAdapter(mCardsAdapter);
+  setBrowserListAdapter(mField);
   mCardsListView.setOnItemClickListener(new OnItemClickListener(){
     @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
       mPositionInCardsList=position;
