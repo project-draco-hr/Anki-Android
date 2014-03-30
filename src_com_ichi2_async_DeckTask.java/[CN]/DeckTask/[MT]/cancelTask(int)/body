@@ -1,0 +1,11 @@
+{
+  try {
+    Boolean match=sLatestInstance.mType == taskType;
+    if ((sLatestInstance != null) && (sLatestInstance.getStatus() != AsyncTask.Status.FINISHED) && (match)) {
+      sLatestInstance.cancel(true);
+    }
+  }
+ catch (  Exception e) {
+    return;
+  }
+}

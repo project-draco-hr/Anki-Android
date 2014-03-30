@@ -1,4 +1,10 @@
 {
+  if (sLatestInstance != null && sLatestInstance.mType == TASK_TYPE_RENDER_BROWSER_QA && !sLatestInstance.isCancelled()) {
+    Log.i(AnkiDroidApp.TAG,"DeckTask: cancelling render browser QA...");
+    sLatestInstance.cancel(true);
+    waitToFinish();
+    Log.i(AnkiDroidApp.TAG,"DeckTask: cancelled render browser QA");
+  }
   sLatestInstance=new DeckTask(type,listener,sLatestInstance);
   sLatestInstance.execute(params);
   return sLatestInstance;

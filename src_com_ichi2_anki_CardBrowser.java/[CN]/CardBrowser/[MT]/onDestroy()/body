@@ -1,6 +1,6 @@
 {
+  DeckTask.cancelTask(DeckTask.TASK_TYPE_RENDER_BROWSER_QA);
   super.onDestroy();
-  DeckTask.cancelTask();
   if (mUnmountReceiver != null) {
     unregisterReceiver(mUnmountReceiver);
   }
