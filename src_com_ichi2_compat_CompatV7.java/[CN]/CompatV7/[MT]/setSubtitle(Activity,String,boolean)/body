@@ -1,14 +1,15 @@
 {
-  ActionBar ab=activity.getActionBar();
-  if (ab != null) {
+  ActionBarActivity actionBarActivity=(ActionBarActivity)activity;
+  ActionBar actionBar=actionBarActivity.getSupportActionBar();
+  if (actionBar != null) {
     if (inverted) {
       CharacterStyle span=new ForegroundColorSpan(activity.getResources().getColor(inverted ? R.color.white : R.color.black));
       SpannableStringBuilder ssb=new SpannableStringBuilder(title);
       ssb.setSpan(span,0,ssb.length(),0);
-      ab.setSubtitle(ssb);
+      actionBar.setSubtitle(ssb);
     }
  else {
-      ab.setSubtitle(title);
+      actionBar.setSubtitle(title);
     }
   }
 }

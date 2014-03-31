@@ -1,0 +1,7 @@
+{
+  ActionBarActivity actionBarActivity=(ActionBarActivity)activity;
+  ActionBar actionBar=actionBarActivity.getSupportActionBar();
+  if (actionBar != null) {
+    actionBar.setBackgroundDrawable(new ColorDrawable(activity.getResources().getColor(color)));
+  }
+}

@@ -19,15 +19,12 @@
   if (intent.getData() != null) {
     mImportPath=getIntent().getData().getEncodedPath();
   }
-  if (AnkiDroidApp.colIsOpen()) {
-    setTitle(getResources().getString(R.string.app_name));
-  }
- else {
-    setTitle("");
+  if (!AnkiDroidApp.colIsOpen()) {
     mOpenCollectionHandler.onPreExecute();
   }
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
+  setTitle(getResources().getString(R.string.app_name));
   SharedPreferences preferences=restorePreferences();
   if (mLastTimeOpened < UIUtils.getDayStart()) {
     preferences.edit().putBoolean("showBroadcastMessageToday",true).commit();
