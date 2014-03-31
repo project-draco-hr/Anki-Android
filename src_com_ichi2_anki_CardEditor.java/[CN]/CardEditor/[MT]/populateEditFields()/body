@@ -19,28 +19,18 @@
     ImageButton mediaButton=(ImageButton)editline_view.findViewById(R.id.id_media_button);
     mediaButton.setOnClickListener(new View.OnClickListener(){
       @Override public void onClick(      View v){
-        PopupMenuWithIcons popup=new PopupMenuWithIcons(CardEditor.this,v,true);
-        MenuInflater inflater=popup.getMenuInflater();
-        inflater.inflate(R.menu.popupmenu_multimedia_options,popup.getMenu());
-        popup.setOnMenuItemClickListener(new OnMenuItemClickListener(){
-          @Override public boolean onMenuItemClick(          MenuItem item){
-switch (item.getItemId()) {
-case R.id.menu_multimedia_editor:
-              Intent editCard=new Intent(CardEditor.this,MultimediaCardEditorActivity.class);
-            editCard.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_DECKPICKER);
-          startActivityForResult(editCard,12);
-        return true;
-default :
-      return false;
+        Intent editCard=new Intent(CardEditor.this,MultimediaCardEditorActivity.class);
+        if (!mAddNote) {
+          editCard.putExtra(CardEditor.EXTRA_CARD_ID,mCurrentEditedCard.getId());
+        }
+ else {
+          editCard.putExtra(CardEditor.EXTRA_CARD_ID,0);
+        }
+        startActivityForResult(editCard,REQUEST_MULTIMEDIA_EDIT);
+      }
+    }
+);
+    mFieldsLayoutContainer.addView(label);
+    mFieldsLayoutContainer.addView(editline_view);
   }
-}
-}
-);
-popup.show();
-}
-}
-);
-mFieldsLayoutContainer.addView(label);
-mFieldsLayoutContainer.addView(editline_view);
-}
 }

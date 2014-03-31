@@ -32,5 +32,10 @@ if (resultCode != RESULT_CANCELED) {
 mChanged=true;
 }
 break;
+case REQUEST_MULTIMEDIA_EDIT:
+if (resultCode != RESULT_CANCELED) {
+mChanged=true;
+}
+break;
 }
 }
