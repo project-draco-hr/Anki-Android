@@ -104,21 +104,6 @@ mSelectedTags.clear();
 );
 dialog=builder.create();
 break;
-case DIALOG_SELECT_COLUMN2:
-builder.setTitle(res.getString(R.string.card_browser_field_title));
-builder.setIcon(android.R.drawable.ic_menu_sort_by_size);
-builder.setSingleChoiceItems(res.getStringArray(R.array.browser_column2_headings),0,new DialogInterface.OnClickListener(){
-@Override public void onClick(DialogInterface arg0,int which){
-if (which != mField) {
-mField=which;
-AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).edit().putInt("cardBrowserColumn2",mField).commit();
-setBrowserListAdapter(mField);
-}
-}
-}
-);
-dialog=builder.create();
-break;
 }
 return dialog;
 }
