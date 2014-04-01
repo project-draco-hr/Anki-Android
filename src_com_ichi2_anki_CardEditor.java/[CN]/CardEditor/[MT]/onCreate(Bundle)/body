@@ -206,6 +206,7 @@ for (String t : mCurrentTags) {
 ja.put(t);
 }
 mCol.getModels().current().put("tags",ja);
+mEditorNote.model().put("did",mCurrentDid);
 mCol.getModels().setChanged();
 }
  catch (JSONException e) {

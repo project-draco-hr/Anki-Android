@@ -77,15 +77,6 @@ builder.setItems(items,new DialogInterface.OnClickListener(){
 public void onClick(DialogInterface dialog,int item){
 long newId=dialogDeckIds.get(item);
 if (mCurrentDid != newId) {
-if (mAddNote) {
-try {
-mEditorNote.model().put("did",newId);
-mCol.getModels().setChanged();
-}
- catch (JSONException e) {
-throw new RuntimeException(e);
-}
-}
 mCurrentDid=newId;
 updateDeck();
 }
@@ -123,7 +114,8 @@ throw new RuntimeException(e);
 }
 long newId=dialogIds.get(item);
 if (oldModelId != newId) {
-mCol.getModels().setCurrent(mCol.getModels().get(newId));
+JSONObject model=mCol.getModels().get(newId);
+mCol.getModels().setCurrent(model);
 JSONObject cdeck=mCol.getDecks().current();
 try {
 cdeck.put("mid",newId);
@@ -132,6 +124,15 @@ cdeck.put("mid",newId);
 throw new RuntimeException(e);
 }
 mCol.getDecks().save(cdeck);
+if (!mCol.getConf().optBoolean("addToCur",true)) {
+try {
+mCurrentDid=model.getLong("did");
+updateDeck();
+}
+ catch (JSONException e) {
+throw new RuntimeException(e);
+}
+}
 int size=mEditFields.size();
 String[] oldValues=new String[size];
 for (int i=0; i < size; i++) {
