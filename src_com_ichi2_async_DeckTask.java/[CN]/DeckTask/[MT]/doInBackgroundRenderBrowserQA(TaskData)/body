@@ -5,27 +5,37 @@
   Log.i(AnkiDroidApp.TAG,"doInBackgroundRenderBrowserQA");
   Collection col=(Collection)params[0].getObjArray()[0];
   ArrayList<HashMap<String,String>> items=(ArrayList<HashMap<String,String>>)params[0].getObjArray()[1];
-  for (  HashMap<String,String> item : items) {
-    HashMap<String,String> qa=col.getCard(Long.parseLong(item.get("id"),10))._getQA(true,true);
-    String q=formatQA(qa.get("q"));
-    String a=formatQA(qa.get("a"));
-    if (a.startsWith(q)) {
-      a=a.replaceFirst(q,"");
-    }
-    item.put("question",q);
-    item.put("answer",a);
-    if (isCancelled()) {
-      return null;
-    }
+  try {
+    for (    HashMap<String,String> item : items) {
+      Card c=col.getCard(Long.parseLong(item.get("id"),10));
+      HashMap<String,String> qa=c._getQA(true,true);
+      String q=formatQA(qa.get("q"));
+      String a=formatQA(qa.get("a"));
+      if (a.startsWith(q)) {
+        a=a.replaceFirst(q,"");
+      }
+      item.put("answer",a);
+      item.put("card",c.template().optString("name"));
+      item.put("lapses",Integer.toString(c.getLapses()));
+      item.put("note",c.model().optString("name"));
+      item.put("question",q);
+      item.put("reviews",Integer.toString(c.getReps()));
+      if (isCancelled()) {
+        return null;
+      }
  else {
-      numRendered++;
-      if (numRendered % refreshInterval == 0 || numRendered <= initialInterval) {
-        TaskData result=new TaskData(items);
-        publishProgress(result);
+        numRendered++;
+        if (numRendered % refreshInterval == 0 || numRendered <= initialInterval) {
+          TaskData result=new TaskData(items);
+          publishProgress(result);
+        }
       }
     }
   }
+ catch (  OutOfMemoryError e) {
+    Log.e(AnkiDroidApp.TAG,"OutOfMemoryError rendering the Q&A for browser... probably too many cards");
+  }
   TaskData result=new TaskData(items);
   publishProgress(result);
-  return result;
+  return null;
 }

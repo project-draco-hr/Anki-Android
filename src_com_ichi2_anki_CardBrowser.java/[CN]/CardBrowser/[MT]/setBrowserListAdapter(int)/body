@@ -1,5 +1,5 @@
 {
-  String[] keys={"answer","deck","question","tags"};
+  String[] keys={"answer","card","deck","lapses","note","question","reviews","tags"};
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
   Resources res=getResources();
   int sflRelativeFontSize=preferences.getInt("relativeCardBrowserFontSize",DEFAULT_FONT_SIZE_RATIO);
