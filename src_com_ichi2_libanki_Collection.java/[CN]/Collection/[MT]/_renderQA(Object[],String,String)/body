@@ -23,8 +23,12 @@
     HashMap<String,String> d=new HashMap<String,String>();
     try {
       d.put("id",Long.toString((Long)data[0]));
-      String qfmt=template.getString("qfmt");
-      String afmt=template.getString("afmt");
+      if (qfmt == null || qfmt.equals("")) {
+        qfmt=template.getString("qfmt");
+      }
+      if (afmt == null || afmt.equals("")) {
+        afmt=template.getString("afmt");
+      }
       String html;
       String format;
       Models.fieldParser fparser=new Models.fieldParser(fields);

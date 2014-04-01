@@ -1,0 +1,31 @@
+{
+  final int initialInterval=15;
+  final int refreshInterval=250;
+  int numRendered=0;
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundRenderBrowserQA");
+  Collection col=(Collection)params[0].getObjArray()[0];
+  ArrayList<HashMap<String,String>> items=(ArrayList<HashMap<String,String>>)params[0].getObjArray()[1];
+  for (  HashMap<String,String> item : items) {
+    HashMap<String,String> qa=col.getCard(Long.parseLong(item.get("id"),10))._getQA(true,true);
+    String q=formatQA(qa.get("q"));
+    String a=formatQA(qa.get("a"));
+    if (a.startsWith(q)) {
+      a=a.replaceFirst(q,"");
+    }
+    item.put("question",q);
+    item.put("answer",a);
+    if (isCancelled()) {
+      return null;
+    }
+ else {
+      numRendered++;
+      if (numRendered % refreshInterval == 0 || numRendered <= initialInterval) {
+        TaskData result=new TaskData(items);
+        publishProgress(result);
+      }
+    }
+  }
+  TaskData result=new TaskData(items);
+  publishProgress(result);
+  return result;
+}

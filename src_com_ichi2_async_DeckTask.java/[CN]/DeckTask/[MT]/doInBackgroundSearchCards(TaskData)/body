@@ -5,7 +5,7 @@
   String query=(String)params[0].getObjArray()[2];
   String order=(String)params[0].getObjArray()[3];
   TaskData result=new TaskData(col.findCardsForCardBrowser(query,order,deckNames));
-  if (DeckTask.taskIsCancelled()) {
+  if (isCancelled()) {
     return null;
   }
  else {
