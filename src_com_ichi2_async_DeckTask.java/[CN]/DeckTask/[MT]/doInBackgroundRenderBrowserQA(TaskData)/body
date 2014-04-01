@@ -34,8 +34,9 @@
   }
  catch (  OutOfMemoryError e) {
     Log.e(AnkiDroidApp.TAG,"OutOfMemoryError rendering the Q&A for browser... probably too many cards");
+    return null;
   }
   TaskData result=new TaskData(items);
   publishProgress(result);
-  return null;
+  return result;
 }
