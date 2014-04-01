@@ -3,4 +3,8 @@
     sMediaPlayer.release();
     sMediaPlayer=null;
   }
+  if (sAudioManager != null) {
+    sAudioManager.abandonAudioFocus(afChangeListener);
+    sAudioManager=null;
+  }
 }
