@@ -1,0 +1,27 @@
+{
+  boolean modified=false;
+  for (  FieldEditText f : mEditFields) {
+    modified=modified | f.updateField();
+  }
+  if (mAddNote) {
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ADD_FACT,mSaveFactHandler,new DeckTask.TaskData(mEditorNote));
+  }
+ else {
+    for (    String t : mCurrentTags) {
+      modified=modified || !mEditorNote.hasTag(t);
+    }
+    modified=modified || mEditorNote.getTags().size() > mCurrentTags.size();
+    boolean changedDid=mCurrentEditedCard.getDid() != mCurrentDid;
+    modified=modified || changedDid;
+    if (modified) {
+      mEditorNote.setTags(mCurrentTags);
+      if (changedDid) {
+        AnkiDroidApp.getCol().getSched().remFromDyn(new long[]{mCurrentEditedCard.getId()});
+        mCurrentEditedCard.load();
+        mCurrentEditedCard.setDid(mCurrentDid);
+      }
+      mChanged=true;
+    }
+    closeCardEditor();
+  }
+}
