@@ -7,20 +7,6 @@ case DIALOG_TAGS_SELECT:
     builder.setTitle(R.string.card_details_tags);
   builder.setPositiveButton(res.getString(R.string.select),new OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int which){
-      if (mAddNote) {
-        try {
-          JSONArray ja=new JSONArray();
-          for (          String t : selectedTags) {
-            ja.put(t);
-          }
-          mCol.getModels().current().put("tags",ja);
-          mCol.getModels().setChanged();
-        }
- catch (        JSONException e) {
-          throw new RuntimeException(e);
-        }
-        mEditorNote.setTags(selectedTags);
-      }
       mCurrentTags=selectedTags;
       updateTags();
     }
