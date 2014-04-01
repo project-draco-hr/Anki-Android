@@ -15,6 +15,9 @@
     ((LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_cram_buttons)).setVisibility(View.VISIBLE);
     ((LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_regular_buttons)).setVisibility(View.GONE);
   }
+  mButtonUnbury=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_unbury);
+  mButtonUnbury.setOnClickListener(mButtonClickListener);
+  showOrHideUnburyButton();
   if (!mFragmented) {
     mAddNote=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_add);
     if (AnkiDroidApp.colIsOpen()) {
