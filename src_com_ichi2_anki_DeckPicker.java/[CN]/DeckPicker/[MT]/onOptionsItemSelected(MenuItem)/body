@@ -64,14 +64,7 @@ ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.RI
 return true;
 case MENU_ADD_SHARED_DECK:
 if (AnkiDroidApp.getCol() != null) {
-SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
-String hkey=preferences.getString("hkey","");
-if (hkey.length() == 0) {
-showDialog(DIALOG_USER_NOT_LOGGED_IN_ADD_SHARED_DECK);
-}
- else {
 addSharedDeck();
-}
 }
 return true;
 case MENU_IMPORT:
