@@ -6,10 +6,10 @@ def update(valuesDirectory, f, source, fileExt, isCrowdin, language=''):
         newContent = open(newfile).readlines()
         for i in range(0, len(oldContent)):
             if (oldContent[i] != newContent[i]):
-                print (('file ' + newfile) + ' successfully copied')
+                print (('File ' + newfile) + ' successfully copied')
                 return True
         os.remove(newfile)
-        print ('file marketdescription is not translated into language ' + language)
+        print ('File marketdescription is not translated into language ' + language)
         return True
     elif (f == '15-markettitle'):
         translatedTitle = source.replace('\n', '')
@@ -17,9 +17,9 @@ def update(valuesDirectory, f, source, fileExt, isCrowdin, language=''):
             s = open(titleFile, 'a')
             s.write(((('\n' + language) + ': ') + translatedTitle))
             s.close()
-            print 'added translated title'
+            print 'Added translated title'
         else:
-            print 'title not translated'
+            print 'Title not translated'
         return True
     else:
         newfile = ((valuesDirectory + f) + '.xml')

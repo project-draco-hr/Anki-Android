@@ -11,7 +11,7 @@ import string
 import re
 import difflib
 zipname = 'ankidroid.zip'
-print 'downloading crowdin-file'
+print 'Downloading Crowdin file'
 req = urllib.urlopen('http://crowdin.net/download/project/ankidroid.zip')
 file(zipname, 'w').write(req.read())
 req.close()
@@ -24,17 +24,15 @@ for language in languages:
         androidLanguage = string.replace(language, '-', '-r')
     else:
         androidLanguage = language[:2]
-    print ('\ncopying language files for: ' + androidLanguage)
+    print ('\nCopying language files for: ' + androidLanguage)
     valuesDirectory = (('res/values-' + androidLanguage) + '/')
     createIfNotExisting(valuesDirectory)
     for f in fileNames:
         fileExt = fileExtFor(f)
         anyError = ((not update(valuesDirectory, f, zip.read((((language + '/') + f) + fileExt)), fileExt, True, language)) or anyError)
     if anyError:
-        if (raw_input('At least one file of the last handled language contains an error. Please check\nContinue anyway? (y/n)') != 'y'):
-            break
-        else:
-            anyError = False
+        print 'At least one file of the last handled language contains an error.'
+        anyError = False
 valuesDirectory = 'res/values/'
 createIfNotExisting(valuesDirectory)
 f = '12-tutorial'
@@ -42,5 +40,5 @@ fileExt = fileExtFor(f)
 source = open((('assets/' + 'tutorial') + fileExt))
 print 
 update(valuesDirectory, f, source.read(), fileExt, False)
-print '\nremoving crowdin-file\n'
+print '\nRemoving Crowdin file\n'
 os.remove(zipname)

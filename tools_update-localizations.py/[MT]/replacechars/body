@@ -51,8 +51,8 @@ def replacechars(filename, fileExt, isCrowdin):
     fin.close()
     os.rename(newfilename, filename)
     if errorOccured:
-        print ('error in file ' + filename)
+        print ('Error in file ' + filename)
         return False
     else:
-        print (('file ' + filename) + ' successfully copied')
+        print (('File ' + filename) + ' successfully copied')
         return True
