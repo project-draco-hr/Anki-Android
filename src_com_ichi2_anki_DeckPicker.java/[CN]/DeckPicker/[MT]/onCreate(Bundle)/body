@@ -109,11 +109,18 @@
   }
 );
   mDeckListView.setOnItemClickListener(mDeckSelHandler);
+  mDeckListView.setOnItemLongClickListener(new OnItemLongClickListener(){
+    @Override public boolean onItemLongClick(    AdapterView<?> adapterView,    View view,    int position,    long id){
+      mContextMenuPosition=position;
+      showDialog(DIALOG_CONTEXT_MENU);
+      return true;
+    }
+  }
+);
   mDeckListView.setAdapter(mDeckListAdapter);
   if (mFragmented) {
     mDeckListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
   }
-  registerForContextMenu(mDeckListView);
   showStartupScreensAndDialogs(preferences,0);
   if (mSwipeEnabled) {
     gestureDetector=new GestureDetector(new MyGestureDetector());
