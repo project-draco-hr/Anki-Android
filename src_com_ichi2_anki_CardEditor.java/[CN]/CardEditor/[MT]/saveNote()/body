@@ -4,6 +4,19 @@
     modified=modified | f.updateField();
   }
   if (mAddNote) {
+    try {
+      mEditorNote.model().put("did",mCurrentDid);
+      mEditorNote.setTags(mCurrentTags);
+      JSONArray ja=new JSONArray();
+      for (      String t : mCurrentTags) {
+        ja.put(t);
+      }
+      mCol.getModels().current().put("tags",ja);
+      mCol.getModels().setChanged();
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
     DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ADD_FACT,mSaveFactHandler,new DeckTask.TaskData(mEditorNote));
   }
  else {
