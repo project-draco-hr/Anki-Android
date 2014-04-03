@@ -8,5 +8,5 @@
     args.putBundle("cramInitialConfig",cramConfig);
   }
   mCurrentFragment.setArguments(args);
-  getSupportFragmentManager().beginTransaction().add(android.R.id.content,mCurrentFragment).commit();
+  getSupportFragmentManager().beginTransaction().add(R.id.studyoptions_frame,mCurrentFragment).commit();
 }

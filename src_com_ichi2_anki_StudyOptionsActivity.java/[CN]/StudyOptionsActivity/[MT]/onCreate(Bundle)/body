@@ -1,6 +1,7 @@
 {
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
+  setContentView(R.layout.studyoptions);
   if (savedInstanceState == null) {
     loadContent(getIntent().getBooleanExtra("onlyFnsMsg",false));
   }
