@@ -13,7 +13,7 @@
       sMediaPlayer.setVolume(AudioManager.STREAM_MUSIC,AudioManager.STREAM_MUSIC);
       sMediaPlayer.prepare();
       if (playAllListener != null)       sMediaPlayer.setOnCompletionListener(playAllListener);
-      sAudioManager.requestAudioFocus(afChangeListener,AudioManager.STREAM_MUSIC,AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK);
+      AnkiDroidApp.getCompat().requestAudioFocus(sAudioManager);
       sMediaPlayer.start();
     }
  catch (    Exception e) {

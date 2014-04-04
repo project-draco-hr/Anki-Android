@@ -4,7 +4,7 @@
     sMediaPlayer=null;
   }
   if (sAudioManager != null) {
-    sAudioManager.abandonAudioFocus(afChangeListener);
+    AnkiDroidApp.getCompat().abandonAudioFocus(sAudioManager);
     sAudioManager=null;
   }
 }
