@@ -75,9 +75,7 @@
       editCard.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_CARDBROWSER_EDIT);
       editCard.putExtra(CardEditor.EXTRA_CARD_ID,sCardBrowserCard.getId());
       startActivityForResult(editCard,EDIT_CARD);
-      if (AnkiDroidApp.SDK_VERSION > 4) {
-        ActivityTransitionAnimation.slide(CardBrowser.this,ActivityTransitionAnimation.LEFT);
-      }
+      ActivityTransitionAnimation.slide(CardBrowser.this,ActivityTransitionAnimation.LEFT);
     }
   }
 );

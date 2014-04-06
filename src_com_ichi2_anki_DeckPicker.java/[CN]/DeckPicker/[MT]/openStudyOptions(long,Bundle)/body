@@ -9,8 +9,6 @@
     intent.putExtra("cramInitialConfig",cramInitialConfig);
     intent.setClass(this,StudyOptionsActivity.class);
     startActivityForResult(intent,SHOW_STUDYOPTIONS);
-    if (AnkiDroidApp.SDK_VERSION > 4) {
-      ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
-    }
+    ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
   }
 }

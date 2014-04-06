@@ -10,7 +10,5 @@
     UIUtils.saveCollectionInBackground();
   }
   finish();
-  if (AnkiDroidApp.SDK_VERSION > 4) {
-    ActivityTransitionAnimation.slide(Reviewer.this,ActivityTransitionAnimation.RIGHT);
-  }
+  ActivityTransitionAnimation.slide(Reviewer.this,ActivityTransitionAnimation.RIGHT);
 }

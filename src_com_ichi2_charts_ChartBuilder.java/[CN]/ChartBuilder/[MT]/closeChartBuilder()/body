@@ -1,6 +1,4 @@
 {
   finish();
-  if (AnkiDroidApp.SDK_VERSION > 4) {
-    ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.UP);
-  }
+  ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.UP);
 }
