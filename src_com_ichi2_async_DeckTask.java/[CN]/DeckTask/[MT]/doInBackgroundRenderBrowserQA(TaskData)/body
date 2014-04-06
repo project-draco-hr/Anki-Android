@@ -9,16 +9,16 @@
     for (    HashMap<String,String> item : items) {
       Card c=col.getCard(Long.parseLong(item.get("id"),10));
       HashMap<String,String> qa=c._getQA(true,true);
-      String q=formatQA(qa.get("q"));
-      String a=formatQA(qa.get("a"));
+      String q=qa.get("q");
+      String a=qa.get("a");
       if (a.startsWith(q)) {
-        a=a.replaceFirst(q,"");
+        a=a.replaceFirst(Pattern.quote(q),"");
       }
-      item.put("answer",a);
+      item.put("answer",formatQA(a));
       item.put("card",c.template().optString("name"));
       item.put("lapses",Integer.toString(c.getLapses()));
       item.put("note",c.model().optString("name"));
-      item.put("question",q);
+      item.put("question",formatQA(q));
       item.put("reviews",Integer.toString(c.getReps()));
       if (isCancelled()) {
         return null;
