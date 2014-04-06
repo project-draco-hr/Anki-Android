@@ -1,5 +1,5 @@
 {
   MenuItem item=addMenuItem(menu,groupId,itemId,order,titleRes,iconRes);
-  setShowAsActionIfRoom(item);
+  MenuItemCompat.setShowAsAction(item,MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
   return item;
 }
