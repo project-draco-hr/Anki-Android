@@ -7,6 +7,7 @@
     }
     try {
       mPreviousTask.get();
+      Log.i(AnkiDroidApp.TAG,"Finished waiting for " + mPreviousTask.mType + " to finish. Status= "+ mPreviousTask.getStatus());
     }
  catch (    InterruptedException e) {
       Thread.currentThread().interrupt();
