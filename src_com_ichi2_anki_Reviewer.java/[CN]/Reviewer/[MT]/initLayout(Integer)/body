@@ -69,15 +69,7 @@
     mTextBarBlack.setVisibility(View.GONE);
     mTextBarBlue.setVisibility(View.GONE);
   }
-  if (mShowProgressBars) {
-    mSessionProgressTotalBar=(View)findViewById(R.id.daily_bar);
-    mSessionProgressBar=(View)findViewById(R.id.session_progress);
-    mProgressBars=(LinearLayout)findViewById(R.id.progress_bars);
-  }
   mCardTimer=(Chronometer)findViewById(R.id.card_time);
-  if (mShowProgressBars && mProgressBars.getVisibility() != View.VISIBLE) {
-    switchVisibility(mProgressBars,View.VISIBLE);
-  }
   mChosenAnswer=(TextView)findViewById(R.id.choosen_answer);
   if (mPrefWhiteboard) {
     mWhiteboard=new Whiteboard(this,mInvertedColors,mBlackWhiteboard);

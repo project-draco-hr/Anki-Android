@@ -19,11 +19,5 @@
   if (mCard != null) {
     mCard.setBackgroundColor(mCurrentBackgroundColor);
   }
-  int fgColor=R.color.studyoptions_progressbar_frame_light;
-  int bgColor=R.color.studyoptions_progressbar_background_nightmode;
-  findViewById(R.id.progress_bars_border1).setBackgroundResource(fgColor);
-  findViewById(R.id.progress_bars_border2).setBackgroundResource(fgColor);
-  findViewById(R.id.progress_bars_back1).setBackgroundResource(bgColor);
-  findViewById(R.id.progress_bars_back2).setBackgroundResource(bgColor);
   AnkiDroidApp.getCompat().setActionBarBackground(this,invert ? R.color.white_background_night : R.color.actionbar_background);
 }
