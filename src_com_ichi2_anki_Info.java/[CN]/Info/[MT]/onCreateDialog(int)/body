@@ -13,9 +13,7 @@ builder.setPositiveButton(R.string.log_in,new DialogInterface.OnClickListener(){
 Intent myAccount=new Intent(Info.this,MyAccount.class);
 myAccount.putExtra("notLoggedIn",true);
 startActivityForResult(myAccount,LOG_IN_FOR_SYNC);
-if (AnkiDroidApp.SDK_VERSION > 4) {
-  ActivityTransitionAnimation.slide(Info.this,ActivityTransitionAnimation.FADE);
-}
+ActivityTransitionAnimation.slide(Info.this,ActivityTransitionAnimation.FADE);
 }
 }
 );

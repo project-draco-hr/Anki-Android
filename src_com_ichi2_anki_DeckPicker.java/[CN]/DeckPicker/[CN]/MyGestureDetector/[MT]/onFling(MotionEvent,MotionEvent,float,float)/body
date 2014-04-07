@@ -16,9 +16,7 @@
               col.reset();
               Intent reviewer=new Intent(DeckPicker.this,Reviewer.class);
               startActivityForResult(reviewer,REQUEST_REVIEW);
-              if (AnkiDroidApp.SDK_VERSION > 4) {
-                ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.LEFT);
-              }
+              ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.LEFT);
               return true;
             }
           }

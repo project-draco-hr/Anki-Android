@@ -2,8 +2,6 @@
   if (!mFragmented) {
     getActivity().setResult(result);
     getActivity().finish();
-    if (AnkiDroidApp.SDK_VERSION > 4) {
-      ActivityTransitionAnimation.slide(getActivity(),ActivityTransitionAnimation.RIGHT);
-    }
+    ActivityTransitionAnimation.slide(getActivity(),ActivityTransitionAnimation.RIGHT);
   }
 }

@@ -6,7 +6,5 @@
     setResult(RESULT_OK);
   }
   finish();
-  if (AnkiDroidApp.SDK_VERSION > 4) {
-    ActivityTransitionAnimation.slide(Feedback.this,ActivityTransitionAnimation.LEFT);
-  }
+  ActivityTransitionAnimation.slide(Feedback.this,ActivityTransitionAnimation.LEFT);
 }

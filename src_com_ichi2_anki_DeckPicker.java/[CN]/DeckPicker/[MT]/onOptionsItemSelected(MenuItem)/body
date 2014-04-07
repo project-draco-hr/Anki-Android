@@ -58,9 +58,7 @@ builder3.create().show();
 return true;
 case MENU_ABOUT:
 startActivity(new Intent(DeckPicker.this,Info.class));
-if (AnkiDroidApp.SDK_VERSION > 4) {
 ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.RIGHT);
-}
 return true;
 case MENU_ADD_SHARED_DECK:
 if (AnkiDroidApp.getCol() != null) {
@@ -77,9 +75,7 @@ case MENU_FEEDBACK:
 Intent i=new Intent(DeckPicker.this,Feedback.class);
 i.putExtra("request",REPORT_FEEDBACK);
 startActivityForResult(i,REPORT_FEEDBACK);
-if (AnkiDroidApp.SDK_VERSION > 4) {
 ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
-}
 return true;
 case CHECK_DATABASE:
 integrityCheck();

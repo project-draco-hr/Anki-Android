@@ -3,7 +3,5 @@
   Intent intent=new Intent(DeckPicker.this,CardEditor.class);
   intent.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_DECKPICKER);
   startActivityForResult(intent,ADD_NOTE);
-  if (AnkiDroidApp.SDK_VERSION > 4) {
-    ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.LEFT);
-  }
+  ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.LEFT);
 }

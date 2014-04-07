@@ -3,8 +3,6 @@
     disableActivityAnimation();
   }
  else {
-    if (AnkiDroidApp.SDK_VERSION > 4) {
-      ActivityTransitionAnimation.slide(this,animation);
-    }
+    ActivityTransitionAnimation.slide(this,animation);
   }
 }

@@ -13,7 +13,7 @@
   if (!mChangeBorderStyle) {
     ((View)findViewById(R.id.flashcard_border)).setVisibility(View.VISIBLE);
   }
-  if (AnkiDroidApp.SDK_VERSION <= 7 && (mCard != null)) {
+  if (AnkiDroidApp.SDK_VERSION == 7 && (mCard != null)) {
     mCard.setFocusableInTouchMode(true);
   }
   Resources res=getResources();

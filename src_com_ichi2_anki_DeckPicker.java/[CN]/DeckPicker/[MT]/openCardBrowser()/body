@@ -2,7 +2,5 @@
   Intent cardBrowser=new Intent(DeckPicker.this,CardBrowser.class);
   cardBrowser.putExtra("fromDeckpicker",true);
   startActivityForResult(cardBrowser,BROWSE_CARDS);
-  if (AnkiDroidApp.SDK_VERSION > 4) {
-    ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.LEFT);
-  }
+  ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.LEFT);
 }

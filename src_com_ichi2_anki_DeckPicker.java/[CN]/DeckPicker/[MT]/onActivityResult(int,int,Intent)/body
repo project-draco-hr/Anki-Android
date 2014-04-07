@@ -101,9 +101,7 @@ Intent i=new Intent();
 i.setClass(this,StudyOptionsActivity.class);
 i.putExtra("onlyFnsMsg",true);
 startActivityForResult(i,SHOW_STUDYOPTIONS);
-if (AnkiDroidApp.SDK_VERSION > 4) {
 ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
-}
 break;
 }
 }
