@@ -87,25 +87,7 @@
     }
   }
 );
-  mSearchEditText=(EditText)findViewById(R.id.card_browser_search);
-  mSearchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener(){
-    @Override public boolean onEditorAction(    TextView view,    int actionId,    KeyEvent event){
-      if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-        onSearch();
-        return true;
-      }
-      return false;
-    }
-  }
-);
   getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-  mSearchButton=(ImageButton)findViewById(R.id.card_browser_search_button);
-  mSearchButton.setOnClickListener(new View.OnClickListener(){
-    @Override public void onClick(    View v){
-      onSearch();
-    }
-  }
-);
   mSearchTerms="";
   if (mWholeCollection) {
     mRestrictOnDeck="";
