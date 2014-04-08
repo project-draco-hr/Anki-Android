@@ -1,12 +1,12 @@
 {
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
     Log.i(AnkiDroidApp.TAG,"CardBrowser - onBackPressed()");
-    if (mSearchEditText.getText().length() == 0) {
+    if (mSearchView.getQuery().toString().length() == 0) {
       closeCardBrowser(Activity.RESULT_OK);
     }
  else {
-      mSearchEditText.setText("");
-      mSearchEditText.setHint(R.string.downloaddeck_search);
+      mSearchView.setQuery("",false);
+      mSearchView.setQueryHint(getResources().getString(R.string.downloaddeck_search));
       mSelectedTags.clear();
     }
     return true;

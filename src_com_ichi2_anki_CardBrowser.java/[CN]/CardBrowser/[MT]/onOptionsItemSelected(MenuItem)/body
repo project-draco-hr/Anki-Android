@@ -1,28 +1,28 @@
 {
 switch (item.getItemId()) {
-case MENU_ADD_NOTE:
+case R.id.action_add_card:
     Intent intent=new Intent(CardBrowser.this,CardEditor.class);
   intent.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_CARDBROWSER_ADD);
 startActivityForResult(intent,ADD_NOTE);
 ActivityTransitionAnimation.slide(CardBrowser.this,ActivityTransitionAnimation.LEFT);
 return true;
-case MENU_SHOW_MARKED:
-mSearchTerms="tag:marked";
-mSearchEditText.setText("");
-mSearchEditText.setHint(R.string.card_browser_show_marked);
-searchCards();
-return true;
-case MENU_SELECT_SUSPENDED:
-mSearchTerms="is:suspended";
-mSearchEditText.setText("");
-mSearchEditText.setHint(R.string.card_browser_show_suspended);
-searchCards();
-return true;
-case MENU_SELECT_TAG:
-showDialog(DIALOG_TAGS);
-return true;
-case MENU_CHANGE_ORDER:
+case R.id.action_sort_by_size:
 showDialog(DIALOG_ORDER);
+return true;
+case R.id.action_show_marked:
+mSearchTerms="tag:marked";
+mSearchView.setQuery("",false);
+mSearchView.setQueryHint(getResources().getString(R.string.card_browser_show_marked));
+searchCards();
+return true;
+case R.id.action_show_suspended:
+mSearchTerms="is:suspended";
+mSearchView.setQuery("",false);
+mSearchView.setQueryHint(getResources().getString(R.string.card_browser_show_suspended));
+searchCards();
+return true;
+case R.id.action_search_by_tag:
+showDialog(DIALOG_TAGS);
 return true;
 }
 return false;

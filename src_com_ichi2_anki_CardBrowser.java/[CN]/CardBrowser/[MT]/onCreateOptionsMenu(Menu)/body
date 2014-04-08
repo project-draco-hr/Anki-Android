@@ -1,14 +1,34 @@
 {
-  MenuItem item;
-  item=menu.add(Menu.NONE,MENU_ADD_NOTE,Menu.NONE,R.string.card_editor_add_card);
-  item.setIcon(R.drawable.ic_menu_add);
-  item=menu.add(Menu.NONE,MENU_CHANGE_ORDER,Menu.NONE,R.string.card_browser_change_display_order);
-  item.setIcon(R.drawable.ic_menu_sort_by_size);
-  item=menu.add(Menu.NONE,MENU_SHOW_MARKED,Menu.NONE,R.string.card_browser_show_marked);
-  item.setIcon(R.drawable.ic_menu_star_on);
-  item=menu.add(Menu.NONE,MENU_SELECT_SUSPENDED,Menu.NONE,R.string.card_browser_show_suspended);
-  item.setIcon(R.drawable.ic_menu_close_clear_cancel);
-  item=menu.add(Menu.NONE,MENU_SELECT_TAG,Menu.NONE,R.string.card_browser_search_by_tag);
-  item.setIcon(R.drawable.ic_menu_search);
-  return true;
+  getMenuInflater().inflate(R.menu.card_browser,menu);
+  MenuItem searchItem=menu.findItem(R.id.action_search);
+  MenuItemCompat.setOnActionExpandListener(searchItem,new MenuItemCompat.OnActionExpandListener(){
+    @Override public boolean onMenuItemActionExpand(    MenuItem item){
+      return true;
+    }
+    @Override public boolean onMenuItemActionCollapse(    MenuItem item){
+      if (mSearchView.getQuery().length() == 0) {
+        onSearch();
+      }
+      return true;
+    }
+  }
+);
+  mSearchView=(SearchView)MenuItemCompat.getActionView(searchItem);
+  mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+    @Override public boolean onQueryTextChange(    String newText){
+      return true;
+    }
+    @Override public boolean onQueryTextSubmit(    String query){
+      onSearch();
+      return true;
+    }
+  }
+);
+  mSearchView.setOnSearchClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      mSearchView.setQuery(mSearchTerms,false);
+    }
+  }
+);
+  return super.onCreateOptionsMenu(menu);
 }
