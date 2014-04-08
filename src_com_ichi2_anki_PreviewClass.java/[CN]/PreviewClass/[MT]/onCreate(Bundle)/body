@@ -7,9 +7,7 @@
   if (col == null) {
     return;
   }
-  mPrefFullscreenReview=AnkiDroidApp.getSharedPrefs(getBaseContext()).getBoolean("fullscreenReview",false);
   mGesturesEnabled=AnkiDroidApp.initiateGestures(this,AnkiDroidApp.getSharedPrefs(getBaseContext()));
-  setFullScreen(true);
   mBaseUrl=Utils.getBaseUrl(col.getMedia().getDir());
   try {
     mCardTemplate=Utils.convertStreamToString(getAssets().open("card_template.html"));
