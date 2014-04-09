@@ -1,7 +1,7 @@
 {
   MenuItem item;
+  UIUtils.addMenuItemInActionBar(menu,Menu.NONE,MENU_SYNC,Menu.NONE,R.string.sync_title,R.drawable.ic_menu_refresh);
   if (mFragmented) {
-    UIUtils.addMenuItemInActionBar(menu,Menu.NONE,MENU_SYNC,Menu.NONE,R.string.sync_title,R.drawable.ic_menu_refresh);
     UIUtils.addMenuItemInActionBar(menu,Menu.NONE,MENU_ADD_NOTE,Menu.NONE,R.string.add,R.drawable.ic_menu_add);
     int icon;
     SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(this);
