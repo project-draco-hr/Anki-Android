@@ -10,6 +10,7 @@
   if (!mAddNote) {
     item=menu.add(Menu.NONE,MENU_RESET_CARD_PROGRESS,Menu.NONE,res.getString(R.string.card_editor_reset_card));
     item.setIcon(R.drawable.ic_menu_delete);
+    UIUtils.addMenuItemInActionBar(menu,Menu.NONE,MENU_PREVIEW_CARD,Menu.NONE,R.string.card_editor_preview_card,android.R.drawable.ic_menu_view);
   }
   if (mCaller != CALLER_CARDEDITOR_INTENT_ADD) {
     mIntentInformation=MetaDB.getIntentInformation(this);

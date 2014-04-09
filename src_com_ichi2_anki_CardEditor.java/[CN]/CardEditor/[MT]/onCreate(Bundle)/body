@@ -40,7 +40,6 @@
   mSave=(Button)findViewById(R.id.CardEditorSaveButton);
   mCancel=(Button)findViewById(R.id.CardEditorCancelButton);
   mLater=(Button)findViewById(R.id.CardEditorLaterButton);
-  mPreviewButton=(Button)findViewById(R.id.CardEditorPreviewButton);
   mDeckButton=(TextView)findViewById(R.id.CardEditorDeckText);
   mModelButton=(TextView)findViewById(R.id.CardEditorModelText);
   mTagsButton=(TextView)findViewById(R.id.CardEditorTagText);
@@ -51,12 +50,6 @@
     }
   }
 );
-  if (Preferences.COMING_FROM_ADD) {
-    mPreviewButton.setVisibility(View.GONE);
-  }
- else {
-    mPreviewButton.setVisibility(View.VISIBLE);
-  }
   Preferences.COMING_FROM_ADD=false;
   mAedictIntent=false;
 switch (mCaller) {
@@ -203,12 +196,6 @@ saveNote();
 mCancel.setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
 closeCardEditor();
-}
-}
-);
-mPreviewButton.setOnClickListener(new View.OnClickListener(){
-@Override public void onClick(View v){
-openReviewer();
 }
 }
 );
