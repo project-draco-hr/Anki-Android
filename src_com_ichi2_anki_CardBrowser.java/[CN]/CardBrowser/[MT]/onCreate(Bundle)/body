@@ -57,14 +57,19 @@
       if (pos != mColumn2Index) {
         mColumn2Index=pos;
         AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).edit().putInt("cardBrowserColumn2",mColumn2Index).commit();
-        setBrowserListAdapter(mColumn2Index);
+        String[] fromMap=mCardsAdapter.getFromMapping();
+        fromMap[1]=COLUMN_KEYS[mColumn2Index];
+        mCardsAdapter.setFromMapping(fromMap);
       }
     }
     @Override public void onNothingSelected(    AdapterView<?> parent){
     }
   }
 );
-  setBrowserListAdapter(mColumn2Index);
+  int sflRelativeFontSize=preferences.getInt("relativeCardBrowserFontSize",DEFAULT_FONT_SIZE_RATIO);
+  String sflCustomFont=preferences.getString("browserEditorFont","");
+  mCardsAdapter=new MultiColumnListAdapter(this,mCards,R.layout.card_item_browser,new String[]{"sfld",COLUMN_KEYS[mColumn2Index]},new int[]{R.id.card_sfld,R.id.card_column2},"flags",sflRelativeFontSize,sflCustomFont);
+  mCardsListView.setAdapter(mCardsAdapter);
   mCardsColumn2Spinner.setSelection(mColumn2Index);
   mCardsListView.setOnItemClickListener(new OnItemClickListener(){
     @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){

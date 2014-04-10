@@ -1,0 +1,11 @@
+{
+  View[] columns=(View[])v.getTag();
+  final Map<String,String> dataSet=mData.get(position);
+  final int color=getColor(dataSet.get(mColorFlagKey));
+  for (int i=0; i < mToIds.length; i++) {
+    TextView col=(TextView)columns[i];
+    setFont(col);
+    col.setBackgroundResource(mBackground[color]);
+    col.setText(dataSet.get(mFromKeys[i]));
+  }
+}

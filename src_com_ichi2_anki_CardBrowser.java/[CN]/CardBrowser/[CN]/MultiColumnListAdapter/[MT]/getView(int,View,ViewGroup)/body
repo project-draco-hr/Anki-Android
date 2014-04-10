@@ -1,0 +1,17 @@
+{
+  View v;
+  if (convertView == null) {
+    v=mInflater.inflate(mResource,parent,false);
+    final int count=mToIds.length;
+    final View[] columns=new View[count];
+    for (int i=0; i < count; i++) {
+      columns[i]=v.findViewById(mToIds[i]);
+    }
+    v.setTag(columns);
+  }
+ else {
+    v=convertView;
+  }
+  bindView(position,v);
+  return v;
+}
