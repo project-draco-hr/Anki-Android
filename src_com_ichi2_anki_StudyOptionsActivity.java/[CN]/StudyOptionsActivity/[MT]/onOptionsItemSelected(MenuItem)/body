@@ -4,11 +4,11 @@ switch (item.getItemId()) {
 case android.R.id.home:
     closeStudyOptions();
   return true;
-case MENU_PREFERENCES:
+case R.id.action_preferences_from_study_options:
 startActivityForResult(new Intent(this,Preferences.class),StudyOptionsFragment.PREFERENCES_UPDATE);
 ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.FADE);
 return true;
-case MENU_ROTATE:
+case R.id.action_rotate_from_study_options:
 if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
 this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 }
@@ -16,18 +16,7 @@ this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 }
 return true;
-case MENU_NIGHT:
-SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(this);
-if (preferences.getBoolean("invertedColors",false)) {
-preferences.edit().putBoolean("invertedColors",false).commit();
-item.setIcon(R.drawable.ic_menu_night);
-}
- else {
-preferences.edit().putBoolean("invertedColors",true).commit();
-item.setIcon(R.drawable.ic_menu_night_checked);
-}
-return true;
-case DeckPicker.MENU_CREATE_DYNAMIC_DECK:
+case R.id.action_new_filtered_deck_from_study_options:
 StyledDialog.Builder builder=new StyledDialog.Builder(StudyOptionsActivity.this);
 builder.setTitle(res.getString(R.string.new_deck));
 mDialogEditText=new EditText(StudyOptionsActivity.this);

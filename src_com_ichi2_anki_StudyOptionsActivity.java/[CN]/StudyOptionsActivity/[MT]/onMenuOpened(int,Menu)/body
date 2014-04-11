@@ -1,8 +1,0 @@
-{
-  if (menu != null && mInvalidateMenu) {
-    menu.clear();
-    onCreateOptionsMenu(menu);
-    mInvalidateMenu=false;
-  }
-  return super.onMenuOpened(featureId,menu);
-}

@@ -1,0 +1,17 @@
+{
+switch (item.getItemId()) {
+case R.id.action_night_mode:
+    SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getActivity());
+  if (preferences.getBoolean("invertedColors",false)) {
+    preferences.edit().putBoolean("invertedColors",false).commit();
+    item.setIcon(R.drawable.ic_menu_night);
+  }
+ else {
+    preferences.edit().putBoolean("invertedColors",true).commit();
+    item.setIcon(R.drawable.ic_menu_night_checked);
+  }
+return true;
+default :
+return super.onOptionsItemSelected(item);
+}
+}

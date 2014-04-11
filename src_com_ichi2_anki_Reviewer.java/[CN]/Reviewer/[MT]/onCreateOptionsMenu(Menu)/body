@@ -1,28 +1,29 @@
 {
+  getMenuInflater().inflate(R.menu.reviewer,menu);
   Resources res=getResources();
-  UIUtils.addMenuItemInActionBar(menu,Menu.NONE,MENU_MARK,Menu.NONE,R.string.menu_mark_card,R.drawable.ic_menu_mark);
-  UIUtils.addMenuItemInActionBar(menu,Menu.NONE,MENU_UNDO,Menu.NONE,R.string.undo,R.drawable.ic_menu_revert_disabled);
-  UIUtils.addMenuItemInActionBar(menu,Menu.NONE,MENU_EDIT,Menu.NONE,R.string.menu_edit_card,R.drawable.ic_menu_edit);
+  if (mCurrentCard != null && mCurrentCard.note().hasTag("marked")) {
+    menu.findItem(R.id.action_mark_card).setTitle(R.string.menu_unmark_card).setIcon(R.drawable.ic_menu_marked);
+  }
+ else {
+    menu.findItem(R.id.action_mark_card).setTitle(R.string.menu_mark_card).setIcon(R.drawable.ic_menu_mark);
+  }
+  if (AnkiDroidApp.colIsOpen() && AnkiDroidApp.getCol().undoAvailable()) {
+    menu.findItem(R.id.action_undo).setEnabled(true).setIcon(R.drawable.ic_menu_revert);
+  }
+ else {
+    menu.findItem(R.id.action_undo).setEnabled(false).setIcon(R.drawable.ic_menu_revert_disabled);
+  }
   if (mPrefWhiteboard) {
     if (mShowWhiteboard) {
-      UIUtils.addMenuItemInActionBar(menu,Menu.NONE,MENU_WHITEBOARD,Menu.NONE,R.string.hide_whiteboard,R.drawable.ic_menu_compose);
+      menu.findItem(R.id.action_whiteboard).setVisible(true).setTitle(R.string.hide_whiteboard);
     }
  else {
-      UIUtils.addMenuItemInActionBar(menu,Menu.NONE,MENU_WHITEBOARD,Menu.NONE,R.string.show_whiteboard,R.drawable.ic_menu_compose);
+      menu.findItem(R.id.action_whiteboard).setVisible(true).setTitle(R.string.show_whiteboard);
     }
-    UIUtils.addMenuItemInActionBar(menu,Menu.NONE,MENU_CLEAR_WHITEBOARD,Menu.NONE,R.string.clear_whiteboard,R.drawable.ic_menu_clear_playlist);
+    menu.findItem(R.id.action_clear_whiteboard).setVisible(true);
   }
-  SubMenu removeDeckSubMenu=menu.addSubMenu(Menu.NONE,MENU_REMOVE,Menu.NONE,R.string.menu_dismiss_note);
-  removeDeckSubMenu.setIcon(R.drawable.ic_menu_stop);
-  removeDeckSubMenu.add(Menu.NONE,MENU_REMOVE_BURY_CARD,Menu.NONE,R.string.menu_bury_card);
-  removeDeckSubMenu.add(Menu.NONE,MENU_REMOVE_BURY_NOTE,Menu.NONE,R.string.menu_bury_note);
-  removeDeckSubMenu.add(Menu.NONE,MENU_REMOVE_SUSPEND_CARD,Menu.NONE,R.string.menu_suspend_card);
-  removeDeckSubMenu.add(Menu.NONE,MENU_REMOVE_SUSPEND_NOTE,Menu.NONE,R.string.menu_suspend_note);
-  removeDeckSubMenu.add(Menu.NONE,MENU_REMOVE_DELETE,Menu.NONE,R.string.menu_delete_note);
-  if (mPrefTextSelection) {
-    MenuItem item=menu.add(Menu.NONE,MENU_SEARCH,Menu.NONE,res.getString(R.string.menu_select));
-    item.setIcon(R.drawable.ic_menu_search);
-    item.setEnabled(Lookup.isAvailable());
+  if (AnkiDroidApp.SDK_VERSION < 11 && mPrefTextSelection) {
+    menu.findItem(R.id.action_search_dictionary).setVisible(true).setTitle(clipboardHasText() ? Lookup.getSearchStringTitle() : res.getString(R.string.menu_select));
   }
-  return true;
+  return super.onCreateOptionsMenu(menu);
 }

@@ -63,7 +63,7 @@
     SharedPreferences pref=restorePreferences();
     String newLanguage=pref.getString("language","");
     if (AnkiDroidApp.setLanguage(newLanguage)) {
-      mInvalidateMenu=true;
+      AnkiDroidApp.getCompat().invalidateOptionsMenu(this);
     }
     if (mNotMountedDialog != null && mNotMountedDialog.isShowing() && pref.getBoolean("internalMemory",false)) {
       showStartupScreensAndDialogs(pref,0);

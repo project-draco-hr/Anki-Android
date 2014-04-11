@@ -1,22 +1,30 @@
 {
   Resources res=getResources();
 switch (item.getItemId()) {
-case MENU_HELP:
-    showDialog(DIALOG_SELECT_HELP);
+case R.id.action_sync:
+    sync();
   return true;
-case MENU_SYNC:
-sync();
-return true;
-case MENU_ADD_NOTE:
+case R.id.action_add_note_from_deck_picker:
 addNote();
 return true;
-case MENU_STATISTICS:
+case R.id.action_statistics:
 showDialog(DIALOG_SELECT_STATISTICS_TYPE);
 return true;
-case MENU_CARDBROWSER:
+case R.id.action_card_browser:
 openCardBrowser();
 return true;
-case MENU_CREATE_DECK:
+case R.id.action_help:
+showDialog(DIALOG_SELECT_HELP);
+return true;
+case R.id.action_preferences_from_deck_picker:
+startActivityForResult(new Intent(DeckPicker.this,Preferences.class),PREFERENCES_UPDATE);
+return true;
+case R.id.action_shared_decks:
+if (AnkiDroidApp.getCol() != null) {
+addSharedDeck();
+}
+return true;
+case R.id.action_new_deck:
 StyledDialog.Builder builder2=new StyledDialog.Builder(DeckPicker.this);
 builder2.setTitle(res.getString(R.string.new_deck));
 mDialogEditText=(EditText)new EditText(DeckPicker.this);
@@ -33,7 +41,7 @@ loadCounts();
 builder2.setNegativeButton(res.getString(R.string.cancel),null);
 builder2.create().show();
 return true;
-case MENU_CREATE_DYNAMIC_DECK:
+case R.id.action_new_filtered_deck_from_deck_picker:
 StyledDialog.Builder builder3=new StyledDialog.Builder(DeckPicker.this);
 builder3.setTitle(res.getString(R.string.new_deck));
 mDialogEditText=(EditText)new EditText(DeckPicker.this);
@@ -56,31 +64,13 @@ openStudyOptions(id,new Bundle());
 builder3.setNegativeButton(res.getString(R.string.cancel),null);
 builder3.create().show();
 return true;
-case MENU_ABOUT:
-startActivity(new Intent(DeckPicker.this,Info.class));
-ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.RIGHT);
-return true;
-case MENU_ADD_SHARED_DECK:
-if (AnkiDroidApp.getCol() != null) {
-addSharedDeck();
-}
-return true;
-case MENU_IMPORT:
+case R.id.action_import:
 showDialog(DIALOG_IMPORT_HINT);
 return true;
-case MENU_PREFERENCES:
-startActivityForResult(new Intent(DeckPicker.this,Preferences.class),PREFERENCES_UPDATE);
-return true;
-case MENU_FEEDBACK:
-Intent i=new Intent(DeckPicker.this,Feedback.class);
-i.putExtra("request",REPORT_FEEDBACK);
-startActivityForResult(i,REPORT_FEEDBACK);
-ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
-return true;
-case CHECK_DATABASE:
+case R.id.action_check_database:
 integrityCheck();
 return true;
-case StudyOptionsActivity.MENU_ROTATE:
+case R.id.action_rotate_from_deck_picker:
 if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
 this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 }
@@ -88,16 +78,15 @@ this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 }
 return true;
-case StudyOptionsActivity.MENU_NIGHT:
-SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(this);
-if (preferences.getBoolean("invertedColors",false)) {
-preferences.edit().putBoolean("invertedColors",false).commit();
-item.setIcon(R.drawable.ic_menu_night);
-}
- else {
-preferences.edit().putBoolean("invertedColors",true).commit();
-item.setIcon(R.drawable.ic_menu_night_checked);
-}
+case R.id.action_feedback:
+Intent i=new Intent(DeckPicker.this,Feedback.class);
+i.putExtra("request",REPORT_FEEDBACK);
+startActivityForResult(i,REPORT_FEEDBACK);
+ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
+return true;
+case R.id.action_about:
+startActivity(new Intent(DeckPicker.this,Info.class));
+ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.RIGHT);
 return true;
 default :
 return super.onOptionsItemSelected(item);

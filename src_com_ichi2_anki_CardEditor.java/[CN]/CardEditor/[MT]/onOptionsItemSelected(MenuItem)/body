@@ -1,53 +1,28 @@
 {
 switch (item.getItemId()) {
-case MENU_COPY_CARD:
-case MENU_ADD_CARD:
-    Intent intent=new Intent(CardEditor.this,CardEditor.class);
-  intent.putExtra(EXTRA_CALLER,CALLER_CARDEDITOR);
-if (item.getItemId() == MENU_COPY_CARD) {
-  intent.putExtra(EXTRA_CONTENTS,getFieldsText());
+case android.R.id.home:
+    closeCardEditor(AnkiDroidApp.RESULT_TO_HOME);
+  return true;
+case R.id.action_preview:
+openReviewer();
+return true;
+case R.id.action_add_card_from_card_editor:
+case R.id.action_copy_card:
+Intent intent=new Intent(CardEditor.this,CardEditor.class);
+intent.putExtra(EXTRA_CALLER,CALLER_CARDEDITOR);
+if (item.getItemId() == R.id.action_copy_card) {
+intent.putExtra(EXTRA_CONTENTS,getFieldsText());
 }
 startActivityForResult(intent,REQUEST_ADD);
 ActivityTransitionAnimation.slide(CardEditor.this,ActivityTransitionAnimation.LEFT);
 return true;
-case MENU_RESET:
-if (mAddNote) {
-if (mCaller == CALLER_INDICLASH || mCaller == CALLER_CARDEDITOR_INTENT_ADD) {
-resetEditFields(mSourceText);
-}
- else {
-setEditFieldTexts(getIntent().getStringExtra(EXTRA_CONTENTS));
-if (!mEditFields.isEmpty()) {
-mEditFields.getFirst().requestFocus();
-}
-}
-}
- else {
-populateEditFields();
-}
-return true;
-case MENU_LOOKUP:
-View focus=this.getWindow().getCurrentFocus();
-if (focus instanceof FieldEditText) {
-FieldEditText field=(FieldEditText)focus;
-if (!field.isSelected()) {
-field.selectAll();
-}
-Lookup.lookUp(field.getText().toString().substring(field.getSelectionStart(),field.getSelectionEnd()));
-}
-return true;
-case MENU_RESET_CARD_PROGRESS:
+case R.id.action_reset_card_progress:
 showDialog(DIALOG_RESET_CARD);
 return true;
-case MENU_SAVED_INTENT:
+case R.id.action_saved_notes:
 showDialog(DIALOG_INTENT_INFORMATION);
 return true;
-case MENU_PREVIEW_CARD:
-openReviewer();
-return true;
-case android.R.id.home:
-closeCardEditor(AnkiDroidApp.RESULT_TO_HOME);
-return true;
+default :
+return super.onOptionsItemSelected(item);
 }
-return false;
 }

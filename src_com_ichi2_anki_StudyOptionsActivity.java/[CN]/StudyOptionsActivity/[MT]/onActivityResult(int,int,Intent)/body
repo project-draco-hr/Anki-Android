@@ -3,7 +3,7 @@
   Log.i(AnkiDroidApp.TAG,"StudyOptionsActivity: onActivityResult");
   String newLanguage=AnkiDroidApp.getSharedPrefs(this).getString("language","");
   if (AnkiDroidApp.setLanguage(newLanguage)) {
-    mInvalidateMenu=true;
+    AnkiDroidApp.getCompat().invalidateOptionsMenu(this);
   }
   if (mCurrentFragment != null) {
     mCurrentFragment.restorePreferences();
