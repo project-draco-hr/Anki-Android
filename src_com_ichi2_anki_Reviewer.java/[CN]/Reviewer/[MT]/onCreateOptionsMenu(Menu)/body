@@ -16,14 +16,15 @@
   if (mPrefWhiteboard) {
     if (mShowWhiteboard) {
       menu.findItem(R.id.action_whiteboard).setVisible(true).setTitle(R.string.hide_whiteboard);
+      menu.findItem(R.id.action_clear_whiteboard).setVisible(true);
     }
  else {
       menu.findItem(R.id.action_whiteboard).setVisible(true).setTitle(R.string.show_whiteboard);
+      menu.findItem(R.id.action_clear_whiteboard).setVisible(false);
     }
-    menu.findItem(R.id.action_clear_whiteboard).setVisible(true);
   }
   if (AnkiDroidApp.SDK_VERSION < 11 && mPrefTextSelection) {
-    menu.findItem(R.id.action_search_dictionary).setVisible(true).setTitle(clipboardHasText() ? Lookup.getSearchStringTitle() : res.getString(R.string.menu_select));
+    menu.findItem(R.id.action_search_dictionary).setVisible(true).setEnabled(!mShowWhiteboard).setTitle(clipboardHasText() ? Lookup.getSearchStringTitle() : res.getString(R.string.menu_select));
   }
   return super.onCreateOptionsMenu(menu);
 }

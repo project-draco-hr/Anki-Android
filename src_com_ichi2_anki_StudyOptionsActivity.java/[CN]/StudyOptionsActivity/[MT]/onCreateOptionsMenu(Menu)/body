@@ -1,7 +1,0 @@
-{
-  getMenuInflater().inflate(R.menu.study_options,menu);
-  if (AnkiDroidApp.colIsOpen() && !AnkiDroidApp.getCol().getDecks().isDyn(AnkiDroidApp.getCol().getDecks().selected())) {
-    menu.findItem(R.id.action_new_filtered_deck_from_study_options).setVisible(true);
-  }
-  return super.onCreateOptionsMenu(menu);
-}
