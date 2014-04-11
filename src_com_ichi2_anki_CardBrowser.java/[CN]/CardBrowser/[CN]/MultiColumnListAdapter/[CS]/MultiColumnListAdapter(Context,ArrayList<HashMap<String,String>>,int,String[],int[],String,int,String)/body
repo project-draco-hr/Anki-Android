@@ -1,0 +1,12 @@
+{
+  mData=data;
+  mResource=resource;
+  mFromKeys=from;
+  mToIds=to;
+  mColorFlagKey=colorFlagKey;
+  mFontSizeScalePcent=fontSizeScalePcent;
+  if (!customFont.equals("")) {
+    mCustomTypeface=AnkiFont.getTypeface(context,customFont);
+  }
+  mInflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+}

@@ -1,0 +1,12 @@
+{
+  float currentSize=v.getTextSize();
+  if (mOriginalTextSize < 0) {
+    mOriginalTextSize=v.getTextSize();
+  }
+  if (mFontSizeScalePcent != 100 && Math.abs(mOriginalTextSize - currentSize) < 0.1) {
+    v.setTextSize(TypedValue.COMPLEX_UNIT_SP,mOriginalTextSize * (mFontSizeScalePcent / 100.0f));
+  }
+  if (mCustomTypeface != null) {
+    v.setTypeface(mCustomTypeface);
+  }
+}
