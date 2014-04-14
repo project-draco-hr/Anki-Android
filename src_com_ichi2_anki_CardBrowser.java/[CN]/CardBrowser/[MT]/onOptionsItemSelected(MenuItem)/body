@@ -1,6 +1,6 @@
 {
 switch (item.getItemId()) {
-case R.id.action_add_card:
+case R.id.action_add_card_from_card_browser:
     Intent intent=new Intent(CardBrowser.this,CardEditor.class);
   intent.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_CARDBROWSER_ADD);
 startActivityForResult(intent,ADD_NOTE);
@@ -24,6 +24,7 @@ return true;
 case R.id.action_search_by_tag:
 showDialog(DIALOG_TAGS);
 return true;
+default :
+return super.onOptionsItemSelected(item);
 }
-return false;
 }

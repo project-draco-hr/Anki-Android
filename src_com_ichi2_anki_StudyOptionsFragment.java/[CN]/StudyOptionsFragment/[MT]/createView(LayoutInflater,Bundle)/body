@@ -29,5 +29,6 @@
   }
   mCramInitialConfig=getArguments().getBundle("cramInitialConfig");
   resetAndUpdateValuesFromDeck();
+  setHasOptionsMenu(true);
   return mStudyOptionsView;
 }

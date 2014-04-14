@@ -12,27 +12,6 @@ builder.setMessage("The SD card could not be read. Please, turn off USB storage.
 builder.setPositiveButton(R.string.ok,null);
 dialog=builder.create();
 break;
-case DIALOG_SELECT_HELP:
-builder.setTitle(res.getString(R.string.help_title));
-builder.setItems(new String[]{res.getString(R.string.help_tutorial),res.getString(R.string.help_online),res.getString(R.string.help_faq)},new DialogInterface.OnClickListener(){
-@Override public void onClick(DialogInterface arg0,int arg1){
-if (arg1 == 0) {
-createTutorialDeck();
-}
- else {
-if (Utils.isIntentAvailable(DeckPicker.this,"android.intent.action.VIEW")) {
-Intent intent=new Intent("android.intent.action.VIEW",Uri.parse(getResources().getString(arg1 == 1 ? R.string.link_help : R.string.link_faq)));
-startActivity(intent);
-}
- else {
-startActivity(new Intent(DeckPicker.this,Info.class));
-}
-}
-}
-}
-);
-dialog=builder.create();
-break;
 case DIALOG_CONNECTION_ERROR:
 builder.setTitle(res.getString(R.string.connection_error_title));
 builder.setIcon(R.drawable.ic_dialog_alert);

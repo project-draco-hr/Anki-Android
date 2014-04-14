@@ -3,7 +3,37 @@ switch (item.getItemId()) {
 case android.R.id.home:
     closeReviewer(AnkiDroidApp.RESULT_TO_HOME,true);
   return true;
-case MENU_WHITEBOARD:
+case R.id.action_undo:
+undo();
+return true;
+case R.id.action_clear_whiteboard:
+mWhiteboard.clear();
+return true;
+case R.id.action_mark_card:
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_MARK_CARD,mMarkCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,0));
+return true;
+case R.id.action_edit:
+return editCard();
+case R.id.action_bury_card:
+setNextCardAnimation(false);
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,4));
+return true;
+case R.id.action_bury_note:
+setNextCardAnimation(false);
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,0));
+return true;
+case R.id.action_suspend_card:
+setNextCardAnimation(false);
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,1));
+return true;
+case R.id.action_suspend_note:
+setNextCardAnimation(false);
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,2));
+return true;
+case R.id.action_delete:
+showDeleteNoteDialog();
+return true;
+case R.id.action_whiteboard:
 mShowWhiteboard=!mShowWhiteboard;
 if (mShowWhiteboard) {
 mWhiteboard.setVisibility(View.VISIBLE);
@@ -15,39 +45,10 @@ mWhiteboard.setVisibility(View.GONE);
 item.setTitle(R.string.show_whiteboard);
 MetaDB.storeWhiteboardState(this,mCurrentCard.getDid(),0);
 }
+refreshActionBar();
 return true;
-case MENU_CLEAR_WHITEBOARD:
-mWhiteboard.clear();
-return true;
-case MENU_EDIT:
-return editCard();
-case MENU_REMOVE_BURY_CARD:
-setNextCardAnimation(false);
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,4));
-return true;
-case MENU_REMOVE_BURY_NOTE:
-setNextCardAnimation(false);
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,0));
-return true;
-case MENU_REMOVE_SUSPEND_CARD:
-setNextCardAnimation(false);
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,1));
-return true;
-case MENU_REMOVE_SUSPEND_NOTE:
-setNextCardAnimation(false);
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,2));
-return true;
-case MENU_REMOVE_DELETE:
-showDeleteNoteDialog();
-return true;
-case MENU_SEARCH:
+case R.id.action_search_dictionary:
 lookUpOrSelectText();
-return true;
-case MENU_MARK:
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_MARK_CARD,mMarkCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,0));
-return true;
-case MENU_UNDO:
-undo();
 return true;
 default :
 return super.onOptionsItemSelected(item);
