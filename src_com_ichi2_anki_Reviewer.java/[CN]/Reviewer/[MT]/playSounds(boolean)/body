@@ -1,6 +1,6 @@
 {
   try {
-    if (getConfigForCurrentCard().getBoolean("autoplay")) {
+    if (play_always || getConfigForCurrentCard().getBoolean("autoplay")) {
       if (!mSpeakText) {
         if (sDisplayAnswer && getConfigForCurrentCard().optBoolean("replayq",true)) {
           Sound.playSounds(MetaDB.LANGUAGES_QA_QUESTION);
