@@ -6,7 +6,7 @@
   if (mAddNote) {
     try {
       mEditorNote.model().put("did",mCurrentDid);
-      mEditorNote.setTags(mCurrentTags);
+      mEditorNote.setTagsFromStr(tagsAsString(mCurrentTags));
       JSONArray ja=new JSONArray();
       for (      String t : mCurrentTags) {
         ja.put(t);
@@ -27,7 +27,7 @@
     boolean changedDid=mCurrentEditedCard.getDid() != mCurrentDid;
     modified=modified || changedDid;
     if (modified) {
-      mEditorNote.setTags(mCurrentTags);
+      mEditorNote.setTagsFromStr(tagsAsString(mCurrentTags));
       if (changedDid) {
         AnkiDroidApp.getCol().getSched().remFromDyn(new long[]{mCurrentEditedCard.getId()});
         mCurrentEditedCard.load();

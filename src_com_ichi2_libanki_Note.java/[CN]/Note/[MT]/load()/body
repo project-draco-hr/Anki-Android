@@ -10,10 +10,12 @@
     mMid=cursor.getLong(1);
     mMod=cursor.getLong(2);
     mUsn=cursor.getInt(3);
-    mFields=Utils.splitFields(cursor.getString(5));
     mTags=mCol.getTags().split(cursor.getString(4));
+    mFields=Utils.splitFields(cursor.getString(5));
     mFlags=cursor.getInt(6);
     mData=cursor.getString(7);
+    mModel=mCol.getModels().get(mMid);
+    mFMap=mCol.getModels().fieldMap(mModel);
     mScm=mCol.getScm();
   }
   finally {
@@ -21,6 +23,4 @@
       cursor.close();
     }
   }
-  mModel=mCol.getModels().get(mMid);
-  mFMap=mCol.getModels().fieldMap(mModel);
 }
