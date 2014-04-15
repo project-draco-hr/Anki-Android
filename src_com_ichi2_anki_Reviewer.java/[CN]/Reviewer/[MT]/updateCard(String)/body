@@ -9,14 +9,17 @@
     if (mCurrentCard == null) {
       mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
     }
-    String question="";
-    String answer="";
     int qa=-1;
     if (sDisplayAnswer) {
       qa=MetaDB.LANGUAGES_QA_ANSWER;
-      answer=mCurrentCard.getPureAnswerForReading();
       if (!mAnswerSoundsAdded) {
-        Sound.addSounds(mBaseUrl,answer,qa);
+        String afmt=getAnswerFormat();
+        String answerSoundSource=content;
+        if (afmt.indexOf("{{FrontSide}}") != -1) {
+          String fromFrontSide=mCurrentCard._getQA(false).get("q");
+          answerSoundSource=content.replace(fromFrontSide,"");
+        }
+        Sound.addSounds(mBaseUrl,answerSoundSource,qa);
         mAnswerSoundsAdded=true;
       }
     }
@@ -24,8 +27,7 @@
       Sound.resetSounds();
       mAnswerSoundsAdded=false;
       qa=MetaDB.LANGUAGES_QA_QUESTION;
-      question=mCurrentCard.getQuestion(mCurrentSimpleInterface);
-      Sound.addSounds(mBaseUrl,question,qa);
+      Sound.addSounds(mBaseUrl,content,qa);
     }
     content=Sound.expandSounds(mBaseUrl,content,mSpeakText,qa);
     content=content.replace("font-weight:600;","font-weight:700;");
