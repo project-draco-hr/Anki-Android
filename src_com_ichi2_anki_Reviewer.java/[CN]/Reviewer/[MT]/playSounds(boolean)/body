@@ -1,23 +1,26 @@
 {
+  boolean replayQuestion=getConfigForCurrentCard().optBoolean("replayq",true);
+  boolean autoPlayEnabled;
   try {
-    if (play_always || getConfigForCurrentCard().getBoolean("autoplay")) {
-      if (!mSpeakText) {
-        if (sDisplayAnswer && getConfigForCurrentCard().optBoolean("replayq",true)) {
-          Sound.playSounds(MetaDB.LANGUAGES_QA_QUESTION);
-        }
-        Sound.playSounds(sDisplayAnswer ? MetaDB.LANGUAGES_QA_ANSWER : MetaDB.LANGUAGES_QA_QUESTION);
-      }
- else {
-        if (!sDisplayAnswer || getConfigForCurrentCard().optBoolean("replayq",true)) {
-          readCardText(mCurrentCard,MetaDB.LANGUAGES_QA_QUESTION);
-        }
-        if (sDisplayAnswer) {
-          readCardText(mCurrentCard,MetaDB.LANGUAGES_QA_ANSWER);
-        }
-      }
-    }
+    autoPlayEnabled=getConfigForCurrentCard().getBoolean("autoplay");
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);
+  }
+  if (fromMenuButton || autoPlayEnabled) {
+    if (!mSpeakText) {
+      if (sDisplayAnswer && fromMenuButton && replayQuestion) {
+        Sound.playSounds(MetaDB.LANGUAGES_QA_QUESTION);
+      }
+      Sound.playSounds(sDisplayAnswer ? MetaDB.LANGUAGES_QA_ANSWER : MetaDB.LANGUAGES_QA_QUESTION);
+    }
+ else {
+      if (!sDisplayAnswer || fromMenuButton && replayQuestion) {
+        readCardText(mCurrentCard,MetaDB.LANGUAGES_QA_QUESTION);
+      }
+      if (sDisplayAnswer) {
+        readCardText(mCurrentCard,MetaDB.LANGUAGES_QA_ANSWER);
+      }
+    }
   }
 }
