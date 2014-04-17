@@ -1,6 +1,7 @@
 {
   FieldEditText field=mEditFields.get(0);
-  if (mEditorNote.dupeOrEmpty(field.getText().toString()) > (checkEmptyToo ? 0 : 1)) {
+  Integer dupeCode=mEditorNote.dupeOrEmpty();
+  if (dupeCode != null && ((dupeCode == 1 && checkEmptyToo) || dupeCode == 2)) {
     field.setBackgroundResource(R.drawable.white_edit_text_dupe);
     return true;
   }

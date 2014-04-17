@@ -1,3 +1,13 @@
 {
-  return dupeOrEmpty(mFields[0]);
+  String val=mFields[0];
+  if (val.trim().length() == 0) {
+    return 1;
+  }
+  long csum=Utils.fieldChecksum(val);
+  for (  String flds : mCol.getDb().queryColumn(String.class,"SELECT flds FROM notes WHERE csum = " + csum + " AND id != "+ (mId != 0 ? mId : 0)+ " AND mid = "+ mMid,0)) {
+    if (Utils.stripHTMLMedia(Utils.splitFields(flds)[0]).equals(Utils.stripHTMLMedia(mFields[0]))) {
+      return 2;
+    }
+  }
+  return null;
 }
