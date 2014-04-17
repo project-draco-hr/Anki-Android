@@ -1,5 +1,4 @@
 {
-  mSavedInstanceState=savedInstanceState;
   DeckTask.launchDeckTask(DeckTask.TASK_TYPE_OPEN_COLLECTION,new DeckTask.TaskListener(){
     @Override public void onPostExecute(    DeckTask.TaskData result){
       if (mOpenCollectionDialog.isShowing()) {
@@ -11,7 +10,7 @@
         }
       }
       if (AnkiDroidApp.colIsOpen()) {
-        onCreate(mSavedInstanceState);
+        initActivity(AnkiDroidApp.getCol());
       }
  else {
         finish();
