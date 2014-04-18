@@ -1,0 +1,5 @@
+{
+  Intent intent=new Intent(Intent.ACTION_VIEW);
+  intent.setData(Uri.parse(getResources().getString(R.string.resetpw_url)));
+  startActivity(intent);
+}
