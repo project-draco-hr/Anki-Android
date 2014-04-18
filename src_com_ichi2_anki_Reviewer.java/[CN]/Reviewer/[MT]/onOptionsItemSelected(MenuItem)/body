@@ -12,6 +12,9 @@ return true;
 case R.id.action_mark_card:
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_MARK_CARD,mMarkCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,0));
 return true;
+case R.id.action_replay:
+playSounds(true);
+return true;
 case R.id.action_edit:
 return editCard();
 case R.id.action_bury_card:
