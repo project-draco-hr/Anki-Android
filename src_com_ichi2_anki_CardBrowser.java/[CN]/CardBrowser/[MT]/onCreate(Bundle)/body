@@ -19,6 +19,35 @@
   mBackground=Themes.getCardBrowserBackground();
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
   Resources res=getResources();
+  String currentDeckName;
+  try {
+    currentDeckName=mCol.getDecks().current().getString("name");
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  mSpinnerDecks=new ArrayList<String>(mDeckNames.values());
+  mSpinnerDecks.add(0,res.getString(R.string.deck_summary_all_decks));
+  mSpinnerAdapter=new ArrayAdapter<String>(this,R.layout.spinner_item,mSpinnerDecks);
+  mActionBar=getSupportActionBar();
+  mActionBar.setDisplayShowTitleEnabled(false);
+  mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+  mActionBar.setListNavigationCallbacks(mSpinnerAdapter,new ActionBar.OnNavigationListener(){
+    @Override public boolean onNavigationItemSelected(    int position,    long itemId){
+      if (position == 0) {
+        mRestrictOnDeck="";
+      }
+ else {
+        mRestrictOnDeck="deck:'" + mSpinnerDecks.get(position) + "' ";
+      }
+      searchCards();
+      return true;
+    }
+  }
+);
+  if (!mWholeCollection) {
+    mActionBar.setSelectedNavigationItem(mSpinnerDecks.indexOf(currentDeckName));
+  }
   mOrderByFields=res.getStringArray(R.array.card_browser_order_labels);
   try {
     mOrder=CARD_ORDER_NONE;
@@ -96,17 +125,9 @@
   mSearchTerms="";
   if (mWholeCollection) {
     mRestrictOnDeck="";
-    setTitle(res.getString(R.string.card_browser_all_decks));
   }
  else {
-    try {
-      String deckName=mCol.getDecks().current().getString("name");
-      mRestrictOnDeck="deck:'" + deckName + "' ";
-      setTitle(deckName);
-    }
- catch (    JSONException e) {
-      throw new RuntimeException(e);
-    }
+    mRestrictOnDeck="deck:'" + currentDeckName + "' ";
   }
   mSelectedTags=new HashSet<String>();
   if (!preferences.getBoolean("cardBrowserNoSearchOnOpen",false)) {
