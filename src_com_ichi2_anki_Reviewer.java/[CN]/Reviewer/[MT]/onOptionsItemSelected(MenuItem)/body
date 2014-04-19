@@ -37,16 +37,23 @@ case R.id.action_delete:
 showDeleteNoteDialog();
 return true;
 case R.id.action_whiteboard:
+long deckID;
+try {
+deckID=mSched.getCol().getDecks().current().getLong("id");
+}
+ catch (JSONException e) {
+throw new RuntimeException(e);
+}
 mShowWhiteboard=!mShowWhiteboard;
 if (mShowWhiteboard) {
 mWhiteboard.setVisibility(View.VISIBLE);
 item.setTitle(R.string.hide_whiteboard);
-MetaDB.storeWhiteboardState(this,mCurrentCard.getDid(),1);
+MetaDB.storeWhiteboardState(this,deckID,1);
 }
  else {
 mWhiteboard.setVisibility(View.GONE);
 item.setTitle(R.string.show_whiteboard);
-MetaDB.storeWhiteboardState(this,mCurrentCard.getDid(),0);
+MetaDB.storeWhiteboardState(this,deckID,0);
 }
 refreshActionBar();
 return true;
