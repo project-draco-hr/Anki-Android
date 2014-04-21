@@ -1,0 +1,14 @@
+{
+  mTimeoutHandler.removeCallbacks(mShowAnswerTask);
+  mTimeoutHandler.removeCallbacks(mShowQuestionTask);
+  mTimerHandler.removeCallbacks(removeChosenAnswerText);
+  longClickHandler.removeCallbacks(longClickTestRunnable);
+  longClickHandler.removeCallbacks(startLongClickAction);
+  AbstractFlashcardViewer.this.setResult(result);
+  setOutAnimation(true);
+  if (saveDeck) {
+    UIUtils.saveCollectionInBackground();
+  }
+  finish();
+  ActivityTransitionAnimation.slide(AbstractFlashcardViewer.this,ActivityTransitionAnimation.RIGHT);
+}

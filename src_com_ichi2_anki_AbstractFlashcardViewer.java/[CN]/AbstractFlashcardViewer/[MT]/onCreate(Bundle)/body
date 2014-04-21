@@ -1,0 +1,16 @@
+{
+  mExtensions=new ReviewerExtRegistry(getBaseContext());
+  Themes.applyTheme(this);
+  super.onCreate(savedInstanceState);
+  Log.i(AnkiDroidApp.TAG,"AbstractReviewer - onCreate");
+  mChangeBorderStyle=Themes.getTheme() == Themes.THEME_ANDROID_LIGHT || Themes.getTheme() == Themes.THEME_ANDROID_DARK;
+  setVolumeControlStream(AudioManager.STREAM_MUSIC);
+  Collection col=AnkiDroidApp.getCol();
+  if (col == null) {
+    reloadCollection();
+    return;
+  }
+ else {
+    initActivity(col);
+  }
+}

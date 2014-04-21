@@ -45,7 +45,7 @@
   mTagsButton=(TextView)findViewById(R.id.CardEditorTagText);
   mSwapButton=(Button)findViewById(R.id.CardEditorSwapButton);
   mSwapButton.setOnClickListener(new View.OnClickListener(){
-    public void onClick(    View v){
+    @Override public void onClick(    View v){
       swapText(false);
     }
   }
@@ -58,7 +58,7 @@ case CALLER_NOCALLER:
   finish();
 return;
 case CALLER_REVIEWER:
-mCurrentEditedCard=Reviewer.getEditorCard();
+mCurrentEditedCard=AbstractFlashcardViewer.getEditorCard();
 if (mCurrentEditedCard == null) {
 finish();
 return;
@@ -128,7 +128,7 @@ setEditFieldTexts(contents);
 }
 LinearLayout modelButton=((LinearLayout)findViewById(R.id.CardEditorModelButton));
 modelButton.setOnClickListener(new View.OnClickListener(){
-public void onClick(View v){
+@Override public void onClick(View v){
 showDialog(DIALOG_MODEL_SELECT);
 }
 }
@@ -160,14 +160,14 @@ mSwapButton=(Button)findViewById(R.id.CardEditorLaterButton);
 mSwapButton.setVisibility(View.VISIBLE);
 mSwapButton.setText(getResources().getString(R.string.fact_adder_swap));
 mSwapButton.setOnClickListener(new View.OnClickListener(){
-public void onClick(View v){
+@Override public void onClick(View v){
 swapText(false);
 }
 }
 );
 }
 ((LinearLayout)findViewById(R.id.CardEditorDeckButton)).setOnClickListener(new View.OnClickListener(){
-public void onClick(View v){
+@Override public void onClick(View v){
 showDialog(DIALOG_DECK_SELECT);
 }
 }
