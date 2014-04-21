@@ -1,8 +1,0 @@
-{
-  Intent editCard=new Intent(Reviewer.this,CardEditor.class);
-  editCard.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_REVIEWER);
-  sEditorCard=mCurrentCard;
-  setOutAnimation(true);
-  startActivityForResultWithAnimation(editCard,EDIT_CURRENT_CARD,ActivityTransitionAnimation.LEFT);
-  return true;
-}

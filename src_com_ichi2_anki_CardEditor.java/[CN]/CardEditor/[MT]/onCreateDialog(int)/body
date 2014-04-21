@@ -13,10 +13,10 @@ case DIALOG_TAGS_SELECT:
   }
 );
 builder.setNegativeButton(res.getString(R.string.cancel),null);
-mNewTagEditText=(EditText)new EditText(this);
+mNewTagEditText=new EditText(this);
 mNewTagEditText.setHint(R.string.add_new_tag);
 InputFilter filter=new InputFilter(){
-public CharSequence filter(CharSequence source,int start,int end,Spanned dest,int dstart,int dend){
+@Override public CharSequence filter(CharSequence source,int start,int end,Spanned dest,int dstart,int dend){
 for (int i=start; i < end; i++) {
 if (source.charAt(i) == ' ' || source.charAt(i) == ',') {
   return "";
@@ -74,7 +74,7 @@ throw new RuntimeException(e);
 String[] items=new String[dialogDeckItems.size()];
 dialogDeckItems.toArray(items);
 builder.setItems(items,new DialogInterface.OnClickListener(){
-public void onClick(DialogInterface dialog,int item){
+@Override public void onClick(DialogInterface dialog,int item){
 long newId=dialogDeckIds.get(item);
 if (mCurrentDid != newId) {
 mCurrentDid=newId;
@@ -104,7 +104,7 @@ throw new RuntimeException(e);
 String[] items2=new String[dialogItems.size()];
 dialogItems.toArray(items2);
 builder.setItems(items2,new DialogInterface.OnClickListener(){
-public void onClick(DialogInterface dialog,int item){
+@Override public void onClick(DialogInterface dialog,int item){
 long oldModelId;
 try {
 oldModelId=mCol.getModels().current().getLong("id");

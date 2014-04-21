@@ -1,0 +1,10 @@
+{
+  try {
+    String[] title=mSched.getCol().getDecks().current().getString("name").split("::");
+    AnkiDroidApp.getCompat().setTitle(this,title[title.length - 1],mInvertedColors);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  AnkiDroidApp.getCompat().setSubtitle(this,"",mInvertedColors);
+}

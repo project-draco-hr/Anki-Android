@@ -1,0 +1,13 @@
+{
+  super.onPause();
+  Log.i(AnkiDroidApp.TAG,"AbstractReviewer - onPause()");
+  mTimeoutHandler.removeCallbacks(mShowAnswerTask);
+  mTimeoutHandler.removeCallbacks(mShowQuestionTask);
+  longClickHandler.removeCallbacks(longClickTestRunnable);
+  longClickHandler.removeCallbacks(startLongClickAction);
+  stopTimer();
+  if (mShakeEnabled) {
+    mSensorManager.unregisterListener(mSensorListener);
+  }
+  Sound.stopSounds();
+}
