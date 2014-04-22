@@ -5,10 +5,15 @@
   }
   sDisplayAnswer=true;
   setFlipCardAnimation();
-  String answer=mCurrentCard.getAnswer(mCurrentSimpleInterface);
-  answer=typeAnsAnswerFilter(answer);
+  String answer;
+  if (mCurrentSimpleInterface) {
+    answer=mCurrentCard.aSimple();
+  }
+ else {
+    answer=mCurrentCard.a();
+  }
   if (mDisplayKanjiInfo) {
-    answer=answer + addKanjiInfo(mCurrentCard.getQuestion(mCurrentSimpleInterface));
+    answer=answer + addKanjiInfo(mCurrentCard.q(mCurrentSimpleInterface));
   }
   String displayString="";
   if (mCurrentSimpleInterface) {

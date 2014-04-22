@@ -16,7 +16,7 @@
         if (col.getDecks().active().contains(editCard.getDid())) {
           newCard=editCard;
           newCard.load();
-          newCard.getQuestion(true);
+          newCard.q(true);
         }
  else {
           newCard=getCard(sched);

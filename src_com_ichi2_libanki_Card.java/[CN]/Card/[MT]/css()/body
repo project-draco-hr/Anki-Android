@@ -1,6 +1,6 @@
 {
   try {
-    return (new StringBuilder()).append("<style>").append(model().get("css")).append("</style>").toString();
+    return String.format(Locale.US,"<style>%s</style>",model().get("css"));
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);

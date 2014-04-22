@@ -9,7 +9,13 @@
     mEase4.setHeight(mButtonHeight);
   }
   setInterface();
-  String question=mCurrentCard.getQuestion(mCurrentSimpleInterface);
+  String question;
+  if (mCurrentSimpleInterface) {
+    question=mCurrentCard.qSimple();
+  }
+ else {
+    question=mCurrentCard.q();
+  }
   question=typeAnsQuestionFilter(question);
   if (mPrefFixArabic) {
     question=ArabicUtilities.reshapeSentence(question,true);
