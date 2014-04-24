@@ -1,0 +1,19 @@
+{
+  if (position == 0) {
+    mRestrictOnDeck="";
+  }
+ else {
+    mRestrictOnDeck="deck:'" + mDropDownDecks.get(position) + "' ";
+  }
+  if (mInitializing) {
+    mInitializing=false;
+    SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
+    if (!preferences.getBoolean("cardBrowserNoSearchOnOpen",false)) {
+      searchCards();
+    }
+  }
+ else {
+    searchCards();
+  }
+  return true;
+}
