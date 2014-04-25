@@ -8,7 +8,6 @@
   mPrefMan.setSharedPreferencesName(AnkiDroidApp.SHARED_PREFS_NAME);
   addPreferencesFromResource(R.xml.preferences);
   swipeCheckboxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("swipe");
-  zoomCheckboxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("zoom");
   keepScreenOnCheckBoxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("keepScreenOn");
   showAnswerCheckBoxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("timeoutAnswer");
   animationsCheckboxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("themeAnimations");
@@ -26,7 +25,6 @@
   useCurrent=(ListPreference)getPreferenceScreen().findPreference("useCurrent");
   newSpread=(ListPreference)getPreferenceScreen().findPreference("newSpread");
   dayOffset=(SeekBarPreference)getPreferenceScreen().findPreference("dayOffset");
-  zoomCheckboxPreference.setEnabled(!swipeCheckboxPreference.isChecked());
   initializeLanguageDialog();
   initializeCustomFontsDialog();
   if (mCol != null) {

@@ -1,10 +1,6 @@
 {
   try {
-    if (key.equals("swipe")) {
-      zoomCheckboxPreference.setChecked(false);
-      zoomCheckboxPreference.setEnabled(!swipeCheckboxPreference.isChecked());
-    }
- else     if (key.equals("timeoutAnswer")) {
+    if (key.equals("timeoutAnswer")) {
       keepScreenOnCheckBoxPreference.setChecked(showAnswerCheckBoxPreference.isChecked());
     }
  else     if (key.equals("language")) {
