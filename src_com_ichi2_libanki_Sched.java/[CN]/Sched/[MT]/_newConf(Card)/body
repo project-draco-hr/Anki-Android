@@ -15,7 +15,7 @@
     dict.put("bury",oconf.getJSONObject("new").optBoolean("bury",true));
     dict.put("delays",delays);
     dict.put("separate",conf.getBoolean("separate"));
-    dict.put("order",NEW_CARDS_DUE);
+    dict.put("order",Consts.NEW_CARDS_DUE);
     dict.put("perDay",mReportLimit);
     return dict;
   }

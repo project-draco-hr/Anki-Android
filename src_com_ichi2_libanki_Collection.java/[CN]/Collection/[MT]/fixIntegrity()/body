@@ -15,7 +15,7 @@
         _remNotes(Utils.arrayList2array(ids));
       }
       for (      JSONObject m : mModels.all()) {
-        if (m.getInt("type") == Sched.MODEL_STD) {
+        if (m.getInt("type") == Consts.MODEL_STD) {
           ArrayList<Integer> ords=new ArrayList<Integer>();
           JSONArray tmpls=m.getJSONArray("tmpls");
           for (int t=0; t < tmpls.length(); t++) {

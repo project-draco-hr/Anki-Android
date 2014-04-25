@@ -9,10 +9,10 @@
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
-  if (spread == NEW_CARDS_LAST) {
+  if (spread == Consts.NEW_CARDS_LAST) {
     return false;
   }
- else   if (spread == NEW_CARDS_FIRST) {
+ else   if (spread == Consts.NEW_CARDS_FIRST) {
     return true;
   }
  else   if (mNewCardModulus != 0) {

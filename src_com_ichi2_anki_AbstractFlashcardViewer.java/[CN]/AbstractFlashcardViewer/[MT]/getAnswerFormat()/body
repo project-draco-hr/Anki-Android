@@ -2,7 +2,7 @@
   try {
     JSONObject model=mCurrentCard.model();
     JSONObject template;
-    if (model.getInt("type") == Sched.MODEL_STD) {
+    if (model.getInt("type") == Consts.MODEL_STD) {
       template=model.getJSONArray("tmpls").getJSONObject(mCurrentCard.getOrd());
     }
  else {

@@ -3,6 +3,6 @@
     return;
   }
   String strids=Utils.ids2str(ids);
-  _logRem(ids,Sched.REM_NOTE);
+  _logRem(ids,Consts.REM_NOTE);
   mDb.execute("DELETE FROM notes WHERE id IN " + strids);
 }

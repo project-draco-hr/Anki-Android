@@ -1,7 +1,7 @@
 {
   JSONObject conf=mDecks.confForDid(did);
   try {
-    if (conf.getJSONObject("new").getInt("order") == Sched.NEW_CARDS_DUE) {
+    if (conf.getJSONObject("new").getInt("order") == Consts.NEW_CARDS_DUE) {
       return due;
     }
  else {

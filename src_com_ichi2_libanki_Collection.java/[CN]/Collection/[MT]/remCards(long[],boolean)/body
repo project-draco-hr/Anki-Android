@@ -4,7 +4,7 @@
   }
   String sids=Utils.ids2str(ids);
   long[] nids=Utils.arrayList2array(mDb.queryColumn(Long.class,"SELECT nid FROM cards WHERE id IN " + sids,0));
-  _logRem(ids,Sched.REM_CARD);
+  _logRem(ids,Consts.REM_CARD);
   mDb.execute("DELETE FROM cards WHERE id IN " + sids);
   if (!notes) {
     return;

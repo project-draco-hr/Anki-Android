@@ -8,13 +8,13 @@
     while (cur.moveToNext()) {
       int type=cur.getInt(1);
 switch (type) {
-case Sched.REM_CARD:
+case Consts.REM_CARD:
         cards.put(cur.getLong(0));
       break;
-case Sched.REM_NOTE:
+case Consts.REM_NOTE:
     notes.put(cur.getLong(0));
   break;
-case Sched.REM_DECK:
+case Consts.REM_DECK:
 decks.put(cur.getLong(0));
 break;
 }

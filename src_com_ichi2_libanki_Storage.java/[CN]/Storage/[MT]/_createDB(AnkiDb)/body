@@ -5,5 +5,5 @@
   _addSchema(db);
   _updateIndices(db);
   db.execute("ANALYZE");
-  return Collection.SCHEMA_VERSION;
+  return Consts.SCHEMA_VERSION;
 }

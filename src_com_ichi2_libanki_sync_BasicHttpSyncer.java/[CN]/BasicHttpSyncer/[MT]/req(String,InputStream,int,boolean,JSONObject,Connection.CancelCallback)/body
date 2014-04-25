@@ -46,7 +46,7 @@
     }
     bos.flush();
     bos.close();
-    String url=Collection.SYNC_URL;
+    String url=Consts.SYNC_URL;
     if (method.equals("register")) {
       url=url + "account/signup" + "?username="+ registerData.getString("u")+ "&password="+ registerData.getString("p");
     }

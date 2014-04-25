@@ -12,7 +12,7 @@
     fields.put("Type",(String)model.get("name"));
     fields.put("Deck",mDecks.name((Long)data[3]));
     JSONObject template;
-    if (model.getInt("type") == Sched.MODEL_STD) {
+    if (model.getInt("type") == Consts.MODEL_STD) {
       template=model.getJSONArray("tmpls").getJSONObject((Integer)data[4]);
     }
  else {
@@ -39,7 +39,7 @@
       html=mModels.getCmpldTemplate(format).execute(fparser);
       html=(String)AnkiDroidApp.getHooks().runFilter("mungeQA",html,"q",fields,model,data,this);
       d.put("q",html);
-      if (model.getInt("type") == Sched.MODEL_CLOZE) {
+      if (model.getInt("type") == Consts.MODEL_CLOZE) {
         if (getModels()._availClozeOrds(model,(String)data[6],false).size() == 0) {
           d.put("q","Please edit this note and add some cloze deletions.");
         }
@@ -53,9 +53,9 @@
       html=mModels.getCmpldTemplate(format).execute(fparser);
       html=(String)AnkiDroidApp.getHooks().runFilter("mungeQA",html,"a",fields,model,data,this);
       d.put("a",html);
-      if (model.getInt("type") == Sched.MODEL_CLOZE) {
+      if (model.getInt("type") == Consts.MODEL_CLOZE) {
         if (getModels()._availClozeOrds(model,(String)data[6],false).size() == 0) {
-          d.put("q",AnkiDroidApp.getAppResources().getString(com.ichi2.anki.R.string.empty_cloze_warning,"<a href=" + HELP_SITE + "#cloze>"+ AnkiDroidApp.getAppResources().getString(com.ichi2.anki.R.string.help_cloze)+ "</a>"));
+          d.put("q",AnkiDroidApp.getAppResources().getString(com.ichi2.anki.R.string.empty_cloze_warning,"<a href=" + Consts.HELP_SITE + "#cloze>"+ AnkiDroidApp.getAppResources().getString(com.ichi2.anki.R.string.help_cloze)+ "</a>"));
         }
       }
     }
