@@ -84,7 +84,7 @@ if (i > 0) {
 sb.append(")");
 }
 mSearchTerms=sb.toString();
-createFilteredDeck(new JSONArray(),new Object[]{mSearchTerms,9999,Consts.DYN_RANDOM},false);
+createFilteredDeck(new JSONArray(),new Object[]{mSearchTerms,Consts.DYN_MAX_SIZE,Consts.DYN_RANDOM},false);
 }
 }
 );
