@@ -1,6 +1,6 @@
 {
   mTypeCorrect=null;
-  String q=mCurrentCard.getQuestion(false);
+  String q=mCurrentCard.q(false);
   Matcher m=sTypeAnsPat.matcher(q);
   int clozeIdx=0;
   if (!m.find()) {

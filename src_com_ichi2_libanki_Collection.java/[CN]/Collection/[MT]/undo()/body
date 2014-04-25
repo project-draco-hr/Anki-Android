@@ -3,7 +3,7 @@
 switch ((Integer)data[0]) {
 case UNDO_REVIEW:
     Card c=(Card)data[1];
-  c.flush(false);
+  c.flush();
 long last=mDb.queryLongScalar("SELECT id FROM revlog WHERE cid = " + c.getId() + " ORDER BY id DESC LIMIT 1");
 mDb.execute("DELETE FROM revlog WHERE id = " + last);
 mDb.execute("update cards set queue=type,mod=?,usn=? where queue=-2 and nid=?",new Object[]{Utils.intNow(),usn(),c.getNid()});
@@ -22,7 +22,7 @@ Card newCard=getCard(cid);
 if (getDecks().active().contains(newCard.getDid())) {
 card=newCard;
 card.load();
-card.getQuestion(true,true);
+card.q(true,true);
 }
 }
 if (card == null) {
@@ -34,16 +34,16 @@ return card.getId();
 return 0;
 case UNDO_BURY_NOTE:
 for (Card cc : (ArrayList<Card>)data[2]) {
-cc.flush(false);
+cc.flush();
 }
 return (Long)data[3];
 case UNDO_SUSPEND_CARD:
 Card suspendedCard=(Card)data[1];
-suspendedCard.flush(false);
+suspendedCard.flush();
 return suspendedCard.getId();
 case UNDO_SUSPEND_NOTE:
 for (Card ccc : (ArrayList<Card>)data[1]) {
-ccc.flush(false);
+ccc.flush();
 }
 return (Long)data[2];
 case UNDO_DELETE_NOTE:
@@ -52,7 +52,7 @@ Note note2=(Note)data[1];
 note2.flush(note2.getMod());
 ids.add(note2.getId());
 for (Card c4 : (ArrayList<Card>)data[2]) {
-c4.flush(false);
+c4.flush();
 ids.add(c4.getId());
 }
 mDb.execute("DELETE FROM graves WHERE oid IN " + Utils.ids2str(Utils.arrayList2array(ids)));

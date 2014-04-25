@@ -1,8 +1,0 @@
-{
-  if (simple) {
-    return _getQA(false).get("a").replaceAll("<hr[^>]*>","<br>\u2500\u2500\u2500\u2500\u2500<br>");
-  }
- else {
-    return css() + _getQA(false).get("a");
-  }
-}
