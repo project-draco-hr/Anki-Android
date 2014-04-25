@@ -19,9 +19,9 @@
       Integer newOrd;
       long cid=cur.getLong(0);
       int ord=cur.getInt(1);
-      if (omType == Sched.MODEL_CLOZE) {
+      if (omType == Consts.MODEL_CLOZE) {
         newOrd=cur.getInt(1);
-        if (nmType != Sched.MODEL_CLOZE) {
+        if (nmType != Consts.MODEL_CLOZE) {
           if (nflds <= ord) {
             newOrd=null;
           }

@@ -4,7 +4,7 @@
   }
   JSONObject conf=mCol.getDecks().confForDid(did);
   try {
-    if (conf.getJSONObject("new").getInt("order") == NEW_CARDS_RANDOM) {
+    if (conf.getJSONObject("new").getInt("order") == Consts.NEW_CARDS_RANDOM) {
       randomizeCards(did);
     }
   }

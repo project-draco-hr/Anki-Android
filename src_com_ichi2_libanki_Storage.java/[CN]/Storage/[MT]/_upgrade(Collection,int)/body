@@ -12,7 +12,7 @@
       ArrayList<JSONObject> clozes=new ArrayList<JSONObject>();
       for (      JSONObject m : col.getModels().all()) {
         if (!m.getJSONArray("tmpls").getJSONObject(0).getString("qfmt").contains("{{cloze:")) {
-          m.put("type",Sched.MODEL_STD);
+          m.put("type",Consts.MODEL_STD);
         }
  else {
           clozes.add(m);

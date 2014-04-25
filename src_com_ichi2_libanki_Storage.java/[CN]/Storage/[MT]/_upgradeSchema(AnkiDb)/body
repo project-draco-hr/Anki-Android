@@ -1,6 +1,6 @@
 {
   int ver=db.queryScalar("SELECT ver FROM col");
-  if (ver == Collection.SCHEMA_VERSION) {
+  if (ver == Consts.SCHEMA_VERSION) {
     return ver;
   }
   if (db.queryScalar("SELECT ver FROM col") == 1) {

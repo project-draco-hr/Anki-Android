@@ -2,7 +2,7 @@
   Models mm=col.getModels();
   JSONObject m=mm.newModel("Cloze");
   try {
-    m.put("type",Sched.MODEL_CLOZE);
+    m.put("type",Consts.MODEL_CLOZE);
     String txt="Text";
     JSONObject fm=mm.newField(txt);
     mm.addField(m,fm);

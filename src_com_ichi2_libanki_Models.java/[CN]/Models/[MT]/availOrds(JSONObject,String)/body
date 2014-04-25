@@ -1,6 +1,6 @@
 {
   try {
-    if (m.getInt("type") == Sched.MODEL_CLOZE) {
+    if (m.getInt("type") == Consts.MODEL_CLOZE) {
       return _availClozeOrds(m,flds);
     }
     String[] fields=Utils.splitFields(flds);
