@@ -1,6 +1,6 @@
 {
   Resources res=getResources();
-  switchVisibility(mFlipCardLayout,View.GONE);
+  mFlipCardLayout.setVisibility(View.GONE);
   int buttonCount;
   try {
     buttonCount=mSched.answerButtons(mCurrentCard);
@@ -14,8 +14,8 @@ switch (buttonCount) {
 case 2:
     mEase1.setText(res.getString(R.string.ease1_successive));
   mEase2.setText(res.getString(R.string.ease3_successive));
-switchVisibility(mEase1Layout,View.VISIBLE);
-switchVisibility(mEase2Layout,View.VISIBLE);
+mEase1Layout.setVisibility(View.VISIBLE);
+mEase2Layout.setVisibility(View.VISIBLE);
 mEase2Layout.requestFocus();
 mNext2.setTextColor(mNextTimeTextRecomColor);
 mEase2.setTextColor(mNextTimeTextRecomColor);
@@ -26,9 +26,9 @@ case 3:
 mEase1.setText(res.getString(R.string.ease1_successive));
 mEase2.setText(res.getString(R.string.ease3_successive));
 mEase3.setText(res.getString(R.string.ease3_learning));
-switchVisibility(mEase1Layout,View.VISIBLE);
-switchVisibility(mEase2Layout,View.VISIBLE);
-switchVisibility(mEase3Layout,View.VISIBLE);
+mEase1Layout.setVisibility(View.VISIBLE);
+mEase2Layout.setVisibility(View.VISIBLE);
+mEase3Layout.setVisibility(View.VISIBLE);
 mEase2Layout.requestFocus();
 mNext2.setTextColor(mNextTimeTextRecomColor);
 mEase2.setTextColor(mNextTimeTextRecomColor);
@@ -40,10 +40,10 @@ mEase1.setText(res.getString(R.string.ease1_successive));
 mEase2.setText(res.getString(R.string.ease2_successive));
 mEase3.setText(res.getString(R.string.ease3_successive));
 mEase4.setText(res.getString(R.string.ease3_learning));
-switchVisibility(mEase1Layout,View.VISIBLE);
-switchVisibility(mEase2Layout,View.VISIBLE);
-switchVisibility(mEase3Layout,View.VISIBLE);
-switchVisibility(mEase4Layout,View.VISIBLE);
+mEase1Layout.setVisibility(View.VISIBLE);
+mEase2Layout.setVisibility(View.VISIBLE);
+mEase3Layout.setVisibility(View.VISIBLE);
+mEase4Layout.setVisibility(View.VISIBLE);
 mEase3Layout.requestFocus();
 mNext2.setTextColor(mNextTimeTextColor);
 mEase2.setTextColor(mNextTimeTextColor);

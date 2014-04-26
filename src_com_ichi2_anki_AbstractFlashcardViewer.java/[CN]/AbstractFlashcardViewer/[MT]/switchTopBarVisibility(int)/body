@@ -1,11 +1,11 @@
 {
   if (mShowTimer) {
-    switchVisibility(mCardTimer,visible,true);
+    mCardTimer.setVisibility(visible);
   }
   if (mShowRemainingCardCount) {
-    switchVisibility(mTextBarRed,visible,true);
-    switchVisibility(mTextBarBlack,visible,true);
-    switchVisibility(mTextBarBlue,visible,true);
+    mTextBarRed.setVisibility(visible);
+    mTextBarBlack.setVisibility(visible);
+    mTextBarBlue.setVisibility(visible);
   }
-  switchVisibility(mChosenAnswer,visible,true);
+  mChosenAnswer.setVisibility(visible);
 }
