@@ -1,7 +1,9 @@
 {
-  Set<String> currentTags=new HashSet<String>(split(tags));
-  currentTags.addAll(split(addtags));
-  List<String> curTags=new ArrayList<String>(currentTags);
-  Collections.sort(curTags);
-  return join(curTags);
+  List<String> currentTags=split(tags);
+  for (  String tag : split(addtags)) {
+    if (!inList(tag,currentTags)) {
+      currentTags.add(tag);
+    }
+  }
+  return join(canonify(currentTags));
 }

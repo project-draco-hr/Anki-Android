@@ -8,16 +8,12 @@
     mTags.clear();
     mChanged=true;
   }
-  ArrayList<String> tags=new ArrayList<String>();
+  List<String> tags=new ArrayList<String>();
   Cursor cursor=null;
   try {
-    cursor=mCol.getDb().getDatabase().rawQuery("SELECT DISTINCT tags FROM notes",null);
+    cursor=mCol.getDb().getDatabase().rawQuery("SELECT DISTINCT tags FROM notes" + lim,null);
     while (cursor.moveToNext()) {
-      for (      String t : cursor.getString(0).split("\\s")) {
-        if (t.length() > 0) {
-          tags.add(t);
-        }
-      }
+      tags.add(cursor.getString(0));
     }
   }
   finally {
@@ -25,5 +21,9 @@
       cursor.close();
     }
   }
-  register(tags);
+  HashSet<String> tagSet=new HashSet<String>();
+  for (  String s : split(TextUtils.join(" ",tags))) {
+    tagSet.add(s);
+  }
+  register(tagSet);
 }
