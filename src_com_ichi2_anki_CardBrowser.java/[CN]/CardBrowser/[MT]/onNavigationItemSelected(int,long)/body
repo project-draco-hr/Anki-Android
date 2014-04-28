@@ -1,16 +1,14 @@
 {
+  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
   if (position == 0) {
     mRestrictOnDeck="";
   }
  else {
     mRestrictOnDeck="deck:'" + mDropDownDecks.get(position) + "' ";
   }
-  if (mInitializing) {
-    mInitializing=false;
-    SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
-    if (!preferences.getBoolean("cardBrowserNoSearchOnOpen",false)) {
-      searchCards();
-    }
+  if (preferences.getBoolean("cardBrowserNoSearchOnOpen",false)) {
+    mCards.clear();
+    updateList();
   }
  else {
     searchCards();
