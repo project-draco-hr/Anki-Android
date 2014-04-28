@@ -1,17 +1,17 @@
 {
   JSONArray result=new JSONArray();
   if (mCol.getServer()) {
-    for (    Map.Entry<String,Integer> t : mCol.getTags().allItems().entrySet()) {
+    for (    Map.Entry<String,Integer> t : mCol.getTags().allItems()) {
       if (t.getValue() >= mMinUsn) {
         result.put(t.getKey());
       }
     }
   }
  else {
-    for (    Map.Entry<String,Integer> t : mCol.getTags().allItems().entrySet()) {
+    for (    Map.Entry<String,Integer> t : mCol.getTags().allItems()) {
       if (t.getValue() == -1) {
         String tag=t.getKey();
-        mCol.getTags().allItems().put(tag,mMaxUsn);
+        mCol.getTags().add(t.getKey(),mMaxUsn);
         result.put(tag);
       }
     }

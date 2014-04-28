@@ -1,8 +1,5 @@
 {
-  String[] tags=new String[mTags.size()];
-  int i=0;
-  for (  String t : mTags.keySet()) {
-    tags[i++]=t;
-  }
-  return tags;
+  List<String> list=new ArrayList<String>();
+  list.addAll(mTags.keySet());
+  return list;
 }

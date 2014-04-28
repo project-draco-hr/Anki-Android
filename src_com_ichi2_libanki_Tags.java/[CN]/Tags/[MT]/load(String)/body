@@ -1,7 +1,7 @@
 {
   try {
     JSONObject tags=new JSONObject(json);
-    Iterator i=tags.keys();
+    Iterator<?> i=tags.keys();
     while (i.hasNext()) {
       String t=(String)i.next();
       mTags.put(t,tags.getInt(t));
