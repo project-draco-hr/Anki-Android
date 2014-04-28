@@ -18,19 +18,15 @@ return true;
 case R.id.action_edit:
 return editCard();
 case R.id.action_bury_card:
-setNextCardAnimation(false);
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,4));
 return true;
 case R.id.action_bury_note:
-setNextCardAnimation(false);
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,0));
 return true;
 case R.id.action_suspend_card:
-setNextCardAnimation(false);
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,1));
 return true;
 case R.id.action_suspend_note:
-setNextCardAnimation(false);
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,2));
 return true;
 case R.id.action_delete:

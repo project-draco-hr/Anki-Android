@@ -2,7 +2,7 @@
   Log.i(AnkiDroidApp.TAG,"updateCard");
   Lookup.initialize(this,mCurrentCard.getDid());
   if (mCurrentSimpleInterface) {
-    fillFlashcard(mShowAnimations);
+    fillFlashcard();
   }
  else {
     content=recalculateHardCodedFontSize(content,mDisplayFontSize);
@@ -63,7 +63,7 @@
         Log.d(AnkiDroidApp.TAG,"failed to save card",e);
       }
     }
-    fillFlashcard(mShowAnimations);
+    fillFlashcard();
   }
   if (!mConfigurationChanged) {
     playSounds(false);

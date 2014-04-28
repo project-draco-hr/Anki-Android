@@ -6,141 +6,112 @@
  else     if (key.equals("language")) {
       closePreferences();
     }
- else     if (key.equals("theme")) {
-      String theme=sharedPreferences.getString("theme","3");
-      if (theme.equals("2") || theme.equals("3")) {
-        animationsCheckboxPreference.setChecked(false);
-        animationsCheckboxPreference.setEnabled(false);
+ else     if (key.equals("writeAnswers") && sharedPreferences.getBoolean("writeAnswers",true)) {
+      showDialog(DIALOG_WRITE_ANSWERS);
+    }
+ else     if (key.equals("useBackup")) {
+      if (lockCheckAction) {
+        lockCheckAction=false;
+      }
+ else       if (!useBackupPreference.isChecked()) {
+        lockCheckAction=true;
+        useBackupPreference.setChecked(true);
+        showDialog(DIALOG_BACKUP);
+      }
+    }
+ else     if (key.equals("asyncMode")) {
+      if (lockCheckAction) {
+        lockCheckAction=false;
+      }
+ else       if (asyncModePreference.isChecked()) {
+        lockCheckAction=true;
+        asyncModePreference.setChecked(false);
+        showDialog(DIALOG_ASYNC);
+      }
+    }
+ else     if (key.equals("deckPath")) {
+      File decksDirectory=new File(AnkiDroidApp.getCurrentAnkiDroidDirectory());
+      if (decksDirectory.exists()) {
+        AnkiDroidApp.createNoMediaFileIfMissing(decksDirectory);
+      }
+    }
+ else     if (key.equals("eInkDisplay")) {
+      fadeScrollbars.setChecked(false);
+      fadeScrollbars.setEnabled(!eInkDisplayPreference.isChecked());
+    }
+ else     if (key.equals("convertFenText")) {
+      if (convertFenText.isChecked()) {
+        ChessFilter.install(AnkiDroidApp.getHooks());
       }
  else {
-        animationsCheckboxPreference.setEnabled(true);
+        ChessFilter.uninstall(AnkiDroidApp.getHooks());
       }
-      Themes.loadTheme();
-switch (Integer.parseInt(sharedPreferences.getString("theme","3"))) {
-case Themes.THEME_ANDROID_DARK:
-case Themes.THEME_ANDROID_LIGHT:
-case Themes.THEME_BLUE:
-        sharedPreferences.edit().putString("defaultFont","").commit();
-      break;
-case Themes.THEME_FLAT:
-    sharedPreferences.edit().putString("defaultFont","OpenSans").commit();
-  break;
-case Themes.THEME_WHITE:
-sharedPreferences.edit().putString("defaultFont","OpenSans").commit();
-break;
-}
-Intent intent=this.getIntent();
-setResult(DeckPicker.RESULT_RESTART,intent);
-closePreferences();
-}
- else if (key.equals("writeAnswers") && sharedPreferences.getBoolean("writeAnswers",true)) {
-showDialog(DIALOG_WRITE_ANSWERS);
-}
- else if (key.equals("useBackup")) {
-if (lockCheckAction) {
-lockCheckAction=false;
-}
- else if (!useBackupPreference.isChecked()) {
-lockCheckAction=true;
-useBackupPreference.setChecked(true);
-showDialog(DIALOG_BACKUP);
-}
-}
- else if (key.equals("asyncMode")) {
-if (lockCheckAction) {
-lockCheckAction=false;
-}
- else if (asyncModePreference.isChecked()) {
-lockCheckAction=true;
-asyncModePreference.setChecked(false);
-showDialog(DIALOG_ASYNC);
-}
-}
- else if (key.equals("deckPath")) {
-File decksDirectory=new File(AnkiDroidApp.getCurrentAnkiDroidDirectory());
-if (decksDirectory.exists()) {
-AnkiDroidApp.createNoMediaFileIfMissing(decksDirectory);
-}
-}
- else if (key.equals("eInkDisplay")) {
-animationsCheckboxPreference.setChecked(false);
-animationsCheckboxPreference.setEnabled(!eInkDisplayPreference.isChecked());
-fadeScrollbars.setChecked(false);
-fadeScrollbars.setEnabled(!eInkDisplayPreference.isChecked());
-}
- else if (key.equals("convertFenText")) {
-if (convertFenText.isChecked()) {
-ChessFilter.install(AnkiDroidApp.getHooks());
-}
+    }
+ else     if (key.equals("fixHebrewText")) {
+      if (fixHebrewText.isChecked()) {
+        HebrewFixFilter.install(AnkiDroidApp.getHooks());
+        showDialog(DIALOG_HEBREW_FONT);
+      }
  else {
-ChessFilter.uninstall(AnkiDroidApp.getHooks());
-}
-}
- else if (key.equals("fixHebrewText")) {
-if (fixHebrewText.isChecked()) {
-HebrewFixFilter.install(AnkiDroidApp.getHooks());
-showDialog(DIALOG_HEBREW_FONT);
-}
- else {
-HebrewFixFilter.uninstall(AnkiDroidApp.getHooks());
-}
-}
- else if (key.equals("showProgress")) {
-mCol.getConf().put("dueCounts",showProgress.isChecked());
-mCol.setMod();
-}
- else if (key.equals("showEstimates")) {
-mCol.getConf().put("estTimes",showEstimates.isChecked());
-mCol.setMod();
-}
- else if (key.equals("newSpread")) {
-mCol.getConf().put("newSpread",Integer.parseInt(newSpread.getValue()));
-mCol.setMod();
-}
- else if (key.equals("timeLimit")) {
-mCol.getConf().put("timeLim",timeLimit.getValue() * 60);
-mCol.setMod();
-}
- else if (key.equals("learnCutoff")) {
-mCol.getConf().put("collapseTime",learnCutoff.getValue() * 60);
-mCol.setMod();
-}
- else if (key.equals("useCurrent")) {
-mCol.getConf().put("addToCur",useCurrent.getValue().equals("0") ? true : false);
-mCol.setMod();
-}
- else if (key.equals("dayOffset")) {
-int hours=dayOffset.getValue();
-Calendar date=(Calendar)mStartDate.clone();
-date.set(Calendar.HOUR_OF_DAY,hours);
-mCol.setCrt(date.getTimeInMillis() / 1000);
-mCol.setMod();
-}
- else if (key.equals("overrideFont")) {
-ListPreference overrideFontPreference=(ListPreference)getPreferenceScreen().findPreference("overrideFont");
-ListPreference defaultFontPreference=(ListPreference)getPreferenceScreen().findPreference("defaultFont");
-onOverrideFontChange(overrideFontPreference,defaultFontPreference);
-}
-if (Arrays.asList(mShowValueInSummList).contains(key)) {
-updateListPreference(key);
-}
- else if (Arrays.asList(mShowValueInSummSeek).contains(key)) {
-updateSeekBarPreference(key);
-}
- else if (Arrays.asList(mShowValueInSummEditText).contains(key)) {
-updateEditTextPreference(key);
-}
- else if (Arrays.asList(mShowValueInSummNumRange).contains(key)) {
-updateNumberRangePreference(key);
-}
-}
- catch (BadTokenException e) {
-Log.e(AnkiDroidApp.TAG,"Preferences: BadTokenException on showDialog: " + e);
-}
-catch (NumberFormatException e) {
-throw new RuntimeException();
-}
-catch (JSONException e) {
-throw new RuntimeException();
-}
+        HebrewFixFilter.uninstall(AnkiDroidApp.getHooks());
+      }
+    }
+ else     if (key.equals("showProgress")) {
+      mCol.getConf().put("dueCounts",showProgress.isChecked());
+      mCol.setMod();
+    }
+ else     if (key.equals("showEstimates")) {
+      mCol.getConf().put("estTimes",showEstimates.isChecked());
+      mCol.setMod();
+    }
+ else     if (key.equals("newSpread")) {
+      mCol.getConf().put("newSpread",Integer.parseInt(newSpread.getValue()));
+      mCol.setMod();
+    }
+ else     if (key.equals("timeLimit")) {
+      mCol.getConf().put("timeLim",timeLimit.getValue() * 60);
+      mCol.setMod();
+    }
+ else     if (key.equals("learnCutoff")) {
+      mCol.getConf().put("collapseTime",learnCutoff.getValue() * 60);
+      mCol.setMod();
+    }
+ else     if (key.equals("useCurrent")) {
+      mCol.getConf().put("addToCur",useCurrent.getValue().equals("0") ? true : false);
+      mCol.setMod();
+    }
+ else     if (key.equals("dayOffset")) {
+      int hours=dayOffset.getValue();
+      Calendar date=(Calendar)mStartDate.clone();
+      date.set(Calendar.HOUR_OF_DAY,hours);
+      mCol.setCrt(date.getTimeInMillis() / 1000);
+      mCol.setMod();
+    }
+ else     if (key.equals("overrideFont")) {
+      ListPreference overrideFontPreference=(ListPreference)getPreferenceScreen().findPreference("overrideFont");
+      ListPreference defaultFontPreference=(ListPreference)getPreferenceScreen().findPreference("defaultFont");
+      onOverrideFontChange(overrideFontPreference,defaultFontPreference);
+    }
+    if (Arrays.asList(mShowValueInSummList).contains(key)) {
+      updateListPreference(key);
+    }
+ else     if (Arrays.asList(mShowValueInSummSeek).contains(key)) {
+      updateSeekBarPreference(key);
+    }
+ else     if (Arrays.asList(mShowValueInSummEditText).contains(key)) {
+      updateEditTextPreference(key);
+    }
+ else     if (Arrays.asList(mShowValueInSummNumRange).contains(key)) {
+      updateNumberRangePreference(key);
+    }
+  }
+ catch (  BadTokenException e) {
+    Log.e(AnkiDroidApp.TAG,"Preferences: BadTokenException on showDialog: " + e);
+  }
+catch (  NumberFormatException e) {
+    throw new RuntimeException();
+  }
+catch (  JSONException e) {
+    throw new RuntimeException();
+  }
 }

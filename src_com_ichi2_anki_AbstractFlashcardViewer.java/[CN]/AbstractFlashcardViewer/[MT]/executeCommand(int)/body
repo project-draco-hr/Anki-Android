@@ -70,11 +70,9 @@ case GESTURE_LOOKUP:
 lookUpOrSelectText();
 break;
 case GESTURE_BURY:
-setNextCardAnimation(false);
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,0));
 break;
 case GESTURE_SUSPEND:
-setNextCardAnimation(false);
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,1));
 break;
 case GESTURE_DELETE:

@@ -1,10 +1,10 @@
 {
-  switchVisibility(mEase1Layout,View.GONE);
-  switchVisibility(mEase2Layout,View.GONE);
-  switchVisibility(mEase3Layout,View.GONE);
-  switchVisibility(mEase4Layout,View.GONE);
+  mEase1Layout.setVisibility(View.GONE);
+  mEase2Layout.setVisibility(View.GONE);
+  mEase3Layout.setVisibility(View.GONE);
+  mEase4Layout.setVisibility(View.GONE);
   if (mFlipCardLayout.getVisibility() != View.VISIBLE) {
-    switchVisibility(mFlipCardLayout,View.VISIBLE);
+    mFlipCardLayout.setVisibility(View.VISIBLE);
     mFlipCardLayout.requestFocus();
   }
  else   if (typeAnswer()) {
