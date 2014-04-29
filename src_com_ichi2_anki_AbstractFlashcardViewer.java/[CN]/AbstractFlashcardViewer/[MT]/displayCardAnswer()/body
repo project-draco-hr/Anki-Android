@@ -35,19 +35,13 @@
         if (mPrefFixArabic) {
           mTypeCorrect=ArabicUtilities.reshapeSentence(mTypeCorrect,true);
         }
-        String userAnswer=mAnswerField.getText().toString();
-        Matcher matcher=sSpanPattern.matcher(Utils.stripHTMLMedia(mTypeCorrect));
-        String correctAnswer=matcher.replaceAll("");
-        matcher=sBrPattern.matcher(correctAnswer);
-        correctAnswer=matcher.replaceAll("\n");
-        matcher=Sound.sSoundPattern.matcher(correctAnswer);
-        correctAnswer=matcher.replaceAll("");
+        String userAnswer=getAnswerText(mAnswerField.getText().toString());
+        String correctAnswer=getAnswerText(mTypeCorrect);
         Log.i(AnkiDroidApp.TAG,"correct answer = " + correctAnswer);
-        DiffEngine diff=new DiffEngine();
         StringBuffer span=new StringBuffer();
         span.append("<span style=\"font-family: '").append(mTypeFont).append("'; font-size: ").append(mTypeSize).append("px\">");
-        span.append(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer),mNightMode));
         span.append("</span>");
+        answer=typeAnsAnswerFilter(answer,userAnswer,correctAnswer);
         span.append("<br/>").append(answer);
         displayString=enrichWithQADiv(span.toString(),true);
       }

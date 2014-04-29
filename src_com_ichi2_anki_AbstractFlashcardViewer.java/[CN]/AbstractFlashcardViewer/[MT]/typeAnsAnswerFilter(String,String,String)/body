@@ -1,0 +1,7 @@
+{
+  Matcher m=sTypeAnsPat.matcher(buf);
+  DiffEngine diff=new DiffEngine();
+  String diffUserAnswer=diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer),mNightMode);
+  if (userAnswer.equals(correctAnswer))   return m.replaceFirst(diffUserAnswer + "\u2714");
+ else   return m.replaceFirst(diffUserAnswer + "\u21a6" + diff.diff_prettyHtml(diff.diff_main(correctAnswer,correctAnswer),mNightMode));
+}
