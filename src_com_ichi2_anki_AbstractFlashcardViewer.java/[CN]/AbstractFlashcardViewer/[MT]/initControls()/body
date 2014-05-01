@@ -11,4 +11,13 @@
     mWhiteboard.setVisibility(mShowWhiteboard ? View.VISIBLE : View.GONE);
   }
   mAnswerField.setVisibility(typeAnswer() ? View.VISIBLE : View.GONE);
+  mAnswerField.setOnEditorActionListener(new EditText.OnEditorActionListener(){
+    @Override public boolean onEditorAction(    TextView v,    int actionId,    KeyEvent event){
+      if (actionId == EditorInfo.IME_ACTION_DONE) {
+        mFlipCardLayout.performClick();
+      }
+      return false;
+    }
+  }
+);
 }
