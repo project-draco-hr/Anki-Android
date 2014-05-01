@@ -11,6 +11,7 @@
  else {
     answer=mCurrentCard.a();
   }
+  answer=typeAnsAnswerFilter(answer);
   if (mDisplayKanjiInfo) {
     answer=answer + addKanjiInfo(mCurrentCard.q(mCurrentSimpleInterface));
   }
