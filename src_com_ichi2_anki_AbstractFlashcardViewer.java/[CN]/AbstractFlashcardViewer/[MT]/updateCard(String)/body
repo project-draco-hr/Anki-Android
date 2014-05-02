@@ -9,9 +9,7 @@
     if (mCurrentCard == null) {
       mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
     }
-    int qa=-1;
     if (sDisplayAnswer) {
-      qa=MetaDB.LANGUAGES_QA_ANSWER;
       if (!mAnswerSoundsAdded) {
         String afmt=getAnswerFormat();
         String answerSoundSource=content;
@@ -19,17 +17,16 @@
           String fromFrontSide=mCurrentCard._getQA(false).get("q");
           answerSoundSource=content.replace(fromFrontSide,"");
         }
-        Sound.addSounds(mBaseUrl,answerSoundSource,qa);
+        Sound.addSounds(mBaseUrl,answerSoundSource,Sound.SOUNDS_ANSWER);
         mAnswerSoundsAdded=true;
       }
     }
  else {
       Sound.resetSounds();
       mAnswerSoundsAdded=false;
-      qa=MetaDB.LANGUAGES_QA_QUESTION;
-      Sound.addSounds(mBaseUrl,content,qa);
+      Sound.addSounds(mBaseUrl,content,Sound.SOUNDS_QUESTION);
     }
-    content=Sound.expandSounds(mBaseUrl,content,mSpeakText,qa);
+    content=Sound.expandSounds(mBaseUrl,content);
     content=content.replace("font-weight:600;","font-weight:700;");
     String cardClass="card card" + (mCurrentCard.getOrd() + 1);
     if (mPrefCenterVertically) {

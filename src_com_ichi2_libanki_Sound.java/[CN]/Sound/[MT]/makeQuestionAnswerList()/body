@@ -1,0 +1,15 @@
+{
+  if (!sSoundPaths.containsKey(Sound.SOUNDS_QUESTION_AND_ANSWER)) {
+    sSoundPaths.put(Sound.SOUNDS_QUESTION_AND_ANSWER,new ArrayList<String>());
+  }
+ else {
+    return;
+  }
+  ArrayList<String> combinedSounds=sSoundPaths.get(Sound.SOUNDS_QUESTION_AND_ANSWER);
+  if (sSoundPaths.containsKey(Sound.SOUNDS_QUESTION)) {
+    combinedSounds.addAll(sSoundPaths.get(Sound.SOUNDS_QUESTION));
+  }
+  if (sSoundPaths.containsKey(Sound.SOUNDS_ANSWER)) {
+    combinedSounds.addAll(sSoundPaths.get(Sound.SOUNDS_ANSWER));
+  }
+}

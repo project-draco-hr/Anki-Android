@@ -2,4 +2,8 @@
   if (sSoundPaths != null && sSoundPaths.containsKey(qa)) {
     playSound(sSoundPaths.get(qa).get(0),new PlayAllCompletionListener(qa));
   }
+ else   if (sSoundPaths != null && qa == Sound.SOUNDS_QUESTION_AND_ANSWER) {
+    Sound.makeQuestionAnswerList();
+    playSound(sSoundPaths.get(qa).get(0),new PlayAllCompletionListener(qa));
+  }
 }

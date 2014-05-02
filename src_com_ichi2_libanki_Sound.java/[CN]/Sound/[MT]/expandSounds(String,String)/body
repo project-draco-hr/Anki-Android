@@ -1,11 +1,9 @@
 {
-  boolean soundAvailable=false;
   StringBuilder stringBuilder=new StringBuilder();
   String contentLeft=content;
   Log.i(AnkiDroidApp.TAG,"expandSounds");
   Matcher matcher=sSoundPattern.matcher(content);
   while (matcher.find()) {
-    soundAvailable=true;
     String sound=matcher.group(1);
     String soundPath=soundDir + Uri.encode(sound);
     String soundMarker=matcher.group();
