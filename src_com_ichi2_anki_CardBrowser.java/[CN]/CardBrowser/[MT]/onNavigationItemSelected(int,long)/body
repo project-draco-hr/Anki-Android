@@ -4,7 +4,13 @@
     mRestrictOnDeck="";
   }
  else {
-    mRestrictOnDeck="deck:'" + mDropDownDecks.get(position) + "' ";
+    JSONObject deck=mDropDownDecks.get(position - 1);
+    try {
+      mRestrictOnDeck="deck:'" + deck.getString("name") + "' ";
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException();
+    }
   }
   if (preferences.getBoolean("cardBrowserNoSearchOnOpen",false)) {
     mCards.clear();

@@ -19,13 +19,12 @@
   mBackground=Themes.getCardBrowserBackground();
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
   Resources res=getResources();
-  String currentDeckName;
-  try {
-    currentDeckName=mCol.getDecks().current().getString("name");
-  }
- catch (  JSONException e) {
-    throw new RuntimeException(e);
-  }
+  mDropDownDecks=mCol.getDecks().allSorted();
+  mDropDownAdapter=new DeckDropDownAdapter(this,mDropDownDecks);
+  mActionBar=getSupportActionBar();
+  mActionBar.setDisplayShowTitleEnabled(false);
+  mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+  mActionBar.setListNavigationCallbacks(mDropDownAdapter,this);
   mOrderByFields=res.getStringArray(R.array.card_browser_order_labels);
   try {
     mOrder=CARD_ORDER_NONE;
@@ -100,22 +99,28 @@
   }
 );
   getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-  mSearchTerms="";
-  if (mWholeCollection) {
-    mRestrictOnDeck="";
-  }
- else {
-    mRestrictOnDeck="deck:'" + currentDeckName + "' ";
-  }
   mSelectedTags=new HashSet<String>();
-  mDropDownDecks=new ArrayList<String>(mDeckNames.values());
-  mDropDownDecks.add(0,res.getString(R.string.deck_summary_all_decks));
-  mDropDownAdapter=new ArrayAdapter<String>(this,R.layout.spinner_item,mDropDownDecks);
-  mActionBar=getSupportActionBar();
-  mActionBar.setDisplayShowTitleEnabled(false);
-  mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-  mActionBar.setListNavigationCallbacks(mDropDownAdapter,this);
   if (!mWholeCollection) {
-    mActionBar.setSelectedNavigationItem(mDropDownDecks.indexOf(currentDeckName));
+    String currentDeckName;
+    try {
+      currentDeckName=mCol.getDecks().current().getString("name");
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+    for (int dropDownDeckIdx=0; dropDownDeckIdx < mDropDownDecks.size(); dropDownDeckIdx++) {
+      JSONObject deck=mDropDownDecks.get(dropDownDeckIdx);
+      String deckName;
+      try {
+        deckName=deck.getString("name");
+      }
+ catch (      JSONException e) {
+        throw new RuntimeException();
+      }
+      if (deckName.equals(currentDeckName)) {
+        mActionBar.setSelectedNavigationItem(dropDownDeckIdx + 1);
+        break;
+      }
+    }
   }
 }
