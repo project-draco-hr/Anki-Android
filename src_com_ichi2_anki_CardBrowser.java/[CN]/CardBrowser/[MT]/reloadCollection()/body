@@ -14,7 +14,7 @@
         finish();
       }
  else {
-        onCreate(savedInstanceState);
+        initActivity(AnkiDroidApp.getCol());
       }
     }
     @Override public void onPreExecute(){
