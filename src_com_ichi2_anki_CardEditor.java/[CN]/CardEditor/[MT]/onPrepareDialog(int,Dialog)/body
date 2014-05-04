@@ -6,10 +6,10 @@ case DIALOG_TAGS_SELECT:
       dialog=null;
       return;
     }
-  selectedTags=new ArrayList<String>();
-for (String s : mEditorNote.getTags()) {
-  selectedTags.add(s);
-}
+  if (mSelectedTags == null) {
+    mSelectedTags=new ArrayList<String>();
+  }
+mCurrentTags=new ArrayList<String>(mSelectedTags);
 actualizeTagDialog(ad);
 break;
 case DIALOG_INTENT_INFORMATION:

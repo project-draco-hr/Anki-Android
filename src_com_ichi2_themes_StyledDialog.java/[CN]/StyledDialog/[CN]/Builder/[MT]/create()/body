@@ -84,6 +84,31 @@
     Themes.showThemedToast(context,context.getResources().getString(R.string.error_insufficient_memory),false);
     return null;
   }
+  if (this.listStyle == 3 && selectAllListener != null) {
+    CheckBox selectAll=(CheckBox)layout.findViewById(R.id.SelectAllCheckbox);
+    selectAll.setVisibility(View.VISIBLE);
+    selectAll.setTag(selectAllListener);
+    dialog.adjustSelectAllCheckBox();
+  }
+  if (mShowFilterEditText) {
+    EditText filterTags=(EditText)layout.findViewById(R.id.filterTags);
+    filterTags.setVisibility(View.VISIBLE);
+    filterTags.addTextChangedListener(new TextWatcher(){
+      @Override public void onTextChanged(      CharSequence s,      int start,      int before,      int count){
+        dialog.filterList(s.toString(),new FilterListener(){
+          @Override public void onFilterComplete(          int count){
+            dialog.adjustSelectAllCheckBox();
+          }
+        }
+);
+      }
+      @Override public void beforeTextChanged(      CharSequence s,      int start,      int count,      int after){
+      }
+      @Override public void afterTextChanged(      Editable s){
+      }
+    }
+);
+  }
   dialog.setContentView(layout);
   return dialog;
 }

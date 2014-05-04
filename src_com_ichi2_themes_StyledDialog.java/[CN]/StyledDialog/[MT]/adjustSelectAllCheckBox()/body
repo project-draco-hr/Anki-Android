@@ -1,0 +1,13 @@
+{
+  boolean check=true;
+  for (int i=0; i < mListView.getCount(); i++) {
+    if (!mListView.isItemChecked(i)) {
+      check=false;
+      break;
+    }
+  }
+  CheckBox selectAll=(CheckBox)findViewById(R.id.SelectAllCheckbox);
+  selectAll.setOnCheckedChangeListener(null);
+  selectAll.setChecked(check);
+  selectAll.setOnCheckedChangeListener((OnCheckedChangeListener)selectAll.getTag());
+}

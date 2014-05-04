@@ -1,30 +1,35 @@
 {
+  ad.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
   TreeSet<String> tags=new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
   for (  String tag : mCol.getTags().all()) {
     tags.add(tag);
   }
-  tags.addAll(selectedTags);
+  tags.addAll(mCurrentTags);
   int len=tags.size();
   allTags=new String[len];
   boolean[] checked=new boolean[len];
   int i=0;
   for (  String t : tags) {
     allTags[i++]=t;
-    if (selectedTags.contains(t)) {
-      checked[i - 1]=true;
-    }
+    checked[i - 1]=mCurrentTags.contains(t);
   }
   ad.setMultiChoiceItems(allTags,checked,new DialogInterface.OnClickListener(){
     @Override public void onClick(    DialogInterface arg0,    int which){
       String tag=allTags[which];
-      if (selectedTags.contains(tag)) {
+      if (mCurrentTags.contains(tag)) {
         Log.i(AnkiDroidApp.TAG,"unchecked tag: " + tag);
-        selectedTags.remove(tag);
+        mCurrentTags.remove(tag);
       }
  else {
         Log.i(AnkiDroidApp.TAG,"checked tag: " + tag);
-        selectedTags.add(tag);
+        mCurrentTags.add(tag);
       }
+    }
+  }
+,new OnCheckedChangeListener(){
+    @Override public void onCheckedChanged(    CompoundButton buttonView,    boolean isChecked){
+      mTagsDialog.setItemListChecked(isChecked);
+      mCurrentTags=mTagsDialog.getCheckedItems();
     }
   }
 );
