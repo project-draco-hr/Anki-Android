@@ -26,11 +26,6 @@
   mPrefCenterVertically=preferences.getBoolean("centerVertically",false);
   mGesturesEnabled=AnkiDroidApp.initiateGestures(this,preferences);
   if (mGesturesEnabled) {
-    mGestureShake=Integer.parseInt(preferences.getString("gestureShake","0"));
-    if (mGestureShake != 0) {
-      mShakeEnabled=true;
-    }
-    mShakeIntensity=preferences.getInt("minShakeIntensity",70);
     mGestureSwipeUp=Integer.parseInt(preferences.getString("gestureSwipeUp","9"));
     mGestureSwipeDown=Integer.parseInt(preferences.getString("gestureSwipeDown","0"));
     mGestureSwipeLeft=Integer.parseInt(preferences.getString("gestureSwipeLeft","8"));

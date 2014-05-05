@@ -23,13 +23,6 @@
   }
   gestureDetector=new GestureDetector(new MyGestureDetector());
   mProgressBar=(ProgressBar)findViewById(R.id.flashcard_progressbar);
-  if (mShakeEnabled) {
-    mSensorManager=(SensorManager)getSystemService(Context.SENSOR_SERVICE);
-    mSensorManager.registerListener(mSensorListener,mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_NORMAL);
-    mAccel=0.00f;
-    mAccelCurrent=SensorManager.GRAVITY_EARTH;
-    mAccelLast=SensorManager.GRAVITY_EARTH;
-  }
   Resources res=getResources();
   mEase1=(Button)findViewById(R.id.ease1);
   mEase1.setTextColor(res.getColor(R.color.next_time_failed_color));

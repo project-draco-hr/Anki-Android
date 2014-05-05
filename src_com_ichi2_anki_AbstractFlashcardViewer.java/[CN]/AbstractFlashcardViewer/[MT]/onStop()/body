@@ -1,8 +1,5 @@
 {
   mInBackground=true;
-  if (mShakeEnabled) {
-    mSensorManager.unregisterListener(mSensorListener);
-  }
   super.onStop();
   if (!isFinishing()) {
     if (AnkiDroidApp.colIsOpen()) {

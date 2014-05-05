@@ -6,8 +6,5 @@
   longClickHandler.removeCallbacks(longClickTestRunnable);
   longClickHandler.removeCallbacks(startLongClickAction);
   stopTimer();
-  if (mShakeEnabled) {
-    mSensorManager.unregisterListener(mSensorListener);
-  }
   Sound.stopSounds();
 }
