@@ -23,7 +23,7 @@
       menu.findItem(R.id.action_clear_whiteboard).setVisible(false);
     }
   }
-  if (AnkiDroidApp.SDK_VERSION < 11 && mPrefTextSelection) {
+  if (AnkiDroidApp.SDK_VERSION < 11 && !mDisableClipboard) {
     menu.findItem(R.id.action_search_dictionary).setVisible(true).setEnabled(!mShowWhiteboard).setTitle(clipboardHasText() ? Lookup.getSearchStringTitle() : res.getString(R.string.menu_select));
   }
   return super.onCreateOptionsMenu(menu);

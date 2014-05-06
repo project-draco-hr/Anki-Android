@@ -3,7 +3,6 @@
   mPrefHideDueCount=preferences.getBoolean("hideDueCount",false);
   mPrefWhiteboard=preferences.getBoolean("whiteboard",false);
   mPrefWriteAnswers=preferences.getBoolean("writeAnswers",true);
-  mPrefTextSelection=preferences.getBoolean("textSelection",true);
   mLongClickWorkaround=preferences.getBoolean("textSelectionLongclickWorkaround",false);
   mNightMode=preferences.getBoolean("invertedColors",false);
   mInvertedColors=mNightMode;
@@ -36,7 +35,7 @@
     mGestureTapBottom=Integer.parseInt(preferences.getString("gestureTapBottom","2"));
     mGestureLongclick=Integer.parseInt(preferences.getString("gestureLongclick","11"));
   }
-  if (mPrefTextSelection && mLongClickWorkaround) {
+  if (mLongClickWorkaround) {
     mGestureLongclick=GESTURE_LOOKUP;
   }
   if (preferences.getBoolean("keepScreenOn",false)) {

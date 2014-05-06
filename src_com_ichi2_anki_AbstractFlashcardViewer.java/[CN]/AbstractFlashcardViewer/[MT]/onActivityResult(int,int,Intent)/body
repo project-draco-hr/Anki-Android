@@ -18,7 +18,7 @@
       fillFlashcard();
     }
   }
-  if (mPrefTextSelection) {
+  if (!mDisableClipboard) {
     clipboardSetText("");
   }
 }
