@@ -1,21 +1,14 @@
 {
   mContext=context;
-  if (mDid == did) {
-    return mIsDictionaryAvailable;
-  }
-  mDid=did;
-  int customDictionary=MetaDB.getLookupDictionary(context,did);
-  if (customDictionary != -1) {
-    mDictionary=customDictionary;
-  }
- else {
-    SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext());
-    mDictionary=Integer.parseInt(preferences.getString("dictionary",Integer.toString(DICTIONARY_COLORDICT)));
-  }
+  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext());
+  mDictionary=Integer.parseInt(preferences.getString("dictionary",Integer.toString(DICTIONARY_NONE)));
 switch (mDictionary) {
+case DICTIONARY_NONE:
+    mIsDictionaryAvailable=false;
+  break;
 case DICTIONARY_AEDICT:
-    mDictionaryAction="sk.baka.aedict.action.ACTION_SEARCH_EDICT";
-  mIsDictionaryAvailable=Utils.isIntentAvailable(mContext,mDictionaryAction);
+mDictionaryAction="sk.baka.aedict.action.ACTION_SEARCH_EDICT";
+mIsDictionaryAvailable=Utils.isIntentAvailable(mContext,mDictionaryAction);
 break;
 case DICTIONARY_LEO_WEB:
 case DICTIONARY_NCIKU_WEB:

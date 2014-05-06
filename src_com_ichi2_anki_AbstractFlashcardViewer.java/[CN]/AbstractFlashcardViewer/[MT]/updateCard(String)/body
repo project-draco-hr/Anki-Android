@@ -1,6 +1,5 @@
 {
   Log.i(AnkiDroidApp.TAG,"updateCard");
-  Lookup.initialize(this,mCurrentCard.getDid());
   if (mCurrentSimpleInterface) {
     fillFlashcard();
   }
