@@ -1,9 +1,12 @@
 {
-  if (!sSoundPaths.containsKey(Sound.SOUNDS_QUESTION_AND_ANSWER)) {
+  if (sSoundPaths.containsKey(Sound.SOUNDS_QUESTION_AND_ANSWER)) {
+    return false;
+  }
+  if (sSoundPaths.containsKey(Sound.SOUNDS_QUESTION) || sSoundPaths.containsKey(Sound.SOUNDS_ANSWER)) {
     sSoundPaths.put(Sound.SOUNDS_QUESTION_AND_ANSWER,new ArrayList<String>());
   }
  else {
-    return;
+    return false;
   }
   ArrayList<String> combinedSounds=sSoundPaths.get(Sound.SOUNDS_QUESTION_AND_ANSWER);
   if (sSoundPaths.containsKey(Sound.SOUNDS_QUESTION)) {
@@ -12,4 +15,5 @@
   if (sSoundPaths.containsKey(Sound.SOUNDS_ANSWER)) {
     combinedSounds.addAll(sSoundPaths.get(Sound.SOUNDS_ANSWER));
   }
+  return true;
 }
