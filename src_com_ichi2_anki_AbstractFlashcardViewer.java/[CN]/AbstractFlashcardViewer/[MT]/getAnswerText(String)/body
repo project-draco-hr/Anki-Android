@@ -1,0 +1,12 @@
+{
+  if (answer == null || answer.equals("")) {
+    return "";
+  }
+  Matcher matcher=sSpanPattern.matcher(Utils.stripHTMLMedia(answer));
+  String answerText=matcher.replaceAll("");
+  matcher=sBrPattern.matcher(answerText);
+  answerText=matcher.replaceAll("\n");
+  matcher=Sound.sSoundPattern.matcher(answerText);
+  answerText=matcher.replaceAll("");
+  return answerText;
+}

@@ -54,13 +54,13 @@
   mFlipCard=(Button)findViewById(R.id.flip_card);
   mFlipCardLayout=(LinearLayout)findViewById(R.id.flashcard_layout_flip);
   mFlipCardLayout.setOnClickListener(mFlipCardListener);
-  mTextBarRed=(TextView)findViewById(R.id.red_number);
-  mTextBarBlack=(TextView)findViewById(R.id.black_number);
-  mTextBarBlue=(TextView)findViewById(R.id.blue_number);
+  mTextBarNew=(TextView)findViewById(R.id.new_number);
+  mTextBarLearn=(TextView)findViewById(R.id.learn_number);
+  mTextBarReview=(TextView)findViewById(R.id.review_number);
   if (!mShowRemainingCardCount) {
-    mTextBarRed.setVisibility(View.GONE);
-    mTextBarBlack.setVisibility(View.GONE);
-    mTextBarBlue.setVisibility(View.GONE);
+    mTextBarNew.setVisibility(View.GONE);
+    mTextBarLearn.setVisibility(View.GONE);
+    mTextBarReview.setVisibility(View.GONE);
   }
   mCardTimer=(Chronometer)findViewById(R.id.card_time);
   mChosenAnswer=(TextView)findViewById(R.id.choosen_answer);

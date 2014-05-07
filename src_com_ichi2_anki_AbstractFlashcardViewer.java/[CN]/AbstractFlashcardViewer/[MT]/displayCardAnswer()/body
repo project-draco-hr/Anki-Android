@@ -11,7 +11,6 @@
  else {
     answer=mCurrentCard.a();
   }
-  answer=typeAnsAnswerFilter(answer);
   String displayString="";
   if (mCurrentSimpleInterface) {
     mCardContent=convertToSimple(answer);
@@ -26,32 +25,15 @@
     if (mPrefFixArabic) {
       answer=ArabicUtilities.reshapeSentence(answer,true);
     }
-    if (typeAnswer()) {
-      mAnswerField.setVisibility(View.GONE);
-      if (mCurrentCard != null) {
-        if (mPrefFixArabic) {
-          mTypeCorrect=ArabicUtilities.reshapeSentence(mTypeCorrect,true);
-        }
-        String userAnswer=mAnswerField.getText().toString();
-        Matcher matcher=sSpanPattern.matcher(Utils.stripHTMLMedia(mTypeCorrect));
-        String correctAnswer=matcher.replaceAll("");
-        matcher=sBrPattern.matcher(correctAnswer);
-        correctAnswer=matcher.replaceAll("\n");
-        matcher=Sound.sSoundPattern.matcher(correctAnswer);
-        correctAnswer=matcher.replaceAll("");
-        Log.i(AnkiDroidApp.TAG,"correct answer = " + correctAnswer);
-        DiffEngine diff=new DiffEngine();
-        StringBuffer span=new StringBuffer();
-        span.append("<span style=\"font-family: '").append(mTypeFont).append("'; font-size: ").append(mTypeSize).append("px\">");
-        span.append(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer),mNightMode));
-        span.append("</span>");
-        span.append("<br/>").append(answer);
-        displayString=enrichWithQADiv(span.toString(),true);
+    mAnswerField.setVisibility(View.GONE);
+    if (mCurrentCard != null) {
+      if (mPrefFixArabic) {
+        mTypeCorrect=ArabicUtilities.reshapeSentence(mTypeCorrect,true);
       }
-      InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-      inputMethodManager.hideSoftInputFromWindow(mAnswerField.getWindowToken(),0);
-    }
- else {
+      String userAnswer=getAnswerText(mAnswerField.getText().toString());
+      String correctAnswer=getAnswerText(mTypeCorrect);
+      Log.i(AnkiDroidApp.TAG,"correct answer = " + correctAnswer);
+      answer=typeAnsAnswerFilter(answer,userAnswer,correctAnswer);
       displayString=enrichWithQADiv(answer,true);
     }
   }

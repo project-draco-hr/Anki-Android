@@ -1,0 +1,5 @@
+{
+  ArrayList<JSONObject> decks=all();
+  Collections.sort(decks,new DeckListComparator());
+  return decks;
+}

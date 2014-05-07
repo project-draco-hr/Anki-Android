@@ -93,6 +93,18 @@
           return true;
         }
       }
+ else       if (view.getId() == R.id.deckpicker_new) {
+        ((TextView)view).setTextColor((text.equals("0")) ? getResources().getColor(R.color.zero_count) : getResources().getColor(R.color.new_count));
+        return false;
+      }
+ else       if (view.getId() == R.id.deckpicker_lrn) {
+        ((TextView)view).setTextColor((text.equals("0")) ? getResources().getColor(R.color.zero_count) : getResources().getColor(R.color.learn_count));
+        return false;
+      }
+ else       if (view.getId() == R.id.deckpicker_rev) {
+        ((TextView)view).setTextColor((text.equals("0")) ? getResources().getColor(R.color.zero_count) : getResources().getColor(R.color.review_count));
+        return false;
+      }
       return false;
     }
   }
