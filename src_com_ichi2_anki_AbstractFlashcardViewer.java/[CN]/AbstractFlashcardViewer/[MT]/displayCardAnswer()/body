@@ -11,9 +11,6 @@
  else {
     answer=mCurrentCard.a();
   }
-  if (mDisplayKanjiInfo) {
-    answer=answer + addKanjiInfo(mCurrentCard.q(mCurrentSimpleInterface));
-  }
   String displayString="";
   if (mCurrentSimpleInterface) {
     mCardContent=convertToSimple(answer);

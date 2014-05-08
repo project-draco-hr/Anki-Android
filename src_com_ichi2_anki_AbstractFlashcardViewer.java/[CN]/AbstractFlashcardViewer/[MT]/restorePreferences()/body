@@ -3,7 +3,6 @@
   mPrefHideDueCount=preferences.getBoolean("hideDueCount",false);
   mPrefWhiteboard=preferences.getBoolean("whiteboard",false);
   mPrefWriteAnswers=preferences.getBoolean("writeAnswers",true);
-  mPrefTextSelection=preferences.getBoolean("textSelection",true);
   mLongClickWorkaround=preferences.getBoolean("textSelectionLongclickWorkaround",false);
   mNightMode=preferences.getBoolean("invertedColors",false);
   mInvertedColors=mNightMode;
@@ -16,21 +15,15 @@
   mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
   mPrefForceQuickUpdate=preferences.getBoolean("forceQuickUpdate",false);
   mSpeakText=preferences.getBoolean("tts",false);
-  mPrefFadeScrollbars=preferences.getBoolean("fadeScrollbars",false);
+  mPrefEInkDisplay=preferences.getBoolean("eInkDisplay",false);
   mPrefUseTimer=preferences.getBoolean("timeoutAnswer",false);
   mWaitAnswerSecond=preferences.getInt("timeoutAnswerSeconds",20);
   mWaitQuestionSecond=preferences.getInt("timeoutQuestionSeconds",60);
   mScrollingButtons=preferences.getBoolean("scrolling_buttons",false);
   mDoubleScrolling=preferences.getBoolean("double_scrolling",false);
-  mDisplayKanjiInfo=preferences.getBoolean("displayKanjiInfo",false);
   mPrefCenterVertically=preferences.getBoolean("centerVertically",false);
   mGesturesEnabled=AnkiDroidApp.initiateGestures(this,preferences);
   if (mGesturesEnabled) {
-    mGestureShake=Integer.parseInt(preferences.getString("gestureShake","0"));
-    if (mGestureShake != 0) {
-      mShakeEnabled=true;
-    }
-    mShakeIntensity=preferences.getInt("minShakeIntensity",70);
     mGestureSwipeUp=Integer.parseInt(preferences.getString("gestureSwipeUp","9"));
     mGestureSwipeDown=Integer.parseInt(preferences.getString("gestureSwipeDown","0"));
     mGestureSwipeLeft=Integer.parseInt(preferences.getString("gestureSwipeLeft","8"));
@@ -42,16 +35,8 @@
     mGestureTapBottom=Integer.parseInt(preferences.getString("gestureTapBottom","2"));
     mGestureLongclick=Integer.parseInt(preferences.getString("gestureLongclick","11"));
   }
-  if (mPrefTextSelection && mLongClickWorkaround) {
+  if (mLongClickWorkaround) {
     mGestureLongclick=GESTURE_LOOKUP;
-  }
-  if (preferences.getBoolean("fixOrientation",false)) {
-    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-      setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-    }
- else     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-      setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-    }
   }
   if (preferences.getBoolean("keepScreenOn",false)) {
     this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);

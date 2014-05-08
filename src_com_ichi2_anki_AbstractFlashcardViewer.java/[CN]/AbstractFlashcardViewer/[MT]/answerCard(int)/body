@@ -3,9 +3,7 @@
     return;
   }
   mIsSelecting=false;
-  if (mPrefTextSelection) {
-    hideLookupButton();
-  }
+  hideLookupButton();
 switch (ease) {
 case EASE_FAILED:
     mChosenAnswer.setText("\u2022");

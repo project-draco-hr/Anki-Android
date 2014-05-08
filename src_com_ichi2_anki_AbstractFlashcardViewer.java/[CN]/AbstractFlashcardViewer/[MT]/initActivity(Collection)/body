@@ -16,7 +16,7 @@
   mUseQuickUpdate=shouldUseQuickUpdate();
   initLayout(R.layout.flashcard);
   setTitle();
-  if (mPrefTextSelection) {
+  if (!mDisableClipboard) {
     clipboardSetText("");
   }
   try {
@@ -33,4 +33,5 @@
     mShowWhiteboard=true;
     mWhiteboard.setVisibility(View.VISIBLE);
   }
+  Lookup.initialize(this);
 }

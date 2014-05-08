@@ -19,25 +19,11 @@
         showDialog(DIALOG_BACKUP);
       }
     }
- else     if (key.equals("asyncMode")) {
-      if (lockCheckAction) {
-        lockCheckAction=false;
-      }
- else       if (asyncModePreference.isChecked()) {
-        lockCheckAction=true;
-        asyncModePreference.setChecked(false);
-        showDialog(DIALOG_ASYNC);
-      }
-    }
  else     if (key.equals("deckPath")) {
       File decksDirectory=new File(AnkiDroidApp.getCurrentAnkiDroidDirectory());
       if (decksDirectory.exists()) {
         AnkiDroidApp.createNoMediaFileIfMissing(decksDirectory);
       }
-    }
- else     if (key.equals("eInkDisplay")) {
-      fadeScrollbars.setChecked(false);
-      fadeScrollbars.setEnabled(!eInkDisplayPreference.isChecked());
     }
  else     if (key.equals("convertFenText")) {
       if (convertFenText.isChecked()) {

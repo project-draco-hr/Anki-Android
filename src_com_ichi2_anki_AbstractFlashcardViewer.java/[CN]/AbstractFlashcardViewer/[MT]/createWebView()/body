@@ -15,7 +15,9 @@
   if (AnkiDroidApp.SDK_VERSION > 7) {
     webView.setFocusableInTouchMode(false);
   }
-  AnkiDroidApp.getCompat().setScrollbarFadingEnabled(webView,mPrefFadeScrollbars);
+  if (mPrefEInkDisplay) {
+    AnkiDroidApp.getCompat().setScrollbarFadingEnabled(webView,false);
+  }
   Log.i(AnkiDroidApp.TAG,"Focusable = " + webView.isFocusable() + ", Focusable in touch mode = "+ webView.isFocusableInTouchMode());
   return webView;
 }

@@ -1,8 +1,5 @@
 {
   SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(activity);
-  if (!prefs.getBoolean("showBroadcastMessages",true)) {
-    return;
-  }
   Log.i(AnkiDroidApp.TAG,"BroadcastMessages: checkForNewMessages");
   if (!prefs.getBoolean("showBroadcastMessageToday",true)) {
     Log.i(AnkiDroidApp.TAG,"BroadcastMessages: already shown today");

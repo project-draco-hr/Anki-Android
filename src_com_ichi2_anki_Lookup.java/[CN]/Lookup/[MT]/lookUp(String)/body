@@ -4,9 +4,11 @@
   }
   text=text.trim().replaceAll("[,;:\\s\\(\\[\\)\\]\\.]*$","").replaceAll("^[,;:\\s\\(\\[\\)\\]\\.]*","");
 switch (mDictionary) {
+case DICTIONARY_NONE:
+    return false;
 case DICTIONARY_AEDICT:
-    Intent aedictSearchIntent=new Intent(mDictionaryAction);
-  aedictSearchIntent.putExtra("kanjis",text);
+  Intent aedictSearchIntent=new Intent(mDictionaryAction);
+aedictSearchIntent.putExtra("kanjis",text);
 mContext.startActivity(aedictSearchIntent);
 return true;
 case DICTIONARY_LEO_WEB:
