@@ -1,0 +1,21 @@
+{
+  if (mCheckedItems == null) {
+    mCheckedItems=new boolean[mItemList.size()];
+  }
+  for (int i=0; i < mItemList.size(); i++) {
+    String item=mItemList.get(i);
+    boolean is_checked=false;
+    boolean is_showing=false;
+    for (int j=0; j < mListView.getCount(); j++) {
+      String item_in_view=(String)mListView.getItemAtPosition(j);
+      if (item.equals(item_in_view)) {
+        is_showing=true;
+        is_checked=mListView.isItemChecked(j);
+        break;
+      }
+    }
+    if (is_showing) {
+      mCheckedItems[i]=is_checked;
+    }
+  }
+}

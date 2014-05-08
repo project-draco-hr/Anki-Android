@@ -52,6 +52,12 @@ mSelectedTags.add(tag);
 }
 }
 }
+,new CompoundButton.OnCheckedChangeListener(){
+@Override public void onCheckedChanged(CompoundButton buttonView,boolean isChecked){
+mTagsDialog.setItemListChecked(isChecked);
+mSelectedTags=new HashSet<String>(mTagsDialog.getCheckedItems());
+}
+}
 );
 builder1.setPositiveButton(res.getString(R.string.select),new OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
@@ -90,17 +96,22 @@ createFilteredDeck(new JSONArray(),new Object[]{mSearchTerms,Consts.DYN_MAX_SIZE
 );
 builder1.setNegativeButton(res.getString(R.string.cancel),new OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
+mTagsDialog.setItemListChecked(false);
 mSelectedTags.clear();
 }
 }
 );
 builder1.setOnCancelListener(new OnCancelListener(){
 @Override public void onCancel(DialogInterface dialog){
+mTagsDialog.setItemListChecked(false);
 mSelectedTags.clear();
 }
 }
 );
-dialog=builder1.create();
+builder1.setShowFilterTags(true);
+mTagsDialog=builder1.create();
+dialog=mTagsDialog;
+mTagsDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 break;
 case DIALOG_CUSTOM_STUDY_DETAILS:
 builder1.setContentView(mCustomStudyDetailsView);

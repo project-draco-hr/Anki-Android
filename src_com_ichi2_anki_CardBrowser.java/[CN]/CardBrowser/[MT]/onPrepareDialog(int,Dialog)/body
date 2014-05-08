@@ -51,6 +51,12 @@ mSelectedTags.add(tag);
 }
 }
 }
+,new OnCheckedChangeListener(){
+@Override public void onCheckedChanged(CompoundButton buttonView,boolean isChecked){
+mTagsDialog.setItemListChecked(isChecked);
+mSelectedTags=new HashSet<String>(mTagsDialog.getCheckedItems());
+}
+}
 );
 break;
 }

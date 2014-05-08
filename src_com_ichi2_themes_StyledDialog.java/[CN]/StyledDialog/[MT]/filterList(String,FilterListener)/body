@@ -1,0 +1,13 @@
+{
+  updateCheckedItems();
+  mListAdapter.getFilter().filter(str,new FilterListener(){
+    @Override public void onFilterComplete(    int count){
+      for (int i=0; i < mListView.getCount(); i++) {
+        String item=(String)mListView.getItemAtPosition(i);
+        mListView.setItemChecked(i,mCheckedItems[mItemList.indexOf(item)]);
+      }
+      adjustSelectAllCheckBox();
+    }
+  }
+);
+}

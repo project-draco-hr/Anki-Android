@@ -14,7 +14,7 @@
     radioButtonCards[i].setGravity(Gravity.CENTER_VERTICAL);
     rg.addView(radioButtonCards[i],lp);
   }
-  rg.check(0);
+  radioButtonCards[0].setChecked(true);
   rg.setOnCheckedChangeListener(new OnCheckedChangeListener(){
     @Override public void onCheckedChanged(    RadioGroup arg0,    int arg1){
       int checked=arg0.getCheckedRadioButtonId();
