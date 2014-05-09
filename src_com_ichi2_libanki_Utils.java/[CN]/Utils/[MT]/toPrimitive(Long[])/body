@@ -1,9 +1,10 @@
 {
+  if (array == null) {
+    return null;
+  }
   long[] results=new long[array.length];
-  if (array != null) {
-    for (int i=0; i < array.length; i++) {
-      results[i]=array[i].longValue();
-    }
+  for (int i=0; i < array.length; i++) {
+    results[i]=array[i];
   }
   return results;
 }
