@@ -2,6 +2,6 @@
   if (shouldPersist()) {
     persistInt(mValue);
   }
-  callChangeListener(new Integer(mValue));
+  callChangeListener(mValue);
   this.getDialog().dismiss();
 }
