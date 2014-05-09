@@ -49,9 +49,7 @@
       }
       Object[] oc=card;
       card=new Object[oc.length - 2];
-      for (int i=0; i < card.length; i++) {
-        card[i]=oc[i + 2];
-      }
+      System.arraycopy(oc,2,card,0,card.length);
       long scid=(Long)card[0];
       while (existing.containsKey(card[0])) {
         card[0]=(Long)card[0] + 999;
