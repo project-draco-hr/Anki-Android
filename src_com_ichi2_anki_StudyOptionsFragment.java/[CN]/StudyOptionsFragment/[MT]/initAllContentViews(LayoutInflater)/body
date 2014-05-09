@@ -55,7 +55,6 @@
   Themes.setWallpaper(mCongratsView);
   mTextCongratsMessage=(TextView)mCongratsView.findViewById(R.id.studyoptions_congrats_message);
   Themes.setTextViewStyle(mTextCongratsMessage);
-  mTextCongratsMessage.setOnClickListener(mButtonClickListener);
   mButtonCongratsUndo=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_undo);
   mButtonCongratsUnbury=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_unbury);
   mButtonCongratsCustomStudy=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_customstudy);
