@@ -57,7 +57,7 @@
           AnkiDroidApp.openCollection(path);
           return data;
         }
-        if (!((String)ret[0]).equals(BasicHttpSyncer.ANKIWEB_STATUS_OK)) {
+        if (!ret[0].equals(BasicHttpSyncer.ANKIWEB_STATUS_OK)) {
           data.success=false;
           data.result=ret;
           AnkiDroidApp.openCollection(path);
@@ -74,7 +74,7 @@
           AnkiDroidApp.openCollection(path);
           return data;
         }
-        if (!((String)ret[0]).equals("success")) {
+        if (!ret[0].equals("success")) {
           data.success=false;
           data.result=ret;
           if (!colCorruptFullSync) {
@@ -139,15 +139,6 @@ catch (    RuntimeException e) {
   }
  else {
     data.success=true;
-    TreeSet<Object[]> decks=col.getSched().deckDueTree();
-    int[] counts=new int[]{0,0,0};
-    for (    Object[] deck : decks) {
-      if (((String[])deck[0]).length == 1) {
-        counts[0]+=(Integer)deck[2];
-        counts[1]+=(Integer)deck[3];
-        counts[2]+=(Integer)deck[4];
-      }
-    }
     Object[] dc=col.getSched().deckCounts();
     data.result=dc[0];
     data.data=new Object[]{conflictResolution,col,dc[1],dc[2],mediaError};

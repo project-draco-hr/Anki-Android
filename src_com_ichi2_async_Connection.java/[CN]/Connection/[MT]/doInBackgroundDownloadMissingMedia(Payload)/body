@@ -2,8 +2,7 @@
   Log.i(AnkiDroidApp.TAG,"DownloadMissingMedia");
   HashMap<String,String> missingPaths=new HashMap<String,String>();
   HashMap<String,String> missingSums=new HashMap<String,String>();
-  Decks deck=(Decks)data.data[0];
-  data.result=deck;
+  data.result=(Decks)data.data[0];
   String syncName="";
   data.success=false;
   data.data=new Object[]{0,0,0};
