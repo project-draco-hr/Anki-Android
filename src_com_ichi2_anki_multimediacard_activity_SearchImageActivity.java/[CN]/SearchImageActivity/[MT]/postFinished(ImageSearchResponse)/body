@@ -2,7 +2,7 @@
   ArrayList<String> theImages=new ArrayList<String>();
   do {
     if (response == null)     break;
-    if (response.getOk() == false)     break;
+    if (!response.getOk())     break;
     ResponseData rdata=response.getResponseData();
     if (rdata == null)     break;
     List<Result> results=rdata.getResults();

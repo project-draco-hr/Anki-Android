@@ -1,8 +1,3 @@
 {
-  if (getFreeDiscSpace(path) >= (MIN_FREE_SPACE * 1024 * 1024)) {
-    return true;
-  }
- else {
-    return false;
-  }
+  return getFreeDiscSpace(path) >= (MIN_FREE_SPACE * 1024 * 1024);
 }

@@ -10,8 +10,5 @@
   if ((new File(AnkiDroidApp.getCollectionPath())).exists()) {
     return false;
   }
-  if (dir.listFiles(new OldAnkiDeckFilter()).length > 0) {
-    return true;
-  }
-  return false;
+  return dir.listFiles(new OldAnkiDeckFilter()).length > 0;
 }

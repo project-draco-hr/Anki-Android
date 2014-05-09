@@ -30,10 +30,7 @@
   if (lastBackupDate == null) {
     return true;
   }
- else   if (lastBackupDate.getTime() + days * 24 * 3600000 < Utils.intNow(1000)) {
-    return true;
-  }
  else {
-    return false;
+    return lastBackupDate.getTime() + days * 24 * 3600000 < Utils.intNow(1000);
   }
 }

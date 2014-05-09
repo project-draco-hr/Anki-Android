@@ -19,10 +19,7 @@
     }
     Log.i(AnkiDroidApp.TAG,"repairDeck - moved corrupt file to broken folder");
     File repairedFile=new File(deckPath + ".tmp");
-    if (!repairedFile.renameTo(deckFile)) {
-      return false;
-    }
-    return true;
+    return repairedFile.renameTo(deckFile);
   }
  catch (  IOException e) {
     Log.e("AnkiDroidApp.TAG","repairCollection - error: " + e);

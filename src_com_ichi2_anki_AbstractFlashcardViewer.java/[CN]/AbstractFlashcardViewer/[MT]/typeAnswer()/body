@@ -1,6 +1,3 @@
 {
-  if (mPrefWriteAnswers && null != mTypeCorrect) {
-    return true;
-  }
-  return false;
+  return mPrefWriteAnswers && null != mTypeCorrect;
 }
