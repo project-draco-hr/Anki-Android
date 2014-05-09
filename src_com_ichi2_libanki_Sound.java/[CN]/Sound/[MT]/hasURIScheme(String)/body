@@ -1,0 +1,4 @@
+{
+  Matcher uriMatcher=uriSchemaPattern.matcher(path.trim());
+  return uriMatcher.matches() && uriMatcher.group(2) != null;
+}

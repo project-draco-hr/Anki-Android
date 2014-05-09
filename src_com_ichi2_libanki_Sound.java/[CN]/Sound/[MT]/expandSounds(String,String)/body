@@ -4,8 +4,8 @@
   Log.i(AnkiDroidApp.TAG,"expandSounds");
   Matcher matcher=sSoundPattern.matcher(content);
   while (matcher.find()) {
-    String sound=matcher.group(1);
-    String soundPath=soundDir + Uri.encode(sound);
+    String sound=matcher.group(1).trim();
+    String soundPath=getSoundPath(soundDir,sound);
     String soundMarker=matcher.group();
     int markerStart=contentLeft.indexOf(soundMarker);
     stringBuilder.append(contentLeft.substring(0,markerStart));
