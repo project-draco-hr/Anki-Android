@@ -1,6 +1,3 @@
 {
-  if (mPrefForceQuickUpdate) {
-    return true;
-  }
-  return mExtensions.supportsQuickUpdate() && !isNookDevice();
+  return !mPrefSafeDisplay;
 }
