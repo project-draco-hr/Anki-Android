@@ -12,7 +12,7 @@
       if (!mAnswerSoundsAdded) {
         String afmt=getAnswerFormat();
         String answerSoundSource=content;
-        if (afmt.indexOf("{{FrontSide}}") != -1) {
+        if (afmt.contains("{{FrontSide}}")) {
           String fromFrontSide=mCurrentCard._getQA(false).get("q");
           answerSoundSource=content.replace(fromFrontSide,"");
         }
