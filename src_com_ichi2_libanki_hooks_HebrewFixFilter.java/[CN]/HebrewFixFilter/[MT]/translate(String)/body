@@ -1,5 +1,5 @@
 {
-  StringBuffer sb=new StringBuffer(text.length());
+  StringBuilder sb=new StringBuilder(text.length());
   int codePoint=0;
   for (int i=0; i < text.length(); i++) {
     codePoint=text.codePointAt(i);
