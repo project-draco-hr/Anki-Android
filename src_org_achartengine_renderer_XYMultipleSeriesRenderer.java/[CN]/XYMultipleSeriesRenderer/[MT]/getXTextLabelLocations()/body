@@ -1,3 +1,4 @@
 {
-  return mXTextLabels.keySet().toArray(new Double[0]);
+  java.util.Set<Double> var=mXTextLabels.keySet();
+  return var.toArray(new Double[var.size()]);
 }

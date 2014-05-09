@@ -1,3 +1,4 @@
 {
-  return mYTextLabels.get(scale).keySet().toArray(new Double[0]);
+  java.util.Set<Double> var=mYTextLabels.get(scale).keySet();
+  return var.toArray(new Double[var.size()]);
 }
