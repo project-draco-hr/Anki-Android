@@ -1,5 +1,4 @@
 {
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(this);
-  boolean eInkDisplay=preferences.getBoolean("eInkDisplay",false);
-  return eInkDisplay;
+  return preferences.getBoolean("eInkDisplay",false);
 }
