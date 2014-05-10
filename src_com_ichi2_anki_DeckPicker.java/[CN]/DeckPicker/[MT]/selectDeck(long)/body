@@ -7,6 +7,7 @@
         @Override public void onGlobalLayout(){
           mDeckListView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
           mDeckListView.performItemClick(null,lastPosition,0);
+          mDeckListView.setSelectionFromTop(lastPosition,mDeckListView.getHeight() / 2);
         }
       }
 );
