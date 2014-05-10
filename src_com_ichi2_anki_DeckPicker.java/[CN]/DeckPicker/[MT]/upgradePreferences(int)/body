@@ -1,9 +1,19 @@
 {
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
-  if (previousVersionCode < 20200170) {
-    boolean safeDisplayMode=preferences.getBoolean("eInkDisplay",false) || isNookDevice() || !preferences.getBoolean("forceQuickUpdate",false);
-    preferences.edit().putBoolean("safeDisplay",safeDisplayMode).commit();
+  if (previousVersionCode < 20100108) {
     preferences.edit().putString("overrideFont",preferences.getString("defaultFont","")).commit();
     preferences.edit().putString("defaultFont","").commit();
+  }
+  if (previousVersionCode < 20200166) {
+    boolean safeDisplayMode=preferences.getBoolean("eInkDisplay",false) || isNookDevice() || !preferences.getBoolean("forceQuickUpdate",false);
+    preferences.edit().putBoolean("safeDisplay",safeDisplayMode).commit();
+    String overrideFont=preferences.getString("overrideFont","");
+    if (!overrideFont.equals("")) {
+      preferences.edit().putString("defaultFont",overrideFont).commit();
+      preferences.edit().putString("overrideFontBehavior","1").commit();
+    }
+ else {
+      preferences.edit().putString("overrideFontBehavior","0").commit();
+    }
   }
 }
