@@ -11,10 +11,7 @@
   for (int i=0; i < fields.length; i++) {
     View editline_view=getLayoutInflater().inflate(R.layout.card_multimedia_editline,null);
     FieldEditText newTextbox=(FieldEditText)editline_view.findViewById(R.id.id_note_editText);
-    newTextbox.init(i,fields[i]);
-    if (mCustomTypeface != null) {
-      newTextbox.setTypeface(mCustomTypeface);
-    }
+    initFieldEditText(newTextbox,i,fields[i],mCustomTypeface);
     TextView label=newTextbox.getLabel();
     label.setTextColor(Color.BLACK);
     label.setPadding((int)UIUtils.getDensityAdjustedValue(this,3.4f),0,0,0);
