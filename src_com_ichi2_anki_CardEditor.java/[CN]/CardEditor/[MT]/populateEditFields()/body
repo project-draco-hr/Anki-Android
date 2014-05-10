@@ -22,11 +22,25 @@
         PopupMenuWithIcons popup=new PopupMenuWithIcons(CardEditor.this,v,true);
         MenuInflater inflater=popup.getMenuInflater();
         inflater.inflate(R.menu.popupmenu_multimedia_options,popup.getMenu());
-        popup.show();
-      }
-    }
-);
-    mFieldsLayoutContainer.addView(label);
-    mFieldsLayoutContainer.addView(editline_view);
+        popup.setOnMenuItemClickListener(new OnMenuItemClickListener(){
+          @Override public boolean onMenuItemClick(          MenuItem item){
+switch (item.getItemId()) {
+case R.id.menu_multimedia_editor:
+              Intent editCard=new Intent(CardEditor.this,MultimediaCardEditorActivity.class);
+            editCard.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_DECKPICKER);
+          startActivityForResult(editCard,12);
+        return true;
+default :
+      return false;
   }
+}
+}
+);
+popup.show();
+}
+}
+);
+mFieldsLayoutContainer.addView(label);
+mFieldsLayoutContainer.addView(editline_view);
+}
 }
