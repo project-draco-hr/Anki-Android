@@ -1,4 +1,8 @@
 {
-  if (sSoundPaths.containsKey(mQa) && mNextToPlay < sSoundPaths.get(mQa).size())   playSound(sSoundPaths.get(mQa).get(mNextToPlay++),this);
- else   releaseSound();
+  if (sSoundPaths.containsKey(mQa) && mNextToPlay < sSoundPaths.get(mQa).size()) {
+    playSound(sSoundPaths.get(mQa).get(mNextToPlay++),this);
+  }
+ else {
+    releaseSound();
+  }
 }

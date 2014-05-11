@@ -3,9 +3,15 @@
   if (soundPath.substring(0,3).equals("tts")) {
   }
  else {
-    if (sMediaPlayer == null)     sMediaPlayer=new MediaPlayer();
- else     sMediaPlayer.reset();
-    if (sAudioManager == null)     sAudioManager=(AudioManager)AnkiDroidApp.getInstance().getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+    if (sMediaPlayer == null) {
+      sMediaPlayer=new MediaPlayer();
+    }
+ else {
+      sMediaPlayer.reset();
+    }
+    if (sAudioManager == null) {
+      sAudioManager=(AudioManager)AnkiDroidApp.getInstance().getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+    }
     try {
       Uri soundUri=Uri.parse(soundPath);
       sMediaPlayer.setDataSource(AnkiDroidApp.getInstance().getApplicationContext(),soundUri);
@@ -17,7 +23,9 @@
         }
       }
 );
-      if (playAllListener != null)       sMediaPlayer.setOnCompletionListener(playAllListener);
+      if (playAllListener != null) {
+        sMediaPlayer.setOnCompletionListener(playAllListener);
+      }
       sMediaPlayer.prepareAsync();
       AnkiDroidApp.getCompat().requestAudioFocus(sAudioManager);
     }

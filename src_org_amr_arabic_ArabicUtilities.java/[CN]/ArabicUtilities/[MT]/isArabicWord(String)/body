@@ -1,6 +1,8 @@
 {
   for (int i=0; i < word.length(); i++) {
-    if (!isArabicCharacter(word.charAt(i)))     return false;
+    if (!isArabicCharacter(word.charAt(i))) {
+      return false;
+    }
   }
   return true;
 }

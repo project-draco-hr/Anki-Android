@@ -16,7 +16,9 @@
       }
       if (harakaPosition < wordLetters.length) {
         char lamAlef=0;
-        if (lamPosition > 0 && getGlphyType(letterBefore) > 2)         lamAlef=getLamAlef(wordLetters[harakaPosition],candidateLam,false);
+        if (lamPosition > 0 && getGlphyType(letterBefore) > 2) {
+          lamAlef=getLamAlef(wordLetters[harakaPosition],candidateLam,false);
+        }
  else {
           lamAlef=getLamAlef(wordLetters[harakaPosition],candidateLam,true);
         }

@@ -6,7 +6,9 @@
       printJSONObject(jsonObject,"-",buff);
     }
   finally {
-      if (buff != null)       buff.close();
+      if (buff != null) {
+        buff.close();
+      }
     }
   }
  catch (  IOException ioe) {
