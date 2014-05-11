@@ -1,0 +1,12 @@
+{
+  mOrd=ord;
+  mName=name;
+  if (content == null) {
+    content="";
+  }
+ else {
+    content=content.replaceAll("<br(\\s*\\/*)>",NEW_LINE);
+  }
+  setText(content);
+  setMinimumWidth(400);
+}

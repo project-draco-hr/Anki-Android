@@ -1,0 +1,8 @@
+{
+  String newValue=field.getText().toString().replace(FieldEditText.NEW_LINE,"<br>");
+  if (!mEditorNote.values()[field.getOrd()].equals(newValue)) {
+    mEditorNote.values()[field.getOrd()]=newValue;
+    return true;
+  }
+  return false;
+}

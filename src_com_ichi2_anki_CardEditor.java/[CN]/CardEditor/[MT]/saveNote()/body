@@ -1,7 +1,7 @@
 {
   if (mAddNote) {
     for (    FieldEditText f : mEditFields) {
-      f.updateField();
+      updateField(f);
     }
     try {
       mEditorNote.model().put("did",mCurrentDid);
@@ -28,7 +28,7 @@
       modified=true;
     }
     for (    FieldEditText f : mEditFields) {
-      modified=modified | f.updateField();
+      modified=modified | updateField(f);
     }
     for (    String t : mCurrentTags) {
       modified=modified || !mEditorNote.hasTag(t);

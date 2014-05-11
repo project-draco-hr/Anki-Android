@@ -9,19 +9,29 @@
     mCustomTypeface=AnkiFont.getTypeface(this,customFont);
   }
   for (int i=0; i < fields.length; i++) {
-    FieldEditText newTextbox=new FieldEditText(this,i,fields[i]);
-    if (mCustomTypeface != null) {
-      newTextbox.setTypeface(mCustomTypeface);
-    }
+    View editline_view=getLayoutInflater().inflate(R.layout.card_multimedia_editline,null);
+    FieldEditText newTextbox=(FieldEditText)editline_view.findViewById(R.id.id_note_editText);
+    initFieldEditText(newTextbox,i,fields[i],mCustomTypeface);
     TextView label=newTextbox.getLabel();
     label.setTextColor(Color.BLACK);
     label.setPadding((int)UIUtils.getDensityAdjustedValue(this,3.4f),0,0,0);
     mEditFields.add(newTextbox);
-    FrameLayout frame=new FrameLayout(this);
-    FrameLayout.LayoutParams params=new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT,Gravity.RIGHT | Gravity.CENTER_VERTICAL);
-    params.rightMargin=10;
-    frame.addView(newTextbox);
+    ImageButton mediaButton=(ImageButton)editline_view.findViewById(R.id.id_media_button);
+    mediaButton.setOnClickListener(new View.OnClickListener(){
+      @Override public void onClick(      View v){
+        Intent editCard=new Intent(CardEditor.this,MultimediaCardEditorActivity.class);
+        if (!mAddNote) {
+          editCard.putExtra(CardEditor.EXTRA_CARD_ID,mCurrentEditedCard.getId());
+        }
+ else {
+          editCard.putExtra(CardEditor.EXTRA_CARD_ID,0);
+        }
+        startActivityForResult(editCard,REQUEST_MULTIMEDIA_EDIT);
+      }
+    }
+);
+    mediaButton.setClickable(false);
     mFieldsLayoutContainer.addView(label);
-    mFieldsLayoutContainer.addView(frame);
+    mFieldsLayoutContainer.addView(editline_view);
   }
 }
