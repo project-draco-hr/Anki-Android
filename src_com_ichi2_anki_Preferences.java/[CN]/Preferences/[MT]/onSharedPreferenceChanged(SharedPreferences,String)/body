@@ -73,11 +73,6 @@
       mCol.setCrt(date.getTimeInMillis() / 1000);
       mCol.setMod();
     }
- else     if (key.equals("overrideFont")) {
-      ListPreference overrideFontPreference=(ListPreference)getPreferenceScreen().findPreference("overrideFont");
-      ListPreference defaultFontPreference=(ListPreference)getPreferenceScreen().findPreference("defaultFont");
-      onOverrideFontChange(overrideFontPreference,defaultFontPreference);
-    }
     if (Arrays.asList(mShowValueInSummList).contains(key)) {
       updateListPreference(key);
     }
