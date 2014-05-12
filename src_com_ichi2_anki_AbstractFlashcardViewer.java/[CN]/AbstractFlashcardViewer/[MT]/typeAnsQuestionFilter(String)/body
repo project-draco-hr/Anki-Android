@@ -3,5 +3,10 @@
   if (mTypeWarning != null) {
     return m.replaceFirst(mTypeWarning);
   }
-  return m.replaceFirst("<span id=typeans class=typePrompt>........</span>");
+  if (mPrefWriteAnswers) {
+    return m.replaceFirst("<span id=typeans class=\"typePrompt\">........</span>");
+  }
+ else {
+    return m.replaceFirst("<span id=typeans class=\"typePrompt typeOff\">........</span>");
+  }
 }

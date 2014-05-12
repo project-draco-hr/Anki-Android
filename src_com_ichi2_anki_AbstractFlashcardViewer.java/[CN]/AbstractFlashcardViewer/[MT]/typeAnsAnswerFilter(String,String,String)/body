@@ -1,11 +1,26 @@
 {
   Matcher m=sTypeAnsPat.matcher(buf);
   DiffEngine diff=new DiffEngine();
-  String diffUserAnswer=diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer),mNightMode);
-  if (userAnswer.equals(correctAnswer)) {
-    return m.replaceFirst("<div><code id=typeans>" + diffUserAnswer + "\u2714</code></div>");
+  StringBuilder sb=new StringBuilder();
+  boolean theSame=userAnswer.equals(correctAnswer);
+  sb.append("<div");
+  if (!mPrefWriteAnswers) {
+    sb.append(" class=\"typeOff\"");
+  }
+  sb.append("><code id=typeans>");
+  if (!theSame && !userAnswer.isEmpty()) {
+    sb.append(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer),mNightMode));
+    sb.append("<br>&darr;<br>");
+  }
+  if (mPrefWriteAnswers) {
+    sb.append(diff.diff_prettyHtml(diff.diff_main(correctAnswer,correctAnswer),mNightMode));
+    if (theSame) {
+      sb.append("\u2714");
+    }
   }
  else {
-    return m.replaceFirst("<div><code id=typeans>" + diffUserAnswer + "<br>&darr;<br>"+ diff.diff_prettyHtml(diff.diff_main(correctAnswer,correctAnswer),mNightMode)+ "</code></div>");
+    sb.append(correctAnswer);
   }
+  sb.append("</code></div>");
+  return m.replaceFirst(sb.toString());
 }
