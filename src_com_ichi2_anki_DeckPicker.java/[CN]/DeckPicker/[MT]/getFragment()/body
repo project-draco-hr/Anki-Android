@@ -1,5 +1,5 @@
 {
-  Fragment frag=(Fragment)getSupportFragmentManager().findFragmentById(R.id.studyoptions_fragment);
+  Fragment frag=getSupportFragmentManager().findFragmentById(R.id.studyoptions_fragment);
   if (frag != null && (frag instanceof StudyOptionsFragment)) {
     return (StudyOptionsFragment)frag;
   }

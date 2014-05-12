@@ -1,7 +1,7 @@
 {
   boolean languageChanged=false;
   Configuration config=getInstance().getResources().getConfiguration();
-  final Locale newLocale=TextUtils.isEmpty(language) ? Locale.getDefault() : new Locale(language);
+  Locale newLocale=LanguageUtil.getLocale(localeCode);
   if (!config.locale.equals(newLocale)) {
     languageChanged=true;
     config.locale=newLocale;

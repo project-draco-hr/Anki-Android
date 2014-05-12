@@ -126,7 +126,7 @@
   if (mSwipeEnabled) {
     gestureDetector=new GestureDetector(new MyGestureDetector());
     mDeckListView.setOnTouchListener(new View.OnTouchListener(){
-      public boolean onTouch(      View v,      MotionEvent event){
+      @Override public boolean onTouch(      View v,      MotionEvent event){
         if (gestureDetector.onTouchEvent(event)) {
           return true;
         }

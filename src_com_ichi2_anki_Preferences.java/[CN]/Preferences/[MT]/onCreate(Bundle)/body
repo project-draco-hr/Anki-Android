@@ -14,7 +14,7 @@
   safeDisplayPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("safeDisplay");
   convertFenText=(CheckBoxPreference)getPreferenceScreen().findPreference("convertFenText");
   fixHebrewText=(CheckBoxPreference)getPreferenceScreen().findPreference("fixHebrewText");
-  syncAccount=(Preference)getPreferenceScreen().findPreference("syncAccount");
+  syncAccount=getPreferenceScreen().findPreference("syncAccount");
   showEstimates=(CheckBoxPreference)getPreferenceScreen().findPreference("showEstimates");
   showProgress=(CheckBoxPreference)getPreferenceScreen().findPreference("showProgress");
   learnCutoff=(NumberRangePreference)getPreferenceScreen().findPreference("learnCutoff");

@@ -3,7 +3,7 @@
     if (key.equals("timeoutAnswer")) {
       keepScreenOnCheckBoxPreference.setChecked(showAnswerCheckBoxPreference.isChecked());
     }
- else     if (key.equals("language")) {
+ else     if (key.equals(LANGUAGE)) {
       closePreferences();
     }
  else     if (key.equals("writeAnswers") && sharedPreferences.getBoolean("writeAnswers",true)) {
