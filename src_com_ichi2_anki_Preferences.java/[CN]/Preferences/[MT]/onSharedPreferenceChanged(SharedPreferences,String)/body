@@ -6,9 +6,6 @@
  else     if (key.equals(LANGUAGE)) {
       closePreferences();
     }
- else     if (key.equals("writeAnswers") && sharedPreferences.getBoolean("writeAnswers",true)) {
-      showDialog(DIALOG_WRITE_ANSWERS);
-    }
  else     if (key.equals("useBackup")) {
       if (lockCheckAction) {
         lockCheckAction=false;

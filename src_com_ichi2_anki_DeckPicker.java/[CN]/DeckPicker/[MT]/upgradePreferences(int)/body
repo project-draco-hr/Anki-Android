@@ -17,5 +17,6 @@
  else {
       preferences.edit().putString("overrideFontBehavior","0").commit();
     }
+    preferences.edit().putBoolean("writeAnswersDisable",!preferences.getBoolean("writeAnswers",true)).commit();
   }
 }
