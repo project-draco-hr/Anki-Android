@@ -34,6 +34,14 @@ mChanged=true;
 break;
 case REQUEST_MULTIMEDIA_EDIT:
 if (resultCode != RESULT_CANCELED) {
+Bundle extras=data.getExtras();
+int index=extras.getInt(EditFieldActivity.EXTRA_RESULT_FIELD_INDEX);
+IField field=(IField)extras.get(EditFieldActivity.EXTRA_RESULT_FIELD);
+IMultimediaEditableNote mNote=NoteService.createEmptyNote(mEditorNote.model());
+NoteService.updateMultimediaNoteFromJsonNote(mEditorNote,mNote);
+mNote.setField(index,field);
+mEditFields.get(index).setText(field.getFormattedValue());
+NoteService.saveMedia((MultimediaEditableNote)mNote);
 mChanged=true;
 }
 break;

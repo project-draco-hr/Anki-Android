@@ -17,20 +17,7 @@
     label.setPadding((int)UIUtils.getDensityAdjustedValue(this,3.4f),0,0,0);
     mEditFields.add(newTextbox);
     ImageButton mediaButton=(ImageButton)editline_view.findViewById(R.id.id_media_button);
-    mediaButton.setOnClickListener(new View.OnClickListener(){
-      @Override public void onClick(      View v){
-        Intent editCard=new Intent(CardEditor.this,MultimediaCardEditorActivity.class);
-        if (!mAddNote) {
-          editCard.putExtra(CardEditor.EXTRA_CARD_ID,mCurrentEditedCard.getId());
-        }
- else {
-          editCard.putExtra(CardEditor.EXTRA_CARD_ID,0);
-        }
-        startActivityForResult(editCard,REQUEST_MULTIMEDIA_EDIT);
-      }
-    }
-);
-    mediaButton.setClickable(false);
+    setMMButtonListener(mediaButton,i);
     mFieldsLayoutContainer.addView(label);
     mFieldsLayoutContainer.addView(editline_view);
   }
