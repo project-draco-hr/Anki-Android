@@ -13,8 +13,7 @@
   useBackupPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("useBackup");
   safeDisplayPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("safeDisplay");
   convertFenText=(CheckBoxPreference)getPreferenceScreen().findPreference("convertFenText");
-  fixHebrewText=(CheckBoxPreference)getPreferenceScreen().findPreference("fixHebrewText");
-  syncAccount=getPreferenceScreen().findPreference("syncAccount");
+  syncAccount=(Preference)getPreferenceScreen().findPreference("syncAccount");
   showEstimates=(CheckBoxPreference)getPreferenceScreen().findPreference("showEstimates");
   showProgress=(CheckBoxPreference)getPreferenceScreen().findPreference("showProgress");
   learnCutoff=(NumberRangePreference)getPreferenceScreen().findPreference("learnCutoff");
@@ -22,6 +21,24 @@
   useCurrent=(ListPreference)getPreferenceScreen().findPreference("useCurrent");
   newSpread=(ListPreference)getPreferenceScreen().findPreference("newSpread");
   dayOffset=(SeekBarPreference)getPreferenceScreen().findPreference("dayOffset");
+  PreferenceCategory workarounds=(PreferenceCategory)getPreferenceScreen().findPreference("category_workarounds");
+  inputWorkaround=(CheckBoxPreference)getPreferenceScreen().findPreference("inputWorkaround");
+  longclickWorkaround=(CheckBoxPreference)getPreferenceScreen().findPreference("textSelectionLongclickWorkaround");
+  fixHebrewText=(CheckBoxPreference)getPreferenceScreen().findPreference("fixHebrewText");
+  fixArabicText=(CheckBoxPreference)getPreferenceScreen().findPreference("fixArabicText");
+  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
+  if (AnkiDroidApp.SDK_VERSION > 14) {
+    workarounds.removePreference(inputWorkaround);
+    preferences.edit().putBoolean("inputWorkaround",false);
+  }
+  if (AnkiDroidApp.SDK_VERSION > 10) {
+    workarounds.removePreference(longclickWorkaround);
+    preferences.edit().putBoolean("longclickWorkaround",false);
+  }
+  if (AnkiDroidApp.SDK_VERSION > 8) {
+    workarounds.removePreference(fixArabicText);
+    preferences.edit().putBoolean("fixArabicText",false);
+  }
   initializeLanguageDialog();
   initializeCustomFontsDialog();
   if (mCol != null) {
