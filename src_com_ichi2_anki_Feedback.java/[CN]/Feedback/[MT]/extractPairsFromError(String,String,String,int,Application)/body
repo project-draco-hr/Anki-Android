@@ -9,7 +9,9 @@
     BufferedReader br=new BufferedReader(new InputStreamReader(app.openFileInput(errorFile)));
     while ((singleLine=br.readLine()) != null) {
       int indexOfEquals=singleLine.indexOf('=');
-      if (indexOfEquals == -1)       continue;
+      if (indexOfEquals == -1) {
+        continue;
+      }
       String key=singleLine.substring(0,indexOfEquals).toLowerCase();
       String value=singleLine.substring(indexOfEquals + 1,singleLine.length());
       if (key.equals("stacktrace")) {

@@ -1,0 +1,6 @@
+{
+  if (hasURIScheme(sound)) {
+    return sound;
+  }
+  return soundDir + Uri.encode(sound);
+}

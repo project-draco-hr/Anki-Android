@@ -1,6 +1,5 @@
 {
   double sqValue=(Math.pow(mCenterX - screenPoint.getX(),2) + Math.pow(mCenterY - screenPoint.getY(),2));
   double radiusSquared=mPieChartRadius * mPieChartRadius;
-  boolean isOnPieChart=sqValue <= radiusSquared;
-  return isOnPieChart;
+  return sqValue <= radiusSquared;
 }

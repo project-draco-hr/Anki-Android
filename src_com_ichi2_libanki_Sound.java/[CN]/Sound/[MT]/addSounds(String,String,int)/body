@@ -4,8 +4,7 @@
     if (!sSoundPaths.containsKey(qa)) {
       sSoundPaths.put(qa,new ArrayList<String>());
     }
-    String sound=matcher.group(1);
-    String soundPath=soundDir + Uri.encode(sound);
-    sSoundPaths.get(qa).add(soundPath);
+    String sound=matcher.group(1).trim();
+    sSoundPaths.get(qa).add(getSoundPath(soundDir,sound));
   }
 }

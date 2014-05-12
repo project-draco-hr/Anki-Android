@@ -4,7 +4,7 @@
   String errorUrl=(String)data.data[1];
   String feedback=(String)data.data[2];
   ArrayList<HashMap<String,String>> errors=(ArrayList<HashMap<String,String>>)data.data[3];
-  String groupId=((Long)data.data[4]).toString();
+  String groupId=data.data[4].toString();
   Application app=(Application)data.data[5];
   boolean deleteAfterSending=(Boolean)data.data[6];
   String postType=null;

@@ -29,10 +29,12 @@
       }
     }
   }
-  for (int i=0; i < ankiDroidFonts.length; i++) {
-    AnkiFont font=AnkiFont.createAnkiFont(context,ankiDroidFonts[i],true);
-    if (font != null) {
-      fonts.add(font);
+  if (ankiDroidFonts != null) {
+    for (int i=0; i < ankiDroidFonts.length; i++) {
+      AnkiFont font=AnkiFont.createAnkiFont(context,ankiDroidFonts[i],true);
+      if (font != null) {
+        fonts.add(font);
+      }
     }
   }
   return fonts;

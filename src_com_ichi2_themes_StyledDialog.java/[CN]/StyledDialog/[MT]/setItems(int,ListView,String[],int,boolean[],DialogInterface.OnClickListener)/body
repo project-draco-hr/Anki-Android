@@ -1,9 +1,7 @@
 {
   mListView=listview;
   mItemList=new ArrayList<String>();
-  for (  String titel : values) {
-    mItemList.add(titel);
-  }
+  Collections.addAll(mItemList,values);
   mListener=listener;
   if (type == 3) {
     mListView.setOnItemClickListener(new OnItemClickListener(){

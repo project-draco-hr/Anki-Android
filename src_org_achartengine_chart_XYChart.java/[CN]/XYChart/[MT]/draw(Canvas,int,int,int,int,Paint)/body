@@ -189,7 +189,7 @@
         Double[] yTextLabelLocations=mRenderer.getYTextLabelLocations(i);
         for (        Double location : yTextLabelLocations) {
           if (minY[i] <= location && location <= maxY[i]) {
-            float yLabel=(float)(bottom - yPixelsPerUnit[i] * (location.doubleValue() - minY[i]));
+            float yLabel=(float)(bottom - yPixelsPerUnit[i] * (location - minY[i]));
             String label=mRenderer.getYTextLabel(location,i);
             paint.setColor(mRenderer.getYLabelsColor(i));
             paint.setTextAlign(mRenderer.getYLabelsAlign(i));

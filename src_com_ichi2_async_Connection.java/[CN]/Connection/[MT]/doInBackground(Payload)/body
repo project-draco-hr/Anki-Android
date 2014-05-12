@@ -1,5 +1,7 @@
 {
   super.doInBackground(params);
-  if (params.length != 1)   throw new IllegalArgumentException();
+  if (params.length != 1) {
+    throw new IllegalArgumentException();
+  }
   return doOneInBackground(params[0]);
 }

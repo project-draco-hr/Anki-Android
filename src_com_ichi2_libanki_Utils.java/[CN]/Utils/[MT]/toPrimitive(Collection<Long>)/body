@@ -1,10 +1,11 @@
 {
+  if (array == null) {
+    return null;
+  }
   long[] results=new long[array.size()];
-  if (array != null) {
-    int i=0;
-    for (    Long item : array) {
-      results[i++]=item.longValue();
-    }
+  int i=0;
+  for (  Long item : array) {
+    results[i++]=item;
   }
   return results;
 }

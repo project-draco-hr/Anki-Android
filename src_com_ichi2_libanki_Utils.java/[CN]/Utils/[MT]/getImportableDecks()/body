@@ -6,18 +6,13 @@
   if (dir.exists() && dir.isDirectory()) {
     deckList=dir.listFiles(new FileFilter(){
       @Override public boolean accept(      File pathname){
-        if (pathname.isFile() && pathname.getName().endsWith(".apkg")) {
-          return true;
-        }
-        return false;
+        return pathname.isFile() && pathname.getName().endsWith(".apkg");
       }
     }
 );
     deckCount=deckList.length;
   }
   List<File> decks=new ArrayList<File>();
-  for (int i=0; i < deckCount; i++) {
-    decks.add(deckList[i]);
-  }
+  decks.addAll(Arrays.asList(deckList).subList(0,deckCount));
   return decks;
 }

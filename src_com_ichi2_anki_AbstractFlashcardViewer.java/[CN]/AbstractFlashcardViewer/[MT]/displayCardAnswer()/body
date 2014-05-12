@@ -26,16 +26,14 @@
       answer=ArabicUtilities.reshapeSentence(answer,true);
     }
     mAnswerField.setVisibility(View.GONE);
-    if (mCurrentCard != null) {
-      if (mPrefFixArabic) {
-        mTypeCorrect=ArabicUtilities.reshapeSentence(mTypeCorrect,true);
-      }
-      String userAnswer=getAnswerText(mAnswerField.getText().toString());
-      String correctAnswer=getAnswerText(mTypeCorrect);
-      Log.i(AnkiDroidApp.TAG,"correct answer = " + correctAnswer);
-      answer=typeAnsAnswerFilter(answer,userAnswer,correctAnswer);
-      displayString=enrichWithQADiv(answer,true);
+    if (mPrefFixArabic) {
+      mTypeCorrect=ArabicUtilities.reshapeSentence(mTypeCorrect,true);
     }
+    String userAnswer=getAnswerText(mAnswerField.getText().toString());
+    String correctAnswer=getAnswerText(mTypeCorrect);
+    Log.i(AnkiDroidApp.TAG,"correct answer = " + correctAnswer);
+    answer=typeAnsAnswerFilter(answer,userAnswer,correctAnswer);
+    displayString=enrichWithQADiv(answer,true);
   }
   mIsSelecting=false;
   updateCard(displayString);

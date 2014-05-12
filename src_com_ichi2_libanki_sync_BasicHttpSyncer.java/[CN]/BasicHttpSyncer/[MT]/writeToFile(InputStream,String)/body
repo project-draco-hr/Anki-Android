@@ -16,7 +16,9 @@
   }
  catch (  IOException e) {
     try {
-      output.close();
+      if (output != null) {
+        output.close();
+      }
     }
  catch (    IOException e1) {
     }

@@ -27,6 +27,7 @@ t="c.due";
 break;
 case Consts.DYN_DUEPRIORITY:
 t=String.format(Locale.US,"(case when queue=2 and due <= %d then (ivl / cast(%d-due+0.001 as real)) else 100000+due end)",mToday,mToday);
+break;
 default :
 t="c.due";
 }

@@ -3,18 +3,31 @@
   if (soundPath.substring(0,3).equals("tts")) {
   }
  else {
-    if (sMediaPlayer == null)     sMediaPlayer=new MediaPlayer();
- else     sMediaPlayer.reset();
-    if (sAudioManager == null)     sAudioManager=(AudioManager)AnkiDroidApp.getInstance().getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+    if (sMediaPlayer == null) {
+      sMediaPlayer=new MediaPlayer();
+    }
+ else {
+      sMediaPlayer.reset();
+    }
+    if (sAudioManager == null) {
+      sAudioManager=(AudioManager)AnkiDroidApp.getInstance().getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+    }
     try {
-      URI soundURI=new URI(soundPath);
-      soundPath=new File(soundURI).getAbsolutePath();
-      sMediaPlayer.setDataSource(soundPath);
+      Uri soundUri=Uri.parse(soundPath);
+      sMediaPlayer.setDataSource(AnkiDroidApp.getInstance().getApplicationContext(),soundUri);
       sMediaPlayer.setVolume(AudioManager.STREAM_MUSIC,AudioManager.STREAM_MUSIC);
-      sMediaPlayer.prepare();
-      if (playAllListener != null)       sMediaPlayer.setOnCompletionListener(playAllListener);
+      sMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+      sMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
+        @Override public void onPrepared(        MediaPlayer mp){
+          sMediaPlayer.start();
+        }
+      }
+);
+      if (playAllListener != null) {
+        sMediaPlayer.setOnCompletionListener(playAllListener);
+      }
+      sMediaPlayer.prepareAsync();
       AnkiDroidApp.getCompat().requestAudioFocus(sAudioManager);
-      sMediaPlayer.start();
     }
  catch (    Exception e) {
       Log.e(AnkiDroidApp.TAG,"playSounds - Error reproducing sound " + soundPath + " = "+ e.getMessage());

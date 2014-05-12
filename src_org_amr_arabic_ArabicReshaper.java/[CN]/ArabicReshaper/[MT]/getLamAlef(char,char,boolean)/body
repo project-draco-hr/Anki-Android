@@ -1,7 +1,9 @@
 {
   int shiftRate=1;
   char reshapedLamAlef=0;
-  if (isEndOfWord)   shiftRate++;
+  if (isEndOfWord) {
+    shiftRate++;
+  }
   if ((int)DEFINED_CHARACTERS_ORGINAL_LAM == (int)candidateLam) {
     if ((int)candidateAlef == (int)DEFINED_CHARACTERS_ORGINAL_ALF_UPPER_MDD) {
       reshapedLamAlef=LAM_ALEF_GLPHIES[0][shiftRate];

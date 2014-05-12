@@ -1,12 +1,20 @@
 {
   ArrayList<String> theImages=new ArrayList<String>();
   do {
-    if (response == null)     break;
-    if (response.getOk() == false)     break;
+    if (response == null) {
+      break;
+    }
+    if (!response.getOk()) {
+      break;
+    }
     ResponseData rdata=response.getResponseData();
-    if (rdata == null)     break;
+    if (rdata == null) {
+      break;
+    }
     List<Result> results=rdata.getResults();
-    if (results == null)     break;
+    if (results == null) {
+      break;
+    }
     for (    Result result : results) {
       if (result == null) {
         continue;
@@ -16,7 +24,9 @@
         theImages.add(url);
       }
     }
-    if (theImages.size() == 0)     break;
+    if (theImages.size() == 0) {
+      break;
+    }
     proceedWithImages(theImages);
     return;
   }

@@ -3,5 +3,7 @@
     maxXDifference=0;
     return;
   }
-  if (Math.abs((Double)indexList.get(indexList.size() - 1) - (Double)indexList.get(indexList.size() - 2)) > maxXDifference)   maxXDifference=Math.abs((Double)indexList.get(indexList.size() - 1) - (Double)indexList.get(indexList.size() - 2));
+  if (Math.abs((Double)indexList.get(indexList.size() - 1) - (Double)indexList.get(indexList.size() - 2)) > maxXDifference) {
+    maxXDifference=Math.abs((Double)indexList.get(indexList.size() - 1) - (Double)indexList.get(indexList.size() - 2));
+  }
 }

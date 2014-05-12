@@ -75,10 +75,7 @@
         if (mShowWhiteboard) {
           return false;
         }
-        if (gestureDetector.onTouchEvent(event)) {
-          return true;
-        }
-        return false;
+        return gestureDetector.onTouchEvent(event);
       }
     }
 );
