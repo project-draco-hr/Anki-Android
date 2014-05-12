@@ -1,0 +1,9 @@
+{
+  try {
+    Double.parseDouble(value);
+    return replaceString(str,value);
+  }
+ catch (  NumberFormatException e) {
+    return value;
+  }
+}

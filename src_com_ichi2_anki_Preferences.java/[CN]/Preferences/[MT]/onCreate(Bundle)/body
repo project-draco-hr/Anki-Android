@@ -54,16 +54,21 @@ catch (    NumberFormatException e) {
     newSpread.setEnabled(false);
     useCurrent.setEnabled(false);
   }
-  for (  String key : mShowValueInSummList) {
-    updateListPreference(key);
+  for (  String key : sShowValueInSummList) {
+    if (Arrays.asList(sListNumericCheck).contains(key)) {
+      updateListPreference(key,true);
+    }
+ else {
+      updateListPreference(key,false);
+    }
   }
-  for (  String key : mShowValueInSummSeek) {
+  for (  String key : sShowValueInSummSeek) {
     updateSeekBarPreference(key);
   }
-  for (  String key : mShowValueInSummEditText) {
+  for (  String key : sShowValueInSummEditText) {
     updateEditTextPreference(key);
   }
-  for (  String key : mShowValueInSummNumRange) {
+  for (  String key : sShowValueInSummNumRange) {
     updateNumberRangePreference(key);
   }
 }

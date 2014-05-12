@@ -73,16 +73,21 @@
       mCol.setCrt(date.getTimeInMillis() / 1000);
       mCol.setMod();
     }
-    if (Arrays.asList(mShowValueInSummList).contains(key)) {
-      updateListPreference(key);
+    if (Arrays.asList(sShowValueInSummList).contains(key)) {
+      if (Arrays.asList(sListNumericCheck).contains(key)) {
+        updateListPreference(key,true);
+      }
+ else {
+        updateListPreference(key,false);
+      }
     }
- else     if (Arrays.asList(mShowValueInSummSeek).contains(key)) {
+ else     if (Arrays.asList(sShowValueInSummSeek).contains(key)) {
       updateSeekBarPreference(key);
     }
- else     if (Arrays.asList(mShowValueInSummEditText).contains(key)) {
+ else     if (Arrays.asList(sShowValueInSummEditText).contains(key)) {
       updateEditTextPreference(key);
     }
- else     if (Arrays.asList(mShowValueInSummNumRange).contains(key)) {
+ else     if (Arrays.asList(sShowValueInSummNumRange).contains(key)) {
       updateNumberRangePreference(key);
     }
   }
