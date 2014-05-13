@@ -1,7 +1,12 @@
 {
   mListView=listview;
-  mItemList=new ArrayList<String>();
-  Collections.addAll(mItemList,values);
+  mItemList=Arrays.asList(values);
+  Collections.sort(mItemList,new Comparator<String>(){
+    @Override public int compare(    String lhs,    String rhs){
+      return lhs.compareToIgnoreCase(rhs);
+    }
+  }
+);
   mListener=listener;
   if (type == 3) {
     mListView.setOnItemClickListener(new OnItemClickListener(){
