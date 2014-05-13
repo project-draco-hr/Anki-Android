@@ -1,12 +1,17 @@
 {
+  boolean isDupe;
   FieldEditText field=mEditFields.get(0);
+  String oldValue=mEditorNote.getFields()[0];
+  updateField(field);
   Integer dupeCode=mEditorNote.dupeOrEmpty();
-  if (dupeCode != null && ((dupeCode == 1 && checkEmptyToo) || dupeCode == 2)) {
+  if (dupeCode != null && dupeCode == 2) {
     field.setBackgroundResource(R.drawable.white_edit_text_dupe);
-    return true;
+    isDupe=true;
   }
  else {
     field.setBackgroundResource(R.drawable.white_edit_text);
-    return false;
+    isDupe=false;
   }
+  mEditorNote.values()[0]=oldValue;
+  return isDupe;
 }
