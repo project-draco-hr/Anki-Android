@@ -9,13 +9,23 @@
     entry="?";
   }
   if (mListsToUpdate.containsKey(key)) {
-    listpref.setSummary(replaceString(mListsToUpdate.get(key),entry));
+    if (numericCheck) {
+      listpref.setSummary(replaceStringIfNumeric(mListsToUpdate.get(key),entry));
+    }
+ else {
+      listpref.setSummary(replaceString(mListsToUpdate.get(key),entry));
+    }
   }
  else {
     String oldsum=(String)listpref.getSummary();
     if (oldsum.contains("XXX")) {
       mListsToUpdate.put(key,oldsum);
-      listpref.setSummary(replaceString(oldsum,entry));
+      if (numericCheck) {
+        listpref.setSummary(replaceStringIfNumeric(oldsum,entry));
+      }
+ else {
+        listpref.setSummary(replaceString(oldsum,entry));
+      }
     }
  else {
       listpref.setSummary(entry);

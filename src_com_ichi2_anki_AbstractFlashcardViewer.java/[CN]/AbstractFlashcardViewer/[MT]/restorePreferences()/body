@@ -2,7 +2,7 @@
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
   mPrefHideDueCount=preferences.getBoolean("hideDueCount",false);
   mPrefWhiteboard=preferences.getBoolean("whiteboard",false);
-  mPrefWriteAnswers=preferences.getBoolean("writeAnswers",true);
+  mPrefWriteAnswers=!preferences.getBoolean("writeAnswersDisable",false);
   mLongClickWorkaround=preferences.getBoolean("textSelectionLongclickWorkaround",false);
   mNightMode=preferences.getBoolean("invertedColors",false);
   mInvertedColors=mNightMode;
