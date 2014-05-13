@@ -15,7 +15,7 @@ return true;
 case R.id.action_new_deck:
 StyledDialog.Builder builder2=new StyledDialog.Builder(DeckPicker.this);
 builder2.setTitle(res.getString(R.string.new_deck));
-mDialogEditText=(EditText)new EditText(DeckPicker.this);
+mDialogEditText=new EditText(DeckPicker.this);
 builder2.setView(mDialogEditText,false,false);
 builder2.setPositiveButton(res.getString(R.string.create),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
@@ -41,7 +41,7 @@ return true;
 case R.id.action_new_filtered_deck:
 StyledDialog.Builder builder3=new StyledDialog.Builder(DeckPicker.this);
 builder3.setTitle(res.getString(R.string.new_deck));
-mDialogEditText=(EditText)new EditText(DeckPicker.this);
+mDialogEditText=new EditText(DeckPicker.this);
 ArrayList<String> names=AnkiDroidApp.getCol().getDecks().allNames();
 int n=1;
 String cramDeckName="Cram 1";

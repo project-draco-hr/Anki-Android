@@ -61,7 +61,7 @@
  else   if (requestCode == PREFERENCES_UPDATE) {
     String oldPath=mPrefDeckPath;
     SharedPreferences pref=restorePreferences();
-    String newLanguage=pref.getString("language","");
+    String newLanguage=pref.getString(Preferences.LANGUAGE,"");
     if (AnkiDroidApp.setLanguage(newLanguage)) {
       AnkiDroidApp.getCompat().invalidateOptionsMenu(this);
     }
