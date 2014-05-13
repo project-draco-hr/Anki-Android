@@ -146,12 +146,7 @@ showDialog(DIALOG_TAGS_SELECT);
 );
 mSave.setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
-if (duplicateCheck(true)) {
-showDialog(DIALOG_CONFIRM_DUPLICATE);
-}
- else {
 saveNote();
-}
 }
 }
 );
