@@ -6,9 +6,12 @@
   LinearLayout layoutTools=new LinearLayout(mActivity);
   layoutTools.setOrientation(LinearLayout.HORIZONTAL);
   layout.addView(layoutTools);
-  LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT,1);
+  LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(0,LinearLayout.LayoutParams.FILL_PARENT,1);
   createCloneButton(layoutTools,p);
   createClearButton(layoutTools,p);
+  mSearchLabel=new TextView(mActivity);
+  mSearchLabel.setText(R.string.multimedia_editor_text_field_editing_search_label);
+  layout.addView(mSearchLabel);
   LinearLayout layoutTools2=new LinearLayout(mActivity);
   layoutTools2.setOrientation(LinearLayout.HORIZONTAL);
   layout.addView(layoutTools2);
