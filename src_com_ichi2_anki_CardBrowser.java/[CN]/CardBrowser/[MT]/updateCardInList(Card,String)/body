@@ -11,16 +11,15 @@
     }
     String sfld=note.getSFld();
     mCards.get(pos).put("sfld",sfld);
-    if (mWholeCollection) {
-      String deckName;
-      try {
-        deckName=mCol.getDecks().get(card.getDid()).getString("name");
-      }
- catch (      JSONException e) {
-        throw new RuntimeException(e);
-      }
-      mCards.get(pos).put("deck",deckName);
+    updateSearchItemQA(mCards.get(pos),c);
+    String deckName;
+    try {
+      deckName=mCol.getDecks().get(card.getDid()).getString("name");
     }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+    mCards.get(pos).put("deck",deckName);
     String flags=Integer.toString((c.getQueue() == -1 ? 1 : 0) + (note.hasTag("marked") ? 2 : 0));
     mCards.get(pos).put("flags",flags);
   }
