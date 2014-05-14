@@ -1,25 +1,37 @@
 {
   Matcher m=sTypeAnsPat.matcher(buf);
-  DiffEngine diff=new DiffEngine();
+  DiffEngine diffEngine=new DiffEngine();
   StringBuilder sb=new StringBuilder();
-  boolean theSame=userAnswer.equals(correctAnswer);
+  userAnswer=Utils.stripHTMLMedia(userAnswer).trim();
+  correctAnswer=Utils.stripHTMLMedia(correctAnswer).trim();
+  if (AnkiDroidApp.SDK_VERSION > 8) {
+    userAnswer=Normalizer.normalize(userAnswer,Normalizer.Form.NFC);
+    correctAnswer=Normalizer.normalize(correctAnswer,Normalizer.Form.NFC);
+  }
   sb.append("<div");
   if (!mPrefWriteAnswers) {
     sb.append(" class=\"typeOff\"");
   }
   sb.append("><code id=typeans>");
-  if (!theSame && !TextUtils.isEmpty(userAnswer)) {
-    sb.append(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer),mNightMode));
-    sb.append("<br>&darr;<br>");
-  }
-  if (mPrefWriteAnswers) {
-    sb.append(diff.diff_prettyHtml(diff.diff_main(correctAnswer,correctAnswer),mNightMode));
-    if (theSame) {
+  if (!TextUtils.isEmpty(userAnswer)) {
+    if (userAnswer.equals(correctAnswer)) {
+      sb.append(diffEngine.wrapGood(correctAnswer));
       sb.append("\u2714");
+    }
+ else {
+      String[] diffedStrings=diffEngine.diffedHtmlStrings(correctAnswer,userAnswer);
+      sb.append(diffedStrings[0]);
+      sb.append("<br>&darr;<br>");
+      sb.append(diffedStrings[1]);
     }
   }
  else {
-    sb.append(correctAnswer);
+    if (mPrefWriteAnswers) {
+      sb.append(diffEngine.wrapMissing(correctAnswer));
+    }
+ else {
+      sb.append(correctAnswer);
+    }
   }
   sb.append("</code></div>");
   return m.replaceFirst(sb.toString());
