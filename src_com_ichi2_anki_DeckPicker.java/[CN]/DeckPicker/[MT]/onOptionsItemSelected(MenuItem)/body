@@ -62,7 +62,8 @@ builder3.setNegativeButton(res.getString(R.string.cancel),null);
 builder3.create().show();
 return true;
 case R.id.action_check_database:
-integrityCheck();
+StyledDialog dialog=(StyledDialog)onCreateDialog(this.DIALOG_CONFIRM_DATABASE_CHECK);
+dialog.show();
 return true;
 case R.id.action_preferences:
 startActivityForResult(new Intent(DeckPicker.this,Preferences.class),PREFERENCES_UPDATE);
