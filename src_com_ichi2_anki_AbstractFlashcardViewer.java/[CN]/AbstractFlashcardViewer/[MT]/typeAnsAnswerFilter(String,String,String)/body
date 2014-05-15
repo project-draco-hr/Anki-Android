@@ -8,7 +8,7 @@
     sb.append(" class=\"typeOff\"");
   }
   sb.append("><code id=typeans>");
-  if (!theSame && !userAnswer.isEmpty()) {
+  if (!theSame && !TextUtils.isEmpty(userAnswer)) {
     sb.append(diff.diff_prettyHtml(diff.diff_main(userAnswer,correctAnswer),mNightMode));
     sb.append("<br>&darr;<br>");
   }
