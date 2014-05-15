@@ -8,18 +8,7 @@
   try {
     for (    HashMap<String,String> item : items) {
       Card c=col.getCard(Long.parseLong(item.get("id"),10));
-      HashMap<String,String> qa=c._getQA(true,true);
-      String q=qa.get("q");
-      String a=qa.get("a");
-      if (a.startsWith(q)) {
-        a=a.replaceFirst(Pattern.quote(q),"");
-      }
-      item.put("answer",formatQA(a));
-      item.put("card",c.template().optString("name"));
-      item.put("lapses",Integer.toString(c.getLapses()));
-      item.put("note",c.model().optString("name"));
-      item.put("question",formatQA(q));
-      item.put("reviews",Integer.toString(c.getReps()));
+      CardBrowser.updateSearchItemQA(item,c);
       if (isCancelled()) {
         return null;
       }
