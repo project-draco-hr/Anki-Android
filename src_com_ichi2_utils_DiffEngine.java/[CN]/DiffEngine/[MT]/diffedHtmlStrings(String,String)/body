@@ -1,0 +1,19 @@
+{
+  StringBuilder prettyTyped=new StringBuilder();
+  StringBuilder prettyCorrect=new StringBuilder();
+  for (  DiffAction aDiff : diff_main(typed,correct)) {
+switch (aDiff.operation) {
+case INSERT:
+      prettyTyped.append(wrapBad(aDiff.text));
+    break;
+case DELETE:
+  prettyCorrect.append(wrapMissing(aDiff.text));
+break;
+case EQUAL:
+prettyTyped.append(wrapGood(aDiff.text));
+prettyCorrect.append(wrapGood(aDiff.text));
+break;
+}
+}
+return new String[]{prettyTyped.toString(),prettyCorrect.toString()};
+}
