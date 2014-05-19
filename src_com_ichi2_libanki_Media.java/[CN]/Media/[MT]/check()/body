@@ -4,9 +4,7 @@
   List<String> unused=new ArrayList<String>();
   Set<String> normrefs=new HashSet<String>();
   for (  String f : allMedia()) {
-    if (AnkiDroidApp.SDK_VERSION > 9) {
-      f=AnkiDroidApp.getCompat().normalizeUnicode(f);
-    }
+    f=AnkiDroidApp.getCompat().nfdNormalized(f);
     normrefs.add(f);
   }
   for (  File file : mdir.listFiles()) {
@@ -17,9 +15,7 @@
       continue;
     }
     String nfile=file.getName();
-    if (AnkiDroidApp.SDK_VERSION > 9) {
-      nfile=AnkiDroidApp.getCompat().normalizeUnicode(nfile);
-    }
+    nfile=AnkiDroidApp.getCompat().nfdNormalized(nfile);
     if (!normrefs.contains(nfile)) {
       unused.add(file.getName());
     }

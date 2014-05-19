@@ -1,0 +1,6 @@
+{
+  if (!Normalizer.isNormalized(txt,Normalizer.Form.NFC)) {
+    return Normalizer.normalize(txt,Normalizer.Form.NFC);
+  }
+  return txt;
+}

@@ -4,10 +4,8 @@
   StringBuilder sb=new StringBuilder();
   userAnswer=Utils.stripHTMLMedia(userAnswer).trim();
   correctAnswer=Utils.stripHTMLMedia(correctAnswer).trim();
-  if (AnkiDroidApp.SDK_VERSION > 8) {
-    userAnswer=Normalizer.normalize(userAnswer,Normalizer.Form.NFC);
-    correctAnswer=Normalizer.normalize(correctAnswer,Normalizer.Form.NFC);
-  }
+  userAnswer=AnkiDroidApp.getCompat().nfcNormalized(userAnswer);
+  correctAnswer=AnkiDroidApp.getCompat().nfcNormalized(correctAnswer);
   sb.append("<div");
   if (!mPrefWriteAnswers) {
     sb.append(" class=\"typeOff\"");
