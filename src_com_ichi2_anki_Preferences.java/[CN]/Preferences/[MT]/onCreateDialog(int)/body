@@ -3,10 +3,10 @@
   StyledDialog.Builder builder=new StyledDialog.Builder(this);
 switch (id) {
 case DIALOG_BACKUP:
-    builder.setTitle(res.getString(R.string.backup_manager_title));
+    builder.setTitle(res.getString(R.string.pref_disable_backup_title));
   builder.setCancelable(false);
-builder.setMessage(res.getString(R.string.pref_backup_warning));
-builder.setPositiveButton(res.getString(R.string.yes),new OnClickListener(){
+builder.setMessage(res.getString(R.string.pref_disable_backup_warning));
+builder.setPositiveButton(res.getString(R.string.dialog_positive_disable),new OnClickListener(){
 @Override public void onClick(DialogInterface arg0,int arg1){
   lockCheckAction=true;
   useBackupPreference.setChecked(false);
@@ -15,13 +15,13 @@ builder.setPositiveButton(res.getString(R.string.yes),new OnClickListener(){
 }
 }
 );
-builder.setNegativeButton(res.getString(R.string.no),null);
+builder.setNegativeButton(res.getString(R.string.dialog_cancel),null);
 break;
 case DIALOG_HEBREW_FONT:
 builder.setTitle(res.getString(R.string.fix_hebrew_text));
 builder.setCancelable(false);
 builder.setMessage(res.getString(R.string.fix_hebrew_instructions,AnkiDroidApp.getCurrentAnkiDroidDirectory()));
-builder.setNegativeButton(R.string.cancel,null);
+builder.setNegativeButton(R.string.dialog_cancel,null);
 builder.setPositiveButton(res.getString(R.string.fix_hebrew_download_font),new OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 Intent intent=new Intent("android.intent.action.VIEW",Uri.parse(getResources().getString(R.string.link_hebrew_font)));

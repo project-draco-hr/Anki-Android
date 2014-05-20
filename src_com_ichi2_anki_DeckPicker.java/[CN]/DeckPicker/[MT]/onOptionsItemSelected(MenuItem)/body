@@ -26,7 +26,7 @@ loadCounts();
 }
 }
 );
-builder2.setNegativeButton(res.getString(R.string.cancel),null);
+builder2.setNegativeButton(res.getString(R.string.dialog_cancel),null);
 builder2.create().show();
 return true;
 case R.id.action_import:
@@ -58,7 +58,7 @@ openStudyOptions(id,new Bundle());
 }
 }
 );
-builder3.setNegativeButton(res.getString(R.string.cancel),null);
+builder3.setNegativeButton(res.getString(R.string.dialog_cancel),null);
 builder3.create().show();
 return true;
 case R.id.action_check_database:

@@ -7,7 +7,7 @@ case DIALOG_USER_NOT_LOGGED_IN_SYNC:
     builder.setTitle(R.string.connection_error_title);
   builder.setIcon(R.drawable.ic_dialog_alert);
 builder.setMessage(R.string.no_user_password_error_message);
-builder.setNegativeButton(R.string.cancel,null);
+builder.setNegativeButton(R.string.dialog_cancel,null);
 builder.setPositiveButton(R.string.log_in,new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 Intent myAccount=new Intent(Info.this,MyAccount.class);
@@ -21,7 +21,7 @@ dialog=builder.create();
 break;
 case DIALOG_UPGRADE_ERROR:
 builder.setTitle(R.string.import_title);
-builder.setPositiveButton(R.string.ok,new DialogInterface.OnClickListener(){
+builder.setPositiveButton(R.string.dialog_ok,new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialogInterface,int i){
 setResult(RESULT_CANCELED);
 finishWithAnimation();
@@ -32,7 +32,7 @@ dialog=builder.create();
 break;
 case DIALOG_SYNC_LOG:
 builder.setTitle(R.string.sync_log_title);
-builder.setPositiveButton(R.string.ok,null);
+builder.setPositiveButton(R.string.dialog_ok,null);
 dialog=builder.create();
 break;
 case DIALOG_SYNC_UPGRADE_REQUIRED:
@@ -43,7 +43,7 @@ downloadCollection();
 }
 }
 );
-builder.setNegativeButton(R.string.cancel,null);
+builder.setNegativeButton(R.string.dialog_cancel,null);
 builder.setTitle(R.string.sync_log_title);
 dialog=builder.create();
 break;
