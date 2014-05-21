@@ -6,7 +6,7 @@
   }
   mEditorLayout=(LinearLayout)findViewById(R.id.LinearLayoutInScrollView);
   LinearLayout mToolsLayout=(LinearLayout)findViewById(R.id.LinearLayoutForButtons);
-  LayoutParams pars=new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT,1);
+  LayoutParams pars=new LinearLayout.LayoutParams(AnkiDroidApp.getCompat().parentLayoutSize(),LayoutParams.WRAP_CONTENT,1);
   Button swapButton=new Button(this);
   swapButton.setText(gtxt(R.string.multimedia_editor_activity_swap_button));
   mToolsLayout.addView(swapButton,pars);
