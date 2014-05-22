@@ -6,7 +6,7 @@
     m=p.matcher(string);
     while (m.find()) {
       String fname=m.group(2);
-      if (includeRemote || (!fRemoteFilePattern.matcher(fname.toLowerCase()).find())) {
+      if (includeRemote || (!fRemoteFilePattern.matcher(fname.toLowerCase(Locale.US)).find())) {
         l.add(fname);
       }
     }

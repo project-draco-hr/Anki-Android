@@ -1,5 +1,5 @@
 {
-  type="next" + type.toUpperCase();
+  type="next" + type.toUpperCase(Locale.US);
   int id;
   try {
     id=mConf.getInt(type);
