@@ -101,7 +101,7 @@ break;
 case TYPE_UPGRADE_DECKS:
 setTitle(R.string.deck_upgrade_title);
 sb.append("<html><body>");
-Button but=(Button)findViewById(R.id.info_tutorial);
+Button but=(Button)findViewById(R.id.info_later);
 but.setVisibility(View.VISIBLE);
 Button syncButton=(Button)findViewById(R.id.info_sync);
 syncButton.setVisibility(View.VISIBLE);
@@ -110,7 +110,6 @@ boolean reupgrading=false;
 switch (mUpgradeStage) {
 case UPGRADE_SCREEN_BASIC1:
 sb.append(getString(R.string.deck_upgrade_major_warning));
-but.setText(R.string.later);
 but.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
 Themes.showThemedToast(Info.this,getString(R.string.deck_upgrade_start_again_to_upgrade_toast),false);
