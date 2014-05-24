@@ -6,9 +6,9 @@
       JSONArray flds=m.getJSONArray("flds");
       for (int fi=0; fi < flds.length(); ++fi) {
         JSONObject f=flds.getJSONObject(fi);
-        if (!fields.contains(f.getString("name").toLowerCase())) {
+        if (!fields.contains(f.getString("name").toLowerCase(Locale.US))) {
           names.add(f.getString("name"));
-          fields.add(f.getString("name").toLowerCase());
+          fields.add(f.getString("name").toLowerCase(Locale.US));
         }
       }
     }

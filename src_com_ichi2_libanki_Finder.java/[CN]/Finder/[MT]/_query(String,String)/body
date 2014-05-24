@@ -1,0 +1,19 @@
+{
+  String sql;
+  if (!preds.contains("n.") && !order.contains("n.")) {
+    sql="select c.id from cards c where ";
+  }
+ else {
+    sql="select c.id from cards c, notes n where c.nid=n.id and ";
+  }
+  if (!TextUtils.isEmpty(preds)) {
+    sql+="(" + preds + ")";
+  }
+ else {
+    sql+="1";
+  }
+  if (!TextUtils.isEmpty(order)) {
+    sql+=" " + order;
+  }
+  return sql;
+}

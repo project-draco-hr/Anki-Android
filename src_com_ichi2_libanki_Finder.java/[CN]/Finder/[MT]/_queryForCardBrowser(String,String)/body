@@ -1,0 +1,13 @@
+{
+  String sql="select c.id, n.sfld, c.did, c.queue, n.tags from cards c, notes n where c.nid=n.id and ";
+  if (!TextUtils.isEmpty(preds)) {
+    sql+="(" + preds + ")";
+  }
+ else {
+    sql+="1";
+  }
+  if (!TextUtils.isEmpty(order)) {
+    sql+=" " + order;
+  }
+  return sql;
+}

@@ -1,9 +1,9 @@
 {
   Matcher m=fPropPattern.matcher(_val);
   if (!m.matches()) {
-    return "";
+    return null;
   }
-  String prop=m.group(1).toLowerCase();
+  String prop=m.group(1).toLowerCase(Locale.US);
   String cmp=m.group(2);
   String sval=m.group(3);
   int val;
@@ -16,10 +16,10 @@
     }
   }
  catch (  NumberFormatException e) {
-    return "";
+    return null;
   }
-  if (!fValidProps.contains(prop)) {
-    return "";
+  if (!Arrays.asList("due","ivl","reps","lapses","ease").contains(prop)) {
+    return null;
   }
   String q="";
   if (prop.equals("due")) {

@@ -10,7 +10,7 @@
   Pair<String,Boolean> res2=_order(_order);
   String order=res2.first;
   boolean rev=res2.second;
-  String sql=_query(preds,order,true);
+  String sql=_queryForCardBrowser(preds,order);
   Cursor cur=null;
   try {
     cur=mCol.getDb().getDatabase().rawQuery(sql,args);
@@ -23,9 +23,9 @@
       String tags=cur.getString(4);
       map.put("flags",Integer.toString((queue == -1 ? 1 : 0) + (tags.matches(".*[Mm]arked.*") ? 2 : 0)));
       map.put("tags",tags);
+      res.add(map);
       map.put("question","");
       map.put("answer","");
-      res.add(map);
     }
   }
  catch (  SQLException e) {

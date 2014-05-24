@@ -7,7 +7,7 @@
   }
   List<Long> ids=null;
   try {
-    if (val.toLowerCase().equals("current")) {
+    if (val.equalsIgnoreCase("current")) {
       ids=dids(mCol.getDecks().current().getLong("id"));
     }
  else     if (!val.contains("*")) {
@@ -16,10 +16,13 @@
  else {
       ids=new ArrayList<Long>();
       val=val.replace("*",".*");
+      val=val.replace("+","\\+");
       for (      JSONObject d : mCol.getDecks().all()) {
         if (d.getString("name").matches("(?i)" + val)) {
           for (          long id : dids(d.getLong("id"))) {
-            ids.add(id);
+            if (!ids.contains(id)) {
+              ids.add(id);
+            }
           }
         }
       }
@@ -29,7 +32,7 @@
     throw new RuntimeException(e);
   }
   if (ids == null || ids.size() == 0) {
-    return "";
+    return null;
   }
   String sids=Utils.ids2str(ids);
   return "c.did in " + sids + " or c.odid in "+ sids;

@@ -2,5 +2,5 @@
   if (fNidsPattern.matcher(val).find()) {
     return null;
   }
-  return "n.id in (" + val + ")";
+  return "c.id in (" + val + ")";
 }

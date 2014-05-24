@@ -1,5 +1,5 @@
 {
-  if (did == 0) {
+  if (did == null) {
     return null;
   }
   TreeMap<String,Long> children=mCol.getDecks().children(did);

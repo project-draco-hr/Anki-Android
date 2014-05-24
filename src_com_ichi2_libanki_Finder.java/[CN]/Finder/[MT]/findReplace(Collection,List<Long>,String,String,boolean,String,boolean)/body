@@ -27,11 +27,11 @@
   }
   Pattern regex=Pattern.compile(src);
   ArrayList<Object[]> d=new ArrayList<Object[]>();
-  String sql="select id, mid, flds from notes where id in " + Utils.ids2str(nids.toArray(new Long[nids.size()]));
+  String snids=Utils.ids2str(nids);
   nids=new ArrayList<Long>();
   Cursor cur=null;
   try {
-    cur=col.getDb().getDatabase().rawQuery(sql,null);
+    cur=col.getDb().getDatabase().rawQuery("select id, mid, flds from notes where id in " + snids,null);
     while (cur.moveToNext()) {
       String flds=cur.getString(2);
       String origFlds=flds;
