@@ -8,11 +8,11 @@
     if (token.equals("-")) {
       s.isnot=true;
     }
- else     if (token.toLowerCase().equals("or")) {
+ else     if (token.equalsIgnoreCase("or")) {
       s.isor=true;
     }
  else     if (token.equals("(")) {
-      addPred(s,token,false);
+      s.add(token,false);
       s.join=false;
     }
  else     if (token.equals(")")) {
@@ -20,44 +20,50 @@
     }
  else     if (token.contains(":")) {
       String[] spl=token.split(":",2);
-      String cmd=spl[0].toLowerCase();
+      String cmd=spl[0].toLowerCase(Locale.US);
       String val=spl[1];
-      if (cmd.equals("tag")) {
-        addPred(s,_findTag(val,args));
-      }
- else       if (cmd.equals("is")) {
-        addPred(s,_findCardState(val));
-      }
- else       if (cmd.equals("nid")) {
-        addPred(s,_findNids(val));
+      if (cmd.equals("added")) {
+        s.add(_findAdded(val));
       }
  else       if (cmd.equals("card")) {
-        addPred(s,_findTemplate(val));
-      }
- else       if (cmd.equals("note")) {
-        addPred(s,_findModel(val));
-      }
- else       if (cmd.equals("mid")) {
-        addPred(s,_findMid(val));
+        s.add(_findTemplate(val));
       }
  else       if (cmd.equals("deck")) {
-        addPred(s,_findDeck(val));
+        s.add(_findDeck(val));
+      }
+ else       if (cmd.equals("mid")) {
+        s.add(_findMid(val));
+      }
+ else       if (cmd.equals("nid")) {
+        s.add(_findNids(val));
+      }
+ else       if (cmd.equals("cid")) {
+        s.add(_findCids(val));
+      }
+ else       if (cmd.equals("note")) {
+        s.add(_findModel(val));
       }
  else       if (cmd.equals("prop")) {
-        addPred(s,_findProp(val));
+        s.add(_findProp(val));
       }
  else       if (cmd.equals("rated")) {
-        addPred(s,_findRated(val));
+        s.add(_findRated(val));
       }
- else       if (cmd.equals("added")) {
-        addPred(s,_findAdded(val));
+ else       if (cmd.equals("tag")) {
+        s.add(_findTag(val,args));
+      }
+ else       if (cmd.equals("dupe")) {
+        s.add(_findDupes(val));
+      }
+ else       if (cmd.equals("is")) {
+        s.add(_findCardState(val));
       }
  else {
-        addPred(s,_findField(cmd,val));
+        s.add(_findField(cmd,val));
       }
     }
  else {
-      addPred(s,_findText(token,args));
+      s.add(_findText(token,args));
     }
   }
   if (s.bad) {

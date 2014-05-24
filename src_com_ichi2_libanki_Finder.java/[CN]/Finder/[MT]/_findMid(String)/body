@@ -1,6 +1,6 @@
 {
   if (fMidPattern.matcher(val).find()) {
-    return "";
+    return null;
   }
   return "n.mid = " + val;
 }

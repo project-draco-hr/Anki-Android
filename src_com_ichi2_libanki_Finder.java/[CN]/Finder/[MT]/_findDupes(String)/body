@@ -1,0 +1,25 @@
+{
+  String[] split=val.split(",",1);
+  if (split.length != 2) {
+    return null;
+  }
+  String mid=split[0];
+  val=split[1];
+  String csum=Long.toString(Utils.fieldChecksum(val));
+  List<Long> nids=new ArrayList<Long>();
+  Cursor cur=null;
+  try {
+    cur=mCol.getDb().getDatabase().rawQuery("select id, flds from notes where mid=? and csum=?",new String[]{mid,csum});
+    long nid=cur.getLong(0);
+    String flds=cur.getString(1);
+    if (Utils.stripHTMLMedia(Utils.splitFields(flds)[0]) == val) {
+      nids.add(nid);
+    }
+  }
+  finally {
+    if (cur != null) {
+      cur.close();
+    }
+  }
+  return "n.id in " + Utils.ids2str(nids);
+}

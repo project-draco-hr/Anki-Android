@@ -4,7 +4,7 @@
     days=Integer.parseInt(val);
   }
  catch (  NumberFormatException e) {
-    return "";
+    return null;
   }
   long cutoff=(mCol.getSched().getDayCutoff() - 86400 * days) * 1000;
   return "c.id > " + cutoff;

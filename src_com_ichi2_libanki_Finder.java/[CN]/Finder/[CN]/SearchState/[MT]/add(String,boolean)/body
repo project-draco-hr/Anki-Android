@@ -1,0 +1,33 @@
+{
+  if (TextUtils.isEmpty(txt)) {
+    if (isnot) {
+      isnot=false;
+      return;
+    }
+ else {
+      bad=true;
+      return;
+    }
+  }
+ else   if (txt.equals("skip")) {
+    return;
+  }
+  if (join) {
+    if (isor) {
+      q+=" or ";
+      isor=false;
+    }
+ else {
+      q+=" and ";
+    }
+  }
+  if (isnot) {
+    q+=" not ";
+    isnot=false;
+  }
+  if (wrap) {
+    txt="(" + txt + ")";
+  }
+  q+=txt;
+  join=true;
+}

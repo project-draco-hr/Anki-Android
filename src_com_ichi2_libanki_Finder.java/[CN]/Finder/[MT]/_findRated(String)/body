@@ -5,13 +5,13 @@
     days=Integer.parseInt(r[0]);
   }
  catch (  NumberFormatException e) {
-    return "";
+    return null;
   }
   days=Math.min(days,31);
   String ease="";
   if (r.length > 1) {
-    if (!fValidEases.contains(r[1])) {
-      return "";
+    if (!Arrays.asList("1","2","3","4").contains(r[1])) {
+      return null;
     }
     ease="and ease=" + r[1];
   }

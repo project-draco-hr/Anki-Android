@@ -1,26 +1,25 @@
 {
-  if (search != null && search.length() > 0) {
+  if (!TextUtils.isEmpty(search)) {
     search="(" + search + ") ";
   }
   search+="'" + fieldName + ":*'";
-  List<Long> var=col.findNotes(search);
-  String sql="select id, mid, flds from notes where id in " + Utils.ids2str(var.toArray(new Long[var.size()]));
-  Cursor cur=null;
-  Map<Long,Integer> fields=new HashMap<Long,Integer>();
   Map<String,List<Long>> vals=new HashMap<String,List<Long>>();
   List<Pair<String,List<Long>>> dupes=new ArrayList<Pair<String,List<Long>>>();
+  Map<Long,Integer> fields=new HashMap<Long,Integer>();
+  Cursor cur=null;
   try {
-    cur=col.getDb().getDatabase().rawQuery(sql,null);
+    cur=col.getDb().getDatabase().rawQuery("select id, mid, flds from notes where id in " + Utils.ids2str(col.findNotes(search)),null);
     while (cur.moveToNext()) {
       long nid=cur.getLong(0);
       long mid=cur.getLong(1);
       String[] flds=Utils.splitFields(cur.getString(2));
-      if (!fields.containsKey(mid)) {
-        JSONObject model=col.getModels().get(mid);
-        fields.put(mid,col.getModels().fieldMap(model).get(fieldName).first);
+      Integer ord=ordForMid(col,fields,mid,fieldName);
+      if (ord == null) {
+        continue;
       }
       String val=flds[fields.get(mid)];
-      if (val.equals("")) {
+      val=Utils.stripHTMLMedia(val);
+      if (TextUtils.isEmpty(val)) {
         continue;
       }
       if (!vals.containsKey(val)) {

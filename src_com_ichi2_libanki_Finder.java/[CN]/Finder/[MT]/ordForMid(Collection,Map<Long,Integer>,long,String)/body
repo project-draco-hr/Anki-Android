@@ -1,0 +1,19 @@
+{
+  if (!fields.containsKey(mid)) {
+    JSONObject model=col.getModels().get(mid);
+    try {
+      JSONArray flds=model.getJSONArray("flds");
+      for (int c=0; c < flds.length(); c++) {
+        JSONObject f=flds.getJSONObject(c);
+        if (f.getString("name").equalsIgnoreCase(fieldName)) {
+          fields.put(mid,c);
+          break;
+        }
+      }
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  return fields.get(mid);
+}

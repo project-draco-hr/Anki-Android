@@ -18,7 +18,7 @@
     throw new RuntimeException(e);
   }
   if (mods.isEmpty()) {
-    return "";
+    return null;
   }
   LinkedList<Long> nids=new LinkedList<Long>();
   Cursor cur=null;
@@ -39,7 +39,7 @@
     }
   }
   if (nids.isEmpty()) {
-    return "";
+    return "0";
   }
   return "n.id in " + Utils.ids2str(nids);
 }
