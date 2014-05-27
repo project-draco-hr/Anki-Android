@@ -4,9 +4,9 @@
   StyledDialog.Builder builder=new StyledDialog.Builder(this);
 switch (id) {
 case DIALOG_USER_NOT_LOGGED_IN_SYNC:
-    builder.setTitle(R.string.connection_error_title);
+    builder.setTitle(R.string.not_logged_in_title);
   builder.setIcon(R.drawable.ic_dialog_alert);
-builder.setMessage(R.string.no_user_password_error_message);
+builder.setMessage(R.string.login_create_account_message);
 builder.setNegativeButton(R.string.dialog_cancel,null);
 builder.setPositiveButton(R.string.log_in,new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
@@ -31,7 +31,6 @@ finishWithAnimation();
 dialog=builder.create();
 break;
 case DIALOG_SYNC_LOG:
-builder.setTitle(R.string.sync_log_title);
 builder.setPositiveButton(R.string.dialog_ok,null);
 dialog=builder.create();
 break;
@@ -44,7 +43,6 @@ downloadCollection();
 }
 );
 builder.setNegativeButton(R.string.dialog_cancel,null);
-builder.setTitle(R.string.sync_log_title);
 dialog=builder.create();
 break;
 }

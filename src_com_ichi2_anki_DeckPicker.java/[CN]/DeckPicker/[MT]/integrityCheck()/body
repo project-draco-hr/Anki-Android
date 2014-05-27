@@ -13,7 +13,6 @@
       }
       if (result.getBoolean()) {
         StyledDialog dialog=(StyledDialog)onCreateDialog(DIALOG_OK);
-        dialog.setTitle(getResources().getString(R.string.check_db_title));
         double shrunk=Math.round(result.getLong() / 1024.0);
         if (shrunk > 0.0) {
           dialog.setMessage(String.format(Utils.ENGLISH_LOCALE,getResources().getString(R.string.check_db_result_message_shrunk),shrunk));
