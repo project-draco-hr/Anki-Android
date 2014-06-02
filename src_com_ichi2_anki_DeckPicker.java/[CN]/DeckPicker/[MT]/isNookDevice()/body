@@ -1,6 +1,6 @@
 {
   for (  String s : new String[]{"nook"}) {
-    if (android.os.Build.DEVICE.toLowerCase().contains(s) || android.os.Build.MODEL.toLowerCase().contains(s)) {
+    if (android.os.Build.DEVICE.toLowerCase(Locale.US).contains(s) || android.os.Build.MODEL.toLowerCase(Locale.US).contains(s)) {
       return true;
     }
   }

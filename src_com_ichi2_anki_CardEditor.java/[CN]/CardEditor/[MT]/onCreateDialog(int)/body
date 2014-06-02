@@ -18,7 +18,7 @@ case DIALOG_TAGS_SELECT:
     }
   }
 );
-builder.setNegativeButton(res.getString(R.string.cancel),null);
+builder.setNegativeButton(res.getString(R.string.dialog_cancel),null);
 builder.setOnDismissListener(new OnDismissListener(){
 @Override public void onDismiss(DialogInterface dialog){
   mNewTagEditText.setText("");
@@ -179,12 +179,12 @@ break;
 case DIALOG_RESET_CARD:
 builder.setTitle(res.getString(R.string.reset_card_dialog_title));
 builder.setMessage(res.getString(R.string.reset_card_dialog_message));
-builder.setPositiveButton(res.getString(R.string.yes),new OnClickListener(){
+builder.setPositiveButton(res.getString(R.string.dialog_positive_reset),new OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 }
 }
 );
-builder.setNegativeButton(res.getString(R.string.no),null);
+builder.setNegativeButton(res.getString(R.string.dialog_cancel),null);
 builder.setCancelable(true);
 dialog=builder.create();
 break;

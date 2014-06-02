@@ -4,11 +4,11 @@ switch (field.getType()) {
 case TEXT:
     TextView textView=new TextView(this);
   textView.setText(field.getText());
-linearLayout.addView(textView,LinearLayout.LayoutParams.MATCH_PARENT);
+linearLayout.addView(textView,AnkiDroidApp.getCompat().parentLayoutSize());
 break;
 case IMAGE:
 ImageView imgView=new ImageView(this);
-LinearLayout.LayoutParams p=new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
+LinearLayout.LayoutParams p=new LayoutParams(AnkiDroidApp.getCompat().parentLayoutSize(),LayoutParams.WRAP_CONTENT);
 File f=new File(field.getImagePath());
 Bitmap b=BitmapUtil.decodeFile(f,getMaxImageSize());
 int currentapiVersion=android.os.Build.VERSION.SDK_INT;
@@ -36,7 +36,7 @@ break;
 }
 Button editButtonText=new Button(this);
 editButtonText.setText(gtxt(R.string.multimedia_editor_activity_edit_button));
-linearLayout.addView(editButtonText,LinearLayout.LayoutParams.MATCH_PARENT);
+linearLayout.addView(editButtonText,AnkiDroidApp.getCompat().parentLayoutSize());
 editButtonText.setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
 Intent i=new Intent(context,EditFieldActivity.class);

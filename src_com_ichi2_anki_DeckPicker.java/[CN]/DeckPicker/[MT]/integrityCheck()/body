@@ -13,8 +13,13 @@
       }
       if (result.getBoolean()) {
         StyledDialog dialog=(StyledDialog)onCreateDialog(DIALOG_OK);
-        dialog.setTitle(getResources().getString(R.string.check_db_title));
-        dialog.setMessage(String.format(Utils.ENGLISH_LOCALE,getResources().getString(R.string.check_db_result_message),Math.round(result.getLong() / 1024.0)));
+        double shrunk=Math.round(result.getLong() / 1024.0);
+        if (shrunk > 0.0) {
+          dialog.setMessage(String.format(Locale.getDefault(),getResources().getString(R.string.check_db_acknowledge_shrunk),shrunk));
+        }
+ else {
+          dialog.setMessage(getResources().getString(R.string.check_db_acknowledge));
+        }
         dialog.show();
       }
  else {

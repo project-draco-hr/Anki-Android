@@ -4,16 +4,15 @@
   StyledDialog.Builder builder=new StyledDialog.Builder(this);
 switch (id) {
 case DIALOG_OK:
-    builder.setPositiveButton(R.string.ok,null);
+    builder.setPositiveButton(R.string.dialog_ok,null);
   dialog=builder.create();
 break;
 case DIALOG_NO_SDCARD:
-builder.setMessage("The SD card could not be read. Please, turn off USB storage.");
-builder.setPositiveButton(R.string.ok,null);
+builder.setMessage(res.getString(R.string.sdcard_missing_message));
+builder.setPositiveButton(R.string.dialog_ok,null);
 dialog=builder.create();
 break;
 case DIALOG_CONNECTION_ERROR:
-builder.setTitle(res.getString(R.string.connection_error_title));
 builder.setIcon(R.drawable.ic_dialog_alert);
 builder.setMessage(res.getString(R.string.connection_error_message));
 builder.setPositiveButton(res.getString(R.string.retry),new DialogInterface.OnClickListener(){
@@ -22,7 +21,7 @@ sync();
 }
 }
 );
-builder.setNegativeButton(res.getString(R.string.cancel),null);
+builder.setNegativeButton(res.getString(R.string.dialog_cancel),null);
 dialog=builder.create();
 break;
 case DIALOG_SYNC_CONFLICT_RESOLUTION:
@@ -31,7 +30,7 @@ builder.setIcon(android.R.drawable.ic_input_get);
 builder.setMessage(res.getString(R.string.sync_conflict_message));
 builder.setPositiveButton(res.getString(R.string.sync_conflict_local),mSyncConflictResolutionListener);
 builder.setNeutralButton(res.getString(R.string.sync_conflict_remote),mSyncConflictResolutionListener);
-builder.setNegativeButton(res.getString(R.string.sync_conflict_cancel),mSyncConflictResolutionListener);
+builder.setNegativeButton(res.getString(R.string.dialog_cancel),mSyncConflictResolutionListener);
 builder.setCancelable(true);
 dialog=builder.create();
 break;
@@ -105,7 +104,7 @@ showDialog(DIALOG_DB_ERROR);
 }
 }
 );
-builder.setNegativeButton(res.getString(R.string.cancel),new DialogInterface.OnClickListener(){
+builder.setNegativeButton(res.getString(R.string.dialog_cancel),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 if (mLoadFailed) {
 showDialog(DIALOG_LOAD_FAILED);
@@ -119,10 +118,10 @@ showDialog(DIALOG_DB_ERROR);
 dialog=builder.create();
 break;
 case DIALOG_USER_NOT_LOGGED_IN_SYNC:
-builder.setTitle(res.getString(R.string.connection_error_title));
+builder.setTitle(res.getString(R.string.not_logged_in_title));
 builder.setIcon(R.drawable.ic_dialog_alert);
-builder.setMessage(res.getString(R.string.no_user_password_error_message));
-builder.setNegativeButton(res.getString(R.string.cancel),null);
+builder.setMessage(res.getString(R.string.login_create_account_message));
+builder.setNegativeButton(res.getString(R.string.dialog_cancel),null);
 builder.setPositiveButton(res.getString(R.string.log_in),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 Intent myAccount=new Intent(DeckPicker.this,MyAccount.class);
@@ -135,10 +134,9 @@ ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.FA
 dialog=builder.create();
 break;
 case DIALOG_NO_CONNECTION:
-builder.setTitle(res.getString(R.string.connection_error_title));
 builder.setIcon(R.drawable.ic_dialog_alert);
-builder.setMessage(res.getString(R.string.connection_needed));
-builder.setPositiveButton(res.getString(R.string.ok),null);
+builder.setMessage(res.getString(R.string.youre_offline));
+builder.setPositiveButton(res.getString(R.string.dialog_ok),null);
 dialog=builder.create();
 break;
 case DIALOG_DELETE_DECK:
@@ -147,7 +145,7 @@ return null;
 }
 builder.setTitle(res.getString(R.string.delete_deck_title));
 builder.setIcon(R.drawable.ic_dialog_alert);
-builder.setPositiveButton(res.getString(R.string.yes),new DialogInterface.OnClickListener(){
+builder.setPositiveButton(res.getString(R.string.dialog_positive_delete),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DELETE_DECK,new DeckTask.TaskListener(){
 @Override public void onPreExecute(){
@@ -178,7 +176,7 @@ Log.e(AnkiDroidApp.TAG,"onPostExecute - Dialog dismiss Exception = " + e.getMess
 }
 }
 );
-builder.setNegativeButton(res.getString(R.string.cancel),null);
+builder.setNegativeButton(res.getString(R.string.dialog_cancel),null);
 dialog=builder.create();
 break;
 case DIALOG_SELECT_STATISTICS_TYPE:
@@ -204,13 +202,13 @@ case DIALOG_REPAIR_COLLECTION:
 builder.setTitle(res.getString(R.string.backup_repair_deck));
 builder.setMessage(res.getString(R.string.repair_deck_dialog,BackupManager.BROKEN_DECKS_SUFFIX));
 builder.setIcon(R.drawable.ic_dialog_alert);
-builder.setPositiveButton(res.getString(R.string.yes),new DialogInterface.OnClickListener(){
+builder.setPositiveButton(res.getString(R.string.dialog_positive_repair),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REPAIR_DECK,mRepairDeckHandler,new DeckTask.TaskData(AnkiDroidApp.getCol(),AnkiDroidApp.getCollectionPath()));
 }
 }
 );
-builder.setNegativeButton(res.getString(R.string.no),new DialogInterface.OnClickListener(){
+builder.setNegativeButton(res.getString(R.string.dialog_cancel),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 showDialog(DIALOG_ERROR_HANDLING);
 }
@@ -228,7 +226,6 @@ case DIALOG_SYNC_SANITY_ERROR:
 builder.setPositiveButton(getString(R.string.sync_sanity_local),mSyncSanityFailListener);
 builder.setNeutralButton(getString(R.string.sync_sanity_remote),mSyncSanityFailListener);
 builder.setNegativeButton(res.getString(R.string.sync_conflict_cancel),mSyncSanityFailListener);
-builder.setTitle(res.getString(R.string.sync_log_title));
 dialog=builder.create();
 break;
 case DIALOG_SYNC_UPGRADE_REQUIRED:
@@ -239,7 +236,7 @@ sync("download",mSyncMediaUsn);
 }
 }
 );
-builder.setNegativeButton(res.getString(R.string.cancel),new DialogInterface.OnClickListener(){
+builder.setNegativeButton(res.getString(R.string.dialog_cancel),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 if (mLoadFailed) {
 showDialog(DIALOG_LOAD_FAILED);
@@ -261,18 +258,16 @@ showDialog(DIALOG_DB_ERROR);
 }
 }
 );
-builder.setTitle(res.getString(R.string.sync_log_title));
 dialog=builder.create();
 break;
 case DIALOG_SYNC_LOG:
-builder.setTitle(res.getString(R.string.sync_log_title));
-builder.setPositiveButton(res.getString(R.string.ok),null);
+builder.setPositiveButton(res.getString(R.string.dialog_ok),null);
 dialog=builder.create();
 break;
 case DIALOG_BACKUP_NO_SPACE_LEFT:
-builder.setTitle(res.getString(R.string.attention));
+builder.setTitle(res.getString(R.string.sd_card_full_title));
 builder.setMessage(res.getString(R.string.backup_deck_no_space_left));
-builder.setPositiveButton(res.getString(R.string.ok),new DialogInterface.OnClickListener(){
+builder.setPositiveButton(res.getString(R.string.dialog_ok),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 loadCollection();
 }
@@ -319,19 +314,19 @@ Resources res=getResources();
 StyledDialog.Builder builder=new StyledDialog.Builder(DeckPicker.this);
 builder.setTitle(res.getString(R.string.import_title));
 builder.setMessage(res.getString(R.string.import_message_replace_confirm,mImportPath));
-builder.setPositiveButton(res.getString(R.string.yes),new DialogInterface.OnClickListener(){
+builder.setPositiveButton(res.getString(R.string.dialog_positive_replace),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_IMPORT_REPLACE,mImportReplaceListener,new TaskData(AnkiDroidApp.getCol(),mImportPath));
 mImportPath=null;
 }
 }
 );
-builder.setNegativeButton(res.getString(R.string.no),null);
+builder.setNegativeButton(res.getString(R.string.dialog_cancel),null);
 builder.show();
 }
 }
 );
-builder.setNegativeButton(res.getString(R.string.cancel),null);
+builder.setNegativeButton(res.getString(R.string.dialog_cancel),null);
 builder.setCancelable(true);
 dialog=builder.create();
 break;
@@ -342,25 +337,25 @@ break;
 case DIALOG_IMPORT_HINT:
 builder.setTitle(res.getString(R.string.import_title));
 builder.setMessage(res.getString(R.string.import_hint,AnkiDroidApp.getCurrentAnkiDroidDirectory()));
-builder.setPositiveButton(res.getString(R.string.ok),new DialogInterface.OnClickListener(){
+builder.setPositiveButton(res.getString(R.string.dialog_ok),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 showDialog(DIALOG_IMPORT_SELECT);
 }
 }
 );
-builder.setNegativeButton(res.getString(R.string.cancel),null);
+builder.setNegativeButton(res.getString(R.string.dialog_cancel),null);
 dialog=builder.create();
 break;
 case DIALOG_IMPORT_LOG:
 builder.setIcon(R.drawable.ic_dialog_alert);
 builder.setTitle(res.getString(R.string.import_title));
-builder.setPositiveButton(res.getString(R.string.ok),null);
+builder.setPositiveButton(res.getString(R.string.dialog_ok),null);
 dialog=builder.create();
 break;
 case DIALOG_NO_SPACE_LEFT:
-builder.setTitle(res.getString(R.string.attention));
+builder.setTitle(res.getString(R.string.sd_card_almost_full_title));
 builder.setMessage(res.getString(R.string.sd_space_warning,BackupManager.MIN_FREE_SPACE));
-builder.setPositiveButton(res.getString(R.string.ok),new DialogInterface.OnClickListener(){
+builder.setPositiveButton(res.getString(R.string.dialog_ok),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 finishWithAnimation();
 }
@@ -384,7 +379,7 @@ mBackups[i]=files[files.length - 1 - i];
 if (mBackups.length == 0) {
 builder.setTitle(getResources().getString(R.string.backup_restore));
 builder.setMessage(res.getString(R.string.backup_restore_no_backups));
-builder.setPositiveButton(res.getString(R.string.ok),new Dialog.OnClickListener(){
+builder.setPositiveButton(res.getString(R.string.dialog_ok),new Dialog.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 showDialog(DIALOG_ERROR_HANDLING);
 }
@@ -422,7 +417,7 @@ break;
 case DIALOG_NEW_COLLECTION:
 builder.setTitle(res.getString(R.string.backup_new_collection));
 builder.setMessage(res.getString(R.string.backup_del_collection_question));
-builder.setPositiveButton(res.getString(R.string.ok),new DialogInterface.OnClickListener(){
+builder.setPositiveButton(res.getString(R.string.dialog_positive_create),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 AnkiDroidApp.closeCollection(false);
 String path=AnkiDroidApp.getCollectionPath();
@@ -436,7 +431,7 @@ showDialog(DIALOG_ERROR_HANDLING);
 }
 }
 );
-builder.setNegativeButton(res.getString(R.string.no),new DialogInterface.OnClickListener(){
+builder.setNegativeButton(res.getString(R.string.dialog_cancel),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface arg0,int arg1){
 showDialog(DIALOG_ERROR_HANDLING);
 }
@@ -454,13 +449,13 @@ break;
 case DIALOG_FULL_SYNC_FROM_SERVER:
 builder.setTitle(res.getString(R.string.backup_full_sync_from_server));
 builder.setMessage(res.getString(R.string.backup_full_sync_from_server_question));
-builder.setPositiveButton(res.getString(R.string.ok),new DialogInterface.OnClickListener(){
+builder.setPositiveButton(res.getString(R.string.dialog_positive_overwrite),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 sync("download",mSyncMediaUsn);
 }
 }
 );
-builder.setNegativeButton(res.getString(R.string.no),new DialogInterface.OnClickListener(){
+builder.setNegativeButton(res.getString(R.string.dialog_cancel),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface arg0,int arg1){
 showDialog(DIALOG_ERROR_HANDLING);
 }
@@ -477,14 +472,14 @@ dialog=builder.create();
 break;
 case DIALOG_CONFIRM_DATABASE_CHECK:
 builder.setTitle(res.getString(R.string.check_db_title));
-builder.setMessage(res.getString(R.string.check_db_confirm));
-builder.setPositiveButton(res.getString(R.string.yes),new DialogInterface.OnClickListener(){
+builder.setMessage(res.getString(R.string.check_db_warning));
+builder.setPositiveButton(res.getString(R.string.dialog_ok),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 integrityCheck();
 }
 }
 );
-builder.setNegativeButton(res.getString(R.string.no),null);
+builder.setNegativeButton(res.getString(R.string.dialog_cancel),null);
 builder.setCancelable(true);
 dialog=builder.create();
 break;

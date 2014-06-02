@@ -101,7 +101,7 @@ createFilteredDeck(new JSONArray(),new Object[]{mSearchTerms,Consts.DYN_MAX_SIZE
 }
 }
 );
-builder1.setNegativeButton(res.getString(R.string.cancel),new OnClickListener(){
+builder1.setNegativeButton(res.getString(R.string.dialog_cancel),new OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 mTagsDialog.setItemListChecked(false);
 mSelectedTags.clear();
@@ -123,8 +123,8 @@ break;
 case DIALOG_CUSTOM_STUDY_DETAILS:
 builder1.setContentView(mCustomStudyDetailsView);
 builder1.setCancelable(true);
-builder1.setNegativeButton(R.string.cancel,null);
-builder1.setPositiveButton(R.string.ok,null);
+builder1.setNegativeButton(R.string.dialog_cancel,null);
+builder1.setPositiveButton(R.string.dialog_ok,null);
 dialog=builder1.create();
 break;
 default :

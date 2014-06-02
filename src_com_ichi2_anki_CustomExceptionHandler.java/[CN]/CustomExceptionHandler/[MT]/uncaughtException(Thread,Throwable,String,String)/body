@@ -18,7 +18,7 @@
   }
   for (  String key : mInformation.keySet()) {
     String value=mInformation.get(key);
-    reportInformation.append(String.format("%s=%s\n",key.toLowerCase(),value));
+    reportInformation.append(String.format(Locale.US,"%s=%s\n",key.toLowerCase(Locale.US),value));
   }
   if (additionalInfo != null && !TextUtils.isEmpty(additionalInfo)) {
     reportInformation.append(String.format("additionalinformation=%s\n",additionalInfo));

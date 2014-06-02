@@ -1,5 +1,5 @@
 {
-  mSearchTerms=mSearchView.getQuery().toString().toLowerCase();
+  mSearchTerms=mSearchView.getQuery().toString();
   if (mSearchTerms.length() == 0) {
     mSearchView.setQueryHint(getResources().getString(R.string.downloaddeck_search));
   }

@@ -101,7 +101,7 @@ break;
 case TYPE_UPGRADE_DECKS:
 setTitle(R.string.deck_upgrade_title);
 sb.append("<html><body>");
-Button but=(Button)findViewById(R.id.info_tutorial);
+Button but=(Button)findViewById(R.id.info_later);
 but.setVisibility(View.VISIBLE);
 Button syncButton=(Button)findViewById(R.id.info_sync);
 syncButton.setVisibility(View.VISIBLE);
@@ -110,7 +110,6 @@ boolean reupgrading=false;
 switch (mUpgradeStage) {
 case UPGRADE_SCREEN_BASIC1:
 sb.append(getString(R.string.deck_upgrade_major_warning));
-but.setText(R.string.later);
 but.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
 Themes.showThemedToast(Info.this,getString(R.string.deck_upgrade_start_again_to_upgrade_toast),false);
@@ -210,14 +209,14 @@ finishWithAnimation();
 );
 }
  else {
-syncButton.setText(R.string.deck_upgrade_create_new_collection);
+syncButton.setText(R.string.deck_upgrade_create_new_collection_button);
 syncButton.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
 StyledDialog.Builder builder=new StyledDialog.Builder(Info.this);
 builder.setTitle(R.string.deck_upgrade_create_new_collection_title);
 builder.setIcon(R.drawable.ic_dialog_alert);
 builder.setMessage(R.string.deck_upgrade_not_import_warning);
-builder.setPositiveButton(R.string.yes,new DialogInterface.OnClickListener(){
+builder.setPositiveButton(R.string.dialog_positive_create,new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 Intent result=new Intent();
 result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_CONTINUE);
@@ -226,7 +225,7 @@ finishWithAnimation();
 }
 }
 );
-builder.setNegativeButton(R.string.no,null);
+builder.setNegativeButton(R.string.dialog_cancel,null);
 builder.show();
 }
 }
@@ -248,7 +247,7 @@ finishWithAnimation(false);
 }
 );
 syncButton.setVisibility(View.GONE);
-continueButton.setText(R.string.yes);
+continueButton.setText(R.string.dialog_continue);
 continueButton.setOnClickListener(new OnClickListener(){
 @Override public void onClick(View arg0){
 lockScreenOrientation();
@@ -360,10 +359,9 @@ break;
 sb.append("</body></html>");
 mWebView.loadDataWithBaseURL("",sb.toString(),"text/html","utf-8",null);
 StyledDialog.Builder builder2=new StyledDialog.Builder(this);
-builder2.setTitle(res.getString(R.string.connection_error_title));
 builder2.setIcon(R.drawable.ic_dialog_alert);
-builder2.setMessage(res.getString(R.string.connection_needed));
-builder2.setPositiveButton(res.getString(R.string.ok),null);
+builder2.setMessage(res.getString(R.string.youre_offline));
+builder2.setPositiveButton(res.getString(R.string.dialog_ok),null);
 mNoConnectionAlert=builder2.create();
 break;
 default :
