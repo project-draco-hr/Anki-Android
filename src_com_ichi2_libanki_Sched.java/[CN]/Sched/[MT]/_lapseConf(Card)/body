@@ -19,14 +19,6 @@
     return dict;
   }
  catch (  JSONException e) {
-    if (!mCol.getDecks().isDyn(card.getDid()) && card.getODid() != 0) {
-      card.setODue(0);
-      card.setODid(0);
-      AnkiDroidApp.saveExceptionReportFile(e,"fixedODidInconsistencyInSched_lapseConf");
-      return _lapseConf(card);
-    }
- else {
-      throw new RuntimeException(e);
-    }
+    throw new RuntimeException(e);
   }
 }
