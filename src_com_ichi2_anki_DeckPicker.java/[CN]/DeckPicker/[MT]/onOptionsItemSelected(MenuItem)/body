@@ -1,4 +1,7 @@
 {
+  if (mDrawerToggle.onOptionsItemSelected(item)) {
+    return true;
+  }
   Resources res=getResources();
 switch (item.getItemId()) {
 case R.id.action_sync:
@@ -31,12 +34,6 @@ builder2.create().show();
 return true;
 case R.id.action_import:
 showDialog(DIALOG_IMPORT_HINT);
-return true;
-case R.id.action_statistics:
-showDialog(DIALOG_SELECT_STATISTICS_TYPE);
-return true;
-case R.id.action_card_browser:
-openCardBrowser();
 return true;
 case R.id.action_new_filtered_deck:
 StyledDialog.Builder builder3=new StyledDialog.Builder(DeckPicker.this);

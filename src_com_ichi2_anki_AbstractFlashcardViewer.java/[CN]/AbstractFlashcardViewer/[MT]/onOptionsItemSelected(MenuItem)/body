@@ -1,4 +1,7 @@
 {
+  if (mDrawerToggle.onOptionsItemSelected(item)) {
+    return true;
+  }
 switch (item.getItemId()) {
 case android.R.id.home:
     closeReviewer(AnkiDroidApp.RESULT_TO_HOME,true);

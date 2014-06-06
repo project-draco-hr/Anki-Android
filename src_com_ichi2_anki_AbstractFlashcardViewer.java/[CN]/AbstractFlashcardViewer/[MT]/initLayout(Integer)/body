@@ -1,5 +1,8 @@
 {
   setContentView(layout);
+  mDrawerLayout=(DrawerLayout)findViewById(R.id.reviewer_drawer_layout);
+  mDrawerList=(ListView)findViewById(R.id.reviewer_left_drawer);
+  initNavigationDrawer();
   mMainLayout=findViewById(R.id.main_layout);
   Themes.setContentStyle(mMainLayout,Themes.CALLER_REVIEWER);
   mCardContainer=(FrameLayout)findViewById(R.id.flashcard_frame);

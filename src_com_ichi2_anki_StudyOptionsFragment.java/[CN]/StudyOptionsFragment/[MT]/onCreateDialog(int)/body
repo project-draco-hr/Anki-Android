@@ -33,7 +33,6 @@ if (!AnkiDroidApp.colIsOpen()) {
 }
 Context context=getActivity().getBaseContext();
 RadioGroup rg=formatRGCardType(context,res);
-mSelectWhichCards=rg;
 builder1.setView(rg,false,true);
 Collection col;
 col=AnkiDroidApp.getCol();

@@ -37,28 +37,11 @@
   mFragmented=studyoptionsFrame != null && studyoptionsFrame.getVisibility() == View.VISIBLE;
   Themes.setContentStyle(mFragmented ? mainView : mainView.findViewById(R.id.deckpicker_view),Themes.CALLER_DECKPICKER);
   registerExternalStorageListener();
-  if (!mFragmented) {
-    mAddButton=(ImageButton)findViewById(R.id.deckpicker_add);
-    mAddButton.setOnClickListener(new OnClickListener(){
-      @Override public void onClick(      View v){
-        addNote();
-      }
-    }
-);
-    mCardsButton=(ImageButton)findViewById(R.id.deckpicker_card_browser);
-    mCardsButton.setOnClickListener(new OnClickListener(){
-      @Override public void onClick(      View v){
-        openCardBrowser();
-      }
-    }
-);
-    mStatsButton=(ImageButton)findViewById(R.id.statistics_all_button);
-    mStatsButton.setOnClickListener(new OnClickListener(){
-      @Override public void onClick(      View v){
-        showDialog(DIALOG_SELECT_STATISTICS_TYPE);
-      }
-    }
-);
+  mDrawerLayout=(DrawerLayout)findViewById(R.id.deckpicker_drawer_layout);
+  mDrawerList=(ListView)findViewById(R.id.deckpicker_left_drawer);
+  initNavigationDrawer();
+  if (savedInstanceState == null) {
+    selectNavigationItem(0);
   }
   mDeckList=new ArrayList<HashMap<String,String>>();
   mDeckListView=(ListView)findViewById(R.id.files);

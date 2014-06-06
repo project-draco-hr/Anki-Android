@@ -1,0 +1,32 @@
+{
+switch (position) {
+case DRAWER_DECK_PICKER:
+    if (!(this instanceof DeckPicker)) {
+      setResult(0);
+      finishWithoutAnimation();
+      startActivityWithAnimation(new Intent(this,DeckPicker.class),ActivityTransitionAnimation.LEFT);
+    }
+  break;
+case DRAWER_BROWSER:
+if (!(this instanceof CardBrowser)) {
+  Intent cardBrowser=new Intent(this,CardBrowser.class);
+  cardBrowser.putExtra("fromDeckpicker",true);
+  startActivityForResultWithAnimation(cardBrowser,BROWSE_CARDS,ActivityTransitionAnimation.LEFT);
+}
+break;
+case DRAWER_STATISTICS:
+Dialog dialog=ChartBuilder.getStatisticsDialog(this,new DialogInterface.OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_STATISTICS,mLoadStatisticsHandler,new DeckTask.TaskData(AnkiDroidApp.getCol(),which,mFragmented ? AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).getBoolean("statsRange",true) : true));
+}
+}
+,mFragmented);
+dialog.show();
+break;
+default :
+break;
+}
+mDrawerList.setItemChecked(position,true);
+setTitle(mNavigationTitles[position]);
+mDrawerLayout.closeDrawer(mDrawerList);
+}
