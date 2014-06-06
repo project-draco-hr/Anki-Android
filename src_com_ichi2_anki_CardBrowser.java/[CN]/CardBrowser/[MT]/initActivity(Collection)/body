@@ -36,6 +36,10 @@
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
+  mDrawerLayout=(DrawerLayout)findViewById(R.id.browser_drawer_layout);
+  mDrawerList=(ListView)findViewById(R.id.browser_left_drawer);
+  initNavigationDrawer();
+  selectNavigationItem(1);
   mCards=new ArrayList<HashMap<String,String>>();
   mCardsListView=(ListView)findViewById(R.id.card_browser_list);
   mCardsColumn1Spinner=(Spinner)findViewById(R.id.browser_column1_spinner);

@@ -179,15 +179,6 @@ Log.e(AnkiDroidApp.TAG,"onPostExecute - Dialog dismiss Exception = " + e.getMess
 builder.setNegativeButton(res.getString(R.string.dialog_cancel),null);
 dialog=builder.create();
 break;
-case DIALOG_SELECT_STATISTICS_TYPE:
-dialog=ChartBuilder.getStatisticsDialog(this,new DialogInterface.OnClickListener(){
-@Override public void onClick(DialogInterface dialog,int which){
-boolean muh=mFragmented ? AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).getBoolean("statsRange",true) : true;
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_STATISTICS,mLoadStatisticsHandler,new DeckTask.TaskData(AnkiDroidApp.getCol(),which,mFragmented ? AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).getBoolean("statsRange",true) : true));
-}
-}
-,mFragmented);
-break;
 case DIALOG_CONTEXT_MENU:
 String[] entries=new String[3];
 entries[CONTEXT_MENU_COLLAPSE_DECK]=res.getString(R.string.contextmenu_deckpicker_collapse_deck);
@@ -484,7 +475,7 @@ builder.setCancelable(true);
 dialog=builder.create();
 break;
 default :
-dialog=null;
+return super.onCreateDialog(id);
 }
 if (dialog != null) {
 dialog.setOwnerActivity(this);

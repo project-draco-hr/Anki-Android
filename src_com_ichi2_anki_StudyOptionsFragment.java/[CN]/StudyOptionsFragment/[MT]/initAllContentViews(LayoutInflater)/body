@@ -18,22 +18,6 @@
   mButtonUnbury=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_unbury);
   mButtonUnbury.setOnClickListener(mButtonClickListener);
   showOrHideUnburyButton();
-  if (!mFragmented) {
-    mAddNote=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_add);
-    if (AnkiDroidApp.colIsOpen()) {
-      Collection col=AnkiDroidApp.getCol();
-      if (col.getDecks().isDyn(col.getDecks().selected())) {
-        mAddNote.setEnabled(false);
-      }
-    }
-    mCardBrowser=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_card_browser);
-    mStatisticsButton=(ImageButton)mStudyOptionsView.findViewById(R.id.studyoptions_statistics);
-    mAddNote.setOnClickListener(mButtonClickListener);
-    mCardBrowser.setOnClickListener(mButtonClickListener);
-    mStatisticsButton.setOnClickListener(mButtonClickListener);
-  }
- else {
-  }
   mTextTodayNew=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_new);
   mTextTodayLrn=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_lrn);
   mTextTodayRev=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_rev);

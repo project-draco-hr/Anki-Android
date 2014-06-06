@@ -1,0 +1,22 @@
+{
+  mTitle=mDrawerTitle=getTitle();
+  mNavigationTitles=getResources().getStringArray(R.array.navigation_titles);
+  mNavigationImages=getResources().obtainTypedArray(R.array.drawer_images);
+  mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,GravityCompat.START);
+  mDrawerList.setAdapter(new NavDrawerListAdapter(this,mNavigationTitles,mNavigationImages));
+  mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+  getSupportActionBar().setHomeButtonEnabled(true);
+  mDrawerToggle=new ActionBarDrawerToggle(this,mDrawerLayout,R.drawable.ic_drawer,R.string.drawer_open,R.string.drawer_close){
+    public void onDrawerClosed(    View view){
+      getSupportActionBar().setTitle(mTitle);
+      supportInvalidateOptionsMenu();
+    }
+    public void onDrawerOpened(    View drawerView){
+      getSupportActionBar().setTitle(mDrawerTitle);
+      supportInvalidateOptionsMenu();
+    }
+  }
+;
+  mDrawerLayout.setDrawerListener(mDrawerToggle);
+}

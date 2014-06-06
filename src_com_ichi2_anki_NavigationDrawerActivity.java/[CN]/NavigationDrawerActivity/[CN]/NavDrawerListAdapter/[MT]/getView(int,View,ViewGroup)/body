@@ -1,0 +1,17 @@
+{
+  if (convertView == null) {
+    LayoutInflater mInflater=(LayoutInflater)context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+    convertView=mInflater.inflate(R.layout.drawer_list_item,null);
+  }
+  ImageView imgIcon=(ImageView)convertView.findViewById(R.id.drawer_list_item_image);
+  TextView txtTitle=(TextView)convertView.findViewById(R.id.drawer_list_item_text);
+  imgIcon.setImageResource(navDrawerImages.getResourceId(position,-1));
+  txtTitle.setText(navDrawerTitles[position]);
+  if (NavigationDrawerActivity.this.mDrawerList.getCheckedItemPosition() == position) {
+    txtTitle.setTypeface(null,Typeface.BOLD);
+  }
+ else {
+    txtTitle.setTypeface(null,Typeface.NORMAL);
+  }
+  return convertView;
+}
