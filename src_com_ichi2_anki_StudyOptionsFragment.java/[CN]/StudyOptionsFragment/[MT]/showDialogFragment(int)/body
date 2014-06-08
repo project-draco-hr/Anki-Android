@@ -1,0 +1,52 @@
+{
+  DialogFragment dialogFragment=null;
+  String tag=null;
+switch (id) {
+case DIALOG_CUSTOM_STUDY_TAGS:
+    if (!AnkiDroidApp.colIsOpen()) {
+    }
+  allTags=AnkiDroidApp.getCol().getTags().all().toArray(new String[0]);
+TagsDialog dialog=com.ichi2.anki.dialogs.TagsDialog.newInstance(TagsDialog.TYPE_CUSTOM_STUDY_TAGS,new ArrayList<String>(),new ArrayList<String>(AnkiDroidApp.getCol().getTags().all()));
+dialog.setTagsDialogListener(new TagsDialogListener(){
+@Override public void onPositive(List<String> selectedTags,int option){
+  mCustomStudyEditText.setText("");
+  String tags=selectedTags.toString();
+  mCustomStudyEditText.setHint(getResources().getString(R.string.card_browser_tags_shown,tags.substring(1,tags.length() - 1)));
+  StringBuilder sb=new StringBuilder();
+switch (option) {
+case 1:
+    sb.append("is:new ");
+  break;
+case 2:
+sb.append("is:due ");
+break;
+default :
+break;
+}
+int i=0;
+for (String tag : selectedTags) {
+if (i != 0) {
+sb.append("or ");
+}
+ else {
+sb.append("(");
+}
+sb.append("tag:").append(tag).append(" ");
+i++;
+}
+if (i > 0) {
+sb.append(")");
+}
+mSearchTerms=sb.toString();
+createFilteredDeck(new JSONArray(),new Object[]{mSearchTerms,Consts.DYN_MAX_SIZE,Consts.DYN_RANDOM},false);
+}
+}
+);
+dialogFragment=dialog;
+break;
+default :
+break;
+}
+dialogFragment.show(getFragmentManager(),tag);
+return dialogFragment;
+}

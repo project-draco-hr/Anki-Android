@@ -3,89 +3,9 @@
   Resources res=getResources();
   StyledDialog.Builder builder=new StyledDialog.Builder(this);
 switch (id) {
-case DIALOG_TAGS_SELECT:
-    builder.setTitle(R.string.card_details_tags);
-  builder.setPositiveButton(res.getString(R.string.select),new OnClickListener(){
-    @Override public void onClick(    DialogInterface dialog,    int which){
-      String tag=mNewTagEditText.getText().toString();
-      mCurrentTags=mTagsDialog.getCheckedItems();
-      if (tag.length() != 0) {
-        if (!mEditorNote.hasTag(tag)) {
-          mCurrentTags.add(tag);
-        }
-      }
-      updateTags();
-    }
-  }
-);
-builder.setNegativeButton(res.getString(R.string.dialog_cancel),null);
-builder.setOnDismissListener(new OnDismissListener(){
-@Override public void onDismiss(DialogInterface dialog){
-  mNewTagEditText.setText("");
-}
-}
-);
-mNewTagEditText=new EditText(this);
-mNewTagEditText.setHint(R.string.add_new_filter_tags);
-mNewTagEditText.addTextChangedListener(new TextWatcher(){
-@Override public void onTextChanged(CharSequence s,int start,int before,int count){
-mTagsDialog.filterList(s.toString());
-}
-@Override public void beforeTextChanged(CharSequence s,int start,int count,int after){
-}
-@Override public void afterTextChanged(Editable s){
-}
-}
-);
-InputFilter filter=new InputFilter(){
-@Override public CharSequence filter(CharSequence source,int start,int end,Spanned dest,int dstart,int dend){
-for (int i=start; i < end; i++) {
-if (source.charAt(i) == ' ' || source.charAt(i) == ',') {
-return "";
-}
-}
-return null;
-}
-}
-;
-mNewTagEditText.setFilters(new InputFilter[]{filter});
-ImageView mAddTextButton=new ImageView(this);
-mAddTextButton.setImageResource(R.drawable.ic_addtag);
-mAddTextButton.setOnClickListener(new View.OnClickListener(){
-@Override public void onClick(View v){
-String tag=mNewTagEditText.getText().toString();
-if (tag.length() != 0) {
-if (mEditorNote.hasTag(tag)) {
-mNewTagEditText.setText("");
-return;
-}
-mCurrentTags.add(tag);
-actualizeTagDialog(mTagsDialog);
-mNewTagEditText.setText("");
-}
-}
-}
-);
-FrameLayout frame=new FrameLayout(this);
-FrameLayout.LayoutParams params=new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT,Gravity.RIGHT | Gravity.CENTER_VERTICAL);
-params.rightMargin=10;
-mAddTextButton.setLayoutParams(params);
-frame.addView(mNewTagEditText);
-frame.addView(mAddTextButton);
-builder.setView(frame,false,true);
-builder.setSelectAllListener(new OnCheckedChangeListener(){
-@Override public void onCheckedChanged(CompoundButton buttonView,boolean isChecked){
-mTagsDialog.setItemListChecked(isChecked);
-mCurrentTags=mTagsDialog.getCheckedItems();
-}
-}
-);
-dialog=builder.create();
-mTagsDialog=dialog;
-break;
 case DIALOG_DECK_SELECT:
-ArrayList<CharSequence> dialogDeckItems=new ArrayList<CharSequence>();
-final ArrayList<Long> dialogDeckIds=new ArrayList<Long>();
+    ArrayList<CharSequence> dialogDeckItems=new ArrayList<CharSequence>();
+  final ArrayList<Long> dialogDeckIds=new ArrayList<Long>();
 ArrayList<JSONObject> decks=mCol.getDecks().all();
 Collections.sort(decks,new JSONNameComparator());
 builder.setTitle(R.string.deck);

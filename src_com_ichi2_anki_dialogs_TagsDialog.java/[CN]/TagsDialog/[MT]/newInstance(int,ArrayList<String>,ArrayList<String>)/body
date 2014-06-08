@@ -1,0 +1,9 @@
+{
+  TagsDialog t=new TagsDialog();
+  Bundle args=new Bundle();
+  args.putInt(DIALOG_TYPE_KEY,type);
+  args.putStringArrayList(CHECKED_TAGS_KEY,checked_tags);
+  args.putStringArrayList(ALL_TAGS_KEY,all_tags);
+  t.setArguments(args);
+  return t;
+}

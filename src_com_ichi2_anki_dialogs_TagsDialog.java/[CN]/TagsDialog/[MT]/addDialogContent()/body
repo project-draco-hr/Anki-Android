@@ -1,0 +1,67 @@
+{
+  mTitle=getResources().getString(R.string.card_details_tags);
+  final EditText addFilterTagET=new EditText(getActivity());
+  addFilterTagET.setHint(R.string.add_new_filter_tags);
+  addFilterTagET.addTextChangedListener(new TextWatcher(){
+    @Override public void onTextChanged(    CharSequence s,    int start,    int before,    int count){
+      mStyledDialog.filterList(s.toString());
+    }
+    @Override public void beforeTextChanged(    CharSequence s,    int start,    int count,    int after){
+    }
+    @Override public void afterTextChanged(    Editable s){
+    }
+  }
+);
+  InputFilter filter=new InputFilter(){
+    @Override public CharSequence filter(    CharSequence source,    int start,    int end,    Spanned dest,    int dstart,    int dend){
+      for (int i=start; i < end; i++) {
+        if (source.charAt(i) == ' ' || source.charAt(i) == ',') {
+          return "";
+        }
+      }
+      return null;
+    }
+  }
+;
+  addFilterTagET.setFilters(new InputFilter[]{filter});
+  ImageView addTagIV=new ImageView(getActivity());
+  addTagIV.setImageResource(R.drawable.ic_addtag);
+  addTagIV.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      String tag=addFilterTagET.getText().toString();
+      if (!TextUtils.isEmpty(tag)) {
+        if (mCurrentTags.contains(tag)) {
+          addFilterTagET.setText("");
+          return;
+        }
+        mAllTags.add(tag);
+        mCurrentTags.add(tag);
+        addFilterTagET.setText("");
+        actualizeCurrTagDialog();
+      }
+    }
+  }
+);
+  FrameLayout frame=new FrameLayout(getActivity());
+  FrameLayout.LayoutParams params=new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT,Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+  params.rightMargin=10;
+  addTagIV.setLayoutParams(params);
+  frame.addView(addFilterTagET);
+  frame.addView(addTagIV);
+  mPositiveButtonListener=new DialogInterface.OnClickListener(){
+    @Override public void onClick(    DialogInterface dialog,    int which){
+      String tag=addFilterTagET.getText().toString();
+      if (tag.length() != 0) {
+        mCurrentTags.add(tag);
+      }
+    }
+  }
+;
+  mOnDismissListener=new DialogInterface.OnDismissListener(){
+    @Override public void onDismiss(    DialogInterface dialog){
+      addFilterTagET.setText("");
+    }
+  }
+;
+  return frame;
+}

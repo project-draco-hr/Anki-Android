@@ -25,7 +25,7 @@ mSearchView.setQueryHint(getResources().getString(R.string.card_browser_show_sus
 searchCards();
 return true;
 case R.id.action_search_by_tag:
-showDialog(DIALOG_TAGS);
+showDialogFragment(DIALOG_TAGS);
 return true;
 default :
 return super.onOptionsItemSelected(item);

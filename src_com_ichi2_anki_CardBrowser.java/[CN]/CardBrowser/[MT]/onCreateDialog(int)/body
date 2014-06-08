@@ -59,58 +59,6 @@ builder.setIcon(R.drawable.ic_menu_manage);
 builder.setItems(entries,mContextMenuListener);
 dialog=builder.create();
 break;
-case DIALOG_TAGS:
-allTags=mCol.getTags().all().toArray(new String[0]);
-builder.setTitle(R.string.studyoptions_limit_select_tags);
-builder.setMultiChoiceItems(allTags,new boolean[allTags.length],new DialogInterface.OnClickListener(){
-@Override public void onClick(DialogInterface dialog,int which){
-String tag=allTags[which];
-if (mSelectedTags.contains(tag)) {
-Log.i(AnkiDroidApp.TAG,"unchecked tag: " + tag);
-mSelectedTags.remove(tag);
-}
- else {
-Log.i(AnkiDroidApp.TAG,"checked tag: " + tag);
-mSelectedTags.add(tag);
-}
-}
-}
-,new OnCheckedChangeListener(){
-@Override public void onCheckedChanged(CompoundButton buttonView,boolean isChecked){
-mTagsDialog.setItemListChecked(isChecked);
-mSelectedTags=new HashSet<String>(mTagsDialog.getCheckedItems());
-}
-}
-);
-builder.setPositiveButton(res.getString(R.string.select),new OnClickListener(){
-@Override public void onClick(DialogInterface dialog,int which){
-mSearchView.setQuery("",false);
-String tags=mSelectedTags.toString();
-mSearchView.setQueryHint(getResources().getString(R.string.card_browser_tags_shown,tags.substring(1,tags.length() - 1)));
-StringBuilder sb=new StringBuilder();
-for (String tag : mSelectedTags) {
-sb.append("tag:").append(tag).append(" ");
-}
-mSearchTerms=sb.toString();
-searchCards();
-}
-}
-);
-builder.setNegativeButton(res.getString(R.string.dialog_cancel),new OnClickListener(){
-@Override public void onClick(DialogInterface dialog,int which){
-mSelectedTags.clear();
-}
-}
-);
-builder.setOnCancelListener(new OnCancelListener(){
-@Override public void onCancel(DialogInterface dialog){
-mSelectedTags.clear();
-}
-}
-);
-mTagsDialog=builder.create();
-dialog=mTagsDialog;
-break;
 }
 return dialog;
 }

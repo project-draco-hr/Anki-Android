@@ -1,20 +1,9 @@
 {
   StyledDialog ad=(StyledDialog)dialog;
 switch (id) {
-case DIALOG_TAGS_SELECT:
-    if (mEditorNote == null) {
-      dialog=null;
-      return;
-    }
-  if (mSelectedTags == null) {
-    mSelectedTags=new ArrayList<String>();
-  }
-mCurrentTags=new ArrayList<String>(mSelectedTags);
-actualizeTagDialog(ad);
-break;
 case DIALOG_INTENT_INFORMATION:
-mIntentInformationDialog=createDialogIntentInformation(new StyledDialog.Builder(this),getResources());
-ad=mIntentInformationDialog;
+    mIntentInformationDialog=createDialogIntentInformation(new StyledDialog.Builder(this),getResources());
+  ad=mIntentInformationDialog;
 break;
 }
 }

@@ -1,0 +1,41 @@
+{
+  mTitle=getResources().getString(R.string.studyoptions_limit_select_tags);
+  Context context=getActivity();
+  Resources res=context.getResources();
+  RadioGroup rg=new RadioGroup(context);
+  rg.setOrientation(RadioGroup.HORIZONTAL);
+  RadioGroup.LayoutParams lp=new RadioGroup.LayoutParams(0,LayoutParams.MATCH_PARENT,1);
+  String[] text=res.getStringArray(R.array.cards_for_tag_filtered_deck_labels);
+  final RadioButton[] radioButtons=new RadioButton[text.length];
+  int height=res.getDrawable(R.drawable.white_btn_radio).getIntrinsicHeight();
+  String spaces="";
+  if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+    spaces="         ";
+  }
+  for (int i=0; i < radioButtons.length; i++) {
+    radioButtons[i]=new RadioButton(context);
+    radioButtons[i].setClickable(true);
+    radioButtons[i].setText(spaces + text[i]);
+    radioButtons[i].setSingleLine();
+    radioButtons[i].setBackgroundDrawable(null);
+    radioButtons[i].setGravity(Gravity.CENTER_VERTICAL);
+    rg.addView(radioButtons[i],lp);
+  }
+  mSelectedOption=0;
+  radioButtons[mSelectedOption].setChecked(true);
+  rg.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,height));
+  rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
+    @Override public void onCheckedChanged(    RadioGroup group,    int checkedId){
+      int checked=group.getCheckedRadioButtonId();
+      for (int i=0; i < radioButtons.length; i++) {
+        if (group.getChildAt(i).getId() == checked) {
+          mSelectedOption=i;
+          break;
+        }
+      }
+    }
+  }
+);
+  rg.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,height));
+  return rg;
+}

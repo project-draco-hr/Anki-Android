@@ -15,14 +15,13 @@
       mEditorNote=new Note(mCol,model);
       mEditorNote.model().put("did",mCurrentDid);
       mModelButton.setText(getResources().getString(R.string.CardEditorModel,model.getString("name")));
-      if (mCurrentTags == null) {
-        mCurrentTags=new ArrayList<String>();
-      }
     }
  else {
       mEditorNote=note;
       mCurrentDid=mCurrentEditedCard.getDid();
-      mCurrentTags=mEditorNote.getTags();
+    }
+    if (mSelectedTags == null) {
+      mSelectedTags=mEditorNote.getTags();
     }
   }
  catch (  JSONException e) {
