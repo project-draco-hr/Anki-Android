@@ -40,7 +40,22 @@
     preferences.edit().putBoolean("fixArabicText",false);
   }
   initializeLanguageDialog();
-  initializeCustomFontsDialog();
+  Preference fontsPreference=(Preference)getPreferenceScreen().findPreference("font_preference_group");
+  fontsPreference.setOnPreferenceClickListener(new OnPreferenceClickListener(){
+    public boolean onPreferenceClick(    Preference preference){
+      initializeCustomFontsDialog();
+      return false;
+    }
+  }
+);
+  Preference dialogPreference=(Preference)getPreferenceScreen().findPreference("about_dialog_preference");
+  dialogPreference.setOnPreferenceClickListener(new OnPreferenceClickListener(){
+    public boolean onPreferenceClick(    Preference preference){
+      startActivity(new Intent(Preferences.this,Info.class));
+      return true;
+    }
+  }
+);
   if (mCol != null) {
     mStartDate=GregorianCalendar.getInstance();
     Timestamp timestamp=new Timestamp(mCol.getCrt() * 1000);

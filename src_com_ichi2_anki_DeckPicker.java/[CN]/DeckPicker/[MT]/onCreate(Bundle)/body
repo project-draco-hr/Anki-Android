@@ -1,7 +1,7 @@
 {
   Log.i(AnkiDroidApp.TAG,"DeckPicker - onCreate");
   Intent intent=getIntent();
-  if (!isTaskRoot()) {
+  if (!intent.getBooleanExtra("viaNavigationDrawer",false) && !isTaskRoot()) {
     Log.i(AnkiDroidApp.TAG,"DeckPicker - onCreate: Detected multiple instance of this activity, closing it and return to root activity");
     Intent reloadIntent=new Intent(DeckPicker.this,DeckPicker.class);
     reloadIntent.setAction(Intent.ACTION_MAIN);
@@ -41,7 +41,10 @@
   mDrawerList=(ListView)findViewById(R.id.deckpicker_left_drawer);
   initNavigationDrawer();
   if (savedInstanceState == null) {
-    selectNavigationItem(0);
+    selectNavigationItem(DRAWER_DECK_PICKER);
+  }
+  if (!intent.getBooleanExtra("viaNavigationDrawer",false) && !preferences.getBoolean("navDrawerHasBeenOpened",false)) {
+    mDrawerLayout.openDrawer(Gravity.LEFT);
   }
   mDeckList=new ArrayList<HashMap<String,String>>();
   mDeckListView=(ListView)findViewById(R.id.files);
@@ -105,7 +108,13 @@
   if (mFragmented) {
     mDeckListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
   }
-  showStartupScreensAndDialogs(preferences,0);
+  if (AnkiDroidApp.getCol() == null) {
+    showStartupScreensAndDialogs(preferences,0);
+  }
+ else {
+    Object[] counts=AnkiDroidApp.getCol().getSched().deckCounts();
+    updateDecksList((TreeSet<Object[]>)counts[0],(Integer)counts[1],(Integer)counts[2]);
+  }
   if (mSwipeEnabled) {
     gestureDetector=new GestureDetector(new MyGestureDetector());
     mDeckListView.setOnTouchListener(new View.OnTouchListener(){
