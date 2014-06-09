@@ -65,6 +65,10 @@ return true;
 case R.id.action_tutorial:
 createTutorialDeck();
 return true;
+case R.id.action_restore_backup:
+StyledDialog dialog2=(StyledDialog)onCreateDialog(this.DIALOG_CONFIRM_RESTORE_BACKUP);
+dialog2.show();
+return true;
 default :
 return super.onOptionsItemSelected(item);
 }
