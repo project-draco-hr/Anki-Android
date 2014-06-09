@@ -94,6 +94,7 @@
 );
   getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
   mSearchTerms="";
+  mFastBrowserOpen=preferences.getBoolean("cardBrowserNoSearchOnOpen",false);
   if (!mWholeCollection) {
     String currentDeckName;
     try {

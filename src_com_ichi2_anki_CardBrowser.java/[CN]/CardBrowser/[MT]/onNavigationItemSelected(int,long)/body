@@ -1,5 +1,5 @@
 {
-  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
+  DeckTask.cancelTask(DeckTask.TASK_TYPE_RENDER_BROWSER_QA);
   if (position == 0) {
     mRestrictOnDeck="";
   }
@@ -17,7 +17,7 @@
     mRestrictOnDeck="deck:'" + deckName + "' ";
     AnkiDroidApp.getCol().getDecks().select(deckId);
   }
-  if (preferences.getBoolean("cardBrowserNoSearchOnOpen",false)) {
+  if (mFastBrowserOpen) {
     mCards.clear();
     updateList();
   }
