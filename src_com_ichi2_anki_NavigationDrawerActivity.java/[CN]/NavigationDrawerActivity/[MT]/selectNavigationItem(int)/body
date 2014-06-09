@@ -2,9 +2,9 @@
 switch (position) {
 case DRAWER_DECK_PICKER:
     if (!(this instanceof DeckPicker)) {
-      setResult(0);
-      finishWithoutAnimation();
-      startActivityWithAnimation(new Intent(this,DeckPicker.class),ActivityTransitionAnimation.LEFT);
+      Intent deckPicker=new Intent(this,DeckPicker.class);
+      deckPicker.putExtra("viaNavigationDrawer",true);
+      startActivityWithAnimation(deckPicker,ActivityTransitionAnimation.LEFT);
     }
   break;
 case DRAWER_BROWSER:
@@ -22,6 +22,17 @@ DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_STATISTICS,mLoadStatisticsHandle
 }
 ,mFragmented);
 dialog.show();
+break;
+case DRAWER_SETTINGS:
+startActivityForResultWithAnimation(new Intent(this,Preferences.class),PREFERENCES_UPDATE,ActivityTransitionAnimation.LEFT);
+break;
+case DRAWER_HELP:
+Intent helpIntent=new Intent("android.intent.action.VIEW",Uri.parse(getResources().getString(R.string.link_faq)));
+startActivityWithoutAnimation(helpIntent);
+break;
+case DRAWER_FEEDBACK:
+Intent feedbackIntent=new Intent("android.intent.action.VIEW",Uri.parse(getResources().getString(R.string.link_help)));
+startActivityWithoutAnimation(feedbackIntent);
 break;
 default :
 break;

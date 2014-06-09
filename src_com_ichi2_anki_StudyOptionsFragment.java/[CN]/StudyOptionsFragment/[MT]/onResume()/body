@@ -4,6 +4,9 @@
     if (Utils.now() > AnkiDroidApp.getCol().getSched().getDayCutoff()) {
       updateValuesFromDeck(true);
     }
+ else {
+      updateValuesFromDeck();
+    }
   }
   showOrHideUnburyButton();
 }
