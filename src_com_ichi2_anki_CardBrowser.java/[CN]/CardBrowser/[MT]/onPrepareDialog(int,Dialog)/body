@@ -36,28 +36,5 @@ ad.changeListItem(CONTEXT_MENU_SUSPEND,res.getString(R.string.card_browser_suspe
 }
 ad.setTitle(card.get("sfld"));
 break;
-case DIALOG_TAGS:
-mSelectedTags.clear();
-ad.setMultiChoiceItems(allTags,new boolean[allTags.length],new DialogInterface.OnClickListener(){
-@Override public void onClick(DialogInterface dialog,int which){
-String tag=allTags[which];
-if (mSelectedTags.contains(tag)) {
-Log.d(AnkiDroidApp.TAG,"unchecked tag: " + tag);
-mSelectedTags.remove(tag);
-}
- else {
-Log.d(AnkiDroidApp.TAG,"checked tag: " + tag);
-mSelectedTags.add(tag);
-}
-}
-}
-,new OnCheckedChangeListener(){
-@Override public void onCheckedChanged(CompoundButton buttonView,boolean isChecked){
-mTagsDialog.setItemListChecked(isChecked);
-mSelectedTags=new HashSet<String>(mTagsDialog.getCheckedItems());
-}
-}
-);
-break;
 }
 }

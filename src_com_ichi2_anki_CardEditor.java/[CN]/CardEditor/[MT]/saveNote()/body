@@ -1,13 +1,16 @@
 {
+  if (mSelectedTags == null) {
+    mSelectedTags=new ArrayList<String>();
+  }
   if (mAddNote) {
     for (    FieldEditText f : mEditFields) {
       updateField(f);
     }
     try {
       mEditorNote.model().put("did",mCurrentDid);
-      mEditorNote.setTagsFromStr(tagsAsString(mCurrentTags));
+      mEditorNote.setTagsFromStr(tagsAsString(mSelectedTags));
       JSONArray ja=new JSONArray();
-      for (      String t : mCurrentTags) {
+      for (      String t : mSelectedTags) {
         ja.put(t);
       }
       mCol.getModels().current().put("tags",ja);
@@ -30,12 +33,12 @@
     for (    FieldEditText f : mEditFields) {
       modified=modified | updateField(f);
     }
-    for (    String t : mCurrentTags) {
+    for (    String t : mSelectedTags) {
       modified=modified || !mEditorNote.hasTag(t);
     }
-    modified=modified || mEditorNote.getTags().size() > mCurrentTags.size();
+    modified=modified || mEditorNote.getTags().size() > mSelectedTags.size();
     if (modified) {
-      mEditorNote.setTagsFromStr(tagsAsString(mCurrentTags));
+      mEditorNote.setTagsFromStr(tagsAsString(mSelectedTags));
       mChanged=true;
     }
     closeCardEditor();

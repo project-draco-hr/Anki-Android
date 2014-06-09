@@ -1,0 +1,57 @@
+{
+  View customView=null;
+  boolean showFilterTags=false;
+switch (mType) {
+case TYPE_ADD_TAG:
+    customView=addDialogContent();
+  break;
+case TYPE_FILTER_BY_TAG:
+customView=filterByTagContent();
+showFilterTags=true;
+break;
+case TYPE_CUSTOM_STUDY_TAGS:
+customView=filterByTagContent();
+showFilterTags=true;
+break;
+default :
+break;
+}
+Resources res=getResources();
+StyledDialog.Builder builder=new StyledDialog.Builder(getActivity());
+builder.setTitle(mTitle);
+builder.setPositiveButton(res.getString(R.string.select),new DialogInterface.OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+mCurrentTags.addAll(mStyledDialog.getCheckedItems());
+if (mPositiveButtonListener != null) {
+mPositiveButtonListener.onClick(dialog,which);
+}
+mTagsDialogListener.onPositive(new ArrayList<String>(mCurrentTags),mSelectedOption);
+}
+}
+);
+builder.setNegativeButton(res.getString(R.string.cancel),mNegativeButtonListener);
+builder.setOnCancelListener(mOnCancelListener);
+builder.setOnDismissListener(new DialogInterface.OnDismissListener(){
+@Override public void onDismiss(DialogInterface dialog){
+mCurrentTags.clear();
+mStyledDialog.updateCheckedItems();
+if (mOnDismissListener != null) {
+mOnDismissListener.onDismiss(mStyledDialog);
+}
+}
+}
+);
+builder.setSelectAllListener(new CompoundButton.OnCheckedChangeListener(){
+@Override public void onCheckedChanged(CompoundButton buttonView,boolean isChecked){
+mStyledDialog.setItemListChecked(isChecked);
+mCurrentTags.clear();
+mCurrentTags.addAll(mStyledDialog.getCheckedItems());
+}
+}
+);
+if (customView != null) {
+builder.setView(customView,false,true);
+}
+builder.setShowFilterTags(showFilterTags);
+return builder;
+}

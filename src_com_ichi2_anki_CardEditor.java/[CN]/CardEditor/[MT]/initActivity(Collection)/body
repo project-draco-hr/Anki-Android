@@ -140,7 +140,7 @@ mSave.setEnabled(false);
 }
 ((LinearLayout)findViewById(R.id.CardEditorTagButton)).setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
-showDialog(DIALOG_TAGS_SELECT);
+showDialogFragment(DIALOG_TAGS_SELECT);
 }
 }
 );

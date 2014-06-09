@@ -1,0 +1,8 @@
+{
+  if (mStyledDialog == null) {
+    mStyledDialog=createBuilder().create();
+    mStyledDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+    actualizeCurrTagDialog();
+  }
+  return mStyledDialog;
+}
