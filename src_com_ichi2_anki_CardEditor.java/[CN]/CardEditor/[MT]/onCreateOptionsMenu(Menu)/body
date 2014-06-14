@@ -17,8 +17,8 @@
     }
   }
   if (mCaller != CALLER_CARDEDITOR_INTENT_ADD) {
-    mIntentInformation=MetaDB.getIntentInformation(this);
-    menu.findItem(R.id.action_saved_notes).setEnabled(mIntentInformation.size() > 0);
+    updateIntentInformation();
+    menu.findItem(R.id.action_saved_notes).setEnabled(!mIntentInformation.isEmpty());
   }
   return super.onCreateOptionsMenu(menu);
 }
