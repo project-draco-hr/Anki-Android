@@ -17,7 +17,8 @@
     }
   }
   if (found) {
-    return rep.toString();
+    m.appendTail(rep);
+    return rep.toString().replaceAll(String.format(Locale.US,clozeReg,".*?"),"$1");
   }
  else {
     return "";
