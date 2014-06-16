@@ -1,0 +1,8 @@
+{
+  if (sLatestInstance != null && sLatestInstance.mType == taskType) {
+    return taskIsCancelled();
+  }
+ else {
+    return false;
+  }
+}

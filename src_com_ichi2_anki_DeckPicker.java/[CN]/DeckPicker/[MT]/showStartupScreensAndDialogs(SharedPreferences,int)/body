@@ -77,6 +77,8 @@
         }
         @Override public void onProgressUpdate(        DeckTask task,        TaskData... values){
         }
+        @Override public void onCancelled(){
+        }
       }
 ,new DeckTask.TaskData(AnkiDroidApp.getCollectionPath()));
     }
