@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"CardBrowser - onActivityResult()");
   super.onActivityResult(requestCode,resultCode,data);
   if (resultCode == DeckPicker.RESULT_DB_ERROR) {
     closeCardBrowser(DeckPicker.RESULT_DB_ERROR);

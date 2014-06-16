@@ -15,6 +15,10 @@
   try {
     cur=mCol.getDb().getDatabase().rawQuery(sql,args);
     while (cur.moveToNext()) {
+      if (DeckTask.taskIsCancelled(DeckTask.TASK_TYPE_SEARCH_CARDS) || CardBrowser.sSearchCancelled) {
+        Log.i(AnkiDroidApp.TAG,"_findCardsForCardBrowser() cancelled...");
+        return null;
+      }
       HashMap<String,String> map=new HashMap<String,String>();
       map.put("id",cur.getString(0));
       map.put("sfld",cur.getString(1));

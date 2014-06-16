@@ -171,6 +171,8 @@ Log.e(AnkiDroidApp.TAG,"onPostExecute - Dialog dismiss Exception = " + e.getMess
 }
 @Override public void onProgressUpdate(TaskData... values){
 }
+@Override public void onCancelled(){
+}
 }
 ,new TaskData(AnkiDroidApp.getCol(),mCurrentDid));
 }

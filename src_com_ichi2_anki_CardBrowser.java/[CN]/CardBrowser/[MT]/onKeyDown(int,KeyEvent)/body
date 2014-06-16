@@ -1,13 +1,7 @@
 {
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
     Log.i(AnkiDroidApp.TAG,"CardBrowser - onBackPressed()");
-    if (mSearchView.getQuery().toString().length() == 0) {
-      closeCardBrowser(Activity.RESULT_OK);
-    }
- else {
-      mSearchView.setQuery("",false);
-      mSearchView.setQueryHint(getResources().getString(R.string.downloaddeck_search));
-    }
+    closeCardBrowser(Activity.RESULT_OK);
     return true;
   }
   return super.onKeyDown(keyCode,event);

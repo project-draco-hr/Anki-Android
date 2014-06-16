@@ -17,12 +17,6 @@
     mRestrictOnDeck="deck:'" + deckName + "' ";
     AnkiDroidApp.getCol().getDecks().select(deckId);
   }
-  if (mFastBrowserOpen) {
-    mCards.clear();
-    updateList();
-  }
- else {
-    searchCards();
-  }
+  searchCards();
   return true;
 }
