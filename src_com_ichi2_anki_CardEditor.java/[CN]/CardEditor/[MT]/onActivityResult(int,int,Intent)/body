@@ -11,19 +11,11 @@ case REQUEST_INTENT_ADD:
     if (resultCode != RESULT_CANCELED) {
       mChanged=true;
       String id=data.getStringExtra(EXTRA_ID);
-      if (id != null) {
-        for (int i=0; i < mIntentInformation.size(); i++) {
-          if (mIntentInformation.get(i).get("id").endsWith(id)) {
-            if (MetaDB.removeIntentInformation(CardEditor.this,id)) {
-              mIntentInformation.remove(i);
-              mIntentInformationAdapter.notifyDataSetChanged();
-            }
-            break;
-          }
-        }
+      if (id != null && MetaDB.removeIntentInformation(CardEditor.this,id)) {
+        updateIntentInformation();
       }
     }
-  if (mIntentInformation.size() > 0) {
+  if (!mIntentInformation.isEmpty()) {
     showDialog(DIALOG_INTENT_INFORMATION);
   }
 break;

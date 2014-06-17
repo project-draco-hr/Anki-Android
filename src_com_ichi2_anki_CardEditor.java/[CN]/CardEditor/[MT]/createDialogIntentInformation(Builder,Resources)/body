@@ -7,7 +7,7 @@
     @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
       Intent intent=new Intent(CardEditor.this,CardEditor.class);
       intent.putExtra(EXTRA_CALLER,CALLER_CARDEDITOR_INTENT_ADD);
-      HashMap<String,String> map=mIntentInformation.get(position);
+      Map<String,String> map=mIntentInformation.get(position);
       intent.putExtra(EXTRA_CONTENTS,map.get("fields"));
       intent.putExtra(EXTRA_ID,map.get("id"));
       startActivityForResult(intent,REQUEST_INTENT_ADD);
@@ -36,12 +36,11 @@
   builder.setPositiveButton(res.getString(R.string.intent_add_clear_all),new OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int arg1){
       MetaDB.resetIntentInformation(CardEditor.this);
-      mIntentInformation.clear();
+      updateIntentInformation();
       dialog.dismiss();
     }
   }
 );
-  StyledDialog dialog=builder.create();
-  mIntentInformationDialog=dialog;
-  return dialog;
+  mIntentInformationDialog=builder.create();
+  return mIntentInformationDialog;
 }
