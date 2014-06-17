@@ -7,11 +7,10 @@
   mPrefMan=getPreferenceManager();
   mPrefMan.setSharedPreferencesName(AnkiDroidApp.SHARED_PREFS_NAME);
   addPreferencesFromResource(R.xml.preferences);
-  swipeCheckboxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("gestures");
+  collectionPathPreference=(EditTextPreference)getPreferenceScreen().findPreference("deckPath");
   keepScreenOnCheckBoxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("keepScreenOn");
   showAnswerCheckBoxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("timeoutAnswer");
   useBackupPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("useBackup");
-  safeDisplayPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("safeDisplay");
   convertFenText=(CheckBoxPreference)getPreferenceScreen().findPreference("convertFenText");
   syncAccount=(Preference)getPreferenceScreen().findPreference("syncAccount");
   showEstimates=(CheckBoxPreference)getPreferenceScreen().findPreference("showEstimates");
@@ -56,6 +55,7 @@
     }
   }
 );
+  dialogPreference.setSummary(getResources().getString(R.string.about_version) + " " + AnkiDroidApp.getPkgVersionName());
   if (mCol != null) {
     mStartDate=GregorianCalendar.getInstance();
     Timestamp timestamp=new Timestamp(mCol.getCrt() * 1000);
