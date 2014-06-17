@@ -1,4 +1,7 @@
 {
   super.onPostCreate(savedInstanceState);
+  if (mDrawerToggle == null) {
+    initNavigationDrawer();
+  }
   mDrawerToggle.syncState();
 }
