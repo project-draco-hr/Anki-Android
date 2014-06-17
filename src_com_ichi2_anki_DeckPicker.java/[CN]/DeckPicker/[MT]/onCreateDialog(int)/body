@@ -182,9 +182,10 @@ builder.setNegativeButton(res.getString(R.string.dialog_cancel),null);
 dialog=builder.create();
 break;
 case DIALOG_CONTEXT_MENU:
-String[] entries=new String[3];
+String[] entries=new String[4];
 entries[CONTEXT_MENU_COLLAPSE_DECK]=res.getString(R.string.contextmenu_deckpicker_collapse_deck);
 entries[CONTEXT_MENU_RENAME_DECK]=res.getString(R.string.contextmenu_deckpicker_rename_deck);
+entries[CONTEXT_MENU_DECK_OPTIONS]=res.getString(R.string.study_options);
 entries[CONTEXT_MENU_DELETE_DECK]=res.getString(R.string.contextmenu_deckpicker_delete_deck);
 builder.setTitle("Context Menu");
 builder.setIcon(R.drawable.ic_menu_manage);
