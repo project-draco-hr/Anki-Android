@@ -395,7 +395,17 @@ builder.setTitle(res.getString(R.string.backup_restore_select_title));
 builder.setIcon(android.R.drawable.ic_input_get);
 builder.setSingleChoiceItems(dates,dates.length,new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
+if (mBackups[which].length() > 0) {
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_RESTORE_DECK,mRestoreDeckHandler,new DeckTask.TaskData(new Object[]{AnkiDroidApp.getCol(),AnkiDroidApp.getCollectionPath(),mBackups[which].getPath()}));
+}
+ else {
+Dialog invalidFileDialog=new AlertDialog.Builder(DeckPicker.this).setTitle(R.string.backup_error).setMessage(R.string.backup_invalid_file_error).setPositiveButton(android.R.string.ok,new DialogInterface.OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+}
+}
+).create();
+invalidFileDialog.show();
+}
 }
 }
 );
