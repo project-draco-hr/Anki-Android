@@ -4,6 +4,10 @@
   View mainView=getLayoutInflater().inflate(R.layout.card_browser,null);
   setContentView(mainView);
   Themes.setContentStyle(mainView,Themes.CALLER_CARDBROWSER);
+  mDrawerLayout=(DrawerLayout)findViewById(R.id.browser_drawer_layout);
+  mDrawerList=(ListView)findViewById(R.id.browser_left_drawer);
+  initNavigationDrawer();
+  selectNavigationItem(DRAWER_BROWSER);
   mCol=AnkiDroidApp.getCol();
   if (mCol == null) {
     reloadCollection();
