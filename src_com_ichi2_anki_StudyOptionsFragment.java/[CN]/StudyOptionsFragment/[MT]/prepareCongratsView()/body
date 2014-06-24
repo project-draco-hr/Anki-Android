@@ -1,24 +1,7 @@
 {
   mCurrentContentView=CONTENT_CONGRATS;
-  if (!AnkiDroidApp.colIsOpen() || !AnkiDroidApp.getCol().undoAvailable()) {
-    mButtonCongratsUndo.setEnabled(false);
-    mButtonCongratsUndo.setVisibility(View.GONE);
-  }
- else {
-    Resources res=AnkiDroidApp.getAppResources();
-    mButtonCongratsUndo.setText(res.getString(R.string.studyoptions_congrats_undo,AnkiDroidApp.getCol().undoName(res)));
-  }
-  if (AnkiDroidApp.colIsOpen() && !AnkiDroidApp.getCol().getSched().haveBuried()) {
-    mButtonCongratsUnbury.setVisibility(View.GONE);
-  }
+  mDeckInfoLayout.setVisibility(View.GONE);
+  mCongratsLayout.setVisibility(View.VISIBLE);
   mTextCongratsMessage.setText(AnkiDroidApp.getCol().getSched().finishedMsg(getActivity()));
-  try {
-    if (AnkiDroidApp.getCol().getDecks().current().getInt("dyn") == 1) {
-      mButtonCongratsCustomStudy.setEnabled(false);
-      mButtonCongratsCustomStudy.setVisibility(View.GONE);
-    }
-  }
- catch (  JSONException e) {
-    throw new RuntimeException();
-  }
+  mButtonStart.setVisibility(View.GONE);
 }

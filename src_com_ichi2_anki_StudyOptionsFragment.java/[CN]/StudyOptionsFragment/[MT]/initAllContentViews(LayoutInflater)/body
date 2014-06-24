@@ -1,12 +1,15 @@
 {
   mStudyOptionsView=inflater.inflate(R.layout.studyoptions_fragment,null);
   Themes.setContentStyle(mStudyOptionsView,Themes.CALLER_STUDYOPTIONS);
+  mDeckInfoLayout=mStudyOptionsView.findViewById(R.id.studyoptions_deckinformation);
   mTextDeckName=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_name);
   mTextDeckDescription=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_description);
   mButtonStart=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_start);
   mButtonCustomStudy=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_custom);
   mDeckOptions=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_options);
   mCramOptions=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_options_cram);
+  mCongratsLayout=mStudyOptionsView.findViewById(R.id.studyoptions_congrats_layout);
+  mTextCongratsMessage=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_congrats_message);
   if (AnkiDroidApp.colIsOpen() && AnkiDroidApp.getCol().getDecks().isDyn(AnkiDroidApp.getCol().getDecks().selected())) {
     Button rebBut=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_rebuild_cram);
     rebBut.setOnClickListener(mButtonClickListener);
@@ -31,23 +34,8 @@
   mButtonCustomStudy.setOnClickListener(mButtonClickListener);
   mDeckOptions.setOnClickListener(mButtonClickListener);
   mCramOptions.setOnClickListener(mButtonClickListener);
-  mCongratsView=inflater.inflate(R.layout.studyoptions_congrats,null);
   mCustomStudyDetailsView=inflater.inflate(R.layout.styled_custom_study_details_dialog,null);
   mCustomStudyTextView1=(TextView)mCustomStudyDetailsView.findViewById(R.id.custom_study_details_text1);
   mCustomStudyTextView2=(TextView)mCustomStudyDetailsView.findViewById(R.id.custom_study_details_text2);
   mCustomStudyEditText=(EditText)mCustomStudyDetailsView.findViewById(R.id.custom_study_details_edittext2);
-  Themes.setWallpaper(mCongratsView);
-  mTextCongratsMessage=(TextView)mCongratsView.findViewById(R.id.studyoptions_congrats_message);
-  Themes.setTextViewStyle(mTextCongratsMessage);
-  mButtonCongratsUndo=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_undo);
-  mButtonCongratsUnbury=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_unbury);
-  mButtonCongratsCustomStudy=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_customstudy);
-  mButtonCongratsOpenOtherDeck=(Button)mCongratsView.findViewById(R.id.studyoptions_congrats_open_other_deck);
-  if (mFragmented) {
-    mButtonCongratsOpenOtherDeck.setVisibility(View.GONE);
-  }
-  mButtonCongratsUndo.setOnClickListener(mButtonClickListener);
-  mButtonCongratsUnbury.setOnClickListener(mButtonClickListener);
-  mButtonCongratsCustomStudy.setOnClickListener(mButtonClickListener);
-  mButtonCongratsOpenOtherDeck.setOnClickListener(mButtonClickListener);
 }
