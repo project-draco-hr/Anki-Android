@@ -2,10 +2,6 @@
   Matcher m=sTypeAnsPat.matcher(buf);
   DiffEngine diffEngine=new DiffEngine();
   StringBuilder sb=new StringBuilder();
-  userAnswer=Utils.stripHTMLMedia(userAnswer).trim();
-  correctAnswer=Utils.stripHTMLMedia(correctAnswer).trim();
-  userAnswer=AnkiDroidApp.getCompat().nfcNormalized(userAnswer);
-  correctAnswer=AnkiDroidApp.getCompat().nfcNormalized(correctAnswer);
   sb.append("<div");
   if (!mPrefWriteAnswers) {
     sb.append(" class=\"typeOff\"");
