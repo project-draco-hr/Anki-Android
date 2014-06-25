@@ -1,15 +1,23 @@
 {
 switch (item.getItemId()) {
+case R.id.action_undo:
+    if (AnkiDroidApp.colIsOpen()) {
+      AnkiDroidApp.getCol().undo();
+      resetAndUpdateValuesFromDeck();
+      finishCongrats();
+      getActivity().supportInvalidateOptionsMenu();
+    }
+  return true;
 case R.id.action_night_mode:
-    SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getActivity());
-  if (preferences.getBoolean("invertedColors",false)) {
-    preferences.edit().putBoolean("invertedColors",false).commit();
-    item.setIcon(R.drawable.ic_menu_night);
-  }
+SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getActivity());
+if (preferences.getBoolean("invertedColors",false)) {
+preferences.edit().putBoolean("invertedColors",false).commit();
+item.setIcon(R.drawable.ic_menu_night);
+}
  else {
-    preferences.edit().putBoolean("invertedColors",true).commit();
-    item.setIcon(R.drawable.ic_menu_night_checked);
-  }
+preferences.edit().putBoolean("invertedColors",true).commit();
+item.setIcon(R.drawable.ic_menu_night_checked);
+}
 return true;
 case R.id.action_add_note_from_study_options:
 addNote();

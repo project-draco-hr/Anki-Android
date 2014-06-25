@@ -15,9 +15,6 @@
   CharSequence eta=mTextETA.getText();
   super.onConfigurationChanged(newConfig);
   mDontSaveOnStop=false;
-  if (mCurrentContentView == CONTENT_CONGRATS) {
-    setFragmentContentView(mCongratsView);
-  }
   mTextDeckName.setText(title);
   mTextDeckName.setVisibility(View.VISIBLE);
   mTextDeckDescription.setText(desc);

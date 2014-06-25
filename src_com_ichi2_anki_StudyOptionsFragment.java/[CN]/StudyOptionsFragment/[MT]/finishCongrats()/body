@@ -1,10 +1,6 @@
 {
   mCurrentContentView=CONTENT_STUDY_OPTIONS;
-  mStudyOptionsView.setVisibility(View.INVISIBLE);
-  mCongratsView.setVisibility(View.INVISIBLE);
-  mCongratsView.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_OUT,500,0));
-  setFragmentContentView(mStudyOptionsView);
-  mStudyOptionsView.setVisibility(View.VISIBLE);
-  mStudyOptionsView.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_IN,500,0));
-  mCongratsView.setVisibility(View.VISIBLE);
+  mDeckInfoLayout.setVisibility(View.VISIBLE);
+  mCongratsLayout.setVisibility(View.GONE);
+  mButtonStart.setVisibility(View.VISIBLE);
 }
