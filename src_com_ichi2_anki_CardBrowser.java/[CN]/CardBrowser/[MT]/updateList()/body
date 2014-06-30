@@ -1,3 +1,6 @@
 {
   mCardsAdapter.notifyDataSetChanged();
+  int count=mCards.size();
+  mDropDownAdapter.setCounts(count,mTotalCount);
+  mDropDownAdapter.notifyDataSetChanged();
 }
