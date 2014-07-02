@@ -1,0 +1,6 @@
+{
+  if (txt == null) {
+    return "";
+  }
+  return txt.replace("&","&amp;").replace("<","&lt;").replace(">","&gt;").replace("\"","&quot;").replace("'","&#39;");
+}
