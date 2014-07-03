@@ -2,9 +2,7 @@
   mInBackground=false;
   super.onResume();
   restartTimer();
-  for (int i=0; i < mDrawerList.getCount(); i++) {
-    mDrawerList.setItemChecked(i,false);
+  if (!mReloadingCollection) {
+    deselectAllNavigationItems();
   }
-  setTitle();
-  updateScreenCounts();
 }

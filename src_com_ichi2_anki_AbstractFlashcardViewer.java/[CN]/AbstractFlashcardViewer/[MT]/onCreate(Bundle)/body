@@ -11,6 +11,7 @@
   setVolumeControlStream(AudioManager.STREAM_MUSIC);
   Collection col=AnkiDroidApp.getCol();
   if (col == null) {
+    mReloadingCollection=true;
     reloadCollection();
     return;
   }
