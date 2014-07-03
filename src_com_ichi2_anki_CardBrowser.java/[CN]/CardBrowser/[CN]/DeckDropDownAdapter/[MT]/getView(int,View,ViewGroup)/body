@@ -1,12 +1,20 @@
 {
+  DeckDropDownViewHolder viewHolder;
   TextView deckNameView;
+  TextView deckCountsView;
   if (convertView == null) {
-    convertView=LayoutInflater.from(context).inflate(R.layout.dropdown_deck_item,parent,false);
+    convertView=LayoutInflater.from(context).inflate(R.layout.dropdown_deck_selected_item,parent,false);
     deckNameView=(TextView)convertView.findViewById(R.id.dropdown_deck_name);
-    convertView.setTag(deckNameView);
+    deckCountsView=(TextView)convertView.findViewById(R.id.dropdown_deck_counts);
+    viewHolder=new DeckDropDownViewHolder();
+    viewHolder.deckNameView=deckNameView;
+    viewHolder.deckCountsView=deckCountsView;
+    convertView.setTag(viewHolder);
   }
  else {
-    deckNameView=(TextView)convertView.getTag();
+    viewHolder=(DeckDropDownViewHolder)convertView.getTag();
+    deckNameView=(TextView)viewHolder.deckNameView;
+    deckCountsView=(TextView)viewHolder.deckCountsView;
   }
   if (position == 0) {
     deckNameView.setText(context.getResources().getString(R.string.deck_summary_all_decks));
@@ -21,5 +29,6 @@
       new RuntimeException();
     }
   }
+  deckCountsView.setText(getResources().getQuantityString(R.plurals.card_browser_subtitle,count,count,totalCount));
   return convertView;
 }
