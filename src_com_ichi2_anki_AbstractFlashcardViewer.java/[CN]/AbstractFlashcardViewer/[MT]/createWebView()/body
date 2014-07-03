@@ -11,7 +11,6 @@
   webView.getSettings().setSupportZoom(true);
   webView.getSettings().setJavaScriptEnabled(true);
   webView.setWebChromeClient(new AnkiDroidWebChromeClient());
-  webView.addJavascriptInterface(new JavaScriptInterface(this),"ankidroid");
   if (AnkiDroidApp.SDK_VERSION > 7) {
     webView.setFocusableInTouchMode(false);
   }
@@ -19,5 +18,18 @@
     AnkiDroidApp.getCompat().setScrollbarFadingEnabled(webView,false);
   }
   Log.i(AnkiDroidApp.TAG,"Focusable = " + webView.isFocusable() + ", Focusable in touch mode = "+ webView.isFocusableInTouchMode());
+  webView.setWebViewClient(new WebViewClient(){
+    @Override public boolean shouldOverrideUrlLoading(    WebView view,    String url){
+      if (url.startsWith("playsound:")) {
+        Message msg=Message.obtain();
+        String soundPath=url.replaceFirst("playsound:","");
+        msg.obj=soundPath;
+        sHandler.sendMessage(msg);
+        return true;
+      }
+      return false;
+    }
+  }
+);
   return webView;
 }
