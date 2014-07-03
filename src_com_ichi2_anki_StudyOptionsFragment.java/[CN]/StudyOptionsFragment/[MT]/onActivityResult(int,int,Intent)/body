@@ -1,6 +1,7 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
   Log.i(AnkiDroidApp.TAG,"StudyOptionsFragment: onActivityResult");
+  getActivity().supportInvalidateOptionsMenu();
   if (resultCode == DeckPicker.RESULT_DB_ERROR) {
     closeStudyOptions(DeckPicker.RESULT_DB_ERROR);
   }
@@ -32,7 +33,14 @@
         rebuildCramDeck();
       }
  else {
+        DeckTask.waitToFinish();
         resetAndUpdateValuesFromDeck();
+      }
+      if (noDeckCounts()) {
+        prepareCongratsView();
+      }
+ else {
+        finishCongrats();
       }
     }
  else     if (requestCode == ADD_NOTE && resultCode != Activity.RESULT_CANCELED) {
@@ -46,8 +54,7 @@ default :
       break;
 case Reviewer.RESULT_NO_MORE_CARDS:
     prepareCongratsView();
-  setFragmentContentView(mCongratsView);
-break;
+  break;
 }
 mDontSaveOnStop=false;
 }

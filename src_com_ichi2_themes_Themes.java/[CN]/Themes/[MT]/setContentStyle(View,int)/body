@@ -4,7 +4,7 @@ switch (caller) {
 case CALLER_STUDYOPTIONS:
     if (mCurrentTheme == THEME_WHITE) {
       setMargins(view.findViewById(R.id.studyoptions_deck_name),LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT,0,6f,0,2f);
-      ((View)view.findViewById(R.id.studyoptions_deckinformation)).setBackgroundResource(R.drawable.white_textview);
+      ((View)view.findViewById(R.id.studyoptions_scrollcontainer)).setBackgroundResource(R.drawable.white_textview);
       ((View)view.findViewById(R.id.studyoptions_deck_name)).setVisibility(View.VISIBLE);
       ((View)view.findViewById(R.id.studyoptions_main)).setBackgroundResource(R.drawable.white_wallpaper);
     }

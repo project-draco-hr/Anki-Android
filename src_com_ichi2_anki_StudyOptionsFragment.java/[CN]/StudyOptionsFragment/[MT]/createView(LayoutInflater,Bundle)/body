@@ -19,7 +19,6 @@
   }
   if (getArguments().getBoolean("onlyFnsMsg")) {
     prepareCongratsView();
-    return mCongratsView;
   }
  else {
     AnkiDroidApp.getCol().clearUndo();
@@ -27,5 +26,11 @@
   mCramInitialConfig=getArguments().getBundle("cramInitialConfig");
   resetAndUpdateValuesFromDeck();
   setHasOptionsMenu(true);
+  if (noDeckCounts()) {
+    prepareCongratsView();
+  }
+ else {
+    finishCongrats();
+  }
   return mStudyOptionsView;
 }

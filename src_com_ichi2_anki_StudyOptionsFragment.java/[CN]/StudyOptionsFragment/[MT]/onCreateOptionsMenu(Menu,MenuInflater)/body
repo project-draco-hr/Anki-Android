@@ -7,5 +7,13 @@
  else {
     menu.findItem(R.id.action_night_mode).setIcon(R.drawable.ic_menu_night);
   }
+  if (!AnkiDroidApp.colIsOpen() || !AnkiDroidApp.getCol().undoAvailable()) {
+    menu.findItem(R.id.action_undo).setVisible(false);
+  }
+ else {
+    menu.findItem(R.id.action_undo).setVisible(true);
+    Resources res=AnkiDroidApp.getAppResources();
+    menu.findItem(R.id.action_undo).setTitle(res.getString(R.string.studyoptions_congrats_undo,AnkiDroidApp.getCol().undoName(res)));
+  }
   super.onCreateOptionsMenu(menu,inflater);
 }
