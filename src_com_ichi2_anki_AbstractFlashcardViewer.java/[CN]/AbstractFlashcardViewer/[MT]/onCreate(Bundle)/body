@@ -4,6 +4,7 @@
   super.onCreate(savedInstanceState);
   Log.i(AnkiDroidApp.TAG,"AbstractReviewer - onCreate");
   mChangeBorderStyle=Themes.getTheme() == Themes.THEME_ANDROID_LIGHT || Themes.getTheme() == Themes.THEME_ANDROID_DARK;
+  setContentView(R.layout.flashcard);
   mDrawerLayout=(DrawerLayout)findViewById(R.id.reviewer_drawer_layout);
   mDrawerList=(ListView)findViewById(R.id.reviewer_left_drawer);
   initNavigationDrawer();

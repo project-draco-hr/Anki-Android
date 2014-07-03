@@ -14,7 +14,7 @@
     mCurrentBackgroundColor=Color.WHITE;
   }
   mUseQuickUpdate=shouldUseQuickUpdate();
-  initLayout(R.layout.flashcard);
+  initLayout();
   setTitle();
   if (!mDisableClipboard) {
     clipboardSetText("");
