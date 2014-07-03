@@ -1,8 +1,3 @@
 {
-  mMod=Utils.intNow();
-  mUsn=mCol.usn();
-  if ((mQueue == 2 && mODue != 0) && !mCol.getDecks().isDyn(mDid)) {
-  }
-  assert(mDue < Long.valueOf("4294967296"));
-  mCol.getDb().execute("insert or replace into cards values " + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",new Object[]{mId,mNid,mDid,mOrd,mMod,mUsn,mType,mQueue,mDue,mIvl,mFactor,mReps,mLapses,mLeft,mODue,mODid,mFlags,mData});
+  flush(true);
 }
