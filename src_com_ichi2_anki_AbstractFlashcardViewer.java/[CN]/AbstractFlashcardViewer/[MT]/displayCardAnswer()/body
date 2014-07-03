@@ -29,9 +29,10 @@
     if (mPrefFixArabic) {
       mTypeCorrect=ArabicUtilities.reshapeSentence(mTypeCorrect,true);
     }
-    String userAnswer=getAnswerText(mAnswerField.getText().toString());
-    String correctAnswer=getAnswerText(mTypeCorrect);
+    String userAnswer=cleanTypedAnswer(mAnswerField.getText().toString());
+    String correctAnswer=cleanCorrectAnswer(mTypeCorrect);
     Log.i(AnkiDroidApp.TAG,"correct answer = " + correctAnswer);
+    Log.i(AnkiDroidApp.TAG,"user answer = " + userAnswer);
     answer=typeAnsAnswerFilter(answer,userAnswer,correctAnswer);
     displayString=enrichWithQADiv(answer,true);
   }

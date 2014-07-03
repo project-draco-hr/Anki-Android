@@ -1,0 +1,6 @@
+{
+  if (answer == null || answer.equals("")) {
+    return "";
+  }
+  return AnkiDroidApp.getCompat().nfcNormalized(answer.trim());
+}
