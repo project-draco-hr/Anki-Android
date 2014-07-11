@@ -1,0 +1,11 @@
+{
+  Rectangle field=new Rectangle(pixelResolution,pixelResolution);
+  double[] drawingPoint=plotSheet.toCoordinatePoint(field.x,0,field);
+  double max=Double.NEGATIVE_INFINITY;
+  for (int i=0; i < pixelResolution; i++) {
+    drawingPoint=plotSheet.toCoordinatePoint(i,0,field);
+    double f_x=function.f(drawingPoint[0]);
+    if (f_x > max)     max=f_x;
+  }
+  return max;
+}

@@ -1,0 +1,80 @@
+{
+  mTitle=R.string.stats_breakdown;
+  mAxisTitles=new int[]{R.string.stats_time_of_day,R.string.stats_percentage_correct,R.string.stats_reviews};
+  mValueLabels=new int[]{R.string.stats_percentage_correct,R.string.stats_answers};
+  mColors=new int[]{R.color.stats_counts,R.color.stats_hours};
+  mType=type;
+  String lim=_revlogLimit().replaceAll("[\\[\\]]","");
+  if (lim.length() > 0) {
+    lim=" and " + lim;
+  }
+  Calendar sd=GregorianCalendar.getInstance();
+  sd.setTimeInMillis(mCol.getCrt() * 1000);
+  int pd=_periodDays();
+  if (pd > 0) {
+    lim+=" and id > " + ((mCol.getSched().getDayCutoff() - (86400 * pd)) * 1000);
+  }
+  long cutoff=mCol.getSched().getDayCutoff();
+  long cut=cutoff - sd.get(Calendar.HOUR_OF_DAY) * 3600;
+  ArrayList<double[]> list=new ArrayList<double[]>();
+  Cursor cur=null;
+  String query="select " + "23 - ((cast((" + cut + " - id/1000) / 3600.0 as int)) % 24) as hour, "+ "sum(case when ease = 1 then 0 else 1 end) / "+ "cast(count() as float) * 100, "+ "count() "+ "from revlog where type in (0,1,2) "+ lim+ " "+ "group by hour having count() > 30 order by hour";
+  Log.d(AnkiDroidApp.TAG,sd.get(Calendar.HOUR_OF_DAY) + " : " + cutoff+ " breakdown query: "+ query);
+  try {
+    cur=mCol.getDb().getDatabase().rawQuery(query,null);
+    while (cur.moveToNext()) {
+      list.add(new double[]{cur.getDouble(0),cur.getDouble(1),cur.getDouble(2)});
+    }
+  }
+  finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+  for (int i=0; i < list.size(); i++) {
+    double[] data=list.get(i);
+    int intHour=(int)data[0];
+    int hour=(intHour - 4) % 24;
+    if (hour < 0)     hour+=24;
+    data[0]=hour;
+    list.set(i,data);
+  }
+  Collections.sort(list,new Comparator<double[]>(){
+    @Override public int compare(    double[] s1,    double[] s2){
+      if (s1[0] < s2[0])       return -1;
+      if (s1[0] > s2[0])       return 1;
+      return 0;
+    }
+  }
+);
+  mSeriesList=new double[4][list.size()];
+  mPeak=0.0;
+  mMcount=0.0;
+  double minHour=Double.MAX_VALUE;
+  double maxHour=0;
+  for (int i=0; i < list.size(); i++) {
+    double[] data=list.get(i);
+    int hour=(int)data[0];
+    if (hour < minHour)     minHour=hour;
+    if (hour > maxHour)     maxHour=hour;
+    double pct=data[1];
+    if (pct > mPeak)     mPeak=pct;
+    mSeriesList[0][i]=hour;
+    mSeriesList[1][i]=pct;
+    mSeriesList[2][i]=data[2];
+    if (i == 0) {
+      mSeriesList[3][i]=pct;
+    }
+ else {
+      double prev=mSeriesList[3][i - 1];
+      double diff=pct - prev;
+      diff/=3.0;
+      diff=Math.round(diff * 10.0) / 10.0;
+      mSeriesList[3][i]=prev + diff;
+    }
+    if (data[2] > mMcount)     mMcount=data[2];
+    if (mSeriesList[1][i] > mMaxCards)     mMaxCards=(int)mSeriesList[1][i];
+  }
+  mMaxElements=(int)(maxHour - minHour);
+  return list.size() > 0;
+}

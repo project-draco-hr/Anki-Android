@@ -1,0 +1,13 @@
+{
+switch (factorType) {
+case PLUS_FACTOR:
+    return factor.getValue();
+case MINUS_FACTOR:
+  return -factor.getValue();
+case POW:
+return pow.getValue();
+case INVALID:
+default :
+throw new ExpressionFormatException("cannot parse expression at factor level");
+}
+}

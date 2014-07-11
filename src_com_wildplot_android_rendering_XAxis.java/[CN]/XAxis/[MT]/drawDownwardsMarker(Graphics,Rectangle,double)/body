@@ -1,0 +1,5 @@
+{
+  float[] coordStart=plotSheet.toGraphicPoint(x,yOffset,field);
+  float[] coordEnd={coordStart[0],coordStart[1] + this.markerLength};
+  g.drawLine(coordStart[0],coordStart[1],coordEnd[0],coordEnd[1]);
+}

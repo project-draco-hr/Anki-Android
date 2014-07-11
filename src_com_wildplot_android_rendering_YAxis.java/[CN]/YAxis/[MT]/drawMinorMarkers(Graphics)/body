@@ -1,0 +1,33 @@
+{
+  Rectangle field=g.getClipBounds();
+  int cleanSpace=17;
+  int tics=(int)((this.ticStart - this.start) / tic);
+  double leftStart=this.ticStart - this.tic * tics;
+  int factor=1;
+  double logStart=0;
+  if (this.isLog) {
+    logStart=Math.floor(Math.log10(this.start));
+    leftStart=Math.pow(10,logStart) * factor++;
+  }
+  double currentY=leftStart;
+  while (currentY <= this.end) {
+    if ((!this.isOnFrame && plotSheet.yToGraphic(currentY,field) >= plotSheet.yToGraphic(this.end,field) + cleanSpace && plotSheet.yToGraphic(currentY,field) <= plotSheet.yToGraphic(this.start,field) - cleanSpace && plotSheet.yToGraphic(currentY,field) <= field.y + field.height - cleanSpace && plotSheet.yToGraphic(currentY,field) >= field.y + cleanSpace) || (this.isOnFrame && currentY <= this.plotSheet.getyRange()[1] && currentY >= this.plotSheet.getyRange()[0])) {
+      if (this.markOnRight) {
+        drawRightMinorMarker(g,field,currentY);
+      }
+      if (this.markOnLeft) {
+        drawLeftMinorMarker(g,field,currentY);
+      }
+    }
+    if (this.isLog) {
+      if (factor == 10) {
+        factor=1;
+        logStart++;
+      }
+      currentY=Math.pow(10,logStart) * factor++;
+    }
+ else {
+      currentY+=minorTic;
+    }
+  }
+}

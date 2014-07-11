@@ -1,0 +1,12 @@
+{
+switch (powType) {
+case ATOM:
+    return atom.isVariable();
+case ATOM_POW_FACTOR:
+case ATOM_SQRT_FACTOR:
+  return atom.isVariable() || factor.isVariable();
+case INVALID:
+default :
+throw new ExpressionFormatException("cannot parse Atom expression");
+}
+}

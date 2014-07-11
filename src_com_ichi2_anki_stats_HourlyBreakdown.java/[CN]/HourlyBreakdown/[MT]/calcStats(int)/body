@@ -1,0 +1,13 @@
+{
+  Stats stats=new Stats(mCollectionData,mIsWholeCollection);
+  stats.calculateBreakdown(type);
+  mSeriesList=stats.getSeriesList();
+  Object[] metaData=stats.getMetaInfo();
+  mValueLabels=(int[])metaData[3];
+  mColors=(int[])metaData[4];
+  mAxisTitles=(int[])metaData[5];
+  mMaxCards=(Integer)metaData[7];
+  mMaxElements=(Integer)metaData[8];
+  mPeak=(Double)metaData[17];
+  mMcount=(Double)metaData[18];
+}

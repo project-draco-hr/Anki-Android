@@ -1,0 +1,10 @@
+{
+  double[][] cumulativeValues=new double[2][nonCumulative[0].length];
+  cumulativeValues[0][0]=nonCumulative[0][0];
+  cumulativeValues[1][0]=nonCumulative[1][0];
+  for (int i=1; i < nonCumulative[0].length; i++) {
+    cumulativeValues[0][i]=nonCumulative[0][i];
+    cumulativeValues[1][i]=cumulativeValues[1][i - 1] + nonCumulative[1][i];
+  }
+  return cumulativeValues;
+}

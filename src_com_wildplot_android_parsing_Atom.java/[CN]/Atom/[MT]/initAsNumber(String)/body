@@ -1,0 +1,10 @@
+{
+  NumberAtom numberAtom=new NumberAtom(atomString);
+  boolean isValidNumberAtom=numberAtom.getAtomType() != AtomType.INVALID;
+  if (isValidNumberAtom) {
+    this.atomType=numberAtom.getAtomType();
+    this.atomObject=numberAtom;
+    return true;
+  }
+  return false;
+}

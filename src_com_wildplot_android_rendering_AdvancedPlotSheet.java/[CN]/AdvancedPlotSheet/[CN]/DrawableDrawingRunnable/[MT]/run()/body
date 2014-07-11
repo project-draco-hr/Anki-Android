@@ -1,0 +1,10 @@
+{
+  this.hasFinished=false;
+  bufferedDrawableImage=new BufferedImage(field.width,field.height,BufferedImage.TYPE_INT_ARGB);
+  Graphics2D g=bufferedDrawableImage.createGraphics();
+  g.setClip(field);
+  g.setColor(Color.BLACK);
+  drawable.paint(g);
+  g.dispose();
+  this.hasFinished=true;
+}

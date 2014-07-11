@@ -1,0 +1,12 @@
+{
+  boolean tester=true;
+  tester&=plotSheet.getxRange()[0] == this.xrange[0];
+  tester&=plotSheet.getxRange()[1] == this.xrange[1];
+  tester&=plotSheet.getyRange()[0] == this.yrange[0];
+  tester&=plotSheet.getyRange()[1] == this.yrange[1];
+  if (!tester) {
+    this.xrange=plotSheet.getxRange().clone();
+    this.yrange=plotSheet.getyRange().clone();
+  }
+  return !tester || this.depthSearchAborted;
+}

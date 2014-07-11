@@ -1,0 +1,22 @@
+{
+  float[] pointUpLeft=plotSheet.toGraphicPoint(0,y + size,field);
+  float[] pointUpRight=plotSheet.toGraphicPoint(0 + heigth,y + size,field);
+  float[] pointBottomLeft=plotSheet.toGraphicPoint(0,y,field);
+  if (heigth < 0) {
+    pointUpLeft=plotSheet.toGraphicPoint(0 + heigth,y + size,field);
+    pointUpRight=plotSheet.toGraphicPoint(0,y + size,field);
+    pointBottomLeft=plotSheet.toGraphicPoint(0 + heigth,y,field);
+  }
+  if (this.isOnFrame) {
+    pointUpLeft=plotSheet.toGraphicPoint(this.xOffset - heigth,y + size,field);
+    pointUpRight=plotSheet.toGraphicPoint(this.xOffset,y + size,field);
+    pointBottomLeft=plotSheet.toGraphicPoint(this.xOffset - heigth,y,field);
+  }
+  if (filling) {
+    Color oldColor=g.getColor();
+    if (this.fillColor != null)     g.setColor(fillColor);
+    g.fillRect(pointUpLeft[0],pointUpLeft[1],pointUpRight[0] - pointUpLeft[0],pointBottomLeft[1] - pointUpLeft[1]);
+    g.setColor(oldColor);
+  }
+  g.drawRect(pointUpLeft[0],pointUpLeft[1],pointUpRight[0] - pointUpLeft[0],pointBottomLeft[1] - pointUpLeft[1]);
+}

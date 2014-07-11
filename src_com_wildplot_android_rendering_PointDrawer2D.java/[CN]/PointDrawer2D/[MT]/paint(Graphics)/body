@@ -1,0 +1,9 @@
+{
+  Color oldColor=g.getColor();
+  Rectangle field=g.getClipBounds();
+  g.setColor(color);
+  for (int i=0; i < pointList[0].length; i++) {
+    drawPoint(pointList[0][i],pointList[1][i],g,field);
+  }
+  g.setColor(oldColor);
+}

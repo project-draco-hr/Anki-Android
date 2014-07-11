@@ -1,0 +1,13 @@
+{
+switch (powType) {
+case ATOM:
+    return atom.getValue();
+case ATOM_POW_FACTOR:
+  return Math.pow(atom.getValue(),factor.getValue());
+case ATOM_SQRT_FACTOR:
+return Math.pow(atom.getValue(),1.0 / factor.getValue());
+case INVALID:
+default :
+throw new ExpressionFormatException("cannot parse Atom expression");
+}
+}

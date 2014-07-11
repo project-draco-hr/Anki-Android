@@ -1,0 +1,8 @@
+{
+  if (atomString.equals(parser.getyName())) {
+    this.atomType=AtomType.VARIABLE;
+    this.atomObject=new YVariableAtom(parser);
+    return true;
+  }
+  return false;
+}

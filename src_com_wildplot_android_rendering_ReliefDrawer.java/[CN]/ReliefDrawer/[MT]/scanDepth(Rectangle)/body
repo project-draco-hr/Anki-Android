@@ -1,0 +1,42 @@
+{
+  depthSearchAborted=true;
+  double[] coordinate=plotSheet.toCoordinatePoint(0,0,field);
+  double f_xy=function.f(coordinate[0],coordinate[1]);
+  this.f_xHighest=f_xy;
+  this.f_xLowest=f_xy;
+  float length=(field.x + field.width - plotSheet.getFrameThickness()) - (field.x + plotSheet.getFrameThickness());
+  Thread[] threads=new Thread[threadCnt];
+  float stepSize=length / threadCnt;
+  DepthSearcher[] dSearcher=new DepthSearcher[threadCnt];
+  float leftLim=field.x + plotSheet.getFrameThickness();
+  float rightLim=(field.x + plotSheet.getFrameThickness() + (stepSize));
+  dSearcher[0]=new DepthSearcher(field,leftLim,rightLim);
+  threads[0]=new Thread(dSearcher[0]);
+  for (int i=1; i < threads.length - 1; i++) {
+    dSearcher[i]=new DepthSearcher(field,field.x + plotSheet.getFrameThickness() + stepSize * i + 1,field.x + plotSheet.getFrameThickness() + stepSize * (i + 1));
+    threads[i]=new Thread(dSearcher[i]);
+  }
+  if (threadCnt > 1) {
+    dSearcher[threadCnt - 1]=new DepthSearcher(field,field.x + plotSheet.getFrameThickness() + stepSize * (threadCnt - 1) + 1,field.x + plotSheet.getFrameThickness() + length);
+    threads[threadCnt - 1]=new Thread(dSearcher[threadCnt - 1]);
+  }
+  for (  Thread thread : threads) {
+    thread.start();
+  }
+  for (  Thread thread : threads) {
+    thread.join();
+  }
+  for (  DepthSearcher searcher : dSearcher) {
+    if (searcher.getF_xHighest() > this.f_xHighest)     this.f_xHighest=searcher.getF_xHighest();
+    if (searcher.getF_xLowest() < this.f_xLowest)     this.f_xLowest=searcher.getF_xLowest();
+  }
+  borders=new double[this.heightRegionCount];
+  double steps=(this.f_xHighest - this.f_xLowest) / this.heightRegionCount;
+  for (int i=0; i < borders.length; i++) {
+    borders[i]=this.f_xLowest + (this.f_xHighest - this.f_xLowest) * Math.pow((1.0 / this.heightRegionCount) * (i + 1.0),gradientCurveFactor);
+  }
+  if (!this.abortPaint) {
+    depthSearchAborted=false;
+    depthScanningIsFinished=true;
+  }
+}

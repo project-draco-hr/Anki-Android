@@ -1,0 +1,30 @@
+{
+  if (hasSavedValue)   return savedValue;
+switch (mathType) {
+case SIN:
+    return Math.sin(expression.getValue());
+case COS:
+  return Math.cos(expression.getValue());
+case TAN:
+return Math.tan(expression.getValue());
+case SQRT:
+return Math.sqrt(expression.getValue());
+case ACOS:
+return Math.acos(expression.getValue());
+case ASIN:
+return Math.asin(expression.getValue());
+case ATAN:
+return Math.atan(expression.getValue());
+case SINH:
+return Math.sinh(expression.getValue());
+case COSH:
+return Math.cosh(expression.getValue());
+case LOG:
+return Math.log10(expression.getValue());
+case LN:
+return Math.log(expression.getValue());
+case INVALID:
+default :
+throw new ExpressionFormatException("Number is Invalid, cannot parse");
+}
+}

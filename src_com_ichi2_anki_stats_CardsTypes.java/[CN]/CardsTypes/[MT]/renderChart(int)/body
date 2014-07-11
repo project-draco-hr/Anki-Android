@@ -1,0 +1,42 @@
+{
+  calcStats(type);
+  int height=mImageView.getMeasuredHeight();
+  int width=mImageView.getMeasuredWidth();
+  if (height <= 0 || width <= 0) {
+    return null;
+  }
+  BufferedImage bufferedFrameImage=new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB);
+  Graphics2D g=bufferedFrameImage.createGraphics();
+  Rectangle rect=new Rectangle(width,height);
+  g.setClip(rect);
+  g.setColor(Color.BLACK);
+  float textSize=AnkiStatsTaskHandler.getInstance().getmStandardTextSize() * 0.75f;
+  g.setFontSize(textSize);
+  float FontHeigth=g.getFontMetrics().getHeight(true);
+  mFrameThickness=Math.round(FontHeigth * 4.0f);
+  PlotSheet plotSheet=new PlotSheet(0,15,0,15);
+  plotSheet.setFrameThickness(mFrameThickness);
+  plotSheet.unsetBorder();
+  PieChart pieChart=new PieChart(plotSheet,mSeriesList[0]);
+  Color[] colors={new Color(mImageView.getResources().getColor(mColors[0])),new Color(mImageView.getResources().getColor(mColors[1])),new Color(mImageView.getResources().getColor(mColors[2])),new Color(mImageView.getResources().getColor(mColors[3]))};
+  pieChart.setColors(colors);
+  pieChart.setName(mImageView.getResources().getString(mValueLabels[0]) + ": " + (int)mSeriesList[0][0]);
+  LegendDrawable legendDrawable1=new LegendDrawable();
+  LegendDrawable legendDrawable2=new LegendDrawable();
+  LegendDrawable legendDrawable3=new LegendDrawable();
+  legendDrawable1.setColor(new Color(mImageView.getResources().getColor(mColors[1])));
+  legendDrawable2.setColor(new Color(mImageView.getResources().getColor(mColors[2])));
+  legendDrawable3.setColor(new Color(mImageView.getResources().getColor(mColors[3])));
+  legendDrawable1.setName(mImageView.getResources().getString(mValueLabels[1]) + ": " + (int)mSeriesList[0][1]);
+  legendDrawable2.setName(mImageView.getResources().getString(mValueLabels[2]) + ": " + (int)mSeriesList[0][2]);
+  legendDrawable3.setName(mImageView.getResources().getString(mValueLabels[3]) + ": " + (int)mSeriesList[0][3]);
+  plotSheet.setFontSize(textSize);
+  plotSheet.addDrawable(pieChart);
+  plotSheet.addDrawable(legendDrawable1);
+  plotSheet.addDrawable(legendDrawable2);
+  plotSheet.addDrawable(legendDrawable3);
+  plotSheet.paint(g);
+  Bitmap bitmap=bufferedFrameImage.getBitmap();
+  bitmap.prepareToDraw();
+  return bitmap;
+}

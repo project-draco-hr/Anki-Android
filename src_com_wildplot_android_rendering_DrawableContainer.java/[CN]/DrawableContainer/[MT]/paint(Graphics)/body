@@ -1,0 +1,9 @@
+{
+  isOnAbort=false;
+  currentDrawable=null;
+  for (  Drawable drawable : drawableVector) {
+    currentDrawable=drawable;
+    if (isOnAbort)     return;
+    drawable.paint(g);
+  }
+}

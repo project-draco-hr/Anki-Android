@@ -1,0 +1,7 @@
+{
+  this.plotSheet=plotSheet;
+  this.ticStart=ticStart;
+  this.tic=tic;
+  this.minorTic=minorTic;
+  this.pixelDistance=(int)Math.round((plotSheet.getyRange()[1] - plotSheet.getyRange()[0]) / tic);
+}

@@ -1,0 +1,6 @@
+{
+  mImageView=(ImageView)params[0];
+  mProgressBar=(ProgressBar)params[1];
+  ReviewCount reviewCount=new ReviewCount(mImageView,mCollectionData,sIsWholeCollection);
+  return reviewCount.renderChart(mStatType,false);
+}

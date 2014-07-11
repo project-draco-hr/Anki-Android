@@ -1,0 +1,10 @@
+{
+  Pow pow=new Pow(factorString,parser);
+  boolean isValidPow=pow.getPowType() != Pow.PowType.INVALID;
+  if (isValidPow) {
+    this.factorType=FactorType.POW;
+    this.pow=pow;
+    return true;
+  }
+  return false;
+}

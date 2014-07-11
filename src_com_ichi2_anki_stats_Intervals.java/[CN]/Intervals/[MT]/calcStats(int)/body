@@ -1,0 +1,12 @@
+{
+  Stats stats=new Stats(mCollectionData,mIsWholeCollection);
+  stats.calculateIntervals(type);
+  mCumulative=stats.getCumulative();
+  mSeriesList=stats.getSeriesList();
+  Object[] metaData=stats.getMetaInfo();
+  mValueLabels=(int[])metaData[3];
+  mColors=(int[])metaData[4];
+  mAxisTitles=(int[])metaData[5];
+  mMaxCards=(Integer)metaData[7];
+  mMaxElements=(Integer)metaData[8];
+}

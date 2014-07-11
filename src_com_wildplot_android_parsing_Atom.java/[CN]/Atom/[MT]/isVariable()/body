@@ -1,0 +1,15 @@
+{
+switch (atomType) {
+case EXP_IN_BRACKETS:
+    return expression.isVariable();
+case VARIABLE:
+case NUMBER:
+case FUNCTION_MATH:
+case FUNCTION_X:
+case FUNCTION_X_Y:
+  return atomObject.isVariable();
+case INVALID:
+default :
+throw new ExpressionFormatException("cannot parse Atom object");
+}
+}

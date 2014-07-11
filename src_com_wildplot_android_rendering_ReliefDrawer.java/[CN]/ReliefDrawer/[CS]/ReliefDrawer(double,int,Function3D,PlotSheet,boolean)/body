@@ -1,0 +1,18 @@
+{
+  super();
+  this.gradientCurveFactor=gradientCurveFactor;
+  this.heightRegionCount=heightRegionCount;
+  this.function=function;
+  this.plotSheet=plotSheet;
+  this.colored=colored;
+  if (colored) {
+    if (this.gradientColors.length >= heightRegionCount) {
+      this.heightRegionCount=this.gradientColors.length;
+    }
+ else {
+      Vector<Color> colorVector=new Vector<Color>(Arrays.asList(this.gradientColors));
+      this.gradientColors=RelativeColorGradient.makeGradient(colorVector,this.heightRegionCount);
+      this.heightRegionCount=this.gradientColors.length;
+    }
+  }
+}

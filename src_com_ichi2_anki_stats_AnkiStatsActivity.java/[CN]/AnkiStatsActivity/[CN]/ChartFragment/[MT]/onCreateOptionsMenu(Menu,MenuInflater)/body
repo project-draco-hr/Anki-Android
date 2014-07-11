@@ -1,0 +1,6 @@
+{
+  super.onCreateOptionsMenu(menu,inflater);
+  mMenu=menu;
+  inflater.inflate(R.menu.anki_stats,menu);
+  checkAndUpdate();
+}

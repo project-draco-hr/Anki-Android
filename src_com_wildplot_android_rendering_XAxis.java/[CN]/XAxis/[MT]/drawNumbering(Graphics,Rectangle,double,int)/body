@@ -1,0 +1,26 @@
+{
+  if (this.tic < 1 && Math.abs(ticStart - x) < this.tic * this.tic)   x=ticStart;
+  FontMetrics fm=g.getFontMetrics(g.getFont());
+  float fontHeigth=fm.getHeight();
+  float[] coordStart=plotSheet.toGraphicPoint(x,yOffset,field);
+  if (Math.abs(x) - Math.abs(xOffset) < 0.001 && !this.isOnFrame) {
+    coordStart[0]+=10;
+    coordStart[1]-=10;
+  }
+  String text=(mTickNameList == null) ? df.format(x) : mTickNameList[index];
+  float width=fm.stringWidth(text);
+  if (this.isScientific || width > this.pixelDistance) {
+    text=(mTickNameList == null) ? dfScience.format(x) : mTickNameList[index];
+    width=fm.stringWidth(text);
+    g.drawString(text,coordStart[0] - width / 2,Math.round(coordStart[1] + ((this.isOnFrame) ? Math.round(fontHeigth * 1.5) : 20)));
+  }
+ else   if (isIntegerNumbering) {
+    text=(mTickNameList == null) ? dfInteger.format(x) : mTickNameList[index];
+    width=fm.stringWidth(text);
+    g.drawString(text,coordStart[0] - width / 2,Math.round(coordStart[1] + ((this.isOnFrame) ? Math.round(fontHeigth * 1.5) : 20)));
+  }
+ else {
+    width=fm.stringWidth(text);
+    g.drawString(text,coordStart[0] - width / 2,Math.round(coordStart[1] + ((this.isOnFrame) ? Math.round(fontHeigth * 1.5) : 20)));
+  }
+}

@@ -1,0 +1,9 @@
+{
+  reentrantLock.lock();
+  try {
+    return plotImage;
+  }
+  finally {
+    reentrantLock.unlock();
+  }
+}

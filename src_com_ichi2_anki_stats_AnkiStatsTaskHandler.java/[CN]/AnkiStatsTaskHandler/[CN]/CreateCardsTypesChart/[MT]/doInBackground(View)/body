@@ -1,0 +1,6 @@
+{
+  mImageView=(ImageView)params[0];
+  mProgressBar=(ProgressBar)params[1];
+  CardsTypes cardsTypes=new CardsTypes(mImageView,mCollectionData,sIsWholeCollection);
+  return cardsTypes.renderChart(mStatType);
+}

@@ -1,0 +1,72 @@
+{
+  calcStats(type);
+  int height=mImageView.getMeasuredHeight();
+  int width=mImageView.getMeasuredWidth();
+  if (height <= 0 || width <= 0) {
+    return null;
+  }
+  BufferedImage bufferedFrameImage=new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB);
+  Graphics2D g=bufferedFrameImage.createGraphics();
+  Rectangle rect=new Rectangle(width,height);
+  g.setClip(rect);
+  g.setColor(Color.BLACK);
+  float textSize=AnkiStatsTaskHandler.getInstance().getmStandardTextSize() * 0.75f;
+  g.setFontSize(textSize);
+  float FontHeigth=g.getFontMetrics().getHeight(true);
+  mFrameThickness=Math.round(FontHeigth * 4.0f);
+  PlotSheet plotSheet=new PlotSheet(mSeriesList[0][0] - 0.5,mSeriesList[0][mSeriesList[0].length - 1] + 0.5,0,mMaxCards * 1.1);
+  plotSheet.setFrameThickness(mFrameThickness);
+  double xTics=ticsCalcX(targetPixelDistanceBetweenTics,rect);
+  double yTics=ticsCalcY(targetPixelDistanceBetweenTics,rect);
+  XAxis xaxis=new XAxis(plotSheet,0,xTics,xTics / 2.0);
+  YAxis yaxis=new YAxis(plotSheet,0,yTics,yTics / 2.0);
+  xaxis.setOnFrame();
+  xaxis.setName(mImageView.getResources().getStringArray(R.array.due_x_axis_title)[mAxisTitles[0]]);
+  xaxis.setIntegerNumbering(true);
+  yaxis.setIntegerNumbering(true);
+  yaxis.setName(mImageView.getResources().getString(mAxisTitles[1]));
+  yaxis.setOnFrame();
+  BarGraph[] barGraphs=new BarGraph[mSeriesList.length - 1];
+  for (int i=1; i < mSeriesList.length; i++) {
+    double[][] bars=new double[2][];
+    bars[0]=mSeriesList[0];
+    bars[1]=mSeriesList[i];
+    barGraphs[i - 1]=new BarGraph(plotSheet,barThickness,bars,new Color(mImageView.getResources().getColor(mColors[i - 1])));
+    barGraphs[i - 1].setFilling(true);
+    barGraphs[i - 1].setName(mImageView.getResources().getString(mValueLabels[i - 1]));
+    barGraphs[i - 1].setFillColor(new Color(mImageView.getResources().getColor(mColors[i - 1])));
+  }
+  PlotSheet hiddenPlotSheet=new PlotSheet(mSeriesList[0][0] - 0.5,mSeriesList[0][mSeriesList[0].length - 1] + 0.5,0,105.0);
+  hiddenPlotSheet.setFrameThickness(mFrameThickness);
+  Lines lines=new Lines(hiddenPlotSheet,mCumulative,Color.BLACK);
+  lines.setSize(3f);
+  lines.setName(mImageView.getResources().getString(R.string.stats_cumulative_percentage));
+  lines.setShadow(5f,3f,3f,Color.BLACK);
+  double rightYtics=ticsCalc(targetPixelDistanceBetweenTics,rect,105.0);
+  YAxis rightYaxis=new YAxis(hiddenPlotSheet,0,rightYtics,rightYtics / 2.0);
+  rightYaxis.setIntegerNumbering(true);
+  rightYaxis.setName(mImageView.getResources().getString(mAxisTitles[2]));
+  rightYaxis.setOnRightSideFrame();
+  int red=Color.LIGHT_GRAY.getRed();
+  int green=Color.LIGHT_GRAY.getGreen();
+  int blue=Color.LIGHT_GRAY.getBlue();
+  Color newGridColor=new Color(red,green,blue,222);
+  XGrid xGrid=new XGrid(plotSheet,0,targetPixelDistanceBetweenTics);
+  YGrid yGrid=new YGrid(plotSheet,0,targetPixelDistanceBetweenTics);
+  xGrid.setColor(newGridColor);
+  yGrid.setColor(newGridColor);
+  plotSheet.setFontSize(textSize);
+  for (  BarGraph barGraph : barGraphs) {
+    plotSheet.addDrawable(barGraph);
+  }
+  plotSheet.addDrawable(lines);
+  plotSheet.addDrawable(xaxis);
+  plotSheet.addDrawable(yaxis);
+  plotSheet.addDrawable(rightYaxis);
+  plotSheet.addDrawable(xGrid);
+  plotSheet.addDrawable(yGrid);
+  plotSheet.paint(g);
+  Bitmap bitmap=bufferedFrameImage.getBitmap();
+  bitmap.prepareToDraw();
+  return bitmap;
+}

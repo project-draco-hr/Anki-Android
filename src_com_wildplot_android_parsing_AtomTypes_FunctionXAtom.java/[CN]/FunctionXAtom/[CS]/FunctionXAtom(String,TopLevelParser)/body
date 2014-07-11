@@ -1,0 +1,7 @@
+{
+  this.parser=parser;
+  boolean isValid=init(funcString);
+  if (!isValid) {
+    this.atomType=Atom.AtomType.INVALID;
+  }
+}

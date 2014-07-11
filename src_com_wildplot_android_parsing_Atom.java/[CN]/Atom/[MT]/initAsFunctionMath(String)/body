@@ -1,0 +1,10 @@
+{
+  MathFunctionAtom mathFunctionAtom=new MathFunctionAtom(atomString,parser);
+  boolean isValidMathFunction=mathFunctionAtom.getMathType() != MathFunctionAtom.MathType.INVALID;
+  if (isValidMathFunction) {
+    this.atomType=AtomType.FUNCTION_MATH;
+    this.atomObject=mathFunctionAtom;
+    return true;
+  }
+  return false;
+}

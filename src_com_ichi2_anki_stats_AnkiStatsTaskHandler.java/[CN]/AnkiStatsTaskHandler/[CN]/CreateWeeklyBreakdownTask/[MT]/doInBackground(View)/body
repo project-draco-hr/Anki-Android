@@ -1,0 +1,6 @@
+{
+  mImageView=(ImageView)params[0];
+  mProgressBar=(ProgressBar)params[1];
+  WeeklyBreakdown weeklyBreakdown=new WeeklyBreakdown(mImageView,mCollectionData,sIsWholeCollection);
+  return weeklyBreakdown.renderChart(mStatType);
+}

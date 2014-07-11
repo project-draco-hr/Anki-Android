@@ -1,0 +1,6 @@
+{
+  mImageView=(ImageView)params[0];
+  mProgressBar=(ProgressBar)params[1];
+  HourlyBreakdown hourlyBreakdown=new HourlyBreakdown(mImageView,mCollectionData,sIsWholeCollection);
+  return hourlyBreakdown.renderChart(mStatType);
+}

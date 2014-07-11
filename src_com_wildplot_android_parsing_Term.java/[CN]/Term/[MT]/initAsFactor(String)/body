@@ -1,0 +1,10 @@
+{
+  Factor factor=new Factor(termString,parser);
+  boolean isValidTerm=factor.getFactorType() != Factor.FactorType.INVALID;
+  if (isValidTerm) {
+    this.termType=TermType.FACTOR;
+    this.factor=factor;
+    return true;
+  }
+  return false;
+}

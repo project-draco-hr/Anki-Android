@@ -1,0 +1,10 @@
+{
+  super.onPrepareOptionsMenu(menu);
+  MenuItem monthItem=(MenuItem)menu.findItem(R.id.action_month);
+  MenuItem yearItem=(MenuItem)menu.findItem(R.id.action_year);
+  MenuItem allItem=(MenuItem)menu.findItem(R.id.action_life_time);
+  AnkiStatsTaskHandler ankiStatsTaskHandler=(((AnkiStatsActivity)getActivity()).getTaskHandler());
+  monthItem.setChecked(ankiStatsTaskHandler.getStatType() == Stats.TYPE_MONTH);
+  yearItem.setChecked(ankiStatsTaskHandler.getStatType() == Stats.TYPE_YEAR);
+  allItem.setChecked(ankiStatsTaskHandler.getStatType() == Stats.TYPE_LIFE);
+}

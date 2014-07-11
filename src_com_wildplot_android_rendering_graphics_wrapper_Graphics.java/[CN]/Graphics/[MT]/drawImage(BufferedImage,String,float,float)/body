@@ -1,0 +1,8 @@
+{
+  Xfermode mode=paint.getXfermode();
+  paint.setXfermode(new PorterDuffXfermode(Mode.SRC_OVER));
+  Bitmap bitmap=image.getBitmap();
+  bitmap.prepareToDraw();
+  canvas.drawBitmap(bitmap,canvas.getClipBounds(),canvas.getClipBounds(),paint);
+  paint.setXfermode(mode);
+}

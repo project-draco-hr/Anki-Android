@@ -1,0 +1,8 @@
+{
+  if (atomString.equals(parser.getxName())) {
+    this.atomType=AtomType.VARIABLE;
+    this.atomObject=new XVariableAtom(parser);
+    return true;
+  }
+  return false;
+}

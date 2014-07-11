@@ -1,0 +1,26 @@
+{
+  if (mSectionNumber == 1) {
+    (((AnkiStatsActivity)getActivity()).getTaskHandler()).createForecastChart(mChart,mProgressBar);
+  }
+ else   if (mSectionNumber == 2) {
+    (((AnkiStatsActivity)getActivity()).getTaskHandler()).createReviewCountChart(mChart,mProgressBar);
+  }
+ else   if (mSectionNumber == 3) {
+    (((AnkiStatsActivity)getActivity()).getTaskHandler()).createReviewTimeChart(mChart,mProgressBar);
+  }
+ else   if (mSectionNumber == 4) {
+    (((AnkiStatsActivity)getActivity()).getTaskHandler()).createIntervalChart(mChart,mProgressBar);
+  }
+ else   if (mSectionNumber == 5) {
+    (((AnkiStatsActivity)getActivity()).getTaskHandler()).createBreakdownChart(mChart,mProgressBar);
+  }
+ else   if (mSectionNumber == 6) {
+    (((AnkiStatsActivity)getActivity()).getTaskHandler()).createWeeklyBreakdownChart(mChart,mProgressBar);
+  }
+ else   if (mSectionNumber == 7) {
+    (((AnkiStatsActivity)getActivity()).getTaskHandler()).createAnswerButtonTask(mChart,mProgressBar);
+  }
+ else   if (mSectionNumber == 8) {
+    (((AnkiStatsActivity)getActivity()).getTaskHandler()).createCardsTypesTask(mChart,mProgressBar);
+  }
+}

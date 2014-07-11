@@ -1,0 +1,5 @@
+{
+  double xQuotient=(field.width - 2 * frameThickness) / (Math.abs(this.screenParts.get(currentScreen).getxRange()[1] - this.screenParts.get(currentScreen).getxRange()[0]));
+  double xDistanceFromLeft=x - this.screenParts.get(currentScreen).getxRange()[0];
+  return field.x + frameThickness + (float)(xDistanceFromLeft * xQuotient);
+}

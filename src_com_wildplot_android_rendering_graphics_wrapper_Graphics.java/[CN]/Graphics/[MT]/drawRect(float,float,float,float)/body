@@ -1,0 +1,6 @@
+{
+  Style oldStyle=paint.getStyle();
+  paint.setStyle(Style.STROKE);
+  canvas.drawRect(x,y,x + width,y + height,paint);
+  paint.setStyle(oldStyle);
+}

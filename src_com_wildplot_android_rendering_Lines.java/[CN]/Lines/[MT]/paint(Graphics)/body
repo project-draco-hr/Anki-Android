@@ -1,0 +1,22 @@
+{
+  Color oldColor=g.getColor();
+  Rectangle field=g.getClipBounds();
+  g.setColor(color);
+  Stroke oldStroke=g.getStroke();
+  g.setStroke(new BasicStroke(this.size));
+  if (mHasShadow) {
+    g.setShadow(mShadowRadius,mShadowDx,mShadowDy,mShadowColor);
+  }
+  float[] coordStart=plotSheet.toGraphicPoint(pointList[0][0],pointList[1][0],field);
+  float[] coordEnd=coordStart;
+  for (int i=0; i < pointList[0].length; i++) {
+    coordEnd=coordStart;
+    coordStart=plotSheet.toGraphicPoint(pointList[0][i],pointList[1][i],field);
+    g.drawLine(coordStart[0],coordStart[1],coordEnd[0],coordEnd[1]);
+  }
+  if (mHasShadow) {
+    g.unsetShadow();
+  }
+  g.setStroke(oldStroke);
+  g.setColor(oldColor);
+}
