@@ -37,14 +37,12 @@
   mFragmented=studyoptionsFrame != null && studyoptionsFrame.getVisibility() == View.VISIBLE;
   Themes.setContentStyle(mFragmented ? mainView : mainView.findViewById(R.id.deckpicker_view),Themes.CALLER_DECKPICKER);
   registerExternalStorageListener();
-  mDrawerLayout=(DrawerLayout)findViewById(R.id.deckpicker_drawer_layout);
-  mDrawerList=(ListView)findViewById(R.id.deckpicker_left_drawer);
-  initNavigationDrawer();
+  initNavigationDrawer(mainView);
   if (savedInstanceState == null) {
     selectNavigationItem(DRAWER_DECK_PICKER);
   }
   if (!intent.getBooleanExtra("viaNavigationDrawer",false) && !preferences.getBoolean("navDrawerHasBeenOpened",false)) {
-    mDrawerLayout.openDrawer(Gravity.LEFT);
+    getDrawerLayout().openDrawer(Gravity.LEFT);
   }
   mDeckList=new ArrayList<HashMap<String,String>>();
   mDeckListView=(ListView)findViewById(R.id.files);
