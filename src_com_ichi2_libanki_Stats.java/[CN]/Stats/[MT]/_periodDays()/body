@@ -1,5 +1,11 @@
 {
-  if (mType == TYPE_MONTH)   return 30;
- else   if (mType == TYPE_YEAR)   return 365;
- else   return -1;
+switch (mType) {
+case MONTH:
+    return 30;
+case YEAR:
+  return 365;
+default :
+case LIFE:
+return -1;
+}
 }

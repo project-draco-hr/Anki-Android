@@ -4,7 +4,7 @@
   MenuItem yearItem=(MenuItem)menu.findItem(R.id.action_year);
   MenuItem allItem=(MenuItem)menu.findItem(R.id.action_life_time);
   AnkiStatsTaskHandler ankiStatsTaskHandler=(((AnkiStatsActivity)getActivity()).getTaskHandler());
-  monthItem.setChecked(ankiStatsTaskHandler.getStatType() == Stats.TYPE_MONTH);
-  yearItem.setChecked(ankiStatsTaskHandler.getStatType() == Stats.TYPE_YEAR);
-  allItem.setChecked(ankiStatsTaskHandler.getStatType() == Stats.TYPE_LIFE);
+  monthItem.setChecked(ankiStatsTaskHandler.getStatType() == Stats.ChartPeriodType.MONTH);
+  yearItem.setChecked(ankiStatsTaskHandler.getStatType() == Stats.ChartPeriodType.YEAR);
+  allItem.setChecked(ankiStatsTaskHandler.getStatType() == Stats.ChartPeriodType.LIFE);
 }

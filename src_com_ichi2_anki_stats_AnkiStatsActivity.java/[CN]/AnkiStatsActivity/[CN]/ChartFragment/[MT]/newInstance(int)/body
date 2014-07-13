@@ -1,7 +1,7 @@
 {
   ChartFragment fragment=new ChartFragment();
   Bundle args=new Bundle();
-  args.putInt(ARG_SECTION_NUMBER,sectionNumber);
+  args.putInt(ARG_SECTION_NUMBER,sectionNumber + 1);
   fragment.setArguments(args);
   return fragment;
 }

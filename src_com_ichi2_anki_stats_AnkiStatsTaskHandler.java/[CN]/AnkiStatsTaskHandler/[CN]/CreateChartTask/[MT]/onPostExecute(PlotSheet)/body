@@ -1,0 +1,8 @@
+{
+  if (plotSheet != null) {
+    mImageView.setData(plotSheet);
+    mProgressBar.setVisibility(View.GONE);
+    mImageView.setVisibility(View.VISIBLE);
+    mImageView.invalidate();
+  }
+}

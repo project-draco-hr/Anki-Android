@@ -1,6 +1,0 @@
-{
-  mImageView=(ImageView)params[0];
-  mProgressBar=(ProgressBar)params[1];
-  Forecast forecast=new Forecast(mImageView,mCollectionData,sIsWholeCollection);
-  return forecast.renderChart(mStatType);
-}

@@ -1,5 +1,6 @@
 {
   Log.i(AnkiDroidApp.TAG,"uncaughtException");
+  Log.d(AnkiDroidApp.TAG,"origin: " + origin + e.toString());
   collectInformation();
   Date ts=new Date();
   TimeZone tz=TimeZone.getDefault();

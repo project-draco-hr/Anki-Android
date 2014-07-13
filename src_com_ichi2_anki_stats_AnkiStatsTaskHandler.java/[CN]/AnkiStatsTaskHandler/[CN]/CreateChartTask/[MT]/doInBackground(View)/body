@@ -1,0 +1,6 @@
+{
+  mImageView=(ChartView)params[0];
+  mProgressBar=(ProgressBar)params[1];
+  ChartBuilder chartBuilder=new ChartBuilder(mImageView,mCollectionData,sIsWholeCollection,mChartType);
+  return chartBuilder.renderChart(mStatType);
+}
