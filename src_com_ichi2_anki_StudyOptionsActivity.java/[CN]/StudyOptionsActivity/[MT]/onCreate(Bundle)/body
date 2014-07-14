@@ -1,10 +1,9 @@
 {
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
-  setContentView(R.layout.studyoptions);
-  mDrawerLayout=(DrawerLayout)findViewById(R.id.studyoptions_drawer_layout);
-  mDrawerList=(ListView)findViewById(R.id.studyoptions_left_drawer);
-  initNavigationDrawer();
+  View mainView=getLayoutInflater().inflate(R.layout.studyoptions,null);
+  setContentView(mainView);
+  initNavigationDrawer(mainView);
   if (savedInstanceState == null) {
     loadContent(getIntent().getBooleanExtra("onlyFnsMsg",false));
   }

@@ -1,6 +1,4 @@
 {
   super.onResume();
-  for (int i=0; i < mDrawerList.getCount(); i++) {
-    mDrawerList.setItemChecked(i,false);
-  }
+  deselectAllNavigationItems();
 }
