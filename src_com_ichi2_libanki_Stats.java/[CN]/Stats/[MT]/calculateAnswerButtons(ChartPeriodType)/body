@@ -6,18 +6,22 @@
   mColors=new int[]{R.color.stats_learn,R.color.stats_young,R.color.stats_mature};
   mType=type;
   String lim=_revlogLimit().replaceAll("[\\[\\]]","");
-  String lims="";
+  Vector<String> lims=new Vector<String>();
   int days=0;
-  if (lim.length() > 0)   lims+=lim + " and ";
+  if (lim.length() > 0)   lims.add(lim);
   if (type == ChartPeriodType.MONTH)   days=30;
  else   if (type == ChartPeriodType.YEAR)   days=365;
  else   days=-1;
-  if (days > 0)   lims+="id > " + ((mCol.getSched().getDayCutoff() - (days * 86400)) * 1000);
-  if (lims.length() > 0)   lim="where " + lims;
+  if (days > 0)   lims.add("id > " + ((mCol.getSched().getDayCutoff() - (days * 86400)) * 1000));
+  if (lims.size() > 0) {
+    lim="where " + lims.get(0);
+    for (int i=1; i < lims.size(); i++)     lim+=" and " + lims.get(i);
+  }
  else   lim="";
   ArrayList<double[]> list=new ArrayList<double[]>();
   Cursor cur=null;
   String query="select (case " + "                when type in (0,2) then 0 " + "        when lastIvl < 21 then 1 "+ "        else 2 end) as thetype, "+ "        (case when type in (0,2) and ease = 4 then 3 else ease end), count() from revlog " + lim + " "+ "        group by thetype, ease "+ "        order by thetype, ease";
+  Log.d(AnkiDroidApp.TAG,"AnswerButtons query: " + query);
   try {
     cur=mCol.getDb().getDatabase().rawQuery(query,null);
     while (cur.moveToNext()) {
@@ -28,6 +32,9 @@
     if (cur != null && !cur.isClosed()) {
       cur.close();
     }
+  }
+  if (list.size() == 0) {
+    list.add(0,new double[]{0,1,0});
   }
   double[] totals=new double[3];
   for (int i=0; i < list.size(); i++) {
@@ -71,5 +78,6 @@
   mLastElement=14.5;
   mMcount=100;
   mMaxElements=15;
+  if (mMaxCards == 0)   mMaxCards=10;
   return list.size() > 0;
 }

@@ -31,6 +31,9 @@
       cur.close();
     }
   }
+  if (list.size() == 0) {
+    list.add(0,new double[]{0,0,0});
+  }
   mSeriesList=new double[4][list.size()];
   mPeak=0.0;
   mMcount=0.0;
@@ -62,5 +65,16 @@
   mFirstElement=mSeriesList[0][0];
   mLastElement=mSeriesList[0][mSeriesList[0].length - 1];
   mMaxElements=(int)(maxHour - minHour);
+  if (mMaxElements == 0) {
+    mMaxElements=10;
+  }
+  if (mMcount == 0) {
+    mMcount=10;
+  }
+  if (mFirstElement == mLastElement) {
+    mFirstElement=0;
+    mLastElement=6;
+  }
+  if (mMaxCards == 0)   mMaxCards=10;
   return list.size() > 0;
 }

@@ -87,5 +87,16 @@ mFirstElement=0;
 mMaxElements=list.size() - 1;
 mAverage=Utils.fmtTimeSpan((int)Math.round(avg * 86400));
 mLongest=Utils.fmtTimeSpan((int)Math.round(max_ * 86400));
+if (mMaxElements == 0) {
+mMaxElements=10;
+}
+if (mMcount == 0) {
+mMcount=10;
+}
+if (mFirstElement == mLastElement) {
+mFirstElement=0;
+mLastElement=6;
+}
+if (mMaxCards == 0) mMaxCards=10;
 return list.size() > 0;
 }

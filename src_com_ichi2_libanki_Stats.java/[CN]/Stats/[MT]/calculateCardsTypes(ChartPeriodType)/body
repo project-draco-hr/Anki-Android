@@ -22,5 +22,10 @@
   }
   mSeriesList=new double[1][4];
   mSeriesList[0]=pieData;
+  mFirstElement=0.5;
+  mLastElement=9.5;
+  mMcount=100;
+  mMaxElements=10;
+  if (mMaxCards == 0)   mMaxCards=10;
   return list.size() > 0;
 }

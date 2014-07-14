@@ -2,9 +2,6 @@
   double lowerBorder=this.f_xLowest;
   double higherBorder=this.f_xHighest;
   try {
-    if (borders == null) {
-      System.err.println("!!!!!!!!!!!!!!!!!!! Borders null");
-    }
     for (int i=0; i < borders.length; i++) {
       higherBorder=borders[i];
       if ((f_xy >= lowerBorder && f_xy < higherBorder)) {
@@ -15,7 +12,6 @@
   }
  catch (  NullPointerException e) {
     e.printStackTrace();
-    System.err.println("!!!!!!!!!!!!: " + borders.length);
     System.exit(-1);
   }
   return (f_xy < borders[0]) ? this.gradientColors[0] : this.gradientColors[this.gradientColors.length - 1];

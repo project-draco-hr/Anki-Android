@@ -132,5 +132,16 @@ for (int j=0; j < mCumulative[i].length; j++) {
 if (mMcount < mCumulative[i][j]) mMcount=mCumulative[i][j];
 }
 }
+if (mMaxCards == 0) mMaxCards=10;
+if (mMaxElements == 0) {
+mMaxElements=10;
+}
+if (mMcount == 0) {
+mMcount=10;
+}
+if (mFirstElement == mLastElement) {
+mFirstElement=-10;
+mLastElement=0;
+}
 return list.size() > 0;
 }
