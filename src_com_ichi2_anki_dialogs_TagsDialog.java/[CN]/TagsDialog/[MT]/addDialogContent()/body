@@ -37,8 +37,6 @@
   mAddTagIV.setImageResource(R.drawable.ic_addtag);
   mAddTagIV.setOnClickListener(new View.OnClickListener(){
     @Override public void onClick(    View v){
-      SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(getActivity());
-      prefs.edit().putBoolean("knowsHowToAddTag",true).commit();
       String tag=addFilterTagET.getText().toString();
       if (!TextUtils.isEmpty(tag)) {
         if (mCurrentTags.contains(tag)) {
@@ -51,6 +49,10 @@
         mCurrentTags.add(tag);
         addFilterTagET.setText("");
         actualizeCurrTagDialog();
+        Resources res=getResources();
+        Toast.makeText(getActivity(),res.getString(R.string.tag_editor_add_feedback,tag,res.getString(R.string.select)),Toast.LENGTH_LONG).show();
+        SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(getActivity());
+        prefs.edit().putBoolean("knowsHowToAddTag",true).commit();
       }
     }
   }
