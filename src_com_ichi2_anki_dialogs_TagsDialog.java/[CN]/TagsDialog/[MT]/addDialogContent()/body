@@ -24,10 +24,21 @@
   }
 ;
   addFilterTagET.setFilters(new InputFilter[]{filter});
-  ImageView addTagIV=new ImageView(getActivity());
-  addTagIV.setImageResource(R.drawable.ic_addtag);
-  addTagIV.setOnClickListener(new View.OnClickListener(){
+  addFilterTagET.setOnFocusChangeListener(new OnFocusChangeListener(){
+    @Override public void onFocusChange(    View v,    boolean hasFocus){
+      SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(getActivity());
+      if (mAddTagIV.isShown() && hasFocus && !prefs.getBoolean("knowsHowToAddTag",false)) {
+        Toast.makeText(getActivity(),R.string.tag_editor_add_hint,Toast.LENGTH_SHORT).show();
+      }
+    }
+  }
+);
+  mAddTagIV=new ImageView(getActivity());
+  mAddTagIV.setImageResource(R.drawable.ic_addtag);
+  mAddTagIV.setOnClickListener(new View.OnClickListener(){
     @Override public void onClick(    View v){
+      SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(getActivity());
+      prefs.edit().putBoolean("knowsHowToAddTag",true).commit();
       String tag=addFilterTagET.getText().toString();
       if (!TextUtils.isEmpty(tag)) {
         if (mCurrentTags.contains(tag)) {
@@ -47,18 +58,9 @@
   FrameLayout frame=new FrameLayout(getActivity());
   FrameLayout.LayoutParams params=new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT,Gravity.RIGHT | Gravity.CENTER_VERTICAL);
   params.rightMargin=10;
-  addTagIV.setLayoutParams(params);
+  mAddTagIV.setLayoutParams(params);
   frame.addView(addFilterTagET);
-  frame.addView(addTagIV);
-  mPositiveButtonListener=new DialogInterface.OnClickListener(){
-    @Override public void onClick(    DialogInterface dialog,    int which){
-      String tag=addFilterTagET.getText().toString();
-      if (tag.length() != 0) {
-        mCurrentTags.add(tag);
-      }
-    }
-  }
-;
+  frame.addView(mAddTagIV);
   mOnDismissListener=new DialogInterface.OnDismissListener(){
     @Override public void onDismiss(    DialogInterface dialog){
       addFilterTagET.setText("");
