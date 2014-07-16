@@ -6,7 +6,7 @@
   DrawableContainer offFrameContainer=new DrawableContainer(false,false);
   for (  Drawable drawable : drawables) {
     if (drawable instanceof Legendable && ((Legendable)drawable).nameIsSet()) {
-      Color color=((Legendable)drawable).getColor();
+      ColorWrap color=((Legendable)drawable).getColor();
       String name=((Legendable)drawable).getName();
       mLegendMap.put(name,color);
     }

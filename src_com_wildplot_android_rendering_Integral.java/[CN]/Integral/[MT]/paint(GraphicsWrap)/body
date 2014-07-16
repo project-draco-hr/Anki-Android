@@ -1,0 +1,19 @@
+{
+  ColorWrap oldColor=g.getColor();
+  RectangleWrap field=g.getClipBounds();
+  g.setColor(color);
+  float[] startPoint=plotSheet.toGraphicPoint(this.start,0,field);
+  float[] endPoint=plotSheet.toGraphicPoint(this.end,0,field);
+  for (int i=Math.round(startPoint[0]); i <= endPoint[0]; i++) {
+    double currentX=plotSheet.xToCoordinate(i,field);
+    double currentY=function.f(currentX);
+    if (this.function2 != null) {
+      double currentY2=function2.f(currentX);
+      g.drawLine(plotSheet.xToGraphic(currentX,field),plotSheet.yToGraphic(currentY,field),plotSheet.xToGraphic(currentX,field),plotSheet.yToGraphic(currentY2,field));
+    }
+ else {
+      g.drawLine(plotSheet.xToGraphic(currentX,field),plotSheet.yToGraphic(currentY,field),plotSheet.xToGraphic(currentX,field),plotSheet.yToGraphic(0,field));
+    }
+  }
+  g.setColor(oldColor);
+}

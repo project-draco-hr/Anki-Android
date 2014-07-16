@@ -1,8 +1,0 @@
-{
-  Rectangle field=g.getClipBounds();
-  double currentX=leftStart;
-  while (currentX <= this.xLength && !(currentX > 0 && !this.gridOnRight)) {
-    drawGridLine(currentX,g,field);
-    currentX+=this.tic;
-  }
-}

@@ -1,8 +1,8 @@
 {
-  int red=Color.LIGHT_GRAY.getRed();
-  int green=Color.LIGHT_GRAY.getGreen();
-  int blue=Color.LIGHT_GRAY.getBlue();
-  Color newGridColor=new Color(red,green,blue,222);
+  int red=ColorWrap.LIGHT_GRAY.getRed();
+  int green=ColorWrap.LIGHT_GRAY.getGreen();
+  int blue=ColorWrap.LIGHT_GRAY.getBlue();
+  ColorWrap newGridColor=new ColorWrap(red,green,blue,222);
   XGrid xGrid=new XGrid(plotSheet,0,150);
   YGrid yGrid=new YGrid(plotSheet,0,150);
   double[] timePositions;

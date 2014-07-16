@@ -1,7 +1,0 @@
-{
-  float[] hsv=new float[3];
-  int newColor=0;
-  android.graphics.Color.colorToHSV(colorValue,hsv);
-  hsv[2]*=0.8f;
-  return new Color(android.graphics.Color.HSVToColor(hsv));
-}

@@ -1,0 +1,24 @@
+{
+  ColorWrap oldColor=g.getColor();
+  RectangleWrap field=g.getClipBounds();
+  g.setColor(color);
+  if (this.hasFunction) {
+    double tmp=(int)((0 - plotSheet.getxRange()[0]) / this.steps);
+    tmp=(0.0 - tmp * this.steps);
+    while (tmp <= plotSheet.getxRange()[1]) {
+      drawBar(tmp,function.f(tmp),g,field);
+      tmp+=this.steps;
+    }
+  }
+ else {
+    for (int i=0; i < this.points[0].length; i++) {
+      if (points.length == 3) {
+        drawBar(points[0][i],points[1][i],g,field,points[2][i]);
+      }
+ else {
+        drawBar(points[0][i],points[1][i],g,field);
+      }
+    }
+  }
+  g.setColor(oldColor);
+}

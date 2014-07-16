@@ -1,13 +1,14 @@
 {
   if (mDataIsSet) {
-    Paint paint=new Paint(Paint.LINEAR_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+    Paint paint=new Paint(Paint.LINEAR_TEXT_FLAG);
+    paint.setAntiAlias(true);
     paint.setStyle(Paint.Style.STROKE);
     float textSize=AnkiStatsTaskHandler.getInstance().getmStandardTextSize() * 0.75f;
     paint.setTextSize(textSize);
-    Graphics g=new Graphics2D(canvas,paint);
+    GraphicsWrap g=new GraphicsWrap(canvas,paint);
     Rect field=new Rect();
     this.getDrawingRect(field);
-    mRectangle=new Rectangle(field);
+    mRectangle=new RectangleWrap(field);
     g.setClip(mRectangle);
     if (mPlotSheet != null) {
       mPlotSheet.paint(g);

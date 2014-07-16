@@ -1,0 +1,60 @@
+{
+  isOnReset=false;
+  if (function instanceof StepFunction2D) {
+    this.isStepFunction=true;
+  }
+  StrokeWrap oldStroke=g.getStroke();
+  g.setStroke(new BasicStrokeWrap(this.size));
+  ColorWrap oldColor=g.getColor();
+  RectangleWrap field=g.getClipBounds();
+  g.setColor(color);
+  if (autoscale) {
+    double[] start=this.plotSheet.toCoordinatePoint(0,0,field);
+    double[] end=this.plotSheet.toCoordinatePoint(0 + this.plotSheet.getFrameThickness(),0,field);
+    this.scaleFactor=Math.abs(end[0] - start[0]);
+  }
+ else {
+    this.scaleFactor=1.0;
+  }
+  if (this.isOnFrame)   xOffset=plotSheet.getxRange()[0];
+  double[] drawingPoint=plotSheet.toCoordinatePoint(field.x,field.height,field);
+  if (this.isOnFrame)   drawingPoint=plotSheet.toCoordinatePoint(field.x,field.height - this.plotSheet.getFrameThickness(),field);
+  double f_y=function.f(drawingPoint[1]) * scaleFactor * extraScaleFactor;
+  double f_y_old=f_y;
+  float[] coordStart=plotSheet.toGraphicPoint(f_y,drawingPoint[1],field);
+  if (this.isOnFrame)   coordStart=plotSheet.toGraphicPoint(this.xOffset - f_y,drawingPoint[1],field);
+  float[] coordEnd=coordStart;
+  float leftStart=field.height + field.y;
+  float rightEnd=field.y;
+  if (this.isOnFrame) {
+    leftStart=field.height + field.y - this.plotSheet.getFrameThickness();
+    rightEnd=field.y + this.plotSheet.getFrameThickness();
+  }
+  if (this.hasLimit) {
+    leftStart=plotSheet.yToGraphic(leftLimit,field);
+    rightEnd=plotSheet.yToGraphic(rightLimit,field);
+  }
+  for (int i=Math.round(leftStart); i > rightEnd; i--) {
+    if (isOnReset)     return;
+    drawingPoint=plotSheet.toCoordinatePoint(0,i,field);
+    coordEnd=coordStart;
+    f_y_old=f_y;
+    f_y=function.f(drawingPoint[1]) * scaleFactor * extraScaleFactor;
+    coordStart=plotSheet.toGraphicPoint(f_y,drawingPoint[1],field);
+    if (this.isOnFrame)     coordStart=plotSheet.toGraphicPoint(this.xOffset - f_y,drawingPoint[1],field);
+    double overlap=0.2 * (plotSheet.getxRange()[1] - plotSheet.getxRange()[0]);
+    if (f_y_old != Double.NaN && f_y != Double.NaN && f_y_old != Double.NEGATIVE_INFINITY && f_y != Double.NEGATIVE_INFINITY && f_y_old != Double.POSITIVE_INFINITY && f_y != Double.POSITIVE_INFINITY && f_y_old <= plotSheet.getxRange()[1] + overlap && f_y_old >= plotSheet.getxRange()[0] - overlap && f_y <= plotSheet.getxRange()[1] + overlap && f_y >= plotSheet.getxRange()[0] - overlap) {
+      if (!this.isStepFunction)       g.drawLine(coordStart[0],coordStart[1],coordEnd[0],coordEnd[1]);
+ else {
+        g.drawLine(coordStart[0],coordStart[1],coordEnd[0],coordStart[1]);
+        g.drawLine(coordStart[0],coordStart[1],coordEnd[0],coordEnd[1]);
+      }
+    }
+ else     if (!warned) {
+      System.err.println("Could not draw part of function, possible pole or out of reach");
+      warned=true;
+    }
+  }
+  g.setStroke(oldStroke);
+  g.setColor(oldColor);
+}

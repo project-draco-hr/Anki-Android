@@ -1,5 +1,5 @@
 {
-  Rectangle field=new Rectangle(pixelResolution,pixelResolution);
+  RectangleWrap field=new RectangleWrap(pixelResolution,pixelResolution);
   double[] drawingPoint=plotSheet.toCoordinatePoint(field.x,0,field);
   double max=Double.NEGATIVE_INFINITY;
   for (int i=0; i < pixelResolution; i++) {

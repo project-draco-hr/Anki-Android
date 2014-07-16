@@ -1,0 +1,20 @@
+{
+  RectangleWrap field=g.getClipBounds();
+  int tics=(int)((this.ticStart - this.start) / tic);
+  double leftStart=this.ticStart - this.tic * tics;
+  double currentX=leftStart;
+  while (currentX <= this.end) {
+    if ((!this.isOnFrame && plotSheet.xToGraphic(currentX,field) <= plotSheet.xToGraphic(this.end,field) - 45 && plotSheet.xToGraphic(currentX,field) <= field.x + field.width - 45) || (this.isOnFrame && currentX <= this.plotSheet.getxRange()[1] && currentX >= this.plotSheet.getxRange()[0])) {
+      if (currentX < this.plotSheet.getxRange()[0]) {
+      }
+      if (this.markOnDownside) {
+        drawDownwardsMarker(g,field,currentX);
+      }
+      if (this.markOnUpside) {
+        drawUpwardsMarker(g,field,currentX);
+      }
+      drawNumbering(g,field,currentX,-1);
+    }
+    currentX+=this.tic;
+  }
+}

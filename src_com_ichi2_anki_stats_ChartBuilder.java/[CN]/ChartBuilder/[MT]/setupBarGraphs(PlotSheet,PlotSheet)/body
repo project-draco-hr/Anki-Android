@@ -16,10 +16,10 @@
         barThickness=0.2;
       }
     }
-    BarGraph barGraph=new BarGraph(usedPlotSheet,barThickness,bars,new Color(mChartView.getResources().getColor(mColors[i - 1])));
+    BarGraph barGraph=new BarGraph(usedPlotSheet,barThickness,bars,new ColorWrap(mChartView.getResources().getColor(mColors[i - 1])));
     barGraph.setFilling(true);
     barGraph.setName(mChartView.getResources().getString(mValueLabels[i - 1]));
-    barGraph.setFillColor(new Color(mChartView.getResources().getColor(mColors[i - 1])));
+    barGraph.setFillColor(new ColorWrap(mChartView.getResources().getColor(mColors[i - 1])));
     plotSheet.addDrawable(barGraph);
   }
 }

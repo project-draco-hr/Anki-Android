@@ -1,0 +1,28 @@
+{
+  abortPaint=false;
+  ColorWrap oldColor=g.getColor();
+  RectangleWrap field=g.getClipBounds();
+  if (rangeHasChanged()) {
+    try {
+      scanDepth(field);
+    }
+ catch (    InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+  if (abortPaint)   return;
+  this.depthScanningIsFinished=true;
+  if (this.colored) {
+    try {
+      drawColoredRelief(g);
+    }
+ catch (    InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+ else {
+    g.setColor(color);
+    drawBorders(g);
+  }
+  g.setColor(oldColor);
+}

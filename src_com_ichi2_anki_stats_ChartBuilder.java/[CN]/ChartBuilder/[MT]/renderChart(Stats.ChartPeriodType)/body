@@ -4,11 +4,11 @@
   paint.setStyle(Paint.Style.STROKE);
   int height=mChartView.getMeasuredHeight();
   int width=mChartView.getMeasuredWidth();
-  Log.d(AnkiStatsTaskHandler.TAG,"heigth: " + height + ", width: "+ width+ ", "+ mChartView.getWidth());
+  Log.d(AnkiDroidApp.TAG,"heigth: " + height + ", width: "+ width+ ", "+ mChartView.getWidth());
   if (height <= 0 || width <= 0) {
     return null;
   }
-  Rectangle rect=new Rectangle(width,height);
+  RectangleWrap rect=new RectangleWrap(width,height);
   float textSize=AnkiStatsTaskHandler.getInstance().getmStandardTextSize() * 0.75f;
   paint.setTextSize(textSize);
   float FontHeigth=paint.getTextSize();
