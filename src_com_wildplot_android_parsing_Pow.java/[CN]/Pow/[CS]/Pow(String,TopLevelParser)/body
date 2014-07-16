@@ -1,0 +1,12 @@
+{
+  this.parser=parser;
+  if (!TopLevelParser.stringHasValidBrackets(powString)) {
+    this.powType=PowType.INVALID;
+    return;
+  }
+  boolean isReady;
+  isReady=initAsAtom(powString);
+  if (!isReady)   isReady=initAsAtomPowFactor(powString);
+  if (!isReady)   isReady=initAsAtomSqrtFactor(powString);
+  if (!isReady)   this.powType=PowType.INVALID;
+}

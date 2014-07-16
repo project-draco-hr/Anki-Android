@@ -1,0 +1,7 @@
+{
+  HashMap<String,TopLevelParser> newParserRegister=new HashMap<String,TopLevelParser>();
+  for (  String key : parserRegister.keySet()) {
+    newParserRegister.put(key,parserRegister.get(key).createCopy(newParserRegister));
+  }
+  return newParserRegister.get(this.funcName);
+}

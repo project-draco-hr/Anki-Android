@@ -1,0 +1,13 @@
+{
+  if (atomString.length() > 0 && atomString.charAt(0) == '(' && atomString.charAt(atomString.length() - 1) == ')') {
+    String expressionString=atomString.substring(1,atomString.length() - 1);
+    Expression expressionInBrackets=new Expression(expressionString,parser);
+    boolean isValidExpressionInBrackets=expressionInBrackets.getExpressionType() != Expression.ExpressionType.INVALID;
+    if (isValidExpressionInBrackets) {
+      this.expression=expressionInBrackets;
+      this.atomType=AtomType.EXP_IN_BRACKETS;
+      return true;
+    }
+  }
+  return false;
+}

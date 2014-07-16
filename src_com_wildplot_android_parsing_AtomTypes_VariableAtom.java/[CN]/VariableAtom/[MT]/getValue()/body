@@ -1,0 +1,6 @@
+{
+  if (atomType != Atom.AtomType.INVALID) {
+    return parser.getVarVal(varName);
+  }
+ else   throw new ExpressionFormatException("Number is Invalid, cannot parse");
+}

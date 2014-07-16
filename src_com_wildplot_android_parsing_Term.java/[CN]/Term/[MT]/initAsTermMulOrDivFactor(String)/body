@@ -1,0 +1,31 @@
+{
+  int bracketChecker=0;
+  for (int i=0; i < termString.length(); i++) {
+    if (termString.charAt(i) == '(') {
+      bracketChecker++;
+    }
+    if (termString.charAt(i) == ')') {
+      bracketChecker--;
+    }
+    if ((termString.charAt(i) == '*' || termString.charAt(i) == '/') && bracketChecker == 0) {
+      String leftSubString=termString.substring(0,i);
+      if (!TopLevelParser.stringHasValidBrackets(leftSubString))       continue;
+      Term leftTerm=new Term(leftSubString,parser);
+      boolean isValidFirstPartTerm=leftTerm.getTermType() != TermType.INVALID;
+      if (!isValidFirstPartTerm)       continue;
+      boolean isValidSecondPartFactor=false;
+      String rightSubString=termString.substring(i + 1,termString.length());
+      if (!TopLevelParser.stringHasValidBrackets(rightSubString))       continue;
+      Factor rightFactor=new Factor(rightSubString,parser);
+      isValidSecondPartFactor=rightFactor.getFactorType() != Factor.FactorType.INVALID;
+      if (isValidSecondPartFactor) {
+        if (termString.charAt(i) == '*')         this.termType=TermType.TERM_MUL_FACTOR;
+ else         this.termType=TermType.TERM_DIV_FACTOR;
+        this.term=leftTerm;
+        this.factor=rightFactor;
+        return true;
+      }
+    }
+  }
+  return false;
+}

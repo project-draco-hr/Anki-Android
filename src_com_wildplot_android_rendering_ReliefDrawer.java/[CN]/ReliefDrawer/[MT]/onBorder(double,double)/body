@@ -1,0 +1,12 @@
+{
+  double lowerBorder=this.f_xLowest;
+  double higherBorder=this.f_xHighest;
+  for (  double border : borders) {
+    higherBorder=border;
+    if ((f_xy >= lowerBorder && f_xy < higherBorder) || (f_xyNext >= lowerBorder && f_xyNext < higherBorder)) {
+      return !((f_xy >= lowerBorder && f_xy < higherBorder) && (f_xyNext >= lowerBorder && f_xyNext < higherBorder));
+    }
+    lowerBorder=higherBorder;
+  }
+  return true;
+}

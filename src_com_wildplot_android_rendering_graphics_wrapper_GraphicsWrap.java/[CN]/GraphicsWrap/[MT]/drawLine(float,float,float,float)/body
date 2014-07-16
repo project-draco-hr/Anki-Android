@@ -1,0 +1,6 @@
+{
+  Style oldStyle=paint.getStyle();
+  paint.setStyle(Style.FILL_AND_STROKE);
+  canvas.drawLine(x1,y1,x2,y2,paint);
+  paint.setStyle(oldStyle);
+}

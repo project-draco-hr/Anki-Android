@@ -1,0 +1,34 @@
+{
+  calcStats(type);
+  Paint paint=new Paint(Paint.LINEAR_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+  paint.setStyle(Paint.Style.STROKE);
+  int height=mChartView.getMeasuredHeight();
+  int width=mChartView.getMeasuredWidth();
+  Log.d(AnkiDroidApp.TAG,"heigth: " + height + ", width: "+ width+ ", "+ mChartView.getWidth());
+  if (height <= 0 || width <= 0) {
+    return null;
+  }
+  RectangleWrap rect=new RectangleWrap(width,height);
+  float textSize=AnkiStatsTaskHandler.getInstance().getmStandardTextSize() * 0.75f;
+  paint.setTextSize(textSize);
+  float FontHeigth=paint.getTextSize();
+  mFrameThickness=Math.round(FontHeigth * 4.0f);
+  PlotSheet plotSheet=new PlotSheet(mFirstElement - 0.5,mLastElement + 0.5,0,mMaxCards * yAxisStretchFactor);
+  plotSheet.setFrameThickness(mFrameThickness);
+  plotSheet.setFontSize(textSize);
+  if (mChartType == Stats.ChartType.CARDS_TYPES) {
+    return createPieChart(plotSheet);
+  }
+  PlotSheet hiddenPlotSheet=new PlotSheet(mFirstElement - 0.5,mLastElement + 0.5,0,mMcount * yAxisStretchFactor);
+  hiddenPlotSheet.setFrameThickness(mFrameThickness);
+  setupBarGraphs(plotSheet,hiddenPlotSheet);
+  setupCumulative(plotSheet,hiddenPlotSheet);
+  double xTicks=ticksCalcX(150,rect,mFirstElement,mLastElement);
+  setupXaxis(plotSheet,xTicks);
+  double yTicks=ticksCalcY(150,rect,0,mMaxCards * yAxisStretchFactor);
+  setupYaxis(plotSheet,hiddenPlotSheet,yTicks,mAxisTitles[1],false);
+  double rightYtics=ticsCalc(150,rect,mMcount * yAxisStretchFactor);
+  setupYaxis(plotSheet,hiddenPlotSheet,rightYtics,mAxisTitles[2],true);
+  setupGrid(plotSheet);
+  return plotSheet;
+}

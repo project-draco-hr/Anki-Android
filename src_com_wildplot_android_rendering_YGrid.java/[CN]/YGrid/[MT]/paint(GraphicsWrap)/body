@@ -1,0 +1,22 @@
+{
+  ColorWrap oldColor=g.getColor();
+  RectangleWrap field=g.getClipBounds();
+  g.setColor(color);
+  if (this.hasVariableLimits) {
+    this.xLength=Math.max(Math.abs(plotSheet.getxRange()[0]),Math.abs(plotSheet.getxRange()[1]));
+    this.yLength=Math.max(Math.abs(plotSheet.getyRange()[0]),Math.abs(plotSheet.getyRange()[1]));
+  }
+  if (this.isAutoTic)   this.tic=plotSheet.ticsCalcX(pixelDistance,field);
+  int tics=(int)((this.ticStart - (0 - this.xLength)) / tic);
+  double leftStart=this.ticStart - this.tic * tics;
+  if (leftStart < 0) {
+    if (!this.gridkOnLeft) {
+      while (leftStart < 0) {
+        leftStart+=this.tic;
+      }
+    }
+  }
+  if (mTickPositions == null)   drawImplicitLines(g,leftStart);
+ else   drawExplicitLines(g);
+  g.setColor(oldColor);
+}

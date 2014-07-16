@@ -1,0 +1,8 @@
+{
+  try {
+    this.value=Double.parseDouble(factorString);
+  }
+ catch (  NumberFormatException e) {
+    atomType=Atom.AtomType.INVALID;
+  }
+}

@@ -1,0 +1,34 @@
+{
+  int bracketChecker=0;
+  for (int i=0; i < expressionString.length(); i++) {
+    if (expressionString.charAt(i) == '(') {
+      bracketChecker++;
+    }
+    if (expressionString.charAt(i) == ')') {
+      bracketChecker--;
+    }
+    if ((expressionString.charAt(i) == '+' || expressionString.charAt(i) == '-') && bracketChecker == 0) {
+      String leftSubString=expressionString.substring(0,i);
+      if (!TopLevelParser.stringHasValidBrackets(leftSubString))       continue;
+      Expression leftExpression=new Expression(leftSubString,parser);
+      boolean isValidFirstPartExpression=leftExpression.getExpressionType() != ExpressionType.INVALID;
+      if (!isValidFirstPartExpression)       continue;
+      String rightSubString=expressionString.substring(i + 1,expressionString.length());
+      if (!TopLevelParser.stringHasValidBrackets(rightSubString))       continue;
+      Term rightTerm=new Term(rightSubString,parser);
+      boolean isValidSecondPartTerm=rightTerm.getTermType() != Term.TermType.INVALID;
+      if (isValidSecondPartTerm) {
+        if (expressionString.charAt(i) == '+') {
+          this.expressionType=ExpressionType.EXP_PLUS_TERM;
+        }
+ else {
+          this.expressionType=ExpressionType.EXP_MINUS_TERM;
+        }
+        this.expression=leftExpression;
+        this.term=rightTerm;
+        return true;
+      }
+    }
+  }
+  return false;
+}

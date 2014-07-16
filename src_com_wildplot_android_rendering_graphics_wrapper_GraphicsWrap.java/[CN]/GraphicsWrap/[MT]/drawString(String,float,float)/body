@@ -1,0 +1,6 @@
+{
+  Style oldStyle=paint.getStyle();
+  paint.setStyle(Style.FILL);
+  canvas.drawText(text,x,y,paint);
+  paint.setStyle(oldStyle);
+}

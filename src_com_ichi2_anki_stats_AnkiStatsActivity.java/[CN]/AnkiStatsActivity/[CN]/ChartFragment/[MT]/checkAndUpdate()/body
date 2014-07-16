@@ -1,0 +1,13 @@
+{
+  if (!mIsCreated)   return;
+  int height=mChart.getMeasuredHeight();
+  int width=mChart.getMeasuredWidth();
+  if (height != 0 && width != 0) {
+    if (mHeight != height || mWidth != width || mType != (((AnkiStatsActivity)getActivity()).getTaskHandler()).getStatType()) {
+      mHeight=height;
+      mWidth=width;
+      mType=(((AnkiStatsActivity)getActivity()).getTaskHandler()).getStatType();
+      createChart();
+    }
+  }
+}

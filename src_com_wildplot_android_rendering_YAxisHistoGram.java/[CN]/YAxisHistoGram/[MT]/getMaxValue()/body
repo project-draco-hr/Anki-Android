@@ -1,0 +1,12 @@
+{
+  double max=Double.NEGATIVE_INFINITY;
+  double steps=this.size;
+  double tmp=(int)((0 - plotSheet.getyRange()[0]) / steps);
+  tmp=(start - tmp * steps);
+  while (tmp <= plotSheet.getyRange()[1]) {
+    double sizeInRange=getSizeInRange(tmp,tmp + size);
+    if (max < sizeInRange)     max=sizeInRange;
+    tmp+=steps;
+  }
+  return max;
+}

@@ -1,0 +1,11 @@
+{
+  this.parser=parser;
+  boolean isValid=init(funcString);
+  if (!isValid) {
+    this.mathType=MathType.INVALID;
+  }
+  if (isValid && !isVariable()) {
+    savedValue=getValue();
+    hasSavedValue=true;
+  }
+}

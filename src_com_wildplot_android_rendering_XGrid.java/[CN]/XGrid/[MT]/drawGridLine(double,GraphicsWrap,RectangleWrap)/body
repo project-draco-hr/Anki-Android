@@ -1,0 +1,8 @@
+{
+  if (this.gridkOnLeft) {
+    g.drawLine(plotSheet.xToGraphic(0,field),plotSheet.yToGraphic(y,field),plotSheet.xToGraphic(-this.xLength,field),plotSheet.yToGraphic(y,field));
+  }
+  if (this.gridOnRight) {
+    g.drawLine(plotSheet.xToGraphic(0,field),plotSheet.yToGraphic(y,field),plotSheet.xToGraphic(this.xLength,field),plotSheet.yToGraphic(y,field));
+  }
+}

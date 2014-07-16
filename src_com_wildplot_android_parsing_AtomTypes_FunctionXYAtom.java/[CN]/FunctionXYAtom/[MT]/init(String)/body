@@ -1,0 +1,33 @@
+{
+  int leftBracket=funcString.indexOf("(");
+  int rightBracket=funcString.lastIndexOf(")");
+  int comma=funcString.indexOf(",");
+  if (leftBracket > 1 && rightBracket > leftBracket + 1 && comma > leftBracket && comma < rightBracket) {
+    for (int i=leftBracket + 1; i < rightBracket; i++) {
+      if (funcString.charAt(i) == ',') {
+        comma=i;
+      }
+      String funcName=funcString.substring(0,leftBracket);
+      Pattern p=Pattern.compile("[^a-zA-Z0-9]");
+      boolean hasSpecialChar=p.matcher(funcName).find();
+      if (hasSpecialChar || !(funcName.length() > 0)) {
+        this.atomType=Atom.AtomType.INVALID;
+        return false;
+      }
+      String leftExpressionString=funcString.substring(leftBracket + 1,comma);
+      String rightExpressionString=funcString.substring(comma + 1,rightBracket);
+      Expression leftExpressionInBrackets=new Expression(leftExpressionString,parser);
+      Expression rightExpressionInBrackets=new Expression(rightExpressionString,parser);
+      boolean isValidLeftExpression=leftExpressionInBrackets.getExpressionType() != Expression.ExpressionType.INVALID;
+      boolean isValidRightExpression=rightExpressionInBrackets.getExpressionType() != Expression.ExpressionType.INVALID;
+      if (isValidLeftExpression && isValidRightExpression) {
+        this.atomType=Atom.AtomType.FUNCTION_X;
+        this.funcName=funcName;
+        this.expressionLeft=leftExpressionInBrackets;
+        this.expressionRight=rightExpressionInBrackets;
+        return true;
+      }
+    }
+  }
+  return false;
+}

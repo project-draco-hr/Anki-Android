@@ -1,0 +1,5 @@
+{
+  double yQuotient=(Math.abs(this.screenParts.get(currentScreen).getyRange()[1] - this.screenParts.get(currentScreen).getyRange()[0])) / (field.height - 2 * frameThickness);
+  double yDistanceFromBottom=field.y + field.height - 1 - y - frameThickness;
+  return this.screenParts.get(currentScreen).getyRange()[0] + yDistanceFromBottom * yQuotient;
+}

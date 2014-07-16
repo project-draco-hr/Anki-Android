@@ -1,0 +1,10 @@
+{
+  Atom atom=new Atom(powString,parser);
+  boolean isValidAtom=atom.getAtomType() != Atom.AtomType.INVALID;
+  if (isValidAtom) {
+    this.powType=PowType.ATOM;
+    this.atom=atom;
+    return true;
+  }
+  return false;
+}

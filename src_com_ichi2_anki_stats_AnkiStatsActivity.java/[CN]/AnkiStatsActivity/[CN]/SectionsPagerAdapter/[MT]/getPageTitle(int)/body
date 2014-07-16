@@ -1,0 +1,22 @@
+{
+  Locale l=Locale.getDefault();
+switch (position) {
+case 0:
+    return getString(R.string.stats_forecast).toUpperCase(l);
+case 1:
+  return getString(R.string.stats_review_count).toUpperCase(l);
+case 2:
+return getString(R.string.stats_review_time).toUpperCase(l);
+case 3:
+return getString(R.string.stats_review_intervals).toUpperCase(l);
+case 4:
+return getString(R.string.stats_breakdown).toUpperCase(l);
+case 5:
+return getString(R.string.stats_weekly_breakdown).toUpperCase(l);
+case 6:
+return getString(R.string.stats_answer_buttons).toUpperCase(l);
+case 7:
+return getString(R.string.stats_cards_types).toUpperCase(l);
+}
+return null;
+}

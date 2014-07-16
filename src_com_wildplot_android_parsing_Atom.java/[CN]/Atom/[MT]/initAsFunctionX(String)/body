@@ -1,0 +1,10 @@
+{
+  FunctionXAtom functionXAtom=new FunctionXAtom(atomString,parser);
+  boolean isValidFunctionXAtom=functionXAtom.getAtomType() != AtomType.INVALID;
+  if (isValidFunctionXAtom) {
+    this.atomType=AtomType.FUNCTION_X;
+    this.atomObject=functionXAtom;
+    return true;
+  }
+  return false;
+}

@@ -1,0 +1,6 @@
+{
+  this.filling=filling;
+  if (this.fillColor == null && filling) {
+    this.fillColor=this.color.brighter();
+  }
+}

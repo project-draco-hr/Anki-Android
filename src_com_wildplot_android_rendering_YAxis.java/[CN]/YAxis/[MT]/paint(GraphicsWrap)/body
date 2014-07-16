@@ -1,0 +1,22 @@
+{
+  RectangleWrap field=g.getClipBounds();
+  if (this.hasVariableLimits) {
+    start=plotSheet.getyRange()[0];
+    end=plotSheet.getyRange()[1];
+  }
+  if (this.isOnFrame)   if (this.isAutoTic) {
+    this.tic=plotSheet.ticsCalcY(pixelDistance,field);
+    double quotient=(pixelDistance * 1.0) / (minorPixelDistance * 1.0);
+    this.minorTic=(this.tic / Math.round(quotient));
+  }
+ else {
+    this.pixelDistance=Math.abs(plotSheet.yToGraphic(0,field) - plotSheet.yToGraphic(tic,field));
+    this.minorPixelDistance=Math.abs(plotSheet.yToGraphic(0,field) - plotSheet.yToGraphic(minorTic,field));
+  }
+  if (this.tic < 1e-2 || this.tic > 1e2)   this.isScientific=true;
+  float[] coordStart=plotSheet.toGraphicPoint(xOffset,start,field);
+  float[] coordEnd=plotSheet.toGraphicPoint(xOffset,end,field);
+  if (!this.isOnFrame)   g.drawLine(coordStart[0],coordStart[1],coordEnd[0],coordEnd[1]);
+  drawMarkers(g);
+  drawMinorMarkers(g);
+}

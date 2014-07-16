@@ -1,0 +1,23 @@
+{
+  if (mDataIsSet) {
+    Paint paint=new Paint(Paint.LINEAR_TEXT_FLAG);
+    paint.setAntiAlias(true);
+    paint.setStyle(Paint.Style.STROKE);
+    float textSize=AnkiStatsTaskHandler.getInstance().getmStandardTextSize() * 0.75f;
+    paint.setTextSize(textSize);
+    GraphicsWrap g=new GraphicsWrap(canvas,paint);
+    Rect field=new Rect();
+    this.getDrawingRect(field);
+    mRectangle=new RectangleWrap(field);
+    g.setClip(mRectangle);
+    if (mPlotSheet != null) {
+      mPlotSheet.paint(g);
+    }
+ else {
+      super.onDraw(canvas);
+    }
+  }
+ else {
+    super.onDraw(canvas);
+  }
+}

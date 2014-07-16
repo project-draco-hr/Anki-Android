@@ -1,0 +1,16 @@
+{
+  this.parser=parser;
+  if (!TopLevelParser.stringHasValidBrackets(atomString)) {
+    this.atomType=AtomType.INVALID;
+    return;
+  }
+  boolean isValid=initAsExpInBrackets(atomString);
+  if (!isValid)   isValid=initAsFunctionMath(atomString);
+  if (!isValid)   isValid=initAsFunctionX(atomString);
+  if (!isValid)   isValid=initAsFunctionXY(atomString);
+  if (!isValid)   isValid=initAsNumber(atomString);
+  if (!isValid)   isValid=initAsXVariable(atomString);
+  if (!isValid)   isValid=initAsYVariable(atomString);
+  if (!isValid)   isValid=initAsVariable(atomString);
+  if (!isValid)   this.atomType=AtomType.INVALID;
+}

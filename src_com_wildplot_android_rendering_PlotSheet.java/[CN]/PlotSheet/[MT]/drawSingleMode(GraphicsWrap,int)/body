@@ -1,0 +1,80 @@
+{
+  mLegendMap=new HashMap<String,ColorWrap>();
+  RectangleWrap field=g.getClipBounds();
+  this.currentScreen=screenNr;
+  prepareRunnables();
+  Vector<Drawable> offFrameDrawables=new Vector<Drawable>();
+  Vector<Drawable> onFrameDrawables=new Vector<Drawable>();
+  g.setTypeface(typeface);
+  g.setColor(ColorWrap.white);
+  g.fillRect(0,0,field.width,field.height);
+  g.setColor(ColorWrap.BLACK);
+  if (fontSizeSet) {
+    g.setFontSize(fontSize);
+  }
+  int i=0;
+  if (this.screenParts.get(screenNr).getDrawables() != null && this.screenParts.get(screenNr).getDrawables().size() != 0) {
+    for (    Drawable draw : this.screenParts.get(screenNr).getDrawables()) {
+      if (!draw.isOnFrame()) {
+        offFrameDrawables.add(draw);
+      }
+ else {
+        onFrameDrawables.add(draw);
+      }
+    }
+  }
+  for (  Drawable offFrameDrawing : offFrameDrawables) {
+    offFrameDrawing.paint(g);
+  }
+  ColorWrap oldColor=g.getColor();
+  if (this.frameThickness > 0) {
+    g.setColor(ColorWrap.white);
+    g.fillRect(0,0,field.width,this.frameThickness);
+    g.fillRect(0,this.frameThickness,this.frameThickness,field.height);
+    g.fillRect(field.width + 1 - this.frameThickness,this.frameThickness,this.frameThickness + 2,field.height - this.frameThickness);
+    g.fillRect(this.frameThickness,field.height - this.frameThickness,field.width - this.frameThickness,this.frameThickness + 1);
+    if (isBordered) {
+      g.setColor(ColorWrap.black);
+      g.fillRect(this.frameThickness - borderThickness + 1,this.frameThickness - borderThickness + 1,field.width - 2 * this.frameThickness + 2 * borderThickness - 2,borderThickness);
+      g.fillRect(this.frameThickness - borderThickness + 1,field.height - this.frameThickness,field.width - 2 * this.frameThickness + 2 * borderThickness - 2,borderThickness);
+      g.fillRect(this.frameThickness - borderThickness + 1,this.frameThickness - borderThickness + 1,borderThickness,field.height - 2 * this.frameThickness + 2 * borderThickness - 2);
+      g.fillRect(field.width - this.frameThickness,this.frameThickness - borderThickness + 1,borderThickness,field.height - 2 * this.frameThickness + 2 * borderThickness - 2);
+    }
+    g.setColor(oldColor);
+    if (hasTitle) {
+      float oldFontSize=g.getFontSize();
+      float newFontSize=oldFontSize * 2;
+      g.setFontSize(newFontSize);
+      FontMetricsWrap fm=g.getFontMetrics();
+      float height=fm.getHeight();
+      float width=fm.stringWidth(this.title);
+      g.drawString(this.title,field.width / 2 - width / 2,this.frameThickness - 10 - height);
+      g.setFontSize(oldFontSize);
+    }
+    Set<String> keySet=mLegendMap.keySet();
+    int xPointer=10;
+    float ySpacer=10;
+    float rectangleSize=16;
+    FontMetricsWrap fm=g.getFontMetrics();
+    float currentPixelWidth=xPointer;
+    for (    String legendName : keySet) {
+      float stringWidth=fm.stringWidth(" : " + legendName);
+      float height=fm.getHeight();
+      float delta=rectangleSize - height;
+      ColorWrap color=mLegendMap.get(legendName);
+      g.setColor(color);
+      if (xPointer + rectangleSize * 2 + stringWidth >= field.width) {
+        xPointer=10;
+        ySpacer+=rectangleSize + 10;
+      }
+      g.fillRect(xPointer,ySpacer,rectangleSize,rectangleSize);
+      g.setColor(ColorWrap.BLACK);
+      g.drawString(" : " + legendName,xPointer + rectangleSize,ySpacer + rectangleSize - delta / 2);
+      xPointer+=rectangleSize * 2 + stringWidth;
+    }
+    g.setColor(ColorWrap.BLACK);
+  }
+  for (  Drawable onFrameDrawing : onFrameDrawables) {
+    onFrameDrawing.paint(g);
+  }
+}
