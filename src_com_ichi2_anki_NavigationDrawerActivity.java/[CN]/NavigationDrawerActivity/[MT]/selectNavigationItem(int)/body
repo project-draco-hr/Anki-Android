@@ -19,12 +19,14 @@ startActivityForResultWithAnimation(cardBrowser,BROWSE_CARDS,ActivityTransitionA
 break;
 case DRAWER_STATISTICS:
 boolean selectAllDecksButton=false;
+if (!(this instanceof AnkiStatsActivity)) {
 if ((this instanceof DeckPicker && !mFragmented)) {
 selectAllDecksButton=true;
 }
 AnkiStatsTaskHandler.setIsWholeCollection(selectAllDecksButton);
-Intent intent=new Intent(NavigationDrawerActivity.this,com.ichi2.anki.stats.AnkiStatsActivity.class);
+Intent intent=new Intent(this,AnkiStatsActivity.class);
 startActivityWithAnimation(intent,ActivityTransitionAnimation.DOWN);
+}
 break;
 case DRAWER_SETTINGS:
 startActivityForResultWithAnimation(new Intent(this,Preferences.class),PREFERENCES_UPDATE,ActivityTransitionAnimation.LEFT);
