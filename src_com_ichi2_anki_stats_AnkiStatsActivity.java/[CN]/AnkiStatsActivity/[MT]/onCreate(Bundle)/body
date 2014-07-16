@@ -1,8 +1,11 @@
 {
   super.onCreate(savedInstanceState);
   mTaskHandler=new AnkiStatsTaskHandler();
-  setContentView(R.layout.activity_anki_stats);
+  View mainLayout=getLayoutInflater().inflate(R.layout.activity_anki_stats,null);
+  initNavigationDrawer(mainLayout);
+  setContentView(mainLayout);
   final ActionBar actionBar=getSupportActionBar();
+  mActionBar=actionBar;
   actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
   mSectionsPagerAdapter=new SectionsPagerAdapter(getSupportFragmentManager());
   mViewPager=(ViewPager)findViewById(R.id.pager);
