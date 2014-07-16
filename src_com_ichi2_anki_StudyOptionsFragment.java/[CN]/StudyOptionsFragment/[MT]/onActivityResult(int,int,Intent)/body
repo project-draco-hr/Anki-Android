@@ -36,12 +36,7 @@
         DeckTask.waitToFinish();
         resetAndUpdateValuesFromDeck();
       }
-      if (noDeckCounts()) {
-        prepareCongratsView();
-      }
- else {
-        finishCongrats();
-      }
+      showCongratsIfNeeded();
     }
  else     if (requestCode == ADD_NOTE && resultCode != Activity.RESULT_CANCELED) {
       resetAndUpdateValuesFromDeck();
