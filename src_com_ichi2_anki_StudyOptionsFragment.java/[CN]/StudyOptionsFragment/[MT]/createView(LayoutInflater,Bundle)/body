@@ -25,11 +25,6 @@
   mCramInitialConfig=getArguments().getBundle("cramInitialConfig");
   resetAndUpdateValuesFromDeck();
   setHasOptionsMenu(true);
-  if (noDeckCounts()) {
-    prepareCongratsView();
-  }
- else {
-    finishCongrats();
-  }
+  showCongratsIfNeeded();
   return mStudyOptionsView;
 }
