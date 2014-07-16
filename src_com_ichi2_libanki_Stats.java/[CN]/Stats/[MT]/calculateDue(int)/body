@@ -6,19 +6,19 @@
   mTitle=R.string.stats_forecast;
   mValueLabels=new int[]{R.string.statistics_young,R.string.statistics_mature};
   mColors=new int[]{R.color.stats_young,R.color.stats_mature};
-  mAxisTitles=new int[]{type.ordinal(),R.string.stats_cards,R.string.stats_cumulative_cards};
+  mAxisTitles=new int[]{type,R.string.stats_cards,R.string.stats_cumulative_cards};
   int end=0;
   int chunk=0;
 switch (type) {
-case MONTH:
+case TYPE_MONTH:
     end=31;
   chunk=1;
 break;
-case YEAR:
+case TYPE_YEAR:
 end=52;
 chunk=7;
 break;
-case LIFE:
+case TYPE_LIFE:
 end=-1;
 chunk=30;
 break;
@@ -49,10 +49,10 @@ dues.add(0,new int[]{0,0,0});
 if (end == -1 && dues.size() < 2) {
 end=31;
 }
-if (type != ChartPeriodType.LIFE && dues.get(dues.size() - 1)[0] < end) {
+if (type != TYPE_LIFE && dues.get(dues.size() - 1)[0] < end) {
 dues.add(new int[]{end,0,0});
 }
- else if (type == ChartPeriodType.LIFE && dues.size() < 2) {
+ else if (type == TYPE_LIFE && dues.size() < 2) {
 dues.add(new int[]{Math.max(12,dues.get(dues.size() - 1)[0] + 1),0,0});
 }
 mSeriesList=new double[3][dues.size()];
@@ -69,10 +69,10 @@ mZeroIndex=i;
 }
 mMaxElements=dues.size() - 1;
 switch (mType) {
-case MONTH:
+case TYPE_MONTH:
 mLastElement=31;
 break;
-case YEAR:
+case TYPE_YEAR:
 mLastElement=52;
 break;
 default :

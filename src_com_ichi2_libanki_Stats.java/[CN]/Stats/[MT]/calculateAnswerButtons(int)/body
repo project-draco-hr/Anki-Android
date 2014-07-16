@@ -9,8 +9,8 @@
   Vector<String> lims=new Vector<String>();
   int days=0;
   if (lim.length() > 0)   lims.add(lim);
-  if (type == ChartPeriodType.MONTH)   days=30;
- else   if (type == ChartPeriodType.YEAR)   days=365;
+  if (type == TYPE_MONTH)   days=30;
+ else   if (type == TYPE_YEAR)   days=365;
  else   days=-1;
   if (days > 0)   lims.add("id > " + ((mCol.getSched().getDayCutoff() - (days * 86400)) * 1000));
   if (lims.size() > 0) {

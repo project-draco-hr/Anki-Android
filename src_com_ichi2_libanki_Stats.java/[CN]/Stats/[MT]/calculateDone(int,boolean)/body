@@ -5,7 +5,7 @@
   mBackwards=true;
   if (reps) {
     mTitle=R.string.stats_review_count;
-    mAxisTitles=new int[]{type.ordinal(),R.string.stats_answers,R.string.stats_cumulative_answers};
+    mAxisTitles=new int[]{type,R.string.stats_answers,R.string.stats_cumulative_answers};
   }
  else {
     mTitle=R.string.stats_review_time;
@@ -15,15 +15,15 @@
   int num=0;
   int chunk=0;
 switch (type) {
-case MONTH:
+case TYPE_MONTH:
     num=31;
   chunk=1;
 break;
-case YEAR:
+case TYPE_YEAR:
 num=52;
 chunk=7;
 break;
-case LIFE:
+case TYPE_LIFE:
 num=-1;
 chunk=30;
 break;
@@ -50,13 +50,13 @@ String ti;
 String tf;
 if (!reps) {
 ti="time/1000";
-if (mType == ChartPeriodType.MONTH) {
+if (mType == TYPE_MONTH) {
 tf="/60.0";
-mAxisTitles=new int[]{type.ordinal(),R.string.stats_minutes,R.string.stats_cumulative_time_minutes};
+mAxisTitles=new int[]{type,R.string.stats_minutes,R.string.stats_cumulative_time_minutes};
 }
  else {
 tf="/3600.0";
-mAxisTitles=new int[]{type.ordinal(),R.string.stats_hours,R.string.stats_cumulative_time_hours};
+mAxisTitles=new int[]{type,R.string.stats_hours,R.string.stats_cumulative_time_hours};
 }
 }
  else {
@@ -78,10 +78,10 @@ if (cur != null && !cur.isClosed()) {
 cur.close();
 }
 }
-if (type != ChartPeriodType.LIFE && (list.size() == 0 || list.get(0)[0] > -num)) {
+if (type != TYPE_LIFE && (list.size() == 0 || list.get(0)[0] > -num)) {
 list.add(0,new double[]{-num,0,0,0,0,0});
 }
- else if (type == ChartPeriodType.LIFE && list.size() == 0) {
+ else if (type == TYPE_LIFE && list.size() == 0) {
 list.add(0,new double[]{-12,0,0,0,0,0});
 }
 if (list.get(list.size() - 1)[0] < 0) {
@@ -118,10 +118,10 @@ mCumulative[i - 1][j]-=mCumulative[i][j];
 }
 }
 switch (mType) {
-case MONTH:
+case TYPE_MONTH:
 mFirstElement=-31;
 break;
-case YEAR:
+case TYPE_YEAR:
 mFirstElement=-52;
 break;
 default :
