@@ -6,7 +6,7 @@
   mDrawerList=(ListView)findViewById(R.id.studyoptions_left_drawer);
   initNavigationDrawer();
   if (savedInstanceState == null) {
-    loadContent(getIntent().getBooleanExtra("onlyFnsMsg",false));
+    loadStudyOptionsFragment();
   }
   registerExternalStorageListener();
 }
