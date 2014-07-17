@@ -96,7 +96,6 @@ case Reviewer.RESULT_NO_MORE_CARDS:
   mDontSaveOnStop=true;
 Intent i=new Intent();
 i.setClass(this,StudyOptionsActivity.class);
-i.putExtra("onlyFnsMsg",true);
 startActivityForResult(i,SHOW_STUDYOPTIONS);
 ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
 break;
