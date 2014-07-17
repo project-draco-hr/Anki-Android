@@ -16,7 +16,7 @@
     }
 ;
   }
-  if (getArguments().getBoolean("onlyFnsMsg")) {
+  if (noDeckCounts()) {
     prepareCongratsView();
   }
  else {

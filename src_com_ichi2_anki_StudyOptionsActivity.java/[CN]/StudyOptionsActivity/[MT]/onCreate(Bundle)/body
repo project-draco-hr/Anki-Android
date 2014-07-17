@@ -5,7 +5,7 @@
   setContentView(mainView);
   initNavigationDrawer(mainView);
   if (savedInstanceState == null) {
-    loadContent(getIntent().getBooleanExtra("onlyFnsMsg",false));
+    loadStudyOptionsFragment();
   }
   registerExternalStorageListener();
 }
