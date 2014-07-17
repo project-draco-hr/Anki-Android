@@ -20,6 +20,9 @@
     if (name.length > 2) {
       nameBuilder.append("\n").append(name[name.length - 1]);
     }
+    if (mTextDeckName == null) {
+      initAllContentViews(getActivity().getLayoutInflater());
+    }
     mTextDeckName.setText(nameBuilder.toString());
     if (mCramInitialConfig != null) {
       openCramDeckOptions(mCramInitialConfig);
