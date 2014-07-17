@@ -5,6 +5,11 @@
   }
   JSONObject deck=AnkiDroidApp.getCol().getDecks().current();
   try {
+    if (mTextDeckName == null) {
+      initAllContentViews(getActivity().getLayoutInflater());
+      resetAndUpdateValuesFromDeck();
+      return;
+    }
     fullName=deck.getString("name");
     String[] name=fullName.split("::");
     StringBuilder nameBuilder=new StringBuilder();
@@ -19,9 +24,6 @@
     }
     if (name.length > 2) {
       nameBuilder.append("\n").append(name[name.length - 1]);
-    }
-    if (mTextDeckName == null) {
-      initAllContentViews(getActivity().getLayoutInflater());
     }
     mTextDeckName.setText(nameBuilder.toString());
     if (mCramInitialConfig != null) {
