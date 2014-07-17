@@ -4,7 +4,7 @@
   this.f_xHighest=f_xy;
   this.f_xLowest=f_xy;
   for (int i=Math.round(leftLim); i <= rightLim; i+=pixelSkip) {
-    for (int j=Math.round(field.y + plotSheet.getFrameThickness()); j < field.y + field.height - plotSheet.getFrameThickness(); j+=pixelSkip) {
+    for (int j=Math.round(field.y + plotSheet.getFrameThickness()[PlotSheet.UPPER_FRAME_THICKNESS_INDEX]); j < field.y + field.height - plotSheet.getFrameThickness()[PlotSheet.BOTTOM_FRAME_THICKNESS_INDEX]; j+=pixelSkip) {
       if (abortPaint) {
         return;
       }

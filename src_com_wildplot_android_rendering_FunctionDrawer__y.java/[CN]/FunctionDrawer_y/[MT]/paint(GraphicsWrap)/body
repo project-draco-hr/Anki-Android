@@ -10,7 +10,7 @@
   g.setColor(color);
   if (autoscale) {
     double[] start=this.plotSheet.toCoordinatePoint(0,0,field);
-    double[] end=this.plotSheet.toCoordinatePoint(0 + this.plotSheet.getFrameThickness(),0,field);
+    double[] end=this.plotSheet.toCoordinatePoint(0 + this.plotSheet.getFrameThickness()[PlotSheet.LEFT_FRAME_THICKNESS_INDEX],0,field);
     this.scaleFactor=Math.abs(end[0] - start[0]);
   }
  else {
@@ -18,7 +18,7 @@
   }
   if (this.isOnFrame)   xOffset=plotSheet.getxRange()[0];
   double[] drawingPoint=plotSheet.toCoordinatePoint(field.x,field.height,field);
-  if (this.isOnFrame)   drawingPoint=plotSheet.toCoordinatePoint(field.x,field.height - this.plotSheet.getFrameThickness(),field);
+  if (this.isOnFrame)   drawingPoint=plotSheet.toCoordinatePoint(field.x,field.height - this.plotSheet.getFrameThickness()[PlotSheet.BOTTOM_FRAME_THICKNESS_INDEX],field);
   double f_y=function.f(drawingPoint[1]) * scaleFactor * extraScaleFactor;
   double f_y_old=f_y;
   float[] coordStart=plotSheet.toGraphicPoint(f_y,drawingPoint[1],field);
@@ -27,8 +27,8 @@
   float leftStart=field.height + field.y;
   float rightEnd=field.y;
   if (this.isOnFrame) {
-    leftStart=field.height + field.y - this.plotSheet.getFrameThickness();
-    rightEnd=field.y + this.plotSheet.getFrameThickness();
+    leftStart=field.height + field.y - this.plotSheet.getFrameThickness()[PlotSheet.BOTTOM_FRAME_THICKNESS_INDEX];
+    rightEnd=field.y + this.plotSheet.getFrameThickness()[PlotSheet.UPPER_FRAME_THICKNESS_INDEX];
   }
   if (this.hasLimit) {
     leftStart=plotSheet.yToGraphic(leftLimit,field);

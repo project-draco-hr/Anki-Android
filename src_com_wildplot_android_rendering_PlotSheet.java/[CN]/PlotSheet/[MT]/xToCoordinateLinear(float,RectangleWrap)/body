@@ -1,5 +1,5 @@
 {
-  double xQuotient=(Math.abs(this.screenParts.get(currentScreen).getxRange()[1] - this.screenParts.get(currentScreen).getxRange()[0])) / (field.width - 2 * frameThickness);
-  double xDistanceFromLeft=field.x - frameThickness + x;
+  double xQuotient=(Math.abs(this.screenParts.get(currentScreen).getxRange()[1] - this.screenParts.get(currentScreen).getxRange()[0])) / (field.width - leftFrameThickness - rightFrameThickness);
+  double xDistanceFromLeft=field.x - leftFrameThickness + x;
   return this.screenParts.get(currentScreen).getxRange()[0] + xDistanceFromLeft * xQuotient;
 }

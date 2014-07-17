@@ -6,8 +6,8 @@
   double thisF_xy;
   double upToThisF_xy;
   double leftToThisF_xy;
-  for (int i=Math.round(field.x + plotSheet.getFrameThickness() + 1); i < field.x + field.width - plotSheet.getFrameThickness(); i++) {
-    for (int j=Math.round(field.y + plotSheet.getFrameThickness() + 1); j < field.y + field.height - plotSheet.getFrameThickness(); j++) {
+  for (int i=Math.round(field.x + plotSheet.getFrameThickness()[PlotSheet.LEFT_FRAME_THICKNESS_INDEX] + 1); i < field.x + field.width - plotSheet.getFrameThickness()[PlotSheet.RIGHT_FRAME_THICKNESS_INDEX]; i++) {
+    for (int j=Math.round(field.y + plotSheet.getFrameThickness()[PlotSheet.UPPER_FRAME_THICKNESS_INDEX] + 1); j < field.y + field.height - plotSheet.getFrameThickness()[PlotSheet.BOTTOM_FRAME_THICKNESS_INDEX]; j++) {
       thisCoordinate=plotSheet.toCoordinatePoint(i,j,field);
       upToThisCoordinate=plotSheet.toCoordinatePoint(i,j - 1,field);
       leftToThisCoordinate=plotSheet.toCoordinatePoint(i - 1,j,field);

@@ -1,4 +1,4 @@
 {
   double range=Math.log10(this.screenParts.get(currentScreen).getxRange()[1]) - Math.log10(this.screenParts.get(currentScreen).getxRange()[0]);
-  return (float)(field.x + this.frameThickness + (Math.log10(x) - Math.log10(this.screenParts.get(currentScreen).getxRange()[0])) / (range) * (field.width - 2 * frameThickness));
+  return (float)(field.x + this.leftFrameThickness + (Math.log10(x) - Math.log10(this.screenParts.get(currentScreen).getxRange()[0])) / (range) * (field.width - leftFrameThickness - rightFrameThickness));
 }

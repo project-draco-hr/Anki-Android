@@ -1,5 +1,5 @@
 {
-  double yQuotient=(field.height - 2 * frameThickness) / (Math.abs(this.screenParts.get(currentScreen).getyRange()[1] - this.screenParts.get(currentScreen).getyRange()[0]));
+  double yQuotient=(field.height - upperFrameThickness - bottomFrameThickness) / (Math.abs(this.screenParts.get(currentScreen).getyRange()[1] - this.screenParts.get(currentScreen).getyRange()[0]));
   double yDistanceFromTop=this.screenParts.get(currentScreen).getyRange()[1] - y;
-  return field.y + frameThickness + (int)Math.round(yDistanceFromTop * yQuotient);
+  return (float)(field.y + upperFrameThickness + yDistanceFromTop * yQuotient);
 }

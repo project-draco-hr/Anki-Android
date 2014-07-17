@@ -8,15 +8,18 @@
   if (this.isScientific && !isIntegerNumbering) {
     font=dfScience.format(y);
     width=fm.stringWidth(font);
-    g.drawString(font,Math.round(coordStart[0] - width * 1.1f),Math.round(coordStart[1] + fontHeight * 0.4f));
   }
  else   if (isIntegerNumbering) {
     font=dfInteger.format(y);
     width=fm.stringWidth(font);
-    g.drawString(font,Math.round(coordStart[0] - width * 1.1f),Math.round(coordStart[1] + fontHeight * 0.4f));
   }
- else {
-    g.drawString(font,Math.round(coordStart[0] - width * 1.1f),Math.round(coordStart[1] + fontHeight * 0.4f));
+  g.save();
+  if (mHasNumbersRotated) {
+    float[] middlePosition={plotSheet.xToGraphic(xOffset,field),plotSheet.yToGraphic(y,field)};
+    g.rotate(-90,middlePosition[0] - width * 0.1f,middlePosition[1] + width / 2.0f);
+    g.drawString(font,middlePosition[0] - width * 0.1f,middlePosition[1] + width / 2.0f);
   }
+ else   g.drawString(font,Math.round(coordStart[0] - width * 1.1f),Math.round(coordStart[1] + fontHeight * 0.4f));
+  g.restore();
   if (width > maxTextWidth)   maxTextWidth=width;
 }

@@ -3,8 +3,8 @@
   int green=ColorWrap.LIGHT_GRAY.getGreen();
   int blue=ColorWrap.LIGHT_GRAY.getBlue();
   ColorWrap newGridColor=new ColorWrap(red,green,blue,222);
-  XGrid xGrid=new XGrid(plotSheet,0,150);
-  YGrid yGrid=new YGrid(plotSheet,0,150);
+  XGrid xGrid=new XGrid(plotSheet,0,yTicks);
+  YGrid yGrid=new YGrid(plotSheet,0,xTicks);
   double[] timePositions;
 switch (mChartType) {
 case ANSWER_BUTTONS:

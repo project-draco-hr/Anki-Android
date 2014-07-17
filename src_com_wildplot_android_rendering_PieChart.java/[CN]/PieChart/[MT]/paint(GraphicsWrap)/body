@@ -1,6 +1,8 @@
 {
   RectangleWrap field=g.getClipBounds();
-  float realBorder=mPlotSheet.getFrameThickness() + 3;
+  float maxSideBorders=Math.max(mPlotSheet.getFrameThickness()[PlotSheet.LEFT_FRAME_THICKNESS_INDEX],mPlotSheet.getFrameThickness()[PlotSheet.RIGHT_FRAME_THICKNESS_INDEX]);
+  float maxUpperBottomBorders=Math.max(mPlotSheet.getFrameThickness()[PlotSheet.UPPER_FRAME_THICKNESS_INDEX],mPlotSheet.getFrameThickness()[PlotSheet.BOTTOM_FRAME_THICKNESS_INDEX]);
+  float realBorder=Math.max(maxSideBorders,maxUpperBottomBorders) + 3;
   float diameter=Math.min(field.width,field.height) - 2 * realBorder;
   float xCenter=(float)(field.width / 2.0);
   float yCenter=(float)(field.height / 2.0);
