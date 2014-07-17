@@ -13,7 +13,7 @@
         closeStudyOptions();
       }
  else       if (!mFragmented) {
-        ((StudyOptionsActivity)getActivity()).loadContent(false);
+        ((OnStudyOptionsReloadListener)getActivity()).loadStudyOptionsFragment();
       }
     }
     @Override public void onPreExecute(){
