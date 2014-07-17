@@ -8,7 +8,6 @@
     intent.putExtra("index",deckId);
     intent.putExtra("cramInitialConfig",cramInitialConfig);
     intent.setClass(this,StudyOptionsActivity.class);
-    startActivityForResult(intent,SHOW_STUDYOPTIONS);
     ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
   }
 }
