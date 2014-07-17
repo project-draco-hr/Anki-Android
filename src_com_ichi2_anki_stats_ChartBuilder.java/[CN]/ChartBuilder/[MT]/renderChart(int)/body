@@ -9,7 +9,7 @@
     return null;
   }
   RectangleWrap rect=new RectangleWrap(width,height);
-  float textSize=AnkiStatsTaskHandler.getInstance().getmStandardTextSize() * 0.75f;
+  float textSize=AnkiStatsTaskHandler.getInstance().getmStandardTextSize() * 0.85f;
   paint.setTextSize(textSize);
   float FontHeigth=paint.getTextSize();
   mDesiredPixelDistanceBetweenTicks=Math.round(paint.measureText("100000") * 2.6f);

@@ -1,21 +1,21 @@
 {
   Locale l=Locale.getDefault();
 switch (position) {
-case 0:
+case FORECAST_TAB_POSITION:
     return getString(R.string.stats_forecast).toUpperCase(l);
-case 1:
+case REVIEW_COUNT_TAB_POSITION:
   return getString(R.string.stats_review_count).toUpperCase(l);
-case 2:
+case REVIEW_TIME_TAB_POSITION:
 return getString(R.string.stats_review_time).toUpperCase(l);
-case 3:
+case INTERVALS_TAB_POSITION:
 return getString(R.string.stats_review_intervals).toUpperCase(l);
-case 4:
+case HOURLY_BREAKDOWN_TAB_POSITION:
 return getString(R.string.stats_breakdown).toUpperCase(l);
-case 5:
+case WEEKLY_BREAKDOWN_TAB_POSITION:
 return getString(R.string.stats_weekly_breakdown).toUpperCase(l);
-case 6:
+case ANSWER_BUTTONS_TAB_POSITION:
 return getString(R.string.stats_answer_buttons).toUpperCase(l);
-case 7:
+case CARDS_TYPES_TAB_POSITION:
 return getString(R.string.stats_cards_types).toUpperCase(l);
 }
 return null;

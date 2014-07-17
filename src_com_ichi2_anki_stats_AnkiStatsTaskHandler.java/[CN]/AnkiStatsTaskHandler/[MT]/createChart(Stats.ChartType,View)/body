@@ -1,4 +1,5 @@
 {
   CreateChartTask createChartTask=new CreateChartTask(chartType);
   createChartTask.execute(views);
+  return createChartTask;
 }
