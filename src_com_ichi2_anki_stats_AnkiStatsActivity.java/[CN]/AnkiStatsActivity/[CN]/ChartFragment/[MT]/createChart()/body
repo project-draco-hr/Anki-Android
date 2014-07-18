@@ -1,26 +1,28 @@
 {
-  if (mSectionNumber == 1) {
-    (((AnkiStatsActivity)getActivity()).getTaskHandler()).createChart(Stats.ChartType.FORECAST,mChart,mProgressBar);
-  }
- else   if (mSectionNumber == 2) {
-    (((AnkiStatsActivity)getActivity()).getTaskHandler()).createChart(Stats.ChartType.REVIEW_COUNT,mChart,mProgressBar);
-  }
- else   if (mSectionNumber == 3) {
-    (((AnkiStatsActivity)getActivity()).getTaskHandler()).createChart(Stats.ChartType.REVIEW_TIME,mChart,mProgressBar);
-  }
- else   if (mSectionNumber == 4) {
-    (((AnkiStatsActivity)getActivity()).getTaskHandler()).createChart(Stats.ChartType.INTERVALS,mChart,mProgressBar);
-  }
- else   if (mSectionNumber == 5) {
-    (((AnkiStatsActivity)getActivity()).getTaskHandler()).createChart(Stats.ChartType.HOURLY_BREAKDOWN,mChart,mProgressBar);
-  }
- else   if (mSectionNumber == 6) {
-    (((AnkiStatsActivity)getActivity()).getTaskHandler()).createChart(Stats.ChartType.WEEKLY_BREAKDOWN,mChart,mProgressBar);
-  }
- else   if (mSectionNumber == 7) {
-    (((AnkiStatsActivity)getActivity()).getTaskHandler()).createChart(Stats.ChartType.ANSWER_BUTTONS,mChart,mProgressBar);
-  }
- else   if (mSectionNumber == 8) {
-    (((AnkiStatsActivity)getActivity()).getTaskHandler()).createChart(Stats.ChartType.CARDS_TYPES,mChart,mProgressBar);
-  }
+switch (mSectionNumber) {
+case FORECAST_TAB_POSITION:
+    mCreateChartTask=(((AnkiStatsActivity)getActivity()).getTaskHandler()).createChart(Stats.ChartType.FORECAST,mChart,mProgressBar);
+  break;
+case REVIEW_COUNT_TAB_POSITION:
+mCreateChartTask=(((AnkiStatsActivity)getActivity()).getTaskHandler()).createChart(Stats.ChartType.REVIEW_COUNT,mChart,mProgressBar);
+break;
+case REVIEW_TIME_TAB_POSITION:
+mCreateChartTask=(((AnkiStatsActivity)getActivity()).getTaskHandler()).createChart(Stats.ChartType.REVIEW_TIME,mChart,mProgressBar);
+break;
+case INTERVALS_TAB_POSITION:
+mCreateChartTask=(((AnkiStatsActivity)getActivity()).getTaskHandler()).createChart(Stats.ChartType.INTERVALS,mChart,mProgressBar);
+break;
+case HOURLY_BREAKDOWN_TAB_POSITION:
+mCreateChartTask=(((AnkiStatsActivity)getActivity()).getTaskHandler()).createChart(Stats.ChartType.HOURLY_BREAKDOWN,mChart,mProgressBar);
+break;
+case WEEKLY_BREAKDOWN_TAB_POSITION:
+mCreateChartTask=(((AnkiStatsActivity)getActivity()).getTaskHandler()).createChart(Stats.ChartType.WEEKLY_BREAKDOWN,mChart,mProgressBar);
+break;
+case ANSWER_BUTTONS_TAB_POSITION:
+mCreateChartTask=(((AnkiStatsActivity)getActivity()).getTaskHandler()).createChart(Stats.ChartType.ANSWER_BUTTONS,mChart,mProgressBar);
+break;
+case CARDS_TYPES_TAB_POSITION:
+mCreateChartTask=(((AnkiStatsActivity)getActivity()).getTaskHandler()).createChart(Stats.ChartType.CARDS_TYPES,mChart,mProgressBar);
+break;
+}
 }

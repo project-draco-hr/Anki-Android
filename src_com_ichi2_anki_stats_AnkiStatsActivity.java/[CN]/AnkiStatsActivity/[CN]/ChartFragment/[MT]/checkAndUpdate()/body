@@ -7,6 +7,11 @@
       mHeight=height;
       mWidth=width;
       mType=(((AnkiStatsActivity)getActivity()).getTaskHandler()).getStatType();
+      mProgressBar.setVisibility(View.VISIBLE);
+      mChart.setVisibility(View.GONE);
+      if (mCreateChartTask != null && !mCreateChartTask.isCancelled()) {
+        mCreateChartTask.cancel(true);
+      }
       createChart();
     }
   }

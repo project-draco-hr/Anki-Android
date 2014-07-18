@@ -1,6 +1,17 @@
 {
-  mImageView=(ChartView)params[0];
-  mProgressBar=(ProgressBar)params[1];
-  ChartBuilder chartBuilder=new ChartBuilder(mImageView,mCollectionData,sIsWholeCollection,mChartType);
-  return chartBuilder.renderChart(mStatType);
+  lock.lock();
+  try {
+    if (!mIsRunning) {
+      Log.d(AnkiDroidApp.TAG,"quiting CreateChartTask(" + mChartType.name() + ") before execution");
+      return null;
+    }
+ else     Log.d(AnkiDroidApp.TAG,"starting Create ChartTask, type: " + mChartType.name());
+    mImageView=(ChartView)params[0];
+    mProgressBar=(ProgressBar)params[1];
+    ChartBuilder chartBuilder=new ChartBuilder(mImageView,mCollectionData,sIsWholeCollection,mChartType);
+    return chartBuilder.renderChart(mStatType);
+  }
+  finally {
+    lock.unlock();
+  }
 }

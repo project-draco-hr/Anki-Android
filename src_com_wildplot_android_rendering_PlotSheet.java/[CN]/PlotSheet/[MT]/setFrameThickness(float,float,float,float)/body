@@ -1,0 +1,10 @@
+{
+  if (leftFrameThickness < 0 || rightFrameThickness < 0 || upperFrameThickness < 0 || bottomFrameThickness < 0) {
+    System.err.println("PlotSheet:Error::Wrong Frame size (smaller than 0)");
+    System.exit(-1);
+  }
+  this.leftFrameThickness=leftFrameThickness;
+  this.rightFrameThickness=rightFrameThickness;
+  this.upperFrameThickness=upperFrameThickness;
+  this.bottomFrameThickness=bottomFrameThickness;
+}

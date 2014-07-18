@@ -6,5 +6,6 @@
   yAxis.setName(mChartView.getResources().getString(title));
   if (isOnRight)   yAxis.setOnRightSideFrame();
  else   yAxis.setOnFrame();
+  yAxis.setHasNumbersRotated();
   plotSheet.addDrawable(yAxis);
 }
