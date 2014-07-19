@@ -1,0 +1,81 @@
+{
+  File mdir=new File(dir());
+  Set<String> allRefs=new HashSet<String>();
+  Cursor cur=null;
+  try {
+    cur=mCol.getDb().getDatabase().rawQuery("select id, mid, flds from notes",null);
+    while (cur.moveToNext()) {
+      long nid=cur.getLong(0);
+      long mid=cur.getLong(1);
+      String flds=cur.getString(2);
+      List<String> noteRefs=filesInStr(mid,flds);
+      for (      String f : noteRefs) {
+        if (!f.equals(AnkiDroidApp.getCompat().nfcNormalized(f))) {
+          _normalizeNoteRefs(nid);
+          noteRefs=filesInStr(mid,flds);
+          break;
+        }
+      }
+      allRefs.addAll(noteRefs);
+    }
+  }
+  finally {
+    if (cur != null) {
+      cur.close();
+    }
+  }
+  List<String> unused=new ArrayList<String>();
+  List<String> invalid=new ArrayList<String>();
+  File[] files;
+  if (local == null) {
+    files=mdir.listFiles();
+  }
+ else {
+    files=local;
+  }
+  boolean renamedFiles=false;
+  for (  File file : files) {
+    if (local == null) {
+      if (file.isDirectory()) {
+        continue;
+      }
+    }
+    if (file.getName().startsWith("_")) {
+      continue;
+    }
+    File nfcFile=new File(dir(),AnkiDroidApp.getCompat().nfcNormalized(file.getName()));
+    if (local == null) {
+      if (!file.getName().equals(nfcFile.getName())) {
+        if (nfcFile.exists()) {
+          file.delete();
+          renamedFiles=true;
+        }
+ else {
+          file.renameTo(nfcFile);
+          renamedFiles=true;
+        }
+        file=nfcFile;
+      }
+    }
+    if (!allRefs.contains(nfcFile.getName())) {
+      unused.add(file.getName());
+    }
+ else {
+      allRefs.remove(nfcFile.getName());
+    }
+  }
+  if (renamedFiles) {
+    return check(local);
+  }
+  List<String> nohave=new ArrayList<String>();
+  for (  String x : allRefs) {
+    if (!x.startsWith("_")) {
+      nohave.add(x);
+    }
+  }
+  List<List<String>> result=new ArrayList<List<String>>();
+  result.add(nohave);
+  result.add(unused);
+  result.add(invalid);
+  return result;
+}

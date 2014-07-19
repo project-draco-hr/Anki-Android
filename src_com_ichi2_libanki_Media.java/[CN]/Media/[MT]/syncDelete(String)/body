@@ -1,0 +1,7 @@
+{
+  File f=new File(dir(),fname);
+  if (f.exists()) {
+    f.delete();
+  }
+  mDb.execute("delete from media where fname=?",new Object[]{fname});
+}

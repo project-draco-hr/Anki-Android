@@ -1,11 +1,12 @@
 {
   String[] fs=Utils.splitFields(fields);
   for (int i=0; i < fs.length; ++i) {
-    for (    Pattern p : Media.fMediaRegexps) {
+    for (    Pattern p : Media.mRegexps) {
       Matcher m=p.matcher(fs[i]);
       StringBuffer sb=new StringBuffer();
+      int fnameIdx=Media.indexOfFname(p);
       while (m.find()) {
-        String fname=m.group(2);
+        String fname=m.group(fnameIdx);
         BufferedInputStream srcData=_srcMediaData(fname);
         BufferedInputStream dstData=_dstMediaData(fname);
         if (srcData == null) {

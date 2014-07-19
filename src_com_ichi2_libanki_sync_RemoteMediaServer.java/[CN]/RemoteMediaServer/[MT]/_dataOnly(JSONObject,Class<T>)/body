@@ -1,0 +1,22 @@
+{
+  try {
+    if (!TextUtils.isEmpty(resp.optString("err"))) {
+      String err=resp.getString("err");
+      Log.e(AnkiDroidApp.TAG,"RemoteMediaSyncer: Error returned: " + err);
+      throw new RuntimeException("SyncError: " + err);
+    }
+    if (returnType == String.class) {
+      return (T)resp.getString("data");
+    }
+ else     if (returnType == JSONObject.class) {
+      return (T)resp.getJSONObject("data");
+    }
+ else     if (returnType == JSONArray.class) {
+      return (T)resp.getJSONArray("data");
+    }
+    throw new RuntimeException("Did not specify a valid type for the 'data' element in resopnse");
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

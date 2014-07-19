@@ -1,0 +1,23 @@
+{
+  String oldpath=dir() + ".db";
+  File oldDbFile=new File(oldpath);
+  if (oldDbFile.exists()) {
+    mDb.execute(String.format(Locale.US,"attach \"%s\" as old",oldpath));
+    try {
+      String sql="insert into media\n" + " select m.fname, csum, mod, ifnull((select 1 from log l2 where l2.fname=m.fname), 0) as dirty\n" + " from old.media m\n"+ " left outer join old.log l using (fname)\n"+ " union\n"+ " select fname, null, 0, 1 from old.log where type=1;";
+      mDb.execute(sql);
+      mDb.execute("delete from meta");
+      mDb.execute("insert into meta select dirMod, usn from old.meta");
+      mDb.commit();
+    }
+ catch (    Exception e) {
+      Log.e(AnkiDroidApp.TAG,"Failed to import old media db",e);
+    }
+    mDb.execute("detach old");
+    File newDbFile=new File(oldpath + ".old");
+    if (newDbFile.exists()) {
+      newDbFile.delete();
+    }
+    oldDbFile.renameTo(newDbFile);
+  }
+}

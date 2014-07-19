@@ -1,0 +1,5 @@
+{
+  mDb.execute("delete from media");
+  mDb.execute("vacuum analyze");
+  mDb.commit();
+}

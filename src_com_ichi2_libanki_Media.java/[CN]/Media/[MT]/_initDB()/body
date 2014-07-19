@@ -1,0 +1,4 @@
+{
+  String sql="create table media (\n" + " fname text not null primary key,\n" + " csum text,           -- null indicates deleted file\n"+ " mtime int not null,  -- zero if deleted\n"+ " dirty int not null\n"+ ");\n"+ "create index idx_media_dirty on media (dirty);\n"+ "create table meta (dirMod int, lastUsn int); insert into meta values (0, 0);";
+  mDb.executeScript(sql);
+}
