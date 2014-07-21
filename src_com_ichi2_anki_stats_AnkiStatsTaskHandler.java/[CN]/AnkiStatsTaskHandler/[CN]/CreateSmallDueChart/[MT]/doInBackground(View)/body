@@ -1,0 +1,16 @@
+{
+  sLock.lock();
+  try {
+    if (!mIsRunning) {
+      Log.d(AnkiDroidApp.TAG,"quiting CreateSmallDueChart before execution");
+      return null;
+    }
+ else     Log.d(AnkiDroidApp.TAG,"starting CreateSmallDueChart");
+    mImageView=(ChartView)params[0];
+    ChartBuilder chartBuilder=new ChartBuilder(mImageView,AnkiDroidApp.getCol(),sIsWholeCollection,Stats.ChartType.OTHER);
+    return chartBuilder.createSmallDueChart(mSeriesList);
+  }
+  finally {
+    sLock.unlock();
+  }
+}

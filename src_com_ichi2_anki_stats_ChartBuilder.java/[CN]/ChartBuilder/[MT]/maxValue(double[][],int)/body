@@ -1,0 +1,8 @@
+{
+  double max=Double.NEGATIVE_INFINITY;
+  for (int i=startIndex; i < array.length; i++) {
+    double thisArrayMax=maxValue(array[i]);
+    if (thisArrayMax > max)     max=thisArrayMax;
+  }
+  return max;
+}

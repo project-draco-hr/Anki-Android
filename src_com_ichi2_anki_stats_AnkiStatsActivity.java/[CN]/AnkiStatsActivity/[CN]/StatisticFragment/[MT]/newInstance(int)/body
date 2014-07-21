@@ -1,0 +1,27 @@
+{
+  Fragment fragment;
+  Bundle args;
+switch (sectionNumber) {
+case FORECAST_TAB_POSITION:
+case REVIEW_COUNT_TAB_POSITION:
+case REVIEW_TIME_TAB_POSITION:
+case INTERVALS_TAB_POSITION:
+case HOURLY_BREAKDOWN_TAB_POSITION:
+case WEEKLY_BREAKDOWN_TAB_POSITION:
+case ANSWER_BUTTONS_TAB_POSITION:
+case CARDS_TYPES_TAB_POSITION:
+    fragment=new ChartFragment();
+  args=new Bundle();
+args.putInt(ARG_SECTION_NUMBER,sectionNumber);
+fragment.setArguments(args);
+return (ChartFragment)fragment;
+case TODAYS_STATS_TAB_POSITION:
+fragment=new OverviewStatisticsFragment();
+args=new Bundle();
+args.putInt(ARG_SECTION_NUMBER,sectionNumber);
+fragment.setArguments(args);
+return (OverviewStatisticsFragment)fragment;
+default :
+return null;
+}
+}

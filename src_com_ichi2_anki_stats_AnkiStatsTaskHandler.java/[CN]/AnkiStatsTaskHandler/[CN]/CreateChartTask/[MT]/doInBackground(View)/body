@@ -1,5 +1,5 @@
 {
-  lock.lock();
+  sLock.lock();
   try {
     if (!mIsRunning) {
       Log.d(AnkiDroidApp.TAG,"quiting CreateChartTask(" + mChartType.name() + ") before execution");
@@ -12,6 +12,6 @@
     return chartBuilder.renderChart(mStatType);
   }
   finally {
-    lock.unlock();
+    sLock.unlock();
   }
 }

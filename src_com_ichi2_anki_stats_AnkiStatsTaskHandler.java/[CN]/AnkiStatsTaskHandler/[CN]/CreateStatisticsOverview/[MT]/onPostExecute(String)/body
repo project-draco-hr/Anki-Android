@@ -1,0 +1,8 @@
+{
+  if (html != null && mIsRunning) {
+    mWebView.loadData(html,"text/html",null);
+    mProgressBar.setVisibility(View.GONE);
+    mWebView.setVisibility(View.VISIBLE);
+    mWebView.invalidate();
+  }
+}
