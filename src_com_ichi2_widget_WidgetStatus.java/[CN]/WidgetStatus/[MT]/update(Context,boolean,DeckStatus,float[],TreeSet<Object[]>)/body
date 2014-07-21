@@ -8,11 +8,9 @@
   bigWidget=updateBigWidget && preferences.getBoolean("widgetBigEnabled",false);
   notification=Integer.parseInt(preferences.getString("minimumCardsDueForNotification","1000001")) < 1000000 && sDeckStatus == null;
   if ((mediumWidget || smallWidget || bigWidget|| notification) && ((sUpdateDeckStatusAsyncTask == null) || (sUpdateDeckStatusAsyncTask.getStatus() == AsyncTask.Status.FINISHED))) {
-    Log.d(AnkiDroidApp.TAG,"WidgetStatus.update(): updating");
     sUpdateDeckStatusAsyncTask=new UpdateDeckStatusAsyncTask();
     sUpdateDeckStatusAsyncTask.execute(context);
   }
  else {
-    Log.d(AnkiDroidApp.TAG,"WidgetStatus.update(): already running or not enabled");
   }
 }

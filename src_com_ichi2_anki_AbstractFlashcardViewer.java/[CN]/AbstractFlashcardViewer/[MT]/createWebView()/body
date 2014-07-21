@@ -17,7 +17,6 @@
   if (mPrefSafeDisplay) {
     AnkiDroidApp.getCompat().setScrollbarFadingEnabled(webView,false);
   }
-  Log.i(AnkiDroidApp.TAG,"Focusable = " + webView.isFocusable() + ", Focusable in touch mode = "+ webView.isFocusableInTouchMode());
   webView.setWebViewClient(new WebViewClient(){
     @Override public boolean shouldOverrideUrlLoading(    WebView view,    String url){
       if (url.startsWith("playsound:")) {
