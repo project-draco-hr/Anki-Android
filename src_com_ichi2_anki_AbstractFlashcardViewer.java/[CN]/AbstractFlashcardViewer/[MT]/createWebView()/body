@@ -27,7 +27,19 @@
         sHandler.sendMessage(msg);
         return true;
       }
-      return false;
+      try {
+        new URL(url);
+      }
+ catch (      MalformedURLException mue) {
+        return true;
+      }
+      if (url.startsWith("file")) {
+        return false;
+      }
+      Log.d(AnkiDroidApp.TAG,"Opening external link \"" + url + "\" with an Intent");
+      Intent intent=new Intent(Intent.ACTION_VIEW,Uri.parse(url));
+      startActivity(intent);
+      return true;
     }
   }
 );
