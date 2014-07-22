@@ -1,0 +1,11 @@
+{
+  YAxis yAxis;
+  if (isOnRight && hiddenPlotSheet != null)   yAxis=new YAxis(hiddenPlotSheet,0,yTicks,yTicks / 2.0);
+ else   yAxis=new YAxis(plotSheet,0,yTicks,yTicks / 2.0);
+  yAxis.setIntegerNumbering(true);
+  if (hasName)   yAxis.setName(mChartView.getResources().getString(title));
+  if (isOnRight)   yAxis.setOnRightSideFrame();
+ else   yAxis.setOnFrame();
+  yAxis.setHasNumbersRotated();
+  plotSheet.addDrawable(yAxis);
+}

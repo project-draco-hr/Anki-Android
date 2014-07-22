@@ -1,0 +1,13 @@
+{
+  if (html != null && mIsRunning) {
+    try {
+      mWebView.loadData(URLEncoder.encode(html,"UTF-8").replaceAll("\\+"," "),"text/html",null);
+    }
+ catch (    UnsupportedEncodingException e) {
+      e.printStackTrace();
+    }
+    mProgressBar.setVisibility(View.GONE);
+    mWebView.setVisibility(View.VISIBLE);
+    mWebView.invalidate();
+  }
+}

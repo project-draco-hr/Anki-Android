@@ -1,0 +1,6 @@
+{
+  super.onDestroy();
+  if (mCreateStatisticsOverviewTask != null && !mCreateStatisticsOverviewTask.isCancelled()) {
+    mCreateStatisticsOverviewTask.cancel(true);
+  }
+}

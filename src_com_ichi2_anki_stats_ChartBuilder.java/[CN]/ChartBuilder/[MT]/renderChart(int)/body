@@ -25,11 +25,11 @@
   setupBarGraphs(plotSheet,hiddenPlotSheet);
   setupCumulative(plotSheet,hiddenPlotSheet);
   double xTicks=ticksCalcX(mDesiredPixelDistanceBetweenTicks,rect,mFirstElement,mLastElement);
-  setupXaxis(plotSheet,xTicks);
+  setupXaxis(plotSheet,xTicks,true);
   double yTicks=ticksCalcY(mDesiredPixelDistanceBetweenTicks,rect,0,mMaxCards * yAxisStretchFactor);
-  setupYaxis(plotSheet,hiddenPlotSheet,yTicks,mAxisTitles[1],false);
+  setupYaxis(plotSheet,hiddenPlotSheet,yTicks,mAxisTitles[1],false,true);
   double rightYtics=ticsCalc(mDesiredPixelDistanceBetweenTicks,rect,mMcount * yAxisStretchFactor);
-  setupYaxis(plotSheet,hiddenPlotSheet,rightYtics,mAxisTitles[2],true);
+  setupYaxis(plotSheet,hiddenPlotSheet,rightYtics,mAxisTitles[2],true,true);
   setupGrid(plotSheet,yTicks * 0.5,xTicks * 0.5);
   return plotSheet;
 }

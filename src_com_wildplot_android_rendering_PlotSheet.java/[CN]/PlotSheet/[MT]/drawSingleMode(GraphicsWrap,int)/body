@@ -1,7 +1,7 @@
 {
   RectangleWrap field=g.getClipBounds();
   this.currentScreen=screenNr;
-  prepareRunnables();
+  prepareDrawables();
   Vector<Drawable> offFrameDrawables=new Vector<Drawable>();
   Vector<Drawable> onFrameDrawables=new Vector<Drawable>();
   g.setTypeface(typeface);

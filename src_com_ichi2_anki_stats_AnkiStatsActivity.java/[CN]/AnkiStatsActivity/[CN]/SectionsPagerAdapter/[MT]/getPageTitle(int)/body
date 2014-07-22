@@ -1,10 +1,12 @@
 {
   Locale l=Locale.getDefault();
 switch (position) {
+case TODAYS_STATS_TAB_POSITION:
+    return getString(R.string.stats_today).toUpperCase(l);
 case FORECAST_TAB_POSITION:
-    return getString(R.string.stats_forecast).toUpperCase(l);
+  return getString(R.string.stats_forecast).toUpperCase(l);
 case REVIEW_COUNT_TAB_POSITION:
-  return getString(R.string.stats_review_count).toUpperCase(l);
+return getString(R.string.stats_review_count).toUpperCase(l);
 case REVIEW_TIME_TAB_POSITION:
 return getString(R.string.stats_review_time).toUpperCase(l);
 case INTERVALS_TAB_POSITION:
