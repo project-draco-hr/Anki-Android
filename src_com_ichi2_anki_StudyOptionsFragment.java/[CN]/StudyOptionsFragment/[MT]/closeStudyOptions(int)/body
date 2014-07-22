@@ -1,7 +1,11 @@
 {
-  if (!mFragmented) {
-    getActivity().setResult(result);
-    getActivity().finish();
-    ActivityTransitionAnimation.slide(getActivity(),ActivityTransitionAnimation.RIGHT);
+  Activity a=getActivity();
+  if (!mFragmented && a != null) {
+    a.setResult(result);
+    a.finish();
+    ActivityTransitionAnimation.slide(a,ActivityTransitionAnimation.RIGHT);
+  }
+ else   if (a == null) {
+    Log.e(AnkiDroidApp.TAG,"closeStudyOptions() failed due to getActivity() returning null");
   }
 }
