@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"buildUpdate");
   RemoteViews updateViews=new RemoteViews(context.getPackageName(),R.layout.widget_small);
   boolean mounted=AnkiDroidApp.isSdCardMounted();
   if (!mounted) {
@@ -12,7 +11,6 @@
         @Override public void onReceive(        Context context,        Intent intent){
           String action=intent.getAction();
           if (action.equals(Intent.ACTION_MEDIA_MOUNTED)) {
-            Log.i(AnkiDroidApp.TAG,"mMountReceiver - Action = Media Mounted");
             if (remounted) {
               WidgetStatus.update(getBaseContext());
               remounted=false;

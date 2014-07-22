@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"CardBrowser - onStop()");
   super.onStop();
   if (!isFinishing()) {
     WidgetStatus.update(this);

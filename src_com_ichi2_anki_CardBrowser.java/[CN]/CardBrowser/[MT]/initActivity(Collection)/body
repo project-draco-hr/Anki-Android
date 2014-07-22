@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"Card Browser - initActivity()");
   mDeckNames=new HashMap<String,String>();
   for (  long did : mCol.getDecks().allIds()) {
     mDeckNames.put(String.valueOf(did),mCol.getDecks().name(did));

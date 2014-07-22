@@ -21,7 +21,6 @@
     tag=parts[2];
   }
   txt=_fields.get(tag);
-  Log.d(AnkiDroidApp.TAG,"Processing field modifier " + mod + ": extra = "+ extra+ ", field "+ tag+ " = "+ txt);
   if (mod.equals("text")) {
     if (txt != null && txt.length() > 0) {
       return Utils.stripHTML(txt);
