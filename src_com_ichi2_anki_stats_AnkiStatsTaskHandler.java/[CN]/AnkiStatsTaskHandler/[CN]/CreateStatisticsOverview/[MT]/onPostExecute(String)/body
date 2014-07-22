@@ -1,6 +1,11 @@
 {
   if (html != null && mIsRunning) {
-    mWebView.loadData(html,"text/html",null);
+    try {
+      mWebView.loadData(URLEncoder.encode(html,"UTF-8").replaceAll("\\+"," "),"text/html",null);
+    }
+ catch (    UnsupportedEncodingException e) {
+      e.printStackTrace();
+    }
     mProgressBar.setVisibility(View.GONE);
     mWebView.setVisibility(View.VISIBLE);
     mWebView.invalidate();
