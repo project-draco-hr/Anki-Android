@@ -12,8 +12,8 @@
       if (!AnkiDroidApp.colIsOpen()) {
         closeStudyOptions();
       }
- else       if (!mFragmented) {
-        ((OnStudyOptionsReloadListener)getActivity()).loadStudyOptionsFragment();
+ else {
+        reloadStudyOptions();
       }
     }
     @Override public void onPreExecute(){
