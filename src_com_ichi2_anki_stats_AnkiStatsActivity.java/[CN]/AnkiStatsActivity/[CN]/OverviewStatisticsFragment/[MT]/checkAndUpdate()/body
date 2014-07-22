@@ -1,2 +1,16 @@
 {
+  if (!mIsCreated)   return;
+  int height=mWebView.getMeasuredHeight();
+  int width=mWebView.getMeasuredWidth();
+  if (mType != (((AnkiStatsActivity)getActivity()).getTaskHandler()).getStatType()) {
+    mHeight=height;
+    mWidth=width;
+    mType=(((AnkiStatsActivity)getActivity()).getTaskHandler()).getStatType();
+    mProgressBar.setVisibility(View.VISIBLE);
+    mWebView.setVisibility(View.GONE);
+    if (mCreateStatisticsOverviewTask != null && !mCreateStatisticsOverviewTask.isCancelled()) {
+      mCreateStatisticsOverviewTask.cancel(true);
+    }
+    createStatisticOverview();
+  }
 }
