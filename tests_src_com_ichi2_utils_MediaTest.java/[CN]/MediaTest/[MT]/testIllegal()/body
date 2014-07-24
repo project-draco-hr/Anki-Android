@@ -1,0 +1,16 @@
+{
+  Collection d=new Shared().getEmptyDeck();
+  String aString="a:b|cd\\e/f\\0g*h";
+  String good="abcdefgh";
+  assertTrue(d.getMedia().stripIllegal(aString).equals(good));
+  for (int i=0; i < aString.length(); i++) {
+    char c=aString.charAt(i);
+    boolean bad=d.getMedia().hasIllegal("something" + c + "morestring");
+    if (bad) {
+      assertTrue(good.indexOf(c) == -1);
+    }
+ else {
+      assertTrue(good.indexOf(c) != -1);
+    }
+  }
+}

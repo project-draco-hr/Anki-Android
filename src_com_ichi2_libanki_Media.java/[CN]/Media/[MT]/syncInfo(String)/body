@@ -1,0 +1,19 @@
+{
+  Cursor cur=null;
+  try {
+    cur=mDb.getDatabase().rawQuery("select csum, dirty from media where fname=?",new String[]{fname});
+    if (cur.moveToNext()) {
+      String csum=cur.getString(0);
+      int dirty=cur.getInt(1);
+      return new Pair<String,Integer>(csum,dirty);
+    }
+ else {
+      return new Pair<String,Integer>(null,0);
+    }
+  }
+  finally {
+    if (cur != null) {
+      cur.close();
+    }
+  }
+}

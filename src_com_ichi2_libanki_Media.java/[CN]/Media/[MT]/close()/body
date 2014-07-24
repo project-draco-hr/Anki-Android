@@ -1,5 +1,7 @@
 {
-  AnkiDatabaseManager.closeDatabase(mMediaDbFilename);
-  mMediaDb=null;
-  mCol=null;
+  if (mCol.getServer()) {
+    return;
+  }
+  AnkiDatabaseManager.closeDatabase(mDb.getPath());
+  mDb=null;
 }

@@ -73,7 +73,7 @@ catch (  JSONException e) {
   BasicHttpSyncer h=new BasicHttpSyncer(null,null);
   publishProgress(R.string.upgrade_decks_upload,null,true);
   try {
-    HttpResponse resp=h.req("upgrade/upload",new FileInputStream(zipFile),0,false,null,mCancelCallback);
+    HttpResponse resp=h.req("upgrade/upload",new FileInputStream(zipFile),0,null,mCancelCallback);
     if (resp == null && !isCancelled()) {
       data.success=false;
       data.data=new Object[]{sContext.getString(R.string.upgrade_deck_web_upgrade_failed)};
@@ -117,7 +117,7 @@ catch (  JSONException e) {
     }
     if (!isCancelled()) {
       publishProgress(new Object[]{R.string.upgrade_decks_downloading});
-      resp=h.req("upgrade/download?key=" + key,null,6,true,null,mCancelCallback);
+      resp=h.req("upgrade/download?key=" + key,null,6,null,mCancelCallback);
     }
     publishProgress(R.string.upgrade_decks_downloading,null,false);
     if (isCancelled()) {
@@ -161,7 +161,7 @@ catch (  JSONException e) {
         mediaDirs.add(new File(f.getAbsolutePath().replaceFirst("\\.anki$",".media")));
       }
     }
-    File newMediaDir=new File(col.getMedia().getDir());
+    File newMediaDir=new File(col.getMedia().dir());
     publishProgress(new Object[]{R.string.upgrade_decks_media});
     ArrayList<String> failedMedia=new ArrayList<String>();
     File curMediaDir=null;

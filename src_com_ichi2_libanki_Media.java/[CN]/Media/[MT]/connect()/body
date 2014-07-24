@@ -1,15 +1,13 @@
 {
-  File mediaDbFile=new File(mMediaDbFilename);
-  if (!mediaDbFile.exists()) {
-    InputStream stream;
-    try {
-      stream=AnkiDroidApp.getAppResources().getAssets().open("collection.media.db");
-      Utils.writeToFile(stream,mMediaDbFilename);
-      stream.close();
-    }
- catch (    IOException e) {
-      throw new RuntimeException(e);
-    }
+  if (mCol.getServer()) {
+    return;
   }
-  mMediaDb=AnkiDatabaseManager.getDatabase(mMediaDbFilename);
+  String path=dir() + ".ad.db2";
+  File dbFile=new File(path);
+  boolean create=!(dbFile.exists());
+  mDb=AnkiDatabaseManager.getDatabase(path);
+  if (create) {
+    _initDB();
+  }
+  maybeUpgrade();
 }

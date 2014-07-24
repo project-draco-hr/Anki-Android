@@ -31,7 +31,7 @@
   finally {
       AnkiDatabaseManager.closeDatabase(mSrc.getPath());
     }
-    String mediaDir=mCol.getMedia().getDir();
+    String mediaDir=mCol.getMedia().dir();
     if (nameToNum.size() != 0) {
       for (      Map.Entry<String,String> entry : nameToNum.entrySet()) {
         String file=entry.getKey();

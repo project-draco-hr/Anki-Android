@@ -1,9 +1,10 @@
 {
   try {
+    mPostVars=new HashMap<String,Object>();
     JSONObject jo=new JSONObject();
     jo.put("u",user);
     jo.put("p",pw);
-    return super.req("hostKey",super.getInputStream(Utils.jsonToString(jo)),false);
+    return super.req("hostKey",super.getInputStream(Utils.jsonToString(jo)));
   }
  catch (  JSONException e) {
     return null;
