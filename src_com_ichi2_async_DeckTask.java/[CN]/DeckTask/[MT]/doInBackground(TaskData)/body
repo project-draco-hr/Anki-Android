@@ -42,8 +42,6 @@ case TASK_TYPE_SEARCH_CARDS:
 return doInBackgroundSearchCards(params);
 case TASK_TYPE_DISMISS_NOTE:
 return doInBackgroundDismissNote(params);
-case TASK_TYPE_LOAD_STATISTICS:
-return doInBackgroundLoadStatistics(params);
 case TASK_TYPE_CHECK_DATABASE:
 return doInBackgroundCheckDatabase(params);
 case TASK_TYPE_DELETE_BACKUPS:
