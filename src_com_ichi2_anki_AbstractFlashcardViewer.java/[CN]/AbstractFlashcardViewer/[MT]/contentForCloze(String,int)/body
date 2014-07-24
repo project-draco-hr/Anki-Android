@@ -1,12 +1,23 @@
 {
   Pattern re=Pattern.compile("\\{\\{c" + idx + "::(.+?)\\}\\}");
   Matcher m=re.matcher(txt);
-  if (!m.find()) {
-    return null;
-  }
-  String result=m.group(1);
+  Set<String> matches=new LinkedHashSet<String>();
+  String groupOne=new String();
+  int colonColonIndex=-1;
   while (m.find()) {
-    result+=", " + m.group(1);
+    groupOne=m.group(1);
+    colonColonIndex=groupOne.indexOf("::");
+    if (colonColonIndex > -1) {
+      groupOne=groupOne.substring(0,colonColonIndex);
+    }
+    matches.add(groupOne);
   }
-  return result;
+  String prefix="";
+  StringBuilder resultBuilder=new StringBuilder();
+  for (  String match : matches) {
+    resultBuilder.append(prefix);
+    resultBuilder.append(match);
+    prefix=", ";
+  }
+  return resultBuilder.toString();
 }
