@@ -1,0 +1,29 @@
+{
+  DeckDropDownViewHolder viewHolder;
+  TextView deckNameView;
+  if (convertView == null) {
+    convertView=LayoutInflater.from(context).inflate(R.layout.dropdown_deck_item,parent,false);
+    deckNameView=(TextView)convertView.findViewById(R.id.dropdown_deck_name);
+    viewHolder=new DeckDropDownViewHolder();
+    viewHolder.deckNameView=deckNameView;
+    convertView.setTag(viewHolder);
+  }
+ else {
+    viewHolder=(DeckDropDownViewHolder)convertView.getTag();
+    deckNameView=(TextView)viewHolder.deckNameView;
+  }
+  if (position == 0) {
+    deckNameView.setText(context.getResources().getString(R.string.deck_summary_all_decks));
+  }
+ else {
+    JSONObject deck=decks.get(position - 1);
+    try {
+      String deckName=deck.getString("name");
+      deckNameView.setText(deckName);
+    }
+ catch (    JSONException ex) {
+      new RuntimeException();
+    }
+  }
+  return convertView;
+}

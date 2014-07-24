@@ -16,5 +16,9 @@
   mIsCreated=true;
   mActivityPager=((AnkiStatsActivity)getActivity()).getViewPager();
   mActivitySectionPagerAdapter=((AnkiStatsActivity)getActivity()).getSectionsPagerAdapter();
+  mDeckId=AnkiDroidApp.getCol().getDecks().selected();
+  mIsWholeCollection=AnkiStatsTaskHandler.isWholeCollection();
+  mDeckId=AnkiDroidApp.getCol().getDecks().selected();
+  mIsWholeCollection=AnkiStatsTaskHandler.isWholeCollection();
   return rootView;
 }
