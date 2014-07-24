@@ -5,24 +5,32 @@
   int itemId=item.getItemId();
 switch (itemId) {
 case R.id.item_time_month:
-    if (mTaskHandler.getStatType() != Stats.TYPE_MONTH) {
-      mTaskHandler.setStatType(Stats.TYPE_MONTH);
-      mSectionsPagerAdapter.notifyDataSetChanged();
-    }
-  return true;
+    if (item.isChecked())     item.setChecked(false);
+ else     item.setChecked(true);
+  if (mTaskHandler.getStatType() != Stats.TYPE_MONTH) {
+    mTaskHandler.setStatType(Stats.TYPE_MONTH);
+    mSectionsPagerAdapter.notifyDataSetChanged();
+  }
+return true;
 case R.id.item_time_year:
+if (item.isChecked()) item.setChecked(false);
+ else item.setChecked(true);
 if (mTaskHandler.getStatType() != Stats.TYPE_YEAR) {
-  mTaskHandler.setStatType(Stats.TYPE_YEAR);
-  mSectionsPagerAdapter.notifyDataSetChanged();
+mTaskHandler.setStatType(Stats.TYPE_YEAR);
+mSectionsPagerAdapter.notifyDataSetChanged();
 }
 return true;
 case R.id.item_time_all:
+if (item.isChecked()) item.setChecked(false);
+ else item.setChecked(true);
 if (mTaskHandler.getStatType() != Stats.TYPE_LIFE) {
 mTaskHandler.setStatType(Stats.TYPE_LIFE);
 mSectionsPagerAdapter.notifyDataSetChanged();
 }
 return true;
 case R.id.item_deck_current:
+if (item.isChecked()) item.setChecked(false);
+ else item.setChecked(true);
 if (AnkiStatsTaskHandler.isWholeCollection()) {
 AnkiStatsTaskHandler.setIsWholeCollection(false);
 try {
@@ -37,6 +45,8 @@ mSectionsPagerAdapter.notifyDataSetChanged();
 }
 return true;
 case R.id.item_deck_life:
+if (item.isChecked()) item.setChecked(false);
+ else item.setChecked(true);
 if (!AnkiStatsTaskHandler.isWholeCollection()) {
 AnkiStatsTaskHandler.setIsWholeCollection(true);
 if (sIsSubtitle) AnkiDroidApp.getCompat().setSubtitle(this,getResources().getString(R.string.stats_deck_collection));
