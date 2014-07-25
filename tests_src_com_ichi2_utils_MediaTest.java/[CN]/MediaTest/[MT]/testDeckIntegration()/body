@@ -18,15 +18,19 @@
   os=new FileOutputStream(new File(dir,"foo.jpg").getAbsolutePath(),false);
   os.write("test".getBytes());
   os.close();
-  List<List<String>> ret=d.getMedia().check();
-  List<String> expected;
-  List<String> actual;
-  expected=Arrays.asList("fake2.png");
-  actual=ret.get(0);
-  actual.retainAll(expected);
-  assertEquals(expected.size(),actual.size());
-  expected=Arrays.asList("foo.jpg");
-  actual=ret.get(1);
-  actual.retainAll(expected);
-  assertEquals(expected.size(),actual.size());
+  try {
+    List<List<String>> ret=d.getMedia().check();
+    List<String> expected;
+    List<String> actual;
+    expected=Arrays.asList("fake2.png");
+    actual=ret.get(0);
+    actual.retainAll(expected);
+    assertEquals(expected.size(),actual.size());
+    expected=Arrays.asList("foo.jpg");
+    actual=ret.get(1);
+    actual.retainAll(expected);
+    assertEquals(expected.size(),actual.size());
+  }
+ catch (  APIVersionException e) {
+  }
 }
