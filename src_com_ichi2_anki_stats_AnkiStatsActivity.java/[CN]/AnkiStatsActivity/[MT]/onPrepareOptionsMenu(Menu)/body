@@ -1,3 +1,7 @@
 {
+  if (sIsWholeCollectionOnly) {
+    MenuItem deckItem=menu.findItem(R.id.action_deck_chooser);
+    deckItem.setVisible(false);
+  }
   return super.onPrepareOptionsMenu(menu);
 }
