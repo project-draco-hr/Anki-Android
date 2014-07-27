@@ -9,5 +9,10 @@
   answerText=matcher.replaceAll("\n");
   matcher=Sound.sSoundPattern.matcher(answerText);
   answerText=matcher.replaceAll("");
-  return AnkiDroidApp.getCompat().nfcNormalized(answerText);
+  try {
+    return AnkiDroidApp.getCompat().nfcNormalized(answerText);
+  }
+ catch (  APIVersionException e) {
+    return answerText;
+  }
 }

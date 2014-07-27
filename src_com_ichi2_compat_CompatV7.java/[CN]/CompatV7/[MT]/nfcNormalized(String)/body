@@ -1,3 +1,8 @@
 {
-  return txt;
+  if (fASCII.matcher(txt).find()) {
+    return txt;
+  }
+ else {
+    throw new APIVersionException("NFC normalization is not available in this API version");
+  }
 }

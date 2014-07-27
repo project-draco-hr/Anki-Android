@@ -2,5 +2,10 @@
   if (answer == null || answer.equals("")) {
     return "";
   }
-  return AnkiDroidApp.getCompat().nfcNormalized(answer.trim());
+  try {
+    return AnkiDroidApp.getCompat().nfcNormalized(answer.trim());
+  }
+ catch (  APIVersionException e) {
+    return answer.trim();
+  }
 }
