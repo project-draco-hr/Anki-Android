@@ -127,7 +127,12 @@ catch (    RuntimeException e) {
         }
       }
     }
- catch (    RuntimeException e) {
+ catch (    UnsupportedSyncException e) {
+      mediaError=AnkiDroidApp.getAppResources().getString(R.string.sync_media_unsupported);
+      AnkiDroidApp.getSharedPrefs(sContext).edit().putBoolean("syncFetchesMedia",false).commit();
+      AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundSync-mediaSync");
+    }
+catch (    RuntimeException e) {
       AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundSync-mediaSync");
       mediaError=e.getLocalizedMessage();
     }

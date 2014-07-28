@@ -95,6 +95,11 @@
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
+catch (  APIVersionException e) {
+    UnsupportedSyncException ee=new UnsupportedSyncException("Cannot sync media on this version of Android");
+    Log.e(AnkiDroidApp.TAG,e.getMessage());
+    throw ee;
+  }
 catch (  Exception e) {
     Log.e(AnkiDroidApp.TAG,"Syncing error: ",e);
     throw new RuntimeException(e);
