@@ -1,0 +1,15 @@
+{
+  try {
+    mPostVars=new HashMap<String,Object>();
+    mPostVars.put("sk",mSKey);
+    HttpResponse resp=super.req("mediaChanges",super.getInputStream(Utils.jsonToString(new JSONObject().put("lastUsn",lastUsn))));
+    JSONObject jresp=new JSONObject(super.stream2String(resp.getEntity().getContent()));
+    return _dataOnly(jresp,JSONArray.class);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+}

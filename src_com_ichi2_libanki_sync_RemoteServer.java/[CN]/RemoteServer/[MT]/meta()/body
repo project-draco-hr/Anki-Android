@@ -1,5 +1,8 @@
 {
   try {
+    mPostVars=new HashMap<String,Object>();
+    mPostVars.put("k",mHKey);
+    mPostVars.put("s",mSKey);
     JSONObject jo=new JSONObject();
     jo.put("v",Consts.SYNC_VER);
     jo.put("cv",String.format(Locale.US,"ankidroid,%s,%s",AnkiDroidApp.getPkgVersionName(),Utils.platDesc()));

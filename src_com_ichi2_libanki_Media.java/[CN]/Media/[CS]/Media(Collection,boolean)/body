@@ -5,7 +5,6 @@
     return;
   }
   mDir=col.getPath().replaceFirst("\\.anki2$",".media");
-  mMediaDbFilename=mDir + ".db";
   File fd=new File(mDir);
   if (!fd.exists()) {
     if (!fd.mkdir()) {

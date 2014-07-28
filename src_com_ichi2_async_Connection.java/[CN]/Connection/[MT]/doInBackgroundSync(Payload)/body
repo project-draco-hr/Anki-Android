@@ -106,11 +106,11 @@ catch (    RuntimeException e) {
   boolean noMediaChanges=false;
   String mediaError=null;
   if (media) {
-    server=new RemoteMediaServer(hkey,this);
+    server=new RemoteMediaServer(col,hkey,this);
     MediaSyncer mediaClient=new MediaSyncer(col,(RemoteMediaServer)server);
     String ret;
     try {
-      ret=mediaClient.sync(mediaUsn,this);
+      ret=mediaClient.sync(this);
       if (ret == null) {
         mediaError=AnkiDroidApp.getAppResources().getString(R.string.sync_media_error);
       }

@@ -1,0 +1,3 @@
+{
+  return d.getMedia().getDb().queryColumn(String.class,"select fname from log where type = 0",0);
+}

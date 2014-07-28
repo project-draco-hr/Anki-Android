@@ -1,0 +1,12 @@
+{
+  Note note=mCol.getNote(nid);
+  String[] flds=note.getFields();
+  for (int c=0; c < flds.length; c++) {
+    String fld=flds[c];
+    String nfc=AnkiDroidApp.getCompat().nfcNormalized(fld);
+    if (!nfc.equals(fld)) {
+      note.setField(c,nfc);
+    }
+  }
+  note.flush();
+}

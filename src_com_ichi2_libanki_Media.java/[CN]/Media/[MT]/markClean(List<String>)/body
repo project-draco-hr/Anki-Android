@@ -1,0 +1,5 @@
+{
+  for (  String fname : fnames) {
+    mDb.execute("update media set dirty=0 where fname=?",new Object[]{fname});
+  }
+}

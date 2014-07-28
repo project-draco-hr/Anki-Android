@@ -1,0 +1,7 @@
+{
+  mMod=true;
+  String[] queries=sql.split(";");
+  for (  String query : queries) {
+    mDatabase.execSQL(query);
+  }
+}

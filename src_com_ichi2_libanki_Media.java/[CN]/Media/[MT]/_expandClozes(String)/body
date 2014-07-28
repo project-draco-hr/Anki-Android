@@ -1,0 +1,9 @@
+{
+  Set<String> ords=new TreeSet<String>();
+  Pattern cloze=Pattern.compile("{{c(\\\\d+)::.+?}}");
+  Matcher m=cloze.matcher(string);
+  while (m.find()) {
+    ords.add(m.group(1));
+  }
+  return new ArrayList<String>();
+}
