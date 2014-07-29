@@ -70,7 +70,7 @@ catch (  JSONException e) {
     data.data=new Object[]{sContext.getString(R.string.upgrade_deck_web_upgrade_exceeds)};
     return data;
   }
-  BasicHttpSyncer h=new BasicHttpSyncer(null,null);
+  HttpSyncer h=new HttpSyncer(null,null);
   publishProgress(R.string.upgrade_decks_upload,null,true);
   try {
     HttpResponse resp=h.req("upgrade/upload",new FileInputStream(zipFile),0,null,mCancelCallback);
