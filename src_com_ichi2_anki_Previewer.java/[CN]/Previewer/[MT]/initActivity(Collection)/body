@@ -1,7 +1,5 @@
 {
   super.initActivity(col);
   mCurrentCard=CardEditor.mCurrentEditedCard;
-  Previewer.this.displayCardQuestion();
-  Previewer.this.displayCardAnswer();
-  hideEaseButtons();
+  displayCardQuestion();
 }

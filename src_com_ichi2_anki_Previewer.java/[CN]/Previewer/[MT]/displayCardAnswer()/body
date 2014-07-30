@@ -1,4 +1,6 @@
 {
   super.displayCardAnswer();
+  findViewById(R.id.answer_options_layout).setVisibility(View.GONE);
+  mFlipCardLayout.setVisibility(View.GONE);
   hideEaseButtons();
 }
