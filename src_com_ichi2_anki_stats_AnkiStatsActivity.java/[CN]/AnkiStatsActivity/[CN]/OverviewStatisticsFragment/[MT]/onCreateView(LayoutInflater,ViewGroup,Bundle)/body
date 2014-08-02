@@ -18,8 +18,6 @@
   mActivitySectionPagerAdapter=((AnkiStatsActivity)getActivity()).getSectionsPagerAdapter();
   mDeckId=AnkiDroidApp.getCol().getDecks().selected();
   mIsWholeCollection=AnkiStatsTaskHandler.isWholeCollection();
-  mDeckId=AnkiDroidApp.getCol().getDecks().selected();
-  mIsWholeCollection=AnkiStatsTaskHandler.isWholeCollection();
   if (!AnkiStatsTaskHandler.isWholeCollection()) {
     try {
       List<String> parts=Arrays.asList(AnkiDroidApp.getCol().getDecks().current().getString("name").split("::"));

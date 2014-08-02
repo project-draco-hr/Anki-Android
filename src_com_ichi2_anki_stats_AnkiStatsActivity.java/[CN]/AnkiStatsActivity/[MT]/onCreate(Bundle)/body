@@ -1,6 +1,6 @@
 {
   sIsWholeCollectionOnly=AnkiStatsTaskHandler.isWholeCollection();
-  sIsSubtitle=false;
+  sIsSubtitle=true;
   super.onCreate(savedInstanceState);
   mTaskHandler=new AnkiStatsTaskHandler();
   mMainLayout=getLayoutInflater().inflate(R.layout.activity_anki_stats,null);
