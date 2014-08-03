@@ -4,13 +4,16 @@
   StyledDialog.Builder builder1=new StyledDialog.Builder(this.getActivity());
 switch (id) {
 case DIALOG_STATISTIC_TYPE:
-    dialog=ChartBuilder.getStatisticsDialog(getActivity(),new DialogInterface.OnClickListener(){
-      @Override public void onClick(      DialogInterface dialog,      int which){
-        DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_STATISTICS,mLoadStatisticsHandler,new DeckTask.TaskData(AnkiDroidApp.getCol(),which,false));
-      }
+    boolean selectAllDecksButton=false;
+  if (!(getActivity() instanceof AnkiStatsActivity)) {
+    if ((getActivity() instanceof DeckPicker && !mFragmented)) {
+      selectAllDecksButton=true;
     }
-,mFragmented);
-  break;
+    AnkiStatsTaskHandler.setIsWholeCollection(selectAllDecksButton);
+    Intent intent=new Intent(getActivity(),AnkiStatsActivity.class);
+    startActivity(intent);
+  }
+break;
 case DIALOG_CUSTOM_STUDY:
 builder1.setTitle(res.getString(R.string.custom_study));
 builder1.setIcon(android.R.drawable.ic_menu_sort_by_size);
@@ -18,8 +21,8 @@ builder1.setItems(res.getStringArray(R.array.custom_study_options_labels),new Di
 @Override public void onClick(DialogInterface dialog,int which){
 mCustomDialogChoice=which;
 if (which == CUSTOM_STUDY_TAGS - 1) {
-  showDialogFragment(DIALOG_CUSTOM_STUDY_TAGS);
-  return;
+showDialogFragment(DIALOG_CUSTOM_STUDY_TAGS);
+return;
 }
 showDialog(DIALOG_CUSTOM_STUDY_DETAILS);
 }

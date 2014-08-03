@@ -4,11 +4,59 @@
   }
   int itemId=item.getItemId();
 switch (itemId) {
-case R.id.action_time_spinner:
-    showTimeDialog();
-  return true;
-case R.id.action_deck_spinner:
-showDeckDialog();
+case R.id.item_time_month:
+    if (item.isChecked())     item.setChecked(false);
+ else     item.setChecked(true);
+  if (mTaskHandler.getStatType() != Stats.TYPE_MONTH) {
+    mTaskHandler.setStatType(Stats.TYPE_MONTH);
+    mSectionsPagerAdapter.notifyDataSetChanged();
+  }
+return true;
+case R.id.item_time_year:
+if (item.isChecked()) item.setChecked(false);
+ else item.setChecked(true);
+if (mTaskHandler.getStatType() != Stats.TYPE_YEAR) {
+mTaskHandler.setStatType(Stats.TYPE_YEAR);
+mSectionsPagerAdapter.notifyDataSetChanged();
+}
+return true;
+case R.id.item_time_all:
+if (item.isChecked()) item.setChecked(false);
+ else item.setChecked(true);
+if (mTaskHandler.getStatType() != Stats.TYPE_LIFE) {
+mTaskHandler.setStatType(Stats.TYPE_LIFE);
+mSectionsPagerAdapter.notifyDataSetChanged();
+}
+return true;
+case R.id.item_deck_current:
+if (item.isChecked()) item.setChecked(false);
+ else item.setChecked(true);
+if (AnkiStatsTaskHandler.isWholeCollection()) {
+AnkiStatsTaskHandler.setIsWholeCollection(false);
+try {
+List<String> parts=Arrays.asList(AnkiDroidApp.getCol().getDecks().current().getString("name").split("::"));
+if (sIsSubtitle) AnkiDroidApp.getCompat().setSubtitle(this,parts.get(parts.size() - 1));
+ else setTitle(parts.get(parts.size() - 1));
+}
+ catch (JSONException e) {
+throw new RuntimeException(e);
+}
+mSectionsPagerAdapter.notifyDataSetChanged();
+}
+return true;
+case R.id.item_deck_life:
+if (item.isChecked()) item.setChecked(false);
+ else item.setChecked(true);
+if (!AnkiStatsTaskHandler.isWholeCollection()) {
+AnkiStatsTaskHandler.setIsWholeCollection(true);
+if (sIsSubtitle) AnkiDroidApp.getCompat().setSubtitle(this,getResources().getString(R.string.stats_deck_collection));
+ else setTitle(getResources().getString(R.string.stats_deck_collection));
+mSectionsPagerAdapter.notifyDataSetChanged();
+}
+return true;
+case R.id.action_time_chooser:
+return true;
+case R.id.action_deck_chooser:
 return true;
 }
 return super.onOptionsItemSelected(item);

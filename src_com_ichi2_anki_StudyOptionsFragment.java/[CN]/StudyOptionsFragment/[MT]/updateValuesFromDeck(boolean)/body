@@ -35,7 +35,9 @@
     throw new RuntimeException(e);
   }
   if (!mFragmented) {
-    getActivity().setTitle(fullName);
+    getActivity().setTitle(getResources().getString(R.string.studyoptions_title));
+    List<String> parts=Arrays.asList(fullName.split("::"));
+    AnkiDroidApp.getCompat().setSubtitle(getActivity(),parts.get(parts.size() - 1));
   }
   String desc;
   try {
