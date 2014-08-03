@@ -17,7 +17,7 @@
     }
   }
   String path=AnkiDroidApp.getCollectionPath();
-  BasicHttpSyncer server=new RemoteServer(this,hkey);
+  HttpSyncer server=new RemoteServer(this,hkey);
   Syncer client=new Syncer(col,server);
   boolean noChanges=false;
   if (conflictResolution == null) {
@@ -57,7 +57,7 @@
           AnkiDroidApp.openCollection(path);
           return data;
         }
-        if (!ret[0].equals(BasicHttpSyncer.ANKIWEB_STATUS_OK)) {
+        if (!ret[0].equals(HttpSyncer.ANKIWEB_STATUS_OK)) {
           data.success=false;
           data.result=ret;
           AnkiDroidApp.openCollection(path);
