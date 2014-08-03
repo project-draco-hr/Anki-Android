@@ -114,9 +114,7 @@
  else {
     Object[] counts=AnkiDroidApp.getCol().getSched().deckCounts();
     updateDecksList((TreeSet<Object[]>)counts[0],(Integer)counts[1],(Integer)counts[2]);
-    TextView textView=(TextView)findViewById(R.id.today_stats_text_view);
-    textView.setVisibility(View.GONE);
-    AnkiStatsTaskHandler.createSmallTodayOverview(textView);
+    showTodayMiniStatistics();
   }
   if (mSwipeEnabled) {
     gestureDetector=new GestureDetector(new MyGestureDetector());
