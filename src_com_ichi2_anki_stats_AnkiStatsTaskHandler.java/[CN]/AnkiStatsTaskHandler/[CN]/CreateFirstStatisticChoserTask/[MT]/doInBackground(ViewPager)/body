@@ -1,0 +1,30 @@
+{
+  sLock.lock();
+  try {
+    if (!mIsRunning) {
+      Log.d(AnkiDroidApp.TAG,"quiting CreateTodayLearnCountOnly before execution");
+      return null;
+    }
+ else     Log.d(AnkiDroidApp.TAG,"starting CreateTodayLearnCountOnly");
+    mViewPager=(ViewPager)params[0];
+    Collection collection=AnkiDroidApp.getCol();
+    int cards;
+    Cursor cur=null;
+    String query="select count() from revlog where id > " + ((collection.getSched().getDayCutoff() - 86400) * 1000);
+    Log.d(AnkiDroidApp.TAG,"CreateSmallTodayOverview query: " + query);
+    try {
+      cur=collection.getDb().getDatabase().rawQuery(query,null);
+      cur.moveToFirst();
+      cards=cur.getInt(0);
+    }
+  finally {
+      if (cur != null && !cur.isClosed()) {
+        cur.close();
+      }
+    }
+    return cards;
+  }
+  finally {
+    sLock.unlock();
+  }
+}
