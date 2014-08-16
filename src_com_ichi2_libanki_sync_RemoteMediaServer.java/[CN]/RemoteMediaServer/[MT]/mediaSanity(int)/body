@@ -1,0 +1,13 @@
+{
+  try {
+    HttpResponse resp=super.req("mediaSanity",super.getInputStream(Utils.jsonToString(new JSONObject().put("local",lcnt))));
+    JSONObject jresp=new JSONObject(super.stream2String(resp.getEntity().getContent()));
+    return _dataOnly(jresp,String.class);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+}

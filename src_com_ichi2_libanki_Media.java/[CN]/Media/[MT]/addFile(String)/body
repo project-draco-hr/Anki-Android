@@ -1,6 +1,6 @@
 {
-  String mdir=getDir();
-  String base=fDangerousCharacters.matcher(new File(opath).getName()).replaceAll("");
+  String mdir=dir();
+  String base=fIllegalCharReg.matcher(new File(opath).getName()).replaceAll("");
   File newMediaFile=new File(mdir,base);
   String dst=newMediaFile.getAbsolutePath();
   if (!newMediaFile.exists()) {
@@ -12,7 +12,7 @@
     }
     return base;
   }
-  if (filesIdentical(opath,dst)) {
+  if (Utils.fileChecksum(opath).equals(Utils.fileChecksum(dst))) {
     return base;
   }
   String root, ext;
@@ -29,6 +29,7 @@
   String path=null;
   Matcher m=null;
   int n=0;
+  Pattern fileOrdinal=Pattern.compile(" \\((\\d+)\\)$");
   while (true) {
     sb=new StringBuilder(mdir);
     path=sb.append(File.separatorChar).append(root).append(ext).toString();
@@ -36,7 +37,7 @@
     if (!newMediaFile.exists()) {
       break;
     }
-    m=fFileOrdinal.matcher(root);
+    m=fileOrdinal.matcher(root);
     if (!m.find()) {
       root=root.concat(" (1)");
     }

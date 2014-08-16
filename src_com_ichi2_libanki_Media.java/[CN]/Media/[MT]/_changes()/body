@@ -1,12 +1,13 @@
 {
-  Map<String,Pair<String,Long>> cache=new HashMap<String,Pair<String,Long>>();
-  Map<String,Boolean> used=new HashMap<String,Boolean>();
+  Map<String,Object[]> cache=new HashMap<String,Object[]>();
   Cursor cur=null;
   try {
-    cur=mMediaDb.getDatabase().query("media",new String[]{"fname","csum","mod"},null,null,null,null,null);
+    cur=mDb.getDatabase().rawQuery("select fname, csum, mtime from media where csum is not null",null);
     while (cur.moveToNext()) {
-      cache.put(cur.getString(0),new Pair<String,Long>(cur.getString(1),cur.getLong(1)));
-      used.put(cur.getString(0),false);
+      String name=cur.getString(0);
+      String csum=cur.getString(1);
+      Long mod=cur.getLong(2);
+      cache.put(name,new Object[]{csum,mod,false});
     }
   }
  catch (  SQLException e) {
@@ -19,43 +20,45 @@
   }
   List<String> added=new ArrayList<String>();
   List<String> removed=new ArrayList<String>();
-  File mediaDir=new File(getDir());
-  for (  File f : mediaDir.listFiles()) {
+  for (  File f : new File(dir()).listFiles()) {
     if (f.isDirectory()) {
       continue;
     }
     String fname=f.getName();
-    if (fname.compareTo("thumbs.db") == 0) {
+    if (fname.equalsIgnoreCase("thumbs.db")) {
       continue;
     }
-    boolean bad=false;
-    for (    String c : new String[]{"\0","/","\\",":"}) {
-      if (fname.contains(c)) {
-        bad=true;
-        break;
-      }
-    }
-    if (bad) {
+    if (hasIllegal(fname)) {
       continue;
     }
     if (f.length() == 0) {
       f.delete();
       continue;
     }
+    String normf=AnkiDroidApp.getCompat().nfcNormalized(fname);
+    if (!fname.equals(normf)) {
+      File nf=new File(dir(),normf);
+      if (nf.exists()) {
+        f.delete();
+      }
+ else {
+        f.renameTo(nf);
+      }
+    }
     if (!cache.containsKey(fname)) {
       added.add(fname);
     }
  else {
-      if ((f.lastModified() / 1000) != cache.get(fname).second) {
-        if (_checksum(f.getAbsolutePath()).compareTo(cache.get(fname).first) != 0) {
+      if (_mtime(f.getAbsolutePath()) != (Long)cache.get(fname)[1]) {
+        if (!_checksum(f.getAbsolutePath()).equals(cache.get(fname)[0])) {
           added.add(fname);
         }
       }
-      used.put(fname,true);
+      cache.get(fname)[2]=true;
     }
   }
-  for (  String fname : used.keySet()) {
-    if (!used.get(fname)) {
+  for (  String fname : cache.keySet()) {
+    if (!((Boolean)cache.get(fname)[2])) {
       removed.add(fname);
     }
   }

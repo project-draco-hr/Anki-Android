@@ -1,0 +1,3 @@
+{
+  return mDb.queryScalar("select count() from media where csum is not null",false);
+}

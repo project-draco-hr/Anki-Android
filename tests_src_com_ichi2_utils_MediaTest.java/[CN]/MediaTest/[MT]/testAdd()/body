@@ -1,0 +1,19 @@
+{
+  Collection d=new Shared().getEmptyDeck();
+  File dir=new File(AnkiDroidApp.getCurrentAnkiDroidMediaDir());
+  BackupManager.removeDir(dir);
+  dir.mkdirs();
+  File f=new File(dir,"foo.jpg");
+  String path=f.getAbsolutePath();
+  FileOutputStream os;
+  os=new FileOutputStream(path,false);
+  os.write("hello".getBytes());
+  os.close();
+  String r=d.getMedia().addFile(path);
+  assertEquals("foo.jpg",r);
+  assertEquals("foo.jpg",d.getMedia().addFile(path));
+  os=new FileOutputStream(path,false);
+  os.write("world".getBytes());
+  os.close();
+  assertEquals("foo (1).jpg",d.getMedia().addFile(path));
+}

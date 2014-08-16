@@ -2,4 +2,5 @@
   mHKey=hkey;
   mSKey=Utils.checksum(Float.toString(new Random().nextFloat())).substring(0,8);
   mCon=con;
+  mPostVars=new HashMap<String,Object>();
 }

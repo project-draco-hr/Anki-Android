@@ -1,0 +1,4 @@
+{
+  mDb.execute("update meta set lastUsn = ?",new Object[]{usn});
+  mDb.commit();
+}

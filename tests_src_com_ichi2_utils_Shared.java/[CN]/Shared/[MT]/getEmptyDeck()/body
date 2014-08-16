@@ -1,0 +1,6 @@
+{
+  File f=File.createTempFile("test",".anki2");
+  String path=f.getAbsolutePath();
+  f.delete();
+  return Storage.Collection(path);
+}
