@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundSortCards");
   if (params.length == 1) {
     Comparator comparator=params[0].getComparator();
     ArrayList<HashMap<String,String>> card=params[0].getCards();

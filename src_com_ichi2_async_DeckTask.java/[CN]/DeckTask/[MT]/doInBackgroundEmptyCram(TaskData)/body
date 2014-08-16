@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundEmptyCram");
   Collection col=params[0].getCollection();
   boolean fragmented=params[0].getBoolean();
   long did=params[0].getLong();

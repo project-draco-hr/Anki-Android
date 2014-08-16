@@ -5,9 +5,11 @@
     cur=mMetaDb.rawQuery("SELECT _id FROM whiteboardState" + " WHERE did  = " + did,null);
     if (cur.moveToNext()) {
       mMetaDb.execSQL("UPDATE whiteboardState " + "SET did = " + did + ", "+ "state="+ Integer.toString(state)+ " "+ "WHERE _id="+ cur.getString(0)+ ";");
+      Log.i(AnkiDroidApp.TAG,"Store whiteboard state (" + state + ") for deck "+ did);
     }
  else {
       mMetaDb.execSQL("INSERT INTO whiteboardState (did, state) VALUES (?, ?)",new Object[]{did,state});
+      Log.i(AnkiDroidApp.TAG,"Store whiteboard state (" + state + ") for deck "+ did);
     }
   }
  catch (  Exception e) {

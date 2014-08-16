@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundConfChange");
   Object[] data=params[0].getObjArray();
   Collection col=(Collection)data[0];
   JSONObject deck=(JSONObject)data[1];

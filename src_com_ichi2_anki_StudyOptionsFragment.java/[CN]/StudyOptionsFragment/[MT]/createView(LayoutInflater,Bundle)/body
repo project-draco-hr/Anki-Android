@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"StudyOptions - createView()");
   restorePreferences();
   mFragmented=getActivity().getClass() != StudyOptionsActivity.class;
   if (!AnkiDroidApp.colIsOpen()) {

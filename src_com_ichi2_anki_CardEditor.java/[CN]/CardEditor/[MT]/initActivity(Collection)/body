@@ -1,6 +1,7 @@
 {
   this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
   Intent intent=getIntent();
+  Log.i(AnkiDroidApp.TAG,"CardEditor: caller: " + mCaller);
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
   if (mCaller == CALLER_INDICLASH && preferences.getBoolean("intentAdditionInstantAdd",false)) {
     fetchIntentInformation(intent);
@@ -25,8 +26,9 @@
   mAedictIntent=false;
 switch (mCaller) {
 case CALLER_NOCALLER:
-    finish();
-  return;
+    Log.i(AnkiDroidApp.TAG,"CardEditor: no caller could be identified, closing");
+  finish();
+return;
 case CALLER_REVIEWER:
 mCurrentEditedCard=AbstractFlashcardViewer.getEditorCard();
 if (mCurrentEditedCard == null) {

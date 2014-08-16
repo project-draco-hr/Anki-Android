@@ -1,5 +1,6 @@
 {
   mLock.lock();
+  Log.i(AnkiDroidApp.TAG,"openCollection: " + path);
   try {
     if (!colIsOpen() || !sInstance.mCurrentCollection.getPath().equals(path)) {
       if (colIsOpen()) {
@@ -8,9 +9,11 @@
       }
       sInstance.mCurrentCollection=Storage.Collection(path);
       sInstance.mAccessThreadCount++;
+      Log.i(AnkiDroidApp.TAG,"Access to collection is requested: collection has been opened");
     }
  else {
       sInstance.mAccessThreadCount++;
+      Log.i(AnkiDroidApp.TAG,"Access to collection is requested: collection has not been reopened (count: " + sInstance.mAccessThreadCount + ")");
     }
     return sInstance.mCurrentCollection;
   }

@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundOpenCollection");
   long time=Utils.intNow(1000);
   Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
   String collectionFile=params[0].getString();
@@ -28,6 +29,7 @@
     }
   }
  else {
+    Log.i(AnkiDroidApp.TAG,"doInBackgroundOpenCollection: collection still open - reusing it");
     col=oldCol;
   }
   Object[] counts=null;

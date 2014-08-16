@@ -17,6 +17,7 @@
   if (mPrefSafeDisplay) {
     AnkiDroidApp.getCompat().setScrollbarFadingEnabled(webView,false);
   }
+  Log.i(AnkiDroidApp.TAG,"Focusable = " + webView.isFocusable() + ", Focusable in touch mode = "+ webView.isFocusableInTouchMode());
   webView.setWebViewClient(new WebViewClient(){
     @Override public boolean shouldOverrideUrlLoading(    WebView view,    String url){
       if (url.startsWith("playsound:")) {
@@ -35,6 +36,7 @@
       if (url.startsWith("file")) {
         return false;
       }
+      Log.d(AnkiDroidApp.TAG,"Opening external link \"" + url + "\" with an Intent");
       Intent intent=new Intent(Intent.ACTION_VIEW,Uri.parse(url));
       startActivity(intent);
       return true;

@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"flush - Saving information to DB...");
   mMod=(mod == 0 ? Utils.intNow(1000) : mod);
   ContentValues values=new ContentValues();
   values.put("crt",mCrt);

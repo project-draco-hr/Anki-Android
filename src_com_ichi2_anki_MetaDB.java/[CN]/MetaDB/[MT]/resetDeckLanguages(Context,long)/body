@@ -2,6 +2,7 @@
   openDBIfClosed(context);
   try {
     mMetaDb.execSQL("DELETE FROM languages WHERE did = " + did + ";");
+    Log.i(AnkiDroidApp.TAG,"Resetting language assignment for deck " + did);
     return true;
   }
  catch (  Exception e) {

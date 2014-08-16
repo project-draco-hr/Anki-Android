@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"DeckOptions - CacheValues");
   try {
     mOptions=mCol.getDecks().confForDid(mDeck.getLong("id"));
     mValues.put("name",mDeck.getString("name"));

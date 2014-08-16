@@ -17,5 +17,6 @@
 catch (  SQLiteException e) {
     Log.e(AnkiDroidApp.TAG,"MetaDB.storeSmallWidgetStatus: failed",e);
     closeDB();
+    Log.i(AnkiDroidApp.TAG,"Trying to reset Widget: " + resetWidget(context));
   }
 }

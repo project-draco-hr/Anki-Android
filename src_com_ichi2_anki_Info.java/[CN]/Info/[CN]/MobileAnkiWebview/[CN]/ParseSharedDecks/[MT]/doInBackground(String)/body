@@ -1,5 +1,6 @@
 {
   super.doInBackground(params);
+  Log.i(AnkiDroidApp.TAG,"Info.ParseSharedDecks.doInBackground()");
   HttpGet pageGet=new HttpGet(params[0]);
   HostnameVerifier hostnameVerifier=org.apache.http.conn.ssl.SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER;
   HttpParams httpParams=new BasicHttpParams();

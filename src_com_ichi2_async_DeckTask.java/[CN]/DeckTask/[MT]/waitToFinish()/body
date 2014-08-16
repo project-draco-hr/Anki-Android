@@ -1,6 +1,7 @@
 {
   try {
     if ((sLatestInstance != null) && (sLatestInstance.getStatus() != AsyncTask.Status.FINISHED)) {
+      Log.i(AnkiDroidApp.TAG,"DeckTask: wait to finish");
       sLatestInstance.get();
     }
   }

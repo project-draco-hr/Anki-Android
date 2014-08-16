@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundConfReset");
   Object[] data=params[0].getObjArray();
   Collection col=(Collection)data[0];
   JSONObject conf=(JSONObject)data[1];
