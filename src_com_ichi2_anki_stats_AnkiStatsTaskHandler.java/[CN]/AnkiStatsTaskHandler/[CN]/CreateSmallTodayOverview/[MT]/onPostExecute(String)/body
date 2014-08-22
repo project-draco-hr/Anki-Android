@@ -1,0 +1,7 @@
+{
+  if (todayStatString != null && mIsRunning) {
+    mTextView.setText(todayStatString);
+    mTextView.setVisibility(View.VISIBLE);
+    mTextView.invalidate();
+  }
+}
