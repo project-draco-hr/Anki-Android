@@ -1,7 +1,7 @@
 {
   super.onResume();
   if (AnkiDroidApp.colIsOpen()) {
-    if (Utils.now() > AnkiDroidApp.getCol().getSched().getDayCutoff()) {
+    if (Utils.now() > getCol().getSched().getDayCutoff()) {
       updateValuesFromDeck(true);
     }
  else {

@@ -20,8 +20,6 @@
         if (clozeIdx != 0) {
           mTypeCorrect=contentForCloze(mTypeCorrect,clozeIdx);
         }
-        mTypeFont=(String)(ja.getJSONObject(i).get("font"));
-        mTypeSize=(Integer)(ja.getJSONObject(i).get("size"));
         break;
       }
     }

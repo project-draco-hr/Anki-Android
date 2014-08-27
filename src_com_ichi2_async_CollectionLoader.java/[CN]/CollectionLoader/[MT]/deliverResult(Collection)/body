@@ -1,0 +1,10 @@
+{
+  if (isReset()) {
+    if (col != null) {
+      return;
+    }
+  }
+  if (isStarted()) {
+    super.deliverResult(col);
+  }
+}

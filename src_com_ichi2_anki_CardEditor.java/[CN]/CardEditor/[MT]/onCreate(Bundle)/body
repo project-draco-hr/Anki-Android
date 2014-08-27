@@ -16,12 +16,5 @@
       }
     }
   }
-  mCol=AnkiDroidApp.getCol();
-  if (mCol == null) {
-    reloadCollection();
-    return;
-  }
- else {
-    initActivity(mCol);
-  }
+  loadCollection();
 }

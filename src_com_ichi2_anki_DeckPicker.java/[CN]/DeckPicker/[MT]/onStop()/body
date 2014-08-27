@@ -3,7 +3,7 @@
   super.onStop();
   if (!mDontSaveOnStop) {
     if (isFinishing()) {
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CLOSE_DECK,mCloseCollectionHandler,new TaskData(AnkiDroidApp.getCol()));
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CLOSE_DECK,mCloseCollectionHandler,new TaskData(getCol()));
     }
  else {
       StudyOptionsFragment frag=getFragment();

@@ -82,7 +82,7 @@
       mImportPath=intent.getStringExtra("importPath");
     }
     if (AnkiDroidApp.colIsOpen() && mImportPath != null) {
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_IMPORT,mImportAddListener,new TaskData(AnkiDroidApp.getCol(),mImportPath,true));
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_IMPORT,mImportAddListener,new TaskData(getCol(),mImportPath,true));
       mImportPath=null;
     }
   }
@@ -96,8 +96,7 @@ case Reviewer.RESULT_NO_MORE_CARDS:
   mDontSaveOnStop=true;
 Intent i=new Intent();
 i.setClass(this,StudyOptionsActivity.class);
-startActivityForResult(i,SHOW_STUDYOPTIONS);
-ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
+startActivityForResultWithAnimation(i,SHOW_STUDYOPTIONS,ActivityTransitionAnimation.RIGHT);
 break;
 }
 }

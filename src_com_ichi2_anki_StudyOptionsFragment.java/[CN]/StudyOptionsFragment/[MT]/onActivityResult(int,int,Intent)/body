@@ -14,7 +14,7 @@
   }
  else {
     if (!AnkiDroidApp.colIsOpen()) {
-      reloadCollection();
+      ((AnkiActivity)getActivity()).loadCollection();
       mDontSaveOnStop=false;
       return;
     }
@@ -22,7 +22,7 @@
       if (mCramInitialConfig != null) {
         mCramInitialConfig=null;
         try {
-          JSONObject deck=AnkiDroidApp.getCol().getDecks().current();
+          JSONObject deck=getCol().getDecks().current();
           if (deck.getInt("dyn") != 0 && deck.has("empty")) {
             deck.remove("empty");
           }

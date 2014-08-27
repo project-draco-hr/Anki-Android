@@ -6,7 +6,7 @@ case DIALOG_TAGS_SELECT:
     if (mSelectedTags == null) {
       mSelectedTags=new ArrayList<String>();
     }
-  ArrayList<String> tags=new ArrayList<String>(mCol.getTags().all());
+  ArrayList<String> tags=new ArrayList<String>(getCol().getTags().all());
 ArrayList<String> selTags=new ArrayList<String>(mSelectedTags);
 TagsDialog dialog=com.ichi2.anki.dialogs.TagsDialog.newInstance(TagsDialog.TYPE_ADD_TAG,selTags,tags);
 dialog.setTagsDialogListener(new TagsDialogListener(){

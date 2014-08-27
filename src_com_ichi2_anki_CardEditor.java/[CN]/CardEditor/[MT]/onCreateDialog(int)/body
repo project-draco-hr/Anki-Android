@@ -6,7 +6,7 @@ switch (id) {
 case DIALOG_DECK_SELECT:
     ArrayList<CharSequence> dialogDeckItems=new ArrayList<CharSequence>();
   final ArrayList<Long> dialogDeckIds=new ArrayList<Long>();
-ArrayList<JSONObject> decks=mCol.getDecks().all();
+ArrayList<JSONObject> decks=getCol().getDecks().all();
 Collections.sort(decks,new JSONNameComparator());
 builder.setTitle(R.string.deck);
 for (JSONObject d : decks) {
@@ -33,12 +33,11 @@ updateDeck();
 }
 );
 dialog=builder.create();
-mDeckSelectDialog=dialog;
 break;
 case DIALOG_MODEL_SELECT:
 ArrayList<CharSequence> dialogItems=new ArrayList<CharSequence>();
 final ArrayList<Long> dialogIds=new ArrayList<Long>();
-ArrayList<JSONObject> models=mCol.getModels().all();
+ArrayList<JSONObject> models=getCol().getModels().all();
 Collections.sort(models,new JSONNameComparator());
 builder.setTitle(R.string.note_type);
 for (JSONObject m : models) {
@@ -56,24 +55,24 @@ builder.setItems(items2,new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int item){
 long oldModelId;
 try {
-oldModelId=mCol.getModels().current().getLong("id");
+oldModelId=getCol().getModels().current().getLong("id");
 }
  catch (JSONException e) {
 throw new RuntimeException(e);
 }
 long newId=dialogIds.get(item);
 if (oldModelId != newId) {
-JSONObject model=mCol.getModels().get(newId);
-mCol.getModels().setCurrent(model);
-JSONObject cdeck=mCol.getDecks().current();
+JSONObject model=getCol().getModels().get(newId);
+getCol().getModels().setCurrent(model);
+JSONObject cdeck=getCol().getDecks().current();
 try {
 cdeck.put("mid",newId);
 }
  catch (JSONException e) {
 throw new RuntimeException(e);
 }
-mCol.getDecks().save(cdeck);
-if (!mCol.getConf().optBoolean("addToCur",true)) {
+getCol().getDecks().save(cdeck);
+if (!getCol().getConf().optBoolean("addToCur",true)) {
 try {
 mCurrentDid=model.getLong("did");
 updateDeck();

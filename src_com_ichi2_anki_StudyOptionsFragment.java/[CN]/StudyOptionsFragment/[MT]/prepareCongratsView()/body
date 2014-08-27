@@ -2,6 +2,6 @@
   mCurrentContentView=CONTENT_CONGRATS;
   mDeckInfoLayout.setVisibility(View.GONE);
   mCongratsLayout.setVisibility(View.VISIBLE);
-  mTextCongratsMessage.setText(AnkiDroidApp.getCol().getSched().finishedMsg(getActivity()));
+  mTextCongratsMessage.setText(getCol().getSched().finishedMsg(getActivity()));
   mButtonStart.setVisibility(View.GONE);
 }

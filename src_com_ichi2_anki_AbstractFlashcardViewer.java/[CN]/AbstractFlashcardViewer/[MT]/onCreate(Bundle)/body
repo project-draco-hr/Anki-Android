@@ -8,13 +8,5 @@
   setContentView(mainView);
   initNavigationDrawer(mainView);
   setVolumeControlStream(AudioManager.STREAM_MUSIC);
-  Collection col=AnkiDroidApp.getCol();
-  if (col == null) {
-    mReloadingCollection=true;
-    reloadCollection();
-    return;
-  }
- else {
-    initActivity(col);
-  }
+  loadCollection();
 }

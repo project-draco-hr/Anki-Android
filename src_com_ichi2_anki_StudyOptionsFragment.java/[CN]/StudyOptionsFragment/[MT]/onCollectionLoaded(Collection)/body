@@ -1,0 +1,24 @@
+{
+  mCollection=col;
+  initAllContentViews();
+  if (mSwipeEnabled) {
+    gestureDetector=new GestureDetector(new MyGestureDetector());
+    gestureListener=new View.OnTouchListener(){
+      public boolean onTouch(      View v,      MotionEvent event){
+        return gestureDetector.onTouchEvent(event);
+      }
+    }
+;
+  }
+  if (noDeckCounts()) {
+    prepareCongratsView();
+  }
+ else {
+    getCol().clearUndo();
+  }
+  mCramInitialConfig=getArguments().getBundle("cramInitialConfig");
+  resetAndUpdateValuesFromDeck();
+  setHasOptionsMenu(true);
+  showCongratsIfNeeded();
+  dismissCollectionLoadingDialog();
+}

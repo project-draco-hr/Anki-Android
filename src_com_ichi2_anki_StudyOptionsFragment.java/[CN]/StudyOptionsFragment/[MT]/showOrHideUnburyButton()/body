@@ -1,6 +1,6 @@
 {
   if (mButtonUnbury != null) {
-    if (AnkiDroidApp.colIsOpen() && AnkiDroidApp.getCol().getSched().haveBuried()) {
+    if (getCol().getSched().haveBuried()) {
       mButtonUnbury.setVisibility(View.VISIBLE);
     }
  else {
