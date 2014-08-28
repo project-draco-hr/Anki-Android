@@ -32,6 +32,9 @@
   if (mPrefWhiteboard && deckID != -1 && MetaDB.getWhiteboardState(this,deckID) == 1) {
     mShowWhiteboard=true;
     mWhiteboard.setVisibility(View.VISIBLE);
+    if (mWhiteboardListener != null) {
+      mWhiteboardListener.onShowWhiteboard();
+    }
   }
   Lookup.initialize(this);
   deselectAllNavigationItems();
