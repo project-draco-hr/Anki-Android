@@ -6,12 +6,12 @@ case DIALOG_DELETE_DECK:
     if (!AnkiDroidApp.colIsOpen() || mDeckList == null || mDeckList.size() == 0) {
       return;
     }
-  boolean isDyn=AnkiDroidApp.getCol().getDecks().isDyn(mCurrentDid);
+  boolean isDyn=getCol().getDecks().isDyn(mCurrentDid);
 if (isDyn) {
-  ad.setMessage(String.format(res.getString(R.string.delete_cram_deck_message),"\'" + AnkiDroidApp.getCol().getDecks().name(mCurrentDid) + "\'"));
+  ad.setMessage(String.format(res.getString(R.string.delete_cram_deck_message),"\'" + getCol().getDecks().name(mCurrentDid) + "\'"));
 }
  else {
-  ad.setMessage(String.format(res.getString(R.string.delete_deck_message),"\'" + AnkiDroidApp.getCol().getDecks().name(mCurrentDid) + "\'"));
+  ad.setMessage(String.format(res.getString(R.string.delete_deck_message),"\'" + getCol().getDecks().name(mCurrentDid) + "\'"));
 }
 break;
 case DIALOG_CONTEXT_MENU:
@@ -20,13 +20,13 @@ return;
 }
 mCurrentDid=Long.parseLong(mDeckList.get(mContextMenuPosition).get("did"));
 try {
-ad.changeListItem(CONTEXT_MENU_COLLAPSE_DECK,getResources().getString(AnkiDroidApp.getCol().getDecks().get(mCurrentDid).getBoolean("collapsed") ? R.string.contextmenu_deckpicker_inflate_deck : R.string.contextmenu_deckpicker_collapse_deck));
+ad.changeListItem(CONTEXT_MENU_COLLAPSE_DECK,getResources().getString(getCol().getDecks().get(mCurrentDid).getBoolean("collapsed") ? R.string.contextmenu_deckpicker_inflate_deck : R.string.contextmenu_deckpicker_collapse_deck));
 }
  catch (NotFoundException e) {
 }
 catch (JSONException e) {
 }
-ad.setTitle(AnkiDroidApp.getCol().getDecks().name(mCurrentDid));
+ad.setTitle(getCol().getDecks().name(mCurrentDid));
 break;
 case DIALOG_IMPORT_LOG:
 case DIALOG_SYNC_LOG:
@@ -54,7 +54,7 @@ break;
 case DIALOG_ERROR_HANDLING:
 ArrayList<String> options=new ArrayList<String>();
 ArrayList<Integer> values=new ArrayList<Integer>();
-if (AnkiDroidApp.getCol() == null) {
+if (getCol() == null) {
 options.add(res.getString(R.string.backup_retry_opening));
 values.add(0);
 }
@@ -122,11 +122,11 @@ mImportMethod=IMPORT_METHOD_REPLACE;
 }
 switch (mImportMethod) {
 case IMPORT_METHOD_ADD:
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_IMPORT,mImportAddListener,new TaskData(AnkiDroidApp.getCol(),mImportPath,false));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_IMPORT,mImportAddListener,new TaskData(getCol(),mImportPath,false));
 mImportPath=null;
 break;
 case IMPORT_METHOD_REPLACE:
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_IMPORT_REPLACE,mImportReplaceListener,new TaskData(AnkiDroidApp.getCol(),mImportPath));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_IMPORT_REPLACE,mImportReplaceListener,new TaskData(getCol(),mImportPath));
 mImportPath=null;
 break;
 case IMPORT_METHOD_ASK:

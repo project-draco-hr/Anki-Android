@@ -1,30 +1,9 @@
 {
   Log.i(AnkiDroidApp.TAG,"StudyOptions - createView()");
   restorePreferences();
+  mStudyOptionsView=inflater.inflate(R.layout.studyoptions_fragment,null);
+  mCustomStudyDetailsView=inflater.inflate(R.layout.styled_custom_study_details_dialog,null);
   mFragmented=getActivity().getClass() != StudyOptionsActivity.class;
-  if (!AnkiDroidApp.colIsOpen()) {
-    reloadCollection();
-    return null;
-  }
-  initAllContentViews(inflater);
-  if (mSwipeEnabled) {
-    gestureDetector=new GestureDetector(new MyGestureDetector());
-    gestureListener=new View.OnTouchListener(){
-      public boolean onTouch(      View v,      MotionEvent event){
-        return gestureDetector.onTouchEvent(event);
-      }
-    }
-;
-  }
-  if (noDeckCounts()) {
-    prepareCongratsView();
-  }
- else {
-    AnkiDroidApp.getCol().clearUndo();
-  }
-  mCramInitialConfig=getArguments().getBundle("cramInitialConfig");
-  resetAndUpdateValuesFromDeck();
-  setHasOptionsMenu(true);
-  showCongratsIfNeeded();
+  loadCollection();
   return mStudyOptionsView;
 }

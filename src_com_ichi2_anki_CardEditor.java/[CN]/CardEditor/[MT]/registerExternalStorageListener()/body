@@ -3,7 +3,7 @@
     mUnmountReceiver=new BroadcastReceiver(){
       @Override public void onReceive(      Context context,      Intent intent){
         if (intent.getAction().equals(SdCardReceiver.MEDIA_EJECT)) {
-          finish();
+          finishWithoutAnimation();
         }
       }
     }

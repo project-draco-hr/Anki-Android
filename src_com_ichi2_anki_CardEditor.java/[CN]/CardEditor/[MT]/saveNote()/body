@@ -13,8 +13,8 @@
       for (      String t : mSelectedTags) {
         ja.put(t);
       }
-      mCol.getModels().current().put("tags",ja);
-      mCol.getModels().setChanged();
+      getCol().getModels().current().put("tags",ja);
+      getCol().getModels().setChanged();
     }
  catch (    JSONException e) {
       throw new RuntimeException(e);

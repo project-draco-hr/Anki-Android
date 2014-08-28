@@ -38,7 +38,7 @@
       }
       Log.d(AnkiDroidApp.TAG,"Opening external link \"" + url + "\" with an Intent");
       Intent intent=new Intent(Intent.ACTION_VIEW,Uri.parse(url));
-      startActivity(intent);
+      startActivityWithoutAnimation(intent);
       return true;
     }
     @Override public void onPageFinished(    WebView view,    String url){

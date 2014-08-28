@@ -3,10 +3,10 @@
   if (!AnkiDroidApp.colIsOpen()) {
     return;
   }
-  JSONObject deck=AnkiDroidApp.getCol().getDecks().current();
+  JSONObject deck=getCol().getDecks().current();
   try {
     if (mTextDeckName == null) {
-      initAllContentViews(getActivity().getLayoutInflater());
+      initAllContentViews();
       resetAndUpdateValuesFromDeck();
       return;
     }
@@ -42,7 +42,7 @@
   String desc;
   try {
     if (deck.getInt("dyn") == 0) {
-      desc=AnkiDroidApp.getCol().getDecks().getActualDescription();
+      desc=getCol().getDecks().getActualDescription();
     }
  else {
       desc=getResources().getString(R.string.dyn_deck_desc);
@@ -58,5 +58,5 @@
  else {
     mTextDeckDescription.setVisibility(View.GONE);
   }
-  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_VALUES_FROM_DECK,mUpdateValuesFromDeckListener,new DeckTask.TaskData(AnkiDroidApp.getCol(),new Object[]{reset,mSmallChart != null}));
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_VALUES_FROM_DECK,mUpdateValuesFromDeckListener,new DeckTask.TaskData(getCol(),new Object[]{reset,mSmallChart != null}));
 }

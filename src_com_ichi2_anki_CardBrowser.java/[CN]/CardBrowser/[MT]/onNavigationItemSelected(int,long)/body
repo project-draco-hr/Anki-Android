@@ -15,7 +15,7 @@
       throw new RuntimeException();
     }
     mRestrictOnDeck="deck:'" + deckName + "' ";
-    AnkiDroidApp.getCol().getDecks().select(deckId);
+    getCol().getDecks().select(deckId);
   }
   searchCards();
   return true;

@@ -1,0 +1,9 @@
+{
+  super(context);
+  try {
+    sActivity=new WeakReference<AnkiActivity>((AnkiActivity)context);
+  }
+ catch (  ClassCastException e) {
+    sActivity=null;
+  }
+}

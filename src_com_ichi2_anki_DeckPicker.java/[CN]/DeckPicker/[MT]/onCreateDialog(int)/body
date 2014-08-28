@@ -73,8 +73,7 @@ builder.setNeutralButton(res.getString(R.string.answering_error_report),new Dial
 Intent i=new Intent(DeckPicker.this,Feedback.class);
 i.putExtra("request",RESULT_DB_ERROR);
 dialog.dismiss();
-startActivityForResult(i,REPORT_ERROR);
-ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.RIGHT);
+startActivityForResultWithAnimation(i,REPORT_ERROR,ActivityTransitionAnimation.RIGHT);
 }
 }
 );
@@ -126,8 +125,7 @@ builder.setPositiveButton(res.getString(R.string.log_in),new DialogInterface.OnC
 @Override public void onClick(DialogInterface dialog,int which){
 Intent myAccount=new Intent(DeckPicker.this,MyAccount.class);
 myAccount.putExtra("notLoggedIn",true);
-startActivityForResult(myAccount,LOG_IN_FOR_SYNC);
-ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.FADE);
+startActivityForResultWithAnimation(myAccount,LOG_IN_FOR_SYNC,ActivityTransitionAnimation.FADE);
 }
 }
 );
@@ -158,7 +156,7 @@ return;
 Object[] res=result.getObjArray();
 updateDecksList((TreeSet<Object[]>)res[0],(Integer)res[1],(Integer)res[2]);
 if (mFragmented) {
-selectDeck(AnkiDroidApp.getCol().getDecks().selected());
+selectDeck(getCol().getDecks().selected());
 }
 if (mProgressDialog.isShowing()) {
 try {
@@ -174,7 +172,7 @@ Log.e(AnkiDroidApp.TAG,"onPostExecute - Dialog dismiss Exception = " + e.getMess
 @Override public void onCancelled(){
 }
 }
-,new TaskData(AnkiDroidApp.getCol(),mCurrentDid));
+,new TaskData(getCol(),mCurrentDid));
 }
 }
 );
@@ -198,7 +196,7 @@ builder.setMessage(res.getString(R.string.repair_deck_dialog,BackupManager.BROKE
 builder.setIcon(R.drawable.ic_dialog_alert);
 builder.setPositiveButton(res.getString(R.string.dialog_positive_repair),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REPAIR_DECK,mRepairDeckHandler,new DeckTask.TaskData(AnkiDroidApp.getCol(),AnkiDroidApp.getCollectionPath()));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REPAIR_DECK,mRepairDeckHandler,new DeckTask.TaskData(getCol(),AnkiDroidApp.getCollectionPath()));
 }
 }
 );
@@ -285,7 +283,7 @@ finishWithAnimation();
 }
 ,new View.OnClickListener(){
 @Override public void onClick(View v){
-startActivityForResult(new Intent(DeckPicker.this,Preferences.class),PREFERENCES_UPDATE);
+startActivityForResultWithoutAnimation(new Intent(DeckPicker.this,Preferences.class),PREFERENCES_UPDATE);
 }
 }
 );
@@ -297,7 +295,7 @@ builder.setTitle(res.getString(R.string.import_title));
 builder.setMessage(res.getString(R.string.import_message,mImportPath));
 builder.setPositiveButton(res.getString(R.string.import_message_add),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_IMPORT,mImportAddListener,new TaskData(AnkiDroidApp.getCol(),mImportPath,false));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_IMPORT,mImportAddListener,new TaskData(getCol(),mImportPath,false));
 mImportPath=null;
 }
 }
@@ -310,7 +308,7 @@ builder.setTitle(res.getString(R.string.import_title));
 builder.setMessage(res.getString(R.string.import_message_replace_confirm,mImportPath));
 builder.setPositiveButton(res.getString(R.string.dialog_positive_replace),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_IMPORT_REPLACE,mImportReplaceListener,new TaskData(AnkiDroidApp.getCol(),mImportPath));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_IMPORT_REPLACE,mImportReplaceListener,new TaskData(getCol(),mImportPath));
 mImportPath=null;
 }
 }
@@ -396,7 +394,7 @@ builder.setIcon(android.R.drawable.ic_input_get);
 builder.setSingleChoiceItems(dates,dates.length,new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 if (mBackups[which].length() > 0) {
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_RESTORE_DECK,mRestoreDeckHandler,new DeckTask.TaskData(new Object[]{AnkiDroidApp.getCol(),AnkiDroidApp.getCollectionPath(),mBackups[which].getPath()}));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_RESTORE_DECK,mRestoreDeckHandler,new DeckTask.TaskData(new Object[]{getCol(),AnkiDroidApp.getCollectionPath(),mBackups[which].getPath()}));
 }
  else {
 Dialog invalidFileDialog=new AlertDialog.Builder(DeckPicker.this).setTitle(R.string.backup_error).setMessage(R.string.backup_invalid_file_error).setPositiveButton(android.R.string.ok,new DialogInterface.OnClickListener(){

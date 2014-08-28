@@ -1,0 +1,9 @@
+{
+  if (mOpenCollectionDialog == null || !mOpenCollectionDialog.isShowing()) {
+    mOpenCollectionDialog=StyledOpenCollectionDialog.show(getActivity(),getResources().getString(R.string.open_collection),new OnCancelListener(){
+      @Override public void onCancel(      DialogInterface arg0){
+      }
+    }
+);
+  }
+}

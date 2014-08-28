@@ -1,18 +1,18 @@
 {
   try {
     if (note == null) {
-      JSONObject conf=mCol.getConf();
-      JSONObject model=mCol.getModels().current();
+      JSONObject conf=getCol().getConf();
+      JSONObject model=getCol().getModels().current();
       if (conf.optBoolean("addToCur",true)) {
         mCurrentDid=conf.getLong("curDeck");
-        if (mCol.getDecks().isDyn(mCurrentDid)) {
+        if (getCol().getDecks().isDyn(mCurrentDid)) {
           mCurrentDid=1;
         }
       }
  else {
         mCurrentDid=model.getLong("did");
       }
-      mEditorNote=new Note(mCol,model);
+      mEditorNote=new Note(getCol(),model);
       mEditorNote.model().put("did",mCurrentDid);
       mModelButton.setText(getResources().getString(R.string.CardEditorModel,model.getString("name")));
     }

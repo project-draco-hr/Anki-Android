@@ -22,12 +22,10 @@ catch (    CancellationException e) {
     }
   }
 switch (mType) {
-case TASK_TYPE_OPEN_COLLECTION:
-    return doInBackgroundOpenCollection(params);
 case TASK_TYPE_LOAD_DECK_COUNTS:
-  return doInBackgroundLoadDeckCounts(params);
+    return doInBackgroundLoadDeckCounts(params);
 case TASK_TYPE_SAVE_COLLECTION:
-return doInBackgroundSaveCollection(params);
+  return doInBackgroundSaveCollection(params);
 case TASK_TYPE_ANSWER_CARD:
 return doInBackgroundAnswerCard(params);
 case TASK_TYPE_MARK_CARD:

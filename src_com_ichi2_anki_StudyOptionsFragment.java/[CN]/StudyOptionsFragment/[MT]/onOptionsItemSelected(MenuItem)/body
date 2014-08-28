@@ -2,7 +2,7 @@
 switch (item.getItemId()) {
 case R.id.action_undo:
     if (AnkiDroidApp.colIsOpen()) {
-      AnkiDroidApp.getCol().undo();
+      getCol().undo();
       resetAndUpdateValuesFromDeck();
       finishCongrats();
       getActivity().supportInvalidateOptionsMenu();

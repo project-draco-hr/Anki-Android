@@ -3,5 +3,5 @@
   Intent reviewer=new Intent(getActivity(),Reviewer.class);
   startActivityForResult(reviewer,REQUEST_REVIEW);
   animateLeft();
-  AnkiDroidApp.getCol().startTimebox();
+  getCol().startTimebox();
 }

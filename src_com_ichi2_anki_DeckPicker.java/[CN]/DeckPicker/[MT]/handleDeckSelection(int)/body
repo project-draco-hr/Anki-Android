@@ -6,6 +6,6 @@
   @SuppressWarnings("unchecked") HashMap<String,String> data=(HashMap<String,String>)mDeckListAdapter.getItem(id);
   Log.i(AnkiDroidApp.TAG,"Selected " + deckFilename);
   long deckId=Long.parseLong(data.get("did"));
-  AnkiDroidApp.getCol().getDecks().select(deckId);
+  getCol().getDecks().select(deckId);
   openStudyOptions(deckId);
 }

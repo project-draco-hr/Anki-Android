@@ -10,13 +10,12 @@
           v.getHitRect(rect);
           if (rect.top < pos && rect.bottom > pos) {
             HashMap<String,String> data=(HashMap<String,String>)mDeckListAdapter.getItem(mDeckListView.getPositionForView(v));
-            Collection col=AnkiDroidApp.getCol();
+            Collection col=getCol();
             if (col != null) {
               col.getDecks().select(Long.parseLong(data.get("did")));
               col.reset();
               Intent reviewer=new Intent(DeckPicker.this,Reviewer.class);
-              startActivityForResult(reviewer,REQUEST_REVIEW);
-              ActivityTransitionAnimation.slide(DeckPicker.this,ActivityTransitionAnimation.LEFT);
+              startActivityForResultWithAnimation(reviewer,REQUEST_REVIEW,ActivityTransitionAnimation.LEFT);
               return true;
             }
           }

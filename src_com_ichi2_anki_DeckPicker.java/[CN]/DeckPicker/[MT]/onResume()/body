@@ -1,7 +1,7 @@
 {
   super.onResume();
-  if (AnkiDroidApp.getCol() != null) {
-    if (Utils.now() > AnkiDroidApp.getCol().getSched().getDayCutoff() && AnkiDroidApp.isSdCardMounted()) {
+  if (getCol() != null) {
+    if (Utils.now() > getCol().getSched().getDayCutoff() && AnkiDroidApp.isSdCardMounted()) {
       loadCounts();
     }
   }

@@ -19,9 +19,6 @@
   if (intent.getData() != null) {
     mImportPath=getIntent().getData().getEncodedPath();
   }
-  if (!AnkiDroidApp.colIsOpen()) {
-    mOpenCollectionHandler.onPreExecute();
-  }
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   setTitle(getResources().getString(R.string.app_name));
@@ -108,13 +105,11 @@
   if (mFragmented) {
     mDeckListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
   }
-  if (AnkiDroidApp.getCol() == null) {
+  if (getCol() == null) {
     showStartupScreensAndDialogs(preferences,0);
   }
  else {
-    Object[] counts=AnkiDroidApp.getCol().getSched().deckCounts();
-    updateDecksList((TreeSet<Object[]>)counts[0],(Integer)counts[1],(Integer)counts[2]);
-    showTodayMiniStatistics();
+    loadCounts();
   }
   if (mSwipeEnabled) {
     gestureDetector=new GestureDetector(new MyGestureDetector());

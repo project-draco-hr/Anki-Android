@@ -6,12 +6,5 @@
   Themes.setContentStyle(mainView,Themes.CALLER_CARDBROWSER);
   initNavigationDrawer(mainView);
   selectNavigationItem(DRAWER_BROWSER);
-  mCol=AnkiDroidApp.getCol();
-  if (mCol == null) {
-    reloadCollection();
-    return;
-  }
- else {
-    initActivity(mCol);
-  }
+  loadCollection();
 }

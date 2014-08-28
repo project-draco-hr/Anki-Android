@@ -2,18 +2,22 @@
   if (skip < 1 && preferences.getLong("lastTimeOpened",0) == 0) {
     Intent infoIntent=new Intent(this,Info.class);
     infoIntent.putExtra(Info.TYPE_EXTRA,Info.TYPE_WELCOME);
-    startActivityForResult(infoIntent,SHOW_INFO_WELCOME);
     if (skip != 0) {
-      ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
+      startActivityForResultWithAnimation(infoIntent,SHOW_INFO_WELCOME,ActivityTransitionAnimation.LEFT);
+    }
+ else {
+      startActivityForResultWithoutAnimation(infoIntent,SHOW_INFO_WELCOME);
     }
   }
  else   if (skip < 2 && !preferences.getString("lastVersion","").equals(AnkiDroidApp.getPkgVersionName())) {
     preferences.edit().putBoolean("showBroadcastMessageToday",true).commit();
     Intent infoIntent=new Intent(this,Info.class);
     infoIntent.putExtra(Info.TYPE_EXTRA,Info.TYPE_NEW_VERSION);
-    startActivityForResult(infoIntent,SHOW_INFO_NEW_VERSION);
     if (skip != 0) {
-      ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
+      startActivityForResultWithAnimation(infoIntent,SHOW_INFO_NEW_VERSION,ActivityTransitionAnimation.LEFT);
+    }
+ else {
+      startActivityForResultWithoutAnimation(infoIntent,SHOW_INFO_NEW_VERSION);
     }
   }
  else   if (skip < 3 && upgradeNeeded()) {
@@ -22,9 +26,11 @@
   }
  else   if (skip < 4 && hasErrorFiles()) {
     Intent i=new Intent(this,Feedback.class);
-    startActivityForResult(i,REPORT_ERROR);
     if (skip != 0) {
-      ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.LEFT);
+      startActivityForResultWithAnimation(i,REPORT_ERROR,ActivityTransitionAnimation.LEFT);
+    }
+ else {
+      startActivityForResultWithoutAnimation(i,REPORT_ERROR);
     }
   }
  else   if (!AnkiDroidApp.isSdCardMounted()) {
@@ -41,49 +47,6 @@
     showDialog(DIALOG_IMPORT);
   }
  else {
-    int current=AnkiDroidApp.getPkgVersionCode();
-    int previousTemp;
-    if (!preferences.contains("lastUpgradeVersion")) {
-      previousTemp=current;
-    }
- else {
-      try {
-        previousTemp=preferences.getInt("lastUpgradeVersion",current);
-      }
- catch (      ClassCastException e) {
-        String s=preferences.getString("lastUpgradeVersion","");
-        if (s.equals("2.0.2")) {
-          previousTemp=40;
-        }
- else {
-          previousTemp=0;
-        }
-      }
-    }
-    final int previous=previousTemp;
-    preferences.edit().putInt("lastUpgradeVersion",current).commit();
-    if (previous < AnkiDroidApp.CHECK_DB_AT_VERSION || previous < AnkiDroidApp.CHECK_PREFERENCES_AT_VERSION) {
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_OPEN_COLLECTION,new Listener(){
-        @Override public void onPostExecute(        DeckTask task,        TaskData result){
-          mOpenCollectionHandler.onPostExecute(result);
-          if (previous < AnkiDroidApp.CHECK_DB_AT_VERSION) {
-            integrityCheck();
-          }
-          if (previous < AnkiDroidApp.CHECK_PREFERENCES_AT_VERSION) {
-            upgradePreferences(previous);
-          }
-        }
-        @Override public void onPreExecute(        DeckTask task){
-        }
-        @Override public void onProgressUpdate(        DeckTask task,        TaskData... values){
-        }
-        @Override public void onCancelled(){
-        }
-      }
-,new DeckTask.TaskData(AnkiDroidApp.getCollectionPath()));
-    }
- else {
-      loadCollection();
-    }
+    loadCollection();
   }
 }

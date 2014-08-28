@@ -56,7 +56,7 @@ case GESTURE_EXIT:
 closeReviewer(RESULT_DEFAULT,false);
 break;
 case GESTURE_UNDO:
-if (mSched.getCol().undoAvailable()) {
+if (getCol().undoAvailable()) {
 undo();
 }
 break;

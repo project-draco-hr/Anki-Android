@@ -1,0 +1,9 @@
+{
+  String colPath=AnkiDroidApp.getCollectionPath();
+  if (AnkiDroidApp.colIsOpen() && AnkiDroidApp.getCol() != null && AnkiDroidApp.getCol().getPath().equals(colPath)) {
+    deliverResult(AnkiDroidApp.getCol());
+  }
+ else {
+    forceLoad();
+  }
+}

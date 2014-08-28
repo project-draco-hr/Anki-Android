@@ -13,8 +13,7 @@ intent.putExtra(EXTRA_CALLER,CALLER_CARDEDITOR);
 if (item.getItemId() == R.id.action_copy_card) {
 intent.putExtra(EXTRA_CONTENTS,getFieldsText());
 }
-startActivityForResult(intent,REQUEST_ADD);
-ActivityTransitionAnimation.slide(CardEditor.this,ActivityTransitionAnimation.LEFT);
+startActivityForResultWithAnimation(intent,REQUEST_ADD,ActivityTransitionAnimation.LEFT);
 return true;
 case R.id.action_reset_card_progress:
 showDialog(DIALOG_RESET_CARD);

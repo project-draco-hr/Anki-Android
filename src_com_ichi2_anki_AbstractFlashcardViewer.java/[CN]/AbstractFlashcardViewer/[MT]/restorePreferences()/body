@@ -52,8 +52,8 @@
     }
   }
   try {
-    mShowNextReviewTime=AnkiDroidApp.getCol().getConf().getBoolean("estTimes");
-    mShowRemainingCardCount=AnkiDroidApp.getCol().getConf().getBoolean("dueCounts");
+    mShowNextReviewTime=getCol().getConf().getBoolean("estTimes");
+    mShowRemainingCardCount=getCol().getConf().getBoolean("dueCounts");
   }
  catch (  JSONException e) {
     throw new RuntimeException();
