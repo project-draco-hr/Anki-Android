@@ -31,8 +31,12 @@
     if (hasIllegal(fname)) {
       continue;
     }
-    if (f.length() == 0) {
+    long sz=f.length();
+    if (sz == 0) {
       f.delete();
+      continue;
+    }
+    if (sz > 100 * 1024 * 1024) {
       continue;
     }
     String normf=AnkiDroidApp.getCompat().nfcNormalized(fname);
