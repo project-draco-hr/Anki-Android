@@ -1,4 +1,5 @@
 {
+  int oldToday=mToday;
   mToday=0;
   Calendar crt=GregorianCalendar.getInstance();
   crt.setTimeInMillis(mCol.getCrt() * 1000);
@@ -22,6 +23,9 @@
   }
   crt.add(Calendar.DAY_OF_YEAR,mToday + 1);
   mDayCutoff=crt.getTimeInMillis() / 1000;
+  if (oldToday != mToday) {
+    mCol.log(mToday,mDayCutoff);
+  }
   for (  JSONObject deck : mCol.getDecks().all()) {
     update(deck);
   }

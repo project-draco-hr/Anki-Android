@@ -1,0 +1,18 @@
+{
+  List<String> members=new ArrayList<String>();
+  for (  Field f : this.getClass().getDeclaredFields()) {
+    try {
+      if (SKIP_PRINT.contains(f.getName())) {
+        continue;
+      }
+      members.add(String.format("'%s': %s",f.getName(),f.get(this)));
+    }
+ catch (    IllegalAccessException e) {
+      members.add(String.format("'%s': %s",f.getName(),"N/A"));
+    }
+catch (    IllegalArgumentException e) {
+      members.add(String.format("'%s': %s",f.getName(),"N/A"));
+    }
+  }
+  return TextUtils.join(",  ",members);
+}

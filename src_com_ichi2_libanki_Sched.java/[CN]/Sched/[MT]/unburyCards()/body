@@ -1,6 +1,7 @@
 {
   try {
     mCol.getConf().put("lastUnburied",mToday);
+    mCol.log(mCol.getDb().queryColumn(Long.class,"select id from cards where queue = -2",0));
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);

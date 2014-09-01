@@ -2,5 +2,6 @@
   if (lim == null) {
     lim="did = " + did;
   }
+  mCol.log(mCol.getDb().queryColumn(Long.class,"select id from cards where " + lim,0));
   mCol.getDb().execute("UPDATE cards SET did = odid, queue = (CASE WHEN type = 1 THEN 0 " + "ELSE type END), type = (CASE WHEN type = 1 THEN 0 ELSE type END), " + "due = odue, odue = 0, odid = 0, usn = ?, mod = ? where "+ lim,new Object[]{mCol.usn(),Utils.intNow()});
 }

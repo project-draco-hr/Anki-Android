@@ -15,6 +15,7 @@
     if (ids.isEmpty()) {
       return ids;
     }
+    mCol.log(deck.getLong("id"),ids);
     _moveToDyn(deck.getLong("id"),ids);
   }
  catch (  JSONException e) {
