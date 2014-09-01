@@ -1,3 +1,5 @@
 {
-  mCol.getDb().execute("update cards set mod=?,usn=?,queue=type where queue = -2 and did in " + Utils.ids2str(mCol.getDecks().active()),new Object[]{Utils.intNow(),mCol.usn()});
+  String sids=Utils.ids2str(mCol.getDecks().active());
+  mCol.log(mCol.getDb().queryColumn(Long.class,"select id from cards where queue = -2 and did in " + sids,0));
+  mCol.getDb().execute("update cards set mod=?,usn=?,queue=type where queue = -2 and did in " + sids,new Object[]{Utils.intNow(),mCol.usn()});
 }

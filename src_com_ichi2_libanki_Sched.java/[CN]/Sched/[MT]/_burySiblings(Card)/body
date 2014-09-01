@@ -29,5 +29,8 @@
       cur.close();
     }
   }
-  mCol.getDb().execute("update cards set queue=-2,mod=?,usn=? where id in " + Utils.ids2str(toBury),new Object[]{Utils.now(),mCol.usn()});
+  if (toBury.size() > 0) {
+    mCol.getDb().execute("update cards set queue=-2,mod=?,usn=? where id in " + Utils.ids2str(toBury),new Object[]{Utils.now(),mCol.usn()});
+    mCol.log(toBury);
+  }
 }

@@ -7,4 +7,5 @@
   }
   assert(mDue < Long.valueOf("4294967296"));
   mCol.getDb().execute("insert or replace into cards values " + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",new Object[]{mId,mNid,mDid,mOrd,mMod,mUsn,mType,mQueue,mDue,mIvl,mFactor,mReps,mLapses,mLeft,mODue,mODid,mFlags,mData});
+  mCol.log(this);
 }

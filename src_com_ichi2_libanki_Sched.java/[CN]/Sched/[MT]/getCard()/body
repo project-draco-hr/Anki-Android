@@ -5,6 +5,7 @@
   }
   Card card=_getCard();
   if (card != null) {
+    mCol.log(card);
     if (!mBurySiblingsOnAnswer) {
       _burySiblings(card);
     }

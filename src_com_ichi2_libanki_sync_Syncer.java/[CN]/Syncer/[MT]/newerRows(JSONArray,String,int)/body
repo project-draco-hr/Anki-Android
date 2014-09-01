@@ -24,6 +24,7 @@
         update.add(ConvUtils.jsonArray2Objects(r));
       }
     }
+    mCol.log(table,data);
     return update;
   }
  catch (  JSONException e) {
