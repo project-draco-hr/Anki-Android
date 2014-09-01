@@ -1,6 +1,6 @@
 {
-  Collection d=new Shared().getEmptyDeck();
-  String aString="a:b|cd\\e/f\\0g*h";
+  Collection d=new Shared().getEmptyCol();
+  String aString="a:b|cd\\e/f\0g*h";
   String good="abcdefgh";
   assertTrue(d.getMedia().stripIllegal(aString).equals(good));
   for (int i=0; i < aString.length(); i++) {

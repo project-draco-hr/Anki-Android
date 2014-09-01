@@ -1,5 +1,5 @@
 {
-  Collection d=new Shared().getEmptyDeck();
+  Collection d=new Shared().getEmptyCol();
   File dir=new File(AnkiDroidApp.getCurrentAnkiDroidMediaDir());
   BackupManager.removeDir(dir);
   dir.mkdirs();

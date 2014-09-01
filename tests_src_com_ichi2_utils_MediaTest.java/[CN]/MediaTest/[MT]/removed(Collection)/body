@@ -1,0 +1,3 @@
+{
+  return d.getMedia().getDb().queryColumn(String.class,"select fname from media where csum is null",0);
+}

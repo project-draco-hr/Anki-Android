@@ -1,2 +1,39 @@
 {
+  try {
+    Collection d=new Shared().getEmptyCol();
+    assertTrue(d.getMedia()._changed() != null);
+    assertTrue(added(d).size() == 0);
+    assertTrue(removed(d).size() == 0);
+    File dir=new File(AnkiDroidApp.getCurrentAnkiDroidMediaDir());
+    BackupManager.removeDir(dir);
+    dir.mkdirs();
+    File f=new File(dir,"foo.jpg");
+    String path=f.getAbsolutePath();
+    FileOutputStream os;
+    os=new FileOutputStream(path,false);
+    os.write("hello".getBytes());
+    os.close();
+    path=d.getMedia().addFile(path);
+    d.getMedia().findChanges();
+    assertTrue(added(d).size() > 0);
+    assertTrue(removed(d).size() == 0);
+    os=new FileOutputStream(path,true);
+    os.write("world".getBytes());
+    os.close();
+    assertTrue(added(d).size() == 1);
+    assertTrue(removed(d).size() == 0);
+    os=new FileOutputStream(path + "2",true);
+    os.write("yo".getBytes());
+    os.close();
+    d.getMedia().findChanges();
+    assertTrue(added(d).size() == 2);
+    assertTrue(removed(d).size() == 0);
+    new File(path + "2").delete();
+    d.getMedia().findChanges();
+    assertTrue(added(d).size() == 1);
+    assertTrue(removed(d).size() == 1);
+  }
+ catch (  APIVersionException e) {
+    fail();
+  }
 }
