@@ -1,8 +1,7 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
-  mDontSaveOnStop=false;
   if (resultCode == RESULT_MEDIA_EJECTED) {
-    showDialog(DIALOG_SD_CARD_NOT_MOUNTED);
+    showSdCardNotMountedDialog();
     return;
   }
  else   if (resultCode == RESULT_DB_ERROR) {
@@ -36,9 +35,7 @@
     }
  else {
       if (resultCode == RESULT_OK) {
-        if (mOpenCollectionDialog != null && mOpenCollectionDialog.isShowing()) {
-          mOpenCollectionDialog.dismiss();
-        }
+        dismissOpeningCollectionDialog();
         if (AnkiDroidApp.colIsOpen()) {
           AnkiDroidApp.closeCollection(true);
         }
@@ -66,7 +63,7 @@
       AnkiDroidApp.getCompat().invalidateOptionsMenu(this);
     }
     if (!mPrefDeckPath.equals(oldPath)) {
-      loadCollection();
+      startLoadingCollection();
     }
   }
  else   if (requestCode == REPORT_FEEDBACK && resultCode == RESULT_OK) {
@@ -92,9 +89,8 @@ switch (resultCode) {
 default :
       loadCounts();
     break;
-case Reviewer.RESULT_NO_MORE_CARDS:
-  mDontSaveOnStop=true;
-Intent i=new Intent();
+case AbstractFlashcardViewer.RESULT_NO_MORE_CARDS:
+  Intent i=new Intent();
 i.setClass(this,StudyOptionsActivity.class);
 startActivityForResultWithAnimation(i,SHOW_STUDYOPTIONS,ActivityTransitionAnimation.RIGHT);
 break;

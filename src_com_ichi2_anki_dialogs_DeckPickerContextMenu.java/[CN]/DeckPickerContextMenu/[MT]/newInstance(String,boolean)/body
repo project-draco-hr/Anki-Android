@@ -1,0 +1,8 @@
+{
+  DeckPickerContextMenu f=new DeckPickerContextMenu();
+  Bundle args=new Bundle();
+  args.putString("dialogTitle",dialogTitle);
+  args.putBoolean("isCollapsed",isCollapsed);
+  f.setArguments(args);
+  return f;
+}

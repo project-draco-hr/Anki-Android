@@ -3,13 +3,13 @@
     mUnmountReceiver=new BroadcastReceiver(){
       @Override public void onReceive(      Context context,      Intent intent){
         if (intent.getAction().equals(SdCardReceiver.MEDIA_EJECT)) {
-          showDialog(DIALOG_SD_CARD_NOT_MOUNTED);
+          showSdCardNotMountedDialog();
         }
  else         if (intent.getAction().equals(SdCardReceiver.MEDIA_MOUNT)) {
           if (mNotMountedDialog != null && mNotMountedDialog.isShowing()) {
             mNotMountedDialog.dismiss();
           }
-          loadCollection();
+          startLoadingCollection();
         }
       }
     }

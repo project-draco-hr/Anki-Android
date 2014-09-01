@@ -1,0 +1,7 @@
+{
+  DatabaseErrorDialog f=new DatabaseErrorDialog();
+  Bundle args=new Bundle();
+  args.putInt("dialogType",dialogType);
+  f.setArguments(args);
+  return f;
+}

@@ -1,4 +1,3 @@
 {
-  finish();
-  ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.DIALOG_EXIT);
+  super.finishWithAnimation(ActivityTransitionAnimation.DIALOG_EXIT);
 }

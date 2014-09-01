@@ -1,0 +1,7 @@
+{
+  DeckPickerConfirmDeleteDeckDialog f=new DeckPickerConfirmDeleteDeckDialog();
+  Bundle args=new Bundle();
+  args.putString("dialogMessage",dialogMessage);
+  f.setArguments(args);
+  return f;
+}

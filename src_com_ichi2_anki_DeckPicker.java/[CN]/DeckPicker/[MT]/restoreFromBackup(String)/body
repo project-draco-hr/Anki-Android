@@ -1,0 +1,32 @@
+{
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_RESTORE_DECK,new DeckTask.TaskListener(){
+    @Override public void onPreExecute(){
+      mProgressDialog=StyledProgressDialog.show(DeckPicker.this,"",getResources().getString(R.string.backup_restore_deck),true);
+    }
+    @Override public void onPostExecute(    DeckTask.TaskData result){
+switch (result.getInt()) {
+case BackupManager.RETURN_DECK_RESTORED:
+        if (AnkiDroidApp.colIsOpen()) {
+          AnkiDroidApp.getCol().modSchema(false);
+        }
+      startLoadingCollection();
+    break;
+case BackupManager.RETURN_ERROR:
+  Themes.showThemedToast(DeckPicker.this,getResources().getString(R.string.backup_restore_error),true);
+showDatabaseErrorDialog(DatabaseErrorDialog.DIALOG_ERROR_HANDLING);
+break;
+case BackupManager.RETURN_NOT_ENOUGH_SPACE:
+showDialogFragment(DeckPickerNoSpaceLeftDialog.newInstance());
+break;
+}
+if (mProgressDialog != null && mProgressDialog.isShowing()) {
+mProgressDialog.dismiss();
+}
+}
+@Override public void onProgressUpdate(TaskData... values){
+}
+@Override public void onCancelled(){
+}
+}
+,new DeckTask.TaskData(new Object[]{AnkiDroidApp.getCol(),AnkiDroidApp.getCollectionPath(),path}));
+}
