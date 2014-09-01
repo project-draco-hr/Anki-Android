@@ -1,5 +1,5 @@
 {
-  Collection d=new Shared().getEmptyDeck();
+  Collection d=new Shared().getEmptyCol();
   File dir=new File(d.getMedia().dir());
   BackupManager.removeDir(dir);
   dir.mkdirs();
@@ -32,5 +32,6 @@
     assertEquals(expected.size(),actual.size());
   }
  catch (  APIVersionException e) {
+    fail();
   }
 }
