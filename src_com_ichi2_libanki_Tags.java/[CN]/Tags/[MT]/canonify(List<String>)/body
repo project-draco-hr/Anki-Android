@@ -1,7 +1,13 @@
 {
   TreeSet<String> strippedTags=new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
-  for (  String x : tagList) {
-    strippedTags.add(sCanonify.matcher(x).replaceAll(""));
+  for (  String t : tagList) {
+    String s=sCanonify.matcher(t).replaceAll("");
+    for (    String existingTag : mTags.keySet()) {
+      if (s.equalsIgnoreCase(existingTag)) {
+        s=existingTag;
+      }
+    }
+    strippedTags.add(s);
   }
   return strippedTags;
 }
