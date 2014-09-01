@@ -48,11 +48,17 @@ if (mShowWhiteboard) {
 mWhiteboard.setVisibility(View.VISIBLE);
 item.setTitle(R.string.hide_whiteboard);
 MetaDB.storeWhiteboardState(this,deckID,1);
+if (mWhiteboardListener != null) {
+mWhiteboardListener.onShowWhiteboard();
+}
 }
  else {
 mWhiteboard.setVisibility(View.GONE);
 item.setTitle(R.string.show_whiteboard);
 MetaDB.storeWhiteboardState(this,deckID,0);
+if (mWhiteboardListener != null) {
+mWhiteboardListener.onHideWhiteboard();
+}
 }
 refreshActionBar();
 return true;
