@@ -1,4 +1,5 @@
 {
+  int state=(whiteboardState) ? 1 : 0;
   openDBIfClosed(context);
   Cursor cur=null;
   try {

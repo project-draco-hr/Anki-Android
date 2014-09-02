@@ -9,7 +9,7 @@
   sb.append("><code id=typeans>");
   if (!TextUtils.isEmpty(userAnswer)) {
     if (userAnswer.equals(correctAnswer)) {
-      sb.append(diffEngine.wrapGood(correctAnswer));
+      sb.append(DiffEngine.wrapGood(correctAnswer));
       sb.append("\u2714");
     }
  else {
@@ -21,7 +21,7 @@
   }
  else {
     if (mPrefWriteAnswers) {
-      sb.append(diffEngine.wrapMissing(correctAnswer));
+      sb.append(DiffEngine.wrapMissing(correctAnswer));
     }
  else {
       sb.append(correctAnswer);

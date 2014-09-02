@@ -1,0 +1,7 @@
+{
+  mPrefWhiteboard=state;
+  MetaDB.storeWhiteboardState(this,getParentDid(),state);
+  if (state && mWhiteboard == null) {
+    createWhiteboard();
+  }
+}
