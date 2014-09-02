@@ -8,7 +8,7 @@
   mChosenAnswer.setVisibility(View.VISIBLE);
   mFlipCardLayout.setVisibility(View.VISIBLE);
   if (mPrefWhiteboard) {
-    mWhiteboard.setVisibility(mShowWhiteboard ? View.VISIBLE : View.GONE);
+    setWhiteboardVisibility(mShowWhiteboard);
   }
   mAnswerField.setVisibility(typeAnswer() ? View.VISIBLE : View.GONE);
   mAnswerField.setOnEditorActionListener(new EditText.OnEditorActionListener(){

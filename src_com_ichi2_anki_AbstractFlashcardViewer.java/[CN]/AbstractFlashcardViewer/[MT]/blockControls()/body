@@ -35,7 +35,7 @@ mEase3Layout.setEnabled(false);
 mEase4Layout.setEnabled(false);
 break;
 }
-if (mPrefWhiteboard) {
+if (mPrefWhiteboard && mWhiteboard != null) {
 mWhiteboard.setEnabled(false);
 }
 if (typeAnswer()) {

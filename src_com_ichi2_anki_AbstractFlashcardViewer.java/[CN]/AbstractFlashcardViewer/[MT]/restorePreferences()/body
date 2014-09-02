@@ -1,7 +1,6 @@
 {
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
   mPrefHideDueCount=preferences.getBoolean("hideDueCount",false);
-  mPrefWhiteboard=preferences.getBoolean("whiteboard",false);
   mPrefWriteAnswers=!preferences.getBoolean("writeAnswersDisable",false);
   mDisableClipboard=preferences.getString("dictionary","0").equals("0");
   mLongClickWorkaround=preferences.getBoolean("textSelectionLongclickWorkaround",false);

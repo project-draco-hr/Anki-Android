@@ -14,6 +14,10 @@
     mCurrentBackgroundColor=Color.WHITE;
   }
   mUseQuickUpdate=shouldUseQuickUpdate();
+  mPrefWhiteboard=MetaDB.getWhiteboardState(this,getParentDid());
+  if (mPrefWhiteboard) {
+    setWhiteboardEnabledState(true);
+  }
   initLayout();
   setTitle();
   if (!mDisableClipboard) {
@@ -27,14 +31,6 @@
   }
   if (mSpeakText) {
     ReadText.initializeTts(this);
-  }
-  long deckID=mSched.getCol().getDecks().current().optLong("id",-1);
-  if (mPrefWhiteboard && deckID != -1 && MetaDB.getWhiteboardState(this,deckID) == 1) {
-    mShowWhiteboard=true;
-    mWhiteboard.setVisibility(View.VISIBLE);
-    if (mWhiteboardListener != null) {
-      mWhiteboardListener.onShowWhiteboard();
-    }
   }
   Lookup.initialize(this);
   deselectAllNavigationItems();

@@ -50,7 +50,7 @@ switchTopBarVisibility(View.VISIBLE);
 }
 if (!sDisplayAnswer) {
 updateForNewCard();
-if (mShowWhiteboard) {
+if (mShowWhiteboard && mWhiteboard != null) {
 mWhiteboard.clear();
 }
 }

@@ -63,22 +63,6 @@
   }
   mCardTimer=(Chronometer)findViewById(R.id.card_time);
   mChosenAnswer=(TextView)findViewById(R.id.choosen_answer);
-  if (mPrefWhiteboard) {
-    mWhiteboard=new Whiteboard(this,mInvertedColors,mBlackWhiteboard);
-    FrameLayout.LayoutParams lp2=new FrameLayout.LayoutParams(android.view.ViewGroup.LayoutParams.FILL_PARENT,android.view.ViewGroup.LayoutParams.FILL_PARENT);
-    mWhiteboard.setLayoutParams(lp2);
-    FrameLayout fl=(FrameLayout)findViewById(R.id.whiteboard);
-    fl.addView(mWhiteboard);
-    mWhiteboard.setOnTouchListener(new View.OnTouchListener(){
-      @Override public boolean onTouch(      View v,      MotionEvent event){
-        if (mShowWhiteboard) {
-          return false;
-        }
-        return gestureDetector.onTouchEvent(event);
-      }
-    }
-);
-  }
   mAnswerField=(EditText)findViewById(R.id.answer_field);
   mNextTimeTextColor=getResources().getColor(R.color.next_time_usual_color);
   mNextTimeTextRecomColor=getResources().getColor(R.color.next_time_recommended_color);
