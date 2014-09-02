@@ -20,6 +20,7 @@
     }
     @Override public boolean onQueryTextSubmit(    String query){
       onSearch();
+      mSearchView.clearFocus();
       return true;
     }
   }
