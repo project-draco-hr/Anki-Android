@@ -78,11 +78,6 @@ break;
 case GESTURE_DELETE:
 showDeleteNoteDialog();
 break;
-case GESTURE_CLEAR_WHITEBOARD:
-if (mPrefWhiteboard) {
-mWhiteboard.clear();
-}
-break;
 case GESTURE_PLAY_MEDIA:
 playSounds(true);
 break;
