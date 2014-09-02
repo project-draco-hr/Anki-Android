@@ -1,6 +1,6 @@
 {
   if (!AnkiDroidApp.colIsOpen()) {
-    loadCollection();
+    startLoadingCollection();
   }
   String deckFilename=null;
   @SuppressWarnings("unchecked") HashMap<String,String> data=(HashMap<String,String>)mDeckListAdapter.getItem(id);

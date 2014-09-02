@@ -1,8 +1,9 @@
 {
-  if (col != null) {
+  mCollection=col;
+  if (col != null && AnkiDroidApp.colIsOpen()) {
     onCollectionLoaded(col);
   }
  else {
-    AnkiDatabaseManager.closeDatabase(AnkiDroidApp.getCollectionPath());
+    onCollectionLoadError();
   }
 }

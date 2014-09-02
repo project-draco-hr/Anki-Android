@@ -5,7 +5,7 @@
     selectDeck(did);
   }
   if (AnkiDroidApp.colIsOpen() && mImportPath != null) {
-    showDialog(DIALOG_IMPORT);
+    showImportDialog(ImportDialog.DIALOG_IMPORT);
   }
   loadCounts();
 }

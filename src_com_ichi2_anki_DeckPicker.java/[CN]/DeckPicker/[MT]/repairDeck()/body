@@ -1,0 +1,24 @@
+{
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REPAIR_DECK,new DeckTask.TaskListener(){
+    @Override public void onPreExecute(){
+      mProgressDialog=StyledProgressDialog.show(DeckPicker.this,"",getResources().getString(R.string.backup_repair_deck_progress),true);
+    }
+    @Override public void onPostExecute(    DeckTask.TaskData result){
+      if (mProgressDialog != null && mProgressDialog.isShowing()) {
+        mProgressDialog.dismiss();
+      }
+      if (result.getBoolean()) {
+        startLoadingCollection();
+      }
+ else {
+        Themes.showThemedToast(DeckPicker.this,getResources().getString(R.string.deck_repair_error),true);
+        showDatabaseErrorDialog(DatabaseErrorDialog.DIALOG_ERROR_HANDLING);
+      }
+    }
+    @Override public void onProgressUpdate(    TaskData... values){
+    }
+    @Override public void onCancelled(){
+    }
+  }
+,new DeckTask.TaskData(AnkiDroidApp.getCol(),AnkiDroidApp.getCollectionPath()));
+}

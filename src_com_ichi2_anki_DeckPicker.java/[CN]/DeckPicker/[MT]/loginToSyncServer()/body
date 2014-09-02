@@ -1,0 +1,5 @@
+{
+  Intent myAccount=new Intent(this,MyAccount.class);
+  myAccount.putExtra("notLoggedIn",true);
+  startActivityForResultWithAnimation(myAccount,LOG_IN_FOR_SYNC,ActivityTransitionAnimation.FADE);
+}

@@ -1,0 +1,15 @@
+{
+  Resources res=getResources();
+  if (!AnkiDroidApp.colIsOpen() || mDeckList == null || mDeckList.size() == 0) {
+    return;
+  }
+  String msg="";
+  boolean isDyn=getCol().getDecks().isDyn(mContextMenuDid);
+  if (isDyn) {
+    msg=String.format(res.getString(R.string.delete_cram_deck_message),"\'" + getCol().getDecks().name(mContextMenuDid) + "\'");
+  }
+ else {
+    msg=String.format(res.getString(R.string.delete_deck_message),"\'" + getCol().getDecks().name(mContextMenuDid) + "\'");
+  }
+  showDialogFragment(DeckPickerConfirmDeleteDeckDialog.newInstance(msg));
+}

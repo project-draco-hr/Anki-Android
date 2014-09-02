@@ -9,15 +9,60 @@
       startActivityForResultWithoutAnimation(infoIntent,SHOW_INFO_WELCOME);
     }
   }
+ else   if (!AnkiDroidApp.isSdCardMounted()) {
+    showSdCardNotMountedDialog();
+  }
+ else   if (!BackupManager.enoughDiscSpace(mPrefDeckPath)) {
+    showDialogFragment(DeckPickerNoSpaceLeftDialog.newInstance());
+  }
+ else   if (preferences.getBoolean("noSpaceLeft",false)) {
+    showDialogFragment(DeckPickerBackupNoSpaceLeftDialog.newInstance());
+    preferences.edit().putBoolean("noSpaceLeft",false).commit();
+  }
  else   if (skip < 2 && !preferences.getString("lastVersion","").equals(AnkiDroidApp.getPkgVersionName())) {
-    preferences.edit().putBoolean("showBroadcastMessageToday",true).commit();
-    Intent infoIntent=new Intent(this,Info.class);
-    infoIntent.putExtra(Info.TYPE_EXTRA,Info.TYPE_NEW_VERSION);
-    if (skip != 0) {
-      startActivityForResultWithAnimation(infoIntent,SHOW_INFO_NEW_VERSION,ActivityTransitionAnimation.LEFT);
+    int current=AnkiDroidApp.getPkgVersionCode();
+    int previous;
+    if (!preferences.contains("lastUpgradeVersion")) {
+      previous=current;
     }
  else {
-      startActivityForResultWithoutAnimation(infoIntent,SHOW_INFO_NEW_VERSION);
+      try {
+        previous=preferences.getInt("lastUpgradeVersion",current);
+      }
+ catch (      ClassCastException e) {
+        String s=preferences.getString("lastUpgradeVersion","");
+        if (s.equals("2.0.2")) {
+          previous=40;
+        }
+ else {
+          previous=0;
+        }
+      }
+    }
+    preferences.edit().putInt("lastUpgradeVersion",current).commit();
+    if (previous < AnkiDroidApp.CHECK_DB_AT_VERSION || previous < AnkiDroidApp.CHECK_PREFERENCES_AT_VERSION) {
+      if (previous < AnkiDroidApp.CHECK_PREFERENCES_AT_VERSION) {
+        upgradePreferences(previous);
+      }
+      if (previous < AnkiDroidApp.CHECK_DB_AT_VERSION) {
+        integrityCheck();
+      }
+ else       if (previous < AnkiDroidApp.CHECK_PREFERENCES_AT_VERSION) {
+        Intent deckPicker=new Intent(this,DeckPicker.class);
+        deckPicker.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivityWithoutAnimation(deckPicker);
+      }
+    }
+ else {
+      preferences.edit().putBoolean("showBroadcastMessageToday",true).commit();
+      Intent infoIntent=new Intent(this,Info.class);
+      infoIntent.putExtra(Info.TYPE_EXTRA,Info.TYPE_NEW_VERSION);
+      if (skip != 0) {
+        startActivityForResultWithAnimation(infoIntent,SHOW_INFO_NEW_VERSION,ActivityTransitionAnimation.LEFT);
+      }
+ else {
+        startActivityForResultWithoutAnimation(infoIntent,SHOW_INFO_NEW_VERSION);
+      }
     }
   }
  else   if (skip < 3 && upgradeNeeded()) {
@@ -33,20 +78,10 @@
       startActivityForResultWithoutAnimation(i,REPORT_ERROR);
     }
   }
- else   if (!AnkiDroidApp.isSdCardMounted()) {
-    showDialog(DIALOG_SD_CARD_NOT_MOUNTED);
-  }
- else   if (!BackupManager.enoughDiscSpace(mPrefDeckPath)) {
-    showDialog(DIALOG_NO_SPACE_LEFT);
-  }
- else   if (preferences.getBoolean("noSpaceLeft",false)) {
-    showDialog(DIALOG_BACKUP_NO_SPACE_LEFT);
-    preferences.edit().putBoolean("noSpaceLeft",false).commit();
-  }
  else   if (mImportPath != null && AnkiDroidApp.colIsOpen()) {
-    showDialog(DIALOG_IMPORT);
+    showImportDialog(ImportDialog.DIALOG_IMPORT);
   }
  else {
-    loadCollection();
+    startLoadingCollection();
   }
 }

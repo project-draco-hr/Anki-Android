@@ -12,7 +12,7 @@
           Log.e(AnkiDroidApp.TAG,"onPostExecute - Dialog dismiss Exception = " + e.getMessage());
         }
       }
-      showDialog(DIALOG_DB_ERROR);
+      showDatabaseErrorDialog(DatabaseErrorDialog.DIALOG_DB_ERROR);
     }
     @Override public void onProgressUpdate(    TaskData... values){
     }

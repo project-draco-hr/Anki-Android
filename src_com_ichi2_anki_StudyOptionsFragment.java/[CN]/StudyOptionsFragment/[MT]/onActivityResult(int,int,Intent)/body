@@ -14,7 +14,7 @@
   }
  else {
     if (!AnkiDroidApp.colIsOpen()) {
-      ((AnkiActivity)getActivity()).loadCollection();
+      ((AnkiActivity)getActivity()).startLoadingCollection();
       mDontSaveOnStop=false;
       return;
     }

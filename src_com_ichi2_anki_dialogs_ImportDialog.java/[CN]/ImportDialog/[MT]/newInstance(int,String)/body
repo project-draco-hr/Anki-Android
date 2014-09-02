@@ -1,0 +1,8 @@
+{
+  ImportDialog f=new ImportDialog();
+  Bundle args=new Bundle();
+  args.putInt("dialogType",dialogType);
+  args.putString("dialogMessage",dialogMessage);
+  f.setArguments(args);
+  return f;
+}

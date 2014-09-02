@@ -1,5 +1,5 @@
 {
-  if (sLatestInstance.mType == taskType) {
+  if (sLatestInstance != null && sLatestInstance.mType == taskType) {
     cancelTask();
   }
 }
