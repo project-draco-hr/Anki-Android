@@ -1,0 +1,6 @@
+{
+  File dir=new File(AnkiDroidApp.getCurrentAnkiDroidDirectory(),"testfiles");
+  BackupManager.removeDir(dir);
+  dir.mkdirs();
+  return dir;
+}
