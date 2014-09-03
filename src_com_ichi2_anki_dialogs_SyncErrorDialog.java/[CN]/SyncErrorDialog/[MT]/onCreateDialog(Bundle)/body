@@ -127,11 +127,6 @@ dismissAllDialogFragments();
 builder.setNegativeButton(res.getString(R.string.dialog_cancel),null);
 builder.setMessage(res.getString(R.string.sync_conflict_remote_confirm));
 return builder.create();
-case DIALOG_SYNC_LOG:
-builder.setMessage(getArguments().getString("dialogMessage"));
-builder.setPositiveButton(res.getString(R.string.dialog_ok),clearAllDialogsClickListener);
-((SyncErrorDialogListener)getActivity()).getCol().load();
-return builder.create();
 default :
 return null;
 }
