@@ -37,16 +37,6 @@ if (mWhiteboard != null) {
 mWhiteboard.clear();
 }
 break;
-case R.id.action_whiteboard:
-if (!mShowWhiteboard) {
-item.getSubMenu().removeGroup(R.id.whiteboard_group);
-setWhiteboardVisibility(true);
-refreshActionBar();
-break;
-}
- else {
-break;
-}
 case R.id.action_hide_whiteboard:
 setWhiteboardVisibility(!mShowWhiteboard);
 refreshActionBar();
