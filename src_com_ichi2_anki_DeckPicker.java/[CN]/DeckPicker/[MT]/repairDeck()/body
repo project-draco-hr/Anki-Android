@@ -12,7 +12,7 @@
       }
  else {
         Themes.showThemedToast(DeckPicker.this,getResources().getString(R.string.deck_repair_error),true);
-        showDatabaseErrorDialog(DatabaseErrorDialog.DIALOG_ERROR_HANDLING);
+        onCollectionLoadError();
       }
     }
     @Override public void onProgressUpdate(    TaskData... values){

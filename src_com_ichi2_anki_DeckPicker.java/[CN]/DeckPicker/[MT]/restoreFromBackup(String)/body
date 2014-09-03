@@ -13,10 +13,10 @@ case BackupManager.RETURN_DECK_RESTORED:
     break;
 case BackupManager.RETURN_ERROR:
   Themes.showThemedToast(DeckPicker.this,getResources().getString(R.string.backup_restore_error),true);
-showDatabaseErrorDialog(DatabaseErrorDialog.DIALOG_ERROR_HANDLING);
+onCollectionLoadError();
 break;
 case BackupManager.RETURN_NOT_ENOUGH_SPACE:
-showDialogFragment(DeckPickerNoSpaceLeftDialog.newInstance());
+showLogDialog(getResources().getString(R.string.backup_deck_no_space_left),true);
 break;
 }
 if (mProgressDialog != null && mProgressDialog.isShowing()) {

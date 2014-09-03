@@ -16,7 +16,7 @@
  else {
           msg=getResources().getString(R.string.check_db_acknowledge);
         }
-        showDialogFragment(DeckPickerDatabaseCheckResultDialog.newInstance(msg));
+        showLogDialog(msg,true);
       }
  else {
         handleDbError();
