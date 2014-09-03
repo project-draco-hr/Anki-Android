@@ -130,6 +130,7 @@ return builder.create();
 case DIALOG_SYNC_LOG:
 builder.setMessage(getArguments().getString("dialogMessage"));
 builder.setPositiveButton(res.getString(R.string.dialog_ok),clearAllDialogsClickListener);
+((SyncErrorDialogListener)getActivity()).getCol().load();
 return builder.create();
 default :
 return null;
