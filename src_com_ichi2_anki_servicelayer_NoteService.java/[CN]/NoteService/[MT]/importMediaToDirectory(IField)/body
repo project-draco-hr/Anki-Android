@@ -23,21 +23,17 @@ if (mediaDirFile.getAbsolutePath().contentEquals(parent.getAbsolutePath())) {
 return;
 }
 File outFile=new File(mediaDir + inFile.getName());
-if (!outFile.exists()) {
 if (field.hasTemporaryMedia()) {
-  inFile.renameTo(outFile);
+InputStream in=new FileInputStream(tmpMediaPath);
+OutputStream out=new FileOutputStream(outFile.getAbsolutePath());
+byte[] buf=new byte[1024];
+int len;
+while ((len=in.read(buf)) > 0) {
+  out.write(buf,0,len);
 }
- else {
-  InputStream in=new FileInputStream(tmpMediaPath);
-  OutputStream out=new FileOutputStream(outFile.getAbsolutePath());
-  byte[] buf=new byte[1024];
-  int len;
-  while ((len=in.read(buf)) > 0) {
-    out.write(buf,0,len);
-  }
-  in.close();
-  out.close();
-}
+in.close();
+out.close();
+inFile.delete();
 switch (field.getType()) {
 case AUDIO:
   field.setAudioPath(outFile.getAbsolutePath());
