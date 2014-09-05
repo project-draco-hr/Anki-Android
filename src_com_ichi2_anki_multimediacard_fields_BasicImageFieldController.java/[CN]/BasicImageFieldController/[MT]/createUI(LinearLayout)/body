@@ -3,7 +3,7 @@
   DisplayMetrics metrics=getDisplayMetrics();
   int height=metrics.heightPixels;
   int width=metrics.widthPixels;
-  LinearLayout.LayoutParams p=new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT);
+  LinearLayout.LayoutParams p=new LayoutParams(android.view.ViewGroup.LayoutParams.FILL_PARENT,android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
   setPreviewImage(mField.getImagePath(),getMaxImageSize());
   mImagePreview.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
   mImagePreview.setAdjustViewBounds(true);
@@ -25,6 +25,7 @@
       Intent cameraIntent=new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
       File image;
       File storageDir;
+      String timeStamp=new SimpleDateFormat("yyyyMMddHHmmss",Locale.US).format(new Date());
       try {
         if (AnkiDroidApp.SDK_VERSION > 7) {
           storageDir=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
@@ -33,7 +34,7 @@
           storageDir=Environment.getExternalStorageDirectory();
           storageDir=new File(storageDir.getAbsolutePath() + "/DCIM");
         }
-        image=File.createTempFile("ankidroid_img",".jpg",storageDir);
+        image=File.createTempFile("img_" + timeStamp,".jpg",storageDir);
         mTempCameraImagePath=image.getPath();
         Uri uriSavedImage=Uri.fromFile(image);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,uriSavedImage);
@@ -45,7 +46,7 @@
     }
   }
 );
-  layout.addView(mImagePreview,LinearLayout.LayoutParams.FILL_PARENT,p);
-  layout.addView(mBtnGallery,LinearLayout.LayoutParams.FILL_PARENT);
-  layout.addView(mBtnCamera,LinearLayout.LayoutParams.FILL_PARENT);
+  layout.addView(mImagePreview,android.view.ViewGroup.LayoutParams.FILL_PARENT,p);
+  layout.addView(mBtnGallery,android.view.ViewGroup.LayoutParams.FILL_PARENT);
+  layout.addView(mBtnCamera,android.view.ViewGroup.LayoutParams.FILL_PARENT);
 }
