@@ -54,7 +54,6 @@
       }
     }
  else {
-      preferences.edit().putBoolean("showBroadcastMessageToday",true).commit();
       Intent infoIntent=new Intent(this,Info.class);
       infoIntent.putExtra(Info.TYPE_EXTRA,Info.TYPE_NEW_VERSION);
       if (skip != 0) {
