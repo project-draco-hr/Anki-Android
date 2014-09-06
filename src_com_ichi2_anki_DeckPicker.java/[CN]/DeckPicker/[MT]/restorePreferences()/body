@@ -1,6 +1,5 @@
 {
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
   mPrefDeckPath=AnkiDroidApp.getCurrentAnkiDroidDirectory();
-  mSwipeEnabled=AnkiDroidApp.initiateGestures(this,preferences);
   return preferences;
 }

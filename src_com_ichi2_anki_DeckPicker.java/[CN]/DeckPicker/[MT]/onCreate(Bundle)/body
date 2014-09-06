@@ -112,13 +112,4 @@
  else {
     loadCounts();
   }
-  if (mSwipeEnabled) {
-    gestureDetector=new GestureDetector(new MyGestureDetector());
-    mDeckListView.setOnTouchListener(new View.OnTouchListener(){
-      @Override public boolean onTouch(      View v,      MotionEvent event){
-        return gestureDetector.onTouchEvent(event);
-      }
-    }
-);
-  }
 }
