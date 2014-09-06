@@ -5,7 +5,7 @@
       final int lastPosition=i;
       mDeckListView.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener(){
         @Override public void onGlobalLayout(){
-          mDeckListView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+          removeOnGlobalLayoutListener(mDeckListView,this);
           mDeckListView.performItemClick(null,lastPosition,0);
           mDeckListView.setSelectionFromTop(lastPosition,mDeckListView.getHeight() / 2);
         }
