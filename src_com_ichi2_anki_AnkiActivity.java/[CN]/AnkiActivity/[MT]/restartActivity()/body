@@ -1,0 +1,11 @@
+{
+  if (AnkiDroidApp.SDK_VERSION >= 11) {
+    this.recreate();
+  }
+ else {
+    Intent intent=new Intent();
+    intent.setClass(this,this.getClass());
+    this.startActivity(intent);
+    this.finishWithoutAnimation();
+  }
+}

@@ -48,9 +48,7 @@
         integrityCheck();
       }
  else       if (previous < AnkiDroidApp.CHECK_PREFERENCES_AT_VERSION) {
-        Intent deckPicker=new Intent(this,DeckPicker.class);
-        deckPicker.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivityWithoutAnimation(deckPicker);
+        restartActivity();
       }
     }
  else {
