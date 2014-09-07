@@ -1,4 +1,4 @@
 {
   setOpeningCollectionDialogMessage(getResources().getString(R.string.col_load_failed));
-  handler.sendEmptyMessage(MSG_SHOW_COLLECTION_LOADING_ERROR_DIALOG);
+  mHandler.sendEmptyMessage(MSG_SHOW_COLLECTION_LOADING_ERROR_DIALOG);
 }

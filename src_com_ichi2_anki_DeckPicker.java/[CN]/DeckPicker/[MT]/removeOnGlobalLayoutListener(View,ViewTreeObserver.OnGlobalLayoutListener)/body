@@ -1,0 +1,8 @@
+{
+  if (AnkiDroidApp.SDK_VERSION < 16) {
+    v.getViewTreeObserver().removeGlobalOnLayoutListener(listener);
+  }
+ else {
+    v.getViewTreeObserver().removeOnGlobalLayoutListener(listener);
+  }
+}
