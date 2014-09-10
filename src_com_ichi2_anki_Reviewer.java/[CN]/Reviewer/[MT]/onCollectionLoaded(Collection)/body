@@ -1,6 +1,7 @@
 {
   setWhiteboardListener(this);
   super.onCollectionLoaded(col);
+  col.getSched().reset();
   DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(mSched,null,0));
   mSched.setReps(mSched.getReps() - 1);
   disableDrawerSwipeOnConflicts();

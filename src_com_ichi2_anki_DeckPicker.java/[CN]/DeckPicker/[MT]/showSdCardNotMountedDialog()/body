@@ -7,7 +7,7 @@
     }
 ,new View.OnClickListener(){
       @Override public void onClick(      View v){
-        startActivityForResultWithoutAnimation(new Intent(DeckPicker.this,Preferences.class),PREFERENCES_UPDATE);
+        startActivityForResultWithoutAnimation(new Intent(DeckPicker.this,Preferences.class),NavigationDrawerActivity.REQUEST_PREFERENCES_UPDATE);
       }
     }
 );

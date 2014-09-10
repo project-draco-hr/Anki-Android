@@ -55,17 +55,6 @@
       finishWithAnimation();
     }
   }
- else   if (requestCode == PREFERENCES_UPDATE) {
-    String oldPath=mPrefDeckPath;
-    SharedPreferences pref=restorePreferences();
-    String newLanguage=pref.getString(Preferences.LANGUAGE,"");
-    if (AnkiDroidApp.setLanguage(newLanguage)) {
-      AnkiDroidApp.getCompat().invalidateOptionsMenu(this);
-    }
-    if (!mPrefDeckPath.equals(oldPath)) {
-      startLoadingCollection();
-    }
-  }
  else   if (requestCode == REPORT_FEEDBACK && resultCode == RESULT_OK) {
   }
  else   if (requestCode == LOG_IN_FOR_SYNC && resultCode == RESULT_OK) {
