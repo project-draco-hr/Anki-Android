@@ -1,4 +1,6 @@
 {
-  mLogHnd.close();
-  mLogHnd=null;
+  if (mLogHnd != null) {
+    mLogHnd.close();
+    mLogHnd=null;
+  }
 }
