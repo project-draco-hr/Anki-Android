@@ -2,4 +2,5 @@
   Intent intent=new Intent(DeckPicker.this,Info.class);
   intent.putExtra(Info.TYPE_EXTRA,Info.TYPE_SHARED_DECKS);
   startActivityForResultWithAnimation(intent,ADD_SHARED_DECKS,ActivityTransitionAnimation.RIGHT);
+  startActivityWithAnimation(intent,ActivityTransitionAnimation.RIGHT);
 }

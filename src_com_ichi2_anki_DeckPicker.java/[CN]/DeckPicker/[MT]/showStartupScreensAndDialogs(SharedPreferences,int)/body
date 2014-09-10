@@ -77,9 +77,6 @@
       startActivityForResultWithoutAnimation(i,REPORT_ERROR);
     }
   }
- else   if (mImportPath != null && AnkiDroidApp.colIsOpen()) {
-    showImportDialog(ImportDialog.DIALOG_IMPORT);
-  }
  else {
     startLoadingCollection();
   }

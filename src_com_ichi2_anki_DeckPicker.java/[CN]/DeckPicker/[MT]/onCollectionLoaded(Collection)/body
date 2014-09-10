@@ -5,7 +5,10 @@
     selectDeck(did);
   }
   if (AnkiDroidApp.colIsOpen() && mImportPath != null) {
-    showImportDialog(ImportDialog.DIALOG_IMPORT);
+    if (mHandler == null) {
+      mHandler=new DialogHandler(this);
+    }
+    mHandler.sendEmptyMessage(MSG_SHOW_COLLECTION_IMPORT_DIALOG);
   }
   loadCounts();
 }

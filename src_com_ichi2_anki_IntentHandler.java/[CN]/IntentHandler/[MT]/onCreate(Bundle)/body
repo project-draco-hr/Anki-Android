@@ -1,0 +1,27 @@
+{
+  super.onCreate(savedInstanceState);
+  Intent intent=getIntent();
+  Intent reloadIntent=new Intent(this,DeckPicker.class);
+  if (intent.getExtras() != null) {
+    reloadIntent.putExtras(intent.getExtras());
+  }
+  if (intent.getData() != null) {
+    reloadIntent.setData(intent.getData());
+  }
+  String action=intent.getAction();
+switch (action) {
+case Intent.ACTION_VIEW:
+    reloadIntent.setAction(action);
+  reloadIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+startActivity(reloadIntent);
+finish();
+break;
+default :
+reloadIntent.setAction(Intent.ACTION_MAIN);
+reloadIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+reloadIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+startActivityIfNeeded(reloadIntent,0);
+finish();
+break;
+}
+}
