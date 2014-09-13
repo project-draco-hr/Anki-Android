@@ -67,6 +67,23 @@ return true;
 case R.id.action_restore_backup:
 showDatabaseErrorDialog(DatabaseErrorDialog.DIALOG_CONFIRM_RESTORE_BACKUP);
 return true;
+case R.id.action_export:
+StyledDialog.Builder builder=new StyledDialog.Builder(this);
+builder.setMessage(res.getString(R.string.confirm_apkg_export));
+builder.setPositiveButton(res.getString(R.string.dialog_ok),new DialogInterface.OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+boolean exportMedia=false;
+Object[] inputArgs=new Object[3];
+inputArgs[0]=getCol().getPath();
+inputArgs[1]=getCol().getPath().replace(".anki2",".apkg");
+inputArgs[2]=exportMedia;
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_EXPORT_APKG,mExportListener,new TaskData(inputArgs));
+}
+}
+);
+builder.setNegativeButton(res.getString(R.string.dialog_cancel),null);
+builder.create().show();
+return true;
 default :
 return super.onOptionsItemSelected(item);
 }
