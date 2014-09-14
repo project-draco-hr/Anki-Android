@@ -8,7 +8,12 @@
     if (mHandler == null) {
       mHandler=new DialogHandler(this);
     }
-    mHandler.sendEmptyMessage(MSG_SHOW_COLLECTION_IMPORT_DIALOG);
+    if (mImportPath.split("/")[mImportPath.split("/").length - 1].equals("collection.apkg")) {
+      mHandler.sendEmptyMessage(MSG_SHOW_COLLECTION_IMPORT_REPLACE_DIALOG);
+    }
+ else {
+      mHandler.sendEmptyMessage(MSG_SHOW_COLLECTION_IMPORT_ADD_DIALOG);
+    }
   }
   loadCounts();
 }

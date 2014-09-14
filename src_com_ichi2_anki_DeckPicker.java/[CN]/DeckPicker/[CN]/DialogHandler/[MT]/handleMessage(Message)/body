@@ -2,7 +2,10 @@
   if (msg.what == MSG_SHOW_COLLECTION_LOADING_ERROR_DIALOG) {
     mActivity.get().showDatabaseErrorDialog(DatabaseErrorDialog.DIALOG_LOAD_FAILED);
   }
- else   if (msg.what == MSG_SHOW_COLLECTION_IMPORT_DIALOG) {
-    mActivity.get().showImportDialog(ImportDialog.DIALOG_IMPORT,mActivity.get().mImportPath);
+ else   if (msg.what == MSG_SHOW_COLLECTION_IMPORT_REPLACE_DIALOG) {
+    mActivity.get().showImportDialog(ImportDialog.DIALOG_IMPORT_REPLACE_CONFIRM,mActivity.get().mImportPath);
+  }
+ else   if (msg.what == MSG_SHOW_COLLECTION_IMPORT_ADD_DIALOG) {
+    mActivity.get().showImportDialog(ImportDialog.DIALOG_IMPORT_ADD_CONFIRM,mActivity.get().mImportPath);
   }
 }
