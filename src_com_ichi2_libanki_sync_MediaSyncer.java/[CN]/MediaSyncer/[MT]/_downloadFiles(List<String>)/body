@@ -6,6 +6,7 @@
       mCol.log("fetch " + top);
       ZipFile zipData=mServer.downloadFiles(top);
       int cnt=mCol.getMedia().addFilesFromZip(zipData);
+      mDownloadCount+=cnt;
       mCol.log("received " + cnt + " files");
       if (cnt == fnames.size()) {
         fnames.clear();
@@ -13,6 +14,7 @@
  else {
         fnames=fnames.subList(cnt,fnames.size());
       }
+      mCon.publishProgress(String.format(AnkiDroidApp.getAppResources().getString(R.string.sync_media_downloaded_count),mDownloadCount));
     }
  catch (    Exception e) {
       Log.e(AnkiDroidApp.TAG,"Error downloading media files",e);

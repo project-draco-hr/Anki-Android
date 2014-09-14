@@ -1,9 +1,10 @@
 {
   try {
-    mCol.log("findChanges");
-    con.publishProgress(R.string.sync_media_find);
-    Log.i(AnkiDroidApp.TAG,"MediaSyncer: finding changed media");
-    mCol.getMedia().findChanges();
+    if (mCol.getMedia().needScan()) {
+      mCon.publishProgress(R.string.sync_media_find);
+      mCol.log("findChanges");
+      mCol.getMedia().findChanges();
+    }
     int lastUsn=mCol.getMedia().lastUsn();
     JSONObject ret=mServer.begin();
     int srvUsn=ret.getInt("usn");
@@ -11,6 +12,7 @@
       return "noChanges";
     }
     mCol.log("last local usn is " + lastUsn);
+    mDownloadCount=0;
     Log.i(AnkiDroidApp.TAG,"MediaSyncer: Last local usn is: " + lastUsn);
     while (true) {
       JSONArray data=mServer.mediaChanges(lastUsn);
@@ -58,6 +60,7 @@
       mCol.getMedia().setLastUsn(lastUsn);
     }
     boolean updateConflict=false;
+    int toSend=mCol.getMedia().dirtyCount();
     while (true) {
       Pair<File,List<String>> changesZip=mCol.getMedia().mediaChangesZip();
       File zip=changesZip.first;
@@ -65,6 +68,7 @@
       if (fnames.size() == 0) {
         break;
       }
+      mCon.publishProgress(String.format(AnkiDroidApp.getAppResources().getString(R.string.sync_media_changes_count),toSend));
       JSONArray changes=mServer.uploadChanges(zip);
       int processedCnt=changes.getInt(0);
       int serverLastUsn=changes.getInt(1);
@@ -80,10 +84,11 @@
         mCol.getMedia().getDb().commit();
         updateConflict=true;
       }
+      toSend-=processedCnt;
     }
     if (updateConflict) {
       mCol.log("restart sync due to concurrent update");
-      return sync(con);
+      return sync();
     }
     int lcnt=mCol.getMedia().mediacount();
     String sRet=mServer.mediaSanity(lcnt);

@@ -1,0 +1,11 @@
+{
+  Log.i(AnkiDroidApp.TAG,"doInBackgroundCheckMedia");
+  try {
+    AnkiDroidApp.getCol().getMedia().findChanges(true);
+    List<List<String>> result=AnkiDroidApp.getCol().getMedia().check();
+    return new TaskData(0,new Object[]{result},true);
+  }
+ catch (  APIVersionException e) {
+    return new TaskData(false);
+  }
+}

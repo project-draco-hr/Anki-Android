@@ -37,6 +37,7 @@
       continue;
     }
     if (sz > 100 * 1024 * 1024) {
+      mCol.log("ignoring file over 100MB",f);
       continue;
     }
     String normf=AnkiDroidApp.getCompat().nfcNormalized(fname);
