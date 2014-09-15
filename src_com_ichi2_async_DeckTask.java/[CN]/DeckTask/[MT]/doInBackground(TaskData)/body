@@ -82,6 +82,8 @@ case TASK_TYPE_CONF_SET_SUBDECKS:
 return doInBackgroundConfSetSubdecks(params);
 case TASK_TYPE_RENDER_BROWSER_QA:
 return doInBackgroundRenderBrowserQA(params);
+case TASK_TYPE_CHECK_MEDIA:
+return doInBackgroundCheckMedia(params);
 default :
 Log.e(AnkiDroidApp.TAG,"unknown task type: " + mType);
 return null;

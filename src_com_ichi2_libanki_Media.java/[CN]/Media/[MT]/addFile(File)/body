@@ -1,3 +1,5 @@
 {
-  return writeData(ofile);
+  String fname=writeData(ofile);
+  markFileAdd(fname);
+  return fname;
 }

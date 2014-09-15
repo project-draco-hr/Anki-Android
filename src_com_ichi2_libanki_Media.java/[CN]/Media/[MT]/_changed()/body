@@ -1,7 +1,7 @@
 {
   long mod=mDb.queryLongScalar("select dirMod from meta");
   long mtime=_mtime(dir());
-  if (!_isFAT32() && mod != 0 && mod == mtime) {
+  if (mod != 0 && mod == mtime) {
     return null;
   }
   return mtime;

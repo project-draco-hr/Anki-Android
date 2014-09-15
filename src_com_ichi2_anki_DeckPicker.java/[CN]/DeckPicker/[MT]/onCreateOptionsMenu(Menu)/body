@@ -5,5 +5,6 @@
   menu.findItem(R.id.action_new_deck).setEnabled(sdCardAvailable);
   menu.findItem(R.id.action_new_filtered_deck).setEnabled(sdCardAvailable);
   menu.findItem(R.id.action_check_database).setEnabled(sdCardAvailable);
+  menu.findItem(R.id.action_check_media).setEnabled(sdCardAvailable);
   return super.onCreateOptionsMenu(menu);
 }
