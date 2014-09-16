@@ -21,6 +21,9 @@ return true;
 case R.id.action_saved_notes:
 showDialog(DIALOG_INTENT_INFORMATION);
 return true;
+case R.id.action_reschedule_card:
+showDialog(DIALOG_RESCHEDULE_CARD);
+return true;
 default :
 return super.onOptionsItemSelected(item);
 }
