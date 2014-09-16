@@ -1,4 +1,5 @@
 {
   super.onCreate(savedInstanceState);
   Log.i(AnkiDroidApp.TAG,"PreviewClass - onCreate");
+  mCurrentCardId=getIntent().getLongExtra("currentCardId",-1);
 }

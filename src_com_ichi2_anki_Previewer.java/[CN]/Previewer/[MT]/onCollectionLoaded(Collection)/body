@@ -1,5 +1,5 @@
 {
   super.onCollectionLoaded(col);
-  mCurrentCard=CardEditor.mCurrentEditedCard;
+  mCurrentCard=col.getCard(mCurrentCardId);
   displayCardQuestion();
 }
