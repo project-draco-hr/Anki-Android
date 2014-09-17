@@ -6,5 +6,11 @@
  else {
     result=RESULT_CANCELED;
   }
+  if (mRescheduled) {
+    if (intent == null) {
+      intent=new Intent();
+    }
+    intent.putExtra("rescheduled",true);
+  }
   closeCardEditor(result,intent);
 }
