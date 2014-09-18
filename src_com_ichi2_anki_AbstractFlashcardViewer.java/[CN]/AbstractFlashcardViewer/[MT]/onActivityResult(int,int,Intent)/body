@@ -10,7 +10,7 @@
     finishNoStorageAvailable();
   }
   if (requestCode == EDIT_CURRENT_CARD) {
-    if (data.hasExtra("rescheduled")) {
+    if (data != null && data.hasExtra("rescheduled")) {
       DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(mSched,null,0));
     }
     if (resultCode != RESULT_CANCELED) {
