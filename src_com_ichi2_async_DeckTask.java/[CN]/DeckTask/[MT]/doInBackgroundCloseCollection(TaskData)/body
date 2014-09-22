@@ -6,7 +6,7 @@
       WidgetStatus.waitToFinish();
       String path=col.getPath();
       AnkiDroidApp.closeCollection(true);
-      BackupManager.performBackup(path);
+      BackupManager.performBackupInBackground(path);
     }
  catch (    RuntimeException e) {
       Log.i(AnkiDroidApp.TAG,"doInBackgroundCloseCollection: error occurred - collection not properly closed");

@@ -16,7 +16,7 @@
  finally {
       AnkiDatabaseManager.closeDatabase(colPath);
     }
-    ZipOutputStream zos=new ZipOutputStream(new FileOutputStream(apkgPath));
+    ZipOutputStream zos=new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(apkgPath)));
     BufferedInputStream bis=new BufferedInputStream(new FileInputStream(colPath),BUFFER_SIZE);
     ZipEntry ze=new ZipEntry("collection.anki2");
     zos.putNextEntry(ze);

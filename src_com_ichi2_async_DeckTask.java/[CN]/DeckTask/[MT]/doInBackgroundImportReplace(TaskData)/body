@@ -40,7 +40,7 @@
   if (col != null) {
     colPath=col.getPath();
     AnkiDroidApp.closeCollection(true);
-    BackupManager.performBackup(colPath,true);
+    BackupManager.performBackupInBackground(colPath,true);
   }
   colPath=AnkiDroidApp.getCollectionPath();
   File f=new File(colFile);
