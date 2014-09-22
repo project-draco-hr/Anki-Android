@@ -1,8 +1,0 @@
-{
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundRestoreDeck");
-  Object[] data=params[0].getObjArray();
-  AnkiDroidApp.closeCollection(false);
-  int result=BackupManager.restoreBackup((String)data[1],(String)data[2]);
-  AnkiDroidApp.openCollection(AnkiDroidApp.getCollectionPath());
-  return new TaskData(result);
-}

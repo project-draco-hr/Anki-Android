@@ -44,8 +44,6 @@ case TASK_TYPE_CHECK_DATABASE:
 return doInBackgroundCheckDatabase(params);
 case TASK_TYPE_DELETE_BACKUPS:
 return doInBackgroundDeleteBackups();
-case TASK_TYPE_RESTORE_DECK:
-return doInBackgroundRestoreDeck(params);
 case TASK_TYPE_UPDATE_CARD_BROWSER_LIST:
 return doInBackgroundUpdateCardBrowserList(params);
 case TASK_TYPE_LOAD_TUTORIAL:
@@ -56,8 +54,6 @@ case TASK_TYPE_CLOSE_DECK:
 return doInBackgroundCloseCollection(params);
 case TASK_TYPE_UPDATE_VALUES_FROM_DECK:
 return doInBackgroundUpdateValuesFromDeck(params);
-case TASK_TYPE_RESTORE_IF_MISSING:
-return doInBackgroundRestoreIfMissing(params);
 case TASK_TYPE_DELETE_DECK:
 return doInBackgroundDeleteDeck(params);
 case TASK_TYPE_REBUILD_CRAM:

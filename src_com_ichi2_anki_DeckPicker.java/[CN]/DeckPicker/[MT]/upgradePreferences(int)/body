@@ -19,4 +19,7 @@
     }
     preferences.edit().putBoolean("writeAnswersDisable",!preferences.getBoolean("writeAnswers",true)).commit();
   }
+  if (previousVersionCode < 20300130) {
+    preferences.edit().putInt("backupMax",8).commit();
+  }
 }
