@@ -1,0 +1,5 @@
+{
+  BufferedInputStream bis=new BufferedInputStream(new FileInputStream(path),BUFFER_SIZE);
+  ZipEntry ze=new ZipEntry(entry);
+  writeEntry(bis,ze);
+}

@@ -1,0 +1,10 @@
+{
+  byte[] buf=new byte[BUFFER_SIZE];
+  mZos.putNextEntry(ze);
+  int len;
+  while ((len=bis.read(buf,0,BUFFER_SIZE)) != -1) {
+    mZos.write(buf,0,len);
+  }
+  mZos.closeEntry();
+  bis.close();
+}

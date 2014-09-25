@@ -1,0 +1,8 @@
+{
+  ExportDialog f=new ExportDialog();
+  Bundle args=new Bundle();
+  args.putLong("did",did);
+  args.putString("dialogMessage",dialogMessage);
+  f.setArguments(args);
+  return f;
+}
