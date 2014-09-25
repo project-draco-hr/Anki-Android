@@ -6,16 +6,13 @@
  else {
     JSONObject deck=mDropDownDecks.get(position - 1);
     String deckName;
-    Long deckId;
     try {
       deckName=deck.getString("name");
-      deckId=deck.getLong("id");
     }
  catch (    JSONException e) {
       throw new RuntimeException();
     }
     mRestrictOnDeck="deck:'" + deckName + "' ";
-    getCol().getDecks().select(deckId);
   }
   searchCards();
   return true;
