@@ -1,0 +1,26 @@
+{
+  mCount=mCol.cardCount();
+  mCol.close();
+  z.write(mCol.getPath(),"collection.anki2");
+  mCol.reopen();
+  JSONObject media=new JSONObject();
+  if (!mIncludeMedia) {
+    return media;
+  }
+  File mdir=new File(mCol.getMedia().dir());
+  if (mdir.exists() && mdir.isDirectory()) {
+    File[] mediaFiles=mdir.listFiles();
+    int c=0;
+    for (    File f : mediaFiles) {
+      z.write(f.getPath(),Integer.toString(c));
+      try {
+        media.put(Integer.toString(c),f.getName());
+        c++;
+      }
+ catch (      JSONException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+  return media;
+}

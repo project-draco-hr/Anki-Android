@@ -4,6 +4,6 @@
     if (AnkiDroidApp.colIsOpen()) {
       WidgetStatus.update(this,mSched.progressToday(null,mCurrentCard,true));
     }
-    UIUtils.saveCollectionInBackground();
   }
+  UIUtils.saveCollectionInBackground();
 }

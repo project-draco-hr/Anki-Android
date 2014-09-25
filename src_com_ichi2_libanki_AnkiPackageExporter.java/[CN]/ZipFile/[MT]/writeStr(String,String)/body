@@ -1,0 +1,6 @@
+{
+  InputStream is=new ByteArrayInputStream(value.getBytes());
+  BufferedInputStream bis=new BufferedInputStream(is,BUFFER_SIZE);
+  ZipEntry ze=new ZipEntry(entry);
+  writeEntry(bis,ze);
+}
