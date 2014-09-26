@@ -36,7 +36,7 @@ mOldColPath=AnkiDroidApp.getSharedPrefs(this).getString("deckPath","oldPath");
 startActivityForResultWithAnimation(new Intent(this,Preferences.class),REQUEST_PREFERENCES_UPDATE,ActivityTransitionAnimation.LEFT);
 break;
 case DRAWER_HELP:
-Intent helpIntent=new Intent("android.intent.action.VIEW",Uri.parse(getResources().getString(R.string.link_faq)));
+Intent helpIntent=new Intent("android.intent.action.VIEW",Uri.parse(getResources().getString(R.string.link_manual)));
 startActivityWithoutAnimation(helpIntent);
 break;
 case DRAWER_FEEDBACK:
