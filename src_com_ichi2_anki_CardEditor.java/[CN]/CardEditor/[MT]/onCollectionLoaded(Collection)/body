@@ -17,9 +17,6 @@
   Themes.setWallpaper(mainView);
   Themes.setContentStyle(mainView,Themes.CALLER_CARD_EDITOR);
   mFieldsLayoutContainer=(LinearLayout)findViewById(R.id.CardEditorEditFieldsLayout);
-  mSave=(Button)findViewById(R.id.CardEditorSaveButton);
-  mCancel=(Button)findViewById(R.id.CardEditorCancelButton);
-  mLater=(Button)findViewById(R.id.CardEditorLaterButton);
   mDeckButton=(TextView)findViewById(R.id.CardEditorDeckText);
   mModelButton=(TextView)findViewById(R.id.CardEditorModelText);
   mTagsButton=(TextView)findViewById(R.id.CardEditorTagText);
@@ -107,24 +104,6 @@ showDialog(DIALOG_MODEL_SELECT);
 }
 );
 modelButton.setVisibility(View.VISIBLE);
-mSave.setText(getResources().getString(R.string.add));
-mCancel.setText(getResources().getString(R.string.close));
-mLater.setVisibility(View.VISIBLE);
-mLater.setOnClickListener(new View.OnClickListener(){
-@Override public void onClick(View v){
-String content=getFieldsText();
-if (content.length() > mEditFields.size() - 1) {
-MetaDB.saveIntentInformation(CardEditor.this,content);
-populateEditFields();
-mSourceText=null;
-Themes.showThemedToast(CardEditor.this,getResources().getString(R.string.CardEditorLaterMessage),false);
-}
-if (mCaller == CALLER_INDICLASH || mCaller == CALLER_CARDEDITOR_INTENT_ADD) {
-closeCardEditor();
-}
-}
-}
-);
 }
  else {
 setTitle(R.string.cardeditor_title_edit_card);
@@ -136,24 +115,9 @@ showDialog(DIALOG_DECK_SELECT);
 }
 );
 mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
-if (mPrefFixArabic && !mAddNote) {
-mSave.setEnabled(false);
-}
 ((LinearLayout)findViewById(R.id.CardEditorTagButton)).setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
 showDialogFragment(DIALOG_TAGS_SELECT);
-}
-}
-);
-mSave.setOnClickListener(new View.OnClickListener(){
-@Override public void onClick(View v){
-saveNote();
-}
-}
-);
-mCancel.setOnClickListener(new View.OnClickListener(){
-@Override public void onClick(View v){
-closeCardEditor();
 }
 }
 );
