@@ -5,10 +5,6 @@
   if (resultCode == DeckPicker.RESULT_DB_ERROR) {
     closeStudyOptions(DeckPicker.RESULT_DB_ERROR);
   }
-  if (resultCode == AnkiDroidApp.RESULT_TO_HOME) {
-    closeStudyOptions();
-    return;
-  }
   if (resultCode == DeckPicker.RESULT_MEDIA_EJECTED) {
     closeStudyOptions(DeckPicker.RESULT_MEDIA_EJECTED);
   }
