@@ -1,0 +1,19 @@
+{
+  if (mCurrentEditedCard != null && mCurrentEditedCard.getDid() != mCurrentDid) {
+    return true;
+  }
+  for (  FieldEditText f : mEditFields) {
+    if (fieldChanged(f)) {
+      return true;
+    }
+  }
+  for (  String t : mSelectedTags) {
+    if (!mEditorNote.hasTag(t)) {
+      return true;
+    }
+  }
+  if (mEditorNote.getTags().size() > mSelectedTags.size()) {
+    return true;
+  }
+  return false;
+}

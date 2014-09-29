@@ -14,7 +14,6 @@
       }
       mEditorNote=new Note(getCol(),model);
       mEditorNote.model().put("did",mCurrentDid);
-      mModelButton.setText(getResources().getString(R.string.CardEditorModel,model.getString("name")));
     }
  else {
       mEditorNote=note;
@@ -27,7 +26,7 @@
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
-  updateDeck();
+  updateDeckPosition();
   updateTags();
   populateEditFields();
 }

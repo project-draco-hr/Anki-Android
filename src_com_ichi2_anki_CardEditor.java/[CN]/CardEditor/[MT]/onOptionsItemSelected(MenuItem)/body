@@ -1,16 +1,13 @@
 {
 switch (item.getItemId()) {
 case android.R.id.home:
-    closeCardEditor(AnkiDroidApp.RESULT_TO_HOME);
+    closeCardEditorWithCheck();
   return true;
 case R.id.action_save:
 saveNote();
 return true;
 case R.id.action_preview:
 openReviewer();
-return true;
-case R.id.action_close:
-closeCardEditor();
 return true;
 case R.id.action_later:
 String content=getFieldsText();

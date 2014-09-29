@@ -1,0 +1,15 @@
+{
+  Dialog dialog;
+  Resources res=getResources();
+  StyledDialog.Builder builder=new StyledDialog.Builder(this);
+  builder.setMessage(R.string.discard_unsaved_changes);
+  builder.setPositiveButton(res.getString(R.string.dialog_ok),new DialogInterface.OnClickListener(){
+    @Override public void onClick(    DialogInterface dialog,    int which){
+      closeCardEditor();
+    }
+  }
+);
+  builder.setNegativeButton(res.getString(R.string.dialog_cancel),null);
+  dialog=builder.create();
+  dialog.show();
+}
