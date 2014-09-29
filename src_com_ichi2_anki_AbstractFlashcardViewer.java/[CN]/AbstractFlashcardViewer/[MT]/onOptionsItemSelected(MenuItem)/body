@@ -4,7 +4,7 @@
   }
 switch (item.getItemId()) {
 case android.R.id.home:
-    closeReviewer(AnkiDroidApp.RESULT_TO_HOME,true);
+    closeReviewer(RESULT_OK,true);
   break;
 case R.id.action_undo:
 undo();

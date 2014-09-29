@@ -17,9 +17,99 @@
   Themes.setWallpaper(mainView);
   Themes.setContentStyle(mainView,Themes.CALLER_CARD_EDITOR);
   mFieldsLayoutContainer=(LinearLayout)findViewById(R.id.CardEditorEditFieldsLayout);
-  mDeckButton=(TextView)findViewById(R.id.CardEditorDeckText);
-  mModelButton=(TextView)findViewById(R.id.CardEditorModelText);
   mTagsButton=(TextView)findViewById(R.id.CardEditorTagText);
+  mNoteTypeSpinner=(Spinner)findViewById(R.id.note_type_spinner);
+  final ArrayList<Long> modelIds=new ArrayList<Long>();
+  final ArrayList<String> modelNames=new ArrayList<String>();
+  ArrayList<JSONObject> models=getCol().getModels().all();
+  Collections.sort(models,new JSONNameComparator());
+  for (  JSONObject m : models) {
+    try {
+      modelNames.add(m.getString("name"));
+      modelIds.add(m.getLong("id"));
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  ArrayAdapter<String> noteTypeAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,modelNames);
+  mNoteTypeSpinner.setAdapter(noteTypeAdapter);
+  noteTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+  mNoteTypeSpinner.setOnItemSelectedListener(new OnItemSelectedListener(){
+    @Override public void onItemSelected(    AdapterView<?> parent,    View view,    int pos,    long id){
+      long oldModelId;
+      try {
+        oldModelId=getCol().getModels().current().getLong("id");
+      }
+ catch (      JSONException e) {
+        throw new RuntimeException(e);
+      }
+      long newId=modelIds.get(pos);
+      if (oldModelId != newId) {
+        JSONObject model=getCol().getModels().get(newId);
+        getCol().getModels().setCurrent(model);
+        JSONObject cdeck=getCol().getDecks().current();
+        try {
+          cdeck.put("mid",newId);
+        }
+ catch (        JSONException e) {
+          throw new RuntimeException(e);
+        }
+        getCol().getDecks().save(cdeck);
+        if (!getCol().getConf().optBoolean("addToCur",true)) {
+          try {
+            mCurrentDid=model.getLong("did");
+            updateDeckPosition();
+          }
+ catch (          JSONException e) {
+            throw new RuntimeException(e);
+          }
+        }
+        int size=mEditFields.size();
+        String[] oldValues=new String[size];
+        for (int i=0; i < size; i++) {
+          oldValues[i]=mEditFields.get(i).getText().toString();
+        }
+        setNote();
+        resetEditFields(oldValues);
+        duplicateCheck();
+      }
+    }
+    @Override public void onNothingSelected(    AdapterView<?> parent){
+    }
+  }
+);
+  mNoteDeckSpinner=(Spinner)findViewById(R.id.note_deck_spinner);
+  mAllDeckIds=new ArrayList<Long>();
+  final ArrayList<String> deckNames=new ArrayList<String>();
+  ArrayList<JSONObject> decks=getCol().getDecks().all();
+  Collections.sort(decks,new JSONNameComparator());
+  for (  JSONObject d : decks) {
+    try {
+      if (d.getInt("dyn") == 0) {
+        deckNames.add(d.getString("name"));
+        mAllDeckIds.add(d.getLong("id"));
+      }
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  ArrayAdapter<String> noteDeckAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,deckNames);
+  mNoteDeckSpinner.setAdapter(noteDeckAdapter);
+  noteDeckAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+  mNoteDeckSpinner.setOnItemSelectedListener(new OnItemSelectedListener(){
+    @Override public void onItemSelected(    AdapterView<?> parent,    View view,    int pos,    long id){
+      long newId=mAllDeckIds.get(pos);
+      if (mCurrentDid != newId) {
+        mCurrentDid=newId;
+        updateDeckPosition();
+      }
+    }
+    @Override public void onNothingSelected(    AdapterView<?> parent){
+    }
+  }
+);
   Preferences.COMING_FROM_ADD=false;
   mAedictIntent=false;
 switch (mCaller) {
@@ -77,7 +167,16 @@ mAddNote=true;
 break;
 }
 setNote(mEditorNote);
+int position;
+try {
+position=modelIds.indexOf(mEditorNote.model().getLong("id"));
+}
+ catch (JSONException e) {
+throw new RuntimeException(e);
+}
+mNoteTypeSpinner.setSelection(position);
 if (mAddNote) {
+mNoteTypeSpinner.setEnabled(true);
 setTitle(R.string.cardeditor_title_add_note);
 String contents=null;
 if (mSourceText != null) {
@@ -96,24 +195,11 @@ contents=intent.getStringExtra(EXTRA_CONTENTS);
 if (contents != null) {
 setEditFieldTexts(contents);
 }
-LinearLayout modelButton=((LinearLayout)findViewById(R.id.CardEditorModelButton));
-modelButton.setOnClickListener(new View.OnClickListener(){
-@Override public void onClick(View v){
-showDialog(DIALOG_MODEL_SELECT);
-}
-}
-);
-modelButton.setVisibility(View.VISIBLE);
 }
  else {
+mNoteTypeSpinner.setEnabled(false);
 setTitle(R.string.cardeditor_title_edit_card);
 }
-((LinearLayout)findViewById(R.id.CardEditorDeckButton)).setOnClickListener(new View.OnClickListener(){
-@Override public void onClick(View v){
-showDialog(DIALOG_DECK_SELECT);
-}
-}
-);
 mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
 ((LinearLayout)findViewById(R.id.CardEditorTagButton)).setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
