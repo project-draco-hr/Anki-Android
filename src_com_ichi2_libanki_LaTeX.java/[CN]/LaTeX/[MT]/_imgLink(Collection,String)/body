@@ -1,5 +1,5 @@
 {
   String txt=_latexFromHtml(col,latex);
   String fname="latex-" + Utils.checksum(txt) + ".png";
-  return "<img src=\"" + fname + "\">";
+  return "<img class=latex src=\"" + fname + "\">";
 }
