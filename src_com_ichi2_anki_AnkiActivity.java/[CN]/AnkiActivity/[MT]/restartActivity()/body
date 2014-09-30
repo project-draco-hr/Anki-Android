@@ -1,4 +1,5 @@
 {
+  AnkiDroidApp.setLanguage(AnkiDroidApp.getSharedPrefs(getBaseContext()).getString(Preferences.LANGUAGE,""));
   if (AnkiDroidApp.SDK_VERSION >= 11) {
     this.recreate();
   }
