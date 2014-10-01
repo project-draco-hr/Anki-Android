@@ -12,10 +12,10 @@ return true;
 case R.id.action_later:
 String content=getFieldsText();
 if (content.length() > mEditFields.size() - 1) {
-MetaDB.saveIntentInformation(CardEditor.this,content);
+MetaDB.saveIntentInformation(NoteEditor.this,content);
 populateEditFields();
 mSourceText=null;
-Themes.showThemedToast(CardEditor.this,getResources().getString(R.string.CardEditorLaterMessage),false);
+Themes.showThemedToast(NoteEditor.this,getResources().getString(R.string.CardEditorLaterMessage),false);
 }
 if (mCaller == CALLER_INDICLASH || mCaller == CALLER_CARDEDITOR_INTENT_ADD) {
 closeCardEditor();
@@ -23,7 +23,7 @@ closeCardEditor();
 return true;
 case R.id.action_add_card_from_card_editor:
 case R.id.action_copy_card:
-Intent intent=new Intent(CardEditor.this,CardEditor.class);
+Intent intent=new Intent(NoteEditor.this,NoteEditor.class);
 intent.putExtra(EXTRA_CALLER,CALLER_CARDEDITOR);
 if (item.getItemId() == R.id.action_copy_card) {
 intent.putExtra(EXTRA_CONTENTS,getFieldsText());

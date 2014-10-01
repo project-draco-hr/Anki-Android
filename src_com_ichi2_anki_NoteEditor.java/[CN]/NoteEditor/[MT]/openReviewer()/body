@@ -1,5 +1,5 @@
 {
-  Intent reviewer=new Intent(CardEditor.this,Previewer.class);
+  Intent reviewer=new Intent(NoteEditor.this,Previewer.class);
   reviewer.putExtra("currentCardId",mCurrentEditedCard.getId());
   startActivityWithoutAnimation(reviewer);
 }

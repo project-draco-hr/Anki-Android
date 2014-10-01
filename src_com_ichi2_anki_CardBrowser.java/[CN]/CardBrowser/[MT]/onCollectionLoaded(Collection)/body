@@ -74,9 +74,9 @@
       mPositionInCardsList=position;
       long cardId=Long.parseLong(mCards.get(mPositionInCardsList).get("id"));
       sCardBrowserCard=getCol().getCard(cardId);
-      Intent editCard=new Intent(CardBrowser.this,CardEditor.class);
-      editCard.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_CARDBROWSER_EDIT);
-      editCard.putExtra(CardEditor.EXTRA_CARD_ID,sCardBrowserCard.getId());
+      Intent editCard=new Intent(CardBrowser.this,NoteEditor.class);
+      editCard.putExtra(NoteEditor.EXTRA_CALLER,NoteEditor.CALLER_CARDBROWSER_EDIT);
+      editCard.putExtra(NoteEditor.EXTRA_CARD_ID,sCardBrowserCard.getId());
       startActivityForResultWithAnimation(editCard,EDIT_CARD,ActivityTransitionAnimation.LEFT);
     }
   }
