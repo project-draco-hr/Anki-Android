@@ -1,0 +1,8 @@
+{
+  super.fillFlashcard();
+  if (!sDisplayAnswer) {
+    if (mShowWhiteboard && mWhiteboard != null) {
+      mWhiteboard.clear();
+    }
+  }
+}
