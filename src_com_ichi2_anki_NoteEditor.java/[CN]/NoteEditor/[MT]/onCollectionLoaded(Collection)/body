@@ -6,8 +6,8 @@
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
   if (mCaller == CALLER_INDICLASH && preferences.getBoolean("intentAdditionInstantAdd",false)) {
     fetchIntentInformation(intent);
-    MetaDB.saveIntentInformation(CardEditor.this,Utils.joinFields(mSourceText));
-    Themes.showThemedToast(CardEditor.this,getResources().getString(R.string.app_name) + ": " + getResources().getString(R.string.CardEditorLaterMessage),false);
+    MetaDB.saveIntentInformation(NoteEditor.this,Utils.joinFields(mSourceText));
+    Themes.showThemedToast(NoteEditor.this,getResources().getString(R.string.app_name) + ": " + getResources().getString(R.string.CardEditorLaterMessage),false);
     finishWithoutAnimation();
     return;
   }

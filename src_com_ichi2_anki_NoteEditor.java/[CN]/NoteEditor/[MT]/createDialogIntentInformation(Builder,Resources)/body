@@ -5,7 +5,7 @@
   listView.setAdapter(mIntentInformationAdapter);
   listView.setOnItemClickListener(new OnItemClickListener(){
     @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
-      Intent intent=new Intent(CardEditor.this,CardEditor.class);
+      Intent intent=new Intent(NoteEditor.this,NoteEditor.class);
       intent.putExtra(EXTRA_CALLER,CALLER_CARDEDITOR_INTENT_ADD);
       Map<String,String> map=mIntentInformation.get(position);
       intent.putExtra(EXTRA_CONTENTS,map.get("fields"));
@@ -34,7 +34,7 @@
   builder.setCancelable(true);
   builder.setPositiveButton(res.getString(R.string.intent_add_clear_all),new OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int arg1){
-      MetaDB.resetIntentInformation(CardEditor.this);
+      MetaDB.resetIntentInformation(NoteEditor.this);
       updateIntentInformation();
       dialog.dismiss();
     }

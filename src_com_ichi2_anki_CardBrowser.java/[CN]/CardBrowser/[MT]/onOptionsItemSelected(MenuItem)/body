@@ -4,8 +4,8 @@
   }
 switch (item.getItemId()) {
 case R.id.action_add_card_from_card_browser:
-    Intent intent=new Intent(CardBrowser.this,CardEditor.class);
-  intent.putExtra(CardEditor.EXTRA_CALLER,CardEditor.CALLER_CARDBROWSER_ADD);
+    Intent intent=new Intent(CardBrowser.this,NoteEditor.class);
+  intent.putExtra(NoteEditor.EXTRA_CALLER,NoteEditor.CALLER_CARDBROWSER_ADD);
 startActivityForResultWithAnimation(intent,ADD_NOTE,ActivityTransitionAnimation.LEFT);
 return true;
 case R.id.action_sort_by_size:

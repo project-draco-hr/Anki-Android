@@ -13,18 +13,18 @@
             mAedictIntent=true;
           }
  else {
-            Themes.showThemedToast(CardEditor.this,getResources().getString(R.string.intent_aedict_empty),false);
+            Themes.showThemedToast(NoteEditor.this,getResources().getString(R.string.intent_aedict_empty),false);
             return true;
           }
         }
  else {
-          Themes.showThemedToast(CardEditor.this,getResources().getString(R.string.intent_aedict_empty),false);
+          Themes.showThemedToast(NoteEditor.this,getResources().getString(R.string.intent_aedict_empty),false);
           return true;
         }
         return false;
       }
     }
   }
-  Themes.showThemedToast(CardEditor.this,getResources().getString(R.string.intent_aedict_category),false);
+  Themes.showThemedToast(NoteEditor.this,getResources().getString(R.string.intent_aedict_category),false);
   return true;
 }

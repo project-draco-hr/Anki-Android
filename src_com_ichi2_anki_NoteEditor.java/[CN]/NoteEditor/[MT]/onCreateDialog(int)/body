@@ -11,7 +11,7 @@ builder.setPositiveButton(res.getString(R.string.dialog_positive_reset),new OnCl
     getCol().getSched().forgetCards(new long[]{mCurrentEditedCard.getId()});
     getCol().reset();
     mRescheduled=true;
-    Themes.showThemedToast(CardEditor.this,getResources().getString(R.string.reset_card_dialog_acknowledge),true);
+    Themes.showThemedToast(NoteEditor.this,getResources().getString(R.string.reset_card_dialog_acknowledge),true);
   }
 }
 );
@@ -33,7 +33,7 @@ int days=Integer.parseInt(((EditText)rescheduleEditText).getText().toString());
 getCol().getSched().reschedCards(new long[]{mCurrentEditedCard.getId()},days,days);
 getCol().reset();
 mRescheduled=true;
-Themes.showThemedToast(CardEditor.this,getResources().getString(R.string.reschedule_card_dialog_acknowledge),true);
+Themes.showThemedToast(NoteEditor.this,getResources().getString(R.string.reschedule_card_dialog_acknowledge),true);
 }
 }
 );
