@@ -1,6 +1,9 @@
 {
-  TextView deckTextView=(TextView)findViewById(R.id.CardEditorDeckText);
-  deckTextView.setText(getResources().getString(mAddNote ? R.string.CardEditorNoteDeck : R.string.CardEditorCardDeck));
   int position=mAllDeckIds.indexOf(mCurrentDid);
-  mNoteDeckSpinner.setSelection(position);
+  if (position != -1) {
+    mNoteDeckSpinner.setSelection(position,false);
+  }
+ else {
+    Log.e(AnkiDroidApp.TAG,"updateDeckPosition() :: mCurrentDid=" + Long.toString(mCurrentDid) + ", "+ "position = "+ Integer.toString(position));
+  }
 }
