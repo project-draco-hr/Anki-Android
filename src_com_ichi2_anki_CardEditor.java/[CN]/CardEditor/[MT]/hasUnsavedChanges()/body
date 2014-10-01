@@ -1,5 +1,5 @@
 {
-  if (mCurrentEditedCard != null && mCurrentEditedCard.getDid() != mCurrentDid) {
+  if (!mAddNote && mCurrentEditedCard != null && mCurrentEditedCard.getDid() != mCurrentDid) {
     return true;
   }
   for (  FieldEditText f : mEditFields) {
