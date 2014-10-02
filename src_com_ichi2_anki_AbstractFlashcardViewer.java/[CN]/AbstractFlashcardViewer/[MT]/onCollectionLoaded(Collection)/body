@@ -14,10 +14,6 @@
     mCurrentBackgroundColor=Color.WHITE;
   }
   mUseQuickUpdate=shouldUseQuickUpdate();
-  mPrefWhiteboard=MetaDB.getWhiteboardState(this,getParentDid());
-  if (mPrefWhiteboard) {
-    setWhiteboardEnabledState(true);
-  }
   initLayout();
   setTitle();
   if (!mDisableClipboard) {

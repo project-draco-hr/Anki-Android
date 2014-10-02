@@ -1,5 +1,5 @@
 {
-  mWhiteboard=new Whiteboard(this,mInvertedColors,mBlackWhiteboard);
+  mWhiteboard=new Whiteboard(this,mNightMode,mBlackWhiteboard);
   FrameLayout.LayoutParams lp2=new FrameLayout.LayoutParams(android.view.ViewGroup.LayoutParams.FILL_PARENT,android.view.ViewGroup.LayoutParams.FILL_PARENT);
   mWhiteboard.setLayoutParams(lp2);
   FrameLayout fl=(FrameLayout)findViewById(R.id.whiteboard);
@@ -9,7 +9,7 @@
       if (mShowWhiteboard) {
         return false;
       }
-      return gestureDetector.onTouchEvent(event);
+      return getGestureDetector().onTouchEvent(event);
     }
   }
 );
