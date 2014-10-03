@@ -1,6 +1,6 @@
 {
-  if (object instanceof ChartFragment) {
-    ((ChartFragment)object).checkAndUpdate();
+  if (object instanceof StatisticFragment) {
+    ((StatisticFragment)object).checkAndUpdate();
   }
   return super.getItemPosition(object);
 }
