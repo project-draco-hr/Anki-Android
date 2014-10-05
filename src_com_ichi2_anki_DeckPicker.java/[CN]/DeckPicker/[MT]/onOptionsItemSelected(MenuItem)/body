@@ -8,14 +8,17 @@ case R.id.action_sync:
     sync();
   return true;
 case R.id.action_add_note_from_deck_picker:
+hideShowcaseView();
 addNote();
 return true;
 case R.id.action_shared_decks:
+hideShowcaseView();
 if (getCol() != null) {
 addSharedDeck();
 }
 return true;
 case R.id.action_new_deck:
+hideShowcaseView();
 StyledDialog.Builder builder2=new StyledDialog.Builder(DeckPicker.this);
 builder2.setTitle(res.getString(R.string.new_deck));
 mDialogEditText=new EditText(DeckPicker.this);
