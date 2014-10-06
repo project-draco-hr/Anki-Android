@@ -2,7 +2,6 @@
   if (AnkiDroidApp.colIsOpen()) {
     DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK_COUNTS,mLoadCountsHandler,new TaskData(getCol()));
   }
-  TextView textView=(TextView)findViewById(R.id.today_stats_text_view);
-  textView.setVisibility(View.GONE);
-  AnkiStatsTaskHandler.createSmallTodayOverview(textView);
+  mTodayTextView.setVisibility(View.GONE);
+  AnkiStatsTaskHandler.createSmallTodayOverview(mTodayTextView);
 }

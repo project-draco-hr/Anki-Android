@@ -1,0 +1,9 @@
+{
+  animationFactory.fadeOutView(this,fadeOutMillis,new AnimationEndListener(){
+    @Override public void onAnimationEnd(){
+      setVisibility(View.GONE);
+      mEventListener.onShowcaseViewDidHide(ShowcaseView.this);
+    }
+  }
+);
+}

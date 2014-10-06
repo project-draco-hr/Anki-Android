@@ -8,14 +8,17 @@ case R.id.action_sync:
     sync();
   return true;
 case R.id.action_add_note_from_deck_picker:
+hideShowcaseView();
 addNote();
 return true;
 case R.id.action_shared_decks:
+hideShowcaseView();
 if (getCol() != null) {
 addSharedDeck();
 }
 return true;
 case R.id.action_new_deck:
+hideShowcaseView();
 StyledDialog.Builder builder2=new StyledDialog.Builder(DeckPicker.this);
 builder2.setTitle(res.getString(R.string.new_deck));
 mDialogEditText=new EditText(DeckPicker.this);
@@ -63,9 +66,6 @@ showDatabaseErrorDialog(DatabaseErrorDialog.DIALOG_CONFIRM_DATABASE_CHECK);
 return true;
 case R.id.action_check_media:
 showMediaCheckDialog(MediaCheckDialog.DIALOG_CONFIRM_MEDIA_CHECK);
-return true;
-case R.id.action_tutorial:
-createTutorialDeck();
 return true;
 case R.id.action_restore_backup:
 showDatabaseErrorDialog(DatabaseErrorDialog.DIALOG_CONFIRM_RESTORE_BACKUP);
