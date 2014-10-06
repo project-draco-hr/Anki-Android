@@ -67,9 +67,6 @@ return true;
 case R.id.action_check_media:
 showMediaCheckDialog(MediaCheckDialog.DIALOG_CONFIRM_MEDIA_CHECK);
 return true;
-case R.id.action_tutorial:
-createTutorialDeck();
-return true;
 case R.id.action_restore_backup:
 showDatabaseErrorDialog(DatabaseErrorDialog.DIALOG_CONFIRM_RESTORE_BACKUP);
 return true;

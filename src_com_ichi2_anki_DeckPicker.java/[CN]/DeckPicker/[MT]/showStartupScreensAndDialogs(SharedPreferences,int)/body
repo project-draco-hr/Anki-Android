@@ -1,15 +1,5 @@
 {
-  if (skip < 1 && preferences.getLong("lastTimeOpened",0) == 0) {
-    Intent infoIntent=new Intent(this,Info.class);
-    infoIntent.putExtra(Info.TYPE_EXTRA,Info.TYPE_WELCOME);
-    if (skip != 0) {
-      startActivityForResultWithAnimation(infoIntent,SHOW_INFO_WELCOME,ActivityTransitionAnimation.LEFT);
-    }
- else {
-      startActivityForResultWithoutAnimation(infoIntent,SHOW_INFO_WELCOME);
-    }
-  }
- else   if (!AnkiDroidApp.isSdCardMounted()) {
+  if (!AnkiDroidApp.isSdCardMounted()) {
     showSdCardNotMountedDialog();
   }
  else   if (!BackupManager.enoughDiscSpace(mPrefDeckPath)) {

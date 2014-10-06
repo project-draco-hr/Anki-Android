@@ -46,8 +46,6 @@ case TASK_TYPE_DELETE_BACKUPS:
 return doInBackgroundDeleteBackups();
 case TASK_TYPE_UPDATE_CARD_BROWSER_LIST:
 return doInBackgroundUpdateCardBrowserList(params);
-case TASK_TYPE_LOAD_TUTORIAL:
-return doInBackgroundLoadTutorial(params);
 case TASK_TYPE_REPAIR_DECK:
 return doInBackgroundRepairDeck(params);
 case TASK_TYPE_CLOSE_DECK:
