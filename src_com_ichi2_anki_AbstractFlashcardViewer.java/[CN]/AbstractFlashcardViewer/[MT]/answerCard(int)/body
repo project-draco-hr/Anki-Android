@@ -4,6 +4,9 @@
   }
   mIsSelecting=false;
   hideLookupButton();
+  if (getCol().getSched().answerButtons(mCurrentCard) < ease) {
+    return;
+  }
 switch (ease) {
 case EASE_FAILED:
     mChosenAnswer.setText("\u2022");
