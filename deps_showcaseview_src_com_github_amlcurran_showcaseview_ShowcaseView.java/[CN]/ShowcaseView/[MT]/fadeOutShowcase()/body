@@ -1,9 +1,15 @@
 {
-  animationFactory.fadeOutView(this,fadeOutMillis,new AnimationEndListener(){
-    @Override public void onAnimationEnd(){
-      setVisibility(View.GONE);
-      mEventListener.onShowcaseViewDidHide(ShowcaseView.this);
+  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+    animationFactory.fadeOutView(this,fadeOutMillis,new AnimationEndListener(){
+      @Override public void onAnimationEnd(){
+        setVisibility(View.GONE);
+        mEventListener.onShowcaseViewDidHide(ShowcaseView.this);
+      }
     }
-  }
 );
+  }
+ else {
+    setVisibility(View.GONE);
+    mEventListener.onShowcaseViewDidHide(ShowcaseView.this);
+  }
 }
