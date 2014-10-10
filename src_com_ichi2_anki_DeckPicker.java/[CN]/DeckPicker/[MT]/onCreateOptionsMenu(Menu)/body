@@ -6,7 +6,7 @@
   menu.findItem(R.id.action_new_filtered_deck).setEnabled(sdCardAvailable);
   menu.findItem(R.id.action_check_database).setEnabled(sdCardAvailable);
   menu.findItem(R.id.action_check_media).setEnabled(sdCardAvailable);
-  if (mShowShowcaseView && getCol() != null && getCol().isEmpty()) {
+  if (mShowShowcaseView && getCol() != null && getCol().getDb() != null && getCol().isEmpty()) {
     mShowShowcaseView=false;
     final Resources res=getResources();
     ActionItemTarget target=new ActionItemTarget(this,R.id.action_add_decks);
