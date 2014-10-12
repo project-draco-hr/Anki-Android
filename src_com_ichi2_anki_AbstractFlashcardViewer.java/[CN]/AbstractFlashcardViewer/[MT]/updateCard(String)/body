@@ -10,12 +10,7 @@
     }
     if (sDisplayAnswer) {
       if (!mAnswerSoundsAdded) {
-        String afmt=getAnswerFormat();
-        String answerSoundSource=content;
-        if (afmt.contains("{{FrontSide}}")) {
-          String fromFrontSide=mCurrentCard._getQA(false).get("q");
-          answerSoundSource=content.replace(fromFrontSide,"");
-        }
+        String answerSoundSource=removeFrontSideAudio(content);
         Sound.addSounds(mBaseUrl,answerSoundSource,Sound.SOUNDS_ANSWER);
         mAnswerSoundsAdded=true;
       }
