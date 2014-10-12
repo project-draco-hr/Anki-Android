@@ -5,6 +5,7 @@
     if (key.equals("deckConf")) {
       String groupName=getOptionsGroupName();
       int count=getOptionsGroupCount();
+      groupName=groupName.replaceAll("%","%%");
       pref.setSummary(res.getQuantityString(R.plurals.deck_conf_group_summ,count,groupName,count));
       continue;
     }
