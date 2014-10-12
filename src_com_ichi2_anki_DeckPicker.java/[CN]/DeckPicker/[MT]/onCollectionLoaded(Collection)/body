@@ -18,5 +18,19 @@
       mHandler.sendEmptyMessage(MSG_SHOW_COLLECTION_IMPORT_ADD_DIALOG);
     }
   }
+ else   if (col.isEmpty()) {
+    AnkiDroidApp.getCompat().invalidateOptionsMenu(this);
+    final Resources res=getResources();
+    ViewTarget target=new ViewTarget(R.id.action_add_decks,this);
+    mShowcaseDialog=new ShowcaseView.Builder(this).setTarget(target).setContentTitle(res.getString(R.string.studyoptions_welcome_title)).setStyle(R.style.ShowcaseView_Light).setShowcaseEventListener(this).setOnClickListener(new OnClickListener(){
+      @Override public void onClick(      View v){
+        mShowcaseDialog.hide();
+        Intent helpIntent=new Intent("android.intent.action.VIEW",Uri.parse(res.getString(R.string.link_manual_getting_started)));
+        startActivityWithoutAnimation(helpIntent);
+      }
+    }
+).setContentText(res.getString(R.string.add_content_showcase_text)).hideOnTouchOutside().build();
+    mShowcaseDialog.setButtonText(getResources().getString(R.string.help_title));
+  }
   loadCounts();
 }
