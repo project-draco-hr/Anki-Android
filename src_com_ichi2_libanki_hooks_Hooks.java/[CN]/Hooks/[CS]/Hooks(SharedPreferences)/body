@@ -3,6 +3,7 @@
   new FuriganaFilters().install(this);
   new HintFilter().install(this);
   new LaTeX().installHook(this);
+  new Leech().installHook(this);
   if (prefs.getBoolean("fixHebrewText",false)) {
     HebrewFixFilter.install(this);
   }
