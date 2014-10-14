@@ -3,7 +3,6 @@
   Card oldCard=params[0].getCard();
   int ease=params[0].getInt();
   Card newCard=null;
-  int oldCardLeech=0;
   try {
     AnkiDb ankiDB=sched.getCol().getDb();
     ankiDB.getDatabase().beginTransaction();
@@ -17,7 +16,7 @@
       if (newCard != null) {
         newCard._getQA(true);
       }
-      publishProgress(new TaskData(newCard,oldCardLeech));
+      publishProgress(new TaskData(newCard));
       ankiDB.getDatabase().setTransactionSuccessful();
     }
   finally {
