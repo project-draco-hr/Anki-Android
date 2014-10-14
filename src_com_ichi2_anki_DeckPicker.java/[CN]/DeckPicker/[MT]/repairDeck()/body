@@ -7,7 +7,7 @@
       if (mProgressDialog != null && mProgressDialog.isShowing()) {
         mProgressDialog.dismiss();
       }
-      if (result.getBoolean()) {
+      if (result != null && result.getBoolean()) {
         startLoadingCollection();
       }
  else {

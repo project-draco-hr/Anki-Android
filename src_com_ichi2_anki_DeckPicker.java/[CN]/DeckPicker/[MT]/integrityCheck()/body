@@ -7,7 +7,7 @@
       if (mProgressDialog.isShowing()) {
         mProgressDialog.dismiss();
       }
-      if (result.getBoolean()) {
+      if (result != null && result.getBoolean()) {
         String msg="";
         double shrunk=Math.round(result.getLong() / 1024.0);
         if (shrunk > 0.0) {
