@@ -3,5 +3,5 @@
   for (  String fname : unused) {
     m.deleteFile(fname);
   }
-  showLogDialog(String.format(getResources().getString(R.string.check_media_deleted),unused.size()));
+  showSimpleMessageDialog(String.format(getResources().getString(R.string.check_media_deleted),unused.size()));
 }

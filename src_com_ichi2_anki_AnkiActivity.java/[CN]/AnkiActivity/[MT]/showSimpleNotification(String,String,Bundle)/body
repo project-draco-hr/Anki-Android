@@ -1,0 +1,16 @@
+{
+  String ticker=title;
+  if (title.equals(getResources().getString(R.string.app_name))) {
+    ticker=message;
+  }
+  NotificationCompat.Builder builder=new NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_stat_notify).setContentTitle(title).setContentText(message).setTicker(ticker);
+  Intent resultIntent=new Intent(this,DeckPicker.class);
+  resultIntent.putExtras(extras);
+  TaskStackBuilder stackBuilder=TaskStackBuilder.create(this);
+  stackBuilder.addParentStack(DeckPicker.class);
+  stackBuilder.addNextIntent(resultIntent);
+  PendingIntent resultPendingIntent=stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
+  builder.setContentIntent(resultPendingIntent);
+  NotificationManager notificationManager=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+  notificationManager.notify(SIMPLE_NOTIFICATION_ID,builder.build());
+}
