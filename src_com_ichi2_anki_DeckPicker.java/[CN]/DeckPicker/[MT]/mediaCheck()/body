@@ -7,7 +7,7 @@
       if (mProgressDialog.isShowing()) {
         mProgressDialog.dismiss();
       }
-      if (result.getBoolean()) {
+      if (result != null && result.getBoolean()) {
         @SuppressWarnings("unchecked") List<List<String>> checkList=(List<List<String>>)result.getObjArray()[0];
         showMediaCheckDialog(MediaCheckDialog.DIALOG_MEDIA_CHECK_RESULTS,checkList);
       }
