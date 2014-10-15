@@ -3,7 +3,12 @@
 switch ((Integer)data[0]) {
 case UNDO_REVIEW:
     Card c=(Card)data[1];
-  c.flush(false);
+  Boolean wasLeech=(Boolean)data[2];
+if (!wasLeech && c.note().hasTag("leech")) {
+  c.note().delTag("leech");
+  c.note().flush();
+}
+c.flush(false);
 long last=mDb.queryLongScalar("SELECT id FROM revlog WHERE cid = " + c.getId() + " ORDER BY id DESC LIMIT 1");
 mDb.execute("DELETE FROM revlog WHERE id = " + last);
 mDb.execute("update cards set queue=type,mod=?,usn=? where queue=-2 and nid=?",new Object[]{Utils.intNow(),usn(),c.getNid()});

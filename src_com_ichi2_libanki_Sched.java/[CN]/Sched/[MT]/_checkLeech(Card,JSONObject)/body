@@ -20,6 +20,9 @@
         card.setODid(0);
         card.setQueue(-1);
       }
+      if (mContextReference != null) {
+        AnkiDroidApp.getHooks().runHook("leech",card,mContextReference.get());
+      }
       return true;
     }
   }
