@@ -12,7 +12,7 @@
         showMediaCheckDialog(MediaCheckDialog.DIALOG_MEDIA_CHECK_RESULTS,checkList);
       }
  else {
-        showLogDialog(getResources().getString(R.string.check_media_failed));
+        showSimpleMessageDialog(getResources().getString(R.string.check_media_failed));
       }
     }
     @Override public void onProgressUpdate(    TaskData... values){

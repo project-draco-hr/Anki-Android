@@ -1,4 +1,3 @@
 {
-  DialogFragment newFragment=MediaCheckDialog.newInstance(id,checkList);
-  showDialogFragment(newFragment);
+  showAsyncDialogFragment(MediaCheckDialog.newInstance(id,checkList));
 }

@@ -1,0 +1,9 @@
+{
+  MediaCheckDialog f=new MediaCheckDialog();
+  Bundle args=new Bundle();
+  args.putStringArrayList("nohave",nohave);
+  args.putStringArrayList("unused",unused);
+  args.putStringArrayList("invalid",invalid);
+  args.putInt("dialogType",dialogType);
+  return f;
+}

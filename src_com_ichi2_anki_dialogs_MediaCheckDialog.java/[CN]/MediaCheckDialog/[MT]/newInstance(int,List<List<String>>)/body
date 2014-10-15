@@ -1,10 +1,3 @@
 {
-  MediaCheckDialog f=new MediaCheckDialog();
-  Bundle args=new Bundle();
-  args.putInt("dialogType",dialogType);
-  args.putStringArrayList("nohave",new ArrayList<String>(checkList.get(0)));
-  args.putStringArrayList("unused",new ArrayList<String>(checkList.get(1)));
-  args.putStringArrayList("invalid",new ArrayList<String>(checkList.get(2)));
-  f.setArguments(args);
-  return f;
+  return newInstance(dialogType,new ArrayList<String>(checkList.get(0)),new ArrayList<String>(checkList.get(1)),new ArrayList<String>(checkList.get(2)));
 }
