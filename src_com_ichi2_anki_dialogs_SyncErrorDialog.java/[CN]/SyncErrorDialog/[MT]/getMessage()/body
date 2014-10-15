@@ -1,0 +1,20 @@
+{
+switch (getArguments().getInt("dialogType")) {
+case DIALOG_USER_NOT_LOGGED_IN_SYNC:
+    return res().getString(R.string.login_create_account_message);
+case DIALOG_CONNECTION_ERROR:
+  return res().getString(R.string.connection_error_message);
+case DIALOG_SYNC_CONFLICT_RESOLUTION:
+return res().getString(R.string.sync_conflict_message);
+case DIALOG_SYNC_CONFLICT_CONFIRM_KEEP_LOCAL:
+return res().getString(R.string.sync_conflict_local_confirm);
+case DIALOG_SYNC_CONFLICT_CONFIRM_KEEP_REMOTE:
+return res().getString(R.string.sync_conflict_remote_confirm);
+case DIALOG_SYNC_SANITY_ERROR_CONFIRM_KEEP_LOCAL:
+return res().getString(R.string.sync_conflict_local_confirm);
+case DIALOG_SYNC_SANITY_ERROR_CONFIRM_KEEP_REMOTE:
+return res().getString(R.string.sync_conflict_remote_confirm);
+default :
+return getArguments().getString("dialogMessage");
+}
+}

@@ -1,0 +1,11 @@
+{
+  try {
+    showDialogFragment(newFragment);
+  }
+ catch (  IllegalStateException e) {
+    String title=newFragment.getNotificationTitle();
+    String message=newFragment.getNotificationMessage();
+    Bundle intentExtras=newFragment.getNotificationIntentExtras();
+    showSimpleNotification(title,message,intentExtras);
+  }
+}

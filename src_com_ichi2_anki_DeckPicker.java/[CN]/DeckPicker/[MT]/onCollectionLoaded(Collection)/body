@@ -7,6 +7,7 @@
     long did=col.getDecks().selected();
     selectDeck(did);
   }
+  Intent intent=getIntent();
   if (AnkiDroidApp.colIsOpen() && mImportPath != null) {
     if (mHandler == null) {
       mHandler=new DialogHandler(this);
@@ -17,6 +18,12 @@
  else {
       mHandler.sendEmptyMessage(MSG_SHOW_COLLECTION_IMPORT_ADD_DIALOG);
     }
+  }
+ else   if (intent != null && intent.getExtras() != null && intent.getExtras().getBoolean("showAsyncDialogFragment")) {
+    Message m=Message.obtain();
+    m.what=MSG_SHOW_ASYNC_DIALOG;
+    m.setData(getIntent().getExtras());
+    mHandler.sendMessage(m);
   }
   mShowShowcaseView=true;
   AnkiDroidApp.getCompat().invalidateOptionsMenu(this);

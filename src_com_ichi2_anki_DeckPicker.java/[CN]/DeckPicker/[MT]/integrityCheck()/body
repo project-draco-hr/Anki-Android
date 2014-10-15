@@ -16,7 +16,7 @@
  else {
           msg=getResources().getString(R.string.check_db_acknowledge);
         }
-        showLogDialog(msg,true);
+        showSimpleMessageDialog(msg,true);
       }
  else {
         handleDbError();

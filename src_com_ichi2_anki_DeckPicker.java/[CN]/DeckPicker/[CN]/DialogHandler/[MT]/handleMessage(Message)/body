@@ -8,4 +8,25 @@
  else   if (msg.what == MSG_SHOW_COLLECTION_IMPORT_ADD_DIALOG) {
     mActivity.get().showImportDialog(ImportDialog.DIALOG_IMPORT_ADD_CONFIRM,mActivity.get().mImportPath);
   }
+ else   if (msg.what == MSG_SHOW_ASYNC_DIALOG) {
+    Bundle e=msg.getData();
+    String dialogClass=e.getString("dialogClass");
+    if (dialogClass.equals(SyncErrorDialog.CLASS_NAME_TAG)) {
+      int id=e.getInt("dialogType");
+      String message=e.getString("dialogMessage");
+      mActivity.get().showSyncErrorDialog(id,message);
+    }
+ else     if (dialogClass.equals(DeckPickerExportCompleteDialog.CLASS_NAME_TAG)) {
+      AsyncDialogFragment f=DeckPickerExportCompleteDialog.newInstance(e.getString("exportPath"));
+      mActivity.get().showAsyncDialogFragment(f);
+    }
+ else     if (dialogClass.equals(MediaCheckDialog.CLASS_NAME_TAG)) {
+      int id=e.getInt("dialogType");
+      ArrayList<String> nohave=e.getStringArrayList("nohave");
+      ArrayList<String> unused=e.getStringArrayList("unused");
+      ArrayList<String> invalid=e.getStringArrayList("invalid");
+      AsyncDialogFragment f=MediaCheckDialog.newInstance(id,nohave,unused,invalid);
+      mActivity.get().showAsyncDialogFragment(f);
+    }
+  }
 }
