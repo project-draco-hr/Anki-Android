@@ -50,4 +50,5 @@
     AnkiDroidApp.getCompat().setSubtitle(this,res.getQuantityString(R.plurals.deckpicker_title,due,due,time));
   }
   WidgetStatus.update(this,decks);
+  AnkiDroidApp.getCompat().invalidateOptionsMenu(this);
 }
