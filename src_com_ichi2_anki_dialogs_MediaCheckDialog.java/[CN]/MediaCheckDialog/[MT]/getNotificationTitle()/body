@@ -1,0 +1,8 @@
+{
+switch (getArguments().getInt("dialogType")) {
+case DIALOG_CONFIRM_MEDIA_CHECK:
+    return res().getString(R.string.check_media_title);
+default :
+  return res().getString(R.string.app_name);
+}
+}

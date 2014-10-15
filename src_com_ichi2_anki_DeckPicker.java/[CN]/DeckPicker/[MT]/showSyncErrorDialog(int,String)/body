@@ -1,4 +1,4 @@
 {
-  DialogFragment newFragment=SyncErrorDialog.newInstance(id,message);
-  showDialogFragment(newFragment);
+  AsyncDialogFragment newFragment=SyncErrorDialog.newInstance(id,message);
+  showAsyncDialogFragment(newFragment);
 }

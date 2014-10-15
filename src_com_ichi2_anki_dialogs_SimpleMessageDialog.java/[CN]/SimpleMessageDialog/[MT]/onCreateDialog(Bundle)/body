@@ -1,0 +1,12 @@
+{
+  super.onCreate(savedInstanceState);
+  StyledDialog.Builder builder=new StyledDialog.Builder(getActivity());
+  builder.setMessage(getArguments().getString("message"));
+  builder.setPositiveButton(res().getString(R.string.dialog_ok),new DialogInterface.OnClickListener(){
+    @Override public void onClick(    DialogInterface dialog,    int which){
+      ((SimpleMessageDialogListener)getActivity()).dismissSimpleMessageDialog(getArguments().getBoolean("reload"));
+    }
+  }
+);
+  return builder.create();
+}
