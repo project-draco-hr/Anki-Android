@@ -5,12 +5,12 @@
 switch (id) {
 case DIALOG_STATISTIC_TYPE:
     boolean selectAllDecksButton=false;
-  if (!(getActivity() instanceof AnkiStatsActivity)) {
+  if (!(getActivity() instanceof Statistics)) {
     if ((getActivity() instanceof DeckPicker && !mFragmented)) {
       selectAllDecksButton=true;
     }
     AnkiStatsTaskHandler.setIsWholeCollection(selectAllDecksButton);
-    Intent intent=new Intent(getActivity(),AnkiStatsActivity.class);
+    Intent intent=new Intent(getActivity(),Statistics.class);
     startActivity(intent);
   }
 break;
