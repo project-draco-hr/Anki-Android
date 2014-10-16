@@ -13,7 +13,7 @@ addNote();
 return true;
 case R.id.action_shared_decks:
 hideShowcaseView();
-if (getCol() != null) {
+if (colOpen()) {
 addSharedDeck();
 }
 return true;

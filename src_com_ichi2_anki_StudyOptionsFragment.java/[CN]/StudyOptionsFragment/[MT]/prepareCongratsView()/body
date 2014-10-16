@@ -1,5 +1,5 @@
 {
-  if (getCol() != null && getCol().getSched() != null) {
+  if (colOpen()) {
     mCurrentContentView=CONTENT_CONGRATS;
     mDeckInfoLayout.setVisibility(View.GONE);
     mCongratsLayout.setVisibility(View.VISIBLE);
