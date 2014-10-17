@@ -1,0 +1,28 @@
+{
+switch (mSectionNumber) {
+case FORECAST_TAB_POSITION:
+    mCreateChartTask=(((Statistics)getActivity()).getTaskHandler()).createChart(Stats.ChartType.FORECAST,mChart,mProgressBar);
+  break;
+case REVIEW_COUNT_TAB_POSITION:
+mCreateChartTask=(((Statistics)getActivity()).getTaskHandler()).createChart(Stats.ChartType.REVIEW_COUNT,mChart,mProgressBar);
+break;
+case REVIEW_TIME_TAB_POSITION:
+mCreateChartTask=(((Statistics)getActivity()).getTaskHandler()).createChart(Stats.ChartType.REVIEW_TIME,mChart,mProgressBar);
+break;
+case INTERVALS_TAB_POSITION:
+mCreateChartTask=(((Statistics)getActivity()).getTaskHandler()).createChart(Stats.ChartType.INTERVALS,mChart,mProgressBar);
+break;
+case HOURLY_BREAKDOWN_TAB_POSITION:
+mCreateChartTask=(((Statistics)getActivity()).getTaskHandler()).createChart(Stats.ChartType.HOURLY_BREAKDOWN,mChart,mProgressBar);
+break;
+case WEEKLY_BREAKDOWN_TAB_POSITION:
+mCreateChartTask=(((Statistics)getActivity()).getTaskHandler()).createChart(Stats.ChartType.WEEKLY_BREAKDOWN,mChart,mProgressBar);
+break;
+case ANSWER_BUTTONS_TAB_POSITION:
+mCreateChartTask=(((Statistics)getActivity()).getTaskHandler()).createChart(Stats.ChartType.ANSWER_BUTTONS,mChart,mProgressBar);
+break;
+case CARDS_TYPES_TAB_POSITION:
+mCreateChartTask=(((Statistics)getActivity()).getTaskHandler()).createChart(Stats.ChartType.CARDS_TYPES,mChart,mProgressBar);
+break;
+}
+}

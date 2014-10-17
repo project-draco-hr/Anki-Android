@@ -2,10 +2,10 @@
   if (!mIsCreated)   return;
   int height=mWebView.getMeasuredHeight();
   int width=mWebView.getMeasuredWidth();
-  if (mType != (((AnkiStatsActivity)getActivity()).getTaskHandler()).getStatType() || mDeckId != AnkiDroidApp.getCol().getDecks().selected() || mIsWholeCollection != AnkiStatsTaskHandler.isWholeCollection()) {
+  if (mType != (((Statistics)getActivity()).getTaskHandler()).getStatType() || mDeckId != AnkiDroidApp.getCol().getDecks().selected() || mIsWholeCollection != AnkiStatsTaskHandler.isWholeCollection()) {
     mHeight=height;
     mWidth=width;
-    mType=(((AnkiStatsActivity)getActivity()).getTaskHandler()).getStatType();
+    mType=(((Statistics)getActivity()).getTaskHandler()).getStatType();
     mProgressBar.setVisibility(View.VISIBLE);
     mWebView.setVisibility(View.GONE);
     mDeckId=AnkiDroidApp.getCol().getDecks().selected();
