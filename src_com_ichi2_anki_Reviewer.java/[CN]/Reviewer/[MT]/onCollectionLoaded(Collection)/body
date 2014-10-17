@@ -3,6 +3,7 @@
   mPrefWhiteboard=MetaDB.getWhiteboardState(this,getParentDid());
   if (mPrefWhiteboard) {
     setWhiteboardEnabledState(true);
+    setWhiteboardVisibility(true);
   }
   col.getSched().reset();
   DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(mSched,null,0));
