@@ -1,7 +1,7 @@
 {
   Log.i(AnkiDroidApp.TAG,"DeckPicker - onResume");
   super.onResume();
-  if (getCol() != null) {
+  if (colOpen()) {
     if (Utils.now() > getCol().getSched().getDayCutoff() && AnkiDroidApp.isSdCardMounted()) {
       loadCounts();
     }
