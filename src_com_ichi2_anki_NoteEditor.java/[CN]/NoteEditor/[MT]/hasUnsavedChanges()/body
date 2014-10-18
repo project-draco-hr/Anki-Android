@@ -2,10 +2,8 @@
   if (!mAddNote && mCurrentEditedCard != null && mCurrentEditedCard.getDid() != mCurrentDid) {
     return true;
   }
-  for (  FieldEditText f : mEditFields) {
-    if (fieldChanged(f)) {
-      return true;
-    }
+  if (mFieldEdited) {
+    return true;
   }
   for (  String t : mSelectedTags) {
     if (!mEditorNote.hasTag(t)) {

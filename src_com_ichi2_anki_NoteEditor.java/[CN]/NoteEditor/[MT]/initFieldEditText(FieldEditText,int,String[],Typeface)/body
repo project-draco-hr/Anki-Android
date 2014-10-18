@@ -11,6 +11,7 @@
   if (index == 0) {
     editText.addTextChangedListener(new TextWatcher(){
       @Override public void afterTextChanged(      Editable arg0){
+        mFieldEdited=true;
         duplicateCheck();
       }
       @Override public void beforeTextChanged(      CharSequence arg0,      int arg1,      int arg2,      int arg3){
