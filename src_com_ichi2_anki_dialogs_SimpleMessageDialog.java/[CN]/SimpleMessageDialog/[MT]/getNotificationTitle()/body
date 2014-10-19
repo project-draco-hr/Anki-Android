@@ -1,3 +1,9 @@
 {
-  return AnkiDroidApp.getAppResources().getString(R.string.app_name);
+  String title=getArguments().getString("title");
+  if (!title.equals("")) {
+    return title;
+  }
+ else {
+    return AnkiDroidApp.getAppResources().getString(R.string.app_name);
+  }
 }
