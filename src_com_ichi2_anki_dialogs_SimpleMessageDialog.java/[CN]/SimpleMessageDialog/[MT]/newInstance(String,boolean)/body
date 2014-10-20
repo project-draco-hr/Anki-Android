@@ -1,8 +1,3 @@
 {
-  SimpleMessageDialog f=new SimpleMessageDialog();
-  Bundle args=new Bundle();
-  args.putString("message",message);
-  args.putBoolean("reload",reload);
-  f.setArguments(args);
-  return f;
+  return newInstance("",message,reload);
 }
