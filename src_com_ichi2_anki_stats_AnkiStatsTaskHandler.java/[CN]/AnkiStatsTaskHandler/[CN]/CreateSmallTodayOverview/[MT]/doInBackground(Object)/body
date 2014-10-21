@@ -6,8 +6,8 @@
       return null;
     }
  else     Log.d(AnkiDroidApp.TAG,"starting CreateSmallTodayOverview");
-    mTextView=(TextView)params[0];
-    Collection collection=AnkiDroidApp.getCol();
+    Collection collection=(Collection)params[0];
+    mTextView=(TextView)params[1];
     int cards, thetime;
     Cursor cur=null;
     String query="select count(), sum(time)/1000 from revlog where id > " + ((collection.getSched().getDayCutoff() - 86400) * 1000);

@@ -7,7 +7,7 @@
   mViewPager=(ViewPager)findViewById(R.id.pager);
   mViewPager.setAdapter(mSectionsPagerAdapter);
   mViewPager.setOffscreenPageLimit(8);
-  AnkiStatsTaskHandler.createFirstStatisticChooserTask(mViewPager);
+  AnkiStatsTaskHandler.createFirstStatisticChooserTask(col,mViewPager);
   mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
     @Override public void onPageSelected(    int position){
       actionBar.setSelectedNavigationItem(position);
