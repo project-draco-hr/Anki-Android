@@ -71,11 +71,13 @@
     }
     try {
       HttpClient httpClient=new DefaultHttpClient(cm,params);
-      return httpClient.execute(httpPost);
+      HttpResponse httpResponse=httpClient.execute(httpPost);
+      assertOk(httpResponse);
+      return httpResponse;
     }
  catch (    SSLException e) {
       Log.e(AnkiDroidApp.TAG,"SSLException while building HttpClient",e);
-      return null;
+      throw new RuntimeException("SSLException while building HttpClient");
     }
   }
  catch (  UnsupportedEncodingException e) {

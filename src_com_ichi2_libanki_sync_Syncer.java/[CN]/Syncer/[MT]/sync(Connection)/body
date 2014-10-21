@@ -9,9 +9,6 @@
   if (returntype == 403) {
     return new Object[]{"badAuth"};
   }
- else   if (returntype != 200) {
-    return new Object[]{"error",returntype,ret.getStatusLine().getReasonPhrase()};
-  }
   try {
     mCol.getDb().getDatabase().beginTransaction();
     try {
@@ -52,6 +49,10 @@
         return new Object[]{"fullSync"};
       }
       mLNewer=mLMod > mRMod;
+      if (!mCol.basicCheck()) {
+        mCol.log("basic check");
+        return new Object[]{"basicCheckFailed"};
+      }
       publishProgress(con,R.string.sync_deletions_message);
       Log.i(AnkiDroidApp.TAG,"Sync: collection removed data");
       JSONObject lrem=removed();
@@ -61,14 +62,6 @@
       o.put("graves",lrem);
       Log.i(AnkiDroidApp.TAG,"Sync: sending and receiving removed data");
       JSONObject rrem=mServer.start(o);
-      if (rrem == null) {
-        Log.i(AnkiDroidApp.TAG,"Sync: error - returning");
-        return null;
-      }
-      if (rrem.has("errorType")) {
-        Log.i(AnkiDroidApp.TAG,"Sync: error - returning");
-        return new Object[]{"error",rrem.get("errorType"),rrem.get("errorReason")};
-      }
       Log.i(AnkiDroidApp.TAG,"Sync: applying removed data");
       remove(rrem);
       publishProgress(con,R.string.sync_small_objects_message);
@@ -78,14 +71,6 @@
       sch.put("changes",lchg);
       Log.i(AnkiDroidApp.TAG,"Sync: sending and receiving small changes");
       JSONObject rchg=mServer.applyChanges(sch);
-      if (rchg == null) {
-        Log.i(AnkiDroidApp.TAG,"Sync: error - returning");
-        return null;
-      }
-      if (rchg.has("errorType")) {
-        Log.i(AnkiDroidApp.TAG,"Sync: error - returning");
-        return new Object[]{"error",rchg.get("errorType"),rchg.get("errorReason")};
-      }
       Log.i(AnkiDroidApp.TAG,"Sync: merging small changes");
       mergeChanges(lchg,rchg);
       publishProgress(con,R.string.sync_download_chunk);
@@ -93,14 +78,6 @@
         Log.i(AnkiDroidApp.TAG,"Sync: downloading chunked data");
         JSONObject chunk=mServer.chunk();
         mCol.log("server chunk",chunk);
-        if (chunk == null) {
-          Log.i(AnkiDroidApp.TAG,"Sync: error - returning");
-          return null;
-        }
-        if (chunk.has("errorType")) {
-          Log.i(AnkiDroidApp.TAG,"Sync: error - returning");
-          return new Object[]{"error",chunk.get("errorType"),chunk.get("errorReason")};
-        }
         Log.i(AnkiDroidApp.TAG,"Sync: applying chunked data");
         applyChunk(chunk);
         if (chunk.getBoolean("done")) {
