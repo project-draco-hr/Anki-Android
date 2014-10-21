@@ -21,7 +21,7 @@ builder.setTitle(res.getString(R.string.import_select_title));
 StyledDialog dialog=builder.create();
 List<File> fileList=Utils.getImportableDecks();
 if (fileList.size() == 0) {
-Themes.showThemedToast(getActivity(),getResources().getString(R.string.upgrade_import_no_file_found),false);
+Themes.showThemedToast(getActivity(),getResources().getString(R.string.upgrade_import_no_file_found,"'.apkg'"),false);
 }
 dialog.setEnabled(fileList.size() != 0);
 String[] tts=new String[fileList.size()];
