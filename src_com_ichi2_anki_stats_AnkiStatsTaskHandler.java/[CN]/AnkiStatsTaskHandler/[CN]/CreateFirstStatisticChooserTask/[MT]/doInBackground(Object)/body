@@ -1,12 +1,12 @@
 {
   sLock.lock();
   try {
-    if (!mIsRunning) {
+    Collection collection=(Collection)params[0];
+    if (!mIsRunning || collection == null || collection.getDb() == null) {
       Log.d(AnkiDroidApp.TAG,"quiting CreateTodayLearnCountOnly before execution");
       return null;
     }
  else     Log.d(AnkiDroidApp.TAG,"starting CreateTodayLearnCountOnly");
-    Collection collection=(Collection)params[0];
     mViewPager=(ViewPager)params[1];
     int cards;
     Cursor cur=null;
