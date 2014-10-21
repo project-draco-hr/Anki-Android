@@ -1,15 +1,6 @@
 {
   mCollection=col;
   initAllContentViews();
-  if (mSwipeEnabled) {
-    gestureDetector=new GestureDetector(new MyGestureDetector());
-    gestureListener=new View.OnTouchListener(){
-      public boolean onTouch(      View v,      MotionEvent event){
-        return gestureDetector.onTouchEvent(event);
-      }
-    }
-;
-  }
   if (noDeckCounts()) {
     prepareCongratsView();
   }
