@@ -2,7 +2,15 @@
   String username=(String)data.data[0];
   String password=(String)data.data[1];
   HttpSyncer server=new RemoteServer(this,null);
-  HttpResponse ret=server.hostKey(username,password);
+  HttpResponse ret;
+  try {
+    ret=server.hostKey(username,password);
+  }
+ catch (  UnknownHttpResponseException e) {
+    data.success=false;
+    data.result=new Object[]{"error",e.getResponseCode(),e.getMessage()};
+    return data;
+  }
   String hostkey=null;
   boolean valid=false;
   if (ret != null) {

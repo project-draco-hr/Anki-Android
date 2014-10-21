@@ -155,7 +155,17 @@ catch (      RuntimeException e) {
       return data;
     }
   }
- catch (  Exception e) {
+ catch (  UnknownHttpResponseException e) {
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundSync -- unknown response code error");
+    e.printStackTrace();
+    data.success=false;
+    Integer code=e.getResponseCode();
+    String msg=e.getLocalizedMessage();
+    data.result=new Object[]{"error",code,msg};
+    data.data=new Object[]{mediaUsn};
+    return data;
+  }
+catch (  Exception e) {
     Log.e(AnkiDroidApp.TAG,"doInBackgroundSync error");
     e.printStackTrace();
     data.success=false;
