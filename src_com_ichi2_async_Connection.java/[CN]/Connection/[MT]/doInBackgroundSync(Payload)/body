@@ -39,6 +39,10 @@
         data.data=new Object[]{mediaUsn};
         return data;
       }
+      if (retCode.equals("sanityCheckError")) {
+        col.modSchema();
+        col.save();
+      }
       if (retCode.equals("noChanges")) {
         noChanges=true;
       }
