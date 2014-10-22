@@ -1,0 +1,9 @@
+{
+  if (mScrollState == ViewPager.SCROLL_STATE_IDLE) {
+    mTabStrip.onViewPagerPageChanged(position,0f);
+    scrollToTab(position,0);
+  }
+  if (mViewPagerPageChangeListener != null) {
+    mViewPagerPageChangeListener.onPageSelected(position);
+  }
+}
