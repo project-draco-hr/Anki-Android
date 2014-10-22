@@ -1,7 +1,7 @@
 {
 switch (item.getItemId()) {
 case R.id.action_undo:
-    if (AnkiDroidApp.colIsOpen()) {
+    if (colOpen()) {
       getCol().undo();
       resetAndUpdateValuesFromDeck();
       finishCongrats();

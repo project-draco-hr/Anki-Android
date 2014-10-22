@@ -1,6 +1,6 @@
 {
   JSONObject dyn;
-  if (AnkiDroidApp.colIsOpen()) {
+  if (colOpen()) {
     Collection col=getCol();
     try {
       String deckName=col.getDecks().current().getString("name");
