@@ -1,3 +1,5 @@
 {
-  return StatisticFragment.newInstance(position);
+  Fragment item=StatisticFragment.newInstance(position);
+  ((StatisticFragment)item).checkAndUpdate();
+  return item;
 }

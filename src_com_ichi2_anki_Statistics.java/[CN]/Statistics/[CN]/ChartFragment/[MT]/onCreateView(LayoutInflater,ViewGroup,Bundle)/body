@@ -12,7 +12,6 @@
   mHeight=mChart.getMeasuredHeight();
   mWidth=mChart.getMeasuredWidth();
   mChart.addFragment(this);
-  mInstance=this;
   mType=(((Statistics)getActivity()).getTaskHandler()).getStatType();
   mIsCreated=true;
   mActivityPager=((Statistics)getActivity()).getViewPager();

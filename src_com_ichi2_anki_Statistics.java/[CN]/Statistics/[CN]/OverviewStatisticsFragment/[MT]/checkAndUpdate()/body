@@ -1,10 +1,6 @@
 {
   if (!mIsCreated)   return;
-  int height=mWebView.getMeasuredHeight();
-  int width=mWebView.getMeasuredWidth();
   if (mType != (((Statistics)getActivity()).getTaskHandler()).getStatType() || mDeckId != AnkiDroidApp.getCol().getDecks().selected() || mIsWholeCollection != AnkiStatsTaskHandler.isWholeCollection()) {
-    mHeight=height;
-    mWidth=width;
     mType=(((Statistics)getActivity()).getTaskHandler()).getStatType();
     mProgressBar.setVisibility(View.VISIBLE);
     mWebView.setVisibility(View.GONE);

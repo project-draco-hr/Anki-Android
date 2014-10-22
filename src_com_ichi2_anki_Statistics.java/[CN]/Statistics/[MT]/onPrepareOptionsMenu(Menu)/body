@@ -1,4 +1,7 @@
 {
+  if (mTaskHandler == null) {
+    return true;
+  }
 switch (mTaskHandler.getStatType()) {
 case Stats.TYPE_MONTH:
     MenuItem monthItem=menu.findItem(R.id.item_time_month);
