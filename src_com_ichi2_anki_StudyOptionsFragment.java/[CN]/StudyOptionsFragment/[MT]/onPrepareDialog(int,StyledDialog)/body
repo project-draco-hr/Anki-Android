@@ -5,7 +5,7 @@ case DIALOG_CUSTOM_STUDY_DETAILS:
     styledDialog.setTitle(res.getStringArray(R.array.custom_study_options_labels)[mCustomDialogChoice]);
 switch (mCustomDialogChoice + 1) {
 case CUSTOM_STUDY_NEW:
-    if (AnkiDroidApp.colIsOpen()) {
+    if (colOpen()) {
       Collection col=getCol();
       mCustomStudyTextView1.setText(res.getString(R.string.custom_study_new_total_new,col.getSched().totalNewForCurrentDeck()));
     }
@@ -13,7 +13,7 @@ case CUSTOM_STUDY_NEW:
 mCustomStudyEditText.setText(Integer.toString(AnkiDroidApp.getSharedPrefs(getActivity()).getInt("extendNew",10)));
 styledDialog.setButtonOnClickListener(Dialog.BUTTON_POSITIVE,new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
-  if (AnkiDroidApp.colIsOpen()) {
+  if (colOpen()) {
     try {
       int n=Integer.parseInt(mCustomStudyEditText.getText().toString());
       AnkiDroidApp.getSharedPrefs(getActivity()).edit().putInt("extendNew",n).commit();
@@ -37,7 +37,7 @@ catch (    JSONException e) {
 );
 break;
 case CUSTOM_STUDY_REV:
-if (AnkiDroidApp.colIsOpen()) {
+if (colOpen()) {
 Collection col=getCol();
 mCustomStudyTextView1.setText(res.getString(R.string.custom_study_rev_total_rev,col.getSched().totalRevForCurrentDeck()));
 }
@@ -45,7 +45,7 @@ mCustomStudyTextView2.setText(res.getString(R.string.custom_study_rev_extend));
 mCustomStudyEditText.setText(Integer.toString(AnkiDroidApp.getSharedPrefs(getActivity()).getInt("extendRev",10)));
 styledDialog.setButtonOnClickListener(Dialog.BUTTON_POSITIVE,new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
-if (AnkiDroidApp.colIsOpen()) {
+if (colOpen()) {
 try {
 int n=Integer.parseInt(mCustomStudyEditText.getText().toString());
 AnkiDroidApp.getSharedPrefs(getActivity()).edit().putInt("extendRev",n).commit();

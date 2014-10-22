@@ -1,6 +1,6 @@
 {
   String fullName;
-  if (!AnkiDroidApp.colIsOpen()) {
+  if (!colOpen()) {
     return;
   }
   JSONObject deck=getCol().getDecks().current();

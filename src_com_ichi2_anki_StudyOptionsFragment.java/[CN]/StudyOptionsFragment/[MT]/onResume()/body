@@ -1,12 +1,12 @@
 {
   super.onResume();
-  if (AnkiDroidApp.colIsOpen()) {
+  if (colOpen()) {
     if (Utils.now() > getCol().getSched().getDayCutoff()) {
       updateValuesFromDeck(true);
     }
  else {
       updateValuesFromDeck();
     }
+    showOrHideUnburyButton();
   }
-  showOrHideUnburyButton();
 }
