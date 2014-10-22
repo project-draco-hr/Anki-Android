@@ -12,4 +12,7 @@
   setHasOptionsMenu(true);
   showCongratsIfNeeded();
   dismissCollectionLoadingDialog();
+  if (mFragmented) {
+    ((DeckPicker)getActivity()).reloadShowcaseView();
+  }
 }
