@@ -9,7 +9,7 @@
     closeStudyOptions(DeckPicker.RESULT_MEDIA_EJECTED);
   }
  else {
-    if (!AnkiDroidApp.colIsOpen()) {
+    if (!colOpen()) {
       ((AnkiActivity)getActivity()).startLoadingCollection();
       mDontSaveOnStop=false;
       return;

@@ -25,7 +25,9 @@
     m.setData(getIntent().getExtras());
     mHandler.sendMessage(m);
   }
-  mShowShowcaseView=true;
+  if (!mFragmented) {
+    mShowShowcaseView=true;
+  }
   AnkiDroidApp.getCompat().invalidateOptionsMenu(this);
   loadCounts();
 }
