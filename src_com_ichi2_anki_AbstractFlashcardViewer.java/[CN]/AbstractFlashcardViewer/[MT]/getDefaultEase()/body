@@ -1,0 +1,8 @@
+{
+  if (getCol().getSched().answerButtons(mCurrentCard) == 4) {
+    return EASE_MID;
+  }
+ else {
+    return EASE_HARD;
+  }
+}
