@@ -83,14 +83,8 @@ return builder.create();
 case DIALOG_SYNC_SANITY_ERROR_CONFIRM_KEEP_LOCAL:
 builder.setPositiveButton(res().getString(R.string.dialog_positive_overwrite),new Dialog.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
-SyncErrorDialogListener activity=(SyncErrorDialogListener)getActivity();
-Collection col=activity.getCol();
-if (col != null) {
-col.modSchema(true);
-col.setMod();
-activity.sync("upload",0);
+((SyncErrorDialogListener)getActivity()).sync("upload",0);
 dismissAllDialogFragments();
-}
 }
 }
 );
@@ -99,14 +93,8 @@ return builder.create();
 case DIALOG_SYNC_SANITY_ERROR_CONFIRM_KEEP_REMOTE:
 builder.setPositiveButton(res().getString(R.string.dialog_positive_overwrite),new Dialog.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
-SyncErrorDialogListener activity=(SyncErrorDialogListener)getActivity();
-Collection col=activity.getCol();
-if (col != null) {
-col.modSchema(true);
-col.setMod();
-activity.sync("download",0);
+((SyncErrorDialogListener)getActivity()).sync("download",0);
 dismissAllDialogFragments();
-}
 }
 }
 );
