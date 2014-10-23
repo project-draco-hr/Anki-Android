@@ -1,6 +1,6 @@
 {
   super.onResume();
-  if (colOpen()) {
+  if (colOpen() && !mFragmented) {
     if (Utils.now() > getCol().getSched().getDayCutoff()) {
       updateValuesFromDeck(true);
     }
