@@ -1,16 +1,9 @@
 {
   mCollection=col;
   initAllContentViews();
-  if (noDeckCounts()) {
-    prepareCongratsView();
-  }
- else {
-    getCol().clearUndo();
-  }
   mCramInitialConfig=getArguments().getBundle("cramInitialConfig");
-  resetAndUpdateValuesFromDeck();
+  resetAndRefreshInterface(false);
   setHasOptionsMenu(true);
-  showCongratsIfNeeded();
   dismissCollectionLoadingDialog();
   if (mFragmented) {
     ((DeckPicker)getActivity()).reloadShowcaseView();
