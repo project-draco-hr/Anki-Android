@@ -2,6 +2,7 @@
   Log.i(AnkiDroidApp.TAG,"DeckPicker - onStop");
   super.onStop();
   if (colOpen()) {
+    WidgetStatus.update(this);
     UIUtils.saveCollectionInBackground();
   }
 }

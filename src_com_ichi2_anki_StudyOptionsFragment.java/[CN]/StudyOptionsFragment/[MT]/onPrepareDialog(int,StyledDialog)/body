@@ -22,8 +22,7 @@ styledDialog.setButtonOnClickListener(Dialog.BUTTON_POSITIVE,new DialogInterface
       deck.put("extendNew",n);
       col.getDecks().save(deck);
       col.getSched().extendLimits(n,0);
-      resetAndUpdateValuesFromDeck();
-      finishCongrats();
+      resetAndRefreshInterface();
     }
  catch (    NumberFormatException e) {
       Themes.showThemedToast(getActivity().getBaseContext(),getResources().getString(R.string.custom_study_invalid_number),false);
@@ -54,8 +53,7 @@ JSONObject deck=col.getDecks().current();
 deck.put("extendRev",n);
 col.getDecks().save(deck);
 col.getSched().extendLimits(0,n);
-resetAndUpdateValuesFromDeck();
-finishCongrats();
+resetAndRefreshInterface();
 }
  catch (NumberFormatException e) {
 Themes.showThemedToast(getActivity().getBaseContext(),getResources().getString(R.string.custom_study_invalid_number),false);

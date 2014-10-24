@@ -1,16 +1,15 @@
 {
   super.onResume();
   if (colOpen() && !mFragmented) {
-    Log.i(AnkiDroidApp.TAG,"StudyOptionsFragment.onResume() -- updating deck counts");
+    Log.i(AnkiDroidApp.TAG,"StudyOptionsFragment.onResume() -- refreshing interface");
     if (Utils.now() > getCol().getSched().getDayCutoff()) {
-      updateValuesFromDeck(true);
+      resetAndRefreshInterface(false);
     }
  else {
-      updateValuesFromDeck();
+      refreshInterface();
     }
-    showOrHideUnburyButton();
   }
  else {
-    Log.i(AnkiDroidApp.TAG,"StudyOptionsFragment.onResume() -- skipping updating of deck counts");
+    Log.i(AnkiDroidApp.TAG,"StudyOptionsFragment.onResume() -- skipping refresh of interface");
   }
 }
