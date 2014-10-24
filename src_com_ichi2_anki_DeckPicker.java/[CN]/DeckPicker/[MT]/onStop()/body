@@ -1,5 +1,7 @@
 {
   Log.i(AnkiDroidApp.TAG,"DeckPicker - onStop");
   super.onStop();
-  UIUtils.saveCollectionInBackground();
+  if (colOpen()) {
+    UIUtils.saveCollectionInBackground();
+  }
 }
