@@ -175,6 +175,7 @@ if (BackupManager.moveDatabaseToBrokenFolder(path,false)) {
  else {
 ((DatabaseErrorDialogListener)getActivity()).showDatabaseErrorDialog(DIALOG_ERROR_HANDLING);
 }
+dismissAllDialogFragments();
 }
 }
 );

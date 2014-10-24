@@ -1,4 +1,5 @@
 {
+  Log.i(AnkiDroidApp.TAG,"StudyOptionsFragment.loadCollection()");
   if (AnkiDroidApp.getCol() == null) {
     showCollectionLoadingDialog();
   }
