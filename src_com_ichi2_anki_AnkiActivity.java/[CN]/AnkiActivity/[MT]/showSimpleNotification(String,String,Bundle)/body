@@ -3,7 +3,7 @@
   if (title.equals(getResources().getString(R.string.app_name))) {
     ticker=message;
   }
-  NotificationCompat.Builder builder=new NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_stat_notify).setContentTitle(title).setContentText(message).setTicker(ticker);
+  NotificationCompat.Builder builder=new NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_stat_notify).setContentTitle(title).setContentText(message).setStyle(new NotificationCompat.BigTextStyle().bigText(message)).setTicker(ticker);
   Intent resultIntent=new Intent(this,DeckPicker.class);
   resultIntent.putExtras(extras);
   resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
