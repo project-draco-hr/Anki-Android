@@ -1,6 +1,7 @@
 {
   super.onResume();
   if (colOpen() && !mFragmented) {
+    Log.i(AnkiDroidApp.TAG,"StudyOptionsFragment.onResume() -- updating deck counts");
     if (Utils.now() > getCol().getSched().getDayCutoff()) {
       updateValuesFromDeck(true);
     }
@@ -8,5 +9,8 @@
       updateValuesFromDeck();
     }
     showOrHideUnburyButton();
+  }
+ else {
+    Log.i(AnkiDroidApp.TAG,"StudyOptionsFragment.onResume() -- skipping updating of deck counts");
   }
 }
