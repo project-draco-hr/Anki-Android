@@ -16,6 +16,7 @@
  else {
     question=mCurrentCard.q();
   }
+  question=getCol().getMedia().escapeImages(question);
   question=typeAnsQuestionFilter(question);
   if (mPrefFixArabic) {
     question=ArabicUtilities.reshapeSentence(question,true);
