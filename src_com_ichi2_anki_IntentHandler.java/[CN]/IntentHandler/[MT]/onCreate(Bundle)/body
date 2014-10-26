@@ -18,10 +18,10 @@
         if (cursor != null)         cursor.close();
       }
       if (filename != null && filename.endsWith(".apkg")) {
-        File tempImportPath=new File(getCacheDir(),filename);
+        Uri importUri=Uri.fromFile(new File(getCacheDir(),filename));
         try {
           InputStream in=getContentResolver().openInputStream(intent.getData());
-          OutputStream out=new FileOutputStream(tempImportPath);
+          OutputStream out=new FileOutputStream(importUri.getEncodedPath());
           byte[] buf=new byte[1024];
           int len;
           while ((len=in.read(buf)) > 0) {
@@ -36,7 +36,7 @@
 catch (        IOException e2) {
           e2.printStackTrace();
         }
-        reloadIntent.setData(Uri.fromFile(tempImportPath));
+        reloadIntent.setData(importUri);
         reloadIntent.putExtra("deleteTempFile",true);
       }
  else {
