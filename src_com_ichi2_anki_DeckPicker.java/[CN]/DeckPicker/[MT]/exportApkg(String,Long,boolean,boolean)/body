@@ -8,7 +8,7 @@
   }
  else   if (did != null) {
     try {
-      exportPath=new File(exportDir,getCol().getDecks().get(did).getString("name") + ".apkg");
+      exportPath=new File(exportDir,getCol().getDecks().get(did).getString("name").replaceAll("\\W+","_") + ".apkg");
     }
  catch (    JSONException e) {
       throw new RuntimeException(e);
