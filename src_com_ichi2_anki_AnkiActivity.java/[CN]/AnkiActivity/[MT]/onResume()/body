@@ -1,4 +1,4 @@
 {
-  super.onCreate(savedInstanceState);
+  super.onResume();
   ((NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE)).cancel(SIMPLE_NOTIFICATION_ID);
 }
