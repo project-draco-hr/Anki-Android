@@ -1,0 +1,4 @@
+{
+  AnkiDroidApp.getInstance().setStoredData(checkList);
+  showAsyncDialogFragment(MediaCheckDialog.newInstance(id,checkList));
+}

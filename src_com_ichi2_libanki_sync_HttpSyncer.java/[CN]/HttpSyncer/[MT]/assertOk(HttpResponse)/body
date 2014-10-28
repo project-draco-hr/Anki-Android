@@ -1,0 +1,10 @@
+{
+  if (resp == null) {
+    throw new UnknownHttpResponseException("Null HttpResponse",-2);
+  }
+  int resultCode=resp.getStatusLine().getStatusCode();
+  if (!(resultCode == 200 || resultCode == 403)) {
+    String reason=resp.getStatusLine().getReasonPhrase();
+    throw new UnknownHttpResponseException(reason,resultCode);
+  }
+}

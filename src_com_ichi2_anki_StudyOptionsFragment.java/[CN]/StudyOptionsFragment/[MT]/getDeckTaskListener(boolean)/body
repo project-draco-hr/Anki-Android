@@ -1,0 +1,8 @@
+{
+  if (mFragmented && updateDeckList) {
+    return mRefreshWholeInterfaceListener;
+  }
+ else {
+    return mRefreshFragmentListener;
+  }
+}

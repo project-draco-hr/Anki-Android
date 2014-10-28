@@ -1,6 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"Upgrading Internal Database..");
-  Log.i(AnkiDroidApp.TAG,"Applying changes for version: 0");
   if (mMetaDb.getVersion() < 4) {
     mMetaDb.execSQL("DROP TABLE IF EXISTS languages;");
     mMetaDb.execSQL("DROP TABLE IF EXISTS customDictionary;");
@@ -30,6 +28,5 @@
     mMetaDb.execSQL("ALTER TABLE intentInformation " + "DROP COLUMN target INTEGER NOT NULL DEFAULT '0'");
   }
   mMetaDb.setVersion(databaseVersion);
-  Log.i(AnkiDroidApp.TAG,"Upgrading Internal Database finished. New version: " + databaseVersion);
   return mMetaDb;
 }

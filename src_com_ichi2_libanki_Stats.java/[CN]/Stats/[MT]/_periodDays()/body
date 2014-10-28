@@ -1,0 +1,11 @@
+{
+switch (mType) {
+case TYPE_MONTH:
+    return 30;
+case TYPE_YEAR:
+  return 365;
+default :
+case TYPE_LIFE:
+return -1;
+}
+}

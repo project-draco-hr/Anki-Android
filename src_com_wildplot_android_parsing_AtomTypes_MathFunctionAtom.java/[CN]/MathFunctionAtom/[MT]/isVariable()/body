@@ -1,0 +1,6 @@
+{
+  if (mathType != MathType.INVALID) {
+    return expression.isVariable();
+  }
+ else   throw new ExpressionFormatException("Number is Invalid, cannot parse");
+}

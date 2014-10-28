@@ -1,0 +1,17 @@
+{
+  mWhiteboard=new Whiteboard(this,mNightMode,mBlackWhiteboard);
+  FrameLayout.LayoutParams lp2=new FrameLayout.LayoutParams(android.view.ViewGroup.LayoutParams.FILL_PARENT,android.view.ViewGroup.LayoutParams.FILL_PARENT);
+  mWhiteboard.setLayoutParams(lp2);
+  FrameLayout fl=(FrameLayout)findViewById(R.id.whiteboard);
+  fl.addView(mWhiteboard);
+  mWhiteboard.setOnTouchListener(new View.OnTouchListener(){
+    @Override public boolean onTouch(    View v,    MotionEvent event){
+      if (mShowWhiteboard) {
+        return false;
+      }
+      return getGestureDetector().onTouchEvent(event);
+    }
+  }
+);
+  mWhiteboard.setEnabled(true);
+}

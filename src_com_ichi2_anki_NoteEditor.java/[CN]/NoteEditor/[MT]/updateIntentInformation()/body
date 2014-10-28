@@ -1,0 +1,7 @@
+{
+  mIntentInformation.clear();
+  mIntentInformation.addAll(MetaDB.getIntentInformation(this));
+  if (mIntentInformationAdapter != null) {
+    mIntentInformationAdapter.notifyDataSetChanged();
+  }
+}

@@ -1,0 +1,14 @@
+{
+  if (factorString.length() > 0 && factorString.charAt(0) == '-') {
+    boolean isValidFactor;
+    String leftSubString=factorString.substring(1,factorString.length());
+    Factor leftFactor=new Factor(leftSubString,parser);
+    isValidFactor=leftFactor.getFactorType() != FactorType.INVALID;
+    if (isValidFactor) {
+      this.factorType=FactorType.MINUS_FACTOR;
+      this.factor=leftFactor;
+      return true;
+    }
+  }
+  return false;
+}

@@ -1,0 +1,19 @@
+{
+  super.onCreate(savedInstanceState);
+  StyledDialog.Builder builder=new StyledDialog.Builder(getActivity());
+  String[] entries=new String[5];
+  Resources res=getResources();
+  entries[CONTEXT_MENU_COLLAPSE_DECK]=res.getString(R.string.contextmenu_deckpicker_collapse_deck);
+  entries[CONTEXT_MENU_RENAME_DECK]=res.getString(R.string.contextmenu_deckpicker_rename_deck);
+  entries[CONTEXT_MENU_DECK_OPTIONS]=res.getString(R.string.study_options);
+  entries[CONTEXT_MENU_DELETE_DECK]=res.getString(R.string.contextmenu_deckpicker_delete_deck);
+  entries[CONTEXT_MENU_EXPORT_DECK]=res.getString(R.string.export);
+  builder.setTitle("Context Menu");
+  builder.setIcon(R.drawable.ic_menu_manage);
+  builder.setItems(entries,mContextMenuListener);
+  builder.setTitle(getArguments().getString("dialogTitle"));
+  StyledDialog dialog=builder.create();
+  dialog.changeListItem(CONTEXT_MENU_COLLAPSE_DECK,getResources().getString(getArguments().getBoolean("isCollapsed") ? R.string.contextmenu_deckpicker_inflate_deck : R.string.contextmenu_deckpicker_collapse_deck));
+  setCancelable(true);
+  return dialog;
+}

@@ -1,0 +1,17 @@
+{
+  sLock.lock();
+  try {
+    if (!mIsRunning) {
+      return null;
+    }
+ else     mWebView=(WebView)params[0];
+    mProgressBar=(ProgressBar)params[1];
+    String html="";
+    InfoStatsBuilder infoStatsBuilder=new InfoStatsBuilder(mWebView,mCollectionData,sIsWholeCollection);
+    html=infoStatsBuilder.createInfoHtmlString();
+    return html;
+  }
+  finally {
+    sLock.unlock();
+  }
+}

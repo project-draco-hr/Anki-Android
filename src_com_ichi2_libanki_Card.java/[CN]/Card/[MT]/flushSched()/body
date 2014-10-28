@@ -19,4 +19,5 @@
   values.put("odid",mODid);
   values.put("did",mDid);
   mCol.getDb().update("cards",values,"id = " + mId,null);
+  mCol.log(this);
 }

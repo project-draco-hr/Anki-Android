@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundImportReplace");
   Collection col=params[0].getCollection();
   String path=params[0].getString();
   Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
@@ -40,14 +39,16 @@
   if (col != null) {
     colPath=col.getPath();
     AnkiDroidApp.closeCollection(true);
-    BackupManager.performBackup(colPath,true);
+    BackupManager.performBackupInBackground(colPath,true);
   }
   colPath=AnkiDroidApp.getCollectionPath();
   File f=new File(colFile);
-  f.renameTo(new File(colPath));
+  if (!f.renameTo(new File(colPath))) {
+    return new TaskData(-2,null,false);
+  }
   int addedCount=-1;
   try {
-    col=AnkiDroidApp.openCollection(colPath);
+    col=AnkiDroidApp.openCollection(colPath,true);
     HashMap<String,String> nameToNum=new HashMap<String,String>();
     HashMap<String,String> numToName=new HashMap<String,String>();
     File mediaMapFile=new File(fileDir,"media");

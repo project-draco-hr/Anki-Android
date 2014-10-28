@@ -1,0 +1,6 @@
+{
+  if (!AnkiDroidApp.colIsOpen()) {
+    showOpeningCollectionDialog();
+  }
+  getSupportLoaderManager().restartLoader(0,null,this);
+}

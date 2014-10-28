@@ -1,0 +1,35 @@
+{
+  super.onCollectionLoaded(col);
+  mSched=col.getSched();
+  mBaseUrl=Utils.getBaseUrl(col.getMedia().dir());
+  restorePreferences();
+  if (mPrefFullscreenReview) {
+    UIUtils.setFullScreen(this);
+  }
+  registerExternalStorageListener();
+  if (mNightMode) {
+    mCurrentBackgroundColor=Themes.getNightModeCardBackground(this);
+  }
+ else {
+    mCurrentBackgroundColor=Color.WHITE;
+  }
+  mUseQuickUpdate=shouldUseQuickUpdate();
+  initLayout();
+  setTitle();
+  if (!mDisableClipboard) {
+    clipboardSetText("");
+  }
+  try {
+    mCardTemplate=Utils.convertStreamToString(getAssets().open("card_template.html"));
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+  if (mSpeakText) {
+    ReadText.initializeTts(this);
+  }
+  Lookup.initialize(this);
+  deselectAllNavigationItems();
+  supportInvalidateOptionsMenu();
+  dismissOpeningCollectionDialog();
+}

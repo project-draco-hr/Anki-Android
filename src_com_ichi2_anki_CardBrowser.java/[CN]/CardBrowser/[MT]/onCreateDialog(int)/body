@@ -14,17 +14,17 @@ builder.setSingleChoiceItems(res.getStringArray(R.array.card_browser_order_label
     mOrderAsc=false;
     try {
       if (mOrder == 0) {
-        mCol.getConf().put("sortType",fSortTypes[1]);
+        getCol().getConf().put("sortType",fSortTypes[1]);
         AnkiDroidApp.getSharedPrefs(getBaseContext()).edit().putBoolean("cardBrowserNoSorting",true).commit();
       }
  else {
-        mCol.getConf().put("sortType",fSortTypes[mOrder]);
+        getCol().getConf().put("sortType",fSortTypes[mOrder]);
         AnkiDroidApp.getSharedPrefs(getBaseContext()).edit().putBoolean("cardBrowserNoSorting",false).commit();
       }
       if (fSortTypes[mOrder].equals("noteFld")) {
         mOrderAsc=true;
       }
-      mCol.getConf().put("sortBackwards",mOrderAsc);
+      getCol().getConf().put("sortBackwards",mOrderAsc);
     }
  catch (    JSONException e) {
       throw new RuntimeException(e);
@@ -34,7 +34,7 @@ builder.setSingleChoiceItems(res.getStringArray(R.array.card_browser_order_label
  else   if (which != CARD_ORDER_NONE) {
     mOrderAsc=!mOrderAsc;
     try {
-      mCol.getConf().put("sortBackwards",mOrderAsc);
+      getCol().getConf().put("sortBackwards",mOrderAsc);
     }
  catch (    JSONException e) {
       throw new RuntimeException(e);
@@ -53,7 +53,7 @@ String[] entries=new String[4];
 entries[CONTEXT_MENU_MARK]=res.getString(R.string.card_browser_mark_card);
 entries[CONTEXT_MENU_SUSPEND]=res.getString(R.string.card_browser_suspend_card);
 entries[CONTEXT_MENU_DELETE]=res.getString(R.string.card_browser_delete_card);
-entries[CONTEXT_MENU_DETAILS]=res.getString(R.string.card_browser_card_details);
+entries[CONTEXT_MENU_DETAILS]=res.getString(R.string.card_editor_preview_card);
 builder.setTitle("contextmenu");
 builder.setIcon(R.drawable.ic_menu_manage);
 builder.setItems(entries,mContextMenuListener);

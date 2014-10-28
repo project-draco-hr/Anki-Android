@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
   if (mCurrentSimpleInterface && mSimpleCard != null) {
     mSimpleCard.setText(mCardContent);
   }
@@ -50,8 +49,5 @@ switchTopBarVisibility(View.VISIBLE);
 }
 if (!sDisplayAnswer) {
 updateForNewCard();
-if (mShowWhiteboard) {
-mWhiteboard.clear();
-}
 }
 }

@@ -1,12 +1,13 @@
 {
   super.onResume();
-  if (AnkiDroidApp.colIsOpen()) {
-    if (Utils.now() > AnkiDroidApp.getCol().getSched().getDayCutoff()) {
-      updateValuesFromDeck(true);
+  if (colOpen() && !mFragmented) {
+    if (Utils.now() > getCol().getSched().getDayCutoff()) {
+      resetAndRefreshInterface(false);
     }
  else {
-      updateValuesFromDeck();
+      refreshInterface();
     }
   }
-  showOrHideUnburyButton();
+ else {
+  }
 }

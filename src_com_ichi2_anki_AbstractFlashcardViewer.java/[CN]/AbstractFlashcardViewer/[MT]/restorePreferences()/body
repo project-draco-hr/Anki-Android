@@ -1,12 +1,11 @@
 {
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
   mPrefHideDueCount=preferences.getBoolean("hideDueCount",false);
-  mPrefWhiteboard=preferences.getBoolean("whiteboard",false);
   mPrefWriteAnswers=!preferences.getBoolean("writeAnswersDisable",false);
+  mDisableClipboard=preferences.getString("dictionary","0").equals("0");
   mLongClickWorkaround=preferences.getBoolean("textSelectionLongclickWorkaround",false);
   mNightMode=preferences.getBoolean("invertedColors",false);
   mInvertedColors=mNightMode;
-  mBlackWhiteboard=preferences.getBoolean("blackWhiteboard",true);
   mPrefFullscreenReview=preferences.getBoolean("fullscreenReview",false);
   mDisplayFontSize=preferences.getInt("relativeDisplayFontSize",100);
   mRelativeImageSize=preferences.getInt("relativeImageSize",100);
@@ -51,8 +50,8 @@
     }
   }
   try {
-    mShowNextReviewTime=AnkiDroidApp.getCol().getConf().getBoolean("estTimes");
-    mShowRemainingCardCount=AnkiDroidApp.getCol().getConf().getBoolean("dueCounts");
+    mShowNextReviewTime=getCol().getConf().getBoolean("estTimes");
+    mShowRemainingCardCount=getCol().getConf().getBoolean("dueCounts");
   }
  catch (  JSONException e) {
     throw new RuntimeException();

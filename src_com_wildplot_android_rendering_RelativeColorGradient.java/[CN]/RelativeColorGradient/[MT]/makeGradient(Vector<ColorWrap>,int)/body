@@ -1,0 +1,38 @@
+{
+  if (colorVector == null) {
+    colorVector=new Vector<ColorWrap>();
+  }
+  if (colorVector.size() < 2) {
+    colorVector.add(new ColorWrap(255,255,255));
+    if (colorVector.size() < 2) {
+      colorVector.add(0,new ColorWrap(0,0,0));
+    }
+  }
+  numberOfColorsInGradient-=colorVector.size();
+  while (numberOfColorsInGradient >= 0) {
+    ColorWrap firstColor=colorVector.get(0);
+    ColorWrap secondColor=colorVector.get(1);
+    int index=1;
+    double highestDelta=0;
+    for (int i=1; i < colorVector.size(); i++) {
+      secondColor=colorVector.get(i);
+      double delta=delta(firstColor.getRed(),secondColor.getRed());
+      delta+=delta(firstColor.getGreen(),secondColor.getGreen());
+      delta+=delta(firstColor.getBlue(),secondColor.getBlue());
+      delta=Math.pow(delta,1.0 / 3.0);
+      if (delta > highestDelta) {
+        highestDelta=delta;
+        index=i;
+      }
+      firstColor=secondColor;
+    }
+    firstColor=colorVector.get(index - 1);
+    secondColor=colorVector.get(index);
+    int newRed=firstColor.getRed() - (firstColor.getRed() - secondColor.getRed()) / 2;
+    int newGreen=firstColor.getGreen() - (firstColor.getGreen() - secondColor.getGreen()) / 2;
+    int newBlue=firstColor.getBlue() - (firstColor.getBlue() - secondColor.getBlue()) / 2;
+    colorVector.add(index,new ColorWrap(newRed,newGreen,newBlue));
+    numberOfColorsInGradient--;
+  }
+  return colorVector.toArray(new ColorWrap[colorVector.size()]);
+}

@@ -1,8 +1,16 @@
 {
   String username=(String)data.data[0];
   String password=(String)data.data[1];
-  BasicHttpSyncer server=new RemoteServer(this,null);
-  HttpResponse ret=server.register(username,password);
+  HttpSyncer server=new RemoteServer(this,null);
+  HttpResponse ret;
+  try {
+    ret=server.register(username,password);
+  }
+ catch (  UnknownHttpResponseException e) {
+    data.success=false;
+    data.result=new Object[]{"error",e.getResponseCode(),e.getMessage()};
+    return data;
+  }
   String hostkey=null;
   boolean valid=false;
   String status=null;

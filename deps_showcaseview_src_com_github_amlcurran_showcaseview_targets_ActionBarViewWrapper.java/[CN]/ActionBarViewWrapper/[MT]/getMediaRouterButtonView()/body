@@ -1,0 +1,27 @@
+{
+  try {
+    Field actionMenuPresenterField=mActionBarViewClass.getDeclaredField("mOptionsMenu");
+    actionMenuPresenterField.setAccessible(true);
+    Object optionsMenu=actionMenuPresenterField.get(mActionBarView);
+    Field actionItemsField=optionsMenu.getClass().getDeclaredField("mActionItems");
+    actionItemsField.setAccessible(true);
+    List actionItems=(ArrayList)actionItemsField.get(optionsMenu);
+    if (null != actionItems) {
+      for (      Object obj : actionItems) {
+        System.out.println(obj);
+        Object view=getMediaRouteButton(obj);
+        if (null != view) {
+          return (View)view;
+        }
+      }
+    }
+    return null;
+  }
+ catch (  IllegalAccessException e) {
+    e.printStackTrace();
+  }
+catch (  NoSuchFieldException e) {
+    e.printStackTrace();
+  }
+  return null;
+}

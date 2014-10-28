@@ -1,0 +1,10 @@
+{
+switch (item.getItemId()) {
+case android.R.id.home:
+    closeReviewer(RESULT_OK,true);
+  break;
+default :
+return super.onOptionsItemSelected(item);
+}
+return true;
+}

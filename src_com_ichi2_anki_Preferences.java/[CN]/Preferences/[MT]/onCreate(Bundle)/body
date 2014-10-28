@@ -49,11 +49,11 @@
 );
   collectionPathPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener(){
     public boolean onPreferenceChange(    Preference preference,    final Object newValue){
-      File collectionDirectory=new File((String)newValue);
-      if (!collectionDirectory.exists()) {
+      File collectionPath=new File((String)newValue);
+      if (!collectionPath.exists()) {
         Dialog pathCheckDialog=new AlertDialog.Builder(Preferences.this).setTitle(R.string.dialog_collection_path_title).setMessage(R.string.dialog_collection_path_text).setPositiveButton(android.R.string.yes,new DialogInterface.OnClickListener(){
           @Override public void onClick(          DialogInterface dialog,          int which){
-            AnkiDroidApp.getSharedPrefs(getBaseContext()).edit().putString("deckPath",(String)newValue).commit();
+            collectionPathPreference.setText((String)newValue);
             updateEditTextPreference("deckPath");
           }
         }
@@ -63,6 +63,10 @@
         }
 ).create();
         pathCheckDialog.show();
+        return false;
+      }
+ else       if (collectionPath.exists() && !collectionPath.isDirectory()) {
+        Toast.makeText(getApplicationContext(),R.string.dialog_collection_path_not_dir,Toast.LENGTH_LONG).show();
         return false;
       }
  else {
@@ -80,6 +84,21 @@
   }
 );
   dialogPreference.setSummary(getResources().getString(R.string.about_version) + " " + AnkiDroidApp.getPkgVersionName());
+  Preference fullSyncPreference=(Preference)getPreferenceScreen().findPreference("force_full_sync");
+  fullSyncPreference.setOnPreferenceClickListener(new OnPreferenceClickListener(){
+    public boolean onPreferenceClick(    Preference preference){
+      if (mCol != null && mCol.getDb() != null) {
+        mCol.modSchema(true);
+        mCol.setMod();
+        Toast.makeText(getApplicationContext(),R.string.ok,Toast.LENGTH_SHORT).show();
+      }
+ else {
+        Toast.makeText(getApplicationContext(),R.string.vague_error,Toast.LENGTH_SHORT).show();
+      }
+      return true;
+    }
+  }
+);
   if (mCol != null) {
     mStartDate=GregorianCalendar.getInstance();
     Timestamp timestamp=new Timestamp(mCol.getCrt() * 1000);

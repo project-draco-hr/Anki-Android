@@ -1,0 +1,56 @@
+{
+  RectangleWrap field=g.getClipBounds();
+  float cleanSpace=17;
+  float tics=(int)((this.ticStart - this.start) / tic);
+  double leftStart=this.ticStart - this.tic * tics;
+  double logStart=0;
+  if (this.isLog) {
+    logStart=Math.ceil(Math.log10(this.start));
+    leftStart=Math.pow(10,logStart++);
+  }
+  double currentY=leftStart;
+  while (currentY <= this.end) {
+    if ((!this.isOnFrame && plotSheet.yToGraphic(currentY,field) >= plotSheet.yToGraphic(this.end,field) + cleanSpace && plotSheet.yToGraphic(currentY,field) <= plotSheet.yToGraphic(this.start,field) - cleanSpace && plotSheet.yToGraphic(currentY,field) <= field.y + field.height - cleanSpace && plotSheet.yToGraphic(currentY,field) >= field.y + cleanSpace) || (this.isOnFrame && currentY <= this.plotSheet.getyRange()[1] && currentY >= this.plotSheet.getyRange()[0])) {
+      if (this.markOnRight) {
+        drawRightMarker(g,field,currentY);
+      }
+      if (this.markOnLeft) {
+        drawLeftMarker(g,field,currentY);
+      }
+      if (!(Math.abs(currentY) < yOffset + 0.001 && !this.isOnFrame)) {
+        if (isOnRightSide)         drawNumberingOnRightSide(g,field,currentY);
+ else         drawNumbering(g,field,currentY);
+      }
+    }
+    if (this.isLog) {
+      currentY=Math.pow(10,logStart++);
+    }
+ else {
+      currentY+=this.tic;
+    }
+  }
+  FontMetricsWrap fm=g.getFontMetrics(g.getFont());
+  float width=fm.stringWidth(this.name);
+  float[] arowheadPos={plotSheet.xToGraphic(xOffset,field),(plotSheet.getyRange()[1] >= this.end) ? plotSheet.yToGraphic(this.end,field) : plotSheet.yToGraphic(plotSheet.getyRange()[1],field)};
+  if (!this.isOnFrame) {
+    g.drawLine(arowheadPos[0] - 1,arowheadPos[1] + 1,arowheadPos[0] - 3,arowheadPos[1] + 6);
+    g.drawLine(arowheadPos[0] + 1,arowheadPos[1] + 1,arowheadPos[0] + 3,arowheadPos[1] + 6);
+    if (mHasName)     g.drawString(this.name,arowheadPos[0] - 13 - width,arowheadPos[1] + 10);
+  }
+ else {
+    float spacerValue=maxTextWidth;
+    if (mHasNumbersRotated)     spacerValue=g.getFontMetrics().getHeight();
+    g.save();
+    if (isOnRightSide) {
+      float[] middlePosition={plotSheet.xToGraphic(xOffset,field),plotSheet.yToGraphic(0,field)};
+      g.rotate(90,middlePosition[0] + spacerValue * 1.4f,field.height / 2 - width / 2);
+      if (mHasName)       g.drawString(this.name,middlePosition[0] + spacerValue * 1.4f,field.height / 2 - width / 2);
+    }
+ else {
+      float[] middlePosition={plotSheet.xToGraphic(xOffset,field),plotSheet.yToGraphic(0,field)};
+      g.rotate(-90,middlePosition[0] - spacerValue * 1.4f,field.height / 2 + width / 2);
+      if (mHasName)       g.drawString(this.name,middlePosition[0] - spacerValue * 1.4f,field.height / 2 + width / 2);
+    }
+    g.restore();
+  }
+}

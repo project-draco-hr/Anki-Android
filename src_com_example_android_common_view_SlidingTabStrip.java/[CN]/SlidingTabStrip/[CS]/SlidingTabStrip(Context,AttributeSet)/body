@@ -1,0 +1,20 @@
+{
+  super(context,attrs);
+  setWillNotDraw(false);
+  final float density=getResources().getDisplayMetrics().density;
+  TypedValue outValue=new TypedValue();
+  context.getTheme().resolveAttribute(R.attr.colorForeground,outValue,true);
+  final int themeForegroundColor=outValue.data;
+  mDefaultBottomBorderColor=setColorAlpha(themeForegroundColor,DEFAULT_BOTTOM_BORDER_COLOR_ALPHA);
+  mDefaultTabColorizer=new SimpleTabColorizer();
+  mDefaultTabColorizer.setIndicatorColors(DEFAULT_SELECTED_INDICATOR_COLOR);
+  mDefaultTabColorizer.setDividerColors(setColorAlpha(themeForegroundColor,DEFAULT_DIVIDER_COLOR_ALPHA));
+  mBottomBorderThickness=(int)(DEFAULT_BOTTOM_BORDER_THICKNESS_DIPS * density);
+  mBottomBorderPaint=new Paint();
+  mBottomBorderPaint.setColor(mDefaultBottomBorderColor);
+  mSelectedIndicatorThickness=(int)(SELECTED_INDICATOR_THICKNESS_DIPS * density);
+  mSelectedIndicatorPaint=new Paint();
+  mDividerHeight=DEFAULT_DIVIDER_HEIGHT;
+  mDividerPaint=new Paint();
+  mDividerPaint.setStrokeWidth((int)(DEFAULT_DIVIDER_THICKNESS_DIPS * density));
+}

@@ -1,0 +1,43 @@
+{
+  int length=mSeriesList.length;
+  if (mChartType == Stats.ChartType.HOURLY_BREAKDOWN || mChartType == Stats.ChartType.WEEKLY_BREAKDOWN) {
+    length--;
+  }
+  for (int i=1; i < length; i++) {
+    double[][] bars=new double[2][];
+    bars[0]=mSeriesList[0];
+    bars[1]=mSeriesList[i];
+    PlotSheet usedPlotSheet=plotSheet;
+    double barThickness=mBarThickness;
+    if ((mChartType == Stats.ChartType.HOURLY_BREAKDOWN || mChartType == Stats.ChartType.WEEKLY_BREAKDOWN)) {
+      barThickness=0.8;
+      if (i == 2) {
+        usedPlotSheet=hiddenPlotSheet;
+        barThickness=0.2;
+      }
+    }
+    ColorWrap color;
+switch (mChartType) {
+case ANSWER_BUTTONS:
+case HOURLY_BREAKDOWN:
+case WEEKLY_BREAKDOWN:
+case INTERVALS:
+      color=new ColorWrap(mChartView.getResources().getColor(mColors[i - 1]),barOpacity);
+    break;
+case REVIEW_COUNT:
+case REVIEW_TIME:
+case FORECAST:
+  if (i == 1) {
+    color=new ColorWrap(mChartView.getResources().getColor(mColors[i - 1]),barOpacity);
+    break;
+  }
+default :
+color=new ColorWrap(mChartView.getResources().getColor(mColors[i - 1]));
+}
+BarGraph barGraph=new BarGraph(usedPlotSheet,barThickness,bars,color);
+barGraph.setFilling(true);
+barGraph.setName(mChartView.getResources().getString(mValueLabels[i - 1]));
+barGraph.setFillColor(color);
+plotSheet.addDrawable(barGraph);
+}
+}

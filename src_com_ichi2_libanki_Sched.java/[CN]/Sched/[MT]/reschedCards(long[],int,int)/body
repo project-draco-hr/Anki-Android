@@ -8,5 +8,6 @@
     d.add(new Object[]{Math.max(1,r),r + t,mCol.usn(),mod,2500,id});
   }
   remFromDyn(ids);
-  mCol.getDb().executeMany("update cards set type=2,queue=2,ivl=?,due=?,odue=0 " + "usn=?,mod=?,factor=? where id=?",d);
+  mCol.getDb().executeMany("update cards set type=2,queue=2,ivl=?,due=?,odue=0, " + "usn=?,mod=?,factor=? where id=?",d);
+  mCol.log(ids);
 }

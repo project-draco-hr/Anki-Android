@@ -1,6 +1,7 @@
 {
   Resources res=getResources();
   int[] colors=Themes.setNightMode(this,mMainLayout,invert);
+  refreshActionBar();
   mForegroundColor=colors[0];
   mNextTimeTextColor=mForegroundColor;
   mNextTimeTextRecomColor=colors[1];

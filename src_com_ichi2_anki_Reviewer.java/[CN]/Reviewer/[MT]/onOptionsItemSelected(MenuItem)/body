@@ -1,0 +1,57 @@
+{
+  if (getDrawerToggle().onOptionsItemSelected(item)) {
+    return true;
+  }
+switch (item.getItemId()) {
+case android.R.id.home:
+    closeReviewer(RESULT_OK,true);
+  break;
+case R.id.action_undo:
+undo();
+break;
+case R.id.action_mark_card:
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_MARK_CARD,mMarkCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,0));
+break;
+case R.id.action_replay:
+playSounds(true);
+break;
+case R.id.action_edit:
+return editCard();
+case R.id.action_bury_card:
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,4));
+break;
+case R.id.action_bury_note:
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,0));
+break;
+case R.id.action_suspend_card:
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,1));
+break;
+case R.id.action_suspend_note:
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,2));
+break;
+case R.id.action_delete:
+showDeleteNoteDialog();
+break;
+case R.id.action_clear_whiteboard:
+if (mWhiteboard != null) {
+mWhiteboard.clear();
+}
+break;
+case R.id.action_hide_whiteboard:
+setWhiteboardVisibility(!mShowWhiteboard);
+refreshActionBar();
+break;
+case R.id.action_enable_whiteboard:
+mPrefWhiteboard=!mPrefWhiteboard;
+setWhiteboardEnabledState(mPrefWhiteboard);
+setWhiteboardVisibility(mPrefWhiteboard);
+refreshActionBar();
+break;
+case R.id.action_search_dictionary:
+lookUpOrSelectText();
+break;
+default :
+return super.onOptionsItemSelected(item);
+}
+return true;
+}

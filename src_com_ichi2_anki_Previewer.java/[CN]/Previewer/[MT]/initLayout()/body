@@ -1,7 +1,5 @@
 {
   super.initLayout();
-  mDrawerToggle.setDrawerIndicatorEnabled(false);
-  findViewById(R.id.answer_options_layout).setVisibility(View.GONE);
+  getDrawerToggle().setDrawerIndicatorEnabled(false);
   mTopBarLayout.setVisibility(View.GONE);
-  mFlipCardLayout.setVisibility(View.GONE);
 }

@@ -1,10 +1,9 @@
 {
-  Collection d=new Shared().getEmptyDeck();
-  File dir=new File(AnkiDroidApp.getCurrentAnkiDroidMediaDir());
+  Collection d=Shared.getEmptyCol();
+  File dir=Shared.getTestDir();
   BackupManager.removeDir(dir);
   dir.mkdirs();
-  File f=new File(dir,"foo.jpg");
-  String path=f.getAbsolutePath();
+  File path=new File(dir,"foo.jpg");
   FileOutputStream os;
   os=new FileOutputStream(path,false);
   os.write("hello".getBytes());

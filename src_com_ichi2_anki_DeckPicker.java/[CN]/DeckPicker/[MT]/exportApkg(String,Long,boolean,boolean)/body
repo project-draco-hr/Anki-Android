@@ -1,0 +1,30 @@
+{
+  File colPath=new File(getCol().getPath());
+  File exportDir=new File(colPath.getParentFile(),"export");
+  exportDir.mkdirs();
+  File exportPath;
+  if (filename != null) {
+    exportPath=new File(exportDir,filename);
+  }
+ else   if (did != null) {
+    try {
+      exportPath=new File(exportDir,getCol().getDecks().get(did).getString("name").replaceAll("\\W+","_") + ".apkg");
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
+ else   if (!includeSched) {
+    exportPath=new File(exportDir,"All Decks.apkg");
+  }
+ else {
+    exportPath=new File(exportDir,colPath.getName().replace(".anki2",".apkg"));
+  }
+  Object[] inputArgs=new Object[5];
+  inputArgs[0]=getCol();
+  inputArgs[1]=exportPath.getPath();
+  inputArgs[2]=did;
+  inputArgs[3]=includeSched;
+  inputArgs[4]=includeMedia;
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_EXPORT_APKG,mExportListener,new TaskData(inputArgs));
+}

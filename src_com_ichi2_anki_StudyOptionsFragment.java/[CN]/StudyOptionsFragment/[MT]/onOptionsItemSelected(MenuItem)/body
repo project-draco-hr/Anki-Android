@@ -1,10 +1,9 @@
 {
 switch (item.getItemId()) {
 case R.id.action_undo:
-    if (AnkiDroidApp.colIsOpen()) {
-      AnkiDroidApp.getCol().undo();
-      resetAndUpdateValuesFromDeck();
-      finishCongrats();
+    if (colOpen()) {
+      getCol().undo();
+      resetAndRefreshInterface();
       getActivity().supportInvalidateOptionsMenu();
     }
   return true;
@@ -21,6 +20,7 @@ item.setIcon(R.drawable.ic_menu_night_checked);
 return true;
 case R.id.action_add_note_from_study_options:
 addNote();
+return true;
 default :
 return super.onOptionsItemSelected(item);
 }

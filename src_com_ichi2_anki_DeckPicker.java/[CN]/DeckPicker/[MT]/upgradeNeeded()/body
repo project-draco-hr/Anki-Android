@@ -1,6 +1,6 @@
 {
   if (!AnkiDroidApp.isSdCardMounted()) {
-    showDialog(DIALOG_SD_CARD_NOT_MOUNTED);
+    showSdCardNotMountedDialog();
     return false;
   }
   File dir=new File(AnkiDroidApp.getCurrentAnkiDroidDirectory());

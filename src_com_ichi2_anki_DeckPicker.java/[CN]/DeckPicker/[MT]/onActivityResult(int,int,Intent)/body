@@ -1,8 +1,7 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
-  mDontSaveOnStop=false;
   if (resultCode == RESULT_MEDIA_EJECTED) {
-    showDialog(DIALOG_SD_CARD_NOT_MOUNTED);
+    showSdCardNotMountedDialog();
     return;
   }
  else   if (resultCode == RESULT_DB_ERROR) {
@@ -36,9 +35,7 @@
     }
  else {
       if (resultCode == RESULT_OK) {
-        if (mOpenCollectionDialog != null && mOpenCollectionDialog.isShowing()) {
-          mOpenCollectionDialog.dismiss();
-        }
+        dismissOpeningCollectionDialog();
         if (AnkiDroidApp.colIsOpen()) {
           AnkiDroidApp.closeCollection(true);
         }
@@ -58,17 +55,6 @@
       finishWithAnimation();
     }
   }
- else   if (requestCode == PREFERENCES_UPDATE) {
-    String oldPath=mPrefDeckPath;
-    SharedPreferences pref=restorePreferences();
-    String newLanguage=pref.getString(Preferences.LANGUAGE,"");
-    if (AnkiDroidApp.setLanguage(newLanguage)) {
-      AnkiDroidApp.getCompat().invalidateOptionsMenu(this);
-    }
-    if (!mPrefDeckPath.equals(oldPath)) {
-      loadCollection();
-    }
-  }
  else   if (requestCode == REPORT_FEEDBACK && resultCode == RESULT_OK) {
   }
  else   if (requestCode == LOG_IN_FOR_SYNC && resultCode == RESULT_OK) {
@@ -82,24 +68,20 @@
       mImportPath=intent.getStringExtra("importPath");
     }
     if (AnkiDroidApp.colIsOpen() && mImportPath != null) {
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_IMPORT,mImportAddListener,new TaskData(AnkiDroidApp.getCol(),mImportPath,true));
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_IMPORT,mImportAddListener,new TaskData(getCol(),mImportPath,true));
       mImportPath=null;
     }
   }
  else   if (requestCode == REQUEST_REVIEW) {
-    Log.i(AnkiDroidApp.TAG,"Result code = " + resultCode);
 switch (resultCode) {
 default :
       loadCounts();
     break;
-case Reviewer.RESULT_NO_MORE_CARDS:
-  mDontSaveOnStop=true;
-Intent i=new Intent();
+case AbstractFlashcardViewer.RESULT_NO_MORE_CARDS:
+  Intent i=new Intent();
 i.setClass(this,StudyOptionsActivity.class);
-startActivityForResult(i,SHOW_STUDYOPTIONS);
-ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.RIGHT);
+startActivityForResultWithAnimation(i,SHOW_STUDYOPTIONS,ActivityTransitionAnimation.RIGHT);
 break;
 }
 }
-BroadcastMessages.showDialog();
 }

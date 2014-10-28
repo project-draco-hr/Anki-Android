@@ -24,7 +24,6 @@
           return false;
         }
         if (!ze.isDirectory()) {
-          Log.i(AnkiDroidApp.TAG,"uncompress " + name);
           zis=new BufferedInputStream(zipFile.getInputStream(ze));
           bos=new BufferedOutputStream(new FileOutputStream(destFile),FILE_COPY_BUFFER_SIZE);
           int n;

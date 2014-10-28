@@ -1,0 +1,10 @@
+{
+  if (sActivity != null && sActivity.get() != null) {
+    sActivity.get().runOnUiThread(new Runnable(){
+      public void run(){
+        sActivity.get().setOpeningCollectionDialogMessage(message);
+      }
+    }
+);
+  }
+}

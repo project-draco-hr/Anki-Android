@@ -5,7 +5,7 @@
         if (intent.getAction().equals(SdCardReceiver.MEDIA_EJECT)) {
           mNotMountedDialog=StyledOpenCollectionDialog.show(StudyOptionsActivity.this,getResources().getString(R.string.sd_card_not_mounted),new OnCancelListener(){
             @Override public void onCancel(            DialogInterface arg0){
-              finish();
+              finishWithoutAnimation();
             }
           }
 );
@@ -14,7 +14,7 @@
           if (mNotMountedDialog != null && mNotMountedDialog.isShowing()) {
             mNotMountedDialog.dismiss();
           }
-          mCurrentFragment.reloadCollection();
+          startLoadingCollection();
         }
       }
     }

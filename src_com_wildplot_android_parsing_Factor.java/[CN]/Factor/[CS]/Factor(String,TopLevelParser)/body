@@ -1,0 +1,12 @@
+{
+  this.parser=parser;
+  if (!TopLevelParser.stringHasValidBrackets(factorString)) {
+    this.factorType=FactorType.INVALID;
+    return;
+  }
+  boolean isReady;
+  isReady=initAsPlusFactor(factorString);
+  if (!isReady)   isReady=initAsMinusFactor(factorString);
+  if (!isReady)   isReady=initAsPow(factorString);
+  if (!isReady)   this.factorType=FactorType.INVALID;
+}

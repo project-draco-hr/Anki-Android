@@ -1,0 +1,7 @@
+{
+  MediaCheckDialog f=new MediaCheckDialog();
+  Bundle args=new Bundle();
+  args.putInt("dialogType",dialogType);
+  f.setArguments(args);
+  return f;
+}

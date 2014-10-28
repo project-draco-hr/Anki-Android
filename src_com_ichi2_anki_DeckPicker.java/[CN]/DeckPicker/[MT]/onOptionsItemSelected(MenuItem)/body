@@ -1,5 +1,5 @@
 {
-  if (mDrawerToggle.onOptionsItemSelected(item)) {
+  if (getDrawerToggle().onOptionsItemSelected(item)) {
     return true;
   }
   Resources res=getResources();
@@ -8,14 +8,17 @@ case R.id.action_sync:
     sync();
   return true;
 case R.id.action_add_note_from_deck_picker:
+hideShowcaseView();
 addNote();
 return true;
 case R.id.action_shared_decks:
-if (AnkiDroidApp.getCol() != null) {
+hideShowcaseView();
+if (colOpen()) {
 addSharedDeck();
 }
 return true;
 case R.id.action_new_deck:
+hideShowcaseView();
 StyledDialog.Builder builder2=new StyledDialog.Builder(DeckPicker.this);
 builder2.setTitle(res.getString(R.string.new_deck));
 mDialogEditText=new EditText(DeckPicker.this);
@@ -23,8 +26,7 @@ builder2.setView(mDialogEditText,false,false);
 builder2.setPositiveButton(res.getString(R.string.create),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 String deckName=mDialogEditText.getText().toString().replaceAll("[\'\"\\n\\r\\[\\]\\(\\)]","");
-Log.i(AnkiDroidApp.TAG,"Creating deck: " + deckName);
-AnkiDroidApp.getCol().getDecks().id(deckName,true);
+getCol().getDecks().id(deckName,true);
 loadCounts();
 }
 }
@@ -33,13 +35,13 @@ builder2.setNegativeButton(res.getString(R.string.dialog_cancel),null);
 builder2.create().show();
 return true;
 case R.id.action_import:
-showDialog(DIALOG_IMPORT_HINT);
+showImportDialog(ImportDialog.DIALOG_IMPORT_HINT);
 return true;
 case R.id.action_new_filtered_deck:
 StyledDialog.Builder builder3=new StyledDialog.Builder(DeckPicker.this);
 builder3.setTitle(res.getString(R.string.new_deck));
 mDialogEditText=new EditText(DeckPicker.this);
-ArrayList<String> names=AnkiDroidApp.getCol().getDecks().allNames();
+ArrayList<String> names=getCol().getDecks().allNames();
 int n=1;
 String cramDeckName="Cram 1";
 while (names.contains(cramDeckName)) {
@@ -50,7 +52,7 @@ mDialogEditText.setText(cramDeckName);
 builder3.setView(mDialogEditText,false,false);
 builder3.setPositiveButton(res.getString(R.string.create),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
-long id=AnkiDroidApp.getCol().getDecks().newDyn(mDialogEditText.getText().toString());
+long id=getCol().getDecks().newDyn(mDialogEditText.getText().toString());
 openStudyOptions(id,new Bundle());
 }
 }
@@ -59,15 +61,17 @@ builder3.setNegativeButton(res.getString(R.string.dialog_cancel),null);
 builder3.create().show();
 return true;
 case R.id.action_check_database:
-StyledDialog dialog=(StyledDialog)onCreateDialog(this.DIALOG_CONFIRM_DATABASE_CHECK);
-dialog.show();
+showDatabaseErrorDialog(DatabaseErrorDialog.DIALOG_CONFIRM_DATABASE_CHECK);
 return true;
-case R.id.action_tutorial:
-createTutorialDeck();
+case R.id.action_check_media:
+showMediaCheckDialog(MediaCheckDialog.DIALOG_CONFIRM_MEDIA_CHECK);
 return true;
 case R.id.action_restore_backup:
-StyledDialog dialog2=(StyledDialog)onCreateDialog(this.DIALOG_CONFIRM_RESTORE_BACKUP);
-dialog2.show();
+showDatabaseErrorDialog(DatabaseErrorDialog.DIALOG_CONFIRM_RESTORE_BACKUP);
+return true;
+case R.id.action_export:
+String msg=getResources().getString(R.string.confirm_apkg_export);
+showDialogFragment(ExportDialog.newInstance(msg));
 return true;
 default :
 return super.onOptionsItemSelected(item);

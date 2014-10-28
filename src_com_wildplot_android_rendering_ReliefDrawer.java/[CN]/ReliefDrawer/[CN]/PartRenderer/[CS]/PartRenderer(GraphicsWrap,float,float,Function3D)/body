@@ -1,0 +1,9 @@
+{
+  super();
+  this.field=g.getClipBounds();
+  this.leftLim=leftLim;
+  this.rightLim=rightLim;
+  this.g=g;
+  if (function instanceof TopLevelParser)   function=((TopLevelParser)function).createCopy();
+  this.function=function;
+}

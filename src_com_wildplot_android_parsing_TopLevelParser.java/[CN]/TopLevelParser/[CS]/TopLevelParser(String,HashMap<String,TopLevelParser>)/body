@@ -1,0 +1,8 @@
+{
+  initVarMap();
+  this.parserRegister=parserRegister;
+  this.expressionString=expressionString;
+  boolean isValidExpressionString=initExpressionString();
+  this.expression=new Expression(this.expressionString,this);
+  this.isValid=(expression.getExpressionType() != Expression.ExpressionType.INVALID) && isValidExpressionString;
+}

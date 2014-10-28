@@ -1,0 +1,27 @@
+{
+  int red=ColorWrap.LIGHT_GRAY.getRed();
+  int green=ColorWrap.LIGHT_GRAY.getGreen();
+  int blue=ColorWrap.LIGHT_GRAY.getBlue();
+  ColorWrap newGridColor=new ColorWrap(red,green,blue,222);
+  XGrid xGrid=new XGrid(plotSheet,0,yTicks);
+  YGrid yGrid=new YGrid(plotSheet,0,xTicks);
+  double[] timePositions;
+switch (mChartType) {
+case ANSWER_BUTTONS:
+    timePositions=new double[]{1,2,3,6,7,8,9,11,12,13,14};
+  yGrid.setExplicitTicks(timePositions);
+break;
+case HOURLY_BREAKDOWN:
+timePositions=new double[]{0,6,12,18,23};
+yGrid.setExplicitTicks(timePositions);
+break;
+case WEEKLY_BREAKDOWN:
+timePositions=new double[]{0,1,2,3,4,5,6};
+yGrid.setExplicitTicks(timePositions);
+break;
+}
+xGrid.setColor(newGridColor);
+yGrid.setColor(newGridColor);
+plotSheet.addDrawable(xGrid);
+plotSheet.addDrawable(yGrid);
+}

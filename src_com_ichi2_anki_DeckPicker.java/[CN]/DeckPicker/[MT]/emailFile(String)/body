@@ -1,0 +1,16 @@
+{
+  Intent intent=new Intent(Intent.ACTION_SEND);
+  intent.setType("message/rfc822");
+  intent.putExtra(Intent.EXTRA_SUBJECT,"AnkiDroid Apkg");
+  File attachment=new File(path);
+  if (attachment.exists()) {
+    Uri uri=Uri.fromFile(attachment);
+    intent.putExtra(Intent.EXTRA_STREAM,uri);
+  }
+  try {
+    startActivityWithoutAnimation(intent);
+  }
+ catch (  ActivityNotFoundException e) {
+    Themes.showThemedToast(this,getResources().getString(R.string.no_email_client),false);
+  }
+}

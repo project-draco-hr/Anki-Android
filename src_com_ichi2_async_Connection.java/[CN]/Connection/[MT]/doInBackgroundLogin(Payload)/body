@@ -1,13 +1,20 @@
 {
   String username=(String)data.data[0];
   String password=(String)data.data[1];
-  BasicHttpSyncer server=new RemoteServer(this,null);
-  HttpResponse ret=server.hostKey(username,password);
+  HttpSyncer server=new RemoteServer(this,null);
+  HttpResponse ret;
+  try {
+    ret=server.hostKey(username,password);
+  }
+ catch (  UnknownHttpResponseException e) {
+    data.success=false;
+    data.result=new Object[]{"error",e.getResponseCode(),e.getMessage()};
+    return data;
+  }
   String hostkey=null;
   boolean valid=false;
   if (ret != null) {
     data.returnType=ret.getStatusLine().getStatusCode();
-    Log.i(AnkiDroidApp.TAG,"doInBackgroundLogin - response from server: " + data.returnType + " ("+ ret.getStatusLine().getReasonPhrase()+ ")");
     if (data.returnType == 200) {
       try {
         JSONObject jo=(new JSONObject(server.stream2String(ret.getEntity().getContent())));

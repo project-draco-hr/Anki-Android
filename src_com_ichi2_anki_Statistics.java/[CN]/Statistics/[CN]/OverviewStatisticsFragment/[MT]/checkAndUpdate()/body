@@ -1,0 +1,14 @@
+{
+  if (!mIsCreated)   return;
+  if (mType != (((Statistics)getActivity()).getTaskHandler()).getStatType() || mDeckId != AnkiDroidApp.getCol().getDecks().selected() || mIsWholeCollection != AnkiStatsTaskHandler.isWholeCollection()) {
+    mType=(((Statistics)getActivity()).getTaskHandler()).getStatType();
+    mProgressBar.setVisibility(View.VISIBLE);
+    mWebView.setVisibility(View.GONE);
+    mDeckId=AnkiDroidApp.getCol().getDecks().selected();
+    mIsWholeCollection=AnkiStatsTaskHandler.isWholeCollection();
+    if (mCreateStatisticsOverviewTask != null && !mCreateStatisticsOverviewTask.isCancelled()) {
+      mCreateStatisticsOverviewTask.cancel(true);
+    }
+    createStatisticOverview();
+  }
+}

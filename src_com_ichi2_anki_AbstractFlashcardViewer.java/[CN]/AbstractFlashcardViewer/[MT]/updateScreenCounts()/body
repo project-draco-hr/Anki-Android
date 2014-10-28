@@ -3,7 +3,7 @@
     return;
   }
   try {
-    String[] title=mSched.getCol().getDecks().get(mCurrentCard.getDid()).getString("name").split("::");
+    String[] title=getCol().getDecks().get(mCurrentCard.getDid()).getString("name").split("::");
     AnkiDroidApp.getCompat().setTitle(this,title[title.length - 1],mInvertedColors);
   }
  catch (  JSONException e) {

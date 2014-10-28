@@ -1,0 +1,11 @@
+{
+  if (!TextUtils.isEmpty(dialogMessage) && !TextUtils.isEmpty(syncMessage)) {
+    return dialogMessage + "\n\n" + syncMessage;
+  }
+ else   if (!TextUtils.isEmpty(dialogMessage)) {
+    return dialogMessage;
+  }
+ else {
+    return syncMessage;
+  }
+}

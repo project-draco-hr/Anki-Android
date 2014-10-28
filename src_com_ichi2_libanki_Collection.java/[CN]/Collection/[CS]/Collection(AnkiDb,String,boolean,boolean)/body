@@ -1,0 +1,26 @@
+{
+  mDebugLog=log;
+  mDb=db;
+  mPath=path;
+  _openLog();
+  log(path,AnkiDroidApp.getPkgVersionName());
+  mServer=server;
+  mLastSave=Utils.now();
+  clearUndo();
+  mMedia=new Media(this,server);
+  mModels=new Models(this);
+  mDecks=new Decks(this);
+  mTags=new Tags(this);
+  load();
+  if (mCrt == 0) {
+    mCrt=UIUtils.getDayStart() / 1000;
+  }
+  mStartReps=0;
+  mStartTime=0;
+  mSched=new Sched(this);
+  if (!mConf.optBoolean("newBury",false)) {
+    boolean mod=mDb.getMod();
+    mSched.unburyCards();
+    mDb.setMod(mod);
+  }
+}

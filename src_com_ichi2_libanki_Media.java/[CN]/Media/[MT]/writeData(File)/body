@@ -1,0 +1,28 @@
+{
+  String fname=ofile.getName();
+  fname=AnkiDroidApp.getCompat().nfcNormalized(fname);
+  String base=stripIllegal(fname);
+  String root=Utils.removeExtension(base);
+  String ext=Utils.getFileExtension(base);
+  String csum=Utils.fileChecksum(ofile);
+  while (true) {
+    fname=root + ext;
+    File path=new File(dir(),fname);
+    if (!path.exists()) {
+      Utils.copyFile(ofile,path);
+      return fname;
+    }
+    if (Utils.fileChecksum(path).equals(csum)) {
+      return fname;
+    }
+    Pattern reg=Pattern.compile(" \\((\\d+)\\)$");
+    Matcher m=reg.matcher(root);
+    if (!m.find()) {
+      root=root + " (1)";
+    }
+ else {
+      int n=Integer.parseInt(m.group(1));
+      root=String.format(" (%d)",n + 1);
+    }
+  }
+}

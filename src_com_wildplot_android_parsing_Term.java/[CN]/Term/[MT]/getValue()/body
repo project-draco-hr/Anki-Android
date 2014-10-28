@@ -1,0 +1,13 @@
+{
+switch (termType) {
+case TERM_MUL_FACTOR:
+    return term.getValue() * factor.getValue();
+case TERM_DIV_FACTOR:
+  return term.getValue() / factor.getValue();
+case FACTOR:
+return factor.getValue();
+case INVALID:
+default :
+throw new ExpressionFormatException("could not parse Term");
+}
+}

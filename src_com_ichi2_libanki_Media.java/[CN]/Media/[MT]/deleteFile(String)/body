@@ -1,0 +1,7 @@
+{
+  File f=new File(dir(),fname);
+  if (f.exists()) {
+    f.delete();
+  }
+  mDb.execute("insert or replace into media values (?,?,?,?)",new Object[]{fname,null,0,1});
+}

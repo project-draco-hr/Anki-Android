@@ -1,13 +1,11 @@
 {
   super.doInBackground(params);
   if (mPreviousTask != null && mPreviousTask.getStatus() != AsyncTask.Status.FINISHED) {
-    Log.i(AnkiDroidApp.TAG,"Waiting for " + mPreviousTask.mType + " to finish before starting "+ mType);
     if (mType == TASK_TYPE_OPEN_COLLECTION && mPreviousTask.mType == TASK_TYPE_CLOSE_DECK) {
       publishProgress(new TaskData(AnkiDroidApp.getInstance().getBaseContext().getResources().getString(R.string.finish_operation)));
     }
     try {
       mPreviousTask.get();
-      Log.i(AnkiDroidApp.TAG,"Finished waiting for " + mPreviousTask.mType + " to finish. Status= "+ mPreviousTask.getStatus());
     }
  catch (    InterruptedException e) {
       Thread.currentThread().interrupt();
@@ -22,12 +20,10 @@ catch (    CancellationException e) {
     }
   }
 switch (mType) {
-case TASK_TYPE_OPEN_COLLECTION:
-    return doInBackgroundOpenCollection(params);
 case TASK_TYPE_LOAD_DECK_COUNTS:
-  return doInBackgroundLoadDeckCounts(params);
+    return doInBackgroundLoadDeckCounts(params);
 case TASK_TYPE_SAVE_COLLECTION:
-return doInBackgroundSaveCollection(params);
+  return doInBackgroundSaveCollection(params);
 case TASK_TYPE_ANSWER_CARD:
 return doInBackgroundAnswerCard(params);
 case TASK_TYPE_MARK_CARD:
@@ -42,26 +38,18 @@ case TASK_TYPE_SEARCH_CARDS:
 return doInBackgroundSearchCards(params);
 case TASK_TYPE_DISMISS_NOTE:
 return doInBackgroundDismissNote(params);
-case TASK_TYPE_LOAD_STATISTICS:
-return doInBackgroundLoadStatistics(params);
 case TASK_TYPE_CHECK_DATABASE:
 return doInBackgroundCheckDatabase(params);
 case TASK_TYPE_DELETE_BACKUPS:
 return doInBackgroundDeleteBackups();
-case TASK_TYPE_RESTORE_DECK:
-return doInBackgroundRestoreDeck(params);
 case TASK_TYPE_UPDATE_CARD_BROWSER_LIST:
 return doInBackgroundUpdateCardBrowserList(params);
-case TASK_TYPE_LOAD_TUTORIAL:
-return doInBackgroundLoadTutorial(params);
 case TASK_TYPE_REPAIR_DECK:
 return doInBackgroundRepairDeck(params);
 case TASK_TYPE_CLOSE_DECK:
 return doInBackgroundCloseCollection(params);
 case TASK_TYPE_UPDATE_VALUES_FROM_DECK:
 return doInBackgroundUpdateValuesFromDeck(params);
-case TASK_TYPE_RESTORE_IF_MISSING:
-return doInBackgroundRestoreIfMissing(params);
 case TASK_TYPE_DELETE_DECK:
 return doInBackgroundDeleteDeck(params);
 case TASK_TYPE_REBUILD_CRAM:
@@ -86,6 +74,8 @@ case TASK_TYPE_CONF_SET_SUBDECKS:
 return doInBackgroundConfSetSubdecks(params);
 case TASK_TYPE_RENDER_BROWSER_QA:
 return doInBackgroundRenderBrowserQA(params);
+case TASK_TYPE_CHECK_MEDIA:
+return doInBackgroundCheckMedia(params);
 default :
 Log.e(AnkiDroidApp.TAG,"unknown task type: " + mType);
 return null;

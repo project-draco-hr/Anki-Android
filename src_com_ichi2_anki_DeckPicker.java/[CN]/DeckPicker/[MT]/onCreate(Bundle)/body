@@ -1,47 +1,23 @@
 {
-  Log.i(AnkiDroidApp.TAG,"DeckPicker - onCreate");
   Intent intent=getIntent();
-  if (!intent.getBooleanExtra("viaNavigationDrawer",false) && !isTaskRoot()) {
-    Log.i(AnkiDroidApp.TAG,"DeckPicker - onCreate: Detected multiple instance of this activity, closing it and return to root activity");
-    Intent reloadIntent=new Intent(DeckPicker.this,DeckPicker.class);
-    reloadIntent.setAction(Intent.ACTION_MAIN);
-    if (intent != null && intent.getExtras() != null) {
-      reloadIntent.putExtras(intent.getExtras());
-    }
-    if (intent != null && intent.getData() != null) {
-      reloadIntent.setData(intent.getData());
-    }
-    reloadIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-    reloadIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    finish();
-    startActivityIfNeeded(reloadIntent,0);
+  if (intent.getCategories() != null || !AnkiDroidApp.colIsOpen()) {
+    showOpeningCollectionDialog();
   }
   if (intent.getData() != null) {
     mImportPath=getIntent().getData().getEncodedPath();
   }
-  if (!AnkiDroidApp.colIsOpen()) {
-    mOpenCollectionHandler.onPreExecute();
-  }
+  mHandler=new DialogHandler(this);
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   setTitle(getResources().getString(R.string.app_name));
   SharedPreferences preferences=restorePreferences();
-  if (mLastTimeOpened > 0) {
-    if (mLastTimeOpened < UIUtils.getDayStart()) {
-      preferences.edit().putBoolean("showBroadcastMessageToday",true).commit();
-    }
-    preferences.edit().putLong("lastTimeOpened",System.currentTimeMillis()).commit();
-  }
-  BroadcastMessages.checkForNewMessages(this);
   View mainView=getLayoutInflater().inflate(R.layout.deck_picker,null);
   setContentView(mainView);
   View studyoptionsFrame=findViewById(R.id.studyoptions_fragment);
   mFragmented=studyoptionsFrame != null && studyoptionsFrame.getVisibility() == View.VISIBLE;
   Themes.setContentStyle(mFragmented ? mainView : mainView.findViewById(R.id.deckpicker_view),Themes.CALLER_DECKPICKER);
   registerExternalStorageListener();
-  mDrawerLayout=(DrawerLayout)findViewById(R.id.deckpicker_drawer_layout);
-  mDrawerList=(ListView)findViewById(R.id.deckpicker_left_drawer);
-  initNavigationDrawer();
+  initNavigationDrawer(mainView);
   if (savedInstanceState == null) {
     selectNavigationItem(DRAWER_DECK_PICKER);
   }
@@ -97,30 +73,26 @@
   mDeckListView.setOnItemClickListener(mDeckSelHandler);
   mDeckListView.setOnItemLongClickListener(new OnItemLongClickListener(){
     @Override public boolean onItemLongClick(    AdapterView<?> adapterView,    View view,    int position,    long id){
-      mContextMenuPosition=position;
-      showDialog(DIALOG_CONTEXT_MENU);
+      if (!AnkiDroidApp.colIsOpen() || mDeckList == null || mDeckList.size() == 0) {
+        return true;
+      }
+      mContextMenuDid=Long.parseLong(mDeckList.get(position).get("did"));
+      String deckName=getCol().getDecks().name(mContextMenuDid);
+      boolean isCollapsed=getCol().getDecks().get(mContextMenuDid).optBoolean("collapsed",false);
+      showDialogFragment(DeckPickerContextMenu.newInstance(deckName,isCollapsed));
       return true;
     }
   }
 );
   mDeckListView.setAdapter(mDeckListAdapter);
+  mTodayTextView=(TextView)findViewById(R.id.today_stats_text_view);
   if (mFragmented) {
-    mDeckListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+    mDeckListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
   }
-  if (AnkiDroidApp.getCol() == null) {
+  if (getCol() == null) {
     showStartupScreensAndDialogs(preferences,0);
   }
  else {
-    Object[] counts=AnkiDroidApp.getCol().getSched().deckCounts();
-    updateDecksList((TreeSet<Object[]>)counts[0],(Integer)counts[1],(Integer)counts[2]);
-  }
-  if (mSwipeEnabled) {
-    gestureDetector=new GestureDetector(new MyGestureDetector());
-    mDeckListView.setOnTouchListener(new View.OnTouchListener(){
-      @Override public boolean onTouch(      View v,      MotionEvent event){
-        return gestureDetector.onTouchEvent(event);
-      }
-    }
-);
+    loadCounts();
   }
 }

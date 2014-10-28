@@ -1,65 +1,28 @@
 {
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundExportApkg");
   Object[] data=params[0].getObjArray();
-  String colPath=(String)data[0];
+  Collection col=(Collection)data[0];
   String apkgPath=(String)data[1];
-  boolean includeMedia=(Boolean)data[2];
-  byte[] buf=new byte[1024];
+  Long did=(Long)data[2];
+  boolean includeSched=(Boolean)data[3];
+  boolean includeMedia=(Boolean)data[4];
   try {
-    try {
-      AnkiDb d=AnkiDatabaseManager.getDatabase(colPath);
-    }
- catch (    SQLiteDatabaseCorruptException e) {
-      return new TaskData(false);
-    }
- finally {
-      AnkiDatabaseManager.closeDatabase(colPath);
-    }
-    ZipOutputStream zos=new ZipOutputStream(new FileOutputStream(apkgPath));
-    FileInputStream colFin=new FileInputStream(colPath);
-    ZipEntry ze=new ZipEntry("collection.anki2");
-    zos.putNextEntry(ze);
-    int len;
-    while ((len=colFin.read(buf)) >= 0) {
-      zos.write(buf,0,len);
-    }
-    zos.closeEntry();
-    colFin.close();
-    JSONObject media=new JSONObject();
-    if (includeMedia) {
-      File mediaDir=new File(AnkiDroidApp.getCurrentAnkiDroidMediaDir());
-      if (mediaDir.exists() && mediaDir.isDirectory()) {
-        File[] mediaFiles=mediaDir.listFiles();
-        int c=0;
-        for (        File f : mediaFiles) {
-          FileInputStream mediaFin=new FileInputStream(f);
-          ze=new ZipEntry(Integer.toString(c));
-          zos.putNextEntry(ze);
-          while ((len=mediaFin.read(buf)) >= 0) {
-            zos.write(buf,0,len);
-          }
-          zos.closeEntry();
-          media.put(Integer.toString(c),f.getName());
-        }
-      }
-    }
-    ze=new ZipEntry("media");
-    zos.putNextEntry(ze);
-    InputStream mediaIn=new ByteArrayInputStream(Utils.jsonToString(media).getBytes("UTF-8"));
-    while ((len=mediaIn.read(buf)) >= 0) {
-      zos.write(buf,0,len);
-    }
-    zos.closeEntry();
-    zos.close();
+    AnkiPackageExporter exporter=new AnkiPackageExporter(col);
+    exporter.setIncludeSched(includeSched);
+    exporter.setIncludeMedia(includeMedia);
+    exporter.setDid(did);
+    exporter.exportInto(apkgPath);
   }
  catch (  FileNotFoundException e) {
+    Log.e(AnkiDroidApp.TAG,"FileNotFoundException in doInBackgroundExportApkg: ",e);
     return new TaskData(false);
   }
 catch (  IOException e) {
+    Log.e(AnkiDroidApp.TAG,"IOException in doInBackgroundExportApkg: ",e);
     return new TaskData(false);
   }
 catch (  JSONException e) {
+    Log.e(AnkiDroidApp.TAG,"JSOnException in doInBackgroundExportApkg: ",e);
     return new TaskData(false);
   }
-  return new TaskData(true);
+  return new TaskData(apkgPath);
 }

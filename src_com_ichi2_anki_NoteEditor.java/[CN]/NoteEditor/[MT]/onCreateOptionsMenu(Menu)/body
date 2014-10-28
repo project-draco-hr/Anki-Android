@@ -1,0 +1,34 @@
+{
+  getMenuInflater().inflate(R.menu.card_editor,menu);
+  if (mAddNote) {
+    menu.findItem(R.id.action_later).setVisible(true);
+    menu.findItem(R.id.action_copy_card).setVisible(false);
+  }
+ else {
+    menu.findItem(R.id.action_saved_notes).setVisible(false);
+    menu.findItem(R.id.action_add_card_from_card_editor).setVisible(true);
+    menu.findItem(R.id.action_reset_card_progress).setVisible(true);
+    menu.findItem(R.id.action_preview).setVisible(true);
+    menu.findItem(R.id.action_reschedule_card).setVisible(true);
+    menu.findItem(R.id.action_reset_card_progress).setVisible(true);
+    if (mPrefFixArabic) {
+      menu.findItem(R.id.action_save).setEnabled(false);
+    }
+  }
+  if (mEditFields != null) {
+    for (int i=0; i < mEditFields.size(); i++) {
+      if (mEditFields.get(i).getText().length() > 0) {
+        menu.findItem(R.id.action_copy_card).setEnabled(true);
+        break;
+      }
+ else       if (i == mEditFields.size() - 1) {
+        menu.findItem(R.id.action_copy_card).setEnabled(false);
+      }
+    }
+  }
+  if (mCaller != CALLER_CARDEDITOR_INTENT_ADD) {
+    updateIntentInformation();
+    menu.findItem(R.id.action_saved_notes).setEnabled(!mIntentInformation.isEmpty());
+  }
+  return super.onCreateOptionsMenu(menu);
+}

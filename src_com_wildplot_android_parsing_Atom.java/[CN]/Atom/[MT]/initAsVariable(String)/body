@@ -1,0 +1,10 @@
+{
+  VariableAtom variableAtom=new VariableAtom(atomString,parser);
+  boolean isValidVariableAtom=variableAtom.getAtomType() != AtomType.INVALID;
+  if (isValidVariableAtom) {
+    this.atomType=variableAtom.getAtomType();
+    this.atomObject=variableAtom;
+    return true;
+  }
+  return false;
+}

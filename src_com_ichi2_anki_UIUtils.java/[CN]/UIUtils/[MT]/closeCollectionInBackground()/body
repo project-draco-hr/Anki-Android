@@ -1,0 +1,15 @@
+{
+  if (AnkiDroidApp.colIsOpen()) {
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CLOSE_DECK,new DeckTask.TaskListener(){
+      @Override public void onPreExecute(){
+      }
+      @Override public void onPostExecute(      TaskData result){
+      }
+      @Override public void onProgressUpdate(      TaskData... values){
+      }
+      @Override public void onCancelled(){
+      }
+    }
+,new DeckTask.TaskData(AnkiDroidApp.getCol()));
+  }
+}

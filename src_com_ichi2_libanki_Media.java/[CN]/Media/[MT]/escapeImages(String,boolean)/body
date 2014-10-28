@@ -1,0 +1,22 @@
+{
+  for (  Pattern p : Arrays.asList(fImgRegExpQ,fImgRegExpU)) {
+    Matcher m=p.matcher(string);
+    int fnameIdx=p == fImgRegExpU ? 2 : 3;
+    while (m.find()) {
+      String tag=m.group(0);
+      String fname=m.group(fnameIdx);
+      if (fRemotePattern.matcher(fname).find()) {
+        string=tag;
+      }
+ else {
+        if (unescape) {
+          string=string.replace(tag,tag.replace(fname,Uri.decode(fname)));
+        }
+ else {
+          string=string.replace(tag,tag.replace(fname,Uri.encode(fname)));
+        }
+      }
+    }
+  }
+  return string;
+}

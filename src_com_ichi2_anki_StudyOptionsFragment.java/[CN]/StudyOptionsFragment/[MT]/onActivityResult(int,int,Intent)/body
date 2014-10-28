@@ -1,28 +1,22 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
-  Log.i(AnkiDroidApp.TAG,"StudyOptionsFragment: onActivityResult");
   getActivity().supportInvalidateOptionsMenu();
   if (resultCode == DeckPicker.RESULT_DB_ERROR) {
     closeStudyOptions(DeckPicker.RESULT_DB_ERROR);
-  }
-  if (resultCode == AnkiDroidApp.RESULT_TO_HOME) {
-    closeStudyOptions();
-    return;
   }
   if (resultCode == DeckPicker.RESULT_MEDIA_EJECTED) {
     closeStudyOptions(DeckPicker.RESULT_MEDIA_EJECTED);
   }
  else {
-    if (!AnkiDroidApp.colIsOpen()) {
-      reloadCollection();
-      mDontSaveOnStop=false;
+    if (!colOpen()) {
+      startLoadingCollection();
       return;
     }
     if (requestCode == DECK_OPTIONS) {
       if (mCramInitialConfig != null) {
         mCramInitialConfig=null;
         try {
-          JSONObject deck=AnkiDroidApp.getCol().getDecks().current();
+          JSONObject deck=getCol().getDecks().current();
           if (deck.getInt("dyn") != 0 && deck.has("empty")) {
             deck.remove("empty");
           }
@@ -34,33 +28,22 @@
       }
  else {
         DeckTask.waitToFinish();
-        resetAndUpdateValuesFromDeck();
+        resetAndRefreshInterface();
       }
-      showCongratsIfNeeded();
     }
  else     if (requestCode == ADD_NOTE && resultCode != Activity.RESULT_CANCELED) {
-      resetAndUpdateValuesFromDeck();
+      resetAndRefreshInterface();
     }
  else     if (requestCode == REQUEST_REVIEW) {
-      Log.i(AnkiDroidApp.TAG,"Result code = " + resultCode);
-switch (resultCode) {
-default :
-        resetAndUpdateValuesFromDeck();
-      break;
-case Reviewer.RESULT_NO_MORE_CARDS:
-    prepareCongratsView();
-  break;
-}
-mDontSaveOnStop=false;
-}
- else if (requestCode == BROWSE_CARDS && (resultCode == Activity.RESULT_OK || resultCode == Activity.RESULT_CANCELED)) {
-mDontSaveOnStop=false;
-resetAndUpdateValuesFromDeck();
-}
- else if (requestCode == STATISTICS && mCurrentContentView == CONTENT_CONGRATS) {
-resetAndUpdateValuesFromDeck();
-mCurrentContentView=CONTENT_STUDY_OPTIONS;
-setFragmentContentView(mStudyOptionsView);
-}
-}
+      resetAndRefreshInterface();
+    }
+ else     if (requestCode == BROWSE_CARDS && (resultCode == Activity.RESULT_OK || resultCode == Activity.RESULT_CANCELED)) {
+      resetAndRefreshInterface();
+    }
+ else     if (requestCode == STATISTICS && mCurrentContentView == CONTENT_CONGRATS) {
+      resetAndRefreshInterface();
+      mCurrentContentView=CONTENT_STUDY_OPTIONS;
+      setFragmentContentView(mStudyOptionsView);
+    }
+  }
 }

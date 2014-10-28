@@ -1,8 +1,4 @@
 {
-  if (!AnkiDroidApp.colIsOpen()) {
-    loadCollection();
-    return;
-  }
   DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CHECK_DATABASE,new DeckTask.TaskListener(){
     @Override public void onPreExecute(){
       mProgressDialog=StyledProgressDialog.show(DeckPicker.this,"",getResources().getString(R.string.check_db_message),true);
@@ -11,16 +7,16 @@
       if (mProgressDialog.isShowing()) {
         mProgressDialog.dismiss();
       }
-      if (result.getBoolean()) {
-        StyledDialog dialog=(StyledDialog)onCreateDialog(DIALOG_OK);
-        double shrunk=Math.round(result.getLong() / 1024.0);
+      if (result != null && result.getBoolean()) {
+        String msg="";
+        long shrunk=Math.round(result.getLong() / 1024.0);
         if (shrunk > 0.0) {
-          dialog.setMessage(String.format(Locale.getDefault(),getResources().getString(R.string.check_db_acknowledge_shrunk),shrunk));
+          msg=String.format(Locale.getDefault(),getResources().getString(R.string.check_db_acknowledge_shrunk),(int)shrunk);
         }
  else {
-          dialog.setMessage(getResources().getString(R.string.check_db_acknowledge));
+          msg=getResources().getString(R.string.check_db_acknowledge);
         }
-        dialog.show();
+        showSimpleMessageDialog(msg,true);
       }
  else {
         handleDbError();
@@ -31,5 +27,5 @@
     @Override public void onCancelled(){
     }
   }
-,new DeckTask.TaskData(AnkiDroidApp.getCol()));
+,new DeckTask.TaskData(getCol()));
 }

@@ -1,0 +1,11 @@
+{
+  this.parser=parser;
+  if (!TopLevelParser.stringHasValidBrackets(termString)) {
+    this.termType=TermType.INVALID;
+    return;
+  }
+  boolean isReady=false;
+  isReady=initAsTermMulOrDivFactor(termString);
+  if (!isReady)   isReady=initAsFactor(termString);
+  if (!isReady)   this.termType=TermType.INVALID;
+}

@@ -1,11 +1,20 @@
 {
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundCheckDatabase");
   Collection col=params[0].getCollection();
+  if (!AnkiDroidApp.colIsOpen()) {
+    Log.e(AnkiDroidApp.TAG,"doInBackgroundCheckDatabase :: collection not open, trying to reload");
+    AnkiDroidApp.openCollection(AnkiDroidApp.COLLECTION_PATH);
+    col=AnkiDroidApp.getCol();
+    if (col == null) {
+      Log.e(AnkiDroidApp.TAG,"doInBackgroundCheckDatabase :: collection reload failed");
+      return new TaskData(false);
+    }
+  }
   long result=col.fixIntegrity();
   if (result == -1) {
     return new TaskData(false);
   }
  else {
+    AnkiDroidApp.closeCollection(true);
     return new TaskData(0,result,true);
   }
 }

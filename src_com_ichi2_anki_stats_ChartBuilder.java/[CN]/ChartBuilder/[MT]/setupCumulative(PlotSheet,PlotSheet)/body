@@ -1,0 +1,23 @@
+{
+  if (mCumulative == null)   return;
+  for (int i=1; i < mCumulative.length; i++) {
+    double[][] cumulative={mCumulative[0],mCumulative[i]};
+    ColorWrap usedColor=ColorWrap.BLACK;
+    String name=mChartView.getResources().getString(R.string.stats_cumulative);
+    if (mHasColoredCumulative) {
+      usedColor=new ColorWrap(mChartView.getResources().getColor(mColors[i - 1]));
+    }
+ else {
+      if (mChartType == Stats.ChartType.INTERVALS) {
+        name=mChartView.getResources().getString(R.string.stats_cumulative_percentage);
+      }
+    }
+    Lines lines=new Lines(hiddenPlotSheet,cumulative,usedColor);
+    lines.setSize(3f);
+    lines.setShadow(5f,2f,2f,ColorWrap.BLACK);
+    if (!mHasColoredCumulative) {
+      lines.setName(name);
+    }
+    plotSheet.addDrawable(lines);
+  }
+}

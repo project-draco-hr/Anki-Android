@@ -1,0 +1,8 @@
+{
+  if (this.gridOnUpside) {
+    g.drawLine(plotSheet.xToGraphic(x,field),plotSheet.yToGraphic(0,field),plotSheet.xToGraphic(x,field),plotSheet.yToGraphic(yLength,field));
+  }
+  if (this.gridOnDownside) {
+    g.drawLine(plotSheet.xToGraphic(x,field),plotSheet.yToGraphic(0,field),plotSheet.xToGraphic(x,field),plotSheet.yToGraphic(-yLength,field));
+  }
+}

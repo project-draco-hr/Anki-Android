@@ -1,0 +1,36 @@
+{
+  int height=mChartView.getMeasuredHeight();
+  int width=mChartView.getMeasuredWidth();
+  Paint paint=new Paint(Paint.LINEAR_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+  paint.setStyle(Paint.Style.STROKE);
+  if (height <= 0 || width <= 0) {
+    return null;
+  }
+  RectangleWrap rect=new RectangleWrap(width,height);
+  float textSize=new TextView(mChartView.getContext()).getTextSize() * 0.85f;
+  paint.setTextSize(textSize);
+  float FontHeigth=paint.getTextSize();
+  mDesiredPixelDistanceBetweenTicks=Math.round(paint.measureText("100000") * 2.6f);
+  mFrameThickness=Math.round(FontHeigth * 4.0f);
+  double maxValueY=maxValue(serieslist,1);
+  if (maxValueY <= 0) {
+    maxValueY=10;
+  }
+  PlotSheet plotSheet=new PlotSheet(-0.5,7.5,0,maxValueY * yAxisStretchFactor);
+  plotSheet.setFrameThickness(mFrameThickness * 0.5f,2f,2f,mFrameThickness * 0.5f);
+  plotSheet.setFontSize(textSize);
+  BarGraph barGraphYoung=new BarGraph(plotSheet,mBarThickness,new double[][]{serieslist[0],serieslist[1]},new ColorWrap(mChartView.getResources().getColor(R.color.stats_young)));
+  barGraphYoung.setFilling(true);
+  barGraphYoung.setFillColor(new ColorWrap(mChartView.getResources().getColor(R.color.stats_young)));
+  BarGraph barGraphMature=new BarGraph(plotSheet,mBarThickness,new double[][]{serieslist[0],serieslist[2]},new ColorWrap(mChartView.getResources().getColor(R.color.stats_mature)));
+  barGraphMature.setFilling(true);
+  barGraphMature.setFillColor(new ColorWrap(mChartView.getResources().getColor(R.color.stats_mature)));
+  plotSheet.addDrawable(barGraphYoung);
+  plotSheet.addDrawable(barGraphMature);
+  double xTicks=2;
+  setupXaxis(plotSheet,xTicks,false);
+  double yTicks=ticksCalcY(mDesiredPixelDistanceBetweenTicks,rect,0,maxValueY * yAxisStretchFactor);
+  setupYaxis(plotSheet,null,yTicks,-1,false,false);
+  setupGrid(plotSheet,yTicks * 0.5,xTicks * 0.5);
+  return plotSheet;
+}

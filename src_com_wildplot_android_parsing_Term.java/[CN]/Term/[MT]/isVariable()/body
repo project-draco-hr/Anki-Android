@@ -1,0 +1,12 @@
+{
+switch (termType) {
+case TERM_MUL_FACTOR:
+case TERM_DIV_FACTOR:
+    return term.isVariable() || factor.isVariable();
+case FACTOR:
+  return factor.isVariable();
+case INVALID:
+default :
+throw new ExpressionFormatException("could not parse Term");
+}
+}

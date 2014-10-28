@@ -1,0 +1,11 @@
+{
+  mCollection=col;
+  initAllContentViews();
+  mCramInitialConfig=getArguments().getBundle("cramInitialConfig");
+  resetAndRefreshInterface(false);
+  setHasOptionsMenu(true);
+  dismissCollectionLoadingDialog();
+  if (mFragmented) {
+    ((DeckPicker)getActivity()).reloadShowcaseView();
+  }
+}

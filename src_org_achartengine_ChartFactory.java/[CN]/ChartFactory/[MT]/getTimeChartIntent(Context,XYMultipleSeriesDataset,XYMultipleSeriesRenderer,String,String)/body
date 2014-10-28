@@ -1,9 +1,0 @@
-{
-  checkParameters(dataset,renderer);
-  Intent intent=new Intent(context,GraphicalActivity.class);
-  TimeChart chart=new TimeChart(dataset,renderer);
-  chart.setDateFormat(format);
-  intent.putExtra(CHART,chart);
-  intent.putExtra(TITLE,activityTitle);
-  return intent;
-}

@@ -1,0 +1,7 @@
+{
+  Bundle b=new Bundle();
+  b.putInt("dialogType",getArguments().getInt("dialogType"));
+  b.putBoolean("showAsyncDialogFragment",true);
+  b.putString("dialogClass",CLASS_NAME_TAG);
+  return b;
+}

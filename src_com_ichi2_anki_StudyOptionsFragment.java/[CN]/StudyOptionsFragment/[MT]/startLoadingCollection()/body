@@ -1,0 +1,6 @@
+{
+  if (AnkiDroidApp.getCol() == null) {
+    showCollectionLoadingDialog();
+  }
+  getLoaderManager().initLoader(0,null,this);
+}

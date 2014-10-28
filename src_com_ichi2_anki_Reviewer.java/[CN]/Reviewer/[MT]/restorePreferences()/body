@@ -1,0 +1,6 @@
+{
+  super.restorePreferences();
+  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
+  mBlackWhiteboard=preferences.getBoolean("blackWhiteboard",true);
+  return preferences;
+}

@@ -1,0 +1,13 @@
+{
+switch (expressionType) {
+case EXP_PLUS_TERM:
+    return expression.getValue() + term.getValue();
+case EXP_MINUS_TERM:
+  return expression.getValue() - term.getValue();
+case TERM:
+return term.getValue();
+default :
+case INVALID:
+throw new ExpressionFormatException("could not parse Expression");
+}
+}

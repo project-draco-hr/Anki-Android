@@ -1,0 +1,13 @@
+{
+  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+    animationFactory.fadeInView(this,fadeInMillis,new AnimationStartListener(){
+      @Override public void onAnimationStart(){
+        setVisibility(View.VISIBLE);
+      }
+    }
+);
+  }
+ else {
+    setVisibility(View.VISIBLE);
+  }
+}

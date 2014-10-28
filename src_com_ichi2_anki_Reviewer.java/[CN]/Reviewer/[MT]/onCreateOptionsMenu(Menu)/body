@@ -1,0 +1,46 @@
+{
+  getMenuInflater().inflate(R.menu.reviewer,menu);
+  Resources res=getResources();
+  if (mCurrentCard != null && mCurrentCard.note().hasTag("marked")) {
+    menu.findItem(R.id.action_mark_card).setTitle(R.string.menu_unmark_card).setIcon(R.drawable.ic_menu_marked);
+  }
+ else {
+    menu.findItem(R.id.action_mark_card).setTitle(R.string.menu_mark_card).setIcon(R.drawable.ic_menu_mark);
+  }
+  if (colOpen() && getCol().undoAvailable()) {
+    menu.findItem(R.id.action_undo).setEnabled(true).setIcon(R.drawable.ic_menu_revert);
+  }
+ else {
+    menu.findItem(R.id.action_undo).setEnabled(false).setIcon(R.drawable.ic_menu_revert_disabled);
+  }
+  if (mPrefWhiteboard) {
+    if (AnkiDroidApp.SDK_VERSION >= 14 && !ViewConfiguration.get(this).hasPermanentMenuKey()) {
+      Display display=getWindowManager().getDefaultDisplay();
+      DisplayMetrics outMetrics=new DisplayMetrics();
+      display.getMetrics(outMetrics);
+      float density=getResources().getDisplayMetrics().density;
+      float dpWidth=outMetrics.widthPixels / density;
+      if (dpWidth < 360) {
+        menu.findItem(R.id.action_hide_whiteboard).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+      }
+    }
+    menu.findItem(R.id.action_enable_whiteboard).setTitle(R.string.disable_whiteboard);
+    menu.findItem(R.id.action_hide_whiteboard).setVisible(true);
+    menu.findItem(R.id.action_clear_whiteboard).setVisible(true);
+    if (mShowWhiteboard) {
+      menu.findItem(R.id.action_hide_whiteboard).setIcon(R.drawable.ic_action_whiteboard_enable_light);
+      menu.findItem(R.id.action_hide_whiteboard).setTitle(R.string.hide_whiteboard);
+    }
+ else {
+      menu.findItem(R.id.action_hide_whiteboard).setIcon(R.drawable.ic_action_whiteboard_enable_light_disabled);
+      menu.findItem(R.id.action_hide_whiteboard).setTitle(R.string.show_whiteboard);
+    }
+  }
+ else {
+    menu.findItem(R.id.action_enable_whiteboard).setTitle(R.string.enable_whiteboard);
+  }
+  if (AnkiDroidApp.SDK_VERSION < 11 && !mDisableClipboard) {
+    menu.findItem(R.id.action_search_dictionary).setVisible(true).setEnabled(!(mPrefWhiteboard && mShowWhiteboard)).setTitle(clipboardHasText() ? Lookup.getSearchStringTitle() : res.getString(R.string.menu_select));
+  }
+  return super.onCreateOptionsMenu(menu);
+}

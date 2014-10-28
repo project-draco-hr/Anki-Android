@@ -1,0 +1,21 @@
+{
+  double[] coordinate=plotSheet.toCoordinatePoint(0,0,field);
+  double f_xy=function.f(coordinate[0],coordinate[1]);
+  this.f_xHighest=f_xy;
+  this.f_xLowest=f_xy;
+  for (int i=Math.round(leftLim); i <= rightLim; i+=pixelSkip) {
+    for (int j=Math.round(field.y + plotSheet.getFrameThickness()[PlotSheet.UPPER_FRAME_THICKNESS_INDEX]); j < field.y + field.height - plotSheet.getFrameThickness()[PlotSheet.BOTTOM_FRAME_THICKNESS_INDEX]; j+=pixelSkip) {
+      if (abortPaint) {
+        return;
+      }
+      coordinate=plotSheet.toCoordinatePoint(i,j,field);
+      f_xy=function.f(coordinate[0],coordinate[1]);
+      if (f_xy < this.f_xLowest && f_xy != Double.NaN && f_xy != Double.NEGATIVE_INFINITY && f_xy != Double.POSITIVE_INFINITY) {
+        this.f_xLowest=f_xy;
+      }
+      if (f_xy > this.f_xHighest && f_xy != Double.NaN && f_xy != Double.NEGATIVE_INFINITY && f_xy != Double.POSITIVE_INFINITY) {
+        this.f_xHighest=f_xy;
+      }
+    }
+  }
+}

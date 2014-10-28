@@ -1,0 +1,24 @@
+{
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CHECK_MEDIA,new DeckTask.TaskListener(){
+    @Override public void onPreExecute(){
+      mProgressDialog=StyledProgressDialog.show(DeckPicker.this,"",getResources().getString(R.string.check_media_message),true);
+    }
+    @Override public void onPostExecute(    TaskData result){
+      if (mProgressDialog.isShowing()) {
+        mProgressDialog.dismiss();
+      }
+      if (result != null && result.getBoolean()) {
+        @SuppressWarnings("unchecked") List<List<String>> checkList=(List<List<String>>)result.getObjArray()[0];
+        showMediaCheckDialog(MediaCheckDialog.DIALOG_MEDIA_CHECK_RESULTS,checkList);
+      }
+ else {
+        showSimpleMessageDialog(getResources().getString(R.string.check_media_failed));
+      }
+    }
+    @Override public void onProgressUpdate(    TaskData... values){
+    }
+    @Override public void onCancelled(){
+    }
+  }
+,new DeckTask.TaskData(getCol()));
+}

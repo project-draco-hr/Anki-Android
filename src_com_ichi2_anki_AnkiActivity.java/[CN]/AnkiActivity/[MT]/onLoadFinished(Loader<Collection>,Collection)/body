@@ -1,0 +1,9 @@
+{
+  mCollection=col;
+  if (col != null && AnkiDroidApp.colIsOpen()) {
+    onCollectionLoaded(col);
+  }
+ else {
+    onCollectionLoadError();
+  }
+}

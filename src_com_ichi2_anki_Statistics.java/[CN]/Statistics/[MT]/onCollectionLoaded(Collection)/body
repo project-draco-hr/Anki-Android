@@ -1,0 +1,14 @@
+{
+  mTaskHandler=new AnkiStatsTaskHandler();
+  mSectionsPagerAdapter=new SectionsPagerAdapter(getSupportFragmentManager());
+  mViewPager=(ViewPager)findViewById(R.id.pager);
+  mViewPager.setAdapter(mSectionsPagerAdapter);
+  mViewPager.setOffscreenPageLimit(8);
+  mSlidingTabLayout=(SlidingTabLayout)findViewById(R.id.sliding_tabs);
+  mSlidingTabLayout.setViewPager(mViewPager);
+  AnkiStatsTaskHandler.createFirstStatisticChooserTask(col,mViewPager);
+  float size=new TextView(this).getTextSize();
+  mTaskHandler.setmStandardTextSize(size);
+  supportInvalidateOptionsMenu();
+  mSectionsPagerAdapter.notifyDataSetChanged();
+}

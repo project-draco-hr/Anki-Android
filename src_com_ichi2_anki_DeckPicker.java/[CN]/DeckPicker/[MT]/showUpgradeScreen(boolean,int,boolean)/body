@@ -2,6 +2,5 @@
   Intent upgradeIntent=new Intent(this,Info.class);
   upgradeIntent.putExtra(Info.TYPE_EXTRA,Info.TYPE_UPGRADE_DECKS);
   upgradeIntent.putExtra(Info.TYPE_UPGRADE_STAGE,stage);
-  startActivityForResult(upgradeIntent,SHOW_INFO_UPGRADE_DECKS);
-  ActivityTransitionAnimation.slide(this,left ? ActivityTransitionAnimation.LEFT : ActivityTransitionAnimation.RIGHT);
+  startActivityForResultWithAnimation(upgradeIntent,SHOW_INFO_UPGRADE_DECKS,left ? ActivityTransitionAnimation.LEFT : ActivityTransitionAnimation.RIGHT);
 }

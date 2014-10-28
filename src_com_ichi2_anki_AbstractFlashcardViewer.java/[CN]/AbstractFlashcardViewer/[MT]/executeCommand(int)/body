@@ -51,12 +51,15 @@ case GESTURE_ANSWER_BETTER_THAN_RECOMMENDED:
 if (sDisplayAnswer) {
 answerCard(getRecommendedEase(true));
 }
+ else {
+displayCardAnswer();
+}
 break;
 case GESTURE_EXIT:
 closeReviewer(RESULT_DEFAULT,false);
 break;
 case GESTURE_UNDO:
-if (mSched.getCol().undoAvailable()) {
+if (getCol().undoAvailable()) {
 undo();
 }
 break;
@@ -77,11 +80,6 @@ DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new 
 break;
 case GESTURE_DELETE:
 showDeleteNoteDialog();
-break;
-case GESTURE_CLEAR_WHITEBOARD:
-if (mPrefWhiteboard) {
-mWhiteboard.clear();
-}
 break;
 case GESTURE_PLAY_MEDIA:
 playSounds(true);

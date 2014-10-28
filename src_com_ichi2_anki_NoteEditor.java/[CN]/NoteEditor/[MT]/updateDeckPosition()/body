@@ -1,0 +1,9 @@
+{
+  int position=mAllDeckIds.indexOf(mCurrentDid);
+  if (position != -1) {
+    mNoteDeckSpinner.setSelection(position,false);
+  }
+ else {
+    Log.e(AnkiDroidApp.TAG,"updateDeckPosition() :: mCurrentDid=" + Long.toString(mCurrentDid) + ", "+ "position = "+ Integer.toString(position));
+  }
+}

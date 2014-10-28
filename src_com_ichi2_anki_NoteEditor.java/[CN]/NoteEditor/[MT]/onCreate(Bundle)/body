@@ -1,0 +1,20 @@
+{
+  Themes.applyTheme(this);
+  super.onCreate(savedInstanceState);
+  Intent intent=getIntent();
+  if (savedInstanceState != null) {
+    mCaller=savedInstanceState.getInt("caller");
+    mAddNote=savedInstanceState.getBoolean("addFact");
+  }
+ else {
+    mCaller=intent.getIntExtra(EXTRA_CALLER,CALLER_NOCALLER);
+    if (mCaller == CALLER_NOCALLER) {
+      String action=intent.getAction();
+      if (action != null && (ACTION_CREATE_FLASHCARD.equals(action) || ACTION_CREATE_FLASHCARD_SEND.equals(action))) {
+        mCaller=CALLER_INDICLASH;
+      }
+    }
+  }
+  startLoadingCollection();
+  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+}

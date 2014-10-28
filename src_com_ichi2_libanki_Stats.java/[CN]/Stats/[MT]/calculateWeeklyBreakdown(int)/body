@@ -1,0 +1,79 @@
+{
+  mTitle=R.string.stats_weekly_breakdown;
+  mAxisTitles=new int[]{R.string.stats_day_of_week,R.string.stats_percentage_correct,R.string.stats_reviews};
+  mValueLabels=new int[]{R.string.stats_percentage_correct,R.string.stats_answers};
+  mColors=new int[]{R.color.stats_counts,R.color.stats_hours};
+  mType=type;
+  String lim=_revlogLimit().replaceAll("[\\[\\]]","");
+  if (lim.length() > 0) {
+    lim=" and " + lim;
+  }
+  Calendar sd=GregorianCalendar.getInstance();
+  sd.setTimeInMillis(mCol.getSched().getDayCutoff() * 1000);
+  int pd=_periodDays();
+  if (pd > 0) {
+    lim+=" and id > " + ((mCol.getSched().getDayCutoff() - (86400 * pd)) * 1000);
+  }
+  long cutoff=mCol.getSched().getDayCutoff();
+  long cut=cutoff - sd.get(Calendar.HOUR_OF_DAY) * 3600;
+  ArrayList<double[]> list=new ArrayList<double[]>();
+  Cursor cur=null;
+  String query="SELECT strftime('%w',datetime( cast(id/ 1000  -" + sd.get(Calendar.HOUR_OF_DAY) * 3600 + " as int), 'unixepoch')) as wd, " + "sum(case when ease = 1 then 0 else 1 end) / " + "cast(count() as float) * 100, " + "count() " + "from revlog " + "where type in (0,1,2) " + lim + " " + "group by wd " + "order by wd";
+  try {
+    cur=mCol.getDb().getDatabase().rawQuery(query,null);
+    while (cur.moveToNext()) {
+      list.add(new double[]{cur.getDouble(0),cur.getDouble(1),cur.getDouble(2)});
+    }
+  }
+  finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+  if (list.size() == 0) {
+    list.add(0,new double[]{0,0,0});
+  }
+  mSeriesList=new double[4][list.size()];
+  mPeak=0.0;
+  mMcount=0.0;
+  double minHour=Double.MAX_VALUE;
+  double maxHour=0;
+  for (int i=0; i < list.size(); i++) {
+    double[] data=list.get(i);
+    int hour=(int)data[0];
+    if (hour < minHour)     minHour=hour;
+    if (hour > maxHour)     maxHour=hour;
+    double pct=data[1];
+    if (pct > mPeak)     mPeak=pct;
+    mSeriesList[0][i]=hour;
+    mSeriesList[1][i]=pct;
+    mSeriesList[2][i]=data[2];
+    if (i == 0) {
+      mSeriesList[3][i]=pct;
+    }
+ else {
+      double prev=mSeriesList[3][i - 1];
+      double diff=pct - prev;
+      diff/=3.0;
+      diff=Math.round(diff * 10.0) / 10.0;
+      mSeriesList[3][i]=prev + diff;
+    }
+    if (data[2] > mMcount)     mMcount=data[2];
+    if (mSeriesList[1][i] > mMaxCards)     mMaxCards=(int)mSeriesList[1][i];
+  }
+  mFirstElement=mSeriesList[0][0];
+  mLastElement=mSeriesList[0][mSeriesList[0].length - 1];
+  mMaxElements=(int)(maxHour - minHour);
+  if (mMaxElements == 0) {
+    mMaxElements=10;
+  }
+  if (mMcount == 0) {
+    mMcount=10;
+  }
+  if (mFirstElement == mLastElement) {
+    mFirstElement=0;
+    mLastElement=6;
+  }
+  if (mMaxCards == 0)   mMaxCards=10;
+  return list.size() > 0;
+}

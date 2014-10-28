@@ -1,0 +1,46 @@
+{
+  this.expressionString=expressionString.replace(" ","");
+  int equalPosition=expressionString.indexOf("=");
+  if (equalPosition >= 1) {
+    String leftStatement=expressionString.substring(0,equalPosition);
+    this.expressionString=expressionString.substring(equalPosition + 1,expressionString.length());
+    int commaPos=leftStatement.indexOf(",");
+    int leftBracketPos=leftStatement.indexOf("(");
+    int rightBracketPos=leftStatement.indexOf(")");
+    if (leftBracketPos > 0 && rightBracketPos > leftBracketPos + 1) {
+      String funcName=leftStatement.substring(0,leftBracketPos);
+      Pattern p=Pattern.compile("[^a-zA-Z0-9]");
+      boolean hasSpecialChar=p.matcher(funcName).find();
+      if (hasSpecialChar) {
+        return false;
+      }
+      if (commaPos == -1) {
+        String xVarName=leftStatement.substring(leftBracketPos + 1,rightBracketPos);
+        hasSpecialChar=p.matcher(xVarName).find();
+        if (hasSpecialChar) {
+          return false;
+        }
+        this.xName=xVarName;
+      }
+ else {
+        String xVarName=leftStatement.substring(leftBracketPos + 1,commaPos);
+        hasSpecialChar=p.matcher(xVarName).find();
+        if (hasSpecialChar) {
+          return false;
+        }
+        String yVarName=leftStatement.substring(commaPos + 1,rightBracketPos);
+        hasSpecialChar=p.matcher(yVarName).find();
+        if (hasSpecialChar) {
+          return false;
+        }
+        this.xName=xVarName;
+        this.yName=yVarName;
+      }
+      this.funcName=funcName;
+    }
+ else {
+      return false;
+    }
+  }
+  return true;
+}

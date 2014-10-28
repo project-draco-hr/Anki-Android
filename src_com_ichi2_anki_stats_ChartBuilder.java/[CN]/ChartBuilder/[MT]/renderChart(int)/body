@@ -1,0 +1,34 @@
+{
+  calcStats(type);
+  Paint paint=new Paint(Paint.LINEAR_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+  paint.setStyle(Paint.Style.STROKE);
+  int height=mChartView.getMeasuredHeight();
+  int width=mChartView.getMeasuredWidth();
+  if (height <= 0 || width <= 0) {
+    return null;
+  }
+  RectangleWrap rect=new RectangleWrap(width,height);
+  float textSize=AnkiStatsTaskHandler.getInstance().getmStandardTextSize() * 0.85f;
+  paint.setTextSize(textSize);
+  float FontHeigth=paint.getTextSize();
+  mDesiredPixelDistanceBetweenTicks=Math.round(paint.measureText("100000") * 2.6f);
+  mFrameThickness=Math.round(FontHeigth * 4.0f);
+  PlotSheet plotSheet=new PlotSheet(mFirstElement - 0.5,mLastElement + 0.5,0,mMaxCards * yAxisStretchFactor);
+  plotSheet.setFrameThickness(mFrameThickness * 0.66f,mFrameThickness * 0.66f,mFrameThickness,mFrameThickness * 0.9f);
+  plotSheet.setFontSize(textSize);
+  if (mChartType == Stats.ChartType.CARDS_TYPES) {
+    return createPieChart(plotSheet);
+  }
+  PlotSheet hiddenPlotSheet=new PlotSheet(mFirstElement - 0.5,mLastElement + 0.5,0,mMcount * yAxisStretchFactor);
+  hiddenPlotSheet.setFrameThickness(mFrameThickness * 0.66f,mFrameThickness * 0.66f,mFrameThickness,mFrameThickness * 0.9f);
+  setupBarGraphs(plotSheet,hiddenPlotSheet);
+  setupCumulative(plotSheet,hiddenPlotSheet);
+  double xTicks=ticksCalcX(mDesiredPixelDistanceBetweenTicks,rect,mFirstElement,mLastElement);
+  setupXaxis(plotSheet,xTicks,true);
+  double yTicks=ticksCalcY(mDesiredPixelDistanceBetweenTicks,rect,0,mMaxCards * yAxisStretchFactor);
+  setupYaxis(plotSheet,hiddenPlotSheet,yTicks,mAxisTitles[1],false,true);
+  double rightYtics=ticsCalc(mDesiredPixelDistanceBetweenTicks,rect,mMcount * yAxisStretchFactor);
+  setupYaxis(plotSheet,hiddenPlotSheet,rightYtics,mAxisTitles[2],true,true);
+  setupGrid(plotSheet,yTicks * 0.5,xTicks * 0.5);
+  return plotSheet;
+}

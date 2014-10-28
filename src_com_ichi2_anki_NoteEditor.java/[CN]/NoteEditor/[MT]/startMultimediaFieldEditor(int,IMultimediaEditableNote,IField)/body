@@ -1,0 +1,7 @@
+{
+  Intent editCard=new Intent(NoteEditor.this,EditFieldActivity.class);
+  editCard.putExtra(EditFieldActivity.EXTRA_FIELD_INDEX,index);
+  editCard.putExtra(EditFieldActivity.EXTRA_FIELD,field);
+  editCard.putExtra(EditFieldActivity.EXTRA_WHOLE_NOTE,mNote);
+  startActivityForResultWithoutAnimation(editCard,REQUEST_MULTIMEDIA_EDIT);
+}

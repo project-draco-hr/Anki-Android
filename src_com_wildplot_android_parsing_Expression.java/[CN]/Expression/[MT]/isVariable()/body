@@ -1,0 +1,12 @@
+{
+switch (expressionType) {
+case EXP_PLUS_TERM:
+case EXP_MINUS_TERM:
+    return expression.isVariable() || term.isVariable();
+case TERM:
+  return term.isVariable();
+default :
+case INVALID:
+throw new ExpressionFormatException("could not parse Expression");
+}
+}

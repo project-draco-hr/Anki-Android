@@ -1,9 +1,7 @@
 {
   super.onResume();
-  if (AnkiDroidApp.getCol() != null) {
-    if (Utils.now() > AnkiDroidApp.getCol().getSched().getDayCutoff() && AnkiDroidApp.isSdCardMounted()) {
-      loadCounts();
-    }
+  if (colOpen() && AnkiDroidApp.isSdCardMounted()) {
+    loadCounts();
   }
   selectNavigationItem(DRAWER_DECK_PICKER);
 }

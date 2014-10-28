@@ -14,7 +14,7 @@
     updateSearchItemQA(mCards.get(pos),c);
     String deckName;
     try {
-      deckName=mCol.getDecks().get(card.getDid()).getString("name");
+      deckName=getCol().getDecks().get(card.getDid()).getString("name");
     }
  catch (    JSONException e) {
       throw new RuntimeException(e);

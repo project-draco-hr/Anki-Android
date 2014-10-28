@@ -2,5 +2,6 @@
   if (mDb == null) {
     mDb=AnkiDatabaseManager.getDatabase(mPath);
     mMedia.connect();
+    _openLog();
   }
 }

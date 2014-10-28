@@ -1,0 +1,11 @@
+{
+  if (!TopLevelParser.stringHasValidBrackets(expressionString))   return false;
+  Term term=new Term(expressionString,parser);
+  boolean isValidTerm=term.getTermType() != Term.TermType.INVALID;
+  if (isValidTerm) {
+    this.expressionType=ExpressionType.TERM;
+    this.term=term;
+    return true;
+  }
+  return false;
+}

@@ -1,0 +1,210 @@
+{
+  super.onCollectionLoaded(col);
+  this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+  Intent intent=getIntent();
+  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
+  if (mCaller == CALLER_INDICLASH && preferences.getBoolean("intentAdditionInstantAdd",false)) {
+    fetchIntentInformation(intent);
+    MetaDB.saveIntentInformation(NoteEditor.this,Utils.joinFields(mSourceText));
+    Themes.showThemedToast(NoteEditor.this,getResources().getString(R.string.app_name) + ": " + getResources().getString(R.string.CardEditorLaterMessage),false);
+    finishWithoutAnimation();
+    return;
+  }
+  registerExternalStorageListener();
+  View mainView=getLayoutInflater().inflate(R.layout.card_editor,null);
+  setContentView(mainView);
+  Themes.setWallpaper(mainView);
+  Themes.setContentStyle(mainView,Themes.CALLER_CARD_EDITOR);
+  mFieldsLayoutContainer=(LinearLayout)findViewById(R.id.CardEditorEditFieldsLayout);
+  mTagsButton=(TextView)findViewById(R.id.CardEditorTagText);
+  Preferences.COMING_FROM_ADD=false;
+  mAedictIntent=false;
+switch (mCaller) {
+case CALLER_NOCALLER:
+    finishWithoutAnimation();
+  return;
+case CALLER_REVIEWER:
+mCurrentEditedCard=AbstractFlashcardViewer.getEditorCard();
+if (mCurrentEditedCard == null) {
+finishWithoutAnimation();
+return;
+}
+mEditorNote=mCurrentEditedCard.note();
+mAddNote=false;
+break;
+case CALLER_STUDYOPTIONS:
+case CALLER_DECKPICKER:
+mAddNote=true;
+break;
+case CALLER_BIGWIDGET_EDIT:
+break;
+case CALLER_BIGWIDGET_ADD:
+mAddNote=true;
+break;
+case CALLER_CARDBROWSER_EDIT:
+mCurrentEditedCard=CardBrowser.sCardBrowserCard;
+if (mCurrentEditedCard == null) {
+finishWithoutAnimation();
+return;
+}
+mEditorNote=mCurrentEditedCard.note();
+mAddNote=false;
+break;
+case CALLER_CARDBROWSER_ADD:
+mAddNote=true;
+break;
+case CALLER_CARDEDITOR:
+mAddNote=true;
+break;
+case CALLER_CARDEDITOR_INTENT_ADD:
+mAddNote=true;
+break;
+case CALLER_INDICLASH:
+fetchIntentInformation(intent);
+if (mSourceText == null) {
+finishWithoutAnimation();
+return;
+}
+if (mSourceText[0].equals("Aedict Notepad") && addFromAedict(mSourceText[1])) {
+finishWithoutAnimation();
+return;
+}
+mAddNote=true;
+break;
+}
+mNoteTypeSpinner=(Spinner)findViewById(R.id.note_type_spinner);
+final ArrayList<Long> modelIds=new ArrayList<Long>();
+final ArrayList<String> modelNames=new ArrayList<String>();
+ArrayList<JSONObject> models=getCol().getModels().all();
+Collections.sort(models,new JSONNameComparator());
+for (JSONObject m : models) {
+try {
+modelNames.add(m.getString("name"));
+modelIds.add(m.getLong("id"));
+}
+ catch (JSONException e) {
+throw new RuntimeException(e);
+}
+}
+ArrayAdapter<String> noteTypeAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,modelNames);
+mNoteTypeSpinner.setAdapter(noteTypeAdapter);
+noteTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+OnItemSelectedListener noteTypeListener=new OnItemSelectedListener(){
+@Override public void onItemSelected(AdapterView<?> parent,View view,int pos,long id){
+long oldModelId;
+try {
+oldModelId=getCol().getModels().current().getLong("id");
+}
+ catch (JSONException e) {
+throw new RuntimeException(e);
+}
+long newId=modelIds.get(pos);
+if (oldModelId != newId) {
+JSONObject model=getCol().getModels().get(newId);
+getCol().getModels().setCurrent(model);
+JSONObject cdeck=getCol().getDecks().current();
+try {
+cdeck.put("mid",newId);
+}
+ catch (JSONException e) {
+throw new RuntimeException(e);
+}
+getCol().getDecks().save(cdeck);
+if (!getCol().getConf().optBoolean("addToCur",true)) {
+try {
+mCurrentDid=model.getLong("did");
+updateDeckPosition();
+}
+ catch (JSONException e) {
+throw new RuntimeException(e);
+}
+}
+int size=mEditFields.size();
+String[] oldValues=new String[size];
+for (int i=0; i < size; i++) {
+oldValues[i]=mEditFields.get(i).getText().toString();
+}
+setNote();
+resetEditFields(oldValues);
+duplicateCheck();
+}
+}
+@Override public void onNothingSelected(AdapterView<?> parent){
+}
+}
+;
+TextView deckTextView=(TextView)findViewById(R.id.CardEditorDeckText);
+deckTextView.setText(getResources().getString(mAddNote ? R.string.CardEditorNoteDeck : R.string.CardEditorCardDeck));
+mNoteDeckSpinner=(Spinner)findViewById(R.id.note_deck_spinner);
+mAllDeckIds=new ArrayList<Long>();
+final ArrayList<String> deckNames=new ArrayList<String>();
+ArrayList<JSONObject> decks=getCol().getDecks().all();
+Collections.sort(decks,new JSONNameComparator());
+for (JSONObject d : decks) {
+try {
+long thisDid=d.getLong("id");
+long currentDid=getCol().getDecks().current().getLong("id");
+if (d.getInt("dyn") == 0 || (!mAddNote && thisDid == currentDid)) {
+deckNames.add(d.getString("name"));
+mAllDeckIds.add(thisDid);
+}
+}
+ catch (JSONException e) {
+throw new RuntimeException(e);
+}
+}
+ArrayAdapter<String> noteDeckAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,deckNames);
+mNoteDeckSpinner.setAdapter(noteDeckAdapter);
+noteDeckAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+mNoteDeckSpinner.setOnItemSelectedListener(new OnItemSelectedListener(){
+@Override public void onItemSelected(AdapterView<?> parent,View view,int pos,long id){
+mCurrentDid=mAllDeckIds.get(pos);
+}
+@Override public void onNothingSelected(AdapterView<?> parent){
+}
+}
+);
+setNote(mEditorNote);
+int position;
+try {
+position=modelIds.indexOf(mEditorNote.model().getLong("id"));
+}
+ catch (JSONException e) {
+throw new RuntimeException(e);
+}
+mNoteTypeSpinner.setSelection(position,false);
+if (mAddNote) {
+mNoteTypeSpinner.setOnItemSelectedListener(noteTypeListener);
+mNoteTypeSpinner.setEnabled(true);
+setTitle(R.string.cardeditor_title_add_note);
+String contents=null;
+if (mSourceText != null) {
+if (mAedictIntent && (mEditFields.size() == 3) && mSourceText[1].contains("[")) {
+contents=mSourceText[1].replaceFirst("\\[","\u001f" + mSourceText[0] + "\u001f");
+contents=contents.substring(0,contents.length() - 1);
+}
+ else {
+mEditFields.get(0).setText(mSourceText[0]);
+mEditFields.get(1).setText(mSourceText[1]);
+}
+}
+ else {
+contents=intent.getStringExtra(EXTRA_CONTENTS);
+}
+if (contents != null) {
+setEditFieldTexts(contents);
+}
+}
+ else {
+mNoteTypeSpinner.setEnabled(false);
+setTitle(R.string.cardeditor_title_edit_card);
+}
+mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
+((LinearLayout)findViewById(R.id.CardEditorTagButton)).setOnClickListener(new View.OnClickListener(){
+@Override public void onClick(View v){
+showDialogFragment(DIALOG_TAGS_SELECT);
+}
+}
+);
+dismissOpeningCollectionDialog();
+}

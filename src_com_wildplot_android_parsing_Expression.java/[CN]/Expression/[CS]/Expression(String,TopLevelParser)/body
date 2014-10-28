@@ -1,0 +1,10 @@
+{
+  this.parser=parser;
+  if (!TopLevelParser.stringHasValidBrackets(expressionString)) {
+    this.expressionType=ExpressionType.INVALID;
+    return;
+  }
+  boolean isReady=initAsExpPlusOrMinusTerm(expressionString);
+  if (!isReady)   isReady=initAsTerm(expressionString);
+  if (!isReady)   this.expressionType=ExpressionType.INVALID;
+}

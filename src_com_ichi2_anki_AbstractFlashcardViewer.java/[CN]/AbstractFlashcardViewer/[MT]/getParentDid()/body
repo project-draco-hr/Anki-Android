@@ -1,0 +1,10 @@
+{
+  long deckID;
+  try {
+    deckID=mSched.getCol().getDecks().current().getLong("id");
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  return deckID;
+}
