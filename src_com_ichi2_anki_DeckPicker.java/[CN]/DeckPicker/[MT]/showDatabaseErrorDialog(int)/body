@@ -1,4 +1,4 @@
 {
-  DialogFragment newFragment=DatabaseErrorDialog.newInstance(id);
-  showDialogFragment(newFragment);
+  AsyncDialogFragment newFragment=DatabaseErrorDialog.newInstance(id);
+  showAsyncDialogFragment(newFragment);
 }

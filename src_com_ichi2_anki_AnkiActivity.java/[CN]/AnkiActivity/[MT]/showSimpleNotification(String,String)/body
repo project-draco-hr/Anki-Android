@@ -1,0 +1,27 @@
+{
+  SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(this);
+  if (Integer.parseInt(prefs.getString("minimumCardsDueForNotification","0")) <= 1000000) {
+    String ticker=title;
+    if (title.equals(getResources().getString(R.string.app_name))) {
+      ticker=message;
+    }
+    NotificationCompat.Builder builder=new NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_stat_notify).setContentTitle(title).setContentText(message).setStyle(new NotificationCompat.BigTextStyle().bigText(message)).setTicker(ticker);
+    if (prefs.getBoolean("widgetVibrate",false)) {
+      builder.setVibrate(new long[]{1000,1000,1000});
+    }
+    if (prefs.getBoolean("widgetBlink",false)) {
+      builder.setLights(Color.BLUE,1000,1000);
+    }
+    Intent resultIntent=new Intent(this,DeckPicker.class);
+    resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
+    PendingIntent resultPendingIntent=PendingIntent.getActivity(this,0,resultIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+    if (resultPendingIntent == null) {
+      Log.e(AnkiDroidApp.TAG,"AnkiActivity.showSimpleNotification() failed due to null PendingIntent");
+      resultIntent=new Intent(this,DeckPicker.class);
+      resultPendingIntent=PendingIntent.getActivity(this,0,resultIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+    builder.setContentIntent(resultPendingIntent);
+    NotificationManager notificationManager=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+    notificationManager.notify(SIMPLE_NOTIFICATION_ID,builder.build());
+  }
+}
