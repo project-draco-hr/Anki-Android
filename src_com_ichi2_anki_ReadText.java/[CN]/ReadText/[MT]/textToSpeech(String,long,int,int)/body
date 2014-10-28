@@ -21,8 +21,8 @@
       return;
     }
   }
-  Resources res=mReviewer.getResources();
-  StyledDialog.Builder builder=new StyledDialog.Builder(mReviewer);
+  Resources res=mReviewer.get().getResources();
+  StyledDialog.Builder builder=new StyledDialog.Builder(mReviewer.get());
   if (availableTtsLocales.size() == 0) {
     builder.setMessage(res.getString(R.string.no_tts_available_message));
     builder.setIcon(R.drawable.ic_dialog_alert);
@@ -42,7 +42,7 @@
     dialogItems.toArray(items);
     builder.setItems(items,new DialogInterface.OnClickListener(){
       @Override public void onClick(      DialogInterface dialog,      int which){
-        MetaDB.storeLanguage(mReviewer,mDid,mOrd,mQuestionAnswer,dialogIds.get(which));
+        MetaDB.storeLanguage(mReviewer.get(),mDid,mOrd,mQuestionAnswer,dialogIds.get(which));
         speak(mTextToSpeak,dialogIds.get(which));
       }
     }
