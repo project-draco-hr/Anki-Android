@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundCheckMedia");
   try {
     AnkiDroidApp.getCol().getMedia().findChanges(true);
     List<List<String>> result=AnkiDroidApp.getCol().getMedia().check();

@@ -2,11 +2,9 @@
   sLock.lock();
   try {
     if (!mIsRunning) {
-      Log.d(AnkiDroidApp.TAG,"quiting CreateStatisticsOverview before execution");
       return null;
     }
- else     Log.d(AnkiDroidApp.TAG,"starting CreateStatisticsOverview");
-    mWebView=(WebView)params[0];
+ else     mWebView=(WebView)params[0];
     mProgressBar=(ProgressBar)params[1];
     String html="";
     InfoStatsBuilder infoStatsBuilder=new InfoStatsBuilder(mWebView,mCollectionData,sIsWholeCollection);

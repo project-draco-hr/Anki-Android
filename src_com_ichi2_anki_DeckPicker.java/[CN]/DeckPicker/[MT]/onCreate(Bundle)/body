@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"DeckPicker - onCreate");
   Intent intent=getIntent();
   if (intent.getCategories() != null || !AnkiDroidApp.colIsOpen()) {
     showOpeningCollectionDialog();
