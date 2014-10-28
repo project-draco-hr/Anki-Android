@@ -1,7 +1,6 @@
 {
   mIntentInformation.clear();
   mIntentInformation.addAll(MetaDB.getIntentInformation(this));
-  Log.d(AnkiDroidApp.TAG,"Saved data list size: " + mIntentInformation.size());
   if (mIntentInformationAdapter != null) {
     mIntentInformationAdapter.notifyDataSetChanged();
   }

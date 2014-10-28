@@ -8,6 +8,5 @@
   while ((deltaRange / (tics)) / 2 >= ticlimit) {
     tics*=2.0;
   }
-  Log.d(AnkiDroidApp.TAG,"ChartBuilder ticksCalcY: pixelDistance: " + pixelDistance + ", ticks: "+ tics);
   return tics;
 }

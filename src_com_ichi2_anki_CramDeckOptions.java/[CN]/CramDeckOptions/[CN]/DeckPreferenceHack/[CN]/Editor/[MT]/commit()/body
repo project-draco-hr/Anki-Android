@@ -1,8 +1,6 @@
 {
-  Log.d(AnkiDroidApp.TAG,"CramDeckOptions - commit() changes back to database");
   try {
     for (    Entry<String,Object> entry : mUpdate.valueSet()) {
-      Log.i(AnkiDroidApp.TAG,"Change value for key '" + entry.getKey() + "': "+ entry.getValue());
       if (entry.getKey().equals("search")) {
         JSONArray ar=mDeck.getJSONArray("terms");
         ar.getJSONArray(0).put(0,(String)entry.getValue());

@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundCheckDatabase");
   Collection col=params[0].getCollection();
   if (!AnkiDroidApp.colIsOpen()) {
     Log.e(AnkiDroidApp.TAG,"doInBackgroundCheckDatabase :: collection not open, trying to reload");

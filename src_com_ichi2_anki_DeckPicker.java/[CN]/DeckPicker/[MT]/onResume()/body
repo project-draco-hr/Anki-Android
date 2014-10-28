@@ -1,5 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"DeckPicker - onResume");
   super.onResume();
   if (colOpen() && AnkiDroidApp.isSdCardMounted()) {
     loadCounts();

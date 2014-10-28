@@ -2,7 +2,6 @@
   IControllerFactory controllerFactory=BasicControllerFactory.getInstance();
   mFieldController=controllerFactory.createControllerForField(mField);
   if (mFieldController == null) {
-    Log.d(AnkiDroidApp.TAG,"Field controller creation failed");
     return;
   }
   mFieldController.setField(mField);
