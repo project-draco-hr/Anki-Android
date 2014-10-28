@@ -1,6 +1,6 @@
 {
   super.onStop();
-  if (!isFinishing() && mCurrentFragment != null && mCurrentFragment.dbSaveNecessary()) {
+  if (colOpen()) {
     WidgetStatus.update(this);
     UIUtils.saveCollectionInBackground();
   }

@@ -1,9 +1,0 @@
-{
-  Activity a=getActivity();
-  if (a != null) {
-    ((OnStudyOptionsReloadListener)a).loadStudyOptionsFragment();
-  }
- else {
-    Log.e(AnkiDroidApp.TAG,"reloadStudyOptions() failed due to getActivity() returning null");
-  }
-}

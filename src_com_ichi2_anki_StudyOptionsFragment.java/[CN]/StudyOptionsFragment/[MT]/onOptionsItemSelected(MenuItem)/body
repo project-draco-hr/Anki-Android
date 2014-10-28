@@ -3,8 +3,7 @@ switch (item.getItemId()) {
 case R.id.action_undo:
     if (colOpen()) {
       getCol().undo();
-      resetAndUpdateValuesFromDeck();
-      finishCongrats();
+      resetAndRefreshInterface();
       getActivity().supportInvalidateOptionsMenu();
     }
   return true;
