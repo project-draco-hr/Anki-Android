@@ -21,8 +21,7 @@ StyledDialog.Builder builder=new StyledDialog.Builder(getActivity());
 builder.setTitle(mTitle);
 builder.setPositiveButton(res.getString(R.string.select),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
-mCurrentTags.addAll(mStyledDialog.getCheckedItems());
-mTagsDialogListener.onPositive(new ArrayList<String>(mCurrentTags),mSelectedOption);
+mTagsDialogListener.onPositive(new ArrayList<String>(mStyledDialog.getCheckedItems()),mSelectedOption);
 }
 }
 );
