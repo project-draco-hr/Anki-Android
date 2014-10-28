@@ -22,6 +22,7 @@
   }
  else {
     Sound.stopSounds();
+    answer=getCol().getMedia().escapeImages(answer);
     if (mPrefFixArabic) {
       answer=ArabicUtilities.reshapeSentence(answer,true);
     }
