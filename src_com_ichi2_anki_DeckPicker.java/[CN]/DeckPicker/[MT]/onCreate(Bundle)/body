@@ -1,13 +1,13 @@
 {
   Log.i(AnkiDroidApp.TAG,"DeckPicker - onCreate");
   Intent intent=getIntent();
+  if (intent.getCategories() != null || !AnkiDroidApp.colIsOpen()) {
+    showOpeningCollectionDialog();
+  }
   if (intent.getData() != null) {
     mImportPath=getIntent().getData().getEncodedPath();
   }
   mHandler=new DialogHandler(this);
-  if (!AnkiDroidApp.colIsOpen()) {
-    showOpeningCollectionDialog();
-  }
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   setTitle(getResources().getString(R.string.app_name));
