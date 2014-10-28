@@ -1,0 +1,19 @@
+{
+  Context context=AnkiDroidApp.getInstance().getApplicationContext();
+  WindowManager wm=(WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+  Display display=wm.getDefaultDisplay();
+  float videoProportion=(float)videoWidth / (float)videoHeight;
+  int screenWidth=display.getWidth();
+  int screenHeight=display.getHeight();
+  float screenProportion=(float)screenWidth / (float)screenHeight;
+  android.view.ViewGroup.LayoutParams lp=videoView.getLayoutParams();
+  if (videoProportion > screenProportion) {
+    lp.width=screenWidth;
+    lp.height=(int)((float)screenWidth / videoProportion);
+  }
+ else {
+    lp.width=(int)(videoProportion * (float)screenHeight);
+    lp.height=screenHeight;
+  }
+  videoView.setLayoutParams(lp);
+}
