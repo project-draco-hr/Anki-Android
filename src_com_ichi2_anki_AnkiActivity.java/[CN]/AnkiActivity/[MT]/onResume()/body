@@ -1,4 +1,9 @@
 {
   super.onResume();
   ((NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE)).cancel(SIMPLE_NOTIFICATION_ID);
+  Message handlerMsg=AnkiDroidApp.getStoredDialogHandlerMessage();
+  if (handlerMsg != null) {
+    mHandler.sendMessage(handlerMsg);
+    AnkiDroidApp.setStoredDialogHandlerMessage(null);
+  }
 }
