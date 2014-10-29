@@ -6,7 +6,6 @@
       String tag=m.group(0);
       String fname=m.group(fnameIdx);
       if (fRemotePattern.matcher(fname).find()) {
-        string=tag;
       }
  else {
         if (unescape) {
