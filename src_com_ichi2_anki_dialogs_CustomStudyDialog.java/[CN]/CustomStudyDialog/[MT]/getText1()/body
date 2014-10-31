@@ -1,0 +1,12 @@
+{
+  Resources res=AnkiDroidApp.getAppResources();
+  Collection col=AnkiDroidApp.getCol();
+switch (getArguments().getInt("id")) {
+case CUSTOM_STUDY_NEW:
+    return res.getString(R.string.custom_study_new_total_new,col.getSched().totalNewForCurrentDeck());
+case CUSTOM_STUDY_REV:
+  return res.getString(R.string.custom_study_rev_total_rev,col.getSched().totalRevForCurrentDeck());
+default :
+return "";
+}
+}
