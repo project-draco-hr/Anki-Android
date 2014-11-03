@@ -36,6 +36,9 @@
         mediaDb.delete();
       }
     }
+    if (previous < 20301208) {
+      mRecommendFullSync=true;
+    }
     if (previous < AnkiDroidApp.CHECK_DB_AT_VERSION || previous < AnkiDroidApp.CHECK_PREFERENCES_AT_VERSION) {
       if (previous < AnkiDroidApp.CHECK_PREFERENCES_AT_VERSION) {
         upgradePreferences(previous);
