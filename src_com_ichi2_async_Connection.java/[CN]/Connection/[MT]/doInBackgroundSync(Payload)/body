@@ -40,7 +40,7 @@
         return data;
       }
       if (retCode.equals("sanityCheckError")) {
-        col.modSchema();
+        col.modSchemaNoCheck();
         col.save();
       }
       if (retCode.equals("noChanges")) {

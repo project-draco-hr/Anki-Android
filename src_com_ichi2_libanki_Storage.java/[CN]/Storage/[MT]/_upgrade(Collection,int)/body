@@ -8,7 +8,7 @@
       }
     }
     if (ver < 4) {
-      col.modSchema();
+      col.modSchemaNoCheck();
       ArrayList<JSONObject> clozes=new ArrayList<JSONObject>();
       for (      JSONObject m : col.getModels().all()) {
         if (!m.getJSONArray("tmpls").getJSONObject(0).getString("qfmt").contains("{{cloze:")) {
@@ -19,7 +19,12 @@
         }
       }
       for (      JSONObject m : clozes) {
-        _upgradeClozeModel(col,m);
+        try {
+          _upgradeClozeModel(col,m);
+        }
+ catch (        ConfirmModSchemaException e) {
+          throw new RuntimeException(e);
+        }
       }
       col.getDb().execute("UPDATE col SET ver = 4");
     }
@@ -28,7 +33,7 @@
       col.getDb().execute("UPDATE col SET ver = 5");
     }
     if (ver < 6) {
-      col.modSchema();
+      col.modSchemaNoCheck();
       for (      JSONObject m : col.getModels().all()) {
         m.put("css",new JSONObject(Models.defaultModel).getString("css"));
         JSONArray ar=m.getJSONArray("tmpls");
@@ -45,12 +50,12 @@
       col.getDb().execute("UPDATE col SET ver = 6");
     }
     if (ver < 7) {
-      col.modSchema();
+      col.modSchemaNoCheck();
       col.getDb().execute("UPDATE cards SET odue = 0 WHERE (type = 1 OR queue = 2) AND NOT odid");
       col.getDb().execute("UPDATE col SET ver = 7");
     }
     if (ver < 8) {
-      col.modSchema();
+      col.modSchemaNoCheck();
       col.getDb().execute("UPDATE cards SET due = due / 1000 WHERE due > 4294967296");
       col.getDb().execute("UPDATE col SET ver = 8");
     }
@@ -62,7 +67,7 @@
       col.getDb().execute("UPDATE col SET ver = 10");
     }
     if (ver < 11) {
-      col.modSchema();
+      col.modSchemaNoCheck();
       for (      JSONObject d : col.getDecks().all()) {
         if (d.getInt("dyn") != 0) {
           int order=d.getInt("order");

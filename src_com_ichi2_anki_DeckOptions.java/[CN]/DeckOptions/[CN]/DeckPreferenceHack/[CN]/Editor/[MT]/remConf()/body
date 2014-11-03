@@ -1,0 +1,10 @@
+{
+  try {
+    mCol.getDecks().remConf(mOptions.getLong("id"));
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CONF_REMOVE,mConfChangeHandler,new DeckTask.TaskData(new Object[]{mCol,mOptions}));
+    mDeck.put("conf",1);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}
