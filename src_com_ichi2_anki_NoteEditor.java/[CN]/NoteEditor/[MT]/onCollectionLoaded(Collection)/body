@@ -12,12 +12,13 @@
     return;
   }
   registerExternalStorageListener();
-  View mainView=getLayoutInflater().inflate(R.layout.card_editor,null);
+  View mainView=getLayoutInflater().inflate(R.layout.note_editor,null);
   setContentView(mainView);
   Themes.setWallpaper(mainView);
   Themes.setContentStyle(mainView,Themes.CALLER_CARD_EDITOR);
   mFieldsLayoutContainer=(LinearLayout)findViewById(R.id.CardEditorEditFieldsLayout);
   mTagsButton=(TextView)findViewById(R.id.CardEditorTagText);
+  mCardsButton=(TextView)findViewById(R.id.CardEditorCardsText);
   Preferences.COMING_FROM_ADD=false;
   mAedictIntent=false;
 switch (mCaller) {
@@ -136,7 +137,14 @@ duplicateCheck();
 }
 ;
 TextView deckTextView=(TextView)findViewById(R.id.CardEditorDeckText);
-deckTextView.setText(getResources().getString(mAddNote ? R.string.CardEditorNoteDeck : R.string.CardEditorCardDeck));
+try {
+if (!mAddNote && mEditorNote.model().getJSONArray("tmpls").length() > 1) {
+deckTextView.setText(R.string.CardEditorCardDeck);
+}
+}
+ catch (JSONException e1) {
+throw new RuntimeException();
+}
 mNoteDeckSpinner=(Spinner)findViewById(R.id.note_deck_spinner);
 mAllDeckIds=new ArrayList<Long>();
 final ArrayList<String> deckNames=new ArrayList<String>();

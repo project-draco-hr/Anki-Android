@@ -1,0 +1,18 @@
+{
+  try {
+    JSONArray tmpls=mEditorNote.model().getJSONArray("tmpls");
+    String cardsList="";
+    for (int i=0; i < tmpls.length(); i++) {
+      String name=tmpls.getJSONObject(i).optString("name");
+      if (!mAddNote && tmpls.length() > 1 && mCurrentEditedCard.template().optString("name").equals(name)) {
+        name="<u>" + name + "</u>";
+      }
+      cardsList+=name + ", ";
+    }
+    cardsList=cardsList.substring(0,cardsList.length() - 2);
+    mCardsButton.setText(Html.fromHtml(getResources().getString(R.string.CardEditorCards,cardsList)));
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}
