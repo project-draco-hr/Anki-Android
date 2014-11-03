@@ -1,5 +1,5 @@
 {
-  mCol.modSchema();
+  mCol.modSchema(true);
   try {
     long id=m.getLong("id");
     boolean current=current().getLong("id") == id;
