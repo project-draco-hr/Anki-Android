@@ -1,7 +1,7 @@
 {
   try {
     if (m.getLong("id") != 0) {
-      mCol.modSchema();
+      mCol.modSchema(true);
     }
     JSONArray ja=m.getJSONArray("flds");
     ja.put(field);

@@ -10,7 +10,6 @@
       conf.getJSONObject("new").put("order",defaultOrder);
       col.getSched().resortConf(conf);
     }
-    col.getDecks().remConf(conf.getLong("id"));
     return new TaskData(true);
   }
  catch (  JSONException e) {
