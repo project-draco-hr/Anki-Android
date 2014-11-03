@@ -46,6 +46,9 @@
     }
   }
 );
+  if (AnkiDroidApp.isChromebook()) {
+    mBtnCamera.setVisibility(View.INVISIBLE);
+  }
   layout.addView(mImagePreview,android.view.ViewGroup.LayoutParams.FILL_PARENT,p);
   layout.addView(mBtnGallery,android.view.ViewGroup.LayoutParams.FILL_PARENT);
   layout.addView(mBtnCamera,android.view.ViewGroup.LayoutParams.FILL_PARENT);
