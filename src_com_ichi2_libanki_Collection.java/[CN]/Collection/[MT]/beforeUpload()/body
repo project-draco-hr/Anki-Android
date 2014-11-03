@@ -8,7 +8,7 @@
   mModels.beforeUpload();
   mTags.beforeUpload();
   mDecks.beforeUpload();
-  modSchema();
+  modSchemaNoCheck();
   mLs=mScm;
   mDb.execute("vacuum");
   mDb.execute("analyze");

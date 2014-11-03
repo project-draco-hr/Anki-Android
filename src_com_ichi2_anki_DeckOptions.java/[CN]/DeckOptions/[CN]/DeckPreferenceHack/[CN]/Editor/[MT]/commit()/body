@@ -118,8 +118,27 @@
           Themes.showThemedToast(DeckOptions.this,getResources().getString(R.string.default_conf_delete_error),false);
         }
  else {
-          DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CONF_REMOVE,mConfChangeHandler,new DeckTask.TaskData(new Object[]{mCol,mOptions}));
-          mDeck.put("conf",1);
+          try {
+            remConf();
+          }
+ catch (          ConfirmModSchemaException e) {
+            StyledDialog.Builder builder=new StyledDialog.Builder(DeckOptions.this);
+            builder.setMessage(R.string.full_sync_confirmation);
+            builder.setPositiveButton(R.string.dialog_ok,new DialogInterface.OnClickListener(){
+              @Override public void onClick(              DialogInterface dialog,              int which){
+                mCol.modSchemaNoCheck();
+                try {
+                  remConf();
+                }
+ catch (                ConfirmModSchemaException e) {
+                  throw new RuntimeException(e);
+                }
+              }
+            }
+);
+            builder.setNegativeButton(R.string.dialog_cancel,null);
+            builder.create().show();
+          }
         }
       }
  else       if (key.equals("confSetSubdecks")) {

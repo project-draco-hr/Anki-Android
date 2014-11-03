@@ -1,0 +1,8 @@
+{
+  try {
+    modSchema(false);
+  }
+ catch (  ConfirmModSchemaException e) {
+    throw new RuntimeException(e);
+  }
+}
