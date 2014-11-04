@@ -11,6 +11,14 @@
     data.result=new Object[]{"error",e.getResponseCode(),e.getMessage()};
     return data;
   }
+catch (  Exception e2) {
+    if (!timeoutOccured(e2)) {
+      AnkiDroidApp.saveExceptionReportFile(e2,"doInBackgroundLogin");
+    }
+    data.success=false;
+    data.result=new Object[]{"connectionError"};
+    return data;
+  }
   String hostkey=null;
   boolean valid=false;
   if (ret != null) {
