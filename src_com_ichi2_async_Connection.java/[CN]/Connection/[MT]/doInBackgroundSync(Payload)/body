@@ -37,11 +37,11 @@
         data.success=false;
         data.result=ret;
         data.data=new Object[]{mediaUsn};
+        if (retCode.equals("sanityCheckError")) {
+          col.modSchemaNoCheck();
+          col.save();
+        }
         return data;
-      }
-      if (retCode.equals("sanityCheckError")) {
-        col.modSchemaNoCheck();
-        col.save();
       }
       if (retCode.equals("noChanges")) {
         noChanges=true;
