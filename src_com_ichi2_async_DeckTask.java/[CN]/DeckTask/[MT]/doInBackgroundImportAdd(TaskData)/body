@@ -15,7 +15,9 @@
     ankiDB.getDatabase().beginTransaction();
     try {
       addedCount=imp.run();
-      ankiDB.getDatabase().setTransactionSuccessful();
+      if (addedCount >= 0) {
+        ankiDB.getDatabase().setTransactionSuccessful();
+      }
     }
   finally {
       ankiDB.getDatabase().endTransaction();
