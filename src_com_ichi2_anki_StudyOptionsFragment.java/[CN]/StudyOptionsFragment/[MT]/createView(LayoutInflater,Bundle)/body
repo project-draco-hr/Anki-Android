@@ -1,9 +1,0 @@
-{
-  Log.i(AnkiDroidApp.TAG,"StudyOptions - createView()");
-  restorePreferences();
-  mStudyOptionsView=inflater.inflate(R.layout.studyoptions_fragment,null);
-  mCustomStudyDetailsView=inflater.inflate(R.layout.styled_custom_study_details_dialog,null);
-  mFragmented=getActivity().getClass() != StudyOptionsActivity.class;
-  startLoadingCollection();
-  return mStudyOptionsView;
-}

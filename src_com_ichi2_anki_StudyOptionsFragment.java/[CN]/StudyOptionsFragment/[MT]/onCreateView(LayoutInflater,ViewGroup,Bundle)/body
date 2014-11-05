@@ -2,5 +2,9 @@
   if (container == null) {
     return null;
   }
-  return createView(inflater,savedInstanceState);
+  restorePreferences();
+  mStudyOptionsView=inflater.inflate(R.layout.studyoptions_fragment,container,false);
+  mFragmented=getActivity().getClass() != StudyOptionsActivity.class;
+  startLoadingCollection();
+  return mStudyOptionsView;
 }

@@ -1,7 +1,0 @@
-{
-  if (!mDialogs.containsKey(id)) {
-    mDialogs.put(id,onCreateDialog(id));
-  }
-  onPrepareDialog(id,mDialogs.get(id));
-  mDialogs.get(id).show();
-}
