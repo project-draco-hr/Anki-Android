@@ -21,11 +21,16 @@
       }
     }
  else {
-      if (!sDisplayAnswer || doAudioReplay && replayQuestion) {
-        readCardText(mCurrentCard,Sound.SOUNDS_QUESTION);
+      if (mTtsInitialized) {
+        if (!sDisplayAnswer || doAudioReplay && replayQuestion) {
+          readCardText(mCurrentCard,Sound.SOUNDS_QUESTION);
+        }
+        if (sDisplayAnswer) {
+          readCardText(mCurrentCard,Sound.SOUNDS_ANSWER);
+        }
       }
-      if (sDisplayAnswer) {
-        readCardText(mCurrentCard,Sound.SOUNDS_ANSWER);
+ else {
+        mReplayOnTtsInit=true;
       }
     }
   }
