@@ -22,12 +22,12 @@
     }
   }
   new File(colfile).delete();
-  String p=path.replace(".apkg",".media.db2");
+  String p=path.replace(".apkg",".media.ad.db2");
   if (new File(p).exists()) {
     new File(p).delete();
   }
   String tempPath=path.replace(".apkg",".media");
-  File file=new File(mMediaDir,tempPath);
+  File file=new File(tempPath);
   if (file.exists()) {
     String deleteCmd="rm -r " + tempPath;
     Runtime runtime=Runtime.getRuntime();
