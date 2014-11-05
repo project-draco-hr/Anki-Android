@@ -11,5 +11,20 @@
     mShowShowcaseView=true;
   }
   AnkiDroidApp.getCompat().invalidateOptionsMenu(this);
+  if (mRecommendFullSync) {
+    mRecommendFullSync=false;
+    try {
+      col.modSchema();
+    }
+ catch (    ConfirmModSchemaException e) {
+      Resources res=getResources();
+      Message handlerMessage=Message.obtain();
+      handlerMessage.what=DialogHandler.MSG_SHOW_FORCE_FULL_SYNC_DIALOG;
+      Bundle handlerMessageData=new Bundle();
+      handlerMessageData.putString("message",res.getString(R.string.full_sync_confirmation_upgrade) + "\n\n" + res.getString(R.string.full_sync_confirmation));
+      handlerMessage.setData(handlerMessageData);
+      getDialogHandler().sendMessage(handlerMessage);
+    }
+  }
   loadCounts();
 }
