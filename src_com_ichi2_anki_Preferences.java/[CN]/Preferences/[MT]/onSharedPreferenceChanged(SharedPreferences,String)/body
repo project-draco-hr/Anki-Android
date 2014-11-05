@@ -70,6 +70,9 @@
       mCol.setCrt(date.getTimeInMillis() / 1000);
       mCol.setMod();
     }
+ else     if (key.equals("minimumCardsDueForNotification")) {
+      updateNotificationPreference();
+    }
     if (Arrays.asList(sShowValueInSummList).contains(key)) {
       if (Arrays.asList(sListNumericCheck).contains(key)) {
         updateListPreference(key,true);

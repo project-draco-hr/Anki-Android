@@ -37,8 +37,17 @@
 catch (        IOException e2) {
           e2.printStackTrace();
         }
-        reloadIntent.setData(importUri);
-        reloadIntent.putExtra("deleteTempFile",true);
+        Message handlerMessage=Message.obtain();
+        Bundle msgData=new Bundle();
+        msgData.putString("importPath",importUri.getEncodedPath());
+        handlerMessage.setData(msgData);
+        if (filename.equals("collection.apkg")) {
+          handlerMessage.what=DialogHandler.MSG_SHOW_COLLECTION_IMPORT_REPLACE_DIALOG;
+        }
+ else {
+          handlerMessage.what=DialogHandler.MSG_SHOW_COLLECTION_IMPORT_ADD_DIALOG;
+        }
+        AnkiDroidApp.setStoredDialogHandlerMessage(handlerMessage);
       }
  else {
         Themes.showThemedToast(this,getResources().getString(R.string.import_log_no_apkg),true);
