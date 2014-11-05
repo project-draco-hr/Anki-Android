@@ -18,7 +18,7 @@ mSourceText=null;
 Themes.showThemedToast(NoteEditor.this,getResources().getString(R.string.CardEditorLaterMessage),false);
 }
 if (mCaller == CALLER_INDICLASH || mCaller == CALLER_CARDEDITOR_INTENT_ADD) {
-closeCardEditor();
+closeNoteEditor();
 }
 return true;
 case R.id.action_add_card_from_card_editor:

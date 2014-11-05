@@ -1,4 +1,5 @@
 {
+  final Resources res=getResources();
   if (mSelectedTags == null) {
     mSelectedTags=new ArrayList<String>();
   }
@@ -22,6 +23,26 @@
     DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ADD_FACT,mSaveFactHandler,new DeckTask.TaskData(mEditorNote));
   }
  else {
+    final JSONObject newModel=getCol().getModels().get(mAllModelIds.get(mNoteTypeSpinner.getSelectedItemPosition()));
+    final JSONObject oldModel=mCurrentEditedCard.model();
+    if (!newModel.equals(oldModel)) {
+      if (mModelChangeCardMap.size() < mEditorNote.cards().size() || mModelChangeCardMap.containsKey(null)) {
+        ConfirmationDialog dialog=ConfirmationDialog.newInstance(res.getString(R.string.confirm_map_cards_to_nothing));
+        dialog.setListener(new ConfirmationDialogListener(){
+          @Override public void confirm(){
+            changeNoteTypeWithErrorHandling(oldModel,newModel);
+          }
+          @Override public void cancel(){
+          }
+        }
+);
+        showDialogFragment(dialog);
+      }
+ else {
+        changeNoteTypeWithErrorHandling(oldModel,newModel);
+      }
+      return;
+    }
     boolean modified=false;
     if (mCurrentEditedCard.getDid() != mCurrentDid) {
       AnkiDroidApp.getCol().getSched().remFromDyn(new long[]{mCurrentEditedCard.getId()});
@@ -41,6 +62,6 @@
       mEditorNote.setTagsFromStr(tagsAsString(mSelectedTags));
       mChanged=true;
     }
-    closeCardEditor();
+    closeNoteEditor();
   }
 }

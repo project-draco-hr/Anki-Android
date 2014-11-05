@@ -1,0 +1,30 @@
+{
+  mFieldsLayoutContainer.removeAllViews();
+  mEditFields=new LinkedList<FieldEditText>();
+  Typeface mCustomTypeface=null;
+  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
+  String customFont=preferences.getString("browserEditorFont","");
+  if (!customFont.equals("")) {
+    mCustomTypeface=AnkiFont.getTypeface(this,customFont);
+  }
+  for (int i=0; i < fields.length; i++) {
+    View editline_view=getLayoutInflater().inflate(R.layout.card_multimedia_editline,null);
+    FieldEditText newTextbox=(FieldEditText)editline_view.findViewById(R.id.id_note_editText);
+    initFieldEditText(newTextbox,i,fields[i],mCustomTypeface,!editModelMode);
+    TextView label=newTextbox.getLabel();
+    label.setTextColor(Color.BLACK);
+    label.setPadding((int)UIUtils.getDensityAdjustedValue(this,3.4f),0,0,0);
+    mEditFields.add(newTextbox);
+    ImageButton mediaButton=(ImageButton)editline_view.findViewById(R.id.id_media_button);
+    if (editModelMode) {
+      mediaButton.setBackgroundResource(R.drawable.ic_action_import_export);
+      setRemapButtonListener(mediaButton,i);
+    }
+ else {
+      mediaButton.setBackgroundResource(R.drawable.ic_media);
+      setMMButtonListener(mediaButton,i);
+    }
+    mFieldsLayoutContainer.addView(label);
+    mFieldsLayoutContainer.addView(editline_view);
+  }
+}

@@ -1,0 +1,8 @@
+{
+  for (  Entry<T,E> entry : map.entrySet()) {
+    if (value.equals(entry.getValue())) {
+      return entry.getKey();
+    }
+  }
+  return null;
+}

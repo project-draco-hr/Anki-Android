@@ -1,0 +1,24 @@
+{
+  Resources res=getResources();
+  try {
+    changeNoteType(oldModel,newModel);
+  }
+ catch (  ConfirmModSchemaException e) {
+    ConfirmationDialog dialog=ConfirmationDialog.newInstance(res.getString(R.string.full_sync_confirmation));
+    dialog.setListener(new ConfirmationDialogListener(){
+      @Override public void confirm(){
+        getCol().modSchemaNoCheck();
+        try {
+          changeNoteType(oldModel,newModel);
+        }
+ catch (        ConfirmModSchemaException e2) {
+          throw new RuntimeException(e2);
+        }
+      }
+      @Override public void cancel(){
+      }
+    }
+);
+    showDialogFragment(dialog);
+  }
+}

@@ -1,0 +1,39 @@
+{
+  long oldModelId;
+  try {
+    oldModelId=getCol().getModels().current().getLong("id");
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  long newId=mAllModelIds.get(pos);
+  if (oldModelId != newId) {
+    JSONObject model=getCol().getModels().get(newId);
+    getCol().getModels().setCurrent(model);
+    JSONObject cdeck=getCol().getDecks().current();
+    try {
+      cdeck.put("mid",newId);
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+    getCol().getDecks().save(cdeck);
+    if (!getCol().getConf().optBoolean("addToCur",true)) {
+      try {
+        mCurrentDid=model.getLong("did");
+        updateDeckPosition();
+      }
+ catch (      JSONException e) {
+        throw new RuntimeException(e);
+      }
+    }
+    int size=mEditFields.size();
+    String[] oldValues=new String[size];
+    for (int i=0; i < size; i++) {
+      oldValues[i]=mEditFields.get(i).getText().toString();
+    }
+    setNote();
+    resetEditFields(oldValues);
+    duplicateCheck();
+  }
+}
