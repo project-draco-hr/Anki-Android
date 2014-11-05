@@ -1,0 +1,38 @@
+{
+  remapButton.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      PopupMenu popup=new PopupMenu(NoteEditor.this,v);
+      final String[][] items=mEditorNote.items();
+      for (int i=0; i < items.length; i++) {
+        popup.getMenu().add(Menu.NONE,i,Menu.NONE,items[i][0]);
+      }
+      popup.getMenu().add(Menu.NONE,items.length,Menu.NONE,R.string.nothing);
+      popup.setOnMenuItemClickListener(new OnMenuItemClickListener(){
+        @Override public boolean onMenuItemClick(        MenuItem item){
+          Integer idx=item.getItemId();
+          Integer previousMapping=getKeyByValue(mModelChangeFieldMap,newFieldIndex);
+          Integer mappingConflict=mModelChangeFieldMap.get(idx);
+          if (idx == items.length && previousMapping != null) {
+            mModelChangeFieldMap.remove(previousMapping);
+          }
+ else           if (idx < items.length && mappingConflict != null && previousMapping != null && newFieldIndex != mappingConflict) {
+            mModelChangeFieldMap.put(previousMapping,mappingConflict);
+            mModelChangeFieldMap.put(idx,newFieldIndex);
+          }
+ else           if (idx < items.length && mappingConflict != null) {
+            mModelChangeFieldMap.remove(previousMapping);
+            mModelChangeFieldMap.put(idx,newFieldIndex);
+          }
+ else           if (idx < items.length) {
+            mModelChangeFieldMap.put(idx,newFieldIndex);
+          }
+          updateFieldsFromMap(getCol().getModels().get(mAllModelIds.get(mNoteTypeSpinner.getSelectedItemPosition())));
+          return true;
+        }
+      }
+);
+      popup.show();
+    }
+  }
+);
+}
