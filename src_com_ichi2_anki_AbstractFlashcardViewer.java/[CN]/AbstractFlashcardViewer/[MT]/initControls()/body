@@ -11,7 +11,18 @@
   mAnswerField.setOnEditorActionListener(new EditText.OnEditorActionListener(){
     @Override public boolean onEditorAction(    TextView v,    int actionId,    KeyEvent event){
       if (actionId == EditorInfo.IME_ACTION_DONE) {
-        mFlipCardLayout.performClick();
+        displayCardAnswer();
+        return true;
+      }
+      return false;
+    }
+  }
+);
+  mAnswerField.setOnKeyListener(new View.OnKeyListener(){
+    @Override public boolean onKey(    View v,    int keyCode,    KeyEvent event){
+      if (event.getAction() == KeyEvent.ACTION_UP && (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER)) {
+        displayCardAnswer();
+        return true;
       }
       return false;
     }

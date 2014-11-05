@@ -3,6 +3,10 @@
   if (mCurrentCard == null) {
     return;
   }
+  if (typeAnswer()) {
+    InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+    inputMethodManager.hideSoftInputFromWindow(mAnswerField.getWindowToken(),0);
+  }
   sDisplayAnswer=true;
   String answer;
   if (mCurrentSimpleInterface) {
