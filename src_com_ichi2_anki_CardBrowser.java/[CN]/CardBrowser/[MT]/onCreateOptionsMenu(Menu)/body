@@ -6,9 +6,9 @@
       return true;
     }
     @Override public boolean onMenuItemActionCollapse(    MenuItem item){
-      if (mSearchView.getQuery().length() == 0) {
-        onSearch();
-      }
+      mSearchTerms="";
+      mSearchView.setQuery(mSearchTerms,false);
+      searchCards();
       return true;
     }
   }
