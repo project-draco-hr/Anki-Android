@@ -1,0 +1,21 @@
+{
+  File f=new File(path);
+  String filename=f.getName();
+  if (filename != null && filename.endsWith(".apkg")) {
+    Message handlerMessage=Message.obtain();
+    Bundle msgData=new Bundle();
+    msgData.putString("importPath",path);
+    handlerMessage.setData(msgData);
+    if (filename.equals("collection.apkg")) {
+      handlerMessage.what=DialogHandler.MSG_SHOW_COLLECTION_IMPORT_REPLACE_DIALOG;
+    }
+ else {
+      handlerMessage.what=DialogHandler.MSG_SHOW_COLLECTION_IMPORT_ADD_DIALOG;
+    }
+    AnkiDroidApp.setStoredDialogHandlerMessage(handlerMessage);
+    return true;
+  }
+ else {
+    return false;
+  }
+}
