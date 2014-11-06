@@ -1,7 +1,7 @@
 {
   super.onCreate();
-  if (isNookHdPlus() && AnkiDroidApp.SDK_VERSION == 15) {
-    mCompat=new CompatV15NookHdPlus();
+  if (isNookHdOrHdPlus() && AnkiDroidApp.SDK_VERSION == 15) {
+    mCompat=new CompatV15NookHdOrHdPlus();
   }
  else   if (AnkiDroidApp.SDK_VERSION >= 16) {
     mCompat=new CompatV16();
