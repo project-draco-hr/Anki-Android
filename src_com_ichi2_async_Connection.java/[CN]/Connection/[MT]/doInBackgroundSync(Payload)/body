@@ -99,9 +99,14 @@
         return data;
       }
 catch (      RuntimeException e) {
-        AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundSync-fullSync");
+        if (timeoutOccured(e)) {
+          data.result=new Object[]{"connectionError"};
+        }
+ else {
+          AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundSync-fullSync");
+          data.result=new Object[]{"IOException"};
+        }
         data.success=false;
-        data.result=new Object[]{"IOException"};
         data.data=new Object[]{mediaUsn};
         return data;
       }
@@ -139,7 +144,12 @@ catch (      RuntimeException e) {
         AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundSync-mediaSync");
       }
 catch (      RuntimeException e) {
-        AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundSync-mediaSync");
+        if (timeoutOccured(e)) {
+          data.result=new Object[]{"connectionError"};
+        }
+ else {
+          AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundSync-mediaSync");
+        }
         mediaError=e.getLocalizedMessage();
       }
     }
