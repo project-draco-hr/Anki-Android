@@ -4,8 +4,7 @@
     changeNoteType(oldModel,newModel);
   }
  catch (  ConfirmModSchemaException e) {
-    ConfirmationDialog dialog=ConfirmationDialog.newInstance(res.getString(R.string.full_sync_confirmation));
-    dialog.setListener(new ConfirmationDialogListener(){
+    ConfirmationDialog dialog=new ConfirmationDialog(){
       @Override public void confirm(){
         getCol().modSchemaNoCheck();
         try {
@@ -15,10 +14,9 @@
           throw new RuntimeException(e2);
         }
       }
-      @Override public void cancel(){
-      }
     }
-);
+;
+    dialog.setArgs(res.getString(R.string.full_sync_confirmation));
     showDialogFragment(dialog);
   }
 }

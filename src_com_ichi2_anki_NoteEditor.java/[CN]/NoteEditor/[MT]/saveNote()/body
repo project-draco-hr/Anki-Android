@@ -27,15 +27,13 @@
     final JSONObject oldModel=mCurrentEditedCard.model();
     if (!newModel.equals(oldModel)) {
       if (mModelChangeCardMap.size() < mEditorNote.cards().size() || mModelChangeCardMap.containsKey(null)) {
-        ConfirmationDialog dialog=ConfirmationDialog.newInstance(res.getString(R.string.confirm_map_cards_to_nothing));
-        dialog.setListener(new ConfirmationDialogListener(){
+        ConfirmationDialog dialog=new ConfirmationDialog(){
           @Override public void confirm(){
             changeNoteTypeWithErrorHandling(oldModel,newModel);
           }
-          @Override public void cancel(){
-          }
         }
-);
+;
+        dialog.setArgs(res.getString(R.string.confirm_map_cards_to_nothing));
         showDialogFragment(dialog);
       }
  else {
