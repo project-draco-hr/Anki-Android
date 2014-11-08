@@ -15,17 +15,17 @@
       Log.i(AnkiDroidApp.TAG,"Sync: getting meta data from server");
       JSONObject rMeta=new JSONObject(mServer.stream2String(ret.getEntity().getContent()));
       mCol.log("rmeta",rMeta);
+      if (!rMeta.getBoolean("cont")) {
+        return new Object[]{"serverAbort"};
+      }
+ else {
+      }
       long rscm=rMeta.getLong("scm");
       int rts=rMeta.getInt("ts");
       mRMod=rMeta.getLong("mod");
       mMaxUsn=rMeta.getInt("usn");
       mMediaUsn=rMeta.getInt("musn");
       mSyncMsg=rMeta.getString("msg");
-      if (!rMeta.getBoolean("cont")) {
-        return new Object[]{"serverAbort"};
-      }
- else {
-      }
       Log.i(AnkiDroidApp.TAG,"Sync: building local meta data");
       JSONObject lMeta=meta();
       mCol.log("lmeta",lMeta);
