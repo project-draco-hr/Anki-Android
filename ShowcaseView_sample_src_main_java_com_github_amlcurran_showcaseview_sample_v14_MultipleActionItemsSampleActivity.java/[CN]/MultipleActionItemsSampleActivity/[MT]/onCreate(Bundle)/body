@@ -1,0 +1,7 @@
+{
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.activity_sample);
+  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+  getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+  getSupportActionBar().setListNavigationCallbacks(new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,new String[]{"Item1","Item2","Item3"}),this);
+}

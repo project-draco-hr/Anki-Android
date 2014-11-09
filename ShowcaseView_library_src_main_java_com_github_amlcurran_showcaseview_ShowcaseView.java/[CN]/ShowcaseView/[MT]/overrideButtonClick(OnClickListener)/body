@@ -1,0 +1,14 @@
+{
+  if (shotStateStore.hasShot()) {
+    return;
+  }
+  if (mEndButton != null) {
+    if (listener != null) {
+      mEndButton.setOnClickListener(listener);
+    }
+ else {
+      mEndButton.setOnClickListener(hideOnClickListener);
+    }
+  }
+  hasCustomClickListener=true;
+}

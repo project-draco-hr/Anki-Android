@@ -1,0 +1,13 @@
+{
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.activity_sample_legacy);
+  findViewById(R.id.buttonLike).setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View view){
+      Toast.makeText(getApplicationContext(),R.string.like_message,Toast.LENGTH_SHORT).show();
+    }
+  }
+);
+  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+    enableUp();
+  }
+}
