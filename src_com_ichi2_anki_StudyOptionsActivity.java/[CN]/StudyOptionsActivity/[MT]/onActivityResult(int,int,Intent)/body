@@ -5,7 +5,5 @@
   if (AnkiDroidApp.setLanguage(newLanguage)) {
     AnkiDroidApp.getCompat().invalidateOptionsMenu(this);
   }
-  if (mCurrentFragment != null) {
-    mCurrentFragment.restorePreferences();
-  }
+  getCurrentFragment().restorePreferences();
 }
