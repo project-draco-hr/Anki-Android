@@ -5,12 +5,7 @@
   mOrd=ord;
   String language=getLanguage(mDid,mOrd,mQuestionAnswer);
   if (availableTtsLocales.isEmpty()) {
-    Locale[] systemLocales=Locale.getAvailableLocales();
-    for (    Locale loc : systemLocales) {
-      if (mTts.isLanguageAvailable(loc) == TextToSpeech.LANG_COUNTRY_AVAILABLE) {
-        availableTtsLocales.add(new String[]{loc.getISO3Language(),loc.getDisplayName()});
-      }
-    }
+    buildAvailableLanguages();
   }
   for (int i=0; i < availableTtsLocales.size(); i++) {
     if (language.equals(NO_TTS)) {
