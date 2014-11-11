@@ -1,0 +1,8 @@
+{
+  try {
+    return mModel.getJSONArray("tmpls").getJSONObject(position).getString("name");
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

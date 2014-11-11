@@ -19,6 +19,12 @@
   mFieldsLayoutContainer=(LinearLayout)findViewById(R.id.CardEditorEditFieldsLayout);
   mTagsButton=(TextView)findViewById(R.id.CardEditorTagText);
   mCardsButton=(TextView)findViewById(R.id.CardEditorCardsText);
+  mCardsButton.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      showCardTemplateEditor();
+    }
+  }
+);
   Preferences.COMING_FROM_ADD=false;
   mAedictIntent=false;
 switch (mCaller) {

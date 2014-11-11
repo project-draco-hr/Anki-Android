@@ -1,0 +1,10 @@
+{
+  super.onCollectionLoaded(col);
+  mSectionsPagerAdapter=new SectionsPagerAdapter(getSupportFragmentManager());
+  mSectionsPagerAdapter.setModel(mModel);
+  mViewPager=(ViewPager)findViewById(R.id.pager);
+  mViewPager.setAdapter(mSectionsPagerAdapter);
+  mSlidingTabLayout=(SlidingTabLayout)findViewById(R.id.sliding_tabs);
+  mSlidingTabLayout.setViewPager(mViewPager);
+  dismissOpeningCollectionDialog();
+}

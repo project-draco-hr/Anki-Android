@@ -1,6 +1,6 @@
 {
   if (!mAddNote) {
-    final JSONObject newModel=getCol().getModels().get(mAllModelIds.get(mNoteTypeSpinner.getSelectedItemPosition()));
+    final JSONObject newModel=getCurrentlySelectedModel();
     final JSONObject oldModel=mCurrentEditedCard.model();
     if (!newModel.equals(oldModel)) {
       return true;

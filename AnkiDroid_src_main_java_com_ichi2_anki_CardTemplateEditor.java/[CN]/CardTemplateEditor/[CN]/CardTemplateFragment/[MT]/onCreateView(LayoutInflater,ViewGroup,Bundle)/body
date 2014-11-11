@@ -1,0 +1,15 @@
+{
+  View mainView=inflater.inflate(R.layout.card_template_editor_item,container,false);
+  int position=getArguments().getInt("position");
+  try {
+    JSONObject model=new JSONObject(getArguments().getString("model"));
+    JSONObject template=model.getJSONArray("tmpls").getJSONObject(position);
+    ((EditText)mainView.findViewById(R.id.front_edit)).setText(template.getString("qfmt"));
+    ((EditText)mainView.findViewById(R.id.styling_edit)).setText(model.getString("css"));
+    ((EditText)mainView.findViewById(R.id.back_edit)).setText(template.getString("afmt"));
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  return mainView;
+}

@@ -1,0 +1,8 @@
+{
+  Intent intent=new Intent(this,CardTemplateEditor.class);
+  intent.putExtra("noteType",getCurrentlySelectedModel().toString());
+  if (!mAddNote) {
+    intent.putExtra("cardId",mCurrentEditedCard.getId());
+  }
+  startActivityWithAnimation(intent,ActivityTransitionAnimation.LEFT);
+}

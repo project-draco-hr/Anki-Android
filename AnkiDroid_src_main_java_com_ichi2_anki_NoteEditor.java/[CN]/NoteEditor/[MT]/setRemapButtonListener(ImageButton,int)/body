@@ -26,7 +26,7 @@
  else           if (idx < items.length) {
             mModelChangeFieldMap.put(idx,newFieldIndex);
           }
-          updateFieldsFromMap(getCol().getModels().get(mAllModelIds.get(mNoteTypeSpinner.getSelectedItemPosition())));
+          updateFieldsFromMap(getCurrentlySelectedModel());
           return true;
         }
       }
