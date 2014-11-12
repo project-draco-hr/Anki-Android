@@ -6,12 +6,10 @@
   }
  else {
     if (mTts.isSpeaking()) {
-      Log.v(AnkiDroidApp.TAG,"tts text '" + text + "' added to queue");
-      sTextQueue.add(new String[]{text,loc});
+      Log.v(AnkiDroidApp.TAG,"tts engine appears to be busy... clearing queue");
+      stopTts();
     }
- else {
-      Log.v(AnkiDroidApp.TAG,"tts text '" + text + "' to be played");
-      mTts.speak(mTextToSpeak,TextToSpeech.QUEUE_FLUSH,mTtsParams);
-    }
+    Log.v(AnkiDroidApp.TAG,"tts text '" + text + "' to be played for locale ("+ loc+ ")");
+    mTts.speak(mTextToSpeak,TextToSpeech.QUEUE_FLUSH,mTtsParams);
   }
 }
