@@ -9,6 +9,9 @@
  else   if (AnkiDroidApp.SDK_VERSION >= 15) {
     mCompat=new CompatV15();
   }
+ else   if (AnkiDroidApp.SDK_VERSION >= 12) {
+    mCompat=new CompatV12();
+  }
  else   if (AnkiDroidApp.SDK_VERSION >= 9) {
     mCompat=new CompatV9();
   }
@@ -26,6 +29,7 @@
   CustomExceptionHandler customExceptionHandler=CustomExceptionHandler.getInstance();
   customExceptionHandler.init(sInstance.getApplicationContext());
   Thread.setDefaultUncaughtExceptionHandler(customExceptionHandler);
+  mCompat.enableCookiesForFileSchemePages();
   SharedPreferences preferences=getSharedPrefs(this);
   sInstance.mHooks=new Hooks(preferences);
   setLanguage(preferences.getString(Preferences.LANGUAGE,""));
