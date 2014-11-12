@@ -1,0 +1,16 @@
+{
+  Log.v(AnkiDroidApp.TAG,"CardTemplateEditor:: onCreate");
+  Themes.applyTheme(this);
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.card_template_editor_activity);
+  try {
+    mModel=new JSONObject(getIntent().getStringExtra("noteType"));
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  mCardId=getIntent().getLongExtra("cardId",-1L);
+  startLoadingCollection();
+  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+  setTitle(getResources().getString(R.string.title_activity_template_editor,mModel.optString("name")));
+}
