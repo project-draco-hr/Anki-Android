@@ -23,7 +23,7 @@
     DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ADD_FACT,mSaveFactHandler,new DeckTask.TaskData(mEditorNote));
   }
  else {
-    final JSONObject newModel=getCol().getModels().get(mAllModelIds.get(mNoteTypeSpinner.getSelectedItemPosition()));
+    final JSONObject newModel=getCurrentlySelectedModel();
     final JSONObject oldModel=mCurrentEditedCard.model();
     if (!newModel.equals(oldModel)) {
       if (mModelChangeCardMap.size() < mEditorNote.cards().size() || mModelChangeCardMap.containsKey(null)) {

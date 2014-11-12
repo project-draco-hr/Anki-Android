@@ -1,0 +1,14 @@
+{
+  availableTtsLocales=new ArrayList<String[]>();
+  Locale[] systemLocales=Locale.getAvailableLocales();
+  for (  Locale loc : systemLocales) {
+    try {
+      if (mTts.isLanguageAvailable(loc) == TextToSpeech.LANG_COUNTRY_AVAILABLE) {
+        availableTtsLocales.add(new String[]{loc.getISO3Language(),loc.getDisplayName()});
+      }
+    }
+ catch (    IllegalArgumentException e) {
+      Log.e(AnkiDroidApp.TAG,"Error checking if language " + loc + " available");
+    }
+  }
+}
