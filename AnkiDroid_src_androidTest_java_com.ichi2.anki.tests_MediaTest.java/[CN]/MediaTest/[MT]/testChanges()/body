@@ -3,7 +3,7 @@
   assertTrue(d.getMedia()._changed() != null);
   assertTrue(added(d).size() == 0);
   assertTrue(removed(d).size() == 0);
-  File dir=Shared.getTestDir();
+  File dir=Shared.getTestDir(mContext);
   File path=new File(dir,"foo.jpg");
   FileOutputStream os;
   os=new FileOutputStream(path,false);

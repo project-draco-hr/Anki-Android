@@ -1,6 +1,6 @@
 {
   Collection d=Shared.getEmptyCol();
-  File dir=Shared.getTestDir();
+  File dir=Shared.getTestDir(mContext);
   BackupManager.removeDir(dir);
   dir.mkdirs();
   File path=new File(dir,"foo.jpg");
