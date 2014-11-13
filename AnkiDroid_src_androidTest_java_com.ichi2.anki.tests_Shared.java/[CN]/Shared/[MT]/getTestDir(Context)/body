@@ -1,0 +1,8 @@
+{
+  File dir=new File(context.getCacheDir(),"testfiles");
+  dir.mkdir();
+  for (  File f : dir.listFiles()) {
+    f.delete();
+  }
+  return dir;
+}
