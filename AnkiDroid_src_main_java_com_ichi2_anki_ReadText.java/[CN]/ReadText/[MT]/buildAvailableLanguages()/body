@@ -1,14 +1,17 @@
 {
-  availableTtsLocales=new ArrayList<String[]>();
+  availableTtsLocales.clear();
   Locale[] systemLocales=Locale.getAvailableLocales();
   for (  Locale loc : systemLocales) {
     try {
       if (mTts.isLanguageAvailable(loc) == TextToSpeech.LANG_COUNTRY_AVAILABLE) {
-        availableTtsLocales.add(new String[]{loc.getISO3Language(),loc.getDisplayName()});
+        availableTtsLocales.add(loc);
+      }
+ else {
+        Log.v(AnkiDroidApp.TAG,"ReadText.buildAvailableLanguages() :: " + loc.getDisplayName() + " not available");
       }
     }
  catch (    IllegalArgumentException e) {
-      Log.e(AnkiDroidApp.TAG,"Error checking if language " + loc + " available");
+      Log.e(AnkiDroidApp.TAG,"Error checking if language " + loc.getDisplayName() + " available");
     }
   }
 }

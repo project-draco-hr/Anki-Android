@@ -13,7 +13,7 @@
     if (language.equals(NO_TTS)) {
       return;
     }
- else     if (language.equals(availableTtsLocales.get(i)[0])) {
+ else     if (language.equals(availableTtsLocales.get(i).getISO3Language())) {
       speak(mTextToSpeak,language);
       return;
     }
@@ -33,8 +33,8 @@
     dialogItems.add(res.getString(R.string.tts_no_tts));
     dialogIds.add(NO_TTS);
     for (int i=0; i < availableTtsLocales.size(); i++) {
-      dialogItems.add(availableTtsLocales.get(i)[1]);
-      dialogIds.add(availableTtsLocales.get(i)[0]);
+      dialogItems.add(availableTtsLocales.get(i).getDisplayName());
+      dialogIds.add(availableTtsLocales.get(i).getISO3Language());
     }
     String[] items=new String[dialogItems.size()];
     dialogItems.toArray(items);
@@ -42,8 +42,8 @@
       @Override public void onClick(      DialogInterface dialog,      int which){
         String locale=dialogIds.get(which);
         Log.v(AnkiDroidApp.TAG,"ReadText.textToSpeech() user chose locale '" + locale + "'");
-        MetaDB.storeLanguage(mReviewer.get(),mDid,mOrd,mQuestionAnswer,locale);
         speak(mTextToSpeak,locale);
+        MetaDB.storeLanguage(mReviewer.get(),mDid,mOrd,mQuestionAnswer,locale);
       }
     }
 );
