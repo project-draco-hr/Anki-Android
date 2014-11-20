@@ -19,7 +19,7 @@
     }
   }
   Resources res=mReviewer.get().getResources();
-  StyledDialog.Builder builder=new StyledDialog.Builder(mReviewer.get());
+  final StyledDialog.Builder builder=new StyledDialog.Builder(mReviewer.get());
   if (availableTtsLocales.size() == 0) {
     Log.e(AnkiDroidApp.TAG,"ReadText.textToSpeech() no TTS languages available");
     builder.setMessage(res.getString(R.string.no_tts_available_message));
@@ -42,11 +42,20 @@
       @Override public void onClick(      DialogInterface dialog,      int which){
         String locale=dialogIds.get(which);
         Log.v(AnkiDroidApp.TAG,"ReadText.textToSpeech() user chose locale '" + locale + "'");
-        speak(mTextToSpeak,locale);
+        if (!locale.equals(NO_TTS)) {
+          speak(mTextToSpeak,locale);
+        }
         MetaDB.storeLanguage(mReviewer.get(),mDid,mOrd,mQuestionAnswer,locale);
       }
     }
 );
   }
-  builder.create().show();
+  final Handler handler=new Handler();
+  final int delay=500;
+  handler.postDelayed(new Runnable(){
+    @Override public void run(){
+      builder.create().show();
+    }
+  }
+,delay);
 }
