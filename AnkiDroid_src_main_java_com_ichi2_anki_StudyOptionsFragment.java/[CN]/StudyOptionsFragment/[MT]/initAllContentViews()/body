@@ -3,6 +3,7 @@
   mDeckInfoLayout=mStudyOptionsView.findViewById(R.id.studyoptions_deckinformation);
   mTextDeckName=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_name);
   mTextDeckDescription=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_deck_description);
+  mTextDeckDescription.setMovementMethod(LinkMovementMethod.getInstance());
   mButtonStart=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_start);
   mButtonCustomStudy=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_custom);
   mDeckOptions=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_options);
