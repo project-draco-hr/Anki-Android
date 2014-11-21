@@ -5,7 +5,6 @@
       if (status == TextToSpeech.SUCCESS) {
         buildAvailableLanguages();
         if (availableTtsLocales.size() > 0) {
-          Toast.makeText(mReviewer.get(),R.string.ok,Toast.LENGTH_SHORT).show();
           Log.v(AnkiDroidApp.TAG,"TTS initialized and available languages found");
           ((AbstractFlashcardViewer)mReviewer.get()).ttsInitialized();
         }
