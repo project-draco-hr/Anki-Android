@@ -8,7 +8,7 @@
   builder2.setView(mDialogEditText,false,false);
   builder2.setPositiveButton(res.getString(R.string.rename),new DialogInterface.OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int which){
-      String newName=mDialogEditText.getText().toString().replaceAll("['\"]","");
+      String newName=mDialogEditText.getText().toString().replaceAll("\"","");
       Collection col=getCol();
       if (col != null) {
         if (col.getDecks().rename(col.getDecks().get(mContextMenuDid),newName)) {
