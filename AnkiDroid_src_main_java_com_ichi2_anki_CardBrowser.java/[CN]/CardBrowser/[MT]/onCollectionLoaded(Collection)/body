@@ -1,6 +1,6 @@
 {
   super.onCollectionLoaded(col);
-  Log.i(AnkiDroidApp.TAG,"Card Browser - initActivity()");
+  Log.v(AnkiDroidApp.TAG,"Card Browser onCollectionLoaded()");
   mDeckNames=new HashMap<String,String>();
   for (  long did : getCol().getDecks().allIds()) {
     mDeckNames.put(String.valueOf(did),getCol().getDecks().name(did));
@@ -68,6 +68,7 @@
   String sflCustomFont=preferences.getString("browserEditorFont","");
   mCardsAdapter=new MultiColumnListAdapter(this,mCards,R.layout.card_item_browser,new String[]{"sfld",COLUMN_KEYS[mColumn2Index]},new int[]{R.id.card_sfld,R.id.card_column2},"flags",sflRelativeFontSize,sflCustomFont);
   mCardsListView.setAdapter(mCardsAdapter);
+  mCardsListView.setOnScrollListener(new RenderOnScroll());
   mCardsColumn2Spinner.setSelection(mColumn2Index);
   mCardsListView.setOnItemClickListener(new OnItemClickListener(){
     @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){

@@ -1,5 +1,6 @@
 {
   Log.i(AnkiDroidApp.TAG,"CardBrowser - onStop()");
+  DeckTask.cancelTask(DeckTask.TASK_TYPE_RENDER_BROWSER_QA);
   super.onStop();
   if (!isFinishing()) {
     WidgetStatus.update(this);
