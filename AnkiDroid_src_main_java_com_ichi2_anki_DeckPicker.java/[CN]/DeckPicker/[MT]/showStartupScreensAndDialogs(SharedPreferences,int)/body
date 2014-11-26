@@ -61,10 +61,6 @@
       }
     }
   }
- else   if (skip < 3 && upgradeNeeded()) {
-    AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).edit().putInt("lastUpgradeVersion",AnkiDroidApp.getPkgVersionCode()).commit();
-    showUpgradeScreen(skip != 0,Info.UPGRADE_SCREEN_BASIC1);
-  }
  else   if (skip < 4 && hasErrorFiles()) {
     Intent i=new Intent(this,Feedback.class);
     if (skip != 0) {
