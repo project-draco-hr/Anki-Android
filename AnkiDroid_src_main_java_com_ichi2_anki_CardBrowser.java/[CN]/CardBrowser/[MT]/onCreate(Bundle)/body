@@ -1,6 +1,7 @@
 {
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
+  Log.v(AnkiDroidApp.TAG,"CardBrowser onCreate()");
   View mainView=getLayoutInflater().inflate(R.layout.card_browser,null);
   setContentView(mainView);
   Themes.setContentStyle(mainView,Themes.CALLER_CARDBROWSER);

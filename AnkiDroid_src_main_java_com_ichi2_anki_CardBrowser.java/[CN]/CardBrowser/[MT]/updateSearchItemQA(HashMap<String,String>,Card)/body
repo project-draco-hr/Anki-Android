@@ -1,5 +1,8 @@
 {
   HashMap<String,String> qa=c._getQA(true,true);
+  if (qa.get("a").equals("")) {
+    qa=c._getQA(true,false);
+  }
   String q=qa.get("q");
   String a=qa.get("a");
   if (a.startsWith(q)) {
