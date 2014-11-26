@@ -23,30 +23,6 @@
  else   if (requestCode == REPORT_ERROR) {
     showStartupScreensAndDialogs(AnkiDroidApp.getSharedPrefs(getBaseContext()),4);
   }
- else   if (requestCode == SHOW_INFO_UPGRADE_DECKS) {
-    if (intent != null && intent.hasExtra(Info.TYPE_UPGRADE_STAGE)) {
-      int type=intent.getIntExtra(Info.TYPE_UPGRADE_STAGE,Info.UPGRADE_SCREEN_BASIC1);
-      if (type == Info.UPGRADE_CONTINUE) {
-        showStartupScreensAndDialogs(AnkiDroidApp.getSharedPrefs(getBaseContext()),3);
-      }
- else {
-        showUpgradeScreen(true,type,!intent.hasExtra(Info.TYPE_ANIMATION_RIGHT));
-      }
-    }
- else {
-      if (resultCode == RESULT_OK) {
-        dismissOpeningCollectionDialog();
-        if (AnkiDroidApp.colIsOpen()) {
-          AnkiDroidApp.closeCollection(true);
-        }
-        AnkiDroidApp.openCollection(AnkiDroidApp.getCollectionPath());
-        loadCounts();
-      }
- else {
-        finishWithAnimation();
-      }
-    }
-  }
  else   if (requestCode == SHOW_INFO_WELCOME || requestCode == SHOW_INFO_NEW_VERSION) {
     if (resultCode == RESULT_OK) {
       showStartupScreensAndDialogs(AnkiDroidApp.getSharedPrefs(getBaseContext()),requestCode == SHOW_INFO_WELCOME ? 2 : 3);
