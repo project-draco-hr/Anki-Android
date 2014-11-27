@@ -1,5 +1,5 @@
 {
-  name=name.replace("\'","").replace("\"","");
+  name=name.replace("\"","");
   for (  Map.Entry<Long,JSONObject> g : mDecks.entrySet()) {
     try {
       if (g.getValue().getString("name").equalsIgnoreCase(name)) {
