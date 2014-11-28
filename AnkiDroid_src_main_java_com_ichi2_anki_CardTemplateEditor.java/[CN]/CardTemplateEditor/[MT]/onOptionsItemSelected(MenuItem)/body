@@ -3,8 +3,6 @@ switch (item.getItemId()) {
 case android.R.id.home:
     finishWithAnimation(ActivityTransitionAnimation.RIGHT);
   return true;
-case R.id.action_preview:
-return true;
 default :
 return super.onOptionsItemSelected(item);
 }
