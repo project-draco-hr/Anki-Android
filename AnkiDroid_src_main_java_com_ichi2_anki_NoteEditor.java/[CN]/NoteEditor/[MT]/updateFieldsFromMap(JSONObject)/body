@@ -6,7 +6,12 @@
     Integer i=fMapNew.get(fname).first;
     if (mModelChangeFieldMap.containsValue(i)) {
       Integer j=getKeyByValue(mModelChangeFieldMap,i);
-      fields[i][0]=String.format(getResources().getString(R.string.field_remapping),fname,oldFields[j][0]);
+      if (allowFieldRemapping()) {
+        fields[i][0]=String.format(getResources().getString(R.string.field_remapping),fname,oldFields[j][0]);
+      }
+ else {
+        fields[i][0]=fname;
+      }
       fields[i][1]=oldFields[j][1];
     }
  else {
