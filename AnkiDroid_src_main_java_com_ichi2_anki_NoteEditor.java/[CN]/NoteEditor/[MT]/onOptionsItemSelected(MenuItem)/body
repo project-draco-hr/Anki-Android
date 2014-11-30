@@ -6,9 +6,6 @@ case android.R.id.home:
 case R.id.action_save:
 saveNote();
 return true;
-case R.id.action_preview:
-openReviewer();
-return true;
 case R.id.action_later:
 String content=getFieldsText();
 if (content.length() > mEditFields.size() - 1) {

@@ -16,9 +16,12 @@
     label.setPadding((int)UIUtils.getDensityAdjustedValue(this,3.4f),0,0,0);
     mEditFields.add(newTextbox);
     ImageButton mediaButton=(ImageButton)editline_view.findViewById(R.id.id_media_button);
-    if (editModelMode) {
+    if (editModelMode && allowFieldRemapping()) {
       mediaButton.setBackgroundResource(R.drawable.ic_action_import_export);
       setRemapButtonListener(mediaButton,i);
+    }
+ else     if (editModelMode && !allowFieldRemapping()) {
+      mediaButton.setBackgroundResource(0);
     }
  else {
       mediaButton.setBackgroundResource(R.drawable.ic_media);
