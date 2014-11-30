@@ -3,14 +3,13 @@
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   setContentView(R.layout.card_template_editor_activity);
-  try {
-    mModel=new JSONObject(getIntent().getStringExtra("noteType"));
+  mModelId=getIntent().getLongExtra("modelId",-1L);
+  if (mModelId == -1) {
+    Log.e(AnkiDroidApp.TAG,"CardTemplateEditor :: no model ID was provided");
+    finishWithoutAnimation();
+    return;
   }
- catch (  JSONException e) {
-    throw new RuntimeException(e);
-  }
-  mCardId=getIntent().getLongExtra("cardId",-1L);
+  getSupportActionBar().setDisplayShowHomeEnabled(false);
+  getSupportActionBar().setDisplayHomeAsUpEnabled(false);
   startLoadingCollection();
-  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-  setTitle(getResources().getString(R.string.title_activity_template_editor,mModel.optString("name")));
 }

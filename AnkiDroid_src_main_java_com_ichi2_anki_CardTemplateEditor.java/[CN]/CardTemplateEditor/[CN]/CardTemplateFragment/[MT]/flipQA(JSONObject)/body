@@ -1,0 +1,17 @@
+{
+  try {
+    String qfmt=template.getString("qfmt");
+    String afmt=template.getString("afmt");
+    Matcher m=Pattern.compile("(?s)(.+)<hr id=answer>(.+)").matcher(afmt);
+    if (!m.find()) {
+      template.put("qfmt",afmt.replace("{{FrontSide}}",""));
+    }
+ else {
+      template.put("qfmt",m.group(2).trim());
+    }
+    template.put("afmt","{{FrontSide}}\n\n<hr id=answer>\n\n" + qfmt);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}
