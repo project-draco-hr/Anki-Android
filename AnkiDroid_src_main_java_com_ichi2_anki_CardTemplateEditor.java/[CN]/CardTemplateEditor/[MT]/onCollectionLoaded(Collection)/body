@@ -1,10 +1,11 @@
 {
   super.onCollectionLoaded(col);
-  mSectionsPagerAdapter=new SectionsPagerAdapter(getSupportFragmentManager());
-  mSectionsPagerAdapter.setModel(mModel);
+  mTemplateAdapter=new TemplatePagerAdapter(getSupportFragmentManager());
+  mTemplateAdapter.setModel(col.getModels().get(mModelId));
   mViewPager=(ViewPager)findViewById(R.id.pager);
-  mViewPager.setAdapter(mSectionsPagerAdapter);
+  mViewPager.setAdapter(mTemplateAdapter);
   mSlidingTabLayout=(SlidingTabLayout)findViewById(R.id.sliding_tabs);
   mSlidingTabLayout.setViewPager(mViewPager);
+  setTitle(getResources().getString(R.string.title_activity_template_editor,col.getModels().get(mModelId).optString("name")));
   dismissOpeningCollectionDialog();
 }

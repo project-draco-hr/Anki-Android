@@ -1,0 +1,16 @@
+{
+  try {
+    ((CardTemplateEditor)getActivity()).getCol().modSchema(true);
+    deleteTemplate(tmpl,model);
+  }
+ catch (  ConfirmModSchemaException e) {
+    ConfirmationDialog d=new ConfirmationDialog(){
+      @Override public void confirm(){
+        deleteTemplate(tmpl,model);
+      }
+    }
+;
+    d.setArgs(getResources().getString(R.string.full_sync_confirmation));
+    ((AnkiActivity)getActivity()).showDialogFragment(d);
+  }
+}

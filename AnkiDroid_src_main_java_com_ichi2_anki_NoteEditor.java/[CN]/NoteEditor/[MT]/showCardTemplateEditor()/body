@@ -1,8 +1,13 @@
 {
   Intent intent=new Intent(this,CardTemplateEditor.class);
-  intent.putExtra("noteType",getCurrentlySelectedModel().toString());
+  try {
+    intent.putExtra("modelId",getCurrentlySelectedModel().getLong("id"));
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
   if (!mAddNote) {
     intent.putExtra("cardId",mCurrentEditedCard.getId());
   }
-  startActivityWithAnimation(intent,ActivityTransitionAnimation.LEFT);
+  startActivityForResultWithAnimation(intent,REQUEST_TEMPLATE_EDIT,ActivityTransitionAnimation.LEFT);
 }

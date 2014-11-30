@@ -1,0 +1,4 @@
+{
+  long mid=getArguments().getLong("modelId");
+  return ((AnkiActivity)getActivity()).getCol().getModels().get(mid);
+}

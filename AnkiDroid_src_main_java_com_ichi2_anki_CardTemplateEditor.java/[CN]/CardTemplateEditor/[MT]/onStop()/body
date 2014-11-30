@@ -1,0 +1,7 @@
+{
+  if (mChanged) {
+    getCol().getModels().save(getCol().getModels().get(mModelId),true);
+    getCol().reset();
+  }
+  super.onStop();
+}

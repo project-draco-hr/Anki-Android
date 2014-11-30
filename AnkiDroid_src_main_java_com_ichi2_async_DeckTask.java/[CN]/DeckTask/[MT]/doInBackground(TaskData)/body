@@ -78,6 +78,10 @@ case TASK_TYPE_RENDER_BROWSER_QA:
 return doInBackgroundRenderBrowserQA(params);
 case TASK_TYPE_CHECK_MEDIA:
 return doInBackgroundCheckMedia(params);
+case TASK_TYPE_ADD_TEMPLATE:
+return doInBackgroundAddTemplate(params);
+case TASK_TYPE_REMOVE_TEMPLATE:
+return doInBackgroundRemoveTemplate(params);
 default :
 Log.e(AnkiDroidApp.TAG,"unknown task type: " + mType);
 return null;

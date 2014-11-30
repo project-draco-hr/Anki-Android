@@ -1,0 +1,7 @@
+{
+  CardTemplateEditor activity=((CardTemplateEditor)getActivity());
+  activity.getCol().modSchemaNoCheck();
+  Object[] args=new Object[]{activity.getCol(),model,tmpl};
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REMOVE_TEMPLATE,activity.mUpdateTemplateHandler,new DeckTask.TaskData(args));
+  activity.dismissAllDialogFragments();
+}

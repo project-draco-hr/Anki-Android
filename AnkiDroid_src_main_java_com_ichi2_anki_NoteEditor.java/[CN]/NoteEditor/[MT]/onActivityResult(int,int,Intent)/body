@@ -1,7 +1,7 @@
 {
   super.onActivityResult(requestCode,resultCode,data);
   if (resultCode == DeckPicker.RESULT_DB_ERROR) {
-    closeCardEditor(DeckPicker.RESULT_DB_ERROR);
+    closeNoteEditor(DeckPicker.RESULT_DB_ERROR);
   }
 switch (requestCode) {
 case REQUEST_INTENT_ADD:
@@ -34,5 +34,7 @@ NoteService.saveMedia((MultimediaEditableNote)mNote);
 mChanged=true;
 }
 break;
+case REQUEST_TEMPLATE_EDIT:
+updateCards(mEditorNote.model());
 }
 }
