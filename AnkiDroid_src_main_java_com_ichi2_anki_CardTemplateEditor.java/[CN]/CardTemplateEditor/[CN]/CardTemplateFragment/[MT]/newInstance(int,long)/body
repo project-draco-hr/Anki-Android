@@ -1,0 +1,8 @@
+{
+  CardTemplateFragment f=new CardTemplateFragment();
+  Bundle args=new Bundle();
+  args.putInt("position",position);
+  args.putLong("modelId",modelId);
+  f.setArguments(args);
+  return f;
+}

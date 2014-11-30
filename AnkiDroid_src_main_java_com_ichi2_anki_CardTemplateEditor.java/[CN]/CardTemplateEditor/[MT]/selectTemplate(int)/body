@@ -1,0 +1,6 @@
+{
+  mTemplateAdapter.notifyChangeInPosition(1);
+  mTemplateAdapter.notifyDataSetChanged();
+  mSlidingTabLayout.setViewPager(mViewPager);
+  mViewPager.setCurrentItem(idx);
+}

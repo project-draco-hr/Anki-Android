@@ -1,0 +1,12 @@
+{
+  ConfirmationDialog d=new ConfirmationDialog(){
+    @Override public void confirm(){
+      deleteTemplateWithCheck(tmpl,model);
+    }
+  }
+;
+  Resources res=getResources();
+  String msg=String.format(res.getQuantityString(R.plurals.card_template_editor_confirm_delete,numAffectedCards),numAffectedCards,tmpl.optString("name"));
+  d.setArgs(msg);
+  ((AnkiActivity)getActivity()).showDialogFragment(d);
+}
