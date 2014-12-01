@@ -1,6 +1,6 @@
 {
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-    Log.i(AnkiDroidApp.TAG,"DeckOptions - onBackPressed()");
+    Log.i(AnkiDroidApp.TAG,"Preferences - onBackPressed()");
     closePreferences();
     return true;
   }
