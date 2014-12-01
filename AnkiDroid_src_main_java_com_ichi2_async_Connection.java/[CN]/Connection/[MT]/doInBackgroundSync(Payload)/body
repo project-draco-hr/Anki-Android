@@ -1,6 +1,6 @@
 {
   Log.v(AnkiDroidApp.TAG,"doInBackgroundSync()");
-  boolean ok=DeckTask.waitToFinish();
+  boolean ok=DeckTask.waitToFinish(5);
   String hkey=(String)data.data[0];
   boolean media=(Boolean)data.data[1];
   String conflictResolution=(String)data.data[2];
