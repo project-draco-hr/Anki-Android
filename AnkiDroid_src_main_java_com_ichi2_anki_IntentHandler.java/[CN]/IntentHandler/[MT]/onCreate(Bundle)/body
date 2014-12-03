@@ -7,6 +7,7 @@
   String action=intent.getAction();
   if (Intent.ACTION_VIEW.equals(action)) {
     boolean successful=false;
+    String errorMessage=getResources().getString(R.string.import_log_no_apkg);
     if (intent.getData().getScheme().equals("content")) {
       String filename=null;
       Cursor cursor=null;
@@ -19,7 +20,7 @@
   finally {
         if (cursor != null)         cursor.close();
       }
-      if (filename != null) {
+      if (filename != null && filename.endsWith(".apkg")) {
         Uri importUri=Uri.fromFile(new File(getCacheDir(),filename));
         try {
           InputStream in=getContentResolver().openInputStream(intent.getData());
@@ -33,12 +34,22 @@
           out.close();
         }
  catch (        FileNotFoundException e) {
+          errorMessage=e.getLocalizedMessage();
           e.printStackTrace();
         }
 catch (        IOException e2) {
+          errorMessage=e2.getLocalizedMessage();
           e2.printStackTrace();
         }
         successful=sendShowImportFileDialogMsg(importUri.getEncodedPath());
+      }
+ else {
+        if (filename == null) {
+          errorMessage="Could not retrieve filename from content resolver; try opening the apkg file with a file explorer";
+        }
+ else {
+          errorMessage="Filename " + filename + " does not have .apkg extension";
+        }
       }
     }
  else     if (intent.getData().getScheme().equals("file")) {
@@ -51,8 +62,17 @@ catch (        IOException e2) {
       finishWithFade();
     }
  else {
-      Themes.showThemedToast(this,getResources().getString(R.string.import_log_no_apkg),true);
-      finishWithFade();
+      String title=getResources().getString(R.string.import_log_no_apkg);
+      StyledDialog.Builder builder=new StyledDialog.Builder(this);
+      builder.setTitle(title);
+      builder.setMessage(errorMessage);
+      builder.setPositiveButton(getResources().getString(R.string.dialog_ok),new DialogInterface.OnClickListener(){
+        @Override public void onClick(        DialogInterface dialog,        int which){
+          finishWithFade();
+        }
+      }
+);
+      builder.create().show();
       return;
     }
   }
