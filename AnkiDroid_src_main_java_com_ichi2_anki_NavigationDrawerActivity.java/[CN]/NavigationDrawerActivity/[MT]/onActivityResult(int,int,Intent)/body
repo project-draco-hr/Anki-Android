@@ -1,8 +1,14 @@
 {
+  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(this);
+  AnkiDroidApp.setLanguage(preferences.getString(Preferences.LANGUAGE,""));
   if (requestCode == REQUEST_PREFERENCES_UPDATE) {
-    String newPath=AnkiDroidApp.getSharedPrefs(this).getString("deckPath","");
-    if (mOldColPath != null && newPath.equals(mOldColPath)) {
-      restartActivity();
+    if (mOldColPath != null && preferences.getString("deckPath","").equals(mOldColPath)) {
+      if ((this instanceof Reviewer) && preferences.getBoolean("tts",false)) {
+        finishWithoutAnimation();
+      }
+ else {
+        restartActivity();
+      }
     }
  else {
       AnkiDroidApp.closeCollection(true);
