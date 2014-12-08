@@ -8,7 +8,8 @@
     throw new RuntimeException(e);
   }
   if (autoPlayEnabled || doAudioReplay) {
-    if (!mSpeakText) {
+    boolean useTTS=mSpeakText && !(sDisplayAnswer && Sound.hasAnswer()) && !(!sDisplayAnswer && Sound.hasQuestion());
+    if (!useTTS) {
       WeakReference<Activity> contextRef=new WeakReference<Activity>(this);
       if (doAudioReplay && replayQuestion && sDisplayAnswer) {
         Sound.playSounds(Sound.SOUNDS_QUESTION_AND_ANSWER,contextRef);
