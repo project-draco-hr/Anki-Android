@@ -29,6 +29,7 @@
       }
       if (filename != null && filename.endsWith(".apkg")) {
         Uri importUri=Uri.fromFile(new File(getCacheDir(),filename));
+        Log.v(AnkiDroidApp.TAG,"IntentHandler copying apkg file to " + importUri.getEncodedPath());
         try {
           InputStream in=getContentResolver().openInputStream(intent.getData());
           OutputStream out=new FileOutputStream(importUri.getEncodedPath());
@@ -39,6 +40,7 @@
           }
           in.close();
           out.close();
+          successful=sendShowImportFileDialogMsg(importUri.getEncodedPath());
         }
  catch (        FileNotFoundException e) {
           errorMessage=e.getLocalizedMessage();
@@ -48,7 +50,6 @@ catch (        IOException e2) {
           errorMessage=e2.getLocalizedMessage();
           e2.printStackTrace();
         }
-        successful=sendShowImportFileDialogMsg(importUri.getEncodedPath());
       }
  else {
         if (filename == null) {
