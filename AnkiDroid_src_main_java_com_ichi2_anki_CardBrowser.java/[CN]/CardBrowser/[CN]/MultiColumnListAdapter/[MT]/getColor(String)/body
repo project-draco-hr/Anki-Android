@@ -1,6 +1,8 @@
 {
   int which=BACKGROUND_NORMAL;
-  if (flag.equals("1")) {
+  if (flag == null) {
+  }
+ else   if (flag.equals("1")) {
     which=BACKGROUND_SUSPENDED;
   }
  else   if (flag.equals("2")) {
