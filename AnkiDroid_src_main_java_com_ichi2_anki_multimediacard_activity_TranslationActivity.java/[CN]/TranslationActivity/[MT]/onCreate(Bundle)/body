@@ -36,10 +36,19 @@
   adapterTo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
   mSpinnerTo.setAdapter(adapterTo);
   linearLayout.addView(mSpinnerTo);
+  final SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
+  String fromLang=preferences.getString("translatorLastLanguageFrom","");
+  String toLang=preferences.getString("translatorLastLanguageTo","");
+  mSpinnerFrom.setSelection(getSpinnerIndex(mSpinnerFrom,fromLang));
+  mSpinnerTo.setSelection(getSpinnerIndex(mSpinnerTo,toLang));
   Button btnDone=new Button(this);
   btnDone.setText(getText(R.string.multimedia_editor_trans_translate));
   btnDone.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View v){
+      String fromLang=mSpinnerFrom.getSelectedItem().toString();
+      String toLang=mSpinnerTo.getSelectedItem().toString();
+      preferences.edit().putString("translatorLastLanguageFrom",fromLang).commit();
+      preferences.edit().putString("translatorLastLanguageTo",toLang).commit();
       translate();
     }
   }
