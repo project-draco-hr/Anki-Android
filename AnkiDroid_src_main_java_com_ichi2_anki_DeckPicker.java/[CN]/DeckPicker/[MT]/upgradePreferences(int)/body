@@ -22,4 +22,7 @@
   if (previousVersionCode < 20300130) {
     preferences.edit().putInt("backupMax",8).commit();
   }
+  if (previousVersionCode < 20400138) {
+    preferences.edit().putInt("swipeSensitivity",100).commit();
+  }
 }

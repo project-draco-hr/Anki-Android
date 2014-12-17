@@ -40,4 +40,12 @@
     editor.putString("deckPath",deckPath);
     editor.commit();
   }
+  final ViewConfiguration vc=ViewConfiguration.get(this);
+  if (AnkiDroidApp.SDK_VERSION >= 8) {
+    DEFAULT_SWIPE_MIN_DISTANCE=vc.getScaledPagingTouchSlop();
+  }
+ else {
+    DEFAULT_SWIPE_MIN_DISTANCE=vc.getScaledTouchSlop() * 2;
+  }
+  DEFAULT_SWIPE_THRESHOLD_VELOCITY=vc.getScaledMinimumFlingVelocity();
 }
