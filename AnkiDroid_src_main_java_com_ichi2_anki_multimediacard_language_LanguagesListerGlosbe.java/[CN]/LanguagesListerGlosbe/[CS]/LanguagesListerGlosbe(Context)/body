@@ -1,13 +1,7 @@
 {
-  addLanguage(context.getString(R.string.multimedia_editor_languages_mandarin),"cmn");
-  addLanguage(context.getString(R.string.multimedia_editor_languages_spanish),"spa");
-  addLanguage(context.getString(R.string.multimedia_editor_languages_english),"eng");
-  addLanguage(context.getString(R.string.multimedia_editor_languages_russian),"rus");
-  addLanguage(context.getString(R.string.multimedia_editor_languages_german),"deu");
-  addLanguage(context.getString(R.string.multimedia_editor_languages_slovak),"slk");
-  addLanguage(context.getString(R.string.multimedia_editor_languages_portuguese),"por");
-  addLanguage(context.getString(R.string.multimedia_editor_languages_french),"fra");
-  addLanguage(context.getString(R.string.multimedia_editor_languages_hindi),"hin");
-  addLanguage(context.getString(R.string.multimedia_editor_languages_arabic),"ar");
-  addLanguage(context.getString(R.string.multimedia_editor_languages_japaneese),"jpn");
+  final String[] languages={"eng","deu","jpn","fra","spa","pol","ita","rus","ces","zho","nld","por","swe","hrv","hin","hun","vie","ara","tur"};
+  for (  String l : languages) {
+    Locale locale=new Locale(l);
+    addLanguage(locale.getDisplayLanguage(),locale.getISO3Language());
+  }
 }
