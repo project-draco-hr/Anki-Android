@@ -3,7 +3,7 @@
   if (answerFormat.contains("{{FrontSide}}")) {
     String frontSideFormat=mCurrentCard._getQA(false).get("q");
     Matcher audioReferences=Sound.sSoundPattern.matcher(frontSideFormat);
-    if (audioReferences.find()) {
+    while (audioReferences.find()) {
       answerContent=answerContent.replaceFirst(audioReferences.group(),"");
     }
   }
