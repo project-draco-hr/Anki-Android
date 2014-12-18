@@ -1,6 +1,7 @@
 {
   if (!schemaChanged()) {
     if (check) {
+      throw new ConfirmModSchemaException();
     }
   }
   mScm=Utils.intNow(1000);

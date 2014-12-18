@@ -37,11 +37,11 @@
         data.success=false;
         data.result=ret;
         data.data=new Object[]{mediaUsn};
+        if (retCode.equals("sanityCheckError")) {
+          col.modSchemaNoCheck();
+          col.save();
+        }
         return data;
-      }
-      if (retCode.equals("sanityCheckError")) {
-        col.modSchema();
-        col.save();
       }
       if (retCode.equals("noChanges")) {
         noChanges=true;
@@ -96,9 +96,14 @@
         return data;
       }
 catch (      RuntimeException e) {
-        AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundSync-fullSync");
+        if (timeoutOccured(e)) {
+          data.result=new Object[]{"connectionError"};
+        }
+ else {
+          AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundSync-fullSync");
+          data.result=new Object[]{"IOException"};
+        }
         data.success=false;
-        data.result=new Object[]{"IOException"};
         data.data=new Object[]{mediaUsn};
         return data;
       }
@@ -136,7 +141,12 @@ catch (      RuntimeException e) {
         AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundSync-mediaSync");
       }
 catch (      RuntimeException e) {
-        AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundSync-mediaSync");
+        if (timeoutOccured(e)) {
+          data.result=new Object[]{"connectionError"};
+        }
+ else {
+          AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundSync-mediaSync");
+        }
         mediaError=e.getLocalizedMessage();
       }
     }
@@ -167,8 +177,7 @@ catch (  Exception e) {
     Log.e(AnkiDroidApp.TAG,"doInBackgroundSync error");
     e.printStackTrace();
     data.success=false;
-    String msg=e.getMessage();
-    if (msg.contains("UnknownHostException") || msg.contains("HttpHostConnectException")) {
+    if (timeoutOccured(e)) {
       data.result=new Object[]{"connectionError"};
     }
  else {

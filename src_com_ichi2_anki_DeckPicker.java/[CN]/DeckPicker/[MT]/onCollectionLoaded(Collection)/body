@@ -7,32 +7,24 @@
     long did=col.getDecks().selected();
     selectDeck(did);
   }
-  Intent intent=getIntent();
-  if (AnkiDroidApp.colIsOpen() && mImportPath != null) {
-    if ((new File(mImportPath)).exists()) {
-      if (mHandler == null) {
-        mHandler=new DialogHandler(this);
-      }
-      if (mImportPath.split("/")[mImportPath.split("/").length - 1].equals("collection.apkg")) {
-        mHandler.sendEmptyMessage(MSG_SHOW_COLLECTION_IMPORT_REPLACE_DIALOG);
-      }
- else {
-        mHandler.sendEmptyMessage(MSG_SHOW_COLLECTION_IMPORT_ADD_DIALOG);
-      }
-    }
- else {
-      Themes.showThemedToast(this,getResources().getString(R.string.import_log_no_apkg),true);
-    }
-  }
- else   if (intent != null && intent.getExtras() != null && intent.getExtras().getBoolean("showAsyncDialogFragment")) {
-    Message m=Message.obtain();
-    m.what=MSG_SHOW_ASYNC_DIALOG;
-    m.setData(getIntent().getExtras());
-    mHandler.sendMessage(m);
-  }
   if (!mFragmented) {
     mShowShowcaseView=true;
   }
   AnkiDroidApp.getCompat().invalidateOptionsMenu(this);
+  if (mRecommendFullSync) {
+    mRecommendFullSync=false;
+    try {
+      col.modSchema();
+    }
+ catch (    ConfirmModSchemaException e) {
+      Resources res=getResources();
+      Message handlerMessage=Message.obtain();
+      handlerMessage.what=DialogHandler.MSG_SHOW_FORCE_FULL_SYNC_DIALOG;
+      Bundle handlerMessageData=new Bundle();
+      handlerMessageData.putString("message",res.getString(R.string.full_sync_confirmation_upgrade) + "\n\n" + res.getString(R.string.full_sync_confirmation));
+      handlerMessage.setData(handlerMessageData);
+      getDialogHandler().sendMessage(handlerMessage);
+    }
+  }
   loadCounts();
 }

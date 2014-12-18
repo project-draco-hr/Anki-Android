@@ -1,0 +1,9 @@
+{
+  Message msg=Message.obtain();
+  msg.what=DialogHandler.MSG_SHOW_SYNC_ERROR_DIALOG;
+  Bundle b=new Bundle();
+  b.putInt("dialogType",getArguments().getInt("dialogType"));
+  b.putString("dialogMessage",getArguments().getString("dialogMessage"));
+  msg.setData(b);
+  return msg;
+}

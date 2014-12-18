@@ -1,0 +1,11 @@
+{
+  Message msg=Message.obtain();
+  msg.what=DialogHandler.MSG_SHOW_MEDIA_CHECK_COMPLETE_DIALOG;
+  Bundle b=new Bundle();
+  b.putStringArrayList("nohave",getArguments().getStringArrayList("nohave"));
+  b.putStringArrayList("unused",getArguments().getStringArrayList("unused"));
+  b.putStringArrayList("invalid",getArguments().getStringArrayList("invalid"));
+  b.putInt("dialogType",getArguments().getInt("dialogType"));
+  msg.setData(b);
+  return msg;
+}

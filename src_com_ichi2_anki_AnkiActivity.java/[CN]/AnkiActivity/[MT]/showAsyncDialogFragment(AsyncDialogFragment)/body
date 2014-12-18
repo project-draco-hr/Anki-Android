@@ -5,7 +5,7 @@
  catch (  IllegalStateException e) {
     String title=newFragment.getNotificationTitle();
     String message=newFragment.getNotificationMessage();
-    Bundle intentExtras=newFragment.getNotificationIntentExtras();
-    showSimpleNotification(title,message,intentExtras);
+    AnkiDroidApp.setStoredDialogHandlerMessage(newFragment.getDialogHandlerMessage());
+    showSimpleNotification(title,message);
   }
 }

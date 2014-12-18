@@ -54,9 +54,9 @@
     if (mDid != null && !dids.contains(d.getLong("id"))) {
       continue;
     }
-    if (d.getInt("dyn") != 1 && d.getInt("conf") != 1) {
+    if (d.getInt("dyn") != 1 && d.getLong("conf") != 1L) {
       if (mIncludeSched) {
-        dconfs.put(Integer.toString(d.getInt("conf")),true);
+        dconfs.put(Long.toString(d.getLong("conf")),true);
       }
     }
     if (!mIncludeSched) {

@@ -1,0 +1,19 @@
+{
+  Resources res=AnkiDroidApp.getAppResources();
+switch (getArguments().getInt("id")) {
+case CUSTOM_STUDY_NEW:
+    return res.getString(R.string.custom_study_new_extend);
+case CUSTOM_STUDY_REV:
+  return res.getString(R.string.custom_study_rev_extend);
+case CUSTOM_STUDY_FORGOT:
+return res.getString(R.string.custom_study_forgotten);
+case CUSTOM_STUDY_AHEAD:
+return res.getString(R.string.custom_study_ahead);
+case CUSTOM_STUDY_RANDOM:
+return res.getString(R.string.custom_study_random);
+case CUSTOM_STUDY_PREVIEW:
+return res.getString(R.string.custom_study_preview);
+default :
+return "";
+}
+}
