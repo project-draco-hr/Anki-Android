@@ -5,7 +5,7 @@
       return false;
     }
   }
- catch (  SQLException _) {
+ catch (  SQLException ex) {
     return false;
   }
   if (db.queryScalar("SELECT version FROM decks") < 65) {
