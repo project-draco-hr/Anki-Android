@@ -1,5 +1,7 @@
 {
   super.onCreate();
+  SharedPreferences preferences=getSharedPrefs(this);
+  ACRA.init(this);
   if (isNookHdOrHdPlus() && AnkiDroidApp.SDK_VERSION == 15) {
     mCompat=new CompatV15NookHdOrHdPlus();
   }
@@ -26,11 +28,7 @@
   }
   sInstance=this;
   Connection.setContext(getApplicationContext());
-  CustomExceptionHandler customExceptionHandler=CustomExceptionHandler.getInstance();
-  customExceptionHandler.init(sInstance.getApplicationContext());
-  Thread.setDefaultUncaughtExceptionHandler(customExceptionHandler);
   mCompat.enableCookiesForFileSchemePages();
-  SharedPreferences preferences=getSharedPrefs(this);
   sInstance.mHooks=new Hooks(preferences);
   setLanguage(preferences.getString(Preferences.LANGUAGE,""));
   if (!preferences.contains("deckPath")) {
@@ -48,4 +46,5 @@
     DEFAULT_SWIPE_MIN_DISTANCE=vc.getScaledTouchSlop() * 2;
   }
   DEFAULT_SWIPE_THRESHOLD_VELOCITY=vc.getScaledMinimumFlingVelocity();
+  setAcraReportingMode(preferences.getString("reportErrorMode",Feedback.REPORT_ASK));
 }
