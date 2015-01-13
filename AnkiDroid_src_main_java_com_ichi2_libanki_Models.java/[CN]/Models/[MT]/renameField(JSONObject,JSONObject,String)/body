@@ -1,7 +1,7 @@
 {
   mCol.modSchema(true);
   try {
-    String pat=String.format("\\{\\{(.*)([:#^/]|[^:#/^}][^:}]*?:|)%s\\}\\}",Pattern.quote(field.getString("name")));
+    String pat=String.format("\\{\\{([^{}]*)([:#^/]|[^:#/^}][^:}]*?:|)%s\\}\\}",Pattern.quote(field.getString("name")));
     if (newName == null) {
       newName="";
     }
