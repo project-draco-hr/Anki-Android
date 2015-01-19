@@ -39,7 +39,7 @@ builder.setSingleChoiceItems(res.getStringArray(R.array.card_browser_order_label
  catch (    JSONException e) {
       throw new RuntimeException(e);
     }
-    Collections.reverse(mCards);
+    Collections.reverse(getCards());
     updateList();
   }
 }
