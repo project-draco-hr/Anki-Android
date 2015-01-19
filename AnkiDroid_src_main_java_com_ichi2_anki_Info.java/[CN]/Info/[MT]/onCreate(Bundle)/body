@@ -43,6 +43,15 @@ sb.append(String.format(content[4],res.getString(R.string.licence_wiki),res.getS
 sb.append("</body></html>");
 mWebView.loadDataWithBaseURL("",sb.toString(),"text/html","utf-8",null);
 ((Button)findViewById(R.id.info_continue)).setText(res.getString(R.string.info_rate));
+Button debugCopy=((Button)findViewById(R.id.info_later));
+debugCopy.setText(res.getString(R.string.feedback_copy_debug));
+debugCopy.setVisibility(View.VISIBLE);
+debugCopy.setOnClickListener(new OnClickListener(){
+@Override public void onClick(View v){
+copyDebugInfo();
+}
+}
+);
 break;
 case TYPE_NEW_VERSION:
 sb.append(res.getString(R.string.new_version_message));
