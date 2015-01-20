@@ -49,7 +49,7 @@ def replacechars(filename, fileExt, isCrowdin):
         fin.write(' </string-array>\n</resources>')
     s.close()
     fin.close()
-    os.rename(newfilename, filename)
+    shutil.move(newfilename, filename)
     if errorOccured:
         print ('Error in file ' + filename)
         return False
