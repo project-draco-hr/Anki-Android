@@ -1,4 +1,11 @@
 {
+  while (AnkiDroidApp.getInstance() == null || AnkiDroidApp.getHooks() == null) {
+    try {
+      Thread.sleep(100);
+    }
+ catch (    InterruptedException e) {
+    }
+  }
   Collection d=Shared.getEmptyCol();
   File dir=Shared.getTestDir(mContext);
   BackupManager.removeDir(dir);
