@@ -10,15 +10,14 @@
   if (autoPlayEnabled || doAudioReplay) {
     boolean useTTS=mSpeakText && !(sDisplayAnswer && Sound.hasAnswer()) && !(!sDisplayAnswer && Sound.hasQuestion());
     if (!useTTS) {
-      WeakReference<Activity> contextRef=new WeakReference<Activity>(this);
       if (doAudioReplay && replayQuestion && sDisplayAnswer) {
-        Sound.playSounds(Sound.SOUNDS_QUESTION_AND_ANSWER,contextRef);
+        Sound.playSounds(Sound.SOUNDS_QUESTION_AND_ANSWER);
       }
  else       if (sDisplayAnswer) {
-        Sound.playSounds(Sound.SOUNDS_ANSWER,contextRef);
+        Sound.playSounds(Sound.SOUNDS_ANSWER);
       }
  else {
-        Sound.playSounds(Sound.SOUNDS_QUESTION,contextRef);
+        Sound.playSounds(Sound.SOUNDS_QUESTION);
       }
     }
  else {
