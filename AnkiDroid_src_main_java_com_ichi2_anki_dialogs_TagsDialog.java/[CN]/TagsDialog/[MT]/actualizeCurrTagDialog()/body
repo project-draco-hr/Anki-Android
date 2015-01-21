@@ -16,13 +16,6 @@
   }
   mStyledDialog.setMultiChoiceItems(tags,checkedTags(),new DialogInterface.OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int which){
-      String tag=mStyledDialog.getItemList().get(which);
-      if (mCurrentTags.contains(tag)) {
-        mCurrentTags.remove(tag);
-      }
- else {
-        mCurrentTags.add(tag);
-      }
     }
   }
 ,new CompoundButton.OnCheckedChangeListener(){
