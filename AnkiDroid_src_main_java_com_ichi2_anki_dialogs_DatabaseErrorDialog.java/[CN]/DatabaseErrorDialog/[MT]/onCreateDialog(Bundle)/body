@@ -5,6 +5,16 @@
   StyledDialog.Builder builder=new StyledDialog.Builder(getActivity());
   setCancelable(true);
   builder.setTitle(getTitle());
+  boolean sqliteInstalled=false;
+  try {
+    sqliteInstalled=Runtime.getRuntime().exec("sqlite3 --version").waitFor() == 0;
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+catch (  InterruptedException e) {
+    e.printStackTrace();
+  }
 switch (mType) {
 case DIALOG_LOAD_FAILED:
     setCancelable(false);
@@ -64,8 +74,10 @@ values.add(0);
 options.add(res.getString(R.string.check_db));
 values.add(1);
 }
+if (sqliteInstalled) {
 options.add(res.getString(R.string.backup_error_menu_repair));
 values.add(2);
+}
 options.add(res.getString(R.string.backup_restore));
 values.add(3);
 options.add(res.getString(R.string.backup_full_sync_from_server));
