@@ -93,7 +93,7 @@
         col=AnkiDroidApp.openCollection(path);
       }
  catch (      OutOfMemoryError e) {
-        AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundSync-fullSync");
+        AnkiDroidApp.sendExceptionReport(e,"doInBackgroundSync-fullSync");
         data.success=false;
         data.result=new Object[]{"OutOfMemoryError"};
         data.data=new Object[]{mediaUsn};
@@ -104,7 +104,7 @@ catch (      RuntimeException e) {
           data.result=new Object[]{"connectionError"};
         }
  else {
-          AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundSync-fullSync");
+          AnkiDroidApp.sendExceptionReport(e,"doInBackgroundSync-fullSync");
           data.result=new Object[]{"IOException"};
         }
         data.success=false;
@@ -142,14 +142,14 @@ catch (      RuntimeException e) {
  catch (      UnsupportedSyncException e) {
         mediaError=AnkiDroidApp.getAppResources().getString(R.string.sync_media_unsupported);
         AnkiDroidApp.getSharedPrefs(sContext).edit().putBoolean("syncFetchesMedia",false).commit();
-        AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundSync-mediaSync");
+        AnkiDroidApp.sendExceptionReport(e,"doInBackgroundSync-mediaSync");
       }
 catch (      RuntimeException e) {
         if (timeoutOccured(e)) {
           data.result=new Object[]{"connectionError"};
         }
  else {
-          AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundSync-mediaSync");
+          AnkiDroidApp.sendExceptionReport(e,"doInBackgroundSync-mediaSync");
         }
         mediaError=e.getLocalizedMessage();
       }
@@ -185,7 +185,7 @@ catch (  Exception e) {
       data.result=new Object[]{"connectionError"};
     }
  else {
-      AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundSync");
+      AnkiDroidApp.sendExceptionReport(e,"doInBackgroundSync");
       data.result=new Object[]{e.getLocalizedMessage()};
     }
     return data;

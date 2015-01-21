@@ -25,7 +25,7 @@
       }
     }
  catch (    RuntimeException e) {
-      AnkiDroidApp.saveExceptionReportFile(e,"closeDB");
+      AnkiDroidApp.sendExceptionReport(e,"closeDB");
     }
     AnkiDatabaseManager.closeDatabase(mPath);
     mDb=null;

@@ -1,16 +1,16 @@
 {
   SharedPreferences.Editor editor=getSharedPrefs(this).edit();
-  if (value.equals(Feedback.REPORT_NEVER)) {
+  if (value.equals(FEEDBACK_REPORT_NEVER)) {
     editor.putBoolean("acra.disable",true);
   }
  else {
     editor.putBoolean("acra.disable",false);
     try {
-      if (value.equals(Feedback.REPORT_ALWAYS)) {
+      if (value.equals(FEEDBACK_REPORT_ALWAYS)) {
         ACRA.getConfig().setMode(ReportingInteractionMode.TOAST);
         ACRA.getConfig().setResToastText(R.string.feedback_auto_toast_text);
       }
- else       if (value.equals(Feedback.REPORT_ASK)) {
+ else       if (value.equals(FEEDBACK_REPORT_ASK)) {
         ACRA.getConfig().setMode(ReportingInteractionMode.DIALOG);
         ACRA.getConfig().setResToastText(R.string.feedback_manual_toast_text);
       }

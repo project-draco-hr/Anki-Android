@@ -44,14 +44,14 @@ catch (  IllegalAccessException e) {
         sb.append("AnkiDb.queryColumn (column " + column + "): ");
         sb.append("Exception due to null. Query: " + query);
         sb.append(" Null occurrences during this query: " + nullExceptionCount);
-        AnkiDroidApp.saveExceptionReportFile(nullException,"queryColumn_encounteredNull",sb.toString());
+        AnkiDroidApp.sendExceptionReport(nullException,"queryColumn_encounteredNull",sb.toString());
         Log.w(AnkiDroidApp.TAG,sb.toString());
       }
  else {
         StringBuilder sb=new StringBuilder();
         sb.append("AnkiDb.queryColumn(): Critical error -- ");
         sb.append("unable to pass in the actual exception to error reporting.");
-        AnkiDroidApp.saveExceptionReportFile("queryColumn_encounteredNull",sb.toString());
+        AnkiDroidApp.sendExceptionReport("queryColumn_encounteredNull",sb.toString());
         Log.e(AnkiDroidApp.TAG,sb.toString());
       }
     }

@@ -1,0 +1,6 @@
+{
+  super.onSaveInstanceState(outState);
+  if (mUserComment != null && mUserComment.getText() != null) {
+    outState.putString(STATE_COMMENT,mUserComment.getText().toString());
+  }
+}

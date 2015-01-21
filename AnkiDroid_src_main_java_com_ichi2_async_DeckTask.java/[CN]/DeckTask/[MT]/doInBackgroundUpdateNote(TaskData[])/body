@@ -34,7 +34,7 @@
   }
  catch (  RuntimeException e) {
     Log.e(AnkiDroidApp.TAG,"doInBackgroundUpdateNote - RuntimeException on updating fact: " + e);
-    AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundUpdateNote");
+    AnkiDroidApp.sendExceptionReport(e,"doInBackgroundUpdateNote");
     return new TaskData(false);
   }
   return new TaskData(true);

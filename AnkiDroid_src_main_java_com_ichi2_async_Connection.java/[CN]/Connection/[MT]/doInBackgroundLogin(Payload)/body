@@ -13,7 +13,7 @@
   }
 catch (  Exception e2) {
     if (!timeoutOccured(e2)) {
-      AnkiDroidApp.saveExceptionReportFile(e2,"doInBackgroundLogin");
+      AnkiDroidApp.sendExceptionReport(e2,"doInBackgroundLogin");
     }
     data.success=false;
     data.result=new Object[]{"connectionError"};
