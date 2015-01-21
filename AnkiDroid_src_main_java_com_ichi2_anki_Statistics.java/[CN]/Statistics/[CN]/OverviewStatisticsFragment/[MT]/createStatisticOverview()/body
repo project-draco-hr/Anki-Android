@@ -1,9 +1,4 @@
 {
   AnkiStatsTaskHandler handler=(((Statistics)getActivity()).getTaskHandler());
-  if (handler != null) {
-    mCreateStatisticsOverviewTask=handler.createStatisticsOverview(mWebView,mProgressBar);
-  }
- else {
-    Log.e(AnkiDroidApp.TAG,"Statistics.createStatisticsOverview() TaskHandler not found");
-  }
+  mCreateStatisticsOverviewTask=handler.createStatisticsOverview(mWebView,mProgressBar);
 }
