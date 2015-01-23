@@ -70,7 +70,7 @@
   mDeckListView.setOnItemClickListener(mDeckSelHandler);
   mDeckListView.setOnItemLongClickListener(new OnItemLongClickListener(){
     @Override public boolean onItemLongClick(    AdapterView<?> adapterView,    View view,    int position,    long id){
-      Timber.i("Long tapped on deck in position %d",position);
+      Timber.i("DeckPicker:: Long tapped on deck in position %d",position);
       if (!AnkiDroidApp.colIsOpen() || mDeckList == null || mDeckList.size() == 0) {
         return true;
       }

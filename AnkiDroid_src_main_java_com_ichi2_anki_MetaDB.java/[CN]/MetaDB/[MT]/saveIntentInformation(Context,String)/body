@@ -2,7 +2,7 @@
   openDBIfClosed(context);
   try {
     mMetaDb.execSQL("INSERT INTO intentInformation (fields) " + " VALUES (?);",new Object[]{fields});
-    Timber.i("Store intentInformation: " + fields);
+    Timber.i("MetaDB:: Store intentInformation: " + fields);
   }
  catch (  Exception e) {
     Timber.e(e,"Error storing intentInformation in MetaDB ");

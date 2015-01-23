@@ -2,17 +2,17 @@
   openDBIfClosed(context);
   try {
     mMetaDb.execSQL("DROP TABLE IF EXISTS languages;");
-    Timber.i("Resetting all language assignment");
+    Timber.i("MetaDB:: Resetting all language assignment");
     mMetaDb.execSQL("DROP TABLE IF EXISTS whiteboardState;");
-    Timber.i("Resetting whiteboard state");
+    Timber.i("MetaDB:: Resetting whiteboard state");
     mMetaDb.execSQL("DROP TABLE IF EXISTS customDictionary;");
-    Timber.i("Resetting custom Dictionary");
+    Timber.i("MetaDB:: Resetting custom Dictionary");
     mMetaDb.execSQL("DROP TABLE IF EXISTS widgetStatus;");
-    Timber.i("Resetting widget status");
+    Timber.i("MetaDB:: Resetting widget status");
     mMetaDb.execSQL("DROP TABLE IF EXISTS smallWidgetStatus;");
-    Timber.i("Resetting small widget status");
+    Timber.i("MetaDB:: Resetting small widget status");
     mMetaDb.execSQL("DROP TABLE IF EXISTS intentInformation;");
-    Timber.i("Resetting intentInformation");
+    Timber.i("MetaDB:: Resetting intentInformation");
     upgradeDB(mMetaDb,DATABASE_VERSION);
     return true;
   }

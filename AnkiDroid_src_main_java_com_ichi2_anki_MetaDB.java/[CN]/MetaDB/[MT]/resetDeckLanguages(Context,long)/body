@@ -2,7 +2,7 @@
   openDBIfClosed(context);
   try {
     mMetaDb.execSQL("DELETE FROM languages WHERE did = " + did + ";");
-    Timber.i("Resetting language assignment for deck %d",did);
+    Timber.i("MetaDB:: Resetting language assignment for deck %d",did);
     return true;
   }
  catch (  Exception e) {

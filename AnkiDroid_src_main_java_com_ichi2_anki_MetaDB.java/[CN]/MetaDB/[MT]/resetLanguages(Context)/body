@@ -3,7 +3,7 @@
     openDB(context);
   }
   try {
-    Timber.i("Resetting all language assignments");
+    Timber.i("MetaDB:: Resetting all language assignments");
     mMetaDb.execSQL("DROP TABLE IF EXISTS languages;");
     upgradeDB(mMetaDb,DATABASE_VERSION);
     return true;

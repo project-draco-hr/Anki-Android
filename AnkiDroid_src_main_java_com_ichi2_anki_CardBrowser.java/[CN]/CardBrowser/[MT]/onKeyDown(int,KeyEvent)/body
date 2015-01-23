@@ -1,6 +1,6 @@
 {
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-    Timber.i("CardBrowser - onBackPressed()");
+    Timber.i("CardBrowser:: CardBrowser - onBackPressed()");
     closeCardBrowser(Activity.RESULT_OK);
     return true;
   }

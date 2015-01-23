@@ -3,7 +3,7 @@
     openDB(context);
   }
   try {
-    Timber.i("Deleting intent information " + id);
+    Timber.i("MetaDB:: Deleting intent information " + id);
     mMetaDb.execSQL("DELETE FROM intentInformation WHERE id = " + id + ";");
     return true;
   }

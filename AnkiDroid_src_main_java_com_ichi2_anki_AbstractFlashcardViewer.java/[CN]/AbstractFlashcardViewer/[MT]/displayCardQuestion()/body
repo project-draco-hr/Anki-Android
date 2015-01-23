@@ -46,5 +46,5 @@
     mTimeoutHandler.removeCallbacks(mShowAnswerTask);
     mTimeoutHandler.postDelayed(mShowAnswerTask,mWaitAnswerSecond * 1000);
   }
-  Timber.i("Question successfully shown for card id %d",mCurrentCard.getId());
+  Timber.i("AbstractFlashcardViewer:: Question successfully shown for card id %d",mCurrentCard.getId());
 }

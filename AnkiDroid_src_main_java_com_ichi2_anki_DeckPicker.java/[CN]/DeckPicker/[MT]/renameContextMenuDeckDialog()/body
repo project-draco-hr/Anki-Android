@@ -9,7 +9,7 @@
   builder2.setPositiveButton(res.getString(R.string.rename),new DialogInterface.OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int which){
       String newName=mDialogEditText.getText().toString().replaceAll("\"","");
-      Timber.i("Renaming deck...",newName);
+      Timber.i("DeckPicker:: Renaming deck...",newName);
       Collection col=getCol();
       if (col != null) {
         if (col.getDecks().rename(col.getDecks().get(mContextMenuDid),newName)) {
