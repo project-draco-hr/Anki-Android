@@ -1,6 +1,7 @@
 {
   mediaButton.setOnClickListener(new View.OnClickListener(){
     @Override public void onClick(    View v){
+      Timber.i("Multimedia button pressed for field %d",index);
       if (mEditorNote.items()[index][1].length() > 0) {
         IMultimediaEditableNote mNote=NoteService.createEmptyNote(mEditorNote.model());
         NoteService.updateMultimediaNoteFromJsonNote(mEditorNote,mNote);
@@ -18,16 +19,19 @@
             IField field=mNote.getField(index);
 switch (item.getItemId()) {
 case R.id.menu_multimedia_audio:
-              field=new AudioField();
-            mNote.setField(index,field);
-          startMultimediaFieldEditor(index,mNote,field);
-        return true;
+              Timber.i("Record audio button pressed");
+            field=new AudioField();
+          mNote.setField(index,field);
+        startMultimediaFieldEditor(index,mNote,field);
+      return true;
 case R.id.menu_multimedia_photo:
-      field=new ImageField();
-    mNote.setField(index,field);
-  startMultimediaFieldEditor(index,mNote,field);
+    Timber.i("Add image button pressed");
+  field=new ImageField();
+mNote.setField(index,field);
+startMultimediaFieldEditor(index,mNote,field);
 return true;
 case R.id.menu_multimedia_text:
+Timber.i("Advanced editor button pressed");
 startMultimediaFieldEditor(index,mNote,field);
 return true;
 default :

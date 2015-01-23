@@ -16,6 +16,6 @@
     }
   }
  catch (  Exception e) {
-    Log.e("free image view",e.getMessage());
+    Timber.e(e.getMessage());
   }
 }

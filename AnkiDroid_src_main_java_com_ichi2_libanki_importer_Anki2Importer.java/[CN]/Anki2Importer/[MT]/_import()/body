@@ -4,14 +4,14 @@
     long id=mDst.getDecks().id(mDeckPrefix);
     mDst.getDecks().select(id);
   }
-  Log.i(AnkiDroidApp.TAG,"Import - preparing");
+  Timber.i("Import - preparing");
   _prepareTS();
   _prepareModels();
-  Log.i(AnkiDroidApp.TAG,"Import - importing notes");
+  Timber.i("Import - importing notes");
   _importNotes();
-  Log.i(AnkiDroidApp.TAG,"Import - importing cards");
+  Timber.i("Import - importing cards");
   int cnt=_importCards();
-  Log.i(AnkiDroidApp.TAG,"Import - finishing");
+  Timber.i("Import - finishing");
   publishProgress(true,100,100,false);
   _postImport();
   return cnt;

@@ -3,5 +3,5 @@
   if (mFullNewCountThread != null) {
     mFullNewCountThread.interrupt();
   }
-  Log.i(AnkiDroidApp.TAG,"StudyOptions - onDestroy()");
+  Timber.d("onDestroy()");
 }

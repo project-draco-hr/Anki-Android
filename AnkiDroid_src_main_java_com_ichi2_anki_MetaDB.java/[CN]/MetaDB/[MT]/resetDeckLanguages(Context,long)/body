@@ -2,11 +2,11 @@
   openDBIfClosed(context);
   try {
     mMetaDb.execSQL("DELETE FROM languages WHERE did = " + did + ";");
-    Log.i(AnkiDroidApp.TAG,"Resetting language assignment for deck " + did);
+    Timber.i("Resetting language assignment for deck %d",did);
     return true;
   }
  catch (  Exception e) {
-    Log.e("Error","Error resetting deck language",e);
+    Timber.e(e,"Error resetting deck language");
   }
   return false;
 }

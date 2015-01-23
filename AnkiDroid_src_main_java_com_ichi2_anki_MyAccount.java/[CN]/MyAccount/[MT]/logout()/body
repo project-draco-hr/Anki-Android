@@ -8,7 +8,7 @@
     AnkiDroidApp.getCol().getMedia().forceResync();
   }
  catch (  SQLiteException e) {
-    Log.e(AnkiDroidApp.TAG,"MyAccount.logout()  reinitializing media db due to sqlite error");
+    Timber.e("MyAccount.logout()  reinitializing media db due to sqlite error");
     AnkiDroidApp.getCol().getMedia()._initDB();
   }
   setContentView(mLoginToMyAccountView);

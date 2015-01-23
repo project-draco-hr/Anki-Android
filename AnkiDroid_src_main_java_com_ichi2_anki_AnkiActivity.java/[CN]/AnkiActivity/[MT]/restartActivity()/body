@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,"AnkiActivity -- restartActivity()");
+  Timber.i("AnkiActivity -- restartActivity()");
   Intent intent=new Intent();
   intent.setClass(this,this.getClass());
   intent.putExtras(new Bundle());

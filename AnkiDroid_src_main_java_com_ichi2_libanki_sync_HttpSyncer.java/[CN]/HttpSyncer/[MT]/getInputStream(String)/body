@@ -3,7 +3,7 @@
     return new ByteArrayInputStream(string.getBytes("UTF-8"));
   }
  catch (  UnsupportedEncodingException e) {
-    Log.e(AnkiDroidApp.TAG,"HttpSyncer: error on getting bytes from string: " + e);
+    Timber.e(e,"HttpSyncer: error on getting bytes from string");
     return null;
   }
 }

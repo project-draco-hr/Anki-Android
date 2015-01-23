@@ -1,10 +1,10 @@
 {
-  Log.d(AnkiDroidApp.TAG,"DeckOptions - commit() changes back to database");
+  Timber.d("DeckOptions - commit() changes back to database");
   try {
     for (    Entry<String,Object> entry : mUpdate.valueSet()) {
       String key=entry.getKey();
       Object value=entry.getValue();
-      Log.i(AnkiDroidApp.TAG,"Change value for key '" + key + "': "+ value);
+      Timber.i("Change value for key '" + key + "': "+ value);
       if (key.equals("maxAnswerTime")) {
         mOptions.put("maxTaken",(Integer)value);
       }
@@ -155,7 +155,7 @@
     mCol.getDecks().save(mOptions);
   }
  catch (  RuntimeException e) {
-    Log.e(AnkiDroidApp.TAG,"DeckOptions - RuntimeException on saving conf: " + e);
+    Timber.e("DeckOptions - RuntimeException on saving conf: " + e);
     AnkiDroidApp.saveExceptionReportFile(e,"DeckOptionsSaveConf");
     setResult(DeckPicker.RESULT_DB_ERROR);
     finish();

@@ -1,7 +1,7 @@
 {
   super.onResume();
   if (colOpen() && !mFragmented) {
-    Log.i(AnkiDroidApp.TAG,"StudyOptionsFragment.onResume() -- refreshing interface");
+    Timber.d("onResume() -- refreshing interface");
     if (Utils.now() > getCol().getSched().getDayCutoff()) {
       resetAndRefreshInterface(false);
     }
@@ -10,6 +10,6 @@
     }
   }
  else {
-    Log.i(AnkiDroidApp.TAG,"StudyOptionsFragment.onResume() -- skipping refresh of interface");
+    Timber.d("onResume() -- skipping refresh of interface");
   }
 }

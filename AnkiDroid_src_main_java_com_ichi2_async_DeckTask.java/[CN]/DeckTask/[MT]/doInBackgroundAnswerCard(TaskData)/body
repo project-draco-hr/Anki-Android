@@ -24,7 +24,7 @@
     }
   }
  catch (  RuntimeException e) {
-    Log.e(AnkiDroidApp.TAG,"doInBackgroundAnswerCard - RuntimeException on answering card: " + e);
+    Timber.e(e,"doInBackgroundAnswerCard - RuntimeException on answering card");
     AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundAnswerCard");
     return new TaskData(false);
   }

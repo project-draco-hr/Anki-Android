@@ -1,6 +1,6 @@
 {
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-    Log.i(AnkiDroidApp.TAG,"MyAccount - onBackPressed()");
+    Timber.i("MyAccount - onBackPressed()");
     finish();
     ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.FADE);
     return true;

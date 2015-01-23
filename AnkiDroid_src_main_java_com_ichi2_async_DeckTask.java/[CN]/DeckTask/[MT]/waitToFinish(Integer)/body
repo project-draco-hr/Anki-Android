@@ -1,7 +1,7 @@
 {
   try {
     if ((sLatestInstance != null) && (sLatestInstance.getStatus() != AsyncTask.Status.FINISHED)) {
-      Log.i(AnkiDroidApp.TAG,"DeckTask: waiting for task " + sLatestInstance.mType + " to finish...");
+      Timber.d("DeckTask: waiting for task %d to finish...",sLatestInstance.mType);
       if (timeout != null) {
         sLatestInstance.get(timeout,TimeUnit.SECONDS);
       }
@@ -12,7 +12,7 @@
     return true;
   }
  catch (  Exception e) {
-    Log.i(AnkiDroidApp.TAG,"Exception waiting for task to finish \n" + e.getMessage());
+    Timber.e(e,"Exception waiting for task to finish");
     return false;
   }
 }

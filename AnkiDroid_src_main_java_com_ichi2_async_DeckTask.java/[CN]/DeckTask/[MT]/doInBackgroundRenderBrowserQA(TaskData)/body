@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundRenderBrowserQA");
+  Timber.d("doInBackgroundRenderBrowserQA");
   Collection col=(Collection)params[0].getObjArray()[0];
   ArrayList<HashMap<String,String>> items=(ArrayList<HashMap<String,String>>)params[0].getObjArray()[1];
   Integer startPos=(Integer)params[0].getObjArray()[2];

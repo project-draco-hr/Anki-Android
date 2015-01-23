@@ -18,6 +18,6 @@
 );
   }
  else {
-    Log.e(AnkiDroidApp.TAG,"LeechHook :: could not show leech toast as activity was null");
+    Timber.e("LeechHook :: could not show leech toast as activity was null");
   }
 }

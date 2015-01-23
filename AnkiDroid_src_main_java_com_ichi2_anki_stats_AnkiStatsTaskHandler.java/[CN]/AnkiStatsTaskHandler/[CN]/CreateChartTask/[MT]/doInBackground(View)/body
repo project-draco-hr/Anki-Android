@@ -2,10 +2,10 @@
   sLock.lock();
   try {
     if (!mIsRunning) {
-      Log.d(AnkiDroidApp.TAG,"quiting CreateChartTask(" + mChartType.name() + ") before execution");
+      Timber.d("quiting CreateChartTask (%s) before execution",mChartType.name());
       return null;
     }
- else     Log.d(AnkiDroidApp.TAG,"starting Create ChartTask, type: " + mChartType.name());
+ else     Timber.d("starting Create ChartTask, type: %s",mChartType.name());
     mImageView=(ChartView)params[0];
     mProgressBar=(ProgressBar)params[1];
     ChartBuilder chartBuilder=new ChartBuilder(mImageView,mCollectionData,sIsWholeCollection,mChartType);

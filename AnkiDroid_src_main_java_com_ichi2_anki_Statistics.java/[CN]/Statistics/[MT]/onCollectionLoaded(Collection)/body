@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,"Statistics -- onCollectionLoaded()");
+  Timber.d("onCollectionLoaded()");
   mTaskHandler=new AnkiStatsTaskHandler();
   mSectionsPagerAdapter=new SectionsPagerAdapter(getSupportFragmentManager());
   mViewPager=(ViewPager)findViewById(R.id.pager);

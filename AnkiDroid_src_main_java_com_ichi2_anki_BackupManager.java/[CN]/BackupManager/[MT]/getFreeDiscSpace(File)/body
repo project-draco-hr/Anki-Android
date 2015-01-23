@@ -6,7 +6,7 @@
     return blocks * blocksize;
   }
  catch (  IllegalArgumentException e) {
-    Log.e(AnkiDroidApp.TAG,"Free space could not be retrieved: " + e);
+    Timber.e(e,"Free space could not be retrieved");
     return MIN_FREE_SPACE * 1024 * 1024;
   }
 }

@@ -18,7 +18,7 @@
   registerExternalStorageListener();
   try {
     if (mCol == null || mDeck.getInt("dyn") != 1) {
-      Log.w(AnkiDroidApp.TAG,"CramDeckOptions - No Collection loaded or deck is not a dyn deck");
+      Timber.w("CramDeckOptions - No Collection loaded or deck is not a dyn deck");
       finish();
       return;
     }

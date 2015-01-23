@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,"DownloadMissingMedia");
+  Timber.i("DownloadMissingMedia");
   HashMap<String,String> missingPaths=new HashMap<String,String>();
   HashMap<String,String> missingSums=new HashMap<String,String>();
   data.result=(Decks)data.data[0];
@@ -27,7 +27,7 @@
       if (!file.exists()) {
         missingPaths.put(f,path);
         missingSums.put(f,cursor.getString(1));
-        Log.i(AnkiDroidApp.TAG,"Missing file: " + f);
+        Timber.d("Missing file: %s",f);
       }
     }
   }
@@ -62,7 +62,7 @@
         FileOutputStream fos=new FileOutputStream(path);
         while ((readbytes=bis.read(buf,0,4096)) != -1) {
           fos.write(buf,0,readbytes);
-          Log.i(AnkiDroidApp.TAG,"Downloaded " + readbytes + " file: "+ path);
+          Timber.d("Downloaded %d file: %s",readbytes,path);
         }
         fos.close();
         sum=missingSums.get(file);
@@ -70,15 +70,15 @@
           grabbed++;
         }
  else {
-          Log.i(AnkiDroidApp.TAG,"Downloaded media file " + path + " failed checksum.");
+          Timber.i("Downloaded media file %s failed checksum.",path);
           File f=new File(path);
           f.delete();
           missing++;
         }
       }
  else {
-        Log.e(AnkiDroidApp.TAG,"Connection error (" + connection.getResponseCode() + ") while retrieving media file "+ urlbase+ file);
-        Log.e(AnkiDroidApp.TAG,"Connection message: " + connection.getResponseMessage());
+        Timber.e("Connection error (" + connection.getResponseCode() + ") while retrieving media file "+ urlbase+ file);
+        Timber.e("Connection message: " + connection.getResponseMessage());
         if (missingSums.get(file).equals("")) {
           missing++;
         }
@@ -91,11 +91,10 @@
       connection.disconnect();
     }
  catch (    URISyntaxException e) {
-      Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
+      Timber.e(e,"doInBackgroundDownloadMissingMedia URISyntaxException");
     }
 catch (    MalformedURLException e) {
-      Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
-      Log.e(AnkiDroidApp.TAG,"MalformedURLException while download media file " + path);
+      Timber.e(e,"MalformedURLException while download media file " + path);
       if (missingSums.get(file).equals("")) {
         missing++;
       }
@@ -106,8 +105,7 @@ catch (    MalformedURLException e) {
       }
     }
 catch (    IOException e) {
-      Log.e(AnkiDroidApp.TAG,Log.getStackTraceString(e));
-      Log.e(AnkiDroidApp.TAG,"IOException while download media file " + path);
+      Timber.e(e,"IOException while download media file " + path);
       if (missingSums.get(file).equals("")) {
         missing++;
       }

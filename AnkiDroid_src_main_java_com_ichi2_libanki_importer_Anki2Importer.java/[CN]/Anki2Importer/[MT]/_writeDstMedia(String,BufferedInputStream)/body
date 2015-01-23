@@ -4,6 +4,6 @@
     mDst.getMedia().markFileAdd(fname);
   }
  catch (  IOException e) {
-    Log.e(AnkiDroidApp.TAG,String.format(Locale.US,"Anki2Importer._writeDstMedia: error copying file to %s (%s), ignoring and continuing.",fname,e.getMessage()));
+    Timber.e(e,"Anki2Importer._writeDstMedia: error copying file to %s, ignoring and continuing.",fname);
   }
 }

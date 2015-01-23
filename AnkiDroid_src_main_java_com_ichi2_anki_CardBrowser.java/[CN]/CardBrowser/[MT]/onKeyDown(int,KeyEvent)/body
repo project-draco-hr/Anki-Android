@@ -1,6 +1,6 @@
 {
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-    Log.i(AnkiDroidApp.TAG,"CardBrowser - onBackPressed()");
+    Timber.i("CardBrowser - onBackPressed()");
     closeCardBrowser(Activity.RESULT_OK);
     return true;
   }

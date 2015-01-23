@@ -1,7 +1,7 @@
 {
   StringBuilder stringBuilder=new StringBuilder();
   String contentLeft=content;
-  Log.i(AnkiDroidApp.TAG,"expandSounds");
+  Timber.d("expandSounds");
   Matcher matcher=sSoundPattern.matcher(content);
   while (matcher.find()) {
     String sound=matcher.group(1).trim();
@@ -18,7 +18,7 @@
     stringBuilder.append(contentLeft.substring(0,markerStart));
     stringBuilder.append("<a class='replaybutton' href='playsound:" + soundPath + "'>"+ "<span style='padding:5px;'>"+ button+ "</span></a>");
     contentLeft=contentLeft.substring(markerStart + soundMarker.length());
-    Log.i(AnkiDroidApp.TAG,"Content left = " + contentLeft);
+    Timber.d("Content left = %s",contentLeft);
   }
   stringBuilder.append(contentLeft);
   return stringBuilder.toString();
