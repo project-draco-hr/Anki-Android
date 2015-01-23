@@ -8,6 +8,6 @@
   while ((deltaRange / (tics)) / 2 >= ticlimit) {
     tics*=2.0;
   }
-  Log.d(AnkiDroidApp.TAG,"PlotSheet ticksCalcY: pixelDistance: " + pixelDistance + ", ticks: "+ tics);
+  Timber.d("PlotSheet ticksCalcY: pixelDistance: %d, ticks: %d" + pixelDistance,tics);
   return tics;
 }

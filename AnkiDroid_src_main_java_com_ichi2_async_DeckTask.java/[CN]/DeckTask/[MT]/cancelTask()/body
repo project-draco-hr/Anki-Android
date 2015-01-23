@@ -2,7 +2,7 @@
   try {
     if ((sLatestInstance != null) && (sLatestInstance.getStatus() != AsyncTask.Status.FINISHED)) {
       sLatestInstance.cancel(true);
-      Log.i(AnkiDroidApp.TAG,"Cancelled task " + sLatestInstance.mType);
+      Timber.i("Cancelled task %d",sLatestInstance.mType);
     }
   }
  catch (  Exception e) {

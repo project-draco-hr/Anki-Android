@@ -1,5 +1,5 @@
 {
-  Log.v(AnkiDroidApp.TAG,"CollectionLoader.deliverResult()");
+  Timber.d("CollectionLoader.deliverResult()");
   if (isReset()) {
     if (col != null) {
       return;

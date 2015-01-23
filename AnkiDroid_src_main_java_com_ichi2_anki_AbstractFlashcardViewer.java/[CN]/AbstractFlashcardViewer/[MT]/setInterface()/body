@@ -22,7 +22,7 @@
         mSetTextIsSelectable=TextView.class.getMethod("setTextIsSelectable",boolean.class);
       }
  catch (      Throwable e) {
-        Log.i(AnkiDroidApp.TAG,"mSetTextIsSelectable could not be found due to a too low Android version (< 3.0)");
+        Timber.w(e,"mSetTextIsSelectable could not be found probably due to a too low Android version (< 3.0)");
         mSetTextIsSelectable=null;
       }
       if (mSetTextIsSelectable != null) {
@@ -30,7 +30,7 @@
           mSetTextIsSelectable.invoke(mSimpleCard,true);
         }
  catch (        Exception e) {
-          Log.e(AnkiDroidApp.TAG,e.toString());
+          Timber.e(e.toString());
         }
       }
       mSimpleCard.setClickable(true);

@@ -1,6 +1,6 @@
 {
   mCol.log();
-  Log.i(AnkiDroidApp.TAG,"answerCard - ease:" + ease);
+  Timber.i("answerCard - ease: %d",ease);
   mCol.markReview(card);
   if (mBurySiblingsOnAnswer) {
     _burySiblings(card);

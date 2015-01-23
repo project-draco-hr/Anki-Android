@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundExportApkg");
+  Timber.d("doInBackgroundExportApkg");
   Object[] data=params[0].getObjArray();
   Collection col=(Collection)data[0];
   String apkgPath=(String)data[1];
@@ -14,15 +14,15 @@
     exporter.exportInto(apkgPath);
   }
  catch (  FileNotFoundException e) {
-    Log.e(AnkiDroidApp.TAG,"FileNotFoundException in doInBackgroundExportApkg: ",e);
+    Timber.e(e,"FileNotFoundException in doInBackgroundExportApkg");
     return new TaskData(false);
   }
 catch (  IOException e) {
-    Log.e(AnkiDroidApp.TAG,"IOException in doInBackgroundExportApkg: ",e);
+    Timber.e(e,"IOException in doInBackgroundExportApkg");
     return new TaskData(false);
   }
 catch (  JSONException e) {
-    Log.e(AnkiDroidApp.TAG,"JSOnException in doInBackgroundExportApkg: ",e);
+    Timber.e(e,"JSOnException in doInBackgroundExportApkg");
     return new TaskData(false);
   }
   return new TaskData(apkgPath);

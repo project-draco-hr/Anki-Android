@@ -5,6 +5,7 @@
   builder.setMessage(R.string.discard_unsaved_changes);
   builder.setPositiveButton(res.getString(R.string.dialog_ok),new DialogInterface.OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int which){
+      Timber.i("OK button pressed to confirm discard changes");
       closeNoteEditor();
     }
   }

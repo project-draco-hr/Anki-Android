@@ -8,7 +8,7 @@
     }
   }
  catch (  SQLiteException e) {
-    Log.e(AnkiDroidApp.TAG,"Error while querying widgetStatus",e);
+    Timber.e(e,"Error while querying widgetStatus");
   }
  finally {
     if (cursor != null && !cursor.isClosed()) {

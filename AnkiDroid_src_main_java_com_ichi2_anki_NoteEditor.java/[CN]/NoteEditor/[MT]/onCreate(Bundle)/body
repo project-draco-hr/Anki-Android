@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,"CardEditor: onCreate");
+  Timber.d("onCreate()");
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   Intent intent=getIntent();

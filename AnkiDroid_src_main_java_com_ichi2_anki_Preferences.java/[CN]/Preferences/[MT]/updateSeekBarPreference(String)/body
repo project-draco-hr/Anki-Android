@@ -16,6 +16,6 @@
     }
   }
  catch (  NullPointerException e) {
-    Log.e(AnkiDroidApp.TAG,"Exception when updating seekbar preference: " + e);
+    Timber.e(e,"Exception when updating seekbar preference");
   }
 }

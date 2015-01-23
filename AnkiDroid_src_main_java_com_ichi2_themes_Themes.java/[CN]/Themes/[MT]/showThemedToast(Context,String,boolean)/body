@@ -11,7 +11,7 @@
     result.show();
   }
  catch (  OutOfMemoryError e) {
-    Log.e(AnkiDroidApp.TAG,"showThemedToast - OutOfMemoryError occured: " + e);
+    Timber.e(e,"showThemedToast - OutOfMemoryError occured");
     result.getView().setBackgroundResource(R.color.black);
     result.show();
   }

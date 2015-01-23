@@ -30,7 +30,7 @@ setResult(RESULT_OK,result);
 finishWithAnimation(false);
 }
  else {
-Log.i(AnkiDroidApp.TAG,"Info - onBackPressed()");
+Timber.i("onBackPressed()");
 setResult(RESULT_CANCELED);
 finishWithAnimation();
 }

@@ -4,6 +4,6 @@
     super.show();
   }
  catch (  BadTokenException e) {
-    Log.e(AnkiDroidApp.TAG,"Could not show dialog: " + e);
+    Timber.e(e,"Could not show dialog");
   }
 }

@@ -53,11 +53,11 @@
     return cnt;
   }
  catch (  RuntimeException e) {
-    Log.e(AnkiDroidApp.TAG,"RuntimeException while importing ",e);
+    Timber.e(e,"RuntimeException while importing");
     return -1;
   }
 catch (  IOException e) {
-    Log.e(AnkiDroidApp.TAG,"IOException while importing ",e);
+    Timber.e(e,"IOException while importing");
     return -1;
   }
 }

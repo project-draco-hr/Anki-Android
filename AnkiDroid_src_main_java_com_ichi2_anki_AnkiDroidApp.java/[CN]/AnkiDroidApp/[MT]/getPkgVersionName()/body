@@ -7,7 +7,7 @@
       pkgVersion=pInfo.versionName;
     }
  catch (    PackageManager.NameNotFoundException e) {
-      Log.e(TAG,"Couldn't find package named " + context.getPackageName(),e);
+      Timber.e(e,"Couldn't find package named %s",context.getPackageName());
     }
   }
   return pkgVersion;

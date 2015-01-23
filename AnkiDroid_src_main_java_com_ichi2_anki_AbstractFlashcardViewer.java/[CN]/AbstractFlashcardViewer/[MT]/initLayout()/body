@@ -74,6 +74,7 @@
   mLookUpIcon.setVisibility(View.GONE);
   mLookUpIcon.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View arg0){
+      Timber.i("Lookup button pressed");
       if (clipboardHasText()) {
         lookUp();
       }

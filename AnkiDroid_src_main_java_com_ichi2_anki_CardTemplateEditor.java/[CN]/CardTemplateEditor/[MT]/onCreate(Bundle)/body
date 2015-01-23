@@ -1,11 +1,11 @@
 {
-  Log.v(AnkiDroidApp.TAG,"CardTemplateEditor:: onCreate");
+  Timber.d("onCreate()");
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   setContentView(R.layout.card_template_editor_activity);
   mModelId=getIntent().getLongExtra("modelId",-1L);
   if (mModelId == -1) {
-    Log.e(AnkiDroidApp.TAG,"CardTemplateEditor :: no model ID was provided");
+    Timber.e("CardTemplateEditor :: no model ID was provided");
     finishWithoutAnimation();
     return;
   }

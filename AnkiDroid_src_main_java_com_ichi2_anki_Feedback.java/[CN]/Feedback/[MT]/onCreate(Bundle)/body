@@ -27,7 +27,7 @@
         }
       }
  catch (      Exception e) {
-        Log.e(AnkiDroidApp.TAG,e.toString());
+        Timber.e(e.toString());
       }
       finish();
       ActivityTransitionAnimation.slide(Feedback.this,ActivityTransitionAnimation.NONE);

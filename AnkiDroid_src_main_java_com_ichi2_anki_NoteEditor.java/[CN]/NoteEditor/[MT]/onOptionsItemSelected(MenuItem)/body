@@ -1,12 +1,15 @@
 {
 switch (item.getItemId()) {
 case android.R.id.home:
-    closeCardEditorWithCheck();
-  return true;
+    Timber.i("Home button pressed");
+  closeCardEditorWithCheck();
+return true;
 case R.id.action_save:
+Timber.i("Save note button pressed");
 saveNote();
 return true;
 case R.id.action_later:
+Timber.i("Later button pressed");
 String content=getFieldsText();
 if (content.length() > mEditFields.size() - 1) {
 MetaDB.saveIntentInformation(NoteEditor.this,content);
@@ -20,6 +23,7 @@ closeNoteEditor();
 return true;
 case R.id.action_add_card_from_card_editor:
 case R.id.action_copy_card:
+Timber.i("Copy or add card button pressed");
 Intent intent=new Intent(NoteEditor.this,NoteEditor.class);
 intent.putExtra(EXTRA_CALLER,CALLER_CARDEDITOR);
 if (item.getItemId() == R.id.action_copy_card) {
@@ -28,12 +32,15 @@ intent.putExtra(EXTRA_CONTENTS,getFieldsText());
 startActivityForResultWithAnimation(intent,REQUEST_ADD,ActivityTransitionAnimation.LEFT);
 return true;
 case R.id.action_reset_card_progress:
+Timber.i("Reset progress button pressed");
 showDialog(DIALOG_RESET_CARD);
 return true;
 case R.id.action_saved_notes:
+Timber.i("Saved data button pressed");
 showDialog(DIALOG_INTENT_INFORMATION);
 return true;
 case R.id.action_reschedule_card:
+Timber.i("Reschedule button pressed");
 showDialog(DIALOG_RESCHEDULE_CARD);
 return true;
 default :

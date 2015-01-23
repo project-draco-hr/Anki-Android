@@ -21,7 +21,7 @@
       }
     }
  catch (    Exception e) {
-      Log.e(AnkiDroidApp.TAG,"onFling Exception = " + e.getMessage());
+      Timber.e(e,"onFling Exception");
     }
   }
   return false;

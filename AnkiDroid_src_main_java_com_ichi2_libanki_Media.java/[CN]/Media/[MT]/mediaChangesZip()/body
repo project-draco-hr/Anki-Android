@@ -48,7 +48,7 @@
     return new Pair<File,List<String>>(f,fnames);
   }
  catch (  IOException e) {
-    Log.e(AnkiDroidApp.TAG,"Failed to create media changes zip",e);
+    Timber.e("Failed to create media changes zip",e);
     throw new RuntimeException(e);
   }
  finally {

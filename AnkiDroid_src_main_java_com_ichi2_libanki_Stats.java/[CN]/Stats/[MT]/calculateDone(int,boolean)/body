@@ -66,7 +66,7 @@ tf="";
 ArrayList<double[]> list=new ArrayList<double[]>();
 Cursor cur=null;
 String query="SELECT (cast((id/1000 - " + mCol.getSched().getDayCutoff() + ") / 86400.0 AS INT))/"+ chunk+ " AS day, "+ "sum(CASE WHEN type = 0 THEN "+ ti+ " ELSE 0 END)"+ tf+ ", "+ "sum(CASE WHEN type = 1 AND lastIvl < 21 THEN "+ ti+ " ELSE 0 END)"+ tf+ ", "+ "sum(CASE WHEN type = 1 AND lastIvl >= 21 THEN "+ ti+ " ELSE 0 END)"+ tf+ ", "+ "sum(CASE WHEN type = 2 THEN "+ ti+ " ELSE 0 END)"+ tf+ ", "+ "sum(CASE WHEN type = 3 THEN "+ ti+ " ELSE 0 END)"+ tf+ " FROM revlog "+ lim+ " GROUP BY day ORDER BY day";
-Log.d(AnkiDroidApp.TAG,"ReviewCount query: " + query);
+Timber.d("ReviewCount query: %s",query);
 try {
 cur=mCol.getDb().getDatabase().rawQuery(query,null);
 while (cur.moveToNext()) {

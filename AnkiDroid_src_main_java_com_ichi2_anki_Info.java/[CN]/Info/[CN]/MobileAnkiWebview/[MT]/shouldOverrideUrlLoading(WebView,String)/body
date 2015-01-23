@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,"LoadSharedDecks: loading: " + url);
+  Timber.i("LoadSharedDecks: loading: " + url);
   view.loadUrl(url);
   return true;
 }

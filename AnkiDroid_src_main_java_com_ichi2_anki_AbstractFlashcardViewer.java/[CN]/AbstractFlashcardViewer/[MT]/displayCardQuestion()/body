@@ -1,4 +1,5 @@
 {
+  Timber.d("displayCardQuestion()");
   sDisplayAnswer=false;
   if (mButtonHeight == 0 && mRelativeButtonSize != 100) {
     mButtonHeight=mFlipCard.getHeight() * mRelativeButtonSize / 100;
@@ -21,7 +22,7 @@
   if (mPrefFixArabic) {
     question=ArabicUtilities.reshapeSentence(question,true);
   }
-  Log.i(AnkiDroidApp.TAG,"question: '" + question + "'");
+  Timber.d("question: '%s'",question);
   String displayString="";
   if (mCurrentSimpleInterface) {
     mCardContent=convertToSimple(question);
@@ -45,4 +46,5 @@
     mTimeoutHandler.removeCallbacks(mShowAnswerTask);
     mTimeoutHandler.postDelayed(mShowAnswerTask,mWaitAnswerSecond * 1000);
   }
+  Timber.i("Question successfully shown for card id %d",mCurrentCard.getId());
 }

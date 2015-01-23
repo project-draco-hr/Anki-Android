@@ -13,7 +13,7 @@
         }
       }
  catch (      JSONException e) {
-        Log.e(AnkiDroidApp.TAG,"JSONException = " + e.getMessage());
+        Timber.e(e,"ids2str :: JSONException");
       }
     }
   }

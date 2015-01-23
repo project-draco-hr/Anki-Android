@@ -5,7 +5,7 @@
       mediaFile.createNewFile();
     }
  catch (    IOException e) {
-      Log.e(AnkiDroidApp.TAG,"Nomedia file could not be created in path " + decksDirectory.getAbsolutePath());
+      Timber.e("Nomedia file could not be created in path %s",decksDirectory.getAbsolutePath());
     }
   }
 }

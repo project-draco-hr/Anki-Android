@@ -3,13 +3,13 @@
   View rootView=inflater.inflate(R.layout.fragment_anki_stats_overview,container,false);
   AnkiStatsTaskHandler handler=(((Statistics)getActivity()).getTaskHandler());
   if (handler == null) {
-    Log.e(AnkiDroidApp.TAG,"Statistics.createStatisticsOverview() TaskHandler not found");
+    Timber.e("Statistics.createStatisticsOverview() TaskHandler not found");
     getActivity().finish();
     return rootView;
   }
   mWebView=(WebView)rootView.findViewById(R.id.web_view_stats);
-  if (mWebView == null)   Log.d(AnkiDroidApp.TAG,"mChart null!!!");
- else   Log.d(AnkiDroidApp.TAG,"mChart is not null!");
+  if (mWebView == null)   Timber.d("mChart null!!!");
+ else   Timber.d("mChart is not null!");
   mProgressBar=(ProgressBar)rootView.findViewById(R.id.progress_bar_stats_overview);
   mProgressBar.setVisibility(View.VISIBLE);
   createStatisticOverview();
