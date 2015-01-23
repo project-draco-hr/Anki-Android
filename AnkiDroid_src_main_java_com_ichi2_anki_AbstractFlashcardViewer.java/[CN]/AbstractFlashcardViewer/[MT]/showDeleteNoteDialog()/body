@@ -7,7 +7,7 @@
   builder.setMessage(String.format(res.getString(R.string.delete_note_message),Utils.stripHTML(mCurrentCard.q(true))));
   builder.setPositiveButton(res.getString(R.string.dialog_positive_delete),new DialogInterface.OnClickListener(){
     @Override public void onClick(    DialogInterface dialog,    int which){
-      Timber.i("OK button pressed to delete note %d",mCurrentCard.getNid());
+      Timber.i("AbstractFlashcardViewer:: OK button pressed to delete note %d",mCurrentCard.getNid());
       DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,3));
     }
   }

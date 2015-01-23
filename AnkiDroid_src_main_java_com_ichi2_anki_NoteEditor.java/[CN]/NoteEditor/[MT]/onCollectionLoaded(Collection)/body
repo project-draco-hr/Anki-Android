@@ -21,7 +21,7 @@
   mCardsButton=(TextView)findViewById(R.id.CardEditorCardsText);
   mCardsButton.setOnClickListener(new View.OnClickListener(){
     @Override public void onClick(    View v){
-      Timber.i("Cards button pressed. Opening template editor");
+      Timber.i("NoteEditor:: Cards button pressed. Opening template editor");
       showCardTemplateEditor();
     }
   }
@@ -174,13 +174,13 @@ setTitle(R.string.cardeditor_title_edit_card);
 mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
 ((LinearLayout)findViewById(R.id.CardEditorTagButton)).setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
-Timber.i("Tags button pressed... opening tags editor");
+Timber.i("NoteEditor:: Tags button pressed... opening tags editor");
 showTagsDialog();
 }
 }
 );
 if (!mAddNote && mCurrentEditedCard != null) {
-Timber.i("Edit note activity successfully started with card id %d",mCurrentEditedCard.getId());
+Timber.i("NoteEditor:: Edit note activity successfully started with card id %d",mCurrentEditedCard.getId());
 }
 dismissOpeningCollectionDialog();
 }

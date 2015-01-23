@@ -1,7 +1,7 @@
 {
 switch (item.getItemId()) {
 case R.id.action_undo:
-    Timber.i("Undo button pressed");
+    Timber.i("StudyOptionsFragment:: Undo button pressed");
   if (colOpen()) {
     getCol().undo();
     resetAndRefreshInterface();
@@ -11,18 +11,18 @@ return true;
 case R.id.action_night_mode:
 SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getActivity());
 if (preferences.getBoolean("invertedColors",false)) {
-Timber.i("Night mode was disabled");
+Timber.i("StudyOptionsFragment:: Night mode was disabled");
 preferences.edit().putBoolean("invertedColors",false).commit();
 item.setIcon(R.drawable.ic_menu_night);
 }
  else {
-Timber.i("Night mode was enabled");
+Timber.i("StudyOptionsFragment:: Night mode was enabled");
 preferences.edit().putBoolean("invertedColors",true).commit();
 item.setIcon(R.drawable.ic_menu_night_checked);
 }
 return true;
 case R.id.action_add_note_from_study_options:
-Timber.i("Add note button pressed");
+Timber.i("StudyOptionsFragment:: Add note button pressed");
 addNote();
 return true;
 default :
