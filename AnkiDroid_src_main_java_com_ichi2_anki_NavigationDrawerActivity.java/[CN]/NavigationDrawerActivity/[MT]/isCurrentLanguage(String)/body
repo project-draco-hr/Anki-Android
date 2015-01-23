@@ -1,0 +1,4 @@
+{
+  String pref=AnkiDroidApp.getSharedPrefs(this).getString(Preferences.LANGUAGE,"");
+  return pref.equals(l) || pref.equals("") && Locale.getDefault().getLanguage().equals(l);
+}
