@@ -4,7 +4,7 @@
   paint.setStyle(Paint.Style.STROKE);
   int height=mChartView.getMeasuredHeight();
   int width=mChartView.getMeasuredWidth();
-  Log.d(AnkiDroidApp.TAG,"heigth: " + height + ", width: "+ width+ ", "+ mChartView.getWidth());
+  Timber.d("height: %d, width: %d, %d",height,width,mChartView.getWidth());
   if (height <= 0 || width <= 0) {
     return null;
   }

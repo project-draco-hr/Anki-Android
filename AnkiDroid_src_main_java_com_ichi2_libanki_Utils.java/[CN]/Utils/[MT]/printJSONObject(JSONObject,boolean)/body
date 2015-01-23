@@ -12,6 +12,6 @@
     }
   }
  catch (  IOException ioe) {
-    Log.e(AnkiDroidApp.TAG,"IOException = " + ioe.getMessage());
+    Timber.e(ioe,"printJSONObject.IOException");
   }
 }

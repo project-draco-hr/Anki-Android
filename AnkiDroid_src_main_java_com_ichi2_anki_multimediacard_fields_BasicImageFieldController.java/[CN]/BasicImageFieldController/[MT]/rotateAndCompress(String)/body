@@ -11,7 +11,7 @@
     return outPath;
   }
  catch (  FileNotFoundException e) {
-    Log.e(AnkiDroidApp.TAG,"Error in BasicImageFieldController.rotateAndCompress() : " + e.getMessage());
+    Timber.e("Error in BasicImageFieldController.rotateAndCompress() : " + e.getMessage());
     return inPath;
   }
  finally {

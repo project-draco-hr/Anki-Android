@@ -14,7 +14,7 @@
     mLogHnd=new PrintWriter(new BufferedWriter(new FileWriter(lpath,true)),true);
   }
  catch (  IOException e) {
-    Log.e(AnkiDroidApp.TAG,"Failed to open collection.log file - disabling logging");
+    Timber.e("Failed to open collection.log file - disabling logging");
     mDebugLog=false;
   }
 }

@@ -3,7 +3,7 @@
   if (lim.length() > 0)   lim=" and " + lim;
   Cursor cur=null;
   String query="select count(), sum(time)/1000, " + "sum(case when ease = 1 then 1 else 0 end), " + "sum(case when type = 0 then 1 else 0 end), "+ "sum(case when type = 1 then 1 else 0 end), "+ "sum(case when type = 2 then 1 else 0 end), "+ "sum(case when type = 3 then 1 else 0 end) "+ "from revlog where id > " + ((mCol.getSched().getDayCutoff() - 86400) * 1000) + " "+ lim;
-  Log.d(AnkiDroidApp.TAG,"todays statistics query: " + query);
+  Timber.d("todays statistics query: %s",query);
   int cards, thetime, failed, lrn, rev, relrn, filt;
   try {
     cur=mCol.getDb().getDatabase().rawQuery(query,null);
@@ -22,7 +22,7 @@
     }
   }
   query="select count(), sum(case when ease = 1 then 0 else 1 end) from revlog " + "where lastIvl >= 21 and id > " + ((mCol.getSched().getDayCutoff() - 86400) * 1000) + " "+ lim;
-  Log.d(AnkiDroidApp.TAG,"todays statistics query 2: " + query);
+  Timber.d("todays statistics query 2: %s",query);
   int mcnt, msum;
   try {
     cur=mCol.getDb().getDatabase().rawQuery(query,null);

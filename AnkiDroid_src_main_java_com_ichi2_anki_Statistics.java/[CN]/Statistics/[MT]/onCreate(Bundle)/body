@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,"Statistics -- onCreate()");
+  Timber.d("onCreate()");
   sIsWholeCollectionOnly=AnkiStatsTaskHandler.isWholeCollection();
   sIsSubtitle=true;
   super.onCreate(savedInstanceState);

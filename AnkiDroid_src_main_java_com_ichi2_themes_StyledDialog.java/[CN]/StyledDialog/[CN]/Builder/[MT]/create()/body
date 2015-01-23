@@ -80,7 +80,7 @@
     Themes.setStyledDialogBackgrounds(layout,numberOfButtons,brightViewBackground);
   }
  catch (  OutOfMemoryError e) {
-    Log.e(AnkiDroidApp.TAG,"StyledDialog - Dialog could not be created: " + e);
+    Timber.e(e,"StyledDialog - Dialog could not be created");
     Themes.showThemedToast(context,context.getResources().getString(R.string.error_insufficient_memory),false);
     return null;
   }

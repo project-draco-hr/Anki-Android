@@ -2,10 +2,10 @@
   if (AnkiDroidApp.colIsOpen()) {
     DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CLOSE_DECK,new DeckTask.TaskListener(){
       @Override public void onPreExecute(){
-        Log.i(AnkiDroidApp.TAG,"closeCollectionInBackground: start");
+        Timber.d("closeCollectionInBackground: start");
       }
       @Override public void onPostExecute(      TaskData result){
-        Log.i(AnkiDroidApp.TAG,"closesCollectionInBackground: finished");
+        Timber.d("closesCollectionInBackground: finished");
       }
       @Override public void onProgressUpdate(      TaskData... values){
       }

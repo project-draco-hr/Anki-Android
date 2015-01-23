@@ -24,7 +24,7 @@
     }
   }
  catch (  RuntimeException e) {
-    Log.e(AnkiDroidApp.TAG,"doInBackgroundMarkCard - RuntimeException on marking card: " + e);
+    Timber.e(e,"doInBackgroundMarkCard - RuntimeException on marking card");
     AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundMarkCard");
     return new TaskData(false);
   }

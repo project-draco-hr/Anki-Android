@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,"StudyOptionsFragment.loadCollection()");
+  Timber.d("startLoadingCollection()");
   if (AnkiDroidApp.getCol() == null) {
     showCollectionLoadingDialog();
   }

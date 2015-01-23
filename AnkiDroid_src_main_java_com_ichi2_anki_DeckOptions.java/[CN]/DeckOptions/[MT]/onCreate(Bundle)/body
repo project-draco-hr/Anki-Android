@@ -11,7 +11,7 @@
   mDeck=mCol.getDecks().current();
   registerExternalStorageListener();
   if (mCol == null) {
-    Log.i(AnkiDroidApp.TAG,"DeckOptions - No Collection loaded");
+    Timber.w("DeckOptions - No Collection loaded");
     finish();
     return;
   }

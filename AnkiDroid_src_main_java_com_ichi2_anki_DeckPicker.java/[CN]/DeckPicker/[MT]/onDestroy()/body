@@ -3,5 +3,5 @@
   if (mUnmountReceiver != null) {
     unregisterReceiver(mUnmountReceiver);
   }
-  Log.i(AnkiDroidApp.TAG,"DeckPicker - onDestroy()");
+  Timber.d("onDestroy()");
 }

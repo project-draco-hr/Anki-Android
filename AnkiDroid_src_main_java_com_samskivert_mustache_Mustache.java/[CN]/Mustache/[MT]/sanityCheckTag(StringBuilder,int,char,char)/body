@@ -2,7 +2,7 @@
   for (int ii=0, ll=accum.length(); ii < ll; ii++) {
     if (accum.charAt(ii) == start1) {
       if (start2 == -1 || (ii < ll - 1 && accum.charAt(ii + 1) == start2)) {
-        Log.e(AnkiDroidApp.TAG,"Tag contains start tag delimiter, probably missing close delimiter " + "[line=" + line + ", tag="+ accum+ "]");
+        Timber.e("Tag contains start tag delimiter, probably missing close delimiter " + "[line=" + line + ", tag="+ accum+ "]");
         return false;
       }
     }

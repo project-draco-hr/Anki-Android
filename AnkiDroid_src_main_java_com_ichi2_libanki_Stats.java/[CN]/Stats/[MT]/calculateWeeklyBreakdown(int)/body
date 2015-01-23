@@ -19,7 +19,7 @@
   ArrayList<double[]> list=new ArrayList<double[]>();
   Cursor cur=null;
   String query="SELECT strftime('%w',datetime( cast(id/ 1000  -" + sd.get(Calendar.HOUR_OF_DAY) * 3600 + " as int), 'unixepoch')) as wd, " + "sum(case when ease = 1 then 0 else 1 end) / " + "cast(count() as float) * 100, " + "count() " + "from revlog " + "where type in (0,1,2) " + lim + " " + "group by wd " + "order by wd";
-  Log.d(AnkiDroidApp.TAG,sd.get(Calendar.HOUR_OF_DAY) + " : " + cutoff+ " weekly breakdown query: "+ query);
+  Timber.d(sd.get(Calendar.HOUR_OF_DAY) + " : " + cutoff+ " weekly breakdown query: %s",query);
   try {
     cur=mCol.getDb().getDatabase().rawQuery(query,null);
     while (cur.moveToNext()) {

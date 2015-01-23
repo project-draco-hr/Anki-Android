@@ -11,7 +11,7 @@
     }
   }
  catch (  Exception e) {
-    Log.e("Error","Error retrieving whiteboard state from MetaDB ",e);
+    Timber.e(e,"Error retrieving whiteboard state from MetaDB ");
     return false;
   }
  finally {

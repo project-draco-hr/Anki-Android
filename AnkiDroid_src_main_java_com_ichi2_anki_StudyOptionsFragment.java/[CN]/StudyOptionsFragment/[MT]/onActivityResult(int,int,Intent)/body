@@ -1,6 +1,6 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
-  Log.i(AnkiDroidApp.TAG,"StudyOptionsFragment: onActivityResult");
+  Timber.d("onActivityResult (requestCode = %d, resultCode = %d)",requestCode,resultCode);
   getActivity().supportInvalidateOptionsMenu();
   if (resultCode == DeckPicker.RESULT_DB_ERROR) {
     closeStudyOptions(DeckPicker.RESULT_DB_ERROR);
@@ -36,7 +36,6 @@
       resetAndRefreshInterface();
     }
  else     if (requestCode == REQUEST_REVIEW) {
-      Log.i(AnkiDroidApp.TAG,"Result code = " + resultCode);
       resetAndRefreshInterface();
       if (resultCode == Reviewer.RESULT_NO_MORE_CARDS) {
         int[] counts=getCol().getSched().counts();

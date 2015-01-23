@@ -6,6 +6,6 @@
     }
     ctx=ctx.parent;
   }
-  Log.e(AnkiDroidApp.TAG,"Could not retrieve from context name '" + name + "' on line "+ line);
+  Timber.e("Could not retrieve from context name '" + name + "' on line "+ line);
   return defaultValue;
 }

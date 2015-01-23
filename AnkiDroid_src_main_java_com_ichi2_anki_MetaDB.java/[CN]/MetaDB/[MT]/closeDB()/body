@@ -2,6 +2,6 @@
   if (mMetaDb != null && mMetaDb.isOpen()) {
     mMetaDb.close();
     mMetaDb=null;
-    Log.i(AnkiDroidApp.TAG,"Closing MetaDB");
+    Timber.d("Closing MetaDB");
   }
 }

@@ -1,10 +1,10 @@
 {
-  Log.i(AnkiDroidApp.TAG,"collectInformation");
+  Timber.i("collectInformation");
   if (mCurContext == null) {
     return;
   }
   try {
-    Log.i(AnkiDroidApp.TAG,"collecting information");
+    Timber.i("collecting information");
     PackageManager pm=mCurContext.getPackageManager();
     PackageInfo pi=pm.getPackageInfo(mCurContext.getPackageName(),0);
     mInformation.put("VersionName",pi.versionName);
@@ -22,9 +22,9 @@
     mInformation.put("TotalInternalMemory",Long.toString(getTotalInternalMemorySize()));
     mInformation.put("AvailableInternalMemory",Long.toString(getAvailableInternalMemorySize()));
     mInformation.put("Locale",AnkiDroidApp.getAppResources().getConfiguration().locale.toString());
-    Log.i(AnkiDroidApp.TAG,"Information collected");
+    Timber.i("Information collected");
   }
  catch (  Exception e) {
-    Log.i(AnkiDroidApp.TAG,e.toString());
+    Timber.i(e.toString());
   }
 }

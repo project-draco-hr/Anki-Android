@@ -27,11 +27,11 @@
     br.close();
   }
  catch (  FileNotFoundException e) {
-    Log.w(AnkiDroidApp.TAG,"Couldn't open crash report " + errorFile);
+    Timber.w("Couldn't open crash report " + errorFile);
     return null;
   }
 catch (  IOException e) {
-    Log.w(AnkiDroidApp.TAG,"Couldn't read crash report " + errorFile);
+    Timber.w("Couldn't read crash report " + errorFile);
     return null;
   }
   return pairs;

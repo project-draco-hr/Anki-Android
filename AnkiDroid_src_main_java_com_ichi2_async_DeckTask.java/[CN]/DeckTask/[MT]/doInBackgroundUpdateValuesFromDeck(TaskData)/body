@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundUpdateValuesFromDeck");
+  Timber.d("doInBackgroundUpdateValuesFromDeck");
   try {
     Sched sched=params[0].getCollection().getSched();
     Object[] obj=params[0].getObjArray();
@@ -19,7 +19,7 @@
     return new TaskData(new Object[]{counts[0],counts[1],counts[2],totalNewCount,totalCount,progressMature,progressAll,sched.eta(counts),serieslist});
   }
  catch (  RuntimeException e) {
-    Log.e(AnkiDroidApp.TAG,"doInBackgroundUpdateValuesFromDeck - an error occurred: " + e);
+    Timber.e(e,"doInBackgroundUpdateValuesFromDeck - an error occurred");
     return null;
   }
 }

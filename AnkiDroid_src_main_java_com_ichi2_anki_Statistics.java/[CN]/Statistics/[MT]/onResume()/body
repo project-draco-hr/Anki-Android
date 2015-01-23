@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,"Statistics -- onResume()");
+  Timber.d("onResume()");
   super.onResume();
   selectNavigationItem(NavigationDrawerActivity.DRAWER_STATISTICS);
 }

@@ -123,7 +123,7 @@ text.append(end1);
 accum.addTextSegment(text);
 break;
 case TAG:
-Log.e(AnkiDroidApp.TAG,"Template ended while parsing a tag [line=" + line + ", tag="+ text+ "]");
+Timber.e("Template ended while parsing a tag [line=" + line + ", tag="+ text+ "]");
 text.append(end1);
 accum.addTextSegment(text);
 break;

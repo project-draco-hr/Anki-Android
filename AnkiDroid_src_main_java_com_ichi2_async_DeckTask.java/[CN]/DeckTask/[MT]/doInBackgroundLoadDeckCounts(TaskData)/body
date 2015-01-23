@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundLoadDeckCounts");
+  Timber.d("doInBackgroundLoadDeckCounts");
   Collection col=params[0].getCollection();
   if (col == null || col.getDb() == null) {
     return null;
@@ -8,7 +8,7 @@
     return new TaskData(col.getSched().deckCounts());
   }
  catch (  RuntimeException e) {
-    Log.e(AnkiDroidApp.TAG,"doInBackgroundLoadDeckCounts - error: " + e);
+    Timber.e(e,"doInBackgroundLoadDeckCounts - error");
     return null;
   }
 }

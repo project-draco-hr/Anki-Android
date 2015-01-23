@@ -2,7 +2,7 @@
   super.onCollectionLoaded(col);
   this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
   Intent intent=getIntent();
-  Log.i(AnkiDroidApp.TAG,"CardEditor: caller: " + mCaller);
+  Timber.d("onCollectionLoaded: caller: %d",mCaller);
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
   if (mCaller == CALLER_INDICLASH && preferences.getBoolean("intentAdditionInstantAdd",false)) {
     fetchIntentInformation(intent);
@@ -21,6 +21,7 @@
   mCardsButton=(TextView)findViewById(R.id.CardEditorCardsText);
   mCardsButton.setOnClickListener(new View.OnClickListener(){
     @Override public void onClick(    View v){
+      Timber.i("Cards button pressed. Opening template editor");
       showCardTemplateEditor();
     }
   }
@@ -29,7 +30,7 @@
   mAedictIntent=false;
 switch (mCaller) {
 case CALLER_NOCALLER:
-    Log.i(AnkiDroidApp.TAG,"CardEditor: no caller could be identified, closing");
+    Timber.e("no caller could be identified, closing");
   finishWithoutAnimation();
 return;
 case CALLER_REVIEWER:
@@ -173,9 +174,13 @@ setTitle(R.string.cardeditor_title_edit_card);
 mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
 ((LinearLayout)findViewById(R.id.CardEditorTagButton)).setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
+Timber.i("Tags button pressed... opening tags editor");
 showTagsDialog();
 }
 }
 );
+if (!mAddNote && mCurrentEditedCard != null) {
+Timber.i("Edit note activity successfully started with card id %d",mCurrentEditedCard.getId());
+}
 dismissOpeningCollectionDialog();
 }

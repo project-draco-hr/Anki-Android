@@ -32,7 +32,7 @@ Cursor cur=null;
 try {
 String query;
 query="SELECT (due - " + mCol.getSched().getToday() + ")/"+ chunk+ " AS day, "+ "count(), "+ "sum(CASE WHEN ivl >= 21 THEN 1 ELSE 0 END) "+ "FROM cards WHERE did IN "+ _limit()+ " AND queue IN (2,3)"+ lim+ " GROUP BY day ORDER BY day";
-Log.d(AnkiDroidApp.TAG,"Forecast query: " + query);
+Timber.d("Forecast query: %s",query);
 cur=mCol.getDb().getDatabase().rawQuery(query,null);
 while (cur.moveToNext()) {
 dues.add(new int[]{cur.getInt(0),cur.getInt(1),cur.getInt(2)});
