@@ -5,5 +5,5 @@
   StackTraceElement trace=Thread.currentThread().getStackTrace()[3];
   String s=String.format("[%s] %s:%s(): %s",Utils.intNow(),trace.getFileName(),trace.getMethodName(),TextUtils.join(",  ",args));
   mLogHnd.println(s);
-  Log.d(AnkiDroidApp.TAG,s);
+  Timber.d(s);
 }

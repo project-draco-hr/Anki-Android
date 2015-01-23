@@ -4,7 +4,7 @@
   }
   for (int i=0; i < backups.length - keepNumber; i++) {
     backups[i].delete();
-    Log.e(AnkiDroidApp.TAG,"deleteDeckBackups: backup file " + backups[i].getPath() + " deleted.");
+    Timber.e("deleteDeckBackups: backup file " + backups[i].getPath() + " deleted.");
   }
   return true;
 }

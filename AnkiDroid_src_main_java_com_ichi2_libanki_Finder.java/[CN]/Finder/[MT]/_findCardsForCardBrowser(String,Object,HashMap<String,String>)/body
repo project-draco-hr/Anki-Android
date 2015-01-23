@@ -16,7 +16,7 @@
     cur=mCol.getDb().getDatabase().rawQuery(sql,args);
     while (cur.moveToNext()) {
       if (DeckTask.taskIsCancelled(DeckTask.TASK_TYPE_SEARCH_CARDS) || CardBrowser.sSearchCancelled) {
-        Log.i(AnkiDroidApp.TAG,"_findCardsForCardBrowser() cancelled...");
+        Timber.i("_findCardsForCardBrowser() cancelled...");
         return null;
       }
       HashMap<String,String> map=new HashMap<String,String>();
@@ -33,7 +33,7 @@
     }
   }
  catch (  SQLException e) {
-    Log.e(AnkiDroidApp.TAG,"Invalid grouping, sql: " + sql);
+    Timber.e("Invalid grouping, sql: " + sql);
     return new ArrayList<HashMap<String,String>>();
   }
  finally {

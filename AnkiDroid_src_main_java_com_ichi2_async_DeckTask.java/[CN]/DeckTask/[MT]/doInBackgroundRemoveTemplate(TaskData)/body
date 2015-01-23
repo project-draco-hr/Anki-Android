@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundRemoveTemplate");
+  Timber.d("doInBackgroundRemoveTemplate");
   Object[] args=params[0].getObjArray();
   Collection col=(Collection)args[0];
   JSONObject model=(JSONObject)args[1];
@@ -11,7 +11,7 @@
     }
   }
  catch (  ConfirmModSchemaException e) {
-    Log.e(AnkiDroidApp.TAG,"doInBackgroundRemoveTemplate :: ConfirmModSchemaException");
+    Timber.e("doInBackgroundRemoveTemplate :: ConfirmModSchemaException");
     return new TaskData(false);
   }
   return new TaskData(true);

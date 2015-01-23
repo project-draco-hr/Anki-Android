@@ -16,13 +16,13 @@
     digest=md.digest();
   }
  catch (  FileNotFoundException e) {
-    Log.e(AnkiDroidApp.TAG,"Utils.fileChecksum: File not found.",e);
+    Timber.e(e,"Utils.fileChecksum: File not found.");
   }
 catch (  NoSuchAlgorithmException e) {
-    Log.e(AnkiDroidApp.TAG,"Utils.fileChecksum: No such algorithm.",e);
+    Timber.e(e,"Utils.fileChecksum: No such algorithm.");
   }
 catch (  IOException e) {
-    Log.e(AnkiDroidApp.TAG,"Utils.fileChecksum: IO exception.",e);
+    Timber.e(e,"Utils.fileChecksum: IO exception.");
   }
   BigInteger biginteger=new BigInteger(1,digest);
   String result=biginteger.toString(16);

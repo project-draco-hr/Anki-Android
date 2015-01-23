@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,"displayCardAnswer");
+  Timber.d("displayCardAnswer()");
   if (mCurrentCard == null) {
     return;
   }
@@ -36,8 +36,8 @@
     }
     String userAnswer=cleanTypedAnswer(mAnswerField.getText().toString());
     String correctAnswer=cleanCorrectAnswer(mTypeCorrect);
-    Log.i(AnkiDroidApp.TAG,"correct answer = " + correctAnswer);
-    Log.i(AnkiDroidApp.TAG,"user answer = " + userAnswer);
+    Timber.d("correct answer = %s",correctAnswer);
+    Timber.d("user answer = %s",userAnswer);
     answer=typeAnsAnswerFilter(answer,userAnswer,correctAnswer);
     displayString=enrichWithQADiv(answer,true);
   }

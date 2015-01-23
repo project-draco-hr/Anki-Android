@@ -17,6 +17,6 @@
     }
   }
  catch (  NullPointerException e) {
-    Log.e(AnkiDroidApp.TAG,"Exception when updating NumberRangePreference: " + e);
+    Timber.e(e,"Exception when updating NumberRangePreference");
   }
 }

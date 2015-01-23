@@ -12,7 +12,7 @@
   try {
     mCol.getDb().getDatabase().beginTransaction();
     try {
-      Log.i(AnkiDroidApp.TAG,"Sync: getting meta data from server");
+      Timber.i("Sync: getting meta data from server");
       JSONObject rMeta=new JSONObject(mServer.stream2String(ret.getEntity().getContent()));
       mCol.log("rmeta",rMeta);
       if (!rMeta.getBoolean("cont")) {
@@ -26,7 +26,7 @@
       mMaxUsn=rMeta.getInt("usn");
       mMediaUsn=rMeta.getInt("musn");
       mSyncMsg=rMeta.getString("msg");
-      Log.i(AnkiDroidApp.TAG,"Sync: building local meta data");
+      Timber.i("Sync: building local meta data");
       JSONObject lMeta=meta();
       mCol.log("lmeta",lMeta);
       mLMod=lMeta.getLong("mod");
@@ -39,12 +39,12 @@
         return new Object[]{"clockOff",diff};
       }
       if (mLMod == mRMod) {
-        Log.i(AnkiDroidApp.TAG,"Sync: no changes - returning");
+        Timber.i("Sync: no changes - returning");
         mCol.log("no changes");
         return new Object[]{"noChanges"};
       }
  else       if (lscm != rscm) {
-        Log.i(AnkiDroidApp.TAG,"Sync: full sync necessary - returning");
+        Timber.i("Sync: full sync necessary - returning");
         mCol.log("schema diff");
         return new Object[]{"fullSync"};
       }
@@ -54,31 +54,31 @@
         return new Object[]{"basicCheckFailed"};
       }
       publishProgress(con,R.string.sync_deletions_message);
-      Log.i(AnkiDroidApp.TAG,"Sync: collection removed data");
+      Timber.i("Sync: collection removed data");
       JSONObject lrem=removed();
       JSONObject o=new JSONObject();
       o.put("minUsn",mMinUsn);
       o.put("lnewer",mLNewer);
       o.put("graves",lrem);
-      Log.i(AnkiDroidApp.TAG,"Sync: sending and receiving removed data");
+      Timber.i("Sync: sending and receiving removed data");
       JSONObject rrem=mServer.start(o);
-      Log.i(AnkiDroidApp.TAG,"Sync: applying removed data");
+      Timber.i("Sync: applying removed data");
       remove(rrem);
       publishProgress(con,R.string.sync_small_objects_message);
-      Log.i(AnkiDroidApp.TAG,"Sync: collection small changes");
+      Timber.i("Sync: collection small changes");
       JSONObject lchg=changes();
       JSONObject sch=new JSONObject();
       sch.put("changes",lchg);
-      Log.i(AnkiDroidApp.TAG,"Sync: sending and receiving small changes");
+      Timber.i("Sync: sending and receiving small changes");
       JSONObject rchg=mServer.applyChanges(sch);
-      Log.i(AnkiDroidApp.TAG,"Sync: merging small changes");
+      Timber.i("Sync: merging small changes");
       mergeChanges(lchg,rchg);
       publishProgress(con,R.string.sync_download_chunk);
       while (true) {
-        Log.i(AnkiDroidApp.TAG,"Sync: downloading chunked data");
+        Timber.i("Sync: downloading chunked data");
         JSONObject chunk=mServer.chunk();
         mCol.log("server chunk",chunk);
-        Log.i(AnkiDroidApp.TAG,"Sync: applying chunked data");
+        Timber.i("Sync: applying chunked data");
         applyChunk(chunk);
         if (chunk.getBoolean("done")) {
           break;
@@ -86,12 +86,12 @@
       }
       publishProgress(con,R.string.sync_upload_chunk);
       while (true) {
-        Log.i(AnkiDroidApp.TAG,"Sync: collecting chunked data");
+        Timber.i("Sync: collecting chunked data");
         JSONObject chunk=chunk();
         mCol.log("client chunk",chunk);
         JSONObject sech=new JSONObject();
         sech.put("chunk",chunk);
-        Log.i(AnkiDroidApp.TAG,"Sync: sending chunked data");
+        Timber.i("Sync: sending chunked data");
         mServer.applyChunk(sech);
         if (chunk.getBoolean("done")) {
           break;
@@ -104,12 +104,12 @@
         return new Object[]{"sanityCheckError",null};
       }
       publishProgress(con,R.string.sync_finish_message);
-      Log.i(AnkiDroidApp.TAG,"Sync: sending finish command");
+      Timber.i("Sync: sending finish command");
       long mod=mServer.finish();
       if (mod == 0) {
         return new Object[]{"finishError"};
       }
-      Log.i(AnkiDroidApp.TAG,"Sync: finishing");
+      Timber.i("Sync: finishing");
       finish(mod);
       publishProgress(con,R.string.sync_writing_db);
       mCol.getDb().getDatabase().setTransactionSuccessful();

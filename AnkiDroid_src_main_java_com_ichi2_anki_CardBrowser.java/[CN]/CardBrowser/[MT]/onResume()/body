@@ -1,5 +1,5 @@
 {
-  Log.v(AnkiDroidApp.TAG,"CardBrowser onResume()");
+  Timber.d("onResume()");
   super.onResume();
   selectNavigationItem(DRAWER_BROWSER);
 }

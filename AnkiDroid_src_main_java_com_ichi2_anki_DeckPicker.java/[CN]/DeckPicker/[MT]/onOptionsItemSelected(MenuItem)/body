@@ -5,19 +5,23 @@
   Resources res=getResources();
 switch (item.getItemId()) {
 case R.id.action_sync:
-    sync();
-  return true;
+    Timber.i("DeckPicker:: Sync button pressed");
+  sync();
+return true;
 case R.id.action_add_note_from_deck_picker:
+Timber.i("DeckPicker:: Add note button pressed");
 hideShowcaseView();
 addNote();
 return true;
 case R.id.action_shared_decks:
+Timber.i("DeckPicker:: Get shared deck button pressed");
 hideShowcaseView();
 if (colOpen()) {
 addSharedDeck();
 }
 return true;
 case R.id.action_new_deck:
+Timber.i("DeckPicker:: Add deck button pressed");
 hideShowcaseView();
 StyledDialog.Builder builder2=new StyledDialog.Builder(DeckPicker.this);
 builder2.setTitle(res.getString(R.string.new_deck));
@@ -26,7 +30,7 @@ builder2.setView(mDialogEditText,false,false);
 builder2.setPositiveButton(res.getString(R.string.create),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
 String deckName=mDialogEditText.getText().toString().replaceAll("[\'\"\\n\\r\\[\\]\\(\\)]","");
-Log.i(AnkiDroidApp.TAG,"Creating deck: " + deckName);
+Timber.i("DeckPicker:: Creating new deck...");
 getCol().getDecks().id(deckName,true);
 loadCounts();
 }
@@ -36,9 +40,11 @@ builder2.setNegativeButton(res.getString(R.string.dialog_cancel),null);
 builder2.create().show();
 return true;
 case R.id.action_import:
+Timber.i("DeckPicker:: Import button pressed");
 showImportDialog(ImportDialog.DIALOG_IMPORT_HINT);
 return true;
 case R.id.action_new_filtered_deck:
+Timber.i("DeckPicker:: New filtered deck button pressed");
 StyledDialog.Builder builder3=new StyledDialog.Builder(DeckPicker.this);
 builder3.setTitle(res.getString(R.string.new_deck));
 mDialogEditText=new EditText(DeckPicker.this);
@@ -53,7 +59,9 @@ mDialogEditText.setText(cramDeckName);
 builder3.setView(mDialogEditText,false,false);
 builder3.setPositiveButton(res.getString(R.string.create),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
-long id=getCol().getDecks().newDyn(mDialogEditText.getText().toString());
+String enteredCramDeckName=mDialogEditText.getText().toString();
+Timber.i("DeckPicker:: Creating cram deck...");
+long id=getCol().getDecks().newDyn(enteredCramDeckName);
 openStudyOptions(id,new Bundle());
 }
 }
@@ -62,15 +70,19 @@ builder3.setNegativeButton(res.getString(R.string.dialog_cancel),null);
 builder3.create().show();
 return true;
 case R.id.action_check_database:
+Timber.i("DeckPicker:: Check database button pressed");
 showDatabaseErrorDialog(DatabaseErrorDialog.DIALOG_CONFIRM_DATABASE_CHECK);
 return true;
 case R.id.action_check_media:
+Timber.i("DeckPicker:: Check media button pressed");
 showMediaCheckDialog(MediaCheckDialog.DIALOG_CONFIRM_MEDIA_CHECK);
 return true;
 case R.id.action_restore_backup:
+Timber.i("DeckPicker:: Restore from backup button pressed");
 showDatabaseErrorDialog(DatabaseErrorDialog.DIALOG_CONFIRM_RESTORE_BACKUP);
 return true;
 case R.id.action_export:
+Timber.i("DeckPicker:: Export collection button pressed");
 String msg=getResources().getString(R.string.confirm_apkg_export);
 showDialogFragment(ExportDialog.newInstance(msg));
 return true;

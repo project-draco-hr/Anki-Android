@@ -4,6 +4,6 @@
     mNoteDeckSpinner.setSelection(position,false);
   }
  else {
-    Log.e(AnkiDroidApp.TAG,"updateDeckPosition() :: mCurrentDid=" + Long.toString(mCurrentDid) + ", "+ "position = "+ Integer.toString(position));
+    Timber.e("updateDeckPosition() error :: mCurrentDid=%d, position=%d",mCurrentDid,position);
   }
 }

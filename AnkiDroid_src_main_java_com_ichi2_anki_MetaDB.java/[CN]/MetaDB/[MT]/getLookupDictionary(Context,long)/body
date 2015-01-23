@@ -11,7 +11,7 @@
     }
   }
  catch (  Exception e) {
-    Log.e("Error","Error retrieving custom dictionary from MetaDB ",e);
+    Timber.e(e,"Error retrieving custom dictionary from MetaDB ");
     return -1;
   }
  finally {

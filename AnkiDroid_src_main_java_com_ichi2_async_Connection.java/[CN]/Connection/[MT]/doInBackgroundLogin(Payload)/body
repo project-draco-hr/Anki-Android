@@ -23,7 +23,7 @@ catch (  Exception e2) {
   boolean valid=false;
   if (ret != null) {
     data.returnType=ret.getStatusLine().getStatusCode();
-    Log.i(AnkiDroidApp.TAG,"doInBackgroundLogin - response from server: " + data.returnType + " ("+ ret.getStatusLine().getReasonPhrase()+ ")");
+    Timber.d("doInBackgroundLogin - response from server: %d, (%s)",data.returnType,ret.getStatusLine().getReasonPhrase());
     if (data.returnType == 200) {
       try {
         JSONObject jo=(new JSONObject(server.stream2String(ret.getEntity().getContent())));
@@ -42,7 +42,7 @@ catch (      IOException e) {
     }
   }
  else {
-    Log.e(AnkiDroidApp.TAG,"doInBackgroundLogin - empty response from server");
+    Timber.e("doInBackgroundLogin - empty response from server");
   }
   if (valid) {
     data.success=true;

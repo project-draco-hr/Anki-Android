@@ -1,7 +1,7 @@
 {
   int height=mChartView.getMeasuredHeight();
   int width=mChartView.getMeasuredWidth();
-  Log.d(AnkiDroidApp.TAG,"SmallDueChart: heigth: " + height + ", width: "+ width);
+  Timber.d("SmallDueChart: height: %d, width: %d",height,width);
   Paint paint=new Paint(Paint.LINEAR_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
   paint.setStyle(Paint.Style.STROKE);
   if (height <= 0 || width <= 0) {

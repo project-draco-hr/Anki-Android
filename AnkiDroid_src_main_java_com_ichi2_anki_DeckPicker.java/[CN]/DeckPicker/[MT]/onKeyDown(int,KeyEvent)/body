@@ -1,6 +1,6 @@
 {
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-    Log.i(AnkiDroidApp.TAG,"DeckPicker - onBackPressed()");
+    Timber.i("DeckPicker:: onBackPressed()");
     finishWithAnimation();
     return true;
   }

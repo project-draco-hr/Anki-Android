@@ -2,22 +2,22 @@
   openDBIfClosed(context);
   try {
     mMetaDb.execSQL("DROP TABLE IF EXISTS languages;");
-    Log.i(AnkiDroidApp.TAG,"Resetting all language assignment");
+    Timber.i("MetaDB:: Resetting all language assignment");
     mMetaDb.execSQL("DROP TABLE IF EXISTS whiteboardState;");
-    Log.i(AnkiDroidApp.TAG,"Resetting whiteboard state");
+    Timber.i("MetaDB:: Resetting whiteboard state");
     mMetaDb.execSQL("DROP TABLE IF EXISTS customDictionary;");
-    Log.i(AnkiDroidApp.TAG,"Resetting custom Dictionary");
+    Timber.i("MetaDB:: Resetting custom Dictionary");
     mMetaDb.execSQL("DROP TABLE IF EXISTS widgetStatus;");
-    Log.i(AnkiDroidApp.TAG,"Resetting widget status");
+    Timber.i("MetaDB:: Resetting widget status");
     mMetaDb.execSQL("DROP TABLE IF EXISTS smallWidgetStatus;");
-    Log.i(AnkiDroidApp.TAG,"Resetting small widget status");
+    Timber.i("MetaDB:: Resetting small widget status");
     mMetaDb.execSQL("DROP TABLE IF EXISTS intentInformation;");
-    Log.i(AnkiDroidApp.TAG,"Resetting intentInformation");
+    Timber.i("MetaDB:: Resetting intentInformation");
     upgradeDB(mMetaDb,DATABASE_VERSION);
     return true;
   }
  catch (  Exception e) {
-    Log.e("Error","Error resetting MetaDB ",e);
+    Timber.e(e,"Error resetting MetaDB ");
   }
   return false;
 }

@@ -57,7 +57,7 @@ col.getDb().getDatabase().endTransaction();
 }
 }
  catch (RuntimeException e) {
-Log.e(AnkiDroidApp.TAG,"doInBackgroundSuspendCard - RuntimeException on suspending card: " + e);
+Timber.e(e,"doInBackgroundSuspendCard - RuntimeException on suspending card");
 AnkiDroidApp.sendExceptionReport(e,"doInBackgroundSuspendCard");
 return new TaskData(false);
 }

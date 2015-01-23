@@ -15,7 +15,7 @@
       tempAudioPath=file.getAbsolutePath();
     }
  catch (    IOException e) {
-      Log.e(AnkiDroidApp.TAG,"Could not create temporary audio file. " + e.getMessage());
+      Timber.e("Could not create temporary audio file. " + e.getMessage());
       tempAudioPath=null;
     }
   }

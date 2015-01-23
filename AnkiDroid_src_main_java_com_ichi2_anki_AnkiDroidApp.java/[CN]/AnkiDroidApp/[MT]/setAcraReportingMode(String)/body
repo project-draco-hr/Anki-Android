@@ -16,7 +16,7 @@
       }
     }
  catch (    ACRAConfigurationException e) {
-      Log.e(AnkiDroidApp.TAG,"Could not set ACRA report mode");
+      Timber.e("Could not set ACRA report mode");
     }
   }
   editor.commit();

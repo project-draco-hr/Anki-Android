@@ -21,26 +21,26 @@
     cont=conn.getInputStream();
   }
  catch (  MalformedURLException e) {
-    Log.e(AnkiDroidApp.TAG,"doInBackgroundDownloadSharedDeck: ",e);
+    Timber.e(e,"doInBackgroundDownloadSharedDeck");
     data.success=false;
     return data;
   }
 catch (  IOException e) {
-    Log.e(AnkiDroidApp.TAG,"doInBackgroundDownloadSharedDeck: ",e);
+    Timber.e(e,"doInBackgroundDownloadSharedDeck");
     data.success=false;
     return data;
   }
 catch (  NoSuchAlgorithmException e) {
-    Log.e(AnkiDroidApp.TAG,"doInBackgroundDownloadSharedDeck: ",e);
+    Timber.e(e,"doInBackgroundDownloadSharedDeck");
     data.success=false;
     return data;
   }
 catch (  KeyStoreException e) {
-    Log.e(AnkiDroidApp.TAG,"doInBackgroundDownloadSharedDeck: ",e);
+    Timber.e(e,"doInBackgroundDownloadSharedDeck");
     return data;
   }
 catch (  KeyManagementException e) {
-    Log.e(AnkiDroidApp.TAG,"doInBackgroundDownloadSharedDeck: ",e);
+    Timber.e(e,"doInBackgroundDownloadSharedDeck");
     data.success=false;
     return data;
   }

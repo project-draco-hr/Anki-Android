@@ -1,5 +1,5 @@
 {
-  Log.v(AnkiDroidApp.TAG,"Scroll state changed to " + Integer.toString(scrollState));
+  Timber.v("Scroll state changed to " + Integer.toString(scrollState));
   DeckTask.cancelTask(DeckTask.TASK_TYPE_RENDER_BROWSER_QA);
   if (scrollState == SCROLL_STATE_IDLE) {
     int startIdx=listView.getFirstVisiblePosition();

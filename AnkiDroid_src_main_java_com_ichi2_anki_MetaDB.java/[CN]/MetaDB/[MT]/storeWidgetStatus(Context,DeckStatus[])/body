@@ -14,11 +14,11 @@
     }
   }
  catch (  IllegalStateException e) {
-    Log.e(AnkiDroidApp.TAG,"MetaDB.storeWidgetStatus: failed",e);
+    Timber.e(e,"MetaDB.storeWidgetStatus: failed");
   }
 catch (  SQLiteException e) {
-    Log.e(AnkiDroidApp.TAG,"MetaDB.storeWidgetStatus: failed",e);
+    Timber.e(e,"MetaDB.storeWidgetStatus: failed");
     closeDB();
-    Log.i(AnkiDroidApp.TAG,"Trying to reset Widget: " + resetWidget(context));
+    Timber.i("MetaDB:: Trying to reset Widget: " + resetWidget(context));
   }
 }

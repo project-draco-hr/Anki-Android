@@ -3,13 +3,13 @@
     openDB(context);
   }
   try {
-    Log.i(AnkiDroidApp.TAG,"Resetting all language assignments");
+    Timber.i("MetaDB:: Resetting all language assignments");
     mMetaDb.execSQL("DROP TABLE IF EXISTS languages;");
     upgradeDB(mMetaDb,DATABASE_VERSION);
     return true;
   }
  catch (  Exception e) {
-    Log.e("Error","Error resetting MetaDB ",e);
+    Timber.e(e,"Error resetting MetaDB ");
   }
   return false;
 }

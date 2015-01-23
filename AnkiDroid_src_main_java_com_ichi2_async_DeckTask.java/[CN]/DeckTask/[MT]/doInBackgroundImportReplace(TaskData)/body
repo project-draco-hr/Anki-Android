@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundImportReplace");
+  Timber.d("doInBackgroundImportReplace");
   Collection col=params[0].getCollection();
   String path=params[0].getString();
   Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
@@ -15,7 +15,7 @@
     zip=new ZipFile(new File(path),ZipFile.OPEN_READ);
   }
  catch (  IOException e) {
-    Log.e(AnkiDroidApp.TAG,"doInBackgroundImportReplace - Error while unzipping: ",e);
+    Timber.e(e,"doInBackgroundImportReplace - Error while unzipping");
     AnkiDroidApp.sendExceptionReport(e,"doInBackgroundImportReplace0");
     return new TaskData(false);
   }
@@ -90,17 +90,17 @@
     return new TaskData(addedCount,result.getObjArray(),true);
   }
  catch (  RuntimeException e) {
-    Log.e(AnkiDroidApp.TAG,"doInBackgroundImportReplace - RuntimeException: ",e);
+    Timber.e(e,"doInBackgroundImportReplace - RuntimeException");
     AnkiDroidApp.sendExceptionReport(e,"doInBackgroundImportReplace1");
     return new TaskData(false);
   }
 catch (  FileNotFoundException e) {
-    Log.e(AnkiDroidApp.TAG,"doInBackgroundImportReplace - FileNotFoundException: ",e);
+    Timber.e(e,"doInBackgroundImportReplace - FileNotFoundException");
     AnkiDroidApp.sendExceptionReport(e,"doInBackgroundImportReplace2");
     return new TaskData(false);
   }
 catch (  IOException e) {
-    Log.e(AnkiDroidApp.TAG,"doInBackgroundImportReplace - IOException: ",e);
+    Timber.e(e,"doInBackgroundImportReplace - IOException");
     AnkiDroidApp.sendExceptionReport(e,"doInBackgroundImportReplace3");
     return new TaskData(false);
   }

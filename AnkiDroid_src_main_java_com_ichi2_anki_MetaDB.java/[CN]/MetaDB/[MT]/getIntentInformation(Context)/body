@@ -30,7 +30,7 @@
   }
  catch (  SQLiteException e) {
     upgradeDB(mMetaDb,DATABASE_VERSION);
-    Log.e(AnkiDroidApp.TAG,"Error while querying intentInformation",e);
+    Timber.e(e,"Error while querying intentInformation");
   }
  finally {
     if (cursor != null && !cursor.isClosed()) {

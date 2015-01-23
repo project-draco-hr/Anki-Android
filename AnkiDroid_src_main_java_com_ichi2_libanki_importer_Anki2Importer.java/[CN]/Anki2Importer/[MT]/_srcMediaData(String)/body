@@ -4,7 +4,7 @@
       return new BufferedInputStream(mZip.getInputStream(mZip.getEntry(nameToNum.get(fname))));
     }
  catch (    IOException e) {
-      Log.e(AnkiDroidApp.TAG,"Could not extract media file " + fname + "from mZip file.");
+      Timber.e("Could not extract media file " + fname + "from mZip file.");
     }
   }
   return null;

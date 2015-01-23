@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,message);
+  Timber.i("AbstractFlashcardViewer:: onJsAlert: %s",message);
   result.confirm();
   return true;
 }

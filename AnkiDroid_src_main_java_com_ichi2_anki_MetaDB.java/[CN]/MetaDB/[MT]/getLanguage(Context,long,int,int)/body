@@ -5,13 +5,13 @@
   try {
     String query="SELECT language FROM languages " + "WHERE did = " + did + " AND ord = "+ ord+ " AND qa = "+ qa+ " "+ "LIMIT 1";
     cur=mMetaDb.rawQuery(query,null);
-    Log.i(AnkiDroidApp.TAG,"getLanguage: " + query);
+    Timber.v("getLanguage: %s",query);
     if (cur.moveToNext()) {
       language=cur.getString(0);
     }
   }
  catch (  Exception e) {
-    Log.e("Error","Error fetching language ",e);
+    Timber.e(e,"Error fetching language ");
   }
  finally {
     if (cur != null && !cur.isClosed()) {

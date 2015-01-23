@@ -21,7 +21,7 @@
   ArrayList<double[]> list=new ArrayList<double[]>();
   Cursor cur=null;
   String query="select (case " + "                when type in (0,2) then 0 " + "        when lastIvl < 21 then 1 "+ "        else 2 end) as thetype, "+ "        (case when type in (0,2) and ease = 4 then 3 else ease end), count() from revlog " + lim + " "+ "        group by thetype, ease "+ "        order by thetype, ease";
-  Log.d(AnkiDroidApp.TAG,"AnswerButtons query: " + query);
+  Timber.d("AnswerButtons query: %s",query);
   try {
     cur=mCol.getDb().getDatabase().rawQuery(query,null);
     while (cur.moveToNext()) {

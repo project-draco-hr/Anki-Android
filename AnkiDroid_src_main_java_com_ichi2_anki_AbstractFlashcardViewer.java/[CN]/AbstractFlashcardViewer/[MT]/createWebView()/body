@@ -2,12 +2,10 @@
   WebView webView=new MyWebView(this);
   webView.setWillNotCacheDrawing(true);
   webView.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
-  boolean zoom_ctrls=false;
   if (AnkiDroidApp.SDK_VERSION > 11) {
-    zoom_ctrls=true;
     webView.getSettings().setDisplayZoomControls(false);
   }
-  webView.getSettings().setBuiltInZoomControls(zoom_ctrls);
+  webView.getSettings().setBuiltInZoomControls(true);
   webView.getSettings().setSupportZoom(true);
   webView.getSettings().setJavaScriptEnabled(true);
   webView.setWebChromeClient(new AnkiDroidWebChromeClient());
@@ -17,7 +15,7 @@
   if (mPrefSafeDisplay) {
     AnkiDroidApp.getCompat().setScrollbarFadingEnabled(webView,false);
   }
-  Log.i(AnkiDroidApp.TAG,"Focusable = " + webView.isFocusable() + ", Focusable in touch mode = "+ webView.isFocusableInTouchMode());
+  Timber.d("Focusable = %s, Focusable in touch mode = %s",webView.isFocusable(),webView.isFocusableInTouchMode());
   webView.setWebViewClient(new WebViewClient(){
     @Override public boolean shouldOverrideUrlLoading(    WebView view,    String url){
       if (url.startsWith("playsound:")) {
@@ -36,13 +34,13 @@
       if (url.startsWith("file")) {
         return false;
       }
-      Log.d(AnkiDroidApp.TAG,"Opening external link \"" + url + "\" with an Intent");
+      Timber.d("Opening external link \"%s\" with an Intent",url);
       Intent intent=new Intent(Intent.ACTION_VIEW,Uri.parse(url));
       startActivityWithoutAnimation(intent);
       return true;
     }
     @Override public void onPageFinished(    WebView view,    String url){
-      Log.d(AnkiDroidApp.TAG,"onPageFinished triggered");
+      Timber.d("onPageFinished triggered");
       view.loadUrl("javascript:onPageFinished();");
     }
   }

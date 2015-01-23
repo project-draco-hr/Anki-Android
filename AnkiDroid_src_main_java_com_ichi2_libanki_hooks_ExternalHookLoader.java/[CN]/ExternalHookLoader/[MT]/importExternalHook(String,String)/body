@@ -1,0 +1,17 @@
+{
+  final File dexExternalStoragePath=new File(mHookFolderPath,dexFilename);
+  final File dexInternalStoragePath=new File(mMainActivity.getDir("dex",Context.MODE_PRIVATE),dexFilename);
+  (new PrepareDexTask()).execute(dexExternalStoragePath,dexInternalStoragePath);
+  final File optimizedDexOutputPath=mMainActivity.getDir("outdex",Context.MODE_PRIVATE);
+  DexClassLoader cl=new DexClassLoader(dexInternalStoragePath.getAbsolutePath(),optimizedDexOutputPath.getAbsolutePath(),null,mMainActivity.getClassLoader());
+  Class hookClass=null;
+  try {
+    hookClass=cl.loadClass(className);
+    HookPlugin importedHook=(HookPlugin)hookClass.newInstance();
+    return importedHook;
+  }
+ catch (  Exception exception) {
+    exception.printStackTrace();
+    return null;
+  }
+}

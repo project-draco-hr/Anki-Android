@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundImportAdd");
+  Timber.d("doInBackgroundImportAdd");
   Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
   Collection col=params[0].getCollection();
   String path=params[0].getString();
@@ -38,12 +38,12 @@
     return new TaskData(addedCount,result.getObjArray(),true);
   }
  catch (  RuntimeException e) {
-    Log.e(AnkiDroidApp.TAG,"doInBackgroundImportAdd - RuntimeException on importing cards: ",e);
+    Timber.e(e,"doInBackgroundImportAdd - RuntimeException on importing cards");
     AnkiDroidApp.sendExceptionReport(e,"doInBackgroundImportAdd");
     return new TaskData(false);
   }
 catch (  IOException e) {
-    Log.e(AnkiDroidApp.TAG,"doInBackgroundImportAdd - IOException on importing cards: ",e);
+    Timber.e(e,"doInBackgroundImportAdd - IOException on importing cards: ");
     AnkiDroidApp.sendExceptionReport(e,"doInBackgroundImportAdd");
     return new TaskData(false);
   }

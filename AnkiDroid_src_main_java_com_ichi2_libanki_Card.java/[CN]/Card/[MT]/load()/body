@@ -3,7 +3,7 @@
   try {
     cursor=mCol.getDb().getDatabase().rawQuery("SELECT * FROM cards WHERE id = " + mId,null);
     if (!cursor.moveToFirst()) {
-      Log.w(AnkiDroidApp.TAG,"Card.load: No card with id " + mId);
+      Timber.w("Card.load: No card with id " + mId);
       return;
     }
     mId=cursor.getLong(0);

@@ -1,4 +1,4 @@
 {
-  Log.i(AnkiDroidApp.TAG,"AbstractReviewer - onBackPressed()");
+  Timber.d("onBackPressed()");
   closeReviewer(RESULT_DEFAULT,false);
 }

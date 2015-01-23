@@ -13,11 +13,11 @@
     }
     mCol.log("last local usn is " + lastUsn);
     mDownloadCount=0;
-    Log.i(AnkiDroidApp.TAG,"MediaSyncer: Last local usn is: " + lastUsn);
+    Timber.i("MediaSyncer: Last local usn is: %d",lastUsn);
     while (true) {
       JSONArray data=mServer.mediaChanges(lastUsn);
-      mCol.log("mediaChanges resp count: " + data.length());
-      Log.i(AnkiDroidApp.TAG,"MediaSyncer: mediaChanges resp count: " + data.length());
+      mCol.log("mediaChanges resp count: %d",data.length());
+      Timber.i("MediaSyncer: mediaChanges resp count: %d",data.length());
       if (data.length() == 0) {
         break;
       }
@@ -105,11 +105,11 @@
   }
 catch (  APIVersionException e) {
     UnsupportedSyncException ee=new UnsupportedSyncException("Cannot sync media on this version of Android");
-    Log.e(AnkiDroidApp.TAG,e.getMessage());
+    Timber.e(e.getMessage());
     throw ee;
   }
 catch (  Exception e) {
-    Log.e(AnkiDroidApp.TAG,"Syncing error: ",e);
+    Timber.e(e,"Syncing error");
     throw new RuntimeException(e);
   }
 }
