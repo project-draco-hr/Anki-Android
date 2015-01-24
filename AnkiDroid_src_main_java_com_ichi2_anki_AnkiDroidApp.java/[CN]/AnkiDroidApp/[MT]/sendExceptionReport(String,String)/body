@@ -1,0 +1,8 @@
+{
+  try {
+    throw new AnkiDroidErrorReportException();
+  }
+ catch (  AnkiDroidErrorReportException e) {
+    sendExceptionReport(e,origin,additionalInfo);
+  }
+}

@@ -1,0 +1,19 @@
+{
+  super.onCreate(savedInstanceState);
+  AlertDialog.Builder dialogBuilder=new AlertDialog.Builder(this);
+  int resourceId=ACRA.getConfig().resDialogTitle();
+  if (resourceId != 0) {
+    dialogBuilder.setTitle(resourceId);
+  }
+  resourceId=ACRA.getConfig().resDialogIcon();
+  if (resourceId != 0) {
+    dialogBuilder.setIcon(resourceId);
+  }
+  dialogBuilder.setView(buildCustomView(savedInstanceState));
+  dialogBuilder.setPositiveButton(getText(ACRA.getConfig().resDialogPositiveButtonText()),AnkiDroidCrashReportDialog.this);
+  dialogBuilder.setNegativeButton(getText(ACRA.getConfig().resDialogNegativeButtonText()),AnkiDroidCrashReportDialog.this);
+  mDialog=dialogBuilder.create();
+  mDialog.setCanceledOnTouchOutside(false);
+  mDialog.setOnDismissListener(this);
+  mDialog.show();
+}

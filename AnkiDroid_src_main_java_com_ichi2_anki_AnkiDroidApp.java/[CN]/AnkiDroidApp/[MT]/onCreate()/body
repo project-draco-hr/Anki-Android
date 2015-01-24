@@ -53,5 +53,5 @@
     DEFAULT_SWIPE_MIN_DISTANCE=vc.getScaledTouchSlop() * 2;
   }
   DEFAULT_SWIPE_THRESHOLD_VELOCITY=vc.getScaledMinimumFlingVelocity();
-  setAcraReportingMode(preferences.getString("reportErrorMode",Feedback.REPORT_ASK));
+  setAcraReportingMode(preferences.getString("reportErrorMode",FEEDBACK_REPORT_ASK));
 }

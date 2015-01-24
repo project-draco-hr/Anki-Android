@@ -39,12 +39,12 @@
   }
  catch (  RuntimeException e) {
     Timber.e(e,"doInBackgroundImportAdd - RuntimeException on importing cards");
-    AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundImportAdd");
+    AnkiDroidApp.sendExceptionReport(e,"doInBackgroundImportAdd");
     return new TaskData(false);
   }
 catch (  IOException e) {
     Timber.e(e,"doInBackgroundImportAdd - IOException on importing cards: ");
-    AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundImportAdd");
+    AnkiDroidApp.sendExceptionReport(e,"doInBackgroundImportAdd");
     return new TaskData(false);
   }
 }
