@@ -1,3 +1,5 @@
 {
-  configureVideo(videoView,sMediaPlayer.getVideoWidth(),sMediaPlayer.getVideoHeight());
+  if (sMediaPlayer != null) {
+    configureVideo(videoView,sMediaPlayer.getVideoWidth(),sMediaPlayer.getVideoHeight());
+  }
 }
