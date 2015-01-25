@@ -3,8 +3,7 @@
   try {
     cursor=mCol.getDb().getDatabase().rawQuery("SELECT guid, mid, mod, usn, tags, flds, flags, data FROM notes WHERE id = " + mId,null);
     if (!cursor.moveToFirst()) {
-      Timber.w("Notes.load(): No result from query.");
-      return;
+      throw new RuntimeException("Notes.load(): No result from query for note " + mId);
     }
     mGuId=cursor.getString(0);
     mMid=cursor.getLong(1);

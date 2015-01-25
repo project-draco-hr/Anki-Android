@@ -1,18 +1,12 @@
 {
   Timber.d("Playing %s has listener? %b",soundPath,playAllListener != null);
+  Uri soundUri=Uri.parse(soundPath);
   if (soundPath.substring(0,3).equals("tts")) {
   }
  else {
     final boolean isVideo;
     if (AnkiDroidApp.SDK_VERSION > 7) {
-      String realPath;
-      try {
-        realPath=(new File(soundPath.replace("file:///",""))).getCanonicalPath();
-      }
- catch (      IOException e1) {
-        realPath=soundPath;
-      }
-      isVideo=ThumbnailUtils.createVideoThumbnail(realPath,MediaStore.Images.Thumbnails.MINI_KIND) != null;
+      isVideo=ThumbnailUtils.createVideoThumbnail(soundUri.getPath(),MediaStore.Images.Thumbnails.MINI_KIND) != null;
     }
  else {
       isVideo=false;
@@ -41,7 +35,6 @@
         }
 );
       }
-      Uri soundUri=Uri.parse(soundPath);
       sMediaPlayer.setDataSource(AnkiDroidApp.getInstance().getApplicationContext(),soundUri);
       sMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
       sMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
