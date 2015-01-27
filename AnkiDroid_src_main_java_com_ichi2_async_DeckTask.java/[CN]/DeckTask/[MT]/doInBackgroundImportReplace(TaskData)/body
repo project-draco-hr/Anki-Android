@@ -30,7 +30,16 @@
       return new TaskData(-2,null,false);
     }
   }
-  finally {
+ catch (  Exception e) {
+    Timber.e("Error opening new collection file... probably it's invalid");
+    try {
+      tmpCol.close();
+    }
+ catch (    Exception e2) {
+    }
+    return new TaskData(-2,null,false);
+  }
+ finally {
     if (tmpCol != null) {
       tmpCol.close();
     }
