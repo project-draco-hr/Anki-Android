@@ -4,9 +4,13 @@
   ACRA.init(this);
   if (BuildConfig.DEBUG) {
     Timber.plant(new Timber.DebugTree());
+    setAcraReportingMode(FEEDBACK_REPORT_NEVER);
+    String[] logcatArgs={"-t","300","-v","long","ACRA:S"};
+    ACRA.getConfig().setLogcatArguments(logcatArgs);
   }
  else {
-    Timber.plant(new CrashReportingTree());
+    Timber.plant(new ProductionCrashReportingTree());
+    setAcraReportingMode(preferences.getString("reportErrorMode",FEEDBACK_REPORT_ASK));
   }
   Timber.tag(TAG);
   if (isNookHdOrHdPlus() && AnkiDroidApp.SDK_VERSION == 15) {
@@ -53,5 +57,4 @@
     DEFAULT_SWIPE_MIN_DISTANCE=vc.getScaledTouchSlop() * 2;
   }
   DEFAULT_SWIPE_THRESHOLD_VELOCITY=vc.getScaledMinimumFlingVelocity();
-  setAcraReportingMode(preferences.getString("reportErrorMode",FEEDBACK_REPORT_ASK));
 }
