@@ -35,9 +35,9 @@
       String html;
       String format;
       Models.fieldParser fparser=new Models.fieldParser(fields);
-      Matcher m=fClozePattern.matcher(qfmt);
-      format=m.replaceAll(String.format(Locale.US,"{{cq:%d:",cardNum));
-      m=fAltClozePattern.matcher(format);
+      Matcher m=fClozePatternQ.matcher(qfmt);
+      format=m.replaceAll(String.format(Locale.US,"{{$1cq-%d:",cardNum));
+      m=fClozeTagStart.matcher(format);
       format=m.replaceAll(String.format(Locale.US,"<%%cq:%d:",cardNum));
       html=mModels.getCmpldTemplate(format).execute(fparser);
       html=(String)AnkiDroidApp.getHooks().runFilter("mungeQA",html,"q",fields,model,data,this);
@@ -49,9 +49,9 @@
       }
       fields.put("FrontSide",d.get("q"));
       fparser=new Models.fieldParser(fields);
-      m=fClozePattern.matcher(afmt);
-      format=m.replaceAll(String.format(Locale.US,"{{ca:%d:",cardNum));
-      m=fAltClozePattern.matcher(format);
+      m=fClozePatternA.matcher(afmt);
+      format=m.replaceAll(String.format(Locale.US,"{{$1ca-%d:",cardNum));
+      m=fClozeTagStart.matcher(format);
       format=m.replaceAll(String.format(Locale.US,"<%%ca:%d:",cardNum));
       html=mModels.getCmpldTemplate(format).execute(fparser);
       html=(String)AnkiDroidApp.getHooks().runFilter("mungeQA",html,"a",fields,model,data,this);

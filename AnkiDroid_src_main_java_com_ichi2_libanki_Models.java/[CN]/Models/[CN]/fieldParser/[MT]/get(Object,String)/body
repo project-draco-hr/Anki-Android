@@ -6,49 +6,62 @@
   if (txt != null) {
     return txt;
   }
-  String[] parts=tag_name.split(":",3);
-  String mod=null, extra=null, tag=null;
-  if (parts.length == 1 || parts[0].equals("")) {
-    return null;
+  List<String> parts=Arrays.asList(tag_name.split(":"));
+  String extra=null;
+  List<String> mods;
+  String tag;
+  if (parts.size() == 1 || parts.get(0).equals("")) {
+    return String.format("{unknown field %s}",tag_name);
   }
- else   if (parts.length == 2) {
-    mod=parts[0];
-    tag=parts[1];
-  }
- else   if (parts.length == 3) {
-    mod=parts[0];
-    extra=parts[1];
-    tag=parts[2];
+ else {
+    mods=parts.subList(0,parts.size() - 1);
+    tag=parts.get(parts.size() - 1);
   }
   txt=_fields.get(tag);
-  Log.d(AnkiDroidApp.TAG,"Processing field modifier " + mod + ": extra = "+ extra+ ", field "+ tag+ " = "+ txt);
-  if (mod.equals("text")) {
-    if (txt != null && txt.length() > 0) {
-      return Utils.stripHTML(txt);
+  Collections.reverse(mods);
+  Collections.sort(mods,new Comparator<String>(){
+    @Override public int compare(    String lhs,    String rhs){
+      if (lhs.equals("type")) {
+        return 0;
+      }
+ else {
+        return 1;
+      }
     }
-    return "";
   }
- else   if (mod.equals("type")) {
-    return "[[" + tag_name + "]]";
-  }
- else   if (mod.equals("cq") || mod.equals("ca")) {
-    if (txt != null && txt.length() != 0 && extra != null && extra.length() != 0) {
-      return clozeText(txt,extra,mod.charAt(1));
+);
+  for (  String mod : mods) {
+    Log.d(AnkiDroidApp.TAG,String.format("Processing field: modifier=%s, extra=%s, tag=%s, txt=%s",mod,extra,tag,txt));
+    if (mod.equals("text")) {
+      if (!TextUtils.isEmpty(txt)) {
+        txt=Utils.stripHTML(txt);
+      }
+ else {
+        txt="";
+      }
+    }
+ else     if (mod.equals("type")) {
+      return "[[" + tag_name + "]]";
+    }
+ else     if (mod.startsWith("cq-") || mod.startsWith("ca-")) {
+      String[] split=mod.split("-");
+      mod=split[0];
+      extra=split[1];
+      if (!TextUtils.isEmpty(txt) && !TextUtils.isEmpty(extra)) {
+        txt=clozeText(txt,extra,mod.charAt(1));
+      }
     }
  else {
-      return "";
+      Matcher m=fHookFieldMod.matcher(mod);
+      if (m.matches()) {
+        mod=m.group(1);
+        extra=m.group(2);
+      }
+      txt=(String)AnkiDroidApp.getHooks().runFilter("fmod_" + mod,txt == null ? "" : txt,extra == null ? "" : extra,AnkiDroidApp.getAppResources(),tag,tag_name);
+      if (txt == null) {
+        return String.format("{unknown field %s}",tag_name);
+      }
     }
   }
- else {
-    if (txt == null) {
-      txt=(String)AnkiDroidApp.getHooks().runFilter("fmod_" + mod,"",extra,AnkiDroidApp.getAppResources(),tag,tag_name);
-    }
- else {
-      txt=(String)AnkiDroidApp.getHooks().runFilter("fmod_" + mod,txt,extra,AnkiDroidApp.getAppResources(),tag,tag_name);
-    }
-    if (txt == null) {
-      return "{unknown field " + tag_name + "}";
-    }
-    return txt;
-  }
+  return txt;
 }

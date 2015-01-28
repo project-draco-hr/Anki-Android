@@ -2,22 +2,29 @@
   String[] sflds=Utils.splitFields(flds);
   Map<String,Pair<Integer,JSONObject>> map=fieldMap(m);
   Set<Integer> ords=new HashSet<Integer>();
-  Matcher matcher1=null;
+  List<String> matches=new ArrayList<String>();
+  Matcher mm;
   try {
-    matcher1=fClozePattern1.matcher(m.getJSONArray("tmpls").getJSONObject(0).getString("qfmt"));
+    mm=fClozePattern1.matcher(m.getJSONArray("tmpls").getJSONObject(0).getString("qfmt"));
+    while (mm.find()) {
+      matches.add(mm.group(1));
+    }
+    mm=fClozePattern2.matcher(m.getJSONArray("tmpls").getJSONObject(0).getString("qfmt"));
+    while (mm.find()) {
+      matches.add(mm.group(1));
+    }
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
-  while (matcher1.find()) {
-    String fname=matcher1.group(1);
+  for (  String fname : matches) {
     if (!map.containsKey(fname)) {
       continue;
     }
     int ord=map.get(fname).first;
-    Matcher matcher2=fClozePattern2.matcher(sflds[ord]);
-    while (matcher2.find()) {
-      ords.add(Integer.parseInt(matcher2.group(1)) - 1);
+    mm=fClozeOrdPattern.matcher(sflds[ord]);
+    while (mm.find()) {
+      ords.add(Integer.parseInt(mm.group(1)) - 1);
     }
   }
   if (ords.contains(-1)) {
