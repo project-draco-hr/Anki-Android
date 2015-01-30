@@ -3,6 +3,6 @@
   if (f.exists()) {
     f.delete();
   }
-  Log.i(AnkiDroidApp.TAG,"Marking media file removal in media db: " + fname);
+  Timber.i("Marking media file removal in media db: " + fname);
   mDb.execute("insert or replace into media values (?,?,?,?)",new Object[]{fname,null,0,1});
 }

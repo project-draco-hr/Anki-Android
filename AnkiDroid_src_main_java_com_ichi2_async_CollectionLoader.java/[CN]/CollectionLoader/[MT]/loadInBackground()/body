@@ -5,8 +5,8 @@
     return AnkiDroidApp.openCollection(colPath);
   }
  catch (  RuntimeException e) {
-    Log.e(AnkiDroidApp.TAG,"doInBackgroundOpenCollection - RuntimeException on opening collection: " + e);
-    AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundOpenCollection");
+    Timber.e(e,"loadInBackground - RuntimeException on opening collection");
+    AnkiDroidApp.saveExceptionReportFile(e,"CollectionLoader.loadInBackground");
     return null;
   }
 }

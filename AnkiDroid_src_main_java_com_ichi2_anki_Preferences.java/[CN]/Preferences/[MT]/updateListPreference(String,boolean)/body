@@ -5,7 +5,7 @@
     entry=listpref.getEntry().toString();
   }
  catch (  NullPointerException e) {
-    Log.e(AnkiDroidApp.TAG,"Error getting set preference value of " + key + ": "+ e);
+    Timber.e("Error getting set preference value of " + key + ": "+ e);
     entry="?";
   }
   if (mListsToUpdate.containsKey(key)) {

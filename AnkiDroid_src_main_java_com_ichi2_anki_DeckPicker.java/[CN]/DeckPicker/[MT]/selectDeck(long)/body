@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,"Selected deck with ID " + did);
+  Timber.i("Selected deck with ID %d",did);
   for (int i=0; i < mDeckList.size(); i++) {
     if (Long.parseLong(mDeckList.get(i).get("did")) == did) {
       final int lastPosition=i;

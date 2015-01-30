@@ -9,7 +9,7 @@
       }
     }
  catch (    Exception e) {
-      Log.e(AnkiDroidApp.TAG,"Exception while running hook " + hook + ":"+ funcName,e);
+      Timber.e(e,"Exception while running hook %s : %s",hook,funcName);
       return;
     }
   }

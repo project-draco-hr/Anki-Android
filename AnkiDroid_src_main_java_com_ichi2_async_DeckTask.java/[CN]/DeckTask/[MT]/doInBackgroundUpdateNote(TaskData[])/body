@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundUpdateNote");
+  Timber.d("doInBackgroundUpdateNote");
   Sched sched=params[0].getSched();
   Collection col=sched.getCol();
   Card editCard=params[0].getCard();
@@ -33,7 +33,7 @@
     }
   }
  catch (  RuntimeException e) {
-    Log.e(AnkiDroidApp.TAG,"doInBackgroundUpdateNote - RuntimeException on updating fact: " + e);
+    Timber.e(e,"doInBackgroundUpdateNote - RuntimeException on updating fact");
     AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundUpdateNote");
     return new TaskData(false);
   }

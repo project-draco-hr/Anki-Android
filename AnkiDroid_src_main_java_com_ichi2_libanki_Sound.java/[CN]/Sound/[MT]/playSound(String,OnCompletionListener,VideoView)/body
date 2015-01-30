@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,"Playing " + soundPath + " has listener? "+ Boolean.toString(playAllListener != null));
+  Timber.d("Playing %s has listener? %b",soundPath,playAllListener != null);
   if (soundPath.substring(0,3).equals("tts")) {
   }
  else {
@@ -57,7 +57,7 @@
       AnkiDroidApp.getCompat().requestAudioFocus(sAudioManager);
     }
  catch (    Exception e) {
-      Log.e(AnkiDroidApp.TAG,"playSounds - Error reproducing sound " + soundPath + " = "+ e.getMessage());
+      Timber.e(e,"playSounds - Error reproducing sound %s",soundPath);
       releaseSound();
     }
   }

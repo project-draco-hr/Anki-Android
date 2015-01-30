@@ -8,7 +8,7 @@
     }
   }
  catch (  RuntimeException e) {
-    Log.w(AnkiDroidApp.TAG,"AnkiFont.getTypeface: " + e.getMessage() + " - File: "+ path);
+    Timber.w(e,"Runtime error in getTypeface for File: %s",path);
     if (!corruptFonts.contains(path)) {
       String name=new File(path).getName();
       Resources res=AnkiDroidApp.getAppResources();

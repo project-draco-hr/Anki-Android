@@ -96,7 +96,7 @@
     }
   }
  catch (  BadTokenException e) {
-    Log.e(AnkiDroidApp.TAG,"Preferences: BadTokenException on showDialog: " + e);
+    Timber.e(e,"Preferences: BadTokenException on showDialog");
   }
 catch (  NumberFormatException e) {
     throw new RuntimeException();

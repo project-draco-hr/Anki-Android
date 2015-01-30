@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,"AnkiActivity.startLoadingCollection()");
+  Timber.d("AnkiActivity.startLoadingCollection()");
   if (!AnkiDroidApp.colIsOpen()) {
     showOpeningCollectionDialog();
   }

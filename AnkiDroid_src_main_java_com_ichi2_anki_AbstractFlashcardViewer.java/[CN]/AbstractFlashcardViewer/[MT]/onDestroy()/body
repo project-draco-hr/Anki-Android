@@ -1,6 +1,6 @@
 {
   super.onDestroy();
-  Log.i(AnkiDroidApp.TAG,"AbstractReviewer - onDestroy()");
+  Timber.d("onDestroy()");
   if (mSpeakText) {
     ReadText.releaseTts();
   }

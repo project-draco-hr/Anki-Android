@@ -6,6 +6,6 @@
     ActivityTransitionAnimation.slide(a,ActivityTransitionAnimation.RIGHT);
   }
  else   if (a == null) {
-    Log.e(AnkiDroidApp.TAG,"closeStudyOptions() failed due to getActivity() returning null");
+    Timber.e("closeStudyOptions() failed due to getActivity() returning null");
   }
 }

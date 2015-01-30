@@ -1,5 +1,6 @@
 {
-  Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
+  Timber.d("fillFlashcard()");
+  Timber.d("base url = %s",mBaseUrl);
   if (mCurrentSimpleInterface && mSimpleCard != null) {
     mSimpleCard.setText(mCardContent);
   }

@@ -1,6 +1,6 @@
 {
   super.onCollectionLoaded(col);
-  Log.v(AnkiDroidApp.TAG,"Card Browser onCollectionLoaded()");
+  Timber.d("onCollectionLoaded()");
   mDeckNames=new HashMap<String,String>();
   for (  long did : getCol().getDecks().allIds()) {
     mDeckNames.put(String.valueOf(did),getCol().getDecks().name(did));

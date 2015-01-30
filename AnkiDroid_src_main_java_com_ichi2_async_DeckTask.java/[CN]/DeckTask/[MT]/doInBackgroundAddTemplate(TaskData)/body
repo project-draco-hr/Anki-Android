@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,"doInBackgroundAddTemplate");
+  Timber.d("doInBackgroundAddTemplate");
   Object[] args=params[0].getObjArray();
   Collection col=(Collection)args[0];
   JSONObject model=(JSONObject)args[1];
@@ -8,7 +8,7 @@
     col.getModels().addTemplate(model,template);
   }
  catch (  ConfirmModSchemaException e) {
-    Log.e(AnkiDroidApp.TAG,"doInBackgroundAddTemplate :: ConfirmModSchemaException");
+    Timber.e("doInBackgroundAddTemplate :: ConfirmModSchemaException");
     return new TaskData(false);
   }
   return new TaskData(true);

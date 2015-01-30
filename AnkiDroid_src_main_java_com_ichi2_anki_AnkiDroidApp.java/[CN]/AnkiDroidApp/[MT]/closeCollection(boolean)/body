@@ -1,11 +1,11 @@
 {
   mLock.lock();
-  Log.i(AnkiDroidApp.TAG,"closeCollection");
+  Timber.i("closeCollection");
   try {
     if (sInstance.mAccessThreadCount > 0) {
       sInstance.mAccessThreadCount--;
     }
-    Log.i(AnkiDroidApp.TAG,"Access to collection has been closed: (count: " + sInstance.mAccessThreadCount + ")");
+    Timber.d("Access to collection has been closed: (count: %d)",sInstance.mAccessThreadCount);
     if (sInstance.mAccessThreadCount == 0 && sInstance.mCurrentCollection != null) {
       Collection col=sInstance.mCurrentCollection;
       sInstance.mCurrentCollection=null;

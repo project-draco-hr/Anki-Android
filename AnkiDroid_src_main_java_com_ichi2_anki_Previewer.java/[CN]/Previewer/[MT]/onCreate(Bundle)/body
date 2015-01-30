@@ -1,5 +1,5 @@
 {
   super.onCreate(savedInstanceState);
-  Log.i(AnkiDroidApp.TAG,"PreviewClass - onCreate");
+  Timber.d("onCreate()");
   mCurrentCardId=getIntent().getLongExtra("currentCardId",-1);
 }

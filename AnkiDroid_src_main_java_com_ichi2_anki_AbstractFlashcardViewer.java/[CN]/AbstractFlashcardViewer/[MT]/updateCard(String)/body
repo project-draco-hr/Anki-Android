@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,"updateCard");
+  Timber.d("updateCard()");
   if (mCurrentSimpleInterface) {
     fillFlashcard();
   }
@@ -26,20 +26,20 @@
     if (mPrefCenterVertically) {
       cardClass+=" vertically_centered";
     }
-    Log.i(AnkiDroidApp.TAG,"content card = \n" + content);
+    Timber.d("content card = \n %s",content);
     StringBuilder style=new StringBuilder();
     mExtensions.updateCssStyle(style);
     if (mRelativeImageSize != 100) {
       style.append(String.format("img { zoom: %s }\n",mRelativeImageSize / 100.0));
     }
-    Log.i(AnkiDroidApp.TAG,"::style::" + style);
+    Timber.d("::style::",style);
     if (mNightMode) {
       content=HtmlColors.invertColors(content);
       cardClass+=" night_mode";
     }
     content=SmpToHtmlEntity(content);
     mCardContent=new SpannedString(mCardTemplate.replace("::content::",content).replace("::style::",style.toString()).replace("::class::",cardClass));
-    Log.i(AnkiDroidApp.TAG,"base url = " + mBaseUrl);
+    Timber.d("base url = %s",mBaseUrl);
     if (SAVE_CARD_CONTENT) {
       try {
         FileOutputStream f=new FileOutputStream(new File(AnkiDroidApp.getCurrentAnkiDroidDirectory(),"card.html"));
@@ -51,7 +51,7 @@
         }
       }
  catch (      IOException e) {
-        Log.d(AnkiDroidApp.TAG,"failed to save card",e);
+        Timber.d(e,"failed to save card");
       }
     }
     fillFlashcard();

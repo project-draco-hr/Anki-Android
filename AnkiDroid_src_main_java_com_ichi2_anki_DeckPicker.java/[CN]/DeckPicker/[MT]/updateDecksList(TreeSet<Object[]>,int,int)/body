@@ -1,6 +1,6 @@
 {
   if (decks == null) {
-    Log.e(AnkiDroidApp.TAG,"updateDecksList: empty decks list");
+    Timber.e("updateDecksList: empty decks list");
     return;
   }
   mDeckList.clear();

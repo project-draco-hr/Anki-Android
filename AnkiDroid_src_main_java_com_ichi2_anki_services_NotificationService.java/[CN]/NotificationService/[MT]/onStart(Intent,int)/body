@@ -1,5 +1,5 @@
 {
-  Log.i(AnkiDroidApp.TAG,"NotificationService: OnStart");
+  Timber.i("NotificationService: OnStart");
   Context context=AnkiDroidApp.getInstance().getBaseContext();
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(context);
   int minimumCardsDueForNotification=Integer.parseInt(preferences.getString("minimumCardsDueForNotification","25"));
