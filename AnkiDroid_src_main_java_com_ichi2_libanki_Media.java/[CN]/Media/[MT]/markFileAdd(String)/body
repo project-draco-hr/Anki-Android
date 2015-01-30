@@ -1,5 +1,5 @@
 {
-  Timber.i("Marking media file addition in media db: " + fname);
+  Timber.d("Marking media file addition in media db: %s",fname);
   String path=new File(dir(),fname).getAbsolutePath();
   mDb.execute("insert or replace into media values (?,?,?,?)",new Object[]{fname,_checksum(path),_mtime(path),1});
 }
