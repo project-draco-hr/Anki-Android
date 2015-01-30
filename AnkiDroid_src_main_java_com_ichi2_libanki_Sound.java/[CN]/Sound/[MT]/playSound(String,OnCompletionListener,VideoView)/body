@@ -17,7 +17,7 @@
  else {
       isVideo=false;
     }
-    if (isVideo && videoView == null && sCallingActivity.get() != null) {
+    if (isVideo && videoView == null && sCallingActivity != null && sCallingActivity.get() != null) {
       sPlayAllListener=playAllListener;
       ((AbstractFlashcardViewer)sCallingActivity.get()).playVideo(soundPath);
       return;
