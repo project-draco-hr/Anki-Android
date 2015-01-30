@@ -1,8 +1,3 @@
 {
-  try {
-    i(message,args);
-  }
- catch (  Exception e) {
-    i("failed to log message: " + message);
-  }
+  Log.i(TAG,formatString(message,args));
 }

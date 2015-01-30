@@ -3,7 +3,7 @@
     openDB(context);
   }
   try {
-    Timber.i("Resetting intent information");
+    Timber.i("MetaDB:: Resetting intent information");
     mMetaDb.execSQL("DROP TABLE IF EXISTS intentInformation;");
     upgradeDB(mMetaDb,DATABASE_VERSION);
     return true;

@@ -7,6 +7,6 @@
   mSlidingTabLayout=(SlidingTabLayout)findViewById(R.id.sliding_tabs);
   mSlidingTabLayout.setViewPager(mViewPager);
   setTitle(getResources().getString(R.string.title_activity_template_editor,col.getModels().get(mModelId).optString("name")));
-  Timber.i("Card template editor successfully started for model id %d",mModelId);
+  Timber.i("CardTemplateEditor:: Card template editor successfully started for model id %d",mModelId);
   dismissOpeningCollectionDialog();
 }

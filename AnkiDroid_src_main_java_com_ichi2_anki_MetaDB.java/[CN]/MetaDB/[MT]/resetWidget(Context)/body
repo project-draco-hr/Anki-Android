@@ -3,7 +3,7 @@
     openDB(context);
   }
   try {
-    Timber.i("Resetting widget status");
+    Timber.i("MetaDB:: Resetting widget status");
     mMetaDb.execSQL("DROP TABLE IF EXISTS widgetStatus;");
     mMetaDb.execSQL("DROP TABLE IF EXISTS smallWidgetStatus;");
     upgradeDB(mMetaDb,DATABASE_VERSION);
