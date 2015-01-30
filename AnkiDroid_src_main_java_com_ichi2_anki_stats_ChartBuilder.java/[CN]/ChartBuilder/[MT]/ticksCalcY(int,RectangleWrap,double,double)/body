@@ -8,6 +8,6 @@
   while ((deltaRange / (tics)) / 2 >= ticlimit) {
     tics*=2.0;
   }
-  Timber.d("ChartBuilder ticksCalcY: pixelDistance: %d, ticks: %d",pixelDistance,tics);
+  Timber.d("ChartBuilder ticksCalcY: pixelDistance: %d, ticks: %,.2f",pixelDistance,tics);
   return tics;
 }

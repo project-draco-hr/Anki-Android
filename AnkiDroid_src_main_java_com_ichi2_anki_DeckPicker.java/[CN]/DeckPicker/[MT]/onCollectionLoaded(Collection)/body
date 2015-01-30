@@ -7,10 +7,6 @@
     long did=col.getDecks().selected();
     selectDeck(did);
   }
-  if (!mFragmented) {
-    mShowShowcaseView=true;
-  }
-  AnkiDroidApp.getCompat().invalidateOptionsMenu(this);
   if (mRecommendFullSync) {
     mRecommendFullSync=false;
     try {
