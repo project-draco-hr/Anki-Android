@@ -1,3 +1,5 @@
 {
-  CustomExceptionHandler.getInstance().uncaughtException(null,e,origin,additionalInfo);
+  ACRA.getErrorReporter().putCustomData("origin",origin);
+  ACRA.getErrorReporter().putCustomData("additionalInfo",additionalInfo);
+  ACRA.getErrorReporter().handleException(e);
 }
