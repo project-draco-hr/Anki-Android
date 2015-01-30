@@ -1,0 +1,10 @@
+{
+  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(this);
+  String locale=preferences.getString(Preferences.LANGUAGE,"");
+  if (locale.equals("ja")) {
+    return getResources().getString(R.string.link_help_ja);
+  }
+ else {
+    return getResources().getString(R.string.link_help);
+  }
+}
