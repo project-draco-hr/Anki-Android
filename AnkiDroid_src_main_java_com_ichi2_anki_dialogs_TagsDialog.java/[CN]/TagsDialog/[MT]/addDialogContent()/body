@@ -43,9 +43,8 @@
           addFilterTagET.setText("");
           return;
         }
-        if (!mAllTags.contains(tag)) {
-          mAllTags.add(tag);
-        }
+        mCurrentTags.clear();
+        mCurrentTags.addAll(mStyledDialog.getCheckedItems());
         mCurrentTags.add(tag);
         addFilterTagET.setText("");
         actualizeCurrTagDialog();
