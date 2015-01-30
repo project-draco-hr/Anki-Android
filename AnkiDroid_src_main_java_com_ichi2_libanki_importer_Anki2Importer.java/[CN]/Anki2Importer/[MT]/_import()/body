@@ -1,0 +1,18 @@
+{
+  mDecks=new HashMap<Long,Long>();
+  if (mDeckPrefix != null) {
+    long id=mDst.getDecks().id(mDeckPrefix);
+    mDst.getDecks().select(id);
+  }
+  Timber.i("Import - preparing");
+  _prepareTS();
+  _prepareModels();
+  Timber.i("Import - importing notes");
+  _importNotes();
+  Timber.i("Import - importing cards");
+  int cnt=_importCards();
+  Timber.i("Import - finishing");
+  publishProgress(true,100,100,false);
+  _postImport();
+  return cnt;
+}

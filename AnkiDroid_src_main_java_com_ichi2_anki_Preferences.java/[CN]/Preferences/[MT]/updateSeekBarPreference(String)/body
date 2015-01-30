@@ -1,0 +1,21 @@
+{
+  SeekBarPreference seekpref=(SeekBarPreference)getPreferenceScreen().findPreference(key);
+  try {
+    if (mListsToUpdate.containsKey(key)) {
+      seekpref.setSummary(replaceString(mListsToUpdate.get(key),Integer.toString(seekpref.getValue())));
+    }
+ else {
+      String oldsum=(String)seekpref.getSummary();
+      if (oldsum.contains("XXX")) {
+        mListsToUpdate.put(key,oldsum);
+        seekpref.setSummary(replaceString(oldsum,Integer.toString(seekpref.getValue())));
+      }
+ else {
+        seekpref.setSummary(Integer.toString(seekpref.getValue()));
+      }
+    }
+  }
+ catch (  NullPointerException e) {
+    Timber.e(e,"Exception when updating seekbar preference");
+  }
+}

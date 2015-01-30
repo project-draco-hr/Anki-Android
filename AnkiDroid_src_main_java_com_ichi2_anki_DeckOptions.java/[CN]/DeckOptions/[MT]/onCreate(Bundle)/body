@@ -1,0 +1,35 @@
+{
+  if (AnkiDroidApp.SDK_VERSION <= 10) {
+    Themes.applyTheme(this,Themes.THEME_ANDROID_DARK);
+  }
+  super.onCreate(icicle);
+  mCol=AnkiDroidApp.getCol();
+  if (mCol == null) {
+    finish();
+    return;
+  }
+  mDeck=mCol.getDecks().current();
+  registerExternalStorageListener();
+  if (mCol == null) {
+    Timber.w("DeckOptions - No Collection loaded");
+    finish();
+    return;
+  }
+ else {
+    mPref=new DeckPreferenceHack();
+    mPref.registerOnSharedPreferenceChangeListener(this);
+    this.addPreferencesFromResource(R.xml.deck_options);
+    this.buildLists();
+    this.updateSummaries();
+    String title=getResources().getString(R.string.deckpreferences_title);
+    if (title.contains("XXX")) {
+      try {
+        title=title.replace("XXX",mDeck.getString("name"));
+      }
+ catch (      JSONException e) {
+        title=title.replace("XXX","???");
+      }
+    }
+    this.setTitle(title);
+  }
+}

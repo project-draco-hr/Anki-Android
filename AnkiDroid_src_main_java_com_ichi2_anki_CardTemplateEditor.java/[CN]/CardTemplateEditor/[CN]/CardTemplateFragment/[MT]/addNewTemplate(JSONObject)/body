@@ -1,0 +1,23 @@
+{
+  CardTemplateEditor activity=((CardTemplateEditor)getActivity());
+  activity.getCol().modSchemaNoCheck();
+  Models mm=activity.getCol().getModels();
+  JSONObject newTemplate;
+  try {
+    int oldPosition=getArguments().getInt("position");
+    JSONArray templates=model.getJSONArray("tmpls");
+    JSONObject oldTemplate=templates.getJSONObject(oldPosition);
+    newTemplate=mm.newTemplate(newCardName(templates));
+    newTemplate.put("qfmt",oldTemplate.get("qfmt"));
+    newTemplate.put("afmt",oldTemplate.get("afmt"));
+    if (templates.length() == 1) {
+      flipQA(newTemplate);
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  Object[] args=new Object[]{activity.getCol(),model,newTemplate};
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ADD_TEMPLATE,activity.mUpdateTemplateHandler,new DeckTask.TaskData(args));
+  activity.dismissAllDialogFragments();
+}

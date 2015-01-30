@@ -1,0 +1,8 @@
+{
+  if (isCurrentLanguage("ja")) {
+    return getResources().getString(R.string.link_help_ja);
+  }
+ else {
+    return getResources().getString(R.string.link_help);
+  }
+}

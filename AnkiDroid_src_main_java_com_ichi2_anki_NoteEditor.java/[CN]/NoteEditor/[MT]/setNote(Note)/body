@@ -1,0 +1,33 @@
+{
+  try {
+    if (note == null) {
+      JSONObject conf=getCol().getConf();
+      JSONObject model=getCol().getModels().current();
+      if (conf.optBoolean("addToCur",true)) {
+        mCurrentDid=conf.getLong("curDeck");
+        if (getCol().getDecks().isDyn(mCurrentDid)) {
+          mCurrentDid=1;
+        }
+      }
+ else {
+        mCurrentDid=model.getLong("did");
+      }
+      mEditorNote=new Note(getCol(),model);
+      mEditorNote.model().put("did",mCurrentDid);
+    }
+ else {
+      mEditorNote=note;
+      mCurrentDid=mCurrentEditedCard.getDid();
+    }
+    if (mSelectedTags == null) {
+      mSelectedTags=mEditorNote.getTags();
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  updateDeckPosition();
+  updateTags();
+  updateCards(mEditorNote.model());
+  populateEditFields();
+}

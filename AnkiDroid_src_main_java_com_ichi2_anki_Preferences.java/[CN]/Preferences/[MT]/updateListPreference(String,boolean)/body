@@ -1,0 +1,34 @@
+{
+  ListPreference listpref=(ListPreference)getPreferenceScreen().findPreference(key);
+  String entry;
+  try {
+    entry=listpref.getEntry().toString();
+  }
+ catch (  NullPointerException e) {
+    Timber.e("Error getting set preference value of " + key + ": "+ e);
+    entry="?";
+  }
+  if (mListsToUpdate.containsKey(key)) {
+    if (numericCheck) {
+      listpref.setSummary(replaceStringIfNumeric(mListsToUpdate.get(key),entry));
+    }
+ else {
+      listpref.setSummary(replaceString(mListsToUpdate.get(key),entry));
+    }
+  }
+ else {
+    String oldsum=(String)listpref.getSummary();
+    if (oldsum.contains("XXX")) {
+      mListsToUpdate.put(key,oldsum);
+      if (numericCheck) {
+        listpref.setSummary(replaceStringIfNumeric(oldsum,entry));
+      }
+ else {
+        listpref.setSummary(replaceString(oldsum,entry));
+      }
+    }
+ else {
+      listpref.setSummary(entry);
+    }
+  }
+}

@@ -1,10 +1,11 @@
-languages = ['ar', 'bg', 'ca', 'cs', 'de', 'el', 'es-AR', 'es-ES', 'et', 'fa', 'fi', 'fr', 'gl', 'he', 'hi', 'hu', 'id', 'it', 'ja', 'ko', 'lt', 'lv', 'nl', 'no', 'pl', 'pt-PT', 'pt-BR', 'ro', 'ru', 'sk', 'sl', 'sr', 'sv-SE', 'th', 'tr', 'uk', 'vi', 'zh-CN', 'zh-TW']
+languages = ['ar', 'bg', 'ca', 'cs', 'de', 'el', 'es-AR', 'es-ES', 'et', 'fa', 'fi', 'fr', 'gl', 'he', 'hi', 'hu', 'id', 'it', 'ja', 'ko', 'lt', 'lv', 'nl', 'no', 'pl', 'pt-PT', 'pt-BR', 'ro', 'ru', 'sk', 'sl', 'sr', 'sv-SE', 'th', 'tr', 'uk', 'vi', 'zh-CN', 'zh-TW', 'got']
 localizedRegions = ['es', 'pt', 'zh']
-fileNames = ['01-core', '02-strings', '03-dialogs', '04-network', '05-feedback', '06-statistics', '07-cardbrowser', '08-widget', '09-backup', '10-preferences', '11-arrays', '13-newfeatures', '14-marketdescription', '15-markettitle']
+fileNames = ['01-core', '02-strings', '03-dialogs', '04-network', '05-feedback', '06-statistics', '07-cardbrowser', '08-widget', '09-backup', '10-preferences', '11-arrays', '13-newfeatures', '14-marketdescription', '15-markettitle', '16-multimedia-editor']
 anyError = False
 titleFile = 'docs/marketing/localized_description/ankidroid-titles.txt'
 titleString = 'AnkiDroid Flashcards'
 import os
+import shutil
 import zipfile
 import urllib
 import string
@@ -14,9 +15,7 @@ import subprocess
 build()
 zipname = 'ankidroid.zip'
 print 'Downloading Crowdin file'
-req = urllib.urlopen('http://crowdin.net/download/project/ankidroid.zip')
-file(zipname, 'w').write(req.read())
-req.close()
+urllib.urlretrieve('http://crowdin.net/download/project/ankidroid.zip', zipname)
 zip = zipfile.ZipFile(zipname, 'r')
 t = open(titleFile, 'w')
 t.write(titleString)
@@ -27,7 +26,7 @@ for language in languages:
     else:
         androidLanguage = language[:2]
     print ('\nCopying language files for: ' + androidLanguage)
-    valuesDirectory = (('res/values-' + androidLanguage) + '/')
+    valuesDirectory = (('AnkiDroid/src/main/res/values-' + androidLanguage) + '/')
     createIfNotExisting(valuesDirectory)
     for f in fileNames:
         fileExt = fileExtFor(f)
@@ -36,9 +35,10 @@ for language in languages:
         print 'At least one file of the last handled language contains an error.'
         anyError = False
 print '\nRemoving Crowdin file\n'
+zip.close()
 os.remove(zipname)
 print 'Committing updates. Please add any fixes as another commit.'
-subprocess.call('git add docs/marketing/localized_description res/values*', shell=True)
+subprocess.call('git add docs/marketing/localized_description AnkiDroid/src/main/res/values*', shell=True)
 subprocess.call("git commit -m 'Updated strings from Crowdin'", shell=True)
 print 'Checking with Lint.'
 subprocess.call('lint . --config lint.xml --nowarn --exitcode', shell=True)

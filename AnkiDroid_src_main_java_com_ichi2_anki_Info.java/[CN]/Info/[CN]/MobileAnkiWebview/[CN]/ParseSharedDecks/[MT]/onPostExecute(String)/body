@@ -1,0 +1,8 @@
+{
+  super.onPostExecute(html);
+  Timber.d("Info.ParseSharedDecks.onPostExecute()");
+  if (mWebView != null && mUrl != null & html != null) {
+    mWebView.loadDataWithBaseURL(mUrl,html,null,"utf-8",mUrl);
+    mLoadingLayer.setVisibility(View.INVISIBLE);
+  }
+}

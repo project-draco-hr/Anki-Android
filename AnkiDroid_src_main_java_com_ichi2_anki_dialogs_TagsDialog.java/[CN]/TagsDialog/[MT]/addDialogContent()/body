@@ -1,0 +1,72 @@
+{
+  mTitle=getResources().getString(R.string.card_details_tags);
+  final EditText addFilterTagET=new EditText(getActivity());
+  addFilterTagET.setHint(R.string.add_new_filter_tags);
+  addFilterTagET.addTextChangedListener(new TextWatcher(){
+    @Override public void onTextChanged(    CharSequence s,    int start,    int before,    int count){
+      mStyledDialog.filterList(s.toString());
+    }
+    @Override public void beforeTextChanged(    CharSequence s,    int start,    int count,    int after){
+    }
+    @Override public void afterTextChanged(    Editable s){
+    }
+  }
+);
+  InputFilter filter=new InputFilter(){
+    @Override public CharSequence filter(    CharSequence source,    int start,    int end,    Spanned dest,    int dstart,    int dend){
+      for (int i=start; i < end; i++) {
+        if (source.charAt(i) == ' ' || source.charAt(i) == ',') {
+          return "";
+        }
+      }
+      return null;
+    }
+  }
+;
+  addFilterTagET.setFilters(new InputFilter[]{filter});
+  addFilterTagET.setOnFocusChangeListener(new OnFocusChangeListener(){
+    @Override public void onFocusChange(    View v,    boolean hasFocus){
+      SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(getActivity());
+      if (mAddTagIV.isShown() && hasFocus && !prefs.getBoolean("knowsHowToAddTag",false)) {
+        Toast.makeText(getActivity(),R.string.tag_editor_add_hint,Toast.LENGTH_SHORT).show();
+      }
+    }
+  }
+);
+  mAddTagIV=new ImageView(getActivity());
+  mAddTagIV.setImageResource(R.drawable.ic_addtag);
+  mAddTagIV.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      String tag=addFilterTagET.getText().toString();
+      if (!TextUtils.isEmpty(tag)) {
+        if (mCurrentTags.contains(tag)) {
+          addFilterTagET.setText("");
+          return;
+        }
+        mCurrentTags.clear();
+        mCurrentTags.addAll(mStyledDialog.getCheckedItems());
+        mCurrentTags.add(tag);
+        addFilterTagET.setText("");
+        actualizeCurrTagDialog();
+        Resources res=getResources();
+        Toast.makeText(getActivity(),res.getString(R.string.tag_editor_add_feedback,tag,res.getString(R.string.select)),Toast.LENGTH_LONG).show();
+        SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(getActivity());
+        prefs.edit().putBoolean("knowsHowToAddTag",true).commit();
+      }
+    }
+  }
+);
+  FrameLayout frame=new FrameLayout(getActivity());
+  FrameLayout.LayoutParams params=new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT,Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+  params.rightMargin=10;
+  mAddTagIV.setLayoutParams(params);
+  frame.addView(addFilterTagET);
+  frame.addView(mAddTagIV);
+  mOnDismissListener=new DialogInterface.OnDismissListener(){
+    @Override public void onDismiss(    DialogInterface dialog){
+      addFilterTagET.setText("");
+    }
+  }
+;
+  return frame;
+}

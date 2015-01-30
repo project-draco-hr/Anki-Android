@@ -1,0 +1,31 @@
+{
+  mCardFrame.setVisibility(View.VISIBLE);
+  if (mShowRemainingCardCount) {
+    mTextBarNew.setVisibility(View.VISIBLE);
+    mTextBarLearn.setVisibility(View.VISIBLE);
+    mTextBarReview.setVisibility(View.VISIBLE);
+  }
+  mChosenAnswer.setVisibility(View.VISIBLE);
+  mFlipCardLayout.setVisibility(View.VISIBLE);
+  mAnswerField.setVisibility(typeAnswer() ? View.VISIBLE : View.GONE);
+  mAnswerField.setOnEditorActionListener(new EditText.OnEditorActionListener(){
+    @Override public boolean onEditorAction(    TextView v,    int actionId,    KeyEvent event){
+      if (actionId == EditorInfo.IME_ACTION_DONE) {
+        displayCardAnswer();
+        return true;
+      }
+      return false;
+    }
+  }
+);
+  mAnswerField.setOnKeyListener(new View.OnKeyListener(){
+    @Override public boolean onKey(    View v,    int keyCode,    KeyEvent event){
+      if (event.getAction() == KeyEvent.ACTION_UP && (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER)) {
+        displayCardAnswer();
+        return true;
+      }
+      return false;
+    }
+  }
+);
+}

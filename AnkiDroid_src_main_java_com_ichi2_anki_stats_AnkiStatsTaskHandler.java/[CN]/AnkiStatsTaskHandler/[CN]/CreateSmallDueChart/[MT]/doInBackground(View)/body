@@ -1,0 +1,16 @@
+{
+  sLock.lock();
+  try {
+    if (!mIsRunning) {
+      Timber.d("quiting CreateSmallDueChart before execution");
+      return null;
+    }
+ else     Timber.d("starting CreateSmallDueChart");
+    mImageView=(ChartView)params[0];
+    ChartBuilder chartBuilder=new ChartBuilder(mImageView,AnkiDroidApp.getCol(),sIsWholeCollection,Stats.ChartType.OTHER);
+    return chartBuilder.createSmallDueChart(mSeriesList);
+  }
+  finally {
+    sLock.unlock();
+  }
+}

@@ -1,0 +1,5 @@
+{
+  Intent videoPlayer=new Intent(this,VideoPlayer.class);
+  videoPlayer.putExtra("path",path);
+  startActivityWithoutAnimation(videoPlayer);
+}

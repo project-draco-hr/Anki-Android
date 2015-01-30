@@ -1,0 +1,26 @@
+{
+  String result="";
+  if (data != null) {
+    MessageDigest md=null;
+    byte[] digest=null;
+    try {
+      md=MessageDigest.getInstance("SHA1");
+      digest=md.digest(data.getBytes("UTF-8"));
+    }
+ catch (    NoSuchAlgorithmException e) {
+      Timber.e(e,"Utils.checksum: No such algorithm.");
+      throw new RuntimeException(e);
+    }
+catch (    UnsupportedEncodingException e) {
+      Timber.e(e,"Utils.checksum :: UnsupportedEncodingException");
+      e.printStackTrace();
+    }
+    BigInteger biginteger=new BigInteger(1,digest);
+    result=biginteger.toString(16);
+    if (result.length() < 40) {
+      String zeroes="0000000000000000000000000000000000000000";
+      result=zeroes.substring(0,zeroes.length() - result.length()) + result;
+    }
+  }
+  return result;
+}

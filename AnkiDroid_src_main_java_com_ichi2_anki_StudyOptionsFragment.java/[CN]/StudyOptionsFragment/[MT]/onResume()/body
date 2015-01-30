@@ -1,0 +1,15 @@
+{
+  super.onResume();
+  if (colOpen() && !mFragmented) {
+    Timber.d("onResume() -- refreshing interface");
+    if (Utils.now() > getCol().getSched().getDayCutoff()) {
+      resetAndRefreshInterface(false);
+    }
+ else {
+      refreshInterface();
+    }
+  }
+ else {
+    Timber.d("onResume() -- skipping refresh of interface");
+  }
+}

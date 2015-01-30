@@ -1,0 +1,12 @@
+{
+  try {
+    mMetaDb=context.openOrCreateDatabase(DATABASE_NAME,0,null);
+    if (mMetaDb.needUpgrade(DATABASE_VERSION)) {
+      mMetaDb=upgradeDB(mMetaDb,DATABASE_VERSION);
+    }
+    Timber.v("Opening MetaDB");
+  }
+ catch (  Exception e) {
+    Timber.e(e,"Error opening MetaDB ");
+  }
+}

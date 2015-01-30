@@ -1,0 +1,8 @@
+{
+  if (hasUnsavedChanges()) {
+    showDiscardChangesDialog();
+  }
+ else {
+    closeNoteEditor();
+  }
+}

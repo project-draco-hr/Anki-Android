@@ -1,9 +1,0 @@
-{
-  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
-  Editor editor=preferences.edit();
-  editor.putString("username","");
-  editor.putString("hkey","");
-  editor.commit();
-  AnkiDroidApp.getCol().getMedia().forceResync();
-  setContentView(mLoginToMyAccountView);
-}

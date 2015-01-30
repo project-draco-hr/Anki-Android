@@ -1,0 +1,32 @@
+{
+  Sched sched=params[0].getSched();
+  Collection col=sched.getCol();
+  try {
+    col.getDb().getDatabase().beginTransaction();
+    Card newCard;
+    try {
+      long cid=col.undo();
+      if (cid != 0) {
+        newCard=col.getCard(cid);
+        col.reset();
+        col.getSched().decrementCounts(newCard);
+        sHadCardQueue=true;
+      }
+ else {
+        col.reset();
+        newCard=getCard(sched);
+      }
+      publishProgress(new TaskData(newCard,0));
+      col.getDb().getDatabase().setTransactionSuccessful();
+    }
+  finally {
+      col.getDb().getDatabase().endTransaction();
+    }
+  }
+ catch (  RuntimeException e) {
+    Timber.e(e,"doInBackgroundUndo - RuntimeException on undoing");
+    AnkiDroidApp.sendExceptionReport(e,"doInBackgroundUndo");
+    return new TaskData(false);
+  }
+  return new TaskData(true);
+}

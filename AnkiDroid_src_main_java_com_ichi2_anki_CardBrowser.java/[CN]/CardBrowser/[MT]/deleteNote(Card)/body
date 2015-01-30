@@ -1,0 +1,15 @@
+{
+  ArrayList<Card> cards=card.note().cards();
+  int pos;
+  for (  Card c : cards) {
+    pos=getPosition(getCards(),c.getId());
+    if (pos >= 0 && pos < getCards().size()) {
+      getCards().remove(pos);
+    }
+  }
+  pos=getPosition(getCards(),card.getId());
+  if (pos >= 0 && pos < getCards().size()) {
+    getCards().remove(pos);
+  }
+  updateList();
+}

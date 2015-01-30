@@ -1,0 +1,7 @@
+{
+  if (mMetaDb != null && mMetaDb.isOpen()) {
+    mMetaDb.close();
+    mMetaDb=null;
+    Timber.d("Closing MetaDB");
+  }
+}

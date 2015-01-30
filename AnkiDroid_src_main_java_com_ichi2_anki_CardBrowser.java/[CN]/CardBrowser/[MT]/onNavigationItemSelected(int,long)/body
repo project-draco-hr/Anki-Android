@@ -1,0 +1,19 @@
+{
+  DeckTask.cancelTask(DeckTask.TASK_TYPE_RENDER_BROWSER_QA);
+  if (position == 0) {
+    mRestrictOnDeck="";
+  }
+ else {
+    JSONObject deck=mDropDownDecks.get(position - 1);
+    String deckName;
+    try {
+      deckName=deck.getString("name");
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException();
+    }
+    mRestrictOnDeck="deck:\"" + deckName + "\" ";
+  }
+  searchCards();
+  return true;
+}

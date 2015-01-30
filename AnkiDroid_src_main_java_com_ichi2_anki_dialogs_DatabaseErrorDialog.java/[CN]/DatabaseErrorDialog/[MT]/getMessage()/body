@@ -1,0 +1,30 @@
+{
+switch (getArguments().getInt("dialogType")) {
+case DIALOG_LOAD_FAILED:
+    if (AnkiDroidApp.SDK_VERSION < Build.VERSION_CODES.HONEYCOMB) {
+      return res().getString(R.string.open_collection_failed_message,res().getString(R.string.repair_deck));
+    }
+ else     if (AnkiDroidApp.getDbCorruptedFlag()) {
+      return res().getString(R.string.corrupt_db_message,res().getString(R.string.repair_deck));
+    }
+ else {
+      return res().getString(R.string.access_collection_failed_message,res().getString(R.string.link_help));
+    }
+case DIALOG_DB_ERROR:
+  return res().getString(R.string.answering_error_message);
+case DIALOG_REPAIR_COLLECTION:
+return res().getString(R.string.repair_deck_dialog,BackupManager.BROKEN_DECKS_SUFFIX);
+case DIALOG_RESTORE_BACKUP:
+return res().getString(R.string.backup_restore_no_backups);
+case DIALOG_NEW_COLLECTION:
+return res().getString(R.string.backup_del_collection_question);
+case DIALOG_CONFIRM_DATABASE_CHECK:
+return res().getString(R.string.check_db_warning);
+case DIALOG_CONFIRM_RESTORE_BACKUP:
+return res().getString(R.string.restore_backup);
+case DIALOG_FULL_SYNC_FROM_SERVER:
+return res().getString(R.string.backup_full_sync_from_server_question);
+default :
+return getArguments().getString("dialogMessage");
+}
+}

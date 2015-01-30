@@ -1,0 +1,10 @@
+{
+  super.onPause();
+  Timber.d("onPause()");
+  mTimeoutHandler.removeCallbacks(mShowAnswerTask);
+  mTimeoutHandler.removeCallbacks(mShowQuestionTask);
+  longClickHandler.removeCallbacks(longClickTestRunnable);
+  longClickHandler.removeCallbacks(startLongClickAction);
+  stopTimer();
+  Sound.stopSounds();
+}

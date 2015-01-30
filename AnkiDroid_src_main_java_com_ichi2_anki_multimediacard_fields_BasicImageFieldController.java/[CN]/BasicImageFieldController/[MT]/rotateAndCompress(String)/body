@@ -1,0 +1,27 @@
+{
+  File f=new File(inPath);
+  String outPath=inPath.substring(0,inPath.lastIndexOf(".")) + ".png";
+  Bitmap b=BitmapUtil.decodeFile(f,IMAGE_SAVE_MAX_WIDTH);
+  FileOutputStream out=null;
+  try {
+    out=new FileOutputStream(outPath);
+    b=ExifUtil.rotateFromCamera(f,b);
+    b.compress(Bitmap.CompressFormat.PNG,90,out);
+    f.delete();
+    return outPath;
+  }
+ catch (  FileNotFoundException e) {
+    Timber.e("Error in BasicImageFieldController.rotateAndCompress() : " + e.getMessage());
+    return inPath;
+  }
+ finally {
+    try {
+      if (out != null) {
+        out.close();
+      }
+    }
+ catch (    IOException e) {
+      e.printStackTrace();
+    }
+  }
+}

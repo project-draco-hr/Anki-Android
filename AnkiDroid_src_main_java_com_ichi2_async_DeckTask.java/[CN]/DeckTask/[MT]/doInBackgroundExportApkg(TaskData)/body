@@ -1,0 +1,29 @@
+{
+  Timber.d("doInBackgroundExportApkg");
+  Object[] data=params[0].getObjArray();
+  Collection col=(Collection)data[0];
+  String apkgPath=(String)data[1];
+  Long did=(Long)data[2];
+  boolean includeSched=(Boolean)data[3];
+  boolean includeMedia=(Boolean)data[4];
+  try {
+    AnkiPackageExporter exporter=new AnkiPackageExporter(col);
+    exporter.setIncludeSched(includeSched);
+    exporter.setIncludeMedia(includeMedia);
+    exporter.setDid(did);
+    exporter.exportInto(apkgPath);
+  }
+ catch (  FileNotFoundException e) {
+    Timber.e(e,"FileNotFoundException in doInBackgroundExportApkg");
+    return new TaskData(false);
+  }
+catch (  IOException e) {
+    Timber.e(e,"IOException in doInBackgroundExportApkg");
+    return new TaskData(false);
+  }
+catch (  JSONException e) {
+    Timber.e(e,"JSOnException in doInBackgroundExportApkg");
+    return new TaskData(false);
+  }
+  return new TaskData(apkgPath);
+}

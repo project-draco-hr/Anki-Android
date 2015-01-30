@@ -1,0 +1,26 @@
+{
+  Timber.d("Creating new file... = %s",destination);
+  new File(destination).createNewFile();
+  long startTimeMillis=System.currentTimeMillis();
+  OutputStream output=new BufferedOutputStream(new FileOutputStream(destination));
+  byte[] buf=new byte[CHUNK_SIZE];
+  long sizeBytes=0;
+  int len;
+  if (source == null) {
+    Timber.e("writeToFile :: source is null!");
+  }
+  while ((len=source.read(buf)) >= 0) {
+    output.write(buf,0,len);
+    sizeBytes+=len;
+  }
+  long endTimeMillis=System.currentTimeMillis();
+  Timber.d("Finished writeToFile!");
+  long durationSeconds=(endTimeMillis - startTimeMillis) / 1000;
+  long sizeKb=sizeBytes / 1024;
+  long speedKbSec=0;
+  if (endTimeMillis != startTimeMillis) {
+    speedKbSec=sizeKb * 1000 / (endTimeMillis - startTimeMillis);
+  }
+  Timber.d("Utils.writeToFile: Size: %d Kb, Duration: %d s, Speed: %d Kb/s",sizeKb,durationSeconds,speedKbSec);
+  output.close();
+}

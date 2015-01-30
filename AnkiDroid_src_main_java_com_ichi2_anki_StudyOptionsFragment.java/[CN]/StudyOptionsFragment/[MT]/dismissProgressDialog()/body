@@ -1,0 +1,10 @@
+{
+  if (mProgressDialog != null && mProgressDialog.isShowing()) {
+    try {
+      mProgressDialog.dismiss();
+    }
+ catch (    Exception e) {
+      Timber.e("onPostExecute - Dialog dismiss Exception = " + e.getMessage());
+    }
+  }
+}

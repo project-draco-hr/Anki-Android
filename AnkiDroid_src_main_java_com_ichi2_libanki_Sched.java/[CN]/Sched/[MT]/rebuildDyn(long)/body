@@ -1,0 +1,22 @@
+{
+  if (did == 0) {
+    did=mCol.getDecks().selected();
+  }
+  JSONObject deck=mCol.getDecks().get(did);
+  try {
+    if (deck.getInt("dyn") == 0) {
+      Timber.e("error: deck is not a filtered deck");
+      return null;
+    }
+  }
+ catch (  JSONException e1) {
+    throw new RuntimeException(e1);
+  }
+  emptyDyn(did);
+  List<Long> ids=_fillDyn(deck);
+  if (ids.isEmpty()) {
+    return null;
+  }
+  mCol.getDecks().select(did);
+  return ids;
+}

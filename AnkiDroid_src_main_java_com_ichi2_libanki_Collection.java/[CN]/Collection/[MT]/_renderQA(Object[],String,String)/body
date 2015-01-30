@@ -1,0 +1,76 @@
+{
+  String[] flist=Utils.splitFields((String)data[6]);
+  Map<String,String> fields=new HashMap<String,String>();
+  long modelId=(Long)data[2];
+  int cardNum=((Integer)data[4]) + 1;
+  JSONObject model=mModels.get(modelId);
+  Map<String,Pair<Integer,JSONObject>> fmap=mModels.fieldMap(model);
+  for (  String fname : fmap.keySet()) {
+    fields.put(fname,flist[fmap.get(fname).first]);
+  }
+  fields.put("Tags",((String)data[5]).trim());
+  try {
+    fields.put("Type",(String)model.get("name"));
+    fields.put("Deck",mDecks.name((Long)data[3]));
+    String[] parents=fields.get("Deck").split("::");
+    fields.put("Subdeck",parents[parents.length - 1]);
+    JSONObject template;
+    if (model.getInt("type") == Consts.MODEL_STD) {
+      template=model.getJSONArray("tmpls").getJSONObject((Integer)data[4]);
+    }
+ else {
+      template=model.getJSONArray("tmpls").getJSONObject(0);
+    }
+    fields.put("Card",template.getString("name"));
+    fields.put("c" + cardNum,"1");
+    HashMap<String,String> d=new HashMap<String,String>();
+    try {
+      d.put("id",Long.toString((Long)data[0]));
+      if (qfmt == null || qfmt.equals("")) {
+        qfmt=template.getString("qfmt");
+      }
+      if (afmt == null || afmt.equals("")) {
+        afmt=template.getString("afmt");
+      }
+      String html;
+      String format;
+      Models.fieldParser fparser=new Models.fieldParser(fields);
+      Matcher m=fClozePattern.matcher(qfmt);
+      format=m.replaceAll(String.format(Locale.US,"{{cq:%d:",cardNum));
+      m=fAltClozePattern.matcher(format);
+      format=m.replaceAll(String.format(Locale.US,"<%%cq:%d:",cardNum));
+      html=mModels.getCmpldTemplate(format).execute(fparser);
+      html=(String)AnkiDroidApp.getHooks().runFilter("mungeQA",html,"q",fields,model,data,this);
+      d.put("q",html);
+      if (model.getInt("type") == Consts.MODEL_CLOZE) {
+        if (getModels()._availClozeOrds(model,(String)data[6],false).size() == 0) {
+          d.put("q","Please edit this note and add some cloze deletions.");
+        }
+      }
+      fields.put("FrontSide",d.get("q"));
+      fparser=new Models.fieldParser(fields);
+      m=fClozePattern.matcher(afmt);
+      format=m.replaceAll(String.format(Locale.US,"{{ca:%d:",cardNum));
+      m=fAltClozePattern.matcher(format);
+      format=m.replaceAll(String.format(Locale.US,"<%%ca:%d:",cardNum));
+      html=mModels.getCmpldTemplate(format).execute(fparser);
+      html=(String)AnkiDroidApp.getHooks().runFilter("mungeQA",html,"a",fields,model,data,this);
+      d.put("a",html);
+      if (model.getInt("type") == Consts.MODEL_CLOZE) {
+        if (getModels()._availClozeOrds(model,(String)data[6],false).size() == 0) {
+          d.put("q",AnkiDroidApp.getAppResources().getString(com.ichi2.anki.R.string.empty_cloze_warning,"<a href=" + Consts.HELP_SITE + "#cloze>"+ AnkiDroidApp.getAppResources().getString(com.ichi2.anki.R.string.help_cloze)+ "</a>"));
+        }
+      }
+    }
+ catch (    MustacheException e) {
+      Resources res=AnkiDroidApp.getAppResources();
+      String templateError=String.format(TEMPLATE_ERROR,res.getString(R.string.template_error),res.getString(R.string.template_error_detail),e.getMessage(),res.getString(R.string.note_type),model.getString("name"),res.getString(R.string.card_type),template.getString("name"),res.getString(R.string.template_error_fix));
+      d.put("q",templateError);
+      d.put("a",templateError);
+    }
+    return d;
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

@@ -1,5 +1,0 @@
-{
-  super.onEnabled(context);
-  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(context);
-  preferences.edit().putBoolean("widgetMediumEnabled",true).commit();
-}

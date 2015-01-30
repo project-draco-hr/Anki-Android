@@ -1,0 +1,14 @@
+{
+  if (mMetaDb == null || !mMetaDb.isOpen()) {
+    openDB(context);
+  }
+  try {
+    Timber.i("MetaDB:: Deleting intent information " + id);
+    mMetaDb.execSQL("DELETE FROM intentInformation WHERE id = " + id + ";");
+    return true;
+  }
+ catch (  Exception e) {
+    Timber.e(e,"Error deleting intentInformation " + id + ": ");
+  }
+  return false;
+}

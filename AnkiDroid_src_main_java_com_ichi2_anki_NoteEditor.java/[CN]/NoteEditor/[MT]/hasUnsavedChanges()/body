@@ -1,0 +1,24 @@
+{
+  if (!mAddNote) {
+    final JSONObject newModel=getCurrentlySelectedModel();
+    final JSONObject oldModel=mCurrentEditedCard.model();
+    if (!newModel.equals(oldModel)) {
+      return true;
+    }
+  }
+  if (!mAddNote && mCurrentEditedCard != null && mCurrentEditedCard.getDid() != mCurrentDid) {
+    return true;
+  }
+  if (mFieldEdited) {
+    return true;
+  }
+  for (  String t : mSelectedTags) {
+    if (!mEditorNote.hasTag(t)) {
+      return true;
+    }
+  }
+  if (mEditorNote.getTags().size() > mSelectedTags.size()) {
+    return true;
+  }
+  return false;
+}

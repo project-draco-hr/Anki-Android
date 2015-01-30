@@ -1,0 +1,19 @@
+{
+  sLock.lock();
+  try {
+    if (!mIsRunning) {
+      Timber.d("quiting CreateStatisticsOverview before execution");
+      return null;
+    }
+ else     Timber.d("starting CreateStatisticsOverview");
+    mWebView=(WebView)params[0];
+    mProgressBar=(ProgressBar)params[1];
+    String html="";
+    InfoStatsBuilder infoStatsBuilder=new InfoStatsBuilder(mWebView,mCollectionData,sIsWholeCollection);
+    html=infoStatsBuilder.createInfoHtmlString();
+    return html;
+  }
+  finally {
+    sLock.unlock();
+  }
+}

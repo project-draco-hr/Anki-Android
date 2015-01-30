@@ -1,0 +1,13 @@
+{
+  mEase1Layout.setVisibility(View.GONE);
+  mEase2Layout.setVisibility(View.GONE);
+  mEase3Layout.setVisibility(View.GONE);
+  mEase4Layout.setVisibility(View.GONE);
+  mFlipCardLayout.setVisibility(View.VISIBLE);
+  if (typeAnswer()) {
+    mAnswerField.requestFocus();
+  }
+ else {
+    mFlipCardLayout.requestFocus();
+  }
+}

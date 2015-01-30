@@ -1,0 +1,11 @@
+{
+  try {
+    if ((sLatestInstance != null) && (sLatestInstance.getStatus() != AsyncTask.Status.FINISHED)) {
+      sLatestInstance.cancel(true);
+      Timber.i("Cancelled task %d",sLatestInstance.mType);
+    }
+  }
+ catch (  Exception e) {
+    return;
+  }
+}

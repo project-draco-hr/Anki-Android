@@ -1,0 +1,95 @@
+{
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.styled_open_collection_dialog);
+  Intent intent=getIntent();
+  Timber.v(intent.toString());
+  Intent reloadIntent=new Intent(this,DeckPicker.class);
+  reloadIntent.setDataAndType(getIntent().getData(),getIntent().getType());
+  String action=intent.getAction();
+  if (Intent.ACTION_VIEW.equals(action)) {
+    boolean successful=false;
+    String errorMessage=getResources().getString(R.string.import_log_no_apkg);
+    if (intent.getData().getScheme().equals("content")) {
+      String filename=null;
+      Cursor cursor=null;
+      try {
+        cursor=this.getContentResolver().query(intent.getData(),new String[]{OpenableColumns.DISPLAY_NAME},null,null,null);
+        if (cursor != null && cursor.moveToFirst()) {
+          filename=cursor.getString(0);
+        }
+      }
+  finally {
+        if (cursor != null)         cursor.close();
+      }
+      if (filename == null) {
+        Timber.e("Could not get filename from Content Provider. cursor = " + cursor);
+        if (intent.getType().equals("application/apkg")) {
+          filename="unknown_filename.apkg";
+        }
+      }
+      if (filename != null && filename.endsWith(".apkg")) {
+        Uri importUri=Uri.fromFile(new File(getCacheDir(),filename));
+        Timber.v("IntentHandler copying apkg file to %s",importUri.getEncodedPath());
+        try {
+          InputStream in=getContentResolver().openInputStream(intent.getData());
+          OutputStream out=new FileOutputStream(importUri.getEncodedPath());
+          byte[] buf=new byte[1024];
+          int len;
+          while ((len=in.read(buf)) > 0) {
+            out.write(buf,0,len);
+          }
+          in.close();
+          out.close();
+          successful=sendShowImportFileDialogMsg(importUri.getEncodedPath());
+        }
+ catch (        FileNotFoundException e) {
+          errorMessage=e.getLocalizedMessage();
+          AnkiDroidApp.sendExceptionReport(e,"IntentHandler.java","apkg import failed: " + filename);
+        }
+catch (        IOException e2) {
+          errorMessage=e2.getLocalizedMessage();
+          AnkiDroidApp.sendExceptionReport(e2,"IntentHandler.java","apkg import failed" + filename);
+        }
+      }
+ else {
+        if (filename == null) {
+          errorMessage="Could not retrieve filename from content resolver; try opening the apkg file with a file explorer";
+          AnkiDroidApp.sendExceptionReport("IntentHandler.java","apkg import failed (filename null, no MIME type provided)");
+        }
+ else {
+          errorMessage=getResources().getString(R.string.import_error_not_apkg_extension,filename);
+        }
+      }
+    }
+ else     if (intent.getData().getScheme().equals("file")) {
+      successful=sendShowImportFileDialogMsg(intent.getData().getPath());
+    }
+    if (successful) {
+      reloadIntent.setAction(action);
+      reloadIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+      startActivity(reloadIntent);
+      finishWithFade();
+    }
+ else {
+      String title=getResources().getString(R.string.import_log_no_apkg);
+      StyledDialog.Builder builder=new StyledDialog.Builder(this);
+      builder.setTitle(title);
+      builder.setMessage(errorMessage);
+      builder.setPositiveButton(getResources().getString(R.string.dialog_ok),new DialogInterface.OnClickListener(){
+        @Override public void onClick(        DialogInterface dialog,        int which){
+          finishWithFade();
+        }
+      }
+);
+      builder.create().show();
+      return;
+    }
+  }
+ else {
+    reloadIntent.setAction(Intent.ACTION_MAIN);
+    reloadIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+    reloadIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
+    startActivityIfNeeded(reloadIntent,0);
+    finishWithFade();
+  }
+}

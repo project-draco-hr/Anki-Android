@@ -1,9 +1,0 @@
-{
-  if (sLatestInstance != null && sLatestInstance.mType == TASK_TYPE_RENDER_BROWSER_QA && !sLatestInstance.isCancelled()) {
-    sLatestInstance.cancel(true);
-    waitToFinish();
-  }
-  sLatestInstance=new DeckTask(type,listener,sLatestInstance);
-  sLatestInstance.execute(params);
-  return sLatestInstance;
-}

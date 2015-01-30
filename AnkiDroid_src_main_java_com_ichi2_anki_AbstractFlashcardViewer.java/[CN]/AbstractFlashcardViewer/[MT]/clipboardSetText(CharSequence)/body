@@ -1,0 +1,11 @@
+{
+  if (mClipboard != null) {
+    try {
+      mClipboard.setText(text);
+    }
+ catch (    Exception e) {
+      Timber.e("Clipboard error. Disabling text selection setting.");
+      mDisableClipboard=true;
+    }
+  }
+}

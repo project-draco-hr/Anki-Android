@@ -1,0 +1,18 @@
+{
+  Timber.d("doInBackgroundConfRemove");
+  Object[] data=params[0].getObjArray();
+  Collection col=(Collection)data[0];
+  JSONObject conf=(JSONObject)data[1];
+  try {
+    int order=conf.getJSONObject("new").getInt("order");
+    int defaultOrder=col.getDecks().getConf(1).getJSONObject("new").getInt("order");
+    if (order != defaultOrder) {
+      conf.getJSONObject("new").put("order",defaultOrder);
+      col.getSched().resortConf(conf);
+    }
+    return new TaskData(true);
+  }
+ catch (  JSONException e) {
+    return new TaskData(false);
+  }
+}

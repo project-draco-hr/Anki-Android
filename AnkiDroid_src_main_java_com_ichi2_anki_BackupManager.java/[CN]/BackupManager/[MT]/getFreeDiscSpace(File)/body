@@ -1,0 +1,12 @@
+{
+  try {
+    StatFs stat=new StatFs(file.getParentFile().getPath());
+    long blocks=stat.getAvailableBlocks();
+    long blocksize=stat.getBlockSize();
+    return blocks * blocksize;
+  }
+ catch (  IllegalArgumentException e) {
+    Timber.e(e,"Free space could not be retrieved");
+    return MIN_FREE_SPACE * 1024 * 1024;
+  }
+}

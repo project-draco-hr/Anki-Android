@@ -1,0 +1,8 @@
+{
+  try {
+    return mCol.getDb().queryScalar("select count() from cards, notes where cards.nid = notes.id and notes.mid = " + m.getLong("id") + " and cards.ord = "+ ord);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

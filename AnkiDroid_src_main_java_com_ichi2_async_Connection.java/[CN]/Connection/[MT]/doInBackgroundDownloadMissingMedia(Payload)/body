@@ -1,0 +1,129 @@
+{
+  Timber.i("DownloadMissingMedia");
+  HashMap<String,String> missingPaths=new HashMap<String,String>();
+  HashMap<String,String> missingSums=new HashMap<String,String>();
+  data.result=(Decks)data.data[0];
+  String syncName="";
+  data.success=false;
+  data.data=new Object[]{0,0,0};
+  String urlbase="";
+  if (urlbase.equals("")) {
+    data.success=true;
+    return data;
+  }
+  String mdir="";
+  int totalMissing=0;
+  int missing=0;
+  int grabbed=0;
+  Cursor cursor=null;
+  try {
+    cursor=null;
+    String path=null;
+    String f=null;
+    while (cursor.moveToNext()) {
+      f=cursor.getString(0);
+      path=mdir + "/" + f;
+      File file=new File(path);
+      if (!file.exists()) {
+        missingPaths.put(f,path);
+        missingSums.put(f,cursor.getString(1));
+        Timber.d("Missing file: %s",f);
+      }
+    }
+  }
+  finally {
+    if (cursor != null) {
+      cursor.close();
+    }
+  }
+  totalMissing=missingPaths.size();
+  data.data[0]=totalMissing;
+  if (totalMissing == 0) {
+    data.success=true;
+    return data;
+  }
+  publishProgress(Boolean.FALSE,totalMissing,0,syncName);
+  URL url=null;
+  HttpURLConnection connection=null;
+  String path=null;
+  String sum=null;
+  int readbytes=0;
+  byte[] buf=new byte[4096];
+  for (  String file : missingPaths.keySet()) {
+    try {
+      android.net.Uri uri=android.net.Uri.parse(Uri.encode(urlbase,":/@%") + Uri.encode(file));
+      url=new URI(uri.toString()).toURL();
+      connection=(HttpURLConnection)url.openConnection();
+      connection.connect();
+      if (connection.getResponseCode() == 200) {
+        path=missingPaths.get(file);
+        InputStream is=connection.getInputStream();
+        BufferedInputStream bis=new BufferedInputStream(is,4096);
+        FileOutputStream fos=new FileOutputStream(path);
+        while ((readbytes=bis.read(buf,0,4096)) != -1) {
+          fos.write(buf,0,readbytes);
+          Timber.d("Downloaded %d file: %s",readbytes,path);
+        }
+        fos.close();
+        sum=missingSums.get(file);
+        if (true) {
+          grabbed++;
+        }
+ else {
+          Timber.i("Downloaded media file %s failed checksum.",path);
+          File f=new File(path);
+          f.delete();
+          missing++;
+        }
+      }
+ else {
+        Timber.e("Connection error (" + connection.getResponseCode() + ") while retrieving media file "+ urlbase+ file);
+        Timber.e("Connection message: " + connection.getResponseMessage());
+        if (missingSums.get(file).equals("")) {
+          missing++;
+        }
+ else {
+          data.success=false;
+          data.data=new Object[]{file};
+          return data;
+        }
+      }
+      connection.disconnect();
+    }
+ catch (    URISyntaxException e) {
+      Timber.e(e,"doInBackgroundDownloadMissingMedia URISyntaxException");
+    }
+catch (    MalformedURLException e) {
+      Timber.e(e,"MalformedURLException while download media file " + path);
+      if (missingSums.get(file).equals("")) {
+        missing++;
+      }
+ else {
+        data.success=false;
+        data.data=new Object[]{file};
+        return data;
+      }
+    }
+catch (    IOException e) {
+      Timber.e(e,"IOException while download media file " + path);
+      if (missingSums.get(file).equals("")) {
+        missing++;
+      }
+ else {
+        data.success=false;
+        data.data=new Object[]{file};
+        return data;
+      }
+    }
+ finally {
+      if (connection != null) {
+        connection.disconnect();
+      }
+    }
+    publishProgress(Boolean.TRUE,totalMissing,grabbed + missing,syncName);
+  }
+  data.data[1]=grabbed;
+  data.data[2]=missing;
+  data.success=true;
+  return data;
+}

@@ -1,0 +1,23 @@
+{
+  SharedPreferences.Editor editor=ACRA.getACRASharedPreferences().edit();
+  if (value.equals(FEEDBACK_REPORT_NEVER)) {
+    editor.putBoolean("acra.disable",true);
+  }
+ else {
+    editor.putBoolean("acra.disable",false);
+    try {
+      if (value.equals(FEEDBACK_REPORT_ALWAYS)) {
+        ACRA.getConfig().setMode(ReportingInteractionMode.TOAST);
+        ACRA.getConfig().setResToastText(R.string.feedback_auto_toast_text);
+      }
+ else       if (value.equals(FEEDBACK_REPORT_ASK)) {
+        ACRA.getConfig().setMode(ReportingInteractionMode.DIALOG);
+        ACRA.getConfig().setResToastText(R.string.feedback_manual_toast_text);
+      }
+    }
+ catch (    ACRAConfigurationException e) {
+      Timber.e("Could not set ACRA report mode");
+    }
+  }
+  editor.commit();
+}

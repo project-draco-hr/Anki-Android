@@ -1,0 +1,7 @@
+{
+  Timber.d("onDestroy()");
+  super.onDestroy();
+  if (mUnmountReceiver != null) {
+    unregisterReceiver(mUnmountReceiver);
+  }
+}

@@ -1,0 +1,7 @@
+{
+  super.onDestroy();
+  if (mFullNewCountThread != null) {
+    mFullNewCountThread.interrupt();
+  }
+  Timber.d("onDestroy()");
+}

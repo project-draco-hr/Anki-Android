@@ -1,0 +1,15 @@
+{
+  mCol=col;
+  if (server) {
+    mDir=null;
+    return;
+  }
+  mDir=col.getPath().replaceFirst("\\.anki2$",".media");
+  File fd=new File(mDir);
+  if (!fd.exists()) {
+    if (!fd.mkdir()) {
+      Timber.e("Cannot create media directory: " + mDir);
+    }
+  }
+  connect();
+}

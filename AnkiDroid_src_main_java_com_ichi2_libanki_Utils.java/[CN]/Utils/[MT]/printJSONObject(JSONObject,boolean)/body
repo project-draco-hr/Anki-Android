@@ -1,0 +1,17 @@
+{
+  BufferedWriter buff;
+  try {
+    buff=writeToFile ? new BufferedWriter(new FileWriter("/sdcard/payloadAndroid.txt"),8192) : null;
+    try {
+      printJSONObject(jsonObject,"-",buff);
+    }
+  finally {
+      if (buff != null) {
+        buff.close();
+      }
+    }
+  }
+ catch (  IOException ioe) {
+    Timber.e(ioe,"printJSONObject.IOException");
+  }
+}

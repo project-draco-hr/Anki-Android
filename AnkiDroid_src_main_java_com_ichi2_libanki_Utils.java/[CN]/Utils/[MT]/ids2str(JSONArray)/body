@@ -1,0 +1,22 @@
+{
+  StringBuilder str=new StringBuilder(512);
+  str.append("(");
+  if (ids != null) {
+    int len=ids.length();
+    for (int i=0; i < len; i++) {
+      try {
+        if (i == (len - 1)) {
+          str.append(ids.get(i));
+        }
+ else {
+          str.append(ids.get(i)).append(",");
+        }
+      }
+ catch (      JSONException e) {
+        Timber.e(e,"ids2str :: JSONException");
+      }
+    }
+  }
+  str.append(")");
+  return str.toString();
+}

@@ -1,0 +1,45 @@
+{
+  long noteModelId;
+  try {
+    noteModelId=mCurrentEditedCard.model().getLong("id");
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  JSONObject newModel=getCol().getModels().get(mAllModelIds.get(pos));
+  if (mAllModelIds.get(pos) != noteModelId) {
+    mModelChangeFieldMap=new HashMap<Integer,Integer>();
+    for (int i=0; i < mEditorNote.items().length; i++) {
+      mModelChangeFieldMap.put(i,i);
+    }
+    mModelChangeCardMap=new HashMap<Integer,Integer>();
+    try {
+      for (int i=0; i < newModel.getJSONArray("tmpls").length(); i++) {
+        if (i < mEditorNote.cards().size()) {
+          mModelChangeCardMap.put(i,i);
+        }
+ else {
+          mModelChangeCardMap.put(i,null);
+        }
+      }
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+    updateFieldsFromMap(newModel);
+    mSelectedTags=mEditorNote.getTags();
+    updateTags();
+    ((LinearLayout)findViewById(R.id.CardEditorTagButton)).setEnabled(false);
+    mNoteDeckSpinner.setEnabled(false);
+    int position=mAllDeckIds.indexOf(mCurrentEditedCard.getDid());
+    if (position != -1) {
+      mNoteDeckSpinner.setSelection(position,false);
+    }
+  }
+ else {
+    populateEditFields();
+    updateCards(mCurrentEditedCard.model());
+    ((LinearLayout)findViewById(R.id.CardEditorTagButton)).setEnabled(true);
+    mNoteDeckSpinner.setEnabled(true);
+  }
+}

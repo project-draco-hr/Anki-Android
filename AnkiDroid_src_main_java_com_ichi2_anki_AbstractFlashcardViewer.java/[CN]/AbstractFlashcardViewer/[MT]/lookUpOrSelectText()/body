@@ -1,0 +1,9 @@
+{
+  if (clipboardHasText()) {
+    Timber.d("Clipboard has text = " + clipboardHasText());
+    lookUp();
+  }
+ else {
+    selectAndCopyText();
+  }
+}

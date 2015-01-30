@@ -1,0 +1,15 @@
+{
+  int which=BACKGROUND_NORMAL;
+  if (flag == null) {
+  }
+ else   if (flag.equals("1")) {
+    which=BACKGROUND_SUSPENDED;
+  }
+ else   if (flag.equals("2")) {
+    which=BACKGROUND_MARKED;
+  }
+ else   if (flag.equals("3")) {
+    which=BACKGROUND_MARKED_SUSPENDED;
+  }
+  return which;
+}

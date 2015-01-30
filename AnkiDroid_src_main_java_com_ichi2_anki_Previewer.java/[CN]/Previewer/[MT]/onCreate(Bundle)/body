@@ -1,0 +1,5 @@
+{
+  super.onCreate(savedInstanceState);
+  Timber.d("onCreate()");
+  mCurrentCardId=getIntent().getLongExtra("currentCardId",-1);
+}

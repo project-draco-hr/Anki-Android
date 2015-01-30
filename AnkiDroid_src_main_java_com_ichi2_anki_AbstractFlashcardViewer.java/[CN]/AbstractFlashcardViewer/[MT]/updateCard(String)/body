@@ -1,0 +1,62 @@
+{
+  Timber.d("updateCard()");
+  if (mCurrentSimpleInterface) {
+    fillFlashcard();
+  }
+ else {
+    content=recalculateHardCodedFontSize(content,mDisplayFontSize);
+    if (mCurrentCard == null) {
+      mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
+    }
+    if (sDisplayAnswer) {
+      if (!mAnswerSoundsAdded) {
+        String answerSoundSource=removeFrontSideAudio(content);
+        Sound.addSounds(mBaseUrl,answerSoundSource,Sound.SOUNDS_ANSWER);
+        mAnswerSoundsAdded=true;
+      }
+    }
+ else {
+      Sound.resetSounds();
+      mAnswerSoundsAdded=false;
+      Sound.addSounds(mBaseUrl,content,Sound.SOUNDS_QUESTION);
+    }
+    content=Sound.expandSounds(mBaseUrl,content);
+    content=content.replace("font-weight:600;","font-weight:700;");
+    String cardClass="card card" + (mCurrentCard.getOrd() + 1);
+    if (mPrefCenterVertically) {
+      cardClass+=" vertically_centered";
+    }
+    Timber.d("content card = \n %s",content);
+    StringBuilder style=new StringBuilder();
+    mExtensions.updateCssStyle(style);
+    if (mRelativeImageSize != 100) {
+      style.append(String.format("img { zoom: %s }\n",mRelativeImageSize / 100.0));
+    }
+    Timber.d("::style::",style);
+    if (mNightMode) {
+      content=HtmlColors.invertColors(content);
+      cardClass+=" night_mode";
+    }
+    content=SmpToHtmlEntity(content);
+    mCardContent=new SpannedString(mCardTemplate.replace("::content::",content).replace("::style::",style.toString()).replace("::class::",cardClass));
+    Timber.d("base url = %s",mBaseUrl);
+    if (SAVE_CARD_CONTENT) {
+      try {
+        FileOutputStream f=new FileOutputStream(new File(AnkiDroidApp.getCurrentAnkiDroidDirectory(),"card.html"));
+        try {
+          f.write(mCardContent.toString().getBytes());
+        }
+  finally {
+          f.close();
+        }
+      }
+ catch (      IOException e) {
+        Timber.d(e,"failed to save card");
+      }
+    }
+    fillFlashcard();
+  }
+  if (!mConfigurationChanged) {
+    playSounds(false);
+  }
+}

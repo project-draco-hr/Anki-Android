@@ -1,0 +1,18 @@
+{
+  try {
+    if ((sLatestInstance != null) && (sLatestInstance.getStatus() != AsyncTask.Status.FINISHED)) {
+      Timber.d("DeckTask: waiting for task %d to finish...",sLatestInstance.mType);
+      if (timeout != null) {
+        sLatestInstance.get(timeout,TimeUnit.SECONDS);
+      }
+ else {
+        sLatestInstance.get();
+      }
+    }
+    return true;
+  }
+ catch (  Exception e) {
+    Timber.e(e,"Exception waiting for task to finish");
+    return false;
+  }
+}

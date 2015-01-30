@@ -1,0 +1,12 @@
+{
+  super.onCollectionLoaded(col);
+  mTemplateAdapter=new TemplatePagerAdapter(getSupportFragmentManager());
+  mTemplateAdapter.setModel(col.getModels().get(mModelId));
+  mViewPager=(ViewPager)findViewById(R.id.pager);
+  mViewPager.setAdapter(mTemplateAdapter);
+  mSlidingTabLayout=(SlidingTabLayout)findViewById(R.id.sliding_tabs);
+  mSlidingTabLayout.setViewPager(mViewPager);
+  setTitle(getResources().getString(R.string.title_activity_template_editor,col.getModels().get(mModelId).optString("name")));
+  Timber.i("CardTemplateEditor:: Card template editor successfully started for model id %d",mModelId);
+  dismissOpeningCollectionDialog();
+}

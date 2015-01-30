@@ -1,0 +1,26 @@
+{
+  Set<String> ords=new TreeSet<String>();
+  Matcher m=Pattern.compile("\\{\\{c(\\d+)::.+?\\}\\}").matcher(string);
+  while (m.find()) {
+    ords.add(m.group(1));
+  }
+  ArrayList<String> strings=new ArrayList<String>();
+  String clozeReg=Models.clozeReg;
+  for (  String ord : ords) {
+    StringBuffer buf=new StringBuffer();
+    m=Pattern.compile(String.format(Locale.US,clozeReg,ord)).matcher(string);
+    while (m.find()) {
+      if (!TextUtils.isEmpty(m.group(3))) {
+        m.appendReplacement(buf,"[$3]");
+      }
+ else {
+        m.appendReplacement(buf,"[...]");
+      }
+    }
+    m.appendTail(buf);
+    String s=buf.toString().replaceAll(String.format(Locale.US,clozeReg,".+?"),"$1");
+    strings.add(s);
+  }
+  strings.add(string.replaceAll(String.format(Locale.US,clozeReg,".+?"),"$1"));
+  return strings;
+}

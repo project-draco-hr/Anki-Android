@@ -1,0 +1,25 @@
+{
+  while (AnkiDroidApp.getInstance() == null || AnkiDroidApp.getHooks() == null) {
+    try {
+      Thread.sleep(100);
+    }
+ catch (    InterruptedException e) {
+    }
+  }
+  Collection d=Shared.getEmptyCol();
+  File dir=Shared.getTestDir(mContext);
+  BackupManager.removeDir(dir);
+  dir.mkdirs();
+  File path=new File(dir,"foo.jpg");
+  FileOutputStream os;
+  os=new FileOutputStream(path,false);
+  os.write("hello".getBytes());
+  os.close();
+  String r=d.getMedia().addFile(path);
+  assertEquals("foo.jpg",r);
+  assertEquals("foo.jpg",d.getMedia().addFile(path));
+  os=new FileOutputStream(path,false);
+  os.write("world".getBytes());
+  os.close();
+  assertEquals("foo (1).jpg",d.getMedia().addFile(path));
+}

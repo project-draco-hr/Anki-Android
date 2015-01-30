@@ -1,0 +1,24 @@
+{
+  mCol.log(fnames.size() + " files to fetch");
+  while (fnames.size() > 0) {
+    try {
+      List<String> top=fnames.subList(0,Math.min(fnames.size(),Consts.SYNC_ZIP_COUNT));
+      mCol.log("fetch " + top);
+      ZipFile zipData=mServer.downloadFiles(top);
+      int cnt=mCol.getMedia().addFilesFromZip(zipData);
+      mDownloadCount+=cnt;
+      mCol.log("received " + cnt + " files");
+      if (cnt == fnames.size()) {
+        fnames.clear();
+      }
+ else {
+        fnames=fnames.subList(cnt,fnames.size());
+      }
+      mCon.publishProgress(String.format(AnkiDroidApp.getAppResources().getString(R.string.sync_media_downloaded_count),mDownloadCount));
+    }
+ catch (    Exception e) {
+      Timber.e(e,"Error downloading media files");
+      throw new RuntimeException(e);
+    }
+  }
+}

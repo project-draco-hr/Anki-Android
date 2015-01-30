@@ -1,0 +1,19 @@
+{
+  openDBIfClosed(context);
+  Cursor cursor=null;
+  try {
+    cursor=mMetaDb.query("smallWidgetStatus",new String[]{"progress","left","eta"},null,null,null,null,null);
+    while (cursor.moveToNext()) {
+      return (new int[]{cursor.getInt(0),cursor.getInt(1),cursor.getInt(2)});
+    }
+  }
+ catch (  SQLiteException e) {
+    Timber.e(e,"Error while querying widgetStatus");
+  }
+ finally {
+    if (cursor != null && !cursor.isClosed()) {
+      cursor.close();
+    }
+  }
+  return null;
+}

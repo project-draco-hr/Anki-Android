@@ -1,0 +1,8 @@
+{
+  mIntentInformation.clear();
+  mIntentInformation.addAll(MetaDB.getIntentInformation(this));
+  Timber.d("Saved data list size: %d",mIntentInformation.size());
+  if (mIntentInformationAdapter != null) {
+    mIntentInformationAdapter.notifyDataSetChanged();
+  }
+}

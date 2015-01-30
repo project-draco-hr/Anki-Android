@@ -1,0 +1,50 @@
+{
+  Timber.d("displayCardQuestion()");
+  sDisplayAnswer=false;
+  if (mButtonHeight == 0 && mRelativeButtonSize != 100) {
+    mButtonHeight=mFlipCard.getHeight() * mRelativeButtonSize / 100;
+    mFlipCard.setHeight(mButtonHeight);
+    mEase1.setHeight(mButtonHeight);
+    mEase2.setHeight(mButtonHeight);
+    mEase3.setHeight(mButtonHeight);
+    mEase4.setHeight(mButtonHeight);
+  }
+  setInterface();
+  String question;
+  if (mCurrentSimpleInterface) {
+    question=mCurrentCard.qSimple();
+  }
+ else {
+    question=mCurrentCard.q();
+  }
+  question=getCol().getMedia().escapeImages(question);
+  question=typeAnsQuestionFilter(question);
+  if (mPrefFixArabic) {
+    question=ArabicUtilities.reshapeSentence(question,true);
+  }
+  Timber.d("question: '%s'",question);
+  String displayString="";
+  if (mCurrentSimpleInterface) {
+    mCardContent=convertToSimple(question);
+    if (mCardContent.length() == 0) {
+      SpannableString hint=new SpannableString(getResources().getString(R.string.simple_interface_hint,R.string.card_details_question));
+      hint.setSpan(new StyleSpan(Typeface.ITALIC),0,mCardContent.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      mCardContent=hint;
+    }
+  }
+ else {
+    if (typeAnswer()) {
+      mAnswerField.setVisibility(View.VISIBLE);
+    }
+    displayString=enrichWithQADiv(question,false);
+    if (mSpeakText) {
+    }
+  }
+  updateCard(displayString);
+  hideEaseButtons();
+  if (mPrefUseTimer) {
+    mTimeoutHandler.removeCallbacks(mShowAnswerTask);
+    mTimeoutHandler.postDelayed(mShowAnswerTask,mWaitAnswerSecond * 1000);
+  }
+  Timber.i("AbstractFlashcardViewer:: Question successfully shown for card id %d",mCurrentCard.getId());
+}

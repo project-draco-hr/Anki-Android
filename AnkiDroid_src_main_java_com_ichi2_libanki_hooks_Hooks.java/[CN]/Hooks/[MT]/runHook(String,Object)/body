@@ -1,0 +1,16 @@
+{
+  List<Hook> _hook=hooks.get(hook);
+  String funcName="";
+  if (_hook != null) {
+    try {
+      for (      Hook func : _hook) {
+        funcName=func.getClass().getCanonicalName();
+        func.runHook(args);
+      }
+    }
+ catch (    Exception e) {
+      Timber.e(e,"Exception while running hook %s : %s",hook,funcName);
+      return;
+    }
+  }
+}

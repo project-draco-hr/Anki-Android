@@ -1,0 +1,86 @@
+{
+  RectangleWrap field=g.getClipBounds();
+  this.currentScreen=screenNr;
+  prepareDrawables();
+  Vector<Drawable> offFrameDrawables=new Vector<Drawable>();
+  Vector<Drawable> onFrameDrawables=new Vector<Drawable>();
+  g.setTypeface(typeface);
+  g.setColor(ColorWrap.white);
+  g.fillRect(0,0,field.width,field.height);
+  g.setColor(ColorWrap.BLACK);
+  if (fontSizeSet) {
+    g.setFontSize(fontSize);
+  }
+  int i=0;
+  if (this.screenParts.get(screenNr).getDrawables() != null && this.screenParts.get(screenNr).getDrawables().size() != 0) {
+    for (    Drawable draw : this.screenParts.get(screenNr).getDrawables()) {
+      if (!draw.isOnFrame()) {
+        offFrameDrawables.add(draw);
+      }
+ else {
+        onFrameDrawables.add(draw);
+      }
+    }
+  }
+  for (  Drawable offFrameDrawing : offFrameDrawables) {
+    offFrameDrawing.paint(g);
+  }
+  ColorWrap oldColor=g.getColor();
+  if (leftFrameThickness > 0 || rightFrameThickness > 0 || upperFrameThickness > 0 || bottomFrameThickness > 0) {
+    g.setColor(ColorWrap.white);
+    g.fillRect(0,0,field.width,upperFrameThickness);
+    g.fillRect(0,upperFrameThickness,leftFrameThickness,field.height);
+    g.fillRect(field.width + 1 - rightFrameThickness,upperFrameThickness,rightFrameThickness + leftFrameThickness,field.height - bottomFrameThickness);
+    g.fillRect(leftFrameThickness,field.height - bottomFrameThickness,field.width - rightFrameThickness,bottomFrameThickness + 1);
+    if (isBordered) {
+      g.setColor(ColorWrap.black);
+      g.fillRect(leftFrameThickness - borderThickness + 1,upperFrameThickness - borderThickness + 1,field.width - leftFrameThickness - rightFrameThickness + 2 * borderThickness - 2,borderThickness);
+      g.fillRect(leftFrameThickness - borderThickness + 1,field.height - bottomFrameThickness,field.width - leftFrameThickness - rightFrameThickness + 2 * borderThickness - 2,borderThickness);
+      g.fillRect(leftFrameThickness - borderThickness + 1,upperFrameThickness - borderThickness + 1,borderThickness,field.height - upperFrameThickness - bottomFrameThickness + 2 * borderThickness - 2);
+      g.fillRect(field.width - rightFrameThickness,upperFrameThickness - borderThickness + 1,borderThickness,field.height - upperFrameThickness - bottomFrameThickness + 2 * borderThickness - 2);
+    }
+    g.setColor(oldColor);
+    if (hasTitle) {
+      float oldFontSize=g.getFontSize();
+      float newFontSize=oldFontSize * 2;
+      g.setFontSize(newFontSize);
+      FontMetricsWrap fm=g.getFontMetrics();
+      float height=fm.getHeight();
+      float width=fm.stringWidth(this.title);
+      g.drawString(this.title,field.width / 2 - width / 2,upperFrameThickness - 10 - height);
+      g.setFontSize(oldFontSize);
+    }
+    Set<String> keySet=mLegendMap.keySet();
+    float oldFontSize=g.getFontSize();
+    g.setFontSize(oldFontSize * 0.9f);
+    FontMetricsWrap fm=g.getFontMetrics();
+    float height=fm.getHeight();
+    float spacerValue=height * 0.5f;
+    float xPointer=spacerValue;
+    float ySpacer=spacerValue;
+    float rectangleSize=height;
+    float currentPixelWidth=xPointer;
+    int legendCnt=0;
+    Timber.d("should draw legend now, number of legend entries: %d",mLegendMap.size());
+    for (    String legendName : keySet) {
+      float stringWidth=fm.stringWidth(" : " + legendName);
+      float delta=rectangleSize - height;
+      ColorWrap color=mLegendMap.get(legendName);
+      g.setColor(color);
+      if (legendCnt++ != 0 && xPointer + rectangleSize * 2.0f + stringWidth >= field.width) {
+        xPointer=spacerValue;
+        ySpacer+=rectangleSize + spacerValue;
+      }
+      g.fillRect(xPointer,ySpacer,rectangleSize,rectangleSize);
+      g.setColor(ColorWrap.BLACK);
+      g.drawString(" : " + legendName,xPointer + rectangleSize,ySpacer + rectangleSize);
+      xPointer+=rectangleSize * 1.3f + stringWidth;
+      Timber.d("drawing a legend Item: (%s) %d, x: %,.2f , y: %,.2f",legendName,legendCnt,xPointer + rectangleSize,ySpacer + rectangleSize);
+    }
+    g.setFontSize(oldFontSize);
+    g.setColor(ColorWrap.BLACK);
+  }
+  for (  Drawable onFrameDrawing : onFrameDrawables) {
+    onFrameDrawing.paint(g);
+  }
+}

@@ -1,0 +1,119 @@
+{
+  new File(path).delete();
+  Collection dst=Storage.Collection(path);
+  mSrc=mCol;
+  long[] cids;
+  if (mDid == null) {
+    cids=Utils.arrayList2array(mSrc.getDb().queryColumn(Long.class,"SELECT id FROM cards",0));
+  }
+ else {
+    cids=mSrc.getDecks().cids(mDid,true);
+  }
+  dst.close();
+  Timber.d("Attach DB");
+  mSrc.getDb().getDatabase().execSQL("ATTACH '" + path + "' AS DST_DB");
+  Timber.d("Copy cards");
+  mSrc.getDb().getDatabase().execSQL("INSERT INTO DST_DB.cards select * from cards where id in " + Utils.ids2str(cids));
+  Set<Long> nids=new HashSet<Long>(mSrc.getDb().queryColumn(Long.class,"select nid from cards where id in " + Utils.ids2str(cids),0));
+  Timber.d("Copy notes");
+  ArrayList<Long> uniqueNids=new ArrayList<Long>(nids);
+  String strnids=Utils.ids2str(uniqueNids);
+  mSrc.getDb().getDatabase().execSQL("INSERT INTO DST_DB.notes select * from notes where id in " + strnids);
+  if (!mIncludeSched) {
+    Timber.d("Stripping system tags from list");
+    ArrayList<String> srcTags=mSrc.getDb().queryColumn(String.class,"select tags from notes where id in " + strnids,0);
+    ArrayList<Object[]> args=new ArrayList<Object[]>(srcTags.size());
+    Object[] arg=new Object[2];
+    for (int row=0; row < srcTags.size(); row++) {
+      arg[0]=removeSystemTags(srcTags.get(row));
+      arg[1]=uniqueNids.get(row);
+      args.add(row,arg);
+    }
+    mSrc.getDb().executeMany("UPDATE DST_DB.notes set tags=? where id=?",args);
+  }
+  Timber.d("Finding models used by notes");
+  ArrayList<Long> mids=mSrc.getDb().queryColumn(Long.class,"select distinct mid from DST_DB.notes where id in " + strnids,0);
+  if (mIncludeSched) {
+    Timber.d("Copy history and revlog");
+    mSrc.getDb().getDatabase().execSQL("insert into DST_DB.revlog select * from revlog where cid in " + Utils.ids2str(cids));
+    mSrc.getDb().getDatabase().execSQL("DETACH DST_DB");
+    dst.reopen();
+  }
+ else {
+    Timber.d("Detaching destination db and reopening");
+    mSrc.getDb().getDatabase().execSQL("DETACH DST_DB");
+    dst.reopen();
+    Timber.d("Resetting cards");
+    dst.getSched().resetCards(cids);
+  }
+  Timber.d("Copy models");
+  for (  JSONObject m : mSrc.getModels().all()) {
+    if (mids.contains(m.getLong("id"))) {
+      dst.getModels().update(m);
+    }
+  }
+  Timber.d("Copy decks");
+  ArrayList<Long> dids=new ArrayList<Long>();
+  if (mDid != null) {
+    dids.add(mDid);
+    for (    Long x : mSrc.getDecks().children(mDid).values()) {
+      dids.add(x);
+    }
+  }
+  JSONObject dconfs=new JSONObject();
+  for (  JSONObject d : mSrc.getDecks().all()) {
+    if (d.getString("id").equals("1")) {
+      continue;
+    }
+    if (mDid != null && !dids.contains(d.getLong("id"))) {
+      continue;
+    }
+    if (d.getInt("dyn") != 1 && d.getLong("conf") != 1L) {
+      if (mIncludeSched) {
+        dconfs.put(Long.toString(d.getLong("conf")),true);
+      }
+    }
+    if (!mIncludeSched) {
+      d.put("conf",1);
+    }
+    dst.getDecks().update(d);
+  }
+  Timber.d("Copy deck options");
+  for (  JSONObject dc : mSrc.getDecks().allConf()) {
+    if (dconfs.has(dc.getString("id"))) {
+      dst.getDecks().updateConf(dc);
+    }
+  }
+  Timber.d("Find used media");
+  JSONObject media=new JSONObject();
+  mMediaDir=mSrc.getMedia().dir();
+  if (mIncludeMedia) {
+    ArrayList<Long> mid=mSrc.getDb().queryColumn(Long.class,"select mid from notes where id in " + strnids,0);
+    ArrayList<String> flds=mSrc.getDb().queryColumn(String.class,"select flds from notes where id in " + strnids,0);
+    for (int idx=0; idx < mid.size(); idx++) {
+      for (      String file : mSrc.getMedia().filesInStr(mid.get(idx),flds.get(idx))) {
+        media.put(file,true);
+      }
+    }
+    if (mMediaDir != null) {
+      for (      File f : new File(mMediaDir).listFiles()) {
+        String fname=f.getName();
+        if (fname.startsWith("_")) {
+          media.put(fname,true);
+        }
+      }
+    }
+  }
+  JSONArray keys=media.names();
+  if (keys != null) {
+    for (int i=0; i < keys.length(); i++) {
+      mMediaFiles.add(keys.getString(i));
+    }
+  }
+  Timber.d("Cleanup");
+  dst.setCrt(mSrc.getCrt());
+  mCount=dst.cardCount();
+  dst.setMod();
+  postExport();
+  dst.close();
+}

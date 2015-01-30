@@ -1,0 +1,25 @@
+{
+  Timber.d("doInBackgroundUpdateValuesFromDeck");
+  try {
+    Sched sched=params[0].getCollection().getSched();
+    Object[] obj=params[0].getObjArray();
+    boolean reset=(Boolean)obj[0];
+    if (reset) {
+      sched.reset();
+    }
+    int[] counts=sched.counts();
+    int totalNewCount=sched.totalNewForCurrentDeck();
+    int totalCount=sched.cardCount();
+    double progressMature=((double)sched.matureCount()) / ((double)totalCount);
+    double progressAll=1 - (((double)(totalNewCount + counts[1])) / ((double)totalCount));
+    double[][] serieslist=null;
+    if ((Boolean)obj[1]) {
+      serieslist=Stats.getSmallDueStats(sched.getCol());
+    }
+    return new TaskData(new Object[]{counts[0],counts[1],counts[2],totalNewCount,totalCount,progressMature,progressAll,sched.eta(counts),serieslist});
+  }
+ catch (  RuntimeException e) {
+    Timber.e(e,"doInBackgroundUpdateValuesFromDeck - an error occurred");
+    return null;
+  }
+}

@@ -1,0 +1,8 @@
+{
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.video_player);
+  mPath=getIntent().getStringExtra("path");
+  getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+  mVideoView=(VideoView)findViewById(R.id.video_surface);
+  mVideoView.getHolder().addCallback(this);
+}

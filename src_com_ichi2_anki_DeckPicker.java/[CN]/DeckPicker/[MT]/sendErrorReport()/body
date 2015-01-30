@@ -1,5 +1,0 @@
-{
-  Intent i=new Intent(this,Feedback.class);
-  i.putExtra("request",DeckPicker.RESULT_DB_ERROR);
-  startActivityForResultWithAnimation(i,DeckPicker.REPORT_ERROR,ActivityTransitionAnimation.RIGHT);
-}

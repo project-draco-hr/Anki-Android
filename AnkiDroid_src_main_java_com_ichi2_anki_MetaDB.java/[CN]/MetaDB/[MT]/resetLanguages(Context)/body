@@ -1,0 +1,15 @@
+{
+  if (mMetaDb == null || !mMetaDb.isOpen()) {
+    openDB(context);
+  }
+  try {
+    Timber.i("MetaDB:: Resetting all language assignments");
+    mMetaDb.execSQL("DROP TABLE IF EXISTS languages;");
+    upgradeDB(mMetaDb,DATABASE_VERSION);
+    return true;
+  }
+ catch (  Exception e) {
+    Timber.e(e,"Error resetting MetaDB ");
+  }
+  return false;
+}

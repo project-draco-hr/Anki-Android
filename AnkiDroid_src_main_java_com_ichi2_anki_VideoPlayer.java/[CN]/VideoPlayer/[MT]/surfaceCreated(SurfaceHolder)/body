@@ -1,0 +1,12 @@
+{
+  Sound.playSound(mPath,new MediaPlayer.OnCompletionListener(){
+    @Override public void onCompletion(    MediaPlayer mp){
+      finish();
+      MediaPlayer.OnCompletionListener originalListener=Sound.getMediaCompletionListener();
+      if (originalListener != null) {
+        originalListener.onCompletion(mp);
+      }
+    }
+  }
+,mVideoView);
+}

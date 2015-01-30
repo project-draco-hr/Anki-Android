@@ -1,0 +1,13 @@
+{
+  Timber.d("doInBackgroundSaveCollection");
+  Collection col=params[0].getCollection();
+  if (col != null) {
+    try {
+      col.save();
+    }
+ catch (    RuntimeException e) {
+      Timber.e(e,"Error on saving deck in background");
+    }
+  }
+  return null;
+}

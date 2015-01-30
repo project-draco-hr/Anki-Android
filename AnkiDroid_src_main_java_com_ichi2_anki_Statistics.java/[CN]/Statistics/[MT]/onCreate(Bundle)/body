@@ -1,0 +1,10 @@
+{
+  Timber.d("onCreate()");
+  sIsWholeCollectionOnly=AnkiStatsTaskHandler.isWholeCollection();
+  sIsSubtitle=true;
+  super.onCreate(savedInstanceState);
+  mMainLayout=getLayoutInflater().inflate(R.layout.activity_anki_stats,null);
+  initNavigationDrawer(mMainLayout);
+  setContentView(mMainLayout);
+  startLoadingCollection();
+}

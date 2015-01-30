@@ -1,0 +1,12 @@
+{
+  mExtensions=new ReviewerExtRegistry(getBaseContext());
+  Themes.applyTheme(this);
+  super.onCreate(savedInstanceState);
+  Timber.d("onCreate()");
+  mChangeBorderStyle=Themes.getTheme() == Themes.THEME_ANDROID_LIGHT || Themes.getTheme() == Themes.THEME_ANDROID_DARK;
+  View mainView=getLayoutInflater().inflate(R.layout.flashcard,null);
+  setContentView(mainView);
+  initNavigationDrawer(mainView);
+  setVolumeControlStream(AudioManager.STREAM_MUSIC);
+  startLoadingCollection();
+}

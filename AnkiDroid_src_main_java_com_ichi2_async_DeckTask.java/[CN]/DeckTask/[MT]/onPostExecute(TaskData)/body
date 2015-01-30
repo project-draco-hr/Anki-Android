@@ -1,0 +1,6 @@
+{
+  super.onPostExecute(result);
+  mListener.onPostExecute(this,result);
+  Timber.d("enabling garbage collection of mPreviousTask...");
+  mPreviousTask=null;
+}

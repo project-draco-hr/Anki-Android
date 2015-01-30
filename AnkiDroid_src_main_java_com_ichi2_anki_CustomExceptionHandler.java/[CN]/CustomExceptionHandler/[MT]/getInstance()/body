@@ -1,0 +1,7 @@
+{
+  if (sInstance == null) {
+    sInstance=new CustomExceptionHandler();
+    Timber.i("New instance of custom exception handler");
+  }
+  return sInstance;
+}

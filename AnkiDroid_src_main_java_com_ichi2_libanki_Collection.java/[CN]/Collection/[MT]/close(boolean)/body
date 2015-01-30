@@ -1,0 +1,36 @@
+{
+  if (mDb != null) {
+    if (!mConf.optBoolean("newBury",false)) {
+      boolean mod=mDb.getMod();
+      mSched.unburyCards();
+      mDb.setMod(mod);
+    }
+    try {
+      SQLiteDatabase db=getDb().getDatabase();
+      if (save) {
+        db.beginTransaction();
+        try {
+          save();
+          db.setTransactionSuccessful();
+        }
+  finally {
+          db.endTransaction();
+        }
+      }
+ else {
+        if (db.inTransaction()) {
+          db.endTransaction();
+        }
+        lock();
+      }
+    }
+ catch (    RuntimeException e) {
+      AnkiDroidApp.sendExceptionReport(e,"closeDB");
+    }
+    AnkiDatabaseManager.closeDatabase(mPath);
+    mDb=null;
+    mMedia.close();
+    _closeLog();
+    Timber.i("Collection closed");
+  }
+}

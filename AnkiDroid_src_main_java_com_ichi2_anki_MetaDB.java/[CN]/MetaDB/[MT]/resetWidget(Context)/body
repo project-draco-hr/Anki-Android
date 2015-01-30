@@ -1,0 +1,16 @@
+{
+  if (mMetaDb == null || !mMetaDb.isOpen()) {
+    openDB(context);
+  }
+  try {
+    Timber.i("MetaDB:: Resetting widget status");
+    mMetaDb.execSQL("DROP TABLE IF EXISTS widgetStatus;");
+    mMetaDb.execSQL("DROP TABLE IF EXISTS smallWidgetStatus;");
+    upgradeDB(mMetaDb,DATABASE_VERSION);
+    return true;
+  }
+ catch (  Exception e) {
+    Timber.e(e,"Error resetting widgetStatus and smallWidgetStatus");
+  }
+  return false;
+}

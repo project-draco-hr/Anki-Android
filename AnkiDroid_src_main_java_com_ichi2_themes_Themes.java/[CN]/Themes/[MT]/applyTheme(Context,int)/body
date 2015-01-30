@@ -1,0 +1,30 @@
+{
+  mContext=context;
+  if (mCurrentTheme == -1) {
+    loadTheme();
+  }
+switch (theme == -1 ? mCurrentTheme : theme) {
+case THEME_ANDROID_DARK:
+    context.setTheme(android.R.style.Theme_Black);
+  Timber.d("Set theme: dark");
+break;
+case THEME_ANDROID_LIGHT:
+context.setTheme(android.R.style.Theme_Light);
+Timber.d("Set theme: light");
+break;
+case THEME_BLUE:
+context.setTheme(R.style.Theme_Blue);
+Timber.d("Set theme: blue");
+break;
+case THEME_FLAT:
+context.setTheme(R.style.Theme_Flat);
+Timber.d("Set theme: flat");
+break;
+case THEME_WHITE:
+context.setTheme(R.style.Theme_White);
+Timber.d("Set theme: white");
+break;
+case -1:
+break;
+}
+}

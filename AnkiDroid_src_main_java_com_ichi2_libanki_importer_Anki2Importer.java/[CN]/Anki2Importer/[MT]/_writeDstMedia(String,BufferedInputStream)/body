@@ -1,0 +1,9 @@
+{
+  try {
+    Utils.writeToFile(is,mDstMediaDir + fname);
+    mDst.getMedia().markFileAdd(fname);
+  }
+ catch (  IOException e) {
+    Timber.e(e,"Anki2Importer._writeDstMedia: error copying file to %s, ignoring and continuing.",fname);
+  }
+}

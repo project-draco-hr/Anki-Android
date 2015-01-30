@@ -1,0 +1,116 @@
+{
+  Timber.d("doInBackgroundImportReplace");
+  Collection col=params[0].getCollection();
+  String path=params[0].getString();
+  Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
+  String fileDir=AnkiDroidApp.getCurrentAnkiDroidDirectory() + "/tmpzip";
+  File dir=new File(fileDir);
+  if (dir.exists()) {
+    BackupManager.removeDir(dir);
+  }
+  publishProgress(new TaskData(res.getString(R.string.import_unpacking)));
+  String colFile=fileDir + "/collection.anki2";
+  ZipFile zip;
+  try {
+    zip=new ZipFile(new File(path),ZipFile.OPEN_READ);
+  }
+ catch (  IOException e) {
+    Timber.e(e,"doInBackgroundImportReplace - Error while unzipping");
+    AnkiDroidApp.sendExceptionReport(e,"doInBackgroundImportReplace0");
+    return new TaskData(false);
+  }
+  if (!Utils.unzipFiles(zip,fileDir,new String[]{"collection.anki2","media"},null) || !(new File(colFile)).exists()) {
+    return new TaskData(-2,null,false);
+  }
+  Collection tmpCol=null;
+  try {
+    tmpCol=Storage.Collection(colFile);
+    if (!tmpCol.validCollection()) {
+      tmpCol.close();
+      return new TaskData(-2,null,false);
+    }
+  }
+ catch (  Exception e) {
+    Timber.e("Error opening new collection file... probably it's invalid");
+    try {
+      tmpCol.close();
+    }
+ catch (    Exception e2) {
+    }
+    return new TaskData(-2,null,false);
+  }
+ finally {
+    if (tmpCol != null) {
+      tmpCol.close();
+    }
+  }
+  publishProgress(new TaskData(res.getString(R.string.importing_collection)));
+  String colPath;
+  if (col != null) {
+    colPath=col.getPath();
+    AnkiDroidApp.closeCollection(true);
+    BackupManager.performBackupInBackground(colPath,true);
+  }
+  colPath=AnkiDroidApp.getCollectionPath();
+  File f=new File(colFile);
+  if (!f.renameTo(new File(colPath))) {
+    return new TaskData(-2,null,false);
+  }
+  int addedCount=-1;
+  try {
+    col=AnkiDroidApp.openCollection(colPath,true);
+    HashMap<String,String> nameToNum=new HashMap<String,String>();
+    HashMap<String,String> numToName=new HashMap<String,String>();
+    File mediaMapFile=new File(fileDir,"media");
+    if (mediaMapFile.exists()) {
+      JsonReader jr=new JsonReader(new FileReader(mediaMapFile));
+      jr.beginObject();
+      String name;
+      String num;
+      while (jr.hasNext()) {
+        num=jr.nextName();
+        name=jr.nextString();
+        nameToNum.put(name,num);
+        numToName.put(num,name);
+      }
+      jr.endObject();
+      jr.close();
+    }
+    String mediaDir=col.getMedia().dir();
+    int total=nameToNum.size();
+    int i=0;
+    for (    Map.Entry<String,String> entry : nameToNum.entrySet()) {
+      String file=entry.getKey();
+      String c=entry.getValue();
+      File of=new File(mediaDir,file);
+      if (!of.exists()) {
+        Utils.unzipFiles(zip,mediaDir,new String[]{c},numToName);
+      }
+      ++i;
+      publishProgress(new TaskData(res.getString(R.string.import_media_count,(i + 1) * 100 / total)));
+    }
+    zip.close();
+    BackupManager.removeDir(dir);
+    publishProgress(new TaskData(res.getString(R.string.import_update_counts)));
+    DeckTask.TaskData result=doInBackgroundLoadDeckCounts(new TaskData(col));
+    if (result == null) {
+      return null;
+    }
+    return new TaskData(addedCount,result.getObjArray(),true);
+  }
+ catch (  RuntimeException e) {
+    Timber.e(e,"doInBackgroundImportReplace - RuntimeException");
+    AnkiDroidApp.sendExceptionReport(e,"doInBackgroundImportReplace1");
+    return new TaskData(false);
+  }
+catch (  FileNotFoundException e) {
+    Timber.e(e,"doInBackgroundImportReplace - FileNotFoundException");
+    AnkiDroidApp.sendExceptionReport(e,"doInBackgroundImportReplace2");
+    return new TaskData(false);
+  }
+catch (  IOException e) {
+    Timber.e(e,"doInBackgroundImportReplace - IOException");
+    AnkiDroidApp.sendExceptionReport(e,"doInBackgroundImportReplace3");
+    return new TaskData(false);
+  }
+}

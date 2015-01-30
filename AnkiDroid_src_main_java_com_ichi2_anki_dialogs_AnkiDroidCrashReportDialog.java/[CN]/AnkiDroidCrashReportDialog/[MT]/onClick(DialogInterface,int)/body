@@ -1,0 +1,16 @@
+{
+  if (which == DialogInterface.BUTTON_POSITIVE) {
+    boolean autoReport=mAlwaysReportCheckBox.isChecked();
+    SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(this);
+    preferences.edit().putBoolean("autoreportCheckboxValue",autoReport).commit();
+    if (autoReport) {
+      preferences.edit().putString("reportErrorMode",AnkiDroidApp.FEEDBACK_REPORT_ALWAYS).commit();
+      AnkiDroidApp.getInstance().setAcraReportingMode(AnkiDroidApp.FEEDBACK_REPORT_ALWAYS);
+    }
+    sendCrash(mUserComment.getText().toString(),"");
+  }
+ else {
+    cancelReports();
+  }
+  finish();
+}

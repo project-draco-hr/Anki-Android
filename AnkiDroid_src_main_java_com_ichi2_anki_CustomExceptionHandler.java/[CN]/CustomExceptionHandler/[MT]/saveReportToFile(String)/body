@@ -1,0 +1,16 @@
+{
+  try {
+    Timber.i("saveReportFile");
+    Date currentDate=new Date();
+    SimpleDateFormat formatter=new SimpleDateFormat("yyyyMMddHHmmss");
+    String filename=String.format("ad-%s.stacktrace",formatter.format(currentDate));
+    Timber.i("No external storage available");
+    FileOutputStream trace=mCurContext.openFileOutput(filename,Context.MODE_PRIVATE);
+    trace.write(reportInformation.getBytes());
+    trace.close();
+    Timber.i("report saved");
+  }
+ catch (  Exception e) {
+    Timber.i(e.toString());
+  }
+}

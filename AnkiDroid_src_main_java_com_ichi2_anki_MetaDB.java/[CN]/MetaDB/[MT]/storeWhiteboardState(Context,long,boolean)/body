@@ -1,0 +1,24 @@
+{
+  int state=(whiteboardState) ? 1 : 0;
+  openDBIfClosed(context);
+  Cursor cur=null;
+  try {
+    cur=mMetaDb.rawQuery("SELECT _id FROM whiteboardState" + " WHERE did  = " + did,null);
+    if (cur.moveToNext()) {
+      mMetaDb.execSQL("UPDATE whiteboardState " + "SET did = " + did + ", "+ "state="+ Integer.toString(state)+ " "+ "WHERE _id="+ cur.getString(0)+ ";");
+      Timber.d("Store whiteboard state (%d) for deck %d",state,did);
+    }
+ else {
+      mMetaDb.execSQL("INSERT INTO whiteboardState (did, state) VALUES (?, ?)",new Object[]{did,state});
+      Timber.d("Store whiteboard state (%d) for deck %d",state,did);
+    }
+  }
+ catch (  Exception e) {
+    Timber.e(e,"Error storing whiteboard state in MetaDB ");
+  }
+ finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+}

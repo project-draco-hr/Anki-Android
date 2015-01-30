@@ -1,0 +1,8 @@
+{
+  try {
+    super.dismiss();
+  }
+ catch (  BadTokenException e) {
+    Timber.e(e,"Could not dismiss dialog");
+  }
+}

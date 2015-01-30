@@ -1,0 +1,12 @@
+{
+  Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
+  String colPath=AnkiDroidApp.getCollectionPath();
+  try {
+    return AnkiDroidApp.openCollection(colPath);
+  }
+ catch (  RuntimeException e) {
+    Timber.e(e,"loadInBackground - RuntimeException on opening collection");
+    AnkiDroidApp.sendExceptionReport(e,"CollectionLoader.loadInBackground");
+    return null;
+  }
+}

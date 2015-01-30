@@ -1,0 +1,7 @@
+{
+  final String[] languages={"eng","deu","jpn","fra","spa","pol","ita","rus","ces","zho","nld","por","swe","hrv","hin","hun","vie","ara","tur"};
+  for (  String l : languages) {
+    Locale locale=new Locale(l);
+    addLanguage(locale.getDisplayLanguage(),locale.getISO3Language());
+  }
+}

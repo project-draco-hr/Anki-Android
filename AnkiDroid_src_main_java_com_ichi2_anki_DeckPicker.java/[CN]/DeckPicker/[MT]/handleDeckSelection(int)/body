@@ -1,0 +1,6 @@
+{
+  @SuppressWarnings("unchecked") HashMap<String,String> data=(HashMap<String,String>)mDeckListAdapter.getItem(id);
+  long deckId=Long.parseLong(data.get("did"));
+  getCol().getDecks().select(deckId);
+  openStudyOptions(deckId);
+}

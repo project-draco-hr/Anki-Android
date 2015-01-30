@@ -1,0 +1,24 @@
+{
+  Timber.d("doInBackgroundSortCards");
+  if (params.length == 1) {
+    Comparator comparator=params[0].getComparator();
+    ArrayList<HashMap<String,String>> card=params[0].getCards();
+    Collections.sort(card,comparator);
+  }
+ else {
+    ArrayList<HashMap<String,String>> allCard=params[0].getCards();
+    ArrayList<HashMap<String,String>> cards=params[1].getCards();
+    cards.clear();
+    HashSet<String> tags=new HashSet<String>();
+    for (    String s : (HashSet<String>)params[2].getObjArray()[0]) {
+      tags.add(s.toLowerCase(Locale.getDefault()));
+    }
+    for (int i=0; i < allCard.size(); i++) {
+      HashMap<String,String> card=allCard.get(i);
+      if (Arrays.asList(card.get("tags").toLowerCase(Locale.getDefault()).trim().split("\\s")).containsAll(tags)) {
+        cards.add(allCard.get(i));
+      }
+    }
+  }
+  return null;
+}

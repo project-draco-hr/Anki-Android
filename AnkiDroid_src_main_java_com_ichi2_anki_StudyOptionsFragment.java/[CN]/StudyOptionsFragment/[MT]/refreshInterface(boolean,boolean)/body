@@ -1,0 +1,7 @@
+{
+  if (!colOpen()) {
+    Timber.e("StudyOptionsFragment.refreshInterface failed due to Collection being closed");
+    return;
+  }
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_VALUES_FROM_DECK,getDeckTaskListener(updateDeckList),new DeckTask.TaskData(getCol(),new Object[]{reset,mSmallChart != null}));
+}

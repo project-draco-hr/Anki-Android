@@ -1,0 +1,6 @@
+{
+  super.onDisabled(context);
+  Timber.d("SmallWidget: Widget disabled");
+  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(context);
+  preferences.edit().putBoolean("widgetSmallEnabled",false).commit();
+}

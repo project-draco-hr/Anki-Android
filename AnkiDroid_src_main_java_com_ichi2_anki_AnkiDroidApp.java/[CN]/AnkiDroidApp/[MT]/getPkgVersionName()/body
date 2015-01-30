@@ -1,0 +1,14 @@
+{
+  String pkgVersion="?";
+  if (sInstance != null) {
+    Context context=sInstance.getApplicationContext();
+    try {
+      PackageInfo pInfo=context.getPackageManager().getPackageInfo(context.getPackageName(),0);
+      pkgVersion=pInfo.versionName;
+    }
+ catch (    PackageManager.NameNotFoundException e) {
+      Timber.e(e,"Couldn't find package named %s",context.getPackageName());
+    }
+  }
+  return pkgVersion;
+}

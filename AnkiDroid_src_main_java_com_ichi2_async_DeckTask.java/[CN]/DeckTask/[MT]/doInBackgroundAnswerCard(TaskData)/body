@@ -1,0 +1,32 @@
+{
+  Sched sched=params[0].getSched();
+  Card oldCard=params[0].getCard();
+  int ease=params[0].getInt();
+  Card newCard=null;
+  try {
+    AnkiDb ankiDB=sched.getCol().getDb();
+    ankiDB.getDatabase().beginTransaction();
+    try {
+      if (oldCard != null) {
+        sched.answerCard(oldCard,ease);
+      }
+      if (newCard == null) {
+        newCard=getCard(sched);
+      }
+      if (newCard != null) {
+        newCard._getQA(true);
+      }
+      publishProgress(new TaskData(newCard));
+      ankiDB.getDatabase().setTransactionSuccessful();
+    }
+  finally {
+      ankiDB.getDatabase().endTransaction();
+    }
+  }
+ catch (  RuntimeException e) {
+    Timber.e(e,"doInBackgroundAnswerCard - RuntimeException on answering card");
+    AnkiDroidApp.sendExceptionReport(e,"doInBackgroundAnswerCard");
+    return new TaskData(false);
+  }
+  return new TaskData(true);
+}

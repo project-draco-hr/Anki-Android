@@ -1,9 +1,0 @@
-{
-  super.onDestroy();
-  if (mSpeakText) {
-    ReadText.releaseTts();
-  }
-  if (mUnmountReceiver != null) {
-    unregisterReceiver(mUnmountReceiver);
-  }
-}

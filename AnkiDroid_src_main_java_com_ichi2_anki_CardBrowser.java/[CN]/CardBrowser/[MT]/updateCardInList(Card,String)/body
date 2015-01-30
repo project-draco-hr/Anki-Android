@@ -1,0 +1,27 @@
+{
+  Note note=card.note();
+  int pos;
+  for (  Card c : note.cards()) {
+    pos=getPosition(getCards(),c.getId());
+    if (pos < 0 || pos >= getCards().size()) {
+      continue;
+    }
+    if (updatedCardTags != null) {
+      getCards().get(pos).put("tags",updatedCardTags);
+    }
+    String sfld=note.getSFld();
+    getCards().get(pos).put("sfld",sfld);
+    updateSearchItemQA(getCards().get(pos),c);
+    String deckName;
+    try {
+      deckName=getCol().getDecks().get(card.getDid()).getString("name");
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+    getCards().get(pos).put("deck",deckName);
+    String flags=Integer.toString((c.getQueue() == -1 ? 1 : 0) + (note.hasTag("marked") ? 2 : 0));
+    getCards().get(pos).put("flags",flags);
+  }
+  updateList();
+}

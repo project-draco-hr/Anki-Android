@@ -1,0 +1,24 @@
+{
+  openDBIfClosed(context);
+  try {
+    mMetaDb.beginTransaction();
+    try {
+      mMetaDb.execSQL("DELETE FROM widgetStatus");
+      for (      DeckStatus deck : decks) {
+        mMetaDb.execSQL("INSERT INTO widgetStatus(deckId, deckName, newCards, lrnCards, dueCards, progress, eta) " + "VALUES (?, ?, ?, ?, ?, ?, ?)",new Object[]{deck.mDeckId,deck.mDeckName,deck.mNewCards,deck.mLrnCards,deck.mDueCards,deck.mProgress,deck.mEta});
+      }
+      mMetaDb.setTransactionSuccessful();
+    }
+  finally {
+      mMetaDb.endTransaction();
+    }
+  }
+ catch (  IllegalStateException e) {
+    Timber.e(e,"MetaDB.storeWidgetStatus: failed");
+  }
+catch (  SQLiteException e) {
+    Timber.e(e,"MetaDB.storeWidgetStatus: failed");
+    closeDB();
+    Timber.i("MetaDB:: Trying to reset Widget: " + resetWidget(context));
+  }
+}

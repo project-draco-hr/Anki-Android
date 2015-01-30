@@ -1,0 +1,61 @@
+{
+  mTextToSpeak=text;
+  mQuestionAnswer=qa;
+  mDid=did;
+  mOrd=ord;
+  Timber.d("ReadText.textToSpeech() method started for string '%s'",text);
+  String language=getLanguage(mDid,mOrd,mQuestionAnswer);
+  Timber.d("ReadText.textToSpeech() method found language choice '%s'",language);
+  if (availableTtsLocales.isEmpty()) {
+    buildAvailableLanguages();
+  }
+  for (int i=0; i < availableTtsLocales.size(); i++) {
+    if (language.equals(NO_TTS)) {
+      return;
+    }
+ else     if (language.equals(availableTtsLocales.get(i).getISO3Language())) {
+      speak(mTextToSpeak,language);
+      return;
+    }
+  }
+  Resources res=mReviewer.get().getResources();
+  final StyledDialog.Builder builder=new StyledDialog.Builder(mReviewer.get());
+  if (availableTtsLocales.size() == 0) {
+    Timber.w("ReadText.textToSpeech() no TTS languages available");
+    builder.setMessage(res.getString(R.string.no_tts_available_message));
+    builder.setIcon(R.drawable.ic_dialog_alert);
+    builder.setPositiveButton(res.getString(R.string.dialog_ok),null);
+  }
+ else {
+    ArrayList<CharSequence> dialogItems=new ArrayList<CharSequence>();
+    final ArrayList<String> dialogIds=new ArrayList<String>();
+    builder.setTitle(R.string.select_locale_title);
+    dialogItems.add(res.getString(R.string.tts_no_tts));
+    dialogIds.add(NO_TTS);
+    for (int i=0; i < availableTtsLocales.size(); i++) {
+      dialogItems.add(availableTtsLocales.get(i).getDisplayName());
+      dialogIds.add(availableTtsLocales.get(i).getISO3Language());
+    }
+    String[] items=new String[dialogItems.size()];
+    dialogItems.toArray(items);
+    builder.setItems(items,new DialogInterface.OnClickListener(){
+      @Override public void onClick(      DialogInterface dialog,      int which){
+        String locale=dialogIds.get(which);
+        Timber.d("ReadText.textToSpeech() user chose locale '%s'",locale);
+        if (!locale.equals(NO_TTS)) {
+          speak(mTextToSpeak,locale);
+        }
+        MetaDB.storeLanguage(mReviewer.get(),mDid,mOrd,mQuestionAnswer,locale);
+      }
+    }
+);
+  }
+  final Handler handler=new Handler();
+  final int delay=500;
+  handler.postDelayed(new Runnable(){
+    @Override public void run(){
+      builder.create().show();
+    }
+  }
+,delay);
+}

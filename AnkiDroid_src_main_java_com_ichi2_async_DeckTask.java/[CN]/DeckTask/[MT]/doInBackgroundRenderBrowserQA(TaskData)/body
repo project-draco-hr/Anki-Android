@@ -1,0 +1,21 @@
+{
+  Timber.d("doInBackgroundRenderBrowserQA");
+  Collection col=(Collection)params[0].getObjArray()[0];
+  ArrayList<HashMap<String,String>> items=(ArrayList<HashMap<String,String>>)params[0].getObjArray()[1];
+  Integer startPos=(Integer)params[0].getObjArray()[2];
+  Integer n=(Integer)params[0].getObjArray()[3];
+  for (int i=startPos; i < startPos + n; i++) {
+    if (i >= 0 && i < items.size() && items.get(i).get("answer").equals("")) {
+      Card c=col.getCard(Long.parseLong(items.get(i).get("id"),10));
+      CardBrowser.updateSearchItemQA(items.get(i),c);
+      if (isCancelled()) {
+        return null;
+      }
+ else {
+        float progress=(float)i / n * 100;
+        publishProgress(new TaskData((int)progress));
+      }
+    }
+  }
+  return new TaskData(items);
+}

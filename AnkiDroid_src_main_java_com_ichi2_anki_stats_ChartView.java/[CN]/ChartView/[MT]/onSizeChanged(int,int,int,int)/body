@@ -1,0 +1,5 @@
+{
+  super.onSizeChanged(w,h,oldw,oldh);
+  Timber.d("ChartView sizeChange!");
+  if (mFragment != null)   mFragment.checkAndUpdate();
+}

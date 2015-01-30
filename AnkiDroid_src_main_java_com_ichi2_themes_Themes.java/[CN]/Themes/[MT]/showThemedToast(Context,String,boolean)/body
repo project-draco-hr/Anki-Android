@@ -1,0 +1,18 @@
+{
+  Toast result=Toast.makeText(context,text,shortLength ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG);
+  try {
+    if (mCurrentTheme >= THEME_BLUE) {
+      TextView tv=new TextView(context);
+      tv.setBackgroundResource(mToastBackground);
+      tv.setTextColor(mProgressDialogFontColor);
+      tv.setText(text);
+      result.setView(tv);
+    }
+    result.show();
+  }
+ catch (  OutOfMemoryError e) {
+    Timber.e(e,"showThemedToast - OutOfMemoryError occured");
+    result.getView().setBackgroundResource(R.color.black);
+    result.show();
+  }
+}

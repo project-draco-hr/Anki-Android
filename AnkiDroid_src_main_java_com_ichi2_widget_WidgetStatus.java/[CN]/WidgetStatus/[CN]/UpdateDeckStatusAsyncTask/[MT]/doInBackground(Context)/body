@@ -1,0 +1,22 @@
+{
+  super.doInBackground(params);
+  Timber.d("WidgetStatus.UpdateDeckStatusAsyncTask.doInBackground()");
+  Context context=params[0];
+  if (!AnkiDroidApp.isSdCardMounted()) {
+    return context;
+  }
+  try {
+    if (sSmallWidgetStatus == null) {
+      Collection col=AnkiDroidApp.openCollection(AnkiDroidApp.getCollectionPath());
+      mSmallWidgetStatus=col.getSched().progressToday(sDeckCounts,null,true);
+      AnkiDroidApp.closeCollection(false);
+    }
+ else {
+      mSmallWidgetStatus=sSmallWidgetStatus;
+    }
+  }
+ catch (  SQLException e) {
+    Timber.w("Widget: Problems on retrieving deck information");
+  }
+  return context;
+}

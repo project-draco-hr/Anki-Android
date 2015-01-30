@@ -1,0 +1,86 @@
+{
+  SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext());
+  if (!prefs.getBoolean("useBackup",true) && !force) {
+    return false;
+  }
+  final File collectionFile=new File(path);
+  File[] deckBackups=getBackups(collectionFile);
+  int len=deckBackups.length;
+  if (len > 0 && deckBackups[len - 1].lastModified() == collectionFile.lastModified()) {
+    Timber.d("performBackup: No backup necessary due to no collection changes");
+    return false;
+  }
+  SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd-HH-mm",Locale.US);
+  Calendar cal=new GregorianCalendar();
+  cal.setTimeInMillis(System.currentTimeMillis());
+  Date lastBackupDate=null;
+  while (lastBackupDate == null && len > 0) {
+    try {
+      len--;
+      lastBackupDate=df.parse(deckBackups[len].getName().replaceAll("^.*-(\\d{4}-\\d{2}-\\d{2}-\\d{2}-\\d{2}).apkg$","$1"));
+    }
+ catch (    ParseException e) {
+      lastBackupDate=null;
+    }
+  }
+  if (lastBackupDate != null && lastBackupDate.getTime() + interval * 3600000L > Utils.intNow(1000) && !force) {
+    Timber.d("performBackup: No backup created. Last backup younger than 5 hours");
+    return false;
+  }
+  String backupFilename;
+  try {
+    backupFilename=String.format(Utils.ENGLISH_LOCALE,collectionFile.getName().replace(".anki2","") + "-%s.apkg",df.format(cal.getTime()));
+  }
+ catch (  UnknownFormatConversionException e) {
+    Timber.e(e,"performBackup: error on creating backup filename");
+    return false;
+  }
+  final File backupFile=new File(getBackupDirectory().getPath(),backupFilename);
+  if (backupFile.exists()) {
+    Timber.d("performBackup: No new backup created. File already exists");
+    return false;
+  }
+  if (getFreeDiscSpace(collectionFile) < collectionFile.length() + (MIN_FREE_SPACE * 1024 * 1024)) {
+    Timber.e("performBackup: Not enough space on sd card to backup.");
+    prefs.edit().putBoolean("noSpaceLeft",true).commit();
+    return false;
+  }
+  if (collectionFile.length() < MIN_BACKUP_COL_SIZE) {
+    Timber.d("performBackup: No backup created as the collection is too small to be valid");
+    return false;
+  }
+  if (AnkiDroidApp.colIsOpen()) {
+    Timber.w("Collection is already open during backup... we probably shouldn't be doing this");
+  }
+  Thread thread=new Thread(){
+    @Override public void run(){
+      int BUFFER_SIZE=1024;
+      byte[] buf=new byte[BUFFER_SIZE];
+      try {
+        BufferedInputStream bis=new BufferedInputStream(new FileInputStream(path),BUFFER_SIZE);
+        ZipOutputStream zos=new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(backupFile)));
+        ZipEntry ze=new ZipEntry("collection.anki2");
+        zos.putNextEntry(ze);
+        int len;
+        while ((len=bis.read(buf,0,BUFFER_SIZE)) != -1) {
+          zos.write(buf,0,len);
+        }
+        zos.close();
+        bis.close();
+        SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext());
+        deleteDeckBackups(path,prefs.getInt("backupMax",8));
+        backupFile.setLastModified(collectionFile.lastModified());
+        Timber.i("Backup created succesfully for %s",path);
+      }
+ catch (      FileNotFoundException e1) {
+        e1.printStackTrace();
+      }
+catch (      IOException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+;
+  thread.start();
+  return true;
+}

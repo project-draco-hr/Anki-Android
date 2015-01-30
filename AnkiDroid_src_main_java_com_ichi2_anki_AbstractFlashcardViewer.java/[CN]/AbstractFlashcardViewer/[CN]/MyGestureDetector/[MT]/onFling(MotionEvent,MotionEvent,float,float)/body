@@ -1,0 +1,28 @@
+{
+  if (mGesturesEnabled) {
+    try {
+      float dy=e2.getY() - e1.getY();
+      float dx=e2.getX() - e1.getX();
+      if (Math.abs(dx) > Math.abs(dy)) {
+        if (dx > AnkiDroidApp.sSwipeMinDistance && Math.abs(velocityX) > AnkiDroidApp.sSwipeThresholdVelocity && !mIsXScrolling && !mIsSelecting) {
+          executeCommand(mGestureSwipeRight);
+        }
+ else         if (dx < -AnkiDroidApp.sSwipeMinDistance && Math.abs(velocityX) > AnkiDroidApp.sSwipeThresholdVelocity && !mIsXScrolling && !mIsSelecting) {
+          executeCommand(mGestureSwipeLeft);
+        }
+      }
+ else {
+        if (dy > AnkiDroidApp.sSwipeMinDistance && Math.abs(velocityY) > AnkiDroidApp.sSwipeThresholdVelocity && !mIsYScrolling) {
+          executeCommand(mGestureSwipeDown);
+        }
+ else         if (dy < -AnkiDroidApp.sSwipeMinDistance && Math.abs(velocityY) > AnkiDroidApp.sSwipeThresholdVelocity && !mIsYScrolling) {
+          executeCommand(mGestureSwipeUp);
+        }
+      }
+    }
+ catch (    Exception e) {
+      Timber.e(e,"onFling Exception");
+    }
+  }
+  return false;
+}

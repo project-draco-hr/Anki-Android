@@ -1,7 +1,0 @@
-{
-  super.onStop();
-  if (colOpen()) {
-    WidgetStatus.update(this);
-    UIUtils.saveCollectionInBackground();
-  }
-}

@@ -1,0 +1,77 @@
+{
+  super.doInBackground(params);
+  Timber.d("Info.ParseSharedDecks.doInBackground()");
+  HttpGet pageGet=new HttpGet(params[0]);
+  HostnameVerifier hostnameVerifier=org.apache.http.conn.ssl.SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER;
+  HttpParams httpParams=new BasicHttpParams();
+  httpParams.setParameter(ConnManagerPNames.MAX_TOTAL_CONNECTIONS,30);
+  httpParams.setParameter(ConnManagerPNames.MAX_CONNECTIONS_PER_ROUTE,new ConnPerRouteBean(30));
+  httpParams.setParameter(CoreProtocolPNames.USE_EXPECT_CONTINUE,false);
+  httpParams.setParameter(CoreProtocolPNames.USER_AGENT,"AnkiDroid-" + AnkiDroidApp.getPkgVersionName());
+  HttpProtocolParams.setVersion(httpParams,HttpVersion.HTTP_1_1);
+  HttpConnectionParams.setSoTimeout(httpParams,Connection.CONN_TIMEOUT);
+  SchemeRegistry registry=new SchemeRegistry();
+  registry.register(new Scheme("http",PlainSocketFactory.getSocketFactory(),80));
+  registry.register(new Scheme("https",new EasySSLSocketFactory(),443));
+  ThreadSafeClientConnManager cm=new ThreadSafeClientConnManager(httpParams,registry);
+  ResponseHandler<String> handler=new ResponseHandler<String>(){
+    @Override public String handleResponse(    HttpResponse response) throws ClientProtocolException, IOException {
+      HttpEntity entity=response.getEntity();
+      String html;
+      if (entity != null) {
+        html=EntityUtils.toString(entity);
+        return html;
+      }
+ else {
+        return null;
+      }
+    }
+  }
+;
+  String pageHTML=null;
+  try {
+    HttpClient client=new DefaultHttpClient(cm,httpParams);
+    while (pageHTML == null) {
+      pageHTML=client.execute(pageGet,handler);
+    }
+  }
+ catch (  ClientProtocolException e) {
+    pageHTML="ClientProtocolException: " + e.getMessage();
+  }
+catch (  SSLException e) {
+    pageHTML="SSLException: " + e.getMessage();
+  }
+catch (  IOException e) {
+    pageHTML="IOException: " + e.getMessage();
+  }
+  Pattern pattern=Pattern.compile("</*div(\\sid=\\\"content\\\")*");
+  Matcher matcher=pattern.matcher(pageHTML);
+  int start=-1;
+  int end=0;
+  int inner=0;
+  while (matcher.find()) {
+    if (matcher.group().length() > 8) {
+      start=matcher.start();
+    }
+ else     if (start >= 0) {
+      if (matcher.group().equals("<div")) {
+        inner++;
+      }
+ else {
+        if (inner == 0) {
+          end=matcher.end();
+          break;
+        }
+ else {
+          inner--;
+        }
+      }
+    }
+  }
+  if (start == -1 || end <= 0) {
+    return "error";
+  }
+ else {
+    return mShareDecksTemplate.replace("::content::",pageHTML.substring(start,end)).replaceAll(">\nDownload(.|\n)*",">Import</a></div>");
+  }
+}

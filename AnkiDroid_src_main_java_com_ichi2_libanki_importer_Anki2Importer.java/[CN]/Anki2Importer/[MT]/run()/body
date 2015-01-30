@@ -1,0 +1,63 @@
+{
+  publishProgress(false,0,0,false);
+  try {
+    String tempDir=AnkiDroidApp.getCurrentAnkiDroidDirectory() + "/tmpzip";
+    String colFile=tempDir + "/collection.anki2";
+    if (!Utils.unzipFiles(mZip,tempDir,new String[]{"collection.anki2","media"},null) || !(new File(colFile)).exists() || !Storage.Collection(colFile).validCollection()) {
+      return -2;
+    }
+    File mediaMapFile=new File(tempDir,"media");
+    HashMap<String,String> numToName=new HashMap<String,String>();
+    if (mediaMapFile.exists()) {
+      JsonReader jr=new JsonReader(new FileReader(mediaMapFile));
+      jr.beginObject();
+      String name;
+      String num;
+      while (jr.hasNext()) {
+        num=jr.nextName();
+        name=jr.nextString();
+        nameToNum.put(name,num);
+        numToName.put(num,name);
+      }
+      jr.endObject();
+      jr.close();
+    }
+    _prepareFiles(colFile);
+    publishProgress(true,0,0,false);
+    int cnt=-1;
+    try {
+      cnt=_import();
+    }
+  finally {
+      AnkiDatabaseManager.closeDatabase(mSrc.getPath());
+    }
+    String mediaDir=mCol.getMedia().dir();
+    if (nameToNum.size() != 0) {
+      for (      Map.Entry<String,String> entry : nameToNum.entrySet()) {
+        String file=entry.getKey();
+        String c=entry.getValue();
+        if (!file.startsWith("_") && !file.startsWith("latex-")) {
+          continue;
+        }
+        File of=new File(mediaDir,file);
+        if (!of.exists()) {
+          Utils.unzipFiles(mZip,mediaDir,new String[]{c},numToName);
+        }
+      }
+    }
+    mZip.close();
+    mSrc.getMedia().close();
+    File dir=new File(tempDir);
+    BackupManager.removeDir(dir);
+    publishProgress(true,100,100,true);
+    return cnt;
+  }
+ catch (  RuntimeException e) {
+    Timber.e(e,"RuntimeException while importing");
+    return -1;
+  }
+catch (  IOException e) {
+    Timber.e(e,"IOException while importing");
+    return -1;
+  }
+}

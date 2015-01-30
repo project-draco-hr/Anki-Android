@@ -1,0 +1,51 @@
+{
+  Timber.d("displayCardAnswer()");
+  if (mCurrentCard == null) {
+    return;
+  }
+  if (typeAnswer()) {
+    InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+    inputMethodManager.hideSoftInputFromWindow(mAnswerField.getWindowToken(),0);
+  }
+  sDisplayAnswer=true;
+  String answer;
+  if (mCurrentSimpleInterface) {
+    answer=mCurrentCard.aSimple();
+  }
+ else {
+    answer=mCurrentCard.a();
+  }
+  String displayString="";
+  if (mCurrentSimpleInterface) {
+    mCardContent=convertToSimple(answer);
+    if (mCardContent.length() == 0) {
+      SpannableString hint=new SpannableString(getResources().getString(R.string.simple_interface_hint,R.string.card_details_answer));
+      hint.setSpan(new StyleSpan(Typeface.ITALIC),0,mCardContent.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      mCardContent=hint;
+    }
+  }
+ else {
+    Sound.stopSounds();
+    answer=getCol().getMedia().escapeImages(answer);
+    if (mPrefFixArabic) {
+      answer=ArabicUtilities.reshapeSentence(answer,true);
+    }
+    mAnswerField.setVisibility(View.GONE);
+    if (mPrefFixArabic) {
+      mTypeCorrect=ArabicUtilities.reshapeSentence(mTypeCorrect,true);
+    }
+    String userAnswer=cleanTypedAnswer(mAnswerField.getText().toString());
+    String correctAnswer=cleanCorrectAnswer(mTypeCorrect);
+    Timber.d("correct answer = %s",correctAnswer);
+    Timber.d("user answer = %s",userAnswer);
+    answer=typeAnsAnswerFilter(answer,userAnswer,correctAnswer);
+    displayString=enrichWithQADiv(answer,true);
+  }
+  mIsSelecting=false;
+  updateCard(displayString);
+  showEaseButtons();
+  if (mPrefUseTimer) {
+    mTimeoutHandler.removeCallbacks(mShowQuestionTask);
+    mTimeoutHandler.postDelayed(mShowQuestionTask,mWaitQuestionSecond * 1000);
+  }
+}

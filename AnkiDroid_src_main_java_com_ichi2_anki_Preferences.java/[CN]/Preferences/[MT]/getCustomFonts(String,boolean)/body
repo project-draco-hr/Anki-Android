@@ -1,0 +1,20 @@
+{
+  List<AnkiFont> mFonts=Utils.getCustomFonts(this);
+  int count=mFonts.size();
+  Timber.d("There are %d custom fonts",count);
+  String[] names=new String[count + 1];
+  names[0]=defaultValue;
+  if (useFullPath) {
+    for (int index=1; index < count + 1; ++index) {
+      names[index]=mFonts.get(index - 1).getPath();
+      Timber.d("Adding custom font: %s",names[index]);
+    }
+  }
+ else {
+    for (int index=1; index < count + 1; ++index) {
+      names[index]=mFonts.get(index - 1).getName();
+      Timber.d("Adding custom font: %s",names[index]);
+    }
+  }
+  return names;
+}

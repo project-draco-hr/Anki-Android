@@ -1,7 +1,0 @@
-{
-  super.onResume();
-  if (colOpen() && AnkiDroidApp.isSdCardMounted()) {
-    loadCounts();
-  }
-  selectNavigationItem(DRAWER_DECK_PICKER);
-}

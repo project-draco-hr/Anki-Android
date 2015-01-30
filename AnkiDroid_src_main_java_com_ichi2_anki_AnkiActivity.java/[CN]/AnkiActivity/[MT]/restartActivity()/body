@@ -1,0 +1,8 @@
+{
+  Timber.i("AnkiActivity -- restartActivity()");
+  Intent intent=new Intent();
+  intent.setClass(this,this.getClass());
+  intent.putExtras(new Bundle());
+  this.startActivityWithoutAnimation(intent);
+  this.finishWithoutAnimation();
+}

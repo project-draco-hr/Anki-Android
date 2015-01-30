@@ -1,0 +1,11 @@
+{
+  Context context=sInstance.getApplicationContext();
+  try {
+    PackageInfo pInfo=context.getPackageManager().getPackageInfo(context.getPackageName(),0);
+    return pInfo.versionCode;
+  }
+ catch (  PackageManager.NameNotFoundException e) {
+    Timber.e(e,"Couldn't find package named %s",context.getPackageName());
+  }
+  return 0;
+}

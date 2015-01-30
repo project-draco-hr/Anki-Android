@@ -1,0 +1,22 @@
+{
+  openDBIfClosed(context);
+  try {
+    mMetaDb.beginTransaction();
+    try {
+      mMetaDb.execSQL("DELETE FROM smallWidgetStatus");
+      mMetaDb.execSQL("INSERT INTO smallWidgetStatus(progress, left, eta) VALUES (?, ?, ?)",new Object[]{(int)(progress[1] * 1000),(int)progress[2],(int)progress[3]});
+      mMetaDb.setTransactionSuccessful();
+    }
+  finally {
+      mMetaDb.endTransaction();
+    }
+  }
+ catch (  IllegalStateException e) {
+    Timber.e(e,"MetaDB.storeSmallWidgetStatus: failed");
+  }
+catch (  SQLiteException e) {
+    Timber.e(e,"MetaDB.storeSmallWidgetStatus: failed");
+    closeDB();
+    Timber.i("MetaDB:: Trying to reset Widget: " + resetWidget(context));
+  }
+}

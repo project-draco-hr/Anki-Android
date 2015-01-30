@@ -1,0 +1,38 @@
+{
+  Timber.i("DeckOptions - CacheValues");
+  try {
+    mOptions=mCol.getDecks().confForDid(mDeck.getLong("id"));
+    mValues.put("name",mDeck.getString("name"));
+    mValues.put("desc",mDeck.getString("desc"));
+    mValues.put("deckConf",mDeck.getString("conf"));
+    mValues.put("maxAnswerTime",mOptions.getString("maxTaken"));
+    mValues.put("showAnswerTimer",Boolean.toString(mOptions.getInt("timer") == 1));
+    mValues.put("autoPlayAudio",Boolean.toString(mOptions.getBoolean("autoplay")));
+    mValues.put("replayQuestion",Boolean.toString(mOptions.getBoolean("replayq")));
+    JSONObject newOptions=mOptions.getJSONObject("new");
+    mValues.put("newSteps",StepsPreference.convertFromJSON(newOptions.getJSONArray("delays")));
+    mValues.put("newGradIvl",newOptions.getJSONArray("ints").getString(0));
+    mValues.put("newEasy",newOptions.getJSONArray("ints").getString(1));
+    mValues.put("newFactor",Integer.toString(newOptions.getInt("initialFactor") / 10));
+    mValues.put("newOrder",newOptions.getString("order"));
+    mValues.put("newPerDay",newOptions.getString("perDay"));
+    mValues.put("newBury",Boolean.toString(newOptions.optBoolean("bury",true)));
+    JSONObject revOptions=mOptions.getJSONObject("rev");
+    mValues.put("revPerDay",revOptions.getString("perDay"));
+    mValues.put("easyBonus",Integer.toString((int)(revOptions.getDouble("ease4") * 100)));
+    mValues.put("revIvlFct",Integer.toString((int)(revOptions.getDouble("ivlFct") * 100)));
+    mValues.put("revMaxIvl",revOptions.getString("maxIvl"));
+    mValues.put("revBury",Boolean.toString(revOptions.optBoolean("bury",true)));
+    JSONObject lapOptions=mOptions.getJSONObject("lapse");
+    mValues.put("lapSteps",StepsPreference.convertFromJSON(lapOptions.getJSONArray("delays")));
+    mValues.put("lapNewIvl",Integer.toString((int)(lapOptions.getDouble("mult") * 100)));
+    mValues.put("lapMinIvl",lapOptions.getString("minInt"));
+    mValues.put("lapLeechThres",lapOptions.getString("leechFails"));
+    mValues.put("lapLeechAct",lapOptions.getString("leechAction"));
+    mValues.put("currentConf",mCol.getDecks().getConf(mDeck.getLong("conf")).getString("name"));
+  }
+ catch (  JSONException e) {
+    addMissingValues();
+    finish();
+  }
+}

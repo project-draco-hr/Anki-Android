@@ -1,0 +1,18 @@
+{
+  availableTtsLocales.clear();
+  Locale[] systemLocales=Locale.getAvailableLocales();
+  for (  Locale loc : systemLocales) {
+    try {
+      int retCode=mTts.isLanguageAvailable(loc);
+      if (retCode >= TextToSpeech.LANG_COUNTRY_AVAILABLE) {
+        availableTtsLocales.add(loc);
+      }
+ else {
+        Timber.v("ReadText.buildAvailableLanguages() :: %s  not available (error code %d)",loc.getDisplayName(),retCode);
+      }
+    }
+ catch (    IllegalArgumentException e) {
+      Timber.e("Error checking if language " + loc.getDisplayName() + " available");
+    }
+  }
+}

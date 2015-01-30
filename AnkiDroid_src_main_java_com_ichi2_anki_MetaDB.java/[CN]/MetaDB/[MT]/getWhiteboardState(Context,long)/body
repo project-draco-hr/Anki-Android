@@ -1,0 +1,22 @@
+{
+  openDBIfClosed(context);
+  Cursor cur=null;
+  try {
+    cur=mMetaDb.rawQuery("SELECT state FROM whiteboardState" + " WHERE did = " + did,null);
+    if (cur.moveToNext()) {
+      return cur.getInt(0) > 0;
+    }
+ else {
+      return false;
+    }
+  }
+ catch (  Exception e) {
+    Timber.e(e,"Error retrieving whiteboard state from MetaDB ");
+    return false;
+  }
+ finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+}

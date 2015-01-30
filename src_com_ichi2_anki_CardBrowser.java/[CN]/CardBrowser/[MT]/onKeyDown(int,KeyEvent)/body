@@ -1,7 +1,0 @@
-{
-  if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-    closeCardBrowser(Activity.RESULT_OK);
-    return true;
-  }
-  return super.onKeyDown(keyCode,event);
-}

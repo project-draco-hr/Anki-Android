@@ -1,0 +1,22 @@
+{
+  Timber.d("doInBackgroundAddNote");
+  Note note=params[0].getNote();
+  Collection col=note.getCol();
+  try {
+    AnkiDb ankiDB=col.getDb();
+    ankiDB.getDatabase().beginTransaction();
+    try {
+      publishProgress(new TaskData(col.addNote(note)));
+      ankiDB.getDatabase().setTransactionSuccessful();
+    }
+  finally {
+      ankiDB.getDatabase().endTransaction();
+    }
+  }
+ catch (  RuntimeException e) {
+    Timber.e(e,"doInBackgroundAddNote - RuntimeException on adding fact");
+    AnkiDroidApp.sendExceptionReport(e,"doInBackgroundAddNote");
+    return new TaskData(false);
+  }
+  return new TaskData(true);
+}

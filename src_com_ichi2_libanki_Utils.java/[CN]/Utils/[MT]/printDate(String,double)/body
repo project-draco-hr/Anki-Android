@@ -1,6 +1,0 @@
-{
-  SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-  df.setTimeZone(TimeZone.getTimeZone("GMT"));
-  Calendar cal=new GregorianCalendar(TimeZone.getTimeZone("GMT"));
-  cal.setTimeInMillis((long)date * 1000);
-}

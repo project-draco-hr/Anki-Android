@@ -1,0 +1,96 @@
+{
+  Timber.d("onCreate()");
+  Intent intent=getIntent();
+  if (intent.getCategories() != null || !AnkiDroidApp.colIsOpen()) {
+    showOpeningCollectionDialog();
+  }
+  Themes.applyTheme(this);
+  super.onCreate(savedInstanceState);
+  setTitle(getResources().getString(R.string.app_name));
+  SharedPreferences preferences=restorePreferences();
+  View mainView=getLayoutInflater().inflate(R.layout.deck_picker,null);
+  setContentView(mainView);
+  View studyoptionsFrame=findViewById(R.id.studyoptions_fragment);
+  mFragmented=studyoptionsFrame != null && studyoptionsFrame.getVisibility() == View.VISIBLE;
+  Themes.setContentStyle(mFragmented ? mainView : mainView.findViewById(R.id.deckpicker_view),Themes.CALLER_DECKPICKER);
+  registerExternalStorageListener();
+  initNavigationDrawer(mainView);
+  if (savedInstanceState == null) {
+    selectNavigationItem(DRAWER_DECK_PICKER);
+  }
+  mDeckList=new ArrayList<HashMap<String,String>>();
+  mDeckListView=(ListView)findViewById(R.id.files);
+  mDeckListAdapter=new SimpleAdapter(this,mDeckList,R.layout.deck_item,new String[]{"name","new","lrn","rev","sep","dyn"},new int[]{R.id.DeckPickerName,R.id.deckpicker_new,R.id.deckpicker_lrn,R.id.deckpicker_rev,R.id.deckpicker_deck,R.id.DeckPickerName});
+  mDeckListAdapter.setViewBinder(new SimpleAdapter.ViewBinder(){
+    @Override public boolean setViewValue(    View view,    Object data,    String text){
+      if (view.getId() == R.id.deckpicker_deck) {
+        if (text.equals("top")) {
+          view.setBackgroundResource(R.drawable.white_deckpicker_top);
+          return true;
+        }
+ else         if (text.equals("bot")) {
+          view.setBackgroundResource(R.drawable.white_deckpicker_bottom);
+          return true;
+        }
+ else         if (text.equals("ful")) {
+          view.setBackgroundResource(R.drawable.white_deckpicker_full);
+          return true;
+        }
+ else         if (text.equals("cen")) {
+          view.setBackgroundResource(R.drawable.white_deckpicker_center);
+          return true;
+        }
+      }
+ else       if (view.getId() == R.id.DeckPickerName) {
+        if (text.equals("d0")) {
+          ((TextView)view).setTextColor(getResources().getColor(R.color.non_dyn_deck));
+          return true;
+        }
+ else         if (text.equals("d1")) {
+          ((TextView)view).setTextColor(getResources().getColor(R.color.dyn_deck));
+          return true;
+        }
+      }
+ else       if (view.getId() == R.id.deckpicker_new) {
+        ((TextView)view).setTextColor((text.equals("0")) ? getResources().getColor(R.color.zero_count) : getResources().getColor(R.color.new_count));
+        return false;
+      }
+ else       if (view.getId() == R.id.deckpicker_lrn) {
+        ((TextView)view).setTextColor((text.equals("0")) ? getResources().getColor(R.color.zero_count) : getResources().getColor(R.color.learn_count));
+        return false;
+      }
+ else       if (view.getId() == R.id.deckpicker_rev) {
+        ((TextView)view).setTextColor((text.equals("0")) ? getResources().getColor(R.color.zero_count) : getResources().getColor(R.color.review_count));
+        return false;
+      }
+      return false;
+    }
+  }
+);
+  mDeckListView.setOnItemClickListener(mDeckSelHandler);
+  mDeckListView.setOnItemLongClickListener(new OnItemLongClickListener(){
+    @Override public boolean onItemLongClick(    AdapterView<?> adapterView,    View view,    int position,    long id){
+      Timber.i("DeckPicker:: Long tapped on deck in position %d",position);
+      if (!AnkiDroidApp.colIsOpen() || mDeckList == null || mDeckList.size() == 0) {
+        return true;
+      }
+      mContextMenuDid=Long.parseLong(mDeckList.get(position).get("did"));
+      String deckName=getCol().getDecks().name(mContextMenuDid);
+      boolean isCollapsed=getCol().getDecks().get(mContextMenuDid).optBoolean("collapsed",false);
+      showDialogFragment(DeckPickerContextMenu.newInstance(deckName,isCollapsed));
+      return true;
+    }
+  }
+);
+  mDeckListView.setAdapter(mDeckListAdapter);
+  mTodayTextView=(TextView)findViewById(R.id.today_stats_text_view);
+  if (mFragmented) {
+    mDeckListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+  }
+  if (getCol() == null) {
+    showStartupScreensAndDialogs(preferences,0);
+  }
+ else {
+    loadCounts();
+  }
+}

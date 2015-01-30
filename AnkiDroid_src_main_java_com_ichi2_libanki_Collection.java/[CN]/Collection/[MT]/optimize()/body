@@ -1,0 +1,6 @@
+{
+  Timber.i("executing VACUUM statement");
+  mDb.execute("VACUUM");
+  Timber.i("executing ANALYZE statement");
+  mDb.execute("ANALYZE");
+}
