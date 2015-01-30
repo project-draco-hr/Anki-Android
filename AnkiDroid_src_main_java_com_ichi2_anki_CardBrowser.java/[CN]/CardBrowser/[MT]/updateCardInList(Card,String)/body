@@ -2,16 +2,16 @@
   Note note=card.note();
   int pos;
   for (  Card c : note.cards()) {
-    pos=getPosition(mCards,c.getId());
-    if (pos < 0 || pos >= mCards.size()) {
+    pos=getPosition(getCards(),c.getId());
+    if (pos < 0 || pos >= getCards().size()) {
       continue;
     }
     if (updatedCardTags != null) {
-      mCards.get(pos).put("tags",updatedCardTags);
+      getCards().get(pos).put("tags",updatedCardTags);
     }
     String sfld=note.getSFld();
-    mCards.get(pos).put("sfld",sfld);
-    updateSearchItemQA(mCards.get(pos),c);
+    getCards().get(pos).put("sfld",sfld);
+    updateSearchItemQA(getCards().get(pos),c);
     String deckName;
     try {
       deckName=getCol().getDecks().get(card.getDid()).getString("name");
@@ -19,9 +19,9 @@
  catch (    JSONException e) {
       throw new RuntimeException(e);
     }
-    mCards.get(pos).put("deck",deckName);
+    getCards().get(pos).put("deck",deckName);
     String flags=Integer.toString((c.getQueue() == -1 ? 1 : 0) + (note.hasTag("marked") ? 2 : 0));
-    mCards.get(pos).put("flags",flags);
+    getCards().get(pos).put("flags",flags);
   }
   updateList();
 }

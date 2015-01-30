@@ -18,7 +18,7 @@ case DIALOG_ORDER:
     }
   break;
 case DIALOG_CONTEXT_MENU:
-HashMap<String,String> card=mCards.get(mPositionInCardsList);
+HashMap<String,String> card=getCards().get(mPositionInCardsList);
 int flags=Integer.parseInt(card.get("flags"));
 if (flags == 2 || flags == 3) {
 ad.changeListItem(CONTEXT_MENU_MARK,res.getString(R.string.card_browser_unmark_card));
