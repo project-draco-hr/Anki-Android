@@ -1,5 +1,5 @@
 {
   Timber.e("The database has been corrupted...");
-  AnkiDroidApp.saveExceptionReportFile("AnkiDb.MyDbErrorHandler.onCorruption","Db has been corrupted ");
+  AnkiDroidApp.sendExceptionReport("AnkiDb.MyDbErrorHandler.onCorruption","Db has been corrupted ");
   AnkiDroidApp.closeCollection(false);
 }

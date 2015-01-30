@@ -6,7 +6,7 @@
   }
  catch (  RuntimeException e) {
     Timber.e(e,"loadInBackground - RuntimeException on opening collection");
-    AnkiDroidApp.saveExceptionReportFile(e,"CollectionLoader.loadInBackground");
+    AnkiDroidApp.sendExceptionReport(e,"CollectionLoader.loadInBackground");
     return null;
   }
 }

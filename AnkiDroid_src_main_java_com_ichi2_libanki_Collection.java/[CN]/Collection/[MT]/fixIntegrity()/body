@@ -108,7 +108,7 @@
   }
  catch (  RuntimeException e) {
     Timber.e(e,"doInBackgroundCheckDatabase - RuntimeException on marking card");
-    AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundCheckDatabase");
+    AnkiDroidApp.sendExceptionReport(e,"doInBackgroundCheckDatabase");
     return -1;
   }
   optimize();

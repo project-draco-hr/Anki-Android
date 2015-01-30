@@ -1,0 +1,15 @@
+{
+  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(this);
+  LayoutInflater inflater=getLayoutInflater();
+  View rootView=inflater.inflate(R.layout.feedback,null);
+  mAlwaysReportCheckBox=(CheckBox)rootView.findViewById(R.id.alwaysReportCheckbox);
+  mAlwaysReportCheckBox.setChecked(preferences.getBoolean("autoreportCheckboxValue",true));
+  mUserComment=(EditText)rootView.findViewById(R.id.etFeedbackText);
+  if (savedInstanceState != null) {
+    String savedValue=savedInstanceState.getString(STATE_COMMENT);
+    if (savedValue != null) {
+      mUserComment.setText(savedValue);
+    }
+  }
+  return rootView;
+}

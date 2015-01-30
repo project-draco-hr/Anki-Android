@@ -12,7 +12,7 @@ return 0;
 }
 }
  catch (RuntimeException e) {
-AnkiDroidApp.saveExceptionReportFile(e,"AbstractReviewer-getRecommendedEase");
+AnkiDroidApp.sendExceptionReport(e,"AbstractReviewer-getRecommendedEase");
 closeReviewer(DeckPicker.RESULT_DB_ERROR,true);
 return 0;
 }

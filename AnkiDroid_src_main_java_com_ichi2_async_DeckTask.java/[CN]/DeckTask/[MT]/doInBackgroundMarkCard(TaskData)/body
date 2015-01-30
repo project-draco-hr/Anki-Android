@@ -25,7 +25,7 @@
   }
  catch (  RuntimeException e) {
     Timber.e(e,"doInBackgroundMarkCard - RuntimeException on marking card");
-    AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundMarkCard");
+    AnkiDroidApp.sendExceptionReport(e,"doInBackgroundMarkCard");
     return new TaskData(false);
   }
   return new TaskData(true);

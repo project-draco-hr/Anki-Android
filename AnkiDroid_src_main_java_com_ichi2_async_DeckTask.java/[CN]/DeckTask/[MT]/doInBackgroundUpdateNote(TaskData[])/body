@@ -34,7 +34,7 @@
   }
  catch (  RuntimeException e) {
     Timber.e(e,"doInBackgroundUpdateNote - RuntimeException on updating fact");
-    AnkiDroidApp.saveExceptionReportFile(e,"doInBackgroundUpdateNote");
+    AnkiDroidApp.sendExceptionReport(e,"doInBackgroundUpdateNote");
     return new TaskData(false);
   }
   return new TaskData(true);
