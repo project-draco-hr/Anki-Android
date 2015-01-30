@@ -1,87 +1,88 @@
 {
-  Accumulator accum=new Accumulator(compiler);
-  char start1='{', start2='{', end1='}', end2='}';
-  int state=TEXT;
-  StringBuilder text=new StringBuilder();
-  int line=1;
-  boolean skipNewline=false;
-  boolean skippedExtraBracket=false;
-  while (true) {
-    char c;
-    try {
-      int v=source.read();
-      if (v == -1) {
-        break;
+  try {
+    Accumulator accum=new Accumulator(compiler);
+    char start1='{', start2='{', end1='}', end2='}';
+    int state=TEXT;
+    StringBuilder text=new StringBuilder();
+    int line=1;
+    boolean skipNewline=false;
+    boolean skippedExtraBracket=false;
+    while (true) {
+      char c;
+      try {
+        int v=source.read();
+        if (v == -1) {
+          break;
+        }
+        c=(char)v;
       }
-      c=(char)v;
-    }
- catch (    IOException e) {
-      throw new MustacheException(e);
-    }
-    if (c == '\n') {
-      line++;
-      if (skipNewline) {
-        skipNewline=false;
-        continue;
+ catch (      IOException e) {
+        throw new MustacheException(e);
       }
-    }
+      if (c == '\n') {
+        line++;
+        if (skipNewline) {
+          skipNewline=false;
+          continue;
+        }
+      }
  else {
-      skipNewline=false;
-    }
+        skipNewline=false;
+      }
 switch (state) {
 case TEXT:
-      if (c == start1) {
-        if (start2 == -1) {
-          accum.addTextSegment(text);
-          state=TAG;
+        if (c == start1) {
+          if (start2 == -1) {
+            accum.addTextSegment(text);
+            state=TAG;
+          }
+ else {
+            state=MATCHING_START;
+          }
         }
  else {
-          state=MATCHING_START;
+          text.append(c);
         }
-      }
- else {
-        text.append(c);
-      }
-    break;
+      break;
 case MATCHING_START:
-  if (c == start2) {
-    accum.addTextSegment(text);
-    state=TAG;
-  }
- else {
-    text.append(start1);
-    if (c != start1) {
-      text.append(c);
-      state=TEXT;
+    if (c == start2) {
+      accum.addTextSegment(text);
+      state=TAG;
     }
-  }
-break;
+ else {
+      text.append(start1);
+      if (c != start1) {
+        text.append(c);
+        state=TEXT;
+      }
+    }
+  break;
 case TAG:
 if (c == end1) {
-if (!skippedExtraBracket && text.charAt(0) == '{') {
-  skippedExtraBracket=true;
-}
- else if (end2 == -1) {
-  if (text.charAt(0) == '=') {
+  if (!skippedExtraBracket && text.charAt(0) == '{') {
+    skippedExtraBracket=true;
   }
- else {
-    if (sanityCheckTag(text,line,start1,start2)) {
-      accum=accum.addTagSegment(text,line);
+ else   if (end2 == -1) {
+    if (text.charAt(0) == '=') {
     }
  else {
-      text.setLength(0);
+      if (sanityCheckTag(text,line,start1,start2)) {
+        accum=accum.addTagSegment(text,line);
+      }
+ else {
+        text.setLength(0);
+      }
+      skipNewline=accum.skipNewline();
+      skippedExtraBracket=false;
     }
-    skipNewline=accum.skipNewline();
-    skippedExtraBracket=false;
+    state=TEXT;
   }
-  state=TEXT;
+ else {
+    state=MATCHING_END;
+  }
 }
  else {
-  state=MATCHING_END;
-}
-}
- else {
-text.append(c);
+  text.append(c);
 }
 break;
 case MATCHING_END:
@@ -90,10 +91,10 @@ if (text.charAt(0) == '=') {
 }
  else {
 if (sanityCheckTag(text,line,start1,start2)) {
-accum=accum.addTagSegment(text,line);
+  accum=accum.addTagSegment(text,line);
 }
  else {
-text.setLength(0);
+  text.setLength(0);
 }
 skipNewline=accum.skipNewline();
 skippedExtraBracket=false;
@@ -129,4 +130,9 @@ accum.addTextSegment(text);
 break;
 }
 return new Template(accum.finish());
+}
+ catch (Exception e) {
+Timber.e(e,"Unhandled mustache error");
+throw new MustacheException("Unhandled eror",e);
+}
 }
