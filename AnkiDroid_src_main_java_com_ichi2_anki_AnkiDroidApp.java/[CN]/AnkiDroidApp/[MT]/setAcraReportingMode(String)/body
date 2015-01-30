@@ -1,5 +1,5 @@
 {
-  SharedPreferences.Editor editor=getSharedPrefs(this).edit();
+  SharedPreferences.Editor editor=ACRA.getACRASharedPreferences().edit();
   if (value.equals(FEEDBACK_REPORT_NEVER)) {
     editor.putBoolean("acra.disable",true);
   }
