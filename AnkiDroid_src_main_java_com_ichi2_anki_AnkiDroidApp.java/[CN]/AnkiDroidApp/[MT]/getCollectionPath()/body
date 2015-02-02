@@ -1,3 +1,3 @@
 {
-  return getCurrentAnkiDroidDirectory() + AnkiDroidApp.COLLECTION_PATH;
+  return new File(getCurrentAnkiDroidDirectory(),COLLECTION_FILENAME).getAbsolutePath();
 }
