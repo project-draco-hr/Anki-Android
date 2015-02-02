@@ -1,6 +1,6 @@
 {
-  mGesturesEnabled=preferences.getBoolean("gestures",false);
-  if (mGesturesEnabled) {
+  Boolean enabled=preferences.getBoolean("gestures",false);
+  if (enabled) {
     int sensitivity=preferences.getInt("swipeSensitivity",100);
     if (sensitivity != 100) {
       float sens=100.0f / sensitivity;
@@ -12,5 +12,5 @@
       sSwipeThresholdVelocity=DEFAULT_SWIPE_THRESHOLD_VELOCITY;
     }
   }
-  return mGesturesEnabled;
+  return enabled;
 }

@@ -13,48 +13,41 @@
     setAcraReportingMode(preferences.getString("reportErrorMode",FEEDBACK_REPORT_ASK));
   }
   Timber.tag(TAG);
-  if (isNookHdOrHdPlus() && AnkiDroidApp.SDK_VERSION == 15) {
+  if (isNookHdOrHdPlus() && SDK_VERSION == 15) {
     mCompat=new CompatV15NookHdOrHdPlus();
   }
- else   if (AnkiDroidApp.SDK_VERSION >= 16) {
+ else   if (SDK_VERSION >= 16) {
     mCompat=new CompatV16();
   }
- else   if (AnkiDroidApp.SDK_VERSION >= 15) {
+ else   if (SDK_VERSION >= 15) {
     mCompat=new CompatV15();
   }
- else   if (AnkiDroidApp.SDK_VERSION >= 12) {
+ else   if (SDK_VERSION >= 12) {
     mCompat=new CompatV12();
   }
- else   if (AnkiDroidApp.SDK_VERSION >= 9) {
+ else   if (SDK_VERSION >= 9) {
     mCompat=new CompatV9();
   }
- else   if (AnkiDroidApp.SDK_VERSION >= 8) {
+ else   if (SDK_VERSION >= 8) {
     mCompat=new CompatV8();
   }
- else   if (isNook() && AnkiDroidApp.SDK_VERSION == 7) {
+ else   if (isNook() && SDK_VERSION == 7) {
     mCompat=new CompatV7Nook();
   }
  else {
     mCompat=new CompatV7();
   }
   sInstance=this;
-  Connection.setContext(getApplicationContext());
-  mCompat.enableCookiesForFileSchemePages();
   sInstance.mHooks=new Hooks(preferences);
   setLanguage(preferences.getString(Preferences.LANGUAGE,""));
-  if (!preferences.contains("deckPath")) {
-    Editor editor=preferences.edit();
-    String deckPath=getDefaultAnkiDroidDirectory();
-    createDirectoryIfMissing(new File(deckPath));
-    editor.putString("deckPath",deckPath);
-    editor.commit();
-  }
+  mCompat.enableCookiesForFileSchemePages();
   final ViewConfiguration vc=ViewConfiguration.get(this);
-  if (AnkiDroidApp.SDK_VERSION >= 8) {
+  if (SDK_VERSION >= 8) {
     DEFAULT_SWIPE_MIN_DISTANCE=vc.getScaledPagingTouchSlop();
   }
  else {
     DEFAULT_SWIPE_MIN_DISTANCE=vc.getScaledTouchSlop() * 2;
   }
   DEFAULT_SWIPE_THRESHOLD_VELOCITY=vc.getScaledMinimumFlingVelocity();
+  initializeAnkiDroidDirectory();
 }

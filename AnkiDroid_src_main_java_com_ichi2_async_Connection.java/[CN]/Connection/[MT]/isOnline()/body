@@ -1,5 +1,5 @@
 {
-  ConnectivityManager cm=(ConnectivityManager)sContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+  ConnectivityManager cm=(ConnectivityManager)AnkiDroidApp.getInstance().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
   if (cm.getActiveNetworkInfo() != null) {
     return cm.getActiveNetworkInfo().isConnectedOrConnecting();
   }

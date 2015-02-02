@@ -1,0 +1,4 @@
+{
+  Display display=((WindowManager)AnkiDroidApp.getInstance().getApplicationContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+  return display.getHeight();
+}
