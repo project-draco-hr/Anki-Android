@@ -7,6 +7,7 @@
   reloadIntent.setDataAndType(getIntent().getData(),getIntent().getType());
   String action=intent.getAction();
   if (Intent.ACTION_VIEW.equals(action)) {
+    Timber.i("IntentHandler/ User requested to view a file");
     boolean successful=false;
     String errorMessage=getResources().getString(R.string.import_log_no_apkg);
     if (intent.getData().getScheme().equals("content")) {
@@ -22,47 +23,36 @@
         if (cursor != null)         cursor.close();
       }
       if (filename == null) {
-        Timber.e("Could not get filename from Content Provider. cursor = " + cursor);
-        if (intent.getType().equals("application/apkg")) {
+        if (intent.getType().equals("application/apkg") || hasValidZipFile(intent)) {
           filename="unknown_filename.apkg";
-        }
-      }
-      if (filename != null && filename.endsWith(".apkg")) {
-        Uri importUri=Uri.fromFile(new File(getCacheDir(),filename));
-        Timber.v("IntentHandler copying apkg file to %s",importUri.getEncodedPath());
-        try {
-          InputStream in=getContentResolver().openInputStream(intent.getData());
-          OutputStream out=new FileOutputStream(importUri.getEncodedPath());
-          byte[] buf=new byte[1024];
-          int len;
-          while ((len=in.read(buf)) > 0) {
-            out.write(buf,0,len);
-          }
-          in.close();
-          out.close();
-          successful=sendShowImportFileDialogMsg(importUri.getEncodedPath());
-        }
- catch (        FileNotFoundException e) {
-          errorMessage=e.getLocalizedMessage();
-          AnkiDroidApp.sendExceptionReport(e,"IntentHandler.java","apkg import failed: " + filename);
-        }
-catch (        IOException e2) {
-          errorMessage=e2.getLocalizedMessage();
-          AnkiDroidApp.sendExceptionReport(e2,"IntentHandler.java","apkg import failed" + filename);
-        }
-      }
- else {
-        if (filename == null) {
-          errorMessage="Could not retrieve filename from content resolver; try opening the apkg file with a file explorer";
-          AnkiDroidApp.sendExceptionReport("IntentHandler.java","apkg import failed (filename null, no MIME type provided)");
+          Timber.w("Could not retrieve filename from ContentProvider, but was valid zip file so we try to continue");
         }
  else {
-          errorMessage=getResources().getString(R.string.import_error_not_apkg_extension,filename);
+          Timber.e("Could not retrieve filename from ContentProvider or read content as ZipFile");
+          AnkiDroidApp.sendExceptionReport("IntentHandler.java","apkg import failed");
+        }
+      }
+      if (filename != null) {
+        String tempOutDir=Uri.fromFile(new File(getCacheDir(),filename)).getEncodedPath();
+        successful=copyFileToCache(intent,tempOutDir);
+        if (successful) {
+          sendShowImportFileDialogMsg(tempOutDir);
+        }
+ else {
+          AnkiDroidApp.sendExceptionReport("IntentHandler.java","apkg import failed");
+          errorMessage=getResources().getString(R.string.import_error_content_provider,AnkiDroidApp.getManualUrl() + "#importing");
         }
       }
     }
  else     if (intent.getData().getScheme().equals("file")) {
-      successful=sendShowImportFileDialogMsg(intent.getData().getPath());
+      String filename=intent.getData().getPath();
+      if (filename != null && filename.endsWith(".apkg")) {
+        sendShowImportFileDialogMsg(filename);
+        successful=true;
+      }
+ else {
+        errorMessage=getResources().getString(R.string.import_error_not_apkg_extension,filename);
+      }
     }
     if (successful) {
       reloadIntent.setAction(action);
@@ -82,7 +72,6 @@ catch (        IOException e2) {
       }
 );
       builder.create().show();
-      return;
     }
   }
  else {
