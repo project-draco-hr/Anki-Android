@@ -1,0 +1,36 @@
+{
+  InputStream in=null;
+  try {
+    in=getContentResolver().openInputStream(intent.getData());
+  }
+ catch (  FileNotFoundException e) {
+    Timber.e(e,"Could not open input stream to intent data");
+  }
+  if (in == null) {
+    Timber.e("Could not open input stream to intent data");
+    return false;
+  }
+  ZipInputStream zis=new ZipInputStream(in);
+  boolean ok=false;
+  try {
+    try {
+      ZipEntry ze=zis.getNextEntry();
+      if (ze != null) {
+        ok=true;
+      }
+    }
+ catch (    IOException e) {
+      Timber.d(e,"Error checking if provided file has a zip entry");
+    }
+  }
+  finally {
+    try {
+      zis.close();
+      in.close();
+    }
+ catch (    Exception e) {
+      Timber.d(e,"Error closing the InputStream");
+    }
+  }
+  return ok;
+}
