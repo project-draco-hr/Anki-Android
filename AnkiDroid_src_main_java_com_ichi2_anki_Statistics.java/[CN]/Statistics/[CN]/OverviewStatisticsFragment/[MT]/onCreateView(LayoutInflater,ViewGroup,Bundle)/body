@@ -3,7 +3,7 @@
   View rootView=inflater.inflate(R.layout.fragment_anki_stats_overview,container,false);
   AnkiStatsTaskHandler handler=(((Statistics)getActivity()).getTaskHandler());
   if (handler == null) {
-    Timber.e("Statistics.createStatisticsOverview() TaskHandler not found");
+    Timber.e("Statistics.OverviewStatisticsFragment.onCreateView() TaskHandler not found");
     getActivity().finish();
     return rootView;
   }
