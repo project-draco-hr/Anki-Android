@@ -1,40 +1,9 @@
 {
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-    if (mType == TYPE_SHARED_DECKS && mWebView.canGoBack()) {
-      mWebView.goBack();
-    }
- else     if (mType == TYPE_UPGRADE_DECKS && mUpgradeStage != UPGRADE_SCREEN_BASIC1) {
-      Intent result=new Intent();
-      result.putExtra(TYPE_ANIMATION_RIGHT,true);
-switch (mUpgradeStage) {
-case UPGRADE_SCREEN_BASIC2:
-        result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_BASIC1);
-      break;
-case UPGRADE_SCREEN_MORE_OPTIONS:
-    result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_BASIC1);
-  break;
-case UPGRADE_SCREEN_WEB_UPGRADE:
-result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_BASIC2);
-break;
-case UPGRADE_SCREEN_PC_UPGRADE:
-result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_BASIC2);
-break;
-case UPGRADE_SCREEN_MANUAL_UPGRADE:
-result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_BASIC2);
-break;
-case UPGRADE_SCREEN_AUTO_UPGRADE:
-result.putExtra(TYPE_UPGRADE_STAGE,UPGRADE_SCREEN_PC_UPGRADE);
-break;
-}
-setResult(RESULT_OK,result);
-finishWithAnimation(false);
-}
- else {
-Timber.i("onBackPressed()");
-setResult(RESULT_CANCELED);
-finishWithAnimation();
-}
-return true;
-}
-return super.onKeyDown(keyCode,event);
+    Timber.i("onBackPressed()");
+    setResult(RESULT_CANCELED);
+    finishWithAnimation();
+    return true;
+  }
+  return super.onKeyDown(keyCode,event);
 }
