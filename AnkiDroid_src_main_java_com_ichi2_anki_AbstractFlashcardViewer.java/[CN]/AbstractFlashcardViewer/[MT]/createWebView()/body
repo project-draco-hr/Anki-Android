@@ -7,6 +7,7 @@
   }
   webView.getSettings().setBuiltInZoomControls(true);
   webView.getSettings().setSupportZoom(true);
+  webView.getSettings().setLoadWithOverviewMode(true);
   webView.getSettings().setJavaScriptEnabled(true);
   webView.setWebChromeClient(new AnkiDroidWebChromeClient());
   if (AnkiDroidApp.SDK_VERSION > 7) {
