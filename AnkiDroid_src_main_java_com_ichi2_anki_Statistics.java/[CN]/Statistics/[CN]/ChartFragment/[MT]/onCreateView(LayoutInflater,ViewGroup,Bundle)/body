@@ -8,6 +8,11 @@
  else   Timber.d("mChart is not null!");
   mProgressBar=(ProgressBar)rootView.findViewById(R.id.progress_bar_stats);
   mProgressBar.setVisibility(View.VISIBLE);
+  if ((((Statistics)getActivity()).getTaskHandler()) == null) {
+    Timber.e("Statistics.ChartFragment.onCreateView() TaskHandler not found");
+    getActivity().finish();
+    return rootView;
+  }
   createChart();
   mHeight=mChart.getMeasuredHeight();
   mWidth=mChart.getMeasuredWidth();
