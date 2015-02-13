@@ -1,0 +1,42 @@
+{
+  InputStream in;
+  try {
+    in=getContentResolver().openInputStream(intent.getData());
+  }
+ catch (  FileNotFoundException e) {
+    Timber.e(e,"Could not open input stream to intent data");
+    return false;
+  }
+  if (in == null) {
+    return false;
+  }
+  OutputStream out;
+  try {
+    out=new FileOutputStream(tempPath);
+  }
+ catch (  FileNotFoundException e) {
+    Timber.e(e,"Could not access destination file %s",tempPath);
+    return false;
+  }
+  try {
+    byte[] buf=new byte[1024];
+    int len;
+    while ((len=in.read(buf)) > 0) {
+      out.write(buf,0,len);
+    }
+    in.close();
+  }
+ catch (  IOException e) {
+    Timber.e(e,"Could not copy file to %s",tempPath);
+    return false;
+  }
+ finally {
+    try {
+      out.close();
+    }
+ catch (    IOException e) {
+      Timber.e(e,"Error closing tempOutDir %s",tempPath);
+    }
+  }
+  return true;
+}
