@@ -1,4 +1,4 @@
 {
   SharedPreferences prefs=getSharedPrefs(sInstance.getApplicationContext());
-  return prefs.getString("deckPath",AnkiDroidApp.getDefaultAnkiDroidDirectory());
+  return prefs.getString("deckPath",getDefaultAnkiDroidDirectory());
 }
