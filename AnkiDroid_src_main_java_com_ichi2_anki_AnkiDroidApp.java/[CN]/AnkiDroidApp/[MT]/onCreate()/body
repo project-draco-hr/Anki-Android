@@ -49,5 +49,13 @@
     DEFAULT_SWIPE_MIN_DISTANCE=vc.getScaledTouchSlop() * 2;
   }
   DEFAULT_SWIPE_THRESHOLD_VELOCITY=vc.getScaledMinimumFlingVelocity();
-  initializeAnkiDroidDirectory();
+  try {
+    initializeAnkiDroidDirectory(getCurrentAnkiDroidDirectory());
+    sStorageAccessExceptionFlag=false;
+  }
+ catch (  StorageAccessException e) {
+    Timber.e(e,"Could not initialize AnkiDroid directory");
+    sendExceptionReport(e,"AnkiDroidApp.onCreate");
+    sStorageAccessExceptionFlag=true;
+  }
 }
