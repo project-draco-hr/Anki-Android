@@ -2,7 +2,7 @@
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(this);
   AnkiDroidApp.setLanguage(preferences.getString(Preferences.LANGUAGE,""));
   if (requestCode == REQUEST_PREFERENCES_UPDATE) {
-    if (mOldColPath != null && preferences.getString("deckPath","").equals(mOldColPath)) {
+    if (mOldColPath != null && AnkiDroidApp.getCurrentAnkiDroidDirectory().equals(mOldColPath)) {
       if ((this instanceof Reviewer) && preferences.getBoolean("tts",false)) {
         finishWithoutAnimation();
       }
@@ -13,7 +13,6 @@
  else {
       AnkiDroidApp.closeCollection(true);
       finishWithoutAnimation();
-      AnkiDroidApp.initializeAnkiDroidDirectory();
       Intent deckPicker=new Intent(this,DeckPicker.class);
       deckPicker.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
       startActivityWithoutAnimation(deckPicker);
