@@ -31,7 +31,7 @@ startActivityWithAnimation(intent,ActivityTransitionAnimation.LEFT);
 }
 break;
 case DRAWER_SETTINGS:
-mOldColPath=AnkiDroidApp.getSharedPrefs(this).getString("deckPath","oldPath");
+mOldColPath=AnkiDroidApp.getCurrentAnkiDroidDirectory();
 startActivityForResultWithAnimation(new Intent(this,Preferences.class),REQUEST_PREFERENCES_UPDATE,ActivityTransitionAnimation.LEFT);
 break;
 case DRAWER_HELP:

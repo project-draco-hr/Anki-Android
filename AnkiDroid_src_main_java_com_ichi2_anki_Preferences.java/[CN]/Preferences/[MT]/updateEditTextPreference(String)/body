@@ -5,7 +5,7 @@
     entry=pref.getText();
   }
  catch (  NullPointerException e) {
-    Timber.e("Error getting set preference value of " + key + ": "+ e);
+    Timber.e(e,"Error getting set preference value of %s",key);
     entry="?";
   }
   if (mListsToUpdate.containsKey(key)) {

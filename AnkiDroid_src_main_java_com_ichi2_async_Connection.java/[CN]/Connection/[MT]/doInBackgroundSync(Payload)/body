@@ -19,7 +19,7 @@
   }
   String path=AnkiDroidApp.getCollectionPath();
   try {
-    AnkiDroidApp.setSyncInProgress(true);
+    AnkiDroidApp.sSyncInProgressFlag=true;
     HttpSyncer server=new RemoteServer(this,hkey);
     Syncer client=new Syncer(col,server);
     boolean noChanges=false;
@@ -193,7 +193,7 @@ catch (  Exception e) {
  finally {
     Timber.d("doInBackgroundSync -- closing collection on outer finally statement");
     col.close(false);
-    AnkiDroidApp.setSyncInProgress(false);
+    AnkiDroidApp.sSyncInProgressFlag=false;
     Timber.d("doInBackgroundSync -- reopening collection on outer finally statement");
     AnkiDroidApp.openCollection(AnkiDroidApp.getCollectionPath());
   }

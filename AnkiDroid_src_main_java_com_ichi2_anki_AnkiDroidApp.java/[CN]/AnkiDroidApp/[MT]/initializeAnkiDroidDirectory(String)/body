@@ -1,0 +1,18 @@
+{
+  File dir=new File(path);
+  if (!dir.exists() && !dir.mkdirs()) {
+    throw new StorageAccessException("Failed to create AnkiDroid directory");
+  }
+  if (!dir.canWrite()) {
+    throw new StorageAccessException("No write access to AnkiDroid directory");
+  }
+  File nomedia=new File(dir,".nomedia");
+  if (!nomedia.exists()) {
+    try {
+      nomedia.createNewFile();
+    }
+ catch (    IOException e) {
+      throw new StorageAccessException("Failed to create .nomedia file");
+    }
+  }
+}

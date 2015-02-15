@@ -1,0 +1,10 @@
+{
+  super.onCreate(savedInstance);
+  if (AnkiDroidApp.sStorageAccessExceptionFlag) {
+    Intent i=new Intent(this,Preferences.class);
+    finishWithoutAnimation();
+    startActivityWithoutAnimation(i);
+    Themes.showThemedToast(this,getResources().getString(R.string.directory_inaccessible),false);
+    return;
+  }
+}

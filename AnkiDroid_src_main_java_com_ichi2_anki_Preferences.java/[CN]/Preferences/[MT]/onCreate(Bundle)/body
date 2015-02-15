@@ -49,28 +49,16 @@
 );
   collectionPathPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener(){
     public boolean onPreferenceChange(    Preference preference,    final Object newValue){
-      File collectionPath=new File((String)newValue);
-      if (!collectionPath.exists()) {
-        Dialog pathCheckDialog=new AlertDialog.Builder(Preferences.this).setTitle(R.string.dialog_collection_path_title).setMessage(R.string.dialog_collection_path_text).setPositiveButton(android.R.string.yes,new DialogInterface.OnClickListener(){
-          @Override public void onClick(          DialogInterface dialog,          int which){
-            collectionPathPreference.setText((String)newValue);
-            updateEditTextPreference("deckPath");
-          }
-        }
-).setNegativeButton(android.R.string.no,new DialogInterface.OnClickListener(){
-          @Override public void onClick(          DialogInterface dialog,          int which){
-          }
-        }
-).create();
-        pathCheckDialog.show();
-        return false;
+      final String newPath=(String)newValue;
+      try {
+        AnkiDroidApp.initializeAnkiDroidDirectory(newPath);
+        AnkiDroidApp.sStorageAccessExceptionFlag=false;
+        return true;
       }
- else       if (collectionPath.exists() && !collectionPath.isDirectory()) {
+ catch (      StorageAccessException e) {
+        Timber.e(e,"Could not initialize directory: %s",newPath);
         Toast.makeText(getApplicationContext(),R.string.dialog_collection_path_not_dir,Toast.LENGTH_LONG).show();
         return false;
-      }
- else {
-        return true;
       }
     }
   }
