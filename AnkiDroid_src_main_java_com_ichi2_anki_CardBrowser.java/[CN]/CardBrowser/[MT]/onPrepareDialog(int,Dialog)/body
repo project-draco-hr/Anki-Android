@@ -18,6 +18,10 @@ case DIALOG_ORDER:
     }
   break;
 case DIALOG_CONTEXT_MENU:
+if (getCards().size() == 0) {
+  Timber.e("Context menu opened for a card, but mCards is empty");
+  return;
+}
 HashMap<String,String> card=getCards().get(mPositionInCardsList);
 int flags=Integer.parseInt(card.get("flags"));
 if (flags == 2 || flags == 3) {
