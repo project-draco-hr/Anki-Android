@@ -32,7 +32,7 @@
         dyn.put("delays",delays);
       }
  else {
-        dyn.remove("delays");
+        dyn.put("delays",JSONObject.NULL);
       }
       JSONArray ar=dyn.getJSONArray("terms");
       ar.getJSONArray(0).put(0,new StringBuilder("deck:\"").append(deckName).append("\" ").append(terms[0]).toString());
