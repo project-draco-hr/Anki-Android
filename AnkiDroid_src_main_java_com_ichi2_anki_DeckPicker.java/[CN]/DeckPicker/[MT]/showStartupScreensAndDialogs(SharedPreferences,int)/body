@@ -7,7 +7,7 @@
     startActivityWithoutAnimation(i);
     Themes.showThemedToast(this,getResources().getString(R.string.directory_inaccessible),false);
   }
- else   if (!BackupManager.enoughDiscSpace(mPrefDeckPath)) {
+ else   if (!BackupManager.enoughDiscSpace(AnkiDroidApp.getCurrentAnkiDroidDirectory())) {
     showDialogFragment(DeckPickerNoSpaceLeftDialog.newInstance());
   }
  else   if (preferences.getBoolean("noSpaceLeft",false)) {
