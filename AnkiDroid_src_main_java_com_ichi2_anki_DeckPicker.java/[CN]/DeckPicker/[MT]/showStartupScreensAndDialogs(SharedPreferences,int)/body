@@ -2,6 +2,11 @@
   if (!AnkiDroidApp.isSdCardMounted()) {
     showSdCardNotMountedDialog();
   }
+ else   if (!AnkiDroidApp.isCurrentAnkiDroidDirAccessible()) {
+    Intent i=new Intent(this,Preferences.class);
+    startActivityWithoutAnimation(i);
+    Themes.showThemedToast(this,getResources().getString(R.string.directory_inaccessible),false);
+  }
  else   if (!BackupManager.enoughDiscSpace(mPrefDeckPath)) {
     showDialogFragment(DeckPickerNoSpaceLeftDialog.newInstance());
   }
