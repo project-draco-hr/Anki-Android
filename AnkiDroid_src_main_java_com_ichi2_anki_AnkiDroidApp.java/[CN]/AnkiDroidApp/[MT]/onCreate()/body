@@ -51,11 +51,11 @@
   DEFAULT_SWIPE_THRESHOLD_VELOCITY=vc.getScaledMinimumFlingVelocity();
   try {
     initializeAnkiDroidDirectory(getCurrentAnkiDroidDirectory());
-    sStorageAccessExceptionFlag=false;
   }
  catch (  StorageAccessException e) {
     Timber.e(e,"Could not initialize AnkiDroid directory");
-    sendExceptionReport(e,"AnkiDroidApp.onCreate");
-    sStorageAccessExceptionFlag=true;
+    if (isSdCardMounted()) {
+      sendExceptionReport(e,"AnkiDroidApp.onCreate");
+    }
   }
 }
