@@ -52,7 +52,6 @@
       final String newPath=(String)newValue;
       try {
         AnkiDroidApp.initializeAnkiDroidDirectory(newPath);
-        AnkiDroidApp.sStorageAccessExceptionFlag=false;
         return true;
       }
  catch (      StorageAccessException e) {
