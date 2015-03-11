@@ -2,55 +2,46 @@
   super.onActivityResult(requestCode,resultCode,intent);
   Timber.d("onActivityResult (requestCode = %d, resultCode = %d)",requestCode,resultCode);
   getActivity().supportInvalidateOptionsMenu();
-  if (resultCode == DeckPicker.RESULT_DB_ERROR) {
-    closeStudyOptions(DeckPicker.RESULT_DB_ERROR);
+  if (resultCode == DeckPicker.RESULT_DB_ERROR || resultCode == DeckPicker.RESULT_MEDIA_EJECTED) {
+    closeStudyOptions(resultCode);
+    return;
   }
-  if (resultCode == DeckPicker.RESULT_MEDIA_EJECTED) {
-    closeStudyOptions(DeckPicker.RESULT_MEDIA_EJECTED);
+  if (!colOpen()) {
+    startLoadingCollection();
+    return;
   }
+  if (resultCode != Activity.RESULT_CANCELED) {
+    resetAndRefreshInterface();
+  }
+  if (requestCode == DECK_OPTIONS) {
+    if (mCramInitialConfig != null) {
+      mCramInitialConfig=null;
+      try {
+        JSONObject deck=getCol().getDecks().current();
+        if (deck.getInt("dyn") != 0 && deck.has("empty")) {
+          deck.remove("empty");
+        }
+      }
+ catch (      JSONException e) {
+        throw new RuntimeException(e);
+      }
+      rebuildCramDeck();
+    }
  else {
-    if (!colOpen()) {
-      startLoadingCollection();
-      return;
+      DeckTask.waitToFinish();
+      resetAndRefreshInterface();
     }
-    if (requestCode == DECK_OPTIONS) {
-      if (mCramInitialConfig != null) {
-        mCramInitialConfig=null;
-        try {
-          JSONObject deck=getCol().getDecks().current();
-          if (deck.getInt("dyn") != 0 && deck.has("empty")) {
-            deck.remove("empty");
-          }
-        }
- catch (        JSONException e) {
-          throw new RuntimeException(e);
-        }
-        rebuildCramDeck();
-      }
- else {
-        DeckTask.waitToFinish();
-        resetAndRefreshInterface();
+  }
+ else   if (requestCode == REQUEST_REVIEW) {
+    if (resultCode == Reviewer.RESULT_NO_MORE_CARDS) {
+      int[] counts=getCol().getSched().counts();
+      if ((counts[0] + counts[1] + counts[2]) > 0) {
+        Toast.makeText(getActivity(),R.string.studyoptions_no_cards_due,Toast.LENGTH_LONG).show();
       }
     }
- else     if (requestCode == ADD_NOTE && resultCode != Activity.RESULT_CANCELED) {
-      resetAndRefreshInterface();
-    }
- else     if (requestCode == REQUEST_REVIEW) {
-      resetAndRefreshInterface();
-      if (resultCode == Reviewer.RESULT_NO_MORE_CARDS) {
-        int[] counts=getCol().getSched().counts();
-        if ((counts[0] + counts[1] + counts[2]) > 0) {
-          Toast.makeText(getActivity(),R.string.studyoptions_no_cards_due,Toast.LENGTH_LONG).show();
-        }
-      }
-    }
- else     if (requestCode == BROWSE_CARDS && (resultCode == Activity.RESULT_OK || resultCode == Activity.RESULT_CANCELED)) {
-      resetAndRefreshInterface();
-    }
- else     if (requestCode == STATISTICS && mCurrentContentView == CONTENT_CONGRATS) {
-      resetAndRefreshInterface();
-      mCurrentContentView=CONTENT_STUDY_OPTIONS;
-      setFragmentContentView(mStudyOptionsView);
-    }
+  }
+ else   if (requestCode == STATISTICS && mCurrentContentView == CONTENT_CONGRATS) {
+    mCurrentContentView=CONTENT_STUDY_OPTIONS;
+    setFragmentContentView(mStudyOptionsView);
   }
 }
