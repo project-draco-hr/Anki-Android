@@ -6,11 +6,11 @@
  else {
     result=RESULT_CANCELED;
   }
-  if (mRescheduled) {
+  if (mReloadRequired) {
     if (intent == null) {
       intent=new Intent();
     }
-    intent.putExtra("rescheduled",true);
+    intent.putExtra("reloadRequired",true);
   }
   closeNoteEditor(result,intent);
 }

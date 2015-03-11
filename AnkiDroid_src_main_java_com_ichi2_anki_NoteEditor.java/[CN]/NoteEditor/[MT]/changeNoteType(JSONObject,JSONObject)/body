@@ -1,7 +1,7 @@
 {
   final long[] nids={mEditorNote.getId()};
   getCol().getModels().change(oldModel,nids,newModel,mModelChangeFieldMap,mModelChangeCardMap);
-  mCurrentEditedCard.load();
-  mEditorNote=mCurrentEditedCard.note();
+  mEditorNote.load();
+  mReloadRequired=true;
   closeNoteEditor();
 }
