@@ -17,4 +17,7 @@
       Timber.w("Note was added from browser and on return mSearchView == null");
     }
   }
+  if (requestCode == EDIT_CARD && data != null && data.hasExtra("reloadRequired")) {
+    searchCards();
+  }
 }

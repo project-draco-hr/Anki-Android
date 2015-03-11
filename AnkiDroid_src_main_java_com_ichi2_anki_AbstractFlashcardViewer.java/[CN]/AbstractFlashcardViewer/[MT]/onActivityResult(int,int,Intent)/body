@@ -1,26 +1,26 @@
 {
   super.onActivityResult(requestCode,resultCode,data);
-  if (!AnkiDroidApp.colIsOpen()) {
-    Timber.e("onActivityResult -- Collection is not open... aborting");
-    return;
-  }
   if (resultCode == DeckPicker.RESULT_DB_ERROR) {
     closeReviewer(DeckPicker.RESULT_DB_ERROR,false);
   }
   if (resultCode == DeckPicker.RESULT_MEDIA_EJECTED) {
     finishNoStorageAvailable();
   }
+  if (!AnkiDroidApp.colIsOpen()) {
+    Timber.e("onActivityResult -- Collection is not open... aborting");
+    return;
+  }
   if (requestCode == EDIT_CURRENT_CARD) {
-    if (resultCode == RESULT_CANCELED && !(data != null && data.hasExtra("reloadRequired"))) {
-      fillFlashcard();
-    }
- else {
-      if (resultCode == RESULT_OK) {
-        Timber.i("AbstractFlashcardViewer:: Saving card...");
-        DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_FACT,mUpdateCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,true));
-      }
+    if (data != null && data.hasExtra("reloadRequired")) {
       getCol().getSched().reset();
       DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(mSched,null,0));
+    }
+    if (resultCode == RESULT_OK) {
+      Timber.i("AbstractFlashcardViewer:: Saving card...");
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_FACT,mUpdateCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,true));
+    }
+ else     if (resultCode == RESULT_CANCELED && !(data != null && data.hasExtra("reloadRequired"))) {
+      fillFlashcard();
     }
   }
   if (!mDisableClipboard) {
