@@ -9,7 +9,7 @@
   if (Intent.ACTION_VIEW.equals(action)) {
     Timber.i("IntentHandler/ User requested to view a file");
     boolean successful=false;
-    String errorMessage=getResources().getString(R.string.import_log_no_apkg);
+    String errorMessage=getResources().getString(R.string.import_error_content_provider,AnkiDroidApp.getManualUrl() + "#importing");
     if (intent.getData().getScheme().equals("content")) {
       String filename=null;
       Cursor cursor=null;
@@ -32,7 +32,10 @@
           AnkiDroidApp.sendExceptionReport(new RuntimeException("Could not import apkg from ContentProvider"),"IntentHandler.java","apkg import failed");
         }
       }
-      if (filename != null) {
+      if (filename != null && !filename.toLowerCase().endsWith(".apkg")) {
+        errorMessage=getResources().getString(R.string.import_error_not_apkg_extension,filename);
+      }
+ else       if (filename != null) {
         String tempOutDir=Uri.fromFile(new File(getCacheDir(),filename)).getEncodedPath();
         successful=copyFileToCache(intent,tempOutDir);
         if (successful) {
@@ -40,7 +43,6 @@
         }
  else {
           AnkiDroidApp.sendExceptionReport(new RuntimeException("Error importing apkg file"),"IntentHandler.java","apkg import failed");
-          errorMessage=getResources().getString(R.string.import_error_content_provider,AnkiDroidApp.getManualUrl() + "#importing");
         }
       }
     }
