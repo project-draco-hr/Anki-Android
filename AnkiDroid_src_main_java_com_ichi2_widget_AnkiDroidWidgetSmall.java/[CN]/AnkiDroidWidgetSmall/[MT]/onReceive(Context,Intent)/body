@@ -1,0 +1,6 @@
+{
+  if (intent.getAction().contentEquals("com.sec.android.widgetapp.APPWIDGET_RESIZE")) {
+    updateWidgetDimensions(context,new RemoteViews(context.getPackageName(),R.layout.widget_small));
+  }
+  super.onReceive(context,intent);
+}
