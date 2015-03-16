@@ -2,7 +2,7 @@
   mCollection=col;
   initAllContentViews();
   mCramInitialConfig=getArguments().getBundle("cramInitialConfig");
-  resetAndRefreshInterface(false);
+  refreshInterface(true);
   setHasOptionsMenu(true);
   dismissCollectionLoadingDialog();
   if (mFragmented) {

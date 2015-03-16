@@ -3,7 +3,7 @@
   mCol.getDecks().recoverOrphans();
   ArrayList<JSONObject> decks=mCol.getDecks().allSorted();
   HashMap<String,Integer[]> lims=new HashMap<String,Integer[]>();
-  ArrayList<Object[]> data=new ArrayList<Object[]>();
+  ArrayList<DeckDueTreeNode> data=new ArrayList<DeckDueTreeNode>();
   try {
     for (    JSONObject deck : decks) {
       if (lims.containsKey(deck.getString("name"))) {
@@ -27,14 +27,14 @@
         }
         nlim=Math.min(nlim,lims.get(p)[0]);
       }
-      int newC=_newForDeck(deck.getLong("id"),nlim);
+      int _new=_newForDeck(deck.getLong("id"),nlim);
       int lrn=_lrnForDeck(deck.getLong("id"));
       int rlim=_deckRevLimitSingle(deck);
       if (!TextUtils.isEmpty(p)) {
         rlim=Math.min(rlim,lims.get(p)[1]);
       }
       int rev=_revForDeck(deck.getLong("id"),rlim);
-      data.add(new Object[]{deck.getString("name"),deck.getLong("id"),newC,lrn,rev});
+      data.add(new DeckDueTreeNode(deck.getString("name"),deck.getLong("id"),rev,lrn,_new));
       lims.put(deck.getString("name"),new Integer[]{nlim,rlim});
     }
   }

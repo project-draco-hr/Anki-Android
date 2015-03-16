@@ -12,7 +12,12 @@
     while (cur.moveToNext()) {
       mLrnQueue.add(new long[]{cur.getLong(0),cur.getLong(1)});
     }
-    Collections.sort(mLrnQueue,new DueComparator());
+    Collections.sort(mLrnQueue,new Comparator<long[]>(){
+      @Override public int compare(      long[] lhs,      long[] rhs){
+        return Long.valueOf(lhs[0]).compareTo(rhs[0]);
+      }
+    }
+);
     return !mLrnQueue.isEmpty();
   }
   finally {

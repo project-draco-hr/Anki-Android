@@ -1,5 +1,5 @@
 {
-  if (mSched.getCol().undoAvailable()) {
+  if (AnkiDroidApp.getCol().undoAvailable()) {
     if (mProgressDialog != null && mProgressDialog.isShowing()) {
       mProgressDialog.setMessage(getResources().getString(R.string.saving_changes));
     }

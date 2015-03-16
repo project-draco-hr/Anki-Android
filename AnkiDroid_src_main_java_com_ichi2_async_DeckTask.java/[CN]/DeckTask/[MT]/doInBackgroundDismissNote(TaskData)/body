@@ -1,6 +1,6 @@
 {
   Sched sched=params[0].getSched();
-  Collection col=sched.getCol();
+  Collection col=AnkiDroidApp.getCol();
   Card card=params[0].getCard();
   Note note=card.note();
   int type=params[0].getInt();

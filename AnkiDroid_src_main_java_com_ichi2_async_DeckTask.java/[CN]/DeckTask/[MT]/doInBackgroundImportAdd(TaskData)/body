@@ -31,11 +31,7 @@
       ankiDB.execute("ANALYZE");
     }
     publishProgress(new TaskData(res.getString(R.string.import_update_counts)));
-    DeckTask.TaskData result=doInBackgroundLoadDeckCounts(new TaskData(col));
-    if (result == null) {
-      return null;
-    }
-    return new TaskData(addedCount,result.getObjArray(),true);
+    return new TaskData(true);
   }
  catch (  RuntimeException e) {
     Timber.e(e,"doInBackgroundImportAdd - RuntimeException on importing cards");

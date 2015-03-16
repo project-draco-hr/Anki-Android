@@ -4,7 +4,7 @@ case R.id.action_undo:
     Timber.i("StudyOptionsFragment:: Undo button pressed");
   if (colOpen()) {
     getCol().undo();
-    resetAndRefreshInterface();
+    refreshInterfaceAndDecklist(true);
     getActivity().supportInvalidateOptionsMenu();
   }
 return true;

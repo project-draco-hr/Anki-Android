@@ -8,19 +8,7 @@
     handleDbError();
     return;
   }
-  if (requestCode == SHOW_STUDYOPTIONS && resultCode == RESULT_OK) {
-    loadCounts();
-  }
- else   if (requestCode == ADD_NOTE && resultCode != RESULT_CANCELED) {
-    loadCounts();
-  }
- else   if (requestCode == BROWSE_CARDS && (resultCode == Activity.RESULT_OK || resultCode == Activity.RESULT_CANCELED)) {
-    loadCounts();
-  }
- else   if (requestCode == ADD_CRAM_DECK) {
-    loadCounts();
-  }
- else   if (requestCode == REPORT_ERROR) {
+  if (requestCode == REPORT_ERROR) {
     showStartupScreensAndDialogs(AnkiDroidApp.getSharedPrefs(getBaseContext()),4);
   }
  else   if (requestCode == SHOW_INFO_WELCOME || requestCode == SHOW_INFO_NEW_VERSION) {
@@ -45,16 +33,4 @@
       mImportPath=null;
     }
   }
- else   if (requestCode == REQUEST_REVIEW) {
-switch (resultCode) {
-default :
-      loadCounts();
-    break;
-case AbstractFlashcardViewer.RESULT_NO_MORE_CARDS:
-  Intent i=new Intent();
-i.setClass(this,StudyOptionsActivity.class);
-startActivityForResultWithAnimation(i,SHOW_STUDYOPTIONS,ActivityTransitionAnimation.RIGHT);
-break;
-}
-}
 }

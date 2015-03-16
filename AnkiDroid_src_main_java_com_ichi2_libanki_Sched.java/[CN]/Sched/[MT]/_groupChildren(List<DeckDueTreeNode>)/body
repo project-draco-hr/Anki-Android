@@ -1,0 +1,7 @@
+{
+  for (  DeckDueTreeNode g : grps) {
+    g.names=g.names[0].split("::");
+  }
+  Collections.sort(grps);
+  return _groupChildrenMain(grps);
+}
