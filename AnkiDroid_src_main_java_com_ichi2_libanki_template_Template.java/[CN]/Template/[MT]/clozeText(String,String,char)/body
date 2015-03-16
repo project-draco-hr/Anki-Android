@@ -1,0 +1,23 @@
+{
+  Matcher m=Pattern.compile(String.format(Locale.US,clozeReg,ord)).matcher(txt);
+  if (!m.find()) {
+    return "";
+  }
+  m.reset();
+  StringBuffer repl=new StringBuffer();
+  while (m.find()) {
+    if (type == 'q') {
+      if (!TextUtils.isEmpty(m.group(3))) {
+        m.appendReplacement(repl,"<span class=cloze>[$3]</span>");
+      }
+ else {
+        m.appendReplacement(repl,"<span class=cloze>[...]</span>");
+      }
+    }
+ else {
+      m.appendReplacement(repl,"<span class=cloze>$1</span>");
+    }
+  }
+  txt=m.appendTail(repl).toString();
+  return txt.replaceAll(String.format(Locale.US,clozeReg,"\\d+"),"$1");
+}

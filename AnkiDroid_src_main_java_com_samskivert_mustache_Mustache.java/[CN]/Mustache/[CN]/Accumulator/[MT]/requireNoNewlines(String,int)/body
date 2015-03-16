@@ -1,5 +1,0 @@
-{
-  if (tag.contains("\n") || tag.contains("\r")) {
-    throw new MustacheException("Invalid tag name: contains newline " + "[line=" + line + ", tag="+ tag+ "]");
-  }
-}

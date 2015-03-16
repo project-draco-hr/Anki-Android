@@ -1,0 +1,12 @@
+{
+  try {
+    String[] split=tag_name.split(" ");
+    sOtag=split[0];
+    sCtag=split[1];
+  }
+ catch (  IndexOutOfBoundsException e) {
+    return null;
+  }
+  compile_regexps();
+  return "";
+}
