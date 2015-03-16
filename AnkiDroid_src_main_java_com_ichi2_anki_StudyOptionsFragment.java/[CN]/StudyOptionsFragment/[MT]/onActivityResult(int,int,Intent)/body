@@ -10,9 +10,6 @@
     startLoadingCollection();
     return;
   }
-  if (resultCode != Activity.RESULT_CANCELED) {
-    resetAndRefreshInterface();
-  }
   if (requestCode == DECK_OPTIONS) {
     if (mCramInitialConfig != null) {
       mCramInitialConfig=null;
@@ -25,11 +22,12 @@
  catch (      JSONException e) {
         throw new RuntimeException(e);
       }
-      rebuildCramDeck();
+      mProgressDialog=StyledProgressDialog.show(getActivity(),"",getResources().getString(R.string.rebuild_cram_deck),true);
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REBUILD_CRAM,getDeckTaskListener(true),new DeckTask.TaskData(getCol(),getCol().getDecks().selected(),mFragmented));
     }
  else {
       DeckTask.waitToFinish();
-      resetAndRefreshInterface();
+      refreshInterface(true);
     }
   }
  else   if (requestCode == REQUEST_REVIEW) {

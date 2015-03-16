@@ -1,0 +1,117 @@
+{
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK_COUNTS,new DeckTask.TaskListener(){
+    private int nNew;
+    private int nLrn;
+    private int nRev;
+    @Override public void onPreExecute(){
+      Timber.d("Refreshing deck list");
+    }
+    @Override public void onPostExecute(    TaskData result){
+      List<Sched.DeckDueTreeNode> nodes=(List<Sched.DeckDueTreeNode>)result.getObjArray()[0];
+      mDeckList.clear();
+      _renderDeckTree(nodes);
+      mDeckListAdapter.notifyDataSetChanged();
+      int eta=getCol().getSched().eta(new int[]{nNew,nLrn,nRev});
+      int due=nNew + nLrn + nRev;
+      Resources res=getResources();
+      if (getCol().cardCount() != -1) {
+        String time="-";
+        if (eta != -1) {
+          time=res.getQuantityString(R.plurals.deckpicker_title_minutes,eta,eta);
+        }
+        AnkiDroidApp.getCompat().setSubtitle(DeckPicker.this,res.getQuantityString(R.plurals.deckpicker_title,due,due,time));
+      }
+      Long did=getCol().getDecks().current().optLong("id");
+      if (mFocusedDeck == null || !mFocusedDeck.equals(did)) {
+        focusDecklistOnDeck(did);
+        mFocusedDeck=did;
+      }
+      WidgetStatus.update(DeckPicker.this,nodes);
+      AnkiDroidApp.getCompat().invalidateOptionsMenu(DeckPicker.this);
+      AnkiStatsTaskHandler.createSmallTodayOverview(getCol(),mTodayTextView);
+    }
+    @Override public void onProgressUpdate(    TaskData... values){
+    }
+    @Override public void onCancelled(){
+    }
+    private void _renderDeckTree(    List<Sched.DeckDueTreeNode> nodes){
+      _renderDeckTree(nodes,0);
+    }
+    private void _renderDeckTree(    List<Sched.DeckDueTreeNode> nodes,    int depth){
+      for (      Sched.DeckDueTreeNode node : nodes) {
+        _deckRow(node,depth,nodes.size());
+      }
+    }
+    /** 
+ * Create a row in the deck list using the given node.
+ * This method determines various visual elements of each row:
+ * - Indenting level based on depth if it's a subdeck
+ * - Addition of a unicode arrow to indicate subdeck status
+ * - Addition of an indicator to notify collapsed state
+ * - The type of padding given to each row
+ * NOTE: Each row in the list also contains the deck ID (did) which is later fetched
+ * to perform operations on the correct deck when the user interacts with the list.
+ * @param node The row data.
+ * @param depth The subdeck level this node is at.
+ * @param cnt The number of decks in the collection.
+ */
+    private void _deckRow(    Sched.DeckDueTreeNode node,    int depth,    int cnt){
+      HashMap<String,String> m=new HashMap<String,String>();
+      boolean collapsed=getCol().getDecks().get(node.did).optBoolean("collapsed",false);
+      m.put("name",decoratedDeckName(node.names[0],depth,collapsed));
+      m.put("did",Long.toString(node.did));
+      m.put("new",Integer.toString(node.newCount));
+      m.put("lrn",Integer.toString(node.lrnCount));
+      m.put("rev",Integer.toString(node.revCount));
+      m.put("dyn",getCol().getDecks().isDyn(node.did) ? "d1" : "d0");
+      nNew+=node.newCount;
+      nLrn+=node.lrnCount;
+      nRev+=node.revCount;
+      if (node.did == 1 && cnt > 1 && node.children.size() == 0) {
+        if (getCol().getDb().queryScalar("select 1 from cards where did = 1",false) == 0) {
+          return;
+        }
+      }
+      if (depth == 0 && node.children.size() > 0 && !collapsed) {
+        m.put("sep","top");
+      }
+ else       if (depth > 0) {
+        m.put("sep","cen");
+      }
+ else {
+        m.put("sep","ful");
+      }
+      for (      JSONObject parent : getCol().getDecks().parents(node.did)) {
+        if (parent.optBoolean("collapsed")) {
+          return;
+        }
+      }
+      if (node.did == getCol().getDecks().current().optLong("id")) {
+        mDeckListView.setItemChecked(mDeckList.size(),true);
+      }
+      mDeckList.add(m);
+      _renderDeckTree(node.children,depth + 1);
+      if (depth == 0 && node.children.size() > 0 && !collapsed) {
+        mDeckList.get(mDeckList.size() - 1).put("sep","bot");
+      }
+    }
+    /** 
+ * Returns the name of the deck to be displayed in the deck list.
+ * Various properties of a deck are indicated to the user by the deck name in the deck list
+ * (as opposed to additional native UI elements). This includes the amount of indenting
+ * for nested decks based on depth and an indicator of collapsed state.
+ */
+    private String decoratedDeckName(    String name,    int depth,    boolean collapsed){
+      if (collapsed) {
+        name=name + " (+)";
+      }
+      if (depth == 0) {
+        return name;
+      }
+ else {
+        return new String(new char[depth]).replace("\0","    ") + "\u21aa" + name;
+      }
+    }
+  }
+);
+}

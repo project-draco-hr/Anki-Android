@@ -1,6 +1,6 @@
 {
   Sched sched=params[0].getSched();
-  Collection col=sched.getCol();
+  Collection col=AnkiDroidApp.getCol();
   try {
     col.getDb().getDatabase().beginTransaction();
     Card newCard;

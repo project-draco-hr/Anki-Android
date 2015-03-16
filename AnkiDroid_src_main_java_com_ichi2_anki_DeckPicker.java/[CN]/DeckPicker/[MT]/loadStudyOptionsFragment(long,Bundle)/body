@@ -1,7 +1,0 @@
-{
-  StudyOptionsFragment details=StudyOptionsFragment.newInstance(deckId,cramConfig);
-  FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
-  ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
-  ft.replace(R.id.studyoptions_fragment,details);
-  ft.commit();
-}

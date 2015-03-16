@@ -1,0 +1,11 @@
+{
+  if (mFragmented) {
+    loadStudyOptionsFragment(deckId,withDeckOptions);
+  }
+ else {
+    Intent intent=new Intent();
+    intent.putExtra("index",deckId);
+    intent.setClass(this,StudyOptionsActivity.class);
+    startActivityForResultWithAnimation(intent,SHOW_STUDYOPTIONS,ActivityTransitionAnimation.LEFT);
+  }
+}
