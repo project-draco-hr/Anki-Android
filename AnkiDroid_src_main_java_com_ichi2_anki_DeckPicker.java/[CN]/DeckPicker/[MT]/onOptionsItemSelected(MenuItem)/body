@@ -16,7 +16,7 @@ return true;
 case R.id.action_shared_decks:
 Timber.i("DeckPicker:: Get shared deck button pressed");
 hideShowcaseView();
-if (colOpen()) {
+if (colIsOpen()) {
 addSharedDeck();
 }
 return true;

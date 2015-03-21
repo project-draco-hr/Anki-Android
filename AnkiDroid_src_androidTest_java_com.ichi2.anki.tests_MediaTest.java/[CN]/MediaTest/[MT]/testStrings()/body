@@ -1,5 +1,5 @@
 {
-  Collection d=Shared.getEmptyCol();
+  Collection d=Shared.getEmptyCol(getContext());
   Long mid=d.getModels().getModels().entrySet().iterator().next().getKey();
   List<String> expected;
   List<String> actual;

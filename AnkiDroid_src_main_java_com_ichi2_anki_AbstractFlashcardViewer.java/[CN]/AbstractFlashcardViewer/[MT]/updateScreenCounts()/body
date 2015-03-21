@@ -4,14 +4,14 @@
   }
   try {
     String[] title=getCol().getDecks().get(mCurrentCard.getDid()).getString("name").split("::");
-    AnkiDroidApp.getCompat().setTitle(this,title[title.length - 1],mInvertedColors);
+    CompatHelper.getCompat().setTitle(this,title[title.length - 1],mInvertedColors);
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
   int[] counts=mSched.counts(mCurrentCard);
   int eta=mSched.eta(counts,false);
-  AnkiDroidApp.getCompat().setSubtitle(this,getResources().getQuantityString(R.plurals.reviewer_window_title,eta,eta),mInvertedColors);
+  CompatHelper.getCompat().setSubtitle(this,getResources().getQuantityString(R.plurals.reviewer_window_title,eta,eta),mInvertedColors);
   SpannableString newCount=new SpannableString(String.valueOf(counts[0]));
   SpannableString lrnCount=new SpannableString(String.valueOf(counts[1]));
   SpannableString revCount=new SpannableString(String.valueOf(counts[2]));

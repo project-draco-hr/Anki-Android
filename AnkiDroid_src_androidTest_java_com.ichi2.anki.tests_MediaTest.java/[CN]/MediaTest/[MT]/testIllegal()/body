@@ -1,5 +1,5 @@
 {
-  Collection d=Shared.getEmptyCol();
+  Collection d=Shared.getEmptyCol(getContext());
   String aString="a:b|cd\\e/f\0g*h";
   String good="abcdefgh";
   assertTrue(d.getMedia().stripIllegal(aString).equals(good));

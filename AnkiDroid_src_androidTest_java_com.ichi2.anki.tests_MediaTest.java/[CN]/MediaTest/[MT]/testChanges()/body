@@ -1,9 +1,9 @@
 {
-  Collection d=Shared.getEmptyCol();
+  Collection d=Shared.getEmptyCol(getContext());
   assertTrue(d.getMedia()._changed() != null);
   assertTrue(added(d).size() == 0);
   assertTrue(removed(d).size() == 0);
-  File dir=Shared.getTestDir(mContext);
+  File dir=Shared.getTestDir(getContext());
   File path=new File(dir,"foo.jpg");
   FileOutputStream os;
   os=new FileOutputStream(path,false);

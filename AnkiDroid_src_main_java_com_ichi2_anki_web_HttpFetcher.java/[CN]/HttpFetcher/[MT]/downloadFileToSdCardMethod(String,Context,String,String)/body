@@ -8,7 +8,7 @@
     urlConnection.setRequestProperty("User-Agent","Mozilla/5.0 ( compatible ) ");
     urlConnection.setRequestProperty("Accept","*/*");
     urlConnection.connect();
-    File file=File.createTempFile(prefix,extension,DiskUtil.getStoringDirectory());
+    File file=File.createTempFile(prefix,extension,context.getCacheDir());
     FileOutputStream fileOutput=new FileOutputStream(file);
     InputStream inputStream=urlConnection.getInputStream();
     byte[] buffer=new byte[1024];

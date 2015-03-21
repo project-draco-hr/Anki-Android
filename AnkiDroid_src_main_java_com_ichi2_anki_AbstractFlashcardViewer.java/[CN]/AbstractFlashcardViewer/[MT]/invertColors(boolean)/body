@@ -20,5 +20,5 @@
   if (mCard != null) {
     mCard.setBackgroundColor(mCurrentBackgroundColor);
   }
-  AnkiDroidApp.getCompat().setActionBarBackground(this,invert ? R.color.white_background_night : R.color.actionbar_background);
+  CompatHelper.getCompat().setActionBarBackground(this,invert ? R.color.white_background_night : R.color.actionbar_background);
 }

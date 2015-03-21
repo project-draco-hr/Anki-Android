@@ -1,0 +1,7 @@
+{
+  File directory=new File(ankidroidDir,BROKEN_DECKS_SUFFIX);
+  if (!directory.isDirectory()) {
+    directory.mkdirs();
+  }
+  return directory;
+}

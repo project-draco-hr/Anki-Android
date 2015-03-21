@@ -1,11 +1,9 @@
 {
-  if (AnkiDroidApp.SDK_VERSION <= 10) {
+  if (!CompatHelper.isHoneycomb()) {
     Themes.applyTheme(this,Themes.THEME_ANDROID_DARK);
   }
   super.onCreate(savedInstanceState);
-  mCol=AnkiDroidApp.getCol();
-  mPrefMan=getPreferenceManager();
-  mPrefMan.setSharedPreferencesName(AnkiDroidApp.SHARED_PREFS_NAME);
+  mCol=CollectionHelper.getInstance().getCol(this);
   addPreferencesFromResource(R.xml.preferences);
   collectionPathPreference=(EditTextPreference)getPreferenceScreen().findPreference("deckPath");
   keepScreenOnCheckBoxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("keepScreenOn");
@@ -26,15 +24,15 @@
   fixHebrewText=(CheckBoxPreference)getPreferenceScreen().findPreference("fixHebrewText");
   fixArabicText=(CheckBoxPreference)getPreferenceScreen().findPreference("fixArabicText");
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
-  if (AnkiDroidApp.SDK_VERSION > 14) {
+  if (CompatHelper.getSdkVersion() > 14) {
     workarounds.removePreference(inputWorkaround);
     preferences.edit().putBoolean("inputWorkaround",false);
   }
-  if (AnkiDroidApp.SDK_VERSION > 10) {
+  if (CompatHelper.isHoneycomb()) {
     workarounds.removePreference(longclickWorkaround);
     preferences.edit().putBoolean("longclickWorkaround",false);
   }
-  if (AnkiDroidApp.SDK_VERSION > 8) {
+  if (CompatHelper.getSdkVersion() > 8) {
     workarounds.removePreference(fixArabicText);
     preferences.edit().putBoolean("fixArabicText",false);
   }
@@ -51,7 +49,7 @@
     public boolean onPreferenceChange(    Preference preference,    final Object newValue){
       final String newPath=(String)newValue;
       try {
-        AnkiDroidApp.initializeAnkiDroidDirectory(newPath);
+        CollectionHelper.initializeAnkiDroidDirectory(newPath);
         return true;
       }
  catch (      StorageAccessException e) {

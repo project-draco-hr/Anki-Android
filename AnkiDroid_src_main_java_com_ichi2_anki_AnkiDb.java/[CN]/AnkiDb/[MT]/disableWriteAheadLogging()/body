@@ -3,5 +3,5 @@
   if (db.inTransaction()) {
     db.endTransaction();
   }
-  AnkiDroidApp.getCompat().disableDatabaseWriteAheadLogging(db);
+  CompatHelper.getCompat().disableDatabaseWriteAheadLogging(db);
 }

@@ -1,5 +1,5 @@
 {
-  if (AnkiDroidApp.SDK_VERSION >= 11) {
+  if (CompatHelper.isHoneycomb()) {
     queryString("PRAGMA journal_mode = WAL");
   }
  else {

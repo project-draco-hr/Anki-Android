@@ -1,0 +1,33 @@
+{
+  String deckPath=col.getPath();
+  File deckFile=new File(deckPath);
+  if (col != null) {
+    col.close();
+  }
+  AnkiDatabaseManager.closeDatabase(deckPath);
+  String execString="sqlite3 " + deckPath + " .dump | sqlite3 "+ deckPath+ ".tmp";
+  Timber.i("repairCollection - Execute: " + execString);
+  try {
+    String[] cmd={"/system/bin/sh","-c",execString};
+    Process process=Runtime.getRuntime().exec(cmd);
+    process.waitFor();
+    if (!new File(deckPath + ".tmp").exists()) {
+      Timber.e("repairCollection - dump to " + deckPath + ".tmp failed");
+      return false;
+    }
+    if (!moveDatabaseToBrokenFolder(deckPath,false)) {
+      Timber.e("repairCollection - could not move corrupt file to broken folder");
+      return false;
+    }
+    Timber.i("repairCollection - moved corrupt file to broken folder");
+    File repairedFile=new File(deckPath + ".tmp");
+    return repairedFile.renameTo(deckFile);
+  }
+ catch (  IOException e) {
+    Timber.e("repairCollection - error: " + e.getMessage());
+  }
+catch (  InterruptedException e) {
+    Timber.e("repairCollection - error: " + e.getMessage());
+  }
+  return false;
+}

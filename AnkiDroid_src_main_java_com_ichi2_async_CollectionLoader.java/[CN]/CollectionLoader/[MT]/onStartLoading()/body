@@ -1,15 +1,7 @@
 {
-  if (AnkiDroidApp.sSyncInProgressFlag) {
-    Timber.w("CollectionLoader.onStartLoading() -- sync in progress; don't load collection");
+  if (CollectionHelper.getInstance().isCollectionLocked()) {
+    Timber.w("onStartLoading() :: Another thread has requested to keep the collection closed.");
     return;
   }
-  String colPath=AnkiDroidApp.getCollectionPath();
-  if (AnkiDroidApp.colIsOpen() && AnkiDroidApp.getCol() != null && AnkiDroidApp.getCol().getPath().equals(colPath)) {
-    Timber.d("CollectionLoader.onStartLoading() -- deliverResult as col already open");
-    deliverResult(AnkiDroidApp.getCol());
-  }
- else {
-    Timber.d("CollectionLoader.onStartLoading() -- force load collection");
-    forceLoad();
-  }
+  forceLoad();
 }

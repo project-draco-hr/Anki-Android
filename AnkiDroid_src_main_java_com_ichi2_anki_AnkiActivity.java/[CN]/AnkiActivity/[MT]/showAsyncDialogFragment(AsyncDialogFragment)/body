@@ -3,9 +3,9 @@
     showDialogFragment(newFragment);
   }
  catch (  IllegalStateException e) {
+    DialogHandler.storeMessage(newFragment.getDialogHandlerMessage());
     String title=newFragment.getNotificationTitle();
     String message=newFragment.getNotificationMessage();
-    AnkiDroidApp.setStoredDialogHandlerMessage(newFragment.getDialogHandlerMessage());
     showSimpleNotification(title,message);
   }
 }

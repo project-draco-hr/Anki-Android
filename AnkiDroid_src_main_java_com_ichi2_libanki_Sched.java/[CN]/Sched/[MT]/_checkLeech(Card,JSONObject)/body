@@ -21,7 +21,8 @@
         card.setQueue(-1);
       }
       if (mContextReference != null) {
-        AnkiDroidApp.getHooks().runHook("leech",card,mContextReference.get());
+        Context context=mContextReference.get();
+        Hooks.getInstance(context).runHook("leech",card,context);
       }
       return true;
     }

@@ -6,7 +6,7 @@
   longClickHandler.removeCallbacks(startLongClickAction);
   AbstractFlashcardViewer.this.setResult(result);
   if (saveDeck) {
-    UIUtils.saveCollectionInBackground();
+    UIUtils.saveCollectionInBackground(this);
   }
   finishWithAnimation(ActivityTransitionAnimation.RIGHT);
 }

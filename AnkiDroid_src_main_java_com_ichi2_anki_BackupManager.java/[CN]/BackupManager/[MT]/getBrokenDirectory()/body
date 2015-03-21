@@ -1,7 +1,0 @@
-{
-  File directory=new File(AnkiDroidApp.getCurrentAnkiDroidDirectory(),BROKEN_DECKS_SUFFIX);
-  if (!directory.isDirectory()) {
-    directory.mkdirs();
-  }
-  return directory;
-}

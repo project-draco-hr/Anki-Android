@@ -1,7 +1,0 @@
-{
-  File directory=new File(AnkiDroidApp.getCurrentAnkiDroidDirectory(),BACKUP_SUFFIX);
-  if (!directory.isDirectory()) {
-    directory.mkdirs();
-  }
-  return directory;
-}

@@ -1,0 +1,26 @@
+{
+  if (isNookHdOrHdPlus() && getSdkVersion() == 15) {
+    mCompat=new CompatV15NookHdOrHdPlus();
+  }
+ else   if (getSdkVersion() >= 16) {
+    mCompat=new CompatV16();
+  }
+ else   if (getSdkVersion() >= 15) {
+    mCompat=new CompatV15();
+  }
+ else   if (getSdkVersion() >= 12) {
+    mCompat=new CompatV12();
+  }
+ else   if (getSdkVersion() >= 9) {
+    mCompat=new CompatV9();
+  }
+ else   if (getSdkVersion() >= 8) {
+    mCompat=new CompatV8();
+  }
+ else   if (isNook() && getSdkVersion() == 7) {
+    mCompat=new CompatV7Nook();
+  }
+ else {
+    mCompat=new CompatV7();
+  }
+}

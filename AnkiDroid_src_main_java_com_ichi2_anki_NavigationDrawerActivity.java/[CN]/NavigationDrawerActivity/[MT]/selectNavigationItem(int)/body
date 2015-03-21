@@ -32,7 +32,7 @@ startActivityForResultWithAnimation(intent,REQUEST_STATISTICS,ActivityTransition
 }
 break;
 case DRAWER_SETTINGS:
-mOldColPath=AnkiDroidApp.getCurrentAnkiDroidDirectory();
+mOldColPath=CollectionHelper.getCurrentAnkiDroidDirectory(this);
 startActivityForResultWithAnimation(new Intent(this,Preferences.class),REQUEST_PREFERENCES_UPDATE,ActivityTransitionAnimation.LEFT);
 break;
 case DRAWER_HELP:

@@ -1,8 +1,8 @@
 {
   Timber.d("onStop()");
   super.onStop();
-  if (colOpen()) {
+  if (colIsOpen()) {
     WidgetStatus.update(this);
-    UIUtils.saveCollectionInBackground();
+    UIUtils.saveCollectionInBackground(this);
   }
 }

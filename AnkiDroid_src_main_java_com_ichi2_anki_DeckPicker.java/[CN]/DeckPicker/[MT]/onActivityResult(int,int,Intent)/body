@@ -28,7 +28,7 @@
     if (intent != null) {
       mImportPath=intent.getStringExtra("importPath");
     }
-    if (AnkiDroidApp.colIsOpen() && mImportPath != null) {
+    if (colIsOpen() && mImportPath != null) {
       DeckTask.launchDeckTask(DeckTask.TASK_TYPE_IMPORT,mImportAddListener,new TaskData(getCol(),mImportPath,true));
       mImportPath=null;
     }

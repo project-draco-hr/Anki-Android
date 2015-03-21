@@ -10,7 +10,7 @@
   matcher=Sound.sSoundPattern.matcher(answerText);
   answerText=matcher.replaceAll("");
   try {
-    return AnkiDroidApp.getCompat().nfcNormalized(answerText);
+    return CompatHelper.getCompat().nfcNormalized(answerText);
   }
  catch (  APIVersionException e) {
     return answerText;

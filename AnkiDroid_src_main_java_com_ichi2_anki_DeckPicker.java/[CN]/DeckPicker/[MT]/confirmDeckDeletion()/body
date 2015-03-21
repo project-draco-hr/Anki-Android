@@ -1,6 +1,6 @@
 {
   Resources res=getResources();
-  if (!AnkiDroidApp.colIsOpen() || mDeckList == null || mDeckList.size() == 0) {
+  if (!colIsOpen() || mDeckList == null || mDeckList.size() == 0) {
     return;
   }
   String msg="";

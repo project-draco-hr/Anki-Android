@@ -2,7 +2,8 @@
   if (mSmallChart != null) {
     ChartView chartView=(ChartView)mSmallChart.findViewById(R.id.chart_view_small_chart);
     chartView.setBackgroundColor(Color.BLACK);
-    AnkiStatsTaskHandler.createSmallDueChartChart(serieslist,chartView);
+    Collection col=CollectionHelper.getInstance().getCol(getActivity());
+    AnkiStatsTaskHandler.createSmallDueChartChart(col,serieslist,chartView);
     if (mDeckChart.getVisibility() == View.INVISIBLE) {
       mDeckChart.setVisibility(View.VISIBLE);
       mDeckChart.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_IN,500,0));

@@ -14,7 +14,7 @@
       PickStringDialogFragment fragment=new PickStringDialogFragment();
       final ArrayList<String> translationSources=new ArrayList<String>();
       translationSources.add("Glosbe.com");
-      if (!AnkiDroidApp.isChromebook()) {
+      if (!CompatHelper.isChromebook()) {
         translationSources.add("ColorDict");
       }
       fragment.setChoices(translationSources);

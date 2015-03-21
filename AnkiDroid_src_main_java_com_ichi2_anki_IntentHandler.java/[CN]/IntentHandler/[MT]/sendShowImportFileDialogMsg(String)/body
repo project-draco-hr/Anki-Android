@@ -11,5 +11,5 @@
  else {
     handlerMessage.what=DialogHandler.MSG_SHOW_COLLECTION_IMPORT_ADD_DIALOG;
   }
-  AnkiDroidApp.setStoredDialogHandlerMessage(handlerMessage);
+  DialogHandler.storeMessage(handlerMessage);
 }

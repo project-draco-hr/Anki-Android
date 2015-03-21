@@ -10,8 +10,6 @@ case TASK_TYPE_DOWNLOAD_MEDIA:
 return doInBackgroundDownloadMissingMedia(data);
 case TASK_TYPE_UPGRADE_DECKS:
 throw new RuntimeException("Upgrade decks no longer supported");
-case TASK_TYPE_DOWNLOAD_SHARED_DECK:
-return doInBackgroundDownloadSharedDeck(data);
 default :
 return null;
 }

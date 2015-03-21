@@ -3,6 +3,6 @@
     onCollectionLoaded(col);
   }
  else {
-    AnkiDatabaseManager.closeDatabase(AnkiDroidApp.getCollectionPath());
+    AnkiDatabaseManager.closeDatabase(CollectionHelper.getCollectionPath(getActivity()));
   }
 }

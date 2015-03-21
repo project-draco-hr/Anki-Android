@@ -3,13 +3,14 @@
   int height=mChart.getMeasuredHeight();
   int width=mChart.getMeasuredWidth();
   if (height != 0 && width != 0) {
-    if (mHeight != height || mWidth != width || mType != (((Statistics)getActivity()).getTaskHandler()).getStatType() || mDeckId != AnkiDroidApp.getCol().getDecks().selected() || mIsWholeCollection != AnkiStatsTaskHandler.isWholeCollection()) {
+    Collection col=CollectionHelper.getInstance().getCol(getActivity());
+    if (mHeight != height || mWidth != width || mType != (((Statistics)getActivity()).getTaskHandler()).getStatType() || mDeckId != col.getDecks().selected() || mIsWholeCollection != AnkiStatsTaskHandler.isWholeCollection()) {
       mHeight=height;
       mWidth=width;
       mType=(((Statistics)getActivity()).getTaskHandler()).getStatType();
       mProgressBar.setVisibility(View.VISIBLE);
       mChart.setVisibility(View.GONE);
-      mDeckId=AnkiDroidApp.getCol().getDecks().selected();
+      mDeckId=col.getDecks().selected();
       mIsWholeCollection=AnkiStatsTaskHandler.isWholeCollection();
       if (mCreateChartTask != null && !mCreateChartTask.isCancelled()) {
         mCreateChartTask.cancel(true);

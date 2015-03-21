@@ -42,7 +42,7 @@
     Timber.d("base url = %s",mBaseUrl);
     if (SAVE_CARD_CONTENT) {
       try {
-        FileOutputStream f=new FileOutputStream(new File(AnkiDroidApp.getCurrentAnkiDroidDirectory(),"card.html"));
+        FileOutputStream f=new FileOutputStream(new File(CollectionHelper.getCurrentAnkiDroidDirectory(this),"card.html"));
         try {
           f.write(mCardContent.toString().getBytes());
         }

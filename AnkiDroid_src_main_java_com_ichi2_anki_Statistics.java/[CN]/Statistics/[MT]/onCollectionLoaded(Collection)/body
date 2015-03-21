@@ -6,7 +6,7 @@
   actionBar.setDisplayShowTitleEnabled(false);
   actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
   actionBar.setListNavigationCallbacks(mDropDownAdapter,this);
-  mTaskHandler=new AnkiStatsTaskHandler();
+  mTaskHandler=new AnkiStatsTaskHandler(col);
   mSectionsPagerAdapter=new SectionsPagerAdapter(getSupportFragmentManager());
   mViewPager=(ViewPager)findViewById(R.id.pager);
   mViewPager.setAdapter(mSectionsPagerAdapter);

@@ -13,44 +13,15 @@
     setAcraReportingMode(preferences.getString("reportErrorMode",FEEDBACK_REPORT_ASK));
   }
   Timber.tag(TAG);
-  if (isNookHdOrHdPlus() && SDK_VERSION == 15) {
-    mCompat=new CompatV15NookHdOrHdPlus();
-  }
- else   if (SDK_VERSION >= 16) {
-    mCompat=new CompatV16();
-  }
- else   if (SDK_VERSION >= 15) {
-    mCompat=new CompatV15();
-  }
- else   if (SDK_VERSION >= 12) {
-    mCompat=new CompatV12();
-  }
- else   if (SDK_VERSION >= 9) {
-    mCompat=new CompatV9();
-  }
- else   if (SDK_VERSION >= 8) {
-    mCompat=new CompatV8();
-  }
- else   if (isNook() && SDK_VERSION == 7) {
-    mCompat=new CompatV7Nook();
-  }
- else {
-    mCompat=new CompatV7();
-  }
   sInstance=this;
-  sInstance.mHooks=new Hooks(preferences);
   setLanguage(preferences.getString(Preferences.LANGUAGE,""));
-  mCompat.enableCookiesForFileSchemePages();
+  CompatHelper.getCompat().enableCookiesForFileSchemePages();
   final ViewConfiguration vc=ViewConfiguration.get(this);
-  if (SDK_VERSION >= 8) {
-    DEFAULT_SWIPE_MIN_DISTANCE=vc.getScaledPagingTouchSlop();
-  }
- else {
-    DEFAULT_SWIPE_MIN_DISTANCE=vc.getScaledTouchSlop() * 2;
-  }
+  DEFAULT_SWIPE_MIN_DISTANCE=CompatHelper.getCompat().getScaledPagingTouchSlop(vc);
   DEFAULT_SWIPE_THRESHOLD_VELOCITY=vc.getScaledMinimumFlingVelocity();
   try {
-    initializeAnkiDroidDirectory(getCurrentAnkiDroidDirectory());
+    String dir=CollectionHelper.getCurrentAnkiDroidDirectory(this);
+    CollectionHelper.initializeAnkiDroidDirectory(dir);
   }
  catch (  StorageAccessException e) {
     Timber.e(e,"Could not initialize AnkiDroid directory");

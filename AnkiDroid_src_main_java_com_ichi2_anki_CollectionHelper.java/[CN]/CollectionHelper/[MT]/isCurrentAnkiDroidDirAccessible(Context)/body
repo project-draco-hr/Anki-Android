@@ -1,0 +1,9 @@
+{
+  try {
+    initializeAnkiDroidDirectory(getCurrentAnkiDroidDirectory(context));
+    return true;
+  }
+ catch (  StorageAccessException e) {
+    return false;
+  }
+}

@@ -2,7 +2,7 @@
   WebView webView=new MyWebView(this);
   webView.setWillNotCacheDrawing(true);
   webView.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
-  if (AnkiDroidApp.SDK_VERSION > 11) {
+  if (CompatHelper.isHoneycomb()) {
     webView.getSettings().setDisplayZoomControls(false);
   }
   webView.getSettings().setBuiltInZoomControls(true);
@@ -10,11 +10,11 @@
   webView.getSettings().setLoadWithOverviewMode(true);
   webView.getSettings().setJavaScriptEnabled(true);
   webView.setWebChromeClient(new AnkiDroidWebChromeClient());
-  if (AnkiDroidApp.SDK_VERSION > 7) {
+  if (CompatHelper.isFroyo()) {
     webView.setFocusableInTouchMode(false);
   }
   if (mPrefSafeDisplay) {
-    AnkiDroidApp.getCompat().setScrollbarFadingEnabled(webView,false);
+    CompatHelper.getCompat().setScrollbarFadingEnabled(webView,false);
   }
   Timber.d("Focusable = %s, Focusable in touch mode = %s",webView.isFocusable(),webView.isFocusableInTouchMode());
   webView.setWebViewClient(new WebViewClient(){

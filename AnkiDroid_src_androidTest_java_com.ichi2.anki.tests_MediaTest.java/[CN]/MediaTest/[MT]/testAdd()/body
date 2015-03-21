@@ -1,13 +1,6 @@
 {
-  while (AnkiDroidApp.getInstance() == null || AnkiDroidApp.getHooks() == null) {
-    try {
-      Thread.sleep(100);
-    }
- catch (    InterruptedException e) {
-    }
-  }
-  Collection d=Shared.getEmptyCol();
-  File dir=Shared.getTestDir(mContext);
+  Collection d=Shared.getEmptyCol(getContext());
+  File dir=Shared.getTestDir(getContext());
   BackupManager.removeDir(dir);
   dir.mkdirs();
   File path=new File(dir,"foo.jpg");

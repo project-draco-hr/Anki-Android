@@ -5,7 +5,7 @@
     try {
       WidgetStatus.waitToFinish();
       String path=col.getPath();
-      AnkiDroidApp.closeCollection(true);
+      CollectionHelper.getInstance().closeCollection(true);
       BackupManager.performBackupInBackground(path);
     }
  catch (    RuntimeException e) {

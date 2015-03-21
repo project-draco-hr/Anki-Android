@@ -1,7 +1,7 @@
 {
   Timber.d("onResume()");
   super.onResume();
-  if (colOpen() && AnkiDroidApp.isSdCardMounted()) {
+  if (colIsOpen() && AnkiDroidApp.isSdCardMounted()) {
     updateDeckList();
     dismissOpeningCollectionDialog();
   }

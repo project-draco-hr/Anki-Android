@@ -7,7 +7,7 @@
   if (previousVersionCode < 20200166) {
     preferences.edit().putInt("swipeSensitivity",preferences.getInt("swipeSensibility",100)).commit();
     preferences.edit().putBoolean("gestures",preferences.getBoolean("swipe",false)).commit();
-    boolean safeDisplayMode=preferences.getBoolean("eInkDisplay",false) || AnkiDroidApp.isNook() || !preferences.getBoolean("forceQuickUpdate",false);
+    boolean safeDisplayMode=preferences.getBoolean("eInkDisplay",false) || CompatHelper.isNook() || !preferences.getBoolean("forceQuickUpdate",false);
     preferences.edit().putBoolean("safeDisplay",safeDisplayMode).commit();
     String overrideFont=preferences.getString("overrideFont","");
     if (!overrideFont.equals("")) {

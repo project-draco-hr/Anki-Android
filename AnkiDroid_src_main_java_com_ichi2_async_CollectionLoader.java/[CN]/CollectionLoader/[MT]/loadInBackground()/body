@@ -1,8 +1,6 @@
 {
-  Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
-  String colPath=AnkiDroidApp.getCollectionPath();
   try {
-    return AnkiDroidApp.openCollection(colPath);
+    return CollectionHelper.getInstance().getCol(getContext());
   }
  catch (  RuntimeException e) {
     Timber.e(e,"loadInBackground - RuntimeException on opening collection");

@@ -1,9 +1,9 @@
 {
-  if (AnkiDroidApp.SDK_VERSION <= 10) {
+  if (!CompatHelper.isHoneycomb()) {
     Themes.applyTheme(this,Themes.THEME_ANDROID_DARK);
   }
   super.onCreate(icicle);
-  mCol=AnkiDroidApp.getCol();
+  mCol=CollectionHelper.getInstance().getCol(this);
   if (mCol == null) {
     finish();
     return;
