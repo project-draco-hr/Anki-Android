@@ -84,13 +84,6 @@
 );
   mDeckListView.setAdapter(mDeckListAdapter);
   mTodayTextView=(TextView)findViewById(R.id.today_stats_text_view);
-  if (mFragmented) {
-    mDeckListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
-  }
-  if (getCol() == null) {
-    showStartupScreensAndDialogs(preferences,0);
-  }
- else {
-    loadCounts();
-  }
+  mDeckListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+  showStartupScreensAndDialogs(preferences,0);
 }

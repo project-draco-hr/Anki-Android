@@ -2,7 +2,8 @@
   Timber.d("onResume()");
   super.onResume();
   if (colOpen() && AnkiDroidApp.isSdCardMounted()) {
-    loadCounts();
+    updateDeckList();
+    dismissOpeningCollectionDialog();
   }
   selectNavigationItem(DRAWER_DECK_PICKER);
 }

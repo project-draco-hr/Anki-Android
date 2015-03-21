@@ -1,15 +1,13 @@
 {
-  getCol().getDecks().select(mContextMenuDid);
-  if (mFragmented) {
-    loadStudyOptionsFragment(mContextMenuDid,null);
-  }
   if (getCol().getDecks().isDyn(mContextMenuDid)) {
     Intent i=new Intent(DeckPicker.this,CramDeckOptions.class);
     i.putExtra("cramInitialConfig",(String)null);
+    i.putExtra("did",mContextMenuDid);
     startActivityWithAnimation(i,ActivityTransitionAnimation.FADE);
   }
  else {
     Intent i=new Intent(DeckPicker.this,DeckOptions.class);
+    i.putExtra("did",mContextMenuDid);
     startActivityWithAnimation(i,ActivityTransitionAnimation.FADE);
   }
 }

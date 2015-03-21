@@ -1,0 +1,29 @@
+{
+  while (true) {
+    Matcher match=sTag_re.matcher(template);
+    if (!match.find()) {
+      break;
+    }
+    String tag=match.group(0);
+    String tag_type=match.group(1);
+    String tag_name=match.group(2).trim();
+    String replacement;
+    if (tag_type == null) {
+      replacement=render_unescaped(tag_name,context);
+    }
+ else     if (tag_type.equals("{")) {
+      replacement=render_tag(tag_name,context);
+    }
+ else     if (tag_type.equals("!")) {
+      replacement=render_comment();
+    }
+ else     if (tag_type.equals("=")) {
+      replacement=render_delimiter(tag_name);
+    }
+ else {
+      return "{{invalid template}}";
+    }
+    template=template.replace(tag,replacement);
+  }
+  return template;
+}

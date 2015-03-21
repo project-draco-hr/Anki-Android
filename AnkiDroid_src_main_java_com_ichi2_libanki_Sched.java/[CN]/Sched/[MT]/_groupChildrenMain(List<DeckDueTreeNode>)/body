@@ -1,0 +1,58 @@
+{
+  List<DeckDueTreeNode> tree=new ArrayList<DeckDueTreeNode>();
+  ListIterator<DeckDueTreeNode> it=grps.listIterator();
+  while (it.hasNext()) {
+    DeckDueTreeNode node=it.next();
+    String head=node.names[0];
+    List<DeckDueTreeNode> tail=new ArrayList<DeckDueTreeNode>();
+    tail.add(node);
+    while (it.hasNext()) {
+      DeckDueTreeNode next=it.next();
+      if (head.equals(next.names[0])) {
+        tail.add(next);
+      }
+ else {
+        it.previous();
+        break;
+      }
+    }
+    Long did=null;
+    int rev=0;
+    int _new=0;
+    int lrn=0;
+    List<DeckDueTreeNode> children=new ArrayList<DeckDueTreeNode>();
+    for (    DeckDueTreeNode c : tail) {
+      if (c.names.length == 1) {
+        did=c.did;
+        rev+=c.revCount;
+        lrn+=c.lrnCount;
+        _new+=c.newCount;
+      }
+ else {
+        String[] newTail=new String[c.names.length - 1];
+        System.arraycopy(c.names,1,newTail,0,c.names.length - 1);
+        c.names=newTail;
+        children.add(c);
+      }
+    }
+    children=_groupChildrenMain(children);
+    for (    DeckDueTreeNode ch : children) {
+      rev+=ch.revCount;
+      lrn+=ch.lrnCount;
+      _new+=ch.newCount;
+    }
+    JSONObject conf=mCol.getDecks().confForDid(did);
+    JSONObject deck=mCol.getDecks().get(did);
+    try {
+      if (conf.getInt("dyn") == 0) {
+        rev=Math.max(0,Math.min(rev,conf.getJSONObject("rev").getInt("perDay") - deck.getJSONArray("revToday").getInt(1)));
+        _new=Math.max(0,Math.min(_new,conf.getJSONObject("new").getInt("perDay") - deck.getJSONArray("newToday").getInt(1)));
+      }
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+    tree.add(new DeckDueTreeNode(head,did,rev,lrn,_new,children));
+  }
+  return tree;
+}

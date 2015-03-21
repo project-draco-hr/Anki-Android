@@ -1,4 +1,4 @@
 {
   String msg=e.getMessage();
-  return msg.contains("UnknownHostException") || msg.contains("HttpHostConnectException") || msg.contains("SSLException while building HttpClient")|| msg.contains("SocketTimeoutException")|| msg.contains("ClientProtocolException");
+  return msg.contains("UnknownHostException") || msg.contains("HttpHostConnectException") || msg.contains("SSLException while building HttpClient")|| msg.contains("SocketTimeoutException")|| msg.contains("ClientProtocolException")|| msg.contains("TimeoutException");
 }

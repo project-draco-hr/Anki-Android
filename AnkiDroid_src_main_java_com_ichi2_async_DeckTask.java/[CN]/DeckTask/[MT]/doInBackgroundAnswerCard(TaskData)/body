@@ -4,7 +4,7 @@
   int ease=params[0].getInt();
   Card newCard=null;
   try {
-    AnkiDb ankiDB=sched.getCol().getDb();
+    AnkiDb ankiDB=AnkiDroidApp.getCol().getDb();
     ankiDB.getDatabase().beginTransaction();
     try {
       if (oldCard != null) {

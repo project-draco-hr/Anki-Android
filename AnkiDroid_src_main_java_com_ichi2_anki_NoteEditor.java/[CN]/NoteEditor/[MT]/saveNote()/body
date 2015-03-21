@@ -26,6 +26,7 @@
     final JSONObject newModel=getCurrentlySelectedModel();
     final JSONObject oldModel=mCurrentEditedCard.model();
     if (!newModel.equals(oldModel)) {
+      mReloadRequired=true;
       if (mModelChangeCardMap.size() < mEditorNote.cards().size() || mModelChangeCardMap.containsKey(null)) {
         ConfirmationDialog dialog=new ConfirmationDialog(){
           @Override public void confirm(){
@@ -43,6 +44,7 @@
     }
     boolean modified=false;
     if (mCurrentEditedCard.getDid() != mCurrentDid) {
+      mReloadRequired=true;
       AnkiDroidApp.getCol().getSched().remFromDyn(new long[]{mCurrentEditedCard.getId()});
       mCurrentEditedCard.load();
       mEditorNote=mCurrentEditedCard.note();

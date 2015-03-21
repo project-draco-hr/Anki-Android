@@ -1,7 +1,0 @@
-{
-  Object value=tmpl.getValue(ctx,_name,_line);
-  if (value != null) {
-    String text=String.valueOf(value);
-    write(out,_stripSpan ? stripSpan(text) : text);
-  }
-}

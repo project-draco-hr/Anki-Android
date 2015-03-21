@@ -1,8 +1,148 @@
 {
-  if (mFragmented && updateDeckList) {
-    return mRefreshWholeInterfaceListener;
-  }
+  return new DeckTask.TaskListener(){
+    @Override public void onPreExecute(){
+    }
+    @Override public void onPostExecute(    DeckTask.TaskData result){
+      dismissProgressDialog();
+      if (result != null) {
+        Object[] obj=result.getObjArray();
+        int newCards=(Integer)obj[0];
+        int lrnCards=(Integer)obj[1];
+        int revCards=(Integer)obj[2];
+        int totalNew=(Integer)obj[3];
+        int totalCards=(Integer)obj[4];
+        int eta=(Integer)obj[7];
+        double[][] serieslist=(double[][])obj[8];
+        if (getActivity() == null || !colOpen()) {
+          Timber.e("StudyOptionsFragment.mRefreshFragmentListener :: can't refresh");
+          return;
+        }
+        initAllContentViews();
+        String fullName;
+        JSONObject deck=getCol().getDecks().current();
+        try {
+          fullName=deck.getString("name");
+          String[] name=fullName.split("::");
+          StringBuilder nameBuilder=new StringBuilder();
+          if (name.length > 0) {
+            nameBuilder.append(name[0]);
+          }
+          if (name.length > 1) {
+            nameBuilder.append("\n").append(name[1]);
+          }
+          if (name.length > 3) {
+            nameBuilder.append("...");
+          }
+          if (name.length > 2) {
+            nameBuilder.append("\n").append(name[name.length - 1]);
+          }
+          mTextDeckName.setText(nameBuilder.toString());
+          if (!mFragmented) {
+            getActivity().setTitle(getResources().getString(R.string.studyoptions_title));
+            List<String> parts=Arrays.asList(fullName.split("::"));
+            AnkiDroidApp.getCompat().setSubtitle(getActivity(),parts.get(parts.size() - 1));
+          }
+        }
+ catch (        JSONException e) {
+          throw new RuntimeException(e);
+        }
+        if (mCramInitialConfig != null) {
+          openCramDeckOptions(mCramInitialConfig);
+          return;
+        }
+        if (newCards + lrnCards + revCards == 0) {
+          mCurrentContentView=CONTENT_CONGRATS;
+          mDeckInfoLayout.setVisibility(View.GONE);
+          mCongratsLayout.setVisibility(View.VISIBLE);
+          mTextCongratsMessage.setText(getCol().getSched().finishedMsg(getActivity()));
+          mButtonStart.setVisibility(View.GONE);
+        }
  else {
-    return mRefreshFragmentListener;
+          mDeckCounts.setVisibility(View.VISIBLE);
+          mCurrentContentView=CONTENT_STUDY_OPTIONS;
+          mDeckInfoLayout.setVisibility(View.VISIBLE);
+          mCongratsLayout.setVisibility(View.GONE);
+          mButtonStart.setVisibility(View.VISIBLE);
+        }
+        String desc;
+        try {
+          if (deck.getInt("dyn") == 0) {
+            desc=getCol().getDecks().getActualDescription();
+          }
+ else {
+            desc=getResources().getString(R.string.dyn_deck_desc);
+          }
+        }
+ catch (        JSONException e) {
+          throw new RuntimeException(e);
+        }
+        if (desc.length() > 0) {
+          mTextDeckDescription.setText(Html.fromHtml(desc));
+          mTextDeckDescription.setVisibility(View.VISIBLE);
+        }
+ else {
+          mTextDeckDescription.setVisibility(View.GONE);
+        }
+        updateChart(serieslist);
+        mTextTodayNew.setText(String.valueOf(newCards));
+        mTextTodayLrn.setText(String.valueOf(lrnCards));
+        mTextTodayRev.setText(String.valueOf(revCards));
+        if (totalNew < NEW_CARD_COUNT_TRUNCATE_THRESHOLD) {
+          mTextNewTotal.setText(String.valueOf(totalNew));
+        }
+ else {
+          mTextNewTotal.setText(">1000");
+          if (mFullNewCountThread != null) {
+            mFullNewCountThread.interrupt();
+          }
+          mFullNewCountThread=new Thread(new Runnable(){
+            @Override public void run(){
+              Collection collection=getCol();
+              StringBuilder sbQuery=new StringBuilder();
+              sbQuery.append("SELECT count(*) FROM cards WHERE did IN ");
+              sbQuery.append(Utils.ids2str(collection.getDecks().active()));
+              sbQuery.append(" AND queue = 0");
+              final int fullNewCount=collection.getDb().queryScalar(sbQuery.toString(),false);
+              if (fullNewCount > 0) {
+                Runnable setNewTotalText=new Runnable(){
+                  @Override public void run(){
+                    mTextNewTotal.setText(String.valueOf(fullNewCount));
+                  }
+                }
+;
+                if (!Thread.currentThread().isInterrupted()) {
+                  mTextNewTotal.post(setNewTotalText);
+                }
+              }
+            }
+          }
+);
+          mFullNewCountThread.start();
+        }
+        mTextTotal.setText(String.valueOf(totalCards));
+        if (eta != -1) {
+          mTextETA.setText(Integer.toString(eta));
+        }
+ else {
+          mTextETA.setText("-");
+        }
+        if (mButtonUnbury != null) {
+          if (getCol().getSched().haveBuried()) {
+            mButtonUnbury.setVisibility(View.VISIBLE);
+          }
+ else {
+            mButtonUnbury.setVisibility(View.GONE);
+          }
+        }
+      }
+      if (mFragmented && refreshDecklist) {
+        mListener.onRequireDeckListUpdate();
+      }
+    }
+    @Override public void onProgressUpdate(    DeckTask.TaskData... values){
+    }
+    @Override public void onCancelled(){
+    }
   }
+;
 }

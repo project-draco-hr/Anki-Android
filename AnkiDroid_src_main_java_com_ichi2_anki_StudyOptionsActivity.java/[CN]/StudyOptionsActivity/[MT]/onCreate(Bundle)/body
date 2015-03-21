@@ -5,7 +5,7 @@
   setContentView(mainView);
   initNavigationDrawer(mainView);
   if (savedInstanceState == null) {
-    loadStudyOptionsFragment();
+    loadStudyOptionsFragment(getCol().getDecks().current().optLong("did"),null);
   }
   registerExternalStorageListener();
 }

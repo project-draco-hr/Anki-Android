@@ -3,10 +3,6 @@
   Boolean started=BackupManager.performBackupInBackground(col.getPath());
   if (started) {
   }
-  if (mFragmented) {
-    long did=col.getDecks().selected();
-    selectDeck(did);
-  }
   if (mRecommendFullSync) {
     mRecommendFullSync=false;
     try {
@@ -22,5 +18,17 @@
       getDialogHandler().sendMessage(handlerMessage);
     }
   }
-  loadCounts();
+  updateDeckList();
+  if (mFragmented) {
+    new Handler().post(new Runnable(){
+      public void run(){
+        loadStudyOptionsFragment(getCol().getDecks().current().optLong("id"),false);
+      }
+    }
+);
+  }
+  dismissOpeningCollectionDialog();
+  if (!mFragmented) {
+    reloadShowcaseView();
+  }
 }
