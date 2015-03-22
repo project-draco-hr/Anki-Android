@@ -21,10 +21,13 @@
         }
         AnkiDroidApp.getCompat().setSubtitle(DeckPicker.this,res.getQuantityString(R.plurals.deckpicker_title,due,due,time));
       }
-      Long did=getCol().getDecks().current().optLong("id");
-      if (mFocusedDeck == null || !mFocusedDeck.equals(did)) {
-        focusDecklistOnDeck(did);
-        mFocusedDeck=did;
+      Long current=getCol().getDecks().current().optLong("id");
+      if (!deckIsShown(nodes,current)) {
+        mDeckListView.clearChoices();
+      }
+ else       if (mFocusedDeck == null || !mFocusedDeck.equals(current)) {
+        focusDecklistOnDeck(current);
+        mFocusedDeck=current;
       }
       WidgetStatus.update(DeckPicker.this,nodes);
       AnkiDroidApp.getCompat().invalidateOptionsMenu(DeckPicker.this);
