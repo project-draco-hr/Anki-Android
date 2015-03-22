@@ -70,6 +70,6 @@
   ankiDroidIntent.addCategory(Intent.CATEGORY_LAUNCHER);
   PendingIntent pendingAnkiDroidIntent=PendingIntent.getActivity(context,0,ankiDroidIntent,PendingIntent.FLAG_UPDATE_CURRENT);
   updateViews.setOnClickPendingIntent(R.id.ankidroid_widget_small_button,pendingAnkiDroidIntent);
-  updateWidgetDimensions(context,updateViews);
+  AnkiDroidApp.getCompat().updateWidgetDimensions(context,updateViews,AnkiDroidWidgetSmall.class);
   return updateViews;
 }
