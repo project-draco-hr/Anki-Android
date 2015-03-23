@@ -16,19 +16,5 @@ MenuItem lifeItem=menu.findItem(R.id.item_time_all);
 lifeItem.setChecked(true);
 break;
 }
-if (sIsWholeCollectionOnly) {
-MenuItem deckItem=menu.findItem(R.id.action_deck_chooser);
-deckItem.setVisible(false);
-}
- else {
-if (AnkiStatsTaskHandler.isWholeCollection()) {
-MenuItem collectionItem=menu.findItem(R.id.item_deck_life);
-collectionItem.setChecked(true);
-}
- else {
-MenuItem deckOnlyItem=menu.findItem(R.id.item_deck_current);
-deckOnlyItem.setChecked(true);
-}
-}
 return super.onPrepareOptionsMenu(menu);
 }

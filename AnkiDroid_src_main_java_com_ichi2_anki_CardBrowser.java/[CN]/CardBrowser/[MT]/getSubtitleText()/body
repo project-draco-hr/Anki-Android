@@ -1,0 +1,4 @@
+{
+  int count=getCards().size();
+  return getResources().getQuantityString(R.plurals.card_browser_subtitle,count,count);
+}

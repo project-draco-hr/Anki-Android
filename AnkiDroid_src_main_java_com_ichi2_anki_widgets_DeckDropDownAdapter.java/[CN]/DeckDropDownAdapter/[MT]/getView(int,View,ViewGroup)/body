@@ -29,6 +29,6 @@
       new RuntimeException();
     }
   }
-  deckCountsView.setText(getResources().getQuantityString(R.plurals.card_browser_subtitle,count,count));
+  deckCountsView.setText(((SubtitleListener)context).getSubtitleText());
   return convertView;
 }

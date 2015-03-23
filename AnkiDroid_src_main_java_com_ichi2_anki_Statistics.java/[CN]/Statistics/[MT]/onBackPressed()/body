@@ -1,0 +1,9 @@
+{
+  Timber.d("onBackPressed()");
+  Intent data=new Intent();
+  if (getIntent().hasExtra("selectedDeck")) {
+    data.putExtra("originalDeck",getIntent().getLongExtra("selectedDeck",0L));
+  }
+  setResult(RESULT_CANCELED,data);
+  finishWithAnimation(ActivityTransitionAnimation.RIGHT);
+}

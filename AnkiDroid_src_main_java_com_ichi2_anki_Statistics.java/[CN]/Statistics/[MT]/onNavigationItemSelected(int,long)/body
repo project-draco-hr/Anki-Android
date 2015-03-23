@@ -1,0 +1,17 @@
+{
+  if (position == 0) {
+    AnkiStatsTaskHandler.setIsWholeCollection(true);
+  }
+ else {
+    AnkiStatsTaskHandler.setIsWholeCollection(false);
+    JSONObject deck=mDropDownDecks.get(position - 1);
+    try {
+      getCol().getDecks().select(deck.getLong("id"));
+    }
+ catch (    JSONException e) {
+      Timber.e(e,"Could not get ID from deck");
+    }
+  }
+  mSectionsPagerAdapter.notifyDataSetChanged();
+  return true;
+}
