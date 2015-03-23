@@ -27,7 +27,8 @@ selectAllDecksButton=true;
 }
 AnkiStatsTaskHandler.setIsWholeCollection(selectAllDecksButton);
 Intent intent=new Intent(this,Statistics.class);
-startActivityWithAnimation(intent,ActivityTransitionAnimation.LEFT);
+intent.putExtra("selectedDeck",getCol().getDecks().selected());
+startActivityForResultWithAnimation(intent,REQUEST_STATISTICS,ActivityTransitionAnimation.LEFT);
 }
 break;
 case DRAWER_SETTINGS:

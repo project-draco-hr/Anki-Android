@@ -1,5 +1,11 @@
 {
   Timber.d("onCollectionLoaded()");
+  mDropDownDecks=getCol().getDecks().allSorted();
+  mDropDownAdapter=new DeckDropDownAdapter(this,mDropDownDecks);
+  ActionBar actionBar=getSupportActionBar();
+  actionBar.setDisplayShowTitleEnabled(false);
+  actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+  actionBar.setListNavigationCallbacks(mDropDownAdapter,this);
   mTaskHandler=new AnkiStatsTaskHandler();
   mSectionsPagerAdapter=new SectionsPagerAdapter(getSupportFragmentManager());
   mViewPager=(ViewPager)findViewById(R.id.pager);
@@ -12,4 +18,25 @@
   mTaskHandler.setmStandardTextSize(size);
   supportInvalidateOptionsMenu();
   mSectionsPagerAdapter.notifyDataSetChanged();
+  String currentDeckName;
+  try {
+    currentDeckName=getCol().getDecks().current().getString("name");
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  for (int dropDownDeckIdx=0; dropDownDeckIdx < mDropDownDecks.size(); dropDownDeckIdx++) {
+    JSONObject deck=mDropDownDecks.get(dropDownDeckIdx);
+    String deckName;
+    try {
+      deckName=deck.getString("name");
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException();
+    }
+    if (deckName.equals(currentDeckName)) {
+      actionBar.setSelectedNavigationItem(dropDownDeckIdx + 1);
+      break;
+    }
+  }
 }

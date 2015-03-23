@@ -1,0 +1,10 @@
+{
+  if (requestCode == REQUEST_STATISTICS) {
+    if (data.hasExtra("originalDeck")) {
+      getCol().getDecks().select(data.getLongExtra("originalDeck",0L));
+    }
+  }
+ else {
+    super.onActivityResult(requestCode,resultCode,data);
+  }
+}
