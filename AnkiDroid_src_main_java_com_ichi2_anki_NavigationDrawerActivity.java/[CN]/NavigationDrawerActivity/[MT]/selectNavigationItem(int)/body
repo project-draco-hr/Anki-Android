@@ -7,7 +7,7 @@ case DRAWER_DECK_PICKER:
     if (!(this instanceof DeckPicker)) {
       Intent deckPicker=new Intent(this,DeckPicker.class);
       deckPicker.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-      startActivityWithAnimation(deckPicker,ActivityTransitionAnimation.LEFT);
+      startActivityWithAnimation(deckPicker,ActivityTransitionAnimation.RIGHT);
     }
   break;
 case DRAWER_BROWSER:
@@ -33,7 +33,7 @@ startActivityForResultWithAnimation(intent,REQUEST_STATISTICS,ActivityTransition
 break;
 case DRAWER_SETTINGS:
 mOldColPath=CollectionHelper.getCurrentAnkiDroidDirectory(this);
-startActivityForResultWithAnimation(new Intent(this,Preferences.class),REQUEST_PREFERENCES_UPDATE,ActivityTransitionAnimation.LEFT);
+startActivityForResultWithAnimation(new Intent(this,Preferences.class),REQUEST_PREFERENCES_UPDATE,ActivityTransitionAnimation.FADE);
 break;
 case DRAWER_HELP:
 Intent helpIntent=new Intent("android.intent.action.VIEW",Uri.parse(AnkiDroidApp.getManualUrl()));
