@@ -1,4 +1,4 @@
 {
   Intent intent=new Intent(Intent.ACTION_VIEW,Uri.parse(getResources().getString(R.string.shared_decks_url)));
-  startActivityWithAnimation(intent,ActivityTransitionAnimation.RIGHT);
+  startActivityWithoutAnimation(intent);
 }
