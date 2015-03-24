@@ -1,0 +1,11 @@
+{
+  for (  Sched.DeckDueTreeNode node : nodes) {
+    if (node.did == current) {
+      return true;
+    }
+    if (!getCol().getDecks().get(node.did).optBoolean("collapsed",false) && deckIsShown(node.children,current)) {
+      return true;
+    }
+  }
+  return false;
+}
