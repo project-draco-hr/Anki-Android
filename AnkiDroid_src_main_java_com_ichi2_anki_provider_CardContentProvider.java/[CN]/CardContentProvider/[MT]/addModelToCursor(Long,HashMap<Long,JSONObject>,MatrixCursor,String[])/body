@@ -1,0 +1,18 @@
+{
+  JSONObject jsonObject=models.get(modelId);
+  MatrixCursor.RowBuilder rb=rv.newRow();
+  for (  String column : columns) {
+    if (column.equals(FlashCardsContract.Model._ID)) {
+      rb.add(modelId);
+    }
+ else     if (column.equals(FlashCardsContract.Model.NAME)) {
+      rb.add(jsonObject.getString("name"));
+    }
+ else     if (column.equals(FlashCardsContract.Model.JSONOBJECT)) {
+      rb.add(jsonObject);
+    }
+ else {
+      throw new UnsupportedOperationException("Column \"" + column + "\" is unknown");
+    }
+  }
+}

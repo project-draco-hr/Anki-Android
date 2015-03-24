@@ -1,0 +1,5 @@
+{
+  long noteId;
+  noteId=Long.parseLong(uri.getPathSegments().get(1));
+  return col.getNote(noteId);
+}

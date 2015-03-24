@@ -1,0 +1,156 @@
+{
+  Timber.d("CardContentProvider.query");
+  Collection col=CollectionHelper.getInstance().getCol(getContext());
+  if (col == null) {
+    return null;
+  }
+  int match=sUriMatcher.match(uri);
+switch (match) {
+case NOTES:
+{
+      String columnsStr=proj2str(projection);
+      String query=(selection != null) ? selection : "";
+      List<Long> noteIds=col.findNotes(query);
+      if ((noteIds != null) && (!noteIds.isEmpty())) {
+        String selectedIds="id in " + Utils.ids2str(noteIds);
+        Cursor cur;
+        try {
+          cur=col.getDb().getDatabase().rawQuery("select " + columnsStr + " from notes where "+ selectedIds,null);
+        }
+ catch (        SQLException e) {
+          throw new IllegalArgumentException("Not possible to query for data for IDs " + selectedIds,e);
+        }
+        return cur;
+      }
+ else {
+        return null;
+      }
+    }
+case NOTES_ID:
+{
+    long noteId;
+    noteId=Long.parseLong(uri.getPathSegments().get(1));
+    String columnsStr=proj2str(projection);
+    String selectedIds="id = " + noteId;
+    Cursor cur;
+    try {
+      cur=col.getDb().getDatabase().rawQuery("select " + columnsStr + " from notes where "+ selectedIds,null);
+    }
+ catch (    SQLException e) {
+      throw new IllegalArgumentException("Not possible to query for data for ID \"" + noteId + "\"",e);
+    }
+    return cur;
+  }
+case NOTES_ID_DATA:
+{
+  Note currentNote=getNoteFromUri(uri,col);
+  MatrixCursor rv;
+  String[] columns=((projection != null) ? projection : DataColumns.DEFAULT_PROJECTION);
+  rv=new MatrixCursor(columns,1);
+  long id=0;
+  String[][] currentNoteItems=currentNote.items();
+  for (  String[] field : currentNoteItems) {
+    id++;
+    MatrixCursor.RowBuilder rb=rv.newRow();
+    for (    String column : columns) {
+      if (column.equals(DataColumns._ID)) {
+        rb.add(id);
+      }
+ else       if (column.equals(DataColumns.NOTE_ID)) {
+        rb.add(currentNote.getId());
+      }
+ else       if (column.equals(DataColumns.MIMETYPE)) {
+        rb.add(FlashCardsContract.Data.Field.CONTENT_ITEM_TYPE);
+      }
+ else       if (column.equals(Field.FIELD_NAME)) {
+        rb.add(field[0]);
+      }
+ else       if (column.equals(Field.FIELD_CONTENT)) {
+        rb.add(field[1]);
+      }
+ else {
+        throw new UnsupportedOperationException("Support for column \"" + column + "\" is not yet implemented for MIME type "+ Field.CONTENT_ITEM_TYPE);
+      }
+    }
+  }
+{
+    id++;
+    MatrixCursor.RowBuilder rb=rv.newRow();
+    for (    String column : columns) {
+      if (column.equals(DataColumns._ID)) {
+        rb.add(id);
+      }
+ else       if (column.equals(DataColumns.NOTE_ID)) {
+        rb.add(currentNote.getId());
+      }
+ else       if (column.equals(DataColumns.MIMETYPE)) {
+        rb.add(FlashCardsContract.Data.Tags.CONTENT_ITEM_TYPE);
+      }
+ else       if (column.equals(FlashCardsContract.Data.Tags.TAG_CONTENT)) {
+        rb.add(currentNote.stringTags().trim());
+      }
+ else       if (column.equals(DataColumns.DATA2)) {
+      }
+ else {
+        throw new UnsupportedOperationException("Support for column \"" + column + "\" is not implemented for MIME type "+ Field.CONTENT_ITEM_TYPE);
+      }
+    }
+  }
+  return rv;
+}
+case NOTES_ID_CARDS:
+{
+Note currentNote=getNoteFromUri(uri,col);
+MatrixCursor rv;
+String[] columns=((projection != null) ? projection : FlashCardsContract.Card.DEFAULT_PROJECTION);
+rv=new MatrixCursor(columns,1);
+for (Card currentCard : currentNote.cards()) {
+  addCardToCursor(currentCard,rv,col,columns);
+}
+return rv;
+}
+case NOTES_ID_CARDS_ORD:
+{
+Card currentCard=getCardFromUri(uri,col);
+MatrixCursor rv;
+String[] columns=((projection != null) ? projection : FlashCardsContract.Card.DEFAULT_PROJECTION);
+rv=new MatrixCursor(columns,1);
+addCardToCursor(currentCard,rv,col,columns);
+return rv;
+}
+case MODELS:
+{
+HashMap<Long,JSONObject> models=col.getModels().getModels();
+MatrixCursor rv;
+String[] columns=((projection != null) ? projection : FlashCardsContract.Model.DEFAULT_PROJECTION);
+rv=new MatrixCursor(columns,1);
+for (Long modelId : models.keySet()) {
+try {
+addModelToCursor(modelId,models,rv,columns);
+}
+ catch (JSONException e) {
+throw new IllegalArgumentException("Model " + modelId + " is malformed",e);
+}
+}
+return rv;
+}
+case MODELS_ID:
+{
+long modelId;
+MatrixCursor rv;
+String[] columns=((projection != null) ? projection : FlashCardsContract.Model.DEFAULT_PROJECTION);
+rv=new MatrixCursor(columns,1);
+modelId=Long.parseLong(uri.getPathSegments().get(1));
+HashMap<Long,JSONObject> models=col.getModels().getModels();
+try {
+addModelToCursor(modelId,models,rv,columns);
+}
+ catch (JSONException e) {
+throw new IllegalArgumentException("Model " + modelId + " is malformed",e);
+}
+return rv;
+}
+default :
+throw new IllegalArgumentException("uri " + uri + " is not supported");
+}
+}

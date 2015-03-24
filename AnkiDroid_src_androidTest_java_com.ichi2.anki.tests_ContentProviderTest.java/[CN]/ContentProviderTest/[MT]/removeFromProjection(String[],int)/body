@@ -1,0 +1,10 @@
+{
+  String[] outputProjection=new String[inputProjection.length - 1];
+  for (int i=0; i < idx; i++) {
+    outputProjection[i]=inputProjection[i];
+  }
+  for (int i=idx + 1; i < inputProjection.length; i++) {
+    outputProjection[i - 1]=inputProjection[i];
+  }
+  return outputProjection;
+}

@@ -1,0 +1,20 @@
+{
+  Log.i(AnkiDroidApp.TAG,"tearDown()");
+  Collection col;
+  col=CollectionHelper.getInstance().getCol(getContext());
+  int deletedNotes;
+  List<Long> noteIds=col.findNotes("tag:" + TEST_TAG);
+  if ((noteIds != null) && (noteIds.size() > 0)) {
+    long[] delNotes=new long[noteIds.size()];
+    for (int i=0; i < noteIds.size(); i++) {
+      delNotes[i]=noteIds.get(i);
+    }
+    col.remNotes(delNotes);
+    deletedNotes=noteIds.size();
+  }
+ else {
+    deletedNotes=0;
+  }
+  assertEquals("Check that all created notes have been deleted",mCreatedNotes,deletedNotes);
+  super.tearDown();
+}

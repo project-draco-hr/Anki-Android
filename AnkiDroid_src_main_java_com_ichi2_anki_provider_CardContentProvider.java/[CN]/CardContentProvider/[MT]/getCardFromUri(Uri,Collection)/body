@@ -1,0 +1,11 @@
+{
+  long noteId;
+  int ord;
+  noteId=Long.parseLong(uri.getPathSegments().get(1));
+  ord=Integer.parseInt(uri.getPathSegments().get(3));
+  Note currentNote=col.getNote(noteId);
+  if (currentNote.cards().size() <= ord) {
+    throw new IllegalArgumentException("Card with ord " + ord + " does not exist for note "+ noteId);
+  }
+  return currentNote.cards().get(ord);
+}

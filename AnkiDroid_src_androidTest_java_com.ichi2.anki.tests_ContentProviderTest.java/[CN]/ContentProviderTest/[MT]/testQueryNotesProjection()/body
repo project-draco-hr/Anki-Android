@@ -1,0 +1,18 @@
+{
+  final ContentResolver cr=getContext().getContentResolver();
+  for (int i=0; i < FlashCardsContract.Note.DEFAULT_PROJECTION.length; i++) {
+    String[] projection=removeFromProjection(FlashCardsContract.Note.DEFAULT_PROJECTION,i);
+    final Cursor allNotesCursor=cr.query(FlashCardsContract.Note.CONTENT_URI,projection,"tag:" + TEST_TAG,null,null);
+    assertNotNull("Check that there is a valid cursor",allNotesCursor);
+    try {
+      assertEquals("Check number of results",mCreatedNotes,allNotesCursor.getCount());
+      assertEquals("Check column count",projection.length,allNotesCursor.getColumnCount());
+      for (int j=0; j < projection.length; j++) {
+        assertEquals("Check column name " + j,projection[j],allNotesCursor.getColumnName(j));
+      }
+    }
+  finally {
+      allNotesCursor.close();
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  final ContentResolver cr=getContext().getContentResolver();
+  ContentValues dummyValues=new ContentValues();
+  Uri[] updateUris={FlashCardsContract.Note.CONTENT_URI,FlashCardsContract.Note.CONTENT_URI.buildUpon().appendPath("1234").build(),FlashCardsContract.Note.CONTENT_URI.buildUpon().appendPath("1234").appendPath("cards").build(),FlashCardsContract.Model.CONTENT_URI.buildUpon().appendPath("1234").build()};
+  for (  Uri uri : updateUris) {
+    try {
+      cr.update(uri,dummyValues,null,null);
+      fail("Update on " + uri + " was supposed to throw exception");
+    }
+ catch (    UnsupportedOperationException e) {
+    }
+catch (    IllegalArgumentException e) {
+    }
+  }
+  Uri[] deleteUris={FlashCardsContract.Note.CONTENT_URI,FlashCardsContract.Note.CONTENT_URI.buildUpon().appendPath("1234").build(),FlashCardsContract.Note.CONTENT_URI.buildUpon().appendPath("1234").appendPath("data").build(),FlashCardsContract.Note.CONTENT_URI.buildUpon().appendPath("1234").appendPath("cards").build(),FlashCardsContract.Note.CONTENT_URI.buildUpon().appendPath("1234").appendPath("cards").appendPath("2345").build(),FlashCardsContract.Model.CONTENT_URI,FlashCardsContract.Model.CONTENT_URI.buildUpon().appendPath("1234").build()};
+  for (  Uri uri : deleteUris) {
+    try {
+      cr.delete(uri,null,null);
+      fail("Delete on " + uri + " was supposed to throw exception");
+    }
+ catch (    UnsupportedOperationException e) {
+    }
+  }
+  Uri[] insertUris={FlashCardsContract.Note.CONTENT_URI.buildUpon().appendPath("1234").build(),FlashCardsContract.Note.CONTENT_URI.buildUpon().appendPath("1234").appendPath("data").build(),FlashCardsContract.Note.CONTENT_URI.buildUpon().appendPath("1234").appendPath("cards").build(),FlashCardsContract.Note.CONTENT_URI.buildUpon().appendPath("1234").appendPath("cards").appendPath("2345").build(),FlashCardsContract.Model.CONTENT_URI,FlashCardsContract.Model.CONTENT_URI.buildUpon().appendPath("1234").build()};
+  for (  Uri uri : insertUris) {
+    try {
+      cr.insert(uri,dummyValues);
+      fail("Insert on " + uri + " was supposed to throw exception");
+    }
+ catch (    UnsupportedOperationException e) {
+    }
+catch (    IllegalArgumentException e) {
+    }
+  }
+}

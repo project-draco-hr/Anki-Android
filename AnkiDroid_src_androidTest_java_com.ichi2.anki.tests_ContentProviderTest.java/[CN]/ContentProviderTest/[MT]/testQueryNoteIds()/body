@@ -1,0 +1,31 @@
+{
+  final ContentResolver cr=getContext().getContentResolver();
+  final Cursor allNotesCursor=cr.query(FlashCardsContract.Note.CONTENT_URI,null,"tag:" + TEST_TAG,null,null);
+  assertNotNull(allNotesCursor);
+  try {
+    assertEquals("Check number of results",mCreatedNotes,allNotesCursor.getCount());
+    while (allNotesCursor.moveToNext()) {
+      for (int i=0; i < FlashCardsContract.Note.DEFAULT_PROJECTION.length; i++) {
+        String[] projection=removeFromProjection(FlashCardsContract.Note.DEFAULT_PROJECTION,i);
+        String noteId=allNotesCursor.getString(allNotesCursor.getColumnIndex(FlashCardsContract.Note._ID));
+        Uri noteUri=Uri.withAppendedPath(FlashCardsContract.Note.CONTENT_URI,noteId);
+        final Cursor singleNoteCursor=cr.query(noteUri,projection,null,null,null);
+        assertNotNull("Check that there is a valid cursor for detail data",singleNoteCursor);
+        try {
+          assertEquals("Check that there is exactly one result",1,singleNoteCursor.getCount());
+          assertTrue("Move to beginning of cursor after querying for detail data",singleNoteCursor.moveToFirst());
+          assertEquals("Check column count",projection.length,singleNoteCursor.getColumnCount());
+          for (int j=0; j < projection.length; j++) {
+            assertEquals("Check column name " + j,projection[j],singleNoteCursor.getColumnName(j));
+          }
+        }
+  finally {
+          singleNoteCursor.close();
+        }
+      }
+    }
+  }
+  finally {
+    allNotesCursor.close();
+  }
+}
