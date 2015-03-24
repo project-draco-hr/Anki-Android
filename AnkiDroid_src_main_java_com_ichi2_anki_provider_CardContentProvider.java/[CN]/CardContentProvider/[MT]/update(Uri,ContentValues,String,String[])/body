@@ -1,0 +1,89 @@
+{
+  Timber.d("CardContentProvider.update");
+  Collection col=CollectionHelper.getInstance().getCol(getContext());
+  if (col == null) {
+    return 0;
+  }
+  int match=sUriMatcher.match(uri);
+  int updated=0;
+switch (match) {
+case NOTES:
+    throw new IllegalArgumentException("Not possible to update notes directly (only through data URI)");
+case NOTES_ID:
+  throw new IllegalArgumentException("Not possible to update notes directly (only through data URI)");
+case NOTES_ID_DATA:
+{
+  Note currentNote=getNoteFromUri(uri,col);
+  boolean isField=false;
+  boolean isTag=false;
+  String data1=null;
+  String data2=null;
+  Set<Map.Entry<String,Object>> valueSet=values.valueSet();
+  for (  Map.Entry<String,Object> entry : valueSet) {
+    String key=entry.getKey();
+    if (key.equals(DataColumns.MIMETYPE)) {
+      isField=values.getAsString(key).equals(Field.CONTENT_ITEM_TYPE);
+      isTag=values.getAsString(key).equals(FlashCardsContract.Data.Tags.CONTENT_ITEM_TYPE);
+    }
+ else     if (key.equals(DataColumns.DATA1)) {
+      data1=values.getAsString(key);
+    }
+ else     if (key.equals(DataColumns.DATA2)) {
+      data2=values.getAsString(key);
+    }
+ else {
+      throw new IllegalArgumentException("Unknown/unsupported column: " + key);
+    }
+  }
+  if ((isField) && (data1 != null) && (data2 != null)) {
+    Timber.d("CardContentProvider: Saving note after field update...");
+    currentNote.setitem(data1,data2);
+    currentNote.flush();
+    updated++;
+  }
+ else   if ((isTag) && (data1 != null)) {
+    Timber.d("CardContentProvider: Saving note after tags update...");
+    currentNote.setTagsFromStr(data1);
+    currentNote.flush();
+    updated++;
+  }
+ else {
+    throw new IllegalArgumentException("Currently only updates of fields are supported");
+  }
+  break;
+}
+case NOTES_ID_CARDS:
+throw new UnsupportedOperationException("Not yet implemented");
+case NOTES_ID_CARDS_ORD:
+{
+Card currentCard=getCardFromUri(uri,col);
+boolean isDeckUpdate=false;
+String newDeckName=null;
+Set<Map.Entry<String,Object>> valueSet=values.valueSet();
+for (Map.Entry<String,Object> entry : valueSet) {
+String key=entry.getKey();
+isDeckUpdate=key.equals(FlashCardsContract.Card.DECK_NAME);
+newDeckName=values.getAsString(key);
+}
+if ((isDeckUpdate) && (newDeckName != null)) {
+Timber.d("CardContentProvider: Moving card to other deck...");
+long did=col.getDecks().id(newDeckName);
+col.getDecks().flush();
+currentCard.setDid(did);
+currentCard.flush();
+updated++;
+}
+ else {
+throw new IllegalArgumentException("Currently only updates of decks are supported");
+}
+break;
+}
+case MODELS:
+throw new UnsupportedOperationException("Not yet implemented");
+case MODELS_ID:
+throw new UnsupportedOperationException("Not yet implemented");
+default :
+throw new IllegalArgumentException("uri " + uri + " is not supported");
+}
+return updated;
+}

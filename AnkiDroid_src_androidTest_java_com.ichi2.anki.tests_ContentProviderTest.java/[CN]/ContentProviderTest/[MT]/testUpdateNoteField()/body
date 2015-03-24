@@ -1,0 +1,48 @@
+{
+  final ContentResolver cr=getContext().getContentResolver();
+  final Cursor allNotesCursor=cr.query(FlashCardsContract.Note.CONTENT_URI,null,"tag:" + TEST_TAG,null,null);
+  assertNotNull(allNotesCursor);
+  try {
+    assertEquals("Check number of results",mCreatedNotes,allNotesCursor.getCount());
+    while (allNotesCursor.moveToNext()) {
+      Uri dataUri=Uri.withAppendedPath(Uri.withAppendedPath(FlashCardsContract.Note.CONTENT_URI,allNotesCursor.getString(allNotesCursor.getColumnIndex(FlashCardsContract.Note._ID))),"data");
+      Cursor noteDataCursor=cr.query(dataUri,null,null,null,null);
+      assertNotNull("Check that there is a valid cursor for detail data",noteDataCursor);
+      try {
+        assertTrue("Check that there is at least one result for detail data",noteDataCursor.getCount() > 0);
+        while (noteDataCursor.moveToNext()) {
+          if (noteDataCursor.getString(noteDataCursor.getColumnIndex(FlashCardsContract.DataColumns.MIMETYPE)).equals(FlashCardsContract.Data.Field.CONTENT_ITEM_TYPE)) {
+            ContentValues values=new ContentValues();
+            values.put(FlashCardsContract.DataColumns.MIMETYPE,FlashCardsContract.Data.Field.CONTENT_ITEM_TYPE);
+            values.put(FlashCardsContract.Data.Field.FIELD_NAME,noteDataCursor.getString(noteDataCursor.getColumnIndex(FlashCardsContract.Data.Field.FIELD_NAME)));
+            values.put(FlashCardsContract.Data.Field.FIELD_CONTENT,TEST_FIELD_VALUE);
+            assertEquals("Tag set",1,cr.update(dataUri,values,null,null));
+          }
+ else {
+          }
+        }
+      }
+  finally {
+        noteDataCursor.close();
+      }
+      noteDataCursor=cr.query(dataUri,null,null,null,null);
+      assertNotNull("Check that there is a valid cursor for detail data after update",noteDataCursor);
+      try {
+        assertTrue("Check that there is at least one result for detail data after update",noteDataCursor.getCount() > 0);
+        while (noteDataCursor.moveToNext()) {
+          if (noteDataCursor.getString(noteDataCursor.getColumnIndex(FlashCardsContract.DataColumns.MIMETYPE)).equals(FlashCardsContract.Data.Field.CONTENT_ITEM_TYPE)) {
+            assertEquals("Check field content",TEST_FIELD_VALUE,noteDataCursor.getString(noteDataCursor.getColumnIndex(FlashCardsContract.Data.Field.FIELD_CONTENT)));
+          }
+ else {
+          }
+        }
+      }
+  finally {
+        noteDataCursor.close();
+      }
+    }
+  }
+  finally {
+    allNotesCursor.close();
+  }
+}

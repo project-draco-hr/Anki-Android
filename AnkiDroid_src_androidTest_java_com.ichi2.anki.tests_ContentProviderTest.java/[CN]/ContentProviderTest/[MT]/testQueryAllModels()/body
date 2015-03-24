@@ -1,0 +1,30 @@
+{
+  final ContentResolver cr=getContext().getContentResolver();
+  final Cursor allModelsCursor=cr.query(FlashCardsContract.Model.CONTENT_URI,null,null,null,null);
+  assertNotNull(allModelsCursor);
+  try {
+    assertTrue("Check that there is at least one result",allModelsCursor.getCount() > 0);
+    while (allModelsCursor.moveToNext()) {
+      long modelId=allModelsCursor.getLong(allModelsCursor.getColumnIndex(FlashCardsContract.Model._ID));
+      Uri modelUri=Uri.withAppendedPath(FlashCardsContract.Model.CONTENT_URI,Long.toString(modelId));
+      final Cursor singleModelCursor=cr.query(modelUri,null,null,null,null);
+      assertNotNull(singleModelCursor);
+      try {
+        assertEquals("Check that there is exactly one result",1,singleModelCursor.getCount());
+        assertTrue("Move to beginning of cursor",singleModelCursor.moveToFirst());
+        String nameFromModels=allModelsCursor.getString(allModelsCursor.getColumnIndex(FlashCardsContract.Model.NAME));
+        String nameFromModel=singleModelCursor.getString(allModelsCursor.getColumnIndex(FlashCardsContract.Model.NAME));
+        assertEquals("Check that model names are the same",nameFromModel,nameFromModels);
+        String jsonFromModels=allModelsCursor.getString(allModelsCursor.getColumnIndex(FlashCardsContract.Model.JSONOBJECT));
+        String jsonFromModel=singleModelCursor.getString(allModelsCursor.getColumnIndex(FlashCardsContract.Model.JSONOBJECT));
+        assertEquals("Check that jsonobjects are the same",jsonFromModel,jsonFromModels);
+      }
+  finally {
+        singleModelCursor.close();
+      }
+    }
+  }
+  finally {
+    allModelsCursor.close();
+  }
+}

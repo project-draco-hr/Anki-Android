@@ -1,0 +1,28 @@
+{
+  super.setUp();
+  Log.i(AnkiDroidApp.TAG,"setUp()");
+  final ContentResolver cr=getContext().getContentResolver();
+  final Cursor allModelsCursor=cr.query(FlashCardsContract.Model.CONTENT_URI,null,null,null,null);
+  assertNotNull(allModelsCursor);
+  mCreatedNotes=0;
+  int idColumnIndex=allModelsCursor.getColumnIndexOrThrow(FlashCardsContract.Model._ID);
+  ContentValues values=new ContentValues();
+  try {
+    while (allModelsCursor.moveToNext()) {
+      long modelId=allModelsCursor.getLong(idColumnIndex);
+      values.clear();
+      values.put(FlashCardsContract.Note.MID,modelId);
+      Uri newNoteUri=cr.insert(FlashCardsContract.Note.CONTENT_URI,values);
+      Uri newNoteDataUri=Uri.withAppendedPath(newNoteUri,"data");
+      values.clear();
+      values.put(FlashCardsContract.DataColumns.MIMETYPE,FlashCardsContract.Data.Tags.CONTENT_ITEM_TYPE);
+      values.put(FlashCardsContract.Data.Tags.TAG_CONTENT,TEST_TAG);
+      assertEquals("Tag set",1,cr.update(newNoteDataUri,values,null,null));
+      mCreatedNotes++;
+    }
+  }
+  finally {
+    allModelsCursor.close();
+  }
+  assertTrue("Check that at least one model exists, i.e. one note was created",mCreatedNotes != 0);
+}

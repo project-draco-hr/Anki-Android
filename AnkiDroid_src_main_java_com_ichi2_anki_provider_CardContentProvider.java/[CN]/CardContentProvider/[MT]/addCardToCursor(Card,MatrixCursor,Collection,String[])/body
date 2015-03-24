@@ -1,0 +1,37 @@
+{
+  String cardName;
+  String deckName;
+  try {
+    cardName=currentCard.template().getString("name");
+    deckName=col.getDecks().get(currentCard.getDid()).getString("name");
+  }
+ catch (  JSONException je) {
+    throw new IllegalArgumentException("Card is using an invalid template",je);
+  }
+  String question=currentCard.q();
+  String answer=currentCard.a();
+  MatrixCursor.RowBuilder rb=rv.newRow();
+  for (  String column : columns) {
+    if (column.equals(FlashCardsContract.Card.NOTE_ID)) {
+      rb.add(currentCard.note().getId());
+    }
+ else     if (column.equals(FlashCardsContract.Card.CARD_ORD)) {
+      rb.add(currentCard.getOrd());
+    }
+ else     if (column.equals(FlashCardsContract.Card.CARD_NAME)) {
+      rb.add(cardName);
+    }
+ else     if (column.equals(FlashCardsContract.Card.DECK_NAME)) {
+      rb.add(deckName);
+    }
+ else     if (column.equals(FlashCardsContract.Card.QUESTION)) {
+      rb.add(question);
+    }
+ else     if (column.equals(FlashCardsContract.Card.ANSWER)) {
+      rb.add(answer);
+    }
+ else {
+      throw new UnsupportedOperationException("Column \"" + column + "\" is unknown");
+    }
+  }
+}

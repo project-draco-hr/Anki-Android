@@ -1,0 +1,37 @@
+{
+  Timber.d("CardContentProvider.insert");
+  Collection col=CollectionHelper.getInstance().getCol(getContext());
+  if (col == null) {
+    return null;
+  }
+  int match=sUriMatcher.match(uri);
+switch (match) {
+case NOTES:
+{
+      Long modelId=values.getAsLong(FlashCardsContract.Note.MID);
+      com.ichi2.libanki.Note newNote=new com.ichi2.libanki.Note(col,col.getModels().get(modelId));
+      String[] fields=newNote.getFields();
+      for (int i=0; i < fields.length; i++) {
+        newNote.setField(i,"temp");
+      }
+      col.addNote(newNote);
+      return Uri.withAppendedPath(FlashCardsContract.Note.CONTENT_URI,Long.toString(newNote.getId()));
+    }
+case NOTES_ID:
+{
+    throw new IllegalArgumentException("Not possible to insert note with specific ID");
+  }
+case NOTES_ID_DATA:
+throw new IllegalArgumentException("Not possible to insert note data");
+case NOTES_ID_CARDS:
+throw new IllegalArgumentException("Not possible to insert cards directly (only through inserting notes)");
+case NOTES_ID_CARDS_ORD:
+throw new IllegalArgumentException("Not possible to insert cards directly (only through inserting notes)");
+case MODELS:
+throw new UnsupportedOperationException("Not yet implemented");
+case MODELS_ID:
+throw new IllegalArgumentException("Not possible to insert model with specific ID");
+default :
+throw new IllegalArgumentException("uri " + uri + " is not supported");
+}
+}
