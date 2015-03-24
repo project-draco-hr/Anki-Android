@@ -46,8 +46,8 @@
  catch (        JSONException e) {
           throw new RuntimeException(e);
         }
-        if (mCramInitialConfig != null) {
-          openCramDeckOptions(mCramInitialConfig);
+        if (mLoadWithDeckOptions == true) {
+          openFilteredDeckOptions(mLoadWithDeckOptions);
           return;
         }
         if (newCards + lrnCards + revCards == 0) {

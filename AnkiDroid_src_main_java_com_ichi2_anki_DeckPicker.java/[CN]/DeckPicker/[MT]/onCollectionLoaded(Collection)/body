@@ -22,7 +22,7 @@
   if (mFragmented) {
     new Handler().post(new Runnable(){
       public void run(){
-        loadStudyOptionsFragment(getCol().getDecks().current().optLong("id"),false);
+        loadStudyOptionsFragment(false);
       }
     }
 );

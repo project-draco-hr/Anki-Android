@@ -1,0 +1,6 @@
+{
+  StudyOptionsFragment details=StudyOptionsFragment.newInstance(withDeckOptions);
+  FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+  ft.replace(R.id.studyoptions_fragment,details);
+  ft.commit();
+}

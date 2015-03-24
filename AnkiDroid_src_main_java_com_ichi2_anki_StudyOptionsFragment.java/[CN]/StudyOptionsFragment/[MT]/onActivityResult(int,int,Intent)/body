@@ -11,8 +11,8 @@
     return;
   }
   if (requestCode == DECK_OPTIONS) {
-    if (mCramInitialConfig != null) {
-      mCramInitialConfig=null;
+    if (mLoadWithDeckOptions == true) {
+      mLoadWithDeckOptions=false;
       try {
         JSONObject deck=getCol().getDecks().current();
         if (deck.getInt("dyn") != 0 && deck.has("empty")) {

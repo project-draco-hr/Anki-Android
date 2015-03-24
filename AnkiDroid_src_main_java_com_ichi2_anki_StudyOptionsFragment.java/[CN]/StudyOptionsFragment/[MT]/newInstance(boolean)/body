@@ -1,0 +1,7 @@
+{
+  StudyOptionsFragment f=new StudyOptionsFragment();
+  Bundle args=new Bundle();
+  args.putBoolean("withDeckOptions",withDeckOptions);
+  f.setArguments(args);
+  return f;
+}

@@ -60,10 +60,10 @@ mDialogEditText.setText(filteredDeckName);
 builder3.setView(mDialogEditText,false,false);
 builder3.setPositiveButton(res.getString(R.string.create),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
-String enteredCramDeckName=mDialogEditText.getText().toString();
+String filteredDeckName=mDialogEditText.getText().toString();
 Timber.i("DeckPicker:: Creating filtered deck...");
-long did=getCol().getDecks().newDyn(enteredCramDeckName);
-openStudyOptions(did,true);
+getCol().getDecks().newDyn(filteredDeckName);
+openStudyOptions(true);
 }
 }
 );

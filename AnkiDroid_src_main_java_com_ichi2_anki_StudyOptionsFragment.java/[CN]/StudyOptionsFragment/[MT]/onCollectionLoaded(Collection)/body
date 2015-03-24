@@ -1,7 +1,9 @@
 {
   mCollection=col;
   initAllContentViews();
-  mCramInitialConfig=getArguments().getBundle("cramInitialConfig");
+  if (getArguments() != null) {
+    mLoadWithDeckOptions=getArguments().getBoolean("withDeckOptions");
+  }
   refreshInterface(true);
   setHasOptionsMenu(true);
   dismissCollectionLoadingDialog();

@@ -3,5 +3,5 @@
   long did=Long.parseLong(data.get("did"));
   getCol().getDecks().select(did);
   mFocusedDeck=did;
-  openStudyOptions(did,false);
+  openStudyOptions(false);
 }
