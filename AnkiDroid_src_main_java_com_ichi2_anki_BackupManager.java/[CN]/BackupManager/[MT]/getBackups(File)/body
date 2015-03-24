@@ -1,5 +1,5 @@
 {
-  File[] files=getBackupDirectory().listFiles();
+  File[] files=getBackupDirectory(colFile.getParentFile()).listFiles();
   if (files == null) {
     files=new File[0];
   }

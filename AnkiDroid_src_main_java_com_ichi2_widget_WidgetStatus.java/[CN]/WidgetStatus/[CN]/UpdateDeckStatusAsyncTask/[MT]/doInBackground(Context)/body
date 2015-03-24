@@ -7,9 +7,9 @@
   }
   try {
     if (sSmallWidgetStatus == null) {
-      Collection col=AnkiDroidApp.openCollection(AnkiDroidApp.getCollectionPath());
+      Collection col=CollectionHelper.getInstance().getCol(context);
       mSmallWidgetStatus=col.getSched().progressToday(sDeckCounts,null,true);
-      AnkiDroidApp.closeCollection(false);
+      CollectionHelper.getInstance().closeCollection(false);
     }
  else {
       mSmallWidgetStatus=sSmallWidgetStatus;

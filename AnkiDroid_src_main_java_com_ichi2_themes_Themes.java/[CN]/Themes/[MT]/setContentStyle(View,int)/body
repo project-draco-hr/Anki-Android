@@ -25,7 +25,7 @@ lv.setDividerHeight(0);
 break;
 case THEME_WHITE:
 lv.setSelector(R.drawable.white_deckpicker_list_selector);
-AnkiDroidApp.getCompat().setOverScrollModeNever(lv);
+CompatHelper.getCompat().setOverScrollModeNever(lv);
 lv.setVerticalScrollBarEnabled(false);
 lv.setFadingEdgeLength(15);
 lv.setDividerHeight(0);
@@ -50,7 +50,7 @@ break;
 case THEME_WHITE:
 lv2.setBackgroundResource(R.drawable.white_textview);
 lv2.setSelector(R.drawable.white_deckpicker_list_selector);
-AnkiDroidApp.getCompat().setOverScrollModeNever(lv2);
+CompatHelper.getCompat().setOverScrollModeNever(lv2);
 lv2.setFadingEdgeLength(15);
 lv2.setDividerHeight(0);
 lv2.setSelector(R.drawable.white_deckpicker_list_selector);

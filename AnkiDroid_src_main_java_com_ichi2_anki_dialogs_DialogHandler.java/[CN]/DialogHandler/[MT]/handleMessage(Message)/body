@@ -39,6 +39,6 @@
     }
 ;
     dialog.setArgs(msgData.getString("message"));
-    ((AnkiActivity)mActivity.get()).showDialogFragment(dialog);
+    (mActivity.get()).showDialogFragment(dialog);
   }
 }

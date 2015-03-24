@@ -66,7 +66,7 @@ builder.setNegativeButton(res.getString(R.string.dialog_cancel),null);
 StyledDialog dialog=builder.create();
 ArrayList<String> options=new ArrayList<String>();
 ArrayList<Integer> values=new ArrayList<Integer>();
-if (AnkiDroidApp.getCol() == null) {
+if (!((AnkiActivity)getActivity()).colIsOpen()) {
 options.add(res.getString(R.string.backup_retry_opening));
 values.add(0);
 }
@@ -129,7 +129,8 @@ dismissAllDialogFragments();
 builder.setNegativeButton(res.getString(R.string.dialog_cancel),null);
 return builder.create();
 case DIALOG_RESTORE_BACKUP:
-File[] files=BackupManager.getBackups(new File(AnkiDroidApp.getCollectionPath()));
+String path=CollectionHelper.getInstance().getCollectionPath(getActivity());
+File[] files=BackupManager.getBackups(new File(path));
 mBackups=new File[files.length];
 for (int i=0; i < files.length; i++) {
 mBackups[i]=files[files.length - 1 - i];
@@ -174,8 +175,8 @@ case DIALOG_NEW_COLLECTION:
 builder.setMessage(getMessage());
 builder.setPositiveButton(res.getString(R.string.dialog_positive_create),new DialogInterface.OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){
-AnkiDroidApp.closeCollection(false);
-String path=AnkiDroidApp.getCollectionPath();
+CollectionHelper.getInstance().closeCollection(false);
+String path=CollectionHelper.getInstance().getCollectionPath(getActivity());
 AnkiDatabaseManager.closeDatabase(path);
 if (BackupManager.moveDatabaseToBrokenFolder(path,false)) {
 ((DatabaseErrorDialogListener)getActivity()).startLoadingCollection();

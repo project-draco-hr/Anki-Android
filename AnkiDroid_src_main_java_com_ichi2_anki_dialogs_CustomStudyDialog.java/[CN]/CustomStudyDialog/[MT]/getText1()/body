@@ -1,6 +1,6 @@
 {
   Resources res=AnkiDroidApp.getAppResources();
-  Collection col=AnkiDroidApp.getCol();
+  Collection col=CollectionHelper.getInstance().getCol(getActivity());
 switch (getArguments().getInt("id")) {
 case CUSTOM_STUDY_NEW:
     return res.getString(R.string.custom_study_new_total_new,col.getSched().totalNewForCurrentDeck());

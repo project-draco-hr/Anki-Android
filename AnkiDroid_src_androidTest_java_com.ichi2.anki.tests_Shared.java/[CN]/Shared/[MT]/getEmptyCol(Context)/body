@@ -1,0 +1,7 @@
+{
+  File f=File.createTempFile("test",".anki2");
+  String path=f.getAbsolutePath();
+  f.delete();
+  Hooks.getInstance(context);
+  return Storage.Collection(path);
+}

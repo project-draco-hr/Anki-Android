@@ -1,12 +1,13 @@
 {
   Card card=params[0].getCard();
+  Collection col=params[0].getCollection();
   try {
-    AnkiDb ankiDB=AnkiDroidApp.getCol().getDb();
+    AnkiDb ankiDB=col.getDb();
     ankiDB.getDatabase().beginTransaction();
     try {
       if (card != null) {
         Note note=card.note();
-        AnkiDroidApp.getCol().markUndo(Collection.UNDO_MARK_NOTE,new Object[]{note.getId(),note.stringTags(),card.getId()});
+        col.markUndo(Collection.UNDO_MARK_NOTE,new Object[]{note.getId(),note.stringTags(),card.getId()});
         if (note.hasTag("marked")) {
           note.delTag("marked");
         }

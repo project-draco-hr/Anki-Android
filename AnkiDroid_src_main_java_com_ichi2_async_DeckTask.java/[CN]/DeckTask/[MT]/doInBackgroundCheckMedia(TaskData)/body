@@ -1,8 +1,9 @@
 {
   Timber.d("doInBackgroundCheckMedia");
   try {
-    AnkiDroidApp.getCol().getMedia().findChanges(true);
-    List<List<String>> result=AnkiDroidApp.getCol().getMedia().check();
+    Collection col=params[0].getCollection();
+    col.getMedia().findChanges(true);
+    List<List<String>> result=col.getMedia().check();
     return new TaskData(0,new Object[]{result},true);
   }
  catch (  APIVersionException e) {

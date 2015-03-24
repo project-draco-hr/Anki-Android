@@ -1,7 +1,8 @@
 {
   Timber.d("doInBackgroundUpdateValuesFromDeck");
   try {
-    Sched sched=params[0].getCollection().getSched();
+    Collection col=params[0].getCollection();
+    Sched sched=col.getSched();
     Object[] obj=params[0].getObjArray();
     boolean reset=(Boolean)obj[0];
     if (reset) {
@@ -14,7 +15,7 @@
     double progressAll=1 - (((double)(totalNewCount + counts[1])) / ((double)totalCount));
     double[][] serieslist=null;
     if ((Boolean)obj[1]) {
-      serieslist=Stats.getSmallDueStats(AnkiDroidApp.getCol());
+      serieslist=Stats.getSmallDueStats(col);
     }
     return new TaskData(new Object[]{counts[0],counts[1],counts[2],totalNewCount,totalCount,progressMature,progressAll,sched.eta(counts),serieslist});
   }

@@ -1,6 +1,6 @@
 {
   Timber.d("startLoadingCollection()");
-  if (AnkiDroidApp.getCol() == null) {
+  if (CollectionHelper.getInstance().getCol(getActivity()) == null) {
     showCollectionLoadingDialog();
   }
   getLoaderManager().initLoader(0,null,this);

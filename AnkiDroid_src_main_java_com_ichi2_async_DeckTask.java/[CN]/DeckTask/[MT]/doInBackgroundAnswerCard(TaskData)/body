@@ -1,10 +1,11 @@
 {
+  Collection col=params[0].getCollection();
   Sched sched=params[0].getSched();
   Card oldCard=params[0].getCard();
   int ease=params[0].getInt();
   Card newCard=null;
   try {
-    AnkiDb ankiDB=AnkiDroidApp.getCol().getDb();
+    AnkiDb ankiDB=col.getDb();
     ankiDB.getDatabase().beginTransaction();
     try {
       if (oldCard != null) {

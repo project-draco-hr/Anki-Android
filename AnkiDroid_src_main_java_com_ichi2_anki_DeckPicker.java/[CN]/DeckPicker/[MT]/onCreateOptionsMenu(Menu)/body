@@ -6,7 +6,7 @@
   menu.findItem(R.id.action_new_filtered_deck).setEnabled(sdCardAvailable);
   menu.findItem(R.id.action_check_database).setEnabled(sdCardAvailable);
   menu.findItem(R.id.action_check_media).setEnabled(sdCardAvailable);
-  if (mShowShowcaseView && colOpen() && getCol().isEmpty()&& mDeckList != null && mDeckList.size() <= 1) {
+  if (mShowShowcaseView && colIsOpen() && getCol().isEmpty()&& mDeckList != null && mDeckList.size() <= 1) {
     mShowShowcaseView=false;
     final Resources res=getResources();
     try {
@@ -26,10 +26,10 @@
       Themes.showThemedToast(this,res.getString(R.string.add_content_showcase_text),false);
     }
   }
- else   if (mShowcaseDialog != null && colOpen() && !getCol().isEmpty()) {
+ else   if (mShowcaseDialog != null && colIsOpen() && !getCol().isEmpty()) {
     hideShowcaseView();
   }
-  if (AnkiDroidApp.isChromebook()) {
+  if (CompatHelper.isChromebook()) {
     menu.findItem(R.id.action_restore_backup).setVisible(false);
     menu.findItem(R.id.action_import).setVisible(false);
     menu.findItem(R.id.action_export).setVisible(false);

@@ -45,7 +45,7 @@
     boolean modified=false;
     if (mCurrentEditedCard.getDid() != mCurrentDid) {
       mReloadRequired=true;
-      AnkiDroidApp.getCol().getSched().remFromDyn(new long[]{mCurrentEditedCard.getId()});
+      getCol().getSched().remFromDyn(new long[]{mCurrentEditedCard.getId()});
       mCurrentEditedCard.load();
       mEditorNote=mCurrentEditedCard.note();
       mCurrentEditedCard.setDid(mCurrentDid);

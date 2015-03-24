@@ -5,9 +5,9 @@
   boolean media=(Boolean)data.data[1];
   String conflictResolution=(String)data.data[2];
   int mediaUsn=(Integer)data.data[3];
+  Collection col=data.col;
   boolean colCorruptFullSync=false;
-  Collection col=AnkiDroidApp.getCol();
-  if (!AnkiDroidApp.colIsOpen() || !ok) {
+  if (!CollectionHelper.getInstance().colIsOpen() || !ok) {
     if (conflictResolution != null && conflictResolution.equals("download")) {
       colCorruptFullSync=true;
     }
@@ -17,9 +17,8 @@
       return data;
     }
   }
-  String path=AnkiDroidApp.getCollectionPath();
   try {
-    AnkiDroidApp.sSyncInProgressFlag=true;
+    CollectionHelper.getInstance().lockCollection();
     HttpSyncer server=new RemoteServer(this,hkey);
     Syncer client=new Syncer(col,server);
     boolean noChanges=false;
@@ -61,13 +60,13 @@
           if (ret == null) {
             data.success=false;
             data.result=new Object[]{"genericError"};
-            AnkiDroidApp.openCollection(path);
+            CollectionHelper.getInstance().reopenCollection();
             return data;
           }
           if (!ret[0].equals(HttpSyncer.ANKIWEB_STATUS_OK)) {
             data.success=false;
             data.result=ret;
-            AnkiDroidApp.openCollection(path);
+            CollectionHelper.getInstance().reopenCollection();
             return data;
           }
         }
@@ -78,19 +77,19 @@
           if (ret == null) {
             data.success=false;
             data.result=new Object[]{"genericError"};
-            AnkiDroidApp.openCollection(path);
+            CollectionHelper.getInstance().reopenCollection();
             return data;
           }
           if (!ret[0].equals("success")) {
             data.success=false;
             data.result=ret;
             if (!colCorruptFullSync) {
-              AnkiDroidApp.openCollection(path);
+              CollectionHelper.getInstance().reopenCollection();
             }
             return data;
           }
         }
-        col=AnkiDroidApp.openCollection(path);
+        col=CollectionHelper.getInstance().reopenCollection();
       }
  catch (      OutOfMemoryError e) {
         AnkiDroidApp.sendExceptionReport(e,"doInBackgroundSync-fullSync");
@@ -191,8 +190,8 @@ catch (  Exception e) {
  finally {
     Timber.d("doInBackgroundSync -- closing collection on outer finally statement");
     col.close(false);
-    AnkiDroidApp.sSyncInProgressFlag=false;
+    CollectionHelper.getInstance().unlockCollection();
     Timber.d("doInBackgroundSync -- reopening collection on outer finally statement");
-    AnkiDroidApp.openCollection(AnkiDroidApp.getCollectionPath());
+    CollectionHelper.getInstance().reopenCollection();
   }
 }

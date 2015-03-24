@@ -1,0 +1,10 @@
+{
+  Pattern p=Pattern.compile(PATH_REGEX);
+  Matcher m=p.matcher(value);
+  String res="";
+  if (m.find()) {
+    res=m.group(1);
+  }
+  String mediaDir=col.getMedia().dir() + "/";
+  setAudioPath(mediaDir + res);
+}

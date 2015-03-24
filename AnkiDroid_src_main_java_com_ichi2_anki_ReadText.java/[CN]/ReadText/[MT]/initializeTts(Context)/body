@@ -16,7 +16,7 @@
  else {
         Toast.makeText(mReviewer.get(),mReviewer.get().getString(R.string.no_tts_available_message),Toast.LENGTH_LONG).show();
       }
-      AnkiDroidApp.getCompat().setTtsOnUtteranceProgressListener(mTts);
+      CompatHelper.getCompat().setTtsOnUtteranceProgressListener(mTts);
     }
   }
 );

@@ -7,7 +7,7 @@
 switch (mType) {
 case DIALOG_IMPORT_HINT:
     builder.setTitle(res.getString(R.string.import_title));
-  builder.setMessage(res.getString(R.string.import_hint,AnkiDroidApp.getCurrentAnkiDroidDirectory()));
+  builder.setMessage(res.getString(R.string.import_hint,CollectionHelper.getCurrentAnkiDroidDirectory(getActivity())));
 builder.setPositiveButton(res.getString(R.string.dialog_ok),new DialogInterface.OnClickListener(){
   @Override public void onClick(  DialogInterface dialog,  int which){
     ((ImportDialogListener)getActivity()).showImportDialog(DIALOG_IMPORT_SELECT);
@@ -19,7 +19,7 @@ return builder.create();
 case DIALOG_IMPORT_SELECT:
 builder.setTitle(res.getString(R.string.import_select_title));
 StyledDialog dialog=builder.create();
-List<File> fileList=Utils.getImportableDecks();
+List<File> fileList=Utils.getImportableDecks(getActivity());
 if (fileList.size() == 0) {
 Themes.showThemedToast(getActivity(),getResources().getString(R.string.upgrade_import_no_file_found,"'.apkg'"),false);
 }

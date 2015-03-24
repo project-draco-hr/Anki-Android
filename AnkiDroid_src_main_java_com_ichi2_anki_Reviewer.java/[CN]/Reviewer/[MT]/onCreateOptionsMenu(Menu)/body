@@ -17,7 +17,7 @@
       menu.findItem(R.id.action_mark_card).setTitle(R.string.menu_mark_card).setIcon(R.drawable.ic_menu_mark);
     }
   }
-  if (colOpen() && getCol().undoAvailable()) {
+  if (colIsOpen() && getCol().undoAvailable()) {
     if (mNightMode) {
       menu.findItem(R.id.action_undo).setEnabled(true).setIcon(R.drawable.ic_menu_revert_dark);
     }
@@ -34,7 +34,7 @@
     }
   }
   if (mPrefWhiteboard) {
-    if (AnkiDroidApp.SDK_VERSION >= 14 && !ViewConfiguration.get(this).hasPermanentMenuKey()) {
+    if (CompatHelper.getSdkVersion() >= 14 && !ViewConfiguration.get(this).hasPermanentMenuKey()) {
       Display display=getWindowManager().getDefaultDisplay();
       DisplayMetrics outMetrics=new DisplayMetrics();
       display.getMetrics(outMetrics);
@@ -69,7 +69,7 @@
  else {
     menu.findItem(R.id.action_enable_whiteboard).setTitle(R.string.enable_whiteboard);
   }
-  if (AnkiDroidApp.SDK_VERSION < 11 && !mDisableClipboard) {
+  if (!CompatHelper.isHoneycomb() && !mDisableClipboard) {
     menu.findItem(R.id.action_search_dictionary).setVisible(true).setEnabled(!(mPrefWhiteboard && mShowWhiteboard)).setTitle(clipboardHasText() ? Lookup.getSearchStringTitle() : res.getString(R.string.menu_select));
   }
   return super.onCreateOptionsMenu(menu);

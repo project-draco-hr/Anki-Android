@@ -1,0 +1,9 @@
+{
+  if (colIsOpen()) {
+    Timber.w("Reopening of collection requested while existing still instance open");
+  }
+  if (mPath == null) {
+    throw new IllegalStateException("Attempted to reopen collection before it has been initialized");
+  }
+  return getCol(mPath);
+}

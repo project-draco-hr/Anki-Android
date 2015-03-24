@@ -1,0 +1,17 @@
+{
+  if (CollectionHelper.getInstance().colIsOpen()) {
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SAVE_COLLECTION,new DeckTask.TaskListener(){
+      @Override public void onPreExecute(){
+        Timber.d("saveCollectionInBackground: start");
+      }
+      @Override public void onPostExecute(      TaskData result){
+        Timber.d("saveCollectionInBackground: finished");
+      }
+      @Override public void onProgressUpdate(      TaskData... values){
+      }
+      @Override public void onCancelled(){
+      }
+    }
+,new DeckTask.TaskData(CollectionHelper.getInstance().getCol(context)));
+  }
+}

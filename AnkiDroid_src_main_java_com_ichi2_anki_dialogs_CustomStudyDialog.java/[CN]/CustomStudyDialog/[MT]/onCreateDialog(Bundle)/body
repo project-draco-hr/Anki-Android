@@ -18,7 +18,7 @@
       int n=Integer.parseInt(mEditText.getText().toString());
 switch (getArguments().getInt("id")) {
 case CUSTOM_STUDY_NEW:
-        col=AnkiDroidApp.getCol();
+        col=CollectionHelper.getInstance().getCol(getActivity());
       if (col == null || col.getDb() == null) {
         Themes.showThemedToast(getActivity().getBaseContext(),getResources().getString(R.string.open_collection_failed_title),false);
         return;
@@ -35,7 +35,7 @@ case CUSTOM_STUDY_NEW:
     }
   break;
 case CUSTOM_STUDY_REV:
-col=AnkiDroidApp.getCol();
+col=CollectionHelper.getInstance().getCol(getActivity());
 if (col == null || col.getDb() == null) {
 Themes.showThemedToast(getActivity().getBaseContext(),getResources().getString(R.string.open_collection_failed_title),false);
 return;

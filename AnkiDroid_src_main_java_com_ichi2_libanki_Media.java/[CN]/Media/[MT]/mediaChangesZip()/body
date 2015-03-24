@@ -13,7 +13,7 @@
       String fname=cur.getString(0);
       String csum=cur.getString(1);
       fnames.add(fname);
-      String normname=AnkiDroidApp.getCompat().nfcNormalized(fname);
+      String normname=CompatHelper.getCompat().nfcNormalized(fname);
       if (!TextUtils.isEmpty(csum)) {
         try {
           mCol.log("+media zip " + fname);

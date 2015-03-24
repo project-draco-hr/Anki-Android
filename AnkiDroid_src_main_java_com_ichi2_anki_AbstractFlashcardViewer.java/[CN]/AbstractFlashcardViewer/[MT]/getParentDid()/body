@@ -1,7 +1,7 @@
 {
   long deckID;
   try {
-    deckID=AnkiDroidApp.getCol().getDecks().current().getLong("id");
+    deckID=getCol().getDecks().current().getLong("id");
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);

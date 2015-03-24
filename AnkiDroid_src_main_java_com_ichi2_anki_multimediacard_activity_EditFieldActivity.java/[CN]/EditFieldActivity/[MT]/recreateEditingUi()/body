@@ -11,5 +11,5 @@
   mFieldController.setEditingActivity(this);
   LinearLayout linearLayout=(LinearLayout)findViewById(R.id.LinearLayoutInScrollViewFieldEdit);
   linearLayout.removeAllViews();
-  mFieldController.createUI(linearLayout);
+  mFieldController.createUI(this,linearLayout);
 }

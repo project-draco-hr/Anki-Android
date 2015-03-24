@@ -1,0 +1,15 @@
+{
+  if (!colIsOpen()) {
+    try {
+      initializeAnkiDroidDirectory(getParentDirectory(path));
+      mPath=path;
+    }
+ catch (    StorageAccessException e) {
+      Timber.e(e,"Could not initialize AnkiDroid directory");
+      return null;
+    }
+    Timber.i("openCollection: %s",path);
+    mCollection=Storage.Collection(path,false,true);
+  }
+  return mCollection;
+}

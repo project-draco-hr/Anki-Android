@@ -18,19 +18,19 @@
     }
  else     if (key.equals("convertFenText")) {
       if (convertFenText.isChecked()) {
-        ChessFilter.install(AnkiDroidApp.getHooks());
+        ChessFilter.install(Hooks.getInstance(getApplicationContext()));
       }
  else {
-        ChessFilter.uninstall(AnkiDroidApp.getHooks());
+        ChessFilter.uninstall(Hooks.getInstance(getApplicationContext()));
       }
     }
  else     if (key.equals("fixHebrewText")) {
       if (fixHebrewText.isChecked()) {
-        HebrewFixFilter.install(AnkiDroidApp.getHooks());
+        HebrewFixFilter.install(Hooks.getInstance(getApplicationContext()));
         showDialog(DIALOG_HEBREW_FONT);
       }
  else {
-        HebrewFixFilter.uninstall(AnkiDroidApp.getHooks());
+        HebrewFixFilter.uninstall(Hooks.getInstance(getApplicationContext()));
       }
     }
  else     if (key.equals("showProgress")) {

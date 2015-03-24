@@ -1,7 +1,8 @@
 {
   Timber.d("doInBackgroundLoadDeckCounts");
+  Collection col=params[0].getCollection();
   try {
-    Object[] o=new Object[]{AnkiDroidApp.getCol().getSched().deckDueTree()};
+    Object[] o=new Object[]{col.getSched().deckDueTree()};
     return new TaskData(o);
   }
  catch (  RuntimeException e) {

@@ -2,9 +2,10 @@
   mediaButton.setOnClickListener(new View.OnClickListener(){
     @Override public void onClick(    View v){
       Timber.i("NoteEditor:: Multimedia button pressed for field %d",index);
+      final Collection col=CollectionHelper.getInstance().getCol(NoteEditor.this);
       if (mEditorNote.items()[index][1].length() > 0) {
         IMultimediaEditableNote mNote=NoteService.createEmptyNote(mEditorNote.model());
-        NoteService.updateMultimediaNoteFromJsonNote(mEditorNote,mNote);
+        NoteService.updateMultimediaNoteFromJsonNote(col,mEditorNote,mNote);
         IField field=mNote.getField(index);
         startMultimediaFieldEditor(index,mNote,field);
       }
@@ -15,7 +16,7 @@
         popup.setOnMenuItemClickListener(new OnMenuItemClickListener(){
           @Override public boolean onMenuItemClick(          MenuItem item){
             IMultimediaEditableNote mNote=NoteService.createEmptyNote(mEditorNote.model());
-            NoteService.updateMultimediaNoteFromJsonNote(mEditorNote,mNote);
+            NoteService.updateMultimediaNoteFromJsonNote(col,mEditorNote,mNote);
             IField field=mNote.getField(index);
 switch (item.getItemId()) {
 case R.id.menu_multimedia_audio:

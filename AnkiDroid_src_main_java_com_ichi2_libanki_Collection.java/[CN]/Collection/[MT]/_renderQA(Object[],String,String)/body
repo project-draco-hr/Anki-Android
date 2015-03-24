@@ -38,9 +38,9 @@
         format=fClozeTagStart.matcher(format).replaceAll(String.format(Locale.US,"<%%ca:%d:",cardNum));
         fields.put("FrontSide",d.get("q"));
       }
-      fields=(Map<String,String>)AnkiDroidApp.getHooks().runFilter("mungeFields",fields,model,data,this);
+      fields=(Map<String,String>)Hooks.runFilter("mungeFields",fields,model,data,this);
       String html=new Template(format,fields).render();
-      d.put(type,(String)AnkiDroidApp.getHooks().runFilter("mungeQA",html,type,fields,model,data,this));
+      d.put(type,(String)Hooks.runFilter("mungeQA",html,type,fields,model,data,this));
       if (type.equals("q") && model.getInt("type") == Consts.MODEL_CLOZE) {
         if (getModels()._availClozeOrds(model,(String)data[6],false).size() == 0) {
           String link=String.format("<a href=%s#cloze>%s</a>",Consts.HELP_SITE,"help");

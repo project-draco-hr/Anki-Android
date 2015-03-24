@@ -20,7 +20,7 @@ break;
 case DIALOG_HEBREW_FONT:
 builder.setTitle(res.getString(R.string.fix_hebrew_text));
 builder.setCancelable(false);
-builder.setMessage(res.getString(R.string.fix_hebrew_instructions,AnkiDroidApp.getCurrentAnkiDroidDirectory()));
+builder.setMessage(res.getString(R.string.fix_hebrew_instructions,CollectionHelper.getCurrentAnkiDroidDirectory(this)));
 builder.setNegativeButton(R.string.dialog_cancel,null);
 builder.setPositiveButton(res.getString(R.string.fix_hebrew_download_font),new OnClickListener(){
 @Override public void onClick(DialogInterface dialog,int which){

@@ -4,7 +4,7 @@
     Intent i=new Intent();
     i.setAction(MEDIA_EJECT);
     context.sendBroadcast(i);
-    Collection col=AnkiDroidApp.getCol();
+    Collection col=CollectionHelper.getInstance().getCol(context);
     if (col != null) {
       col.close();
     }

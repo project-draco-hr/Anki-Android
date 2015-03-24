@@ -3,13 +3,13 @@
   Collection col=params[0].getCollection();
   String path=params[0].getString();
   Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
-  String fileDir=AnkiDroidApp.getCurrentAnkiDroidDirectory() + "/tmpzip";
-  File dir=new File(fileDir);
+  String colPath=col.getPath();
+  File dir=new File(new File(colPath).getParentFile(),"tmpzip");
   if (dir.exists()) {
     BackupManager.removeDir(dir);
   }
   publishProgress(new TaskData(res.getString(R.string.import_unpacking)));
-  String colFile=fileDir + "/collection.anki2";
+  String colFile=new File(dir,"collection.anki2").getAbsolutePath();
   ZipFile zip;
   try {
     zip=new ZipFile(new File(path),ZipFile.OPEN_READ);
@@ -19,7 +19,7 @@
     AnkiDroidApp.sendExceptionReport(e,"doInBackgroundImportReplace0");
     return new TaskData(false);
   }
-  if (!Utils.unzipFiles(zip,fileDir,new String[]{"collection.anki2","media"},null) || !(new File(colFile)).exists()) {
+  if (!Utils.unzipFiles(zip,dir.getAbsolutePath(),new String[]{"collection.anki2","media"},null) || !(new File(colFile)).exists()) {
     return new TaskData(-2,null,false);
   }
   Collection tmpCol=null;
@@ -45,23 +45,22 @@
     }
   }
   publishProgress(new TaskData(res.getString(R.string.importing_collection)));
-  String colPath;
   if (col != null) {
-    colPath=col.getPath();
-    AnkiDroidApp.closeCollection(true);
+    CollectionHelper.getInstance().closeCollection(true);
+    CollectionHelper.getInstance().lockCollection();
     BackupManager.performBackupInBackground(colPath,true);
   }
-  colPath=AnkiDroidApp.getCollectionPath();
   File f=new File(colFile);
   if (!f.renameTo(new File(colPath))) {
     return new TaskData(-2,null,false);
   }
   int addedCount=-1;
   try {
-    col=AnkiDroidApp.openCollection(colPath,true);
+    col=CollectionHelper.getInstance().reopenCollection();
+    CollectionHelper.getInstance().unlockCollection();
     HashMap<String,String> nameToNum=new HashMap<String,String>();
     HashMap<String,String> numToName=new HashMap<String,String>();
-    File mediaMapFile=new File(fileDir,"media");
+    File mediaMapFile=new File(dir.getAbsolutePath(),"media");
     if (mediaMapFile.exists()) {
       JsonReader jr=new JsonReader(new FileReader(mediaMapFile));
       jr.beginObject();

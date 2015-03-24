@@ -1,7 +1,7 @@
 {
-  Collection d=Shared.getEmptyCol();
+  Collection d=Shared.getEmptyCol(getContext());
   d.getMedia().dir();
-  File file=new File(Shared.getTestDir(mContext),"fake.png");
+  File file=new File(Shared.getTestDir(getContext()),"fake.png");
   file.createNewFile();
   d.getMedia().addFile(file);
   Note f=d.newNote();

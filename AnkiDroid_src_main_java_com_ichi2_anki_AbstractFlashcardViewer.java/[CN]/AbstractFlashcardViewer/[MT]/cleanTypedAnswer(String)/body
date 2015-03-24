@@ -3,7 +3,7 @@
     return "";
   }
   try {
-    return AnkiDroidApp.getCompat().nfcNormalized(answer.trim());
+    return CompatHelper.getCompat().nfcNormalized(answer.trim());
   }
  catch (  APIVersionException e) {
     return answer.trim();

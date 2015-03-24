@@ -1,0 +1,55 @@
+{
+  mImagePreview=new ImageView(mActivity);
+  DisplayMetrics metrics=getDisplayMetrics();
+  int height=metrics.heightPixels;
+  int width=metrics.widthPixels;
+  LinearLayout.LayoutParams p=new LayoutParams(android.view.ViewGroup.LayoutParams.FILL_PARENT,android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
+  setPreviewImage(mField.getImagePath(),getMaxImageSize());
+  mImagePreview.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+  mImagePreview.setAdjustViewBounds(true);
+  mImagePreview.setMaxHeight((int)Math.round(height * 0.4));
+  mImagePreview.setMaxWidth((int)Math.round(width * 0.6));
+  mBtnGallery=new Button(mActivity);
+  mBtnGallery.setText(gtxt(R.string.multimedia_editor_image_field_editing_galery));
+  mBtnGallery.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      Intent i=new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+      mActivity.startActivityForResult(i,ACTIVITY_SELECT_IMAGE);
+    }
+  }
+);
+  mBtnCamera=new Button(mActivity);
+  mBtnCamera.setText(gtxt(R.string.multimedia_editor_image_field_editing_photo));
+  mBtnCamera.setOnClickListener(new View.OnClickListener(){
+    @SuppressLint("NewApi") @Override public void onClick(    View v){
+      Intent cameraIntent=new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+      File image;
+      File storageDir;
+      String timeStamp=new SimpleDateFormat("yyyyMMddHHmmss",Locale.US).format(new Date());
+      try {
+        if (CompatHelper.isFroyo()) {
+          storageDir=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        }
+ else {
+          storageDir=Environment.getExternalStorageDirectory();
+          storageDir=new File(storageDir.getAbsolutePath() + "/DCIM");
+        }
+        image=File.createTempFile("img_" + timeStamp,".jpg",storageDir);
+        mTempCameraImagePath=image.getPath();
+        Uri uriSavedImage=Uri.fromFile(image);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,uriSavedImage);
+        mActivity.startActivityForResult(cameraIntent,ACTIVITY_TAKE_PICTURE);
+      }
+ catch (      IOException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+);
+  if (CompatHelper.isChromebook()) {
+    mBtnCamera.setVisibility(View.INVISIBLE);
+  }
+  layout.addView(mImagePreview,android.view.ViewGroup.LayoutParams.FILL_PARENT,p);
+  layout.addView(mBtnGallery,android.view.ViewGroup.LayoutParams.FILL_PARENT);
+  layout.addView(mBtnCamera,android.view.ViewGroup.LayoutParams.FILL_PARENT);
+}

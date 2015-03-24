@@ -67,16 +67,16 @@ case GESTURE_EDIT:
 editCard();
 break;
 case GESTURE_MARK:
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_MARK_CARD,mMarkCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,0));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_MARK_CARD,mMarkCardHandler,new DeckTask.TaskData(getCol(),mSched,mCurrentCard,0));
 break;
 case GESTURE_LOOKUP:
 lookUpOrSelectText();
 break;
 case GESTURE_BURY:
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,0));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(getCol(),mSched,mCurrentCard,0));
 break;
 case GESTURE_SUSPEND:
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mSched,mCurrentCard,1));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(getCol(),mSched,mCurrentCard,1));
 break;
 case GESTURE_DELETE:
 showDeleteNoteDialog();

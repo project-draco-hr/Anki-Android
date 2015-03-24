@@ -5,7 +5,7 @@
   }
  else {
     final boolean isVideo;
-    if (AnkiDroidApp.SDK_VERSION > 7) {
+    if (CompatHelper.isFroyo()) {
       isVideo=ThumbnailUtils.createVideoThumbnail(soundUri.getPath(),MediaStore.Images.Thumbnails.MINI_KIND) != null;
     }
  else {
@@ -47,7 +47,7 @@
         sMediaPlayer.setOnCompletionListener(playAllListener);
       }
       sMediaPlayer.prepareAsync();
-      AnkiDroidApp.getCompat().requestAudioFocus(sAudioManager);
+      CompatHelper.getCompat().requestAudioFocus(sAudioManager);
     }
  catch (    Exception e) {
       Timber.e(e,"playSounds - Error reproducing sound %s",soundPath);

@@ -3,7 +3,7 @@
   Timber.d("onActivityResult (requestCode = %d, resultCode = %d)",requestCode,resultCode);
   String newLanguage=AnkiDroidApp.getSharedPrefs(this).getString(Preferences.LANGUAGE,"");
   if (AnkiDroidApp.setLanguage(newLanguage)) {
-    AnkiDroidApp.getCompat().invalidateOptionsMenu(this);
+    CompatHelper.getCompat().invalidateOptionsMenu(this);
   }
   getCurrentFragment().restorePreferences();
 }

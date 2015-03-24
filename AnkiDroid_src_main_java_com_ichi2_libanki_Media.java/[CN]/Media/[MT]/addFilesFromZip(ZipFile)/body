@@ -9,7 +9,7 @@
       }
  else {
         String name=meta.getString(i.getName());
-        name=AnkiDroidApp.getCompat().nfcNormalized(name);
+        name=CompatHelper.getCompat().nfcNormalized(name);
         String destPath=dir().concat(File.separator).concat(name);
         Utils.writeToFile(z.getInputStream(i),destPath);
         String csum=Utils.fileChecksum(destPath);

@@ -1,0 +1,7 @@
+{
+  Timber.d("Reading persistent message");
+  if (sStoredMessage != null) {
+    sendMessage(sStoredMessage);
+  }
+  sStoredMessage=null;
+}

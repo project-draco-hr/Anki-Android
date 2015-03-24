@@ -1,9 +1,8 @@
 {
   Timber.d("doInBackgroundRepairDeck");
-  String deckPath=params[0].getString();
   Collection col=params[0].getCollection();
   if (col != null) {
     col.close(false);
   }
-  return new TaskData(BackupManager.repairDeck(deckPath));
+  return new TaskData(BackupManager.repairCollection(col));
 }

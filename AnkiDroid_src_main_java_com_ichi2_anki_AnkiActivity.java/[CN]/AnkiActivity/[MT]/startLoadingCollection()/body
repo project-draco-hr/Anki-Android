@@ -1,6 +1,6 @@
 {
   Timber.d("AnkiActivity.startLoadingCollection()");
-  if (!AnkiDroidApp.colIsOpen()) {
+  if (!colIsOpen()) {
     showOpeningCollectionDialog();
   }
   getSupportLoaderManager().restartLoader(0,null,this);

@@ -7,7 +7,7 @@
     String sound=matcher.group(1).trim();
     String soundPath=getSoundPath(soundDir,sound);
     String button;
-    if (AnkiDroidApp.SDK_VERSION >= Build.VERSION_CODES.GINGERBREAD_MR1) {
+    if (CompatHelper.getSdkVersion() >= Build.VERSION_CODES.GINGERBREAD_MR1) {
       button="<img src='file:///android_res/drawable/inline_play_button.png' width='32' height='32' />";
     }
  else {
