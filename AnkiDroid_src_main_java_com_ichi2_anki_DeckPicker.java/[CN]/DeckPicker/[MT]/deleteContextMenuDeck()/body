@@ -13,7 +13,7 @@
       }
       if (mFragmented && removingCurrent) {
         updateDeckList();
-        openStudyOptions(getCol().getDecks().current().optLong("id"),false);
+        openStudyOptions(false);
       }
  else {
         updateDeckList();

@@ -1,6 +1,0 @@
-{
-  Intent i=new Intent(getActivity(),CramDeckOptions.class);
-  i.putExtra("cramInitialConfig",initialConfig);
-  startActivityForResult(i,DECK_OPTIONS);
-  ActivityTransitionAnimation.slide(getActivity(),ActivityTransitionAnimation.FADE);
-}

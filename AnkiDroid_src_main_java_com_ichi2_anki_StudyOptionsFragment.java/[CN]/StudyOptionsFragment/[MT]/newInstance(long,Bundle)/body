@@ -1,8 +1,0 @@
-{
-  StudyOptionsFragment f=new StudyOptionsFragment();
-  Bundle args=new Bundle();
-  args.putLong("deckId",deckId);
-  args.putBundle("cramInitialConfig",cramInitialConfig);
-  f.setArguments(args);
-  return f;
-}

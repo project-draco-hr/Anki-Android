@@ -1,7 +1,6 @@
 {
   if (getCol().getDecks().isDyn(mContextMenuDid)) {
-    Intent i=new Intent(DeckPicker.this,CramDeckOptions.class);
-    i.putExtra("cramInitialConfig",(String)null);
+    Intent i=new Intent(DeckPicker.this,FilteredDeckOptions.class);
     i.putExtra("did",mContextMenuDid);
     startActivityWithAnimation(i,ActivityTransitionAnimation.FADE);
   }
