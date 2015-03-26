@@ -13,10 +13,6 @@
   mTextBarLearn.setTextColor(invert ? res.getColor(R.color.learn_count_night) : res.getColor(R.color.learn_count));
   mTextBarReview.setTextColor(invert ? res.getColor(R.color.review_count_night) : res.getColor(R.color.review_count));
   mAnswerField.setTextColor(mForegroundColor);
-  if (mSimpleCard != null) {
-    mSimpleCard.setBackgroundColor(mCurrentBackgroundColor);
-    mSimpleCard.setTextColor(mForegroundColor);
-  }
   if (mCard != null) {
     mCard.setBackgroundColor(mCurrentBackgroundColor);
   }

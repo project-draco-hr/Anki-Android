@@ -1,9 +1,0 @@
-{
-  try {
-    return Html.fromHtml(text,mSimpleInterfaceImagegetter,mSimpleInterfaceTagHandler);
-  }
- catch (  Exception e) {
-    Timber.e(e,"Error converting to simple interface");
-    return null;
-  }
-}

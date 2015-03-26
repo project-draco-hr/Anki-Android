@@ -8,41 +8,23 @@
     inputMethodManager.hideSoftInputFromWindow(mAnswerField.getWindowToken(),0);
   }
   sDisplayAnswer=true;
-  String answer;
-  if (mCurrentSimpleInterface) {
-    answer=mCurrentCard.aSimple();
+  String answer=mCurrentCard.a();
+  Sound.stopSounds();
+  answer=getCol().getMedia().escapeImages(answer);
+  if (mPrefFixArabic) {
+    answer=ArabicUtilities.reshapeSentence(answer,true);
   }
- else {
-    answer=mCurrentCard.a();
+  mAnswerField.setVisibility(View.GONE);
+  if (mPrefFixArabic) {
+    mTypeCorrect=ArabicUtilities.reshapeSentence(mTypeCorrect,true);
   }
-  String displayString="";
-  if (mCurrentSimpleInterface) {
-    mCardContent=convertToSimple(answer);
-    if (mCardContent == null || mCardContent.length() == 0) {
-      SpannableString hint=new SpannableString(getResources().getString(R.string.simple_interface_hint,R.string.card_details_answer));
-      hint.setSpan(new StyleSpan(Typeface.ITALIC),0,mCardContent.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-      mCardContent=hint;
-    }
-  }
- else {
-    Sound.stopSounds();
-    answer=getCol().getMedia().escapeImages(answer);
-    if (mPrefFixArabic) {
-      answer=ArabicUtilities.reshapeSentence(answer,true);
-    }
-    mAnswerField.setVisibility(View.GONE);
-    if (mPrefFixArabic) {
-      mTypeCorrect=ArabicUtilities.reshapeSentence(mTypeCorrect,true);
-    }
-    String userAnswer=cleanTypedAnswer(mAnswerField.getText().toString());
-    String correctAnswer=cleanCorrectAnswer(mTypeCorrect);
-    Timber.d("correct answer = %s",correctAnswer);
-    Timber.d("user answer = %s",userAnswer);
-    answer=typeAnsAnswerFilter(answer,userAnswer,correctAnswer);
-    displayString=enrichWithQADiv(answer,true);
-  }
+  String userAnswer=cleanTypedAnswer(mAnswerField.getText().toString());
+  String correctAnswer=cleanCorrectAnswer(mTypeCorrect);
+  Timber.d("correct answer = %s",correctAnswer);
+  Timber.d("user answer = %s",userAnswer);
+  answer=typeAnsAnswerFilter(answer,userAnswer,correctAnswer);
   mIsSelecting=false;
-  updateCard(displayString);
+  updateCard(enrichWithQADiv(answer,true));
   showEaseButtons();
   if (mPrefUseTimer) {
     mTimeoutHandler.removeCallbacks(mShowQuestionTask);
