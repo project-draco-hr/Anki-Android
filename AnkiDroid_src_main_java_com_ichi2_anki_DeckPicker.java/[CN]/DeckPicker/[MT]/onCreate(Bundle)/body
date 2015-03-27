@@ -20,7 +20,7 @@
   }
   mDeckList=new ArrayList<HashMap<String,String>>();
   mDeckListView=(ListView)findViewById(R.id.files);
-  mDeckListAdapter=new SimpleAdapter(this,mDeckList,R.layout.deck_item,new String[]{"name","new","lrn","rev","sep","dyn"},new int[]{R.id.DeckPickerName,R.id.deckpicker_new,R.id.deckpicker_lrn,R.id.deckpicker_rev,R.id.deckpicker_deck,R.id.DeckPickerName});
+  mDeckListAdapter=new DecklistAdapter(this,mDeckList,R.layout.deck_item,new String[]{"expander","name","new","lrn","rev","sep","dyn"},new int[]{R.id.DeckPickerExpander,R.id.DeckPickerName,R.id.deckpicker_new,R.id.deckpicker_lrn,R.id.deckpicker_rev,R.id.deckpicker_deck,R.id.DeckPickerName});
   mDeckListAdapter.setViewBinder(new SimpleAdapter.ViewBinder(){
     @Override public boolean setViewValue(    View view,    Object data,    String text){
       if (view.getId() == R.id.deckpicker_deck) {
@@ -39,6 +39,31 @@
  else         if (text.equals("cen")) {
           view.setBackgroundResource(R.drawable.white_deckpicker_center);
           return true;
+        }
+      }
+ else       if (view.getId() == R.id.DeckPickerExpander) {
+        if (text.contains("\u25B7") || text.contains("\u25BD")) {
+          view.setClickable(true);
+          view.setOnClickListener(new OnClickListener(){
+            @Override public void onClick(            View v){
+              try {
+                HashMap<String,String> data=(HashMap<String,String>)mDeckListAdapter.getItem((Integer)v.getTag());
+                long did=Long.parseLong(data.get("did"));
+                JSONObject deck=getCol().getDecks().get(did);
+                if (getCol().getDecks().children(did).size() > 0) {
+                  deck.put("collapsed",!deck.getBoolean("collapsed"));
+                  getCol().getDecks().save(deck);
+                  updateDeckList();
+                }
+              }
+ catch (              JSONException e1) {
+              }
+            }
+          }
+);
+        }
+ else {
+          view.setClickable(false);
         }
       }
  else       if (view.getId() == R.id.DeckPickerName) {
