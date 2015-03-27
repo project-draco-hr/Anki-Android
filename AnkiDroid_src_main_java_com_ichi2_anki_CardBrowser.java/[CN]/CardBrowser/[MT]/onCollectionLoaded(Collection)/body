@@ -17,7 +17,6 @@
   mActionBar.setDisplayShowTitleEnabled(false);
   mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
   mActionBar.setListNavigationCallbacks(mDropDownAdapter,this);
-  mOrderByFields=res.getStringArray(R.array.card_browser_order_labels);
   try {
     mOrder=CARD_ORDER_NONE;
     String colOrder=getCol().getConf().getString("sortType");
@@ -85,7 +84,12 @@
   mCardsListView.setOnItemLongClickListener(new OnItemLongClickListener(){
     @Override public boolean onItemLongClick(    AdapterView<?> adapterView,    View view,    int position,    long id){
       mPositionInCardsList=position;
-      showDialog(DIALOG_CONTEXT_MENU);
+      HashMap<String,String> card=mCards.get(mPositionInCardsList);
+      int flags=Integer.parseInt(card.get("flags"));
+      String cardName=card.get("sfld");
+      boolean isMarked=(flags == 2 || flags == 3);
+      boolean isSuspended=(flags == 1 || flags == 3);
+      showDialogFragment(CardBrowserContextMenu.newInstance(cardName,isMarked,isSuspended,mContextMenuListener));
       return true;
     }
   }

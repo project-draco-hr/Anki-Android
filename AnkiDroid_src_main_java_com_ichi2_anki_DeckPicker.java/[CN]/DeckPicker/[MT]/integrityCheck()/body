@@ -1,7 +1,7 @@
 {
   DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CHECK_DATABASE,new DeckTask.TaskListener(){
     @Override public void onPreExecute(){
-      mProgressDialog=StyledProgressDialog.show(DeckPicker.this,"",getResources().getString(R.string.check_db_message),true);
+      mProgressDialog=StyledProgressDialog.show(DeckPicker.this,"",getResources().getString(R.string.check_db_message),false);
     }
     @Override public void onPostExecute(    TaskData result){
       if (mProgressDialog.isShowing()) {

@@ -1,0 +1,9 @@
+{
+  WebView view=new WebView(context);
+  view.setBackgroundColor(context.getResources().getColor(mDialogBackgroundColor));
+  if (includeBody) {
+    text="<html><body text=\"#FFFFFF\" link=\"#E37068\" alink=\"#E37068\" vlink=\"#E37068\">" + text + "</body></html>";
+  }
+  view.loadDataWithBaseURL("",text,"text/html","UTF-8","");
+  return new MaterialDialog.Builder(context).title(title).cancelable(true).customView(view,true).positiveText(context.getResources().getString(R.string.dialog_ok)).callback(okListener).cancelListener(cancelListener).build();
+}

@@ -2,6 +2,12 @@
   Timber.d("onCreate()");
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
+  View mainView=getLayoutInflater().inflate(R.layout.note_editor,null);
+  setContentView(mainView);
+  Toolbar toolbar=(Toolbar)mainView.findViewById(R.id.toolbar);
+  if (toolbar != null) {
+    setSupportActionBar(toolbar);
+  }
   Intent intent=getIntent();
   if (savedInstanceState != null) {
     mCaller=savedInstanceState.getInt("caller");
@@ -17,5 +23,4 @@
     }
   }
   startLoadingCollection();
-  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 }

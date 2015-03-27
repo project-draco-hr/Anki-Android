@@ -1,0 +1,9 @@
+{
+  CardBrowserOrderDialog f=new CardBrowserOrderDialog();
+  Bundle args=new Bundle();
+  args.putInt("order",order);
+  args.putBoolean("isOrderAsc",isOrderAsc);
+  mOrderDialogListener=orderDialogListener;
+  f.setArguments(args);
+  return f;
+}

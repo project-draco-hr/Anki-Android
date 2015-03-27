@@ -6,7 +6,6 @@
   mNextTimeTextColor=mForegroundColor;
   mNextTimeTextRecomColor=colors[1];
   mFlipCard.setTextColor(mForegroundColor);
-  mNext4.setTextColor(mNextTimeTextColor);
   mEase4.setTextColor(mNextTimeTextColor);
   mCardTimer.setTextColor(mForegroundColor);
   mTextBarNew.setTextColor(invert ? res.getColor(R.color.new_count_night) : res.getColor(R.color.new_count));
@@ -16,5 +15,5 @@
   if (mCard != null) {
     mCard.setBackgroundColor(mCurrentBackgroundColor);
   }
-  CompatHelper.getCompat().setActionBarBackground(this,invert ? R.color.white_background_night : R.color.actionbar_background);
+  CompatHelper.getCompat().setActionBarBackground(this,invert ? R.color.white_background_night : R.color.theme_primary);
 }

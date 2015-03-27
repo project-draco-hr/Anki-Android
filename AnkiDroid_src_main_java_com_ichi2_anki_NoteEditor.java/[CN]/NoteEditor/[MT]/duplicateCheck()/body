@@ -6,10 +6,11 @@
   Integer dupeCode=mEditorNote.dupeOrEmpty();
   if (dupeCode != null && dupeCode == 2) {
     field.setBackgroundResource(R.drawable.white_edit_text_dupe);
+    field.setTextColor(getResources().getColor(R.color.material_red_500));
     isDupe=true;
   }
  else {
-    field.setBackgroundResource(R.drawable.white_edit_text);
+    field.setTextColor(getResources().getColor(R.color.text_color));
     isDupe=false;
   }
   mEditorNote.values()[0]=oldValue;

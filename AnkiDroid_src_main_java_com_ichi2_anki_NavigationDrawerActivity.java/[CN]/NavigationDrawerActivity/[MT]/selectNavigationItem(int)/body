@@ -1,8 +1,9 @@
 {
+  int itemId=mNavDrawerItems.get(position);
   mDrawerList.setItemChecked(position,true);
-  setTitle(mNavigationTitles[position]);
+  setTitle(mNavigationTitles[itemId]);
   mDrawerLayout.closeDrawer(mDrawerList);
-switch (position) {
+switch (itemId) {
 case DRAWER_DECK_PICKER:
     if (!(this instanceof DeckPicker)) {
       Intent deckPicker=new Intent(this,DeckPicker.class);

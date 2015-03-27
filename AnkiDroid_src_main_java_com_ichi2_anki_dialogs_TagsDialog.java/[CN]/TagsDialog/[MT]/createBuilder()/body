@@ -17,17 +17,12 @@ default :
 break;
 }
 Resources res=getResources();
-StyledDialog.Builder builder=new StyledDialog.Builder(getActivity());
-builder.setTitle(mTitle);
-builder.setPositiveButton(res.getString(R.string.select),new DialogInterface.OnClickListener(){
-@Override public void onClick(DialogInterface dialog,int which){
+MaterialDialog.Builder builder=new MaterialDialog.Builder(getActivity()).title(mTitle).positiveText(res.getString(R.string.select)).negativeText(res.getString(R.string.dialog_cancel)).callback(new MaterialDialog.ButtonCallback(){
+@Override public void onPositive(MaterialDialog dialog){
 mTagsDialogListener.onPositive(new ArrayList<String>(mStyledDialog.getCheckedItems()),mSelectedOption);
 }
 }
-);
-builder.setNegativeButton(res.getString(R.string.cancel),mNegativeButtonListener);
-builder.setOnCancelListener(mOnCancelListener);
-builder.setOnDismissListener(new DialogInterface.OnDismissListener(){
+).cancelListener(mOnCancelListener).dismissListener(new OnDismissListener(){
 @Override public void onDismiss(DialogInterface dialog){
 mCurrentTags.clear();
 mStyledDialog.updateCheckedItems();
@@ -37,7 +32,27 @@ mOnDismissListener.onDismiss(mStyledDialog);
 }
 }
 );
-builder.setSelectAllListener(new CompoundButton.OnCheckedChangeListener(){
+StyledDialog.Builder builder2=new StyledDialog.Builder(getActivity());
+builder2.setTitle(mTitle);
+builder2.setPositiveButton(res.getString(R.string.select),new DialogInterface.OnClickListener(){
+@Override public void onClick(DialogInterface dialog,int which){
+mTagsDialogListener.onPositive(new ArrayList<String>(mStyledDialog.getCheckedItems()),mSelectedOption);
+}
+}
+);
+builder2.setNegativeButton(res.getString(R.string.cancel),mNegativeButtonListener);
+builder2.setOnCancelListener(mOnCancelListener);
+builder2.setOnDismissListener(new DialogInterface.OnDismissListener(){
+@Override public void onDismiss(DialogInterface dialog){
+mCurrentTags.clear();
+mStyledDialog.updateCheckedItems();
+if (mOnDismissListener != null) {
+mOnDismissListener.onDismiss(mStyledDialog);
+}
+}
+}
+);
+builder2.setSelectAllListener(new CompoundButton.OnCheckedChangeListener(){
 @Override public void onCheckedChanged(CompoundButton buttonView,boolean isChecked){
 mStyledDialog.setItemListChecked(isChecked);
 mCurrentTags.clear();
@@ -46,8 +61,9 @@ mCurrentTags.addAll(mStyledDialog.getCheckedItems());
 }
 );
 if (customView != null) {
-builder.setView(customView,false,true);
+builder.customView(customView,true);
+builder2.setView(customView,false,true);
 }
-builder.setShowFilterTags(showFilterTags);
-return builder;
+builder2.setShowFilterTags(showFilterTags);
+return builder2;
 }

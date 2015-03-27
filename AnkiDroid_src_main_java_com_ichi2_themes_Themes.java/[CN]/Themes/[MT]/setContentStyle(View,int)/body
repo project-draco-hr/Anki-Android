@@ -15,22 +15,11 @@ case CALLER_STUDYOPTIONS:
 case CALLER_DECKPICKER:
 ListView lv=(ListView)view.findViewById(R.id.files);
 switch (mCurrentTheme) {
-case THEME_BLUE:
-lv.setSelector(R.drawable.blue_deckpicker_list_selector);
-lv.setDividerHeight(0);
-break;
-case THEME_FLAT:
-lv.setSelector(R.drawable.blue_deckpicker_list_selector);
-lv.setDividerHeight(0);
-break;
 case THEME_WHITE:
 lv.setSelector(R.drawable.white_deckpicker_list_selector);
 CompatHelper.getCompat().setOverScrollModeNever(lv);
-lv.setVerticalScrollBarEnabled(false);
-lv.setFadingEdgeLength(15);
-lv.setDividerHeight(0);
-lv.setBackgroundResource(R.drawable.white_deckpicker_lv_background);
-view.setBackgroundResource(mWallpaper);
+lv.setFadingEdgeLength(60);
+lv.getDivider().setAlpha(ALPHA_DIVIDER);
 break;
 default :
 break;
@@ -39,24 +28,11 @@ break;
 case CALLER_CARDBROWSER:
 ListView lv2=(ListView)view.findViewById(R.id.card_browser_list);
 switch (mCurrentTheme) {
-case THEME_BLUE:
-lv2.setSelector(R.drawable.blue_cardbrowser_list_selector);
-lv2.setDividerHeight(0);
-break;
-case THEME_FLAT:
-lv2.setSelector(R.drawable.blue_cardbrowser_list_selector);
-lv2.setDividerHeight(0);
-break;
 case THEME_WHITE:
-lv2.setBackgroundResource(R.drawable.white_textview);
 lv2.setSelector(R.drawable.white_deckpicker_list_selector);
 CompatHelper.getCompat().setOverScrollModeNever(lv2);
 lv2.setFadingEdgeLength(15);
-lv2.setDividerHeight(0);
-lv2.setSelector(R.drawable.white_deckpicker_list_selector);
-lv2.setDivider(mContext.getResources().getDrawable(R.drawable.white_listdivider));
-setFont(view);
-setWallpaper(view);
+lv2.getDivider().setAlpha(ALPHA_DIVIDER);
 break;
 default :
 break;
@@ -65,14 +41,6 @@ break;
 case CALLER_CARDEDITOR_INTENTDIALOG:
 ListView lv3=(ListView)view;
 switch (mCurrentTheme) {
-case THEME_BLUE:
-lv3.setSelector(R.drawable.blue_cardbrowser_list_selector);
-lv3.setDividerHeight(0);
-break;
-case THEME_FLAT:
-lv3.setSelector(R.drawable.blue_cardbrowser_list_selector);
-lv3.setDividerHeight(0);
-break;
 case THEME_WHITE:
 lv3.setSelector(R.drawable.blue_cardbrowser_list_selector);
 lv3.setDividerHeight(0);
@@ -88,17 +56,10 @@ view.setBackgroundResource(mDeckpickerItemBorder);
 break;
 case CALLER_REVIEWER:
 ((View)view.findViewById(R.id.main_layout)).setBackgroundResource(mReviewerBackground);
-((View)view.findViewById(R.id.flashcard_border)).setBackgroundResource(mFlashcardBorder);
 switch (mCurrentTheme) {
 case THEME_ANDROID_DARK:
 case THEME_ANDROID_LIGHT:
 ((View)view.findViewById(R.id.flashcard_frame)).setBackgroundResource(AnkiDroidApp.getSharedPrefs(mContext).getBoolean("invertedColors",false) ? R.color.black : R.color.white);
-break;
-case THEME_BLUE:
-((View)view.findViewById(R.id.flashcard_frame)).setBackgroundResource(AnkiDroidApp.getSharedPrefs(mContext).getBoolean("invertedColors",false) ? R.color.reviewer_night_card_background : R.color.white);
-break;
-case THEME_FLAT:
-((View)view.findViewById(R.id.flashcard_frame)).setBackgroundResource(AnkiDroidApp.getSharedPrefs(mContext).getBoolean("invertedColors",false) ? R.color.reviewer_night_card_background : R.color.white);
 break;
 case THEME_WHITE:
 ((View)view.findViewById(R.id.flashcard_frame)).setBackgroundResource(AnkiDroidApp.getSharedPrefs(mContext).getBoolean("invertedColors",false) ? R.color.black : R.color.white);
@@ -110,7 +71,6 @@ case CALLER_FEEDBACK:
 ((TextView)view).setTextColor(mProgressbarsFrameColor);
 break;
 case CALLER_CARD_EDITOR:
-view.findViewById(R.id.CardEditorEditFieldsLayout).setBackgroundResource(mTextViewStyle);
 break;
 case CALLER_DOWNLOAD_DECK:
 view.setBackgroundResource(mDeckpickerItemBorder);
