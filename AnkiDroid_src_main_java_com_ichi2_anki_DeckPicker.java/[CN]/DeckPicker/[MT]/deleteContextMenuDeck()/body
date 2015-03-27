@@ -2,7 +2,7 @@
   DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DELETE_DECK,new DeckTask.TaskListener(){
     private boolean removingCurrent;
     @Override public void onPreExecute(){
-      mProgressDialog=StyledProgressDialog.show(DeckPicker.this,"",getResources().getString(R.string.delete_deck),true);
+      mProgressDialog=StyledProgressDialog.show(DeckPicker.this,"",getResources().getString(R.string.delete_deck),false);
       if (mContextMenuDid == getCol().getDecks().current().optLong("id")) {
         removingCurrent=true;
       }

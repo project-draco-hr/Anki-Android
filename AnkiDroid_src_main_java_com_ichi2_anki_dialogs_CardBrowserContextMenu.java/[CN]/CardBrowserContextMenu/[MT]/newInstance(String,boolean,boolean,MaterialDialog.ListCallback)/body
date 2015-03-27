@@ -1,0 +1,10 @@
+{
+  CardBrowserContextMenu f=new CardBrowserContextMenu();
+  Bundle args=new Bundle();
+  args.putString("dialogTitle",dialogTitle);
+  args.putBoolean("isMarked",isMarked);
+  args.putBoolean("isSuspended",isSuspended);
+  mContextMenuListener=contextMenuListener;
+  f.setArguments(args);
+  return f;
+}

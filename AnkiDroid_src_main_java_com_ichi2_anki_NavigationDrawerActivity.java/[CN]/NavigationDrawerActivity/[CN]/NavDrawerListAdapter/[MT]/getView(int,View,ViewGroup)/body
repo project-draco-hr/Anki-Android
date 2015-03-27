@@ -1,21 +1,16 @@
 {
+  int itemId=navDrawerItems.get(position);
   if (convertView == null) {
     LayoutInflater mInflater=(LayoutInflater)context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-    if (position > DRAWER_STATISTICS) {
-      convertView=mInflater.inflate(R.layout.drawer_submenu_list_item,null);
-    }
- else {
-      convertView=mInflater.inflate(R.layout.drawer_list_item,null);
-    }
+    convertView=mInflater.inflate(isSeparator(itemId) ? R.layout.navdrawer_divider : R.layout.navdrawer_item,parent,false);
+  }
+  if (isSeparator(itemId)) {
+    return convertView;
   }
   TextView txtTitle=(TextView)convertView.findViewById(R.id.drawer_list_item_text);
-  txtTitle.setText(navDrawerTitles[position]);
-  txtTitle.setCompoundDrawablesWithIntrinsicBounds(navDrawerImages.getResourceId(position,-1),0,0,0);
-  if (NavigationDrawerActivity.this.mDrawerList.getCheckedItemPosition() == position) {
-    txtTitle.setTypeface(null,Typeface.BOLD);
-  }
- else {
-    txtTitle.setTypeface(null,Typeface.NORMAL);
-  }
+  ImageView imgIcon=(ImageView)convertView.findViewById(R.id.drawer_list_item_icon);
+  txtTitle.setText(navDrawerTitles[itemId]);
+  imgIcon.setImageResource(navDrawerImages.getResourceId(itemId,-1));
+  formatNavDrawerItem(convertView,NavigationDrawerActivity.this.mDrawerList.getCheckedItemPosition() == position);
   return convertView;
 }

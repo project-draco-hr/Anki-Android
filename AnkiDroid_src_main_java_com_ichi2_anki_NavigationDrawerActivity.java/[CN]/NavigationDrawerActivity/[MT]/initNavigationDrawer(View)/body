@@ -5,11 +5,22 @@
   mNavigationTitles=getResources().getStringArray(R.array.navigation_titles);
   mNavigationImages=getResources().obtainTypedArray(R.array.drawer_images);
   mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,GravityCompat.START);
-  mDrawerList.setAdapter(new NavDrawerListAdapter(this,mNavigationTitles,mNavigationImages));
+  mDrawerList.setAdapter(new NavDrawerListAdapter(this,mNavigationTitles,mNavigationImages,mNavDrawerItems));
   mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+  mNavDrawerItems.add(DRAWER_DECK_PICKER);
+  mNavDrawerItems.add(DRAWER_BROWSER);
+  mNavDrawerItems.add(DRAWER_STATISTICS);
+  mNavDrawerItems.add(DRAWER_SEPARATOR);
+  mNavDrawerItems.add(DRAWER_SETTINGS);
+  mNavDrawerItems.add(DRAWER_HELP);
+  mNavDrawerItems.add(DRAWER_FEEDBACK);
+  Toolbar toolbar=(Toolbar)mainView.findViewById(R.id.toolbar);
+  if (toolbar != null) {
+    setSupportActionBar(toolbar);
+  }
   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
   getSupportActionBar().setHomeButtonEnabled(true);
-  mDrawerToggle=new ActionBarDrawerToggle(this,mDrawerLayout,R.drawable.ic_drawer,R.string.drawer_open,R.string.drawer_close){
+  mDrawerToggle=new ActionBarDrawerToggle(this,mDrawerLayout,R.drawable.ic_menu_white_24dp,R.string.drawer_open,R.string.drawer_close){
     public void onDrawerClosed(    View view){
       getSupportActionBar().setTitle(mTitle);
       supportInvalidateOptionsMenu();

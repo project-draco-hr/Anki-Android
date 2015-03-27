@@ -10,8 +10,7 @@
     mShowShowcaseView=false;
     final Resources res=getResources();
     try {
-      ActionItemTarget target=new ActionItemTarget(this,R.id.action_add_decks);
-      mShowcaseDialog=new ShowcaseView.Builder(this).setTarget(target).setContentTitle(res.getString(R.string.studyoptions_welcome_title)).setStyle(R.style.ShowcaseView_Light).setShowcaseEventListener(this).setOnClickListener(new OnClickListener(){
+      mShowcaseDialog=new ShowcaseView.Builder(this).setTarget(new ViewTarget(findViewById(R.id.fab))).setContentTitle(res.getString(R.string.studyoptions_welcome_title)).setStyle(R.style.ShowcaseView_Light).setShowcaseEventListener(this).setOnClickListener(new OnClickListener(){
         @Override public void onClick(        View v){
           mShowcaseDialog.hide();
           Intent helpIntent=new Intent("android.intent.action.VIEW",Uri.parse(res.getString(R.string.link_manual_getting_started)));
@@ -20,6 +19,12 @@
       }
 ).setContentText(res.getString(R.string.add_content_showcase_text)).hideOnTouchOutside().build();
       mShowcaseDialog.setButtonText(getResources().getString(R.string.help_title));
+      RelativeLayout.LayoutParams lps=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+      lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+      lps.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+      int margin=((Number)(getResources().getDisplayMetrics().density * 12)).intValue();
+      lps.setMargins(margin,margin,margin,margin);
+      mShowcaseDialog.setButtonPosition(lps);
     }
  catch (    Exception e) {
       Timber.e(e,"Error showing ShowcaseView");

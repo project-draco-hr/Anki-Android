@@ -5,6 +5,7 @@
       deck.put("collapsed",!deck.getBoolean("collapsed"));
       getCol().getDecks().save(deck);
       updateDeckList();
+      dismissAllDialogFragments();
     }
   }
  catch (  JSONException e1) {

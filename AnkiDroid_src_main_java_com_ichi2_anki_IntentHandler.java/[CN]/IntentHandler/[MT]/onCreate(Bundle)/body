@@ -64,16 +64,12 @@
     }
  else {
       String title=getResources().getString(R.string.import_log_no_apkg);
-      StyledDialog.Builder builder=new StyledDialog.Builder(this);
-      builder.setTitle(title);
-      builder.setMessage(errorMessage);
-      builder.setPositiveButton(getResources().getString(R.string.dialog_ok),new DialogInterface.OnClickListener(){
-        @Override public void onClick(        DialogInterface dialog,        int which){
+      new MaterialDialog.Builder(this).title(title).content(errorMessage).positiveText(getResources().getString(R.string.dialog_ok)).callback(new MaterialDialog.ButtonCallback(){
+        @Override public void onPositive(        MaterialDialog dialog){
           finishWithFade();
         }
       }
-);
-      builder.create().show();
+).build().show();
     }
   }
  else {

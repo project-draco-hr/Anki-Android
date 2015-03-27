@@ -2,36 +2,16 @@
   getMenuInflater().inflate(R.menu.reviewer,menu);
   Resources res=getResources();
   if (mCurrentCard != null && mCurrentCard.note().hasTag("marked")) {
-    if (mNightMode) {
-      menu.findItem(R.id.action_mark_card).setTitle(R.string.menu_unmark_card).setIcon(R.drawable.ic_menu_marked_dark);
-    }
- else {
-      menu.findItem(R.id.action_mark_card).setTitle(R.string.menu_unmark_card).setIcon(R.drawable.ic_menu_marked);
-    }
+    menu.findItem(R.id.action_mark_card).setTitle(R.string.menu_unmark_card).setIcon(R.drawable.ic_star_white_24dp);
   }
  else {
-    if (mNightMode) {
-      menu.findItem(R.id.action_mark_card).setTitle(R.string.menu_mark_card).setIcon(R.drawable.ic_menu_mark_dark);
-    }
- else {
-      menu.findItem(R.id.action_mark_card).setTitle(R.string.menu_mark_card).setIcon(R.drawable.ic_menu_mark);
-    }
+    menu.findItem(R.id.action_mark_card).setTitle(R.string.menu_mark_card).setIcon(R.drawable.ic_star_outline_white_24dp);
   }
   if (colIsOpen() && getCol().undoAvailable()) {
-    if (mNightMode) {
-      menu.findItem(R.id.action_undo).setEnabled(true).setIcon(R.drawable.ic_menu_revert_dark);
-    }
- else {
-      menu.findItem(R.id.action_undo).setEnabled(true).setIcon(R.drawable.ic_menu_revert);
-    }
+    menu.findItem(R.id.action_undo).setEnabled(true).getIcon().setAlpha(Themes.ALPHA_ICON_ENABLED_LIGHT);
   }
  else {
-    if (mNightMode) {
-      menu.findItem(R.id.action_undo).setEnabled(false).setIcon(R.drawable.ic_menu_revert_disabled_dark);
-    }
- else {
-      menu.findItem(R.id.action_undo).setEnabled(false).setIcon(R.drawable.ic_menu_revert_disabled);
-    }
+    menu.findItem(R.id.action_undo).setEnabled(false).getIcon().setAlpha(Themes.ALPHA_ICON_DISABLED_LIGHT);
   }
   if (mPrefWhiteboard) {
     if (CompatHelper.getSdkVersion() >= 14 && !ViewConfiguration.get(this).hasPermanentMenuKey()) {

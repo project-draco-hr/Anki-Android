@@ -5,7 +5,6 @@
   View ease2=view.findViewById(R.id.flashcard_layout_ease2);
   View ease3=view.findViewById(R.id.flashcard_layout_ease3);
   View ease4=view.findViewById(R.id.flashcard_layout_ease4);
-  View border=view.findViewById(R.id.flashcard_border);
   View mAnswerField=view.findViewById(R.id.answer_field);
   final Drawable[] defaultButtons=new Drawable[]{flipCard.getBackground(),ease1.getBackground(),ease2.getBackground(),ease3.getBackground(),ease4.getBackground()};
   int foregroundColor;
@@ -20,16 +19,10 @@
     foregroundColor=Color.WHITE;
     nextTimeRecommendedColor=res.getColor(R.color.next_time_recommended_color_inv);
 switch (mCurrentTheme) {
-case THEME_BLUE:
-      border.setBackgroundResource(R.drawable.blue_bg_webview_night);
-    view.setBackgroundColor(res.getColor(R.color.background_dark_blue));
-  break;
 case THEME_WHITE:
-border.setBackgroundResource(R.drawable.white_bg_webview_night);
-view.setBackgroundColor(res.getColor(R.color.white_background_night));
-((View)view.getParent()).setBackgroundColor(res.getColor(R.color.white_background_night));
-break;
-case THEME_FLAT:
+      view.setBackgroundColor(res.getColor(R.color.white_background_night));
+    ((View)view.getParent()).setBackgroundColor(res.getColor(R.color.white_background_night));
+  break;
 default :
 view.setBackgroundColor(res.getColor(R.color.black));
 break;
@@ -43,7 +36,6 @@ ease1.setBackgroundDrawable(defaultButtons[1]);
 ease2.setBackgroundDrawable(defaultButtons[2]);
 ease3.setBackgroundDrawable(defaultButtons[3]);
 ease4.setBackgroundDrawable(defaultButtons[4]);
-border.setBackgroundResource(mFlashcardBorder);
 }
 return new int[]{foregroundColor,nextTimeRecommendedColor};
 }
