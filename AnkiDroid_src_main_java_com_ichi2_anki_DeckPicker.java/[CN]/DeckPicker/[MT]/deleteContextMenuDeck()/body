@@ -18,7 +18,7 @@
  else {
         updateDeckList();
       }
-      if (mProgressDialog.isShowing()) {
+      if (mProgressDialog != null && mProgressDialog.isShowing()) {
         try {
           mProgressDialog.dismiss();
         }

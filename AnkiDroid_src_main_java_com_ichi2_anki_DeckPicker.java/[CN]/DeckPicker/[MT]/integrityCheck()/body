@@ -4,7 +4,7 @@
       mProgressDialog=StyledProgressDialog.show(DeckPicker.this,"",getResources().getString(R.string.check_db_message),false);
     }
     @Override public void onPostExecute(    TaskData result){
-      if (mProgressDialog.isShowing()) {
+      if (mProgressDialog != null && mProgressDialog.isShowing()) {
         mProgressDialog.dismiss();
       }
       if (result != null && result.getBoolean()) {
