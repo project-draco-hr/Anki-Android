@@ -5,8 +5,8 @@
   mIncludeSched=did == -1L;
   final String[] items={res.getString(R.string.export_include_schedule),res.getString(R.string.export_include_media)};
   final boolean[] checked={mIncludeSched,mIncludeMedia};
-  MaterialDialog.Builder builder=new MaterialDialog.Builder(getActivity()).title(res.getString(R.string.export)).content(getArguments().getString("dialogMessage")).positiveText(res.getString(R.string.ok)).negativeText(res.getString(R.string.cancel)).cancelable(true).items(items).itemsCallbackMultiChoice(new Integer[]{INCLUDE_SCHED},new MaterialDialog.ListCallbackMulti(){
-    @Override public void onSelection(    MaterialDialog materialDialog,    Integer[] integers,    CharSequence[] charSequences){
+  MaterialDialog.Builder builder=new MaterialDialog.Builder(getActivity()).title(res.getString(R.string.export)).content(getArguments().getString("dialogMessage")).positiveText(res.getString(R.string.ok)).negativeText(res.getString(R.string.cancel)).cancelable(true).items(items).itemsCallbackMultiChoice(new Integer[]{INCLUDE_SCHED},new MaterialDialog.ListCallbackMultiChoice(){
+    @Override public boolean onSelection(    MaterialDialog materialDialog,    Integer[] integers,    CharSequence[] charSequences){
       for (int i=0; i < integers.length; i++) {
 switch (integers[i]) {
 case INCLUDE_SCHED:
@@ -17,6 +17,7 @@ case INCLUDE_MEDIA:
     break;
 }
 }
+return true;
 }
 }
 ).callback(new MaterialDialog.ButtonCallback(){

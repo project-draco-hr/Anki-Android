@@ -130,15 +130,16 @@ builder.title(res.getString(R.string.backup_restore_select_title)).icon(icon_inp
 dismissAllDialogFragments();
 }
 }
-).items(dates).itemsCallbackSingleChoice(dates.length,new MaterialDialog.ListCallback(){
-@Override public void onSelection(MaterialDialog materialDialog,View view,int which,CharSequence charSequence){
+).items(dates).itemsCallbackSingleChoice(dates.length,new MaterialDialog.ListCallbackSingleChoice(){
+@Override public boolean onSelection(MaterialDialog materialDialog,View view,int which,CharSequence charSequence){
 if (mBackups[which].length() > 0) {
 ((DatabaseErrorDialogListener)getActivity()).restoreFromBackup(mBackups[which].getPath());
 dismissAllDialogFragments();
 }
  else {
-new MaterialDialog.Builder(getActivity()).title(R.string.backup_error).content(R.string.backup_invalid_file_error).positiveText(android.R.string.ok).show().show();
+new MaterialDialog.Builder(getActivity()).title(R.string.backup_error).content(R.string.backup_invalid_file_error).positiveText(R.string.dialog_ok).build().show();
 }
+return true;
 }
 }
 );
