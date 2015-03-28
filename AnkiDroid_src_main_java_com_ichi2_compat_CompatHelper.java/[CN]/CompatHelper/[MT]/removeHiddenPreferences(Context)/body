@@ -1,0 +1,18 @@
+{
+  SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(context);
+  if (getSdkVersion() >= 9) {
+    preferences.edit().remove("fixArabicText").commit();
+  }
+  if (isHoneycomb()) {
+    preferences.edit().remove("longclickWorkaround").commit();
+  }
+  if (getSdkVersion() >= 13) {
+    preferences.edit().remove("safeDisplay").commit();
+  }
+  if (getSdkVersion() >= 15) {
+    preferences.edit().remove("inputWorkaround").commit();
+  }
+  if (getSdkVersion() >= 16) {
+    preferences.edit().remove("fixHebrewText").commit();
+  }
+}
