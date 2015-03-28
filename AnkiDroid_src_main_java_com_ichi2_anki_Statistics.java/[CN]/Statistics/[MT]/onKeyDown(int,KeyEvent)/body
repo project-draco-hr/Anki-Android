@@ -1,7 +1,12 @@
 {
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
     Timber.i("Statistics:: Statistics - onBackPressed()");
-    closeStatistics(Activity.RESULT_OK);
+    Intent data=new Intent();
+    if (getIntent().hasExtra("selectedDeck")) {
+      data.putExtra("originalDeck",getIntent().getLongExtra("selectedDeck",0L));
+    }
+    setResult(RESULT_CANCELED,data);
+    finishWithAnimation(ActivityTransitionAnimation.RIGHT);
     return true;
   }
   return super.onKeyDown(keyCode,event);
