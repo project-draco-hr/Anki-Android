@@ -1,9 +1,9 @@
 {
   if (position == 0) {
-    AnkiStatsTaskHandler.setIsWholeCollection(true);
+    sIsWholeCollection=true;
   }
  else {
-    AnkiStatsTaskHandler.setIsWholeCollection(false);
+    sIsWholeCollection=false;
     JSONObject deck=mDropDownDecks.get(position - 1);
     try {
       getCol().getDecks().select(deck.getLong("id"));

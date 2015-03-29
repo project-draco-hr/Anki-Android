@@ -25,18 +25,23 @@
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
-  for (int dropDownDeckIdx=0; dropDownDeckIdx < mDropDownDecks.size(); dropDownDeckIdx++) {
-    JSONObject deck=mDropDownDecks.get(dropDownDeckIdx);
-    String deckName;
-    try {
-      deckName=deck.getString("name");
-    }
- catch (    JSONException e) {
-      throw new RuntimeException();
-    }
-    if (deckName.equals(currentDeckName)) {
-      actionBar.setSelectedNavigationItem(dropDownDeckIdx + 1);
-      break;
+  if (sIsWholeCollection) {
+    actionBar.setSelectedNavigationItem(0);
+  }
+ else {
+    for (int dropDownDeckIdx=0; dropDownDeckIdx < mDropDownDecks.size(); dropDownDeckIdx++) {
+      JSONObject deck=mDropDownDecks.get(dropDownDeckIdx);
+      String deckName;
+      try {
+        deckName=deck.getString("name");
+      }
+ catch (      JSONException e) {
+        throw new RuntimeException();
+      }
+      if (deckName.equals(currentDeckName)) {
+        actionBar.setSelectedNavigationItem(dropDownDeckIdx + 1);
+        break;
+      }
     }
   }
 }

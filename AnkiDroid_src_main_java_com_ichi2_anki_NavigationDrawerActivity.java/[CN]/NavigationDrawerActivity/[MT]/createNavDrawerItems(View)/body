@@ -1,0 +1,10 @@
+{
+  mDrawerList=(ViewGroup)mainview.findViewById(R.id.navdrawer_items_container);
+  if (mDrawerList == null) {
+    return;
+  }
+  mDrawerList.removeAllViews();
+  for (  int itemId : mNavDrawerItems) {
+    mDrawerList.addView(makeNavDrawerItem(itemId,mDrawerList));
+  }
+}

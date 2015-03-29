@@ -6,11 +6,8 @@
     mDeckNames.put(String.valueOf(did),getCol().getDecks().name(did));
   }
   registerExternalStorageListener();
-  Intent i=getIntent();
-  mWholeCollection=i.hasExtra("fromDeckpicker") && i.getBooleanExtra("fromDeckpicker",false);
   mBackground=Themes.getCardBrowserBackground();
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
-  Resources res=getResources();
   mDropDownDecks=getCol().getDecks().allSorted();
   mDropDownAdapter=new DeckDropDownAdapter(this,mDropDownDecks);
   mActionBar=getSupportActionBar();
@@ -96,7 +93,7 @@
 );
   getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
   mSearchTerms="";
-  if (!mWholeCollection) {
+  if (!sIsWholeCollection) {
     String currentDeckName;
     try {
       currentDeckName=getCol().getDecks().current().getString("name");

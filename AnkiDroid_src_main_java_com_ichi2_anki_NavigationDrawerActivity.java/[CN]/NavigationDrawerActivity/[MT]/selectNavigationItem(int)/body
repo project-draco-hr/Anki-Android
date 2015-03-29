@@ -1,36 +1,24 @@
 {
-  int itemId=mNavDrawerItems.get(position);
-  mDrawerList.setItemChecked(position,true);
-  setTitle(mNavigationTitles[itemId]);
   mDrawerLayout.closeDrawer(mDrawerList);
+  if (itemId == getSelfNavDrawerItem()) {
+    return;
+  }
+  setTitle(mNavigationTitles[itemId]);
 switch (itemId) {
 case DRAWER_DECK_PICKER:
-    if (!(this instanceof DeckPicker)) {
-      Intent deckPicker=new Intent(this,DeckPicker.class);
-      deckPicker.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-      startActivityWithAnimation(deckPicker,ActivityTransitionAnimation.RIGHT);
-    }
-  break;
+    Intent deckPicker=new Intent(this,DeckPicker.class);
+  deckPicker.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+startActivityWithAnimation(deckPicker,ActivityTransitionAnimation.RIGHT);
+break;
 case DRAWER_BROWSER:
 Intent cardBrowser=new Intent(this,CardBrowser.class);
-if (!(this instanceof CardBrowser)) {
-if (this instanceof DeckPicker && !mFragmented) {
-  cardBrowser.putExtra("fromDeckpicker",true);
-}
+cardBrowser.putExtra("selectedDeck",getCol().getDecks().selected());
 startActivityForResultWithAnimation(cardBrowser,REQUEST_BROWSE_CARDS,ActivityTransitionAnimation.LEFT);
-}
 break;
 case DRAWER_STATISTICS:
-boolean selectAllDecksButton=false;
-if (!(this instanceof Statistics)) {
-if ((this instanceof DeckPicker && !mFragmented)) {
-selectAllDecksButton=true;
-}
-AnkiStatsTaskHandler.setIsWholeCollection(selectAllDecksButton);
 Intent intent=new Intent(this,Statistics.class);
 intent.putExtra("selectedDeck",getCol().getDecks().selected());
 startActivityForResultWithAnimation(intent,REQUEST_STATISTICS,ActivityTransitionAnimation.LEFT);
-}
 break;
 case DRAWER_SETTINGS:
 mOldColPath=CollectionHelper.getCurrentAnkiDroidDirectory(this);

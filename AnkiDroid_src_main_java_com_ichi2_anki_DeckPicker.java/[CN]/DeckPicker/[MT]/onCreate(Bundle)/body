@@ -12,6 +12,7 @@
   View studyoptionsFrame=findViewById(R.id.studyoptions_fragment);
   mFragmented=studyoptionsFrame != null && studyoptionsFrame.getVisibility() == View.VISIBLE;
   Themes.setContentStyle(mFragmented ? mainView : mainView.findViewById(R.id.deckpicker_view),Themes.CALLER_DECKPICKER);
+  sIsWholeCollection=!mFragmented;
   registerExternalStorageListener();
   initNavigationDrawer(mainView);
   if (savedInstanceState == null) {
@@ -61,8 +62,9 @@
       }
       mContextMenuDid=Long.parseLong(mDeckList.get(position).get("did"));
       String deckName=getCol().getDecks().name(mContextMenuDid);
+      boolean hasSubdecks=getCol().getDecks().children(mContextMenuDid).size() > 0;
       boolean isCollapsed=getCol().getDecks().get(mContextMenuDid).optBoolean("collapsed",false);
-      showDialogFragment(DeckPickerContextMenu.newInstance(deckName,isCollapsed));
+      showDialogFragment(DeckPickerContextMenu.newInstance(deckName,hasSubdecks,isCollapsed));
       return true;
     }
   }

@@ -29,7 +29,7 @@
     ReadText.initializeTts(this);
   }
   Lookup.initialize(this);
-  deselectAllNavigationItems();
+  updateScreenCounts();
   supportInvalidateOptionsMenu();
   dismissOpeningCollectionDialog();
 }
