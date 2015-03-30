@@ -1,0 +1,9 @@
+{
+  if (parent.getLayoutManager() instanceof LinearLayoutManager) {
+    LinearLayoutManager layoutManager=(LinearLayoutManager)parent.getLayoutManager();
+    return layoutManager.getOrientation();
+  }
+ else {
+    throw new IllegalStateException("DividerItemDecoration can only be used with a LinearLayoutManager.");
+  }
+}

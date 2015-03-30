@@ -1,7 +1,0 @@
-{
-  @SuppressWarnings("unchecked") HashMap<String,String> data=(HashMap<String,String>)mDeckListAdapter.getItem(id);
-  long did=Long.parseLong(data.get("did"));
-  getCol().getDecks().select(did);
-  mFocusedDeck=did;
-  openStudyOptions(false);
-}

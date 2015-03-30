@@ -1,0 +1,6 @@
+{
+  int position=findDeckPositionWithId(mDeckList,did,0);
+  if (position > -1) {
+    mRecyclerViewLayoutManager.scrollToPositionWithOffset(position,(mRecyclerView.getHeight() / 2));
+  }
+}

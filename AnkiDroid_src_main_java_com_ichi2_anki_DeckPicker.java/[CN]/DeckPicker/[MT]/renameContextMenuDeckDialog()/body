@@ -10,12 +10,10 @@
       Collection col=getCol();
       if (col != null) {
         if (col.getDecks().rename(col.getDecks().get(mContextMenuDid),newName)) {
-          for (          HashMap<String,String> d : mDeckList) {
-            if (d.get("did").equals(Long.toString(mContextMenuDid))) {
-              d.put("name",newName);
-            }
+          Sched.DeckDueTreeNode node=findDeckWithId(mDeckList,mContextMenuDid);
+          if (node != null) {
+            node.names=new String[]{newName};
           }
-          mDeckListAdapter.notifyDataSetChanged();
           updateDeckList();
         }
  else {
@@ -27,7 +25,8 @@
           }
         }
       }
-      dismissAllDialogFragments();
+      mDeckListAdapter.notifyDataSetChanged();
+      updateDeckList();
     }
     @Override public void onNegative(    MaterialDialog dialog){
       dismissAllDialogFragments();

@@ -1,0 +1,15 @@
+{
+  super.getItemOffsets(outRect,view,parent,state);
+  if (mDivider == null) {
+    return;
+  }
+  if (parent.getChildPosition(view) < 1) {
+    return;
+  }
+  if (getOrientation(parent) == LinearLayoutManager.VERTICAL) {
+    outRect.top=mDivider.getIntrinsicHeight();
+  }
+ else {
+    outRect.left=mDivider.getIntrinsicWidth();
+  }
+}
