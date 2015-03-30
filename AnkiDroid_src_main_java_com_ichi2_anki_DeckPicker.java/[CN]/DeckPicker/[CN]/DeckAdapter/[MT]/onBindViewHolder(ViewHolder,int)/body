@@ -1,7 +1,21 @@
 {
   Sched.DeckDueTreeNode node=mDeckList.get(position);
   boolean collapsed=getCol().getDecks().get(node.did).optBoolean("collapsed",false);
-  holder.mDeckName.setText(decoratedDeckName(node.names[0],node.depth,collapsed,node.children.size()));
+  holder.mDeckExpander.setText(deckExpander(node.depth,collapsed,node.children.size()));
+  if (node.children.size() > 0) {
+    holder.mDeckExpander.setClickable(false);
+    holder.mDeckExpander.setTag(node.did);
+    holder.mDeckExpander.setOnClickListener(new OnClickListener(){
+      @Override public void onClick(      View view){
+        collapseContextMenuDeck((Long)view.getTag());
+      }
+    }
+);
+  }
+ else {
+    holder.mDeckExpander.setClickable(false);
+  }
+  holder.mDeckName.setText(node.names[0]);
   holder.mDeckNew.setText(String.valueOf(node.newCount));
   holder.mDeckNew.setTextColor((node.newCount == 0) ? getResources().getColor(R.color.zero_count) : getResources().getColor(R.color.new_count));
   holder.mDeckLearn.setText(String.valueOf(node.lrnCount));
