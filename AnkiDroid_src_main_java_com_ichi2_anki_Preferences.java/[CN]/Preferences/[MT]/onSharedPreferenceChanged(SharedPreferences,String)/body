@@ -1,101 +1,100 @@
 {
   try {
-    if (key.equals("timeoutAnswer")) {
+switch (key) {
+case "timeoutAnswer":
       keepScreenOnCheckBoxPreference.setChecked(showAnswerCheckBoxPreference.isChecked());
-    }
- else     if (key.equals(LANGUAGE)) {
-      closePreferences();
-    }
- else     if (key.equals("useBackup")) {
-      if (lockCheckAction) {
-        lockCheckAction=false;
-      }
- else       if (!useBackupPreference.isChecked()) {
-        lockCheckAction=true;
-        useBackupPreference.setChecked(true);
-        showDialog(DIALOG_BACKUP);
-      }
-    }
- else     if (key.equals("convertFenText")) {
-      if (convertFenText.isChecked()) {
-        ChessFilter.install(Hooks.getInstance(getApplicationContext()));
-      }
+    break;
+case LANGUAGE:
+  closePreferences();
+break;
+case "useBackup":
+if (lockCheckAction) {
+lockCheckAction=false;
+}
+ else if (!useBackupPreference.isChecked()) {
+lockCheckAction=true;
+useBackupPreference.setChecked(true);
+showDialog(DIALOG_BACKUP);
+}
+break;
+case "convertFenText":
+if (convertFenText.isChecked()) {
+ChessFilter.install(Hooks.getInstance(getApplicationContext()));
+}
  else {
-        ChessFilter.uninstall(Hooks.getInstance(getApplicationContext()));
-      }
-    }
- else     if (key.equals("fixHebrewText")) {
-      if (fixHebrewText.isChecked()) {
-        HebrewFixFilter.install(Hooks.getInstance(getApplicationContext()));
-        showDialog(DIALOG_HEBREW_FONT);
-      }
+ChessFilter.uninstall(Hooks.getInstance(getApplicationContext()));
+}
+break;
+case "fixHebrewText":
+if (fixHebrewText.isChecked()) {
+HebrewFixFilter.install(Hooks.getInstance(getApplicationContext()));
+showDialog(DIALOG_HEBREW_FONT);
+}
  else {
-        HebrewFixFilter.uninstall(Hooks.getInstance(getApplicationContext()));
-      }
-    }
- else     if (key.equals("showProgress")) {
-      mCol.getConf().put("dueCounts",showProgress.isChecked());
-      mCol.setMod();
-    }
- else     if (key.equals("showEstimates")) {
-      mCol.getConf().put("estTimes",showEstimates.isChecked());
-      mCol.setMod();
-    }
- else     if (key.equals("newSpread")) {
-      mCol.getConf().put("newSpread",Integer.parseInt(newSpread.getValue()));
-      mCol.setMod();
-    }
- else     if (key.equals("timeLimit")) {
-      mCol.getConf().put("timeLim",timeLimit.getValue() * 60);
-      mCol.setMod();
-    }
- else     if (key.equals("learnCutoff")) {
-      mCol.getConf().put("collapseTime",learnCutoff.getValue() * 60);
-      mCol.setMod();
-    }
- else     if (key.equals("useCurrent")) {
-      mCol.getConf().put("addToCur",useCurrent.getValue().equals("0"));
-      mCol.setMod();
-    }
- else     if (key.equals("dayOffset")) {
-      int hours=dayOffset.getValue();
-      Calendar date=(Calendar)mStartDate.clone();
-      date.set(Calendar.HOUR_OF_DAY,hours);
-      mCol.setCrt(date.getTimeInMillis() / 1000);
-      mCol.setMod();
-    }
- else     if (key.equals("minimumCardsDueForNotification")) {
-      updateNotificationPreference();
-    }
- else     if (key.equals("reportErrorMode")) {
-      String value=sharedPreferences.getString("reportErrorMode","");
-      AnkiDroidApp.getInstance().setAcraReportingMode(value);
-    }
-    if (Arrays.asList(sShowValueInSummList).contains(key)) {
-      if (Arrays.asList(sListNumericCheck).contains(key)) {
-        updateListPreference(key,true);
-      }
+HebrewFixFilter.uninstall(Hooks.getInstance(getApplicationContext()));
+}
+break;
+case "showProgress":
+mCol.getConf().put("dueCounts",showProgress.isChecked());
+mCol.setMod();
+break;
+case "showEstimates":
+mCol.getConf().put("estTimes",showEstimates.isChecked());
+mCol.setMod();
+break;
+case "newSpread":
+mCol.getConf().put("newSpread",Integer.parseInt(newSpread.getValue()));
+mCol.setMod();
+break;
+case "timeLimit":
+mCol.getConf().put("timeLim",timeLimit.getValue() * 60);
+mCol.setMod();
+break;
+case "learnCutoff":
+mCol.getConf().put("collapseTime",learnCutoff.getValue() * 60);
+mCol.setMod();
+break;
+case "useCurrent":
+mCol.getConf().put("addToCur",useCurrent.getValue().equals("0"));
+mCol.setMod();
+break;
+case "dayOffset":
+int hours=dayOffset.getValue();
+Calendar date=(Calendar)mStartDate.clone();
+date.set(Calendar.HOUR_OF_DAY,hours);
+mCol.setCrt(date.getTimeInMillis() / 1000);
+mCol.setMod();
+break;
+case "minimumCardsDueForNotification":
+updateNotificationPreference();
+break;
+case "reportErrorMode":
+String value=sharedPreferences.getString("reportErrorMode","");
+AnkiDroidApp.getInstance().setAcraReportingMode(value);
+break;
+}
+if (Arrays.asList(sShowValueInSummList).contains(key)) {
+if (Arrays.asList(sListNumericCheck).contains(key)) {
+updateListPreference(key,true);
+}
  else {
-        updateListPreference(key,false);
-      }
-    }
- else     if (Arrays.asList(sShowValueInSummSeek).contains(key)) {
-      updateSeekBarPreference(key);
-    }
- else     if (Arrays.asList(sShowValueInSummEditText).contains(key)) {
-      updateEditTextPreference(key);
-    }
- else     if (Arrays.asList(sShowValueInSummNumRange).contains(key)) {
-      updateNumberRangePreference(key);
-    }
-  }
- catch (  BadTokenException e) {
-    Timber.e(e,"Preferences: BadTokenException on showDialog");
-  }
-catch (  NumberFormatException e) {
-    throw new RuntimeException();
-  }
-catch (  JSONException e) {
-    throw new RuntimeException();
-  }
+updateListPreference(key,false);
+}
+}
+ else if (Arrays.asList(sShowValueInSummSeek).contains(key)) {
+updateSeekBarPreference(key);
+}
+ else if (Arrays.asList(sShowValueInSummEditText).contains(key)) {
+updateEditTextPreference(key);
+}
+ else if (Arrays.asList(sShowValueInSummNumRange).contains(key)) {
+updateNumberRangePreference(key);
+}
+}
+ catch (BadTokenException e) {
+Timber.e(e,"Preferences: BadTokenException on showDialog");
+}
+catch (NumberFormatException|JSONException e) {
+throw new RuntimeException();
+}
 }

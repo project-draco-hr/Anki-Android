@@ -8,7 +8,7 @@
  else     Timber.d("starting Create ChartTask, type: %s",mChartType.name());
     mImageView=(ChartView)params[0];
     mProgressBar=(ProgressBar)params[1];
-    ChartBuilder chartBuilder=new ChartBuilder(mImageView,mCollectionData,sIsWholeCollection,mChartType);
+    ChartBuilder chartBuilder=new ChartBuilder(mImageView,mCollectionData,NavigationDrawerActivity.isWholeCollection(),mChartType);
     return chartBuilder.renderChart(mStatType);
   }
   finally {

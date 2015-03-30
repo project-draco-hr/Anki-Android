@@ -3,12 +3,11 @@
     return;
   }
   Collection col=CollectionHelper.getInstance().getCol(getActivity());
-  if (mType != (((Statistics)getActivity()).getTaskHandler()).getStatType() || mDeckId != col.getDecks().selected() || mIsWholeCollection != AnkiStatsTaskHandler.isWholeCollection()) {
+  if (mType != (((Statistics)getActivity()).getTaskHandler()).getStatType() || mDeckId != col.getDecks().selected()) {
     mType=(((Statistics)getActivity()).getTaskHandler()).getStatType();
     mProgressBar.setVisibility(View.VISIBLE);
     mWebView.setVisibility(View.GONE);
     mDeckId=col.getDecks().selected();
-    mIsWholeCollection=AnkiStatsTaskHandler.isWholeCollection();
     if (mCreateStatisticsOverviewTask != null && !mCreateStatisticsOverviewTask.isCancelled()) {
       mCreateStatisticsOverviewTask.cancel(true);
     }

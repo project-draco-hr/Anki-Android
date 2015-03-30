@@ -8,14 +8,7 @@
       JSONObject cur=col.getDecks().byName(customStudyDeck);
       if (cur != null) {
         if (cur.getInt("dyn") != 1) {
-          StyledDialog.Builder builder=new StyledDialog.Builder(getActivity());
-          builder.setMessage(R.string.custom_study_deck_exists);
-          builder.setNegativeButton(getResources().getString(R.string.dialog_cancel),new OnClickListener(){
-            @Override public void onClick(            DialogInterface dialog,            int which){
-            }
-          }
-);
-          builder.create().show();
+          new MaterialDialog.Builder(getActivity()).content(R.string.custom_study_deck_exists).negativeText(R.string.dialog_cancel).build().show();
           return;
         }
  else {
@@ -39,7 +32,7 @@
       ar.getJSONArray(0).put(1,terms[1]);
       ar.getJSONArray(0).put(2,terms[2]);
       dyn.put("resched",resched);
-      mProgressDialog=StyledProgressDialog.show(getActivity(),"",getResources().getString(R.string.rebuild_custom_study_deck),true);
+      mProgressDialog=StyledProgressDialog.show(getActivity(),"",getResources().getString(R.string.rebuild_custom_study_deck),false);
       DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REBUILD_CRAM,getDeckTaskListener(true),new DeckTask.TaskData(getCol(),getCol().getDecks().selected(),mFragmented));
     }
  catch (    JSONException e) {

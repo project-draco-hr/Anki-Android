@@ -26,19 +26,15 @@ return true;
 }
 }
 final String[] items={"Englisch","Franz??sisch","Spanisch","Italienisch","Chinesisch","Russisch"};
-StyledDialog.Builder builder=new StyledDialog.Builder(mContext);
-builder.setTitle("\"" + mLookupText + "\" nachschlagen");
-builder.setItems(items,new DialogInterface.OnClickListener(){
-public void onClick(DialogInterface dialog,int item){
+new MaterialDialog.Builder(mContext).title("\"" + mLookupText + "\" nachschlagen").items(items).itemsCallback(new MaterialDialog.ListCallback(){
+@Override public void onSelection(MaterialDialog materialDialog,View view,int item,CharSequence charSequence){
 String language=itemValues[item].toString();
 storeLanguage(language,MetaDB.LANGUAGES_QA_UNDEFINED);
 lookupLeo(language,mLookupText);
 mLookupText="";
 }
 }
-);
-StyledDialog alert=builder.create();
-alert.show();
+).build().show();
 return true;
 case DICTIONARY_COLORDICT:
 Intent colordictSearchIntent=new Intent(mDictionaryAction);

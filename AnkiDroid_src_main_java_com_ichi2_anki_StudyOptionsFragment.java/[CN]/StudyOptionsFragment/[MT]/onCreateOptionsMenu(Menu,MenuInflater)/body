@@ -2,10 +2,10 @@
   getActivity().getMenuInflater().inflate(R.menu.study_options_fragment,menu);
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getActivity());
   if (preferences.getBoolean("invertedColors",false)) {
-    menu.findItem(R.id.action_night_mode).setIcon(R.drawable.ic_menu_night_checked);
+    menu.findItem(R.id.action_night_mode).setIcon(R.drawable.ic_brightness_3_white_24dp);
   }
  else {
-    menu.findItem(R.id.action_night_mode).setIcon(R.drawable.ic_menu_night);
+    menu.findItem(R.id.action_night_mode).setIcon(R.drawable.ic_brightness_5_white_24dp);
   }
   if (!getCol().undoAvailable()) {
     menu.findItem(R.id.action_undo).setVisible(false);

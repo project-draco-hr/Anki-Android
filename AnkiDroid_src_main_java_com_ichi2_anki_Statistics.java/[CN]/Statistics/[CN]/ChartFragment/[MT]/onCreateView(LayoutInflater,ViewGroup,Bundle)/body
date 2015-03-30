@@ -22,8 +22,7 @@
   mActivityPager=((Statistics)getActivity()).getViewPager();
   mActivitySectionPagerAdapter=((Statistics)getActivity()).getSectionsPagerAdapter();
   mDeckId=CollectionHelper.getInstance().getCol(getActivity()).getDecks().selected();
-  mIsWholeCollection=AnkiStatsTaskHandler.isWholeCollection();
-  if (!AnkiStatsTaskHandler.isWholeCollection()) {
+  if (!sIsWholeCollection) {
     try {
       Collection col=CollectionHelper.getInstance().getCol(getActivity());
       List<String> parts=Arrays.asList(col.getDecks().current().getString("name").split("::"));

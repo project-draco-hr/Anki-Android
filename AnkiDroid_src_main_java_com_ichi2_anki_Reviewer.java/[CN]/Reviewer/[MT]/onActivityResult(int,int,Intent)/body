@@ -1,5 +1,5 @@
 {
-  if (requestCode == REQUEST_STATISTICS) {
+  if (requestCode == REQUEST_STATISTICS || requestCode == REQUEST_BROWSE_CARDS) {
     if (data.hasExtra("originalDeck")) {
       getCol().getDecks().select(data.getLongExtra("originalDeck",0L));
     }

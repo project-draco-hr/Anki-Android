@@ -1,10 +1,10 @@
 {
   if (getCol().undoAvailable()) {
     if (mProgressDialog != null && mProgressDialog.isShowing()) {
-      mProgressDialog.setMessage(getResources().getString(R.string.saving_changes));
+      mProgressDialog.setContent(getResources().getString(R.string.saving_changes));
     }
  else {
-      mProgressDialog=StyledProgressDialog.show(AbstractFlashcardViewer.this,"",getResources().getString(R.string.saving_changes),true);
+      mProgressDialog=StyledProgressDialog.show(AbstractFlashcardViewer.this,"",getResources().getString(R.string.saving_changes),false);
     }
     DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mAnswerCardHandler,new DeckTask.TaskData(getCol(),mSched));
   }

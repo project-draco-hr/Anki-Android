@@ -14,43 +14,44 @@
     mClipboard=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
   }
   mCardFrame.removeAllViews();
-  if (!mChangeBorderStyle) {
-    findViewById(R.id.flashcard_border).setVisibility(View.VISIBLE);
-  }
   if (CompatHelper.getSdkVersion() == 7 && (mCard != null)) {
     mCard.setFocusableInTouchMode(true);
   }
   gestureDetector=new GestureDetector(new MyGestureDetector());
   mProgressBar=(ProgressBar)findViewById(R.id.flashcard_progressbar);
   Resources res=getResources();
-  mEase1=(Button)findViewById(R.id.ease1);
-  mEase1.setTextColor(res.getColor(R.color.next_time_failed_color));
+  mEase1=(TextView)findViewById(R.id.ease1);
+  mEase1.setTypeface(TypefaceHelper.get(this,"Roboto-Medium"));
   mEase1Layout=(LinearLayout)findViewById(R.id.flashcard_layout_ease1);
   mEase1Layout.setOnClickListener(mSelectEaseHandler);
-  mEase2=(Button)findViewById(R.id.ease2);
-  mEase2.setTextColor(res.getColor(R.color.next_time_usual_color));
+  mEase2=(TextView)findViewById(R.id.ease2);
+  mEase2.setTypeface(TypefaceHelper.get(this,"Roboto-Medium"));
   mEase2Layout=(LinearLayout)findViewById(R.id.flashcard_layout_ease2);
   mEase2Layout.setOnClickListener(mSelectEaseHandler);
-  mEase3=(Button)findViewById(R.id.ease3);
+  mEase3=(TextView)findViewById(R.id.ease3);
+  mEase3.setTypeface(TypefaceHelper.get(this,"Roboto-Medium"));
   mEase3Layout=(LinearLayout)findViewById(R.id.flashcard_layout_ease3);
   mEase3Layout.setOnClickListener(mSelectEaseHandler);
-  mEase4=(Button)findViewById(R.id.ease4);
+  mEase4=(TextView)findViewById(R.id.ease4);
+  mEase4.setTypeface(TypefaceHelper.get(this,"Roboto-Medium"));
   mEase4Layout=(LinearLayout)findViewById(R.id.flashcard_layout_ease4);
   mEase4Layout.setOnClickListener(mSelectEaseHandler);
   mNext1=(TextView)findViewById(R.id.nextTime1);
   mNext2=(TextView)findViewById(R.id.nextTime2);
   mNext3=(TextView)findViewById(R.id.nextTime3);
   mNext4=(TextView)findViewById(R.id.nextTime4);
-  mNext1.setTextColor(res.getColor(R.color.next_time_failed_color));
-  mNext2.setTextColor(res.getColor(R.color.next_time_usual_color));
+  mNext1.setTypeface(TypefaceHelper.get(this,"Roboto-Regular"));
+  mNext2.setTypeface(TypefaceHelper.get(this,"Roboto-Regular"));
+  mNext3.setTypeface(TypefaceHelper.get(this,"Roboto-Regular"));
+  mNext4.setTypeface(TypefaceHelper.get(this,"Roboto-Regular"));
   if (!mShowNextReviewTime) {
-    ((TextView)findViewById(R.id.nextTimeflip)).setVisibility(View.GONE);
     mNext1.setVisibility(View.GONE);
     mNext2.setVisibility(View.GONE);
     mNext3.setVisibility(View.GONE);
     mNext4.setVisibility(View.GONE);
   }
   mFlipCard=(Button)findViewById(R.id.flip_card);
+  mFlipCard.setTypeface(TypefaceHelper.get(this,"Roboto-Medium"));
   mFlipCardLayout=(LinearLayout)findViewById(R.id.flashcard_layout_flip);
   mFlipCardLayout.setOnClickListener(mFlipCardListener);
   mTextBarNew=(TextView)findViewById(R.id.new_number);

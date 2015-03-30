@@ -5,12 +5,12 @@
   super.onCreate(savedInstanceState);
   mCol=CollectionHelper.getInstance().getCol(this);
   addPreferencesFromResource(R.xml.preferences);
-  collectionPathPreference=(EditTextPreference)getPreferenceScreen().findPreference("deckPath");
+  EditTextPreference collectionPathPreference=(EditTextPreference)getPreferenceScreen().findPreference("deckPath");
   keepScreenOnCheckBoxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("keepScreenOn");
   showAnswerCheckBoxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("timeoutAnswer");
   useBackupPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("useBackup");
   convertFenText=(CheckBoxPreference)getPreferenceScreen().findPreference("convertFenText");
-  syncAccount=(Preference)getPreferenceScreen().findPreference("syncAccount");
+  syncAccount=getPreferenceScreen().findPreference("syncAccount");
   showEstimates=(CheckBoxPreference)getPreferenceScreen().findPreference("showEstimates");
   showProgress=(CheckBoxPreference)getPreferenceScreen().findPreference("showProgress");
   learnCutoff=(NumberRangePreference)getPreferenceScreen().findPreference("learnCutoff");
@@ -18,26 +18,32 @@
   useCurrent=(ListPreference)getPreferenceScreen().findPreference("useCurrent");
   newSpread=(ListPreference)getPreferenceScreen().findPreference("newSpread");
   dayOffset=(SeekBarPreference)getPreferenceScreen().findPreference("dayOffset");
+  PreferenceScreen advanced=(PreferenceScreen)getPreferenceScreen().findPreference("pref_screen_advanced");
   PreferenceCategory workarounds=(PreferenceCategory)getPreferenceScreen().findPreference("category_workarounds");
-  inputWorkaround=(CheckBoxPreference)getPreferenceScreen().findPreference("inputWorkaround");
-  longclickWorkaround=(CheckBoxPreference)getPreferenceScreen().findPreference("textSelectionLongclickWorkaround");
+  CheckBoxPreference inputWorkaround=(CheckBoxPreference)getPreferenceScreen().findPreference("inputWorkaround");
+  CheckBoxPreference longclickWorkaround=(CheckBoxPreference)getPreferenceScreen().findPreference("textSelectionLongclickWorkaround");
   fixHebrewText=(CheckBoxPreference)getPreferenceScreen().findPreference("fixHebrewText");
-  fixArabicText=(CheckBoxPreference)getPreferenceScreen().findPreference("fixArabicText");
-  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
-  if (CompatHelper.getSdkVersion() > 14) {
-    workarounds.removePreference(inputWorkaround);
-    preferences.edit().putBoolean("inputWorkaround",false);
+  CheckBoxPreference fixArabicText=(CheckBoxPreference)getPreferenceScreen().findPreference("fixArabicText");
+  CheckBoxPreference safeDisplayMode=(CheckBoxPreference)getPreferenceScreen().findPreference("safeDisplay");
+  CompatHelper.removeHiddenPreferences(this.getApplicationContext());
+  if (CompatHelper.getSdkVersion() >= 9) {
+    workarounds.removePreference(fixArabicText);
   }
   if (CompatHelper.isHoneycomb()) {
     workarounds.removePreference(longclickWorkaround);
-    preferences.edit().putBoolean("longclickWorkaround",false);
   }
-  if (CompatHelper.getSdkVersion() > 8) {
-    workarounds.removePreference(fixArabicText);
-    preferences.edit().putBoolean("fixArabicText",false);
+  if (CompatHelper.getSdkVersion() >= 13) {
+    workarounds.removePreference(safeDisplayMode);
+  }
+  if (CompatHelper.getSdkVersion() >= 15) {
+    workarounds.removePreference(inputWorkaround);
+  }
+  if (CompatHelper.getSdkVersion() >= 16) {
+    workarounds.removePreference(fixHebrewText);
+    advanced.removePreference(workarounds);
   }
   initializeLanguageDialog();
-  Preference fontsPreference=(Preference)getPreferenceScreen().findPreference("font_preference_group");
+  Preference fontsPreference=getPreferenceScreen().findPreference("font_preference_group");
   fontsPreference.setOnPreferenceClickListener(new OnPreferenceClickListener(){
     public boolean onPreferenceClick(    Preference preference){
       initializeCustomFontsDialog();
@@ -60,7 +66,7 @@
     }
   }
 );
-  Preference dialogPreference=(Preference)getPreferenceScreen().findPreference("about_dialog_preference");
+  Preference dialogPreference=getPreferenceScreen().findPreference("about_dialog_preference");
   dialogPreference.setOnPreferenceClickListener(new OnPreferenceClickListener(){
     public boolean onPreferenceClick(    Preference preference){
       startActivity(new Intent(Preferences.this,Info.class));
@@ -69,7 +75,7 @@
   }
 );
   dialogPreference.setSummary(getResources().getString(R.string.about_version) + " " + AnkiDroidApp.getPkgVersionName());
-  Preference fullSyncPreference=(Preference)getPreferenceScreen().findPreference("force_full_sync");
+  Preference fullSyncPreference=getPreferenceScreen().findPreference("force_full_sync");
   fullSyncPreference.setOnPreferenceClickListener(new OnPreferenceClickListener(){
     public boolean onPreferenceClick(    Preference preference){
       if (mCol != null && mCol.getDb() != null) {
@@ -98,10 +104,7 @@
       newSpread.setValueIndex(conf.getInt("newSpread"));
       useCurrent.setValueIndex(conf.optBoolean("addToCur",true) ? 0 : 1);
     }
- catch (    JSONException e) {
-      throw new RuntimeException();
-    }
-catch (    NumberFormatException e) {
+ catch (    JSONException|NumberFormatException e) {
       throw new RuntimeException();
     }
   }

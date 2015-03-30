@@ -14,8 +14,11 @@
   registerExternalStorageListener();
   View mainView=getLayoutInflater().inflate(R.layout.note_editor,null);
   setContentView(mainView);
-  Themes.setWallpaper(mainView);
   Themes.setContentStyle(mainView,Themes.CALLER_CARD_EDITOR);
+  Toolbar toolbar=(Toolbar)mainView.findViewById(R.id.toolbar);
+  if (toolbar != null) {
+    setSupportActionBar(toolbar);
+  }
   mFieldsLayoutContainer=(LinearLayout)findViewById(R.id.CardEditorEditFieldsLayout);
   mTagsButton=(TextView)findViewById(R.id.CardEditorTagText);
   mCardsButton=(TextView)findViewById(R.id.CardEditorCardsText);

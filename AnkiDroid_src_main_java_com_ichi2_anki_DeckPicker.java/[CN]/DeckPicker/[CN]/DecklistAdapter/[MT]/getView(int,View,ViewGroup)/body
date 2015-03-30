@@ -1,5 +1,0 @@
-{
-  View view=super.getView(position,convertView,parent);
-  ((RelativeLayout)((LinearLayout)view).getChildAt(0)).getChildAt(0).setTag(position);
-  return view;
-}

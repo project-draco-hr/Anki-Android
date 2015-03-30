@@ -4,25 +4,26 @@
   }
   mIsSelecting=false;
   hideLookupButton();
-  if (getCol().getSched().answerButtons(mCurrentCard) < ease) {
+  int buttonNumber=getCol().getSched().answerButtons(mCurrentCard);
+  if (buttonNumber < ease) {
     return;
   }
 switch (ease) {
 case EASE_FAILED:
     mChosenAnswer.setText("\u2022");
-  mChosenAnswer.setTextColor(mNext1.getTextColors());
+  mChosenAnswer.setTextColor(getResources().getColor(R.color.material_red_500));
 break;
 case EASE_HARD:
 mChosenAnswer.setText("\u2022\u2022");
-mChosenAnswer.setTextColor(mNext2.getTextColors());
+mChosenAnswer.setTextColor(getResources().getColor(buttonNumber == 4 ? R.color.material_blue_grey_700 : R.color.material_green_500));
 break;
 case EASE_MID:
 mChosenAnswer.setText("\u2022\u2022\u2022");
-mChosenAnswer.setTextColor(mNext3.getTextColors());
+mChosenAnswer.setTextColor(getResources().getColor(buttonNumber == 4 ? R.color.material_green_500 : R.color.material_blue_grey_700));
 break;
 case EASE_EASY:
 mChosenAnswer.setText("\u2022\u2022\u2022\u2022");
-mChosenAnswer.setTextColor(mNext4.getTextColors());
+mChosenAnswer.setTextColor(getResources().getColor(R.color.material_blue_grey_700));
 break;
 }
 mTimerHandler.removeCallbacks(removeChosenAnswerText);

@@ -1,12 +1,3 @@
 {
-  try {
-    JSONObject deck=getCol().getDecks().get(mContextMenuDid);
-    if (getCol().getDecks().children(mContextMenuDid).size() > 0) {
-      deck.put("collapsed",!deck.getBoolean("collapsed"));
-      getCol().getDecks().save(deck);
-      updateDeckList();
-    }
-  }
- catch (  JSONException e1) {
-  }
+  collapseContextMenuDeck(mContextMenuDid);
 }

@@ -1,7 +1,7 @@
 {
   setFont(main);
   if (mCurrentTheme == THEME_WHITE) {
-    setTextColor(main,mContext.getResources().getColor(R.color.black));
+    setTextColor(main,mContext.getResources().getColor(R.color.text_color));
   }
   View topPanel=((View)main.findViewById(R.id.topPanel));
   boolean[] visibility=new boolean[5];
@@ -90,14 +90,11 @@
   res=brightCustomPanelBackground ? mPopupCenterMedium : mPopupCenterDark;
   if (first == 3) {
     res=brightCustomPanelBackground ? mPopupTopMedium : mPopupTopDark;
-    ;
   }
   if (last == 3) {
     res=brightCustomPanelBackground ? mPopupBottomMedium : mPopupBottomDark;
-    ;
     if (first == 3) {
       res=brightCustomPanelBackground ? mPopupFullMedium : mPopupFullDark;
-      ;
     }
   }
   try {

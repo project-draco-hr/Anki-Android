@@ -1,7 +1,6 @@
 {
   super.onCreateDialog(savedInstanceState);
   Resources res=getActivity().getResources();
-  StyledDialog.Builder builder=new StyledDialog.Builder(getActivity());
   View v=getActivity().getLayoutInflater().inflate(R.layout.styled_custom_study_details_dialog,null);
   TextView textView1=(TextView)v.findViewById(R.id.custom_study_details_text1);
   TextView textView2=(TextView)v.findViewById(R.id.custom_study_details_text2);
@@ -11,9 +10,8 @@
   mEditText.setText(getDefaultValue());
   mEditText.setSelectAllOnFocus(true);
   mEditText.requestFocus();
-  builder.setView(v);
-  builder.setPositiveButton(res.getString(R.string.dialog_ok),new DialogInterface.OnClickListener(){
-    @Override public void onClick(    DialogInterface dialog,    int which){
+  MaterialDialog dialog=new MaterialDialog.Builder(getActivity()).customView(v,true).positiveText(res.getString(R.string.dialog_ok)).negativeText(res.getString(R.string.dialog_cancel)).callback(new MaterialDialog.ButtonCallback(){
+    @Override public void onPositive(    MaterialDialog dialog){
       Collection col;
       int n=Integer.parseInt(mEditText.getText().toString());
 switch (getArguments().getInt("id")) {
@@ -74,16 +72,11 @@ default :
 break;
 }
 }
-}
-);
-builder.setNegativeButton(res.getString(R.string.dialog_cancel),new DialogInterface.OnClickListener(){
-@Override public void onClick(DialogInterface dialog,int which){
+@Override public void onNegative(MaterialDialog dialog){
 ((AnkiActivity)getActivity()).dismissAllDialogFragments();
 }
 }
-);
-StyledDialog d=builder.create();
-d.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-;
-return d;
+).build();
+dialog.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+return dialog;
 }

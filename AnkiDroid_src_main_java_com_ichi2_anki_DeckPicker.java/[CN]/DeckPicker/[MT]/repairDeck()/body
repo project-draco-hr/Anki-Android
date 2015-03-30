@@ -1,7 +1,7 @@
 {
   DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REPAIR_DECK,new DeckTask.TaskListener(){
     @Override public void onPreExecute(){
-      mProgressDialog=StyledProgressDialog.show(DeckPicker.this,"",getResources().getString(R.string.backup_repair_deck_progress),true);
+      mProgressDialog=StyledProgressDialog.show(DeckPicker.this,"",getResources().getString(R.string.backup_repair_deck_progress),false);
     }
     @Override public void onPostExecute(    DeckTask.TaskData result){
       if (mProgressDialog != null && mProgressDialog.isShowing()) {

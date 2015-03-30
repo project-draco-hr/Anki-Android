@@ -2,7 +2,7 @@
   ActionBarActivity actionBarActivity=(ActionBarActivity)activity;
   ActionBar actionBar=actionBarActivity.getSupportActionBar();
   if (actionBar != null) {
-    CharacterStyle span=new ForegroundColorSpan(activity.getResources().getColor(inverted ? R.color.white : R.color.black));
+    CharacterStyle span=new ForegroundColorSpan(activity.getResources().getColor(Themes.getResourceIdFromAttributeId(R.attr.actionBarTextColor)));
     SpannableStringBuilder ssb=new SpannableStringBuilder(title);
     ssb.setSpan(span,0,ssb.length(),0);
     actionBar.setTitle(ssb);

@@ -10,6 +10,11 @@
     startLoadingCollection();
     return;
   }
+  if (requestCode == STATISTICS || requestCode == BROWSE_CARDS) {
+    if (intent.hasExtra("originalDeck")) {
+      getCol().getDecks().select(intent.getLongExtra("originalDeck",0L));
+    }
+  }
   if (requestCode == DECK_OPTIONS) {
     if (mLoadWithDeckOptions == true) {
       mLoadWithDeckOptions=false;

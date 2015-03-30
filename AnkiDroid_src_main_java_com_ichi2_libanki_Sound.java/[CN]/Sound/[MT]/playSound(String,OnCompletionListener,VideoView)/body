@@ -5,12 +5,7 @@
   }
  else {
     final boolean isVideo;
-    if (CompatHelper.isFroyo()) {
-      isVideo=ThumbnailUtils.createVideoThumbnail(soundUri.getPath(),MediaStore.Images.Thumbnails.MINI_KIND) != null;
-    }
- else {
-      isVideo=false;
-    }
+    isVideo=ThumbnailUtils.createVideoThumbnail(soundUri.getPath(),MediaStore.Images.Thumbnails.MINI_KIND) != null;
     if (isVideo && videoView == null && sCallingActivity != null && sCallingActivity.get() != null) {
       sPlayAllListener=playAllListener;
       ((AbstractFlashcardViewer)sCallingActivity.get()).playVideo(soundPath);

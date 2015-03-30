@@ -3,5 +3,8 @@
   if (mUnmountReceiver != null) {
     unregisterReceiver(mUnmountReceiver);
   }
+  if (mProgressDialog != null && mProgressDialog.isShowing()) {
+    mProgressDialog.dismiss();
+  }
   Timber.d("onDestroy()");
 }
