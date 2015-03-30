@@ -7,7 +7,7 @@
     }
  else     Timber.d("starting CreateSmallDueChart");
     mImageView=(ChartView)params[0];
-    ChartBuilder chartBuilder=new ChartBuilder(mImageView,mCollection,sIsWholeCollection,Stats.ChartType.OTHER);
+    ChartBuilder chartBuilder=new ChartBuilder(mImageView,mCollection,NavigationDrawerActivity.isWholeCollection(),Stats.ChartType.OTHER);
     return chartBuilder.createSmallDueChart(mSeriesList);
   }
   finally {

@@ -2,5 +2,6 @@
   super.onResume();
   restartTimer();
   Sound.setContext(new WeakReference<Activity>(this));
-  deselectAllNavigationItems();
+  setTitle();
+  updateScreenCounts();
 }

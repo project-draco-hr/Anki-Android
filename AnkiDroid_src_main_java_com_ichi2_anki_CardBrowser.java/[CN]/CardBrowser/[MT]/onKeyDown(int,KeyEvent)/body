@@ -1,7 +1,11 @@
 {
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
     Timber.i("CardBrowser:: CardBrowser - onBackPressed()");
-    closeCardBrowser(Activity.RESULT_OK);
+    Intent data=new Intent();
+    if (getIntent().hasExtra("selectedDeck")) {
+      data.putExtra("originalDeck",getIntent().getLongExtra("selectedDeck",0L));
+    }
+    closeCardBrowser(Activity.RESULT_OK,data);
     return true;
   }
   return super.onKeyDown(keyCode,event);

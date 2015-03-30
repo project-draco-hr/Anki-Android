@@ -1,4 +1,3 @@
 {
-  int position=mDrawerList.getCheckedItemPosition();
-  return mNavigationTitles[position];
+  return mNavigationTitles[getSelfNavDrawerItem()];
 }

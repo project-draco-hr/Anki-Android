@@ -1,0 +1,20 @@
+{
+  boolean selected=getSelfNavDrawerItem() == itemId;
+  View view=getLayoutInflater().inflate(isSeparator(itemId) ? R.layout.navdrawer_divider : R.layout.navdrawer_item,container,false);
+  if (isSeparator(itemId)) {
+    return view;
+  }
+  TextView txtTitle=(TextView)view.findViewById(R.id.drawer_list_item_text);
+  ImageView imgIcon=(ImageView)view.findViewById(R.id.drawer_list_item_icon);
+  txtTitle.setText(mNavigationTitles[itemId]);
+  imgIcon.setImageResource(mNavigationImages.getResourceId(itemId,-1));
+  formatNavDrawerItem(view,selected);
+  view.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      Timber.i("Item %d selected in navigation drawer",itemId);
+      selectNavigationItem(itemId);
+    }
+  }
+);
+  return view;
+}

@@ -9,7 +9,7 @@
     mWebView=(WebView)params[0];
     mProgressBar=(ProgressBar)params[1];
     String html="";
-    InfoStatsBuilder infoStatsBuilder=new InfoStatsBuilder(mWebView,mCollectionData,sIsWholeCollection);
+    InfoStatsBuilder infoStatsBuilder=new InfoStatsBuilder(mWebView,mCollectionData,NavigationDrawerActivity.isWholeCollection());
     html=infoStatsBuilder.createInfoHtmlString();
     return html;
   }

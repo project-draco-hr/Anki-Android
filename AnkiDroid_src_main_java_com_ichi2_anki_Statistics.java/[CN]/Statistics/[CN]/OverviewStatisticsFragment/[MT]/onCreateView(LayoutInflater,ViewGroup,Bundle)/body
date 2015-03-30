@@ -19,8 +19,7 @@
   mActivitySectionPagerAdapter=((Statistics)getActivity()).getSectionsPagerAdapter();
   Collection col=CollectionHelper.getInstance().getCol(getActivity());
   mDeckId=col.getDecks().selected();
-  mIsWholeCollection=AnkiStatsTaskHandler.isWholeCollection();
-  if (!AnkiStatsTaskHandler.isWholeCollection()) {
+  if (!sIsWholeCollection) {
     try {
       List<String> parts=Arrays.asList(col.getDecks().current().getString("name").split("::"));
       if (sIsSubtitle)       CompatHelper.getCompat().setSubtitle(getActivity(),parts.get(parts.size() - 1));

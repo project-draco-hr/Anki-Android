@@ -1,9 +1,11 @@
 {
   DeckTask.cancelTask(DeckTask.TASK_TYPE_RENDER_BROWSER_QA);
   if (position == 0) {
+    sIsWholeCollection=true;
     mRestrictOnDeck="";
   }
  else {
+    sIsWholeCollection=false;
     JSONObject deck=mDropDownDecks.get(position - 1);
     String deckName;
     try {
@@ -11,6 +13,12 @@
     }
  catch (    JSONException e) {
       throw new RuntimeException();
+    }
+    try {
+      getCol().getDecks().select(deck.getLong("id"));
+    }
+ catch (    JSONException e) {
+      Timber.e(e,"Could not get ID from deck");
     }
     mRestrictOnDeck="deck:\"" + deckName + "\" ";
   }
