@@ -13,17 +13,6 @@ case CALLER_STUDYOPTIONS:
     }
   break;
 case CALLER_DECKPICKER:
-ListView lv=(ListView)view.findViewById(R.id.files);
-switch (mCurrentTheme) {
-case THEME_WHITE:
-lv.setSelector(R.drawable.white_deckpicker_list_selector);
-CompatHelper.getCompat().setOverScrollModeNever(lv);
-lv.setFadingEdgeLength(60);
-lv.getDivider().setAlpha(ALPHA_DIVIDER);
-break;
-default :
-break;
-}
 break;
 case CALLER_CARDBROWSER:
 ListView lv2=(ListView)view.findViewById(R.id.card_browser_list);
@@ -50,9 +39,6 @@ break;
 }
 break;
 case CALLER_DECKPICKER_DECK:
-if (view.getId() == R.id.deckpicker_deck) {
-view.setBackgroundResource(mDeckpickerItemBorder);
-}
 break;
 case CALLER_REVIEWER:
 ((View)view.findViewById(R.id.main_layout)).setBackgroundResource(mReviewerBackground);

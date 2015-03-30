@@ -26,10 +26,9 @@
       }
       Long current=getCol().getDecks().current().optLong("id");
       if (!deckIsShown(nodes,current)) {
-        mDeckListView.clearChoices();
       }
  else       if (mFocusedDeck == null || !mFocusedDeck.equals(current)) {
-        focusDecklistOnDeck(current);
+        scrollDecklistToDeck(current);
         mFocusedDeck=current;
       }
       WidgetStatus.update(DeckPicker.this,nodes);
@@ -45,7 +44,13 @@
     }
     private void _renderDeckTree(    List<Sched.DeckDueTreeNode> nodes,    int depth){
       for (      Sched.DeckDueTreeNode node : nodes) {
-        _deckRow(node,depth,nodes.size());
+        for (        JSONObject parent : getCol().getDecks().parents(node.did)) {
+          if (parent.optBoolean("collapsed")) {
+            return;
+          }
+        }
+        mDeckList.add(node);
+        _deckRow(node,depth);
       }
     }
     /** 
@@ -59,72 +64,15 @@
  * to perform operations on the correct deck when the user interacts with the list.
  * @param node The row data.
  * @param depth The subdeck level this node is at.
- * @param cnt The number of decks in the collection.
  */
-    private void _deckRow(    Sched.DeckDueTreeNode node,    int depth,    int cnt){
-      HashMap<String,String> m=new HashMap<String,String>();
-      boolean collapsed=getCol().getDecks().get(node.did).optBoolean("collapsed",false);
-      m.put("name",decoratedDeckName(node.names[0],depth,collapsed,node.children.size()));
-      m.put("did",Long.toString(node.did));
-      m.put("new",Integer.toString(node.newCount));
-      m.put("lrn",Integer.toString(node.lrnCount));
-      m.put("rev",Integer.toString(node.revCount));
-      m.put("dyn",getCol().getDecks().isDyn(node.did) ? "d1" : "d0");
+    private void _deckRow(    Sched.DeckDueTreeNode node,    int depth){
+      node.depth=depth;
       if (depth == 0) {
         nNew+=node.newCount;
         nLrn+=node.lrnCount;
         nRev+=node.revCount;
       }
-      if (node.did == 1 && cnt > 1 && node.children.size() == 0) {
-        if (getCol().getDb().queryScalar("select 1 from cards where did = 1",false) == 0) {
-          return;
-        }
-      }
-      if (depth == 0 && node.children.size() > 0 && !collapsed) {
-        m.put("sep","top");
-      }
- else       if (depth > 0) {
-        m.put("sep","cen");
-      }
- else {
-        m.put("sep","ful");
-      }
-      for (      JSONObject parent : getCol().getDecks().parents(node.did)) {
-        if (parent.optBoolean("collapsed")) {
-          return;
-        }
-      }
-      if (node.did == getCol().getDecks().current().optLong("id")) {
-        mDeckListView.setItemChecked(mDeckList.size(),true);
-      }
-      mDeckList.add(m);
       _renderDeckTree(node.children,depth + 1);
-      if (depth == 0 && node.children.size() > 0 && !collapsed) {
-        mDeckList.get(mDeckList.size() - 1).put("sep","bot");
-      }
-    }
-    /** 
- * Returns the name of the deck to be displayed in the deck list.
- * Various properties of a deck are indicated to the user by the deck name in the deck list
- * (as opposed to additional native UI elements). This includes the amount of indenting
- * for nested decks based on depth and an indicator of collapsed state.
- */
-    private String decoratedDeckName(    String name,    int depth,    boolean collapsed,    int children){
-      if (collapsed) {
-        name="\u25B7 " + name;
-      }
- else       if (children > 0) {
-        name="\u25BD " + name;
-      }
- else {
-        name="\u2009\u2009\u2009 " + name;
-      }
-      if (depth == 0) {
-        return name;
-      }
- else {
-        return new String(new char[depth]).replace("\0","\u2009\u2009\u2009 ") + name;
-      }
     }
   }
 ,new TaskData(getCol()));

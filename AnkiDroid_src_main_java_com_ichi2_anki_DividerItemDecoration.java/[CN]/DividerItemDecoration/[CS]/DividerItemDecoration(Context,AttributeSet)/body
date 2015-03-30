@@ -1,0 +1,5 @@
+{
+  final TypedArray a=context.obtainStyledAttributes(attrs,new int[]{android.R.attr.listDivider});
+  mDivider=a.getDrawable(0);
+  a.recycle();
+}

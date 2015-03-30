@@ -1,0 +1,17 @@
+{
+  if (collapsed) {
+    name="\u25B7 " + name;
+  }
+ else   if (children > 0) {
+    name="\u25BD " + name;
+  }
+ else {
+    name="\u2009\u2009\u2009 " + name;
+  }
+  if (depth == 0) {
+    return name;
+  }
+ else {
+    return new String(new char[depth]).replace("\0","\u2009\u2009\u2009 ") + name;
+  }
+}
