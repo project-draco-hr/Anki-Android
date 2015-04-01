@@ -1,6 +1,6 @@
 {
   try {
-    mDst.getConf().put("nextPos",mDst.getDb().queryLongScalar("SELECT max(due) + 1 FROM cards WHERE type = 0",false));
+    mDst.getConf().put("nextPos",mDst.getDb().queryLongScalar("SELECT max(due) + 1 FROM cards WHERE type = 0"));
     mDst.save();
   }
  catch (  JSONException e) {
