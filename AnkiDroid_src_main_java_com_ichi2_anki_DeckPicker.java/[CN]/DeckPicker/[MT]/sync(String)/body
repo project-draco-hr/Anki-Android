@@ -5,6 +5,6 @@
     showSyncErrorDialog(SyncErrorDialog.DIALOG_USER_NOT_LOGGED_IN_SYNC);
   }
  else {
-    Connection.sync(mSyncListener,new Connection.Payload(new Object[]{hkey,preferences.getBoolean("syncFetchesMedia",true),syncConflictResolution,syncMediaUsn},CollectionHelper.getInstance().getCol(this)));
+    Connection.sync(mSyncListener,new Connection.Payload(new Object[]{hkey,preferences.getBoolean("syncFetchesMedia",true),syncConflictResolution},CollectionHelper.getInstance().getCol(this)));
   }
 }

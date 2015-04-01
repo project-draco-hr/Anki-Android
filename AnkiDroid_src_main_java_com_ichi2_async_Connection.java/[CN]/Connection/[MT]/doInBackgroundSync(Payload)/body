@@ -4,7 +4,6 @@
   String hkey=(String)data.data[0];
   boolean media=(Boolean)data.data[1];
   String conflictResolution=(String)data.data[2];
-  int mediaUsn=(Integer)data.data[3];
   Collection col=data.col;
   boolean colCorruptFullSync=false;
   if (!CollectionHelper.getInstance().colIsOpen() || !ok) {
@@ -27,7 +26,6 @@
       publishProgress(R.string.sync_prepare_syncing);
       Object[] ret=client.sync(this);
       data.message=client.getSyncMsg();
-      mediaUsn=client.getmMediaUsn();
       if (ret == null) {
         data.success=false;
         data.result=new Object[]{"genericError"};
@@ -37,7 +35,6 @@
       if (!retCode.equals("noChanges") && !retCode.equals("success")) {
         data.success=false;
         data.result=ret;
-        data.data=new Object[]{mediaUsn};
         if (retCode.equals("sanityCheckError")) {
           col.modSchemaNoCheck();
           col.save();
@@ -95,7 +92,6 @@
         AnkiDroidApp.sendExceptionReport(e,"doInBackgroundSync-fullSync");
         data.success=false;
         data.result=new Object[]{"OutOfMemoryError"};
-        data.data=new Object[]{mediaUsn};
         return data;
       }
 catch (      RuntimeException e) {
@@ -107,7 +103,6 @@ catch (      RuntimeException e) {
           data.result=new Object[]{"IOException"};
         }
         data.success=false;
-        data.data=new Object[]{mediaUsn};
         return data;
       }
     }
@@ -171,7 +166,6 @@ catch (      RuntimeException e) {
     Integer code=e.getResponseCode();
     String msg=e.getLocalizedMessage();
     data.result=new Object[]{"error",code,msg};
-    data.data=new Object[]{mediaUsn};
     return data;
   }
 catch (  Exception e) {
