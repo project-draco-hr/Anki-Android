@@ -86,7 +86,7 @@
         updateFieldCache(Utils.arrayList2array(mModels.nids(m)));
       }
       mDb.execute("UPDATE cards SET due = 1000000, mod = " + Utils.intNow() + ", usn = "+ usn()+ " WHERE due > 1000000 AND queue = 0");
-      mConf.put("nextPos",mDb.queryScalar("SELECT max(due) + 1 FROM cards WHERE type = 0",false));
+      mConf.put("nextPos",mDb.queryScalar("SELECT max(due) + 1 FROM cards WHERE type = 0"));
       ids=mDb.queryColumn(Long.class,"SELECT id FROM cards WHERE queue = 2 AND due > 10000",0);
       if (ids.size() > 0) {
         problems.add("Reviews had incorrect due date.");
