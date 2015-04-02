@@ -6,4 +6,5 @@
   }
   ft.addToBackStack("dialog");
   newFragment.show(ft,"dialog");
+  getSupportFragmentManager().executePendingTransactions();
 }
