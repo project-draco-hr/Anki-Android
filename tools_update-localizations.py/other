@@ -12,6 +12,7 @@ import string
 import re
 import difflib
 import subprocess
+from os.path import expanduser
 build()
 zipname = 'ankidroid.zip'
 print 'Downloading Crowdin file'

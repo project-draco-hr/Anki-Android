@@ -1,6 +1,11 @@
 def build():
     try:
-        c = open('tools/crowdin_key.txt', 'r+')
+        try:
+            p = os.path.join(expanduser('~'), 'src', 'crowdin_key.txt')
+            print p
+            c = open(p, 'r+')
+        except IOError as e0:
+            c = open('tools/crowdin_key.txt', 'r+')
         CROWDIN_KEY = c.readline()
         c.close()
         print 'Building ZIP on server...'
