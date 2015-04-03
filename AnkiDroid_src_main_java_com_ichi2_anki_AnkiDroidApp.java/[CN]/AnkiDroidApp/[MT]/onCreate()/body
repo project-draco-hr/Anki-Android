@@ -17,7 +17,7 @@
   setLanguage(preferences.getString(Preferences.LANGUAGE,""));
   CompatHelper.getCompat().enableCookiesForFileSchemePages();
   final ViewConfiguration vc=ViewConfiguration.get(this);
-  DEFAULT_SWIPE_MIN_DISTANCE=CompatHelper.getCompat().getScaledPagingTouchSlop(vc);
+  DEFAULT_SWIPE_MIN_DISTANCE=vc.getScaledPagingTouchSlop();
   DEFAULT_SWIPE_THRESHOLD_VELOCITY=vc.getScaledMinimumFlingVelocity();
   try {
     String dir=CollectionHelper.getCurrentAnkiDroidDirectory(this);

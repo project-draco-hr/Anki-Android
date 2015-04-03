@@ -22,7 +22,7 @@
         if (eta != -1) {
           time=res.getQuantityString(R.plurals.deckpicker_title_minutes,eta,eta);
         }
-        CompatHelper.getCompat().setSubtitle(DeckPicker.this,res.getQuantityString(R.plurals.deckpicker_title,due,due,time));
+        UIUtils.setSubtitle(DeckPicker.this,res.getQuantityString(R.plurals.deckpicker_title,due,due,time));
       }
       Long current=getCol().getDecks().current().optLong("id");
       if (!deckIsShown(nodes,current)) {
@@ -32,7 +32,7 @@
         mFocusedDeck=current;
       }
       WidgetStatus.update(DeckPicker.this,nodes);
-      CompatHelper.getCompat().invalidateOptionsMenu(DeckPicker.this);
+      supportInvalidateOptionsMenu();
       AnkiStatsTaskHandler.createSmallTodayOverview(getCol(),mTodayTextView);
     }
     @Override public void onProgressUpdate(    TaskData... values){
