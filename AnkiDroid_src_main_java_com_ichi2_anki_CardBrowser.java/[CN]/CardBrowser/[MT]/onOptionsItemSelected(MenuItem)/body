@@ -8,6 +8,17 @@ case R.id.action_add_card_from_card_browser:
   intent.putExtra(NoteEditor.EXTRA_CALLER,NoteEditor.CALLER_CARDBROWSER_ADD);
 startActivityForResultWithAnimation(intent,ADD_NOTE,ActivityTransitionAnimation.LEFT);
 return true;
+case R.id.action_list_my_searches:
+JSONObject savedFiltersObj=getCol().getConf().optJSONObject("savedFilters");
+ArrayList<String> savedFilters=new ArrayList<String>();
+if (savedFiltersObj != null) {
+Iterator<String> it=savedFiltersObj.keys();
+while (it.hasNext()) {
+savedFilters.add(it.next());
+}
+}
+showDialogFragment(CardBrowserMySearchesDialog.newInstance(savedFilters,mMySearchDialogListener));
+return true;
 case R.id.action_sort_by_size:
 showDialogFragment(CardBrowserOrderDialog.newInstance(mOrder,mOrderAsc,mOrderDialogListener));
 return true;

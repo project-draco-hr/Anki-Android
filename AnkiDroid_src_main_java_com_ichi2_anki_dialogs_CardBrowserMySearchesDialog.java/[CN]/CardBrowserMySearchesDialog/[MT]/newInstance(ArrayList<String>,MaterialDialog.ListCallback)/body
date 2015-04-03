@@ -1,0 +1,8 @@
+{
+  mMySearchesDialogListener=mySearchesDialogListener;
+  CardBrowserMySearchesDialog m=new CardBrowserMySearchesDialog();
+  Bundle args=new Bundle();
+  args.putStringArrayList("savedFilters",savedFilters);
+  m.setArguments(args);
+  return m;
+}

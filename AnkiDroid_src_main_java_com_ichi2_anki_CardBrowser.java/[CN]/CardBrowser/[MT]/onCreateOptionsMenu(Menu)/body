@@ -1,7 +1,7 @@
 {
   getMenuInflater().inflate(R.menu.card_browser,menu);
-  MenuItem searchItem=menu.findItem(R.id.action_search);
-  MenuItemCompat.setOnActionExpandListener(searchItem,new MenuItemCompat.OnActionExpandListener(){
+  mSearchItem=menu.findItem(R.id.action_search);
+  MenuItemCompat.setOnActionExpandListener(mSearchItem,new MenuItemCompat.OnActionExpandListener(){
     @Override public boolean onMenuItemActionExpand(    MenuItem item){
       return true;
     }
@@ -13,7 +13,7 @@
     }
   }
 );
-  mSearchView=(SearchView)MenuItemCompat.getActionView(searchItem);
+  mSearchView=(SearchView)MenuItemCompat.getActionView(mSearchItem);
   mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
     @Override public boolean onQueryTextChange(    String newText){
       return true;
