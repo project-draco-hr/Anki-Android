@@ -14,13 +14,7 @@
  else   if (getSdkVersion() >= 9) {
     mCompat=new CompatV9();
   }
- else   if (getSdkVersion() >= 8) {
-    mCompat=new CompatV8();
-  }
- else   if (isNook() && getSdkVersion() == 7) {
-    mCompat=new CompatV7Nook();
-  }
  else {
-    mCompat=new CompatV7();
+    mCompat=new CompatV8();
   }
 }

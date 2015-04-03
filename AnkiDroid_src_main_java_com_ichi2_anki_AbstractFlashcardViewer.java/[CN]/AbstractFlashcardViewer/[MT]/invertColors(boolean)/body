@@ -15,5 +15,8 @@
   if (mCard != null) {
     mCard.setBackgroundColor(mCurrentBackgroundColor);
   }
-  CompatHelper.getCompat().setActionBarBackground(this,invert ? R.color.white_background_night : R.color.theme_primary);
+  ActionBar actionBar=getSupportActionBar();
+  if (actionBar != null) {
+    actionBar.setBackgroundDrawable(new ColorDrawable(res.getColor(invert ? R.color.white_background_night : R.color.theme_primary)));
+  }
 }

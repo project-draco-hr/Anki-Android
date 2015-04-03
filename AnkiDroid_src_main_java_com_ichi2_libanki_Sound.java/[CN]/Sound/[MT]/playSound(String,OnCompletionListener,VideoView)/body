@@ -42,7 +42,7 @@
         sMediaPlayer.setOnCompletionListener(playAllListener);
       }
       sMediaPlayer.prepareAsync();
-      CompatHelper.getCompat().requestAudioFocus(sAudioManager);
+      sAudioManager.requestAudioFocus(afChangeListener,AudioManager.STREAM_MUSIC,AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK);
     }
  catch (    Exception e) {
       Timber.e(e,"playSounds - Error reproducing sound %s",soundPath);

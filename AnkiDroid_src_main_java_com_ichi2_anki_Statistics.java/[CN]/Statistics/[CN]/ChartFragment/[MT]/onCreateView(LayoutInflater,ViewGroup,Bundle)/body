@@ -26,7 +26,7 @@
     try {
       Collection col=CollectionHelper.getInstance().getCol(getActivity());
       List<String> parts=Arrays.asList(col.getDecks().current().getString("name").split("::"));
-      if (sIsSubtitle)       CompatHelper.getCompat().setSubtitle(getActivity(),parts.get(parts.size() - 1));
+      if (sIsSubtitle)       UIUtils.setSubtitle(getActivity(),parts.get(parts.size() - 1));
  else       getActivity().setTitle(parts.get(parts.size() - 1));
     }
  catch (    JSONException e) {
@@ -34,7 +34,7 @@
     }
   }
  else {
-    if (sIsSubtitle)     CompatHelper.getCompat().setSubtitle(getActivity(),getResources().getString(R.string.stats_deck_collection));
+    if (sIsSubtitle)     UIUtils.setSubtitle(getActivity(),getResources().getString(R.string.stats_deck_collection));
  else     getActivity().setTitle(getResources().getString(R.string.stats_deck_collection));
   }
   return rootView;

@@ -4,7 +4,7 @@
     sMediaPlayer=null;
   }
   if (sAudioManager != null) {
-    CompatHelper.getCompat().abandonAudioFocus(sAudioManager);
+    sAudioManager.abandonAudioFocus(afChangeListener);
     sAudioManager=null;
   }
 }

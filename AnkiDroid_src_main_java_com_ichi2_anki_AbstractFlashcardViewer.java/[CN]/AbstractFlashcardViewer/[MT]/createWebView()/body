@@ -11,7 +11,7 @@
   webView.getSettings().setJavaScriptEnabled(true);
   webView.setWebChromeClient(new AnkiDroidWebChromeClient());
   webView.setFocusableInTouchMode(false);
-  CompatHelper.getCompat().setScrollbarFadingEnabled(webView,false);
+  webView.setScrollbarFadingEnabled(false);
   Timber.d("Focusable = %s, Focusable in touch mode = %s",webView.isFocusable(),webView.isFocusableInTouchMode());
   webView.setWebViewClient(new WebViewClient(){
     @Override public boolean shouldOverrideUrlLoading(    WebView view,    String url){
