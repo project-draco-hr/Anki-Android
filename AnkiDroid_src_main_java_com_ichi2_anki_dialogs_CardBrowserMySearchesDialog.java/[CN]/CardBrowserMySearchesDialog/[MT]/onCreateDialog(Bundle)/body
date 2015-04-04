@@ -1,0 +1,23 @@
+{
+  super.onCreate(savedInstanceState);
+  Resources res=getResources();
+  ArrayList<String> savedFilters=getArguments().getStringArrayList("savedFilters");
+  Collections.sort(savedFilters,new Comparator<String>(){
+    @Override public int compare(    String lhs,    String rhs){
+      return lhs.compareToIgnoreCase(rhs);
+    }
+  }
+);
+  CharSequence[] items=new CharSequence[savedFilters.size()];
+  for (int i=0; i < items.length; i++) {
+    items[i]=savedFilters.get(i);
+  }
+  MaterialDialog.Builder builder=new MaterialDialog.Builder(getActivity());
+  if (items.length > 0) {
+    builder.title(res.getString(R.string.card_browser_list_my_searches_title)).items(items).itemsCallback(mMySearchesDialogListener);
+  }
+ else {
+    builder.title(res.getString(R.string.card_browser_list_my_searches_empty_title)).content(res.getString(R.string.card_browser_list_my_searches_empty)).positiveText(res.getString(R.string.ok));
+  }
+  return builder.build();
+}
