@@ -1,5 +1,10 @@
 {
   getMenuInflater().inflate(R.menu.card_browser,menu);
+  mSaveSearchItem=menu.findItem(R.id.action_save_search);
+  mSaveSearchItem.setVisible(false);
+  mMySearchesItem=menu.findItem(R.id.action_list_my_searches);
+  JSONObject savedFiltersObj=getCol().getConf().optJSONObject("savedFilters");
+  mMySearchesItem.setVisible(savedFiltersObj != null && savedFiltersObj.length() > 0);
   mSearchItem=menu.findItem(R.id.action_search);
   MenuItemCompat.setOnActionExpandListener(mSearchItem,new MenuItemCompat.OnActionExpandListener(){
     @Override public boolean onMenuItemActionExpand(    MenuItem item){
@@ -16,6 +21,7 @@
   mSearchView=(SearchView)MenuItemCompat.getActionView(mSearchItem);
   mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
     @Override public boolean onQueryTextChange(    String newText){
+      mSaveSearchItem.setVisible(!TextUtils.isEmpty(newText));
       return true;
     }
     @Override public boolean onQueryTextSubmit(    String query){

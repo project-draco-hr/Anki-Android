@@ -1,0 +1,9 @@
+{
+  Collections.sort(mSavedFiltersNames,new Comparator<String>(){
+    @Override public int compare(    String lhs,    String rhs){
+      return lhs.compareToIgnoreCase(rhs);
+    }
+  }
+);
+  super.notifyDataSetChanged();
+}

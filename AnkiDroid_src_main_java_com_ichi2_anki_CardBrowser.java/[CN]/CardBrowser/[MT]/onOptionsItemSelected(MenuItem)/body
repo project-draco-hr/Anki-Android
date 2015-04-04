@@ -8,16 +8,21 @@ case R.id.action_add_card_from_card_browser:
   intent.putExtra(NoteEditor.EXTRA_CALLER,NoteEditor.CALLER_CARDBROWSER_ADD);
 startActivityForResultWithAnimation(intent,ADD_NOTE,ActivityTransitionAnimation.LEFT);
 return true;
+case R.id.action_save_search:
+String searchTerms=mSearchView.getQuery().toString();
+showDialogFragment(CardBrowserMySearchesDialog.newInstance(null,mMySearchesDialogListener,searchTerms,CardBrowserMySearchesDialog.CARD_BROWSER_MY_SEARCHES_TYPE_SAVE));
+return true;
 case R.id.action_list_my_searches:
 JSONObject savedFiltersObj=getCol().getConf().optJSONObject("savedFilters");
-ArrayList<String> savedFilters=new ArrayList<String>();
+HashMap<String,String> savedFilters=new HashMap<String,String>();
 if (savedFiltersObj != null) {
 Iterator<String> it=savedFiltersObj.keys();
 while (it.hasNext()) {
-savedFilters.add(it.next());
+String searchName=it.next();
+savedFilters.put(searchName,savedFiltersObj.optString(searchName));
 }
 }
-showDialogFragment(CardBrowserMySearchesDialog.newInstance(savedFilters,mMySearchDialogListener));
+showDialogFragment(CardBrowserMySearchesDialog.newInstance(savedFilters,mMySearchesDialogListener,"",CardBrowserMySearchesDialog.CARD_BROWSER_MY_SEARCHES_TYPE_LIST));
 return true;
 case R.id.action_sort_by_size:
 showDialogFragment(CardBrowserOrderDialog.newInstance(mOrder,mOrderAsc,mOrderDialogListener));

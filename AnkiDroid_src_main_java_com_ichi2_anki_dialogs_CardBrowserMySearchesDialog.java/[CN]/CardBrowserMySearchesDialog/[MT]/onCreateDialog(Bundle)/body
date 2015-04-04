@@ -1,23 +1,36 @@
 {
   super.onCreate(savedInstanceState);
-  Resources res=getResources();
-  ArrayList<String> savedFilters=getArguments().getStringArrayList("savedFilters");
-  Collections.sort(savedFilters,new Comparator<String>(){
-    @Override public int compare(    String lhs,    String rhs){
-      return lhs.compareToIgnoreCase(rhs);
+  final Resources res=getResources();
+  final MaterialDialog.Builder builder=new MaterialDialog.Builder(getActivity());
+  int type=getArguments().getInt("type");
+  if (type == CARD_BROWSER_MY_SEARCHES_TYPE_LIST) {
+    mSavedFilters=(HashMap<String,String>)getArguments().getSerializable("savedFilters");
+    mSearchesAdapter=new MySearchesArrayAdapter(getActivity(),new ArrayList<String>(mSavedFilters.keySet()));
+    mSearchesAdapter.notifyDataSetChanged();
+    builder.title(res.getString(R.string.card_browser_list_my_searches_title)).adapter(mSearchesAdapter,new MaterialDialog.ListCallback(){
+      @Override public void onSelection(      MaterialDialog dialog,      View itemView,      int which,      CharSequence text){
+        mMySearchesDialogListener.OnSelection(mSearchesAdapter.getItem(which));
+        dialog.dismiss();
+      }
     }
-  }
 );
-  CharSequence[] items=new CharSequence[savedFilters.size()];
-  for (int i=0; i < items.length; i++) {
-    items[i]=savedFilters.get(i);
   }
-  MaterialDialog.Builder builder=new MaterialDialog.Builder(getActivity());
-  if (items.length > 0) {
-    builder.title(res.getString(R.string.card_browser_list_my_searches_title)).items(items).itemsCallback(mMySearchesDialogListener);
+ else   if (type == CARD_BROWSER_MY_SEARCHES_TYPE_SAVE) {
+    mCurrentSearchTerms=getArguments().getString("currentSearchTerms");
+    builder.title(getString(R.string.card_browser_list_my_searches_save)).positiveText(getString(R.string.ok)).negativeText(getString(R.string.cancel)).input(R.string.card_browser_list_my_searches_new_name,R.string.empty_string,new MaterialDialog.InputCallback(){
+      @Override public void onInput(      MaterialDialog dialog,      CharSequence text){
+        mMySearchesDialogListener.OnSaveSearch(text.toString(),mCurrentSearchTerms);
+      }
+    }
+);
   }
- else {
-    builder.title(res.getString(R.string.card_browser_list_my_searches_empty_title)).content(res.getString(R.string.card_browser_list_my_searches_empty)).positiveText(res.getString(R.string.ok));
+  MaterialDialog dialog=builder.build();
+  if (dialog.getListView() != null) {
+    dialog.getListView().setDivider(new ColorDrawable(res.getColor(R.color.material_grey_600)));
+    dialog.getListView().setDividerHeight(1);
+    float scale=res.getDisplayMetrics().density;
+    int dpAsPixels=(int)(5 * scale + 0.5f);
+    dialog.getView().setPadding(dpAsPixels,0,dpAsPixels,dpAsPixels);
   }
-  return builder.build();
+  return dialog;
 }

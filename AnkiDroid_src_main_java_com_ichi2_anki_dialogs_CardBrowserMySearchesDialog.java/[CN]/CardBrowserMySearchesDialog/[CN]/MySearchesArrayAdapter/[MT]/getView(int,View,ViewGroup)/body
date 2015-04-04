@@ -1,0 +1,24 @@
+{
+  ViewHolder viewHolder=null;
+  if (convertView == null) {
+    viewHolder=new ViewHolder();
+    LayoutInflater inflater=(LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    convertView=inflater.inflate(R.layout.card_browser_item_my_searches_dialog,parent,false);
+    viewHolder.mSearchName=(TextView)convertView.findViewById(R.id.card_browser_my_search_name_textview);
+    viewHolder.mSearchTerms=(TextView)convertView.findViewById(R.id.card_browser_my_search_terms_textview);
+    viewHolder.mRemoveButton=(ImageButton)convertView.findViewById(R.id.card_browser_my_search_remove_button);
+    convertView.setTag(viewHolder);
+  }
+ else {
+    viewHolder=(ViewHolder)convertView.getTag();
+  }
+  viewHolder.mSearchName.setText(getItem(position));
+  viewHolder.mSearchTerms.setText(mSavedFilters.get(getItem(position)));
+  viewHolder.mRemoveButton.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View view){
+      CardBrowserMySearchesDialog.this.removeSearch(getItem(position));
+    }
+  }
+);
+  return convertView;
+}
