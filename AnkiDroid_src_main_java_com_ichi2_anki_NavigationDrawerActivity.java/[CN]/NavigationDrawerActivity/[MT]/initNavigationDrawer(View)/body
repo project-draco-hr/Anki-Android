@@ -14,11 +14,9 @@
   getSupportActionBar().setHomeButtonEnabled(true);
   mDrawerToggle=new ActionBarDrawerToggle(this,mDrawerLayout,R.drawable.ic_menu_white_24dp,R.string.drawer_open,R.string.drawer_close){
     public void onDrawerClosed(    View view){
-      getSupportActionBar().setTitle(mTitle);
       supportInvalidateOptionsMenu();
     }
     public void onDrawerOpened(    View drawerView){
-      getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
       supportInvalidateOptionsMenu();
     }
   }
