@@ -42,6 +42,14 @@ default :
 }
  else {
 dialogFragment=CustomStudyDialog.newInstance(which);
+((CustomStudyDialog)dialogFragment).setCustomStudyDialogListener(new CustomStudyDialog.CustomStudyDialogListener(){
+@Override public void onPositive(int option){
+  if (option == CustomStudyDialog.CUSTOM_STUDY_NEW || option == CustomStudyDialog.CUSTOM_STUDY_REV) {
+    refreshInterfaceAndDecklist(true);
+  }
+}
+}
+);
 }
 ((AnkiActivity)getActivity()).showDialogFragment(dialogFragment);
 }
