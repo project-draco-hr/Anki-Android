@@ -14,7 +14,8 @@
     @Override public void onPositive(    MaterialDialog dialog){
       Collection col;
       int n=Integer.parseInt(mEditText.getText().toString());
-switch (getArguments().getInt("id")) {
+      int choice=getArguments().getInt("id");
+switch (choice) {
 case CUSTOM_STUDY_NEW:
         col=CollectionHelper.getInstance().getCol(getActivity());
       if (col == null || col.getDb() == null) {
@@ -71,6 +72,7 @@ break;
 default :
 break;
 }
+mCustomStudyDialogListener.onPositive(choice);
 }
 @Override public void onNegative(MaterialDialog dialog){
 ((AnkiActivity)getActivity()).dismissAllDialogFragments();
