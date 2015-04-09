@@ -2,7 +2,9 @@
   mMySearchesDialogListener=mySearchesDialogListener;
   CardBrowserMySearchesDialog m=new CardBrowserMySearchesDialog();
   Bundle args=new Bundle();
-  args.putStringArrayList("savedFilters",savedFilters);
+  args.putSerializable("savedFilters",savedFilters);
+  args.putInt("type",type);
+  args.putString("currentSearchTerms",currentSearchTerms);
   m.setArguments(args);
   return m;
 }
