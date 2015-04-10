@@ -1,5 +1,11 @@
 {
-  String searchText=mRestrictOnDeck + mSearchTerms;
+  String searchText;
+  if (mSearchTerms.contains("deck:")) {
+    searchText=mSearchTerms;
+  }
+ else {
+    searchText=mRestrictOnDeck + mSearchTerms;
+  }
   if (colIsOpen()) {
     getCards().clear();
     DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SEARCH_CARDS,mSearchCardsHandler,new DeckTask.TaskData(new Object[]{getCol(),mDeckNames,searchText,((mOrder != CARD_ORDER_NONE))}));
