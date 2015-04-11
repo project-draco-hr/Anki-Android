@@ -5,11 +5,22 @@
   Resources res=getResources();
   WebView webView;
   mType=getIntent().getIntExtra(TYPE_EXTRA,TYPE_ABOUT);
-  setTitle(String.format("%s v%s",AnkiDroidApp.getAppName(),AnkiDroidApp.getPkgVersionName()));
   setContentView(R.layout.info);
+  final View mainView=findViewById(android.R.id.content);
+  Toolbar toolbar=(Toolbar)mainView.findViewById(R.id.toolbar);
+  if (toolbar != null) {
+    setSupportActionBar(toolbar);
+  }
+  setTitle(String.format("%s v%s",VersionUtils.getAppName(),VersionUtils.getPkgVersionName()));
   webView=(WebView)findViewById(R.id.info);
-  webView.setBackgroundColor(res.getColor(Themes.getBackgroundColor()));
-  Themes.setWallpaper((View)webView.getParent().getParent().getParent());
+  webView.setWebChromeClient(new WebChromeClient(){
+    public void onProgressChanged(    WebView view,    int progress){
+      if (progress == 100) {
+        mainView.findViewById(R.id.progress_bar).setVisibility(View.GONE);
+      }
+    }
+  }
+);
   TextView termsAndConditionsView=(TextView)findViewById(R.id.info_terms_and_conditions);
   termsAndConditionsView.setMovementMethod(LinkMovementMethod.getInstance());
   Button continueButton=(Button)findViewById(R.id.info_continue);
@@ -28,7 +39,7 @@
       setResult(RESULT_OK);
 switch (mType) {
 case TYPE_NEW_VERSION:
-        AnkiDroidApp.getSharedPrefs(Info.this.getBaseContext()).edit().putString("lastVersion",AnkiDroidApp.getPkgVersionName()).commit();
+        AnkiDroidApp.getSharedPrefs(Info.this.getBaseContext()).edit().putString("lastVersion",VersionUtils.getPkgVersionName()).commit();
       break;
   }
   finishWithAnimation();
@@ -59,7 +70,8 @@ copyDebugInfo();
 );
 break;
 case TYPE_NEW_VERSION:
-webView.loadUrl(res.getString(R.string.changelog_url));
+getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+webView.loadUrl("file:///android_asset/changelog.html");
 break;
 default :
 finish();
