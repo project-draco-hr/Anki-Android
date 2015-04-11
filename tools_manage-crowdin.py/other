@@ -1,0 +1,34 @@
+import pycurl
+import StringIO
+import sys
+import string
+import os
+from os.path import expanduser
+CROWDIN_KEY = ''
+PROJECT_IDENTIFIER = 'ankidroid'
+path = './AnkiDroid/src/main/res/values/'
+files = ['01-core', '02-strings', '03-dialogs', '04-network', '05-feedback', '06-statistics', '07-cardbrowser', '08-widget', '09-backup', '10-preferences', '11-arrays', '14-marketdescription', '16-multimedia-editor']
+alllang = ['ar', 'ca', 'cs', 'de', 'el', 'es-AR', 'es-ES', 'fa', 'fi', 'fr', 'hu', 'id', 'it', 'ja', 'ko', 'nl', 'pl', 'pt-PT', 'pt-BR', 'ro', 'ru', 'sr', 'sv-SE', 'th', 'tr', 'vi', 'zh-CN', 'zh-TW']
+'def uploadtranslation(language, filename, sourcefile):\n    if len(language) > 2:\n        pathlan = string.replace(language, \'-\', \'-r\')\n        if not os.path.exists(\'./res/values-\' + pathlan):\n            pathlan = pathlan[:2]\n    else:\n        pathlan = language\n    path = \'./res/values-\' + pathlan + \'/\'\n    filename = filename + \'.xml\'\n#   if selu == \'s\':\n#       filename = \'strings.xml\'\n#   elif selu == \'a\':\n#       filename = \'arrays.xml\'\n#   else:\n#       filename = \'\'       \n#       print "nothing to do"\n    print \'Update of Translation \'+language+\' for \'+filename\n    if filename:\n        if language:\n            c = pycurl.Curl()\n            fields = [(\'files[\'+filename+\']\', (c.FORM_FILE, path + sourcefile + \'.xml\')), (\'language\', language), (\'auto_approve_imported\',\'0\'), (\'import_eq_suggestions\',\'0\')]\n            c.setopt(pycurl.URL, \'https://api.crowdin.com/api/project/\' + PROJECT_IDENTIFIER + \'/upload-translation?key=\' + CROWDIN_KEY)\n            c.setopt(pycurl.HTTPPOST, fields)\n            b = StringIO.StringIO()\n            c.setopt(pycurl.WRITEFUNCTION, b.write) \n            c.perform()\n            c.close()\n            print b.getvalue()\n        else:\n            print \'no language code entered\'\n'
+try:
+    try:
+        p = os.path.join(expanduser('~'), 'src', 'crowdin_key.txt')
+        print p
+        c = open(p, 'r+')
+    except IOError as e0:
+        c = open('tools/crowdin_key.txt', 'r+')
+    CROWDIN_KEY = c.readline()
+    c.close()
+except IOError as e:
+    CROWDIN_KEY = raw_input("please enter your crowdin key or create 'crowdin_key.txt': ")
+sel = 'm'
+if (sel == 'm'):
+    fn = raw_input((('update ' + ', '.join([str(x) for x in files])) + ', (all)?'))
+    if (fn == 'all'):
+        for n in range(0, len(files)):
+            updateMasterFile(files[n])
+    else:
+        updateMasterFile(fn)
+else:
+    print 'nothing to do'
+'\nelif sel == \'t\':\n    # Update Translations:\n    print \'still problems with crowding here\'\n    language = raw_input("enter language code: ")\n    selu = raw_input("update 0(1)-core, 0(2)-strings, 0(3)-dialogs, 0(4)-network, 0(5)-feedback, 0(6)-statistics, 0(7)-cardbrowser, 0(8)-widget, 0(9)-backup, (10)-preferences, (11)-arrays, (13)-newfeatures? ")\n    if selu == \'12\' or selu == \'14\':\n        print "translations of this file cannot be uploaded"\n    elif selu != \'all\':\n        defaultSource = files[int(selu)-1]\n        sourcefile = raw_input("enter source file (default: " + defaultSource + "): ")\n        if sourcefile == "":\n            sourcefile = defaultSource\n    if language == \'all\':\n        for language in alllang:\n            if selu == \'all\':\n                for s in files:\n                    uploadtranslation(language, s, s)\n            else:\n                uploadtranslation(language, files[int(selu)-1], sourcefile)\n    elif selu == \'all\':\n        for s in files:\n            uploadtranslation(language, s, s)\n    else:\n        uploadtranslation(language, files[int(selu)-1], sourcefile)\n\nelif sel == \'r\':\n    # Update Translations:\n    print "Force translation export"\n    c = pycurl.Curl()\n    c.setopt(pycurl.URL, \'https://api.crowdin.com/api/project/\' + PROJECT_IDENTIFIER + \'/export?&key=\' + CROWDIN_KEY)\n    b = StringIO.StringIO()\n    c.setopt(pycurl.WRITEFUNCTION, b.write) \n    c.perform()\n    c.close()\n    print b.getvalue()\n'
