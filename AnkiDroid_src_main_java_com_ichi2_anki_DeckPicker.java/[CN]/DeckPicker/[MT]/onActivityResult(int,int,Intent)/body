@@ -1,7 +1,7 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
   if (resultCode == RESULT_MEDIA_EJECTED) {
-    showSdCardNotMountedDialog();
+    onSdCardNotMounted();
     return;
   }
  else   if (resultCode == RESULT_DB_ERROR) {

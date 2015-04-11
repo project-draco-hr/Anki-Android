@@ -1,6 +1,6 @@
 {
   if (!AnkiDroidApp.isSdCardMounted()) {
-    showSdCardNotMountedDialog();
+    onSdCardNotMounted();
   }
  else   if (!CollectionHelper.isCurrentAnkiDroidDirAccessible(this)) {
     Intent i=new Intent(this,Preferences.class);

@@ -1,9 +1,0 @@
-{
-  final AnkiActivity activity=(AnkiActivity)getContext();
-  activity.runOnUiThread(new Runnable(){
-    public void run(){
-      activity.setOpeningCollectionDialogMessage(message);
-    }
-  }
-);
-}
