@@ -1,7 +1,7 @@
 {
   Timber.d("AnkiActivity.startLoadingCollection()");
   if (!colIsOpen()) {
-    showOpeningCollectionDialog();
+    showProgressBar();
   }
   getSupportLoaderManager().restartLoader(0,null,this);
 }

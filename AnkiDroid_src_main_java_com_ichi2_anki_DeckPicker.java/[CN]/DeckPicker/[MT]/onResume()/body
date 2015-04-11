@@ -1,9 +1,9 @@
 {
   Timber.d("onResume()");
   super.onResume();
-  if (colIsOpen() && AnkiDroidApp.isSdCardMounted()) {
+  if (colIsOpen()) {
     updateDeckList();
-    dismissOpeningCollectionDialog();
+    hideProgressBar();
   }
   setTitle(getResources().getString(R.string.app_name));
   sIsWholeCollection=!mFragmented;

@@ -1,9 +1,6 @@
 {
   Timber.d("onCreate()");
   Intent intent=getIntent();
-  if (intent.getCategories() != null || !colIsOpen()) {
-    showOpeningCollectionDialog();
-  }
   Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());

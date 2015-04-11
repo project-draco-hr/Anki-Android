@@ -1,7 +1,6 @@
 {
   Timber.d("startLoadingCollection()");
-  if (CollectionHelper.getInstance().getCol(getActivity()) == null) {
-    showCollectionLoadingDialog();
-  }
+  AnkiActivity activity=(AnkiActivity)getActivity();
+  activity.showProgressBar();
   getLoaderManager().initLoader(0,null,this);
 }

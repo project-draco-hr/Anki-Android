@@ -6,7 +6,7 @@
   }
   refreshInterface(true);
   setHasOptionsMenu(true);
-  dismissCollectionLoadingDialog();
+  ((AnkiActivity)getActivity()).hideProgressBar();
   if (mFragmented) {
     ((DeckPicker)getActivity()).reloadShowcaseView();
   }

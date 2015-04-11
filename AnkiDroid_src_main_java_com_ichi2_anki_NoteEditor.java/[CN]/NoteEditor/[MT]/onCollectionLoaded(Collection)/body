@@ -185,5 +185,5 @@ showTagsDialog();
 if (!mAddNote && mCurrentEditedCard != null) {
 Timber.i("NoteEditor:: Edit note activity successfully started with card id %d",mCurrentEditedCard.getId());
 }
-dismissOpeningCollectionDialog();
+hideProgressBar();
 }
