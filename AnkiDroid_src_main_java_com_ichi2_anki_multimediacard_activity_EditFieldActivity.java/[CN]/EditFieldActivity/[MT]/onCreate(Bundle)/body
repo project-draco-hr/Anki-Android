@@ -8,6 +8,11 @@
     }
   }
   setContentView(R.layout.activity_edit_text);
+  View mainView=findViewById(android.R.id.content);
+  Toolbar toolbar=(Toolbar)mainView.findViewById(R.id.toolbar);
+  if (toolbar != null) {
+    setSupportActionBar(toolbar);
+  }
   mField=(IField)this.getIntent().getExtras().getSerializable(EXTRA_FIELD);
   mNote=(IMultimediaEditableNote)this.getIntent().getSerializableExtra(EXTRA_WHOLE_NOTE);
   mFieldIndex=this.getIntent().getIntExtra(EXTRA_FIELD_INDEX,0);
