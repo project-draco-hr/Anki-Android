@@ -5,7 +5,7 @@
     mPostVars.put("s",mSKey);
     JSONObject jo=new JSONObject();
     jo.put("v",Consts.SYNC_VER);
-    jo.put("cv",String.format(Locale.US,"ankidroid,%s,%s",AnkiDroidApp.getPkgVersionName(),Utils.platDesc()));
+    jo.put("cv",String.format(Locale.US,"ankidroid,%s,%s",VersionUtils.getPkgVersionName(),Utils.platDesc()));
     return super.req("meta",super.getInputStream(Utils.jsonToString(jo)));
   }
  catch (  JSONException e) {

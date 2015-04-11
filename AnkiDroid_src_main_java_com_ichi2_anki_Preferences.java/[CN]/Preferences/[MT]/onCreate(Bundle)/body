@@ -74,7 +74,7 @@
     }
   }
 );
-  dialogPreference.setSummary(getResources().getString(R.string.about_version) + " " + AnkiDroidApp.getPkgVersionName());
+  dialogPreference.setSummary(getResources().getString(R.string.about_version) + " " + VersionUtils.getPkgVersionName());
   Preference fullSyncPreference=getPreferenceScreen().findPreference("force_full_sync");
   fullSyncPreference.setOnPreferenceClickListener(new OnPreferenceClickListener(){
     public boolean onPreferenceClick(    Preference preference){

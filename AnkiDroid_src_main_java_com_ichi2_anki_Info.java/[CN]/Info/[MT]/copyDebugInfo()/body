@@ -1,6 +1,6 @@
 {
   StringBuilder sb=new StringBuilder();
-  sb.append("AnkiDroid Version = ").append(AnkiDroidApp.getPkgVersionName()).append("\n\n");
+  sb.append("AnkiDroid Version = ").append(VersionUtils.getPkgVersionName()).append("\n\n");
   sb.append("Android Version = " + Build.VERSION.RELEASE).append("\n\n");
   sb.append("ACRA UUID = ").append(Installation.id(this)).append("\n");
   String debugInfo=sb.toString();

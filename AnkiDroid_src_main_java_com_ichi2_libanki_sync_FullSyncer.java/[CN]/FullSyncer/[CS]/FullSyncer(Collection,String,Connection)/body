@@ -2,7 +2,7 @@
   super(hkey,con);
   mPostVars=new HashMap<String,Object>();
   mPostVars.put("k",hkey);
-  mPostVars.put("v",String.format(Locale.US,"ankidroid,%s,%s",AnkiDroidApp.getPkgVersionName(),Utils.platDesc()));
+  mPostVars.put("v",String.format(Locale.US,"ankidroid,%s,%s",VersionUtils.getPkgVersionName(),Utils.platDesc()));
   mCol=col;
   mCon=con;
 }

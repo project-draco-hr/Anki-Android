@@ -1,6 +1,6 @@
 {
-  String pkgName=TAG;
-  Context context=sInstance.getApplicationContext();
+  String pkgName=AnkiDroidApp.TAG;
+  Context context=AnkiDroidApp.getInstance();
   try {
     PackageInfo pInfo=context.getPackageManager().getPackageInfo(context.getPackageName(),0);
     pkgName=context.getString(pInfo.applicationInfo.labelRes);

@@ -3,7 +3,7 @@
   mDb=db;
   mPath=path;
   _openLog();
-  log(path,AnkiDroidApp.getPkgVersionName());
+  log(path,VersionUtils.getPkgVersionName());
   mServer=server;
   mLastSave=Utils.now();
   clearUndo();
