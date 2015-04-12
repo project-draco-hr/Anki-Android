@@ -11,5 +11,5 @@
     Timber.e("MyAccount.logout()  reinitializing media db due to sqlite error");
     getCol().getMedia()._initDB();
   }
-  setContentView(mLoginToMyAccountView);
+  switchToState(STATE_LOG_IN);
 }

@@ -1,8 +1,5 @@
 {
   mLoginToMyAccountView=getLayoutInflater().inflate(R.layout.my_account,null);
-  Themes.setWallpaper(mLoginToMyAccountView);
-  Themes.setTextViewStyle(mLoginToMyAccountView.findViewById(R.id.MyAccountLayout));
-  Themes.setTextViewStyle(mLoginToMyAccountView.findViewById(R.id.no_account_text));
   mUsername=(EditText)mLoginToMyAccountView.findViewById(R.id.username);
   mPassword=(EditText)mLoginToMyAccountView.findViewById(R.id.password);
   Button loginButton=(Button)mLoginToMyAccountView.findViewById(R.id.login_button);
@@ -22,13 +19,11 @@
   Button signUpButton=(Button)mLoginToMyAccountView.findViewById(R.id.sign_up_button);
   signUpButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View v){
-      setContentView(mRegisterView);
+      switchToState(STATE_ACCOUNT_SIGN_UP);
     }
   }
 );
   mLoggedIntoMyAccountView=getLayoutInflater().inflate(R.layout.my_account_logged_in,null);
-  Themes.setWallpaper(mLoggedIntoMyAccountView);
-  Themes.setTitleStyle(mLoggedIntoMyAccountView.findViewById(R.id.logged_text));
   mUsernameLoggedIn=(TextView)mLoggedIntoMyAccountView.findViewById(R.id.username_logged_in);
   Button logoutButton=(Button)mLoggedIntoMyAccountView.findViewById(R.id.logout_button);
   logoutButton.setOnClickListener(new OnClickListener(){
@@ -38,7 +33,6 @@
   }
 );
   mRegisterView=getLayoutInflater().inflate(R.layout.my_account_register,null);
-  Themes.setWallpaper(mRegisterView);
   mUsername1=(EditText)mRegisterView.findViewById(R.id.username1);
   mPassword1=(EditText)mRegisterView.findViewById(R.id.password1);
   mUsername2=(EditText)mRegisterView.findViewById(R.id.username2);
@@ -60,7 +54,7 @@
   Button cancelButton=(Button)mRegisterView.findViewById(R.id.cancel_button);
   cancelButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View v){
-      finishWithAnimation(ActivityTransitionAnimation.FADE);
+      switchToState(STATE_LOG_IN);
     }
   }
 );
