@@ -8,6 +8,7 @@
   }
   if (colIsOpen()) {
     getCards().clear();
+    mCardsAdapter.notifyDataSetChanged();
     DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SEARCH_CARDS,mSearchCardsHandler,new DeckTask.TaskData(new Object[]{getCol(),mDeckNames,searchText,((mOrder != CARD_ORDER_NONE))}));
   }
 }
