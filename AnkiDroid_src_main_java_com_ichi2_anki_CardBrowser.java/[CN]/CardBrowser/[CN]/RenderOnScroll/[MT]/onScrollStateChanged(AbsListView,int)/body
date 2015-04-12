@@ -4,6 +4,6 @@
   if (scrollState == SCROLL_STATE_IDLE) {
     int startIdx=listView.getFirstVisiblePosition();
     int numVisible=listView.getLastVisiblePosition() - startIdx;
-    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_RENDER_BROWSER_QA,mRenderQAHandler,new DeckTask.TaskData(new Object[]{getCol(),getCards(),startIdx - 5,startIdx + 2 * numVisible}));
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_RENDER_BROWSER_QA,mRenderQAHandler,new DeckTask.TaskData(new Object[]{getCol(),getCards(),startIdx - 5,2 * numVisible + 5}));
   }
 }
