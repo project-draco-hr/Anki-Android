@@ -22,18 +22,17 @@
         sHandler.sendMessage(msg);
         return true;
       }
-      try {
-        new URL(url);
-      }
- catch (      MalformedURLException mue) {
-        return true;
-      }
-      if (url.startsWith("file")) {
+      if (url.startsWith("file") || url.startsWith("data:")) {
         return false;
       }
       Timber.d("Opening external link \"%s\" with an Intent",url);
       Intent intent=new Intent(Intent.ACTION_VIEW,Uri.parse(url));
-      startActivityWithoutAnimation(intent);
+      try {
+        startActivityWithoutAnimation(intent);
+      }
+ catch (      ActivityNotFoundException e) {
+        e.printStackTrace();
+      }
       return true;
     }
     @Override public void onPageFinished(    WebView view,    String url){
