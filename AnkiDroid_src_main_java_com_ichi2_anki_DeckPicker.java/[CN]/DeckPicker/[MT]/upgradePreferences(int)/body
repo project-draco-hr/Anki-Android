@@ -25,4 +25,10 @@
   if (previousVersionCode < 20400203) {
     preferences.edit().putInt("swipeSensitivity",100).commit();
   }
+  if (previousVersionCode < 20500133) {
+    int oldCardZoom=preferences.getInt("relativeDisplayFontSize",100);
+    int oldImageZoom=preferences.getInt("relativeImageSize",100);
+    preferences.edit().putInt("cardZoom",oldCardZoom).commit();
+    preferences.edit().putInt("imageZoom",oldImageZoom).commit();
+  }
 }

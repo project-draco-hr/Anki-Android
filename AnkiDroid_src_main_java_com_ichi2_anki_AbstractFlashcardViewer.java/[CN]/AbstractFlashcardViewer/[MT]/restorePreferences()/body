@@ -7,8 +7,8 @@
   mNightMode=preferences.getBoolean("invertedColors",false);
   mInvertedColors=mNightMode;
   mPrefFullscreenReview=preferences.getBoolean("fullscreenReview",false);
-  mDisplayFontSize=preferences.getInt("relativeDisplayFontSize",100);
-  mRelativeImageSize=preferences.getInt("relativeImageSize",100);
+  mCardZoom=preferences.getInt("cardZoom",100);
+  mImageZoom=preferences.getInt("imageZoom",100);
   mRelativeButtonSize=preferences.getInt("answerButtonSize",100);
   mInputWorkaround=preferences.getBoolean("inputWorkaround",false);
   mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
