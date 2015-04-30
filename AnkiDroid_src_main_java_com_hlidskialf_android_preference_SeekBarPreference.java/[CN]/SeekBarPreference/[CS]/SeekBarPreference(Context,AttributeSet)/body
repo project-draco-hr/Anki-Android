@@ -4,6 +4,6 @@
   mSuffix=attrs.getAttributeValue(androidns,"text");
   mDefault=attrs.getAttributeIntValue(androidns,"defaultValue",0);
   mMax=attrs.getAttributeIntValue(androidns,"max",100);
-  mMin=attrs.getAttributeIntValue(appns,"min",0);
-  mInterval=attrs.getAttributeIntValue(appns,"interval",1);
+  mMin=attrs.getAttributeIntValue(AnkiDroidApp.XML_CUSTOM_NAMESPACE,"min",0);
+  mInterval=attrs.getAttributeIntValue(AnkiDroidApp.XML_CUSTOM_NAMESPACE,"interval",1);
 }
