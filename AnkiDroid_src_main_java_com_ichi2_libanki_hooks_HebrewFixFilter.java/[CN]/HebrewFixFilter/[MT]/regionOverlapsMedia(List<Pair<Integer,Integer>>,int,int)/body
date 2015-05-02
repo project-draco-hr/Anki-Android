@@ -1,0 +1,8 @@
+{
+  for (  Pair<Integer,Integer> region : mediaRegions) {
+    if (start > region.first && start < region.second || end > region.first && end < region.second) {
+      return true;
+    }
+  }
+  return false;
+}
