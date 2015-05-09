@@ -1,0 +1,23 @@
+{
+  Sched.DeckDueTreeNode node=mDeckList.get(position);
+  boolean collapsed=mCollection.getDecks().get(node.did).optBoolean("collapsed",false);
+  holder.mDeckExpander.setText(deckExpander(node.depth,collapsed,node.children.size()));
+  if (node.children.size() > 0) {
+    holder.mDeckExpander.setClickable(false);
+    holder.mDeckExpander.setTag(node.did);
+    holder.mDeckExpander.setOnClickListener(mDeckExpanderClickListener);
+  }
+ else {
+    holder.mDeckExpander.setClickable(false);
+  }
+  holder.mDeckName.setText(node.names[0]);
+  holder.mDeckNew.setText(String.valueOf(node.newCount));
+  holder.mDeckNew.setTextColor((node.newCount == 0) ? zeroCountColor : newCountColor);
+  holder.mDeckLearn.setText(String.valueOf(node.lrnCount));
+  holder.mDeckLearn.setTextColor((node.lrnCount == 0) ? zeroCountColor : learnCountColor);
+  holder.mDeckRev.setText(String.valueOf(node.revCount));
+  holder.mDeckRev.setTextColor((node.revCount == 0) ? zeroCountColor : reviewCountColor);
+  holder.mDeckLayout.setTag(node.did);
+  holder.mDeckLayout.setOnClickListener(mDeckClickListener);
+  holder.mDeckLayout.setOnLongClickListener(mDeckLongClickListener);
+}
