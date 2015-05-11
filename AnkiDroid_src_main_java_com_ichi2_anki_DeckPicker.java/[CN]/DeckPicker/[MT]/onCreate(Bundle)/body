@@ -21,7 +21,10 @@
   mRecyclerView.addItemDecoration(new DividerItemDecoration(this,null,false,true));
   mRecyclerViewLayoutManager=new LinearLayoutManager(this);
   mRecyclerView.setLayoutManager(mRecyclerViewLayoutManager);
-  mDeckListAdapter=new DeckAdapter(mDeckList);
+  mDeckListAdapter=new DeckAdapter(mDeckList,getResources(),getLayoutInflater(),getCol());
+  mDeckListAdapter.setDeckClickListener(mDeckClickListener);
+  mDeckListAdapter.setDeckExpanderClickListener(mDeckExpanderClickListener);
+  mDeckListAdapter.setDeckLongClickListener(mDeckLongClickListener);
   mRecyclerView.setAdapter(mDeckListAdapter);
   mTodayTextView=(TextView)findViewById(R.id.today_stats_text_view);
   final Resources res=getResources();
