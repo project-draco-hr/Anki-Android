@@ -3,6 +3,6 @@
     ReadText.textToSpeech(Utils.stripHTML(card.q(true)),getDeckIdForCard(card),card.getOrd(),Sound.SOUNDS_QUESTION);
   }
  else   if (Sound.SOUNDS_ANSWER == cardSide) {
-    ReadText.textToSpeech(Utils.stripHTML(card.getPureAnswerForReading()),getDeckIdForCard(card),card.getOrd(),Sound.SOUNDS_ANSWER);
+    ReadText.textToSpeech(Utils.stripHTML(card.getPureAnswer()),getDeckIdForCard(card),card.getOrd(),Sound.SOUNDS_ANSWER);
   }
 }

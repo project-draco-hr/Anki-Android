@@ -1,9 +1,9 @@
 {
   String s=_getQA(false).get("a");
-  String target="<hr id=answer>\n\n";
+  String target="<hr id=answer>";
   int pos=s.indexOf(target);
   if (pos == -1) {
     return s;
   }
-  return s.substring(pos + target.length());
+  return s.substring(pos + target.length()).trim();
 }
