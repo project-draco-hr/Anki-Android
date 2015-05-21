@@ -1,6 +1,5 @@
 {
   Timber.d("updateCard()");
-  content=recalculateHardCodedFontSize(content,mDisplayFontSize);
   if (mCurrentCard == null) {
     mCard.getSettings().setDefaultFontSize(calculateDynamicFontSize(content));
   }
@@ -25,8 +24,11 @@
   Timber.d("content card = \n %s",content);
   StringBuilder style=new StringBuilder();
   mExtensions.updateCssStyle(style);
-  if (mRelativeImageSize != 100) {
-    style.append(String.format("img { zoom: %s }\n",mRelativeImageSize / 100.0));
+  if (mCardZoom != 100) {
+    style.append(String.format("body { zoom: %s }\n",mCardZoom / 100.0));
+  }
+  if (mImageZoom != 100) {
+    style.append(String.format("img { zoom: %s }\n",mImageZoom / 100.0));
   }
   Timber.d("::style::",style);
   if (mNightMode) {
