@@ -31,7 +31,7 @@
       ankiDB.execute("ANALYZE");
     }
     publishProgress(new TaskData(res.getString(R.string.import_update_counts)));
-    return new TaskData(true);
+    return new TaskData(addedCount,null,true);
   }
  catch (  RuntimeException e) {
     Timber.e(e,"doInBackgroundImportAdd - RuntimeException on importing cards");
