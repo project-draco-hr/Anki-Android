@@ -21,7 +21,7 @@
   mRecyclerView.addItemDecoration(new DividerItemDecoration(this,null,false,true));
   mRecyclerViewLayoutManager=new LinearLayoutManager(this);
   mRecyclerView.setLayoutManager(mRecyclerViewLayoutManager);
-  mDeckListAdapter=new DeckAdapter(mDeckList,getResources(),getLayoutInflater(),getCol());
+  mDeckListAdapter=new DeckAdapter(mDeckList,getResources(),getLayoutInflater(),this);
   mDeckListAdapter.setDeckClickListener(mDeckClickListener);
   mDeckListAdapter.setDeckExpanderClickListener(mDeckExpanderClickListener);
   mDeckListAdapter.setDeckLongClickListener(mDeckLongClickListener);

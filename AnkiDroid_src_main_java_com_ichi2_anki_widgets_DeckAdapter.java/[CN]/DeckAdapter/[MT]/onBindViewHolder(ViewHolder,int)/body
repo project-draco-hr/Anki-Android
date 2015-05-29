@@ -1,6 +1,8 @@
 {
   Sched.DeckDueTreeNode node=mDeckList.get(position);
-  boolean collapsed=mCollection.getDecks().get(node.did).optBoolean("collapsed",false);
+  Timber.d("DeckAdapter accessing collection...");
+  Collection col=CollectionHelper.getInstance().getCol(mContext);
+  boolean collapsed=col.getDecks().get(node.did).optBoolean("collapsed",false);
   holder.mDeckExpander.setText(deckExpander(node.depth,collapsed,node.children.size()));
   if (node.children.size() > 0) {
     holder.mDeckExpander.setClickable(false);
