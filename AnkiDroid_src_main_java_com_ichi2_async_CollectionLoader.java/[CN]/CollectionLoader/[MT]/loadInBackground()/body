@@ -1,5 +1,6 @@
 {
   try {
+    Timber.d("CollectionLoader accessing collection");
     return CollectionHelper.getInstance().getCol(getContext());
   }
  catch (  RuntimeException e) {

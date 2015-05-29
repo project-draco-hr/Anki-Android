@@ -1,0 +1,10 @@
+{
+  if (mProgressDialog != null && mProgressDialog.isShowing()) {
+    try {
+      mProgressDialog.dismiss();
+    }
+ catch (    IllegalArgumentException e) {
+      Timber.w(e,"Could not dismiss mProgressDialog");
+    }
+  }
+}
