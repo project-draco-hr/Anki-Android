@@ -6,6 +6,5 @@
   View mainView=getLayoutInflater().inflate(R.layout.flashcard,null);
   setContentView(mainView);
   initNavigationDrawer(mainView);
-  setVolumeControlStream(AudioManager.STREAM_MUSIC);
   startLoadingCollection();
 }
