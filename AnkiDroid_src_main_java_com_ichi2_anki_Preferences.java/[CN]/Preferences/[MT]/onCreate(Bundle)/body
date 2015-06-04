@@ -1,10 +1,8 @@
 {
-  if (!CompatHelper.isHoneycomb()) {
-    Themes.applyTheme(this,Themes.THEME_ANDROID_DARK);
-  }
   super.onCreate(savedInstanceState);
-  mCol=CollectionHelper.getInstance().getCol(this);
+  setContentView(R.layout.preferences);
   addPreferencesFromResource(R.xml.preferences);
+  mCol=CollectionHelper.getInstance().getCol(this);
   EditTextPreference collectionPathPreference=(EditTextPreference)getPreferenceScreen().findPreference("deckPath");
   keepScreenOnCheckBoxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("keepScreenOn");
   showAnswerCheckBoxPreference=(CheckBoxPreference)getPreferenceScreen().findPreference("timeoutAnswer");
@@ -135,4 +133,8 @@
     updateNumberRangePreference(key);
   }
   updateNotificationPreference();
+  Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
+  setSupportActionBar(toolbar);
+  getSupportActionBar().setHomeButtonEnabled(true);
+  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 }
