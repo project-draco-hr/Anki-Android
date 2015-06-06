@@ -9,7 +9,8 @@ builder.setMessage(res.getString(R.string.pref_disable_backup_warning));
 builder.setPositiveButton(res.getString(R.string.dialog_positive_disable),new OnClickListener(){
 @Override public void onClick(DialogInterface arg0,int arg1){
   lockCheckAction=true;
-  useBackupPreference.setChecked(false);
+  CheckBoxPreference useBackup=(CheckBoxPreference)getPreferenceScreen().findPreference("useBackup");
+  useBackup.setChecked(false);
   dialogMessage=getResources().getString(R.string.backup_delete);
   DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DELETE_BACKUPS,mDeckOperationHandler,(DeckTask.TaskData[])null);
 }

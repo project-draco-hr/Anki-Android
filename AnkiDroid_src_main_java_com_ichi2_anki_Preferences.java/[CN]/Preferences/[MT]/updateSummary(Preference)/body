@@ -1,0 +1,36 @@
+{
+  String value;
+  try {
+    if (pref instanceof ListPreference) {
+      value=((ListPreference)pref).getEntry().toString();
+    }
+ else     if (pref instanceof EditTextPreference) {
+      value=((EditTextPreference)pref).getText();
+    }
+ else     if (pref instanceof NumberRangePreference) {
+      value=Integer.toString(((NumberRangePreference)pref).getValue());
+    }
+ else     if (pref instanceof SeekBarPreference) {
+      value=Integer.toString(((SeekBarPreference)pref).getValue());
+    }
+ else {
+      return;
+    }
+  }
+ catch (  NullPointerException e) {
+    value="";
+  }
+  String oldSummary=mOriginalSumarries.get(pref.getKey());
+  if (oldSummary.equals("")) {
+    pref.setSummary(value);
+  }
+ else   if (value.equals("")) {
+    pref.setSummary(oldSummary);
+  }
+ else   if (pref.getKey().equals("minimumCardsDueForNotification")) {
+    pref.setSummary(replaceStringIfNumeric(oldSummary,value));
+  }
+ else {
+    pref.setSummary(replaceString(oldSummary,value));
+  }
+}

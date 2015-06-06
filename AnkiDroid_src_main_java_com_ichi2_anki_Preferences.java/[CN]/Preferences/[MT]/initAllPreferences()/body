@@ -1,0 +1,23 @@
+{
+  for (int i=0; i < getPreferenceScreen().getPreferenceCount(); ++i) {
+    Preference preference=getPreferenceScreen().getPreference(i);
+    if (preference instanceof PreferenceGroup) {
+      PreferenceGroup preferenceGroup=(PreferenceGroup)preference;
+      for (int j=0; j < preferenceGroup.getPreferenceCount(); ++j) {
+        Preference nestedPreference=preferenceGroup.getPreference(j);
+        if (nestedPreference instanceof PreferenceGroup) {
+          PreferenceGroup nestedPreferenceGroup=(PreferenceGroup)nestedPreference;
+          for (int k=0; k < nestedPreferenceGroup.getPreferenceCount(); ++k) {
+            initPreference(nestedPreferenceGroup.getPreference(k));
+          }
+        }
+ else {
+          initPreference(preferenceGroup.getPreference(j));
+        }
+      }
+    }
+ else {
+      initPreference(preference);
+    }
+  }
+}

@@ -1,20 +1,22 @@
 {
-  Map<String,String> items=new TreeMap<>();
-  for (  String localeCode : LanguageUtil.APP_LANGUAGES) {
-    Locale loc=LanguageUtil.getLocale(localeCode);
-    items.put(loc.getDisplayName(),loc.toString());
-  }
-  CharSequence[] languageDialogLabels=new CharSequence[items.size() + 1];
-  CharSequence[] languageDialogValues=new CharSequence[items.size() + 1];
-  languageDialogLabels[0]=getResources().getString(R.string.language_system);
-  languageDialogValues[0]="";
-  int i=1;
-  for (  Map.Entry<String,String> e : items.entrySet()) {
-    languageDialogLabels[i]=e.getKey();
-    languageDialogValues[i]=e.getValue();
-    i++;
-  }
   ListPreference languageSelection=(ListPreference)getPreferenceScreen().findPreference(LANGUAGE);
-  languageSelection.setEntries(languageDialogLabels);
-  languageSelection.setEntryValues(languageDialogValues);
+  if (languageSelection != null) {
+    Map<String,String> items=new TreeMap<>();
+    for (    String localeCode : LanguageUtil.APP_LANGUAGES) {
+      Locale loc=LanguageUtil.getLocale(localeCode);
+      items.put(loc.getDisplayName(),loc.toString());
+    }
+    CharSequence[] languageDialogLabels=new CharSequence[items.size() + 1];
+    CharSequence[] languageDialogValues=new CharSequence[items.size() + 1];
+    languageDialogLabels[0]=getResources().getString(R.string.language_system);
+    languageDialogValues[0]="";
+    int i=1;
+    for (    Map.Entry<String,String> e : items.entrySet()) {
+      languageDialogLabels[i]=e.getKey();
+      languageDialogValues[i]=e.getValue();
+      i++;
+    }
+    languageSelection.setEntries(languageDialogLabels);
+    languageSelection.setEntryValues(languageDialogValues);
+  }
 }
