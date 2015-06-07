@@ -1,0 +1,33 @@
+{
+  long deckToTest=testDeckIds[0];
+  String deckSelector="deckID=?";
+  String deckArguments[]={Long.toString(deckToTest)};
+  Collection col;
+  col=CollectionHelper.getInstance().getCol(getContext());
+  Sched sched=col.getSched();
+  long selectedDeckBeforeTest=col.getDecks().selected();
+  col.getDecks().select(1);
+  Cursor reviewInfoCursor=getContext().getContentResolver().query(FlashCardsContract.ReviewInfo.CONTENT_URI,null,deckSelector,deckArguments,null);
+  assertNotNull(reviewInfoCursor);
+  assertEquals("Check that we actually received one card",1,reviewInfoCursor.getCount());
+  try {
+    reviewInfoCursor.moveToFirst();
+    int cardOrd=reviewInfoCursor.getInt(reviewInfoCursor.getColumnIndex(FlashCardsContract.ReviewInfo.CARD_ORD));
+    long noteID=reviewInfoCursor.getLong(reviewInfoCursor.getColumnIndex(FlashCardsContract.ReviewInfo.NOTE_ID));
+    assertEquals("Check that the selected deck has not changed",1,col.getDecks().selected());
+    col.getDecks().select(deckToTest);
+    Card nextCard=null;
+    for (int i=0; i < 10; i++) {
+      sched.reset();
+      nextCard=sched.getCard();
+      if (nextCard.note().getId() == noteID && nextCard.getOrd() == cardOrd)       break;
+    }
+    assertNotNull("Check that there actually is a next scheduled card",nextCard);
+    assertEquals("Check that received card and actual card have same note id",nextCard.note().getId(),noteID);
+    assertEquals("Check that received card and actual card have same card ord",nextCard.getOrd(),cardOrd);
+  }
+  finally {
+    reviewInfoCursor.close();
+  }
+  col.getDecks().select(selectedDeckBeforeTest);
+}

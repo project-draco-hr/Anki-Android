@@ -15,6 +15,10 @@ case MODELS:
 return FlashCardsContract.Model.CONTENT_TYPE;
 case MODELS_ID:
 return FlashCardsContract.Model.CONTENT_ITEM_TYPE;
+case SCHEDULE:
+return FlashCardsContract.ReviewInfo.CONTENT_TYPE;
+case DECKS:
+return FlashCardsContract.Deck.CONTENT_TYPE;
 default :
 throw new IllegalArgumentException("uri " + uri + " is not supported");
 }

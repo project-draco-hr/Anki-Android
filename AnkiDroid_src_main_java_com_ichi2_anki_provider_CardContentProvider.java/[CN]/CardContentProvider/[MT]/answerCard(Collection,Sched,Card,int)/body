@@ -1,0 +1,20 @@
+{
+  try {
+    AnkiDb ankiDB=col.getDb();
+    ankiDB.getDatabase().beginTransaction();
+    try {
+      if (cardToAnswer != null) {
+        sched.answerCard(cardToAnswer,ease);
+      }
+      ankiDB.getDatabase().setTransactionSuccessful();
+    }
+  finally {
+      ankiDB.getDatabase().endTransaction();
+    }
+  }
+ catch (  RuntimeException e) {
+    Timber.e(e,"answerCard - RuntimeException on answering card");
+    AnkiDroidApp.sendExceptionReport(e,"doInBackgroundAnswerCard");
+    return;
+  }
+}

@@ -1,0 +1,23 @@
+{
+  MatrixCursor.RowBuilder rb=rv.newRow();
+  for (  String column : columns) {
+    if (column.equals(FlashCardsContract.Card.NOTE_ID)) {
+      rb.add(currentCard.note().getId());
+    }
+ else     if (column.equals(FlashCardsContract.ReviewInfo.CARD_ORD)) {
+      rb.add(currentCard.getOrd());
+    }
+ else     if (column.equals(FlashCardsContract.ReviewInfo.BUTTON_COUNT)) {
+      rb.add(buttonCount);
+    }
+ else     if (column.equals(FlashCardsContract.ReviewInfo.NEXT_REVIEW_TIMES)) {
+      rb.add(nextReviewTimesJson.toString());
+    }
+ else     if (column.equals(FlashCardsContract.ReviewInfo.MEDIA_FILES)) {
+      rb.add(new JSONArray(col.getMedia().filesInStr(currentCard.note().getMid(),currentCard.q() + currentCard.a())));
+    }
+ else {
+      throw new UnsupportedOperationException("Column \"" + column + "\" is unknown");
+    }
+  }
+}

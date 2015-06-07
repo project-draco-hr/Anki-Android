@@ -1,0 +1,25 @@
+{
+  Collection col;
+  col=CollectionHelper.getInstance().getCol(getContext());
+  long deckId=testDeckIds[0];
+  Uri deckUri=Uri.withAppendedPath(FlashCardsContract.Deck.CONTENT_ALL_URI,Long.toString(deckId));
+  Cursor decksCursor=getContext().getContentResolver().query(deckUri,null,null,null,null);
+  try {
+    if (decksCursor == null || !decksCursor.moveToFirst()) {
+      fail("No deck received. Should have delivered deck with id " + deckId);
+    }
+ else {
+      long returnedDeckID=decksCursor.getLong(decksCursor.getColumnIndex(FlashCardsContract.Deck.DECK_ID));
+      String returnedDeckName=decksCursor.getString(decksCursor.getColumnIndex(FlashCardsContract.Deck.DECK_NAME));
+      JSONObject realDeck=col.getDecks().get(deckId);
+      assertEquals("Check that received deck ID equals real deck ID",deckId,returnedDeckID);
+      assertEquals("Check that received deck name equals real deck name",realDeck.getString("name"),returnedDeckName);
+    }
+  }
+ catch (  JSONException e) {
+    e.printStackTrace();
+  }
+ finally {
+    decksCursor.close();
+  }
+}

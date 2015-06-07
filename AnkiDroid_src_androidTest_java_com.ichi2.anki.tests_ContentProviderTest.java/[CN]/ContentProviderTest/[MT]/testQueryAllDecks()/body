@@ -1,0 +1,23 @@
+{
+  Collection col;
+  col=CollectionHelper.getInstance().getCol(getContext());
+  Decks decks=col.getDecks();
+  Cursor decksCursor=getContext().getContentResolver().query(FlashCardsContract.Deck.CONTENT_ALL_URI,FlashCardsContract.Deck.DEFAULT_PROJECTION,null,null,null);
+  assertNotNull(decksCursor);
+  try {
+    assertEquals("Check number of results",decks.count(),decksCursor.getCount());
+    while (decksCursor.moveToNext()) {
+      long deckID=decksCursor.getLong(decksCursor.getColumnIndex(FlashCardsContract.Deck.DECK_ID));
+      String deckName=decksCursor.getString(decksCursor.getColumnIndex(FlashCardsContract.Deck.DECK_NAME));
+      JSONObject deck=decks.get(deckID);
+      assertNotNull("Check that the deck we received actually exists",deck);
+      assertEquals("Check that the received deck has the correct name",deck.getString("name"),deckName);
+    }
+  }
+ catch (  JSONException e) {
+    e.printStackTrace();
+  }
+ finally {
+    decksCursor.close();
+  }
+}
