@@ -1,0 +1,44 @@
+{
+  if (Arrays.asList(sCollectionPreferences).contains(pref.getKey())) {
+    if (mCol != null) {
+      try {
+        JSONObject conf=mCol.getConf();
+switch (pref.getKey()) {
+case "showEstimates":
+          ((CheckBoxPreference)pref).setChecked(conf.getBoolean("estTimes"));
+        break;
+case "showProgress":
+      ((CheckBoxPreference)pref).setChecked(conf.getBoolean("dueCounts"));
+    break;
+case "learnCutoff":
+  ((NumberRangePreference)pref).setValue(conf.getInt("collapseTime") / 60);
+break;
+case "timeLimit":
+((NumberRangePreference)pref).setValue(conf.getInt("timeLim") / 60);
+break;
+case "useCurrent":
+((ListPreference)pref).setValueIndex(conf.optBoolean("addToCur",true) ? 0 : 1);
+break;
+case "newSpread":
+((ListPreference)pref).setValueIndex(conf.getInt("newSpread"));
+break;
+case "dayOffset":
+Calendar calendar=new GregorianCalendar();
+Timestamp timestamp=new Timestamp(mCol.getCrt() * 1000);
+calendar.setTimeInMillis(timestamp.getTime());
+((SeekBarPreference)pref).setValue(calendar.get(Calendar.HOUR_OF_DAY));
+break;
+}
+}
+ catch (JSONException|NumberFormatException e) {
+throw new RuntimeException();
+}
+}
+ else {
+pref.setEnabled(false);
+}
+}
+CharSequence s=pref.getSummary();
+mOriginalSumarries.put(pref.getKey(),(s != null) ? s.toString() : "");
+updateSummary(pref);
+}
