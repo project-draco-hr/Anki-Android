@@ -1,0 +1,28 @@
+{
+  Collection col;
+  col=CollectionHelper.getInstance().getCol(getContext());
+  Sched sched=col.getSched();
+  long deckId=testDeckIds[0];
+  col.getDecks().select(deckId);
+  Card card=sched.getCard();
+  ContentResolver cr=getContext().getContentResolver();
+  Uri reviewInfoUri=FlashCardsContract.ReviewInfo.CONTENT_URI;
+  ContentValues values=new ContentValues();
+  long noteId=card.note().getId();
+  int cardOrd=card.getOrd();
+  int ease=AbstractFlashcardViewer.EASE_MID;
+  values.put(FlashCardsContract.ReviewInfo.NOTE_ID,noteId);
+  values.put(FlashCardsContract.ReviewInfo.CARD_ORD,cardOrd);
+  values.put(FlashCardsContract.ReviewInfo.EASE,ease);
+  int updateCount=cr.update(reviewInfoUri,values,null,null);
+  assertEquals("Check if update returns 1",1,updateCount);
+  sched.reset();
+  Card newCard=sched.getCard();
+  if (newCard != null) {
+    if (newCard.note().getId() == card.note().getId() && newCard.getOrd() == card.getOrd()) {
+      fail("Next scheduled card has not changed");
+    }
+  }
+ else {
+  }
+}

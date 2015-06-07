@@ -60,7 +60,7 @@ case NOTES_ID_DATA:
         rb.add(currentNote.getId());
       }
  else       if (column.equals(DataColumns.MIMETYPE)) {
-        rb.add(FlashCardsContract.Data.Field.CONTENT_ITEM_TYPE);
+        rb.add(Field.CONTENT_ITEM_TYPE);
       }
  else       if (column.equals(Field.FIELD_NAME)) {
         rb.add(field[0]);
@@ -148,6 +148,96 @@ addModelToCursor(modelId,models,rv,columns);
  catch (JSONException e) {
 throw new IllegalArgumentException("Model " + modelId + " is malformed",e);
 }
+return rv;
+}
+case SCHEDULE:
+{
+MatrixCursor rv;
+String[] columns=((projection != null) ? projection : FlashCardsContract.ReviewInfo.DEFAULT_PROJECTION);
+rv=new MatrixCursor(columns,1);
+long selectedDeckBeforeQuery=col.getDecks().selected();
+long deckIdOfTemporarilySelectedDeck=-1;
+int limit=1;
+int selectionArgIndex=0;
+if (selection != null) {
+String[] args=selection.split(",");
+for (String arg : args) {
+String[] keyAndValue=arg.split("=");
+try {
+String value=keyAndValue[1].trim().equals("?") ? selectionArgs[selectionArgIndex++] : keyAndValue[1];
+if (keyAndValue[0].trim().equals("limit")) {
+limit=Integer.valueOf(value);
+}
+ else if (keyAndValue[0].trim().equals("deckID")) {
+deckIdOfTemporarilySelectedDeck=Long.valueOf(value);
+if (!selectDeckWithCheck(col,deckIdOfTemporarilySelectedDeck)) {
+  return rv;
+}
+}
+}
+ catch (NumberFormatException nfe) {
+nfe.printStackTrace();
+}
+}
+}
+col.getSched().reset();
+for (int k=0; k < limit; k++) {
+Card currentCard=col.getSched().getCard();
+if (currentCard != null) {
+int buttonCount=col.getSched().answerButtons(currentCard);
+JSONArray buttonTexts=new JSONArray();
+for (int i=0; i < buttonCount; i++) {
+buttonTexts.put(col.getSched().nextIvlStr(currentCard,i + 1,true));
+}
+addReviewInfoToCursor(currentCard,buttonTexts,buttonCount,rv,col,columns);
+}
+ else {
+break;
+}
+}
+if (deckIdOfTemporarilySelectedDeck != -1) {
+col.getDecks().select(selectedDeckBeforeQuery);
+}
+return rv;
+}
+case DECKS:
+{
+List<Sched.DeckDueTreeNode> allDecks=col.getSched().deckDueList();
+MatrixCursor rv;
+String[] columns=((projection != null) ? projection : FlashCardsContract.Deck.DEFAULT_PROJECTION);
+rv=new MatrixCursor(columns,allDecks.size());
+for (Sched.DeckDueTreeNode deck : allDecks) {
+long id=deck.did;
+String name=deck.names[0];
+addDeckToCursor(id,name,getDeckCountsFromDueTreeNode(deck),rv,col,columns);
+}
+return rv;
+}
+case DECKS_ID:
+{
+MatrixCursor rv;
+String[] columns=((projection != null) ? projection : FlashCardsContract.Deck.DEFAULT_PROJECTION);
+rv=new MatrixCursor(columns,1);
+List<Sched.DeckDueTreeNode> allDecks=col.getSched().deckDueList();
+long deckId;
+deckId=Long.parseLong(uri.getPathSegments().get(1));
+for (Sched.DeckDueTreeNode deck : allDecks) {
+if (deck.did == deckId) {
+addDeckToCursor(deckId,deck.names[0],getDeckCountsFromDueTreeNode(deck),rv,col,columns);
+return rv;
+}
+}
+return rv;
+}
+case DECK_SELECTED:
+{
+long id=col.getDecks().selected();
+String name=col.getDecks().name(id);
+MatrixCursor rv;
+String[] columns=((projection != null) ? projection : FlashCardsContract.Deck.DEFAULT_PROJECTION);
+rv=new MatrixCursor(columns,1);
+JSONArray counts=new JSONArray(Arrays.asList(col.getSched().counts()));
+addDeckToCursor(id,name,counts,rv,col,columns);
 return rv;
 }
 default :

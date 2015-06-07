@@ -1,0 +1,20 @@
+{
+  Collection col;
+  col=CollectionHelper.getInstance().getCol(getContext());
+  Sched sched=col.getSched();
+  Cursor reviewInfoCursor=getContext().getContentResolver().query(FlashCardsContract.ReviewInfo.CONTENT_URI,null,null,null,null);
+  assertNotNull(reviewInfoCursor);
+  assertEquals("Check that we actually received one card",1,reviewInfoCursor.getCount());
+  reviewInfoCursor.moveToFirst();
+  int cardOrd=reviewInfoCursor.getInt(reviewInfoCursor.getColumnIndex(FlashCardsContract.ReviewInfo.CARD_ORD));
+  long noteID=reviewInfoCursor.getLong(reviewInfoCursor.getColumnIndex(FlashCardsContract.ReviewInfo.NOTE_ID));
+  Card nextCard=null;
+  for (int i=0; i < 10; i++) {
+    sched.reset();
+    nextCard=sched.getCard();
+    if (nextCard.note().getId() == noteID && nextCard.getOrd() == cardOrd)     break;
+  }
+  assertNotNull("Check that there actually is a next scheduled card",nextCard);
+  assertEquals("Check that received card and actual card have same note id",nextCard.note().getId(),noteID);
+  assertEquals("Check that received card and actual card have same card ord",nextCard.getOrd(),cardOrd);
+}

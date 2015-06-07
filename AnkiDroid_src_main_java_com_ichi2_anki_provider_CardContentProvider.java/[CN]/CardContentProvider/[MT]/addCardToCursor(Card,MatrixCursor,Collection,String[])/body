@@ -30,6 +30,15 @@
  else     if (column.equals(FlashCardsContract.Card.ANSWER)) {
       rb.add(answer);
     }
+ else     if (column.equals(FlashCardsContract.Card.QUESTION_SIMPLE)) {
+      rb.add(currentCard.qSimple());
+    }
+ else     if (column.equals(FlashCardsContract.Card.ANSWER_SIMPLE)) {
+      rb.add(currentCard._getQA(false).get("a"));
+    }
+ else     if (column.equals(FlashCardsContract.Card.ANSWER_PURE)) {
+      rb.add(currentCard.getPureAnswer());
+    }
  else {
       throw new UnsupportedOperationException("Column \"" + column + "\" is unknown");
     }

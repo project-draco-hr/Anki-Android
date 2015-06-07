@@ -16,5 +16,19 @@
     deletedNotes=0;
   }
   assertEquals("Check that all created notes have been deleted",mCreatedNotes,deletedNotes);
+  for (  long did : testDeckIds) {
+    col.getDecks().rem(did,true);
+  }
+  noteIds=col.findNotes("tag:" + TEST_TAG_2);
+  if ((noteIds != null) && (noteIds.size() > 0)) {
+    long[] delNotes=new long[noteIds.size()];
+    for (int i=0; i < noteIds.size(); i++) {
+      delNotes[i]=noteIds.get(i);
+    }
+    col.remNotes(delNotes);
+  }
+  col.getDecks().rem(col.getDecks().id(TEST_DECK));
+  col.getDecks().flush();
+  assertEquals("Check that all created decks have been deleted",numDecksBeforeTest,col.getDecks().count());
   super.tearDown();
 }

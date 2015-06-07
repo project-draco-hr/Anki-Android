@@ -1,0 +1,18 @@
+{
+  MatrixCursor.RowBuilder rb=rv.newRow();
+  for (  String column : columns) {
+    if (column.equals(FlashCardsContract.Deck.DECK_NAME)) {
+      rb.add(name);
+    }
+ else     if (column.equals(FlashCardsContract.Deck.DECK_ID)) {
+      rb.add(id);
+    }
+ else     if (column.equals(FlashCardsContract.Deck.DECK_COUNTS)) {
+      rb.add(deckCounts);
+    }
+ else     if (column.equals(FlashCardsContract.Deck.OPTIONS)) {
+      String config=col.getDecks().confForDid(id).toString();
+      rb.add(config);
+    }
+  }
+}
