@@ -1,5 +1,4 @@
 {
-  PreferenceScreen advanced=(PreferenceScreen)getPreferenceScreen().findPreference("pref_screen_advanced");
   PreferenceCategory workarounds=(PreferenceCategory)getPreferenceScreen().findPreference("category_workarounds");
   if (workarounds != null) {
     CheckBoxPreference inputWorkaround=(CheckBoxPreference)getPreferenceScreen().findPreference("inputWorkaround");
@@ -22,7 +21,7 @@
     }
     if (CompatHelper.getSdkVersion() >= 16) {
       workarounds.removePreference(fixHebrewText);
-      advanced.removePreference(workarounds);
+      getPreferenceScreen().removePreference(workarounds);
     }
   }
 }

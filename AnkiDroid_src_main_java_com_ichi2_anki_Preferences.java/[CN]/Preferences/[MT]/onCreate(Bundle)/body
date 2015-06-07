@@ -1,61 +1,67 @@
 {
   super.onCreate(savedInstanceState);
   setContentView(R.layout.preferences);
-  addPreferencesFromResource(R.xml.preferences);
   mCol=CollectionHelper.getInstance().getCol(this);
-  removeUnnecessaryWorkarounds();
-  initializeLanguageDialog();
-  Preference fontsPreference=getPreferenceScreen().findPreference("font_preference_group");
-  fontsPreference.setOnPreferenceClickListener(new OnPreferenceClickListener(){
-    public boolean onPreferenceClick(    Preference preference){
-      initializeCustomFontsDialog();
+  String action=getIntent().getAction();
+  if (action == null) {
+    addPreferencesFromResource(R.xml.preference_headers_legacy);
+  }
+ else {
+switch (action) {
+case "com.ichi2.anki.prefs.general":
+      addPreferencesFromResource(R.xml.preferences_general);
+    initializeLanguageDialog();
+  EditTextPreference collectionPathPreference=(EditTextPreference)getPreferenceScreen().findPreference("deckPath");
+collectionPathPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener(){
+  public boolean onPreferenceChange(  Preference preference,  final Object newValue){
+    final String newPath=(String)newValue;
+    try {
+      CollectionHelper.initializeAnkiDroidDirectory(newPath);
+      return true;
+    }
+ catch (    StorageAccessException e) {
+      Timber.e(e,"Could not initialize directory: %s",newPath);
+      Toast.makeText(getApplicationContext(),R.string.dialog_collection_path_not_dir,Toast.LENGTH_LONG).show();
       return false;
     }
   }
+}
 );
-  EditTextPreference collectionPathPreference=(EditTextPreference)getPreferenceScreen().findPreference("deckPath");
-  collectionPathPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener(){
-    public boolean onPreferenceChange(    Preference preference,    final Object newValue){
-      final String newPath=(String)newValue;
-      try {
-        CollectionHelper.initializeAnkiDroidDirectory(newPath);
-        return true;
-      }
- catch (      StorageAccessException e) {
-        Timber.e(e,"Could not initialize directory: %s",newPath);
-        Toast.makeText(getApplicationContext(),R.string.dialog_collection_path_not_dir,Toast.LENGTH_LONG).show();
-        return false;
-      }
-    }
-  }
-);
-  Preference dialogPreference=getPreferenceScreen().findPreference("about_dialog_preference");
-  dialogPreference.setOnPreferenceClickListener(new OnPreferenceClickListener(){
-    public boolean onPreferenceClick(    Preference preference){
-      startActivity(new Intent(Preferences.this,Info.class));
-      return true;
-    }
-  }
-);
-  dialogPreference.setSummary(getResources().getString(R.string.about_version) + " " + VersionUtils.getPkgVersionName());
-  Preference fullSyncPreference=getPreferenceScreen().findPreference("force_full_sync");
-  fullSyncPreference.setOnPreferenceClickListener(new OnPreferenceClickListener(){
-    public boolean onPreferenceClick(    Preference preference){
-      if (mCol != null && mCol.getDb() != null) {
-        mCol.modSchemaNoCheck();
-        mCol.setMod();
-        Toast.makeText(getApplicationContext(),R.string.ok,Toast.LENGTH_SHORT).show();
-      }
+break;
+case "com.ichi2.anki.prefs.reviewing":
+addPreferencesFromResource(R.xml.preferences_reviewing);
+break;
+case "com.ichi2.anki.prefs.fonts":
+addPreferencesFromResource(R.xml.preferences_fonts);
+initializeCustomFontsDialog();
+break;
+case "com.ichi2.anki.prefs.gestures":
+addPreferencesFromResource(R.xml.preferences_gestures);
+break;
+case "com.ichi2.anki.prefs.advanced":
+addPreferencesFromResource(R.xml.preferences_advanced);
+Preference fullSyncPreference=getPreferenceScreen().findPreference("force_full_sync");
+fullSyncPreference.setOnPreferenceClickListener(new OnPreferenceClickListener(){
+public boolean onPreferenceClick(Preference preference){
+if (mCol != null && mCol.getDb() != null) {
+mCol.modSchemaNoCheck();
+mCol.setMod();
+Toast.makeText(getApplicationContext(),R.string.ok,Toast.LENGTH_SHORT).show();
+}
  else {
-        Toast.makeText(getApplicationContext(),R.string.vague_error,Toast.LENGTH_SHORT).show();
-      }
-      return true;
-    }
-  }
+Toast.makeText(getApplicationContext(),R.string.vague_error,Toast.LENGTH_SHORT).show();
+}
+return true;
+}
+}
 );
-  initAllPreferences();
-  Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
-  setSupportActionBar(toolbar);
-  getSupportActionBar().setHomeButtonEnabled(true);
-  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+removeUnnecessaryWorkarounds();
+break;
+}
+}
+initAllPreferences();
+Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
+setSupportActionBar(toolbar);
+getSupportActionBar().setHomeButtonEnabled(true);
+getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 }

@@ -1,4 +1,11 @@
 {
+  if (pref.getKey() == null) {
+    return;
+  }
+  if (pref.getKey().equals("about_dialog_preference")) {
+    pref.setSummary(getResources().getString(R.string.about_version) + " " + VersionUtils.getPkgVersionName());
+    return;
+  }
   String value;
   try {
     if (pref instanceof ListPreference) {
