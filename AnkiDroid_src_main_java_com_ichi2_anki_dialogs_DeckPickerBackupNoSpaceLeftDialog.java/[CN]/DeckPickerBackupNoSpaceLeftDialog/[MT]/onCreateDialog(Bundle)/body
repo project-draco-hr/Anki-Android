@@ -1,7 +1,8 @@
 {
   super.onCreate(savedInstanceState);
   Resources res=getResources();
-  return new MaterialDialog.Builder(getActivity()).title(res.getString(R.string.sd_card_almost_full_title)).content(res.getString(R.string.sd_space_warning)).positiveText(res.getString(R.string.dialog_ok)).callback(new MaterialDialog.ButtonCallback(){
+  long space=BackupManager.getFreeDiscSpace(CollectionHelper.getCollectionPath(getActivity()));
+  return new MaterialDialog.Builder(getActivity()).title(res.getString(R.string.sd_card_almost_full_title)).content(res.getString(R.string.sd_space_warning,space / 1024 / 1024)).positiveText(res.getString(R.string.dialog_ok)).callback(new MaterialDialog.ButtonCallback(){
     @Override public void onPositive(    MaterialDialog dialog){
       ((DeckPicker)getActivity()).finishWithoutAnimation();
     }
