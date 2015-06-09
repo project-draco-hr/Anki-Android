@@ -1,10 +1,10 @@
 {
-  ListPreference defaultFontPreference=(ListPreference)getPreferenceScreen().findPreference("defaultFont");
+  ListPreference defaultFontPreference=(ListPreference)screen.findPreference("defaultFont");
   if (defaultFontPreference != null) {
     defaultFontPreference.setEntries(getCustomFonts("System default"));
     defaultFontPreference.setEntryValues(getCustomFonts(""));
   }
-  ListPreference browserEditorCustomFontsPreference=(ListPreference)getPreferenceScreen().findPreference("browserEditorFont");
+  ListPreference browserEditorCustomFontsPreference=(ListPreference)screen.findPreference("browserEditorFont");
   browserEditorCustomFontsPreference.setEntries(getCustomFonts("System default"));
   browserEditorCustomFontsPreference.setEntryValues(getCustomFonts("",true));
 }

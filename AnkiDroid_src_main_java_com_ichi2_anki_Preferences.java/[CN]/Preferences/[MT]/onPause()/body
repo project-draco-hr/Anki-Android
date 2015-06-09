@@ -1,4 +1,6 @@
 {
   super.onPause();
-  getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+  if (!CompatHelper.isHoneycomb() && getPreferenceScreen() != null) {
+    getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+  }
 }

@@ -48,15 +48,18 @@
     if (previous < 20301208) {
       mRecommendFullSync=true;
     }
-    if (previous < AnkiDroidApp.CHECK_DB_AT_VERSION || previous < AnkiDroidApp.CHECK_PREFERENCES_AT_VERSION) {
-      if (previous < AnkiDroidApp.CHECK_PREFERENCES_AT_VERSION) {
+    int upgradePrefsVersion=AnkiDroidApp.CHECK_PREFERENCES_AT_VERSION;
+    int upgradeDbVersion=AnkiDroidApp.CHECK_DB_AT_VERSION;
+    if (previous < upgradeDbVersion || previous < upgradePrefsVersion) {
+      if (previous < upgradePrefsVersion && current >= upgradePrefsVersion) {
+        Timber.d("Upgrading preferences");
         CompatHelper.removeHiddenPreferences(this.getApplicationContext());
         upgradePreferences(previous);
       }
-      if (previous < AnkiDroidApp.CHECK_DB_AT_VERSION) {
+      if (previous < upgradeDbVersion && current >= upgradeDbVersion) {
         integrityCheck();
       }
- else       if (previous < AnkiDroidApp.CHECK_PREFERENCES_AT_VERSION) {
+ else       if (previous < upgradePrefsVersion && current >= upgradePrefsVersion) {
         restartActivity();
       }
     }

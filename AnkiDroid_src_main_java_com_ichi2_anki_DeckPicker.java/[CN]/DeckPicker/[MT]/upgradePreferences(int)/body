@@ -25,10 +25,14 @@
   if (previousVersionCode < 20400203) {
     preferences.edit().putInt("swipeSensitivity",100).commit();
   }
-  if (previousVersionCode < 20500133) {
+  if (previousVersionCode < 20500135) {
     int oldCardZoom=preferences.getInt("relativeDisplayFontSize",100);
     int oldImageZoom=preferences.getInt("relativeImageSize",100);
     preferences.edit().putInt("cardZoom",oldCardZoom).commit();
     preferences.edit().putInt("imageZoom",oldImageZoom).commit();
+    if (!preferences.getBoolean("useBackup",true)) {
+      preferences.edit().putInt("backupMax",0).commit();
+    }
+    preferences.edit().remove("useBackup").commit();
   }
 }

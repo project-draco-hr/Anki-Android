@@ -1,0 +1,6 @@
+{
+  super.onResume();
+  SharedPreferences prefs=getPreferenceManager().getSharedPreferences();
+  prefs.registerOnSharedPreferenceChangeListener(this);
+  ((Preferences)getActivity()).updatePreference(prefs,"syncAccount",this);
+}

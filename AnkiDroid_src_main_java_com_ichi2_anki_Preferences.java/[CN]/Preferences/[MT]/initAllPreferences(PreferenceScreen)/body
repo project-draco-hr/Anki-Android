@@ -1,6 +1,6 @@
 {
-  for (int i=0; i < getPreferenceScreen().getPreferenceCount(); ++i) {
-    Preference preference=getPreferenceScreen().getPreference(i);
+  for (int i=0; i < screen.getPreferenceCount(); ++i) {
+    Preference preference=screen.getPreference(i);
     if (preference instanceof PreferenceGroup) {
       PreferenceGroup preferenceGroup=(PreferenceGroup)preference;
       for (int j=0; j < preferenceGroup.getPreferenceCount(); ++j) {

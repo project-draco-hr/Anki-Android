@@ -1,0 +1,4 @@
+{
+  getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+  super.onPause();
+}
