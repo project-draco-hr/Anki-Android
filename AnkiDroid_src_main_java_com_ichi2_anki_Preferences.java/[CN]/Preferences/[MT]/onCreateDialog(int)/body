@@ -1,36 +1,19 @@
 {
   Resources res=getResources();
-  StyledDialog.Builder builder=new StyledDialog.Builder(this);
+  MaterialDialog.Builder builder=new MaterialDialog.Builder(this);
 switch (id) {
-case DIALOG_BACKUP:
-    builder.setTitle(res.getString(R.string.pref_disable_backup_title));
-  builder.setCancelable(false);
-builder.setMessage(res.getString(R.string.pref_disable_backup_warning));
-builder.setPositiveButton(res.getString(R.string.dialog_positive_disable),new OnClickListener(){
-@Override public void onClick(DialogInterface arg0,int arg1){
-  lockCheckAction=true;
-  CheckBoxPreference useBackup=(CheckBoxPreference)getPreferenceScreen().findPreference("useBackup");
-  useBackup.setChecked(false);
-  dialogMessage=getResources().getString(R.string.backup_delete);
-  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DELETE_BACKUPS,mDeckOperationHandler,(DeckTask.TaskData[])null);
-}
-}
-);
-builder.setNegativeButton(res.getString(R.string.dialog_cancel),null);
-break;
 case DIALOG_HEBREW_FONT:
-builder.setTitle(res.getString(R.string.fix_hebrew_text));
-builder.setCancelable(false);
-builder.setMessage(res.getString(R.string.fix_hebrew_instructions,CollectionHelper.getCurrentAnkiDroidDirectory(this)));
-builder.setNegativeButton(R.string.dialog_cancel,null);
-builder.setPositiveButton(res.getString(R.string.fix_hebrew_download_font),new OnClickListener(){
-@Override public void onClick(DialogInterface dialog,int which){
-Intent intent=new Intent("android.intent.action.VIEW",Uri.parse(getResources().getString(R.string.link_hebrew_font)));
-startActivity(intent);
-}
+    builder.title(res.getString(R.string.fix_hebrew_text));
+  builder.content(res.getString(R.string.fix_hebrew_instructions,CollectionHelper.getCurrentAnkiDroidDirectory(this)));
+builder.callback(new MaterialDialog.ButtonCallback(){
+  @Override public void onPositive(  MaterialDialog dialog){
+    Intent intent=new Intent("android.intent.action.VIEW",Uri.parse(getResources().getString(R.string.link_hebrew_font)));
+    startActivity(intent);
+  }
 }
 );
-break;
+builder.positiveText(res.getString(R.string.fix_hebrew_download_font));
+builder.negativeText(R.string.dialog_cancel);
 }
-return builder.create();
+return builder.show();
 }

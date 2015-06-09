@@ -1,0 +1,102 @@
+{
+  try {
+    PreferenceScreen screen=listener.getPreferenceScreen();
+    Preference pref=screen.findPreference(key);
+switch (key) {
+case "timeoutAnswer":
+      CheckBoxPreference keepScreenOn=(CheckBoxPreference)screen.findPreference("keepScreenOn");
+    keepScreenOn.setChecked(((CheckBoxPreference)pref).isChecked());
+  break;
+case LANGUAGE:
+closePreferences();
+break;
+case "convertFenText":
+if (((CheckBoxPreference)pref).isChecked()) {
+ChessFilter.install(Hooks.getInstance(getApplicationContext()));
+}
+ else {
+ChessFilter.uninstall(Hooks.getInstance(getApplicationContext()));
+}
+break;
+case "fixHebrewText":
+if (((CheckBoxPreference)pref).isChecked()) {
+HebrewFixFilter.install(Hooks.getInstance(getApplicationContext()));
+showDialog(DIALOG_HEBREW_FONT);
+}
+ else {
+HebrewFixFilter.uninstall(Hooks.getInstance(getApplicationContext()));
+}
+break;
+case "showProgress":
+mCol.getConf().put("dueCounts",((CheckBoxPreference)pref).isChecked());
+mCol.setMod();
+break;
+case "showEstimates":
+mCol.getConf().put("estTimes",((CheckBoxPreference)pref).isChecked());
+mCol.setMod();
+break;
+case "newSpread":
+mCol.getConf().put("newSpread",Integer.parseInt(((ListPreference)pref).getValue()));
+mCol.setMod();
+break;
+case "timeLimit":
+mCol.getConf().put("timeLim",((NumberRangePreference)pref).getValue() * 60);
+mCol.setMod();
+break;
+case "learnCutoff":
+mCol.getConf().put("collapseTime",((NumberRangePreference)pref).getValue() * 60);
+mCol.setMod();
+break;
+case "useCurrent":
+mCol.getConf().put("addToCur",((ListPreference)pref).getValue().equals("0"));
+mCol.setMod();
+break;
+case "dayOffset":
+int hours=((SeekBarPreference)pref).getValue();
+Calendar date=new GregorianCalendar();
+date.set(Calendar.HOUR_OF_DAY,hours);
+mCol.setCrt(date.getTimeInMillis() / 1000);
+mCol.setMod();
+break;
+case "minimumCardsDueForNotification":
+ListPreference listpref=(ListPreference)screen.findPreference("minimumCardsDueForNotification");
+if (listpref != null) {
+CharSequence[] entries=listpref.getEntries();
+CharSequence[] values=listpref.getEntryValues();
+for (int i=0; i < entries.length; i++) {
+int value=Integer.parseInt(values[i].toString());
+if (entries[i].toString().contains("%d")) {
+entries[i]=String.format(entries[i].toString(),value);
+}
+}
+listpref.setEntries(entries);
+listpref.setSummary(listpref.getEntry().toString());
+}
+break;
+case "reportErrorMode":
+String value=prefs.getString("reportErrorMode","");
+AnkiDroidApp.getInstance().setAcraReportingMode(value);
+break;
+case "syncAccount":
+SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
+String username=preferences.getString("username","");
+Preference syncAccount=screen.findPreference("syncAccount");
+if (syncAccount != null) {
+if (TextUtils.isEmpty(username)) {
+syncAccount.setSummary(R.string.sync_account_summ_logged_out);
+}
+ else {
+syncAccount.setSummary(getString(R.string.sync_account_summ_logged_in,username));
+}
+}
+break;
+}
+updateSummary(pref);
+}
+ catch (BadTokenException e) {
+Timber.e(e,"Preferences: BadTokenException on showDialog");
+}
+catch (NumberFormatException|JSONException e) {
+throw new RuntimeException();
+}
+}

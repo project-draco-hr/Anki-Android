@@ -1,16 +1,8 @@
 {
   super.onResume();
-  getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
-  String username=preferences.getString("username","");
-  Preference syncAccount=getPreferenceScreen().findPreference("syncAccount");
-  if (syncAccount != null) {
-    if (TextUtils.isEmpty(username)) {
-      syncAccount.setSummary(R.string.sync_account_summ_logged_out);
-    }
- else {
-      syncAccount.setSummary(getString(R.string.sync_account_summ_logged_in,username));
-    }
+  if (!CompatHelper.isHoneycomb() && getPreferenceScreen() != null) {
+    SharedPreferences prefs=getPreferenceScreen().getSharedPreferences();
+    prefs.registerOnSharedPreferenceChangeListener(this);
+    updatePreference(prefs,"syncAccount",this);
   }
-  updateNotificationPreference();
 }

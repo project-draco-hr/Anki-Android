@@ -1,0 +1,6 @@
+{
+  super.onCreate(savedInstanceState);
+  String subscreen=getArguments().getString("subscreen");
+  ((Preferences)getActivity()).initSubscreen(subscreen,this);
+  ((Preferences)getActivity()).initAllPreferences(getPreferenceScreen());
+}

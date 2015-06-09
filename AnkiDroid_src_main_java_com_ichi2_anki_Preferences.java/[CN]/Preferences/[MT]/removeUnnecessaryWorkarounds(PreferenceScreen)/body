@@ -1,0 +1,27 @@
+{
+  PreferenceCategory workarounds=(PreferenceCategory)screen.findPreference("category_workarounds");
+  if (workarounds != null) {
+    CheckBoxPreference inputWorkaround=(CheckBoxPreference)screen.findPreference("inputWorkaround");
+    CheckBoxPreference longclickWorkaround=(CheckBoxPreference)screen.findPreference("textSelectionLongclickWorkaround");
+    CheckBoxPreference fixHebrewText=(CheckBoxPreference)screen.findPreference("fixHebrewText");
+    CheckBoxPreference fixArabicText=(CheckBoxPreference)screen.findPreference("fixArabicText");
+    CheckBoxPreference safeDisplayMode=(CheckBoxPreference)screen.findPreference("safeDisplay");
+    CompatHelper.removeHiddenPreferences(this.getApplicationContext());
+    if (CompatHelper.getSdkVersion() >= 9) {
+      workarounds.removePreference(fixArabicText);
+    }
+    if (CompatHelper.isHoneycomb()) {
+      workarounds.removePreference(longclickWorkaround);
+    }
+    if (CompatHelper.getSdkVersion() >= 13) {
+      workarounds.removePreference(safeDisplayMode);
+    }
+    if (CompatHelper.getSdkVersion() >= 15) {
+      workarounds.removePreference(inputWorkaround);
+    }
+    if (CompatHelper.getSdkVersion() >= 16) {
+      workarounds.removePreference(fixHebrewText);
+      screen.removePreference(workarounds);
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  PreferenceScreen screen;
+switch (action) {
+case "com.ichi2.anki.prefs.general":
+    listener.addPreferencesFromResource(R.xml.preferences_general);
+  screen=listener.getPreferenceScreen();
+initializeLanguageDialog(screen);
+EditTextPreference collectionPathPreference=(EditTextPreference)screen.findPreference("deckPath");
+collectionPathPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener(){
+public boolean onPreferenceChange(Preference preference,final Object newValue){
+final String newPath=(String)newValue;
+try {
+  CollectionHelper.initializeAnkiDroidDirectory(newPath);
+  return true;
+}
+ catch (StorageAccessException e) {
+  Timber.e(e,"Could not initialize directory: %s",newPath);
+  Toast.makeText(getApplicationContext(),R.string.dialog_collection_path_not_dir,Toast.LENGTH_LONG).show();
+  return false;
+}
+}
+}
+);
+break;
+case "com.ichi2.anki.prefs.reviewing":
+listener.addPreferencesFromResource(R.xml.preferences_reviewing);
+break;
+case "com.ichi2.anki.prefs.fonts":
+listener.addPreferencesFromResource(R.xml.preferences_fonts);
+screen=listener.getPreferenceScreen();
+initializeCustomFontsDialog(screen);
+break;
+case "com.ichi2.anki.prefs.gestures":
+listener.addPreferencesFromResource(R.xml.preferences_gestures);
+break;
+case "com.ichi2.anki.prefs.advanced":
+listener.addPreferencesFromResource(R.xml.preferences_advanced);
+screen=listener.getPreferenceScreen();
+Preference fullSyncPreference=screen.findPreference("force_full_sync");
+fullSyncPreference.setOnPreferenceClickListener(new OnPreferenceClickListener(){
+public boolean onPreferenceClick(Preference preference){
+if (mCol != null && mCol.getDb() != null) {
+mCol.modSchemaNoCheck();
+mCol.setMod();
+Toast.makeText(getApplicationContext(),R.string.ok,Toast.LENGTH_SHORT).show();
+}
+ else {
+Toast.makeText(getApplicationContext(),R.string.vague_error,Toast.LENGTH_SHORT).show();
+}
+return true;
+}
+}
+);
+removeUnnecessaryWorkarounds(screen);
+break;
+}
+}
