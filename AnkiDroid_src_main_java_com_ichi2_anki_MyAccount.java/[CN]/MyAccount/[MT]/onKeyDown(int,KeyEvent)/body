@@ -6,8 +6,7 @@
       return true;
     }
  else {
-      finish();
-      ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.FADE);
+      finishWithAnimation(ActivityTransitionAnimation.FADE);
       return true;
     }
   }
