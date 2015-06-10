@@ -4,6 +4,9 @@
     ankiDB.getDatabase().beginTransaction();
     try {
       if (cardToAnswer != null) {
+        if (timeTaken != -1) {
+          cardToAnswer.setTimerStarted(Utils.now() - timeTaken / 1000);
+        }
         sched.answerCard(cardToAnswer,ease);
       }
       ankiDB.getDatabase().setTransactionSuccessful();
