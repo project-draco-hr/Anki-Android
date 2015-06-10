@@ -84,6 +84,7 @@ Set<Map.Entry<String,Object>> valueSet=values.valueSet();
 int cardOrd=-1;
 long noteID=-1;
 int ease=-1;
+long timeTaken=-1;
 for (Map.Entry<String,Object> entry : valueSet) {
 String key=entry.getKey();
 if (key.equals(FlashCardsContract.ReviewInfo.NOTE_ID)) {
@@ -95,11 +96,19 @@ cardOrd=values.getAsInteger(key);
  else if (key.equals(FlashCardsContract.ReviewInfo.EASE)) {
 ease=values.getAsInteger(key);
 }
+ else if (key.equals(FlashCardsContract.ReviewInfo.TIME_TAKEN)) {
+timeTaken=values.getAsLong(key);
+}
 }
 if (cardOrd != -1 && noteID != -1) {
 Card cardToAnswer=getCard(noteID,cardOrd,col);
-answerCard(col,col.getSched(),cardToAnswer,ease);
+if (cardToAnswer != null) {
+answerCard(col,col.getSched(),cardToAnswer,ease,timeTaken);
 updated++;
+}
+ else {
+Timber.e("Requested card with noteId %d and cardOrd %d was not found. Either the provided noteId/cardOrd were wrong" + "or the card has been deleted in the meantime.",noteID,cardOrd);
+}
 }
 break;
 }
