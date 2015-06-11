@@ -1,7 +1,6 @@
 {
   super.onCreate(savedInstanceState);
   initAllContentViews();
-  initAllAlertDialogs();
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
   if (preferences.getString("hkey","").length() > 0) {
     switchToState(STATE_LOGGED_IN);

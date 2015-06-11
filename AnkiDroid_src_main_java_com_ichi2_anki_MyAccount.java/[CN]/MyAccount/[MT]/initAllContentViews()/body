@@ -46,7 +46,9 @@
         register();
       }
  else {
-        mRegisterAlert.show();
+        showSimpleSnackbar(R.string.register_mismatch,true);
+        mPassword1.setText("");
+        mPassword2.setText("");
       }
     }
   }
