@@ -1,11 +1,9 @@
 {
   getMenuInflater().inflate(R.menu.note_editor,menu);
   if (mAddNote) {
-    menu.findItem(R.id.action_later).setVisible(true);
     menu.findItem(R.id.action_copy_card).setVisible(false);
   }
  else {
-    menu.findItem(R.id.action_saved_notes).setVisible(false);
     menu.findItem(R.id.action_add_card_from_card_editor).setVisible(true);
     menu.findItem(R.id.action_reset_card_progress).setVisible(true);
     menu.findItem(R.id.action_reschedule_card).setVisible(true);
@@ -24,10 +22,6 @@
         menu.findItem(R.id.action_copy_card).setEnabled(false);
       }
     }
-  }
-  if (mCaller != CALLER_CARDEDITOR_INTENT_ADD) {
-    updateIntentInformation();
-    menu.findItem(R.id.action_saved_notes).setEnabled(!mIntentInformation.isEmpty());
   }
   return super.onCreateOptionsMenu(menu);
 }

@@ -9,19 +9,6 @@ case R.id.action_save:
 Timber.i("NoteEditor:: Save note button pressed");
 saveNote();
 return true;
-case R.id.action_later:
-Timber.i("NoteEditor:: Later button pressed");
-String content=getFieldsText();
-if (content.length() > mEditFields.size() - 1) {
-MetaDB.saveIntentInformation(NoteEditor.this,content);
-populateEditFields();
-mSourceText=null;
-Themes.showThemedToast(NoteEditor.this,getResources().getString(R.string.CardEditorLaterMessage),false);
-}
-if (mCaller == CALLER_INDICLASH || mCaller == CALLER_CARDEDITOR_INTENT_ADD) {
-closeNoteEditor();
-}
-return true;
 case R.id.action_add_card_from_card_editor:
 case R.id.action_copy_card:
 Timber.i("NoteEditor:: Copy or add card button pressed");
@@ -48,10 +35,6 @@ String title=res.getString(R.string.reset_card_dialog_title);
 String message=res.getString(R.string.reset_card_dialog_message);
 dialog.setArgs(title,message);
 showDialogFragment(dialog);
-return true;
-case R.id.action_saved_notes:
-Timber.i("NoteEditor:: Saved data button pressed");
-showDialog(DIALOG_INTENT_INFORMATION);
 return true;
 case R.id.action_reschedule_card:
 Timber.i("NoteEditor:: Reschedule button pressed");

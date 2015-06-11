@@ -1,6 +1,6 @@
 {
   updateCheckedItems();
-  mListAdapter.getFilter().filter(str,new FilterListener(){
+  mListAdapter.getFilter().filter(str,new Filter.FilterListener(){
     @Override public void onFilterComplete(    int count){
       for (int i=0; i < mListView.getCount(); i++) {
         String item=(String)mListView.getItemAtPosition(i);

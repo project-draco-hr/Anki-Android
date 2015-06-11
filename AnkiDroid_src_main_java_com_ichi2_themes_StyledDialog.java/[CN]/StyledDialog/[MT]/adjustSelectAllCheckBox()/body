@@ -9,5 +9,5 @@
   CheckBox selectAll=(CheckBox)findViewById(R.id.SelectAllCheckbox);
   selectAll.setOnCheckedChangeListener(null);
   selectAll.setChecked(check);
-  selectAll.setOnCheckedChangeListener((OnCheckedChangeListener)selectAll.getTag());
+  selectAll.setOnCheckedChangeListener((CompoundButton.OnCheckedChangeListener)selectAll.getTag());
 }

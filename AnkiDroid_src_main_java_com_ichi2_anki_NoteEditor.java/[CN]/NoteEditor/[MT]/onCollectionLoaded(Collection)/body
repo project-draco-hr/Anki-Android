@@ -4,13 +4,6 @@
   Intent intent=getIntent();
   Timber.d("onCollectionLoaded: caller: %d",mCaller);
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
-  if (mCaller == CALLER_INDICLASH && preferences.getBoolean("intentAdditionInstantAdd",false)) {
-    fetchIntentInformation(intent);
-    MetaDB.saveIntentInformation(NoteEditor.this,Utils.joinFields(mSourceText));
-    Themes.showThemedToast(NoteEditor.this,getResources().getString(R.string.app_name) + ": " + getResources().getString(R.string.CardEditorLaterMessage),false);
-    finishWithoutAnimation();
-    return;
-  }
   registerExternalStorageListener();
   View mainView=getLayoutInflater().inflate(R.layout.note_editor,null);
   setContentView(mainView);
