@@ -10,12 +10,6 @@
   int foregroundColor;
   int nextTimeRecommendedColor;
   if (nightMode) {
-    flipCard.setBackgroundResource(mNightModeButton);
-    ease1.setBackgroundResource(mNightModeButton);
-    ease2.setBackgroundResource(mNightModeButton);
-    ease3.setBackgroundResource(mNightModeButton);
-    ease4.setBackgroundResource(mNightModeButton);
-    mAnswerField.setBackgroundResource(mNightModeButton);
     foregroundColor=Color.WHITE;
     nextTimeRecommendedColor=res.getColor(R.color.next_time_recommended_color_inv);
 switch (mCurrentTheme) {

@@ -1,65 +1,13 @@
 {
-  setFont(view);
 switch (caller) {
-case CALLER_STUDYOPTIONS:
-    if (mCurrentTheme == THEME_WHITE) {
-      setMargins(view.findViewById(R.id.studyoptions_deck_name),LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT,0,6f,0,2f);
-      ((View)view.findViewById(R.id.studyoptions_scrollcontainer)).setBackgroundResource(R.drawable.white_textview);
-      ((View)view.findViewById(R.id.studyoptions_deck_name)).setVisibility(View.VISIBLE);
-      ((View)view.findViewById(R.id.studyoptions_main)).setBackgroundResource(R.drawable.white_wallpaper);
-    }
- else {
-      ((View)view.findViewById(R.id.studyoptions_main)).setBackgroundResource(mWallpaper);
-    }
-  break;
-case CALLER_DECKPICKER:
-break;
-case CALLER_CARDBROWSER:
-ListView lv2=(ListView)view.findViewById(R.id.card_browser_list);
-switch (mCurrentTheme) {
-case THEME_WHITE:
-lv2.setSelector(R.drawable.white_deckpicker_list_selector);
-CompatHelper.getCompat().setOverScrollModeNever(lv2);
-lv2.setFadingEdgeLength(15);
-lv2.getDivider().setAlpha(ALPHA_DIVIDER);
-break;
-default :
-break;
-}
-break;
-case CALLER_CARDEDITOR_INTENTDIALOG:
-ListView lv3=(ListView)view;
-switch (mCurrentTheme) {
-case THEME_WHITE:
-lv3.setSelector(R.drawable.blue_cardbrowser_list_selector);
-lv3.setDividerHeight(0);
-break;
-default :
-break;
-}
-break;
-case CALLER_DECKPICKER_DECK:
-break;
 case CALLER_REVIEWER:
-((View)view.findViewById(R.id.main_layout)).setBackgroundResource(mReviewerBackground);
+    ((View)view.findViewById(R.id.main_layout)).setBackgroundResource(mReviewerBackground);
 switch (mCurrentTheme) {
-case THEME_ANDROID_DARK:
-case THEME_ANDROID_LIGHT:
-((View)view.findViewById(R.id.flashcard_frame)).setBackgroundResource(AnkiDroidApp.getSharedPrefs(mContext).getBoolean("invertedColors",false) ? R.color.black : R.color.white);
-break;
 case THEME_WHITE:
-((View)view.findViewById(R.id.flashcard_frame)).setBackgroundResource(AnkiDroidApp.getSharedPrefs(mContext).getBoolean("invertedColors",false) ? R.color.black : R.color.white);
-setMargins(view.findViewById(R.id.main_layout),LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT,4f,0,4f,4f);
+    ((View)view.findViewById(R.id.flashcard_frame)).setBackgroundResource(AnkiDroidApp.getSharedPrefs(view.getContext()).getBoolean("invertedColors",false) ? R.color.black : R.color.white);
+  setMargins(view.findViewById(R.id.main_layout),LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT,4f,0,4f,4f);
 break;
 }
-break;
-case CALLER_FEEDBACK:
-((TextView)view).setTextColor(mProgressbarsFrameColor);
-break;
-case CALLER_CARD_EDITOR:
-break;
-case CALLER_DOWNLOAD_DECK:
-view.setBackgroundResource(mDeckpickerItemBorder);
 break;
 }
 }

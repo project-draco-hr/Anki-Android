@@ -1,6 +1,0 @@
-{
-  TypedValue typedValue=new TypedValue();
-  Resources.Theme theme=mContext.getTheme();
-  theme.resolveAttribute(attributeID,typedValue,true);
-  return typedValue.resourceId;
-}

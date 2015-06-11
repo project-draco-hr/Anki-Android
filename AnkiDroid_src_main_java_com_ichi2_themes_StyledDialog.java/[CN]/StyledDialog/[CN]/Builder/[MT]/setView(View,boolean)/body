@@ -1,3 +1,5 @@
 {
-  return setView(v,isSingleView,false);
+  this.contentView=v;
+  this.bottomMargin=isSingleView ? 5 : 0;
+  return this;
 }

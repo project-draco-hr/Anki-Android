@@ -34,5 +34,6 @@
       preferences.edit().putInt("backupMax",0).commit();
     }
     preferences.edit().remove("useBackup").commit();
+    preferences.edit().remove("intentAdditionInstantAdd").commit();
   }
 }

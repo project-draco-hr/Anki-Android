@@ -1,6 +1,5 @@
 {
   Timber.d("onCreate()");
-  Themes.applyTheme(this);
   super.onCreate(savedInstanceState);
   setContentView(R.layout.card_template_editor_activity);
   mModelId=getIntent().getLongExtra("modelId",-1L);

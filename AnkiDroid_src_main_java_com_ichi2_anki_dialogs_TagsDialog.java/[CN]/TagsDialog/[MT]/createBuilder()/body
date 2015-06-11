@@ -62,7 +62,7 @@ mCurrentTags.addAll(mStyledDialog.getCheckedItems());
 );
 if (customView != null) {
 builder.customView(customView,true);
-builder2.setView(customView,false,true);
+builder2.setView(customView,false);
 }
 builder2.setShowFilterTags(showFilterTags);
 return builder2;

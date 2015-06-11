@@ -4,14 +4,14 @@
   }
   try {
     String[] title=getCol().getDecks().get(mCurrentCard.getDid()).getString("name").split("::");
-    UIUtils.setTitle(this,title[title.length - 1]);
+    getSupportActionBar().setTitle(title[title.length - 1]);
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
   int[] counts=mSched.counts(mCurrentCard);
   int eta=mSched.eta(counts,false);
-  UIUtils.setSubtitle(this,getResources().getQuantityString(R.plurals.reviewer_window_title,eta,eta),mInvertedColors);
+  getSupportActionBar().setSubtitle(getResources().getQuantityString(R.plurals.reviewer_window_title,eta,eta));
   SpannableString newCount=new SpannableString(String.valueOf(counts[0]));
   SpannableString lrnCount=new SpannableString(String.valueOf(counts[1]));
   SpannableString revCount=new SpannableString(String.valueOf(counts[2]));

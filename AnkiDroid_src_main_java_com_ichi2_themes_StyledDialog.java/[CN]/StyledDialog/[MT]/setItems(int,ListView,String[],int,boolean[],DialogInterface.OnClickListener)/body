@@ -4,7 +4,7 @@
   Collections.addAll(mItemList,values);
   mListener=listener;
   if (type == 3) {
-    mListView.setOnItemClickListener(new OnItemClickListener(){
+    mListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
       @Override public void onItemClick(      AdapterView<?> parent,      View view,      int position,      long id){
         mListener.onClick(StyledDialog.this,position);
         adjustSelectAllCheckBox();
@@ -13,7 +13,7 @@
 );
   }
  else {
-    mListView.setOnItemClickListener(new OnItemClickListener(){
+    mListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
       @Override public void onItemClick(      AdapterView<?> parent,      View view,      int position,      long id){
         mListener.onClick(StyledDialog.this,position);
         StyledDialog.this.dismiss();

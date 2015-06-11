@@ -40,7 +40,7 @@
           if (!mFragmented) {
             getActivity().setTitle(getResources().getString(R.string.studyoptions_title));
             List<String> parts=Arrays.asList(fullName.split("::"));
-            UIUtils.setSubtitle(getActivity(),parts.get(parts.size() - 1));
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setSubtitle(parts.get(parts.size() - 1));
           }
         }
  catch (        JSONException e) {
