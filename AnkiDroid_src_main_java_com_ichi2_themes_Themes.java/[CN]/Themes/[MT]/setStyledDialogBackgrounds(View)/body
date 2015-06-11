@@ -1,9 +1,0 @@
-{
-  int buttonCount=0;
-  for (  int id : new int[]{R.id.positive_button,R.id.negative_button,R.id.neutral_button}) {
-    if (main.findViewById(id).getVisibility() == View.VISIBLE) {
-      buttonCount++;
-    }
-  }
-  setStyledDialogBackgrounds(main,buttonCount);
-}

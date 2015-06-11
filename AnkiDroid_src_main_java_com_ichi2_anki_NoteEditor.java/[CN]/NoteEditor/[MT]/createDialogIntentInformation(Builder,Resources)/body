@@ -15,17 +15,6 @@
     }
   }
 );
-  mCardItemBackground=Themes.getCardBrowserBackground()[0];
-  mIntentInformationAdapter.setViewBinder(new SimpleAdapter.ViewBinder(){
-    @Override public boolean setViewValue(    View view,    Object arg1,    String text){
-      if (view.getId() == R.id.add_intent_item) {
-        view.setBackgroundResource(mCardItemBackground);
-        return true;
-      }
-      return false;
-    }
-  }
-);
   listView.setBackgroundColor(android.R.attr.colorBackground);
   listView.setDrawSelectorOnTop(true);
   listView.setFastScrollEnabled(true);

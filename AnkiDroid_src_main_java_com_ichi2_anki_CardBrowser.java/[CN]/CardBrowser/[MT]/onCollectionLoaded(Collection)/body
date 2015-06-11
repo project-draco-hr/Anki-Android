@@ -6,7 +6,6 @@
     mDeckNames.put(String.valueOf(did),getCol().getDecks().name(did));
   }
   registerExternalStorageListener();
-  mBackground=Themes.getCardBrowserBackground();
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
   mDropDownDecks=getCol().getDecks().allSorted();
   mDropDownAdapter=new DeckDropDownAdapter(this,mDropDownDecks);

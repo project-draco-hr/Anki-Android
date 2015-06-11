@@ -1,8 +1,7 @@
 {
   View parent=(View)view.getParent();
-  parent.setBackgroundResource(mBackgroundColor);
   Class<?> c=view.getParent().getClass();
-  float factor=mContext.getResources().getDisplayMetrics().density;
+  float factor=view.getContext().getResources().getDisplayMetrics().density;
   if (c == LinearLayout.class) {
     LinearLayout.LayoutParams llp=new LinearLayout.LayoutParams(width,height);
     llp.setMargins((int)(dipLeft * factor),(int)(dipTop * factor),(int)(dipRight * factor),(int)(dipBottom * factor));

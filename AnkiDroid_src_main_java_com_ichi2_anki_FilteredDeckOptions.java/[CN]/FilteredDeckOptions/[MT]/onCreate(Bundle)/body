@@ -1,7 +1,4 @@
 {
-  if (!CompatHelper.isHoneycomb()) {
-    Themes.applyTheme(this,Themes.THEME_ANDROID_DARK);
-  }
   super.onCreate(icicle);
   mCol=CollectionHelper.getInstance().getCol(this);
   if (mCol == null) {

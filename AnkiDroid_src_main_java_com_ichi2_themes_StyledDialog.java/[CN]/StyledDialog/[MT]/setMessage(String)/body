@@ -1,6 +1,5 @@
 {
   View main=super.getWindow().getDecorView();
   ((TextView)main.findViewById(R.id.message)).setText(message);
-  ((View)main.findViewById(R.id.contentPanel)).setVisibility(View.VISIBLE);
-  Themes.setStyledDialogBackgrounds(main);
+  main.findViewById(R.id.contentPanel).setVisibility(View.VISIBLE);
 }

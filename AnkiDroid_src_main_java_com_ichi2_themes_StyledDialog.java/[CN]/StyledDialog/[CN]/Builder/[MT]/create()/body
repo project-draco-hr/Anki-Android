@@ -76,14 +76,6 @@
  else {
     ((View)layout.findViewById(R.id.customPanel)).setVisibility(View.GONE);
   }
-  try {
-    Themes.setStyledDialogBackgrounds(layout,numberOfButtons,brightViewBackground);
-  }
- catch (  OutOfMemoryError e) {
-    Timber.e(e,"StyledDialog - Dialog could not be created");
-    Themes.showThemedToast(context,context.getResources().getString(R.string.error_insufficient_memory),false);
-    return null;
-  }
   if (this.listStyle == 3 && selectAllListener != null) {
     CheckBox selectAll=(CheckBox)layout.findViewById(R.id.SelectAllCheckbox);
     selectAll.setVisibility(View.VISIBLE);
