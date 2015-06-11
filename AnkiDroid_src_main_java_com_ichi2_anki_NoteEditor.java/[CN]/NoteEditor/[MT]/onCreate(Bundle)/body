@@ -5,6 +5,9 @@
   if (savedInstanceState != null) {
     mCaller=savedInstanceState.getInt("caller");
     mAddNote=savedInstanceState.getBoolean("addFact");
+    mCurrentDid=savedInstanceState.getLong("did");
+    mSelectedTags=new ArrayList<>(Arrays.asList(savedInstanceState.getStringArray("tags")));
+    mSavedFields=savedInstanceState.getBundle("editFields");
   }
  else {
     mCaller=intent.getIntExtra(EXTRA_CALLER,CALLER_NOCALLER);

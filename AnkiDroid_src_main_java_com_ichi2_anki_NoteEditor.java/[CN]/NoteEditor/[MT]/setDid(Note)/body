@@ -1,4 +1,7 @@
 {
+  if (mCurrentDid != 0) {
+    return;
+  }
   if (note == null || mAddNote) {
     try {
       JSONObject conf=getCol().getConf();
