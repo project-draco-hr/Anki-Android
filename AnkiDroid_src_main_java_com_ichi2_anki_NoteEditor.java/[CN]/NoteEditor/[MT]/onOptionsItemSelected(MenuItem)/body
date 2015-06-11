@@ -1,4 +1,5 @@
 {
+  Resources res=getResources();
 switch (item.getItemId()) {
 case android.R.id.home:
     Timber.i("NoteEditor:: Home button pressed");
@@ -33,7 +34,20 @@ startActivityForResultWithAnimation(intent,REQUEST_ADD,ActivityTransitionAnimati
 return true;
 case R.id.action_reset_card_progress:
 Timber.i("NoteEditor:: Reset progress button pressed");
-showDialog(DIALOG_RESET_CARD);
+ConfirmationDialog dialog=new ConfirmationDialog(){
+@Override public void confirm(){
+Timber.i("NoteEditor:: OK button pressed");
+getCol().getSched().forgetCards(new long[]{mCurrentEditedCard.getId()});
+getCol().reset();
+mReloadRequired=true;
+Themes.showThemedToast(NoteEditor.this,getResources().getString(R.string.reset_card_dialog_acknowledge),true);
+}
+}
+;
+String title=res.getString(R.string.reset_card_dialog_title);
+String message=res.getString(R.string.reset_card_dialog_message);
+dialog.setArgs(title,message);
+showDialogFragment(dialog);
 return true;
 case R.id.action_saved_notes:
 Timber.i("NoteEditor:: Saved data button pressed");
@@ -41,7 +55,7 @@ showDialog(DIALOG_INTENT_INFORMATION);
 return true;
 case R.id.action_reschedule_card:
 Timber.i("NoteEditor:: Reschedule button pressed");
-showDialog(DIALOG_RESCHEDULE_CARD);
+showDialogFragment(NoteEditorRescheduleCard.newInstance());
 return true;
 default :
 return super.onOptionsItemSelected(item);
