@@ -7,6 +7,6 @@
     Connection.register(registerListener,new Connection.Payload(new Object[]{username,password}));
   }
  else {
-    mInvalidUserPassAlert.show();
+    showSimpleSnackbar(R.string.invalid_username_password,true);
   }
 }

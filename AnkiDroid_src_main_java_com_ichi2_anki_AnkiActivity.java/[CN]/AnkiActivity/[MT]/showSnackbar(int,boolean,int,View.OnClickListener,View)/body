@@ -1,0 +1,15 @@
+{
+  if (root == null) {
+    root=findViewById(android.R.id.content);
+    if (root == null) {
+      Timber.e("Could not show Snackbar due to null View");
+      return;
+    }
+  }
+  int length=shortLength ? Snackbar.LENGTH_SHORT : Snackbar.LENGTH_LONG;
+  Snackbar sb=Snackbar.make(root,mainTextResource,length);
+  if (listener != null) {
+    sb.setAction(actionTextResource,listener);
+  }
+  sb.show();
+}
