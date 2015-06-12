@@ -1,38 +1,10 @@
 {
-  mDrawerLayout.closeDrawer(mDrawerList);
-  if (itemId == getSelfNavDrawerItem()) {
-    return;
+  Menu menu=mNavigationView.getMenu();
+  MenuItem item=menu.findItem(itemId);
+  if (item != null) {
+    item.setChecked(true);
   }
-  setTitle(mNavigationTitles[itemId]);
-switch (itemId) {
-case DRAWER_DECK_PICKER:
-    Intent deckPicker=new Intent(this,DeckPicker.class);
-  deckPicker.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-startActivityWithAnimation(deckPicker,ActivityTransitionAnimation.RIGHT);
-break;
-case DRAWER_BROWSER:
-Intent cardBrowser=new Intent(this,CardBrowser.class);
-cardBrowser.putExtra("selectedDeck",getCol().getDecks().selected());
-startActivityForResultWithAnimation(cardBrowser,REQUEST_BROWSE_CARDS,ActivityTransitionAnimation.LEFT);
-break;
-case DRAWER_STATISTICS:
-Intent intent=new Intent(this,Statistics.class);
-intent.putExtra("selectedDeck",getCol().getDecks().selected());
-startActivityForResultWithAnimation(intent,REQUEST_STATISTICS,ActivityTransitionAnimation.LEFT);
-break;
-case DRAWER_SETTINGS:
-mOldColPath=CollectionHelper.getCurrentAnkiDroidDirectory(this);
-startActivityForResultWithAnimation(new Intent(this,Preferences.class),REQUEST_PREFERENCES_UPDATE,ActivityTransitionAnimation.FADE);
-break;
-case DRAWER_HELP:
-Intent helpIntent=new Intent("android.intent.action.VIEW",Uri.parse(AnkiDroidApp.getManualUrl()));
-startActivityWithoutAnimation(helpIntent);
-break;
-case DRAWER_FEEDBACK:
-Intent feedbackIntent=new Intent("android.intent.action.VIEW",Uri.parse(AnkiDroidApp.getFeedbackUrl()));
-startActivityWithoutAnimation(feedbackIntent);
-break;
-default :
-break;
-}
+ else {
+    Timber.e("Could not find item %d",itemId);
+  }
 }

@@ -1,6 +1,7 @@
 {
   Timber.d("onResume()");
   super.onResume();
+  selectNavigationItem(R.id.nav_decks);
   if (colIsOpen()) {
     updateDeckList();
     hideProgressBar();

@@ -1,11 +1,8 @@
 {
   mDrawerLayout=(DrawerLayout)mainView.findViewById(R.id.drawer_layout);
-  mTitle=getTitle();
-  mNavigationTitles=getResources().getStringArray(R.array.navigation_titles);
-  mNavigationImages=getResources().obtainTypedArray(R.array.drawer_images);
   mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,GravityCompat.START);
-  populateNavDrawerItems();
-  createNavDrawerItems(mainView);
+  mNavigationView=(NavigationView)mDrawerLayout.findViewById(R.id.navdrawer_items_container);
+  mNavigationView.setNavigationItemSelectedListener(this);
   Toolbar toolbar=(Toolbar)mainView.findViewById(R.id.toolbar);
   if (toolbar != null) {
     setSupportActionBar(toolbar);
