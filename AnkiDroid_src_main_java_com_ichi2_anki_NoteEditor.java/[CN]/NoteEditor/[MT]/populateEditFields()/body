@@ -1,4 +1,16 @@
 {
-  String[][] fields=mEditorNote.items();
+  String[][] fields;
+  if (mSavedFields != null) {
+    fields=mEditorNote.items();
+    for (    String key : mSavedFields.keySet()) {
+      int ord=Integer.parseInt(key);
+      String text=mSavedFields.getString(key);
+      fields[ord][1]=text;
+    }
+    mSavedFields=null;
+  }
+ else {
+    fields=mEditorNote.items();
+  }
   populateEditFields(fields,false);
 }

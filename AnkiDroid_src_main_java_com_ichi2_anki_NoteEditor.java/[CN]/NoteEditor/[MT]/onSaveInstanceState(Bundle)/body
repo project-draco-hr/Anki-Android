@@ -1,5 +1,13 @@
 {
-  outState.putBoolean("addFact",mAddNote);
-  outState.putInt("caller",mCaller);
-  Timber.d("onSaveInstanceState - Ending");
+  Timber.i("Saving instance");
+  savedInstanceState.putInt("caller",mCaller);
+  savedInstanceState.putBoolean("addFact",mAddNote);
+  savedInstanceState.putLong("did",mCurrentDid);
+  savedInstanceState.putStringArray("tags",mSelectedTags.toArray(new String[mSelectedTags.size()]));
+  Bundle fields=new Bundle();
+  for (  FieldEditText e : mEditFields) {
+    fields.putString(Integer.toString(e.getOrd()),e.getText().toString());
+  }
+  savedInstanceState.putBundle("editFields",fields);
+  super.onSaveInstanceState(savedInstanceState);
 }
