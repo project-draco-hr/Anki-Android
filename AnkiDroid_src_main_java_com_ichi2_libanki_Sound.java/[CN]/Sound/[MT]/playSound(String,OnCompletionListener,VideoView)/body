@@ -5,7 +5,9 @@
   }
  else {
     final boolean isVideo;
-    isVideo=ThumbnailUtils.createVideoThumbnail(soundUri.getPath(),MediaStore.Images.Thumbnails.MINI_KIND) != null;
+    final String extension=soundPath.substring(soundPath.lastIndexOf(".")).toLowerCase();
+    final boolean supportedVideoExtension=Arrays.asList(VIDEO_EXTENSIONS).contains(extension);
+    isVideo=supportedVideoExtension && ThumbnailUtils.createVideoThumbnail(soundUri.getPath(),MediaStore.Images.Thumbnails.MINI_KIND) != null;
     if (isVideo && videoView == null && sCallingActivity != null && sCallingActivity.get() != null) {
       sPlayAllListener=playAllListener;
       ((AbstractFlashcardViewer)sCallingActivity.get()).playVideo(soundPath);
