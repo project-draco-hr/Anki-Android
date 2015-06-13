@@ -1,8 +1,0 @@
-{
-  TextView txtTitle=(TextView)view.findViewById(R.id.drawer_list_item_text);
-  ImageView imgIcon=(ImageView)view.findViewById(R.id.drawer_list_item_icon);
-  if (selected)   view.setBackgroundColor(getResources().getColor(R.color.navdrawer_background_selected));
-  txtTitle.setTypeface(null,selected ? Typeface.BOLD : Typeface.NORMAL);
-  txtTitle.setTextColor(selected ? getResources().getColor(R.color.navdrawer_text_color_selected) : getResources().getColor(R.color.navdrawer_text_color));
-  imgIcon.setColorFilter(selected ? getResources().getColor(R.color.navdrawer_icon_tint_selected) : getResources().getColor(R.color.navdrawer_icon_tint),PorterDuff.Mode.SRC_IN);
-}

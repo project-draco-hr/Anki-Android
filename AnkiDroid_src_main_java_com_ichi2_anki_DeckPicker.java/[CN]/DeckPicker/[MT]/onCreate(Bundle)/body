@@ -11,9 +11,6 @@
   sIsWholeCollection=!mFragmented;
   registerExternalStorageListener();
   initNavigationDrawer(mainView);
-  if (savedInstanceState == null) {
-    selectNavigationItem(DRAWER_DECK_PICKER);
-  }
   setTitle(getResources().getString(R.string.app_name));
   mDeckList=new ArrayList<>();
   mRecyclerView=(RecyclerView)findViewById(R.id.files);
