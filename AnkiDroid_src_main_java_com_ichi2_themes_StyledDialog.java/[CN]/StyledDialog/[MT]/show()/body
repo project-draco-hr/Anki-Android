@@ -1,9 +1,0 @@
-{
-  try {
-    setCanceledOnTouchOutside(false);
-    super.show();
-  }
- catch (  WindowManager.BadTokenException e) {
-    Timber.e(e,"Could not show dialog");
-  }
-}
