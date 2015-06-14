@@ -1,0 +1,18 @@
+{
+  mFilteredTags.clear();
+  final FilterResults filterResults=new FilterResults();
+  if (constraint.length() == 0) {
+    mFilteredTags.addAll(mAllTags);
+  }
+ else {
+    final String filterPattern=constraint.toString().toLowerCase().trim();
+    for (    String tag : mAllTags) {
+      if (tag.toLowerCase().startsWith(filterPattern)) {
+        mFilteredTags.add(tag);
+      }
+    }
+  }
+  filterResults.values=mFilteredTags;
+  filterResults.count=mFilteredTags.size();
+  return filterResults;
+}

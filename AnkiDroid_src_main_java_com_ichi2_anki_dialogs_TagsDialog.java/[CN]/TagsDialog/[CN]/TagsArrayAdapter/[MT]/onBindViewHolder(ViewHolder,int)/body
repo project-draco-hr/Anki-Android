@@ -1,0 +1,5 @@
+{
+  String tag=mTagsList.get(position);
+  holder.mTagItemCheckedTextView.setText(tag);
+  holder.mTagItemCheckedTextView.setChecked(mCurrentTags.contains(tag));
+}

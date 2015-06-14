@@ -1,8 +1,118 @@
 {
-  if (mStyledDialog == null) {
-    mStyledDialog=createBuilder().create();
-    mStyledDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-    actualizeCurrTagDialog();
+  Resources res=getResources();
+  View tagsDialogView=LayoutInflater.from(getActivity()).inflate(R.layout.tags_dialog,null,false);
+  final RecyclerView tagsListRecyclerView=(RecyclerView)tagsDialogView.findViewById(R.id.tags_dialog_tags_list);
+  tagsListRecyclerView.requestFocus();
+  tagsListRecyclerView.setHasFixedSize(true);
+  RecyclerView.LayoutManager tagsListLayout=new LinearLayoutManager(getActivity());
+  tagsListRecyclerView.setLayoutManager(tagsListLayout);
+  mTagsArrayAdapter=new TagsArrayAdapter();
+  tagsListRecyclerView.setAdapter(mTagsArrayAdapter);
+  mAddFilterEditText=(EditText)tagsDialogView.findViewById(R.id.tags_dialog_filter_edittext);
+  mAddFilterEditText.addTextChangedListener(new TextWatcher(){
+    @Override public void onTextChanged(    CharSequence s,    int start,    int before,    int count){
+      TagsArrayAdapter adapter=(TagsArrayAdapter)tagsListRecyclerView.getAdapter();
+      adapter.getFilter().filter(s.toString());
+    }
+    @Override public void beforeTextChanged(    CharSequence s,    int start,    int count,    int after){
+    }
+    @Override public void afterTextChanged(    Editable s){
+    }
   }
-  return mStyledDialog;
+);
+  InputFilter filter=new InputFilter(){
+    @Override public CharSequence filter(    CharSequence source,    int start,    int end,    Spanned dest,    int dstart,    int dend){
+      for (int i=start; i < end; i++) {
+        if (source.charAt(i) == ' ' || source.charAt(i) == ',') {
+          return "";
+        }
+      }
+      return null;
+    }
+  }
+;
+  mAddFilterEditText.setFilters(new InputFilter[]{filter});
+  mAddFilterEditText.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+    @Override public void onFocusChange(    View v,    boolean hasFocus){
+      SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(getActivity());
+      if (mAddTagImageView.isShown() && hasFocus && !prefs.getBoolean("knowsHowToAddTag",false)) {
+        Toast.makeText(getActivity(),R.string.tag_editor_add_hint,Toast.LENGTH_SHORT).show();
+      }
+    }
+  }
+);
+  mAddTagImageView=(ImageView)tagsDialogView.findViewById(R.id.tags_dialog_add_tag_imageview);
+  mAddTagImageView.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View view){
+      String tag=mAddFilterEditText.getText().toString();
+      if (!TextUtils.isEmpty(tag)) {
+        mAddFilterEditText.setText("");
+        if (mCurrentTags.contains(tag)) {
+          return;
+        }
+ else         if (!mAllTags.contains(tag)) {
+          mAllTags.add(tag);
+          mTagsArrayAdapter.mTagsList.add(tag);
+          mTagsArrayAdapter.sortData();
+        }
+        mCurrentTags.add(tag);
+        mTagsArrayAdapter.notifyDataSetChanged();
+        Resources res=getResources();
+        Toast.makeText(getActivity(),res.getString(R.string.tag_editor_add_feedback,tag,res.getString(R.string.select)),Toast.LENGTH_LONG).show();
+        SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(getActivity());
+        prefs.edit().putBoolean("knowsHowToAddTag",true).commit();
+      }
+    }
+  }
+);
+  mOptionsGroup=(RadioGroup)tagsDialogView.findViewById(R.id.tags_dialog_options_radiogroup);
+  for (int i=0; i < mOptionsGroup.getChildCount(); i++) {
+    mOptionsGroup.getChildAt(i).setId(i);
+  }
+  mOptionsGroup.check(0);
+  mSelectedOption=mOptionsGroup.getCheckedRadioButtonId();
+  mOptionsGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
+    @Override public void onCheckedChanged(    RadioGroup radioGroup,    int checkedId){
+      mSelectedOption=checkedId;
+    }
+  }
+);
+  adjustDialogFromType();
+  MaterialDialog.Builder builder=new MaterialDialog.Builder(getActivity()).positiveText(res.getString(R.string.select)).negativeText(res.getString(R.string.dialog_cancel)).customView(tagsDialogView,false).callback(new MaterialDialog.ButtonCallback(){
+    @Override public void onPositive(    MaterialDialog dialog){
+      mTagsDialogListener.onPositive(new ArrayList<String>(mCurrentTags),mSelectedOption);
+    }
+  }
+);
+  MaterialDialog dialog=builder.build();
+  View customTitleView=LayoutInflater.from(getActivity()).inflate(R.layout.tags_dialog_title,null,false);
+  TextView titleTV=(TextView)customTitleView.findViewById(R.id.tags_dialog_title_textview);
+  titleTV.setText(mDialogTitle);
+  mCheckAllCheckBox=(CheckBox)customTitleView.findViewById(R.id.tags_dialog_all_checkbox);
+  mCheckAllCheckBox.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View view){
+      boolean changed=false;
+      for (      String tag : mTagsArrayAdapter.mTagsList) {
+        if (mCheckAllCheckBox.isChecked() && !mCurrentTags.contains(tag)) {
+          mCurrentTags.add(tag);
+          changed=true;
+        }
+ else         if (!mCheckAllCheckBox.isChecked() && mCurrentTags.contains(tag)) {
+          mCurrentTags.remove(tag);
+          changed=true;
+        }
+      }
+      if (changed) {
+        mTagsArrayAdapter.notifyDataSetChanged();
+      }
+    }
+  }
+);
+  mCheckAllCheckBox.setChecked(mCurrentTags.containsAll(mTagsArrayAdapter.mTagsList));
+  LinearLayout titleLayout=(LinearLayout)dialog.getView().findViewById(R.id.titleFrame);
+  titleLayout.removeAllViews();
+  titleLayout.addView(customTitleView);
+  titleLayout.setVisibility(View.VISIBLE);
+  dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+  return dialog;
 }
