@@ -1,0 +1,22 @@
+{
+  if (!TextUtils.isEmpty(tag)) {
+    String feedbackText="";
+    if (!mAllTags.contains(tag)) {
+      mAllTags.add(tag);
+      if (mNoTagsTextView.getVisibility() == View.VISIBLE) {
+        mNoTagsTextView.setVisibility(View.GONE);
+      }
+      mTagsArrayAdapter.mTagsList.add(tag);
+      mTagsArrayAdapter.sortData();
+      feedbackText=getString(R.string.tag_editor_add_feedback,tag,mPositiveText);
+    }
+ else {
+      feedbackText=getString(R.string.tag_editor_add_feedback_existing,tag);
+    }
+    if (!mCurrentTags.contains(tag)) {
+      mCurrentTags.add(tag);
+    }
+    mTagsArrayAdapter.notifyDataSetChanged();
+    Snackbar.make(mDialog.getView().findViewById(R.id.tags_dialog_snackbar),feedbackText,Snackbar.LENGTH_LONG).show();
+  }
+}
