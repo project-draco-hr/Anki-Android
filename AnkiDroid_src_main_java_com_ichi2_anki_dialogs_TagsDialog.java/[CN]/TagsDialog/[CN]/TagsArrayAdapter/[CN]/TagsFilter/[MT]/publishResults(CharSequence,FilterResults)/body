@@ -1,0 +1,7 @@
+{
+  mTagsList.clear();
+  mTagsList.addAll(mFilteredTags);
+  sortData();
+  notifyDataSetChanged();
+  mCheckAllCheckBox.setChecked(mCurrentTags.containsAll(mTagsList));
+}

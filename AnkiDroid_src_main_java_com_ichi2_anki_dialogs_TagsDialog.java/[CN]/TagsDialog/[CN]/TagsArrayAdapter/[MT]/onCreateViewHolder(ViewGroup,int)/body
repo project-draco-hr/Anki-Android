@@ -1,0 +1,19 @@
+{
+  View v=LayoutInflater.from(parent.getContext()).inflate(R.layout.tags_item_list_dialog,parent,false);
+  ViewHolder vh=new ViewHolder((CheckedTextView)v.findViewById(R.id.tags_dialog_tag_item));
+  vh.mTagItemCheckedTextView.setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View view){
+      CheckedTextView ctv=(CheckedTextView)view;
+      ctv.toggle();
+      String tag=ctv.getText().toString();
+      if (ctv.isChecked() && !mCurrentTags.contains(tag)) {
+        mCurrentTags.add(tag);
+      }
+ else       if (!ctv.isChecked() && mCurrentTags.contains(tag)) {
+        mCurrentTags.remove(tag);
+      }
+    }
+  }
+);
+  return vh;
+}

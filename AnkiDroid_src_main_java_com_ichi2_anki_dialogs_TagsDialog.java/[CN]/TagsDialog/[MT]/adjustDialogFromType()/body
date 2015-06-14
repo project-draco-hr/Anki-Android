@@ -1,0 +1,13 @@
+{
+switch (mType) {
+case TYPE_ADD_TAG:
+    mDialogTitle=getResources().getString(R.string.card_details_tags);
+  mOptionsGroup.setVisibility(View.GONE);
+mAddFilterEditText.setHint(R.string.add_new_filter_tags);
+break;
+default :
+mDialogTitle=getResources().getString(R.string.studyoptions_limit_select_tags);
+mAddTagImageView.setVisibility(View.GONE);
+mAddFilterEditText.setHint(R.string.filter_tags);
+}
+}

@@ -1,0 +1,10 @@
+{
+  Collections.sort(mTagsList,new Comparator<String>(){
+    @Override public int compare(    String lhs,    String rhs){
+      boolean lhs_checked=mCurrentTags.contains(lhs);
+      boolean rhs_checked=mCurrentTags.contains(rhs);
+      return lhs_checked == rhs_checked ? lhs.compareToIgnoreCase(rhs) : lhs_checked ? -1 : 1;
+    }
+  }
+);
+}

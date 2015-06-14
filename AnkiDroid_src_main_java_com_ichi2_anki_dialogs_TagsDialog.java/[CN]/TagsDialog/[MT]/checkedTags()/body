@@ -1,7 +1,0 @@
-{
-  boolean[] checked=new boolean[mAllTags.size()];
-  for (int i=0; i < checked.length; i++) {
-    checked[i]=mCurrentTags.contains(mAllTags.get(i));
-  }
-  return checked;
-}
