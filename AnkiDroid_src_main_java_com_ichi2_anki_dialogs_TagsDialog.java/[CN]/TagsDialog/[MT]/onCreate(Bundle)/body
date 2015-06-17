@@ -6,5 +6,10 @@
   mCurrentTags.addAll(getArguments().getStringArrayList(CHECKED_TAGS_KEY));
   mAllTags=new ArrayList<String>();
   mAllTags.addAll(getArguments().getStringArrayList(ALL_TAGS_KEY));
+  for (  String tag : mCurrentTags) {
+    if (!mAllTags.contains(tag)) {
+      mAllTags.add(tag);
+    }
+  }
   setCancelable(true);
 }
