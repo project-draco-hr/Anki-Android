@@ -5,7 +5,7 @@
   final InputFilter addTagFilter=new InputFilter(){
     @Override public CharSequence filter(    CharSequence source,    int start,    int end,    Spanned dest,    int dstart,    int dend){
       for (int i=start; i < end; i++) {
-        if (source.charAt(i) == ' ' || source.charAt(i) == ',') {
+        if (source.charAt(i) == ' ') {
           return "";
         }
       }
@@ -19,6 +19,7 @@
       String query=mToolbarSearchView.getQuery().toString();
       if (MenuItemCompat.isActionViewExpanded(mToolbarSearchItem) && !TextUtils.isEmpty(query)) {
         addTag(query);
+        mToolbarSearchView.setQuery("",true);
       }
  else {
         MaterialDialog.Builder addTagBuilder=new MaterialDialog.Builder(getActivity()).title(getString(R.string.add_tag)).negativeText(R.string.dialog_cancel).positiveText(R.string.dialog_ok).inputType(InputType.TYPE_CLASS_TEXT).input(R.string.tag_name,R.string.empty_string,new MaterialDialog.InputCallback(){
