@@ -1,6 +1,5 @@
 {
   mExtensions=new ReviewerExtRegistry(getBaseContext());
-  setTheme(R.style.Theme_White);
   super.onCreate(savedInstanceState);
   Timber.d("onCreate()");
   View mainView=getLayoutInflater().inflate(R.layout.flashcard,null);

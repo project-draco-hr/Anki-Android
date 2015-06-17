@@ -1,6 +1,7 @@
 {
   Timber.d("onCreate()");
   super.onCreate(savedInstanceState);
+  setContentView(R.layout.note_editor);
   Intent intent=getIntent();
   if (savedInstanceState != null) {
     mCaller=savedInstanceState.getInt("caller");
