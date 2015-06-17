@@ -1,6 +1,6 @@
 {
   mMainLayout=findViewById(R.id.main_layout);
-  Themes.setContentStyle(mMainLayout,Themes.CALLER_REVIEWER);
+  (mMainLayout.findViewById(R.id.flashcard_frame)).setBackgroundResource(AnkiDroidApp.getSharedPrefs(mMainLayout.getContext()).getBoolean("invertedColors",false) ? R.color.black : R.color.white);
   mCardContainer=(FrameLayout)findViewById(R.id.flashcard_frame);
   mTopBarLayout=(RelativeLayout)findViewById(R.id.top_bar);
   mTopBarLayout.setOnClickListener(mCardStatisticsListener);
