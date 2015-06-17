@@ -23,7 +23,7 @@
   mRecyclerView.setAdapter(mDeckListAdapter);
   mTodayTextView=(TextView)findViewById(R.id.today_stats_text_view);
   final Resources res=getResources();
-  mAddButton=(ImageButton)findViewById(R.id.fab);
+  mAddButton=(FloatingActionButton)findViewById(R.id.fab);
   mAddButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View v){
       new MaterialDialog.Builder(DeckPicker.this).items(new String[]{res.getString(R.string.menu_add_note),res.getString(R.string.menu_get_shared_decks),res.getString(R.string.new_deck)}).itemsCallback(new MaterialDialog.ListCallback(){
