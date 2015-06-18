@@ -1,4 +1,17 @@
 {
+  PreferenceCategory plugins=(PreferenceCategory)screen.findPreference("category_plugins");
+  if (!CompatHelper.hasKanaAndEmojiKeys()) {
+    CheckBoxPreference emojiScrolling=(CheckBoxPreference)screen.findPreference("scrolling_buttons");
+    if (emojiScrolling != null && plugins != null) {
+      plugins.removePreference(emojiScrolling);
+    }
+  }
+  if (!CompatHelper.hasScrollKeys() && !CompatHelper.hasKanaAndEmojiKeys()) {
+    CheckBoxPreference doubleScrolling=(CheckBoxPreference)screen.findPreference("double_scrolling");
+    if (doubleScrolling != null && plugins != null) {
+      plugins.removePreference(doubleScrolling);
+    }
+  }
   PreferenceCategory workarounds=(PreferenceCategory)screen.findPreference("category_workarounds");
   if (workarounds != null) {
     CheckBoxPreference inputWorkaround=(CheckBoxPreference)screen.findPreference("inputWorkaround");
