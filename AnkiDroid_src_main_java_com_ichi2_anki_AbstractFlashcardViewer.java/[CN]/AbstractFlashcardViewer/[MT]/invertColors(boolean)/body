@@ -8,6 +8,7 @@
   mFlipCard.setTextColor(mForegroundColor);
   mEase4.setTextColor(mNextTimeTextColor);
   mCardTimer.setTextColor(mForegroundColor);
+  mTopBarLayout.setBackgroundColor(invert ? res.getColor(R.color.theme_primary_light_inv) : res.getColor(R.color.theme_primary_light_inv));
   mTextBarNew.setTextColor(invert ? res.getColor(R.color.new_count_night) : res.getColor(R.color.new_count));
   mTextBarLearn.setTextColor(invert ? res.getColor(R.color.learn_count_night) : res.getColor(R.color.learn_count));
   mTextBarReview.setTextColor(invert ? res.getColor(R.color.review_count_night) : res.getColor(R.color.review_count));
