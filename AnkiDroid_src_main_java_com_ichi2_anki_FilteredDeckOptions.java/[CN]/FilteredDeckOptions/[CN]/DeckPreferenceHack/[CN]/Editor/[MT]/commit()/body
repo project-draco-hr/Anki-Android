@@ -24,11 +24,13 @@
  else       if (entry.getKey().equals("stepsOn")) {
         boolean on=(Boolean)entry.getValue();
         if (on) {
-          mDeck.put("delays",StepsPreference.convertToJSON((String)mValues.get("steps")));
+          JSONArray steps=StepsPreference.convertToJSON((String)mValues.get("steps"));
+          if (steps.length() > 0) {
+            mDeck.put("delays",steps);
+          }
         }
  else {
-          mValues.put("steps","1 10");
-          mDeck.put("delays",new JSONArray());
+          mDeck.put("delays",null);
         }
       }
  else       if (entry.getKey().equals("steps")) {
