@@ -85,8 +85,8 @@ default :
 }
 mFirstElement=0;
 mMaxElements=list.size() - 1;
-mAverage=Utils.fmtTimeSpan((int)Math.round(avg * 86400));
-mLongest=Utils.fmtTimeSpan((int)Math.round(max_ * 86400));
+mAverage=Utils.timeSpan(context,(int)Math.round(avg * 86400));
+mLongest=Utils.timeSpan(context,(int)Math.round(max_ * 86400));
 if (mMaxElements == 0) {
 mMaxElements=10;
 }
