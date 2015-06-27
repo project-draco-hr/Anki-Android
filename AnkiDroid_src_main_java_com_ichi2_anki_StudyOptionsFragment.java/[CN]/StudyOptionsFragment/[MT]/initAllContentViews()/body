@@ -17,8 +17,11 @@
     emptyBut.setOnClickListener(mButtonClickListener);
     ((LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_cram_buttons)).setVisibility(View.VISIBLE);
     ((LinearLayout)mStudyOptionsView.findViewById(R.id.studyoptions_regular_buttons)).setVisibility(View.GONE);
+    mButtonUnbury=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_unbury_cram);
   }
-  mButtonUnbury=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_unbury);
+ else {
+    mButtonUnbury=(Button)mStudyOptionsView.findViewById(R.id.studyoptions_unbury);
+  }
   mButtonUnbury.setOnClickListener(mButtonClickListener);
   mTextTodayNew=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_new);
   mTextTodayLrn=(TextView)mStudyOptionsView.findViewById(R.id.studyoptions_lrn);
