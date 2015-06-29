@@ -4,10 +4,11 @@
   if (soundPath.substring(0,3).equals("tts")) {
   }
  else {
-    final boolean isVideo;
+    final String guessedType=URLConnection.guessContentTypeFromName(soundPath);
+    boolean isVideo=guessedType != null && guessedType.startsWith("video/");
     final String extension=soundPath.substring(soundPath.lastIndexOf(".")).toLowerCase();
-    final boolean supportedVideoExtension=Arrays.asList(VIDEO_EXTENSIONS).contains(extension);
-    isVideo=supportedVideoExtension && ThumbnailUtils.createVideoThumbnail(soundUri.getPath(),MediaStore.Images.Thumbnails.MINI_KIND) != null;
+    isVideo=isVideo || Arrays.asList(MORE_VIDEO_EXTENSIONS).contains(extension);
+    isVideo=isVideo && ThumbnailUtils.createVideoThumbnail(soundUri.getPath(),MediaStore.Images.Thumbnails.MINI_KIND) != null;
     if (isVideo && videoView == null && sCallingActivity != null && sCallingActivity.get() != null) {
       sPlayAllListener=playAllListener;
       ((AbstractFlashcardViewer)sCallingActivity.get()).playVideo(soundPath);
