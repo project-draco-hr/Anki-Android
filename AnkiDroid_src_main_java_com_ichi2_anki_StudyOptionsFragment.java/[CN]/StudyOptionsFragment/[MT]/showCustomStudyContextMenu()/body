@@ -20,19 +20,12 @@ case 2:
 default :
       break;
   }
-  int i=0;
-  for (  String tag : selectedTags) {
-    if (i != 0) {
-      sb.append("or ");
+  List<String> arr=new ArrayList<>();
+  if (selectedTags.size() > 0) {
+    for (    String tag : selectedTags) {
+      arr.add(String.format("tag:'%s'",tag));
     }
- else {
-      sb.append("(");
-    }
-    sb.append("tag:").append(tag).append(" ");
-    i++;
-  }
-  if (i > 0) {
-    sb.append(")");
+    sb.append("(" + TextUtils.join(" or ",arr) + ")");
   }
   mSearchTerms=sb.toString();
   createFilteredDeck(new JSONArray(),new Object[]{mSearchTerms,Consts.DYN_MAX_SIZE,Consts.DYN_RANDOM},false);
