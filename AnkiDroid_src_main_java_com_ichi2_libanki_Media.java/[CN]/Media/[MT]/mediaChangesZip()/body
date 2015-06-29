@@ -45,6 +45,7 @@
     z.write(Utils.jsonToString(meta).getBytes());
     z.closeEntry();
     z.close();
+    f.deleteOnExit();
     return new Pair<File,List<String>>(f,fnames);
   }
  catch (  IOException e) {

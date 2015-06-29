@@ -21,7 +21,11 @@ catch (  IOException e1) {
   mCol.close(false);
   mCol=null;
   String tpath=path + ".tmp";
-  if (!super.writeToFile(cont,tpath)) {
+  try {
+    super.writeToFile(cont,tpath);
+  }
+ catch (  IOException e) {
+    Timber.e(e,"Full sync failed to download collection.");
     return new Object[]{"sdAccessError"};
   }
   try {
