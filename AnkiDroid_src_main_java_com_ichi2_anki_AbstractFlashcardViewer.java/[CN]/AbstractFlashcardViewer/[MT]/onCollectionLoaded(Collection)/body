@@ -2,13 +2,12 @@
   super.onCollectionLoaded(col);
   mSched=col.getSched();
   mBaseUrl=Utils.getBaseUrl(col.getMedia().dir());
-  restorePreferences();
   if (mPrefFullscreenReview) {
     UIUtils.setFullScreen(this);
   }
   registerExternalStorageListener();
   if (mNightMode) {
-    mCurrentBackgroundColor=Themes.getNightModeCardBackground(this);
+    mCurrentBackgroundColor=Color.BLACK;
   }
  else {
     mCurrentBackgroundColor=Color.WHITE;

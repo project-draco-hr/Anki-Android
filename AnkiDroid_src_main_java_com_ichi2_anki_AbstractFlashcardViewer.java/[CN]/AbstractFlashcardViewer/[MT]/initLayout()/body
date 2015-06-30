@@ -69,7 +69,7 @@
   mNextTimeTextRecomColor=getResources().getColor(R.color.next_time_recommended_color);
   mForegroundColor=getResources().getColor(R.color.next_time_usual_color);
   if (mInvertedColors) {
-    invertColors(true);
+    setNightModeColors();
   }
   mLookUpIcon=findViewById(R.id.lookup_button);
   mLookUpIcon.setVisibility(View.GONE);

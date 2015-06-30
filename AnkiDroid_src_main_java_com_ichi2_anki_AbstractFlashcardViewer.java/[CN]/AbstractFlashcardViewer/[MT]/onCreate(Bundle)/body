@@ -2,8 +2,12 @@
   mExtensions=new ReviewerExtRegistry(getBaseContext());
   super.onCreate(savedInstanceState);
   Timber.d("onCreate()");
-  View mainView=getLayoutInflater().inflate(R.layout.flashcard,null);
-  setContentView(mainView);
+  restorePreferences();
+  if (mNightMode) {
+    setTheme(R.style.Theme_Dark);
+  }
+  setContentView(R.layout.flashcard);
+  View mainView=findViewById(android.R.id.content);
   initNavigationDrawer(mainView);
   startLoadingCollection();
 }
