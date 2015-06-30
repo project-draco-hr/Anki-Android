@@ -1,8 +1,11 @@
 {
 switch (item.getItemId()) {
+case R.id.home:
+    ((AnkiActivity)getActivity()).finishWithAnimation(ActivityTransitionAnimation.DIALOG_EXIT);
+  return true;
 case R.id.action_add:
-    Timber.i("CardTemplateEditor:: Add template button pressed");
-  addNewTemplateWithCheck(getModel());
+Timber.i("CardTemplateEditor:: Add template button pressed");
+addNewTemplateWithCheck(getModel());
 return true;
 case R.id.action_delete:
 Timber.i("CardTemplateEditor:: Delete template button pressed");

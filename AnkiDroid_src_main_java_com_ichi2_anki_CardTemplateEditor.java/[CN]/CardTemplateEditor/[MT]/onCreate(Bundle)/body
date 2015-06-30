@@ -8,5 +8,11 @@
     finishWithoutAnimation();
     return;
   }
+  Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
+  if (toolbar != null) {
+    setSupportActionBar(toolbar);
+    getSupportActionBar().setDisplayShowHomeEnabled(false);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+  }
   startLoadingCollection();
 }
