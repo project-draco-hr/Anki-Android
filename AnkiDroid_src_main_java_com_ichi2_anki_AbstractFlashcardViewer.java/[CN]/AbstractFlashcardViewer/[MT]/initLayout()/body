@@ -1,9 +1,7 @@
 {
   mMainLayout=findViewById(R.id.main_layout);
-  (mMainLayout.findViewById(R.id.flashcard_frame)).setBackgroundResource(AnkiDroidApp.getSharedPrefs(mMainLayout.getContext()).getBoolean("invertedColors",false) ? R.color.black : R.color.white);
   mCardContainer=(FrameLayout)findViewById(R.id.flashcard_frame);
   mTopBarLayout=(RelativeLayout)findViewById(R.id.top_bar);
-  mTopBarLayout.setOnClickListener(mCardStatisticsListener);
   mCardFrame=(FrameLayout)findViewById(R.id.flashcard);
   mTouchLayer=(FrameLayout)findViewById(R.id.touch_layer);
   mTouchLayer.setOnTouchListener(mGestureListener);
@@ -65,12 +63,6 @@
   mCardTimer=(Chronometer)findViewById(R.id.card_time);
   mChosenAnswer=(TextView)findViewById(R.id.choosen_answer);
   mAnswerField=(EditText)findViewById(R.id.answer_field);
-  mNextTimeTextColor=getResources().getColor(R.color.next_time_usual_color);
-  mNextTimeTextRecomColor=getResources().getColor(R.color.next_time_recommended_color);
-  mForegroundColor=getResources().getColor(R.color.next_time_usual_color);
-  if (mInvertedColors) {
-    setNightModeColors();
-  }
   mLookUpIcon=findViewById(R.id.lookup_button);
   mLookUpIcon.setVisibility(View.GONE);
   mLookUpIcon.setOnClickListener(new OnClickListener(){

@@ -2,7 +2,6 @@
   Timber.d("fillFlashcard()");
   Timber.d("base url = %s",mBaseUrl);
   if (!mUseQuickUpdate && mCard != null && mNextCard != null) {
-    mNextCard.setBackgroundColor(mCurrentBackgroundColor);
     mNextCard.loadDataWithBaseURL(mBaseUrl + "__viewer__.html",mCardContent.toString(),"text/html","utf-8",null);
     mNextCard.setVisibility(View.VISIBLE);
     mCardFrame.removeView(mCard);
@@ -17,7 +16,6 @@
   }
  else   if (mCard != null) {
     mCard.loadDataWithBaseURL(mBaseUrl + "__viewer__.html",mCardContent.toString(),"text/html","utf-8",null);
-    mCard.setBackgroundColor(mCurrentBackgroundColor);
   }
   if (mShowTimer && mCardTimer.getVisibility() == View.INVISIBLE) {
     switchTopBarVisibility(View.VISIBLE);
