@@ -9,7 +9,7 @@
   }
   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
   getSupportActionBar().setHomeButtonEnabled(true);
-  mDrawerToggle=new ActionBarDrawerToggle(this,mDrawerLayout,toolbar,0,0){
+  mDrawerToggle=new ActionBarDrawerToggle(this,mDrawerLayout,0,0){
     @Override public void onDrawerClosed(    View drawerView){
       super.onDrawerClosed(drawerView);
       supportInvalidateOptionsMenu();
