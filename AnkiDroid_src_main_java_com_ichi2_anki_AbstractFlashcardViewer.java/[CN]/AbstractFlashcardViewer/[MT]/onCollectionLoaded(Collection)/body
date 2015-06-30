@@ -6,12 +6,6 @@
     UIUtils.setFullScreen(this);
   }
   registerExternalStorageListener();
-  if (mNightMode) {
-    mCurrentBackgroundColor=Color.BLACK;
-  }
- else {
-    mCurrentBackgroundColor=Color.WHITE;
-  }
   mUseQuickUpdate=shouldUseQuickUpdate();
   initLayout();
   setTitle();
