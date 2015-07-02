@@ -61,16 +61,7 @@ break;
 case "minimumCardsDueForNotification":
 ListPreference listpref=(ListPreference)screen.findPreference("minimumCardsDueForNotification");
 if (listpref != null) {
-CharSequence[] entries=listpref.getEntries();
-CharSequence[] values=listpref.getEntryValues();
-for (int i=0; i < entries.length; i++) {
-int value=Integer.parseInt(values[i].toString());
-if (entries[i].toString().contains("%d")) {
-entries[i]=String.format(entries[i].toString(),value);
-}
-}
-listpref.setEntries(entries);
-listpref.setSummary(listpref.getEntry().toString());
+updateNotificationPreference(listpref);
 }
 break;
 case "reportErrorMode":

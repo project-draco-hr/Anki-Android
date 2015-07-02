@@ -38,6 +38,9 @@ throw new RuntimeException();
 pref.setEnabled(false);
 }
 }
+ else if ("minimumCardsDueForNotification".equals(pref.getKey())) {
+updateNotificationPreference((ListPreference)pref);
+}
 CharSequence s=pref.getSummary();
 mOriginalSumarries.put(pref.getKey(),(s != null) ? s.toString() : "");
 updateSummary(pref);

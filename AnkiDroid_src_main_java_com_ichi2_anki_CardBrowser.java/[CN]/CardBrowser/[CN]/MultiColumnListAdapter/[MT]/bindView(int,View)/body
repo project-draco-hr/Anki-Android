@@ -5,12 +5,10 @@
   for (int i=0; i < mToIds.length; i++) {
     TextView col=(TextView)columns[i];
     setFont(col);
-    if (color > 0) {
-      col.setBackgroundResource(mBackground[color]);
-    }
- else {
-      col.setBackgroundResource(0);
-    }
+    int[] attrs=new int[]{android.R.attr.colorBackground,R.attr.markedColor,R.attr.suspendedColor,R.attr.markedColor};
+    TypedArray ta=obtainStyledAttributes(attrs);
+    col.setBackgroundColor(ta.getColor(color,R.color.material_grey_700));
+    ta.recycle();
     col.setText(dataSet.get(mFromKeys[i]));
   }
 }
