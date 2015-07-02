@@ -1,9 +1,12 @@
 {
   mLayoutInflater=layoutInflater;
   mDeckList=deckList;
-  zeroCountColor=resources.getColor(R.color.zero_count);
-  newCountColor=resources.getColor(R.color.new_count);
-  learnCountColor=resources.getColor(R.color.learn_count);
-  reviewCountColor=resources.getColor(R.color.review_count);
+  int[] attrs=new int[]{R.attr.zeroCountColor,R.attr.newCountColor,R.attr.learnCountColor,R.attr.reviewCountColor};
+  TypedArray ta=context.obtainStyledAttributes(attrs);
+  zeroCountColor=ta.getColor(0,R.color.zero_count);
+  newCountColor=ta.getColor(1,R.color.new_count);
+  learnCountColor=ta.getColor(2,R.color.learn_count);
+  reviewCountColor=ta.getColor(3,R.color.review_count);
   mContext=context.getApplicationContext();
+  ta.recycle();
 }

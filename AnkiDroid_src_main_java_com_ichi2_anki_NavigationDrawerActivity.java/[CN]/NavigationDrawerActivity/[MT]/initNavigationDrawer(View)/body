@@ -16,6 +16,7 @@
     }
     @Override public void onDrawerOpened(    View drawerView){
       super.onDrawerOpened(drawerView);
+      setNightModeIcon();
       supportInvalidateOptionsMenu();
     }
   }
