@@ -27,22 +27,15 @@
     menu.findItem(R.id.action_enable_whiteboard).setTitle(R.string.disable_whiteboard);
     menu.findItem(R.id.action_hide_whiteboard).setVisible(true);
     menu.findItem(R.id.action_clear_whiteboard).setVisible(true);
+    Drawable whiteboardIcon=getResources().getDrawable(R.drawable.ic_gesture_white_24dp,null);
     if (mShowWhiteboard) {
-      if (mNightMode) {
-        menu.findItem(R.id.action_hide_whiteboard).setIcon(R.drawable.ic_action_whiteboard_enable_dark);
-      }
- else {
-        menu.findItem(R.id.action_hide_whiteboard).setIcon(R.drawable.ic_action_whiteboard_enable_light);
-      }
+      whiteboardIcon.setAlpha(255);
+      menu.findItem(R.id.action_hide_whiteboard).setIcon(whiteboardIcon);
       menu.findItem(R.id.action_hide_whiteboard).setTitle(R.string.hide_whiteboard);
     }
  else {
-      if (mNightMode) {
-        menu.findItem(R.id.action_hide_whiteboard).setIcon(R.drawable.ic_action_whiteboard_enable_dark_disabled);
-      }
- else {
-        menu.findItem(R.id.action_hide_whiteboard).setIcon(R.drawable.ic_action_whiteboard_enable_light_disabled);
-      }
+      whiteboardIcon.setAlpha(77);
+      menu.findItem(R.id.action_hide_whiteboard).setIcon(whiteboardIcon);
       menu.findItem(R.id.action_hide_whiteboard).setTitle(R.string.show_whiteboard);
     }
   }
