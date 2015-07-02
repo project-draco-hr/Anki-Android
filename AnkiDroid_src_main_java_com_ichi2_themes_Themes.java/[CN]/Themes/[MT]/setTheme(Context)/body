@@ -1,0 +1,8 @@
+{
+  if (AnkiDroidApp.getSharedPrefs(context.getApplicationContext()).getBoolean("invertedColors",false)) {
+    context.setTheme(R.style.App_Theme_Dark);
+  }
+ else {
+    context.setTheme(R.style.App_Theme_White);
+  }
+}

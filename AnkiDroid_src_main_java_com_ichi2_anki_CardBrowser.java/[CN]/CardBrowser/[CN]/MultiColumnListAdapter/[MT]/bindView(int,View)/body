@@ -5,7 +5,12 @@
   for (int i=0; i < mToIds.length; i++) {
     TextView col=(TextView)columns[i];
     setFont(col);
-    col.setBackgroundResource(mBackground[color]);
+    if (color > 0) {
+      col.setBackgroundResource(mBackground[color]);
+    }
+ else {
+      col.setBackgroundResource(0);
+    }
     col.setText(dataSet.get(mFromKeys[i]));
   }
 }

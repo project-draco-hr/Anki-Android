@@ -1,0 +1,8 @@
+{
+  if (AnkiDroidApp.getSharedPrefs(context.getApplicationContext()).getBoolean("invertedColors",false)) {
+    context.setTheme(R.style.LegacyActionBarDark);
+  }
+ else {
+    context.setTheme(R.style.LegacyActionBarWhite);
+  }
+}
