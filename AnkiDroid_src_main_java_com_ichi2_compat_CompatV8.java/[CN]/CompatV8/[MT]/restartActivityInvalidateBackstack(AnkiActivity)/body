@@ -1,0 +1,6 @@
+{
+  Timber.i("AnkiActivity -- restartActivityInvalidateBackstack()");
+  Intent intent=new Intent(activity,DeckPicker.class);
+  intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+  activity.startActivityWithoutAnimation(intent);
+}

@@ -29,7 +29,7 @@ Timber.i("StudyOptionsFragment:: Night mode was enabled");
 preferences.edit().putBoolean("invertedColors",true).commit();
 }
 setNightModeIcon();
-rebootApp();
+CompatHelper.getCompat().restartActivityInvalidateBackstack(this);
 return true;
 case R.id.nav_settings:
 mOldColPath=CollectionHelper.getCurrentAnkiDroidDirectory(this);
