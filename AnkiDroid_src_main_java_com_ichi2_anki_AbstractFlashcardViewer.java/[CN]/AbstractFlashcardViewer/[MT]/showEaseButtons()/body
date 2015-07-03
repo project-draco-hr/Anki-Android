@@ -10,14 +10,6 @@
     closeReviewer(DeckPicker.RESULT_DB_ERROR,true);
     return;
   }
-  mEase1Layout.setBackgroundResource(R.drawable.footer_button_again);
-  mEase2Layout.setBackgroundResource(R.drawable.footer_button_hard);
-  mEase3Layout.setBackgroundResource(R.drawable.footer_button_good);
-  mEase4Layout.setBackgroundResource(R.drawable.footer_button_easy);
-  mEase1.setText(res.getString(R.string.ease1_successive));
-  mEase2.setText(res.getString(R.string.ease2_successive));
-  mEase3.setText(res.getString(R.string.ease3_successive));
-  mEase4.setText(res.getString(R.string.ease3_learning));
 switch (buttonCount) {
 case 2:
     mEase1Layout.setVisibility(View.VISIBLE);
