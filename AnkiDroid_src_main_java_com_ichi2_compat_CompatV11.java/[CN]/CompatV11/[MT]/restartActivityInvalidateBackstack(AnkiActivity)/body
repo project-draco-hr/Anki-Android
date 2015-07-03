@@ -1,0 +1,9 @@
+{
+  Timber.i("AnkiActivity -- restartActivityInvalidateBackstack()");
+  Intent intent=new Intent();
+  intent.setClass(activity,activity.getClass());
+  TaskStackBuilder stackBuilder=TaskStackBuilder.create(activity);
+  stackBuilder.addNextIntentWithParentStack(intent);
+  stackBuilder.startActivities(new Bundle());
+  activity.finishWithoutAnimation();
+}

@@ -12,7 +12,7 @@
     }
  else {
       CollectionHelper.getInstance().closeCollection(true);
-      rebootApp();
+      CompatHelper.getCompat().restartActivityInvalidateBackstack(this);
     }
   }
  else {
