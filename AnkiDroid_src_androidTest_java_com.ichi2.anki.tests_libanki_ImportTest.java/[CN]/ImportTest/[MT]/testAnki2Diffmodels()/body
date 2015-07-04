@@ -1,0 +1,25 @@
+{
+  Collection dst=Shared.getEmptyCol(getContext());
+  String tmp=Shared.getTestFilePath(getContext(),"diffmodels2-1.apkg");
+  AnkiPackageImporter imp=new AnkiPackageImporter(dst,tmp);
+  imp.setDupeOnSchemaChange(true);
+  imp.run();
+  int before=dst.noteCount();
+  imp=new AnkiPackageImporter(dst,tmp);
+  imp.setDupeOnSchemaChange(true);
+  imp.run();
+  assertTrue(before == dst.noteCount());
+  tmp=Shared.getTestFilePath(getContext(),"diffmodels2-2.apkg");
+  imp=new AnkiPackageImporter(dst,tmp);
+  imp.setDupeOnSchemaChange(true);
+  imp.run();
+  int after=dst.noteCount();
+  assertTrue(after == before + 1);
+  assertTrue(dst.cardCount() == 3);
+  imp=new AnkiPackageImporter(dst,tmp);
+  imp.setDupeOnSchemaChange(true);
+  imp.run();
+  after=dst.noteCount();
+  assertTrue(after == before + 1);
+  assertTrue(dst.cardCount() == 3);
+}

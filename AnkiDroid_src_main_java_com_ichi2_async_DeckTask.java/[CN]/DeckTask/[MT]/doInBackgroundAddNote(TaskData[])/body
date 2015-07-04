@@ -3,14 +3,14 @@
   Note note=params[0].getNote();
   Collection col=CollectionHelper.getInstance().getCol(mContext);
   try {
-    AnkiDb ankiDB=col.getDb();
-    ankiDB.getDatabase().beginTransaction();
+    DB db=col.getDb();
+    db.getDatabase().beginTransaction();
     try {
       publishProgress(new TaskData(col.addNote(note)));
-      ankiDB.getDatabase().setTransactionSuccessful();
+      db.getDatabase().setTransactionSuccessful();
     }
   finally {
-      ankiDB.getDatabase().endTransaction();
+      db.getDatabase().endTransaction();
     }
   }
  catch (  RuntimeException e) {

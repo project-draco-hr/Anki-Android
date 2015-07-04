@@ -1,0 +1,15 @@
+{
+  Collection dst=Shared.getEmptyCol(getContext());
+  String tmp=Shared.getTestFilePath(getContext(),"diffmodeltemplates-1.apkg");
+  AnkiPackageImporter imp=new AnkiPackageImporter(dst,tmp);
+  imp.setDupeOnSchemaChange(true);
+  imp.run();
+  tmp=Shared.getTestFilePath(getContext(),"diffmodeltemplates-2.apkg");
+  imp=new AnkiPackageImporter(dst,tmp);
+  imp.setDupeOnSchemaChange(true);
+  imp.run();
+  assertTrue(dst.noteCount() == 1);
+  Long tcid=dst.findCards("").get(0);
+  Note tnote=dst.getCard(tcid).note();
+  assertTrue(dst.findTemplates(tnote).get(0).getString("qfmt").contains("Changed Front Template"));
+}

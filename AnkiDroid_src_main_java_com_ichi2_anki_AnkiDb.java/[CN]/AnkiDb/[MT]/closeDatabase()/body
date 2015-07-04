@@ -1,7 +1,0 @@
-{
-  if (mDatabase != null) {
-    mDatabase.close();
-    Timber.d("closeDatabase, database %s closed = %s",mDatabase.getPath(),!mDatabase.isOpen());
-    mDatabase=null;
-  }
-}

@@ -1,8 +1,12 @@
 {
-  try {
-    return new BufferedInputStream(new FileInputStream(new File(dir,fname)),MEDIAPICKLIMIT * 2);
+  if (dir == null) {
+    dir=mSrc.getMedia().dir();
   }
- catch (  FileNotFoundException e) {
+  String path=new File(dir,fname).getAbsolutePath();
+  try {
+    return new BufferedInputStream(new FileInputStream(path),MEDIAPICKLIMIT * 2);
+  }
+ catch (  IOException e) {
     return null;
   }
 }

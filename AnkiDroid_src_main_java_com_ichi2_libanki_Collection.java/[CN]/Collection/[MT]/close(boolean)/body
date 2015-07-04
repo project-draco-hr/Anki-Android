@@ -1,7 +1,7 @@
 {
   if (mDb != null) {
     try {
-      SQLiteDatabase db=getDb().getDatabase();
+      SQLiteDatabase db=mDb.getDatabase();
       if (save) {
         db.beginTransaction();
         try {
@@ -21,7 +21,7 @@
  catch (    RuntimeException e) {
       AnkiDroidApp.sendExceptionReport(e,"closeDB");
     }
-    mDb.closeDatabase();
+    mDb.close();
     mDb=null;
     mMedia.close();
     _closeLog();

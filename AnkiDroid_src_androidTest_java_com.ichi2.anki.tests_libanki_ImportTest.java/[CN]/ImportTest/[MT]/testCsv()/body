@@ -1,0 +1,27 @@
+{
+  Collection deck=Shared.getEmptyCol(getContext());
+  String file=Shared.getTestFilePath(getContext(),"text-2fields.txt");
+  TextImporter i=new TextImporter(deck,file);
+  i.initMapping();
+  i.run();
+  assertTrue(i.getLog().size() == 5);
+  assertTrue(i.getTotal() == 5);
+  i.run();
+  assertTrue(i.getLog().size() == 10);
+  assertTrue(i.getTotal() == 5);
+  Note n=deck.getNote(deck.getDb().queryLongScalar("select id from notes"));
+  n.addTag("test");
+  n.flush();
+  i.run();
+  n.load();
+  assertTrue((n.getTags().size() == 1) && (n.getTags().get(0) == "test"));
+  i.setImportMode(1);
+  i.run();
+  assertTrue(i.getTotal() == 0);
+  assertTrue(deck.cardCount() == 5);
+  i.setImportMode(2);
+  i.run();
+  assertTrue(i.getTotal() == 6);
+  assertTrue(deck.cardCount() == 11);
+  deck.close();
+}

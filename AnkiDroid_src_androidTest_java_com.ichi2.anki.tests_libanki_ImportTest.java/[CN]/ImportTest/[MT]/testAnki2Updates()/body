@@ -1,0 +1,23 @@
+{
+  Collection dst=Shared.getEmptyCol(getContext());
+  String tmp=Shared.getTestFilePath(getContext(),"update1.apkg");
+  AnkiPackageImporter imp=new AnkiPackageImporter(dst,tmp);
+  imp.run();
+  assertTrue(imp.getDupes() == 0);
+  assertTrue(imp.getAdded() == 1);
+  assertTrue(imp.getUpdated() == 0);
+  imp=new AnkiPackageImporter(dst,tmp);
+  imp.run();
+  assertTrue(imp.getDupes() == 1);
+  assertTrue(imp.getAdded() == 0);
+  assertTrue(imp.getUpdated() == 0);
+  assertTrue(dst.noteCount() == 1);
+  assertTrue(dst.getDb().queryString("select flds from notes").startsWith("hello"));
+  tmp=Shared.getTestFilePath(getContext(),"update2.apkg");
+  imp=new AnkiPackageImporter(dst,tmp);
+  imp.run();
+  assertTrue(imp.getDupes() == 1);
+  assertTrue(imp.getAdded() == 0);
+  assertTrue(imp.getUpdated() == 1);
+  assertTrue(dst.getDb().queryString("select flds from notes").startsWith("goodbye"));
+}

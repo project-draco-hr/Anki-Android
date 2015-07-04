@@ -5,22 +5,21 @@
     }
     JSONObject g=mSrc.getDecks().get(did);
     String name=g.getString("name");
-    if (mDeckPrefix != null) {
-      String[] tmpname=name.split("::",-1);
+    if (!TextUtils.isEmpty(mDeckPrefix)) {
+      List<String> parts=Arrays.asList(name.split("::",-1));
+      String tmpname=TextUtils.join("::",parts.subList(1,parts.size()));
       name=mDeckPrefix;
-      if (tmpname.length > 1) {
-        for (int i=0; i < tmpname.length - 2; i++) {
-          name+="::" + tmpname[i + 1];
-        }
+      if (!TextUtils.isEmpty(tmpname)) {
+        name+="::" + tmpname;
       }
     }
     String head="";
-    String[] parents=name.split("::",-1);
-    for (int i=0; i < parents.length - 1; ++i) {
-      if (head.length() > 0) {
-        head=head.concat("::");
+    List<String> parents=Arrays.asList(name.split("::",-1));
+    for (    String parent : parents.subList(0,parents.size() - 1)) {
+      if (!TextUtils.isEmpty(head)) {
+        head+="::";
       }
-      head=head.concat(parents[i]);
+      head+=parent;
       long idInSrc=mSrc.getDecks().id(head);
       _did(idInSrc);
     }

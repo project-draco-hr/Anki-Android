@@ -11,11 +11,9 @@
         m.appendReplacement(sb,m.group(0));
         continue;
       }
-      int extPos=fname.lastIndexOf(".");
-      if (extPos <= 0) {
-        extPos=fname.length();
-      }
-      String lname=String.format(Locale.US,"%s_%d%s",fname.substring(0,extPos),mid,fname.substring(extPos));
+      String name=Utils.removeFileExtension(fname);
+      String ext=Utils.getFileExtension(fname);
+      String lname=String.format(Locale.US,"%s_%s%s",name,mid,ext);
       if (mDst.getMedia().have(lname)) {
         m.appendReplacement(sb,m.group(0).replace(fname,lname));
         continue;

@@ -1,18 +1,29 @@
 {
-  mDecks=new HashMap<Long,Long>();
-  if (mDeckPrefix != null) {
-    long id=mDst.getDecks().id(mDeckPrefix);
-    mDst.getDecks().select(id);
+  mDecks=new HashMap<>();
+  try {
+    mDst.getDb().getDatabase().beginTransaction();
+    mDst.getMedia().getDb().getDatabase().beginTransaction();
+    if (!TextUtils.isEmpty(mDeckPrefix)) {
+      long id=mDst.getDecks().id(mDeckPrefix);
+      mDst.getDecks().select(id);
+    }
+    _prepareTS();
+    _prepareModels();
+    _importNotes();
+    _importCards();
+    _importStaticMedia();
+    publishProgress(100,100,25);
+    _postImport();
+    publishProgress(100,100,50);
+    mDst.getDb().getDatabase().setTransactionSuccessful();
+    mDst.getMedia().getDb().getDatabase().setTransactionSuccessful();
   }
-  Timber.i("Import - preparing");
-  _prepareTS();
-  _prepareModels();
-  Timber.i("Import - importing notes");
-  _importNotes();
-  Timber.i("Import - importing cards");
-  int cnt=_importCards();
-  Timber.i("Import - finishing");
-  publishProgress(true,100,100,false);
-  _postImport();
-  return cnt;
+  finally {
+    mDst.getDb().getDatabase().endTransaction();
+    mDst.getMedia().getDb().getDatabase().endTransaction();
+  }
+  mDst.getDb().execute("vacuum");
+  publishProgress(100,100,65);
+  mDst.getDb().execute("analyze");
+  publishProgress(100,100,75);
 }

@@ -8,7 +8,6 @@
   if (dir.exists()) {
     BackupManager.removeDir(dir);
   }
-  publishProgress(new TaskData(res.getString(R.string.import_unpacking)));
   String colFile=new File(dir,"collection.anki2").getAbsolutePath();
   ZipFile zip;
   try {
@@ -19,12 +18,18 @@
     AnkiDroidApp.sendExceptionReport(e,"doInBackgroundImportReplace0");
     return new TaskData(false);
   }
-  if (!Utils.unzipFiles(zip,dir.getAbsolutePath(),new String[]{"collection.anki2","media"},null) || !(new File(colFile)).exists()) {
+  try {
+    Utils.unzipFiles(zip,dir.getAbsolutePath(),new String[]{"collection.anki2","media"},null);
+  }
+ catch (  IOException e) {
+    return new TaskData(-2,null,false);
+  }
+  if (!(new File(colFile)).exists()) {
     return new TaskData(-2,null,false);
   }
   Collection tmpCol=null;
   try {
-    tmpCol=Storage.Collection(colFile);
+    tmpCol=Storage.Collection(mContext,colFile);
     if (!tmpCol.validCollection()) {
       tmpCol.close();
       return new TaskData(-2,null,false);
@@ -56,7 +61,7 @@
   }
   int addedCount=-1;
   try {
-    col=CollectionHelper.getInstance().reopenCollection();
+    col.reopen();
     CollectionHelper.getInstance().unlockCollection();
     HashMap<String,String> nameToNum=new HashMap<String,String>();
     HashMap<String,String> numToName=new HashMap<String,String>();

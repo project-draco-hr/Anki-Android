@@ -1,0 +1,6 @@
+{
+  Timber.e("The database has been corrupted...");
+  AnkiDroidApp.sendExceptionReport(new RuntimeException("Database corrupted"),"DB.MyDbErrorHandler.onCorruption","Db has been corrupted ");
+  CollectionHelper.getInstance().closeCollection(false);
+  DatabaseErrorDialog.databaseCorruptFlag=true;
+}

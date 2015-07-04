@@ -1,0 +1,12 @@
+{
+  Collection dst=Shared.getEmptyCol(getContext());
+  String tmp=Shared.getTestFilePath(getContext(),"update1.apkg");
+  AnkiPackageImporter imp=new AnkiPackageImporter(dst,tmp);
+  imp.run();
+  tmp=Shared.getTestFilePath(getContext(),"update3.apkg");
+  imp=new AnkiPackageImporter(dst,tmp);
+  imp.run();
+  assertTrue(imp.getDupes() == 1);
+  assertTrue(imp.getAdded() == 0);
+  assertTrue(imp.getUpdated() == 0);
+}

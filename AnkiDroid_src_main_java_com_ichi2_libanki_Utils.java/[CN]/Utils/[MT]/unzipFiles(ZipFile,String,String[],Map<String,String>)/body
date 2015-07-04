@@ -1,0 +1,44 @@
+{
+  byte[] buf=new byte[FILE_COPY_BUFFER_SIZE];
+  File dir=new File(targetDirectory);
+  if (!dir.exists() && !dir.mkdirs()) {
+    throw new IOException("Failed to create target directory: " + targetDirectory);
+  }
+  if (zipEntryToFilenameMap == null) {
+    zipEntryToFilenameMap=new HashMap<>();
+  }
+  BufferedInputStream zis=null;
+  BufferedOutputStream bos=null;
+  try {
+    for (    String requestedEntry : zipEntries) {
+      ZipEntry ze=zipFile.getEntry(requestedEntry);
+      if (ze != null) {
+        String name=ze.getName();
+        if (zipEntryToFilenameMap.containsKey(name)) {
+          name=zipEntryToFilenameMap.get(name);
+        }
+        File destFile=new File(dir,name);
+        if (!ze.isDirectory()) {
+          Timber.i("uncompress %s",name);
+          zis=new BufferedInputStream(zipFile.getInputStream(ze));
+          bos=new BufferedOutputStream(new FileOutputStream(destFile),FILE_COPY_BUFFER_SIZE);
+          int n;
+          while ((n=zis.read(buf,0,FILE_COPY_BUFFER_SIZE)) != -1) {
+            bos.write(buf,0,n);
+          }
+          bos.flush();
+          bos.close();
+          zis.close();
+        }
+      }
+    }
+  }
+  finally {
+    if (bos != null) {
+      bos.close();
+    }
+    if (zis != null) {
+      zis.close();
+    }
+  }
+}

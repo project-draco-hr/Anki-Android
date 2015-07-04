@@ -1,6 +1,6 @@
 {
   if (mDb == null) {
-    mDb=new AnkiDb(mPath);
+    mDb=new DB(mPath);
     mMedia.connect();
     _openLog();
   }
