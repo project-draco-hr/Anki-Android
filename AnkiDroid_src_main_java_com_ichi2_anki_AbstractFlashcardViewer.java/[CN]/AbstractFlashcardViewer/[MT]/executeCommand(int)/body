@@ -9,7 +9,7 @@ case GESTURE_SHOW_ANSWER:
 break;
 case GESTURE_ANSWER_EASE1:
 if (sDisplayAnswer) {
-answerCard(EASE_FAILED);
+answerCard(EASE_1);
 }
  else {
 displayCardAnswer();
@@ -17,7 +17,7 @@ displayCardAnswer();
 break;
 case GESTURE_ANSWER_EASE2:
 if (sDisplayAnswer) {
-answerCard(EASE_HARD);
+answerCard(EASE_2);
 }
  else {
 displayCardAnswer();
@@ -25,7 +25,7 @@ displayCardAnswer();
 break;
 case GESTURE_ANSWER_EASE3:
 if (sDisplayAnswer) {
-answerCard(EASE_MID);
+answerCard(EASE_3);
 }
  else {
 displayCardAnswer();
@@ -33,7 +33,7 @@ displayCardAnswer();
 break;
 case GESTURE_ANSWER_EASE4:
 if (sDisplayAnswer) {
-answerCard(EASE_EASY);
+answerCard(EASE_4);
 }
  else {
 displayCardAnswer();

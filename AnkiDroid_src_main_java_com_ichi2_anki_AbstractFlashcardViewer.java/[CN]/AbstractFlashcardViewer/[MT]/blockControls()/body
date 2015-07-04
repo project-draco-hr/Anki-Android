@@ -4,25 +4,25 @@
   mTouchLayer.setVisibility(View.INVISIBLE);
   mInAnswer=true;
 switch (mCurrentEase) {
-case EASE_FAILED:
+case EASE_1:
     mEase1Layout.setClickable(false);
   mEase2Layout.setEnabled(false);
 mEase3Layout.setEnabled(false);
 mEase4Layout.setEnabled(false);
 break;
-case EASE_HARD:
+case EASE_2:
 mEase1Layout.setEnabled(false);
 mEase2Layout.setClickable(false);
 mEase3Layout.setEnabled(false);
 mEase4Layout.setEnabled(false);
 break;
-case EASE_MID:
+case EASE_3:
 mEase1Layout.setEnabled(false);
 mEase2Layout.setEnabled(false);
 mEase3Layout.setClickable(false);
 mEase4Layout.setEnabled(false);
 break;
-case EASE_EASY:
+case EASE_4:
 mEase1Layout.setEnabled(false);
 mEase2Layout.setEnabled(false);
 mEase3Layout.setEnabled(false);
