@@ -10,19 +10,16 @@ case R.id.action_sync:
 return true;
 case R.id.action_add_note_from_deck_picker:
 Timber.i("DeckPicker:: Add note button pressed");
-hideShowcaseView();
 addNote();
 return true;
 case R.id.action_shared_decks:
 Timber.i("DeckPicker:: Get shared deck button pressed");
-hideShowcaseView();
 if (colIsOpen()) {
 addSharedDeck();
 }
 return true;
 case R.id.action_new_deck:
 Timber.i("DeckPicker:: Add deck button pressed");
-hideShowcaseView();
 mDialogEditText=new EditText(DeckPicker.this);
 mDialogEditText.setSingleLine(true);
 new MaterialDialog.Builder(DeckPicker.this).title(R.string.new_deck).positiveText(R.string.create).customView(mDialogEditText,true).callback(new MaterialDialog.ButtonCallback(){

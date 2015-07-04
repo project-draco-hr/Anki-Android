@@ -17,7 +17,7 @@
   }
  else   if (type == CARD_BROWSER_MY_SEARCHES_TYPE_SAVE) {
     mCurrentSearchTerms=getArguments().getString("currentSearchTerms");
-    builder.title(getString(R.string.card_browser_list_my_searches_save)).positiveText(getString(R.string.ok)).negativeText(getString(R.string.cancel)).input(R.string.card_browser_list_my_searches_new_name,R.string.empty_string,new MaterialDialog.InputCallback(){
+    builder.title(getString(R.string.card_browser_list_my_searches_save)).positiveText(getString(android.R.string.ok)).negativeText(getString(R.string.cancel)).input(R.string.card_browser_list_my_searches_new_name,R.string.empty_string,new MaterialDialog.InputCallback(){
       @Override public void onInput(      MaterialDialog dialog,      CharSequence text){
         mMySearchesDialogListener.OnSaveSearch(text.toString(),mCurrentSearchTerms);
       }

@@ -7,7 +7,4 @@
   refreshInterface(true);
   setHasOptionsMenu(true);
   ((AnkiActivity)getActivity()).hideProgressBar();
-  if (mFragmented) {
-    ((DeckPicker)getActivity()).reloadShowcaseView();
-  }
 }

@@ -1,6 +1,0 @@
-{
-  getSupportMenuInflater().inflate(R.menu.menu,menu);
-  ActionViewTarget target=new ActionViewTarget(this,ActionViewTarget.Type.OVERFLOW);
-  sv=new ShowcaseView.Builder(this).setTarget(target).setContentTitle(R.string.showcase_simple_title).setContentText(R.string.showcase_simple_message).doNotBlockTouches().build();
-  return super.onCreateOptionsMenu(menu);
-}
