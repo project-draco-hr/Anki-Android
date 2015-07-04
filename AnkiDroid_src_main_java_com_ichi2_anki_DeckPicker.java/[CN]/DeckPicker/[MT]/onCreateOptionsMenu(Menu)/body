@@ -6,35 +6,6 @@
   menu.findItem(R.id.action_new_filtered_deck).setEnabled(sdCardAvailable);
   menu.findItem(R.id.action_check_database).setEnabled(sdCardAvailable);
   menu.findItem(R.id.action_check_media).setEnabled(sdCardAvailable);
-  boolean isNightMode=AnkiDroidApp.getSharedPrefs(this).getBoolean("invertedColors",false);
-  if (mShowShowcaseView && colIsOpen() && getCol().isEmpty()&& mDeckList != null && mDeckList.size() <= 1 && !isNightMode) {
-    mShowShowcaseView=false;
-    final Resources res=getResources();
-    try {
-      mShowcaseDialog=new ShowcaseView.Builder(this).setTarget(new ViewTarget(findViewById(R.id.fab))).setContentTitle(res.getString(R.string.studyoptions_welcome_title)).setStyle(R.style.ShowcaseView_Light).setShowcaseEventListener(this).setOnClickListener(new OnClickListener(){
-        @Override public void onClick(        View v){
-          mShowcaseDialog.hide();
-          Intent helpIntent=new Intent("android.intent.action.VIEW",Uri.parse(res.getString(R.string.link_manual_getting_started)));
-          startActivityWithoutAnimation(helpIntent);
-        }
-      }
-).setContentText(res.getString(R.string.add_content_showcase_text)).hideOnTouchOutside().build();
-      mShowcaseDialog.setButtonText(getResources().getString(R.string.help_title));
-      RelativeLayout.LayoutParams lps=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-      lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-      lps.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-      int margin=((Number)(getResources().getDisplayMetrics().density * 12)).intValue();
-      lps.setMargins(margin,margin,margin,margin);
-      mShowcaseDialog.setButtonPosition(lps);
-    }
- catch (    Exception e) {
-      Timber.e(e,"Error showing ShowcaseView");
-      Themes.showThemedToast(this,res.getString(R.string.add_content_showcase_text),false);
-    }
-  }
- else   if (mShowcaseDialog != null && colIsOpen() && !getCol().isEmpty()) {
-    hideShowcaseView();
-  }
   if (CompatHelper.isChromebook()) {
     menu.findItem(R.id.action_restore_backup).setVisible(false);
     menu.findItem(R.id.action_import).setVisible(false);
