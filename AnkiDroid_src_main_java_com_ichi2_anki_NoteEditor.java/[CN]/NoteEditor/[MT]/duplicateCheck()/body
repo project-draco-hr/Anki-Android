@@ -9,7 +9,7 @@
     isDupe=true;
   }
  else {
-    field.getBackground().setColorFilter(getResources().getColor(R.color.text_color_black),PorterDuff.Mode.SRC_ATOP);
+    field.getBackground().clearColorFilter();
     isDupe=false;
   }
   mEditorNote.values()[0]=oldValue;
