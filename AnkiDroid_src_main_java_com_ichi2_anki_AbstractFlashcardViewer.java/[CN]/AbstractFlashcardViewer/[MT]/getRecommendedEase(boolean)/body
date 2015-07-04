@@ -2,11 +2,11 @@
   try {
 switch (mSched.answerButtons(mCurrentCard)) {
 case 2:
-      return EASE_HARD;
+      return EASE_2;
 case 3:
-    return easy ? EASE_MID : EASE_HARD;
+    return easy ? EASE_3 : EASE_2;
 case 4:
-  return easy ? EASE_EASY : EASE_MID;
+  return easy ? EASE_4 : EASE_3;
 default :
 return 0;
 }

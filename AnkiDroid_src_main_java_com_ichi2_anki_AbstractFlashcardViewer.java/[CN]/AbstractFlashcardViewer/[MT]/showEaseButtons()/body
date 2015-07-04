@@ -10,25 +10,40 @@
     closeReviewer(DeckPicker.RESULT_DB_ERROR,true);
     return;
   }
+  final int[] ANSWER_BUTTON_DRAWABLES={R.attr.againButtonRef,R.attr.hardButtonRef,R.attr.goodButtonRef,R.attr.easyButtonRef};
+  TypedArray ta=obtainStyledAttributes(ANSWER_BUTTON_DRAWABLES);
+  mEase1Layout.setVisibility(View.VISIBLE);
+  mEase1Layout.setBackgroundResource(ta.getResourceId(0,R.drawable.footer_button_again));
+  mEase4Layout.setBackgroundResource(ta.getResourceId(3,R.drawable.footer_button_easy));
 switch (buttonCount) {
 case 2:
-    mEase1Layout.setVisibility(View.VISIBLE);
-  mEase2Layout.setVisibility(View.VISIBLE);
+    mEase2Layout.setVisibility(View.VISIBLE);
+  mEase2Layout.setBackgroundResource(ta.getResourceId(2,R.drawable.footer_button_good));
+mEase2.setText(R.string.ease_button_good);
 mEase2Layout.requestFocus();
 break;
 case 3:
-mEase1Layout.setVisibility(View.VISIBLE);
 mEase2Layout.setVisibility(View.VISIBLE);
+mEase2Layout.setBackgroundResource(ta.getResourceId(2,R.drawable.footer_button_good));
+mEase2.setText(R.string.ease_button_good);
 mEase3Layout.setVisibility(View.VISIBLE);
+mEase3Layout.setBackgroundResource(ta.getResourceId(3,R.drawable.footer_button_easy));
+mEase3.setText(R.string.ease_button_easy);
 mEase2Layout.requestFocus();
 break;
 default :
-mEase1Layout.setVisibility(View.VISIBLE);
 mEase2Layout.setVisibility(View.VISIBLE);
+mEase2Layout.setVisibility(View.VISIBLE);
+mEase2Layout.setBackgroundResource(ta.getResourceId(1,R.drawable.footer_button_hard));
+mEase2.setText(R.string.ease_button_hard);
+mEase2Layout.requestFocus();
 mEase3Layout.setVisibility(View.VISIBLE);
+mEase3Layout.setBackgroundResource(ta.getResourceId(2,R.drawable.footer_button_good));
+mEase3.setText(R.string.ease_button_good);
 mEase4Layout.setVisibility(View.VISIBLE);
 mEase3Layout.requestFocus();
 }
+ta.recycle();
 if (mShowNextReviewTime) {
 mNext1.setText(mSched.nextIvlStr(mCurrentCard,1));
 mNext2.setText(mSched.nextIvlStr(mCurrentCard,2));

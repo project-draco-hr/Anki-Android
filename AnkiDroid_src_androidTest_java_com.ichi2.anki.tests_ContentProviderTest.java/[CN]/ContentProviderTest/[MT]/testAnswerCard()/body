@@ -10,7 +10,7 @@
   ContentValues values=new ContentValues();
   long noteId=card.note().getId();
   int cardOrd=card.getOrd();
-  int ease=AbstractFlashcardViewer.EASE_MID;
+  int ease=AbstractFlashcardViewer.EASE_3;
   values.put(FlashCardsContract.ReviewInfo.NOTE_ID,noteId);
   values.put(FlashCardsContract.ReviewInfo.CARD_ORD,cardOrd);
   values.put(FlashCardsContract.ReviewInfo.EASE,ease);
