@@ -11,18 +11,16 @@
       bytesReceived+=len;
       publishProgress();
     }
-    output.close();
-    return true;
   }
  catch (  IOException e) {
-    try {
-      if (output != null) {
-        output.close();
-      }
+    if (file.exists()) {
+      file.delete();
     }
- catch (    IOException e1) {
+    throw e;
+  }
+ finally {
+    if (output != null) {
+      output.close();
     }
-    file.delete();
-    return false;
   }
 }

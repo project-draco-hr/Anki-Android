@@ -13,11 +13,9 @@
     }
     mCol.log("last local usn is " + lastUsn);
     mDownloadCount=0;
-    Timber.i("MediaSyncer: Last local usn is: %d",lastUsn);
     while (true) {
       JSONArray data=mServer.mediaChanges(lastUsn);
-      mCol.log("mediaChanges resp count: %d",data.length());
-      Timber.i("MediaSyncer: mediaChanges resp count: %d",data.length());
+      mCol.log("mediaChanges resp count: ",data.length());
       if (data.length() == 0) {
         break;
       }
@@ -64,27 +62,32 @@
     while (true) {
       Pair<File,List<String>> changesZip=mCol.getMedia().mediaChangesZip();
       File zip=changesZip.first;
-      List<String> fnames=changesZip.second;
-      if (fnames.size() == 0) {
-        break;
-      }
-      mCon.publishProgress(String.format(AnkiDroidApp.getAppResources().getString(R.string.sync_media_changes_count),toSend));
-      JSONArray changes=mServer.uploadChanges(zip);
-      int processedCnt=changes.getInt(0);
-      int serverLastUsn=changes.getInt(1);
-      mCol.getMedia().markClean(fnames.subList(0,processedCnt));
-      mCol.log(String.format("processed %d, serverUsn %d, clientUsn %d",processedCnt,serverLastUsn,lastUsn));
-      if (serverLastUsn - processedCnt == lastUsn) {
-        mCol.log("lastUsn in sync, updating local");
-        lastUsn=serverLastUsn;
-        mCol.getMedia().setLastUsn(serverLastUsn);
-      }
+      try {
+        List<String> fnames=changesZip.second;
+        if (fnames.size() == 0) {
+          break;
+        }
+        mCon.publishProgress(String.format(AnkiDroidApp.getAppResources().getString(R.string.sync_media_changes_count),toSend));
+        JSONArray changes=mServer.uploadChanges(zip);
+        int processedCnt=changes.getInt(0);
+        int serverLastUsn=changes.getInt(1);
+        mCol.getMedia().markClean(fnames.subList(0,processedCnt));
+        mCol.log(String.format("processed %d, serverUsn %d, clientUsn %d",processedCnt,serverLastUsn,lastUsn));
+        if (serverLastUsn - processedCnt == lastUsn) {
+          mCol.log("lastUsn in sync, updating local");
+          lastUsn=serverLastUsn;
+          mCol.getMedia().setLastUsn(serverLastUsn);
+        }
  else {
-        mCol.log("concurrent update, skipping usn update");
-        mCol.getMedia().getDb().commit();
-        updateConflict=true;
+          mCol.log("concurrent update, skipping usn update");
+          mCol.getMedia().getDb().commit();
+          updateConflict=true;
+        }
+        toSend-=processedCnt;
       }
-      toSend-=processedCnt;
+  finally {
+        zip.delete();
+      }
     }
     if (updateConflict) {
       mCol.log("restart sync due to concurrent update");
