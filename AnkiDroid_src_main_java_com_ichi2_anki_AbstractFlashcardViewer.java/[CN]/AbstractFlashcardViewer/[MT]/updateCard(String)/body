@@ -32,8 +32,10 @@
   }
   Timber.d("::style::",style);
   if (mNightMode) {
-    content=HtmlColors.invertColors(content);
     cardClass+=" night_mode";
+    if (!mCurrentCard.css().contains(".night_mode")) {
+      content=HtmlColors.invertColors(content);
+    }
   }
   content=SmpToHtmlEntity(content);
   mCardContent=new SpannedString(mCardTemplate.replace("::content::",content).replace("::style::",style.toString()).replace("::class::",cardClass));
