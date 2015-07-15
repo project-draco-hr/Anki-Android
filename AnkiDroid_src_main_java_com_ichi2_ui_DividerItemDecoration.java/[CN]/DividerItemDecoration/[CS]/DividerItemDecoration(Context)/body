@@ -1,0 +1,6 @@
+{
+  int[] attrs=new int[]{R.attr.deckDivider};
+  TypedArray ta=context.obtainStyledAttributes(attrs);
+  mDivider=ta.getDrawable(0);
+  ta.recycle();
+}

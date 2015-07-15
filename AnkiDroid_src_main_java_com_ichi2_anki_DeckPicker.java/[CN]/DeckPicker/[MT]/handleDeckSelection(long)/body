@@ -2,4 +2,5 @@
   getCol().getDecks().select(did);
   mFocusedDeck=did;
   openStudyOptions(false);
+  mDeckListAdapter.notifyDataSetChanged();
 }

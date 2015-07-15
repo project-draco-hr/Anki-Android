@@ -1,8 +1,5 @@
 {
   DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_DECK_COUNTS,new DeckTask.TaskListener(){
-    private int nNew;
-    private int nLrn;
-    private int nRev;
     @Override public void onPreExecute(){
       Timber.d("Refreshing deck list");
     }
@@ -13,12 +10,10 @@
         return;
       }
       List<Sched.DeckDueTreeNode> nodes=(List<Sched.DeckDueTreeNode>)result.getObjArray()[0];
-      mDeckList.clear();
-      _renderDeckTree(nodes);
-      mDeckListAdapter.notifyDataSetChanged();
+      mDeckListAdapter.buildDeckList(nodes);
       try {
-        int eta=getCol().getSched().eta(new int[]{nNew,nLrn,nRev});
-        int due=nNew + nLrn + nRev;
+        int eta=mDeckListAdapter.getEta();
+        int due=mDeckListAdapter.getDue();
         Resources res=getResources();
         if (getCol().cardCount() != -1) {
           String time="-";
@@ -33,10 +28,8 @@
         onCollectionLoadError();
         return;
       }
-      Long current=getCol().getDecks().current().optLong("id");
-      if (!deckIsShown(nodes,current)) {
-      }
- else       if (mFocusedDeck == null || !mFocusedDeck.equals(current)) {
+      long current=getCol().getDecks().current().optLong("id");
+      if (mFocusedDeck != current) {
         scrollDecklistToDeck(current);
         mFocusedDeck=current;
       }
@@ -47,41 +40,6 @@
     @Override public void onProgressUpdate(    TaskData... values){
     }
     @Override public void onCancelled(){
-    }
-    private void _renderDeckTree(    List<Sched.DeckDueTreeNode> nodes){
-      _renderDeckTree(nodes,0);
-    }
-    private void _renderDeckTree(    List<Sched.DeckDueTreeNode> nodes,    int depth){
-      for (      Sched.DeckDueTreeNode node : nodes) {
-        for (        JSONObject parent : getCol().getDecks().parents(node.did)) {
-          if (parent.optBoolean("collapsed")) {
-            return;
-          }
-        }
-        mDeckList.add(node);
-        _deckRow(node,depth);
-      }
-    }
-    /** 
- * Create a row in the deck list using the given node.
- * This method determines various visual elements of each row:
- * - Indenting level based on depth if it's a subdeck
- * - Addition of a unicode arrow to indicate subdeck status
- * - Addition of an indicator to notify collapsed state
- * - The type of padding given to each row
- * NOTE: Each row in the list also contains the deck ID (did) which is later fetched
- * to perform operations on the correct deck when the user interacts with the list.
- * @param node The row data.
- * @param depth The subdeck level this node is at.
- */
-    private void _deckRow(    Sched.DeckDueTreeNode node,    int depth){
-      node.depth=depth;
-      if (depth == 0) {
-        nNew+=node.newCount;
-        nLrn+=node.lrnCount;
-        nRev+=node.revCount;
-      }
-      _renderDeckTree(node.children,depth + 1);
     }
   }
 ,new TaskData(getCol()));

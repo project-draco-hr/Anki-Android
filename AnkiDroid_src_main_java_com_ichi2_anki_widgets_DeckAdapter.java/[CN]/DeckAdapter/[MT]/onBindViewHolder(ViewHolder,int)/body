@@ -1,25 +1,31 @@
 {
   Sched.DeckDueTreeNode node=mDeckList.get(position);
-  Timber.d("DeckAdapter accessing collection...");
-  Collection col=CollectionHelper.getInstance().getCol(mContext);
-  boolean collapsed=col.getDecks().get(node.did).optBoolean("collapsed",false);
-  holder.mDeckExpander.setText(deckExpander(node.depth,collapsed,node.children.size()));
+  boolean collapsed=mCol.getDecks().get(node.did).optBoolean("collapsed",false);
+  holder.deckExpander.setText(deckExpander(node.depth,collapsed,node.children.size()));
   if (node.children.size() > 0) {
-    holder.mDeckExpander.setClickable(false);
-    holder.mDeckExpander.setTag(node.did);
-    holder.mDeckExpander.setOnClickListener(mDeckExpanderClickListener);
+    holder.deckExpander.setTag(node.did);
+    holder.deckExpander.setOnClickListener(mDeckExpanderClickListener);
+  }
+  if (node.did == mCol.getDecks().current().optLong("id")) {
+    holder.deckLayout.setBackgroundColor(mRowCurrentColor);
   }
  else {
-    holder.mDeckExpander.setClickable(false);
+    holder.deckLayout.setBackgroundColor(mRowDefaultColor);
   }
-  holder.mDeckName.setText(node.names[0]);
-  holder.mDeckNew.setText(String.valueOf(node.newCount));
-  holder.mDeckNew.setTextColor((node.newCount == 0) ? zeroCountColor : newCountColor);
-  holder.mDeckLearn.setText(String.valueOf(node.lrnCount));
-  holder.mDeckLearn.setTextColor((node.lrnCount == 0) ? zeroCountColor : learnCountColor);
-  holder.mDeckRev.setText(String.valueOf(node.revCount));
-  holder.mDeckRev.setTextColor((node.revCount == 0) ? zeroCountColor : reviewCountColor);
-  holder.mDeckLayout.setTag(node.did);
-  holder.mDeckLayout.setOnClickListener(mDeckClickListener);
-  holder.mDeckLayout.setOnLongClickListener(mDeckLongClickListener);
+  holder.deckName.setText(node.names[0]);
+  if (mCol.getDecks().isDyn(node.did)) {
+    holder.deckName.setTextColor(mDeckNameDynColor);
+  }
+ else {
+    holder.deckName.setTextColor(mDeckNameDefaultColor);
+  }
+  holder.deckNew.setText(String.valueOf(node.newCount));
+  holder.deckNew.setTextColor((node.newCount == 0) ? mZeroCountColor : mNewCountColor);
+  holder.deckLearn.setText(String.valueOf(node.lrnCount));
+  holder.deckLearn.setTextColor((node.lrnCount == 0) ? mZeroCountColor : mLearnCountColor);
+  holder.deckRev.setText(String.valueOf(node.revCount));
+  holder.deckRev.setTextColor((node.revCount == 0) ? mZeroCountColor : mReviewCountColor);
+  holder.deckLayout.setTag(node.did);
+  holder.deckLayout.setOnClickListener(mDeckClickListener);
+  holder.deckLayout.setOnLongClickListener(mDeckLongClickListener);
 }
