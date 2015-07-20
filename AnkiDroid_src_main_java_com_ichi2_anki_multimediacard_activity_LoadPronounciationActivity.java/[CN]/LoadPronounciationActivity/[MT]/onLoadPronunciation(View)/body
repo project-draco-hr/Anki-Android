@@ -1,4 +1,8 @@
 {
+  if (!Connection.isOnline()) {
+    showToast(gtxt(R.string.network_no_connection));
+    return;
+  }
   String message=gtxt(R.string.multimedia_editor_searching_word);
   showProgressDialog(message);
   mTranslationAddress=computeAddressOfTranslationPage();

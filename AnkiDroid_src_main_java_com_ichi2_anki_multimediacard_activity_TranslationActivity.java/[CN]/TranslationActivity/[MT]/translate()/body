@@ -1,4 +1,8 @@
 {
+  if (!Connection.isOnline()) {
+    showToast(gtxt(R.string.network_no_connection));
+    return;
+  }
   progressDialog=ProgressDialog.show(this,getText(R.string.multimedia_editor_progress_wait_title),getText(R.string.multimedia_editor_trans_translating_online),true,false);
   progressDialog.setCancelable(true);
   progressDialog.setOnCancelListener(this);
