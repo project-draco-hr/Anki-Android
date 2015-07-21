@@ -1,0 +1,22 @@
+{
+  for (  Sched.DeckDueTreeNode node : nodes) {
+    if (node.did == 1 && nodes.size() > 1 && node.children.size() == 0) {
+      if (mCol.getDb().queryScalar("select 1 from cards where did = 1") == 0) {
+        continue;
+      }
+    }
+    for (    JSONObject parent : mCol.getDecks().parents(node.did)) {
+      if (parent.optBoolean("collapsed")) {
+        return;
+      }
+    }
+    mDeckList.add(node);
+    node.depth=depth;
+    if (depth == 0) {
+      mNew+=node.newCount;
+      mLrn+=node.lrnCount;
+      mRev+=node.revCount;
+    }
+    processNodes(node.children,depth + 1);
+  }
+}

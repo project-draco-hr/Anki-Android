@@ -10,10 +10,6 @@
       Collection col=getCol();
       if (col != null) {
         if (col.getDecks().rename(col.getDecks().get(mContextMenuDid),newName)) {
-          Sched.DeckDueTreeNode node=findDeckWithId(mDeckList,mContextMenuDid);
-          if (node != null) {
-            node.names=new String[]{newName};
-          }
           updateDeckList();
         }
  else {
