@@ -1,6 +1,5 @@
 {
   mLayoutInflater=layoutInflater;
-  mCol=CollectionHelper.getInstance().getCol(context);
   mDeckList=new ArrayList<>();
   int[] attrs=new int[]{R.attr.zeroCountColor,R.attr.newCountColor,R.attr.learnCountColor,R.attr.reviewCountColor,android.R.attr.colorBackground,R.attr.currentDeckBackgroundColor,android.R.attr.textColor,R.attr.dynDeckColor};
   TypedArray ta=context.obtainStyledAttributes(attrs);
