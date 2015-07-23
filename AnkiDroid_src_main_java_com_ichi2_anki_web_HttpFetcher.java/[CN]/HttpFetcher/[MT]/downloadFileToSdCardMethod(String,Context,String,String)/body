@@ -7,8 +7,8 @@
     urlConnection.setRequestProperty("Referer","com.ichi2.anki");
     urlConnection.setRequestProperty("User-Agent","Mozilla/5.0 ( compatible ) ");
     urlConnection.setRequestProperty("Accept","*/*");
-    urlConnection.setConnectTimeout(5000);
-    urlConnection.setReadTimeout(10000);
+    urlConnection.setConnectTimeout(10000);
+    urlConnection.setReadTimeout(60000);
     urlConnection.connect();
     File file=File.createTempFile(prefix,extension,context.getCacheDir());
     FileOutputStream fileOutput=new FileOutputStream(file);
