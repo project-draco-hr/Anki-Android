@@ -1,7 +1,6 @@
 {
   Sched.DeckDueTreeNode node=mDeckList.get(position);
-  boolean collapsed=mCol.getDecks().get(node.did).optBoolean("collapsed",false);
-  holder.deckExpander.setText(deckExpander(node.depth,collapsed,node.children.size()));
+  setDeckExpander(holder.deckExpander,node);
   if (node.children.size() > 0) {
     holder.deckExpander.setTag(node.did);
     holder.deckExpander.setOnClickListener(mDeckExpanderClickListener);

@@ -1,7 +1,7 @@
 {
   mLayoutInflater=layoutInflater;
   mDeckList=new ArrayList<>();
-  int[] attrs=new int[]{R.attr.zeroCountColor,R.attr.newCountColor,R.attr.learnCountColor,R.attr.reviewCountColor,android.R.attr.colorBackground,R.attr.currentDeckBackgroundColor,android.R.attr.textColor,R.attr.dynDeckColor};
+  int[] attrs=new int[]{R.attr.zeroCountColor,R.attr.newCountColor,R.attr.learnCountColor,R.attr.reviewCountColor,android.R.attr.colorBackground,R.attr.currentDeckBackgroundColor,android.R.attr.textColor,R.attr.dynDeckColor,R.attr.expandRef,R.attr.collapseRef};
   TypedArray ta=context.obtainStyledAttributes(attrs);
   Resources res=context.getResources();
   mZeroCountColor=ta.getColor(0,res.getColor(R.color.zero_count));
@@ -12,5 +12,8 @@
   mRowCurrentColor=ta.getColor(5,res.getColor(R.color.deckadapter_row_current));
   mDeckNameDefaultColor=ta.getColor(6,res.getColor(R.color.black));
   mDeckNameDynColor=ta.getColor(7,res.getColor(R.color.deckadapter_deck_name_dyn));
+  mExpandImage=ta.getDrawable(8);
+  mCollapseImage=ta.getDrawable(9);
   ta.recycle();
+  mIndentWidth=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,INDENT_WIDTH_DIP,res.getDisplayMetrics());
 }
