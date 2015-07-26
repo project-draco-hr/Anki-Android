@@ -1,0 +1,19 @@
+{
+  boolean collapsed=mCol.getDecks().get(node.did).optBoolean("collapsed",false);
+  if (collapsed) {
+    expander.setImageDrawable(mExpandImage);
+  }
+ else   if (node.children.size() > 0) {
+    expander.setImageDrawable(mCollapseImage);
+  }
+ else {
+    expander.setImageDrawable(mNoExpander);
+  }
+  int expanderWidth=mExpandImage.getIntrinsicWidth();
+  int indent=expanderWidth / 2;
+  indent+=mIndentWidth * node.depth;
+  if (collapsed || node.children.size() > 0) {
+    indent-=expanderWidth / 2;
+  }
+  expander.setPadding(indent,0,0,0);
+}

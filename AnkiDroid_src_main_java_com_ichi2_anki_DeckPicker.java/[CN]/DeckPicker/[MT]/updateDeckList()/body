@@ -10,7 +10,7 @@
         return;
       }
       List<Sched.DeckDueTreeNode> nodes=(List<Sched.DeckDueTreeNode>)result.getObjArray()[0];
-      mDeckListAdapter.buildDeckList(nodes);
+      mDeckListAdapter.buildDeckList(nodes,getCol());
       try {
         int eta=mDeckListAdapter.getEta();
         int due=mDeckListAdapter.getDue();
