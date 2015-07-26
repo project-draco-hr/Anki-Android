@@ -2,7 +2,11 @@
   Timber.d("onResume()");
   super.onResume();
   selectNavigationItem(R.id.nav_decks);
-  if (colIsOpen()) {
+  if (mSyncOnResume) {
+    sync();
+    mSyncOnResume=false;
+  }
+ else   if (colIsOpen()) {
     updateDeckList();
     hideProgressBar();
   }
