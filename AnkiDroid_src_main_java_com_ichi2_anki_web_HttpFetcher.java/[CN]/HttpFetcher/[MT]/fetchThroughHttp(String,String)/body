@@ -1,6 +1,9 @@
 {
   try {
     HttpClient httpClient=new DefaultHttpClient();
+    HttpParams params=httpClient.getParams();
+    HttpConnectionParams.setConnectionTimeout(params,10000);
+    HttpConnectionParams.setSoTimeout(params,60000);
     HttpContext localContext=new BasicHttpContext();
     HttpGet httpGet=new HttpGet(address);
     HttpResponse response=httpClient.execute(httpGet,localContext);
