@@ -1,0 +1,8 @@
+{
+  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
+  String hkey=preferences.getString("hkey","");
+  long lastSyncTime=preferences.getLong("lastSyncTime",0);
+  if (hkey.length() != 0 && preferences.getBoolean("automaticSyncMode",false) && Utils.intNow(1000) - lastSyncTime > AUTOMATIC_SYNC_MIN_INTERVAL) {
+    sync();
+  }
+}

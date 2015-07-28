@@ -1,8 +1,11 @@
 {
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
     Timber.i("DeckPicker:: onBackPressed()");
+    automaticSync();
     finishWithAnimation();
     return true;
   }
-  return super.onKeyDown(keyCode,event);
+ else {
+    return super.onKeyDown(keyCode,event);
+  }
 }
