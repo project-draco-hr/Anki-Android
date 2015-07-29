@@ -2,9 +2,6 @@
   super.onCollectionLoaded(col);
   mSched=col.getSched();
   mBaseUrl=Utils.getBaseUrl(col.getMedia().dir());
-  if (mPrefFullscreenReview) {
-    UIUtils.setFullScreen(this);
-  }
   registerExternalStorageListener();
   mUseQuickUpdate=shouldUseQuickUpdate();
   initLayout();
