@@ -1,0 +1,6 @@
+{
+  super.onWindowFocusChanged(hasFocus);
+  if (mPrefFullscreenReview) {
+    CompatHelper.getCompat().setFullScreen(this);
+  }
+}
