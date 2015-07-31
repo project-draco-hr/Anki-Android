@@ -93,6 +93,7 @@
         long newConfId=Long.parseLong((String)value);
         mOptions=mCol.getDecks().getConf(newConfId);
         DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CONF_CHANGE,mConfChangeHandler,new DeckTask.TaskData(new Object[]{mCol,mDeck,mOptions}));
+        restartActivity();
       }
  else       if (key.equals("confRename")) {
         String newName=(String)value;
