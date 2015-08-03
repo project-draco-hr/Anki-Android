@@ -21,6 +21,7 @@
   mPrefCenterVertically=preferences.getBoolean("centerVertically",false);
   mGesturesEnabled=AnkiDroidApp.initiateGestures(preferences);
   if (mGesturesEnabled) {
+    mHideAnswerButtons=preferences.getBoolean("hideAnswerButtons",false);
     mGestureSwipeUp=Integer.parseInt(preferences.getString("gestureSwipeUp","9"));
     mGestureSwipeDown=Integer.parseInt(preferences.getString("gestureSwipeDown","0"));
     mGestureSwipeLeft=Integer.parseInt(preferences.getString("gestureSwipeLeft","8"));
