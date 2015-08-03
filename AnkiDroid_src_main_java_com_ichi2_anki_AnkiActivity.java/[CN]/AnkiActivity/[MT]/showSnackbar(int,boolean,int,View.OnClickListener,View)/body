@@ -11,5 +11,8 @@
   if (listener != null) {
     sb.setAction(actionTextResource,listener);
   }
+  View view=sb.getView();
+  TextView tv=(TextView)view.findViewById(android.support.design.R.id.snackbar_text);
+  tv.setTextColor(Color.WHITE);
   sb.show();
 }
