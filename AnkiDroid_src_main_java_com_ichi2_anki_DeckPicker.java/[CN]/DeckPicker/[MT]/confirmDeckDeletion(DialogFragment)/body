@@ -3,13 +3,33 @@
   if (!colIsOpen()) {
     return;
   }
-  String msg="";
+  if (mContextMenuDid == 1) {
+    showSimpleSnackbar(R.string.delete_deck_default_deck,true);
+    dismissAllDialogFragments();
+    return;
+  }
+  TreeMap<String,Long> children=getCol().getDecks().children(mContextMenuDid);
+  long[] dids=new long[children.size() + 1];
+  dids[0]=mContextMenuDid;
+  int i=1;
+  for (  Long l : children.values()) {
+    dids[i++]=l;
+  }
+  String ids=Utils.ids2str(dids);
+  int cnt=getCol().getDb().queryScalar("select count() from cards where did in " + ids + " or odid in "+ ids);
+  if (cnt == 0) {
+    deleteContextMenuDeck();
+    dismissAllDialogFragments();
+    return;
+  }
+  String msg;
+  String deckName="\'" + getCol().getDecks().name(mContextMenuDid) + "\'";
   boolean isDyn=getCol().getDecks().isDyn(mContextMenuDid);
   if (isDyn) {
-    msg=String.format(res.getString(R.string.delete_cram_deck_message),"\'" + getCol().getDecks().name(mContextMenuDid) + "\'");
+    msg=String.format(res.getString(R.string.delete_cram_deck_message),deckName);
   }
  else {
-    msg=String.format(res.getString(R.string.delete_deck_message),"\'" + getCol().getDecks().name(mContextMenuDid) + "\'");
+    msg=res.getQuantityString(R.plurals.delete_deck_message,cnt,deckName,cnt);
   }
   showDialogFragment(DeckPickerConfirmDeleteDeckDialog.newInstance(msg));
 }
