@@ -48,6 +48,9 @@
     mNext3.setVisibility(View.GONE);
     mNext4.setVisibility(View.GONE);
   }
+  if (mHideAnswerButtons) {
+    findViewById(R.id.answer_options_layout).setVisibility(View.GONE);
+  }
   mFlipCard=(Button)findViewById(R.id.flip_card);
   mFlipCard.setTypeface(TypefaceHelper.get(this,"Roboto-Medium"));
   mFlipCardLayout=(LinearLayout)findViewById(R.id.flashcard_layout_flip);
