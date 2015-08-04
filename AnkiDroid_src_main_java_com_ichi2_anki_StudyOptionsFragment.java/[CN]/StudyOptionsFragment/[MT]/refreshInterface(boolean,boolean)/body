@@ -4,5 +4,5 @@
     return;
   }
   Timber.d("Refreshing StudyOptionsFragment");
-  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_VALUES_FROM_DECK,getDeckTaskListener(resetDecklist),new DeckTask.TaskData(getCol(),new Object[]{resetSched,mSmallChart != null}));
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_VALUES_FROM_DECK,getDeckTaskListener(resetDecklist),new DeckTask.TaskData(getCol(),new Object[]{resetSched,mChartView != null}));
 }
