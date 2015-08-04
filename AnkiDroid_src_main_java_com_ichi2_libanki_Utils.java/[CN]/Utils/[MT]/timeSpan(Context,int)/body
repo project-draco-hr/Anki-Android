@@ -1,0 +1,27 @@
+{
+  int time_x;
+  Resources res=context.getResources();
+  if (Math.abs(time_s) < TIME_MINUTE) {
+    return res.getQuantityString(R.plurals.time_span_seconds,time_s,time_s);
+  }
+ else   if (Math.abs(time_s) < TIME_HOUR) {
+    time_x=(int)Math.round(time_s / TIME_MINUTE);
+    return res.getQuantityString(R.plurals.time_span_minutes,time_x,time_x);
+  }
+ else   if (Math.abs(time_s) < TIME_DAY) {
+    time_x=(int)Math.round(time_s / TIME_HOUR);
+    return res.getQuantityString(R.plurals.time_span_hours,time_x,time_x);
+  }
+ else   if (Math.abs(time_s) < TIME_MONTH) {
+    time_x=(int)Math.round(time_s / TIME_DAY);
+    return res.getQuantityString(R.plurals.time_span_days,time_x,time_x);
+  }
+ else   if (Math.abs(time_s) < TIME_YEAR) {
+    time_x=(int)Math.round(time_s / TIME_MONTH);
+    return res.getQuantityString(R.plurals.time_span_months,time_x,time_x);
+  }
+ else {
+    time_x=(int)Math.round(time_s / TIME_YEAR);
+    return res.getQuantityString(R.plurals.time_span_years,time_x,time_x);
+  }
+}

@@ -1,12 +1,12 @@
 {
   int ivl=nextIvl(card,ease);
   if (ivl == 0) {
-    return AnkiDroidApp.getAppResources().getString(R.string.sched_end);
+    return context.getString(R.string.sched_end);
   }
-  String s=Utils.fmtTimeSpan(ivl,_short);
+  String s=Utils.timeQuantity(context,ivl);
   try {
     if (ivl < mCol.getConf().getInt("collapseTime")) {
-      s="<" + s;
+      s=context.getString(R.string.less_than_time,s);
     }
   }
  catch (  JSONException e) {

@@ -1,5 +1,8 @@
 {
   Locale locale;
+  if (localeCode == null || TextUtils.isEmpty(localeCode)) {
+    localeCode=AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getBaseContext()).getString(Preferences.LANGUAGE,"");
+  }
   if (TextUtils.isEmpty(localeCode)) {
     locale=Locale.getDefault();
   }
