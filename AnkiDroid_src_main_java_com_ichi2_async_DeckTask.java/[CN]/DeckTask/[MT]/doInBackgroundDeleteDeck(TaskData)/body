@@ -1,7 +1,7 @@
 {
   Timber.d("doInBackgroundDeleteDeck");
-  Collection col=params[0].getCollection();
+  Collection col=CollectionHelper.getInstance().getCol(mContext);
   long did=params[0].getLong();
   col.getDecks().rem(did,true);
-  return new TaskData(col);
+  return new TaskData(true);
 }

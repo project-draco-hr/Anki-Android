@@ -6,6 +6,6 @@
  else {
       mProgressDialog=StyledProgressDialog.show(AbstractFlashcardViewer.this,"",getResources().getString(R.string.saving_changes),false);
     }
-    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mAnswerCardHandler,new DeckTask.TaskData(getCol(),mSched));
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,mAnswerCardHandler);
   }
 }

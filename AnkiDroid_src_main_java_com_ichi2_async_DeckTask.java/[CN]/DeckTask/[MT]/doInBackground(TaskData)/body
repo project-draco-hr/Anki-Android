@@ -2,9 +2,6 @@
   super.doInBackground(params);
   if (mPreviousTask != null && mPreviousTask.getStatus() != AsyncTask.Status.FINISHED) {
     Timber.d("Waiting for %d to finish before starting %d",mPreviousTask.mType,mType);
-    if (mType == TASK_TYPE_OPEN_COLLECTION && mPreviousTask.mType == TASK_TYPE_CLOSE_DECK) {
-      publishProgress(new TaskData(AnkiDroidApp.getInstance().getBaseContext().getResources().getString(R.string.finish_operation)));
-    }
     try {
       mPreviousTask.get();
       Timber.d("Finished waiting for %d to finish. Status= %s",mPreviousTask.mType,mPreviousTask.getStatus());
@@ -21,6 +18,7 @@ catch (    CancellationException e) {
       Timber.e(e,"previously running task was cancelled: %d",mPreviousTask.mType);
     }
   }
+  mContext=AnkiDroidApp.getInstance().getApplicationContext();
 switch (mType) {
 case TASK_TYPE_LOAD_DECK_COUNTS:
     return doInBackgroundLoadDeckCounts(params);
@@ -42,14 +40,8 @@ case TASK_TYPE_DISMISS_NOTE:
 return doInBackgroundDismissNote(params);
 case TASK_TYPE_CHECK_DATABASE:
 return doInBackgroundCheckDatabase(params);
-case TASK_TYPE_DELETE_BACKUPS:
-return doInBackgroundDeleteBackups();
-case TASK_TYPE_UPDATE_CARD_BROWSER_LIST:
-return doInBackgroundUpdateCardBrowserList(params);
 case TASK_TYPE_REPAIR_DECK:
 return doInBackgroundRepairDeck(params);
-case TASK_TYPE_CLOSE_DECK:
-return doInBackgroundCloseCollection(params);
 case TASK_TYPE_UPDATE_VALUES_FROM_DECK:
 return doInBackgroundUpdateValuesFromDeck(params);
 case TASK_TYPE_DELETE_DECK:

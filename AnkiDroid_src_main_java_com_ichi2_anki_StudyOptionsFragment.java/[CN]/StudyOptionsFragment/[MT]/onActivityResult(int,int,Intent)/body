@@ -28,7 +28,7 @@
         throw new RuntimeException(e);
       }
       mProgressDialog=StyledProgressDialog.show(getActivity(),"",getResources().getString(R.string.rebuild_cram_deck),true);
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REBUILD_CRAM,getDeckTaskListener(true),new DeckTask.TaskData(getCol(),getCol().getDecks().selected(),mFragmented));
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REBUILD_CRAM,getDeckTaskListener(true),new DeckTask.TaskData(mFragmented));
     }
  else {
       DeckTask.waitToFinish();

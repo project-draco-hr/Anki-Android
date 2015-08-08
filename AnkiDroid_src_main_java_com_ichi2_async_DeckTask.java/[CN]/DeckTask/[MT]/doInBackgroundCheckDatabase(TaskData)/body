@@ -1,6 +1,6 @@
 {
   Timber.d("doInBackgroundCheckDatabase");
-  Collection col=params[0].getCollection();
+  Collection col=CollectionHelper.getInstance().getCol(mContext);
   if (col == null) {
     Timber.e("doInBackgroundCheckDatabase :: supplied collection was null");
     return new TaskData(false);

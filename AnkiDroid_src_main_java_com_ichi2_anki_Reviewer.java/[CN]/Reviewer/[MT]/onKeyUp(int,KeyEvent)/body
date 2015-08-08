@@ -28,23 +28,23 @@
       return true;
     }
     if (keyPressed == '*') {
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_MARK_CARD,mMarkCardHandler,new DeckTask.TaskData(getCol(),mSched,mCurrentCard,0));
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_MARK_CARD,mMarkCardHandler,new DeckTask.TaskData(mCurrentCard,0));
       return true;
     }
     if (keyPressed == '-') {
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(getCol(),mSched,mCurrentCard,4));
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mCurrentCard,4));
       return true;
     }
     if (keyPressed == '=') {
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(getCol(),mSched,mCurrentCard,0));
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mCurrentCard,0));
       return true;
     }
     if (keyPressed == '@') {
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(getCol(),mSched,mCurrentCard,1));
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mCurrentCard,1));
       return true;
     }
     if (keyPressed == '!') {
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(getCol(),mSched,mCurrentCard,2));
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mCurrentCard,2));
       return true;
     }
     if (keyPressed == 'r' || keyCode == KeyEvent.KEYCODE_F5) {

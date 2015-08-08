@@ -1,6 +1,6 @@
 {
   Timber.d("doInBackgroundImportReplace");
-  Collection col=params[0].getCollection();
+  Collection col=CollectionHelper.getInstance().getCol(mContext);
   String path=params[0].getString();
   Resources res=AnkiDroidApp.getInstance().getBaseContext().getResources();
   String colPath=col.getPath();

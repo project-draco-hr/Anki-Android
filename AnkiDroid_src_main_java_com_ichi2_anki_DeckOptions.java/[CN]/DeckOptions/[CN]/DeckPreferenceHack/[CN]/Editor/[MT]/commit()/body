@@ -16,7 +16,7 @@
         int oldValue=mOptions.getJSONObject("new").getInt("order");
         if (oldValue != newValue) {
           mOptions.getJSONObject("new").put("order",newValue);
-          DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REORDER,mConfChangeHandler,new DeckTask.TaskData(new Object[]{mCol,mOptions}));
+          DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REORDER,mConfChangeHandler,new DeckTask.TaskData(new Object[]{mOptions}));
         }
         mOptions.getJSONObject("new").put("order",Integer.parseInt((String)value));
       }
@@ -92,7 +92,7 @@
  else       if (key.equals("deckConf")) {
         long newConfId=Long.parseLong((String)value);
         mOptions=mCol.getDecks().getConf(newConfId);
-        DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CONF_CHANGE,mConfChangeHandler,new DeckTask.TaskData(new Object[]{mCol,mDeck,mOptions}));
+        DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CONF_CHANGE,mConfChangeHandler,new DeckTask.TaskData(new Object[]{mDeck,mOptions}));
         restartActivity();
       }
  else       if (key.equals("confRename")) {
@@ -103,7 +103,7 @@
       }
  else       if (key.equals("confReset")) {
         if ((Boolean)value) {
-          DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CONF_RESET,mConfChangeHandler,new DeckTask.TaskData(new Object[]{mCol,mOptions}));
+          DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CONF_RESET,mConfChangeHandler,new DeckTask.TaskData(new Object[]{mOptions}));
         }
       }
  else       if (key.equals("confAdd")) {
@@ -140,7 +140,7 @@
       }
  else       if (key.equals("confSetSubdecks")) {
         if ((Boolean)value) {
-          DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CONF_SET_SUBDECKS,mConfChangeHandler,new DeckTask.TaskData(new Object[]{mCol,mDeck,mOptions}));
+          DeckTask.launchDeckTask(DeckTask.TASK_TYPE_CONF_SET_SUBDECKS,mConfChangeHandler,new DeckTask.TaskData(new Object[]{mDeck,mOptions}));
         }
       }
     }

@@ -1,7 +1,7 @@
 {
   Timber.d("doInBackgroundUpdateValuesFromDeck");
   try {
-    Collection col=params[0].getCollection();
+    Collection col=CollectionHelper.getInstance().getCol(mContext);
     Sched sched=col.getSched();
     Object[] obj=params[0].getObjArray();
     boolean reset=(Boolean)obj[0];

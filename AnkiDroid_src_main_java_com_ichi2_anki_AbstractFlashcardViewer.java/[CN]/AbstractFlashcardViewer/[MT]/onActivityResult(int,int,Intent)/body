@@ -13,11 +13,11 @@
   if (requestCode == EDIT_CURRENT_CARD) {
     if (data != null && data.hasExtra("reloadRequired")) {
       getCol().getSched().reset();
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(getCol(),mSched,null,0));
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(null,0));
     }
     if (resultCode == RESULT_OK) {
       Timber.i("AbstractFlashcardViewer:: Saving card...");
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_FACT,mUpdateCardHandler,new DeckTask.TaskData(getCol(),mSched,mCurrentCard,true));
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_FACT,mUpdateCardHandler,new DeckTask.TaskData(mCurrentCard,true));
     }
  else     if (resultCode == RESULT_CANCELED && !(data != null && data.hasExtra("reloadRequired"))) {
       fillFlashcard();

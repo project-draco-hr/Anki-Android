@@ -1,6 +1,6 @@
 {
   Card card=params[0].getCard();
-  Collection col=params[0].getCollection();
+  Collection col=CollectionHelper.getInstance().getCol(mContext);
   try {
     AnkiDb ankiDB=col.getDb();
     ankiDB.getDatabase().beginTransaction();
