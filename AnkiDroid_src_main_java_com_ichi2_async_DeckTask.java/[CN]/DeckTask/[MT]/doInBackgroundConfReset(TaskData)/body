@@ -1,8 +1,8 @@
 {
   Timber.d("doInBackgroundConfReset");
+  Collection col=CollectionHelper.getInstance().getCol(mContext);
   Object[] data=params[0].getObjArray();
-  Collection col=(Collection)data[0];
-  JSONObject conf=(JSONObject)data[1];
+  JSONObject conf=(JSONObject)data[0];
   col.getDecks().restoreToDefault(conf);
   return new TaskData(true);
 }

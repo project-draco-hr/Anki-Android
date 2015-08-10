@@ -67,22 +67,22 @@ case GESTURE_EDIT:
 editCard();
 break;
 case GESTURE_MARK:
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_MARK_CARD,mMarkCardHandler,new DeckTask.TaskData(getCol(),mSched,mCurrentCard,0));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_MARK_CARD,mMarkCardHandler,new DeckTask.TaskData(mCurrentCard,0));
 break;
 case GESTURE_LOOKUP:
 lookUpOrSelectText();
 break;
 case GESTURE_BURY_CARD:
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(getCol(),mSched,mCurrentCard,4));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mCurrentCard,4));
 break;
 case GESTURE_BURY_NOTE:
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(getCol(),mSched,mCurrentCard,0));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mCurrentCard,0));
 break;
 case GESTURE_SUSPEND_CARD:
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(getCol(),mSched,mCurrentCard,1));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mCurrentCard,1));
 break;
 case GESTURE_SUSPEND_NOTE:
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(getCol(),mSched,mCurrentCard,2));
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mCurrentCard,2));
 break;
 case GESTURE_DELETE:
 showDeleteNoteDialog();

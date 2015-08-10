@@ -1,6 +1,6 @@
 {
-  Collection col=params[0].getCollection();
-  Sched sched=params[0].getSched();
+  Collection col=CollectionHelper.getInstance().getCol(mContext);
+  Sched sched=col.getSched();
   Card oldCard=params[0].getCard();
   int ease=params[0].getInt();
   Card newCard=null;

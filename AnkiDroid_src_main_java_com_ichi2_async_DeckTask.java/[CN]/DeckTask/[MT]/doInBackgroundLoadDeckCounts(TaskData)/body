@@ -1,6 +1,6 @@
 {
   Timber.d("doInBackgroundLoadDeckCounts");
-  Collection col=params[0].getCollection();
+  Collection col=CollectionHelper.getInstance().getCol(mContext);
   try {
     Object[] o=new Object[]{col.getSched().deckDueTree()};
     return new TaskData(o);

@@ -5,7 +5,7 @@
   new MaterialDialog.Builder(this).title(res.getString(R.string.delete_card_title)).icon(icon).content(String.format(res.getString(R.string.delete_note_message),Utils.stripHTML(mCurrentCard.q(true)))).positiveText(res.getString(R.string.dialog_positive_delete)).negativeText(res.getString(R.string.dialog_cancel)).callback(new MaterialDialog.ButtonCallback(){
     @Override public void onPositive(    MaterialDialog dialog){
       Timber.i("AbstractFlashcardViewer:: OK button pressed to delete note %d",mCurrentCard.getNid());
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(getCol(),mSched,mCurrentCard,3));
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mCurrentCard,3));
     }
   }
 ).build().show();

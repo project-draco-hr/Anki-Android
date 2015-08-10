@@ -1,6 +1,6 @@
 {
   Timber.d("doInBackgroundRepairDeck");
-  Collection col=params[0].getCollection();
+  Collection col=CollectionHelper.getInstance().getCol(mContext);
   if (col != null) {
     col.close(false);
   }

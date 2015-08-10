@@ -1,9 +1,9 @@
 {
   Timber.d("doInBackgroundSearchCards");
-  Collection col=(Collection)params[0].getObjArray()[0];
-  HashMap<String,String> deckNames=(HashMap<String,String>)params[0].getObjArray()[1];
-  String query=(String)params[0].getObjArray()[2];
-  Boolean order=(Boolean)params[0].getObjArray()[3];
+  Collection col=CollectionHelper.getInstance().getCol(mContext);
+  HashMap<String,String> deckNames=(HashMap<String,String>)params[0].getObjArray()[0];
+  String query=(String)params[0].getObjArray()[1];
+  Boolean order=(Boolean)params[0].getObjArray()[2];
   ArrayList<HashMap<String,String>> searchResult=col.findCardsForCardBrowser(query,order,deckNames);
   if (isCancelled() || CardBrowser.sSearchCancelled) {
     Timber.d("doInBackgroundSearchCards was cancelled so return null");

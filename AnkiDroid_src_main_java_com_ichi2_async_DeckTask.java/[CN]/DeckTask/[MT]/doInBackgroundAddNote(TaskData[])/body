@@ -1,7 +1,7 @@
 {
   Timber.d("doInBackgroundAddNote");
   Note note=params[0].getNote();
-  Collection col=note.getCol();
+  Collection col=CollectionHelper.getInstance().getCol(mContext);
   try {
     AnkiDb ankiDB=col.getDb();
     ankiDB.getDatabase().beginTransaction();

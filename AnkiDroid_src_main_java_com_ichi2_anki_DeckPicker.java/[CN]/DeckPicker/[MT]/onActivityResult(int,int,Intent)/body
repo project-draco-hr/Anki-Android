@@ -29,7 +29,7 @@
       mImportPath=intent.getStringExtra("importPath");
     }
     if (colIsOpen() && mImportPath != null) {
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_IMPORT,mImportAddListener,new TaskData(getCol(),mImportPath,true));
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_IMPORT,mImportAddListener,new TaskData(mImportPath,true));
       mImportPath=null;
     }
   }

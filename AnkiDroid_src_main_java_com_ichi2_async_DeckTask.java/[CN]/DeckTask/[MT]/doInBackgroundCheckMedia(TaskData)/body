@@ -1,7 +1,7 @@
 {
   Timber.d("doInBackgroundCheckMedia");
+  Collection col=CollectionHelper.getInstance().getCol(mContext);
   try {
-    Collection col=params[0].getCollection();
     col.getMedia().findChanges(true);
     List<List<String>> result=col.getMedia().check();
     return new TaskData(0,new Object[]{result},true);

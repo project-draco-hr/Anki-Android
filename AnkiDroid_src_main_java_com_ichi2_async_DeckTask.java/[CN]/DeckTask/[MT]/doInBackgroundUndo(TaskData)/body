@@ -1,6 +1,6 @@
 {
-  Sched sched=params[0].getSched();
-  Collection col=params[0].getCollection();
+  Collection col=CollectionHelper.getInstance().getCol(mContext);
+  Sched sched=col.getSched();
   try {
     col.getDb().getDatabase().beginTransaction();
     Card newCard;
