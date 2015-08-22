@@ -1,5 +1,6 @@
 {
   super.onPreExecute();
+  mWakeLock.acquire();
   if (mListener != null) {
     mListener.onPreExecute();
   }

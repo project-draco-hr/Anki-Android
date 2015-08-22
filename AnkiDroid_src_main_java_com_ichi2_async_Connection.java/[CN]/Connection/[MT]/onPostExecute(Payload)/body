@@ -1,5 +1,6 @@
 {
   super.onPostExecute(data);
+  mWakeLock.release();
   if (mListener != null) {
     mListener.onPostExecute(data);
   }
