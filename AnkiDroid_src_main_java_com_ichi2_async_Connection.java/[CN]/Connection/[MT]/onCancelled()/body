@@ -1,5 +1,6 @@
 {
   super.onCancelled();
+  mWakeLock.release();
   if (mCancelCallback != null) {
     mCancelCallback.cancelAllConnections();
   }
