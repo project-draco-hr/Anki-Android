@@ -1,0 +1,9 @@
+{
+  if (mActivityPaused) {
+    Resources res=AnkiDroidApp.getAppResources();
+    showSimpleNotification(res.getString(R.string.app_name),res.getString(messageResource));
+  }
+ else {
+    showSimpleSnackbar(messageResource,false);
+  }
+}

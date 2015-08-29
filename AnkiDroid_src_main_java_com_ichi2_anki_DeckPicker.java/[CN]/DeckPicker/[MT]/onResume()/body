@@ -1,6 +1,7 @@
 {
   Timber.d("onResume()");
   super.onResume();
+  mActivityPaused=false;
   selectNavigationItem(R.id.nav_decks);
   if (mSyncOnResume) {
     sync();
