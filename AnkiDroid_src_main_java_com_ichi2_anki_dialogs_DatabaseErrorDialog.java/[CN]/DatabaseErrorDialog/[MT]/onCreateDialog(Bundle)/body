@@ -4,8 +4,6 @@
   Resources res=getResources();
   MaterialDialog.Builder builder=new MaterialDialog.Builder(getActivity());
   builder.cancelable(true).title(getTitle());
-  Drawable icon_alert=res.getDrawable(R.drawable.ic_warning_black_36dp);
-  icon_alert.setAlpha(Themes.ALPHA_ICON_ENABLED_DARK);
   boolean sqliteInstalled=false;
   try {
     sqliteInstalled=Runtime.getRuntime().exec("sqlite3 --version").waitFor() == 0;
@@ -18,7 +16,7 @@ catch (  InterruptedException e) {
   }
 switch (mType) {
 case DIALOG_LOAD_FAILED:
-    return builder.cancelable(false).content(getMessage()).icon(icon_alert).positiveText(res.getString(R.string.error_handling_options)).negativeText(res.getString(R.string.close)).callback(new MaterialDialog.ButtonCallback(){
+    return builder.cancelable(false).content(getMessage()).iconAttr(R.attr.dialogErrorIcon).positiveText(res.getString(R.string.error_handling_options)).negativeText(res.getString(R.string.close)).callback(new MaterialDialog.ButtonCallback(){
       @Override public void onPositive(      MaterialDialog dialog){
         ((DatabaseErrorDialogListener)getActivity()).showDatabaseErrorDialog(DIALOG_ERROR_HANDLING);
       }
@@ -28,7 +26,7 @@ case DIALOG_LOAD_FAILED:
     }
 ).show();
 case DIALOG_DB_ERROR:
-  MaterialDialog dialog=builder.cancelable(false).content(getMessage()).icon(icon_alert).positiveText(res.getString(R.string.error_handling_options)).negativeText(res.getString(R.string.answering_error_report)).neutralText(res.getString(R.string.close)).callback(new MaterialDialog.ButtonCallback(){
+  MaterialDialog dialog=builder.cancelable(false).content(getMessage()).iconAttr(R.attr.dialogErrorIcon).positiveText(res.getString(R.string.error_handling_options)).negativeText(res.getString(R.string.answering_error_report)).neutralText(res.getString(R.string.close)).callback(new MaterialDialog.ButtonCallback(){
     @Override public void onPositive(    MaterialDialog dialog){
       ((DatabaseErrorDialogListener)getActivity()).showDatabaseErrorDialog(DIALOG_ERROR_HANDLING);
     }
@@ -70,7 +68,7 @@ for (int i=0; i < options.size(); i++) {
 titles[i]=options.get(i);
 mRepairValues[i]=values.get(i);
 }
-dialog=builder.icon(icon_alert).negativeText(res.getString(R.string.dialog_cancel)).items(titles).itemsCallback(new MaterialDialog.ListCallback(){
+dialog=builder.iconAttr(R.attr.dialogErrorIcon).negativeText(res.getString(R.string.dialog_cancel)).items(titles).itemsCallback(new MaterialDialog.ListCallback(){
 @Override public void onSelection(MaterialDialog materialDialog,View view,int which,CharSequence charSequence){
 switch (mRepairValues[which]) {
 case 0:
@@ -96,7 +94,7 @@ case 5:
 ).show();
 return dialog;
 case DIALOG_REPAIR_COLLECTION:
-return builder.content(getMessage()).icon(icon_alert).positiveText(res.getString(R.string.dialog_positive_repair)).negativeText(res.getString(R.string.dialog_cancel)).callback(new MaterialDialog.ButtonCallback(){
+return builder.content(getMessage()).iconAttr(R.attr.dialogErrorIcon).positiveText(res.getString(R.string.dialog_positive_repair)).negativeText(res.getString(R.string.dialog_cancel)).callback(new MaterialDialog.ButtonCallback(){
 @Override public void onPositive(MaterialDialog dialog){
 ((DatabaseErrorDialogListener)getActivity()).repairDeck();
 dismissAllDialogFragments();
@@ -123,9 +121,7 @@ String[] dates=new String[mBackups.length];
 for (int i=0; i < mBackups.length; i++) {
 dates[i]=mBackups[i].getName().replaceAll(".*-(\\d{4}-\\d{2}-\\d{2})-(\\d{2})-(\\d{2}).apkg","$1 ($2:$3 h)");
 }
-Drawable icon_input=res.getDrawable(R.drawable.ic_input_black_36dp);
-icon_input.setAlpha(Themes.ALPHA_ICON_ENABLED_DARK);
-builder.title(res.getString(R.string.backup_restore_select_title)).icon(icon_input).negativeText(res.getString(R.string.dialog_cancel)).callback(new MaterialDialog.ButtonCallback(){
+builder.title(res.getString(R.string.backup_restore_select_title)).negativeText(res.getString(R.string.dialog_cancel)).callback(new MaterialDialog.ButtonCallback(){
 @Override public void onNegative(MaterialDialog dialog){
 dismissAllDialogFragments();
 }
