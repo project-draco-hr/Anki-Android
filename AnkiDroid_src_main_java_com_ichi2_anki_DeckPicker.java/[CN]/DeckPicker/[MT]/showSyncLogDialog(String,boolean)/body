@@ -1,9 +1,0 @@
-{
-  if (error) {
-    String title=getResources().getString(R.string.sync_error);
-    showSimpleMessageDialog(title,message,true);
-  }
- else {
-    showSimpleMessageDialog(message,true);
-  }
-}

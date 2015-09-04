@@ -148,7 +148,7 @@ catch (      RuntimeException e) {
         mediaError=e.getLocalizedMessage();
       }
     }
-    if (noChanges && noMediaChanges) {
+    if (noChanges && (!media || noMediaChanges)) {
       data.success=false;
       data.result=new Object[]{"noChanges"};
       return data;

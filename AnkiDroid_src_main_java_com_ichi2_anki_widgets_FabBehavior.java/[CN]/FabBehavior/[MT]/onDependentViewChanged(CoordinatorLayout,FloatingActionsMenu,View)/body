@@ -1,0 +1,11 @@
+{
+  if (dependency instanceof Snackbar.SnackbarLayout && fab.getVisibility() == View.VISIBLE) {
+    float translationY=getFabTranslationYForSnackbar(parent,fab);
+    if (translationY != this.mTranslationY) {
+      ViewCompat.animate(fab).cancel();
+      ViewCompat.setTranslationY(fab,translationY);
+      this.mTranslationY=translationY;
+    }
+  }
+  return false;
+}
