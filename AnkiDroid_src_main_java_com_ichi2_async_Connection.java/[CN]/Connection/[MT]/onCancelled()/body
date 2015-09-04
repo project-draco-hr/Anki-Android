@@ -1,5 +1,6 @@
 {
   super.onCancelled();
+  Timber.i("Connection onCancelled() method called");
   mWakeLock.release();
   if (mCancelCallback != null) {
     mCancelCallback.cancelAllConnections();
