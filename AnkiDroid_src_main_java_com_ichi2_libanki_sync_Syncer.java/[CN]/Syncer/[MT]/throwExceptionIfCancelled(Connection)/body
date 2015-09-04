@@ -1,0 +1,12 @@
+{
+  if (Connection.getIsCancelled()) {
+    Timber.i("Sync was cancelled");
+    publishProgress(con,R.string.sync_cancelled);
+    try {
+      mServer.finish();
+    }
+ catch (    UnknownHttpResponseException e) {
+    }
+    throw new RuntimeException("UserAbortedSync");
+  }
+}

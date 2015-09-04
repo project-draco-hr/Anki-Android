@@ -1,4 +1,5 @@
 {
+  Timber.d("cancelAllConnections()");
   if (mConnectionManager != null) {
     ThreadSafeClientConnManager connectionManager=mConnectionManager.get();
     if (connectionManager != null) {

@@ -21,6 +21,7 @@
       }
  else {
       }
+      throwExceptionIfCancelled(con);
       long rscm=rMeta.getLong("scm");
       int rts=rMeta.getInt("ts");
       mRMod=rMeta.getLong("mod");
@@ -52,6 +53,7 @@
         mCol.log("basic check");
         return new Object[]{"basicCheckFailed"};
       }
+      throwExceptionIfCancelled(con);
       publishProgress(con,R.string.sync_deletions_message);
       Timber.i("Sync: collection removed data");
       JSONObject lrem=removed();
@@ -62,6 +64,7 @@
       Timber.i("Sync: sending and receiving removed data");
       JSONObject rrem=mServer.start(o);
       Timber.i("Sync: applying removed data");
+      throwExceptionIfCancelled(con);
       remove(rrem);
       publishProgress(con,R.string.sync_small_objects_message);
       Timber.i("Sync: collection small changes");
@@ -70,10 +73,12 @@
       sch.put("changes",lchg);
       Timber.i("Sync: sending and receiving small changes");
       JSONObject rchg=mServer.applyChanges(sch);
+      throwExceptionIfCancelled(con);
       Timber.i("Sync: merging small changes");
       mergeChanges(lchg,rchg);
       publishProgress(con,R.string.sync_download_chunk);
       while (true) {
+        throwExceptionIfCancelled(con);
         Timber.i("Sync: downloading chunked data");
         JSONObject chunk=mServer.chunk();
         mCol.log("server chunk",chunk);
@@ -85,6 +90,7 @@
       }
       publishProgress(con,R.string.sync_upload_chunk);
       while (true) {
+        throwExceptionIfCancelled(con);
         Timber.i("Sync: collecting chunked data");
         JSONObject chunk=chunk();
         mCol.log("client chunk",chunk);

@@ -6,8 +6,6 @@ case TASK_TYPE_REGISTER:
   return doInBackgroundRegister(data);
 case TASK_TYPE_SYNC:
 return doInBackgroundSync(data);
-case TASK_TYPE_DOWNLOAD_MEDIA:
-return doInBackgroundDownloadMissingMedia(data);
 case TASK_TYPE_UPGRADE_DECKS:
 throw new RuntimeException("Upgrade decks no longer supported");
 default :
