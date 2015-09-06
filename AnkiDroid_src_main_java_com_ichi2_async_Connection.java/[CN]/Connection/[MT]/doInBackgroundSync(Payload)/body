@@ -1,4 +1,5 @@
 {
+  sIsCancellable=true;
   Timber.d("doInBackgroundSync()");
   boolean ok=DeckTask.waitToFinish(5);
   String hkey=(String)data.data[0];
@@ -49,6 +50,7 @@
     }
  else {
       try {
+        sIsCancellable=false;
         server=new FullSyncer(col,hkey,this);
         if (conflictResolution.equals("upload")) {
           Timber.i("Sync - fullsync - upload collection");
@@ -112,6 +114,7 @@ catch (      RuntimeException e) {
     if (!noChanges) {
       col.clearUndo();
     }
+    sIsCancellable=true;
     boolean noMediaChanges=false;
     String mediaError=null;
     if (media) {
@@ -180,6 +183,9 @@ catch (  Exception e) {
     data.success=false;
     if (timeoutOccured(e)) {
       data.result=new Object[]{"connectionError"};
+    }
+ else     if (e.getMessage().equals("UserAbortedSync")) {
+      data.result=new Object[]{"UserAbortedSync"};
     }
  else {
       AnkiDroidApp.sendExceptionReport(e,"doInBackgroundSync");
