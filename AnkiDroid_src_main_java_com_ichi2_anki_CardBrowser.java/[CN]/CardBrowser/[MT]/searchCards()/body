@@ -6,7 +6,7 @@
  else {
     searchText=mRestrictOnDeck + mSearchTerms;
   }
-  if (colIsOpen()) {
+  if (colIsOpen() && mCardsAdapter != null) {
     getCards().clear();
     mCardsAdapter.notifyDataSetChanged();
     DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SEARCH_CARDS,mSearchCardsHandler,new DeckTask.TaskData(new Object[]{mDeckNames,searchText,((mOrder != CARD_ORDER_NONE))}));
