@@ -9,6 +9,7 @@
   }
   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
   getSupportActionBar().setHomeButtonEnabled(true);
+  setNightModeIcon();
   mDrawerToggle=new ActionBarDrawerToggle(this,mDrawerLayout,0,0){
     @Override public void onDrawerClosed(    View drawerView){
       super.onDrawerClosed(drawerView);

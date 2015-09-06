@@ -1,0 +1,7 @@
+{
+  ProgressBar progressBar=(ProgressBar)mStudyOptionsView.findViewById(R.id.progress_bar);
+  if (progressBar != null) {
+    mStudyOptionsView.setVisibility(View.INVISIBLE);
+    progressBar.setVisibility(View.VISIBLE);
+  }
+}

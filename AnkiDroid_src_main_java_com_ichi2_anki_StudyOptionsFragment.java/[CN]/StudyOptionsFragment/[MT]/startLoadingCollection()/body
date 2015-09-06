@@ -1,6 +1,4 @@
 {
   Timber.d("startLoadingCollection()");
-  AnkiActivity activity=(AnkiActivity)getActivity();
-  activity.showProgressBar();
   getLoaderManager().initLoader(0,null,this);
 }
