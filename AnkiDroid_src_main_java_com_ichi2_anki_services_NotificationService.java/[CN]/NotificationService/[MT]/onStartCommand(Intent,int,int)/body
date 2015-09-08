@@ -1,0 +1,26 @@
+{
+  Timber.i("NotificationService: OnStartCommand");
+  Context context=getApplicationContext();
+  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(context);
+  int minCardsDue=Integer.parseInt(preferences.getString("minimumCardsDueForNotification","25"));
+  int dueCardsCount=WidgetStatus.fetchDue(context);
+  if (dueCardsCount >= minCardsDue) {
+    String cardsDueText=getString(R.string.widget_minimum_cards_due_notification_ticker_text,dueCardsCount);
+    NotificationCompat.Builder builder=new NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_stat_notify).setContentTitle(cardsDueText).setTicker(cardsDueText);
+    if (preferences.getBoolean("widgetVibrate",false)) {
+      builder.setVibrate(new long[]{1000,1000,1000});
+    }
+    if (preferences.getBoolean("widgetBlink",false)) {
+      builder.setLights(Color.BLUE,1000,1000);
+    }
+    Intent resultIntent=new Intent(context,DeckPicker.class);
+    resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
+    PendingIntent resultPendingIntent=PendingIntent.getActivity(context,0,resultIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+    builder.setContentIntent(resultPendingIntent);
+    mNotificationManager.notify(WIDGET_NOTIFY_ID,builder.build());
+  }
+ else {
+    mNotificationManager.cancel(WIDGET_NOTIFY_ID);
+  }
+  return START_STICKY;
+}
