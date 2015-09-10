@@ -1,0 +1,38 @@
+{
+  try {
+    MatrixCursor.RowBuilder rb=rv.newRow();
+    for (    String column : columns) {
+      if (column.equals(CardTemplate._ID)) {
+        rb.add(id);
+      }
+ else       if (column.equals(CardTemplate.MODEL_ID)) {
+        rb.add(model.getLong("id"));
+      }
+ else       if (column.equals(CardTemplate.ORD)) {
+        rb.add(tmpl.getInt("ord"));
+      }
+ else       if (column.equals(CardTemplate.NAME)) {
+        rb.add(tmpl.getString("name"));
+      }
+ else       if (column.equals(CardTemplate.QUESTION_FORMAT)) {
+        rb.add(tmpl.getString("qfmt"));
+      }
+ else       if (column.equals(CardTemplate.ANSWER_FORMAT)) {
+        rb.add(tmpl.getString("afmt"));
+      }
+ else       if (column.equals(CardTemplate.BROWSER_QUESTION_FORMAT)) {
+        rb.add(tmpl.getString("bqfmt"));
+      }
+ else       if (column.equals(CardTemplate.BROWSER_ANSWER_FORMAT)) {
+        rb.add(tmpl.getString("bafmt"));
+      }
+ else {
+        throw new UnsupportedOperationException("Support for column \"" + column + "\" is not implemented");
+      }
+    }
+  }
+ catch (  JSONException e) {
+    Timber.e(e,"Error adding template to cursor");
+    throw new IllegalArgumentException("Template is malformed",e);
+  }
+}

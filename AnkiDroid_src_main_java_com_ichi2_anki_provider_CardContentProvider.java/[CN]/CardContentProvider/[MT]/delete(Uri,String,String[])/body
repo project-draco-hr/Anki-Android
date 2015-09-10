@@ -1,3 +1,14 @@
 {
-  throw new UnsupportedOperationException();
+  Timber.d("CardContentProvider.delete");
+  Collection col=CollectionHelper.getInstance().getCol(getContext());
+  if (col == null) {
+    return 0;
+  }
+switch (sUriMatcher.match(uri)) {
+case NOTES_ID:
+    col.remNotes(new long[]{Long.parseLong(uri.getPathSegments().get(1))});
+  return 1;
+default :
+throw new UnsupportedOperationException();
+}
 }

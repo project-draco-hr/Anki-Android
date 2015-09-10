@@ -1,0 +1,34 @@
+{
+  final ContentResolver cr=getContext().getContentResolver();
+  final Cursor allNotesCursor=cr.query(FlashCardsContract.Note.CONTENT_URI,null,"tag:" + TEST_TAG,null,null);
+  assertNotNull(allNotesCursor);
+  try {
+    assertEquals("Check number of results",mCreatedNotes.size(),allNotesCursor.getCount());
+    while (allNotesCursor.moveToNext()) {
+      Uri cardsUri=Uri.withAppendedPath(Uri.withAppendedPath(FlashCardsContract.Note.CONTENT_URI,allNotesCursor.getString(allNotesCursor.getColumnIndex(FlashCardsContract.Note._ID))),"cards");
+      final Cursor cardsCursor=cr.query(cardsUri,null,null,null,null);
+      assertNotNull("Check that there is a valid cursor after query for cards",cardsCursor);
+      try {
+        assertTrue("Check that there is at least one result for cards",cardsCursor.getCount() > 0);
+        while (cardsCursor.moveToNext()) {
+          long targetDid=mTestDeckIds[0];
+          ContentValues values=new ContentValues();
+          values.put(FlashCardsContract.Card.DECK_ID,targetDid);
+          Uri cardUri=Uri.withAppendedPath(cardsUri,cardsCursor.getString(cardsCursor.getColumnIndex(FlashCardsContract.Card.CARD_ORD)));
+          cr.update(cardUri,values,null,null);
+          Cursor movedCardCur=cr.query(cardUri,null,null,null,null);
+          assertNotNull("Check that there is a valid cursor after moving card",movedCardCur);
+          assertTrue("Move to beginning of cursor after moving card",movedCardCur.moveToFirst());
+          long did=movedCardCur.getLong(movedCardCur.getColumnIndex(FlashCardsContract.Card.DECK_ID));
+          assertEquals("Make sure that card is in new deck",targetDid,did);
+        }
+      }
+  finally {
+        cardsCursor.close();
+      }
+    }
+  }
+  finally {
+    allNotesCursor.close();
+  }
+}

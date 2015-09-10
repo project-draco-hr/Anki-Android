@@ -1,18 +1,38 @@
 {
   JSONObject jsonObject=models.get(modelId);
   MatrixCursor.RowBuilder rb=rv.newRow();
-  for (  String column : columns) {
-    if (column.equals(FlashCardsContract.Model._ID)) {
-      rb.add(modelId);
-    }
- else     if (column.equals(FlashCardsContract.Model.NAME)) {
-      rb.add(jsonObject.getString("name"));
-    }
- else     if (column.equals(FlashCardsContract.Model.JSONOBJECT)) {
-      rb.add(jsonObject);
-    }
+  try {
+    for (    String column : columns) {
+      if (column.equals(FlashCardsContract.Model._ID)) {
+        rb.add(modelId);
+      }
+ else       if (column.equals(FlashCardsContract.Model.NAME)) {
+        rb.add(jsonObject.getString("name"));
+      }
+ else       if (column.equals(FlashCardsContract.Model.FIELD_NAMES)) {
+        JSONArray flds=jsonObject.getJSONArray("flds");
+        String[] allFlds=new String[flds.length()];
+        for (int idx=0; idx < flds.length(); idx++) {
+          allFlds[idx]=flds.getJSONObject(idx).optString("name","");
+        }
+        rb.add(Utils.joinFields(allFlds));
+      }
+ else       if (column.equals(FlashCardsContract.Model.NUM_CARDS)) {
+        rb.add(jsonObject.getJSONArray("tmpls").length());
+      }
+ else       if (column.equals(FlashCardsContract.Model.CSS)) {
+        rb.add(jsonObject.getString("css"));
+      }
+ else       if (column.equals(FlashCardsContract.Model.DECK_ID)) {
+        rb.add(jsonObject.getLong("did"));
+      }
  else {
-      throw new UnsupportedOperationException("Column \"" + column + "\" is unknown");
+        throw new UnsupportedOperationException("Column \"" + column + "\" is unknown");
+      }
     }
+  }
+ catch (  JSONException e) {
+    Timber.e(e,"Error parsing JSONArray");
+    throw new IllegalArgumentException("Model " + modelId + " is malformed",e);
   }
 }

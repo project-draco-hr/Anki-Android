@@ -2,7 +2,7 @@
   Collection col;
   col=CollectionHelper.getInstance().getCol(getContext());
   Sched sched=col.getSched();
-  long deckId=testDeckIds[0];
+  long deckId=mTestDeckIds[0];
   col.getDecks().select(deckId);
   Card card=sched.getCard();
   ContentResolver cr=getContext().getContentResolver();

@@ -9,26 +9,89 @@ switch (match) {
 case NOTES:
 {
       Long modelId=values.getAsLong(FlashCardsContract.Note.MID);
+      String flds=values.getAsString(FlashCardsContract.Note.FLDS);
+      String tags=values.getAsString(FlashCardsContract.Note.TAGS);
       com.ichi2.libanki.Note newNote=new com.ichi2.libanki.Note(col,col.getModels().get(modelId));
-      String[] fields=newNote.getFields();
-      newNote.setField(0,"temp");
+      String[] fldsArray=Utils.splitFields(flds);
+      if (fldsArray.length != newNote.getFields().length) {
+        throw new IllegalArgumentException("Incorrect flds argument : " + flds);
+      }
+      for (int idx=0; idx < fldsArray.length; idx++) {
+        newNote.setField(idx,fldsArray[idx]);
+      }
+      if (tags != null) {
+        newNote.setTagsFromStr(tags);
+      }
       col.addNote(newNote);
       return Uri.withAppendedPath(FlashCardsContract.Note.CONTENT_URI,Long.toString(newNote.getId()));
     }
 case NOTES_ID:
-{
-    throw new IllegalArgumentException("Not possible to insert note with specific ID");
-  }
-case NOTES_ID_DATA:
-throw new IllegalArgumentException("Not possible to insert note data");
+  throw new IllegalArgumentException("Not possible to insert note with specific ID");
 case NOTES_ID_CARDS:
-throw new IllegalArgumentException("Not possible to insert cards directly (only through inserting notes)");
+throw new IllegalArgumentException("Not possible to insert cards directly (only through NOTES)");
 case NOTES_ID_CARDS_ORD:
-throw new IllegalArgumentException("Not possible to insert cards directly (only through inserting notes)");
+throw new IllegalArgumentException("Not possible to insert cards directly (only through NOTES)");
 case MODELS:
-throw new UnsupportedOperationException("Not yet implemented");
+String modelName=values.getAsString(FlashCardsContract.Model.NAME);
+String css=values.getAsString(FlashCardsContract.Model.CSS);
+Long did=values.getAsLong(FlashCardsContract.Model.DECK_ID);
+String fieldNames=values.getAsString(FlashCardsContract.Model.FIELD_NAMES);
+Integer numCards=values.getAsInteger(FlashCardsContract.Model.NUM_CARDS);
+if (modelName == null || fieldNames == null || numCards == null) {
+throw new IllegalArgumentException("Model name, field_names, and num_cards can't be empty");
+}
+Models mm=col.getModels();
+JSONObject newModel=mm.newModel(modelName);
+try {
+String[] allFields=Utils.splitFields(fieldNames);
+for (String f : allFields) {
+mm.addField(newModel,mm.newField(f));
+}
+for (int idx=0; idx < numCards; idx++) {
+JSONObject t=mm.newTemplate("Card " + (idx + 1));
+t.put("qfmt",String.format("{{%s}}",allFields[0]));
+String answerField=allFields[0];
+if (allFields.length > 1) {
+answerField=allFields[1];
+}
+t.put("afmt",String.format("{{FrontSide}}\\n\\n<hr id=answer>\\n\\n{{%s}}",answerField));
+mm.addTemplate(newModel,t);
+}
+if (css != null) {
+newModel.put("css",css);
+}
+if (did != null) {
+newModel.put("did",did);
+}
+mm.add(newModel);
+mm.save(newModel);
+String mid=Long.toString(newModel.getLong("id"));
+return Uri.withAppendedPath(FlashCardsContract.Model.CONTENT_URI,mid);
+}
+ catch (ConfirmModSchemaException e) {
+Timber.e(e,"Unexpected ConfirmModSchema exception adding new model %s",modelName);
+throw new IllegalArgumentException("ConfirmModSchema exception adding new model " + modelName);
+}
+catch (JSONException e) {
+Timber.e(e,"Could not set a field of new model %s",modelName);
+return null;
+}
 case MODELS_ID:
 throw new IllegalArgumentException("Not possible to insert model with specific ID");
+case MODELS_ID_TEMPLATES:
+throw new IllegalArgumentException("Templates can only be added at the time of model insertion");
+case MODELS_ID_TEMPLATES_ID:
+throw new IllegalArgumentException("Templates can only be added at the time of model insertion");
+case SCHEDULE:
+throw new IllegalArgumentException("Not possible to perform insert operation on schedule");
+case DECKS:
+String deckName=values.getAsString(FlashCardsContract.Deck.DECK_NAME);
+did=col.getDecks().id(deckName);
+return Uri.withAppendedPath(FlashCardsContract.Deck.CONTENT_ALL_URI,Long.toString(did));
+case DECK_SELECTED:
+throw new IllegalArgumentException("Selected deck can only be queried and updated");
+case DECKS_ID:
+throw new IllegalArgumentException("Not possible to insert deck with specific ID");
 default :
 throw new IllegalArgumentException("uri " + uri + " is not supported");
 }

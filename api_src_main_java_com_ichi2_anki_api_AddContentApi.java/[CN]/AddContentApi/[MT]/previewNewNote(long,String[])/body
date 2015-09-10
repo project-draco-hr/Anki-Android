@@ -1,0 +1,22 @@
+{
+  Uri newNoteUri=addNewNote(mid,1,flds,TEST_TAG);
+  Map<String,Map<String,String>> cards=new HashMap<>();
+  Uri cardsUri=Uri.withAppendedPath(newNoteUri,"cards");
+  final Cursor cardsCursor=mResolver.query(cardsUri,null,null,null,null);
+  try {
+    while (cardsCursor.moveToNext()) {
+      final String n=cardsCursor.getString(cardsCursor.getColumnIndex(FlashCardsContract.Card.CARD_NAME));
+      final String q=cardsCursor.getString(cardsCursor.getColumnIndex(FlashCardsContract.Card.QUESTION));
+      final String a=cardsCursor.getString(cardsCursor.getColumnIndex(FlashCardsContract.Card.ANSWER));
+      Map<String,String> html=new HashMap<>();
+      html.put("q",q);
+      html.put("a",a);
+      cards.put(n,html);
+    }
+  }
+  finally {
+    cardsCursor.close();
+  }
+  mResolver.delete(newNoteUri,null,null);
+  return cards;
+}

@@ -1,0 +1,5 @@
+{
+  JSONObject model=col.getModels().get(getModelIdFromUri(uri,col));
+  Integer ord=Integer.parseInt(uri.getLastPathSegment());
+  return model.getJSONArray("tmpls").getJSONObject(ord);
+}

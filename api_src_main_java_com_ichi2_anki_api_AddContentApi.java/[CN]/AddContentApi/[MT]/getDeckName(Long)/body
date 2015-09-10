@@ -1,0 +1,11 @@
+{
+  if (did != null && did >= 0) {
+    Map<Long,String> deckList=getDeckList();
+    for (    Map.Entry<Long,String> entry : deckList.entrySet()) {
+      if (entry.getKey().equals(did)) {
+        return entry.getValue();
+      }
+    }
+  }
+  return null;
+}

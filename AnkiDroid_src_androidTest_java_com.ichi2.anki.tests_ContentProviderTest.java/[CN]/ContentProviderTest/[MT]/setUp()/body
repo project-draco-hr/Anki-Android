@@ -1,59 +1,26 @@
 {
   super.setUp();
   Log.i(AnkiDroidApp.TAG,"setUp()");
-  long modelId=0;
-  final ContentResolver cr=getContext().getContentResolver();
-  final Cursor allModelsCursor=cr.query(FlashCardsContract.Model.CONTENT_URI,null,null,null,null);
-  assertNotNull(allModelsCursor);
-  mCreatedNotes=0;
-  int idColumnIndex=allModelsCursor.getColumnIndexOrThrow(FlashCardsContract.Model._ID);
-  ContentValues values=new ContentValues();
-  try {
-    while (allModelsCursor.moveToNext()) {
-      modelId=allModelsCursor.getLong(idColumnIndex);
-      values.clear();
-      values.put(FlashCardsContract.Note.MID,modelId);
-      Uri newNoteUri=cr.insert(FlashCardsContract.Note.CONTENT_URI,values);
-      Uri newNoteDataUri=Uri.withAppendedPath(newNoteUri,"data");
-      values.clear();
-      values.put(FlashCardsContract.DataColumns.MIMETYPE,FlashCardsContract.Data.Tags.CONTENT_ITEM_TYPE);
-      values.put(FlashCardsContract.Data.Tags.TAG_CONTENT,TEST_TAG);
-      assertEquals("Tag set",1,cr.update(newNoteDataUri,values,null,null));
-      mCreatedNotes++;
-    }
+  mCreatedNotes=new ArrayList<>();
+  final Collection col=CollectionHelper.getInstance().getCol(getContext());
+  JSONObject model=Models.addBasicModel(col,BASIC_MODEL_NAME);
+  mModelId=model.getLong("id");
+  ArrayList<String> flds=col.getModels().fieldNames(model);
+  mDummyFields=flds.toArray(new String[flds.size()]);
+  final AddContentApi api=new AddContentApi(getContext());
+  HashMap<Long,String> deckList=api.getDeckList();
+  mNumDecksBeforeTest=deckList.size();
+  for (int i=0; i < TEST_DECKS.length; i++) {
+    mTestDeckIds[i]=api.addNewDeck(getContext(),TEST_DECKS[i]);
+    Uri newNoteUri=api.addNewNote(mModelId,mTestDeckIds[i],mDummyFields,TEST_TAG);
+    assertNotNull(newNoteUri);
+    mCreatedNotes.add(newNoteUri);
+    long nid=Long.parseLong(newNoteUri.getLastPathSegment());
+    Note addedNote=col.getNote(nid);
+    assertTrue("Check that the flds data was set correctly",Arrays.equals(addedNote.getFields(),mDummyFields));
+    assertTrue("Check that there was at least one card generated",addedNote.cards().size() > 0);
   }
-  finally {
-    allModelsCursor.close();
-  }
-  assertTrue("Check that at least one model exists, i.e. one note was created",mCreatedNotes != 0);
-  Collection col;
-  col=CollectionHelper.getInstance().getCol(getContext());
-  numDecksBeforeTest=col.getDecks().count();
-  int i=0;
-  for (  String newDeckName : TEST_DECKS) {
-    testDeckIds[i]=col.getDecks().id(newDeckName,true);
-    values.clear();
-    values.put(FlashCardsContract.Note.MID,modelId);
-    Uri newNoteUri=cr.insert(FlashCardsContract.Note.CONTENT_URI,values);
-    Uri newNoteDataUri=Uri.withAppendedPath(newNoteUri,"data");
-    values.clear();
-    values.put(FlashCardsContract.DataColumns.MIMETYPE,FlashCardsContract.Data.Tags.CONTENT_ITEM_TYPE);
-    values.put(FlashCardsContract.Data.Tags.TAG_CONTENT,TEST_TAG_2);
-    assertEquals("Tag set",1,cr.update(newNoteDataUri,values,null,null));
-    final Cursor cardsCursor=cr.query(newNoteDataUri,null,null,null,null);
-    assertNotNull("Check that there is a valid cursor after query for cards",cardsCursor);
-    try {
-      assertTrue("Check that there is at least one result for cards",cardsCursor.getCount() > 0);
-      while (cardsCursor.moveToNext()) {
-        ContentValues cardValues=new ContentValues();
-        cardValues.put(FlashCardsContract.Card.DECK_NAME,newDeckName);
-        Uri cardUri=Uri.withAppendedPath(Uri.withAppendedPath(newNoteUri,"cards"),"" + 0);
-        cr.update(cardUri,cardValues,null,null);
-      }
-    }
-  finally {
-      cardsCursor.close();
-    }
-    i++;
-  }
+  Uri newNoteUri=api.addNewNote(mModelId,1,mDummyFields,TEST_TAG);
+  assertNotNull(newNoteUri);
+  mCreatedNotes.add(newNoteUri);
 }

@@ -1,0 +1,16 @@
+{
+  String modelIdSegment=uri.getPathSegments().get(1);
+  long id;
+  if (modelIdSegment.equals(FlashCardsContract.Model.CURRENT_MODEL_ID)) {
+    id=col.getModels().current().optLong("id",-1);
+  }
+ else {
+    try {
+      id=Long.parseLong(uri.getPathSegments().get(1));
+    }
+ catch (    NumberFormatException e) {
+      throw new IllegalArgumentException("Model ID must be either numeric or the String CURRENT_MODEL_ID");
+    }
+  }
+  return id;
+}

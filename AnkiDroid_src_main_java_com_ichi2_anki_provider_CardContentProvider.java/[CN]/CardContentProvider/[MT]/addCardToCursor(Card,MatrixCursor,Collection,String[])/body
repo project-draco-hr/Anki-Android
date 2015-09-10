@@ -1,9 +1,7 @@
 {
   String cardName;
-  String deckName;
   try {
     cardName=currentCard.template().getString("name");
-    deckName=col.getDecks().get(currentCard.getDid()).getString("name");
   }
  catch (  JSONException je) {
     throw new IllegalArgumentException("Card is using an invalid template",je);
@@ -21,8 +19,8 @@
  else     if (column.equals(FlashCardsContract.Card.CARD_NAME)) {
       rb.add(cardName);
     }
- else     if (column.equals(FlashCardsContract.Card.DECK_NAME)) {
-      rb.add(deckName);
+ else     if (column.equals(FlashCardsContract.Card.DECK_ID)) {
+      rb.add(currentCard.getDid());
     }
  else     if (column.equals(FlashCardsContract.Card.QUESTION)) {
       rb.add(question);
