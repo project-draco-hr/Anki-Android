@@ -1,0 +1,20 @@
+{
+  final ContentResolver cr=getContext().getContentResolver();
+  final Collection col=CollectionHelper.getInstance().getCol(getContext());
+  final AddContentApi api=new AddContentApi(getContext());
+  Uri newNoteUri=api.addNewNote(mModelId,1,TEST_NOTE_FIELDS,TEST_TAG);
+  assertNotNull("Check that URI returned from addNewNote is not null",newNoteUri);
+  Note addedNote=new Note(col,Long.parseLong(newNoteUri.getLastPathSegment()));
+  addedNote.load();
+  assertTrue("Check that fields were set correctly",Arrays.equals(addedNote.getFields(),TEST_NOTE_FIELDS));
+  assertEquals("Check that tag was set correctly",TEST_TAG,addedNote.getTags().get(0));
+  int expectedNumCards=col.getModels().get(mModelId).getJSONArray("tmpls").length();
+  assertEquals("Check that correct number of cards generated",expectedNumCards,addedNote.cards().size());
+  cr.delete(newNoteUri,null,null);
+  try {
+    addedNote.load();
+    fail("Expected RuntimeException to be thrown when deleting note");
+  }
+ catch (  RuntimeException e) {
+  }
+}

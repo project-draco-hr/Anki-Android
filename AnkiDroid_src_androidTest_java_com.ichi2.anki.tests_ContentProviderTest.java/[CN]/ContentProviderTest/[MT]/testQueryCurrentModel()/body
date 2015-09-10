@@ -1,0 +1,15 @@
+{
+  final ContentResolver cr=getContext().getContentResolver();
+  Uri uri=Uri.withAppendedPath(FlashCardsContract.Model.CONTENT_URI,FlashCardsContract.Model.CURRENT_MODEL_ID);
+  final Cursor modelCursor=cr.query(uri,null,null,null,null);
+  assertNotNull(modelCursor);
+  try {
+    assertEquals("Check that there is exactly one result",1,modelCursor.getCount());
+    assertTrue("Move to beginning of cursor",modelCursor.moveToFirst());
+    assertNotNull("Check non-empty field names",modelCursor.getString(modelCursor.getColumnIndex(FlashCardsContract.Model.FIELD_NAMES)));
+    assertTrue("Check at least one template",modelCursor.getInt(modelCursor.getColumnIndex(FlashCardsContract.Model.NUM_CARDS)) > 0);
+  }
+  finally {
+    modelCursor.close();
+  }
+}

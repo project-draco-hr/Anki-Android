@@ -1,7 +1,7 @@
 {
   Collection col;
   col=CollectionHelper.getInstance().getCol(getContext());
-  long deckId=testDeckIds[0];
+  long deckId=mTestDeckIds[0];
   Uri deckUri=Uri.withAppendedPath(FlashCardsContract.Deck.CONTENT_ALL_URI,Long.toString(deckId));
   Cursor decksCursor=getContext().getContentResolver().query(deckUri,null,null,null,null);
   try {
@@ -16,10 +16,7 @@
       assertEquals("Check that received deck name equals real deck name",realDeck.getString("name"),returnedDeckName);
     }
   }
- catch (  JSONException e) {
-    e.printStackTrace();
-  }
- finally {
+  finally {
     decksCursor.close();
   }
 }

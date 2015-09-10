@@ -3,7 +3,7 @@
   final Cursor allNotesCursor=cr.query(FlashCardsContract.Note.CONTENT_URI,null,"tag:" + TEST_TAG,null,null);
   assertNotNull(allNotesCursor);
   try {
-    assertEquals("Check number of results",mCreatedNotes,allNotesCursor.getCount());
+    assertEquals("Check number of results",mCreatedNotes.size(),allNotesCursor.getCount());
     while (allNotesCursor.moveToNext()) {
       for (int i=0; i < FlashCardsContract.Note.DEFAULT_PROJECTION.length; i++) {
         String[] projection=removeFromProjection(FlashCardsContract.Note.DEFAULT_PROJECTION,i);

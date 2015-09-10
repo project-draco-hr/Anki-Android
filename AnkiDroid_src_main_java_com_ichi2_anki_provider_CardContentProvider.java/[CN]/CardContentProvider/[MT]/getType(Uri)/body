@@ -5,8 +5,6 @@ case NOTES:
     return FlashCardsContract.Note.CONTENT_TYPE;
 case NOTES_ID:
   return FlashCardsContract.Note.CONTENT_ITEM_TYPE;
-case NOTES_ID_DATA:
-return FlashCardsContract.Data.CONTENT_TYPE;
 case NOTES_ID_CARDS:
 return FlashCardsContract.Card.CONTENT_TYPE;
 case NOTES_ID_CARDS_ORD:
@@ -15,9 +13,17 @@ case MODELS:
 return FlashCardsContract.Model.CONTENT_TYPE;
 case MODELS_ID:
 return FlashCardsContract.Model.CONTENT_ITEM_TYPE;
+case MODELS_ID_TEMPLATES:
+return FlashCardsContract.CardTemplate.CONTENT_TYPE;
+case MODELS_ID_TEMPLATES_ID:
+return FlashCardsContract.CardTemplate.CONTENT_ITEM_TYPE;
 case SCHEDULE:
 return FlashCardsContract.ReviewInfo.CONTENT_TYPE;
 case DECKS:
+return FlashCardsContract.Deck.CONTENT_TYPE;
+case DECKS_ID:
+return FlashCardsContract.Deck.CONTENT_TYPE;
+case DECK_SELECTED:
 return FlashCardsContract.Deck.CONTENT_TYPE;
 default :
 throw new IllegalArgumentException("uri " + uri + " is not supported");

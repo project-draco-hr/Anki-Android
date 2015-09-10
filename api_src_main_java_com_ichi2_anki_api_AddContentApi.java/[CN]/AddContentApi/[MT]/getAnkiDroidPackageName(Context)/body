@@ -1,0 +1,10 @@
+{
+  PackageManager manager=context.getPackageManager();
+  ProviderInfo pi=manager.resolveContentProvider(FlashCardsContract.AUTHORITY,0);
+  if (pi != null) {
+    return pi.packageName;
+  }
+ else {
+    return null;
+  }
+}

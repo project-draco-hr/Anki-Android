@@ -14,10 +14,7 @@
       assertEquals("Check that the received deck has the correct name",deck.getString("name"),deckName);
     }
   }
- catch (  JSONException e) {
-    e.printStackTrace();
-  }
- finally {
+  finally {
     decksCursor.close();
   }
 }

@@ -41,120 +41,79 @@ case NOTES_ID:
     }
     return cur;
   }
-case NOTES_ID_DATA:
-{
-  Note currentNote=getNoteFromUri(uri,col);
-  MatrixCursor rv;
-  String[] columns=((projection != null) ? projection : DataColumns.DEFAULT_PROJECTION);
-  rv=new MatrixCursor(columns,1);
-  long id=0;
-  String[][] currentNoteItems=currentNote.items();
-  for (  String[] field : currentNoteItems) {
-    id++;
-    MatrixCursor.RowBuilder rb=rv.newRow();
-    for (    String column : columns) {
-      if (column.equals(DataColumns._ID)) {
-        rb.add(id);
-      }
- else       if (column.equals(DataColumns.NOTE_ID)) {
-        rb.add(currentNote.getId());
-      }
- else       if (column.equals(DataColumns.MIMETYPE)) {
-        rb.add(Field.CONTENT_ITEM_TYPE);
-      }
- else       if (column.equals(Field.FIELD_NAME)) {
-        rb.add(field[0]);
-      }
- else       if (column.equals(Field.FIELD_CONTENT)) {
-        rb.add(field[1]);
-      }
- else {
-        throw new UnsupportedOperationException("Support for column \"" + column + "\" is not yet implemented for MIME type "+ Field.CONTENT_ITEM_TYPE);
-      }
-    }
-  }
-{
-    id++;
-    MatrixCursor.RowBuilder rb=rv.newRow();
-    for (    String column : columns) {
-      if (column.equals(DataColumns._ID)) {
-        rb.add(id);
-      }
- else       if (column.equals(DataColumns.NOTE_ID)) {
-        rb.add(currentNote.getId());
-      }
- else       if (column.equals(DataColumns.MIMETYPE)) {
-        rb.add(FlashCardsContract.Data.Tags.CONTENT_ITEM_TYPE);
-      }
- else       if (column.equals(FlashCardsContract.Data.Tags.TAG_CONTENT)) {
-        rb.add(currentNote.stringTags().trim());
-      }
- else       if (column.equals(DataColumns.DATA2)) {
-      }
- else {
-        throw new UnsupportedOperationException("Support for column \"" + column + "\" is not implemented for MIME type "+ Field.CONTENT_ITEM_TYPE);
-      }
-    }
-  }
-  return rv;
-}
 case NOTES_ID_CARDS:
 {
-Note currentNote=getNoteFromUri(uri,col);
-MatrixCursor rv;
-String[] columns=((projection != null) ? projection : FlashCardsContract.Card.DEFAULT_PROJECTION);
-rv=new MatrixCursor(columns,1);
-for (Card currentCard : currentNote.cards()) {
-  addCardToCursor(currentCard,rv,col,columns);
-}
-return rv;
+  Note currentNote=getNoteFromUri(uri,col);
+  String[] columns=((projection != null) ? projection : FlashCardsContract.Card.DEFAULT_PROJECTION);
+  MatrixCursor rv=new MatrixCursor(columns,1);
+  for (  Card currentCard : currentNote.cards()) {
+    addCardToCursor(currentCard,rv,col,columns);
+  }
+  return rv;
 }
 case NOTES_ID_CARDS_ORD:
 {
 Card currentCard=getCardFromUri(uri,col);
-MatrixCursor rv;
 String[] columns=((projection != null) ? projection : FlashCardsContract.Card.DEFAULT_PROJECTION);
-rv=new MatrixCursor(columns,1);
+MatrixCursor rv=new MatrixCursor(columns,1);
 addCardToCursor(currentCard,rv,col,columns);
 return rv;
 }
 case MODELS:
 {
 HashMap<Long,JSONObject> models=col.getModels().getModels();
-MatrixCursor rv;
 String[] columns=((projection != null) ? projection : FlashCardsContract.Model.DEFAULT_PROJECTION);
-rv=new MatrixCursor(columns,1);
+MatrixCursor rv=new MatrixCursor(columns,1);
 for (Long modelId : models.keySet()) {
-try {
 addModelToCursor(modelId,models,rv,columns);
-}
- catch (JSONException e) {
-throw new IllegalArgumentException("Model " + modelId + " is malformed",e);
-}
 }
 return rv;
 }
 case MODELS_ID:
 {
-long modelId;
-MatrixCursor rv;
+long modelId=getModelIdFromUri(uri,col);
 String[] columns=((projection != null) ? projection : FlashCardsContract.Model.DEFAULT_PROJECTION);
-rv=new MatrixCursor(columns,1);
-modelId=Long.parseLong(uri.getPathSegments().get(1));
+MatrixCursor rv=new MatrixCursor(columns,1);
 HashMap<Long,JSONObject> models=col.getModels().getModels();
-try {
 addModelToCursor(modelId,models,rv,columns);
+return rv;
+}
+case MODELS_ID_TEMPLATES:
+{
+JSONObject currentModel=col.getModels().get(getModelIdFromUri(uri,col));
+String[] columns=((projection != null) ? projection : CardTemplate.DEFAULT_PROJECTION);
+MatrixCursor rv=new MatrixCursor(columns,1);
+try {
+JSONArray templates=currentModel.getJSONArray("tmpls");
+for (int idx=0; idx < templates.length(); idx++) {
+JSONObject template=templates.getJSONObject(idx);
+addTemplateToCursor(template,currentModel,idx + 1,rv,columns);
+}
 }
  catch (JSONException e) {
-throw new IllegalArgumentException("Model " + modelId + " is malformed",e);
+throw new IllegalArgumentException("Model is malformed",e);
+}
+return rv;
+}
+case MODELS_ID_TEMPLATES_ID:
+{
+int ord=Integer.parseInt(uri.getLastPathSegment());
+JSONObject currentModel=col.getModels().get(getModelIdFromUri(uri,col));
+String[] columns=((projection != null) ? projection : CardTemplate.DEFAULT_PROJECTION);
+MatrixCursor rv=new MatrixCursor(columns,1);
+try {
+JSONObject template=getTemplateFromUri(uri,col);
+addTemplateToCursor(template,currentModel,ord + 1,rv,columns);
+}
+ catch (JSONException e) {
+throw new IllegalArgumentException("Model is malformed",e);
 }
 return rv;
 }
 case SCHEDULE:
 {
-MatrixCursor rv;
 String[] columns=((projection != null) ? projection : FlashCardsContract.ReviewInfo.DEFAULT_PROJECTION);
-rv=new MatrixCursor(columns,1);
+MatrixCursor rv=new MatrixCursor(columns,1);
 long selectedDeckBeforeQuery=col.getDecks().selected();
 long deckIdOfTemporarilySelectedDeck=-1;
 int limit=1;
@@ -171,7 +130,7 @@ limit=Integer.valueOf(value);
  else if (keyAndValue[0].trim().equals("deckID")) {
 deckIdOfTemporarilySelectedDeck=Long.valueOf(value);
 if (!selectDeckWithCheck(col,deckIdOfTemporarilySelectedDeck)) {
-  return rv;
+return rv;
 }
 }
 }
@@ -203,9 +162,8 @@ return rv;
 case DECKS:
 {
 List<Sched.DeckDueTreeNode> allDecks=col.getSched().deckDueList();
-MatrixCursor rv;
 String[] columns=((projection != null) ? projection : FlashCardsContract.Deck.DEFAULT_PROJECTION);
-rv=new MatrixCursor(columns,allDecks.size());
+MatrixCursor rv=new MatrixCursor(columns,allDecks.size());
 for (Sched.DeckDueTreeNode deck : allDecks) {
 long id=deck.did;
 String name=deck.names[0];
@@ -215,9 +173,8 @@ return rv;
 }
 case DECKS_ID:
 {
-MatrixCursor rv;
 String[] columns=((projection != null) ? projection : FlashCardsContract.Deck.DEFAULT_PROJECTION);
-rv=new MatrixCursor(columns,1);
+MatrixCursor rv=new MatrixCursor(columns,1);
 List<Sched.DeckDueTreeNode> allDecks=col.getSched().deckDueList();
 long deckId;
 deckId=Long.parseLong(uri.getPathSegments().get(1));
@@ -233,9 +190,8 @@ case DECK_SELECTED:
 {
 long id=col.getDecks().selected();
 String name=col.getDecks().name(id);
-MatrixCursor rv;
 String[] columns=((projection != null) ? projection : FlashCardsContract.Deck.DEFAULT_PROJECTION);
-rv=new MatrixCursor(columns,1);
+MatrixCursor rv=new MatrixCursor(columns,1);
 JSONArray counts=new JSONArray(Arrays.asList(col.getSched().counts()));
 addDeckToCursor(id,name,counts,rv,col,columns);
 return rv;

@@ -1,30 +1,31 @@
 {
   final ContentResolver cr=getContext().getContentResolver();
-  final Cursor allModelsCursor=cr.query(FlashCardsContract.Model.CONTENT_URI,null,null,null,null);
-  assertNotNull(allModelsCursor);
+  final Cursor allModels=cr.query(FlashCardsContract.Model.CONTENT_URI,null,null,null,null);
+  assertNotNull(allModels);
   try {
-    assertTrue("Check that there is at least one result",allModelsCursor.getCount() > 0);
-    while (allModelsCursor.moveToNext()) {
-      long modelId=allModelsCursor.getLong(allModelsCursor.getColumnIndex(FlashCardsContract.Model._ID));
+    assertTrue("Check that there is at least one result",allModels.getCount() > 0);
+    while (allModels.moveToNext()) {
+      long modelId=allModels.getLong(allModels.getColumnIndex(FlashCardsContract.Model._ID));
       Uri modelUri=Uri.withAppendedPath(FlashCardsContract.Model.CONTENT_URI,Long.toString(modelId));
-      final Cursor singleModelCursor=cr.query(modelUri,null,null,null,null);
-      assertNotNull(singleModelCursor);
+      final Cursor singleModel=cr.query(modelUri,null,null,null,null);
+      assertNotNull(singleModel);
       try {
-        assertEquals("Check that there is exactly one result",1,singleModelCursor.getCount());
-        assertTrue("Move to beginning of cursor",singleModelCursor.moveToFirst());
-        String nameFromModels=allModelsCursor.getString(allModelsCursor.getColumnIndex(FlashCardsContract.Model.NAME));
-        String nameFromModel=singleModelCursor.getString(allModelsCursor.getColumnIndex(FlashCardsContract.Model.NAME));
+        assertEquals("Check that there is exactly one result",1,singleModel.getCount());
+        assertTrue("Move to beginning of cursor",singleModel.moveToFirst());
+        String nameFromModels=allModels.getString(allModels.getColumnIndex(FlashCardsContract.Model.NAME));
+        String nameFromModel=singleModel.getString(allModels.getColumnIndex(FlashCardsContract.Model.NAME));
         assertEquals("Check that model names are the same",nameFromModel,nameFromModels);
-        String jsonFromModels=allModelsCursor.getString(allModelsCursor.getColumnIndex(FlashCardsContract.Model.JSONOBJECT));
-        String jsonFromModel=singleModelCursor.getString(allModelsCursor.getColumnIndex(FlashCardsContract.Model.JSONOBJECT));
-        assertEquals("Check that jsonobjects are the same",jsonFromModel,jsonFromModels);
+        String flds=allModels.getString(allModels.getColumnIndex(FlashCardsContract.Model.FIELD_NAMES));
+        assertTrue("Check that valid number of fields",Utils.splitFields(flds).length >= 1);
+        Integer numCards=allModels.getInt(allModels.getColumnIndex(FlashCardsContract.Model.NUM_CARDS));
+        assertTrue("Check that valid number of cards",numCards >= 1);
       }
   finally {
-        singleModelCursor.close();
+        singleModel.close();
       }
     }
   }
   finally {
-    allModelsCursor.close();
+    allModels.close();
   }
 }

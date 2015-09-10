@@ -1,0 +1,19 @@
+{
+  final Cursor allModelsCursor=mResolver.query(FlashCardsContract.Model.CONTENT_URI,null,null,null,null);
+  HashMap<Long,String> models=new HashMap<>();
+  try {
+    while (allModelsCursor.moveToNext()) {
+      long modelId=allModelsCursor.getLong(allModelsCursor.getColumnIndex(FlashCardsContract.Model._ID));
+      String name=allModelsCursor.getString(allModelsCursor.getColumnIndex(FlashCardsContract.Model.NAME));
+      String flds=allModelsCursor.getString(allModelsCursor.getColumnIndex(FlashCardsContract.Model.FIELD_NAMES));
+      int numFlds=splitFields(flds).length;
+      if (numFlds >= minNumFields) {
+        models.put(modelId,name);
+      }
+    }
+  }
+  finally {
+    allModelsCursor.close();
+  }
+  return models;
+}

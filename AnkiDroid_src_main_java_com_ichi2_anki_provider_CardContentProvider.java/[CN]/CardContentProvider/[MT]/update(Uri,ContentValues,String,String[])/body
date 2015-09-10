@@ -10,74 +10,137 @@ switch (match) {
 case NOTES:
     throw new IllegalArgumentException("Not possible to update notes directly (only through data URI)");
 case NOTES_ID:
-  throw new IllegalArgumentException("Not possible to update notes directly (only through data URI)");
-case NOTES_ID_DATA:
 {
-  Note currentNote=getNoteFromUri(uri,col);
-  boolean isField=false;
-  boolean isTag=false;
-  String data1=null;
-  String data2=null;
-  Set<Map.Entry<String,Object>> valueSet=values.valueSet();
-  for (  Map.Entry<String,Object> entry : valueSet) {
-    String key=entry.getKey();
-    if (key.equals(DataColumns.MIMETYPE)) {
-      isField=values.getAsString(key).equals(Field.CONTENT_ITEM_TYPE);
-      isTag=values.getAsString(key).equals(FlashCardsContract.Data.Tags.CONTENT_ITEM_TYPE);
-    }
- else     if (key.equals(DataColumns.DATA1)) {
-      data1=values.getAsString(key);
-    }
- else     if (key.equals(DataColumns.DATA2)) {
-      data2=values.getAsString(key);
-    }
+    Note currentNote=getNoteFromUri(uri,col);
+    Set<Map.Entry<String,Object>> valueSet=values.valueSet();
+    for (    Map.Entry<String,Object> entry : valueSet) {
+      String key=entry.getKey();
+      if (key.equals(FlashCardsContract.Note.FLDS)) {
+        Timber.d("CardContentProvider: flds update...");
+        String newFldsEncoded=(String)entry.getValue();
+        String[] flds=Utils.splitFields(newFldsEncoded);
+        if (flds.length != currentNote.getFields().length) {
+          throw new IllegalArgumentException("Incorrect flds argument : " + newFldsEncoded);
+        }
+        for (int idx=0; idx < flds.length; idx++) {
+          currentNote.setField(idx,flds[idx]);
+        }
+        updated++;
+      }
+ else       if (key.equals(FlashCardsContract.Note.TAGS)) {
+        Timber.d("CardContentProvider: tags update...");
+        currentNote.setTagsFromStr((String)entry.getValue());
+        updated++;
+      }
  else {
-      throw new IllegalArgumentException("Unknown/unsupported column: " + key);
+        throw new IllegalArgumentException("Unsupported column: " + key);
+      }
     }
-  }
-  if ((isField) && (data1 != null) && (data2 != null)) {
-    Timber.d("CardContentProvider: Saving note after field update...");
-    currentNote.setitem(data1,data2);
+    Timber.d("CardContentProvider: Saving note...");
     currentNote.flush();
-    updated++;
+    break;
   }
- else   if ((isTag) && (data1 != null)) {
-    Timber.d("CardContentProvider: Saving note after tags update...");
-    currentNote.setTagsFromStr(data1);
-    currentNote.flush();
-    updated++;
-  }
- else {
-    throw new IllegalArgumentException("Currently only updates of fields are supported");
-  }
-  break;
-}
 case NOTES_ID_CARDS:
 throw new UnsupportedOperationException("Not yet implemented");
 case NOTES_ID_CARDS_ORD:
 {
 Card currentCard=getCardFromUri(uri,col);
 boolean isDeckUpdate=false;
-String newDeckName=null;
+long did=-1;
 Set<Map.Entry<String,Object>> valueSet=values.valueSet();
 for (Map.Entry<String,Object> entry : valueSet) {
-String key=entry.getKey();
-isDeckUpdate=key.equals(FlashCardsContract.Card.DECK_NAME);
-newDeckName=values.getAsString(key);
+  String key=entry.getKey();
+  isDeckUpdate=key.equals(FlashCardsContract.Card.DECK_ID);
+  did=values.getAsLong(key);
 }
-if ((isDeckUpdate) && (newDeckName != null)) {
-Timber.d("CardContentProvider: Moving card to other deck...");
-long did=col.getDecks().id(newDeckName);
-col.getDecks().flush();
-currentCard.setDid(did);
-currentCard.flush();
-updated++;
+if ((isDeckUpdate) && (did >= 0)) {
+  Timber.d("CardContentProvider: Moving card to other deck...");
+  col.getDecks().flush();
+  currentCard.setDid(did);
+  currentCard.flush();
+  updated++;
 }
  else {
-throw new IllegalArgumentException("Currently only updates of decks are supported");
+  throw new IllegalArgumentException("Currently only updates of decks are supported");
 }
 break;
 }
+case MODELS:
+throw new IllegalArgumentException("Cannot update models in bulk");
+case MODELS_ID:
+String newModelName=values.getAsString(FlashCardsContract.Model.NAME);
+String newCss=values.getAsString(FlashCardsContract.Model.CSS);
+String newDid=values.getAsString(FlashCardsContract.Model.DECK_ID);
+String newFieldList=values.getAsString(FlashCardsContract.Model.FIELD_NAMES);
+if (newFieldList != null) {
+throw new IllegalArgumentException("Field names cannot be changed via provider");
+}
+JSONObject model=col.getModels().get(getModelIdFromUri(uri,col));
+try {
+if (newModelName != null) {
+model.put("name",newModelName);
+updated++;
+}
+if (newCss != null) {
+model.put("css",newCss);
+updated++;
+}
+if (newDid != null) {
+model.put("did",newDid);
+updated++;
+}
+col.getModels().save(model);
+}
+ catch (JSONException e) {
+Timber.e(e,"JSONException updating model");
+}
+break;
+case MODELS_ID_TEMPLATES:
+throw new IllegalArgumentException("Cannot update templates in bulk");
+case MODELS_ID_TEMPLATES_ID:
+Long mid=values.getAsLong(CardTemplate.MODEL_ID);
+Integer ord=values.getAsInteger(CardTemplate.ORD);
+String name=values.getAsString(CardTemplate.NAME);
+String qfmt=values.getAsString(CardTemplate.QUESTION_FORMAT);
+String afmt=values.getAsString(CardTemplate.ANSWER_FORMAT);
+String bqfmt=values.getAsString(CardTemplate.BROWSER_QUESTION_FORMAT);
+String bafmt=values.getAsString(CardTemplate.BROWSER_ANSWER_FORMAT);
+if (mid != null || ord != null) {
+throw new IllegalArgumentException("Can update mid or ord");
+}
+try {
+Integer templateOrd=Integer.parseInt(uri.getLastPathSegment());
+JSONObject existingModel=col.getModels().get(getModelIdFromUri(uri,col));
+JSONArray templates=existingModel.getJSONArray("tmpls");
+JSONObject template=templates.getJSONObject(templateOrd);
+if (name != null) {
+template.put("name",name);
+updated++;
+}
+if (qfmt != null) {
+template.put("qfmt",qfmt);
+updated++;
+}
+if (afmt != null) {
+template.put("afmt",afmt);
+updated++;
+}
+if (bqfmt != null) {
+template.put("bqfmt",bqfmt);
+updated++;
+}
+if (bafmt != null) {
+template.put("bafmt",bafmt);
+updated++;
+}
+templates.put(templateOrd,template);
+existingModel.put("tmpls",templates);
+col.getModels().save(existingModel,true);
+}
+ catch (JSONException e) {
+throw new IllegalArgumentException("Model is malformed",e);
+}
+break;
 case SCHEDULE:
 {
 Set<Map.Entry<String,Object>> valueSet=values.valueSet();
@@ -107,11 +170,15 @@ answerCard(col,col.getSched(),cardToAnswer,ease,timeTaken);
 updated++;
 }
  else {
-Timber.e("Requested card with noteId %d and cardOrd %d was not found. Either the provided noteId/cardOrd were wrong" + "or the card has been deleted in the meantime.",noteID,cardOrd);
+Timber.e("Requested card with noteId %d and cardOrd %d was not found. Either the provided " + "noteId/cardOrd were wrong or the card has been deleted in the meantime.",noteID,cardOrd);
 }
 }
 break;
 }
+case DECKS:
+throw new IllegalArgumentException("Can't update decks in bulk");
+case DECKS_ID:
+throw new UnsupportedOperationException("Not yet implemented");
 case DECK_SELECTED:
 {
 Set<Map.Entry<String,Object>> valueSet=values.valueSet();
@@ -126,10 +193,6 @@ updated++;
 }
 break;
 }
-case MODELS:
-throw new UnsupportedOperationException("Not yet implemented");
-case MODELS_ID:
-throw new UnsupportedOperationException("Not yet implemented");
 default :
 throw new IllegalArgumentException("uri " + uri + " is not supported");
 }

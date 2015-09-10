@@ -1,34 +1,22 @@
 {
   Log.i(AnkiDroidApp.TAG,"tearDown()");
-  Collection col;
-  col=CollectionHelper.getInstance().getCol(getContext());
-  int deletedNotes;
-  List<Long> noteIds=col.findNotes("tag:" + TEST_TAG);
-  if ((noteIds != null) && (noteIds.size() > 0)) {
-    long[] delNotes=new long[noteIds.size()];
-    for (int i=0; i < noteIds.size(); i++) {
-      delNotes[i]=noteIds.get(i);
+  final Collection col=CollectionHelper.getInstance().getCol(getContext());
+  List<Long> remnantNotes=col.findNotes("tag:" + TEST_TAG);
+  if (remnantNotes.size() > 0) {
+    long[] nids=new long[remnantNotes.size()];
+    for (int i=0; i < remnantNotes.size(); i++) {
+      nids[i]=remnantNotes.get(i);
     }
-    col.remNotes(delNotes);
-    deletedNotes=noteIds.size();
+    col.remNotes(nids);
+    col.save();
+    assertEquals("Check that remnant notes have been deleted",0,col.findNotes("tag:" + TEST_TAG).size());
   }
- else {
-    deletedNotes=0;
-  }
-  assertEquals("Check that all created notes have been deleted",mCreatedNotes,deletedNotes);
-  for (  long did : testDeckIds) {
+  for (  long did : mTestDeckIds) {
     col.getDecks().rem(did,true);
   }
-  noteIds=col.findNotes("tag:" + TEST_TAG_2);
-  if ((noteIds != null) && (noteIds.size() > 0)) {
-    long[] delNotes=new long[noteIds.size()];
-    for (int i=0; i < noteIds.size(); i++) {
-      delNotes[i]=noteIds.get(i);
-    }
-    col.remNotes(delNotes);
-  }
-  col.getDecks().rem(col.getDecks().id(TEST_DECK));
   col.getDecks().flush();
-  assertEquals("Check that all created decks have been deleted",numDecksBeforeTest,col.getDecks().count());
+  assertEquals("Check that all created decks have been deleted",mNumDecksBeforeTest,col.getDecks().count());
+  col.modSchema(false);
+  col.getModels().rem(col.getModels().get(mModelId));
   super.tearDown();
 }

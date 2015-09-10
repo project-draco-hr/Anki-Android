@@ -1,5 +1,5 @@
 {
-  long deckId=testDeckIds[0];
+  long deckId=mTestDeckIds[0];
   ContentResolver cr=getContext().getContentResolver();
   Uri selectDeckUri=FlashCardsContract.Deck.CONTENT_SELECTED_URI;
   ContentValues values=new ContentValues();
@@ -7,5 +7,5 @@
   cr.update(selectDeckUri,values,null,null);
   Collection col;
   col=CollectionHelper.getInstance().getCol(getContext());
-  assertEquals("Check that the selected deck has not changed",deckId,col.getDecks().selected());
+  assertEquals("Check that the selected deck has been correctly set",deckId,col.getDecks().selected());
 }

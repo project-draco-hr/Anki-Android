@@ -1,0 +1,16 @@
+{
+  SharedPreferences decksDb=context.getSharedPreferences(DECK_REF_DB,Context.MODE_PRIVATE);
+  Long did=getDeckId(deckName);
+  if (did != null) {
+    return did;
+  }
+ else {
+    did=decksDb.getLong(deckName,-1);
+    if (did != -1 && getDeckName(did) != null) {
+      return did;
+    }
+ else {
+      return null;
+    }
+  }
+}
