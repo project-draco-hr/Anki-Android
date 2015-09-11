@@ -4,7 +4,7 @@
   Uri newDeckUri=mResolver.insert(FlashCardsContract.Deck.CONTENT_ALL_URI,values);
   if (newDeckUri != null) {
     long did=Long.parseLong(newDeckUri.getLastPathSegment());
-    final SharedPreferences decksDb=context.getSharedPreferences(DECK_REF_DB,Context.MODE_PRIVATE);
+    final SharedPreferences decksDb=mContext.getSharedPreferences(DECK_REF_DB,Context.MODE_PRIVATE);
     decksDb.edit().putLong(deckName,did).commit();
     return did;
   }

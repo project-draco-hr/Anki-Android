@@ -1,3 +1,4 @@
 {
-  mResolver=context.getApplicationContext().getContentResolver();
+  mContext=context.getApplicationContext();
+  mResolver=mContext.getContentResolver();
 }

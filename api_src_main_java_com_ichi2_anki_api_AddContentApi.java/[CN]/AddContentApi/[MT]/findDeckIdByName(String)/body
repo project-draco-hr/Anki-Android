@@ -1,5 +1,5 @@
 {
-  SharedPreferences decksDb=context.getSharedPreferences(DECK_REF_DB,Context.MODE_PRIVATE);
+  SharedPreferences decksDb=mContext.getSharedPreferences(DECK_REF_DB,Context.MODE_PRIVATE);
   Long did=getDeckId(deckName);
   if (did != null) {
     return did;
