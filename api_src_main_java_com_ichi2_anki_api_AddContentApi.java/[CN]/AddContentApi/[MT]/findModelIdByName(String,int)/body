@@ -6,7 +6,7 @@
       foundModels.add(entry.getKey());
     }
   }
-  SharedPreferences modelsDb=context.getSharedPreferences(MODEL_REF_DB,Context.MODE_PRIVATE);
+  SharedPreferences modelsDb=mContext.getSharedPreferences(MODEL_REF_DB,Context.MODE_PRIVATE);
   Long mid=modelsDb.getLong(modelName,-1);
   if (mid == -1 && foundModels.size() == 0) {
     return null;

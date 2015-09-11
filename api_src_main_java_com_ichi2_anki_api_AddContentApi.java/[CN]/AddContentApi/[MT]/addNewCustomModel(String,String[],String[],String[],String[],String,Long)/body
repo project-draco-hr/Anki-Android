@@ -24,7 +24,7 @@
   }
  else {
     long mid=Long.parseLong(modelUri.getLastPathSegment());
-    final SharedPreferences modelsDb=context.getSharedPreferences(MODEL_REF_DB,Context.MODE_PRIVATE);
+    final SharedPreferences modelsDb=mContext.getSharedPreferences(MODEL_REF_DB,Context.MODE_PRIVATE);
     modelsDb.edit().putLong(name,mid).commit();
     return mid;
   }
