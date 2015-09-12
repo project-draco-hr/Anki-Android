@@ -6,6 +6,7 @@
       }
     }
     for (    JSONObject parent : mCol.getDecks().parents(node.did)) {
+      mHasSubdecks=true;
       if (parent.optBoolean("collapsed")) {
         return;
       }

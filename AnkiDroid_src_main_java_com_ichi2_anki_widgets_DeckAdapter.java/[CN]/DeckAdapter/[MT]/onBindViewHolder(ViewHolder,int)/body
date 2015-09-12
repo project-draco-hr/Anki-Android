@@ -1,6 +1,6 @@
 {
   Sched.DeckDueTreeNode node=mDeckList.get(position);
-  setDeckExpander(holder.deckExpander,node);
+  setDeckExpander(holder.deckExpander,holder.indentView,node,mHasSubdecks);
   if (node.children.size() > 0) {
     holder.deckExpander.setTag(node.did);
     holder.deckExpander.setOnClickListener(mDeckExpanderClickListener);

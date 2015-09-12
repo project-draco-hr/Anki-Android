@@ -2,6 +2,7 @@
   mCol=col;
   mDeckList.clear();
   mNew=mLrn=mRev=0;
+  mHasSubdecks=false;
   processNodes(nodes);
   notifyDataSetChanged();
 }
