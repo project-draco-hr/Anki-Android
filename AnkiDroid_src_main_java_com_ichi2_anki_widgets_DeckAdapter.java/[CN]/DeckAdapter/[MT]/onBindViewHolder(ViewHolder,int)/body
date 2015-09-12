@@ -1,6 +1,18 @@
 {
   Sched.DeckDueTreeNode node=mDeckList.get(position);
-  setDeckExpander(holder.deckExpander,holder.indentView,node,mHasSubdecks);
+  RelativeLayout deckLayout=holder.deckLayout;
+  int rightPadding=(int)deckLayout.getResources().getDimension(R.dimen.deck_picker_right_padding);
+  if (mHasSubdecks) {
+    int smallPadding=(int)deckLayout.getResources().getDimension(R.dimen.deck_picker_left_padding_small);
+    deckLayout.setPadding(smallPadding,0,rightPadding,0);
+    holder.deckExpander.setVisibility(View.VISIBLE);
+    setDeckExpander(holder.deckExpander,holder.indentView,node);
+  }
+ else {
+    holder.deckExpander.setVisibility(View.GONE);
+    int normalPadding=(int)deckLayout.getResources().getDimension(R.dimen.deck_picker_left_padding);
+    deckLayout.setPadding(normalPadding,0,rightPadding,0);
+  }
   if (node.children.size() > 0) {
     holder.deckExpander.setTag(node.did);
     holder.deckExpander.setOnClickListener(mDeckExpanderClickListener);
