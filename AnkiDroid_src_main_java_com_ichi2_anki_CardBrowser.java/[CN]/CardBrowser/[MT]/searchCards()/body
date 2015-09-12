@@ -1,4 +1,6 @@
 {
+  DeckTask.cancelTask(DeckTask.TASK_TYPE_SEARCH_CARDS);
+  DeckTask.cancelTask(DeckTask.TASK_TYPE_RENDER_BROWSER_QA);
   String searchText;
   if (mSearchTerms.contains("deck:")) {
     searchText=mSearchTerms;
