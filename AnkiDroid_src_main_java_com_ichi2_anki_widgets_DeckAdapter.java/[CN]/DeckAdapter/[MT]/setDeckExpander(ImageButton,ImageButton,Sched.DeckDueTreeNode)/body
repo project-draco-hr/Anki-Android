@@ -9,11 +9,6 @@
  else {
     expander.setImageDrawable(mNoExpander);
   }
-  int expanderWidth=mExpandImage.getIntrinsicWidth();
-  int indent=expanderWidth;
-  indent+=mIndentWidth * node.depth;
-  if (collapsed || node.children.size() > 0) {
-    indent-=expanderWidth;
-  }
-  expander.setPadding(indent,0,0,0);
+  int width=(int)indent.getResources().getDimension(R.dimen.keyline_1) * node.depth;
+  indent.setMinimumWidth(width);
 }
