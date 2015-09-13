@@ -2,25 +2,16 @@
   Resources res=getResources();
   mDialogEditText=new EditText(DeckPicker.this);
   mDialogEditText.setSingleLine();
-  mDialogEditText.setText(getCol().getDecks().name(mContextMenuDid));
+  final String currentName=getCol().getDecks().name(mContextMenuDid);
+  mDialogEditText.setText(currentName);
   new MaterialDialog.Builder(DeckPicker.this).title(res.getString(R.string.contextmenu_deckpicker_rename_deck)).customView(mDialogEditText,true).positiveText(res.getString(R.string.rename)).negativeText(res.getString(R.string.dialog_cancel)).callback(new MaterialDialog.ButtonCallback(){
     @Override public void onPositive(    MaterialDialog dialog){
       String newName=mDialogEditText.getText().toString().replaceAll("\"","");
-      Timber.i("DeckPicker:: Renaming deck...",newName);
       Collection col=getCol();
-      if (col != null) {
-        if (col.getDecks().rename(col.getDecks().get(mContextMenuDid),newName)) {
-          updateDeckList();
-        }
- else {
-          try {
-            Themes.showThemedToast(DeckPicker.this,getResources().getString(R.string.rename_error,col.getDecks().get(mContextMenuDid).get("name")),false);
-          }
- catch (          JSONException e) {
-            throw new RuntimeException(e);
-          }
-        }
+      if (!newName.equals(currentName) && !col.getDecks().rename(col.getDecks().get(mContextMenuDid),newName)) {
+        Themes.showThemedToast(DeckPicker.this,getResources().getString(R.string.rename_error,currentName),false);
       }
+      dismissAllDialogFragments();
       mDeckListAdapter.notifyDataSetChanged();
       updateDeckList();
     }
