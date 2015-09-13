@@ -1,9 +1,3 @@
 {
-  if (!Double.isNaN(mTimerStarted) && !Double.isNaN(mTimerStopped)) {
-    mTimerStarted+=Utils.now() - mTimerStopped;
-    mTimerStopped=Double.NaN;
-  }
- else {
-    Timber.i("Card Timer: nothing to resume");
-  }
+  mTimerStarted=Utils.now() - mElapsedTime;
 }

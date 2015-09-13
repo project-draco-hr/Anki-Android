@@ -1,4 +1,5 @@
 {
+  final TypedValue typedValue=new TypedValue();
   mShowTimer=mCurrentCard.showTimer();
   if (mShowTimer && mCardTimer.getVisibility() == View.INVISIBLE) {
     mCardTimer.setVisibility(View.VISIBLE);
@@ -6,6 +7,21 @@
  else   if (!mShowTimer && mCardTimer.getVisibility() != View.INVISIBLE) {
     mCardTimer.setVisibility(View.INVISIBLE);
   }
+  getTheme().resolveAttribute(android.R.attr.textColor,typedValue,true);
+  mCardTimer.setTextColor(typedValue.data);
   mCardTimer.setBase(SystemClock.elapsedRealtime());
   mCardTimer.start();
+  getTheme().resolveAttribute(R.attr.maxTimerColor,typedValue,true);
+  final int limit=mCurrentCard.timeLimit();
+  mCardTimer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener(){
+    @Override public void onChronometerTick(    Chronometer chronometer){
+      long elapsed=SystemClock.elapsedRealtime() - chronometer.getBase();
+      Timber.e("Elapsed: " + elapsed);
+      if (elapsed >= limit) {
+        chronometer.setTextColor(typedValue.data);
+        chronometer.stop();
+      }
+    }
+  }
+);
 }

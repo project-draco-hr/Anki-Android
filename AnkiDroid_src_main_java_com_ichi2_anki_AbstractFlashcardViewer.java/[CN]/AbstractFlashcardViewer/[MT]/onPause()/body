@@ -5,6 +5,6 @@
   mTimeoutHandler.removeCallbacks(mShowQuestionTask);
   longClickHandler.removeCallbacks(longClickTestRunnable);
   longClickHandler.removeCallbacks(startLongClickAction);
-  stopTimer();
+  pauseTimer();
   Sound.stopSounds();
 }

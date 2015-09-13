@@ -1,6 +1,6 @@
 {
   super.onResume();
-  restartTimer();
+  resumeTimer();
   Sound.setContext(new WeakReference<Activity>(this));
   setTitle();
   updateScreenCounts();

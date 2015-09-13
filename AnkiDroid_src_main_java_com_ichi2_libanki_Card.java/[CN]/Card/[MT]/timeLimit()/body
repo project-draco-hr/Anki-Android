@@ -1,7 +1,7 @@
 {
   JSONObject conf=mCol.getDecks().confForDid(mODid == 0 ? mDid : mODid);
   try {
-    return conf.getLong("maxTaken") * 1000;
+    return conf.getInt("maxTaken") * 1000;
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);
