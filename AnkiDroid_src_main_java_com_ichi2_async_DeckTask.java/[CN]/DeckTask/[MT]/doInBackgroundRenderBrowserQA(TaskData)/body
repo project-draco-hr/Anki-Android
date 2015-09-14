@@ -9,6 +9,7 @@
       Card c=col.getCard(Long.parseLong(items.get(i).get("id"),10));
       CardBrowser.updateSearchItemQA(items.get(i),c);
       if (isCancelled()) {
+        Timber.d("doInBackgroundRenderBrowserQA was aborted");
         return null;
       }
  else {

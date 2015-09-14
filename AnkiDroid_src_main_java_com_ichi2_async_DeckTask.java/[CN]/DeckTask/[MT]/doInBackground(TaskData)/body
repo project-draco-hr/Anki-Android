@@ -18,6 +18,7 @@ catch (    CancellationException e) {
       Timber.e(e,"previously running task was cancelled: %d",mPreviousTask.mType);
     }
   }
+  sLatestInstance=this;
   mContext=AnkiDroidApp.getInstance().getApplicationContext();
 switch (mType) {
 case TASK_TYPE_LOAD_DECK_COUNTS:

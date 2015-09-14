@@ -14,8 +14,9 @@
   Cursor cur=null;
   try {
     cur=mCol.getDb().getDatabase().rawQuery(sql,args);
+    DeckTask task=DeckTask.getInstance();
     while (cur.moveToNext()) {
-      if (DeckTask.taskIsCancelled(DeckTask.TASK_TYPE_SEARCH_CARDS) || CardBrowser.sSearchCancelled) {
+      if (task.isCancelled()) {
         Timber.i("_findCardsForCardBrowser() cancelled...");
         return null;
       }

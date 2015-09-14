@@ -5,7 +5,7 @@
   String query=(String)params[0].getObjArray()[1];
   Boolean order=(Boolean)params[0].getObjArray()[2];
   ArrayList<HashMap<String,String>> searchResult=col.findCardsForCardBrowser(query,order,deckNames);
-  if (isCancelled() || CardBrowser.sSearchCancelled) {
+  if (isCancelled()) {
     Timber.d("doInBackgroundSearchCards was cancelled so return null");
     return null;
   }
