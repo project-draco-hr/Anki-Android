@@ -4,7 +4,7 @@
     AnkiFont defaultFont=customFontsMap.get(preferences.getString("defaultFont",null));
     boolean overrideFont=preferences.getString("overrideFontBehavior","0").equals("1");
     if (defaultFont != null && overrideFont) {
-      mOverrideFontStyle="BODY, .card, * { " + defaultFont.getCSS() + " }\n";
+      mOverrideFontStyle="BODY, .card, * { " + defaultFont.getCSS(true) + " }\n";
     }
  else {
       mOverrideFontStyle="";

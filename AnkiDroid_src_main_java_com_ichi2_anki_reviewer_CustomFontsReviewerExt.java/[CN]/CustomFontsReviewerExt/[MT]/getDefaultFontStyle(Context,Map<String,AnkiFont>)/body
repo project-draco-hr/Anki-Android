@@ -3,7 +3,7 @@
     SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(context);
     AnkiFont defaultFont=customFontsMap.get(preferences.getString("defaultFont",null));
     if (defaultFont != null) {
-      mDefaultFontStyle="BODY { " + defaultFont.getCSS() + " }\n";
+      mDefaultFontStyle="BODY { " + defaultFont.getCSS(false) + " }\n";
     }
  else {
       mDefaultFontStyle="";

@@ -1,6 +1,6 @@
 {
   StringBuilder sb=new StringBuilder("font-family: \"").append(mFamily);
-  if (mIsOverride) {
+  if (override) {
     sb.append("\" !important;");
   }
  else {
@@ -8,7 +8,7 @@
   }
   for (  String attr : mAttributes) {
     sb.append(" ").append(attr);
-    if (mIsOverride) {
+    if (override) {
       if (sb.charAt(sb.length() - 1) == ';') {
         sb.deleteCharAt(sb.length() - 1);
         sb.append(" !important;");
