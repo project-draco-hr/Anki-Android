@@ -3,10 +3,20 @@
   if (mTypeWarning != null) {
     return m.replaceFirst(mTypeWarning);
   }
-  if (mPrefWriteAnswers) {
-    return m.replaceFirst("<span id=typeans class=\"typePrompt\">........</span>");
+  StringBuilder sb=new StringBuilder();
+  if (USE_INPUT_TAG) {
+    sb.append("<center>\n<input type=text name=typed id=typeans onfocus=\"taFocus();\" " + "onblur=\"taBlur(this);\" onKeyPress=\"return taKey(this, event)\" autocomplete=\"off\" ");
+    if (mTypeFont != null && !TextUtils.isEmpty(mTypeFont) && mTypeSize > 0) {
+      sb.append("style=\"font-family: '" + mTypeFont + "'; font-size: "+ Integer.toString(mTypeSize)+ "px;\" ");
+    }
+    sb.append(">\n</center>\n");
   }
  else {
-    return m.replaceFirst("<span id=typeans class=\"typePrompt typeOff\">........</span>");
+    sb.append("<span id=typeans class=\"typePrompt");
+    if (mPrefWriteAnswers) {
+      sb.append(" typeOff");
+    }
+    sb.append("\">........</span>");
   }
+  return m.replaceAll(sb.toString());
 }

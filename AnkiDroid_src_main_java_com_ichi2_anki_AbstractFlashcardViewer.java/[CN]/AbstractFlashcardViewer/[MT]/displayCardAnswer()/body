@@ -12,7 +12,13 @@
   Sound.stopSounds();
   answer=getCol().getMedia().escapeImages(answer);
   mAnswerField.setVisibility(View.GONE);
-  String userAnswer=cleanTypedAnswer(mAnswerField.getText().toString());
+  String userAnswer;
+  if (USE_INPUT_TAG) {
+    userAnswer=cleanTypedAnswer(mTypeInput);
+  }
+ else {
+    userAnswer=cleanTypedAnswer(mAnswerField.getText().toString());
+  }
   String correctAnswer=cleanCorrectAnswer(mTypeCorrect);
   Timber.d("correct answer = %s",correctAnswer);
   Timber.d("user answer = %s",userAnswer);

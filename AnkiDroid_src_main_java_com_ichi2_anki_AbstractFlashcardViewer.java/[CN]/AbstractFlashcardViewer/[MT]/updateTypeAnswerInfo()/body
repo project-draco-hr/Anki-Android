@@ -1,5 +1,6 @@
 {
   mTypeCorrect=null;
+  mTypeInput="";
   String q=mCurrentCard.q(false);
   Matcher m=sTypeAnsPat.matcher(q);
   int clozeIdx=0;
@@ -20,6 +21,8 @@
         if (clozeIdx != 0) {
           mTypeCorrect=contentForCloze(mTypeCorrect,clozeIdx);
         }
+        mTypeFont=(String)(ja.getJSONObject(i).get("font"));
+        mTypeSize=(int)(ja.getJSONObject(i).get("size"));
         break;
       }
     }
