@@ -18,10 +18,10 @@
     holder.deckExpander.setOnClickListener(mDeckExpanderClickListener);
   }
   if (node.did == mCol.getDecks().current().optLong("id")) {
-    holder.deckLayout.setBackgroundColor(mRowCurrentColor);
+    holder.deckLayout.setBackgroundResource(mRowCurrentDrawable);
   }
  else {
-    holder.deckLayout.setBackgroundColor(mRowDefaultColor);
+    holder.deckLayout.setBackgroundResource(mRowDefaultDrawable);
   }
   holder.deckName.setText(node.names[0]);
   if (mCol.getDecks().isDyn(node.did)) {
