@@ -1,0 +1,10 @@
+{
+  if (requestCode == REQUEST_STORAGE_PERMISSION && permissions.length == 1) {
+    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+      showStartupScreensAndDialogs(AnkiDroidApp.getSharedPrefs(this),0);
+    }
+ else {
+      showSimpleSnackbar(R.string.directory_inaccessible,false);
+    }
+  }
+}

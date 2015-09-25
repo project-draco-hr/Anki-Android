@@ -5,6 +5,10 @@
     Timber.d("Field controller creation failed");
     return;
   }
+  if (mField instanceof AudioField && ContextCompat.checkSelfPermission(this,Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+    ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.RECORD_AUDIO},REQUEST_AUDIO_PERMISSION);
+    return;
+  }
   mFieldController.setField(mField);
   mFieldController.setFieldIndex(mFieldIndex);
   mFieldController.setNote(mNote);

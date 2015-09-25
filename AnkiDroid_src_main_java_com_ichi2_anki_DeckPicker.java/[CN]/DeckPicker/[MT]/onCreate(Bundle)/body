@@ -1,6 +1,5 @@
 {
   Timber.d("onCreate()");
-  Intent intent=getIntent();
   super.onCreate(savedInstanceState);
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
   View mainView=getLayoutInflater().inflate(R.layout.deck_picker,null);
@@ -58,5 +57,10 @@
   mTodayTextView=(TextView)findViewById(R.id.today_stats_text_view);
   final Resources res=getResources();
   mTodayTextView=(TextView)findViewById(R.id.today_stats_text_view);
-  showStartupScreensAndDialogs(preferences,0);
+  if (!CollectionHelper.hasStorageAccessPermission(this)) {
+    ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_STORAGE_PERMISSION);
+  }
+ else {
+    showStartupScreensAndDialogs(preferences,0);
+  }
 }

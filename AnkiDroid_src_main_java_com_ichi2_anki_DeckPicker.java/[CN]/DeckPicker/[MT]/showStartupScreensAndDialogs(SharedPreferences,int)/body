@@ -5,7 +5,7 @@
  else   if (!CollectionHelper.isCurrentAnkiDroidDirAccessible(this)) {
     Intent i=new Intent(this,Preferences.class);
     startActivityWithoutAnimation(i);
-    Themes.showThemedToast(this,getResources().getString(R.string.directory_inaccessible),false);
+    showSimpleSnackbar(R.string.directory_inaccessible,false);
   }
  else   if (!BackupManager.enoughDiscSpace(CollectionHelper.getCurrentAnkiDroidDirectory(this))) {
     showDialogFragment(DeckPickerNoSpaceLeftDialog.newInstance());
