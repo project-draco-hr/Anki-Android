@@ -1,7 +1,4 @@
 {
-  long total=(long)((Utils.now() - mTimerStarted) * 1000);
-  if (total < 0) {
-    total=timeLimit();
-  }
+  int total=(int)((Utils.now() - mTimerStarted) * 1000);
   return Math.min(total,timeLimit());
 }
