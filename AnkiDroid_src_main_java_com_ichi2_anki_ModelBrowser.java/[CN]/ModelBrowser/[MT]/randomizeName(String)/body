@@ -1,0 +1,10 @@
+{
+  char[] charSet="123456789abcdefghijklmnopqrstuvqxwzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+  char[] randomString=new char[6];
+  Random random=new Random();
+  for (int i=0; i < 6; i++) {
+    int randomIndex=random.nextInt(charSet.length);
+    randomString[i]=charSet[randomIndex];
+  }
+  return s + " " + new String(randomString);
+}

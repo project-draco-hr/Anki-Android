@@ -1,0 +1,8 @@
+{
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DELETE_MODEL,mDeleteModelHandler,new DeckTask.TaskData(mCurrentID));
+  mModels.remove(mModelListPosition);
+  mModelIds.remove(mModelListPosition);
+  mModelDisplayList.remove(mModelListPosition);
+  mCardCounts.remove(mModelListPosition);
+  refreshList();
+}

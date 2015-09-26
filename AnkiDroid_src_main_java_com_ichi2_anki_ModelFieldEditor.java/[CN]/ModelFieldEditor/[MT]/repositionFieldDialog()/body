@@ -1,0 +1,52 @@
+{
+  mFieldNameInput=new EditText(this);
+  mFieldNameInput.setRawInputType(InputType.TYPE_CLASS_NUMBER);
+  new MaterialDialog.Builder(this).title(String.format(getResources().getString(R.string.model_field_editor_reposition),1,mFieldLabels.size())).positiveText(R.string.dialog_ok).customView(mFieldNameInput,true).callback(new MaterialDialog.ButtonCallback(){
+    @Override public void onPositive(    MaterialDialog dialog){
+      String newPosition=mFieldNameInput.getText().toString();
+      int pos;
+      try {
+        pos=Integer.parseInt(newPosition);
+      }
+ catch (      NumberFormatException n) {
+        showToast(getResources().getString(R.string.toast_out_of_range));
+        return;
+      }
+      if (pos < 1 || pos > mFieldLabels.size()) {
+        showToast(getResources().getString(R.string.toast_out_of_range));
+      }
+ else {
+        try {
+          mCol.modSchema();
+          DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REPOSITION_FIELD,mChangeFieldHandler,new DeckTask.TaskData(new Object[]{mMod,mNoteFields.getJSONObject(currentPos),new Integer(pos - 1)}));
+        }
+ catch (        ConfirmModSchemaException e) {
+          ConfirmationDialog c=new ConfirmationDialog(){
+            public void confirm(){
+              try {
+                mCol.modSchemaNoCheck();
+                String newPosition=mFieldNameInput.getText().toString();
+                int pos=Integer.parseInt(newPosition);
+                DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REPOSITION_FIELD,mChangeFieldHandler,new DeckTask.TaskData(new Object[]{mMod,mNoteFields.getJSONObject(currentPos),new Integer(pos - 1)}));
+                dismissContextMenu();
+              }
+ catch (              JSONException e) {
+                throw new RuntimeException(e);
+              }
+            }
+            public void cancel(){
+              dismissContextMenu();
+            }
+          }
+;
+          c.setArgs(getResources().getString(R.string.full_sync_confirmation));
+          ModelFieldEditor.this.showDialogFragment(c);
+        }
+catch (        JSONException e) {
+          throw new RuntimeException(e);
+        }
+      }
+    }
+  }
+).negativeText(R.string.dialog_cancel).show();
+}

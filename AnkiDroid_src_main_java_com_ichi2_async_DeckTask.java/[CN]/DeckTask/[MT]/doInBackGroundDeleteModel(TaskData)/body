@@ -1,0 +1,13 @@
+{
+  Timber.d("doInBackGroundDeleteModel");
+  long modID=params[0].getLong();
+  Collection col=CollectionHelper.getInstance().getCol(mContext);
+  try {
+    col.getModels().rem(col.getModels().get(modID));
+  }
+ catch (  ConfirmModSchemaException e) {
+    Timber.e("doInBackGroundDeleteModel :: ConfirmModSchemaException");
+    return new TaskData(false);
+  }
+  return new TaskData(true);
+}

@@ -1,0 +1,40 @@
+{
+  mFieldNameInput=new EditText(this);
+  mFieldNameInput.setSingleLine(true);
+  new MaterialDialog.Builder(this).title(R.string.model_field_editor_add).positiveText(R.string.dialog_ok).customView(mFieldNameInput,true).callback(new MaterialDialog.ButtonCallback(){
+    @Override public void onPositive(    MaterialDialog dialog){
+      String fieldName=mFieldNameInput.getText().toString().replaceAll("[\'\"\\n\\r\\[\\]\\(\\)]","");
+      if (fieldName.length() == 0) {
+        showToast(getResources().getString(R.string.toast_empty_name));
+      }
+ else       if (containsField(fieldName)) {
+        showToast(getResources().getString(R.string.toast_duplicate_field));
+      }
+ else {
+        try {
+          mCol.modSchema();
+          DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ADD_FIELD,mChangeFieldHandler,new DeckTask.TaskData(new Object[]{mMod,fieldName}));
+        }
+ catch (        ConfirmModSchemaException e) {
+          ConfirmationDialog c=new ConfirmationDialog(){
+            public void confirm(){
+              mCol.modSchemaNoCheck();
+              String fieldName=mFieldNameInput.getText().toString().replaceAll("[\'\"\\n\\r\\[\\]\\(\\)]","");
+              DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ADD_FIELD,mChangeFieldHandler,new DeckTask.TaskData(new Object[]{mMod,fieldName}));
+              dismissContextMenu();
+            }
+            public void cancel(){
+              dismissContextMenu();
+            }
+          }
+;
+          c.setArgs(getResources().getString(R.string.full_sync_confirmation));
+          ModelFieldEditor.this.showDialogFragment(c);
+        }
+        mCol.getModels().update(mMod);
+        fullRefreshList();
+      }
+    }
+  }
+).negativeText(R.string.dialog_cancel).show();
+}

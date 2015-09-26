@@ -1,0 +1,44 @@
+{
+  if (mFieldLabels.size() < 2) {
+    showToast(getResources().getString(R.string.toast_last_field));
+  }
+ else {
+    try {
+      mCol.modSchema();
+      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DELETE_FIELD,mChangeFieldHandler,new DeckTask.TaskData(new Object[]{mMod,mNoteFields.getJSONObject(currentPos)}));
+    }
+ catch (    ConfirmModSchemaException e) {
+      ConfirmationDialog d=new ConfirmationDialog(){
+        public void confirm(){
+          ConfirmationDialog c=new ConfirmationDialog(){
+            public void confirm(){
+              try {
+                mCol.modSchemaNoCheck();
+                DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DELETE_FIELD,mChangeFieldHandler,new DeckTask.TaskData(new Object[]{mMod,mNoteFields.getJSONObject(currentPos)}));
+                dismissContextMenu();
+              }
+ catch (              JSONException e) {
+                throw new RuntimeException(e);
+              }
+            }
+            public void cancel(){
+              dismissContextMenu();
+            }
+          }
+;
+          c.setArgs(getResources().getString(R.string.full_sync_confirmation));
+          ModelFieldEditor.this.showDialogFragment(c);
+        }
+        public void cancel(){
+          dismissContextMenu();
+        }
+      }
+;
+      d.setArgs(getResources().getString(R.string.field_delete_warning));
+      ModelFieldEditor.this.showDialogFragment(d);
+    }
+catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
+}

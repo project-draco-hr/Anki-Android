@@ -1,0 +1,12 @@
+{
+  DisplayPair item=getItem(position);
+  if (convertView == null) {
+    convertView=LayoutInflater.from(getContext()).inflate(R.layout.model_browser_list_item,parent,false);
+  }
+  TextView tvName=(TextView)convertView.findViewById(R.id.model_list_item_1);
+  TextView tvHome=(TextView)convertView.findViewById(R.id.model_list_item_2);
+  int count=item.getCount();
+  tvName.setText(item.getName());
+  tvHome.setText(getResources().getQuantityString(R.plurals.model_browser_of_type,count,count));
+  return convertView;
+}

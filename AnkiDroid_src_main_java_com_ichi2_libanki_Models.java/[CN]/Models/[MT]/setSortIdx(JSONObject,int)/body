@@ -1,0 +1,11 @@
+{
+  try {
+    mCol.modSchema(true);
+    m.put("sortf",idx);
+    mCol.updateFieldCache(Utils.toPrimitive(nids(m)));
+    save(m);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

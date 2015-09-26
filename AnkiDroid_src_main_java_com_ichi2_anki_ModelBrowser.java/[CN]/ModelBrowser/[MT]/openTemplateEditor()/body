@@ -1,0 +1,5 @@
+{
+  Intent intent=new Intent(this,CardTemplateEditor.class);
+  intent.putExtra("modelId",mCurrentID);
+  startActivityForResultWithAnimation(intent,REQUEST_TEMPLATE_EDIT,ActivityTransitionAnimation.LEFT);
+}

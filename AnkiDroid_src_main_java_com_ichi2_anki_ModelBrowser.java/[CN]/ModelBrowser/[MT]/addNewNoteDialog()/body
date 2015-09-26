@@ -1,0 +1,86 @@
+{
+  String add=getResources().getString(R.string.model_browser_add_add);
+  String clone=getResources().getString(R.string.model_browser_add_clone);
+  final String basicName="Basic";
+  final String addForwardReverseName="Basic (and reversed card)";
+  final String addForwardOptionalReverseName="Basic (optional reversed card)";
+  final String addClozeModelName="Cloze";
+  mNewModelLabels=new ArrayList<String>();
+  mNewModelNames=new ArrayList<String>();
+  mNewModelLabels.add(String.format(add,basicName));
+  mNewModelLabels.add(String.format(add,addForwardReverseName));
+  mNewModelLabels.add(String.format(add,addForwardOptionalReverseName));
+  mNewModelLabels.add(String.format(add,addClozeModelName));
+  mNewModelNames.add(basicName);
+  mNewModelNames.add(addForwardReverseName);
+  mNewModelNames.add(addForwardOptionalReverseName);
+  mNewModelNames.add(addClozeModelName);
+  for (  JSONObject model : mModels) {
+    try {
+      mNewModelLabels.add(String.format(clone,model.getString("name")));
+      mNewModelNames.add(model.getString("name"));
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  final Spinner addSelectionSpinner=new Spinner(this);
+  mNewModelAdapter=new ArrayAdapter<String>(this,R.layout.dropdown_deck_item,mNewModelLabels);
+  addSelectionSpinner.setAdapter(mNewModelAdapter);
+  new MaterialDialog.Builder(this).title(R.string.model_browser_add).positiveText(R.string.dialog_ok).customView(addSelectionSpinner,true).callback(new MaterialDialog.ButtonCallback(){
+    @Override public void onPositive(    MaterialDialog dialog){
+      mModelNameInput=new EditText(ModelBrowser.this);
+      mModelNameInput.setSingleLine();
+      if (addSelectionSpinner.getSelectedItemPosition() < mNewModelLabels.size()) {
+        mModelNameInput.setText(randomizeName(mNewModelNames.get(addSelectionSpinner.getSelectedItemPosition())));
+      }
+ else {
+        mModelNameInput.setText(mNewModelNames.get(addSelectionSpinner.getSelectedItemPosition()) + " " + getResources().getString(R.string.model_clone_suffix));
+      }
+      mModelNameInput.setSelection(mModelNameInput.getText().length());
+      new MaterialDialog.Builder(ModelBrowser.this).title(R.string.model_browser_add).positiveText(R.string.dialog_ok).customView(mModelNameInput,true).callback(new MaterialDialog.ButtonCallback(){
+        @Override public void onPositive(        MaterialDialog dialog){
+          JSONObject model=null;
+          String fieldName=mModelNameInput.getText().toString().replaceAll("[\'\"\\n\\r\\[\\]\\(\\)]","");
+          try {
+            if (fieldName.length() > 0) {
+switch (addSelectionSpinner.getSelectedItemPosition()) {
+case (0):
+                model=Models.addBasicModel(col);
+              break;
+case (1):
+            model=Models.addForwardReverse(col);
+          break;
+case (2):
+        model=Models.addForwardOptionalReverse(col);
+      break;
+case (3):
+    model=Models.addClozeModel(col);
+  break;
+default :
+JSONObject oldModel=new JSONObject(mModels.get(addSelectionSpinner.getSelectedItemPosition() - 4).toString());
+JSONObject newModel=Models.addBasicModel(col);
+oldModel.put("id",newModel.get("id"));
+model=oldModel;
+}
+model.put("name",fieldName);
+col.getModels().update(model);
+fullRefresh();
+}
+ else {
+showToast(getResources().getString(R.string.toast_empty_name));
+}
+}
+ catch (ConfirmModSchemaException e) {
+return;
+}
+catch (JSONException e) {
+throw new RuntimeException(e);
+}
+}
+}
+).negativeText(R.string.dialog_cancel).show();
+}
+}
+).negativeText(R.string.dialog_cancel).show();
+}

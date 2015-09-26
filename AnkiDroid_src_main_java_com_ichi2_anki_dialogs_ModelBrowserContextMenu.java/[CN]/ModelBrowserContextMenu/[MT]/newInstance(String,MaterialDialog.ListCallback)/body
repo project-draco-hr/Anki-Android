@@ -1,0 +1,8 @@
+{
+  mContextMenuListener=contextMenuListener;
+  ModelBrowserContextMenu n=new ModelBrowserContextMenu();
+  Bundle b=new Bundle();
+  b.putString("label",label);
+  n.setArguments(b);
+  return n;
+}
