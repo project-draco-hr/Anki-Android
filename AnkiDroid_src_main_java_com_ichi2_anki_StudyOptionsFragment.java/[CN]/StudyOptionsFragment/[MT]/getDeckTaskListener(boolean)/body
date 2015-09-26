@@ -50,7 +50,17 @@
           openFilteredDeckOptions(mLoadWithDeckOptions);
           return;
         }
-        if (newCards + lrnCards + revCards == 0) {
+        if (totalCards == 0) {
+          mCurrentContentView=CONTENT_EMPTY;
+          mDeckInfoLayout.setVisibility(View.GONE);
+          mCongratsLayout.setVisibility(View.VISIBLE);
+          mTextCongratsMessage.setText(R.string.studyoptions_empty);
+          mButtonStart.setVisibility(View.GONE);
+          if (mChartView != null) {
+            mChartView.setVisibility(View.INVISIBLE);
+          }
+        }
+ else         if (newCards + lrnCards + revCards == 0) {
           mCurrentContentView=CONTENT_CONGRATS;
           mDeckInfoLayout.setVisibility(View.GONE);
           mCongratsLayout.setVisibility(View.VISIBLE);

@@ -1,5 +1,16 @@
 {
-  getCol().getDecks().select(did);
-  mFocusedDeck=did;
-  openStudyOptions(false);
+  if (getCol().cardCount(new long[]{did}) > 0) {
+    getCol().getDecks().select(did);
+    mFocusedDeck=did;
+    openStudyOptions(false);
+  }
+ else {
+    showSnackbar(R.string.studyoptions_empty,false,R.string.help,new OnClickListener(){
+      @Override public void onClick(      View v){
+        Intent helpIntent=new Intent("android.intent.action.VIEW",Uri.parse(getResources().getString(R.string.link_manual_getting_started)));
+        startActivityWithoutAnimation(helpIntent);
+      }
+    }
+,findViewById(R.id.root_layout));
+  }
 }
