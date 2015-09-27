@@ -2,8 +2,8 @@
   Timber.d("onCreate()");
   sIsSubtitle=true;
   super.onCreate(savedInstanceState);
-  mMainLayout=getLayoutInflater().inflate(R.layout.activity_anki_stats,null);
+  setContentView(R.layout.activity_anki_stats);
+  mMainLayout=findViewById(android.R.id.content);
   initNavigationDrawer(mMainLayout);
-  setContentView(mMainLayout);
   startLoadingCollection();
 }
