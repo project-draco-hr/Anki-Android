@@ -1,7 +1,7 @@
 {
   long noteTypeID=getIntent().getLongExtra("noteTypeID",0);
   mMod=mCol.getModels().get(noteTypeID);
-  mFieldLabels=new ArrayList<String>();
+  mFieldLabels=new ArrayList<>();
   try {
     mNoteFields=mMod.getJSONArray("flds");
     for (int i=0; i < mNoteFields.length(); i++) {

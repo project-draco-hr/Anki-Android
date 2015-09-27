@@ -18,7 +18,7 @@
  else {
         try {
           mCol.modSchema();
-          DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REPOSITION_FIELD,mChangeFieldHandler,new DeckTask.TaskData(new Object[]{mMod,mNoteFields.getJSONObject(currentPos),new Integer(pos - 1)}));
+          DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REPOSITION_FIELD,mChangeFieldHandler,new DeckTask.TaskData(new Object[]{mMod,mNoteFields.getJSONObject(mCurrentPos),pos - 1}));
         }
  catch (        ConfirmModSchemaException e) {
           ConfirmationDialog c=new ConfirmationDialog(){
@@ -27,7 +27,7 @@
                 mCol.modSchemaNoCheck();
                 String newPosition=mFieldNameInput.getText().toString();
                 int pos=Integer.parseInt(newPosition);
-                DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REPOSITION_FIELD,mChangeFieldHandler,new DeckTask.TaskData(new Object[]{mMod,mNoteFields.getJSONObject(currentPos),new Integer(pos - 1)}));
+                DeckTask.launchDeckTask(DeckTask.TASK_TYPE_REPOSITION_FIELD,mChangeFieldHandler,new DeckTask.TaskData(new Object[]{mMod,mNoteFields.getJSONObject(mCurrentPos),pos - 1}));
                 dismissContextMenu();
               }
  catch (              JSONException e) {

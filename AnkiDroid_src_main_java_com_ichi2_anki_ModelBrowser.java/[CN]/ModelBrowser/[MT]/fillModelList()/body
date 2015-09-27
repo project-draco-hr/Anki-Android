@@ -1,6 +1,6 @@
 {
-  mModelDisplayList=new ArrayList<DisplayPair>();
-  mModelIds=new ArrayList<Long>();
+  mModelDisplayList=new ArrayList<>();
+  mModelIds=new ArrayList<>();
   for (int i=0; i < mModels.size(); i++) {
     try {
       mModelIds.add(mModels.get(i).getLong("id"));

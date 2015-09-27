@@ -1,7 +1,6 @@
 {
   super.onCreate(savedInstanceState);
-  View mainView=getLayoutInflater().inflate(R.layout.model_browser,null);
-  setContentView(mainView);
+  setContentView(R.layout.model_browser);
   mModelListView=(ListView)findViewById(R.id.note_type_browser_list);
   Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
   if (toolbar != null) {

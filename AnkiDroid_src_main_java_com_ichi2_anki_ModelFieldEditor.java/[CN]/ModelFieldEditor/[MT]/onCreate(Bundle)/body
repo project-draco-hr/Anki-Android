@@ -1,13 +1,14 @@
 {
   super.onCreate(savedInstanceState);
-  View mainView=getLayoutInflater().inflate(R.layout.model_editor,null);
-  setContentView(mainView);
+  setContentView(R.layout.model_field_editor);
   startLoadingCollection();
-  Toolbar toolbar=(Toolbar)mainView.findViewById(R.id.toolbar);
-  mFieldLabelView=(ListView)mainView.findViewById(R.id.note_type_editor_fields);
+  Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
+  mFieldLabelView=(ListView)findViewById(R.id.note_type_editor_fields);
   if (toolbar != null) {
     setSupportActionBar(toolbar);
   }
-  String title=String.format(getResources().getString(R.string.model_field_editor_title),getIntent().getStringExtra("title"));
-  getSupportActionBar().setTitle(title);
+  if (getSupportActionBar() != null) {
+    getSupportActionBar().setTitle(R.string.model_field_editor_title);
+    getSupportActionBar().setSubtitle(getIntent().getStringExtra("title"));
+  }
 }

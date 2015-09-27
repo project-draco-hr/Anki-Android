@@ -1,7 +1,7 @@
 {
   mFieldNameInput=new EditText(this);
   mFieldNameInput.setSingleLine(true);
-  mFieldNameInput.setText(mFieldLabels.get(currentPos));
+  mFieldNameInput.setText(mFieldLabels.get(mCurrentPos));
   mFieldNameInput.setSelection(mFieldNameInput.getText().length());
   new MaterialDialog.Builder(this).title(R.string.rename_model).positiveText(R.string.dialog_ok).customView(mFieldNameInput,true).callback(new MaterialDialog.ButtonCallback(){
     @Override public void onPositive(    MaterialDialog dialog){
