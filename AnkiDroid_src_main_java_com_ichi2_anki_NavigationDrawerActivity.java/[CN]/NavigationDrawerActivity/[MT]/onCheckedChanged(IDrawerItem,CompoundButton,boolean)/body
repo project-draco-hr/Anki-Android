@@ -1,0 +1,10 @@
+{
+  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(this);
+  if (preferences.getBoolean("invertedColors",false)) {
+    preferences.edit().putBoolean("invertedColors",false).commit();
+  }
+ else {
+    preferences.edit().putBoolean("invertedColors",true).commit();
+  }
+  CompatHelper.getCompat().restartActivityInvalidateBackstack(this);
+}

@@ -1,10 +1,4 @@
 {
-  Menu menu=mNavigationView.getMenu();
-  MenuItem item=menu.findItem(itemId);
-  if (item != null) {
-    item.setChecked(true);
-  }
- else {
-    Timber.e("Could not find item %d",itemId);
-  }
+  mDrawer.setSelection(itemId,false);
+  mSelectedItem=itemId;
 }

@@ -1,9 +1,0 @@
-{
-  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(NavigationDrawerActivity.this);
-  if (preferences.getBoolean("invertedColors",false)) {
-    mNavigationView.getMenu().findItem(R.id.nav_night_mode).setIcon(R.drawable.ic_check_box_black_24dp);
-  }
- else {
-    mNavigationView.getMenu().findItem(R.id.nav_night_mode).setIcon(R.drawable.ic_check_box_outline_blank_black_24dp);
-  }
-}
