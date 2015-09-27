@@ -12,9 +12,6 @@
     mClipboard=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
   }
   mCardFrame.removeAllViews();
-  if (CompatHelper.getSdkVersion() == 7 && (mCard != null)) {
-    mCard.setFocusableInTouchMode(true);
-  }
   gestureDetector=new GestureDetector(new MyGestureDetector());
   mProgressBar=(ProgressBar)findViewById(R.id.flashcard_progressbar);
   Resources res=getResources();

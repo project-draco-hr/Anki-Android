@@ -11,13 +11,7 @@
   String answer=mCurrentCard.a();
   Sound.stopSounds();
   answer=getCol().getMedia().escapeImages(answer);
-  if (mPrefFixArabic) {
-    answer=ArabicUtilities.reshapeSentence(answer,true);
-  }
   mAnswerField.setVisibility(View.GONE);
-  if (mPrefFixArabic) {
-    mTypeCorrect=ArabicUtilities.reshapeSentence(mTypeCorrect,true);
-  }
   String userAnswer=cleanTypedAnswer(mAnswerField.getText().toString());
   String correctAnswer=cleanCorrectAnswer(mTypeCorrect);
   Timber.d("correct answer = %s",correctAnswer);

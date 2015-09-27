@@ -1,8 +1,5 @@
 {
   SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(context);
-  if (getSdkVersion() >= 9) {
-    preferences.edit().remove("fixArabicText").commit();
-  }
   if (isHoneycomb()) {
     preferences.edit().remove("longclickWorkaround").commit();
   }

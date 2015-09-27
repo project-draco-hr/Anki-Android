@@ -24,9 +24,6 @@
     question=mCurrentCard.q();
     question=getCol().getMedia().escapeImages(question);
     question=typeAnsQuestionFilter(question);
-    if (mPrefFixArabic) {
-      question=ArabicUtilities.reshapeSentence(question,true);
-    }
     Timber.d("question: '%s'",question);
     if (typeAnswer()) {
       mAnswerField.setVisibility(View.VISIBLE);

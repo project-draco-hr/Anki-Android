@@ -166,7 +166,6 @@ setEditFieldTexts(contents);
 mNoteTypeSpinner.setOnItemSelectedListener(new EditNoteTypeListener());
 setTitle(R.string.cardeditor_title_edit_card);
 }
-mPrefFixArabic=preferences.getBoolean("fixArabicText",false);
 ((LinearLayout)findViewById(R.id.CardEditorTagButton)).setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
 Timber.i("NoteEditor:: Tags button pressed... opening tags editor");
