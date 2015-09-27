@@ -8,9 +8,6 @@
     menu.findItem(R.id.action_reset_card_progress).setVisible(true);
     menu.findItem(R.id.action_reschedule_card).setVisible(true);
     menu.findItem(R.id.action_reset_card_progress).setVisible(true);
-    if (mPrefFixArabic) {
-      menu.findItem(R.id.action_save).setEnabled(false);
-    }
   }
   if (mEditFields != null) {
     for (int i=0; i < mEditFields.size(); i++) {

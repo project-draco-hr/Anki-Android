@@ -35,8 +35,5 @@ break;
  catch (IOException e) {
 throw new RuntimeException(e);
 }
-catch (APIVersionException e) {
-throw new RuntimeException(e);
-}
 }
 }

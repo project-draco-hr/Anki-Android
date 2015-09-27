@@ -1,9 +1,6 @@
 {
   String name=values[0];
   String content=values[1];
-  if (mPrefFixArabic) {
-    content=ArabicUtilities.reshapeSentence(content);
-  }
   editText.init(index,name,content);
   if (customTypeface != null) {
     editText.setTypeface(customTypeface);

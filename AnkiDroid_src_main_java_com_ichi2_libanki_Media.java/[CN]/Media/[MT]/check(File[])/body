@@ -10,7 +10,7 @@
       String flds=cur.getString(2);
       List<String> noteRefs=filesInStr(mid,flds);
       for (      String f : noteRefs) {
-        if (!f.equals(CompatHelper.getCompat().nfcNormalized(f))) {
+        if (!f.equals(HtmlUtil.nfcNormalized(f))) {
           _normalizeNoteRefs(nid);
           noteRefs=filesInStr(mid,flds);
           break;
@@ -43,7 +43,7 @@
     if (file.getName().startsWith("_")) {
       continue;
     }
-    File nfcFile=new File(dir(),CompatHelper.getCompat().nfcNormalized(file.getName()));
+    File nfcFile=new File(dir(),HtmlUtil.nfcNormalized(file.getName()));
     if (local == null) {
       if (!file.getName().equals(nfcFile.getName())) {
         if (nfcFile.exists()) {

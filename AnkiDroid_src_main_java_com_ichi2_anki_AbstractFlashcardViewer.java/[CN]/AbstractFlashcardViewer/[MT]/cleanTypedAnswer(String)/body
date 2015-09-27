@@ -2,10 +2,5 @@
   if (answer == null || answer.equals("")) {
     return "";
   }
-  try {
-    return CompatHelper.getCompat().nfcNormalized(answer.trim());
-  }
- catch (  APIVersionException e) {
-    return answer.trim();
-  }
+  return HtmlUtil.nfcNormalized(answer.trim());
 }

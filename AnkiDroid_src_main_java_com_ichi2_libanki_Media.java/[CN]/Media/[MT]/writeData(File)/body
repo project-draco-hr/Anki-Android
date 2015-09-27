@@ -1,6 +1,6 @@
 {
   String fname=ofile.getName();
-  fname=CompatHelper.getCompat().nfcNormalized(fname);
+  fname=HtmlUtil.nfcNormalized(fname);
   String base=stripIllegal(fname);
   String root=Utils.removeExtension(base);
   String ext=Utils.getFileExtension(base);

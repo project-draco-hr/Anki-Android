@@ -9,10 +9,5 @@
   answerText=matcher.replaceAll("\n");
   matcher=Sound.sSoundPattern.matcher(answerText);
   answerText=matcher.replaceAll("");
-  try {
-    return CompatHelper.getCompat().nfcNormalized(answerText);
-  }
- catch (  APIVersionException e) {
-    return answerText;
-  }
+  return HtmlUtil.nfcNormalized(answerText);
 }
