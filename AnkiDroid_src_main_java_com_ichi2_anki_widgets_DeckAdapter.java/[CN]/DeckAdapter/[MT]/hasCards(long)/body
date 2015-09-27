@@ -1,0 +1,7 @@
+{
+  if (mCol.cardCount(new long[]{did}) > 0) {
+    return true;
+  }
+  int i=findDeckPosition(did);
+  return mDeckList.get(i).children.size() > 0;
+}

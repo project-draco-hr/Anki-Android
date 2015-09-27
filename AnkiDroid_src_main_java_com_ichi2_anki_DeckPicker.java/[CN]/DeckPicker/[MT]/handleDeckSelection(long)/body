@@ -1,5 +1,5 @@
 {
-  if (getCol().cardCount(new long[]{did}) > 0) {
+  if (mDeckListAdapter.hasCards(did)) {
     getCol().getDecks().select(did);
     mFocusedDeck=did;
     openStudyOptions(false);
