@@ -1,0 +1,4 @@
+{
+  int count=mModelIds.size();
+  mActionBar.setSubtitle(getResources().getQuantityString(R.plurals.model_browser_types_available,count,count));
+}

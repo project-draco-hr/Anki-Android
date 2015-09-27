@@ -1,0 +1,9 @@
+{
+  ModelEditorContextMenu n=new ModelEditorContextMenu();
+  mContextMenuListener=contextMenuListener;
+  Bundle b=new Bundle();
+  b.putString("label",label);
+  mContextMenuListener=contextMenuListener;
+  n.setArguments(b);
+  return n;
+}

@@ -1,0 +1,37 @@
+{
+  JSONObject model;
+  try {
+    if (modelName.length() > 0) {
+switch (position) {
+case (0):
+        model=Models.addBasicModel(col);
+      break;
+case (1):
+    model=Models.addForwardReverse(col);
+  break;
+case (2):
+model=Models.addForwardOptionalReverse(col);
+break;
+case (3):
+model=Models.addClozeModel(col);
+break;
+default :
+JSONObject oldModel=new JSONObject(mModels.get(position - 4).toString());
+JSONObject newModel=Models.addBasicModel(col);
+oldModel.put("id",newModel.get("id"));
+model=oldModel;
+}
+model.put("name",modelName);
+col.getModels().update(model);
+fullRefresh();
+}
+ else {
+showToast(getResources().getString(R.string.toast_empty_name));
+}
+}
+ catch (ConfirmModSchemaException e) {
+}
+catch (JSONException e) {
+throw new RuntimeException(e);
+}
+}

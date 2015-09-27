@@ -1,0 +1,12 @@
+{
+  try {
+    String fieldLabel=mFieldNameInput.getText().toString().replaceAll("[\'\"\\n\\r\\[\\]\\(\\)]","");
+    JSONObject field=(JSONObject)mNoteFields.get(mCurrentPos);
+    mCol.getModels().renameField(mMod,field,fieldLabel);
+    mCol.getModels().save();
+    fullRefreshList();
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException();
+  }
+}

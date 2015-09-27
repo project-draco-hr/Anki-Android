@@ -75,6 +75,18 @@ case TASK_TYPE_ADD_TEMPLATE:
 return doInBackgroundAddTemplate(params);
 case TASK_TYPE_REMOVE_TEMPLATE:
 return doInBackgroundRemoveTemplate(params);
+case TASK_TYPE_COUNT_MODELS:
+return doInBackgroundCountModels(params);
+case TASK_TYPE_DELETE_MODEL:
+return doInBackGroundDeleteModel(params);
+case TASK_TYPE_DELETE_FIELD:
+return doInBackGroundDeleteField(params);
+case TASK_TYPE_REPOSITION_FIELD:
+return doInBackGroundRepositionField(params);
+case TASK_TYPE_ADD_FIELD:
+return doInBackGroundAddField(params);
+case TASK_TYPE_CHANGE_SORT_FIELD:
+return doInBackgroundChangeSortField(params);
 default :
 Timber.e("unknown task type: %d",mType);
 return null;

@@ -1,0 +1,8 @@
+{
+  super.onCreate(savedInstanceState);
+  String[] entries=new String[3];
+  entries[MODEL_TEMPLATE]=getResources().getString(R.string.model_browser_template);
+  entries[MODEL_RENAME]=getResources().getString(R.string.model_browser_rename);
+  entries[MODEL_DELETE]=getResources().getString(R.string.model_browser_delete);
+  return new MaterialDialog.Builder(getActivity()).title(getArguments().getString("label")).items(entries).itemsCallback(mContextMenuListener).build();
+}

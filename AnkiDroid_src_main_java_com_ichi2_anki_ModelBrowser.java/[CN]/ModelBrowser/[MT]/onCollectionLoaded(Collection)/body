@@ -1,0 +1,5 @@
+{
+  super.onCollectionLoaded(col);
+  this.col=col;
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_COUNT_MODELS,mLoadingModelsHandler);
+}

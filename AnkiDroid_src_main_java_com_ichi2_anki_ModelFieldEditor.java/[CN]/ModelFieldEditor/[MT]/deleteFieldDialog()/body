@@ -1,0 +1,46 @@
+{
+  if (mFieldLabels.size() < 2) {
+    showToast(getResources().getString(R.string.toast_last_field));
+  }
+ else {
+    try {
+      mCol.modSchema();
+      ConfirmationDialog d=new ConfirmationDialog(){
+        public void confirm(){
+          try {
+            mCol.modSchema(false);
+            deleteField();
+          }
+ catch (          ConfirmModSchemaException e) {
+          }
+          dismissContextMenu();
+        }
+        public void cancel(){
+          dismissContextMenu();
+        }
+      }
+;
+      d.setArgs(getResources().getString(R.string.field_delete_warning));
+      showDialogFragment(d);
+    }
+ catch (    ConfirmModSchemaException e) {
+      ConfirmationDialog c=new ConfirmationDialog(){
+        public void confirm(){
+          try {
+            mCol.modSchema(false);
+            deleteField();
+          }
+ catch (          ConfirmModSchemaException e) {
+          }
+          dismissContextMenu();
+        }
+        public void cancel(){
+          dismissContextMenu();
+        }
+      }
+;
+      c.setArgs(getResources().getString(R.string.full_sync_confirmation));
+      showDialogFragment(c);
+    }
+  }
+}

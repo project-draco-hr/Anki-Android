@@ -1,0 +1,38 @@
+{
+  mModelDisplayList=new ArrayList<>();
+  mModelIds=new ArrayList<>();
+  for (int i=0; i < mModels.size(); i++) {
+    try {
+      mModelIds.add(mModels.get(i).getLong("id"));
+      mModelDisplayList.add(new DisplayPair(mModels.get(i).getString("name"),mCardCounts.get(i)));
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  mModelDisplayAdapter=new DisplayPairAdapter(this,mModelDisplayList);
+  mModelListView.setAdapter(mModelDisplayAdapter);
+  mModelListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+    @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
+      long noteTypeID=mModelIds.get(position);
+      mModelListPosition=position;
+      Intent noteOpenIntent=new Intent(ModelBrowser.this,ModelFieldEditor.class);
+      noteOpenIntent.putExtra("title",mModelDisplayList.get(position).getName());
+      noteOpenIntent.putExtra("noteTypeID",noteTypeID);
+      startActivityForResultWithAnimation(noteOpenIntent,0,ActivityTransitionAnimation.LEFT);
+    }
+  }
+);
+  mModelListView.setOnItemLongClickListener(new OnItemLongClickListener(){
+    public boolean onItemLongClick(    AdapterView<?> parent,    View view,    int position,    long id){
+      String cardName=mModelDisplayList.get(position).getName();
+      mCurrentID=mModelIds.get(position);
+      mModelListPosition=position;
+      mContextMenu=ModelBrowserContextMenu.newInstance(cardName,mContextMenuListener);
+      showDialogFragment(mContextMenu);
+      return true;
+    }
+  }
+);
+  updateSubtitleText();
+}

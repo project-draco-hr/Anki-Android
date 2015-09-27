@@ -1,0 +1,11 @@
+{
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.model_browser);
+  mModelListView=(ListView)findViewById(R.id.note_type_browser_list);
+  Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
+  if (toolbar != null) {
+    setSupportActionBar(toolbar);
+  }
+  mActionBar=getSupportActionBar();
+  startLoadingCollection();
+}

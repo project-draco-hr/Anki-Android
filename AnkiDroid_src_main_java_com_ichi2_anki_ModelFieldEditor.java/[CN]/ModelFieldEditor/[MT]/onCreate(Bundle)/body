@@ -1,0 +1,14 @@
+{
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.model_field_editor);
+  startLoadingCollection();
+  Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
+  mFieldLabelView=(ListView)findViewById(R.id.note_type_editor_fields);
+  if (toolbar != null) {
+    setSupportActionBar(toolbar);
+  }
+  if (getSupportActionBar() != null) {
+    getSupportActionBar().setTitle(R.string.model_field_editor_title);
+    getSupportActionBar().setSubtitle(getIntent().getStringExtra("title"));
+  }
+}

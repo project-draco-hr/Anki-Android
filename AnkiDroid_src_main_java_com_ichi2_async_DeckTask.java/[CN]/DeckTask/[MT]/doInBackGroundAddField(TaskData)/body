@@ -1,0 +1,14 @@
+{
+  Timber.d("doInBackgroundRepositionField");
+  Object[] objects=params[0].getObjArray();
+  JSONObject model=(JSONObject)objects[0];
+  String fieldName=(String)objects[1];
+  Collection col=CollectionHelper.getInstance().getCol(mContext);
+  try {
+    col.getModels().addField(model,col.getModels().newField(fieldName));
+  }
+ catch (  ConfirmModSchemaException e) {
+    return new TaskData(false);
+  }
+  return new TaskData(true);
+}

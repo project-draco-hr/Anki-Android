@@ -1,0 +1,8 @@
+{
+  try {
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DELETE_FIELD,mChangeFieldHandler,new DeckTask.TaskData(new Object[]{mMod,mNoteFields.getJSONObject(mCurrentPos)}));
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}
