@@ -1,0 +1,5 @@
+{
+  Intent reviewer=new Intent(this,Reviewer.class);
+  startActivityForResultWithAnimation(reviewer,REQUEST_REVIEW,ActivityTransitionAnimation.LEFT);
+  getCol().startTimebox();
+}

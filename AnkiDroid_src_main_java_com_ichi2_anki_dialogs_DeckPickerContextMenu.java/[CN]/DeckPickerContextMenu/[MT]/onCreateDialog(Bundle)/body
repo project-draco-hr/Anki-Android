@@ -1,9 +1,10 @@
 {
   super.onCreate(savedInstanceState);
   Resources res=getResources();
-  String[] entries=new String[4];
+  String[] entries=new String[5];
   entries[CONTEXT_MENU_RENAME_DECK]=res.getString(R.string.contextmenu_deckpicker_rename_deck);
   entries[CONTEXT_MENU_DECK_OPTIONS]=res.getString(R.string.study_options);
+  entries[CONTEXT_MENU_CUSTOM_STUDY]=res.getString(R.string.custom_study);
   entries[CONTEXT_MENU_DELETE_DECK]=res.getString(R.string.contextmenu_deckpicker_delete_deck);
   entries[CONTEXT_MENU_EXPORT_DECK]=res.getString(R.string.export);
   return new MaterialDialog.Builder(getActivity()).title(getArguments().getString("dialogTitle")).cancelable(true).autoDismiss(false).items(entries).itemsCallback(mContextMenuListener).build();

@@ -1,0 +1,51 @@
+{
+  String[] entries=getListEntries(id);
+  final boolean jumpToReviewer=getArguments().getBoolean("jumpToReviewer");
+  return new MaterialDialog.Builder(this.getActivity()).title(R.string.custom_study).cancelable(true).items(entries).itemsCallback(new MaterialDialog.ListCallback(){
+    @Override public void onSelection(    MaterialDialog materialDialog,    View view,    int which,    CharSequence charSequence){
+      AnkiActivity activity=(AnkiActivity)getActivity();
+      if (mEntries.get(which) == DECK_OPTIONS) {
+        Intent i=new Intent(activity,DeckOptions.class);
+        i.putExtra("did",activity.getCol().getDecks().selected());
+        getActivity().startActivity(i);
+      }
+ else       if (mEntries.get(which) == MORE_OPTIONS) {
+        CustomStudyDialog d=CustomStudyDialog.newInstance(CONTEXT_MENU_STANDARD,jumpToReviewer);
+        activity.showDialogFragment(d);
+      }
+ else       if (mEntries.get(which) == CUSTOM_STUDY_TAGS) {
+        TagsDialog dialogFragment=TagsDialog.newInstance(TagsDialog.TYPE_CUSTOM_STUDY_TAGS,new ArrayList<String>(),new ArrayList<>(activity.getCol().getTags().all()));
+        dialogFragment.setTagsDialogListener(new TagsDialog.TagsDialogListener(){
+          @Override public void onPositive(          List<String> selectedTags,          int option){
+            StringBuilder sb=new StringBuilder();
+switch (option) {
+case 1:
+              sb.append("is:new ");
+            break;
+case 2:
+          sb.append("is:due ");
+        break;
+default :
+      break;
+  }
+  List<String> arr=new ArrayList<>();
+  if (selectedTags.size() > 0) {
+    for (    String tag : selectedTags) {
+      arr.add(String.format("tag:'%s'",tag));
+    }
+    sb.append("(").append(TextUtils.join(" or ",arr)).append(")");
+  }
+  createCustomStudySession(new JSONArray(),new Object[]{sb.toString(),Consts.DYN_MAX_SIZE,Consts.DYN_RANDOM},false);
+}
+}
+);
+activity.showDialogFragment(dialogFragment);
+}
+ else {
+CustomStudyDialog d=CustomStudyDialog.newInstance(mEntries.get(which),jumpToReviewer);
+((AnkiActivity)getActivity()).showDialogFragment(d);
+}
+}
+}
+).build();
+}
