@@ -1,6 +1,6 @@
 {
   Intent reviewer=new Intent(getActivity(),Reviewer.class);
-  startActivityForResult(reviewer,REQUEST_REVIEW);
+  startActivityForResult(reviewer,AnkiActivity.REQUEST_REVIEW);
   animateLeft();
   getCol().startTimebox();
 }

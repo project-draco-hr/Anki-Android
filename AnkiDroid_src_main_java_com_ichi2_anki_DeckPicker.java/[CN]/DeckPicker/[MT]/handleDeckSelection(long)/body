@@ -1,14 +1,37 @@
 {
-  if (mDeckListAdapter.hasCards(did)) {
-    getCol().getDecks().select(did);
-    mFocusedDeck=did;
+  getCol().getDecks().select(did);
+  mFocusedDeck=did;
+  int pos=mDeckListAdapter.findDeckPosition(did);
+  Sched.DeckDueTreeNode deckDueTreeNode=mDeckListAdapter.getDeckList().get(pos);
+  if (getCol().getDecks().isDyn(did) || mFragmented) {
     openStudyOptions(false);
   }
- else {
-    showSnackbar(R.string.studyoptions_empty,false,R.string.help,new OnClickListener(){
+ else   if (deckDueTreeNode.newCount + deckDueTreeNode.lrnCount + deckDueTreeNode.revCount > 0) {
+    openReviewer();
+  }
+ else   if (getCol().getSched().newDue() || getCol().getSched().revDue()) {
+    showSnackbar(R.string.studyoptions_limit_reached,false,R.string.study_more,new OnClickListener(){
+      @Override public void onClick(      View v){
+        CustomStudyDialog d=CustomStudyDialog.newInstance(CustomStudyDialog.CONTEXT_MENU_LIMITS,true);
+        showDialogFragment(d);
+      }
+    }
+,findViewById(R.id.root_layout));
+  }
+ else   if (deckDueTreeNode.children.size() == 0 && getCol().cardCount(new long[]{did}) == 0) {
+    showSnackbar(R.string.empty_deck,false,R.string.help,new OnClickListener(){
       @Override public void onClick(      View v){
         Intent helpIntent=new Intent("android.intent.action.VIEW",Uri.parse(getResources().getString(R.string.link_manual_getting_started)));
         startActivityWithoutAnimation(helpIntent);
+      }
+    }
+,findViewById(R.id.root_layout));
+  }
+ else {
+    showSnackbar(R.string.studyoptions_empty_schedule,false,R.string.custom_study,new OnClickListener(){
+      @Override public void onClick(      View v){
+        CustomStudyDialog d=CustomStudyDialog.newInstance(CustomStudyDialog.CONTEXT_MENU_EMPTY_SCHEDULE,true);
+        showDialogFragment(d);
       }
     }
 ,findViewById(R.id.root_layout));

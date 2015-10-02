@@ -1,7 +1,6 @@
 {
   Timber.d("doInBackgroundEmptyCram");
   Collection col=CollectionHelper.getInstance().getCol(mContext);
-  boolean fragmented=params[0].getBoolean();
   col.getSched().emptyDyn(col.getDecks().selected());
-  return doInBackgroundUpdateValuesFromDeck(new DeckTask.TaskData(new Object[]{true,fragmented}));
+  return doInBackgroundUpdateValuesFromDeck(new DeckTask.TaskData(new Object[]{true}));
 }

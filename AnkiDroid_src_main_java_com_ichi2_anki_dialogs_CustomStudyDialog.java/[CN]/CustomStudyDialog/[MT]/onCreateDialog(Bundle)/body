@@ -1,84 +1,10 @@
 {
-  super.onCreateDialog(savedInstanceState);
-  Resources res=getActivity().getResources();
-  View v=getActivity().getLayoutInflater().inflate(R.layout.styled_custom_study_details_dialog,null);
-  TextView textView1=(TextView)v.findViewById(R.id.custom_study_details_text1);
-  TextView textView2=(TextView)v.findViewById(R.id.custom_study_details_text2);
-  mEditText=(EditText)v.findViewById(R.id.custom_study_details_edittext2);
-  textView1.setText(getText1());
-  textView2.setText(getText2());
-  mEditText.setText(getDefaultValue());
-  mEditText.setSelectAllOnFocus(true);
-  mEditText.requestFocus();
-  MaterialDialog dialog=new MaterialDialog.Builder(getActivity()).customView(v,true).positiveText(res.getString(R.string.dialog_ok)).negativeText(res.getString(R.string.dialog_cancel)).callback(new MaterialDialog.ButtonCallback(){
-    @Override public void onPositive(    MaterialDialog dialog){
-      Collection col;
-      int n=Integer.parseInt(mEditText.getText().toString());
-      int choice=getArguments().getInt("id");
-switch (choice) {
-case CUSTOM_STUDY_NEW:
-        col=CollectionHelper.getInstance().getCol(getActivity());
-      if (col == null || col.getDb() == null) {
-        Themes.showThemedToast(getActivity().getBaseContext(),getResources().getString(R.string.open_collection_failed_title),false);
-        return;
-      }
-    try {
-      AnkiDroidApp.getSharedPrefs(getActivity()).edit().putInt("extendNew",n).commit();
-      JSONObject deck=col.getDecks().current();
-      deck.put("extendNew",n);
-      col.getDecks().save(deck);
-      col.getSched().extendLimits(n,0);
-    }
- catch (    JSONException e) {
-      throw new RuntimeException(e);
-    }
-  break;
-case CUSTOM_STUDY_REV:
-col=CollectionHelper.getInstance().getCol(getActivity());
-if (col == null || col.getDb() == null) {
-Themes.showThemedToast(getActivity().getBaseContext(),getResources().getString(R.string.open_collection_failed_title),false);
-return;
-}
-try {
-AnkiDroidApp.getSharedPrefs(getActivity()).edit().putInt("extendRev",n).commit();
-JSONObject deck=col.getDecks().current();
-deck.put("extendRev",n);
-col.getDecks().save(deck);
-col.getSched().extendLimits(0,n);
-}
- catch (JSONException e) {
-throw new RuntimeException(e);
-}
-break;
-case CUSTOM_STUDY_FORGOT:
-JSONArray ar=new JSONArray();
-try {
-ar.put(0,1);
-((StudyOptionsListener)getActivity()).createFilteredDeck(ar,new Object[]{String.format(Locale.US,"rated:%d:1",n),Consts.DYN_MAX_SIZE,Consts.DYN_RANDOM},false);
-}
- catch (JSONException e) {
-throw new RuntimeException(e);
-}
-break;
-case CUSTOM_STUDY_AHEAD:
-((StudyOptionsListener)getActivity()).createFilteredDeck(new JSONArray(),new Object[]{String.format(Locale.US,"prop:due<=%d",n),Consts.DYN_MAX_SIZE,Consts.DYN_DUE},true);
-break;
-case CUSTOM_STUDY_RANDOM:
-((StudyOptionsListener)getActivity()).createFilteredDeck(new JSONArray(),new Object[]{"",n,Consts.DYN_RANDOM},true);
-break;
-case CUSTOM_STUDY_PREVIEW:
-((StudyOptionsListener)getActivity()).createFilteredDeck(new JSONArray(),new Object[]{"is:new added:" + Integer.toString(n),Consts.DYN_MAX_SIZE,Consts.DYN_OLDEST},false);
-break;
-default :
-break;
-}
-mCustomStudyDialogListener.onPositive(choice);
-}
-@Override public void onNegative(MaterialDialog dialog){
-((AnkiActivity)getActivity()).dismissAllDialogFragments();
-}
-}
-).build();
-dialog.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-return dialog;
+  super.onCreate(savedInstanceState);
+  final int dialogId=getArguments().getInt("id");
+  if (dialogId < 100) {
+    return buildContextMenu(dialogId);
+  }
+ else {
+    return buildInputDialog(dialogId);
+  }
 }

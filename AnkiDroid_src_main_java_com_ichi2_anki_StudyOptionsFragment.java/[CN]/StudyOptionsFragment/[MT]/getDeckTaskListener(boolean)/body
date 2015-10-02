@@ -50,9 +50,10 @@
           openFilteredDeckOptions(mLoadWithDeckOptions);
           return;
         }
-        if (totalCards == 0) {
+        boolean isDynamic=deck.optInt("dyn",0) != 0;
+        if (totalCards == 0 && !isDynamic) {
           mCurrentContentView=CONTENT_EMPTY;
-          mDeckInfoLayout.setVisibility(View.GONE);
+          mDeckInfoLayout.setVisibility(View.VISIBLE);
           mCongratsLayout.setVisibility(View.VISIBLE);
           mTextCongratsMessage.setText(R.string.studyoptions_empty);
           mButtonStart.setVisibility(View.GONE);
@@ -62,7 +63,9 @@
         }
  else         if (newCards + lrnCards + revCards == 0) {
           mCurrentContentView=CONTENT_CONGRATS;
-          mDeckInfoLayout.setVisibility(View.GONE);
+          if (!isDynamic) {
+            mDeckInfoLayout.setVisibility(View.GONE);
+          }
           mCongratsLayout.setVisibility(View.VISIBLE);
           mTextCongratsMessage.setText(getCol().getSched().finishedMsg(getActivity()));
           mButtonStart.setVisibility(View.GONE);
@@ -74,16 +77,11 @@
           mButtonStart.setVisibility(View.VISIBLE);
         }
         String desc;
-        try {
-          if (deck.getInt("dyn") == 0) {
-            desc=getCol().getDecks().getActualDescription();
-          }
- else {
-            desc=getResources().getString(R.string.dyn_deck_desc);
-          }
+        if (isDynamic) {
+          desc=getResources().getString(R.string.dyn_deck_desc);
         }
- catch (        JSONException e) {
-          throw new RuntimeException(e);
+ else {
+          desc=getCol().getDecks().getActualDescription();
         }
         if (desc.length() > 0) {
           mTextDeckDescription.setText(Html.fromHtml(desc));
