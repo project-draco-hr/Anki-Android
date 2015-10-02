@@ -1,0 +1,12 @@
+{
+  if (mDrawer != null) {
+    outState=mDrawer.saveInstanceState(outState);
+  }
+  if (mHeader != null) {
+    outState=mHeader.saveInstanceState(outState);
+  }
+  if (mCrossFader != null) {
+    outState=mCrossFader.saveInstanceState(outState);
+  }
+  super.onSaveInstanceState(outState);
+}

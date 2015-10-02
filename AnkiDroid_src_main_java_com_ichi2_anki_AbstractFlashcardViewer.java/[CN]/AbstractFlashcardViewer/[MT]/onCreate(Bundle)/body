@@ -5,7 +5,7 @@
   super.onCreate(savedInstanceState);
   setContentView(R.layout.flashcard);
   View mainView=findViewById(android.R.id.content);
-  initNavigationDrawer(mainView);
+  initNavigationDrawer(mainView,savedInstanceState,mPrefFullscreenReview);
   if (mPrefFullscreenReview) {
     CompatHelper.getCompat().setFullScreen(this);
   }
