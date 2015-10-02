@@ -1,0 +1,33 @@
+{
+  Toolbar toolbar=(Toolbar)mainView.findViewById(R.id.toolbar);
+  if (toolbar != null) {
+    setSupportActionBar(toolbar);
+  }
+  PrimaryDrawerItem deckListItem=new PrimaryDrawerItem().withName(R.string.decks).withIcon(GoogleMaterial.Icon.gmd_list).withIdentifier(DRAWER_DECK_PICKER);
+  PrimaryDrawerItem browserItem=new PrimaryDrawerItem().withName(R.string.card_browser).withIcon(GoogleMaterial.Icon.gmd_search).withIdentifier(DRAWER_BROWSER);
+  PrimaryDrawerItem statsItem=new PrimaryDrawerItem().withName(R.string.statistics).withIcon(GoogleMaterial.Icon.gmd_equalizer).withIdentifier(DRAWER_STATISTICS);
+  SecondarySwitchDrawerItem nightModeItem=new SecondarySwitchDrawerItem().withName(R.string.night_mode).withChecked(AnkiDroidApp.getSharedPrefs(this).getBoolean("invertedColors",false)).withOnCheckedChangeListener(this).withSelectable(false).withIcon(GoogleMaterial.Icon.gmd_brightness_3).withIdentifier(DRAWER_NIGHT_MODE);
+  SecondaryDrawerItem settingsItem=new SecondaryDrawerItem().withName(R.string.settings).withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(DRAWER_SETTINGS);
+  SecondaryDrawerItem helpItem=new SecondaryDrawerItem().withName(R.string.help).withIcon(GoogleMaterial.Icon.gmd_help).withIdentifier(DRAWER_HELP);
+  SecondaryDrawerItem feedbackItem=new SecondaryDrawerItem().withName(R.string.send_feedback).withIcon(GoogleMaterial.Icon.gmd_feedback).withIdentifier(DRAWER_FEEDBACK);
+  DisplayMetrics displayMetrics=getResources().getDisplayMetrics();
+  float dpHeight=displayMetrics.heightPixels / displayMetrics.density;
+  float dpWidth=displayMetrics.widthPixels / displayMetrics.density;
+  if (dpHeight > 320 && dpWidth > 320) {
+    int[] attrs=new int[]{R.attr.navDrawerImage};
+    TypedArray ta=obtainStyledAttributes(attrs);
+    mHeader=new AccountHeaderBuilder().withActivity(this).withHeaderBackground(ta.getResourceId(0,R.drawable.nav_drawer_logo)).build();
+  }
+  DrawerBuilder builder=new DrawerBuilder().withActivity(this).withToolbar(toolbar).withAccountHeader(mHeader).withTranslucentStatusBar(true).withFullscreen(fullScreen).addDrawerItems(deckListItem,browserItem,statsItem,new DividerDrawerItem(),nightModeItem,settingsItem,helpItem,feedbackItem).withOnDrawerItemClickListener(this);
+  if (dpWidth >= 1024) {
+    mDrawer=builder.withTranslucentStatusBar(false).buildView();
+    mMiniDrawer=new MiniDrawer().withDrawer(mDrawer).withInnerShadow(true).withIncludeSecondaryDrawerItems(true).withAccountHeader(mHeader);
+    int first=(int)UIUtils.convertDpToPixel(300,this);
+    int second=(int)UIUtils.convertDpToPixel(72,this);
+    mCrossFader=new Crossfader().withContent(mainView).withFirst(mDrawer.getSlider(),first).withSecond(mMiniDrawer.build(this),second).withSavedInstance(savedInstanceState).build();
+    mMiniDrawer.withCrossFader(new CrossfadeWrapper(mCrossFader));
+  }
+ else {
+    mDrawer=builder.build();
+  }
+}
