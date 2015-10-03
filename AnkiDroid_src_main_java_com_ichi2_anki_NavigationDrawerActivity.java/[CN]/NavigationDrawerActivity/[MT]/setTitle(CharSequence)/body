@@ -1,4 +1,6 @@
 {
   mTitle=title;
-  getSupportActionBar().setTitle(mTitle);
+  if (getSupportActionBar() != null) {
+    getSupportActionBar().setTitle(mTitle);
+  }
 }

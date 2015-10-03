@@ -1,8 +1,0 @@
-{
-  if (col != null) {
-    onCollectionLoaded(col);
-  }
- else {
-    AnkiDatabaseManager.closeDatabase(CollectionHelper.getCollectionPath(getActivity()));
-  }
-}

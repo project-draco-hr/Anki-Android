@@ -16,7 +16,7 @@
         showDialogFragment(d);
       }
     }
-,findViewById(R.id.root_layout));
+,findViewById(R.id.root_layout),mSnackbarShowHideCallback);
   }
  else   if (deckDueTreeNode.children.size() == 0 && getCol().cardCount(new long[]{did}) == 0) {
     showSnackbar(R.string.empty_deck,false,R.string.help,new OnClickListener(){
@@ -25,7 +25,7 @@
         startActivityWithoutAnimation(helpIntent);
       }
     }
-,findViewById(R.id.root_layout));
+,findViewById(R.id.root_layout),mSnackbarShowHideCallback);
   }
  else {
     showSnackbar(R.string.studyoptions_empty_schedule,false,R.string.custom_study,new OnClickListener(){
@@ -34,6 +34,6 @@
         showDialogFragment(d);
       }
     }
-,findViewById(R.id.root_layout));
+,findViewById(R.id.root_layout),mSnackbarShowHideCallback);
   }
 }

@@ -12,8 +12,7 @@
         int totalNew=(Integer)obj[3];
         int totalCards=(Integer)obj[4];
         int eta=(Integer)obj[7];
-        double[][] serieslist=(double[][])obj[8];
-        if (getActivity() == null || !colOpen()) {
+        if (getActivity() == null) {
           Timber.e("StudyOptionsFragment.mRefreshFragmentListener :: can't refresh");
           return;
         }
@@ -37,11 +36,6 @@
             nameBuilder.append("\n").append(name[name.length - 1]);
           }
           mTextDeckName.setText(nameBuilder.toString());
-          if (!mFragmented) {
-            getActivity().setTitle(getResources().getString(R.string.studyoptions_title));
-            List<String> parts=Arrays.asList(fullName.split("::"));
-            ((AppCompatActivity)getActivity()).getSupportActionBar().setSubtitle(parts.get(parts.size() - 1));
-          }
         }
  catch (        JSONException e) {
           throw new RuntimeException(e);
@@ -54,27 +48,29 @@
         if (totalCards == 0 && !isDynamic) {
           mCurrentContentView=CONTENT_EMPTY;
           mDeckInfoLayout.setVisibility(View.VISIBLE);
-          mCongratsLayout.setVisibility(View.VISIBLE);
+          mTextCongratsMessage.setVisibility(View.VISIBLE);
           mTextCongratsMessage.setText(R.string.studyoptions_empty);
           mButtonStart.setVisibility(View.GONE);
-          if (mChartView != null) {
-            mChartView.setVisibility(View.INVISIBLE);
-          }
         }
  else         if (newCards + lrnCards + revCards == 0) {
           mCurrentContentView=CONTENT_CONGRATS;
           if (!isDynamic) {
             mDeckInfoLayout.setVisibility(View.GONE);
+            mButtonStart.setVisibility(View.VISIBLE);
+            mButtonStart.setText(R.string.custom_study);
           }
-          mCongratsLayout.setVisibility(View.VISIBLE);
+ else {
+            mButtonStart.setVisibility(View.GONE);
+          }
+          mTextCongratsMessage.setVisibility(View.VISIBLE);
           mTextCongratsMessage.setText(getCol().getSched().finishedMsg(getActivity()));
-          mButtonStart.setVisibility(View.GONE);
         }
  else {
           mCurrentContentView=CONTENT_STUDY_OPTIONS;
           mDeckInfoLayout.setVisibility(View.VISIBLE);
-          mCongratsLayout.setVisibility(View.GONE);
+          mTextCongratsMessage.setVisibility(View.GONE);
           mButtonStart.setVisibility(View.VISIBLE);
+          mButtonStart.setText(R.string.studyoptions_start);
         }
         String desc;
         if (isDynamic) {
@@ -90,7 +86,6 @@
  else {
           mTextDeckDescription.setVisibility(View.GONE);
         }
-        updateChart(serieslist);
         mTextTodayNew.setText(String.valueOf(newCards));
         mTextTodayLrn.setText(String.valueOf(lrnCards));
         mTextTodayRev.setText(String.valueOf(revCards));
@@ -133,14 +128,7 @@
  else {
           mTextETA.setText("-");
         }
-        if (mButtonUnbury != null) {
-          if (getCol().getSched().haveBuried()) {
-            mButtonUnbury.setVisibility(View.VISIBLE);
-          }
- else {
-            mButtonUnbury.setVisibility(View.GONE);
-          }
-        }
+        getActivity().supportInvalidateOptionsMenu();
       }
       if (mFragmented && refreshDecklist) {
         mListener.onRequireDeckListUpdate();
