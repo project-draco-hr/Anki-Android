@@ -1,0 +1,24 @@
+{
+  mToolbar.inflateMenu(R.menu.study_options_fragment);
+  mToolbar.setOnMenuItemClickListener(this);
+  Menu menu=mToolbar.getMenu();
+  if (getCol().getDecks().isDyn(getCol().getDecks().selected())) {
+    menu.findItem(R.id.action_rebuild).setVisible(true);
+    menu.findItem(R.id.action_empty).setVisible(true);
+    menu.findItem(R.id.action_custom_study).setVisible(false);
+  }
+ else {
+    menu.findItem(R.id.action_rebuild).setVisible(false);
+    menu.findItem(R.id.action_empty).setVisible(false);
+    menu.findItem(R.id.action_custom_study).setVisible(true);
+  }
+  menu.findItem(R.id.action_unbury).setVisible(getCol().getSched().haveBuried());
+  if (!getCol().undoAvailable()) {
+    menu.findItem(R.id.action_undo).setVisible(false);
+  }
+ else {
+    menu.findItem(R.id.action_undo).setVisible(true);
+    Resources res=AnkiDroidApp.getAppResources();
+    menu.findItem(R.id.action_undo).setTitle(res.getString(R.string.studyoptions_congrats_undo,getCol().undoName(res)));
+  }
+}

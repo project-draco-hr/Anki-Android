@@ -1,7 +1,5 @@
 {
   super.onResume();
-  if (colOpen()) {
-    Timber.d("onResume()");
-    refreshInterface(true);
-  }
+  Timber.d("onResume()");
+  refreshInterface(true);
 }
