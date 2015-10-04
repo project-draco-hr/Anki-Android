@@ -21,4 +21,13 @@
     Resources res=AnkiDroidApp.getAppResources();
     menu.findItem(R.id.action_undo).setTitle(res.getString(R.string.studyoptions_congrats_undo,getCol().undoName(res)));
   }
+  if (!mFragmented) {
+    mToolbar.setNavigationIcon(new IconicsDrawable(getContext()).icon(GoogleMaterial.Icon.gmd_arrow_back).color(Color.WHITE).sizeDp(16));
+    mToolbar.setNavigationOnClickListener(new View.OnClickListener(){
+      @Override public void onClick(      View v){
+        ((AnkiActivity)getActivity()).finishWithAnimation(ActivityTransitionAnimation.RIGHT);
+      }
+    }
+);
+  }
 }
