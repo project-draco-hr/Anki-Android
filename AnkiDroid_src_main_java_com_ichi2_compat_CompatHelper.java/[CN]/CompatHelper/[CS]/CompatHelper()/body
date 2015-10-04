@@ -2,6 +2,9 @@
   if (isNookHdOrHdPlus() && getSdkVersion() == 15) {
     mCompat=new CompatV15NookHdOrHdPlus();
   }
+ else   if (getSdkVersion() >= 21) {
+    mCompat=new CompatV21();
+  }
  else   if (getSdkVersion() >= 19) {
     mCompat=new CompatV19();
   }

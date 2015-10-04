@@ -17,11 +17,12 @@
     holder.deckExpander.setTag(node.did);
     holder.deckExpander.setOnClickListener(mDeckExpanderClickListener);
   }
+  holder.deckLayout.setBackgroundResource(mRowCurrentDrawable);
   if (node.did == mCol.getDecks().current().optLong("id")) {
     holder.deckLayout.setBackgroundResource(mRowCurrentDrawable);
   }
  else {
-    holder.deckLayout.setBackgroundResource(mRowDefaultDrawable);
+    CompatHelper.getCompat().setSelectableBackground(holder.deckLayout);
   }
   holder.deckName.setText(node.names[0]);
   if (mCol.getDecks().isDyn(node.did)) {
