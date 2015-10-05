@@ -4,15 +4,15 @@
   }
   restorePreferences();
   mStudyOptionsView=inflater.inflate(R.layout.studyoptions_fragment,container,false);
-  mToolbar=(Toolbar)mStudyOptionsView.findViewById(R.id.studyOptionsToolbar);
-  if (mToolbar != null) {
-    configureToolbar();
-  }
   mFragmented=getActivity().getClass() != StudyOptionsActivity.class;
   NavigationDrawerActivity.setIsWholeCollection(false);
   initAllContentViews();
   if (getArguments() != null) {
     mLoadWithDeckOptions=getArguments().getBoolean("withDeckOptions");
+  }
+  mToolbar=(Toolbar)mStudyOptionsView.findViewById(R.id.studyOptionsToolbar);
+  if (mToolbar != null) {
+    configureToolbar();
   }
   refreshInterface(true);
   return mStudyOptionsView;
