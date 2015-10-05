@@ -3,8 +3,7 @@ switch (item.getItemId()) {
 case R.id.action_undo:
     Timber.i("StudyOptionsFragment:: Undo button pressed");
   getCol().undo();
-refreshInterfaceAndDecklist(true);
-configureToolbar();
+openReviewer();
 return true;
 case R.id.action_deck_options:
 Timber.i("StudyOptionsFragment:: Deck options button pressed");
@@ -25,6 +24,7 @@ case R.id.action_unbury:
 Timber.i("StudyOptionsFragment:: unbury button pressed");
 getCol().getSched().unburyCardsForDeck();
 refreshInterfaceAndDecklist(true);
+item.setVisible(false);
 return true;
 case R.id.action_rebuild:
 Timber.i("StudyOptionsFragment:: rebuild cram deck button pressed");
