@@ -15,6 +15,7 @@
   mNewModelNames.add(addForwardReverseName);
   mNewModelNames.add(addForwardOptionalReverseName);
   mNewModelNames.add(addClozeModelName);
+  final int numStdModels=mNewModelLabels.size();
   for (  JSONObject model : mModels) {
     try {
       mNewModelLabels.add(String.format(clone,model.getString("name")));
@@ -31,7 +32,7 @@
     @Override public void onPositive(    MaterialDialog dialog){
       mModelNameInput=new EditText(ModelBrowser.this);
       mModelNameInput.setSingleLine();
-      if (addSelectionSpinner.getSelectedItemPosition() < mNewModelLabels.size()) {
+      if (addSelectionSpinner.getSelectedItemPosition() < numStdModels) {
         mModelNameInput.setText(randomizeName(mNewModelNames.get(addSelectionSpinner.getSelectedItemPosition())));
       }
  else {
