@@ -13,7 +13,7 @@
     menu.findItem(R.id.action_custom_study).setVisible(true);
   }
   menu.findItem(R.id.action_unbury).setVisible(getCol().getSched().haveBuried());
-  if (!getCol().undoAvailable() || mFragmented) {
+  if (!getCol().undoAvailable()) {
     menu.findItem(R.id.action_undo).setVisible(false);
   }
  else {
