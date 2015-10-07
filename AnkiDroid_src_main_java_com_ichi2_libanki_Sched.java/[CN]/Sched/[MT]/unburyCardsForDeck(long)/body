@@ -1,0 +1,6 @@
+{
+  long odid=mCol.getDecks().selected();
+  mCol.getDecks().select(did);
+  unburyCardsForDeck();
+  mCol.getDecks().select(odid);
+}

@@ -1,7 +1,7 @@
 {
   DeckPickerContextMenu f=new DeckPickerContextMenu();
   Bundle args=new Bundle();
-  args.putString("dialogTitle",dialogTitle);
+  args.putLong("did",did);
   f.setArguments(args);
   return f;
 }

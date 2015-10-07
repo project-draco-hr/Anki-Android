@@ -1,7 +1,7 @@
 {
   int[] listIds=getListIds(id);
   final boolean jumpToReviewer=getArguments().getBoolean("jumpToReviewer");
-  return new MaterialDialog.Builder(this.getActivity()).title(R.string.custom_study).cancelable(true).itemsIds(listIds).items(getListValues(listIds)).itemsCallback(new MaterialDialog.ListCallback(){
+  return new MaterialDialog.Builder(this.getActivity()).title(R.string.custom_study).cancelable(true).itemsIds(listIds).items(ContextMenuHelper.getValuesFromKeys(getKeyValueMap(),listIds)).itemsCallback(new MaterialDialog.ListCallback(){
     @Override public void onSelection(    MaterialDialog materialDialog,    View view,    int which,    CharSequence charSequence){
       AnkiActivity activity=(AnkiActivity)getActivity();
 switch (view.getId()) {
