@@ -6,10 +6,6 @@
   if (resultCode == DeckPicker.RESULT_MEDIA_EJECTED) {
     finishNoStorageAvailable();
   }
-  if (!colIsOpen()) {
-    Timber.e("onActivityResult -- Collection is not open... aborting");
-    return;
-  }
   if (requestCode == EDIT_CURRENT_CARD) {
     if (data != null && data.hasExtra("reloadRequired")) {
       getCol().getSched().reset();
@@ -22,6 +18,10 @@
  else     if (resultCode == RESULT_CANCELED && !(data != null && data.hasExtra("reloadRequired"))) {
       fillFlashcard();
     }
+  }
+ else   if (requestCode == DECK_OPTIONS && resultCode == RESULT_OK) {
+    getCol().getSched().reset();
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(null,0));
   }
   if (!mDisableClipboard) {
     clipboardSetText("");

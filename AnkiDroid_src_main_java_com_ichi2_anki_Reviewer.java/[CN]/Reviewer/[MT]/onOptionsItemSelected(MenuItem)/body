@@ -63,7 +63,7 @@ lookUpOrSelectText();
 break;
 case R.id.action_open_deck_options:
 Intent i=new Intent(this,DeckOptions.class);
-startActivityWithAnimation(i,ActivityTransitionAnimation.FADE);
+startActivityForResultWithAnimation(i,DECK_OPTIONS,ActivityTransitionAnimation.FADE);
 break;
 default :
 return super.onOptionsItemSelected(item);
