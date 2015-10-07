@@ -36,8 +36,5 @@ return false;
 }
 mDrawer.closeDrawer();
 mSelectedItem=iDrawerItem.getIdentifier();
-if (mMiniDrawer != null) {
-return mMiniDrawer.onItemClick(iDrawerItem);
-}
 return true;
 }

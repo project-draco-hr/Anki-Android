@@ -19,15 +19,5 @@
     mHeader=new AccountHeaderBuilder().withActivity(this).withHeaderBackground(ta.getResourceId(0,R.drawable.nav_drawer_logo)).build();
   }
   DrawerBuilder builder=new DrawerBuilder().withActivity(this).withToolbar(toolbar).withAccountHeader(mHeader).withTranslucentStatusBar(true).withFullscreen(fullScreen).addDrawerItems(deckListItem,browserItem,statsItem,new DividerDrawerItem(),nightModeItem,settingsItem,helpItem,feedbackItem).withOnDrawerItemClickListener(this);
-  if (dpWidth >= 1024) {
-    mDrawer=builder.withTranslucentStatusBar(false).buildView();
-    mMiniDrawer=new MiniDrawer().withDrawer(mDrawer).withInnerShadow(true).withIncludeSecondaryDrawerItems(true).withAccountHeader(mHeader);
-    int first=(int)UIUtils.convertDpToPixel(300,this);
-    int second=(int)UIUtils.convertDpToPixel(72,this);
-    mCrossFader=new Crossfader().withContent(mainView).withFirst(mDrawer.getSlider(),first).withSecond(mMiniDrawer.build(this),second).withSavedInstance(savedInstanceState).build();
-    mMiniDrawer.withCrossFader(new CrossfadeWrapper(mCrossFader));
-  }
- else {
-    mDrawer=builder.build();
-  }
+  mDrawer=builder.build();
 }
