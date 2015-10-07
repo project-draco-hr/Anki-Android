@@ -2,18 +2,21 @@
   Resources res=getResources();
   mDialogEditText=new EditText(DeckPicker.this);
   mDialogEditText.setSingleLine();
-  final String currentName=getCol().getDecks().name(mContextMenuDid);
+  final String currentName=getCol().getDecks().name(did);
   mDialogEditText.setText(currentName);
   new MaterialDialog.Builder(DeckPicker.this).title(res.getString(R.string.contextmenu_deckpicker_rename_deck)).customView(mDialogEditText,true).positiveText(res.getString(R.string.rename)).negativeText(res.getString(R.string.dialog_cancel)).callback(new MaterialDialog.ButtonCallback(){
     @Override public void onPositive(    MaterialDialog dialog){
       String newName=mDialogEditText.getText().toString().replaceAll("\"","");
       Collection col=getCol();
-      if (!newName.equals(currentName) && !col.getDecks().rename(col.getDecks().get(mContextMenuDid),newName)) {
+      if (!newName.equals(currentName) && !col.getDecks().rename(col.getDecks().get(did),newName)) {
         Themes.showThemedToast(DeckPicker.this,getResources().getString(R.string.rename_error,currentName),false);
       }
       dismissAllDialogFragments();
       mDeckListAdapter.notifyDataSetChanged();
       updateDeckList();
+      if (mFragmented) {
+        loadStudyOptionsFragment(false);
+      }
     }
     @Override public void onNegative(    MaterialDialog dialog){
       dismissAllDialogFragments();

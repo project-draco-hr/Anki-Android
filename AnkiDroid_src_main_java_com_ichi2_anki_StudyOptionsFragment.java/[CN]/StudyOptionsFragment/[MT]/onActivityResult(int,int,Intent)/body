@@ -1,7 +1,7 @@
 {
   super.onActivityResult(requestCode,resultCode,intent);
   Timber.d("onActivityResult (requestCode = %d, resultCode = %d)",requestCode,resultCode);
-  getActivity().supportInvalidateOptionsMenu();
+  configureToolbar();
   if (resultCode == DeckPicker.RESULT_DB_ERROR || resultCode == DeckPicker.RESULT_MEDIA_EJECTED) {
     closeStudyOptions(resultCode);
     return;
