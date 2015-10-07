@@ -36,6 +36,15 @@ Timber.i("StudyOptionsFragment:: empty cram deck button pressed");
 mProgressDialog=StyledProgressDialog.show(getActivity(),"",getResources().getString(R.string.empty_cram_deck),false);
 DeckTask.launchDeckTask(DeckTask.TASK_TYPE_EMPTY_CRAM,getDeckTaskListener(true),new DeckTask.TaskData(mFragmented));
 return true;
+case R.id.action_rename:
+((DeckPicker)getActivity()).renameDeckDialog(getCol().getDecks().selected());
+return true;
+case R.id.action_delete:
+((DeckPicker)getActivity()).confirmDeckDeletion(getCol().getDecks().selected());
+return true;
+case R.id.action_export:
+((DeckPicker)getActivity()).exportDeck(getCol().getDecks().selected());
+return true;
 default :
 return false;
 }

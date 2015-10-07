@@ -1,0 +1,10 @@
+{
+  String msg;
+  try {
+    msg=getResources().getString(R.string.confirm_apkg_export_deck,getCol().getDecks().get(did).get("name"));
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+  showDialogFragment(ExportDialog.newInstance(msg,did));
+}

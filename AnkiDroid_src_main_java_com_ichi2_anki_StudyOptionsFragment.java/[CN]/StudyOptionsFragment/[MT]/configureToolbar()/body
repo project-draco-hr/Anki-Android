@@ -1,5 +1,4 @@
 {
-  mToolbar.inflateMenu(R.menu.study_options_fragment);
   mToolbar.setOnMenuItemClickListener(this);
   Menu menu=mToolbar.getMenu();
   if (getCol().getDecks().isDyn(getCol().getDecks().selected())) {
@@ -12,8 +11,21 @@
     menu.findItem(R.id.action_empty).setVisible(false);
     menu.findItem(R.id.action_custom_study).setVisible(true);
   }
+  if (mCurrentContentView == CONTENT_CONGRATS) {
+    menu.findItem(R.id.action_custom_study).setVisible(false);
+  }
+  if (mFragmented) {
+    menu.findItem(R.id.action_rename).setVisible(true);
+    menu.findItem(R.id.action_delete).setVisible(true);
+    menu.findItem(R.id.action_export).setVisible(true);
+  }
+ else {
+    menu.findItem(R.id.action_rename).setVisible(false);
+    menu.findItem(R.id.action_delete).setVisible(false);
+    menu.findItem(R.id.action_export).setVisible(false);
+  }
   menu.findItem(R.id.action_unbury).setVisible(getCol().getSched().haveBuried());
-  if (!getCol().undoAvailable() || mFragmented) {
+  if (!getCol().undoAvailable()) {
     menu.findItem(R.id.action_undo).setVisible(false);
   }
  else {
@@ -21,6 +33,7 @@
     Resources res=AnkiDroidApp.getAppResources();
     menu.findItem(R.id.action_undo).setTitle(res.getString(R.string.studyoptions_congrats_undo,getCol().undoName(res)));
   }
+  mToolbar.setTitle(R.string.studyoptions_title);
   if (!mFragmented) {
     mToolbar.setNavigationIcon(new IconicsDrawable(getContext()).icon(GoogleMaterial.Icon.gmd_arrow_back).color(Color.WHITE).sizeDp(16));
     mToolbar.setNavigationOnClickListener(new View.OnClickListener(){

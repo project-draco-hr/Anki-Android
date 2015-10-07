@@ -11,6 +11,7 @@
     mLoadWithDeckOptions=getArguments().getBoolean("withDeckOptions");
   }
   mToolbar=(Toolbar)mStudyOptionsView.findViewById(R.id.studyOptionsToolbar);
+  mToolbar.inflateMenu(R.menu.study_options_fragment);
   if (mToolbar != null) {
     configureToolbar();
   }

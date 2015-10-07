@@ -1,0 +1,7 @@
+{
+  long odid=mCol.getDecks().selected();
+  mCol.getDecks().select(did);
+  boolean buried=haveBuried();
+  mCol.getDecks().select(odid);
+  return buried;
+}

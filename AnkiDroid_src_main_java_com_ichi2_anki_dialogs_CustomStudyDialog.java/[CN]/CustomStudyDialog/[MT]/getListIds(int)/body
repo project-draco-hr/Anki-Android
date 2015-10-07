@@ -1,0 +1,22 @@
+{
+  Collection col=((AnkiActivity)getActivity()).getCol();
+switch (dialogId) {
+case CONTEXT_MENU_STANDARD:
+    return new int[]{CUSTOM_STUDY_NEW,CUSTOM_STUDY_REV,CUSTOM_STUDY_FORGOT,CUSTOM_STUDY_AHEAD,CUSTOM_STUDY_RANDOM,CUSTOM_STUDY_PREVIEW,CUSTOM_STUDY_TAGS};
+case CONTEXT_MENU_LIMITS:
+  if (col.getSched().newDue() && col.getSched().revDue()) {
+    return new int[]{CUSTOM_STUDY_NEW,CUSTOM_STUDY_REV,DECK_OPTIONS,CONTEXT_MENU_STANDARD};
+  }
+ else {
+    if (col.getSched().newDue()) {
+      return new int[]{CUSTOM_STUDY_NEW,DECK_OPTIONS,CONTEXT_MENU_STANDARD};
+    }
+ else {
+      return new int[]{CUSTOM_STUDY_REV,DECK_OPTIONS,CONTEXT_MENU_STANDARD};
+    }
+  }
+case CONTEXT_MENU_EMPTY_SCHEDULE:
+return new int[]{CUSTOM_STUDY_FORGOT,CUSTOM_STUDY_AHEAD,CUSTOM_STUDY_RANDOM,CUSTOM_STUDY_PREVIEW,CUSTOM_STUDY_TAGS,DECK_OPTIONS};
+}
+return null;
+}

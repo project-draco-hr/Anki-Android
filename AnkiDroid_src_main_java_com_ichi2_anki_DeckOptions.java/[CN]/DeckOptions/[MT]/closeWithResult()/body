@@ -1,0 +1,10 @@
+{
+  if (mPreferenceChanged) {
+    setResult(RESULT_OK);
+  }
+ else {
+    setResult(RESULT_CANCELED);
+  }
+  finish();
+  ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.FADE);
+}

@@ -128,7 +128,7 @@
  else {
           mTextETA.setText("-");
         }
-        getActivity().supportInvalidateOptionsMenu();
+        configureToolbar();
       }
       if (mFragmented && refreshDecklist) {
         mListener.onRequireDeckListUpdate();

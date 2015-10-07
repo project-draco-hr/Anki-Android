@@ -1,0 +1,16 @@
+{
+  Collection col=CollectionHelper.getInstance().getCol(getContext());
+  long did=getArguments().getLong("did");
+  ArrayList<Integer> itemIds=new ArrayList<>();
+  itemIds.add(CONTEXT_MENU_RENAME_DECK);
+  itemIds.add(CONTEXT_MENU_DECK_OPTIONS);
+  if (!col.getDecks().isDyn(did)) {
+    itemIds.add(CONTEXT_MENU_CUSTOM_STUDY);
+  }
+  itemIds.add(CONTEXT_MENU_DELETE_DECK);
+  itemIds.add(CONTEXT_MENU_EXPORT_DECK);
+  if (col.getSched().haveBuried(did)) {
+    itemIds.add(CONTEXT_MENU_UNBURY);
+  }
+  return ContextMenuHelper.integerListToArray(itemIds);
+}
