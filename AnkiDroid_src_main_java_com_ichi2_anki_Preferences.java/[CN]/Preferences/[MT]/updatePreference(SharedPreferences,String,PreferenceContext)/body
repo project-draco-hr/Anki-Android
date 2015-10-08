@@ -4,18 +4,20 @@
     Preference pref=screen.findPreference(key);
 switch (key) {
 case "timeoutAnswer":
-      CheckBoxPreference keepScreenOn=(CheckBoxPreference)screen.findPreference("keepScreenOn");
-    keepScreenOn.setChecked(((CheckBoxPreference)pref).isChecked());
-  break;
+{
+        CheckBoxPreference keepScreenOn=(CheckBoxPreference)screen.findPreference("keepScreenOn");
+        keepScreenOn.setChecked(((CheckBoxPreference)pref).isChecked());
+        break;
+      }
 case LANGUAGE:
-closePreferences();
-break;
+    closePreferences();
+  break;
 case "convertFenText":
 if (((CheckBoxPreference)pref).isChecked()) {
-ChessFilter.install(Hooks.getInstance(getApplicationContext()));
+  ChessFilter.install(Hooks.getInstance(getApplicationContext()));
 }
  else {
-ChessFilter.uninstall(Hooks.getInstance(getApplicationContext()));
+  ChessFilter.uninstall(Hooks.getInstance(getApplicationContext()));
 }
 break;
 case "fixHebrewText":
@@ -52,23 +54,30 @@ mCol.getConf().put("addToCur",((ListPreference)pref).getValue().equals("0"));
 mCol.setMod();
 break;
 case "dayOffset":
+{
 int hours=((SeekBarPreference)pref).getValue();
 Calendar date=new GregorianCalendar();
 date.set(Calendar.HOUR_OF_DAY,hours);
 mCol.setCrt(date.getTimeInMillis() / 1000);
 mCol.setMod();
 break;
+}
 case "minimumCardsDueForNotification":
+{
 ListPreference listpref=(ListPreference)screen.findPreference("minimumCardsDueForNotification");
 if (listpref != null) {
 updateNotificationPreference(listpref);
 }
 break;
+}
 case "reportErrorMode":
+{
 String value=prefs.getString("reportErrorMode","");
 AnkiDroidApp.getInstance().setAcraReportingMode(value);
 break;
+}
 case "syncAccount":
+{
 SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
 String username=preferences.getString("username","");
 Preference syncAccount=screen.findPreference("syncAccount");
@@ -81,6 +90,23 @@ syncAccount.setSummary(getString(R.string.sync_account_summ_logged_in,username))
 }
 }
 break;
+}
+case "providerEnabled":
+{
+ComponentName providerName=new ComponentName(this,"com.ichi2.anki.provider.CardContentProvider");
+PackageManager pm=getPackageManager();
+int state;
+if (((CheckBoxPreference)pref).isChecked()) {
+state=PackageManager.COMPONENT_ENABLED_STATE_ENABLED;
+Timber.i("AnkiDroid ContentProvider enabled by user");
+}
+ else {
+state=PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
+Timber.i("AnkiDroid ContentProvider disabled by user");
+}
+pm.setComponentEnabledSetting(providerName,state,PackageManager.DONT_KILL_APP);
+break;
+}
 }
 updateSummary(pref);
 }
