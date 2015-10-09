@@ -1,0 +1,9 @@
+{
+  if (mClient == null) {
+    mCustomTabsSession=null;
+  }
+ else   if (mCustomTabsSession == null) {
+    mCustomTabsSession=mClient.newSession(null);
+  }
+  return mCustomTabsSession;
+}

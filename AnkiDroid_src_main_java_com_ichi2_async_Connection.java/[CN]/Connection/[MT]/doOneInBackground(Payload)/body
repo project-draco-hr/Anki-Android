@@ -2,10 +2,8 @@
 switch (data.taskType) {
 case TASK_TYPE_LOGIN:
     return doInBackgroundLogin(data);
-case TASK_TYPE_REGISTER:
-  return doInBackgroundRegister(data);
 case TASK_TYPE_SYNC:
-return doInBackgroundSync(data);
+  return doInBackgroundSync(data);
 case TASK_TYPE_UPGRADE_DECKS:
 throw new RuntimeException("Upgrade decks no longer supported");
 default :

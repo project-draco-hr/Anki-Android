@@ -19,7 +19,7 @@
   Button signUpButton=(Button)mLoginToMyAccountView.findViewById(R.id.sign_up_button);
   signUpButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View v){
-      switchToState(STATE_ACCOUNT_SIGN_UP);
+      openUrl(Uri.parse(getResources().getString(R.string.register_url)));
     }
   }
 );
@@ -29,34 +29,6 @@
   logoutButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View v){
       logout();
-    }
-  }
-);
-  mRegisterView=getLayoutInflater().inflate(R.layout.my_account_register,null);
-  mUsername1=(EditText)mRegisterView.findViewById(R.id.username1);
-  mPassword1=(EditText)mRegisterView.findViewById(R.id.password1);
-  mUsername2=(EditText)mRegisterView.findViewById(R.id.username2);
-  mPassword2=(EditText)mRegisterView.findViewById(R.id.password2);
-  TextView terms=(TextView)mRegisterView.findViewById(R.id.terms_link);
-  terms.setMovementMethod(LinkMovementMethod.getInstance());
-  Button registerButton=(Button)mRegisterView.findViewById(R.id.register_button);
-  registerButton.setOnClickListener(new OnClickListener(){
-    @Override public void onClick(    View v){
-      if (mUsername1.getText().toString().length() > 0 && mPassword1.getText().toString().length() > 0 && mUsername1.getText().toString().equals(mUsername2.getText().toString()) && mPassword1.getText().toString().equals(mPassword2.getText().toString())) {
-        register();
-      }
- else {
-        showSimpleSnackbar(R.string.register_mismatch,true);
-        mPassword1.setText("");
-        mPassword2.setText("");
-      }
-    }
-  }
-);
-  Button cancelButton=(Button)mRegisterView.findViewById(R.id.cancel_button);
-  cancelButton.setOnClickListener(new OnClickListener(){
-    @Override public void onClick(    View v){
-      switchToState(STATE_LOG_IN);
     }
   }
 );
