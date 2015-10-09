@@ -1,0 +1,12 @@
+{
+  String packageName=CustomTabsHelper.getPackageNameToUse(activity);
+  if (packageName == null) {
+    if (fallback != null) {
+      fallback.openUri(activity,uri);
+    }
+  }
+ else {
+    customTabsIntent.intent.setPackage(packageName);
+    customTabsIntent.launchUrl(activity,uri);
+  }
+}

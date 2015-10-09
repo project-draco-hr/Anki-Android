@@ -1,5 +1,4 @@
 {
-  mCurrentState=newState;
 switch (newState) {
 case STATE_LOGGED_IN:
     String username=AnkiDroidApp.getSharedPrefs(getBaseContext()).getString("username","");
@@ -18,14 +17,6 @@ mToolbar.setTitle(getString(R.string.sync_account));
 setSupportActionBar(mToolbar);
 }
 setContentView(mLoginToMyAccountView);
-break;
-case STATE_ACCOUNT_SIGN_UP:
-mToolbar=(Toolbar)mRegisterView.findViewById(R.id.toolbar);
-if (mToolbar != null) {
-mToolbar.setTitle(getString(R.string.sync_account));
-setSupportActionBar(mToolbar);
-}
-setContentView(mRegisterView);
 break;
 }
 supportInvalidateOptionsMenu();

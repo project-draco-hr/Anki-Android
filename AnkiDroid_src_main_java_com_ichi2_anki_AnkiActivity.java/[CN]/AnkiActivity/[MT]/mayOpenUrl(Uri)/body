@@ -1,0 +1,6 @@
+{
+  boolean success=mCustomTabActivityHelper.mayLaunchUrl(url,null,null);
+  if (!success) {
+    Timber.w("Couldn't preload url: %s",url.toString());
+  }
+}

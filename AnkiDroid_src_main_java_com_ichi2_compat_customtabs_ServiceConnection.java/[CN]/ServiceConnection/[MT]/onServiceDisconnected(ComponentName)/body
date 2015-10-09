@@ -1,0 +1,4 @@
+{
+  ServiceConnectionCallback connectionCallback=mConnectionCallback.get();
+  if (connectionCallback != null)   connectionCallback.onServiceDisconnected();
+}

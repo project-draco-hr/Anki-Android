@@ -1,0 +1,7 @@
+{
+  if (mClient != null)   return;
+  String packageName=CustomTabsHelper.getPackageNameToUse(activity);
+  if (packageName == null)   return;
+  mConnection=new ServiceConnection(this);
+  CustomTabsClient.bindCustomTabsService(activity,packageName,mConnection);
+}

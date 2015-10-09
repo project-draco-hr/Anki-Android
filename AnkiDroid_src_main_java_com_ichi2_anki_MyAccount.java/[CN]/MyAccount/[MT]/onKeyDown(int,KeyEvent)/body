@@ -1,14 +1,8 @@
 {
   if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
     Timber.i("MyAccount - onBackPressed()");
-    if (mCurrentState == STATE_ACCOUNT_SIGN_UP) {
-      switchToState(STATE_LOG_IN);
-      return true;
-    }
- else {
-      finishWithAnimation(ActivityTransitionAnimation.FADE);
-      return true;
-    }
+    finishWithAnimation(ActivityTransitionAnimation.FADE);
+    return true;
   }
   return super.onKeyDown(keyCode,event);
 }
