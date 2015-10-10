@@ -1,0 +1,18 @@
+{
+  mCongratulationsShown=false;
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,new DeckTask.TaskListener(){
+    @Override public void onCancelled(){
+      hideProgressBar();
+    }
+    @Override public void onPreExecute(){
+      showProgressBar();
+    }
+    @Override public void onPostExecute(    TaskData result){
+      hideProgressBar();
+      openReviewer();
+    }
+    @Override public void onProgressUpdate(    TaskData... values){
+    }
+  }
+);
+}

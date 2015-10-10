@@ -39,26 +39,8 @@
       showSimpleSnackbar(R.string.studyoptions_no_cards_due,false);
     }
  else {
-      showSnackbar(R.string.studyoptions_congrats_finished,false,R.string.undo,new OnClickListener(){
-        @Override public void onClick(        View v){
-          DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,new DeckTask.TaskListener(){
-            @Override public void onPreExecute(){
-              showProgressBar();
-            }
-            @Override public void onPostExecute(            TaskData result){
-              hideProgressBar();
-              openReviewer();
-            }
-            @Override public void onProgressUpdate(            TaskData... values){
-            }
-            @Override public void onCancelled(){
-              hideProgressBar();
-            }
-          }
-);
-        }
-      }
-,findViewById(R.id.root_layout),mSnackbarShowHideCallback);
+      showSimpleSnackbar(R.string.studyoptions_congrats_finished,false);
+      mCongratulationsShown=true;
     }
   }
 }
