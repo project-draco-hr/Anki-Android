@@ -1,9 +1,13 @@
 {
   Resources res=getResources();
 switch (item.getItemId()) {
+case R.id.action_undo:
+    Timber.i("DeckPicker:: Undo button pressed");
+  undoLastReview();
+return true;
 case R.id.action_sync:
-    Timber.i("DeckPicker:: Sync button pressed");
-  sync();
+Timber.i("DeckPicker:: Sync button pressed");
+sync();
 return true;
 case R.id.action_import:
 Timber.i("DeckPicker:: Import button pressed");
