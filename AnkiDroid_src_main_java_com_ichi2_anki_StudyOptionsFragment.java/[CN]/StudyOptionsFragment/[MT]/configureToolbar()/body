@@ -33,7 +33,6 @@
     Resources res=AnkiDroidApp.getAppResources();
     menu.findItem(R.id.action_undo).setTitle(res.getString(R.string.studyoptions_congrats_undo,getCol().undoName(res)));
   }
-  mToolbar.setTitle(R.string.studyoptions_title);
   if (!mFragmented) {
     mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
     mToolbar.setNavigationOnClickListener(new View.OnClickListener(){
