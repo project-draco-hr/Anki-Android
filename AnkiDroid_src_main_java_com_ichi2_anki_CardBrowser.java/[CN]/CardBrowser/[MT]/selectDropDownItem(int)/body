@@ -1,11 +1,10 @@
 {
   mActionBarSpinner.setSelection(position);
+  sLastSelectedDeckIndex=position;
   if (position == 0) {
-    sIsWholeCollection=true;
     mRestrictOnDeck="";
   }
  else {
-    sIsWholeCollection=false;
     JSONObject deck=mDropDownDecks.get(position - 1);
     String deckName;
     try {

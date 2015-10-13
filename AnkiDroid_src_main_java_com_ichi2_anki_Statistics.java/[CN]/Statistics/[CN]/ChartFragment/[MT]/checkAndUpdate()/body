@@ -4,14 +4,13 @@
   int width=mChart.getMeasuredWidth();
   if (height != 0 && width != 0) {
     Collection col=CollectionHelper.getInstance().getCol(getActivity());
-    if (mHeight != height || mWidth != width || mType != (((Statistics)getActivity()).getTaskHandler()).getStatType() || mDeckId != col.getDecks().selected() || mIsWholeCollection != sIsWholeCollection) {
+    if (mHeight != height || mWidth != width || mType != (((Statistics)getActivity()).getTaskHandler()).getStatType() || mDeckId != col.getDecks().selected() || isWholeCollection()) {
       mHeight=height;
       mWidth=width;
       mType=(((Statistics)getActivity()).getTaskHandler()).getStatType();
       mProgressBar.setVisibility(View.VISIBLE);
       mChart.setVisibility(View.GONE);
       mDeckId=col.getDecks().selected();
-      mIsWholeCollection=sIsWholeCollection;
       if (mCreateChartTask != null && !mCreateChartTask.isCancelled()) {
         mCreateChartTask.cancel(true);
       }
