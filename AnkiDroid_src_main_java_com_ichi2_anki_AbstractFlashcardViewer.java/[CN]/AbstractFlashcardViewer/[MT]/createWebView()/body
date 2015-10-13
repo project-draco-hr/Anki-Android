@@ -10,7 +10,7 @@
   webView.getSettings().setLoadWithOverviewMode(true);
   webView.getSettings().setJavaScriptEnabled(true);
   webView.setWebChromeClient(new AnkiDroidWebChromeClient());
-  webView.setFocusableInTouchMode(false);
+  webView.setFocusableInTouchMode(USE_INPUT_TAG);
   webView.setScrollbarFadingEnabled(true);
   Timber.d("Focusable = %s, Focusable in touch mode = %s",webView.isFocusable(),webView.isFocusableInTouchMode());
   webView.setWebViewClient(new WebViewClient(){
@@ -24,6 +24,20 @@
       }
       if (url.startsWith("file") || url.startsWith("data:")) {
         return false;
+      }
+      if (url.startsWith("typeblurtext:")) {
+        mTypeInput=URLDecoder.decode(url.replaceFirst("typeblurtext:",""));
+        mFlipCardLayout.setVisibility(View.VISIBLE);
+        return true;
+      }
+      if (url.startsWith("typeentertext:")) {
+        mTypeInput=URLDecoder.decode(url.replaceFirst("typeentertext:",""));
+        mFlipCardLayout.performClick();
+        return true;
+      }
+      if (url.equals("signal:typefocus")) {
+        mFlipCardLayout.setVisibility(View.GONE);
+        return true;
       }
       Timber.d("Opening external link \"%s\" with an Intent",url);
       Intent intent=new Intent(Intent.ACTION_VIEW,Uri.parse(url));

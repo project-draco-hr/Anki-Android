@@ -3,7 +3,7 @@
   DiffEngine diffEngine=new DiffEngine();
   StringBuilder sb=new StringBuilder();
   sb.append("<div");
-  if (!mPrefWriteAnswers) {
+  if (!USE_INPUT_TAG && !mPrefWriteAnswers) {
     sb.append(" class=\"typeOff\"");
   }
   sb.append("><code id=typeans>");
@@ -28,5 +28,5 @@
     }
   }
   sb.append("</code></div>");
-  return m.replaceFirst(sb.toString());
+  return m.replaceAll(sb.toString());
 }
