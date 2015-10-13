@@ -32,6 +32,7 @@
           String deckName=mDialogEditText.getText().toString().replaceAll("[\'\"\\n\\r\\[\\]\\(\\)]","");
           Timber.i("DeckPicker:: Creating new deck...");
           getCol().getDecks().id(deckName,true);
+          CardBrowser.clearSelectedDeck();
           updateDeckList();
         }
       }

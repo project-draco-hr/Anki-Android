@@ -26,6 +26,7 @@
           Timber.e(e,"onPostExecute - Exception dismissing dialog");
         }
       }
+      CardBrowser.clearSelectedDeck();
     }
     @Override public void onProgressUpdate(    TaskData... values){
     }
