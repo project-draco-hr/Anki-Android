@@ -101,7 +101,7 @@
 );
   getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
   mSearchTerms="";
-  if (!sIsWholeCollection) {
+  if (sLastSelectedDeckIndex == -1) {
     String currentDeckName;
     try {
       currentDeckName=getCol().getDecks().current().getString("name");
@@ -123,5 +123,8 @@
         break;
       }
     }
+  }
+ else   if (sLastSelectedDeckIndex > 0 && sLastSelectedDeckIndex < mDropDownDecks.size()) {
+    selectDropDownItem(sLastSelectedDeckIndex);
   }
 }

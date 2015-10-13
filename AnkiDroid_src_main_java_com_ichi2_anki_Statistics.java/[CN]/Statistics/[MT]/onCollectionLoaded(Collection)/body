@@ -34,7 +34,7 @@
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
-  if (sIsWholeCollection) {
+  if (mIsWholeCollection) {
     selectDropDownItem(0);
   }
  else {

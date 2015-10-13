@@ -6,7 +6,6 @@
   View mainView=findViewById(android.R.id.content);
   View studyoptionsFrame=findViewById(R.id.studyoptions_fragment);
   mFragmented=studyoptionsFrame != null && studyoptionsFrame.getVisibility() == View.VISIBLE;
-  sIsWholeCollection=!mFragmented;
   registerExternalStorageListener();
   initNavigationDrawer(mainView);
   setTitle(getResources().getString(R.string.app_name));
@@ -33,6 +32,7 @@
           String deckName=mDialogEditText.getText().toString().replaceAll("[\'\"\\n\\r\\[\\]\\(\\)]","");
           Timber.i("DeckPicker:: Creating new deck...");
           getCol().getDecks().id(deckName,true);
+          CardBrowser.clearSelectedDeck();
           updateDeckList();
         }
       }

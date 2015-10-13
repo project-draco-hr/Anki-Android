@@ -1,23 +1,4 @@
 {
-  if (root == null) {
-    root=findViewById(android.R.id.content);
-    if (root == null) {
-      Timber.e("Could not show Snackbar due to null View");
-      return;
-    }
-  }
-  int length=shortLength ? Snackbar.LENGTH_SHORT : Snackbar.LENGTH_LONG;
-  Snackbar sb=Snackbar.make(root,mainTextResource,length);
-  if (listener != null) {
-    sb.setAction(actionTextResource,listener);
-  }
-  if (callback != null) {
-    sb.setCallback(callback);
-  }
-  View view=sb.getView();
-  TextView tv=(TextView)view.findViewById(android.support.design.R.id.snackbar_text);
-  TextView action=(TextView)view.findViewById(android.support.design.R.id.snackbar_action);
-  tv.setTextColor(Color.WHITE);
-  action.setTextColor(getResources().getColor(R.color.theme_primary));
-  sb.show();
+  String mainText=getResources().getString(mainTextResource);
+  showSnackbar(mainText,shortLength,actionTextResource,listener,root,callback);
 }

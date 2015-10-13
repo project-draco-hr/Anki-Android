@@ -22,8 +22,7 @@
   mActivityPager=((Statistics)getActivity()).getViewPager();
   mActivitySectionPagerAdapter=((Statistics)getActivity()).getSectionsPagerAdapter();
   mDeckId=CollectionHelper.getInstance().getCol(getActivity()).getDecks().selected();
-  mIsWholeCollection=sIsWholeCollection;
-  if (!sIsWholeCollection) {
+  if (!isWholeCollection()) {
     try {
       Collection col=CollectionHelper.getInstance().getCol(getActivity());
       List<String> parts=Arrays.asList(col.getDecks().current().getString("name").split("::"));
@@ -35,8 +34,12 @@
     }
   }
  else {
-    if (sIsSubtitle)     ((AppCompatActivity)getActivity()).getSupportActionBar().setSubtitle(R.string.stats_deck_collection);
- else     getActivity().setTitle(getResources().getString(R.string.stats_deck_collection));
+    if (sIsSubtitle) {
+      ((AppCompatActivity)getActivity()).getSupportActionBar().setSubtitle(R.string.stats_deck_collection);
+    }
+ else {
+      getActivity().setTitle(getResources().getString(R.string.stats_deck_collection));
+    }
   }
   return rootView;
 }

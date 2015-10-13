@@ -1,10 +1,10 @@
 {
   mActionBarSpinner.setSelection(position);
   if (position == 0) {
-    sIsWholeCollection=true;
+    mIsWholeCollection=true;
   }
  else {
-    sIsWholeCollection=false;
+    mIsWholeCollection=false;
     JSONObject deck=mDropDownDecks.get(position - 1);
     try {
       getCol().getDecks().select(deck.getLong("id"));
@@ -13,5 +13,6 @@
       Timber.e(e,"Could not get ID from deck");
     }
   }
+  mTaskHandler.setIsWholeCollection(mIsWholeCollection);
   mSectionsPagerAdapter.notifyDataSetChanged();
 }

@@ -1,4 +1,5 @@
 {
+  CardBrowser.clearSelectedDeck();
   getCol().getDecks().select(did);
   mFocusedDeck=did;
   int pos=mDeckListAdapter.findDeckPosition(did);
