@@ -13,7 +13,7 @@
   }
  else {
     sb.append("<span id=typeans class=\"typePrompt");
-    if (mPrefWriteAnswers) {
+    if (!mPrefWriteAnswers) {
       sb.append(" typeOff");
     }
     sb.append("\">........</span>");
