@@ -72,6 +72,13 @@
 ).build().show();
     }
   }
+ else   if ("com.ichi2.anki.DO_SYNC".equals(action)) {
+    sendDoSyncMsg();
+    reloadIntent.setAction(action);
+    reloadIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    startActivity(reloadIntent);
+    finishWithFade();
+  }
  else {
     reloadIntent.setAction(Intent.ACTION_MAIN);
     reloadIntent.addCategory(Intent.CATEGORY_LAUNCHER);

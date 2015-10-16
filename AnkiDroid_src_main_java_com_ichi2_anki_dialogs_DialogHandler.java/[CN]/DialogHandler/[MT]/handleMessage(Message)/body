@@ -41,4 +41,10 @@
     dialog.setArgs(msgData.getString("message"));
     (mActivity.get()).showDialogFragment(dialog);
   }
+ else   if (msg.what == MSG_DO_SYNC) {
+    ((DeckPicker)mActivity.get()).sync();
+    if (AnkiDroidApp.getSharedPrefs(mActivity.get()).getString("hkey","").length() > 0) {
+      mActivity.get().moveTaskToBack(true);
+    }
+  }
 }
