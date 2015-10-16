@@ -1,0 +1,5 @@
+{
+  Message handlerMessage=Message.obtain();
+  handlerMessage.what=DialogHandler.MSG_DO_SYNC;
+  DialogHandler.storeMessage(handlerMessage);
+}
