@@ -7,7 +7,7 @@
     throw new RuntimeException(e);
   }
   if (!mAddNote) {
-    intent.putExtra("cardId",mCurrentEditedCard.getId());
+    intent.putExtra("noteId",mCurrentEditedCard.note().getId());
   }
   startActivityForResultWithAnimation(intent,REQUEST_TEMPLATE_EDIT,ActivityTransitionAnimation.LEFT);
 }

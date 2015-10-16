@@ -6,6 +6,17 @@
   mViewPager.setAdapter(mTemplateAdapter);
   mSlidingTabLayout=(SlidingTabLayout)findViewById(R.id.sliding_tabs);
   mSlidingTabLayout.setViewPager(mViewPager);
-  setTitle(getResources().getString(R.string.title_activity_template_editor,col.getModels().get(mModelId).optString("name")));
+  if (getSupportActionBar() != null) {
+    getSupportActionBar().setTitle(R.string.title_activity_template_editor);
+    getSupportActionBar().setSubtitle(col.getModels().get(mModelId).optString("name"));
+  }
+  try {
+    if (mModelBackup == null) {
+      mModelBackup=new JSONObject(col.getModels().get(mModelId).toString());
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
   Timber.i("CardTemplateEditor:: Card template editor successfully started for model id %d",mModelId);
 }

@@ -1,0 +1,4 @@
+{
+  JSONObject newModel=getCol().getModels().get(mModelId);
+  return mModelBackup != null && !mModelBackup.toString().equals(newModel.toString());
+}

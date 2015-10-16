@@ -1,0 +1,8 @@
+{
+  if (mModelBackup != null) {
+    outState.putString("modelBackup",mModelBackup.toString());
+  }
+  outState.putLong("modelId",mModelId);
+  outState.putLong("noteId",mNoteId);
+  super.onSaveInstanceState(outState);
+}

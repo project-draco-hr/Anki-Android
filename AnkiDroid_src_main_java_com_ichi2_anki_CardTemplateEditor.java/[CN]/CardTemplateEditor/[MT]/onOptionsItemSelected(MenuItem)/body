@@ -1,0 +1,16 @@
+{
+switch (item.getItemId()) {
+case android.R.id.home:
+{
+      if (modelHasChanged()) {
+        showDiscardChangesDialog();
+      }
+ else {
+        finishWithAnimation(ActivityTransitionAnimation.RIGHT);
+      }
+      return true;
+    }
+default :
+  return super.onOptionsItemSelected(item);
+}
+}

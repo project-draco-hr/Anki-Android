@@ -1,0 +1,7 @@
+{
+  super.onStop();
+  if (mCurrentCardId == -1L) {
+    Timber.d("Deleting dummy card(s)");
+    deleteDummyCards();
+  }
+}

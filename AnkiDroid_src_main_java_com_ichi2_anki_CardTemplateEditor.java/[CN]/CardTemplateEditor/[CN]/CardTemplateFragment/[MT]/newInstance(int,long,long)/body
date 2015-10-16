@@ -3,6 +3,7 @@
   Bundle args=new Bundle();
   args.putInt("position",position);
   args.putLong("modelId",modelId);
+  args.putLong("noteId",noteId);
   f.setArguments(args);
   return f;
 }
