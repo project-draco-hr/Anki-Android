@@ -1,16 +1,44 @@
 {
   View mainView=inflater.inflate(R.layout.card_template_editor_item,container,false);
-  int position=getArguments().getInt("position");
+  final int position=getArguments().getInt("position");
   try {
     long mid=getArguments().getLong("modelId");
-    JSONObject model=((AnkiActivity)getActivity()).getCol().getModels().get(mid);
-    JSONObject template=model.getJSONArray("tmpls").getJSONObject(position);
-    EditText front=((EditText)mainView.findViewById(R.id.front_edit));
-    EditText css=((EditText)mainView.findViewById(R.id.styling_edit));
-    EditText back=((EditText)mainView.findViewById(R.id.back_edit));
+    final JSONObject model=((AnkiActivity)getActivity()).getCol().getModels().get(mid);
+    final JSONArray tmpls=model.getJSONArray("tmpls");
+    final JSONObject template=tmpls.getJSONObject(position);
+    final EditText front=((EditText)mainView.findViewById(R.id.front_edit));
+    final EditText css=((EditText)mainView.findViewById(R.id.styling_edit));
+    final EditText back=((EditText)mainView.findViewById(R.id.back_edit));
     front.setText(template.getString("qfmt"));
     css.setText(model.getString("css"));
     back.setText(template.getString("afmt"));
+    if (isStandardModel()) {
+      front.setEnabled(false);
+      css.setEnabled(false);
+      back.setEnabled(false);
+    }
+    TextWatcher templateEditorWatcher=new TextWatcher(){
+      @Override public void afterTextChanged(      Editable arg0){
+        try {
+          template.put("qfmt",front.getText());
+          template.put("afmt",back.getText());
+          template.put("css",css.getText());
+          tmpls.put(position,template);
+          model.put("tmpls",tmpls);
+        }
+ catch (        JSONException e) {
+          Timber.e(e,"Could not update card template");
+        }
+      }
+      @Override public void beforeTextChanged(      CharSequence arg0,      int arg1,      int arg2,      int arg3){
+      }
+      @Override public void onTextChanged(      CharSequence arg0,      int arg1,      int arg2,      int arg3){
+      }
+    }
+;
+    front.addTextChangedListener(templateEditorWatcher);
+    css.addTextChangedListener(templateEditorWatcher);
+    back.addTextChangedListener(templateEditorWatcher);
     setHasOptionsMenu(true);
   }
  catch (  JSONException e) {

@@ -2,17 +2,28 @@
   Timber.d("onCreate()");
   super.onCreate(savedInstanceState);
   setContentView(R.layout.card_template_editor_activity);
-  mModelId=getIntent().getLongExtra("modelId",-1L);
-  if (mModelId == -1) {
-    Timber.e("CardTemplateEditor :: no model ID was provided");
-    finishWithoutAnimation();
-    return;
+  if (savedInstanceState == null) {
+    mModelId=getIntent().getLongExtra("modelId",-1L);
+    if (mModelId == -1) {
+      Timber.e("CardTemplateEditor :: no model ID was provided");
+      finishWithoutAnimation();
+      return;
+    }
+    mNoteId=getIntent().getLongExtra("noteId",-1L);
+  }
+ else {
+    mModelId=savedInstanceState.getLong("modelId");
+    mNoteId=savedInstanceState.getLong("noteId");
+    try {
+      mModelBackup=new JSONObject(savedInstanceState.getString("modelBackup"));
+    }
+ catch (    JSONException e) {
+      Timber.e(e,"Malformed model in savedInstanceState");
+    }
   }
   Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
   if (toolbar != null) {
     setSupportActionBar(toolbar);
-    getSupportActionBar().setDisplayShowHomeEnabled(false);
-    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
   }
   startLoadingCollection();
 }

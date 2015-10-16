@@ -1,0 +1,6 @@
+{
+  super.onActivityResult(requestCode,resultCode,data);
+  if (requestCode == REQUEST_TEMPLATE_EDIT) {
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_COUNT_MODELS,mLoadingModelsHandler);
+  }
+}

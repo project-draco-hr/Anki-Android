@@ -18,6 +18,6 @@
     TypedArray ta=obtainStyledAttributes(attrs);
     mHeader=new AccountHeaderBuilder().withActivity(this).withHeaderBackground(ta.getResourceId(0,R.drawable.nav_drawer_logo)).build();
   }
-  DrawerBuilder builder=new DrawerBuilder().withActivity(this).withToolbar(toolbar).withAccountHeader(mHeader).withTranslucentStatusBar(true).withFullscreen(fullScreen).addDrawerItems(deckListItem,browserItem,statsItem,new DividerDrawerItem(),nightModeItem,settingsItem,helpItem,feedbackItem).withOnDrawerItemClickListener(this);
+  DrawerBuilder builder=new DrawerBuilder().withActivity(this).withToolbar(toolbar).withAccountHeader(mHeader).withTranslucentStatusBar(true).withFullscreen(fullScreen).addDrawerItems(deckListItem,browserItem,statsItem,new DividerDrawerItem(),nightModeItem,settingsItem,helpItem,feedbackItem).withOnDrawerNavigationListener(this).withOnDrawerItemClickListener(this);
   mDrawer=builder.build();
 }
