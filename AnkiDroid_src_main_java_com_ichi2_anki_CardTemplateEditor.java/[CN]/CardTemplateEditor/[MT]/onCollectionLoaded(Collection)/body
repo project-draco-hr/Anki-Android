@@ -4,6 +4,19 @@
   mTemplateAdapter.setModel(col.getModels().get(mModelId));
   mViewPager=(ViewPager)findViewById(R.id.pager);
   mViewPager.setAdapter(mTemplateAdapter);
+  mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener(){
+    @Override public void onPageScrolled(    final int position,    final float v,    final int i2){
+    }
+    @Override public void onPageSelected(    final int position){
+      CardTemplateFragment fragment=(CardTemplateFragment)mTemplateAdapter.instantiateItem(mViewPager,position);
+      if (fragment != null) {
+        fragment.updateCss();
+      }
+    }
+    @Override public void onPageScrollStateChanged(    final int position){
+    }
+  }
+);
   mSlidingTabLayout=(SlidingTabLayout)findViewById(R.id.sliding_tabs);
   mSlidingTabLayout.setViewPager(mViewPager);
   if (getSupportActionBar() != null) {
