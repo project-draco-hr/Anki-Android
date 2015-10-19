@@ -30,7 +30,7 @@ case R.id.action_preview:
 {
 Timber.i("CardTemplateEditor:: Preview model button pressed");
 if (modelHasChanged()) {
-col.getModels().save(model,true);
+col.getModels().save(model,false);
 }
 Intent i=new Intent(getActivity(),Previewer.class);
 int pos=getArguments().getInt("position");
@@ -48,10 +48,12 @@ return true;
 case R.id.action_confirm:
 Timber.i("CardTemplateEditor:: Save model button pressed");
 if (modelHasChanged()) {
-col.getModels().save(model,true);
-col.reset();
+DeckTask.TaskData args=new DeckTask.TaskData(new Object[]{model});
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SAVE_MODEL,mSaveModelAndExitHandler,args);
 }
+ else {
 ((AnkiActivity)getActivity()).finishWithAnimation(ActivityTransitionAnimation.RIGHT);
+}
 return true;
 default :
 return super.onOptionsItemSelected(item);

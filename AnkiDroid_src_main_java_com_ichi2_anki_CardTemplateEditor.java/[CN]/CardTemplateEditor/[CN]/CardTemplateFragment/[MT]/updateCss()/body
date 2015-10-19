@@ -1,0 +1,9 @@
+{
+  if (mCss != null && mModel != null) {
+    try {
+      mCss.setText(mModel.getString("css"));
+    }
+ catch (    JSONException e) {
+    }
+  }
+}

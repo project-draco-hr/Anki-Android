@@ -87,6 +87,8 @@ case TASK_TYPE_ADD_FIELD:
 return doInBackGroundAddField(params);
 case TASK_TYPE_CHANGE_SORT_FIELD:
 return doInBackgroundChangeSortField(params);
+case TASK_TYPE_SAVE_MODEL:
+return doInBackgroundSaveModel(params);
 default :
 Timber.e("unknown task type: %d",mType);
 return null;

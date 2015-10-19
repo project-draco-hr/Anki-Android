@@ -1,0 +1,9 @@
+{
+  Timber.d("doInBackgroundSaveModel");
+  Collection col=CollectionHelper.getInstance().getCol(mContext);
+  Object[] args=params[0].getObjArray();
+  JSONObject model=(JSONObject)args[0];
+  col.getModels().save(model,true);
+  col.reset();
+  return new TaskData(true);
+}

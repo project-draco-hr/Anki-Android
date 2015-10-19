@@ -2,5 +2,7 @@
   if (mCurrentCard != null) {
     mCurrentCard.stopTimer();
   }
-  mCardTimer.stop();
+  if (mCardTimer != null) {
+    mCardTimer.stop();
+  }
 }
