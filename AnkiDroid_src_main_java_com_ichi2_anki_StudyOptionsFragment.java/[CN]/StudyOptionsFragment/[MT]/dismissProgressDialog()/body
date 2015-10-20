@@ -1,4 +1,7 @@
 {
+  if (mStudyOptionsView != null && mStudyOptionsView.findViewById(R.id.progress_bar) != null) {
+    mStudyOptionsView.findViewById(R.id.progress_bar).setVisibility(View.GONE);
+  }
   if (mProgressDialog != null && mProgressDialog.isShowing()) {
     try {
       mProgressDialog.dismiss();
