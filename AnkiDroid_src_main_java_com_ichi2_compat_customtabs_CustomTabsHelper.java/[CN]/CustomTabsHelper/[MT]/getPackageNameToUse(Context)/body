@@ -1,4 +1,7 @@
 {
+  if (CompatHelper.getSdkVersion() < MIN_SDK) {
+    return null;
+  }
   if (sPackageNameToUse != null)   return sPackageNameToUse;
   PackageManager pm=context.getPackageManager();
   Intent activityIntent=new Intent(Intent.ACTION_VIEW,Uri.parse("http://www.example.com"));
