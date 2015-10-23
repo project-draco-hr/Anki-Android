@@ -4,7 +4,7 @@
     mMetaDb.beginTransaction();
     try {
       mMetaDb.execSQL("DELETE FROM smallWidgetStatus");
-      mMetaDb.execSQL("INSERT INTO smallWidgetStatus(progress, left, eta) VALUES (?, ?, ?)",new Object[]{(int)(progress[1] * 1000),(int)progress[2],(int)progress[3]});
+      mMetaDb.execSQL("INSERT INTO smallWidgetStatus(due, eta) VALUES (?, ?)",new Object[]{status.first,status.second});
       mMetaDb.setTransactionSuccessful();
     }
   finally {
