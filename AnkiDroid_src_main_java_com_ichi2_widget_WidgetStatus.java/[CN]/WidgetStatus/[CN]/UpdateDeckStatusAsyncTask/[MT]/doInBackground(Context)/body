@@ -5,17 +5,6 @@
   if (!AnkiDroidApp.isSdCardMounted()) {
     return context;
   }
-  try {
-    if (sSmallWidgetStatus == null) {
-      Collection col=CollectionHelper.getInstance().getCol(context);
-      mSmallWidgetStatus=col.getSched().progressToday(sDeckCounts,null,true);
-    }
- else {
-      mSmallWidgetStatus=sSmallWidgetStatus;
-    }
-  }
- catch (  SQLException e) {
-    Timber.w("Widget: Problems on retrieving deck information");
-  }
+  mSmallWidgetStatus=getCounts(context);
   return context;
 }

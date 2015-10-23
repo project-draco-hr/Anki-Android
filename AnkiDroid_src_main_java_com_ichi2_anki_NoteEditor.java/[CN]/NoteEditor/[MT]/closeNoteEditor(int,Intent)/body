@@ -5,7 +5,7 @@
  else {
     setResult(result);
   }
-  if (mCaller == CALLER_CARDEDITOR_INTENT_ADD || mCaller == CALLER_BIGWIDGET_EDIT || mCaller == CALLER_BIGWIDGET_ADD) {
+  if (mCaller == CALLER_CARDEDITOR_INTENT_ADD) {
     finishWithAnimation(ActivityTransitionAnimation.FADE);
   }
  else   if (mCaller == CALLER_INDICLASH) {

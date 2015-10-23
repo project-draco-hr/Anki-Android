@@ -1,6 +1,0 @@
-{
-  super.onEnabled(context);
-  Timber.d("MediumWidget: Widget enabled");
-  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(context);
-  preferences.edit().putBoolean("widgetMediumEnabled",true).commit();
-}

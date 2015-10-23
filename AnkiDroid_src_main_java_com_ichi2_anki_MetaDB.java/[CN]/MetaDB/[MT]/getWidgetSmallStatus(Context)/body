@@ -2,9 +2,9 @@
   openDBIfClosed(context);
   Cursor cursor=null;
   try {
-    cursor=mMetaDb.query("smallWidgetStatus",new String[]{"progress","left","eta"},null,null,null,null,null);
+    cursor=mMetaDb.query("smallWidgetStatus",new String[]{"due","eta"},null,null,null,null,null);
     while (cursor.moveToNext()) {
-      return (new int[]{cursor.getInt(0),cursor.getInt(1),cursor.getInt(2)});
+      return new int[]{cursor.getInt(0),cursor.getInt(1)};
     }
   }
  catch (  SQLiteException e) {
@@ -15,5 +15,5 @@
       cursor.close();
     }
   }
-  return null;
+  return new int[]{0,0};
 }

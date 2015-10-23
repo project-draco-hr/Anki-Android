@@ -1,0 +1,14 @@
+{
+  int[] total={0,0,0};
+  Collection col=CollectionHelper.getInstance().getCol(context);
+  col.getSched()._checkDay();
+  List<Sched.DeckDueTreeNode> nodes=col.getSched().deckDueTree();
+  for (  Sched.DeckDueTreeNode node : nodes) {
+    total[0]+=node.newCount;
+    total[1]+=node.lrnCount;
+    total[2]+=node.revCount;
+  }
+  int due=total[0] + total[1] + total[2];
+  int eta=col.getSched().eta(total,false);
+  return new Pair<>(due,eta);
+}
