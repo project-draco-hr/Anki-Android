@@ -1,19 +1,6 @@
 {
   Timber.d("displayCardQuestion()");
   sDisplayAnswer=false;
-  if (!mButtonHeightSet && mRelativeButtonSize != 100) {
-    ViewGroup.LayoutParams params=mFlipCardLayout.getLayoutParams();
-    params.height=params.height * mRelativeButtonSize / 100;
-    params=mEase1Layout.getLayoutParams();
-    params.height=params.height * mRelativeButtonSize / 100;
-    params=mEase2Layout.getLayoutParams();
-    params.height=params.height * mRelativeButtonSize / 100;
-    params=mEase3Layout.getLayoutParams();
-    params.height=params.height * mRelativeButtonSize / 100;
-    params=mEase4Layout.getLayoutParams();
-    params.height=params.height * mRelativeButtonSize / 100;
-    mButtonHeightSet=true;
-  }
   setInterface();
   String question;
   String displayString="";

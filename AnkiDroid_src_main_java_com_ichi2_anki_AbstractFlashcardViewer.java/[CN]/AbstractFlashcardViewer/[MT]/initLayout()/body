@@ -52,6 +52,19 @@
   mFlipCard.setTypeface(TypefaceHelper.get(this,"Roboto-Medium"));
   mFlipCardLayout=(LinearLayout)findViewById(R.id.flashcard_layout_flip);
   mFlipCardLayout.setOnClickListener(mFlipCardListener);
+  if (!mButtonHeightSet && mRelativeButtonSize != 100) {
+    ViewGroup.LayoutParams params=mFlipCardLayout.getLayoutParams();
+    params.height=params.height * mRelativeButtonSize / 100;
+    params=mEase1Layout.getLayoutParams();
+    params.height=params.height * mRelativeButtonSize / 100;
+    params=mEase2Layout.getLayoutParams();
+    params.height=params.height * mRelativeButtonSize / 100;
+    params=mEase3Layout.getLayoutParams();
+    params.height=params.height * mRelativeButtonSize / 100;
+    params=mEase4Layout.getLayoutParams();
+    params.height=params.height * mRelativeButtonSize / 100;
+    mButtonHeightSet=true;
+  }
   mTextBarNew=(TextView)findViewById(R.id.new_number);
   mTextBarLearn=(TextView)findViewById(R.id.learn_number);
   mTextBarReview=(TextView)findViewById(R.id.review_number);
