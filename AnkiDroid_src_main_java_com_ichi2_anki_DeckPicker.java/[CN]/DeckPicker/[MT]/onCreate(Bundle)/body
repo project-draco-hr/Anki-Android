@@ -18,13 +18,13 @@
   mDeckListAdapter.setDeckExpanderClickListener(mDeckExpanderClickListener);
   mDeckListAdapter.setDeckLongClickListener(mDeckLongClickListener);
   mRecyclerView.setAdapter(mDeckListAdapter);
-  final FloatingActionsMenu actionsMenu=(FloatingActionsMenu)findViewById(R.id.add_content_menu);
+  mActionsMenu=(FloatingActionsMenu)findViewById(R.id.add_content_menu);
   final FloatingActionButton addDeckButton=(FloatingActionButton)findViewById(R.id.add_deck_action);
   final FloatingActionButton addSharedButton=(FloatingActionButton)findViewById(R.id.add_shared_action);
   final FloatingActionButton addNoteButton=(FloatingActionButton)findViewById(R.id.add_note_action);
   addDeckButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View view){
-      actionsMenu.collapse();
+      mActionsMenu.collapse();
       mDialogEditText=new EditText(DeckPicker.this);
       mDialogEditText.setSingleLine(true);
       new MaterialDialog.Builder(DeckPicker.this).title(R.string.new_deck).positiveText(R.string.dialog_ok).customView(mDialogEditText,true).callback(new MaterialDialog.ButtonCallback(){
@@ -42,14 +42,14 @@
 );
   addSharedButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View view){
-      actionsMenu.collapse();
+      mActionsMenu.collapse();
       addSharedDeck();
     }
   }
 );
   addNoteButton.setOnClickListener(new OnClickListener(){
     @Override public void onClick(    View view){
-      actionsMenu.collapse();
+      mActionsMenu.collapse();
       addNote();
     }
   }
