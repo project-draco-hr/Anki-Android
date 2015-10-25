@@ -2,12 +2,12 @@
   super.onPostExecute(context);
   Timber.d("WidgetStatus.UpdateDeckStatusAsyncTask.onPostExecute()");
   MetaDB.storeSmallWidgetStatus(context,mSmallWidgetStatus);
-  if (smallWidget) {
+  if (sSmallWidgetEnabled) {
     Intent intent;
     intent=new Intent(context,AnkiDroidWidgetSmall.UpdateService.class);
     context.startService(intent);
   }
-  if (notification) {
+  if (sNotificationEnabled) {
     Intent intent;
     intent=new Intent(context,NotificationService.class);
     context.startService(intent);

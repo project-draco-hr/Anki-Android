@@ -35,7 +35,6 @@
         scrollDecklistToDeck(current);
         mFocusedDeck=current;
       }
-      WidgetStatus.update(DeckPicker.this,nodes);
       supportInvalidateOptionsMenu();
       AnkiStatsTaskHandler.createSmallTodayOverview(getCol(),mTodayTextView);
     }

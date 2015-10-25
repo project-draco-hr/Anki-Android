@@ -1,3 +1,13 @@
 {
-  update(context,true,null,null,null);
+  SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(context);
+  sSmallWidgetEnabled=preferences.getBoolean("widgetSmallEnabled",false);
+  sNotificationEnabled=Integer.parseInt(preferences.getString("minimumCardsDueForNotification","1000001")) < 1000000;
+  if ((sSmallWidgetEnabled || sNotificationEnabled) && ((sUpdateDeckStatusAsyncTask == null) || (sUpdateDeckStatusAsyncTask.getStatus() == AsyncTask.Status.FINISHED))) {
+    Timber.d("WidgetStatus.update(): updating");
+    sUpdateDeckStatusAsyncTask=new UpdateDeckStatusAsyncTask();
+    sUpdateDeckStatusAsyncTask.execute(context);
+  }
+ else {
+    Timber.d("WidgetStatus.update(): already running or not enabled");
+  }
 }

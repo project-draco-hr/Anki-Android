@@ -9,7 +9,7 @@
   mMetaDb.execSQL("CREATE TABLE IF NOT EXISTS languages (" + " _id INTEGER PRIMARY KEY AUTOINCREMENT, " + "did INTEGER NOT NULL, ord INTEGER, "+ "qa INTEGER, "+ "language TEXT)");
   mMetaDb.execSQL("CREATE TABLE IF NOT EXISTS whiteboardState (" + "_id INTEGER PRIMARY KEY AUTOINCREMENT, " + "did INTEGER NOT NULL, "+ "state INTEGER)");
   mMetaDb.execSQL("CREATE TABLE IF NOT EXISTS customDictionary (" + "_id INTEGER PRIMARY KEY AUTOINCREMENT, " + "did INTEGER NOT NULL, "+ "dictionary INTEGER)");
-  mMetaDb.execSQL("CREATE TABLE IF NOT EXISTS smallWidgetStatus (" + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "progress INTEGER NOT NULL, left INTEGER NOT NULL, eta INTEGER NOT NULL)");
+  mMetaDb.execSQL("CREATE TABLE IF NOT EXISTS smallWidgetStatus (" + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "due INTEGER NOT NULL, eta INTEGER NOT NULL)");
   Cursor c=mMetaDb.rawQuery("PRAGMA table_info(widgetStatus)",null);
   int columnNumber=c.getCount();
   if (columnNumber > 0) {
