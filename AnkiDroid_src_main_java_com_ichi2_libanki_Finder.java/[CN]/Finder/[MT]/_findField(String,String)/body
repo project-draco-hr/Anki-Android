@@ -1,7 +1,7 @@
 {
   String sqlVal=val.replace("%","\\%").replace("*","%");
   String javaVal=val.replace("_","\\E.\\Q").replace("*","\\E.*\\Q");
-  Pattern pattern=Pattern.compile("\\Q" + javaVal + "\\E",Pattern.CASE_INSENSITIVE);
+  Pattern pattern=Pattern.compile("\\Q" + javaVal + "\\E",Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
   Map<Long,Object[]> mods=new HashMap<Long,Object[]>();
   try {
     for (    JSONObject m : mCol.getModels().all()) {
