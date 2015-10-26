@@ -4,6 +4,9 @@
     if (fallback != null) {
       fallback.openUri(activity,uri);
     }
+ else {
+      Timber.e("A version of Chrome supporting custom tabs was not available, and the fallback was null");
+    }
   }
  else {
     customTabsIntent.intent.setPackage(packageName);

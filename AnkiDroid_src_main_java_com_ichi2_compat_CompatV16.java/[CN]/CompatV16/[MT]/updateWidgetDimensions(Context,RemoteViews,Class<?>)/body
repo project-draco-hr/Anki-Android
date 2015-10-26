@@ -2,7 +2,6 @@
   AppWidgetManager manager=AppWidgetManager.getInstance(context);
   int[] ids=manager.getAppWidgetIds(new ComponentName(context,cls));
   for (  int id : ids) {
-    AppWidgetProviderInfo providerInfo=manager.getAppWidgetInfo(id);
     final float scale=context.getResources().getDisplayMetrics().density;
     Bundle options=manager.getAppWidgetOptions(id);
     float width, height;
