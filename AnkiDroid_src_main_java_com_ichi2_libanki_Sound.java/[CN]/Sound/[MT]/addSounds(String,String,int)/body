@@ -1,10 +1,10 @@
 {
   Matcher matcher=sSoundPattern.matcher(content);
   while (matcher.find()) {
-    if (!sSoundPaths.containsKey(qa)) {
-      sSoundPaths.put(qa,new ArrayList<String>());
+    if (!mSoundPaths.containsKey(qa)) {
+      mSoundPaths.put(qa,new ArrayList<String>());
     }
     String sound=matcher.group(1).trim();
-    sSoundPaths.get(qa).add(getSoundPath(soundDir,sound));
+    mSoundPaths.get(qa).add(getSoundPath(soundDir,sound));
   }
 }

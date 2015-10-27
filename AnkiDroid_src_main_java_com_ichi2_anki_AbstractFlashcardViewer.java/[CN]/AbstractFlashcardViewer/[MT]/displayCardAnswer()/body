@@ -9,7 +9,7 @@
   }
   sDisplayAnswer=true;
   String answer=mCurrentCard.a();
-  Sound.stopSounds();
+  mSoundPlayer.stopSounds();
   answer=getCol().getMedia().escapeImages(answer);
   mAnswerField.setVisibility(View.GONE);
   String userAnswer;
