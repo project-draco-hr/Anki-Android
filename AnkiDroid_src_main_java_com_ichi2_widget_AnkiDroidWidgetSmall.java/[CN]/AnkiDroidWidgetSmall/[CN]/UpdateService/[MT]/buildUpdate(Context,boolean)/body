@@ -60,7 +60,7 @@
       }
     }
   }
-  Intent ankiDroidIntent=new Intent(context,DeckPicker.class);
+  Intent ankiDroidIntent=new Intent(context,IntentHandler.class);
   ankiDroidIntent.setAction(Intent.ACTION_MAIN);
   ankiDroidIntent.addCategory(Intent.CATEGORY_LAUNCHER);
   PendingIntent pendingAnkiDroidIntent=PendingIntent.getActivity(context,0,ankiDroidIntent,PendingIntent.FLAG_UPDATE_CURRENT);
