@@ -1,10 +1,10 @@
 {
-  if (sMediaPlayer != null) {
-    sMediaPlayer.release();
-    sMediaPlayer=null;
+  if (mMediaPlayer != null) {
+    mMediaPlayer.release();
+    mMediaPlayer=null;
   }
-  if (sAudioManager != null) {
-    sAudioManager.abandonAudioFocus(afChangeListener);
-    sAudioManager=null;
+  if (mAudioManager != null) {
+    mAudioManager.abandonAudioFocus(afChangeListener);
+    mAudioManager=null;
   }
 }

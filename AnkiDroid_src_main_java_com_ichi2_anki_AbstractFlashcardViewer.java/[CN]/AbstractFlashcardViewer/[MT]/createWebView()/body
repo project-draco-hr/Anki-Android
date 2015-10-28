@@ -19,7 +19,7 @@
         Message msg=Message.obtain();
         String soundPath=url.replaceFirst("playsound:","");
         msg.obj=soundPath;
-        sHandler.sendMessage(msg);
+        mHandler.sendMessage(msg);
         return true;
       }
       if (url.startsWith("file") || url.startsWith("data:")) {

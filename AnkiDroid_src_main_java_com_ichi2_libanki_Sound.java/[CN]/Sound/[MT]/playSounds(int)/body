@@ -1,10 +1,10 @@
 {
-  if (sSoundPaths != null && sSoundPaths.containsKey(qa)) {
-    playSound(sSoundPaths.get(qa).get(0),new PlayAllCompletionListener(qa));
+  if (mSoundPaths != null && mSoundPaths.containsKey(qa)) {
+    playSound(mSoundPaths.get(qa).get(0),new PlayAllCompletionListener(qa));
   }
- else   if (sSoundPaths != null && qa == Sound.SOUNDS_QUESTION_AND_ANSWER) {
-    if (Sound.makeQuestionAnswerList()) {
-      playSound(sSoundPaths.get(qa).get(0),new PlayAllCompletionListener(qa));
+ else   if (mSoundPaths != null && qa == Sound.SOUNDS_QUESTION_AND_ANSWER) {
+    if (makeQuestionAnswerList()) {
+      playSound(mSoundPaths.get(qa).get(0),new PlayAllCompletionListener(qa));
     }
   }
 }
