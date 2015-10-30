@@ -13,7 +13,7 @@
  else   if (getCol().getSched().newDue() || getCol().getSched().revDue()) {
     showSnackbar(R.string.studyoptions_limit_reached,false,R.string.study_more,new OnClickListener(){
       @Override public void onClick(      View v){
-        CustomStudyDialog d=CustomStudyDialog.newInstance(CustomStudyDialog.CONTEXT_MENU_LIMITS,true);
+        CustomStudyDialog d=CustomStudyDialog.newInstance(CustomStudyDialog.CONTEXT_MENU_LIMITS,getCol().getDecks().selected(),true);
         showDialogFragment(d);
       }
     }
@@ -32,7 +32,7 @@
  else {
     showSnackbar(R.string.studyoptions_empty_schedule,false,R.string.custom_study,new OnClickListener(){
       @Override public void onClick(      View v){
-        CustomStudyDialog d=CustomStudyDialog.newInstance(CustomStudyDialog.CONTEXT_MENU_EMPTY_SCHEDULE,true);
+        CustomStudyDialog d=CustomStudyDialog.newInstance(CustomStudyDialog.CONTEXT_MENU_EMPTY_SCHEDULE,getCol().getDecks().selected(),true);
         showDialogFragment(d);
       }
     }
