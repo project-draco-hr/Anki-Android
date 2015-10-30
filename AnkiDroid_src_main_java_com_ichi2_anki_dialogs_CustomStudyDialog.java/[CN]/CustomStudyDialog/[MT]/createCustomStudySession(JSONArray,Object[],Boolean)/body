@@ -3,7 +3,8 @@
   final AnkiActivity activity=(AnkiActivity)getActivity();
   Collection col=CollectionHelper.getInstance().getCol(activity);
   try {
-    String deckName=col.getDecks().current().getString("name");
+    long did=getArguments().getLong("did");
+    String deckName=col.getDecks().get(did).getString("name");
     String customStudyDeck=getResources().getString(R.string.custom_study_deck_name);
     JSONObject cur=col.getDecks().byName(customStudyDeck);
     if (cur != null) {
@@ -18,8 +19,8 @@
       }
     }
  else {
-      long did=col.getDecks().newDyn(customStudyDeck);
-      dyn=col.getDecks().get(did);
+      long customStudyDid=col.getDecks().newDyn(customStudyDeck);
+      dyn=col.getDecks().get(customStudyDid);
     }
     if (delays.length() > 0) {
       dyn.put("delays",delays);
