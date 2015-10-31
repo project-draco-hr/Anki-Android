@@ -28,7 +28,6 @@
   }
 );
   for (  String mod : mods) {
-    Timber.d("Models.get():: Processing field: modifier=%s, extra=%s, tag=%s, txt=%s",mod,extra,tag,txt);
     if (mod.equals("text")) {
       if (!TextUtils.isEmpty(txt)) {
         txt=Utils.stripHTML(txt);

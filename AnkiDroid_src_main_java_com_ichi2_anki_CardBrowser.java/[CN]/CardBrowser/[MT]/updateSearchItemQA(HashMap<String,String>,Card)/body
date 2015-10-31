@@ -1,7 +1,13 @@
 {
   HashMap<String,String> qa=c._getQA(true,true);
-  if (qa.get("a").equals("")) {
-    qa=c._getQA(true,false);
+  if (qa.get("q").equals("") || qa.get("a").equals("")) {
+    HashMap<String,String> qaFull=c._getQA(true,false);
+    if (qa.get("q").equals("")) {
+      qa.put("q",qaFull.get("q"));
+    }
+    if (qa.get("a").equals("")) {
+      qa.put("a",qaFull.get("a"));
+    }
   }
   String q=qa.get("q");
   String a=qa.get("a");
