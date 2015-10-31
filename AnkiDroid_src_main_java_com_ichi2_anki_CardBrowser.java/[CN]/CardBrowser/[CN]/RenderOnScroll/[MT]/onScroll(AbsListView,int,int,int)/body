@@ -1,2 +1,10 @@
 {
+  int lastVisibleItem=firstVisibleItem + visibleItemCount;
+  if (lastVisibleItem > MIN_CARDS_TO_RENDER && getCards().size() > lastVisibleItem) {
+    String firstAns=getCards().get(firstVisibleItem).get("answer");
+    String lastAns=getCards().get(lastVisibleItem).get("answer");
+    if (firstAns != null && firstAns.equals("") || lastAns != null && lastAns.equals("")) {
+      showProgressBar();
+    }
+  }
 }
