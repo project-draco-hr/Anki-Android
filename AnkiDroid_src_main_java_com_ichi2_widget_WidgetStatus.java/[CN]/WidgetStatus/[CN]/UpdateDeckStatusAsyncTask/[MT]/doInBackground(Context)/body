@@ -5,6 +5,11 @@
   if (!AnkiDroidApp.isSdCardMounted()) {
     return context;
   }
-  mSmallWidgetStatus=getCounts(context);
+  try {
+    updateCounts(context);
+  }
+ catch (  Exception e) {
+    Timber.e(e,"Could not update widget");
+  }
   return context;
 }
