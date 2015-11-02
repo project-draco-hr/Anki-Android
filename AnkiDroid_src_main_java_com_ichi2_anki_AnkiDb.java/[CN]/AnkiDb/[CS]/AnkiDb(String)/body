@@ -7,7 +7,10 @@
   }
   if (mDatabase != null && AnkiDroidApp.getInstance() != null) {
     if (AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance()).getBoolean("enableWal",false)) {
-      setWalJournalMode();
+      CompatHelper.getCompat().enableDatabaseWriteAheadLogging(mDatabase);
+    }
+ else     if (CompatHelper.getCompat().isWriteAheadLoggingEnabled(mDatabase)) {
+      CompatHelper.getCompat().disableDatabaseWriteAheadLogging(mDatabase);
     }
     mDatabase.rawQuery("PRAGMA synchronous = 2",null);
   }

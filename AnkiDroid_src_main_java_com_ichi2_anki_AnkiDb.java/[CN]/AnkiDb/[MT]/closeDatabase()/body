@@ -1,6 +1,8 @@
 {
   if (mDatabase != null) {
-    setDeleteJournalMode();
+    if (CompatHelper.getCompat().isWriteAheadLoggingEnabled(mDatabase)) {
+      disableWriteAheadLogging();
+    }
     mDatabase.close();
     Timber.d("closeDatabase, database %s closed = %s",mDatabase.getPath(),!mDatabase.isOpen());
     mDatabase=null;
