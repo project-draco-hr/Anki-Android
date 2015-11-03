@@ -1,8 +1,0 @@
-{
-  if (CompatHelper.isHoneycomb()) {
-    queryString("PRAGMA journal_mode = WAL");
-  }
- else {
-    setDeleteJournalMode();
-  }
-}
