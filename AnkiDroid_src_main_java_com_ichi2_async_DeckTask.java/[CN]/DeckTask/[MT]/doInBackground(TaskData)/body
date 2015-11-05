@@ -20,6 +20,10 @@ catch (    CancellationException e) {
   }
   sLatestInstance=this;
   mContext=AnkiDroidApp.getInstance().getApplicationContext();
+  if (mType != TASK_TYPE_REPAIR_DECK && CollectionHelper.getInstance().getCol(mContext) == null) {
+    Timber.e("Aborting DeckTask %d as Collection could not be opened",mType);
+    return null;
+  }
 switch (mType) {
 case TASK_TYPE_LOAD_DECK_COUNTS:
     return doInBackgroundLoadDeckCounts(params);
