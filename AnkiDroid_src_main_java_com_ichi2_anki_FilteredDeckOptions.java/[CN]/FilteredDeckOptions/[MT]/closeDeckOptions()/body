@@ -1,0 +1,7 @@
+{
+  if (mPrefChanged) {
+    mCol.getSched().rebuildDyn(mCol.getDecks().selected());
+  }
+  finish();
+  ActivityTransitionAnimation.slide(this,ActivityTransitionAnimation.FADE);
+}
