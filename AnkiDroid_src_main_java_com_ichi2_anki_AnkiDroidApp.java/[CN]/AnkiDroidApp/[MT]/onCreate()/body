@@ -27,7 +27,8 @@
     }
  catch (    StorageAccessException e) {
       Timber.e(e,"Could not initialize AnkiDroid directory");
-      if (isSdCardMounted()) {
+      String defaultDir=CollectionHelper.getDefaultAnkiDroidDirectory();
+      if (isSdCardMounted() && CollectionHelper.getCurrentAnkiDroidDirectory(this).equals(defaultDir)) {
         sendExceptionReport(e,"AnkiDroidApp.onCreate");
       }
     }
