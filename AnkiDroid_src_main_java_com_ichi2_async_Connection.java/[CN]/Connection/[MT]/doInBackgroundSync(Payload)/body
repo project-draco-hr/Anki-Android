@@ -163,7 +163,14 @@ catch (      RuntimeException e) {
       return data;
     }
   }
- catch (  UnknownHttpResponseException e) {
+ catch (  MediaSyncException e) {
+    Timber.e("Media sync rejected by server");
+    data.success=false;
+    data.result=new Object[]{"mediaSyncServerError"};
+    AnkiDroidApp.sendExceptionReport(e,"doInBackgroundSync");
+    return data;
+  }
+catch (  UnknownHttpResponseException e) {
     Timber.e("doInBackgroundSync -- unknown response code error");
     e.printStackTrace();
     data.success=false;

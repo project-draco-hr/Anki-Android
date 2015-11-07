@@ -115,8 +115,4 @@
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
-catch (  Exception e) {
-    Timber.e(e,"Syncing error");
-    throw new RuntimeException(e);
-  }
 }
