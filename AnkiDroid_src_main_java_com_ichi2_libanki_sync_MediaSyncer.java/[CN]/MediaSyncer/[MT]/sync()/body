@@ -115,13 +115,4 @@
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
-catch (  APIVersionException e) {
-    UnsupportedSyncException ee=new UnsupportedSyncException("Cannot sync media on this version of Android");
-    Timber.e(e.getMessage());
-    throw ee;
-  }
-catch (  Exception e) {
-    Timber.e(e,"Syncing error");
-    throw new RuntimeException(e);
-  }
 }

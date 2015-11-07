@@ -139,12 +139,7 @@ catch (      RuntimeException e) {
           }
         }
       }
- catch (      UnsupportedSyncException e) {
-        mediaError=AnkiDroidApp.getAppResources().getString(R.string.sync_media_unsupported);
-        AnkiDroidApp.getSharedPrefs(AnkiDroidApp.getInstance().getApplicationContext()).edit().putBoolean("syncFetchesMedia",false).commit();
-        AnkiDroidApp.sendExceptionReport(e,"doInBackgroundSync-mediaSync");
-      }
-catch (      RuntimeException e) {
+ catch (      RuntimeException e) {
         if (timeoutOccured(e)) {
           data.result=new Object[]{"connectionError"};
         }
@@ -168,7 +163,14 @@ catch (      RuntimeException e) {
       return data;
     }
   }
- catch (  UnknownHttpResponseException e) {
+ catch (  MediaSyncException e) {
+    Timber.e("Media sync rejected by server");
+    data.success=false;
+    data.result=new Object[]{"mediaSyncServerError"};
+    AnkiDroidApp.sendExceptionReport(e,"doInBackgroundSync");
+    return data;
+  }
+catch (  UnknownHttpResponseException e) {
     Timber.e("doInBackgroundSync -- unknown response code error");
     e.printStackTrace();
     data.success=false;
