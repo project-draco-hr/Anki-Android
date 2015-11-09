@@ -34,7 +34,13 @@
     }
   }
  else   if (requestCode == REQUEST_REVIEW && resultCode == Reviewer.RESULT_NO_MORE_CARDS) {
-    showSimpleSnackbar(R.string.studyoptions_congrats_finished,false);
+    int[] studyOptionsCounts=getCol().getSched().counts();
+    if (studyOptionsCounts[0] + studyOptionsCounts[1] + studyOptionsCounts[2] == 0) {
+      showSimpleSnackbar(R.string.studyoptions_congrats_finished,false);
+    }
+ else {
+      showSimpleSnackbar(R.string.studyoptions_no_cards_due,false);
+    }
     mCongratulationsShown=true;
   }
 }
