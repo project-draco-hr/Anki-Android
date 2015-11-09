@@ -6,6 +6,7 @@
   setContentView(R.layout.flashcard);
   View mainView=findViewById(android.R.id.content);
   initNavigationDrawer(mainView,mPrefFullscreenReview);
+  allowResizeForSoftKeyboard();
   if (mPrefFullscreenReview) {
     CompatHelper.getCompat().setFullScreen(this);
   }
