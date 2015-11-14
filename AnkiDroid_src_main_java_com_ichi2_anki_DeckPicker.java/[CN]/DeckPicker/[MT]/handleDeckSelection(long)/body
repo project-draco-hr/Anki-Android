@@ -4,11 +4,15 @@
   mFocusedDeck=did;
   int pos=mDeckListAdapter.findDeckPosition(did);
   Sched.DeckDueTreeNode deckDueTreeNode=mDeckListAdapter.getDeckList().get(pos);
+  int[] studyOptionsCounts=getCol().getSched().counts();
   if (getCol().getDecks().isDyn(did) || mFragmented) {
     openStudyOptions(false);
   }
  else   if (deckDueTreeNode.newCount + deckDueTreeNode.lrnCount + deckDueTreeNode.revCount > 0) {
     openReviewer();
+  }
+ else   if (studyOptionsCounts[0] + studyOptionsCounts[1] + studyOptionsCounts[2] > 0) {
+    openStudyOptions(false);
   }
  else   if (getCol().getSched().newDue() || getCol().getSched().revDue()) {
     showSnackbar(R.string.studyoptions_limit_reached,false,R.string.study_more,new OnClickListener(){
