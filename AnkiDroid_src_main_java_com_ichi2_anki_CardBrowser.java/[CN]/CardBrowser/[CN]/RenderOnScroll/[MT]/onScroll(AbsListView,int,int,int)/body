@@ -1,10 +1,16 @@
 {
   int lastVisibleItem=firstVisibleItem + visibleItemCount;
-  if (lastVisibleItem > MIN_CARDS_TO_RENDER && getCards().size() > lastVisibleItem) {
+  if (firstVisibleItem > 0 && lastVisibleItem > 0 && getCards().size() > lastVisibleItem) {
     String firstAns=getCards().get(firstVisibleItem).get("answer");
-    String lastAns=getCards().get(lastVisibleItem).get("answer");
+    String lastAns=getCards().get(lastVisibleItem - 1).get("answer");
     if (firstAns != null && firstAns.equals("") || lastAns != null && lastAns.equals("")) {
       showProgressBar();
+      long currentTime=SystemClock.elapsedRealtime();
+      if ((currentTime - mLastRenderStart > 300 || lastVisibleItem >= totalItemCount)) {
+        mLastRenderStart=currentTime;
+        DeckTask.cancelTask(DeckTask.TASK_TYPE_RENDER_BROWSER_QA);
+        DeckTask.launchDeckTask(DeckTask.TASK_TYPE_RENDER_BROWSER_QA,mRenderQAHandler,new DeckTask.TaskData(new Object[]{getCards(),firstVisibleItem,visibleItemCount}));
+      }
     }
   }
 }
