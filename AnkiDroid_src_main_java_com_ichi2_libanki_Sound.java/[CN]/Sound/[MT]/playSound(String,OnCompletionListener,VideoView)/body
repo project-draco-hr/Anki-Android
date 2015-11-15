@@ -11,43 +11,43 @@
       isVideo=isVideo || (guessedType != null && guessedType.startsWith("video/"));
     }
     isVideo=isVideo && ThumbnailUtils.createVideoThumbnail(soundUri.getPath(),MediaStore.Images.Thumbnails.MINI_KIND) != null;
-    if (isVideo && videoView == null && sCallingActivity != null && sCallingActivity.get() != null) {
-      sPlayAllListener=playAllListener;
-      ((AbstractFlashcardViewer)sCallingActivity.get()).playVideo(soundPath);
+    if (isVideo && videoView == null && mCallingActivity != null && mCallingActivity.get() != null) {
+      mPlayAllListener=playAllListener;
+      ((AbstractFlashcardViewer)mCallingActivity.get()).playVideo(soundPath);
       return;
     }
     try {
-      if (sMediaPlayer == null) {
-        sMediaPlayer=new MediaPlayer();
+      if (mMediaPlayer == null) {
+        mMediaPlayer=new MediaPlayer();
       }
  else {
-        sMediaPlayer.reset();
+        mMediaPlayer.reset();
       }
-      if (sAudioManager == null) {
-        sAudioManager=(AudioManager)AnkiDroidApp.getInstance().getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+      if (mAudioManager == null) {
+        mAudioManager=(AudioManager)AnkiDroidApp.getInstance().getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
       }
       if (isVideo && videoView != null) {
-        sMediaPlayer.setDisplay(videoView.getHolder());
-        sMediaPlayer.setOnVideoSizeChangedListener(new MediaPlayer.OnVideoSizeChangedListener(){
+        mMediaPlayer.setDisplay(videoView.getHolder());
+        mMediaPlayer.setOnVideoSizeChangedListener(new MediaPlayer.OnVideoSizeChangedListener(){
           @Override public void onVideoSizeChanged(          MediaPlayer mp,          int width,          int height){
             configureVideo(videoView,width,height);
           }
         }
 );
       }
-      sMediaPlayer.setDataSource(AnkiDroidApp.getInstance().getApplicationContext(),soundUri);
-      sMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-      sMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
+      mMediaPlayer.setDataSource(AnkiDroidApp.getInstance().getApplicationContext(),soundUri);
+      mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+      mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
         @Override public void onPrepared(        MediaPlayer mp){
-          sMediaPlayer.start();
+          mMediaPlayer.start();
         }
       }
 );
       if (playAllListener != null) {
-        sMediaPlayer.setOnCompletionListener(playAllListener);
+        mMediaPlayer.setOnCompletionListener(playAllListener);
       }
-      sMediaPlayer.prepareAsync();
-      sAudioManager.requestAudioFocus(afChangeListener,AudioManager.STREAM_MUSIC,AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK);
+      mMediaPlayer.prepareAsync();
+      mAudioManager.requestAudioFocus(afChangeListener,AudioManager.STREAM_MUSIC,AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK);
     }
  catch (    Exception e) {
       Timber.e(e,"playSounds - Error reproducing sound %s",soundPath);

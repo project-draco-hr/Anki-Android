@@ -1,4 +1,4 @@
 {
   super.onConfigurationChanged(newConfig);
-  Sound.notifyConfigurationChanged(mVideoView);
+  mSoundPlayer.notifyConfigurationChanged(mVideoView);
 }

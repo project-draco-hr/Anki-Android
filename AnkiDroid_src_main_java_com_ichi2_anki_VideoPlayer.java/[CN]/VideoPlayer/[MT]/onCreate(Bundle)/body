@@ -5,4 +5,5 @@
   getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
   mVideoView=(VideoView)findViewById(R.id.video_surface);
   mVideoView.getHolder().addCallback(this);
+  mSoundPlayer=new Sound();
 }

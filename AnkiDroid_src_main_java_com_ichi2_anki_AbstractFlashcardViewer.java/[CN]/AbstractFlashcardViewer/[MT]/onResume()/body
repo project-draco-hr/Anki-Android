@@ -1,7 +1,7 @@
 {
   super.onResume();
   resumeTimer();
-  Sound.setContext(new WeakReference<Activity>(this));
+  mSoundPlayer.setContext(new WeakReference<Activity>(this));
   setTitle();
   updateScreenCounts();
   selectNavigationItem(-1);
