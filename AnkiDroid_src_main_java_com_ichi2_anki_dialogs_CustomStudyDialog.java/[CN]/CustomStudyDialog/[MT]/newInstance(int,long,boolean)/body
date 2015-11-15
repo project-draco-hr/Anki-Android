@@ -2,6 +2,7 @@
   CustomStudyDialog f=new CustomStudyDialog();
   Bundle args=new Bundle();
   args.putInt("id",id);
+  args.putLong("did",did);
   args.putBoolean("jumpToReviewer",jumpToReviewer);
   f.setArguments(args);
   return f;
