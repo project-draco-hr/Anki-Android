@@ -34,8 +34,10 @@
  else   if (requestCode == AnkiActivity.REQUEST_REVIEW) {
     if (resultCode == Reviewer.RESULT_NO_MORE_CARDS) {
       int[] counts=getCol().getSched().counts();
-      if ((counts[0] + counts[1] + counts[2]) > 0) {
-        Toast.makeText(getActivity(),R.string.studyoptions_no_cards_due,Toast.LENGTH_LONG).show();
+      if ((counts[0] + counts[1] + counts[2]) > 0 && mStudyOptionsView != null) {
+        View rootLayout=mStudyOptionsView.findViewById(R.id.studyoptions_main);
+        AnkiActivity activity=(AnkiActivity)getActivity();
+        activity.showSnackbar(R.string.studyoptions_no_cards_due,false,0,null,rootLayout);
       }
     }
   }
