@@ -1,8 +1,9 @@
 {
   if (Arrays.asList(sCollectionPreferences).contains(pref.getKey())) {
-    if (mCol != null) {
+    Collection col=getCol();
+    if (col != null) {
       try {
-        JSONObject conf=mCol.getConf();
+        JSONObject conf=col.getConf();
 switch (pref.getKey()) {
 case "showEstimates":
           ((CheckBoxPreference)pref).setChecked(conf.getBoolean("estTimes"));
@@ -24,7 +25,7 @@ case "newSpread":
 break;
 case "dayOffset":
 Calendar calendar=new GregorianCalendar();
-Timestamp timestamp=new Timestamp(mCol.getCrt() * 1000);
+Timestamp timestamp=new Timestamp(col.getCrt() * 1000);
 calendar.setTimeInMillis(timestamp.getTime());
 ((SeekBarPreference)pref).setValue(calendar.get(Calendar.HOUR_OF_DAY));
 break;

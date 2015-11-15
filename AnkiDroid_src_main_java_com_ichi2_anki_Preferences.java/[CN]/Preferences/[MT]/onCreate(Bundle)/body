@@ -1,7 +1,6 @@
 {
   Themes.setThemeLegacy(this);
   super.onCreate(savedInstanceState);
-  mCol=CollectionHelper.getInstance().getCol(this);
   String action=getIntent().getAction();
   if (!CompatHelper.isHoneycomb()) {
     if (action == null) {
