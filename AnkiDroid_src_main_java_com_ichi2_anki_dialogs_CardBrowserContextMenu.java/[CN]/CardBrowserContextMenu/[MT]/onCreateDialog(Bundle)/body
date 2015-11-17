@@ -6,5 +6,9 @@
   entries[CONTEXT_MENU_DETAILS]=res.getString(R.string.card_editor_preview_card);
   entries[CONTEXT_MENU_MARK]=res.getString(getArguments().getBoolean("isMarked") ? R.string.card_browser_unmark_card : R.string.card_browser_mark_card);
   entries[CONTEXT_MENU_SUSPEND]=res.getString(getArguments().getBoolean("isSuspended") ? R.string.card_browser_unsuspend_card : R.string.card_browser_suspend_card);
-  return new MaterialDialog.Builder(getActivity()).title(getArguments().getString("dialogTitle")).items(entries).itemsCallback(mContextMenuListener).build();
+  String title=getArguments().getString("dialogTitle");
+  if (title != null && title.length() > MAX_TITLE_LENGTH) {
+    title=title.substring(0,MAX_TITLE_LENGTH) + "???";
+  }
+  return new MaterialDialog.Builder(getActivity()).title(title).items(entries).itemsCallback(mContextMenuListener).build();
 }
