@@ -1,11 +1,6 @@
 {
   super.onCollectionLoaded(col);
-  if (mCurrentCardId != -1L) {
-    mCurrentCard=col.getCard(mCurrentCardId);
-  }
- else {
-    mCurrentCard=getDummyCard();
-  }
+  mCurrentCard=col.getCard(mCurrentCardId);
   displayCardQuestion();
   showBackIcon();
 }
