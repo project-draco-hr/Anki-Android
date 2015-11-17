@@ -34,15 +34,22 @@ col.getModels().save(model,false);
 }
 Intent i=new Intent(getActivity(),Previewer.class);
 int pos=getArguments().getInt("position");
+long cid;
 if (getArguments().getLong("noteId") != -1L && pos < col.getNote(getArguments().getLong("noteId")).cards().size()) {
-long cid=col.getNote(getArguments().getLong("noteId")).cards().get(pos).getId();
-i.putExtra("currentCardId",cid);
+cid=col.getNote(getArguments().getLong("noteId")).cards().get(pos).getId();
 }
  else {
-i.putExtra("modelId",getArguments().getLong("modelId"));
-i.putExtra("cardOrd",pos);
+Card dummyCard=getDummyCard();
+if (dummyCard != null) {
+  cid=dummyCard.getId();
 }
-((AnkiActivity)getActivity()).startActivityWithAnimation(i,ActivityTransitionAnimation.LEFT);
+ else {
+  ((AnkiActivity)getActivity()).showSimpleSnackbar(R.string.invalid_template,false);
+  return true;
+}
+}
+i.putExtra("currentCardId",cid);
+startActivityForResult(i,REQUEST_PREVIEWER);
 return true;
 }
 case R.id.action_confirm:
