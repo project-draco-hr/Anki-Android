@@ -1,4 +1,7 @@
 {
+  if (currentCardInUseByReviewer()) {
+    mReloadRequired=true;
+  }
   ArrayList<Card> cards=card.note().cards();
   int pos;
   for (  Card c : cards) {
