@@ -19,5 +19,8 @@
   }
   if (requestCode == EDIT_CARD && data != null && data.hasExtra("reloadRequired")) {
     searchCards();
+    if (currentCardInUseByReviewer()) {
+      mReloadRequired=true;
+    }
   }
 }
