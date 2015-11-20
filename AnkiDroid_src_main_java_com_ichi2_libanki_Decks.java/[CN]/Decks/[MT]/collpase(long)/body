@@ -1,0 +1,10 @@
+{
+  try {
+    JSONObject deck=get(did);
+    deck.put("collapsed",!deck.getBoolean("collapsed"));
+    save(deck);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

@@ -1,18 +1,20 @@
 {
-  ArrayList<JSONObject> list=new ArrayList<JSONObject>();
+  List<String> parents=new ArrayList<>();
   try {
-    String[] path=get(did).getString("name").split("::");
-    String deckpath=null;
-    for (int i=0; i < path.length - 1; i++) {
-      if (i == 0) {
-        deckpath=path[0];
+    List<String> parts=Arrays.asList(get(did).getString("name").split("::",-1));
+    for (    String part : parts.subList(0,parts.size() - 1)) {
+      if (parents.size() == 0) {
+        parents.add(part);
       }
  else {
-        deckpath=deckpath + "::" + path[i];
+        parents.add(parents.get(parents.size() - 1) + "::" + part);
       }
-      list.add(get(id(deckpath,false)));
     }
-    return list;
+    List<JSONObject> oParents=new ArrayList<>();
+    for (int i=0; i < parents.size(); i++) {
+      oParents.add(i,get(id(parents.get(i))));
+    }
+    return oParents;
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);

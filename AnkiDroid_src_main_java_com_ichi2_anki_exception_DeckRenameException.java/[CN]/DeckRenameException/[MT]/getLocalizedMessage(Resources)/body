@@ -1,0 +1,10 @@
+{
+switch (mErrorCode) {
+case ALREADY_EXISTS:
+    return res.getString(R.string.decks_rename_exists);
+case FILTERED_NOSUBDEKCS:
+  return res.getString(R.string.decks_rename_filtered_nosubdecks);
+default :
+return "";
+}
+}

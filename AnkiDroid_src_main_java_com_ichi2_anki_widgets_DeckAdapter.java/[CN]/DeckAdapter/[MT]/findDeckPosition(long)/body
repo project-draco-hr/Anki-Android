@@ -4,7 +4,7 @@
       return i;
     }
   }
-  ArrayList<JSONObject> parents=mCol.getDecks().parents(did);
+  List<JSONObject> parents=mCol.getDecks().parents(did);
   if (parents.size() == 0) {
     return 0;
   }

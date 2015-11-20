@@ -1,37 +1,34 @@
 {
-  name=name.replace("\"","");
-  for (  Map.Entry<Long,JSONObject> g : mDecks.entrySet()) {
-    try {
+  try {
+    name=name.replace("\"","");
+    for (    Map.Entry<Long,JSONObject> g : mDecks.entrySet()) {
       if (g.getValue().getString("name").equalsIgnoreCase(name)) {
         return g.getKey();
       }
     }
- catch (    JSONException e) {
-      throw new RuntimeException(e);
+    if (!create) {
+      return null;
     }
-  }
-  if (!create) {
-    return 0;
-  }
-  if (name.matches(".*::.*")) {
-    name=_ensureParents(name);
-  }
-  JSONObject g;
-  long id;
-  try {
+    if (name.contains("::")) {
+      name=_ensureParents(name);
+    }
+    JSONObject g;
+    long id;
     g=new JSONObject(type);
     g.put("name",name);
-    id=Utils.intNow(1000);
-    while (mDecks.containsKey(id)) {
-      id=Utils.intNow();
+    while (true) {
+      id=Utils.intNow(1000);
+      if (!mDecks.containsKey(id)) {
+        break;
+      }
     }
     g.put("id",id);
     mDecks.put(id,g);
+    save(g);
+    maybeAddToActive();
+    return id;
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
-  save(g);
-  maybeAddToActive();
-  return id;
 }

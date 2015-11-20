@@ -5,7 +5,7 @@
     c=new JSONObject(cloneFrom);
     while (true) {
       id=Utils.intNow(1000);
-      if (!mDconf.containsKey(Long.valueOf(id))) {
+      if (!mDconf.containsKey(id)) {
         break;
       }
     }

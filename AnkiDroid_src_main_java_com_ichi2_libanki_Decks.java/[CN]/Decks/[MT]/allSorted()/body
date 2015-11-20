@@ -1,5 +1,15 @@
 {
   ArrayList<JSONObject> decks=all();
-  Collections.sort(decks,new DeckListComparator());
+  Collections.sort(decks,new Comparator<JSONObject>(){
+    @Override public int compare(    JSONObject lhs,    JSONObject rhs){
+      try {
+        return lhs.getString("name").compareTo(rhs.getString("name"));
+      }
+ catch (      JSONException e) {
+        throw new RuntimeException(e);
+      }
+    }
+  }
+);
   return decks;
 }

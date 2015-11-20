@@ -1,0 +1,10 @@
+{
+  Iterator<String> apIt=_path(ancestorDeckName).iterator();
+  Iterator<String> dpIt=_path(descendantDeckName).iterator();
+  while (apIt.hasNext() && dpIt.hasNext()) {
+    if (!apIt.next().equals(dpIt.next())) {
+      return false;
+    }
+  }
+  return true;
+}
