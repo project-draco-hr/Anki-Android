@@ -1,3 +1,8 @@
 {
-  return mDrawer.getDrawerLayout();
+  if (mDrawer != null) {
+    return mDrawer.getDrawerLayout();
+  }
+ else {
+    return null;
+  }
 }

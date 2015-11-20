@@ -1,5 +1,7 @@
 {
-  mDrawer.getActionBarDrawerToggle().setDrawerIndicatorEnabled(false);
+  if (mDrawer != null) {
+    mDrawer.getActionBarDrawerToggle().setDrawerIndicatorEnabled(false);
+  }
   if (getSupportActionBar() != null) {
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
   }

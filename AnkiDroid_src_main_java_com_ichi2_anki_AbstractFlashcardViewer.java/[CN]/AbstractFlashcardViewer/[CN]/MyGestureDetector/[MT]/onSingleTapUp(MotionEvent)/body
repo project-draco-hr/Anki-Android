@@ -3,5 +3,6 @@
     longClickHandler.removeCallbacks(longClickTestRunnable);
     mTouchStarted=false;
   }
+  delayedHide(INITIAL_HIDE_DELAY);
   return false;
 }
