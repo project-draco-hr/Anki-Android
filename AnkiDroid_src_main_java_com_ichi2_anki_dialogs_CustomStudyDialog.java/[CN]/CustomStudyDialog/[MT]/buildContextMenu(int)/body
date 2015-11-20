@@ -20,7 +20,8 @@ case MORE_OPTIONS:
       }
 case CUSTOM_STUDY_TAGS:
 {
-      TagsDialog dialogFragment=TagsDialog.newInstance(TagsDialog.TYPE_CUSTOM_STUDY_TAGS,new ArrayList<String>(),new ArrayList<>(activity.getCol().getTags().all()));
+      long currentDeck=getArguments().getLong("did");
+      TagsDialog dialogFragment=TagsDialog.newInstance(TagsDialog.TYPE_CUSTOM_STUDY_TAGS,new ArrayList<String>(),new ArrayList<>(activity.getCol().getTags().byDeck(currentDeck,true)));
       dialogFragment.setTagsDialogListener(new TagsDialog.TagsDialogListener(){
         @Override public void onPositive(        List<String> selectedTags,        int option){
           StringBuilder sb=new StringBuilder();
