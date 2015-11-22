@@ -1,0 +1,12 @@
+{
+  List<String> parentDeckPath=_path(parentDeckName);
+  parentDeckPath.add(_basename(childDeckName));
+  Iterator<String> cpIt=_path(childDeckName).iterator();
+  Iterator<String> ppIt=parentDeckPath.iterator();
+  while (cpIt.hasNext() && ppIt.hasNext()) {
+    if (!cpIt.next().equals(ppIt.next())) {
+      return false;
+    }
+  }
+  return true;
+}

@@ -1,0 +1,8 @@
+{
+  if (draggedDeckName.equals(ontoDeckName) || _isParent(ontoDeckName,draggedDeckName) || _isAncestor(draggedDeckName,ontoDeckName)) {
+    return false;
+  }
+ else {
+    return true;
+  }
+}

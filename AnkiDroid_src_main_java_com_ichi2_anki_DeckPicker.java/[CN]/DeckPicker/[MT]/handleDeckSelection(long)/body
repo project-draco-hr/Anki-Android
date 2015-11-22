@@ -24,7 +24,7 @@
     }
 ,findViewById(R.id.root_layout),mSnackbarShowHideCallback);
   }
- else   if (deckDueTreeNode.children.size() == 0 && getCol().cardCount(new long[]{did}) == 0) {
+ else   if (deckDueTreeNode.children.size() == 0 && getCol().cardCount(new Long[]{did}) == 0) {
     final Uri helpUrl=Uri.parse(getResources().getString(R.string.link_manual_getting_started));
     mayOpenUrl(helpUrl);
     showSnackbar(R.string.empty_deck,false,R.string.help,new OnClickListener(){

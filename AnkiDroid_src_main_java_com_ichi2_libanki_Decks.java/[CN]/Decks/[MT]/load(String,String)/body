@@ -1,6 +1,6 @@
 {
-  mDecks=new HashMap<Long,JSONObject>();
-  mDconf=new HashMap<Long,JSONObject>();
+  mDecks=new HashMap<>();
+  mDconf=new HashMap<>();
   try {
     JSONObject decksarray=new JSONObject(decks);
     JSONArray ids=decksarray.names();

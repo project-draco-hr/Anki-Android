@@ -11,7 +11,7 @@
         return deckDueList();
       }
       String p;
-      List<String> parts=Arrays.asList(deck.getString("name").split("::"));
+      List<String> parts=Arrays.asList(deck.getString("name").split("::",-1));
       if (parts.size() < 2) {
         p=null;
       }

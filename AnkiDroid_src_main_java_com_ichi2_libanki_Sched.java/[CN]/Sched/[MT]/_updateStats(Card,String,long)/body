@@ -1,7 +1,7 @@
 {
   String key=type + "Today";
   long did=card.getDid();
-  ArrayList<JSONObject> list=mCol.getDecks().parents(did);
+  List<JSONObject> list=mCol.getDecks().parents(did);
   list.add(mCol.getDecks().get(did));
   for (  JSONObject g : list) {
     try {

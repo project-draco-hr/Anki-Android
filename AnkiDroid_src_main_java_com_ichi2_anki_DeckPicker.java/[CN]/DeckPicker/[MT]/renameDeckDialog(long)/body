@@ -1,5 +1,5 @@
 {
-  Resources res=getResources();
+  final Resources res=getResources();
   mDialogEditText=new EditText(DeckPicker.this);
   mDialogEditText.setSingleLine();
   final String currentName=getCol().getDecks().name(did);
@@ -8,8 +8,13 @@
     @Override public void onPositive(    MaterialDialog dialog){
       String newName=mDialogEditText.getText().toString().replaceAll("\"","");
       Collection col=getCol();
-      if (!newName.equals(currentName) && !col.getDecks().rename(col.getDecks().get(did),newName)) {
-        Themes.showThemedToast(DeckPicker.this,getResources().getString(R.string.rename_error,currentName),false);
+      if (!TextUtils.isEmpty(newName) && !newName.equals(currentName)) {
+        try {
+          col.getDecks().rename(col.getDecks().get(did),newName);
+        }
+ catch (        DeckRenameException e) {
+          Themes.showThemedToast(DeckPicker.this,e.getLocalizedMessage(res),false);
+        }
       }
       dismissAllDialogFragments();
       mDeckListAdapter.notifyDataSetChanged();

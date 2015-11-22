@@ -1,0 +1,11 @@
+{
+  try {
+    JSONObject deck=get(did);
+    boolean collapsed=deck.optBoolean("browserCollapsed",false);
+    deck.put("browserCollapsed",!collapsed);
+    save(deck);
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

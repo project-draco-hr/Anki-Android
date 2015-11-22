@@ -7,7 +7,7 @@
       if (lim == 0) {
         continue;
       }
-      ArrayList<JSONObject> parents=mCol.getDecks().parents(did);
+      List<JSONObject> parents=mCol.getDecks().parents(did);
       for (      JSONObject p : parents) {
         long id=p.getLong("id");
         if (!pcounts.containsKey(id)) {
