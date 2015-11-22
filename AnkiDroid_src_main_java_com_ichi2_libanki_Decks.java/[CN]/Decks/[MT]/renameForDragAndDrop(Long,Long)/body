@@ -1,0 +1,21 @@
+{
+  try {
+    JSONObject draggedDeck=get(draggedDeckDid);
+    String draggedDeckName=draggedDeck.getString("name");
+    String ontoDeckName=get(ontoDeckDid).getString("name");
+    if (ontoDeckDid == null) {
+      if (_path(draggedDeckName).size() > 1) {
+        rename(draggedDeck,_basename(draggedDeckName));
+      }
+    }
+ else     if (_canDragAndDrop(draggedDeckName,ontoDeckName)) {
+      draggedDeck=get(draggedDeckDid);
+      draggedDeckName=draggedDeck.getString("name");
+      ontoDeckName=get(ontoDeckDid).getString("name");
+      rename(draggedDeck,ontoDeckName + "::" + _basename(draggedDeckName));
+    }
+  }
+ catch (  JSONException e) {
+    throw new RuntimeException(e);
+  }
+}

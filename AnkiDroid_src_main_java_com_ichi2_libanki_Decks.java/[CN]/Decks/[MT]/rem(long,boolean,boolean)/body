@@ -38,7 +38,7 @@
   }
   mDecks.remove(did);
   if (active().contains(did)) {
-    select((long)(mDecks.keySet().iterator().next()));
+    select(mDecks.keySet().iterator().next());
   }
   save();
 }

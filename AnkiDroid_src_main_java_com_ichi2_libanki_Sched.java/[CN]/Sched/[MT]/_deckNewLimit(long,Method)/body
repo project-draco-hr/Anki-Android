@@ -3,7 +3,7 @@
     if (fn == null) {
       fn=Sched.class.getDeclaredMethod("_deckNewLimitSingle",JSONObject.class);
     }
-    ArrayList<JSONObject> decks=mCol.getDecks().parents(did);
+    List<JSONObject> decks=mCol.getDecks().parents(did);
     decks.add(mCol.getDecks().get(did));
     int lim=-1;
     int rem=0;

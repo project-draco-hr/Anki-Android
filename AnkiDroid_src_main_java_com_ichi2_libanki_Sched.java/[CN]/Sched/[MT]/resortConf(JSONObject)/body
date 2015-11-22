@@ -1,5 +1,5 @@
 {
-  ArrayList<Long> dids=mCol.getDecks().didsForConf(conf);
+  List<Long> dids=mCol.getDecks().didsForConf(conf);
   try {
     for (    long did : dids) {
       if (conf.getJSONObject("new").getLong("order") == 0) {

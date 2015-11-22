@@ -1,8 +1,7 @@
 {
   try {
-    String actv=mCol.getConf().getString("activeDecks");
-    JSONArray ja=new JSONArray(actv);
-    LinkedList<Long> result=new LinkedList<Long>();
+    JSONArray ja=mCol.getConf().getJSONArray("activeDecks");
+    LinkedList<Long> result=new LinkedList<>();
     for (int i=0; i < ja.length(); i++) {
       result.add(ja.getLong(i));
     }

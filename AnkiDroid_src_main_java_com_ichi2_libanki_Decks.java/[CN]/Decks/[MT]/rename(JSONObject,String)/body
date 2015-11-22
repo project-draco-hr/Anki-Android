@@ -1,16 +1,20 @@
 {
-  if (allNames().contains(newName) || newName.length() == 0) {
-    return false;
+  if (allNames().contains(newName)) {
+    throw new DeckRenameException(DeckRenameException.ALREADY_EXISTS);
   }
-  newName=_ensureParents(newName);
-  String oldName;
   try {
-    oldName=g.getString("name");
+    newName=_ensureParents(newName);
+    if (newName.contains("::")) {
+      List<String> parts=Arrays.asList(newName.split("::",-1));
+      String newParent=TextUtils.join("::",parts.subList(0,parts.size() - 1));
+      if (byName(newParent).getInt("dyn") != 0) {
+        throw new DeckRenameException(DeckRenameException.FILTERED_NOSUBDEKCS);
+      }
+    }
+    String oldName=g.getString("name");
     for (    JSONObject grp : all()) {
       if (grp.getString("name").startsWith(oldName + "::")) {
-        String on=grp.getString("name");
-        String nn=on.replaceFirst("\\Q" + oldName + "::\\E",newName + "::");
-        grp.put("name",nn);
+        grp.put("name",grp.getString("name").replaceFirst(Pattern.quote(oldName + "::"),newName + "::"));
         save(grp);
       }
     }
@@ -22,5 +26,4 @@
  catch (  JSONException e) {
     throw new RuntimeException(e);
   }
-  return true;
 }

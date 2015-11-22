@@ -1,20 +1,11 @@
 {
-  String sql;
-  if (children) {
-    ArrayList<Long> dids=new ArrayList<Long>();
-    dids.add(did);
-    for (    long id : children(did).values()) {
-      dids.add(id);
-    }
-    sql="SELECT id FROM cards WHERE did IN " + Utils.ids2str(Utils.arrayList2array(dids));
+  if (!children) {
+    return Utils.list2ObjectArray(mCol.getDb().queryColumn(Long.class,"select id from cards where did=" + did,0));
   }
- else {
-    sql="SELECT id FROM cards WHERE did = " + did;
+  List<Long> dids=new ArrayList<>();
+  dids.add(did);
+  for (  Map.Entry<String,Long> entry : children(did).entrySet()) {
+    dids.add(entry.getValue());
   }
-  ArrayList<Long> cids=mCol.getDb().queryColumn(Long.class,sql,0);
-  long[] result=new long[cids.size()];
-  for (int i=0; i < cids.size(); i++) {
-    result[i]=cids.get(i);
-  }
-  return result;
+  return Utils.list2ObjectArray(mCol.getDb().queryColumn(Long.class,"select id from cards where did in " + Utils.ids2str(Utils.arrayList2array(dids)),0));
 }

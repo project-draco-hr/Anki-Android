@@ -1,9 +1,7 @@
 {
-  ArrayList<Long> dids=new ArrayList<Long>();
-  Iterator<JSONObject> it=mDecks.values().iterator();
+  List<Long> dids=new ArrayList<>();
   try {
-    while (it.hasNext()) {
-      JSONObject deck=it.next();
+    for (    JSONObject deck : mDecks.values()) {
       if (deck.has("conf") && deck.getLong("conf") == conf.getLong("id")) {
         dids.add(deck.getLong("id"));
       }
