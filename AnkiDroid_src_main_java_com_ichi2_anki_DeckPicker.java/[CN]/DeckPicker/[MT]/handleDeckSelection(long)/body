@@ -1,6 +1,7 @@
 {
   CardBrowser.clearSelectedDeck();
   getCol().getDecks().select(did);
+  getCol().getSched().reset();
   mFocusedDeck=did;
   int pos=mDeckListAdapter.findDeckPosition(did);
   Sched.DeckDueTreeNode deckDueTreeNode=mDeckListAdapter.getDeckList().get(pos);
