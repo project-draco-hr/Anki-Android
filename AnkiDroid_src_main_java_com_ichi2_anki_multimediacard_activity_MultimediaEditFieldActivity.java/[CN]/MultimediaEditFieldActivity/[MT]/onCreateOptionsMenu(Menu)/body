@@ -1,4 +1,7 @@
 {
   getMenuInflater().inflate(R.menu.activity_edit_text,menu);
+  menu.findItem(R.id.multimedia_edit_field_to_text).setVisible(mField.getType() != EFieldType.TEXT);
+  menu.findItem(R.id.multimedia_edit_field_to_audio).setVisible(mField.getType() != EFieldType.AUDIO);
+  menu.findItem(R.id.multimedia_edit_field_to_image).setVisible(mField.getType() != EFieldType.IMAGE);
   return true;
 }
