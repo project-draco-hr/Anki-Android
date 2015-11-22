@@ -1,6 +1,6 @@
 {
   Timber.d("Creating dummy note");
-  JSONObject model=getCol().getModels().get(mCurrentModelId);
+  JSONObject model=getCol().getModels().get(getArguments().getLong("modelId"));
   Note n=getCol().newNote(model);
   ArrayList<String> fieldNames=getCol().getModels().fieldNames(model);
   for (int i=0; i < fieldNames.size(); i++) {
@@ -8,5 +8,8 @@
   }
   n.addTag(DUMMY_TAG);
   getCol().addNote(n);
-  return getCol().getCard(n.cards().get(mOrd).getId());
+  if (n.cards().size() <= getArguments().getInt("position")) {
+    return null;
+  }
+  return getCol().getCard(n.cards().get(getArguments().getInt("position")).getId());
 }
