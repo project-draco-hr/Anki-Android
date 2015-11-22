@@ -1,0 +1,16 @@
+{
+  String sql;
+  if (children) {
+    ArrayList<Long> dids=new ArrayList<Long>();
+    dids.add(did);
+    for (    long id : mCol.getDecks().children(did).values()) {
+      dids.add(id);
+    }
+    sql="SELECT DISTINCT n.tags FROM cards c, notes n WHERE c.nid = n.id AND c.did IN " + Utils.ids2str(Utils.arrayList2array(dids));
+  }
+ else {
+    sql="SELECT DISTINCT n.tags FROM cards c, notes n WHERE c.nid = n.id AND c.did = " + did;
+  }
+  List<String> tags=mCol.getDb().queryColumn(String.class,sql,0);
+  return new ArrayList<String>(new HashSet<String>(split(TextUtils.join(" ",tags))));
+}
