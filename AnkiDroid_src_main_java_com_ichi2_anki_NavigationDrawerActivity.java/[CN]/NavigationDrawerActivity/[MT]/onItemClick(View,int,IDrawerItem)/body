@@ -12,6 +12,9 @@ break;
 case DRAWER_BROWSER:
 Intent cardBrowser=new Intent(this,CardBrowser.class);
 cardBrowser.putExtra("selectedDeck",getCol().getDecks().selected());
+if (mCurrentCardId >= 0) {
+cardBrowser.putExtra("currentCard",mCurrentCardId);
+}
 startActivityForResultWithAnimation(cardBrowser,REQUEST_BROWSE_CARDS,ActivityTransitionAnimation.LEFT);
 break;
 case DRAWER_STATISTICS:
