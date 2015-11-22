@@ -1,7 +1,0 @@
-{
-  SQLiteDatabase db=getDatabase();
-  if (db.inTransaction()) {
-    db.endTransaction();
-  }
-  CompatHelper.getCompat().disableDatabaseWriteAheadLogging(db);
-}
