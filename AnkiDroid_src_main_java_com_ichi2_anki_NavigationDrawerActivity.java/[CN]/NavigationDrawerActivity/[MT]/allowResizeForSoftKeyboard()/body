@@ -1,3 +1,5 @@
 {
-  mDrawer.keyboardSupportEnabled(this,true);
+  if (mDrawer != null) {
+    mDrawer.keyboardSupportEnabled(this,true);
+  }
 }

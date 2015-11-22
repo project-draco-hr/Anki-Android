@@ -1,0 +1,9 @@
+{
+  super.onWindowFocusChanged(hasFocus);
+  if (hasFocus) {
+    delayedHide(INITIAL_HIDE_DELAY);
+  }
+ else {
+    mFullScreenHandler.removeMessages(0);
+  }
+}

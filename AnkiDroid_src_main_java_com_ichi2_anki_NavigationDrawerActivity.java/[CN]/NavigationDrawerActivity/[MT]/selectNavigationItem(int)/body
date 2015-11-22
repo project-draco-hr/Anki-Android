@@ -1,4 +1,6 @@
 {
-  mDrawer.setSelection(itemId,false);
-  mSelectedItem=itemId;
+  if (mDrawer != null) {
+    mDrawer.setSelection(itemId,false);
+    mSelectedItem=itemId;
+  }
 }
