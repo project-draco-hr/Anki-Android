@@ -5,7 +5,7 @@
   mDisableClipboard=preferences.getString("dictionary","0").equals("0");
   mLongClickWorkaround=preferences.getBoolean("textSelectionLongclickWorkaround",false);
   mNightMode=preferences.getBoolean("invertedColors",false);
-  mPrefFullscreenReview=preferences.getBoolean("fullscreenReview",false);
+  mPrefFullscreenReview=Integer.parseInt(preferences.getString("fullscreenReview","0")) > 0;
   mCardZoom=preferences.getInt("cardZoom",100);
   mImageZoom=preferences.getInt("imageZoom",100);
   mRelativeButtonSize=preferences.getInt("answerButtonSize",100);
@@ -20,7 +20,6 @@
   mPrefCenterVertically=preferences.getBoolean("centerVertically",false);
   mGesturesEnabled=AnkiDroidApp.initiateGestures(preferences);
   if (mGesturesEnabled) {
-    mHideAnswerButtons=preferences.getBoolean("hideAnswerButtons",false);
     mGestureSwipeUp=Integer.parseInt(preferences.getString("gestureSwipeUp","9"));
     mGestureSwipeDown=Integer.parseInt(preferences.getString("gestureSwipeDown","0"));
     mGestureSwipeLeft=Integer.parseInt(preferences.getString("gestureSwipeLeft","8"));

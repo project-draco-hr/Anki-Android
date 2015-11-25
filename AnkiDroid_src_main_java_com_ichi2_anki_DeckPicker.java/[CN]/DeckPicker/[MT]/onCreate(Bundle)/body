@@ -55,7 +55,6 @@
   }
 );
   mTodayTextView=(TextView)findViewById(R.id.today_stats_text_view);
-  final Resources res=getResources();
   mTodayTextView=(TextView)findViewById(R.id.today_stats_text_view);
   if (!CollectionHelper.hasStorageAccessPermission(this)) {
     ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_STORAGE_PERMISSION);
