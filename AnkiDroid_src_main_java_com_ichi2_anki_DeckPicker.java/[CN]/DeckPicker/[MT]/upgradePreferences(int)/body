@@ -1,29 +1,7 @@
 {
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
-  if (previousVersionCode < 20100108) {
-    preferences.edit().putString("overrideFont",preferences.getString("defaultFont","")).commit();
-    preferences.edit().putString("defaultFont","").commit();
-  }
-  if (previousVersionCode < 20200166) {
-    preferences.edit().putInt("swipeSensitivity",preferences.getInt("swipeSensibility",100)).commit();
-    preferences.edit().putBoolean("gestures",preferences.getBoolean("swipe",false)).commit();
-    boolean safeDisplayMode=preferences.getBoolean("eInkDisplay",false) || CompatHelper.isNook() || !preferences.getBoolean("forceQuickUpdate",false);
-    preferences.edit().putBoolean("safeDisplay",safeDisplayMode).commit();
-    String overrideFont=preferences.getString("overrideFont","");
-    if (!overrideFont.equals("")) {
-      preferences.edit().putString("defaultFont",overrideFont).commit();
-      preferences.edit().putString("overrideFontBehavior","1").commit();
-    }
- else {
-      preferences.edit().putString("overrideFontBehavior","0").commit();
-    }
-    preferences.edit().putBoolean("writeAnswersDisable",!preferences.getBoolean("writeAnswers",true)).commit();
-  }
   if (previousVersionCode < 20300130) {
-    preferences.edit().putInt("backupMax",8).commit();
-  }
-  if (previousVersionCode < 20400203) {
-    preferences.edit().putInt("swipeSensitivity",100).commit();
+    preferences.edit().clear().commit();
   }
   if (previousVersionCode < 20500135) {
     int oldCardZoom=preferences.getInt("relativeDisplayFontSize",100);
@@ -35,5 +13,9 @@
     }
     preferences.edit().remove("useBackup").commit();
     preferences.edit().remove("intentAdditionInstantAdd").commit();
+  }
+  if (previousVersionCode < 20500219) {
+    boolean old=preferences.getBoolean("fullscreenReview",false);
+    preferences.edit().putString("fullscreenReview",old ? "1" : "0").commit();
   }
 }
