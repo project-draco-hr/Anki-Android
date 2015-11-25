@@ -9,7 +9,7 @@ break;
 case "com.ichi2.anki.prefs.reviewing":
 listener.addPreferencesFromResource(R.xml.preferences_reviewing);
 screen=listener.getPreferenceScreen();
-ListPreference fullscreenPreference=(ListPreference)screen.findPreference("fullscreenReview");
+ListPreference fullscreenPreference=(ListPreference)screen.findPreference("fullscreenMode");
 fullscreenPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener(){
 public boolean onPreferenceChange(Preference preference,final Object newValue){
 SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(Preferences.this);

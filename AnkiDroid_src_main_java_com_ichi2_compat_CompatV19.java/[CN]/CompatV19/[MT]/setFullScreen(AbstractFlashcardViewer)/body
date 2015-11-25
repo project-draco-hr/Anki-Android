@@ -7,7 +7,7 @@
   lp.setMargins(0,topMargin,0,0);
   a.findViewById(R.id.toolbar).setLayoutParams(lp);
   SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(a);
-  final int fullscreenMode=Integer.parseInt(prefs.getString("fullscreenReview","0"));
+  final int fullscreenMode=Integer.parseInt(prefs.getString("fullscreenMode","0"));
   View decorView=a.getWindow().getDecorView();
   decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener(){
     @Override public void onSystemUiVisibilityChange(    int flags){
