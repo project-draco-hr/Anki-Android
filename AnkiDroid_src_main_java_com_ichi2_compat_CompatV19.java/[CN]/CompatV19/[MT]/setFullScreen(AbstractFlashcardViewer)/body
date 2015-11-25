@@ -6,12 +6,15 @@
   RelativeLayout.LayoutParams lp=(RelativeLayout.LayoutParams)a.findViewById(R.id.toolbar).getLayoutParams();
   lp.setMargins(0,topMargin,0,0);
   a.findViewById(R.id.toolbar).setLayoutParams(lp);
+  SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(a);
+  final int fullscreenMode=Integer.parseInt(prefs.getString("fullscreenReview","0"));
   View decorView=a.getWindow().getDecorView();
   decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener(){
     @Override public void onSystemUiVisibilityChange(    int flags){
       final Toolbar toolbar=(Toolbar)a.findViewById(R.id.toolbar);
+      final LinearLayout answerButtons=(LinearLayout)a.findViewById(R.id.answer_options_layout);
       final RelativeLayout topbar=(RelativeLayout)a.findViewById(R.id.top_bar);
-      if (toolbar == null || topbar == null) {
+      if (toolbar == null || topbar == null || answerButtons == null) {
         return;
       }
       boolean visible=(flags & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
@@ -19,9 +22,14 @@
         toolbar.setAlpha(0.0f);
         toolbar.setVisibility(View.VISIBLE);
         toolbar.animate().alpha(1f).setDuration(ANIMATION_DURATION).setListener(null);
-        topbar.setAlpha(0.0f);
-        topbar.setVisibility(View.VISIBLE);
-        topbar.animate().alpha(1f).setDuration(ANIMATION_DURATION).setListener(null);
+        if (fullscreenMode >= FULLSCREEN_ALL_GONE) {
+          topbar.setAlpha(0.0f);
+          topbar.setVisibility(View.VISIBLE);
+          topbar.animate().alpha(1f).setDuration(ANIMATION_DURATION).setListener(null);
+          answerButtons.setAlpha(0.0f);
+          answerButtons.setVisibility(View.VISIBLE);
+          answerButtons.animate().alpha(1f).setDuration(ANIMATION_DURATION).setListener(null);
+        }
       }
  else {
         toolbar.animate().alpha(0f).setDuration(ANIMATION_DURATION).setListener(new AnimatorListenerAdapter(){
@@ -30,12 +38,20 @@
           }
         }
 );
-        topbar.animate().alpha(0f).setDuration(ANIMATION_DURATION).setListener(new AnimatorListenerAdapter(){
-          @Override public void onAnimationEnd(          Animator animation){
-            topbar.setVisibility(View.GONE);
+        if (fullscreenMode >= FULLSCREEN_ALL_GONE) {
+          topbar.animate().alpha(0f).setDuration(ANIMATION_DURATION).setListener(new AnimatorListenerAdapter(){
+            @Override public void onAnimationEnd(            Animator animation){
+              topbar.setVisibility(View.GONE);
+            }
           }
-        }
 );
+          answerButtons.animate().alpha(0f).setDuration(ANIMATION_DURATION).setListener(new AnimatorListenerAdapter(){
+            @Override public void onAnimationEnd(            Animator animation){
+              answerButtons.setVisibility(View.GONE);
+            }
+          }
+);
+        }
       }
     }
   }
