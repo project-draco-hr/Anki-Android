@@ -13,8 +13,6 @@
   }
   mCardFrame.removeAllViews();
   gestureDetector=new GestureDetector(new MyGestureDetector());
-  mProgressBar=(ProgressBar)findViewById(R.id.flashcard_progressbar);
-  Resources res=getResources();
   mEase1=(TextView)findViewById(R.id.ease1);
   mEase1.setTypeface(TypefaceHelper.get(this,"Roboto-Medium"));
   mEase1Layout=(LinearLayout)findViewById(R.id.flashcard_layout_ease1);
