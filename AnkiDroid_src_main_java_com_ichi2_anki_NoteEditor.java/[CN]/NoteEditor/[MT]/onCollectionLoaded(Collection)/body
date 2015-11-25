@@ -56,9 +56,6 @@ case CALLER_CARDEDITOR:
 mAddNote=true;
 break;
 case CALLER_CARDEDITOR_INTENT_ADD:
-mAddNote=true;
-break;
-case CALLER_INDICLASH:
 fetchIntentInformation(intent);
 if (mSourceText == null) {
 finishWithoutAnimation();
