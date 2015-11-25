@@ -15,7 +15,7 @@
     if (mCaller == CALLER_NOCALLER) {
       String action=intent.getAction();
       if (action != null && (ACTION_CREATE_FLASHCARD.equals(action) || ACTION_CREATE_FLASHCARD_SEND.equals(action))) {
-        mCaller=CALLER_INDICLASH;
+        mCaller=CALLER_CARDEDITOR_INTENT_ADD;
       }
     }
   }

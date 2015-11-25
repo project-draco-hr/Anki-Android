@@ -6,9 +6,6 @@
     setResult(result);
   }
   if (mCaller == CALLER_CARDEDITOR_INTENT_ADD) {
-    finishWithAnimation(ActivityTransitionAnimation.FADE);
-  }
- else   if (mCaller == CALLER_INDICLASH) {
     finishWithAnimation(ActivityTransitionAnimation.NONE);
   }
  else {
