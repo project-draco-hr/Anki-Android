@@ -8,7 +8,7 @@ switch (view.getId()) {
 case DECK_OPTIONS:
 {
           Intent i=new Intent(activity,DeckOptions.class);
-          i.putExtra("did",activity.getCol().getDecks().selected());
+          i.putExtra("did",getArguments().getLong("did"));
           getActivity().startActivity(i);
           break;
         }
