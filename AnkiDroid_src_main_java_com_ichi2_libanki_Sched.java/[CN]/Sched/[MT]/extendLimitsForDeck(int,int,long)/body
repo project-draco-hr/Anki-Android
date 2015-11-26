@@ -1,0 +1,6 @@
+{
+  long oldDid=mCol.getDecks().selected();
+  mCol.getDecks().select(did);
+  extendLimits(newc,rev);
+  mCol.getDecks().select(oldDid);
+}
