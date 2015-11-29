@@ -1,0 +1,25 @@
+def main():
+    key_path = os.path.join(expanduser('~'), 'src', '583631bdd16d.p12')
+    f = file(key_path, 'rb')
+    key = f.read()
+    f.close()
+    credentials = client.SignedJwtAssertionCredentials(SERVICE_ACCOUNT_EMAIL, key, scope='https://www.googleapis.com/auth/androidpublisher')
+    http = httplib2.Http()
+    http = credentials.authorize(http)
+    service = build('androidpublisher', 'v2', http=http)
+    edit_request = service.edits().insert(body={}, packageName=PACKAGE)
+    result = edit_request.execute()
+    edit_id = result['id']
+    flags = argparser.parse_args()
+    task = flags.task
+    try:
+        if (task == 'uploadImages'):
+            uploadImages(service, edit_id)
+        elif (task == 'listImages'):
+            listImages(service, edit_id)
+        elif (task == 'listApks'):
+            listApks(service, edit_id)
+        else:
+            raise ValueError('Unrecognized task name')
+    except client.AccessTokenRefreshError:
+        print 'The credentials have been revoked or expired, please re-run the application to re-authorize'
