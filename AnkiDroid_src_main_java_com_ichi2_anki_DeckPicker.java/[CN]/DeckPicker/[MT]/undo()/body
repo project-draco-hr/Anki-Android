@@ -1,5 +1,6 @@
 {
-  mCongratulationsShown=false;
+  String undoReviewString=getResources().getString(R.string.undo_action_review);
+  final boolean isReview=undoReviewString.equals(getCol().undoName(getResources()));
   DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UNDO,new DeckTask.TaskListener(){
     @Override public void onCancelled(){
       hideProgressBar();
@@ -9,7 +10,9 @@
     }
     @Override public void onPostExecute(    TaskData result){
       hideProgressBar();
-      openReviewer();
+      if (isReview) {
+        openReviewer();
+      }
     }
     @Override public void onProgressUpdate(    TaskData... values){
     }
