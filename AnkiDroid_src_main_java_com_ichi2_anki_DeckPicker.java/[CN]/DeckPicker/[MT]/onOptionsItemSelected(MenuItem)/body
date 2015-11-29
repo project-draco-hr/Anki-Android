@@ -3,7 +3,7 @@
 switch (item.getItemId()) {
 case R.id.action_undo:
     Timber.i("DeckPicker:: Undo button pressed");
-  undoLastReview();
+  undo();
 return true;
 case R.id.action_sync:
 Timber.i("DeckPicker:: Sync button pressed");
