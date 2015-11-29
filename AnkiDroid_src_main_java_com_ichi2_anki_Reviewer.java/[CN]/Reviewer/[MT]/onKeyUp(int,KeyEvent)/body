@@ -51,6 +51,10 @@
       playSounds(true);
       return true;
     }
+    if (keyPressed == 'z') {
+      undo();
+      return true;
+    }
   }
   return super.onKeyUp(keyCode,event);
 }
