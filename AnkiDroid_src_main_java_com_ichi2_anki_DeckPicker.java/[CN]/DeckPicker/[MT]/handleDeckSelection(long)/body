@@ -1,5 +1,8 @@
 {
   CardBrowser.clearSelectedDeck();
+  if (getCol().getDecks().selected() != did) {
+    getCol().clearUndo();
+  }
   getCol().getDecks().select(did);
   getCol().getSched().reset();
   mFocusedDeck=did;
