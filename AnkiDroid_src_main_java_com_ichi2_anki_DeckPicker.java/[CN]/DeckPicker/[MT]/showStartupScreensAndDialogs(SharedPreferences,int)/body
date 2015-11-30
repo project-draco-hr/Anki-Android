@@ -75,19 +75,6 @@
         }
       }
  else {
-        ConfirmationDialog dialog=new ConfirmationDialog(){
-          @Override public void confirm(){
-            openUrl(Uri.parse("http://goo.gl/forms/cvkZ1e5sE2"));
-          }
-          public void cancel(){
-          }
-        }
-;
-        dialog.setArgs("Thank you for participating in the beta program. Version 2.5 is going to be released very soon; would you like to answer a survey?");
-        if (previous <= 20500227) {
-          showDialogFragment(dialog);
-        }
-        preferences.edit().putBoolean("askedBetaSurvey",true).apply();
         preferences.edit().putString("lastVersion",VersionUtils.getPkgVersionName()).apply();
         String ver=getResources().getString(R.string.updated_version,VersionUtils.getPkgVersionName());
         showSnackbar(ver,true,-1,null,findViewById(R.id.root_layout),null);
