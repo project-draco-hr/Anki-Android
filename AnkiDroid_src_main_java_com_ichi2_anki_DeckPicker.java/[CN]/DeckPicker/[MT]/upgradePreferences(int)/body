@@ -14,8 +14,14 @@
     preferences.edit().remove("useBackup").commit();
     preferences.edit().remove("intentAdditionInstantAdd").commit();
   }
-  if (previousVersionCode < 20500219) {
-    boolean old=preferences.getBoolean("fullscreenReview",false);
-    preferences.edit().putString("fullscreenMode",old ? "1" : "0").commit();
+  if (preferences.contains("fullscreenReview")) {
+    try {
+      boolean old=preferences.getBoolean("fullscreenReview",false);
+      preferences.edit().putString("fullscreenMode",old ? "1" : "0").commit();
+    }
+ catch (    ClassCastException e) {
+      preferences.edit().remove("fullscreenMode").commit();
+    }
+    preferences.edit().remove("fullscreenReview").commit();
   }
 }
