@@ -87,6 +87,7 @@
         if (previous <= 20500227) {
           showDialogFragment(dialog);
         }
+        preferences.edit().putBoolean("askedBetaSurvey",true).apply();
         preferences.edit().putString("lastVersion",VersionUtils.getPkgVersionName()).apply();
         String ver=getResources().getString(R.string.updated_version,VersionUtils.getPkgVersionName());
         showSnackbar(ver,true,-1,null,findViewById(R.id.root_layout),null);
