@@ -1,0 +1,12 @@
+{
+  if (mFragmented || !getCol().undoAvailable()) {
+    menu.findItem(R.id.action_undo).setVisible(false);
+  }
+ else {
+    Resources res=getResources();
+    menu.findItem(R.id.action_undo).setVisible(true);
+    String undo=res.getString(R.string.studyoptions_congrats_undo,getCol().undoName(res));
+    menu.findItem(R.id.action_undo).setTitle(undo);
+  }
+  return super.onPrepareOptionsMenu(menu);
+}
