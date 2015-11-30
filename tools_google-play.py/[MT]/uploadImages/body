@@ -1,0 +1,34 @@
+def uploadImages(service, edit_id):
+    if (not os.path.exists(IMAGES_DIR)):
+        raise Exception(('The directory %s does not exist' % IMAGES_DIR))
+    subdirs = os.listdir(IMAGES_DIR)
+    langs = []
+    for l in subdirs:
+        if (l in LANGS):
+            langs.append(l)
+    if (len(langs) == 0):
+        raise Excetion(('The directory %s is empty' % IMAGES_DIR))
+    print 'The following languages were found:\n'
+    print langs
+    response = raw_input(('This will erase all the images on Google Play that have a language and image type subfolder in %s, and replace them with the images in those subfolders. Type YES if you are sure you want to proceed\n' % IMAGES_DIR))
+    if (not (response == 'YES')):
+        raise Exception('uploadImages was cancelled')
+    for l in langs:
+        for k in IMAGE_TYPES:
+            t = IMAGE_TYPES[k]
+            subdir = os.path.join(IMAGES_DIR, l, k)
+            if os.path.exists(subdir):
+                print ('Erasing images for language: %s , image type: %s' % (l, t))
+                service.edits().images().deleteall(packageName=PACKAGE, editId=edit_id, language=l, imageType=t).execute()
+                files = os.listdir(subdir)
+                files.sort()
+                cntr = 0
+                for f in files:
+                    fn = os.path.join(subdir, f)
+                    media = MediaFileUpload(fn, mimetype='image/png')
+                    result = service.edits().images().upload(packageName=PACKAGE, editId=edit_id, language=l, imageType=t, media_body=media).execute()
+                    if result['image']['url']:
+                        cntr += 1
+                print ('Uploaded %d images for language: %s , image type: %s' % (cntr, l, t))
+    commit_request = service.edits().commit(editId=edit_id, packageName=PACKAGE).execute()
+    print ('Edit "%s" has been committed' % commit_request['id'])

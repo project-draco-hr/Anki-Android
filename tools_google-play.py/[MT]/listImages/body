@@ -1,0 +1,4 @@
+def listImages(service, edit_id):
+    images_result = service.edits().images().list(editId=edit_id, packageName=PACKAGE, language='en-us', imageType='phoneScreenshots').execute()
+    for image in images_result['images']:
+        print ('url: %s, sha1: %s, id %s' % (image['url'], image['sha1'], image['id']))

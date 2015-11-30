@@ -1,0 +1,4 @@
+def listApks(service, edit_id):
+    apks_result = service.edits().apks().list(editId=edit_id, packageName=PACKAGE).execute()
+    for apk in apks_result['apks']:
+        print ('versionCode: %s, binary.sha1: %s' % (apk['versionCode'], apk['binary']['sha1']))
