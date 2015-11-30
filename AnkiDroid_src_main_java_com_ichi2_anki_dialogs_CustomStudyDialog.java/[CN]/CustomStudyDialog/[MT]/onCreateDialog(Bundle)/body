@@ -2,6 +2,7 @@
   super.onCreate(savedInstanceState);
   final int dialogId=getArguments().getInt("id");
   if (dialogId < 100) {
+    CollectionHelper.getInstance().getCol(getActivity()).getDecks().select(getArguments().getLong("did"));
     return buildContextMenu(dialogId);
   }
  else {

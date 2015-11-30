@@ -22,7 +22,7 @@ case CUSTOM_STUDY_NEW:
           JSONObject deck=col.getDecks().get(did);
           deck.put("extendNew",n);
           col.getDecks().save(deck);
-          col.getSched().extendLimitsForDeck(n,0,did);
+          col.getSched().extendLimits(n,0);
           onLimitsExtended(jumpToReviewer);
         }
  catch (        JSONException e) {
@@ -35,7 +35,7 @@ case CUSTOM_STUDY_REV:
       JSONObject deck=col.getDecks().get(did);
       deck.put("extendRev",n);
       col.getDecks().save(deck);
-      col.getSched().extendLimitsForDeck(0,n,did);
+      col.getSched().extendLimits(0,n);
       onLimitsExtended(jumpToReviewer);
     }
  catch (    JSONException e) {
