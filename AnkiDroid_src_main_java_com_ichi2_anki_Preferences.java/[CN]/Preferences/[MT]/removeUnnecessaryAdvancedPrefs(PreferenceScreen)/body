@@ -15,6 +15,7 @@
   PreferenceCategory workarounds=(PreferenceCategory)screen.findPreference("category_workarounds");
   if (workarounds != null) {
     CheckBoxPreference writeAnswersDisable=(CheckBoxPreference)screen.findPreference("writeAnswersDisable");
+    CheckBoxPreference useInputTag=(CheckBoxPreference)screen.findPreference("useInputTag");
     CheckBoxPreference inputWorkaround=(CheckBoxPreference)screen.findPreference("inputWorkaround");
     CheckBoxPreference longclickWorkaround=(CheckBoxPreference)screen.findPreference("textSelectionLongclickWorkaround");
     CheckBoxPreference fixHebrewText=(CheckBoxPreference)screen.findPreference("fixHebrewText");
@@ -30,9 +31,11 @@
       workarounds.removePreference(writeAnswersDisable);
       workarounds.removePreference(inputWorkaround);
     }
+ else {
+      workarounds.removePreference(useInputTag);
+    }
     if (CompatHelper.getSdkVersion() >= 16) {
       workarounds.removePreference(fixHebrewText);
-      screen.removePreference(workarounds);
     }
   }
 }

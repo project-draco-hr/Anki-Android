@@ -10,7 +10,7 @@
   webView.getSettings().setLoadWithOverviewMode(true);
   webView.getSettings().setJavaScriptEnabled(true);
   webView.setWebChromeClient(new AnkiDroidWebChromeClient());
-  webView.setFocusableInTouchMode(USE_INPUT_TAG);
+  webView.setFocusableInTouchMode(mUseInputTag);
   webView.setScrollbarFadingEnabled(true);
   Timber.d("Focusable = %s, Focusable in touch mode = %s",webView.isFocusable(),webView.isFocusableInTouchMode());
   webView.setWebViewClient(new WebViewClient(){
