@@ -13,7 +13,7 @@
   answer=getCol().getMedia().escapeImages(answer);
   mAnswerField.setVisibility(View.GONE);
   String userAnswer;
-  if (USE_INPUT_TAG) {
+  if (mUseInputTag) {
     userAnswer=cleanTypedAnswer(mTypeInput);
   }
  else {
