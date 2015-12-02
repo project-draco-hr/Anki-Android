@@ -1,0 +1,33 @@
+{
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_FIND_EMPTY_CARDS,new DeckTask.Listener(){
+    @Override public void onPreExecute(    DeckTask task){
+      mProgressDialog=StyledProgressDialog.show(DeckPicker.this,"",getResources().getString(R.string.emtpy_cards_finding),false);
+    }
+    @Override public void onPostExecute(    DeckTask task,    TaskData result){
+      final List<Long> cids=(List<Long>)result.getObjArray()[0];
+      if (cids.size() == 0) {
+        showSimpleMessageDialog(getResources().getString(R.string.empty_cards_none));
+      }
+ else {
+        String msg=String.format(getResources().getString(R.string.empty_cards_count),cids.size());
+        ConfirmationDialog dialog=new ConfirmationDialog(){
+          @Override public void confirm(){
+            getCol().remCards(Utils.arrayList2array(cids));
+            showSimpleSnackbar(String.format(getResources().getString(R.string.empty_cards_deleted),cids.size()),false);
+          }
+        }
+;
+        dialog.setArgs(msg);
+        showDialogFragment(dialog);
+      }
+      if (mProgressDialog != null && mProgressDialog.isShowing()) {
+        mProgressDialog.dismiss();
+      }
+    }
+    @Override public void onProgressUpdate(    DeckTask task,    TaskData... values){
+    }
+    @Override public void onCancelled(){
+    }
+  }
+);
+}
