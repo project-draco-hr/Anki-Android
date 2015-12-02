@@ -3,7 +3,7 @@
   DiffEngine diffEngine=new DiffEngine();
   StringBuilder sb=new StringBuilder();
   sb.append("<div");
-  if (!USE_INPUT_TAG && !mPrefWriteAnswers) {
+  if (!mUseInputTag && !mShowTypeAnswerField) {
     sb.append(" class=\"typeOff\"");
   }
   sb.append("><code id=typeans>");
@@ -20,7 +20,7 @@
     }
   }
  else {
-    if (mPrefWriteAnswers) {
+    if (mShowTypeAnswerField) {
       sb.append(DiffEngine.wrapMissing(correctAnswer));
     }
  else {

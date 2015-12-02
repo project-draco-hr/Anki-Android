@@ -4,7 +4,7 @@
     return m.replaceFirst(mTypeWarning);
   }
   StringBuilder sb=new StringBuilder();
-  if (USE_INPUT_TAG) {
+  if (mUseInputTag) {
     sb.append("<center>\n<input type=text name=typed id=typeans onfocus=\"taFocus();\" " + "onblur=\"taBlur(this);\" onKeyPress=\"return taKey(this, event)\" autocomplete=\"off\" ");
     if (mTypeFont != null && !TextUtils.isEmpty(mTypeFont) && mTypeSize > 0) {
       sb.append("style=\"font-family: '" + mTypeFont + "'; font-size: "+ Integer.toString(mTypeSize)+ "px;\" ");
@@ -13,7 +13,7 @@
   }
  else {
     sb.append("<span id=typeans class=\"typePrompt");
-    if (!mPrefWriteAnswers) {
+    if (!mShowTypeAnswerField) {
       sb.append(" typeOff");
     }
     sb.append("\">........</span>");
