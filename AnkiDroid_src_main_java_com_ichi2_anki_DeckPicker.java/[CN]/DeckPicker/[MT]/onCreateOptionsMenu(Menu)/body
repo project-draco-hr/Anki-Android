@@ -5,6 +5,7 @@
   menu.findItem(R.id.action_new_filtered_deck).setEnabled(sdCardAvailable);
   menu.findItem(R.id.action_check_database).setEnabled(sdCardAvailable);
   menu.findItem(R.id.action_check_media).setEnabled(sdCardAvailable);
+  menu.findItem(R.id.action_empty_cards).setEnabled(sdCardAvailable);
   if (CompatHelper.isChromebook()) {
     menu.findItem(R.id.action_restore_backup).setVisible(false);
     menu.findItem(R.id.action_import).setVisible(false);

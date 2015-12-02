@@ -93,6 +93,8 @@ case TASK_TYPE_CHANGE_SORT_FIELD:
 return doInBackgroundChangeSortField(params);
 case TASK_TYPE_SAVE_MODEL:
 return doInBackgroundSaveModel(params);
+case TASK_TYPE_FIND_EMPTY_CARDS:
+return doInBackGroundFindEmptyCards(params);
 default :
 Timber.e("unknown task type: %d",mType);
 return null;

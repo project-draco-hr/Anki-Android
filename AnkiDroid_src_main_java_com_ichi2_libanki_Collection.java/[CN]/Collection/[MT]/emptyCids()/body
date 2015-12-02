@@ -1,5 +1,5 @@
 {
-  List<Long> rem=new ArrayList<Long>();
+  List<Long> rem=new ArrayList<>();
   for (  JSONObject m : getModels().all()) {
     rem.addAll(genCards(getModels().nids(m)));
   }

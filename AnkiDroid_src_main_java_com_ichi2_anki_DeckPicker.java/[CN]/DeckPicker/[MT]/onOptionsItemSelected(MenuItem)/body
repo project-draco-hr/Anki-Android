@@ -42,6 +42,10 @@ case R.id.action_check_media:
 Timber.i("DeckPicker:: Check media button pressed");
 showMediaCheckDialog(MediaCheckDialog.DIALOG_CONFIRM_MEDIA_CHECK);
 return true;
+case R.id.action_empty_cards:
+Timber.i("DeckPicker:: Empty cards button pressed");
+handleEmptyCards();
+return true;
 case R.id.action_model_browser_open:
 Timber.i("DeckPicker:: Model browser button pressed");
 Intent noteTypeBrowser=new Intent(this,ModelBrowser.class);
