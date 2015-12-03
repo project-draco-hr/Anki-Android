@@ -1,11 +1,16 @@
 {
-  Timber.i("CardBrowser:: CardBrowser - onBackPressed()");
-  Intent data=new Intent();
-  if (getIntent().hasExtra("selectedDeck")) {
-    data.putExtra("originalDeck",getIntent().getLongExtra("selectedDeck",0L));
+  if (isDrawerOpen()) {
+    super.onBackPressed();
   }
-  if (mReloadRequired) {
-    data.putExtra("reloadRequired",true);
+ else {
+    Timber.i("Back key pressed");
+    Intent data=new Intent();
+    if (getIntent().hasExtra("selectedDeck")) {
+      data.putExtra("originalDeck",getIntent().getLongExtra("selectedDeck",0L));
+    }
+    if (mReloadRequired) {
+      data.putExtra("reloadRequired",true);
+    }
+    closeCardBrowser(RESULT_OK,data);
   }
-  closeCardBrowser(RESULT_OK,data);
 }

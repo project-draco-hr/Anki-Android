@@ -1,26 +1,26 @@
 {
-  if (keyCode == 92) {
+  if (keyCode == KeyEvent.KEYCODE_PAGE_UP) {
     mCard.pageUp(false);
     if (mDoubleScrolling) {
       mCard.pageUp(false);
     }
     return true;
   }
-  if (keyCode == 93) {
+  if (keyCode == KeyEvent.KEYCODE_PAGE_DOWN) {
     mCard.pageDown(false);
     if (mDoubleScrolling) {
       mCard.pageDown(false);
     }
     return true;
   }
-  if (mScrollingButtons && keyCode == 94) {
+  if (mScrollingButtons && keyCode == KeyEvent.KEYCODE_PICTSYMBOLS) {
     mCard.pageUp(false);
     if (mDoubleScrolling) {
       mCard.pageUp(false);
     }
     return true;
   }
-  if (mScrollingButtons && keyCode == 95) {
+  if (mScrollingButtons && keyCode == KeyEvent.KEYCODE_SWITCH_CHARSET) {
     mCard.pageDown(false);
     if (mDoubleScrolling) {
       mCard.pageDown(false);
