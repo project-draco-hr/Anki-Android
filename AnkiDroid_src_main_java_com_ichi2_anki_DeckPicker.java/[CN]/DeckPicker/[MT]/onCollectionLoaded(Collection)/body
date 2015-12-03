@@ -1,5 +1,6 @@
 {
   super.onCollectionLoaded(col);
+  showProgressBar();
   Boolean started=BackupManager.performBackupInBackground(col.getPath());
   if (started) {
   }
