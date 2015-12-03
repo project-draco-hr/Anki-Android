@@ -1,4 +1,7 @@
 {
+  if (getCol() == null) {
+    return false;
+  }
   if (mFragmented || !getCol().undoAvailable()) {
     menu.findItem(R.id.action_undo).setVisible(false);
   }
