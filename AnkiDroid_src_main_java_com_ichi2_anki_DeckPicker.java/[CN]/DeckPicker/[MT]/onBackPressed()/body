@@ -1,0 +1,15 @@
+{
+  if (isDrawerOpen()) {
+    super.onBackPressed();
+  }
+ else {
+    Timber.i("Back key pressed");
+    if (mActionsMenu.isExpanded()) {
+      mActionsMenu.collapse();
+    }
+ else {
+      automaticSync();
+      finishWithAnimation();
+    }
+  }
+}
