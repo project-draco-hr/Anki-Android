@@ -9,7 +9,7 @@
   int pos=mDeckListAdapter.findDeckPosition(did);
   Sched.DeckDueTreeNode deckDueTreeNode=mDeckListAdapter.getDeckList().get(pos);
   int[] studyOptionsCounts=getCol().getSched().counts();
-  if (getCol().getDecks().isDyn(did) || mFragmented) {
+  if (getCol().getDecks().isDyn(did) || mFragmented || dontSkipStudyOptions) {
     openStudyOptions(false);
   }
  else   if (deckDueTreeNode.newCount + deckDueTreeNode.lrnCount + deckDueTreeNode.revCount > 0) {

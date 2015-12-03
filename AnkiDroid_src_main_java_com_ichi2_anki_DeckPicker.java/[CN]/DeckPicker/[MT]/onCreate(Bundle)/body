@@ -15,6 +15,7 @@
   mRecyclerView.setLayoutManager(mRecyclerViewLayoutManager);
   mDeckListAdapter=new DeckAdapter(getLayoutInflater(),this);
   mDeckListAdapter.setDeckClickListener(mDeckClickListener);
+  mDeckListAdapter.setCountsClickListener(mCountsClickListener);
   mDeckListAdapter.setDeckExpanderClickListener(mDeckExpanderClickListener);
   mDeckListAdapter.setDeckLongClickListener(mDeckLongClickListener);
   mRecyclerView.setAdapter(mDeckListAdapter);
