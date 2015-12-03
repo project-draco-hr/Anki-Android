@@ -17,6 +17,9 @@
     holder.deckExpander.setTag(node.did);
     holder.deckExpander.setOnClickListener(mDeckExpanderClickListener);
   }
+ else {
+    holder.deckExpander.setOnClickListener(null);
+  }
   holder.deckLayout.setBackgroundResource(mRowCurrentDrawable);
   if (node.did == mCol.getDecks().current().optLong("id")) {
     holder.deckLayout.setBackgroundResource(mRowCurrentDrawable);
