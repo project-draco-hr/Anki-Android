@@ -1,6 +1,7 @@
 {
   super(v);
   deckLayout=(RelativeLayout)v.findViewById(R.id.DeckPickerHoriz);
+  countsLayout=(LinearLayout)v.findViewById(R.id.counts_layout);
   deckExpander=(ImageButton)v.findViewById(R.id.deckpicker_expander);
   indentView=(ImageButton)v.findViewById(R.id.deckpicker_indent);
   deckName=(TextView)v.findViewById(R.id.deckpicker_name);
