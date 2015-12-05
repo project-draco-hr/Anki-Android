@@ -9,7 +9,7 @@
   int pos=mDeckListAdapter.findDeckPosition(did);
   Sched.DeckDueTreeNode deckDueTreeNode=mDeckListAdapter.getDeckList().get(pos);
   int[] studyOptionsCounts=getCol().getSched().counts();
-  if (getCol().getDecks().isDyn(did) || mFragmented || dontSkipStudyOptions) {
+  if (mFragmented || dontSkipStudyOptions) {
     openStudyOptions(false);
   }
  else   if (deckDueTreeNode.newCount + deckDueTreeNode.lrnCount + deckDueTreeNode.revCount > 0) {
@@ -26,6 +26,9 @@
       }
     }
 ,findViewById(R.id.root_layout),mSnackbarShowHideCallback);
+  }
+ else   if (getCol().getDecks().isDyn(did)) {
+    openStudyOptions(false);
   }
  else   if (deckDueTreeNode.children.size() == 0 && getCol().cardCount(new Long[]{did}) == 0) {
     final Uri helpUrl=Uri.parse(getResources().getString(R.string.link_manual_getting_started));
