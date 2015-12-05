@@ -1,0 +1,4 @@
+{
+  getCol().getDecks().select(mContextMenuDid);
+  DeckTask.launchDeckTask(DeckTask.TASK_TYPE_EMPTY_CRAM,mSimpleProgressListener,new DeckTask.TaskData(mFragmented));
+}
