@@ -1,6 +1,13 @@
 {
   Intent reviewer=new Intent(getActivity(),Reviewer.class);
-  startActivityForResult(reviewer,AnkiActivity.REQUEST_REVIEW);
+  if (mFragmented) {
+    startActivityForResult(reviewer,AnkiActivity.REQUEST_REVIEW);
+  }
+ else {
+    reviewer.setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+    startActivity(reviewer);
+    getActivity().finish();
+  }
   animateLeft();
   getCol().startTimebox();
 }
