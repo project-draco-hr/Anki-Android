@@ -18,7 +18,16 @@ if (resultCode != RESULT_CANCELED) {
   IMultimediaEditableNote mNote=NoteService.createEmptyNote(mEditorNote.model());
   NoteService.updateMultimediaNoteFromJsonNote(col,mEditorNote,mNote);
   mNote.setField(index,field);
-  mEditFields.get(index).setText(field.getFormattedValue());
+  FieldEditText fieldEditText=mEditFields.get(index);
+  if (field.getType() == EFieldType.TEXT) {
+    fieldEditText.setText(field.getFormattedValue());
+  }
+ else   if (fieldEditText.hasFocus()) {
+    fieldEditText.getText().replace(fieldEditText.getSelectionStart(),fieldEditText.getSelectionEnd(),field.getFormattedValue());
+  }
+ else {
+    fieldEditText.getText().append(field.getFormattedValue());
+  }
   NoteService.saveMedia(col,(MultimediaEditableNote)mNote);
   mChanged=true;
 }
