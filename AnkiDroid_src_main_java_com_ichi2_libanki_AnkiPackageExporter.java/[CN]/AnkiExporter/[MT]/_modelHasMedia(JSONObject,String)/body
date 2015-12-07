@@ -1,0 +1,13 @@
+{
+  if (model.getString("css").contains(fname)) {
+    return true;
+  }
+  JSONArray tmpls=model.getJSONArray("tmpls");
+  for (int idx=0; idx < tmpls.length(); idx++) {
+    JSONObject tmpl=tmpls.getJSONObject(idx);
+    if (tmpl.getString("qfmt").contains(fname) || tmpl.getString("afmt").contains(fname)) {
+      return true;
+    }
+  }
+  return false;
+}
