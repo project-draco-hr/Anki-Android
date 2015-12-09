@@ -38,6 +38,8 @@
   holder.deckRev.setText(String.valueOf(node.revCount));
   holder.deckRev.setTextColor((node.revCount == 0) ? mZeroCountColor : mReviewCountColor);
   holder.deckLayout.setTag(node.did);
+  holder.countsLayout.setTag(node.did);
   holder.deckLayout.setOnClickListener(mDeckClickListener);
   holder.deckLayout.setOnLongClickListener(mDeckLongClickListener);
+  holder.countsLayout.setOnClickListener(mCountsClickListener);
 }
