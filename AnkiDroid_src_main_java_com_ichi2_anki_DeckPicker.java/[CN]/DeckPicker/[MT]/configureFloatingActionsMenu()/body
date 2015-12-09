@@ -1,0 +1,40 @@
+{
+  final FloatingActionButton addDeckButton=(FloatingActionButton)findViewById(R.id.add_deck_action);
+  final FloatingActionButton addSharedButton=(FloatingActionButton)findViewById(R.id.add_shared_action);
+  final FloatingActionButton addNoteButton=(FloatingActionButton)findViewById(R.id.add_note_action);
+  addDeckButton.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View view){
+      if (mActionsMenu == null) {
+        return;
+      }
+      mActionsMenu.collapse();
+      mDialogEditText=new EditText(DeckPicker.this);
+      mDialogEditText.setSingleLine(true);
+      new MaterialDialog.Builder(DeckPicker.this).title(R.string.new_deck).positiveText(R.string.dialog_ok).customView(mDialogEditText,true).callback(new MaterialDialog.ButtonCallback(){
+        @Override public void onPositive(        MaterialDialog dialog){
+          String deckName=mDialogEditText.getText().toString();
+          Timber.i("DeckPicker:: Creating new deck...");
+          getCol().getDecks().id(deckName,true);
+          CardBrowser.clearSelectedDeck();
+          updateDeckList();
+        }
+      }
+).negativeText(R.string.dialog_cancel).show();
+    }
+  }
+);
+  addSharedButton.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View view){
+      mActionsMenu.collapse();
+      addSharedDeck();
+    }
+  }
+);
+  addNoteButton.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View view){
+      mActionsMenu.collapse();
+      addNote();
+    }
+  }
+);
+}

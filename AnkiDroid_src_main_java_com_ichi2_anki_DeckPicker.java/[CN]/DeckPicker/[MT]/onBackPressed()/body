@@ -4,7 +4,7 @@
   }
  else {
     Timber.i("Back key pressed");
-    if (mActionsMenu.isExpanded()) {
+    if (mActionsMenu != null && mActionsMenu.isExpanded()) {
       mActionsMenu.collapse();
     }
  else {
