@@ -28,7 +28,8 @@
       return true;
     }
     if (keyPressed == '*') {
-      DeckTask.launchDeckTask(DeckTask.TASK_TYPE_MARK_CARD,mMarkCardHandler,new DeckTask.TaskData(mCurrentCard,0));
+      onMark(mCurrentCard);
+      refreshActionBar();
       return true;
     }
     if (keyPressed == '-') {
