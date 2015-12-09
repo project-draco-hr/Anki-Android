@@ -62,11 +62,6 @@ ids.add(c4.getId());
 }
 mDb.execute("DELETE FROM graves WHERE oid IN " + Utils.ids2str(Utils.arrayList2array(ids)));
 return (Long)data[3];
-case UNDO_MARK_NOTE:
-Note note3=getNote((Long)data[1]);
-note3.setTagsFromStr((String)data[2]);
-note3.flush(note3.getMod(),false);
-return (Long)data[3];
 case UNDO_BURY_CARD:
 for (Card cc : (ArrayList<Card>)data[2]) {
 cc.flush(false);
