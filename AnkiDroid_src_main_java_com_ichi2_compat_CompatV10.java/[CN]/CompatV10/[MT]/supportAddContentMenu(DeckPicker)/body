@@ -1,0 +1,29 @@
+{
+  Resources res=activity.getResources();
+  new MaterialDialog.Builder(activity).items(new String[]{res.getString(R.string.menu_add_note),res.getString(R.string.menu_get_shared_decks),res.getString(R.string.new_deck)}).itemsCallback(new MaterialDialog.ListCallback(){
+    @Override public void onSelection(    MaterialDialog materialDialog,    View view,    int i,    CharSequence charSequence){
+switch (i) {
+case 0:
+        activity.addNote();
+      break;
+case 1:
+    activity.addSharedDeck();
+  break;
+case 2:
+final EditText mDialogEditText=new EditText(activity);
+mDialogEditText.setSingleLine(true);
+new MaterialDialog.Builder(activity).title(R.string.new_deck).positiveText(R.string.dialog_ok).customView(mDialogEditText,true).onPositive(new MaterialDialog.SingleButtonCallback(){
+@Override public void onClick(@NonNull MaterialDialog d,@NonNull DialogAction w){
+Timber.i("DeckPicker:: Creating new deck...");
+String deckName=mDialogEditText.getText().toString();
+activity.getCol().getDecks().id(deckName,true);
+CardBrowser.clearSelectedDeck();
+activity.onRequireDeckListUpdate();
+}
+}
+).negativeText(R.string.dialog_cancel).show();
+}
+}
+}
+).build().show();
+}
