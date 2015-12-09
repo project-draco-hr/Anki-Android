@@ -1,0 +1,10 @@
+{
+  Note note=card.note();
+  if (note.hasTag("marked")) {
+    note.delTag("marked");
+  }
+ else {
+    note.addTag("marked");
+  }
+  note.flush();
+}

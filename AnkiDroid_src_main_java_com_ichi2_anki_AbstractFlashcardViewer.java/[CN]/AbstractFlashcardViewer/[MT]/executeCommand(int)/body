@@ -67,7 +67,7 @@ case GESTURE_EDIT:
 editCard();
 break;
 case GESTURE_MARK:
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_MARK_CARD,mMarkCardHandler,new DeckTask.TaskData(mCurrentCard,0));
+onMark(mCurrentCard);
 break;
 case GESTURE_LOOKUP:
 lookUpOrSelectText();
