@@ -31,15 +31,12 @@
       }
  catch (      RuntimeException e) {
         Timber.e(e,"RuntimeException setting time remaining");
-        onCollectionLoadError();
-        return;
       }
       long current=getCol().getDecks().current().optLong("id");
       if (mFocusedDeck != current) {
         scrollDecklistToDeck(current);
         mFocusedDeck=current;
       }
-      supportInvalidateOptionsMenu();
       AnkiStatsTaskHandler.createSmallTodayOverview(getCol(),mTodayTextView);
     }
     @Override public void onProgressUpdate(    TaskData... values){
