@@ -1,4 +1,6 @@
 {
-  setCurrentCardId(mCurrentCard.getId());
+  if (mCurrentCard != null) {
+    setCurrentCardId(mCurrentCard.getId());
+  }
   return super.onItemClick(view,i,iDrawerItem);
 }
