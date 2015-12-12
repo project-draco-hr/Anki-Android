@@ -9,11 +9,13 @@
   int pos=mDeckListAdapter.findDeckPosition(did);
   Sched.DeckDueTreeNode deckDueTreeNode=mDeckListAdapter.getDeckList().get(pos);
   int[] studyOptionsCounts=getCol().getSched().counts();
-  if (mFragmented || dontSkipStudyOptions) {
-    openStudyOptions(false);
-  }
- else   if (deckDueTreeNode.newCount + deckDueTreeNode.lrnCount + deckDueTreeNode.revCount > 0) {
-    openReviewer();
+  if (deckDueTreeNode.newCount + deckDueTreeNode.lrnCount + deckDueTreeNode.revCount > 0) {
+    if (mFragmented || dontSkipStudyOptions) {
+      openStudyOptions(false);
+    }
+ else {
+      openReviewer();
+    }
   }
  else   if (studyOptionsCounts[0] + studyOptionsCounts[1] + studyOptionsCounts[2] > 0) {
     openStudyOptions(false);
