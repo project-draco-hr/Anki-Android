@@ -15,17 +15,16 @@
     label.setPadding((int)UIUtils.getDensityAdjustedValue(this,3.4f),0,0,0);
     mEditFields.add(newTextbox);
     ImageButton mediaButton=(ImageButton)editline_view.findViewById(R.id.id_media_button);
-    int[] attrs=new int[]{R.attr.attachFileImage,R.attr.upDownImage};
-    TypedArray ta=obtainStyledAttributes(attrs);
+    int[] icons=Themes.getResFromAttr(this,new int[]{R.attr.attachFileImage,R.attr.upDownImage});
     if (editModelMode && allowFieldRemapping()) {
-      mediaButton.setBackgroundResource(ta.getResourceId(1,R.drawable.ic_import_export_black_24dp));
+      mediaButton.setBackgroundResource(icons[1]);
       setRemapButtonListener(mediaButton,i);
     }
  else     if (editModelMode && !allowFieldRemapping()) {
       mediaButton.setBackgroundResource(0);
     }
  else {
-      mediaButton.setBackgroundResource(ta.getResourceId(0,R.drawable.ic_attachment_black_24dp));
+      mediaButton.setBackgroundResource(icons[0]);
       setMMButtonListener(mediaButton,i);
     }
     mFieldsLayoutContainer.addView(label);

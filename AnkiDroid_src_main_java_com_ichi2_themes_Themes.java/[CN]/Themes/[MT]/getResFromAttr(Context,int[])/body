@@ -1,0 +1,8 @@
+{
+  TypedArray ta=context.obtainStyledAttributes(attrs);
+  for (int i=0; i < attrs.length; i++) {
+    attrs[i]=ta.getResourceId(i,0);
+  }
+  ta.recycle();
+  return attrs;
+}
