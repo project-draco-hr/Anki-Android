@@ -8,6 +8,9 @@
     }
     @Override public void onPostExecute(    TaskData result){
       hideProgressBar();
+      if (mFragmented) {
+        mStudyoptionsFrame.setVisibility(View.VISIBLE);
+      }
       if (result == null) {
         Timber.e("null result loading deck counts");
         onCollectionLoadError();

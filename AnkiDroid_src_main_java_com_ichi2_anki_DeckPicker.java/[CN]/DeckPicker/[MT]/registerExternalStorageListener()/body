@@ -6,7 +6,7 @@
           onSdCardNotMounted();
         }
  else         if (intent.getAction().equals(SdCardReceiver.MEDIA_MOUNT)) {
-          startLoadingCollection();
+          restartActivity();
         }
       }
     }

@@ -1,0 +1,21 @@
+{
+  if (CollectionHelper.hasStorageAccessPermission(this)) {
+    Collection col=null;
+    try {
+      col=getCol();
+    }
+ catch (    RuntimeException e) {
+      Timber.e(e,"RuntimeException opening collection");
+      AnkiDroidApp.sendExceptionReport(e,"DeckPicker.firstCollectionOpen");
+    }
+    if (col == null) {
+      showDatabaseErrorDialog(DatabaseErrorDialog.DIALOG_LOAD_FAILED);
+      return false;
+    }
+  }
+ else {
+    ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_STORAGE_PERMISSION);
+    return false;
+  }
+  return true;
+}

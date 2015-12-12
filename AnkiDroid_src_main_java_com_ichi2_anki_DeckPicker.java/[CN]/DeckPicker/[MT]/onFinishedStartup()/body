@@ -1,5 +1,4 @@
 {
-  showProgressBar();
   BackupManager.performBackupInBackground(getCol().getPath());
   if (mRecommendFullSync) {
     mRecommendFullSync=false;
@@ -17,12 +16,7 @@
     }
   }
   if (mFragmented) {
-    new Handler().post(new Runnable(){
-      public void run(){
-        loadStudyOptionsFragment(false);
-      }
-    }
-);
+    loadStudyOptionsFragment(false);
   }
   automaticSync();
 }
