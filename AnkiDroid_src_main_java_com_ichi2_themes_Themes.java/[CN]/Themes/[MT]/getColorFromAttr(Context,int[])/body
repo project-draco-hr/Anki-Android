@@ -1,0 +1,9 @@
+{
+  TypedArray ta=context.obtainStyledAttributes(attrs);
+  Resources res=context.getResources();
+  for (int i=0; i < attrs.length; i++) {
+    attrs[i]=ta.getColor(i,res.getColor(R.color.white));
+  }
+  ta.recycle();
+  return attrs;
+}

@@ -2,13 +2,13 @@
   Timber.d("onResume()");
   super.onResume();
   mActivityPaused=false;
-  selectNavigationItem(DRAWER_DECK_PICKER);
   if (mSyncOnResume) {
     sync();
     mSyncOnResume=false;
   }
  else   if (colIsOpen()) {
+    selectNavigationItem(DRAWER_DECK_PICKER);
     updateDeckList();
+    setTitle(getResources().getString(R.string.app_name));
   }
-  setTitle(getResources().getString(R.string.app_name));
 }
