@@ -1,32 +1,5 @@
 {
   super.onCollectionLoaded(col);
-  showProgressBar();
-  Boolean started=BackupManager.performBackupInBackground(col.getPath());
-  if (started) {
-  }
-  if (mRecommendFullSync) {
-    mRecommendFullSync=false;
-    try {
-      col.modSchema();
-    }
- catch (    ConfirmModSchemaException e) {
-      Resources res=getResources();
-      Message handlerMessage=Message.obtain();
-      handlerMessage.what=DialogHandler.MSG_SHOW_FORCE_FULL_SYNC_DIALOG;
-      Bundle handlerMessageData=new Bundle();
-      handlerMessageData.putString("message",res.getString(R.string.full_sync_confirmation_upgrade) + "\n\n" + res.getString(R.string.full_sync_confirmation));
-      handlerMessage.setData(handlerMessageData);
-      getDialogHandler().sendMessage(handlerMessage);
-    }
-  }
+  onFinishedStartup();
   updateDeckList();
-  if (mFragmented) {
-    new Handler().post(new Runnable(){
-      public void run(){
-        loadStudyOptionsFragment(false);
-      }
-    }
-);
-  }
-  automaticSync();
 }
