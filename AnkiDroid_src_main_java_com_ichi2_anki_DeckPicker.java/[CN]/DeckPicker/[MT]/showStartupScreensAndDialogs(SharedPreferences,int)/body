@@ -16,7 +16,7 @@
   }
  else   if (preferences.getString("lastVersion","").equals("")) {
     preferences.edit().putString("lastVersion",VersionUtils.getPkgVersionName()).commit();
-    startLoadingCollection();
+    onFinishedStartup();
   }
  else   if (skip < 2 && !preferences.getString("lastVersion","").equals(VersionUtils.getPkgVersionName())) {
     int current=VersionUtils.getPkgVersionCode();
@@ -83,11 +83,6 @@
     }
   }
  else {
-    if (!colIsOpen()) {
-      startLoadingCollection();
-    }
- else {
-      onFinishedStartup();
-    }
+    onFinishedStartup();
   }
 }

@@ -1,11 +1,12 @@
 {
   Timber.d("onCreate()");
-  super.onCreate(savedInstanceState);
   SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(getBaseContext());
+  boolean colOpen=firstCollectionOpen();
+  super.onCreate(savedInstanceState);
   setContentView(R.layout.homescreen);
   View mainView=findViewById(android.R.id.content);
-  View studyoptionsFrame=findViewById(R.id.studyoptions_fragment);
-  mFragmented=studyoptionsFrame != null && studyoptionsFrame.getVisibility() == View.VISIBLE;
+  mStudyoptionsFrame=findViewById(R.id.studyoptions_fragment);
+  mFragmented=mStudyoptionsFrame != null && mStudyoptionsFrame.getVisibility() == View.VISIBLE;
   registerExternalStorageListener();
   initNavigationDrawer(mainView);
   setTitle(getResources().getString(R.string.app_name));
@@ -35,11 +36,10 @@
 );
   }
   mTodayTextView=(TextView)findViewById(R.id.today_stats_text_view);
-  mTodayTextView=(TextView)findViewById(R.id.today_stats_text_view);
-  if (!CollectionHelper.hasStorageAccessPermission(this)) {
-    ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_STORAGE_PERMISSION);
+  if (mFragmented) {
+    mStudyoptionsFrame.setVisibility(View.GONE);
   }
- else {
+  if (colOpen) {
     showStartupScreensAndDialogs(preferences,0);
   }
 }

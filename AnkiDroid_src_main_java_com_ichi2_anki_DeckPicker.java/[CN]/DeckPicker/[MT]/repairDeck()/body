@@ -7,10 +7,7 @@
       if (mProgressDialog != null && mProgressDialog.isShowing()) {
         mProgressDialog.dismiss();
       }
-      if (result != null && result.getBoolean()) {
-        startLoadingCollection();
-      }
- else {
+      if (result == null || !result.getBoolean()) {
         Themes.showThemedToast(DeckPicker.this,getResources().getString(R.string.deck_repair_error),true);
         onCollectionLoadError();
       }
