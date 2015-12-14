@@ -1,4 +1,8 @@
 {
+  if (model == null) {
+    Timber.w("_modelHasMedia given null model");
+    return true;
+  }
   if (model.getString("css").contains(fname)) {
     return true;
   }
