@@ -18,28 +18,28 @@ switch (mType) {
 case DIALOG_LOAD_FAILED:
     return builder.cancelable(false).content(getMessage()).iconAttr(R.attr.dialogErrorIcon).positiveText(res.getString(R.string.error_handling_options)).negativeText(res.getString(R.string.close)).callback(new MaterialDialog.ButtonCallback(){
       @Override public void onPositive(      MaterialDialog dialog){
-        ((DatabaseErrorDialogListener)getActivity()).showDatabaseErrorDialog(DIALOG_ERROR_HANDLING);
+        ((DeckPicker)getActivity()).showDatabaseErrorDialog(DIALOG_ERROR_HANDLING);
       }
       @Override public void onNegative(      MaterialDialog dialog){
-        ((DatabaseErrorDialogListener)getActivity()).exit();
+        ((DeckPicker)getActivity()).exit();
       }
     }
 ).show();
 case DIALOG_DB_ERROR:
   MaterialDialog dialog=builder.cancelable(false).content(getMessage()).iconAttr(R.attr.dialogErrorIcon).positiveText(res.getString(R.string.error_handling_options)).negativeText(res.getString(R.string.answering_error_report)).neutralText(res.getString(R.string.close)).callback(new MaterialDialog.ButtonCallback(){
     @Override public void onPositive(    MaterialDialog dialog){
-      ((DatabaseErrorDialogListener)getActivity()).showDatabaseErrorDialog(DIALOG_ERROR_HANDLING);
+      ((DeckPicker)getActivity()).showDatabaseErrorDialog(DIALOG_ERROR_HANDLING);
     }
     @Override public void onNegative(    MaterialDialog dialog){
-      ((DatabaseErrorDialogListener)getActivity()).sendErrorReport();
+      ((DeckPicker)getActivity()).sendErrorReport();
       dismissAllDialogFragments();
     }
     @Override public void onNeutral(    MaterialDialog dialog){
-      ((DatabaseErrorDialogListener)getActivity()).exit();
+      ((DeckPicker)getActivity()).exit();
     }
   }
 ).show();
-dialog.getCustomView().findViewById(R.id.buttonDefaultNegative).setEnabled(((DatabaseErrorDialogListener)getActivity()).hasErrorFiles());
+dialog.getCustomView().findViewById(R.id.buttonDefaultNegative).setEnabled(((DeckPicker)getActivity()).hasErrorFiles());
 return dialog;
 case DIALOG_ERROR_HANDLING:
 ArrayList<String> options=new ArrayList<String>();
@@ -72,22 +72,22 @@ dialog=builder.iconAttr(R.attr.dialogErrorIcon).negativeText(res.getString(R.str
 @Override public void onSelection(MaterialDialog materialDialog,View view,int which,CharSequence charSequence){
 switch (mRepairValues[which]) {
 case 0:
-((DatabaseErrorDialogListener)getActivity()).startLoadingCollection();
+((DeckPicker)getActivity()).restartActivity();
 return;
 case 1:
-((DatabaseErrorDialogListener)getActivity()).showDatabaseErrorDialog(DIALOG_CONFIRM_DATABASE_CHECK);
+((DeckPicker)getActivity()).showDatabaseErrorDialog(DIALOG_CONFIRM_DATABASE_CHECK);
 return;
 case 2:
-((DatabaseErrorDialogListener)getActivity()).showDatabaseErrorDialog(DIALOG_REPAIR_COLLECTION);
+((DeckPicker)getActivity()).showDatabaseErrorDialog(DIALOG_REPAIR_COLLECTION);
 return;
 case 3:
-((DatabaseErrorDialogListener)getActivity()).showDatabaseErrorDialog(DIALOG_RESTORE_BACKUP);
+((DeckPicker)getActivity()).showDatabaseErrorDialog(DIALOG_RESTORE_BACKUP);
 return;
 case 4:
-((DatabaseErrorDialogListener)getActivity()).showDatabaseErrorDialog(DIALOG_FULL_SYNC_FROM_SERVER);
+((DeckPicker)getActivity()).showDatabaseErrorDialog(DIALOG_FULL_SYNC_FROM_SERVER);
 return;
 case 5:
-((DatabaseErrorDialogListener)getActivity()).showDatabaseErrorDialog(DIALOG_NEW_COLLECTION);
+((DeckPicker)getActivity()).showDatabaseErrorDialog(DIALOG_NEW_COLLECTION);
 }
 }
 }
@@ -96,7 +96,7 @@ return dialog;
 case DIALOG_REPAIR_COLLECTION:
 return builder.content(getMessage()).iconAttr(R.attr.dialogErrorIcon).positiveText(res.getString(R.string.dialog_positive_repair)).negativeText(res.getString(R.string.dialog_cancel)).callback(new MaterialDialog.ButtonCallback(){
 @Override public void onPositive(MaterialDialog dialog){
-((DatabaseErrorDialogListener)getActivity()).repairDeck();
+((DeckPicker)getActivity()).repairDeck();
 dismissAllDialogFragments();
 }
 }
@@ -111,7 +111,7 @@ mBackups[i]=files[files.length - 1 - i];
 if (mBackups.length == 0) {
 builder.title(res.getString(R.string.backup_restore)).content(getMessage()).positiveText(res.getString(R.string.dialog_ok)).callback(new MaterialDialog.ButtonCallback(){
 @Override public void onPositive(MaterialDialog dialog){
-((DatabaseErrorDialogListener)getActivity()).showDatabaseErrorDialog(DIALOG_ERROR_HANDLING);
+((DeckPicker)getActivity()).showDatabaseErrorDialog(DIALOG_ERROR_HANDLING);
 }
 }
 );
@@ -129,7 +129,7 @@ dismissAllDialogFragments();
 ).items(dates).itemsCallbackSingleChoice(dates.length,new MaterialDialog.ListCallbackSingleChoice(){
 @Override public boolean onSelection(MaterialDialog materialDialog,View view,int which,CharSequence charSequence){
 if (mBackups[which].length() > 0) {
-((DatabaseErrorDialogListener)getActivity()).restoreFromBackup(mBackups[which].getPath());
+((DeckPicker)getActivity()).restoreFromBackup(mBackups[which].getPath());
 dismissAllDialogFragments();
 }
  else {
@@ -148,19 +148,18 @@ CollectionHelper.getInstance().closeCollection(false);
 String path=CollectionHelper.getInstance().getCollectionPath(getActivity());
 AnkiDatabaseManager.closeDatabase(path);
 if (BackupManager.moveDatabaseToBrokenFolder(path,false)) {
-((DatabaseErrorDialogListener)getActivity()).startLoadingCollection();
+((DeckPicker)getActivity()).restartActivity();
 }
  else {
-((DatabaseErrorDialogListener)getActivity()).showDatabaseErrorDialog(DIALOG_ERROR_HANDLING);
+((DeckPicker)getActivity()).showDatabaseErrorDialog(DIALOG_LOAD_FAILED);
 }
-dismissAllDialogFragments();
 }
 }
 ).show();
 case DIALOG_CONFIRM_DATABASE_CHECK:
 return builder.content(getMessage()).positiveText(res.getString(R.string.dialog_ok)).negativeText(res.getString(R.string.dialog_cancel)).callback(new MaterialDialog.ButtonCallback(){
 @Override public void onPositive(MaterialDialog dialog){
-((DatabaseErrorDialogListener)getActivity()).integrityCheck();
+((DeckPicker)getActivity()).integrityCheck();
 dismissAllDialogFragments();
 }
 }
@@ -168,15 +167,14 @@ dismissAllDialogFragments();
 case DIALOG_CONFIRM_RESTORE_BACKUP:
 return builder.content(getMessage()).positiveText(res.getString(R.string.dialog_continue)).negativeText(res.getString(R.string.dialog_cancel)).callback(new MaterialDialog.ButtonCallback(){
 @Override public void onPositive(MaterialDialog dialog){
-((DatabaseErrorDialogListener)getActivity()).showDatabaseErrorDialog(DIALOG_RESTORE_BACKUP);
+((DeckPicker)getActivity()).showDatabaseErrorDialog(DIALOG_RESTORE_BACKUP);
 }
 }
 ).show();
 case DIALOG_FULL_SYNC_FROM_SERVER:
 return builder.content(getMessage()).positiveText(res.getString(R.string.dialog_positive_overwrite)).negativeText(res.getString(R.string.dialog_cancel)).callback(new MaterialDialog.ButtonCallback(){
 @Override public void onPositive(MaterialDialog dialog){
-DatabaseErrorDialogListener activity=(DatabaseErrorDialogListener)getActivity();
-activity.sync("download");
+((DeckPicker)getActivity()).sync("download");
 dismissAllDialogFragments();
 }
 }
