@@ -39,6 +39,7 @@
       }
     }
     preferences.edit().putInt("lastUpgradeVersion",current).commit();
+    preferences.edit().remove("sentExceptionReports").commit();
     if (previous < 20300200) {
       File mediaDb=new File(CollectionHelper.getCurrentAnkiDroidDirectory(this),"collection.media.ad.db2");
       if (mediaDb.exists()) {

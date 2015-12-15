@@ -1,5 +1,5 @@
 {
-  if (getCol() == null) {
+  if (CollectionHelper.getInstance().getColSafe(this) == null) {
     return false;
   }
   if (mFragmented || !getCol().undoAvailable()) {

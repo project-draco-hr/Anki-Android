@@ -1,0 +1,13 @@
+{
+  final StringBuilder res=new StringBuilder();
+  Throwable cause=th;
+  while (cause != null) {
+    final StackTraceElement[] stackTraceElements=cause.getStackTrace();
+    for (    final StackTraceElement e : stackTraceElements) {
+      res.append(e.getClassName());
+      res.append(e.getMethodName());
+    }
+    cause=cause.getCause();
+  }
+  return Integer.toHexString(res.toString().hashCode());
+}
