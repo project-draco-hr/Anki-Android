@@ -76,6 +76,7 @@ case "reportErrorMode":
 {
 String value=prefs.getString("reportErrorMode","");
 AnkiDroidApp.getInstance().setAcraReportingMode(value);
+AnkiDroidApp.getSharedPrefs(this).edit().remove("sentExceptionReports").apply();
 break;
 }
 case "syncAccount":

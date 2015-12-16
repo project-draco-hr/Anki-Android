@@ -1,4 +1,20 @@
 {
+  SharedPreferences prefs=getSharedPrefs(getInstance());
+  try {
+    JSONObject sentReports=new JSONObject(prefs.getString("sentExceptionReports","{}"));
+    String hash=getExceptionHash(e);
+    if (sentReports.has(hash)) {
+      Timber.i("The exception report with hash %s has already been sent from this device",hash);
+      return;
+    }
+ else {
+      sentReports.put(hash,true);
+      prefs.edit().putString("sentExceptionReports",sentReports.toString()).apply();
+    }
+  }
+ catch (  JSONException e1) {
+    Timber.i(e1,"Could not get cache of sent exception reports");
+  }
   ACRA.getErrorReporter().putCustomData("origin",origin);
   ACRA.getErrorReporter().putCustomData("additionalInfo",additionalInfo);
   ACRA.getErrorReporter().handleException(e);

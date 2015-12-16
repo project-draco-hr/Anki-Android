@@ -1,14 +1,6 @@
 {
   if (CollectionHelper.hasStorageAccessPermission(this)) {
-    Collection col=null;
-    try {
-      col=getCol();
-    }
- catch (    RuntimeException e) {
-      Timber.e(e,"RuntimeException opening collection");
-      AnkiDroidApp.sendExceptionReport(e,"DeckPicker.firstCollectionOpen");
-    }
-    if (col == null) {
+    if (CollectionHelper.getInstance().getColSafe(this) == null) {
       showDatabaseErrorDialog(DatabaseErrorDialog.DIALOG_LOAD_FAILED);
       return false;
     }
