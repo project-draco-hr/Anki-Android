@@ -1,5 +1,8 @@
 {
   Resources res=getResources();
+  if (getDrawerToggle().onOptionsItemSelected(item)) {
+    return true;
+  }
 switch (item.getItemId()) {
 case R.id.action_undo:
     Timber.i("DeckPicker:: Undo button pressed");

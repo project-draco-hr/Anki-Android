@@ -2,5 +2,5 @@
   if (mCurrentCard != null) {
     setCurrentCardId(mCurrentCard.getId());
   }
-  return super.onItemClick(view,i,iDrawerItem);
+  return super.onNavigationItemSelected(item);
 }

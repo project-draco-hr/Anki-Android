@@ -1,3 +1,42 @@
 {
-  initNavigationDrawer(mainView,false);
+  mDrawerLayout=(DrawerLayout)mainView.findViewById(R.id.drawer_layout);
+  mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,GravityCompat.START);
+  mNavigationView=(NavigationView)mDrawerLayout.findViewById(R.id.navdrawer_items_container);
+  mNavigationView.setNavigationItemSelectedListener(this);
+  Toolbar toolbar=(Toolbar)mainView.findViewById(R.id.toolbar);
+  if (toolbar != null) {
+    setSupportActionBar(toolbar);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    getSupportActionBar().setHomeButtonEnabled(true);
+  }
+  final SharedPreferences preferences=AnkiDroidApp.getSharedPrefs(NavigationDrawerActivity.this);
+  View actionLayout=MenuItemCompat.getActionView(mNavigationView.getMenu().findItem(R.id.nav_night_mode));
+  mNightModeSwitch=(SwitchCompat)actionLayout.findViewById(R.id.switch_compat);
+  mNightModeSwitch.setChecked(preferences.getBoolean("invertedColors",false));
+  mNightModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+    @Override public void onCheckedChanged(    CompoundButton buttonView,    boolean isChecked){
+      if (isChecked) {
+        Timber.i("StudyOptionsFragment:: Night mode was enabled");
+        preferences.edit().putBoolean("invertedColors",true).commit();
+      }
+ else {
+        Timber.i("StudyOptionsFragment:: Night mode was disabled");
+        preferences.edit().putBoolean("invertedColors",false).commit();
+      }
+      CompatHelper.getCompat().restartActivityInvalidateBackstack(NavigationDrawerActivity.this);
+    }
+  }
+);
+  mDrawerToggle=new ActionBarDrawerToggle(this,mDrawerLayout,0,0){
+    @Override public void onDrawerClosed(    View drawerView){
+      super.onDrawerClosed(drawerView);
+      supportInvalidateOptionsMenu();
+    }
+    @Override public void onDrawerOpened(    View drawerView){
+      super.onDrawerOpened(drawerView);
+      supportInvalidateOptionsMenu();
+    }
+  }
+;
+  mDrawerLayout.setDrawerListener(mDrawerToggle);
 }

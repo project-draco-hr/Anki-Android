@@ -1,4 +1,7 @@
 {
+  if (getDrawerToggle().onOptionsItemSelected(item)) {
+    return true;
+  }
 switch (item.getItemId()) {
 case android.R.id.home:
     closeStudyOptions();
