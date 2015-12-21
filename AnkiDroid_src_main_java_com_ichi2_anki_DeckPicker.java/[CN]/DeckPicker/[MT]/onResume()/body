@@ -7,7 +7,7 @@
     mSyncOnResume=false;
   }
  else   if (colIsOpen()) {
-    selectNavigationItem(DRAWER_DECK_PICKER);
+    selectNavigationItem(R.id.nav_decks);
     updateDeckList();
     setTitle(getResources().getString(R.string.app_name));
   }

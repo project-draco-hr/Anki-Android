@@ -1,7 +1,7 @@
 {
   if (isDrawerOpen()) {
     Timber.i("Back key pressed");
-    mDrawer.closeDrawer();
+    mDrawerLayout.closeDrawers();
   }
  else {
     super.onBackPressed();
