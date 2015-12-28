@@ -1,18 +1,10 @@
 {
-  if (!AnkiDroidApp.isSdCardMounted()) {
-    onSdCardNotMounted();
-  }
- else   if (!CollectionHelper.isCurrentAnkiDroidDirAccessible(this)) {
-    Intent i=new Intent(this,Preferences.class);
-    startActivityWithoutAnimation(i);
-    showSimpleSnackbar(R.string.directory_inaccessible,false);
-  }
- else   if (!BackupManager.enoughDiscSpace(CollectionHelper.getCurrentAnkiDroidDirectory(this))) {
+  if (!BackupManager.enoughDiscSpace(CollectionHelper.getCurrentAnkiDroidDirectory(this))) {
     showDialogFragment(DeckPickerNoSpaceLeftDialog.newInstance());
   }
  else   if (preferences.getBoolean("noSpaceLeft",false)) {
     showDialogFragment(DeckPickerBackupNoSpaceLeftDialog.newInstance());
-    preferences.edit().putBoolean("noSpaceLeft",false).commit();
+    preferences.edit().remove("noSpaceLeft").commit();
   }
  else   if (preferences.getString("lastVersion","").equals("")) {
     preferences.edit().putString("lastVersion",VersionUtils.getPkgVersionName()).commit();
