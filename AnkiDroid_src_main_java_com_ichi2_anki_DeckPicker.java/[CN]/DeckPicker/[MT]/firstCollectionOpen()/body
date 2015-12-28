@@ -1,7 +1,6 @@
 {
   if (CollectionHelper.hasStorageAccessPermission(this)) {
     if (CollectionHelper.getInstance().getColSafe(this) == null) {
-      showDatabaseErrorDialog(DatabaseErrorDialog.DIALOG_LOAD_FAILED);
       return false;
     }
   }

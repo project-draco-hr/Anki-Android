@@ -4,7 +4,13 @@
       showStartupScreensAndDialogs(AnkiDroidApp.getSharedPrefs(this),0);
     }
  else {
-      showSimpleSnackbar(R.string.directory_inaccessible,false);
+      Toast.makeText(this,R.string.directory_inaccessible,Toast.LENGTH_LONG).show();
+      finishWithoutAnimation();
+      Intent intent=new Intent();
+      intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+      Uri uri=Uri.fromParts("package",getPackageName(),null);
+      intent.setData(uri);
+      startActivityWithoutAnimation(intent);
     }
   }
 }

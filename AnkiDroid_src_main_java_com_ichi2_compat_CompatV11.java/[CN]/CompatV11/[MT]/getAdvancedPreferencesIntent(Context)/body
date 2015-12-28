@@ -1,0 +1,8 @@
+{
+  Intent i=new Intent(context,Preferences.class);
+  i.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT,"com.ichi2.anki.Preferences$SettingsFragment");
+  Bundle extras=new Bundle();
+  extras.putString("subscreen","com.ichi2.anki.prefs.advanced");
+  i.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT_ARGUMENTS,extras);
+  return i;
+}
