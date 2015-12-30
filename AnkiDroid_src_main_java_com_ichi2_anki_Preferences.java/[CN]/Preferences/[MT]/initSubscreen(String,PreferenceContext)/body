@@ -51,6 +51,15 @@ return false;
 }
 }
 );
+Preference customSyncServerPreference=screen.findPreference("custom_sync_server_link");
+customSyncServerPreference.setOnPreferenceClickListener(new OnPreferenceClickListener(){
+public boolean onPreferenceClick(Preference preference){
+Intent i=CompatHelper.getCompat().getPreferenceSubscreenIntent(Preferences.this,"com.ichi2.anki.prefs.custom_sync_server");
+startActivity(i);
+return true;
+}
+}
+);
 Preference fullSyncPreference=screen.findPreference("force_full_sync");
 fullSyncPreference.setOnPreferenceClickListener(new OnPreferenceClickListener(){
 public boolean onPreferenceClick(Preference preference){
@@ -62,6 +71,10 @@ return true;
 }
 );
 removeUnnecessaryAdvancedPrefs(screen);
+break;
+case "com.ichi2.anki.prefs.custom_sync_server":
+getSupportActionBar().setTitle(R.string.custom_sync_server_title);
+listener.addPreferencesFromResource(R.xml.preferences_custom_sync_server);
 break;
 }
 }

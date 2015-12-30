@@ -4,5 +4,6 @@
     SharedPreferences prefs=getPreferenceScreen().getSharedPreferences();
     prefs.registerOnSharedPreferenceChangeListener(this);
     updatePreference(prefs,"syncAccount",this);
+    updatePreference(prefs,"custom_sync_server_link",this);
   }
 }

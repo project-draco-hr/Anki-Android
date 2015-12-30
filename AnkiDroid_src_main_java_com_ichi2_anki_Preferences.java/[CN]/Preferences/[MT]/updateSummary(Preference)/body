@@ -5,6 +5,14 @@
   if (pref.getKey().equals("about_dialog_preference")) {
     pref.setSummary(getResources().getString(R.string.about_version) + " " + VersionUtils.getPkgVersionName());
   }
+ else   if (pref.getKey().equals("custom_sync_server_link")) {
+    if (!AnkiDroidApp.getSharedPrefs(this).getBoolean("useCustomSyncServer",false)) {
+      pref.setSummary(R.string.disabled);
+    }
+ else {
+      pref.setSummary(AnkiDroidApp.getSharedPrefs(this).getString("syncBaseUrl",""));
+    }
+  }
   String value;
   try {
     if (pref instanceof NumberRangePreference) {
