@@ -18,6 +18,8 @@ case DIALOG_CONFIRM_RESTORE_BACKUP:
 return res().getString(R.string.restore_backup_title);
 case DIALOG_FULL_SYNC_FROM_SERVER:
 return res().getString(R.string.backup_full_sync_from_server);
+case DIALOG_CURSOR_SIZE_LIMIT_EXCEEDED:
+return res().getString(R.string.open_collection_failed_title);
 default :
 return res().getString(R.string.answering_error_title);
 }

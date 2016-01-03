@@ -13,13 +13,16 @@
 catch (  IOException e1) {
     return null;
   }
-  if (mCol == null) {
-    Timber.e("Collection was unexpectedly null");
-    return null;
+  String path;
+  if (mCol != null) {
+    path=mCol.getPath();
+    mCol.close(false);
+    mCol=null;
   }
-  String path=mCol.getPath();
-  mCol.close(false);
-  mCol=null;
+ else {
+    Timber.w("Collection was unexpectedly null when doing full sync download");
+    path=CollectionHelper.getCollectionPath(AnkiDroidApp.getInstance());
+  }
   String tpath=path + ".tmp";
   try {
     super.writeToFile(cont,tpath);
@@ -38,9 +41,10 @@ catch (  IOException e1) {
     throw new RuntimeException(e1);
   }
   mCon.publishProgress(R.string.sync_check_download_file);
+  AnkiDb tempDb=null;
   try {
-    AnkiDb d=AnkiDatabaseManager.getDatabase(tpath);
-    if (!d.queryString("PRAGMA integrity_check").equalsIgnoreCase("ok")) {
+    tempDb=new AnkiDb(tpath);
+    if (!tempDb.queryString("PRAGMA integrity_check").equalsIgnoreCase("ok")) {
       Timber.e("Full sync - downloaded file corrupt");
       return new Object[]{"remoteDbError"};
     }
@@ -50,7 +54,9 @@ catch (  IOException e1) {
     return new Object[]{"remoteDbError"};
   }
  finally {
-    AnkiDatabaseManager.closeDatabase(tpath);
+    if (tempDb != null) {
+      tempDb.closeDatabase();
+    }
   }
   File newFile=new File(tpath);
   if (newFile.renameTo(new File(path))) {

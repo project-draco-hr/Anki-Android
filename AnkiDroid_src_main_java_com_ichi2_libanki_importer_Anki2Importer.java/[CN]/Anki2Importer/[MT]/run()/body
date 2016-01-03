@@ -29,7 +29,7 @@
       cnt=_import();
     }
   finally {
-      AnkiDatabaseManager.closeDatabase(mSrc.getPath());
+      mSrc.close(false);
     }
     String mediaDir=mCol.getMedia().dir();
     if (nameToNum.size() != 0) {

@@ -1,0 +1,9 @@
+{
+  try {
+    getCol(context);
+  }
+ catch (  IllegalStateException e) {
+    return true;
+  }
+  return false;
+}
