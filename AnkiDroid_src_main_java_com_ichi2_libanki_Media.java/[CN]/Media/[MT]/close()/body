@@ -2,6 +2,6 @@
   if (mCol.getServer()) {
     return;
   }
-  AnkiDatabaseManager.closeDatabase(mDb.getPath());
+  mDb.closeDatabase();
   mDb=null;
 }

@@ -5,7 +5,7 @@
   String hkey=(String)data.data[0];
   boolean media=(Boolean)data.data[1];
   String conflictResolution=(String)data.data[2];
-  Collection col=CollectionHelper.getInstance().getCol(AnkiDroidApp.getInstance());
+  Collection col=CollectionHelper.getInstance().getColSafe(AnkiDroidApp.getInstance());
   boolean colCorruptFullSync=false;
   if (!CollectionHelper.getInstance().colIsOpen() || !ok) {
     if (conflictResolution != null && conflictResolution.equals("download")) {
@@ -196,8 +196,10 @@ catch (  Exception e) {
     return data;
   }
  finally {
-    Timber.d("doInBackgroundSync -- closing collection on outer finally statement");
-    col.close(false);
+    if (col != null) {
+      Timber.d("doInBackgroundSync -- closing collection on outer finally statement");
+      col.close(false);
+    }
     CollectionHelper.getInstance().unlockCollection();
     Timber.d("doInBackgroundSync -- reopening collection on outer finally statement");
     CollectionHelper.getInstance().reopenCollection();
