@@ -1,0 +1,6 @@
+{
+  InputStream is=context.getClassLoader().getResourceAsStream("assets/" + name);
+  String dst=new File(getTestDir(context,name),name).getAbsolutePath();
+  Utils.writeToFile(is,dst);
+  return dst;
+}

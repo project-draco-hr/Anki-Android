@@ -1,0 +1,6 @@
+{
+  String checkmark="\u2714";
+  if (mProgress != null) {
+    mProgress.publishProgress(new DeckTask.TaskData(getRes().getString(R.string.import_progress,notesDone,cardsDone,postProcess)));
+  }
+}

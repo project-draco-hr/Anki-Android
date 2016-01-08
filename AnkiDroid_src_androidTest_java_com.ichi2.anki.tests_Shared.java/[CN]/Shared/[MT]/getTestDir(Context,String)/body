@@ -1,0 +1,11 @@
+{
+  if (!TextUtils.isEmpty(name)) {
+    name="-" + name;
+  }
+  File dir=new File(context.getCacheDir(),"testfiles" + name);
+  dir.mkdir();
+  for (  File f : dir.listFiles()) {
+    f.delete();
+  }
+  return dir;
+}

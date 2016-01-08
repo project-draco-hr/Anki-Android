@@ -1,0 +1,11 @@
+{
+  if (mNameToNum.containsKey(fname)) {
+    try {
+      return new BufferedInputStream(mZip.getInputStream(mZip.getEntry(mNameToNum.get(fname))));
+    }
+ catch (    IOException e) {
+      Timber.e("Could not extract media file " + fname + "from zip file.");
+    }
+  }
+  return null;
+}

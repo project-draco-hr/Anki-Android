@@ -11,7 +11,7 @@
     exporter.setIncludeSched(includeSched);
     exporter.setIncludeMedia(includeMedia);
     exporter.setDid(did);
-    exporter.exportInto(apkgPath);
+    exporter.exportInto(apkgPath,mContext);
   }
  catch (  FileNotFoundException e) {
     Timber.e(e,"FileNotFoundException in doInBackgroundExportApkg");

@@ -4,8 +4,6 @@ case TASK_TYPE_LOGIN:
     return doInBackgroundLogin(data);
 case TASK_TYPE_SYNC:
   return doInBackgroundSync(data);
-case TASK_TYPE_UPGRADE_DECKS:
-throw new RuntimeException("Upgrade decks no longer supported");
 default :
 return null;
 }

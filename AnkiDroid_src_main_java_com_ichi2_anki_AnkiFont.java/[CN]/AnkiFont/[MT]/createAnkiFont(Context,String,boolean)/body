@@ -1,6 +1,6 @@
 {
   File fontfile=new File(path);
-  String name=Utils.removeExtension(fontfile.getName());
+  String name=Utils.removeFileExtension(fontfile.getName());
   String family=name;
   List<String> attributes=new ArrayList<String>();
   if (fromAssets) {

@@ -1,0 +1,31 @@
+{
+  List<String> expected;
+  List<String> actual;
+  Collection tmp=Shared.getEmptyCol(getContext());
+  String apkg=Shared.getTestFilePath(getContext(),"media.apkg");
+  Importer imp=new AnkiPackageImporter(tmp,apkg);
+  expected=Arrays.asList();
+  actual=Arrays.asList(new File(tmp.getMedia().dir()).list());
+  actual.retainAll(expected);
+  assertEquals(actual.size(),expected.size());
+  imp.run();
+  expected=Arrays.asList("foo.wav");
+  actual=Arrays.asList(new File(tmp.getMedia().dir()).list());
+  actual.retainAll(expected);
+  assertEquals(expected.size(),actual.size());
+  tmp.remCards(Utils.arrayList2array(tmp.getDb().queryColumn(Long.class,"select id from cards",0)));
+  imp=new AnkiPackageImporter(tmp,apkg);
+  imp.run();
+  expected=Arrays.asList("foo.wav");
+  actual=Arrays.asList(new File(tmp.getMedia().dir()).list());
+  actual.retainAll(expected);
+  assertEquals(actual.size(),expected.size());
+  tmp.remCards(Utils.arrayList2array(tmp.getDb().queryColumn(Long.class,"select id from cards",0)));
+  FileOutputStream os;
+  os=new FileOutputStream(new File(tmp.getMedia().dir(),"foo.wav"),false);
+  os.write("xyz".getBytes());
+  os.close();
+  imp=new AnkiPackageImporter(tmp,apkg);
+  imp.run();
+  assertTrue(new File(tmp.getMedia().dir()).list().length == 2);
+}

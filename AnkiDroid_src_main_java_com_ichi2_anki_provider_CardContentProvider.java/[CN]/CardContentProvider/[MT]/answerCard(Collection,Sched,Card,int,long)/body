@@ -1,7 +1,7 @@
 {
   try {
-    AnkiDb ankiDB=col.getDb();
-    ankiDB.getDatabase().beginTransaction();
+    DB db=col.getDb();
+    db.getDatabase().beginTransaction();
     try {
       if (cardToAnswer != null) {
         if (timeTaken != -1) {
@@ -9,10 +9,10 @@
         }
         sched.answerCard(cardToAnswer,ease);
       }
-      ankiDB.getDatabase().setTransactionSuccessful();
+      db.getDatabase().setTransactionSuccessful();
     }
   finally {
-      ankiDB.getDatabase().endTransaction();
+      db.getDatabase().endTransaction();
     }
   }
  catch (  RuntimeException e) {

@@ -5,7 +5,7 @@
   String path=dir() + ".ad.db2";
   File dbFile=new File(path);
   boolean create=!(dbFile.exists());
-  mDb=new AnkiDb(path);
+  mDb=new DB(path);
   if (create) {
     _initDB();
   }

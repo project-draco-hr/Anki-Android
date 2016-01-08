@@ -9,13 +9,16 @@
   if (!mNotes.containsKey(origGuid)) {
     return true;
   }
+  if (!mDupeOnSchemaChange) {
+    return false;
+  }
   while (true) {
     note[GUID]=Utils.incGuid((String)note[GUID]);
     mChangedGuids.put(origGuid,(String)note[GUID]);
-    if (!mNotes.containsKey((String)note[GUID])) {
+    if (!mNotes.containsKey(note[GUID])) {
       return true;
     }
-    if (dstMid == (Long)mNotes.get((String)note[GUID])[MID]) {
+    if (dstMid == (Long)mNotes.get(note[GUID])[MID]) {
       return false;
     }
   }

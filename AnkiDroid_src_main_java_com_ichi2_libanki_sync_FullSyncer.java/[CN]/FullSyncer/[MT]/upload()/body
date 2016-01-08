@@ -8,7 +8,6 @@
   }
   mCol.beforeUpload();
   String filePath=mCol.getPath();
-  mCol.close();
   HttpResponse ret;
   mCon.publishProgress(R.string.sync_uploading_message);
   try {

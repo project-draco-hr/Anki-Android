@@ -1,5 +1,16 @@
 {
-  Hooks.getInstance(context);
   String path=getCollectionPath(context);
-  return getCol(path);
+  if (!colIsOpen()) {
+    try {
+      initializeAnkiDroidDirectory(getParentDirectory(path));
+      mPath=path;
+    }
+ catch (    StorageAccessException e) {
+      Timber.e(e,"Could not initialize AnkiDroid directory");
+      return null;
+    }
+    Timber.i("openCollection: %s",path);
+    mCollection=Storage.Collection(context,path,false,true);
+  }
+  return mCollection;
 }

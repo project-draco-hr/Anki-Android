@@ -2,6 +2,6 @@
   if (mCol.getServer()) {
     return;
   }
-  mDb.closeDatabase();
+  mDb.close();
   mDb=null;
 }

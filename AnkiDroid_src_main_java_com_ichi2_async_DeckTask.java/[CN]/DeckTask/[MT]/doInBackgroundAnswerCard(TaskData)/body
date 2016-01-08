@@ -5,8 +5,8 @@
   int ease=params[0].getInt();
   Card newCard=null;
   try {
-    AnkiDb ankiDB=col.getDb();
-    ankiDB.getDatabase().beginTransaction();
+    DB db=col.getDb();
+    db.getDatabase().beginTransaction();
     try {
       if (oldCard != null) {
         sched.answerCard(oldCard,ease);
@@ -18,10 +18,10 @@
         newCard._getQA(true);
       }
       publishProgress(new TaskData(newCard));
-      ankiDB.getDatabase().setTransactionSuccessful();
+      db.getDatabase().setTransactionSuccessful();
     }
   finally {
-      ankiDB.getDatabase().endTransaction();
+      db.getDatabase().endTransaction();
     }
   }
  catch (  RuntimeException e) {

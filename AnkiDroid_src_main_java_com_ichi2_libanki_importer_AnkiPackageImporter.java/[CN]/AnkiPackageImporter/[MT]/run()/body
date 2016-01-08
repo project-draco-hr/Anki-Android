@@ -1,0 +1,71 @@
+{
+  publishProgress(0,0,0);
+  File tempDir=new File(new File(mCol.getPath()).getParent(),"tmpzip");
+  try {
+    try {
+      mZip=new ZipFile(new File(mFile),ZipFile.OPEN_READ);
+      Utils.unzipFiles(mZip,tempDir.getAbsolutePath(),new String[]{"collection.anki2","media"},null);
+    }
+ catch (    IOException e) {
+      Timber.e("Failed to unzip apkg.",e);
+      mLog.add(getRes().getString(R.string.import_log_no_apkg));
+      return;
+    }
+    String colpath=new File(tempDir,"collection.anki2").getAbsolutePath();
+    if (!(new File(colpath)).exists()) {
+      mLog.add(getRes().getString(R.string.import_log_no_apkg));
+      return;
+    }
+    if (!Storage.Collection(mContext,colpath).validCollection()) {
+      mLog.add(getRes().getString(R.string.import_log_no_apkg));
+      return;
+    }
+    mFile=colpath;
+    File mediaMapFile=new File(tempDir,"media");
+    mNameToNum=new HashMap<>();
+    Map<String,String> numToName=new HashMap<>();
+    try {
+      JsonReader jr=new JsonReader(new FileReader(mediaMapFile));
+      jr.beginObject();
+      String name;
+      String num;
+      while (jr.hasNext()) {
+        num=jr.nextName();
+        name=jr.nextString();
+        mNameToNum.put(name,num);
+        numToName.put(num,name);
+      }
+      jr.endObject();
+      jr.close();
+    }
+ catch (    FileNotFoundException e) {
+      Timber.e("Apkg did not contain a media dict. No media will be imported.");
+    }
+catch (    IOException e) {
+      Timber.e("Malformed media dict. Media import will be incomplete.");
+    }
+    super.run();
+    for (    Map.Entry<String,String> entry : mNameToNum.entrySet()) {
+      String file=entry.getKey();
+      String c=entry.getValue();
+      if (!file.startsWith("_") && !file.startsWith("latex-")) {
+        continue;
+      }
+      File path=new File(mCol.getMedia().dir(),HtmlUtil.nfcNormalized(file));
+      if (!path.exists()) {
+        try {
+          Utils.unzipFiles(mZip,mCol.getMedia().dir(),new String[]{c},numToName);
+        }
+ catch (        IOException e) {
+          Timber.e("Failed to extract static media file. Ignoring.");
+        }
+      }
+    }
+  }
+  finally {
+    if (tempDir.exists()) {
+      BackupManager.removeDir(tempDir);
+    }
+  }
+  publishProgress(100,100,100);
+}

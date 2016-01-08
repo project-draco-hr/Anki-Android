@@ -1,6 +1,9 @@
 {
   try {
-    mDst.getConf().put("nextPos",mDst.getDb().queryLongScalar("SELECT max(due) + 1 FROM cards WHERE type = 0"));
+    for (    long did : mDecks.values()) {
+      mCol.getSched().maybeRandomizeDeck(did);
+    }
+    mDst.getConf().put("nextPos",mDst.getDb().queryLongScalar("select max(due)+1 from cards where type = 0"));
     mDst.save();
   }
  catch (  JSONException e) {

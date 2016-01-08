@@ -1,0 +1,22 @@
+{
+  Collection deck=Shared.getEmptyCol(getContext());
+  Models mm=deck.getModels();
+  JSONObject m=mm.current();
+  JSONObject f=mm.newField("Three");
+  mm.addField(m,f);
+  mm.save(m);
+  Note n=deck.newNote();
+  n.setItem("Front","1");
+  n.setItem("Back","2");
+  n.setItem("Three","3");
+  deck.addNote(n);
+  String file=Shared.getTestFilePath(getContext(),"text-update.txt");
+  TextImporter i=new TextImporter(deck,file);
+  i.initMapping();
+  i.run();
+  n.load();
+  assertTrue(n.getItem("Front").equals("1"));
+  assertTrue(n.getItem("Back").equals("x"));
+  assertTrue(n.getItem("Three").equals("3"));
+  deck.close();
+}

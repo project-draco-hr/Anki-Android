@@ -56,16 +56,15 @@
           Timber.i("Sync - fullsync - upload collection");
           publishProgress(R.string.sync_preparing_full_sync_message);
           Object[] ret=server.upload();
+          col.reopen();
           if (ret == null) {
             data.success=false;
             data.result=new Object[]{"genericError"};
-            CollectionHelper.getInstance().reopenCollection();
             return data;
           }
           if (!ret[0].equals(HttpSyncer.ANKIWEB_STATUS_OK)) {
             data.success=false;
             data.result=ret;
-            CollectionHelper.getInstance().reopenCollection();
             return data;
           }
         }
@@ -76,19 +75,21 @@
           if (ret == null) {
             data.success=false;
             data.result=new Object[]{"genericError"};
-            CollectionHelper.getInstance().reopenCollection();
             return data;
+          }
+          if (ret[0].equals("success")) {
+            data.success=true;
+            col.reopen();
           }
           if (!ret[0].equals("success")) {
             data.success=false;
             data.result=ret;
             if (!colCorruptFullSync) {
-              CollectionHelper.getInstance().reopenCollection();
+              col.reopen();
             }
             return data;
           }
         }
-        col=CollectionHelper.getInstance().reopenCollection();
       }
  catch (      OutOfMemoryError e) {
         AnkiDroidApp.sendExceptionReport(e,"doInBackgroundSync-fullSync");
@@ -197,11 +198,8 @@ catch (  Exception e) {
   }
  finally {
     if (col != null) {
-      Timber.d("doInBackgroundSync -- closing collection on outer finally statement");
       col.close(false);
     }
     CollectionHelper.getInstance().unlockCollection();
-    Timber.d("doInBackgroundSync -- reopening collection on outer finally statement");
-    CollectionHelper.getInstance().reopenCollection();
   }
 }

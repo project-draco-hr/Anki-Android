@@ -1,0 +1,31 @@
+{
+  mContext=context;
+  mDebugLog=log;
+  mDb=db;
+  mPath=path;
+  _openLog();
+  log(path,VersionUtils.getPkgVersionName());
+  mServer=server;
+  mLastSave=Utils.now();
+  clearUndo();
+  mMedia=new Media(this,server);
+  mModels=new Models(this);
+  mDecks=new Decks(this);
+  mTags=new Tags(this);
+  load();
+  if (mCrt == 0) {
+    mCrt=UIUtils.getDayStart() / 1000;
+  }
+  mStartReps=0;
+  mStartTime=0;
+  mSched=new Sched(this);
+  if (!mConf.optBoolean("newBury",false)) {
+    try {
+      mConf.put("newBury",true);
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException(e);
+    }
+    setMod();
+  }
+}

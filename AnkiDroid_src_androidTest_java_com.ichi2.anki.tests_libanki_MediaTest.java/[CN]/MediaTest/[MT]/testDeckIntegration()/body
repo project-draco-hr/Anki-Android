@@ -1,0 +1,30 @@
+{
+  Collection d=Shared.getEmptyCol(getContext());
+  d.getMedia().dir();
+  File file=new File(Shared.getTestDir(getContext()),"fake.png");
+  file.createNewFile();
+  d.getMedia().addFile(file);
+  Note f=d.newNote();
+  f.setItem("Front","one");
+  f.setItem("Back","<img src='fake.png'>");
+  d.addNote(f);
+  f=d.newNote();
+  f.setItem("Front","one");
+  f.setItem("Back","<img src='fake2.png'>");
+  d.addNote(f);
+  FileOutputStream os;
+  os=new FileOutputStream(new File(d.getMedia().dir(),"foo.jpg"),false);
+  os.write("test".getBytes());
+  os.close();
+  List<List<String>> ret=d.getMedia().check();
+  List<String> expected;
+  List<String> actual;
+  expected=Arrays.asList("fake2.png");
+  actual=ret.get(0);
+  actual.retainAll(expected);
+  assertEquals(expected.size(),actual.size());
+  expected=Arrays.asList("foo.jpg");
+  actual=ret.get(1);
+  actual.retainAll(expected);
+  assertEquals(expected.size(),actual.size());
+}

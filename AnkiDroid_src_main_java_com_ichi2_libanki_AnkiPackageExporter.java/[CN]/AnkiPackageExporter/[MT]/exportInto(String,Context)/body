@@ -1,0 +1,12 @@
+{
+  ZipFile z=new ZipFile(path);
+  JSONObject media;
+  if (mIncludeSched && mDid == null) {
+    media=exportVerbatim(z);
+  }
+ else {
+    media=exportFiltered(z,path,context);
+  }
+  z.writeStr("media",Utils.jsonToString(media));
+  z.close();
+}
