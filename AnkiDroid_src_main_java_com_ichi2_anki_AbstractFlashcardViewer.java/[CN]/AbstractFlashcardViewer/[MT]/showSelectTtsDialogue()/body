@@ -1,0 +1,10 @@
+{
+  if (mTtsInitialized) {
+    if (!sDisplayAnswer) {
+      ReadText.selectTts(Utils.stripHTML(mCurrentCard.q(true)),getDeckIdForCard(mCurrentCard),mCurrentCard.getOrd(),Sound.SOUNDS_QUESTION);
+    }
+ else {
+      ReadText.selectTts(Utils.stripHTML(mCurrentCard.getPureAnswer()),getDeckIdForCard(mCurrentCard),mCurrentCard.getOrd(),Sound.SOUNDS_ANSWER);
+    }
+  }
+}
