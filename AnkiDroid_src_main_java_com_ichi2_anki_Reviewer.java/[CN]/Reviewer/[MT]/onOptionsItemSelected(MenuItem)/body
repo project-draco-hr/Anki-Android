@@ -68,6 +68,10 @@ case R.id.action_open_deck_options:
 Intent i=new Intent(this,DeckOptions.class);
 startActivityForResultWithAnimation(i,DECK_OPTIONS,ActivityTransitionAnimation.FADE);
 break;
+case R.id.action_select_tts:
+Timber.i("Reviewer:: Select TTS button pressed");
+showSelectTtsDialogue();
+break;
 default :
 return super.onOptionsItemSelected(item);
 }

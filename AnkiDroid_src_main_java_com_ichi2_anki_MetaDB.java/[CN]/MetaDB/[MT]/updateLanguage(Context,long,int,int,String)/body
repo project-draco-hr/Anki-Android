@@ -1,0 +1,10 @@
+{
+  openDBIfClosed(context);
+  try {
+    mMetaDb.execSQL("UPDATE languages SET language = ? WHERE did = ? AND ord = ? AND qa = ?;",new Object[]{language,did,ord,qa});
+    Timber.v("Update language for deck %d",did);
+  }
+ catch (  Exception e) {
+    Timber.e(e,"Error updating language in MetaDB ");
+  }
+}

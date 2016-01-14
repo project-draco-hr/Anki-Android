@@ -49,5 +49,8 @@
   if (getCol().getDecks().isDyn(getParentDid())) {
     menu.findItem(R.id.action_open_deck_options).setVisible(false);
   }
+  if (mSpeakText) {
+    menu.findItem(R.id.action_select_tts).setVisible(true);
+  }
   return super.onCreateOptionsMenu(menu);
 }
