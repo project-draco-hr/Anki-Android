@@ -21,6 +21,7 @@ mNightModeSwitch.performClick();
 return true;
 case R.id.nav_settings:
 mOldColPath=CollectionHelper.getCurrentAnkiDroidDirectory(this);
+mOldTheme=Themes.getCurrentTheme(getApplicationContext());
 startActivityForResultWithAnimation(new Intent(this,Preferences.class),REQUEST_PREFERENCES_UPDATE,ActivityTransitionAnimation.FADE);
 break;
 case R.id.nav_help:

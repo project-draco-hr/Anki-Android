@@ -6,7 +6,7 @@
   int dueCardsCount=WidgetStatus.fetchDue(context);
   if (dueCardsCount >= minCardsDue) {
     String cardsDueText=getString(R.string.widget_minimum_cards_due_notification_ticker_text,dueCardsCount);
-    NotificationCompat.Builder builder=new NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_stat_notify).setColor(getResources().getColor(R.color.theme_primary_dark)).setContentTitle(cardsDueText).setTicker(cardsDueText);
+    NotificationCompat.Builder builder=new NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_stat_notify).setColor(getResources().getColor(R.color.material_light_blue_700)).setContentTitle(cardsDueText).setTicker(cardsDueText);
     if (preferences.getBoolean("widgetVibrate",false)) {
       builder.setVibrate(new long[]{1000,1000,1000});
     }

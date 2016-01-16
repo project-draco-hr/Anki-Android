@@ -6,6 +6,9 @@
       if ((this instanceof Reviewer) && preferences.getBoolean("tts",false)) {
         finishWithoutAnimation();
       }
+ else       if (mOldTheme != Themes.getCurrentTheme(getApplicationContext())) {
+        CompatHelper.getCompat().restartActivityInvalidateBackstack(NavigationDrawerActivity.this);
+      }
  else {
         restartActivity();
       }

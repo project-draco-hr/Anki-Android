@@ -5,7 +5,7 @@
     if (title.equals(getResources().getString(R.string.app_name))) {
       ticker=message;
     }
-    NotificationCompat.Builder builder=new NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_stat_notify).setContentTitle(title).setContentText(message).setColor(getResources().getColor(R.color.theme_primary)).setStyle(new NotificationCompat.BigTextStyle().bigText(message)).setVisibility(NotificationCompat.VISIBILITY_PUBLIC).setTicker(ticker);
+    NotificationCompat.Builder builder=new NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_stat_notify).setContentTitle(title).setContentText(message).setColor(getResources().getColor(R.color.material_light_blue_500)).setStyle(new NotificationCompat.BigTextStyle().bigText(message)).setVisibility(NotificationCompat.VISIBILITY_PUBLIC).setTicker(ticker);
     if (prefs.getBoolean("widgetVibrate",false)) {
       builder.setVibrate(new long[]{1000,1000,1000});
     }
