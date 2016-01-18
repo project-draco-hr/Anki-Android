@@ -1,0 +1,34 @@
+{
+  for (  int itemId : mCustomButtons.keySet()) {
+    if (mCustomButtons.get(itemId) != MENU_DISABLED) {
+      MenuItemCompat.setShowAsAction(menu.findItem(itemId),mCustomButtons.get(itemId));
+    }
+ else {
+      menu.findItem(itemId).setVisible(false);
+    }
+  }
+  int relatedGroupId;
+  for (  int itemId : mCustomButtons_submenu_items.keySet()) {
+    relatedGroupId=mCustomButtons_submenu_items_related.get(itemId);
+switch (mCustomButtons_submenu_items.get(itemId)) {
+case MENU_DISABLED:
+      menu.findItem(itemId).setVisible(false);
+    menu.findItem(R.id.action_dismiss).getSubMenu().setGroupVisible(relatedGroupId,false);
+  break;
+case MenuItemCompat.SHOW_AS_ACTION_ALWAYS:
+case MenuItemCompat.SHOW_AS_ACTION_IF_ROOM:
+menu.findItem(R.id.action_dismiss).getSubMenu().setGroupVisible(relatedGroupId,false);
+break;
+case MenuItemCompat.SHOW_AS_ACTION_NEVER:
+menu.findItem(itemId).setVisible(false);
+menu.findItem(R.id.action_dismiss).getSubMenu().setGroupVisible(relatedGroupId,true);
+break;
+}
+}
+if (!menu.findItem(R.id.action_dismiss).getSubMenu().hasVisibleItems()) {
+menu.findItem(R.id.action_dismiss).setVisible(false);
+}
+ else {
+menu.findItem(R.id.action_dismiss).setVisible(true);
+}
+}

@@ -1,0 +1,5 @@
+{
+  Intent intent=new Intent(this,NoteEditor.class);
+  intent.putExtra(NoteEditor.EXTRA_CALLER,NoteEditor.CALLER_REVIEWER_ADD);
+  startActivityForResultWithAnimation(intent,ADD_NOTE,ActivityTransitionAnimation.LEFT);
+}

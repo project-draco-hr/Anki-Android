@@ -20,7 +20,6 @@
     }
   }
 );
-  Preferences.COMING_FROM_ADD=false;
   mAedictIntent=false;
 switch (mCaller) {
 case CALLER_NOCALLER:
@@ -38,6 +37,7 @@ mAddNote=false;
 break;
 case CALLER_STUDYOPTIONS:
 case CALLER_DECKPICKER:
+case CALLER_REVIEWER_ADD:
 mAddNote=true;
 break;
 case CALLER_CARDBROWSER_EDIT:

@@ -22,6 +22,16 @@ break;
 case R.id.action_edit:
 Timber.i("Reviewer:: Edit note button pressed");
 return editCard();
+case R.id.action_bury_actionbar_only:
+Timber.i("Reviewer:: Bury button pressed");
+if (!mShowBuryActionbarOnlySubmenu) {
+mMenu.findItem(R.id.action_bury_actionbar_only).getSubMenu().setGroupVisible(R.id.group_menu_bury_actionbar_only,false);
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mCurrentCard,4));
+}
+ else {
+mMenu.findItem(R.id.action_bury_actionbar_only).getSubMenu().setGroupVisible(R.id.group_menu_bury_actionbar_only,true);
+}
+break;
 case R.id.action_bury_card:
 Timber.i("Reviewer:: Bury card button pressed");
 dismiss(Collection.DismissType.BURY_CARD);
@@ -38,7 +48,18 @@ case R.id.action_suspend_note:
 Timber.i("Reviewer:: Suspend note button pressed");
 dismiss(Collection.DismissType.SUSPEND_NOTE);
 break;
+case R.id.action_suspend_actionbar_only:
+Timber.i("Reviewer:: Suspend button pressed");
+if (!mShowSuspendActionbarOnlySubmenu) {
+mMenu.findItem(R.id.action_suspend_actionbar_only).getSubMenu().setGroupVisible(R.id.group_menu_suspend_actionbar_only,false);
+DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mCurrentCard,1));
+}
+ else {
+mMenu.findItem(R.id.action_suspend_actionbar_only).getSubMenu().setGroupVisible(R.id.group_menu_suspend_actionbar_only,true);
+}
+break;
 case R.id.action_delete:
+case R.id.action_delete_actionbar_only:
 Timber.i("Reviewer:: Delete note button pressed");
 showDeleteNoteDialog();
 break;
@@ -71,6 +92,10 @@ break;
 case R.id.action_select_tts:
 Timber.i("Reviewer:: Select TTS button pressed");
 showSelectTtsDialogue();
+break;
+case R.id.action_add_note_reviewer:
+Timber.i("Reviewer:: Add note button pressed");
+addNote();
 break;
 default :
 return super.onOptionsItemSelected(item);

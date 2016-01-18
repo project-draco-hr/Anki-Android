@@ -1,0 +1,12 @@
+{
+  Note note=mCurrentCard.note();
+  mShowBuryActionbarOnlySubmenu=false;
+  mShowSuspendActionbarOnlySubmenu=false;
+  if (note.cards().size() > 1) {
+    ArrayList<Card> cards=note.cards();
+    for (    Card card : cards) {
+      if (card.getQueue() != Card.QUEUE_SUSP && card.getQueue() != Card.QUEUE_USER_BRD && card.getQueue() != Card.QUEUE_SCHED_BRD && card.getId() != mCurrentCard.getId())       mShowBuryActionbarOnlySubmenu=true;
+      if (card.getQueue() != Card.QUEUE_SUSP && card.getId() != mCurrentCard.getId())       mShowSuspendActionbarOnlySubmenu=true;
+    }
+  }
+}
