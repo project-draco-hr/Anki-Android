@@ -26,7 +26,7 @@
   mIsSelecting=false;
   updateCard(enrichWithQADiv(answer,true));
   showEaseButtons();
-  if (mPrefUseTimer) {
+  if (mPrefUseTimer && mWaitQuestionSecond > 0) {
     mTimeoutHandler.removeCallbacks(mShowQuestionTask);
     mTimeoutHandler.postDelayed(mShowQuestionTask,mWaitQuestionSecond * 1000);
   }

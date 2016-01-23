@@ -8,6 +8,7 @@
       long cid=col.undo();
       if (cid != 0) {
         newCard=col.getCard(cid);
+        newCard.startTimer();
         col.reset();
         col.getSched().decrementCounts(newCard);
         sHadCardQueue=true;
