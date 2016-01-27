@@ -1,0 +1,9 @@
+{
+  nReviews=ArrayUtils.createDoubleMatrix(REVIEW_TYPE_COUNT,nTimeBins);
+  nReviewsPerDay=ArrayUtils.createDoubleMatrix(REVIEW_TYPE_COUNT,nTimeBins * timeBinLength);
+  nInState=ArrayUtils.createDoubleMatrix(CARD_TYPE_COUNT,nTimeBins);
+  this.nTimeBins=nTimeBins;
+  this.timeBinLength=timeBinLength;
+  this.nDays=nTimeBins * timeBinLength;
+  this.doubleToIntMode=doubleToIntMode;
+}

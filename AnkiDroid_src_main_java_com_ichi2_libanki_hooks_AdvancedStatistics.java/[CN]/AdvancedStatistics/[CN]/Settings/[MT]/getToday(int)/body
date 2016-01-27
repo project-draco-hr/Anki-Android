@@ -1,0 +1,6 @@
+{
+  Timber.d("Collection creation timestamp: " + collectionCreatedTime);
+  int currentTime=(int)(getNow() / 1000);
+  Timber.d("Now: " + currentTime);
+  return (currentTime - collectionCreatedTime) / getNSecsPerDay();
+}

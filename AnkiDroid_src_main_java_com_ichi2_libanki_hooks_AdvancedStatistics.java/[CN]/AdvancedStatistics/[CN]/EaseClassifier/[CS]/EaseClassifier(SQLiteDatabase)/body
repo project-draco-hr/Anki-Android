@@ -1,0 +1,15 @@
+{
+  this.db=db;
+  singleReviewOutcome=new ReviewOutcome(null,0);
+  long t0=System.currentTimeMillis();
+  calculateCumProbabilitiesForNewEasePerCurrentEase();
+  long t1=System.currentTimeMillis();
+  Timber.d("Calculating probability distributions took: " + (t1 - t0) + " ms");
+  Timber.d("new\t\t" + Arrays.toString(this.probabilities[0]));
+  Timber.d("young\t\t" + Arrays.toString(this.probabilities[1]));
+  Timber.d("mature\t" + Arrays.toString(this.probabilities[2]));
+  Timber.d("Cumulative new\t\t" + Arrays.toString(this.probabilitiesCumulative[0]));
+  Timber.d("Cumulative young\t\t" + Arrays.toString(this.probabilitiesCumulative[1]));
+  Timber.d("Cumulative mature\t" + Arrays.toString(this.probabilitiesCumulative[2]));
+  random=new Random();
+}

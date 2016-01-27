@@ -1,0 +1,7 @@
+{
+  int type=c.getType();
+  int outcome=draw(probabilitiesCumulative[type]);
+  applyOutcomeToCard(c,outcome);
+  singleReviewOutcome.setAll(c,1);
+  return singleReviewOutcome;
+}

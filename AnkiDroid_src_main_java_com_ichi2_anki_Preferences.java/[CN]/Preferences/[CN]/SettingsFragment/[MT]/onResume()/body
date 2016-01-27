@@ -4,4 +4,5 @@
   prefs.registerOnSharedPreferenceChangeListener(this);
   ((Preferences)getActivity()).updatePreference(prefs,"syncAccount",this);
   ((Preferences)getActivity()).updatePreference(prefs,"custom_sync_server_link",this);
+  ((Preferences)getActivity()).updatePreference(prefs,"advanced_statistics_link",this);
 }

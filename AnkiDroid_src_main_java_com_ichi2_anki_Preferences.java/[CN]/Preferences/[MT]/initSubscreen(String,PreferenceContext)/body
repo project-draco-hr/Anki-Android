@@ -60,6 +60,15 @@ return true;
 }
 }
 );
+Preference advancedStatisticsPreference=screen.findPreference("advanced_statistics_link");
+advancedStatisticsPreference.setOnPreferenceClickListener(new OnPreferenceClickListener(){
+public boolean onPreferenceClick(Preference preference){
+Intent i=CompatHelper.getCompat().getPreferenceSubscreenIntent(Preferences.this,"com.ichi2.anki.prefs.advanced_statistics");
+startActivity(i);
+return true;
+}
+}
+);
 Preference fullSyncPreference=screen.findPreference("force_full_sync");
 fullSyncPreference.setOnPreferenceClickListener(new OnPreferenceClickListener(){
 public boolean onPreferenceClick(Preference preference){
@@ -75,6 +84,10 @@ break;
 case "com.ichi2.anki.prefs.custom_sync_server":
 getSupportActionBar().setTitle(R.string.custom_sync_server_title);
 listener.addPreferencesFromResource(R.xml.preferences_custom_sync_server);
+break;
+case "com.ichi2.anki.prefs.advanced_statistics":
+getSupportActionBar().setTitle(R.string.advanced_statistics_title);
+listener.addPreferencesFromResource(R.xml.preferences_advanced_statistics);
 break;
 }
 }

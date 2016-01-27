@@ -1,0 +1,53 @@
+{
+  int end=0;
+  int chunk=0;
+switch (type) {
+case Stats.TYPE_MONTH:
+    end=31;
+  chunk=1;
+break;
+case Stats.TYPE_YEAR:
+end=52;
+chunk=7;
+break;
+case Stats.TYPE_LIFE:
+end=24;
+chunk=30;
+break;
+}
+ArrayList<int[]> dues=new ArrayList<>();
+EaseClassifier classifier=new EaseClassifier(mCol.getDb().getDatabase());
+ReviewSimulator reviewSimulator=new ReviewSimulator(mCol.getDb().getDatabase(),classifier,end,chunk);
+long t0=System.currentTimeMillis();
+SimulationResult simulationResult=reviewSimulator.simNreviews(Settings.getToday((int)mCol.getCrt()),mCol.getDecks(),dids);
+long t1=System.currentTimeMillis();
+Timber.d("Simulation of all decks took: " + (t1 - t0) + " ms");
+int[][] nReviews=ArrayUtils.transposeMatrix(simulationResult.getNReviews());
+int[][] nInState=ArrayUtils.transposeMatrix(simulationResult.getNInState());
+for (int i=0; i < nReviews.length; i++) {
+dues.add(new int[]{i,nReviews[i][REVIEW_TYPE_LEARN],nReviews[i][REVIEW_TYPE_YOUNG],nReviews[i][REVIEW_TYPE_MATURE],nReviews[i][REVIEW_TYPE_RELEARN]});
+}
+if (dues.size() == 0 || dues.get(0)[0] > 0) {
+dues.add(0,new int[]{0,0,0,0,0});
+}
+if (type == Stats.TYPE_LIFE && dues.size() < 2) {
+end=31;
+}
+if (type != Stats.TYPE_LIFE && dues.get(dues.size() - 1)[0] < end) {
+dues.add(new int[]{end,0,0,0,0});
+}
+ else if (type == Stats.TYPE_LIFE && dues.size() < 2) {
+dues.add(new int[]{Math.max(12,dues.get(dues.size() - 1)[0] + 1),0,0,0,0});
+}
+double[][] nInStateCum=new double[dues.size()][];
+for (int i=0; i < dues.size(); i++) {
+if (i < nInState.length) {
+nInStateCum[i]=new double[]{i,0,nInState[i][CARD_TYPE_MATURE],nInState[i][CARD_TYPE_YOUNG],nInState[i][CARD_TYPE_NEW]};
+}
+ else {
+if (i == 0) nInStateCum[i]=new double[]{i,0,0,0,0};
+ else nInStateCum[i]=nInStateCum[i - 1];
+}
+}
+return new PlottableSimulationResult(dues,ArrayUtils.transposeMatrix(nInStateCum));
+}

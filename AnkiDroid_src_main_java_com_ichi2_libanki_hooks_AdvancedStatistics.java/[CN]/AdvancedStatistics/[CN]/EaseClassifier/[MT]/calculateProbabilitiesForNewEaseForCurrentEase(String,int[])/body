@@ -1,0 +1,21 @@
+{
+  Cursor cur=null;
+  int[] freqs=new int[]{prior[REVIEW_OUTCOME_REPEAT],prior[REVIEW_OUTCOME_HARD],prior[REVIEW_OUTCOME_GOOD],prior[REVIEW_OUTCOME_EASY]};
+  int n=prior[REVIEW_OUTCOME_REPEAT] + prior[REVIEW_OUTCOME_HARD] + prior[REVIEW_OUTCOME_GOOD]+ prior[REVIEW_OUTCOME_EASY];
+  try {
+    cur=db.rawQuery(queryNewEaseCountForCurrentEase,null);
+    cur.moveToNext();
+    freqs[REVIEW_OUTCOME_REPEAT]+=cur.getInt(REVIEW_OUTCOME_REPEAT_PLUS_1);
+    freqs[REVIEW_OUTCOME_HARD]+=cur.getInt(REVIEW_OUTCOME_HARD_PLUS_1);
+    freqs[REVIEW_OUTCOME_GOOD]+=cur.getInt(REVIEW_OUTCOME_GOOD_PLUS_1);
+    freqs[REVIEW_OUTCOME_EASY]+=cur.getInt(REVIEW_OUTCOME_EASY_PLUS_1);
+    int nQuery=cur.getInt(0);
+    n+=nQuery;
+  }
+  finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+  return new double[]{freqs[REVIEW_OUTCOME_REPEAT] / (double)n,freqs[REVIEW_OUTCOME_HARD] / (double)n,freqs[REVIEW_OUTCOME_GOOD] / (double)n,freqs[REVIEW_OUTCOME_EASY] / (double)n};
+}

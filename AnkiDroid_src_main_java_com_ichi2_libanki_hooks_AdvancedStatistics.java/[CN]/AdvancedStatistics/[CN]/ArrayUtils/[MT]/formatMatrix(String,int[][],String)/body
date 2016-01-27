@@ -1,0 +1,13 @@
+{
+  StringBuilder s=new StringBuilder();
+  s.append(matrixName);
+  s.append(":");
+  s.append(System.getProperty("line.separator"));
+  for (int i=0; i < matrix.length; i++) {
+    for (int j=0; j < matrix[i].length; j++) {
+      s.append(String.format(format,matrix[i][j]));
+    }
+    s.append(System.getProperty("line.separator"));
+  }
+  Timber.d(s.toString());
+}

@@ -13,6 +13,14 @@
       pref.setSummary(AnkiDroidApp.getSharedPrefs(this).getString("syncBaseUrl",""));
     }
   }
+ else   if (pref.getKey().equals("advanced_statistics_link")) {
+    if (!AnkiDroidApp.getSharedPrefs(this).getBoolean("advanced_statistics_enabled",false)) {
+      pref.setSummary(R.string.disabled);
+    }
+ else {
+      pref.setSummary(R.string.enabled);
+    }
+  }
   String value;
   try {
     if (pref instanceof NumberRangePreference) {

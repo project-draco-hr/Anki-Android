@@ -1,0 +1,9 @@
+{
+  this.today=today;
+  this.deck=deck;
+  long did=deck.getDid();
+  String query;
+  query="SELECT id, due, ivl, factor, type, reps " + "FROM cards " + "WHERE did IN (" + did + ") "+ "order by id;";
+  Timber.d("Forecast query: %s",query);
+  cur=db.rawQuery(query,null);
+}

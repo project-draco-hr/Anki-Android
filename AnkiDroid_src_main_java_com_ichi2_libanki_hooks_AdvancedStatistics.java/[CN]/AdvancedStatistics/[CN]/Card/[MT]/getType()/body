@@ -1,0 +1,11 @@
+{
+  if (ivl == 0) {
+    return CARD_TYPE_NEW;
+  }
+ else   if (ivl >= 21) {
+    return CARD_TYPE_MATURE;
+  }
+ else {
+    return CARD_TYPE_YOUNG;
+  }
+}

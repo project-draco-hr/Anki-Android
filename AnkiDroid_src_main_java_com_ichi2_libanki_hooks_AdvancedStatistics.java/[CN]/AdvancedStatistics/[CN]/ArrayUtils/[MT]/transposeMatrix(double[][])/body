@@ -1,0 +1,11 @@
+{
+  if (matrix.length == 0)   return matrix;
+  int m=matrix.length;
+  int n=matrix[0].length;
+  double transpose[][]=new double[n][m];
+  int c, d;
+  for (c=0; c < m; c++) {
+    for (d=0; d < n; d++)     transpose[d][c]=matrix[c][d];
+  }
+  return transpose;
+}

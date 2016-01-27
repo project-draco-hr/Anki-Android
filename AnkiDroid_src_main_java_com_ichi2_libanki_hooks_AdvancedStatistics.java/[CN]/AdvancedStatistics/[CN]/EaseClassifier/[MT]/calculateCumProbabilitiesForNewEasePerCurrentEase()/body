@@ -1,0 +1,10 @@
+{
+  this.probabilities=new double[3][];
+  this.probabilitiesCumulative=new double[3][];
+  this.probabilities[CARD_TYPE_NEW]=calculateProbabilitiesForNewEaseForCurrentEase(queryNew,priorNew);
+  this.probabilities[CARD_TYPE_YOUNG]=calculateProbabilitiesForNewEaseForCurrentEase(queryYoung,priorYoung);
+  this.probabilities[CARD_TYPE_MATURE]=calculateProbabilitiesForNewEaseForCurrentEase(queryMature,priorMature);
+  this.probabilitiesCumulative[CARD_TYPE_NEW]=cumsum(this.probabilities[CARD_TYPE_NEW]);
+  this.probabilitiesCumulative[CARD_TYPE_YOUNG]=cumsum(this.probabilities[CARD_TYPE_YOUNG]);
+  this.probabilitiesCumulative[CARD_TYPE_MATURE]=cumsum(this.probabilities[CARD_TYPE_MATURE]);
+}

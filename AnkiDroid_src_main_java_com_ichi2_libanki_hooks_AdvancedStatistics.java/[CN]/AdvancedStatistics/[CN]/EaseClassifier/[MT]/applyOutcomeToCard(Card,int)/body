@@ -1,0 +1,28 @@
+{
+  int type=c.getType();
+  int ivl=c.getIvl();
+  double factor=c.getFactor();
+  if (type == 0) {
+    if (outcome <= 2)     ivl=1;
+ else     ivl=4;
+  }
+ else {
+switch (outcome) {
+case REVIEW_OUTCOME_REPEAT:
+      ivl=1;
+    break;
+case REVIEW_OUTCOME_HARD:
+  ivl*=1.2;
+break;
+case REVIEW_OUTCOME_GOOD:
+ivl*=1.2 * factor;
+break;
+case REVIEW_OUTCOME_EASY:
+default :
+ivl*=1.2 * 2. * factor;
+break;
+}
+}
+c.setIvl(ivl);
+c.setCorrect((outcome > 0) ? 1 : 0);
+}

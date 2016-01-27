@@ -1,0 +1,3 @@
+{
+  card.setAll(cur.getLong(0),cur.getInt(5) == 0 ? 0 : cur.getInt(2),cur.getInt(3) > 0 ? cur.getInt(3) : deck.getInitialFactor(),Math.max(cur.getInt(1) - today,0),1,-1);
+}

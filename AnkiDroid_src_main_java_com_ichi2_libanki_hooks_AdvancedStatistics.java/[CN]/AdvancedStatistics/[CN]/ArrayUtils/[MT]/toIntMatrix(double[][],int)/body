@@ -1,0 +1,14 @@
+{
+  int m=doubleMatrix.length;
+  if (m == 0)   return new int[0][];
+  int n=doubleMatrix[1].length;
+  int[][] intMatrix=new int[m][];
+  for (int i=0; i < m; i++) {
+    intMatrix[i]=new int[n];
+    for (int j=0; j < n; j++) {
+      if (doubleToIntMode == SimulationResult.DOUBLE_TO_INT_MODE_ROUND)       intMatrix[i][j]=(int)Math.round(doubleMatrix[i][j]);
+ else       intMatrix[i][j]=(int)doubleMatrix[i][j];
+    }
+  }
+  return intMatrix;
+}

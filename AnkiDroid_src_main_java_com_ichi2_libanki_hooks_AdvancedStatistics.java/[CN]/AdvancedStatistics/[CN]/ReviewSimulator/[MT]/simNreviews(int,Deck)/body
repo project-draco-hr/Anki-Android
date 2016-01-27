@@ -1,0 +1,28 @@
+{
+  SimulationResult simulationResult;
+  if (Settings.getComputeNDays() > 0)   simulationResult=new SimulationResult(nTimeBins,timeBinLength,SimulationResult.DOUBLE_TO_INT_MODE_FLOOR);
+ else   simulationResult=new SimulationResult(nTimeBins,timeBinLength,SimulationResult.DOUBLE_TO_INT_MODE_ROUND);
+  Timber.d("today: " + today);
+  Stack<Review> reviews=new Stack<>();
+  ArrayList<Review> reviewList=new ArrayList<Review>();
+  Card card=new Card(0,0,0,0,0,0);
+  CardIterator cardIterator=null;
+  Review review=new Review(deck,simulationResult,classifier,reviews,reviewList);
+  try {
+    cardIterator=new CardIterator(db,today,deck);
+    while (cardIterator.moveToNext()) {
+      cardIterator.current(card);
+      review.newCard(card,newCardSimulator);
+      if (review.getT() < tMax)       reviews.push(review);
+      while (!reviews.isEmpty()) {
+        reviews.pop().simulateReview();
+      }
+    }
+  }
+  finally {
+    if (cardIterator != null)     cardIterator.close();
+  }
+  ArrayUtils.formatMatrix("nReviews",simulationResult.getNReviews(),"%04d ");
+  ArrayUtils.formatMatrix("nInState",simulationResult.getNInState(),"%04d ");
+  return simulationResult;
+}
