@@ -1,0 +1,20 @@
+{
+  int lastReview=prevCard.getLastReview();
+  int prevCardType=prevCard.getType();
+  int cardType=card.getType();
+  int t0=tFrom / timeBinLength;
+  int t1=Math.min(lastReview,tTo) / timeBinLength;
+  for (int t=t0; t < t1; t++)   if (t < nTimeBins) {
+    nInState[prevCardType][t]-=prob;
+  }
+ else {
+    break;
+  }
+  t1=tTo / timeBinLength;
+  for (int t=t0; t < t1; t++)   if (t < nTimeBins) {
+    nInState[cardType][t]+=prob;
+  }
+ else {
+    return;
+  }
+}

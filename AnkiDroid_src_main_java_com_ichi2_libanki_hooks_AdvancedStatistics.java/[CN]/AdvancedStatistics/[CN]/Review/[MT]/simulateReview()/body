@@ -1,0 +1,21 @@
+{
+  if (card.getType() == 0 || simulationResult.nReviewsDoneToday(tElapsed) < maxReviewsPerDay || outcome > 0) {
+    if (outcome == 0)     simulationResult.incrementNReviews(card.getType(),tElapsed,prob);
+    prevCard.setAll(card);
+    newCard.setAll(card);
+    ReviewOutcome reviewOutcome;
+    if (tElapsed >= Settings.getComputeNDays() || prob < Settings.getComputeMaxError())     reviewOutcome=classifier.simSingleReview(newCard);
+ else     reviewOutcome=classifier.simSingleReview(newCard,outcome);
+    newCard=reviewOutcome.getCard();
+    double outcomeProb=reviewOutcome.getProb();
+    newCard.setLastReview(tElapsed);
+    if (newCard.getCorrect() == 0)     simulationResult.incrementNReviews(3,tElapsed,prob * outcomeProb);
+    simulationResult.updateNInState(prevCard,newCard,tElapsed,tElapsed + newCard.getIvl(),prob * outcomeProb);
+    if (outcomeProb < 1.0 && outcome < 3)     scheduleCurrentReview(prevCard);
+    scheduleNextReview(newCard,tElapsed + newCard.getIvl(),prob * outcomeProb);
+  }
+ else {
+    simulationResult.updateNInState(card,card,tElapsed,tElapsed + 1,prob);
+    rescheduleCurrentReview(tElapsed + 1);
+  }
+}

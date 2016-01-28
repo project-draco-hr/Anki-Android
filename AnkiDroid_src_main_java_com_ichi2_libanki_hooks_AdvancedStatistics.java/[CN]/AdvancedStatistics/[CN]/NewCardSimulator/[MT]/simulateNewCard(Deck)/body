@@ -1,0 +1,9 @@
+{
+  nAddedToday++;
+  int tElapsed=tAdd;
+  if (nAddedToday >= deck.getNewPerDay()) {
+    tAdd++;
+    nAddedToday=0;
+  }
+  return tElapsed;
+}

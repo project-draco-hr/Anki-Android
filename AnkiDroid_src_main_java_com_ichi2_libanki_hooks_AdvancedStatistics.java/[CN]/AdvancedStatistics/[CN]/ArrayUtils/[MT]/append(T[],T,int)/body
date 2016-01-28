@@ -1,0 +1,7 @@
+{
+  final int N0=arr.length;
+  final int N1=N0 + n;
+  arr=Arrays.copyOf(arr,N1);
+  for (int N=N0; N < N1; N++)   arr[N]=element;
+  return arr;
+}

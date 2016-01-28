@@ -1,0 +1,10 @@
+{
+  SharedPreferences prefs=PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+  computeNDays=prefs.getInt("advanced_forecast_stats_compute_n_days",0);
+  int computePrecision=prefs.getInt("advanced_forecast_stats_compute_precision",90);
+  computeMaxError=(100 - computePrecision) / 100.0;
+  simulateNIterations=prefs.getInt("advanced_forecast_stats_mc_n_iterations",1);
+  Timber.d("computeNDays: " + computeNDays);
+  Timber.d("computeMaxError: " + computeMaxError);
+  Timber.d("simulateNIterations: " + simulateNIterations);
+}

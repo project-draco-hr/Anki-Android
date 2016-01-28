@@ -1,0 +1,19 @@
+{
+  if (newTElapsed < simulationResult.getnDays()) {
+    Review review;
+    if (reviewList.size() > nPrevRevs) {
+      review=reviewList.get(nPrevRevs);
+      review.existingCard(newCard,nPrevRevs + 1,newTElapsed,newProb);
+    }
+ else {
+      if (reviewList.size() == nPrevRevs) {
+        review=new Review(this,newCard,nPrevRevs + 1,newTElapsed,newProb);
+        reviewList.add(review);
+      }
+ else {
+        throw new IllegalStateException("State of previous reviews of this card should have been saved for determining possible future reviews other than the current one.");
+      }
+    }
+    this.reviews.push(review);
+  }
+}

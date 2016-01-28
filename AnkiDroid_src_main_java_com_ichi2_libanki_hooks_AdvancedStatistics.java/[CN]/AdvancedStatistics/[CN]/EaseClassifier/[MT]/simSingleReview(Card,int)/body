@@ -1,0 +1,6 @@
+{
+  int c_type=c.getType();
+  applyOutcomeToCard(c,outcome);
+  singleReviewOutcome.setAll(c,probabilities[c_type][outcome]);
+  return singleReviewOutcome;
+}

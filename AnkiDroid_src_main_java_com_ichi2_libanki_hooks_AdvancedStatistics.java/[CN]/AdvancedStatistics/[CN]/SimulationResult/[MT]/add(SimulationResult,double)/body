@@ -1,0 +1,6 @@
+{
+  int[][] nReviews=res2Add.getNReviews();
+  int[][] nInState=res2Add.getNInState();
+  for (int i=0; i < nReviews.length; i++)   for (int j=0; j < nReviews[i].length; j++)   this.nReviews[i][j]+=nReviews[i][j] * prob;
+  for (int i=0; i < nInState.length; i++)   for (int j=0; j < nInState[i].length; j++)   this.nInState[i][j]+=nInState[i][j] * prob;
+}

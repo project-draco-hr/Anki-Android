@@ -1,0 +1,9 @@
+{
+  this.card=card;
+  this.nPrevRevs=0;
+  this.prob=1;
+  this.outcome=0;
+  if (card.getType() == 0)   tElapsed=newCardSimulator.simulateNewCard(deck);
+ else   tElapsed=card.getDue();
+  this.simulationResult.updateNInState(card,0,tElapsed,1);
+}
