@@ -15,7 +15,6 @@
           String deckName=mDialogEditText.getText().toString();
           Timber.i("DeckPicker:: Creating new deck...");
           getCol().getDecks().id(deckName,true);
-          CardBrowser.clearSelectedDeck();
           updateDeckList();
         }
       }

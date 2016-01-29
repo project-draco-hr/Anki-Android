@@ -1,0 +1,12 @@
+{
+  Intent cardBrowser=new Intent(this,CardBrowser.class);
+  cardBrowser.putExtra("selectedDeck",getCol().getDecks().selected());
+  if (mLastSelectedBrowserDid != null) {
+    cardBrowser.putExtra("defaultDeckId",mLastSelectedBrowserDid);
+  }
+ else {
+    cardBrowser.putExtra("defaultDeckId",getCol().getDecks().selected());
+  }
+  cardBrowser.putExtra("currentCard",mCurrentCard.getId());
+  startActivityForResultWithAnimation(cardBrowser,REQUEST_BROWSE_CARDS,ActivityTransitionAnimation.LEFT);
+}

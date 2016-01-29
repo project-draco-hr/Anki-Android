@@ -1,0 +1,16 @@
+{
+  for (int dropDownDeckIdx=0; dropDownDeckIdx < mDropDownDecks.size(); dropDownDeckIdx++) {
+    JSONObject deck=mDropDownDecks.get(dropDownDeckIdx);
+    long cdid;
+    try {
+      cdid=deck.getLong("id");
+    }
+ catch (    JSONException e) {
+      throw new RuntimeException();
+    }
+    if (cdid == did) {
+      return dropDownDeckIdx + 1;
+    }
+  }
+  return 0;
+}

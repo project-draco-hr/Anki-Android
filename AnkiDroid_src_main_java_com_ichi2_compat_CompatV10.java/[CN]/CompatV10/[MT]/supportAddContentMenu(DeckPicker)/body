@@ -17,7 +17,6 @@ new MaterialDialog.Builder(activity).title(R.string.new_deck).positiveText(R.str
 Timber.i("DeckPicker:: Creating new deck...");
 String deckName=mDialogEditText.getText().toString();
 activity.getCol().getDecks().id(deckName,true);
-CardBrowser.clearSelectedDeck();
 activity.onRequireDeckListUpdate();
 }
 }

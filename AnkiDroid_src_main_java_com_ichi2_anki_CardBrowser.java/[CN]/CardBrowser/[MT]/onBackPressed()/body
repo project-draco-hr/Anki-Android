@@ -5,9 +5,6 @@
  else {
     Timber.i("Back key pressed");
     Intent data=new Intent();
-    if (getIntent().hasExtra("selectedDeck")) {
-      data.putExtra("originalDeck",getIntent().getLongExtra("selectedDeck",0L));
-    }
     if (mReloadRequired) {
       data.putExtra("reloadRequired",true);
     }

@@ -9,12 +9,7 @@ case R.id.nav_decks:
 startActivityWithAnimation(deckPicker,ActivityTransitionAnimation.RIGHT);
 break;
 case R.id.nav_browser:
-Intent cardBrowser=new Intent(this,CardBrowser.class);
-cardBrowser.putExtra("selectedDeck",getCol().getDecks().selected());
-if (mCurrentCardId >= 0) {
-cardBrowser.putExtra("currentCard",mCurrentCardId);
-}
-startActivityForResultWithAnimation(cardBrowser,REQUEST_BROWSE_CARDS,ActivityTransitionAnimation.LEFT);
+openCardBrowser();
 break;
 case R.id.nav_stats:
 Intent intent=new Intent(this,Statistics.class);

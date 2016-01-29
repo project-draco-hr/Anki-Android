@@ -1,5 +1,11 @@
 {
   if (requestCode == REQUEST_STATISTICS || requestCode == REQUEST_BROWSE_CARDS) {
+    if (data != null && data.getBooleanExtra("allDecksSelected",false)) {
+      mLastSelectedBrowserDid=-1L;
+    }
+ else {
+      mLastSelectedBrowserDid=getCol().getDecks().selected();
+    }
     if (data != null && data.hasExtra("originalDeck")) {
       getCol().getDecks().select(data.getLongExtra("originalDeck",0L));
     }
