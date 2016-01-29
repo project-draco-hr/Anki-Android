@@ -19,8 +19,6 @@
       finishWithAnimation();
     }
   }
- else   if (requestCode == REPORT_FEEDBACK && resultCode == RESULT_OK) {
-  }
  else   if (requestCode == LOG_IN_FOR_SYNC && resultCode == RESULT_OK) {
     mSyncOnResume=true;
   }
@@ -31,6 +29,15 @@
     }
  else {
       showSimpleSnackbar(R.string.studyoptions_no_cards_due,false);
+    }
+  }
+ else   if (requestCode == REQUEST_BROWSE_CARDS) {
+    if (intent != null && intent.getBooleanExtra("allDecksSelected",false)) {
+      AnkiDroidApp.getSharedPrefs(this).edit().putLong("browserDeckIdFromDeckPicker",-1L).apply();
+    }
+ else {
+      long selectedDeck=getCol().getDecks().selected();
+      AnkiDroidApp.getSharedPrefs(this).edit().putLong("browserDeckIdFromDeckPicker",selectedDeck).apply();
     }
   }
  else   if (requestCode == REQUEST_PATH_UPDATE) {

@@ -14,7 +14,7 @@ showDialogFragment(CardBrowserMySearchesDialog.newInstance(null,mMySearchesDialo
 return true;
 case R.id.action_list_my_searches:
 JSONObject savedFiltersObj=getCol().getConf().optJSONObject("savedFilters");
-HashMap<String,String> savedFilters=new HashMap<String,String>();
+HashMap<String,String> savedFilters=new HashMap<>();
 if (savedFiltersObj != null) {
 Iterator<String> it=savedFiltersObj.keys();
 while (it.hasNext()) {
@@ -40,7 +40,7 @@ mSearchView.setQueryHint(getResources().getString(R.string.card_browser_show_sus
 searchCards();
 return true;
 case R.id.action_search_by_tag:
-showDialogFragment(DIALOG_TAGS);
+showTagsDialog();
 return true;
 default :
 return super.onOptionsItemSelected(item);

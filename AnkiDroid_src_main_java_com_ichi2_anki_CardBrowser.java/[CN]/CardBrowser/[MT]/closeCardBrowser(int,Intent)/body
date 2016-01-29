@@ -1,4 +1,8 @@
 {
+  if (getIntent().hasExtra("selectedDeck")) {
+    data.putExtra("originalDeck",getIntent().getLongExtra("selectedDeck",0L));
+  }
+  data.putExtra("allDecksSelected",mActionBarSpinner.getSelectedItemPosition() == 0);
   setResult(result,data);
   finishWithAnimation(ActivityTransitionAnimation.RIGHT);
 }

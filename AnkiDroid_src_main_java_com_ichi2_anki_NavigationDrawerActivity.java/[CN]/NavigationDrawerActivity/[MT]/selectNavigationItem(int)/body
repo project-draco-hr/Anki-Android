@@ -4,11 +4,18 @@
     return;
   }
   Menu menu=mNavigationView.getMenu();
-  MenuItem item=menu.findItem(itemId);
-  if (item != null) {
-    item.setChecked(true);
+  if (itemId == -1) {
+    for (int i=0; i < menu.size(); i++) {
+      menu.getItem(i).setChecked(false);
+    }
   }
  else {
-    Timber.e("Could not find item %d",itemId);
+    MenuItem item=menu.findItem(itemId);
+    if (item != null) {
+      item.setChecked(true);
+    }
+ else {
+      Timber.e("Could not find item %d",itemId);
+    }
   }
 }

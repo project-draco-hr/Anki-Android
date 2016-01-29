@@ -1,0 +1,7 @@
+{
+  Intent cardBrowser=new Intent(this,CardBrowser.class);
+  cardBrowser.putExtra("selectedDeck",getCol().getDecks().selected());
+  long lastDeckId=AnkiDroidApp.getSharedPrefs(this).getLong("browserDeckIdFromDeckPicker",-1L);
+  cardBrowser.putExtra("defaultDeckId",lastDeckId);
+  startActivityForResultWithAnimation(cardBrowser,REQUEST_BROWSE_CARDS,ActivityTransitionAnimation.LEFT);
+}

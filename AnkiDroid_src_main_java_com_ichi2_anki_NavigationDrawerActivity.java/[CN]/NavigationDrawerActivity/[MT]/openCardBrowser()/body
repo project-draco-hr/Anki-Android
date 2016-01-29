@@ -1,0 +1,5 @@
+{
+  Intent cardBrowser=new Intent(this,CardBrowser.class);
+  cardBrowser.putExtra("selectedDeck",getCol().getDecks().selected());
+  startActivityForResultWithAnimation(cardBrowser,REQUEST_BROWSE_CARDS,ActivityTransitionAnimation.LEFT);
+}

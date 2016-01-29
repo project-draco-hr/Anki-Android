@@ -1,9 +1,5 @@
 {
-  DialogFragment dialogFragment=null;
-  String tag=null;
-switch (id) {
-case DIALOG_TAGS:
-    TagsDialog dialog=com.ichi2.anki.dialogs.TagsDialog.newInstance(TagsDialog.TYPE_FILTER_BY_TAG,new ArrayList<String>(),new ArrayList<String>(getCol().getTags().all()));
+  TagsDialog dialog=com.ichi2.anki.dialogs.TagsDialog.newInstance(TagsDialog.TYPE_FILTER_BY_TAG,new ArrayList<String>(),new ArrayList<>(getCol().getTags().all()));
   dialog.setTagsDialogListener(new TagsDialogListener(){
     @Override public void onPositive(    List<String> selectedTags,    int option){
       mSearchView.setQuery("",false);
@@ -39,11 +35,5 @@ searchCards();
 }
 }
 );
-dialogFragment=dialog;
-break;
-default :
-break;
-}
-dialogFragment.show(getSupportFragmentManager(),tag);
-return dialogFragment;
+showDialogFragment(dialog);
 }
