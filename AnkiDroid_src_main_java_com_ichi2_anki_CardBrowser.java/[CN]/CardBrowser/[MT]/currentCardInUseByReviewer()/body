@@ -2,12 +2,7 @@
   if (getIntent().hasExtra("currentCard") && getCards().size() > mPositionInCardsList && getCards().get(mPositionInCardsList) != null) {
     long reviewerCard=getIntent().getExtras().getLong("currentCard");
     long selectedCard=Long.parseLong(getCards().get(mPositionInCardsList).get("id"));
-    if (selectedCard == reviewerCard) {
-      return true;
-    }
- else {
-      return false;
-    }
+    return selectedCard == reviewerCard;
   }
   return false;
 }

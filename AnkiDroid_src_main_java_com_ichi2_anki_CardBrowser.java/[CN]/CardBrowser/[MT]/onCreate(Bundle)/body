@@ -1,8 +1,7 @@
 {
   super.onCreate(savedInstanceState);
   Timber.d("onCreate()");
-  View mainView=getLayoutInflater().inflate(R.layout.card_browser,null);
-  setContentView(mainView);
-  initNavigationDrawer(mainView);
+  setContentView(R.layout.card_browser);
+  initNavigationDrawer(findViewById(android.R.id.content));
   startLoadingCollection();
 }
