@@ -1,8 +1,25 @@
 {
-  if (AnkiDroidApp.getSharedPrefs(context.getApplicationContext()).getBoolean("invertedColors",false)) {
-    context.setTheme(R.style.App_Theme_Dark);
-  }
+  SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(context.getApplicationContext());
+  if (prefs.getBoolean("invertedColors",false)) {
+    int theme=Integer.parseInt(prefs.getString("nightTheme","0"));
+switch (theme) {
+case THEME_NIGHT_DEFAULT:
+      context.setTheme(R.style.Theme_Dark_Compat);
+    break;
+case THEME_NIGHT_BLACK:
+  context.setTheme(R.style.Theme_Black_Compat);
+break;
+}
+}
  else {
-    context.setTheme(R.style.App_Theme_White);
-  }
+int theme=Integer.parseInt(prefs.getString("dayTheme","0"));
+switch (theme) {
+case THEME_DAY_DEFAULT:
+context.setTheme(R.style.Theme_Light_Compat);
+break;
+case THEME_DAY_PLAIN:
+context.setTheme(R.style.Theme_Plain_Compat);
+break;
+}
+}
 }

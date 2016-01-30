@@ -1,0 +1,9 @@
+{
+  SharedPreferences prefs=AnkiDroidApp.getSharedPrefs(context);
+  if (prefs.getBoolean("invertedColors",false)) {
+    return Integer.parseInt(prefs.getString("nightTheme","0"));
+  }
+ else {
+    return Integer.parseInt(prefs.getString("dayTheme","0"));
+  }
+}
