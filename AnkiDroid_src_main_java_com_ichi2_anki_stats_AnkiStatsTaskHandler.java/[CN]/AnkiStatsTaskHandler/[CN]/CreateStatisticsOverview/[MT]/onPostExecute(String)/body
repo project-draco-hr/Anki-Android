@@ -7,6 +7,8 @@
       e.printStackTrace();
     }
     mProgressBar.setVisibility(View.GONE);
+    int backgroundColor=Themes.getColorFromAttr(mWebView.getContext(),android.R.attr.colorBackground);
+    mWebView.setBackgroundColor(backgroundColor);
     mWebView.setVisibility(View.VISIBLE);
     mWebView.invalidate();
   }

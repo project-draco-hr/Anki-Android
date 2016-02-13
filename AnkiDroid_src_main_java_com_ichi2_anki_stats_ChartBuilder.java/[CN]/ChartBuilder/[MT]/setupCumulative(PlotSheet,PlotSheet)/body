@@ -5,7 +5,7 @@
     ColorWrap usedColor=ColorWrap.BLACK;
     String name=mChartView.getResources().getString(R.string.stats_cumulative);
     if (mHasColoredCumulative) {
-      usedColor=new ColorWrap(mChartView.getResources().getColor(mColors[i - 1]));
+      usedColor=new ColorWrap(Themes.getColorFromAttr(mChartView.getContext(),mColors[i - 1]));
     }
  else {
       if (mChartType == Stats.ChartType.INTERVALS) {

@@ -3,7 +3,7 @@
   mTitle=R.string.stats_answer_buttons;
   mAxisTitles=new int[]{R.string.stats_answer_type,R.string.stats_answers,R.string.stats_cumulative_correct_percentage};
   mValueLabels=new int[]{R.string.statistics_learn,R.string.statistics_young,R.string.statistics_mature};
-  mColors=new int[]{R.color.stats_learn,R.color.stats_young,R.color.stats_mature};
+  mColors=new int[]{R.attr.stats_learn,R.attr.stats_young,R.attr.stats_mature};
   mType=type;
   String lim=_revlogLimit().replaceAll("[\\[\\]]","");
   Vector<String> lims=new Vector<String>();
