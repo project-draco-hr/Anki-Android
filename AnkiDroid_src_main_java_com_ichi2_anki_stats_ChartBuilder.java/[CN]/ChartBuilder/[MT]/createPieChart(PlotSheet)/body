@@ -1,14 +1,14 @@
 {
   PieChart pieChart=new PieChart(plotSheet,mSeriesList[0]);
-  ColorWrap[] colors={new ColorWrap(mChartView.getResources().getColor(mColors[0])),new ColorWrap(mChartView.getResources().getColor(mColors[1])),new ColorWrap(mChartView.getResources().getColor(mColors[2])),new ColorWrap(mChartView.getResources().getColor(mColors[3]))};
+  ColorWrap[] colors={new ColorWrap(Themes.getColorFromAttr(mChartView.getContext(),mColors[0])),new ColorWrap(Themes.getColorFromAttr(mChartView.getContext(),mColors[1])),new ColorWrap(Themes.getColorFromAttr(mChartView.getContext(),mColors[2])),new ColorWrap(Themes.getColorFromAttr(mChartView.getContext(),mColors[3]))};
   pieChart.setColors(colors);
   pieChart.setName(mChartView.getResources().getString(mValueLabels[0]) + ": " + (int)mSeriesList[0][0]);
   LegendDrawable legendDrawable1=new LegendDrawable();
   LegendDrawable legendDrawable2=new LegendDrawable();
   LegendDrawable legendDrawable3=new LegendDrawable();
-  legendDrawable1.setColor(new ColorWrap(mChartView.getResources().getColor(mColors[1])));
-  legendDrawable2.setColor(new ColorWrap(mChartView.getResources().getColor(mColors[2])));
-  legendDrawable3.setColor(new ColorWrap(mChartView.getResources().getColor(mColors[3])));
+  legendDrawable1.setColor(new ColorWrap(Themes.getColorFromAttr(mChartView.getContext(),mColors[1])));
+  legendDrawable2.setColor(new ColorWrap(Themes.getColorFromAttr(mChartView.getContext(),mColors[2])));
+  legendDrawable3.setColor(new ColorWrap(Themes.getColorFromAttr(mChartView.getContext(),mColors[3])));
   legendDrawable1.setName(mChartView.getResources().getString(mValueLabels[1]) + ": " + (int)mSeriesList[0][1]);
   legendDrawable2.setName(mChartView.getResources().getString(mValueLabels[2]) + ": " + (int)mSeriesList[0][2]);
   legendDrawable3.setName(mChartView.getResources().getString(mValueLabels[3]) + ": " + (int)mSeriesList[0][3]);

@@ -2,7 +2,7 @@
   mTitle=R.string.stats_breakdown;
   mAxisTitles=new int[]{R.string.stats_time_of_day,R.string.stats_percentage_correct,R.string.stats_reviews};
   mValueLabels=new int[]{R.string.stats_percentage_correct,R.string.stats_answers};
-  mColors=new int[]{R.color.stats_counts,R.color.stats_hours};
+  mColors=new int[]{R.attr.stats_counts,R.attr.stats_hours};
   mType=type;
   String lim=_revlogLimit().replaceAll("[\\[\\]]","");
   if (lim.length() > 0) {

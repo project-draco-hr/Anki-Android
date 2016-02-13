@@ -20,12 +20,12 @@
   PlotSheet plotSheet=new PlotSheet(-0.5,7.5,0,maxValueY * yAxisStretchFactor);
   plotSheet.setFrameThickness(mFrameThickness * 0.5f,2f,2f,mFrameThickness * 0.5f);
   plotSheet.setFontSize(textSize);
-  BarGraph barGraphYoung=new BarGraph(plotSheet,mBarThickness,new double[][]{serieslist[0],serieslist[1]},new ColorWrap(mChartView.getResources().getColor(R.color.stats_young)));
+  BarGraph barGraphYoung=new BarGraph(plotSheet,mBarThickness,new double[][]{serieslist[0],serieslist[1]},new ColorWrap(Themes.getColorFromAttr(mChartView.getContext(),R.attr.stats_young)));
   barGraphYoung.setFilling(true);
-  barGraphYoung.setFillColor(new ColorWrap(mChartView.getResources().getColor(R.color.stats_young)));
-  BarGraph barGraphMature=new BarGraph(plotSheet,mBarThickness,new double[][]{serieslist[0],serieslist[2]},new ColorWrap(mChartView.getResources().getColor(R.color.stats_mature)));
+  barGraphYoung.setFillColor(new ColorWrap(Themes.getColorFromAttr(mChartView.getContext(),R.attr.stats_young)));
+  BarGraph barGraphMature=new BarGraph(plotSheet,mBarThickness,new double[][]{serieslist[0],serieslist[2]},new ColorWrap(Themes.getColorFromAttr(mChartView.getContext(),R.attr.stats_mature)));
   barGraphMature.setFilling(true);
-  barGraphMature.setFillColor(new ColorWrap(mChartView.getResources().getColor(R.color.stats_mature)));
+  barGraphMature.setFillColor(new ColorWrap(Themes.getColorFromAttr(mChartView.getContext(),R.attr.stats_mature)));
   plotSheet.addDrawable(barGraphYoung);
   plotSheet.addDrawable(barGraphMature);
   double xTicks=2;

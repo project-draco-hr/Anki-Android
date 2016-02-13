@@ -5,7 +5,7 @@
   Vector<Drawable> offFrameDrawables=new Vector<Drawable>();
   Vector<Drawable> onFrameDrawables=new Vector<Drawable>();
   g.setTypeface(typeface);
-  g.setColor(ColorWrap.white);
+  g.setColor(backgroundColor);
   g.fillRect(0,0,field.width,field.height);
   g.setColor(ColorWrap.BLACK);
   if (fontSizeSet) {
@@ -27,7 +27,7 @@
   }
   ColorWrap oldColor=g.getColor();
   if (leftFrameThickness > 0 || rightFrameThickness > 0 || upperFrameThickness > 0 || bottomFrameThickness > 0) {
-    g.setColor(ColorWrap.white);
+    g.setColor(backgroundColor);
     g.fillRect(0,0,field.width,upperFrameThickness);
     g.fillRect(0,upperFrameThickness,leftFrameThickness,field.height);
     g.fillRect(field.width + 1 - rightFrameThickness,upperFrameThickness,rightFrameThickness + leftFrameThickness,field.height - bottomFrameThickness);
@@ -72,13 +72,13 @@
         ySpacer+=rectangleSize + spacerValue;
       }
       g.fillRect(xPointer,ySpacer,rectangleSize,rectangleSize);
-      g.setColor(ColorWrap.BLACK);
+      g.setColor(textColor);
       g.drawString(" : " + legendName,xPointer + rectangleSize,ySpacer + rectangleSize);
       xPointer+=rectangleSize * 1.3f + stringWidth;
       Timber.d("drawing a legend Item: (%s) %d, x: %,.2f , y: %,.2f",legendName,legendCnt,xPointer + rectangleSize,ySpacer + rectangleSize);
     }
     g.setFontSize(oldFontSize);
-    g.setColor(ColorWrap.BLACK);
+    g.setColor(textColor);
   }
   for (  Drawable onFrameDrawing : onFrameDrawables) {
     onFrameDrawing.paint(g);

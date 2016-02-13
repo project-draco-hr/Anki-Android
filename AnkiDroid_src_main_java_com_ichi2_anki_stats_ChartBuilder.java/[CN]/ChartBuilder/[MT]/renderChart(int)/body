@@ -17,6 +17,10 @@
   PlotSheet plotSheet=new PlotSheet(mFirstElement - 0.5,mLastElement + 0.5,0,mMaxCards * yAxisStretchFactor);
   plotSheet.setFrameThickness(mFrameThickness * 0.66f,mFrameThickness * 0.66f,mFrameThickness,mFrameThickness * 0.9f);
   plotSheet.setFontSize(textSize);
+  int backgroundColor=Themes.getColorFromAttr(mChartView.getContext(),android.R.attr.colorBackground);
+  plotSheet.setBackgroundColor(new ColorWrap(backgroundColor));
+  int textColor=Themes.getColorFromAttr(mChartView.getContext(),android.R.attr.textColor);
+  plotSheet.setTextColor(new ColorWrap(textColor));
   if (mChartType == Stats.ChartType.CARDS_TYPES) {
     return createPieChart(plotSheet);
   }
