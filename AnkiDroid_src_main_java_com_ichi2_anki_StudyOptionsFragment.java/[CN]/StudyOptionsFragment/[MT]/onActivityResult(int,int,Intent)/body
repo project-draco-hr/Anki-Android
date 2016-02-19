@@ -12,7 +12,7 @@
     }
   }
   if (requestCode == DECK_OPTIONS) {
-    if (mLoadWithDeckOptions == true) {
+    if (mLoadWithDeckOptions) {
       mLoadWithDeckOptions=false;
       try {
         JSONObject deck=getCol().getDecks().current();

@@ -46,7 +46,7 @@
  else {
             mCol.log("have same already");
           }
-          mCol.getMedia().markClean(Arrays.asList(fname));
+          mCol.getMedia().markClean(Collections.singletonList(fname));
         }
  else         if (!TextUtils.isEmpty(lsum)) {
           if (ldirty != 0) {
@@ -59,7 +59,7 @@
         }
  else {
           mCol.log("both sides deleted");
-          mCol.getMedia().markClean(Arrays.asList(fname));
+          mCol.getMedia().markClean(Collections.singletonList(fname));
         }
       }
       _downloadFiles(need);
