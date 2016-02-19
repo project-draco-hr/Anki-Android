@@ -1,7 +1,7 @@
 {
   String snids=Utils.ids2str(nids);
-  HashMap<Long,HashMap<Integer,Long>> have=new HashMap<Long,HashMap<Integer,Long>>();
-  HashMap<Long,Long> dids=new HashMap<Long,Long>();
+  HashMap<Long,HashMap<Integer,Long>> have=new HashMap<>();
+  HashMap<Long,Long> dids=new HashMap<>();
   Cursor cur=null;
   try {
     cur=mDb.getDatabase().rawQuery("SELECT id, nid, ord, did FROM cards WHERE nid IN " + snids,null);
@@ -14,7 +14,7 @@
       long did=cur.getLong(3);
       if (dids.containsKey(nid)) {
         if (dids.get(nid) != 0 && dids.get(nid) != did) {
-          dids.put(nid,0l);
+          dids.put(nid,0L);
         }
       }
  else {
@@ -27,10 +27,10 @@
       cur.close();
     }
   }
-  ArrayList<Object[]> data=new ArrayList<Object[]>();
+  ArrayList<Object[]> data=new ArrayList<>();
   long ts=Utils.maxID(mDb);
   long now=Utils.intNow();
-  ArrayList<Long> rem=new ArrayList<Long>();
+  ArrayList<Long> rem=new ArrayList<>();
   int usn=usn();
   cur=null;
   try {

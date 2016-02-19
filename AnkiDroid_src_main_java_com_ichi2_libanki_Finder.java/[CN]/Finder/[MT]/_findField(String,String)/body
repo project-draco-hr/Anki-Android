@@ -2,7 +2,7 @@
   String sqlVal=val.replace("%","\\%").replace("*","%");
   String javaVal=val.replace("_","\\E.\\Q").replace("*","\\E.*\\Q");
   Pattern pattern=Pattern.compile("\\Q" + javaVal + "\\E",Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-  Map<Long,Object[]> mods=new HashMap<Long,Object[]>();
+  Map<Long,Object[]> mods=new HashMap<>();
   try {
     for (    JSONObject m : mCol.getModels().all()) {
       JSONArray flds=m.getJSONArray("flds");
@@ -20,10 +20,10 @@
   if (mods.isEmpty()) {
     return null;
   }
-  LinkedList<Long> nids=new LinkedList<Long>();
+  LinkedList<Long> nids=new LinkedList<>();
   Cursor cur=null;
   try {
-    cur=mCol.getDb().getDatabase().rawQuery("select id, mid, flds from notes where mid in " + Utils.ids2str(new LinkedList<Long>(mods.keySet())) + " and flds like ? escape '\\'",new String[]{"%" + sqlVal + "%"});
+    cur=mCol.getDb().getDatabase().rawQuery("select id, mid, flds from notes where mid in " + Utils.ids2str(new LinkedList<>(mods.keySet())) + " and flds like ? escape '\\'",new String[]{"%" + sqlVal + "%"});
     while (cur.moveToNext()) {
       String[] flds=Utils.splitFields(cur.getString(2));
       int ord=(Integer)mods.get(cur.getLong(1))[1];

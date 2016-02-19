@@ -6,7 +6,7 @@
   mColors=new int[]{R.attr.stats_learn,R.attr.stats_young,R.attr.stats_mature};
   mType=type;
   String lim=_revlogLimit().replaceAll("[\\[\\]]","");
-  Vector<String> lims=new Vector<String>();
+  Vector<String> lims=new Vector<>();
   int days=0;
   if (lim.length() > 0)   lims.add(lim);
   if (type == TYPE_MONTH)   days=30;
@@ -18,7 +18,7 @@
     for (int i=1; i < lims.size(); i++)     lim+=" and " + lims.get(i);
   }
  else   lim="";
-  ArrayList<double[]> list=new ArrayList<double[]>();
+  ArrayList<double[]> list=new ArrayList<>();
   Cursor cur=null;
   String query="select (case " + "                when type in (0,2) then 0 " + "        when lastIvl < 21 then 1 "+ "        else 2 end) as thetype, "+ "        (case when type in (0,2) and ease = 4 then 3 else ease end), count() from revlog " + lim + " "+ "        group by thetype, ease "+ "        order by thetype, ease";
   Timber.d("AnswerButtons query: %s",query);

@@ -1,6 +1,6 @@
 {
   SharedPreferences prefs=PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-  hooks=new HashMap<String,List<Hook>>();
+  hooks=new HashMap<>();
   new FuriganaFilters().install(this);
   new HintFilter().install(this);
   new LaTeX().installHook(this);

@@ -1,6 +1,6 @@
 {
   JSONObject cur=mCol.getDecks().current();
-  ArrayList<JSONObject> decks=new ArrayList<JSONObject>();
+  ArrayList<JSONObject> decks=new ArrayList<>();
   decks.add(cur);
   try {
     decks.addAll(mCol.getDecks().parents(cur.getLong("id")));

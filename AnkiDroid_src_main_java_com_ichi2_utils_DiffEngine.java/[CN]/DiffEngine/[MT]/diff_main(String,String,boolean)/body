@@ -1,7 +1,7 @@
 {
   LinkedList<DiffAction> diffs;
   if (text1.equals(text2)) {
-    diffs=new LinkedList<DiffAction>();
+    diffs=new LinkedList<>();
     diffs.add(new DiffAction(Operation.EQUAL,text1));
     return diffs;
   }

@@ -1,6 +1,6 @@
 {
   int tot=0;
-  HashMap<Long,Integer> pcounts=new HashMap<Long,Integer>();
+  HashMap<Long,Integer> pcounts=new HashMap<>();
   try {
     for (    long did : mCol.getDecks().active()) {
       int lim=(Integer)limFn.invoke(Sched.this,mCol.getDecks().get(did));
@@ -24,13 +24,7 @@
       tot+=cnt;
     }
   }
- catch (  JSONException e) {
-    throw new RuntimeException(e);
-  }
-catch (  InvocationTargetException e) {
-    throw new RuntimeException(e);
-  }
-catch (  IllegalAccessException e) {
+ catch (  JSONException|IllegalAccessException|InvocationTargetException e) {
     throw new RuntimeException(e);
   }
   return tot;

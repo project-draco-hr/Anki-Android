@@ -3,9 +3,9 @@
     search="(" + search + ") ";
   }
   search+="'" + fieldName + ":*'";
-  Map<String,List<Long>> vals=new HashMap<String,List<Long>>();
-  List<Pair<String,List<Long>>> dupes=new ArrayList<Pair<String,List<Long>>>();
-  Map<Long,Integer> fields=new HashMap<Long,Integer>();
+  Map<String,List<Long>> vals=new HashMap<>();
+  List<Pair<String,List<Long>>> dupes=new ArrayList<>();
+  Map<Long,Integer> fields=new HashMap<>();
   Cursor cur=null;
   try {
     cur=col.getDb().getDatabase().rawQuery("select id, mid, flds from notes where id in " + Utils.ids2str(col.findNotes(search)),null);
@@ -27,7 +27,7 @@
       }
       vals.get(val).add(nid);
       if (vals.get(val).size() == 2) {
-        dupes.add(new Pair<String,List<Long>>(val,vals.get(val)));
+        dupes.add(new Pair<>(val,vals.get(val)));
       }
     }
   }

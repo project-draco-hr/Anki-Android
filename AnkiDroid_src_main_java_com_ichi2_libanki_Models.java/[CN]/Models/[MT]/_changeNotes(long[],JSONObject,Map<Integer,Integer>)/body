@@ -1,5 +1,5 @@
 {
-  List<Object[]> d=new ArrayList<Object[]>();
+  List<Object[]> d=new ArrayList<>();
   int nfields;
   long mid;
   try {
@@ -15,11 +15,11 @@
     while (cur.moveToNext()) {
       long nid=cur.getLong(0);
       String[] flds=Utils.splitFields(cur.getString(1));
-      Map<Integer,String> newflds=new HashMap<Integer,String>();
+      Map<Integer,String> newflds=new HashMap<>();
       for (      Integer old : map.keySet()) {
         newflds.put(map.get(old),flds[old]);
       }
-      List<String> flds2=new ArrayList<String>();
+      List<String> flds2=new ArrayList<>();
       for (int c=0; c < nfields; ++c) {
         if (newflds.containsKey(c)) {
           flds2.add(newflds.get(c));

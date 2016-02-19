@@ -4,15 +4,15 @@
   int text2_length=text2.length();
   int max_d=text1_length + text2_length - 1;
   boolean doubleEnd=Diff_DualThreshold * 2 < max_d;
-  List<Set<Long>> v_map1=new ArrayList<Set<Long>>();
-  List<Set<Long>> v_map2=new ArrayList<Set<Long>>();
-  Map<Integer,Integer> v1=new HashMap<Integer,Integer>();
-  Map<Integer,Integer> v2=new HashMap<Integer,Integer>();
+  List<Set<Long>> v_map1=new ArrayList<>();
+  List<Set<Long>> v_map2=new ArrayList<>();
+  Map<Integer,Integer> v1=new HashMap<>();
+  Map<Integer,Integer> v2=new HashMap<>();
   v1.put(1,0);
   v2.put(1,0);
   int x, y;
   Long footstep=0L;
-  Map<Long,Integer> footsteps=new HashMap<Long,Integer>();
+  Map<Long,Integer> footsteps=new HashMap<>();
   boolean done=false;
   boolean front=((text1_length + text2_length) % 2 == 1);
   for (int d=0; d < max_d; d++) {

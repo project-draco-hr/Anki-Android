@@ -1,5 +1,5 @@
 {
-  ArrayList<Card> cards=new ArrayList<Card>();
+  ArrayList<Card> cards=new ArrayList<>();
   Cursor cur=null;
   try {
     cur=mCol.getDb().getDatabase().rawQuery("SELECT id FROM cards WHERE nid = " + mId + " ORDER BY ord",null);

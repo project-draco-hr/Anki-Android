@@ -9,7 +9,7 @@
     }
     if (ver < 4) {
       col.modSchemaNoCheck();
-      ArrayList<JSONObject> clozes=new ArrayList<JSONObject>();
+      ArrayList<JSONObject> clozes=new ArrayList<>();
       for (      JSONObject m : col.getModels().all()) {
         if (!m.getJSONArray("tmpls").getJSONObject(0).getString("qfmt").contains("{{cloze:")) {
           m.put("type",Consts.MODEL_STD);

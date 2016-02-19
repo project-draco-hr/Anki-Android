@@ -8,11 +8,11 @@
   }
   JSONObject newModel=getCol().getModels().get(mAllModelIds.get(pos));
   if (mAllModelIds.get(pos) != noteModelId) {
-    mModelChangeFieldMap=new HashMap<Integer,Integer>();
+    mModelChangeFieldMap=new HashMap<>();
     for (int i=0; i < mEditorNote.items().length; i++) {
       mModelChangeFieldMap.put(i,i);
     }
-    mModelChangeCardMap=new HashMap<Integer,Integer>();
+    mModelChangeCardMap=new HashMap<>();
     try {
       for (int i=0; i < newModel.getJSONArray("tmpls").length(); i++) {
         if (i < mEditorNote.cards().size()) {
@@ -29,7 +29,7 @@
     updateFieldsFromMap(newModel);
     mSelectedTags=mEditorNote.getTags();
     updateTags();
-    ((LinearLayout)findViewById(R.id.CardEditorTagButton)).setEnabled(false);
+    findViewById(R.id.CardEditorTagButton).setEnabled(false);
     mNoteDeckSpinner.setEnabled(false);
     int position=mAllDeckIds.indexOf(mCurrentEditedCard.getDid());
     if (position != -1) {
@@ -39,7 +39,7 @@
  else {
     populateEditFields();
     updateCards(mCurrentEditedCard.model());
-    ((LinearLayout)findViewById(R.id.CardEditorTagButton)).setEnabled(true);
+    findViewById(R.id.CardEditorTagButton).setEnabled(true);
     mNoteDeckSpinner.setEnabled(true);
   }
 }

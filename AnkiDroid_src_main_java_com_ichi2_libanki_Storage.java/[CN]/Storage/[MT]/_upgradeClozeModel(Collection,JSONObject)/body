@@ -7,7 +7,7 @@
     }
     t.put("name","Cloze");
     JSONArray ja=m.getJSONArray("tmpls");
-    ArrayList<JSONObject> rem=new ArrayList<JSONObject>();
+    ArrayList<JSONObject> rem=new ArrayList<>();
     for (int i=1; i < ja.length(); i++) {
       JSONObject ta=ja.getJSONObject(i);
       if (!ta.getString("afmt").contains("{{cloze:")) {

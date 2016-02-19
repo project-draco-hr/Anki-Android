@@ -15,7 +15,7 @@
  else {
     throw new RuntimeException();
   }
-  ArrayList<HashMap<String,String>> result=new ArrayList<HashMap<String,String>>();
+  ArrayList<HashMap<String,String>> result=new ArrayList<>();
   for (  Object[] row : _qaData(where)) {
     result.add(_renderQA(row));
   }

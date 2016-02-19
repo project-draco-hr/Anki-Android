@@ -12,7 +12,7 @@
 );
     deckCount=deckList.length;
   }
-  List<File> decks=new ArrayList<File>();
+  List<File> decks=new ArrayList<>();
   decks.addAll(Arrays.asList(deckList).subList(0,deckCount));
   return decks;
 }

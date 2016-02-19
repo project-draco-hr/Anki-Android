@@ -1,5 +1,5 @@
 {
-  ArrayList<int[]> dues=new ArrayList<int[]>();
+  ArrayList<int[]> dues=new ArrayList<>();
   Cursor cur=null;
   try {
     cur=col.getDb().getDatabase().rawQuery("SELECT (due - " + col.getSched().getToday() + ") AS day, "+ "count(), "+ "sum(CASE WHEN ivl >= 21 THEN 1 ELSE 0 END) "+ "FROM cards WHERE did IN "+ col.getSched()._deckLimit()+ " AND queue IN (2,3) AND day <= 7 GROUP BY day ORDER BY day",null);

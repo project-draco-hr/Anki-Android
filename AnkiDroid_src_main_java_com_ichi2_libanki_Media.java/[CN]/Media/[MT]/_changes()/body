@@ -1,5 +1,5 @@
 {
-  Map<String,Object[]> cache=new HashMap<String,Object[]>();
+  Map<String,Object[]> cache=new HashMap<>();
   Cursor cur=null;
   try {
     cur=mDb.getDatabase().rawQuery("select fname, csum, mtime from media where csum is not null",null);
@@ -18,8 +18,8 @@
       cur.close();
     }
   }
-  List<String> added=new ArrayList<String>();
-  List<String> removed=new ArrayList<String>();
+  List<String> added=new ArrayList<>();
+  List<String> removed=new ArrayList<>();
   for (  File f : new File(dir()).listFiles()) {
     if (f.isDirectory()) {
       continue;
@@ -67,5 +67,5 @@
       removed.add(fname);
     }
   }
-  return new Pair<List<String>,List<String>>(added,removed);
+  return new Pair<>(added,removed);
 }

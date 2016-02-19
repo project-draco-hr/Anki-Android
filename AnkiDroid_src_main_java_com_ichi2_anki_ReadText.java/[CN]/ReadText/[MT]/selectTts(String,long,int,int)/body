@@ -13,8 +13,8 @@
     builder.content(res.getString(R.string.no_tts_available_message)).iconAttr(R.attr.dialogErrorIcon).positiveText(res.getString(R.string.dialog_ok));
   }
  else {
-    ArrayList<CharSequence> dialogItems=new ArrayList<CharSequence>();
-    final ArrayList<String> dialogIds=new ArrayList<String>();
+    ArrayList<CharSequence> dialogItems=new ArrayList<>();
+    final ArrayList<String> dialogIds=new ArrayList<>();
     dialogItems.add(res.getString(R.string.tts_no_tts));
     dialogIds.add(NO_TTS);
     for (int i=0; i < availableTtsLocales.size(); i++) {

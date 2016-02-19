@@ -14,10 +14,7 @@ Timber.e("%d: %s",response.getStatusLine().getStatusCode(),response.getStatusLin
 break;
 }
 }
- catch (ClientProtocolException ex) {
-Timber.e(ex.toString());
-}
-catch (IOException ex) {
+ catch (IOException ex) {
 Timber.e(ex.toString());
 }
 return false;

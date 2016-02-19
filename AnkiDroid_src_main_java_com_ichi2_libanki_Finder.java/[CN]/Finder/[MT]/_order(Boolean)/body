@@ -1,6 +1,6 @@
 {
   if (!order) {
-    return new Pair<String,Boolean>("",false);
+    return new Pair<>("",false);
   }
   try {
     String type=mCol.getConf().getString("sortType");
@@ -40,7 +40,7 @@
       sort="n.id, c.ord";
     }
     boolean sortBackwards=mCol.getConf().getBoolean("sortBackwards");
-    return new Pair<String,Boolean>(" ORDER BY " + sort,sortBackwards);
+    return new Pair<>(" ORDER BY " + sort,sortBackwards);
   }
  catch (  JSONException e) {
     throw new RuntimeException(e);

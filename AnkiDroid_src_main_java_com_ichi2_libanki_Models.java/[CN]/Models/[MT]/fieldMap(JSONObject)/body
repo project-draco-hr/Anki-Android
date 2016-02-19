@@ -2,10 +2,10 @@
   JSONArray ja;
   try {
     ja=m.getJSONArray("flds");
-    Map<String,Pair<Integer,JSONObject>> result=new HashMap<String,Pair<Integer,JSONObject>>();
+    Map<String,Pair<Integer,JSONObject>> result=new HashMap<>();
     for (int i=0; i < ja.length(); i++) {
       JSONObject f=ja.getJSONObject(i);
-      result.put(f.getString("name"),new Pair<Integer,JSONObject>(f.getInt("ord"),f));
+      result.put(f.getString("name"),new Pair<>(f.getInt("ord"),f));
     }
     return result;
   }

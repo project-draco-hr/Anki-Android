@@ -1,7 +1,7 @@
 {
   Pattern re=Pattern.compile("\\{\\{c" + idx + "::(.+?)\\}\\}");
   Matcher m=re.matcher(txt);
-  Set<String> matches=new LinkedHashSet<String>();
+  Set<String> matches=new LinkedHashSet<>();
   String groupOne=new String();
   int colonColonIndex=-1;
   while (m.find()) {

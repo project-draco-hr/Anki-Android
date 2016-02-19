@@ -1,8 +1,8 @@
 {
   String[] sflds=Utils.splitFields(flds);
   Map<String,Pair<Integer,JSONObject>> map=fieldMap(m);
-  Set<Integer> ords=new HashSet<Integer>();
-  List<String> matches=new ArrayList<String>();
+  Set<Integer> ords=new HashSet<>();
+  List<String> matches=new ArrayList<>();
   Matcher mm;
   try {
     mm=fClozePattern1.matcher(m.getJSONArray("tmpls").getJSONObject(0).getString("qfmt"));
@@ -31,7 +31,7 @@
     ords.remove(-1);
   }
   if (ords.isEmpty() && allowEmpty) {
-    return new ArrayList<Integer>(Arrays.asList(new Integer[]{0}));
+    return new ArrayList<>(Arrays.asList(new Integer[]{0}));
   }
-  return new ArrayList<Integer>(ords);
+  return new ArrayList<>(ords);
 }

@@ -1,8 +1,8 @@
 {
   Timber.d("doInBackgroundLoadModels");
   Collection col=CollectionHelper.getInstance().getCol(mContext);
-  ArrayList<JSONObject> models=(ArrayList<JSONObject>)col.getModels().all();
-  ArrayList<Integer> cardCount=new ArrayList<Integer>();
+  ArrayList<JSONObject> models=col.getModels().all();
+  ArrayList<Integer> cardCount=new ArrayList<>();
   Collections.sort(models,new Comparator<JSONObject>(){
     @Override public int compare(    JSONObject a,    JSONObject b){
       try {

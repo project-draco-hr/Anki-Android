@@ -19,8 +19,8 @@
     lim.append(l).append("like '% ").append(t).append(" %'");
   }
   Cursor cur=null;
-  List<Long> nids=new ArrayList<Long>();
-  ArrayList<Object[]> res=new ArrayList<Object[]>();
+  List<Long> nids=new ArrayList<>();
+  ArrayList<Object[]> res=new ArrayList<>();
   try {
     cur=mCol.getDb().getDatabase().rawQuery("select id, tags from notes where id in " + Utils.ids2str(ids) + " and ("+ lim+ ")",null);
     if (add) {

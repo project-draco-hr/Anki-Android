@@ -1,5 +1,5 @@
 {
-  List<String> members=new ArrayList<String>();
+  List<String> members=new ArrayList<>();
   for (  Field f : this.getClass().getDeclaredFields()) {
     try {
       if (SKIP_PRINT.contains(f.getName())) {
@@ -7,10 +7,7 @@
       }
       members.add(String.format("'%s': %s",f.getName(),f.get(this)));
     }
- catch (    IllegalAccessException e) {
-      members.add(String.format("'%s': %s",f.getName(),"N/A"));
-    }
-catch (    IllegalArgumentException e) {
+ catch (    IllegalAccessException|IllegalArgumentException e) {
       members.add(String.format("'%s': %s",f.getName(),"N/A"));
     }
   }

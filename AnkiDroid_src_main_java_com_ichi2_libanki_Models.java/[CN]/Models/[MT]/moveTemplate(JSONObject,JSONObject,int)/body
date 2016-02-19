@@ -2,8 +2,8 @@
   try {
     JSONArray ja=m.getJSONArray("tmpls");
     int oldidx=-1;
-    ArrayList<JSONObject> l=new ArrayList<JSONObject>();
-    HashMap<Integer,Integer> oldidxs=new HashMap<Integer,Integer>();
+    ArrayList<JSONObject> l=new ArrayList<>();
+    HashMap<Integer,Integer> oldidxs=new HashMap<>();
     for (int i=0; i < ja.length(); ++i) {
       if (ja.get(i).equals(template)) {
         oldidx=i;

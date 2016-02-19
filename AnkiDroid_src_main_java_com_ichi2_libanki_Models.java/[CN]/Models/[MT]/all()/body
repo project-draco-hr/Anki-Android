@@ -1,8 +1,7 @@
 {
-  ArrayList<JSONObject> models=new ArrayList<JSONObject>();
-  Iterator<JSONObject> it=mModels.values().iterator();
-  while (it.hasNext()) {
-    models.add(it.next());
+  ArrayList<JSONObject> models=new ArrayList<>();
+  for (  JSONObject jsonObject : mModels.values()) {
+    models.add(jsonObject);
   }
   return models;
 }

@@ -74,10 +74,7 @@
         backupFile.setLastModified(colFile.lastModified());
         Timber.i("Backup created succesfully");
       }
- catch (      FileNotFoundException e1) {
-        e1.printStackTrace();
-      }
-catch (      IOException e) {
+ catch (      IOException e) {
         e.printStackTrace();
       }
     }

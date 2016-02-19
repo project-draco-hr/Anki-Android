@@ -24,7 +24,7 @@
   linearLayout.addView(tvFrom);
   mLanguageLister=new LanguagesListerGlosbe(this);
   mSpinnerFrom=new Spinner(this);
-  ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,mLanguageLister.getLanguages());
+  ArrayAdapter<String> adapter=new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,mLanguageLister.getLanguages());
   adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
   mSpinnerFrom.setAdapter(adapter);
   linearLayout.addView(mSpinnerFrom);
@@ -32,7 +32,7 @@
   tvTo.setText(getText(R.string.multimedia_editor_trans_to));
   linearLayout.addView(tvTo);
   mSpinnerTo=new Spinner(this);
-  ArrayAdapter<String> adapterTo=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,mLanguageLister.getLanguages());
+  ArrayAdapter<String> adapterTo=new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,mLanguageLister.getLanguages());
   adapterTo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
   mSpinnerTo.setAdapter(adapterTo);
   linearLayout.addView(mSpinnerTo);

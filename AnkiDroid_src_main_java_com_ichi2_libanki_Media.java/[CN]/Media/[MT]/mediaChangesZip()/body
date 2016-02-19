@@ -4,7 +4,7 @@
   try {
     ZipOutputStream z=new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(f)));
     z.setMethod(ZipOutputStream.DEFLATED);
-    List<String> fnames=new ArrayList<String>();
+    List<String> fnames=new ArrayList<>();
     JSONArray meta=new JSONArray();
     int sz=0;
     byte buffer[]=new byte[2048];
@@ -46,7 +46,7 @@
     z.closeEntry();
     z.close();
     f.deleteOnExit();
-    return new Pair<File,List<String>>(f,fnames);
+    return new Pair<>(f,fnames);
   }
  catch (  IOException e) {
     Timber.e("Failed to create media changes zip",e);

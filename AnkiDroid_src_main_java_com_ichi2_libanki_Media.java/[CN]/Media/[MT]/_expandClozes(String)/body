@@ -1,10 +1,10 @@
 {
-  Set<String> ords=new TreeSet<String>();
+  Set<String> ords=new TreeSet<>();
   Matcher m=Pattern.compile("\\{\\{c(\\d+)::.+?\\}\\}").matcher(string);
   while (m.find()) {
     ords.add(m.group(1));
   }
-  ArrayList<String> strings=new ArrayList<String>();
+  ArrayList<String> strings=new ArrayList<>();
   String clozeReg=Template.clozeReg;
   for (  String ord : ords) {
     StringBuffer buf=new StringBuffer();

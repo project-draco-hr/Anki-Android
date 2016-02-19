@@ -22,10 +22,7 @@
     File repairedFile=new File(deckPath + ".tmp");
     return repairedFile.renameTo(deckFile);
   }
- catch (  IOException e) {
-    Timber.e("repairCollection - error: " + e.getMessage());
-  }
-catch (  InterruptedException e) {
+ catch (  IOException|InterruptedException e) {
     Timber.e("repairCollection - error: " + e.getMessage());
   }
   return false;

@@ -1,6 +1,6 @@
 {
   List<AnkiFont> fonts=Utils.getCustomFonts(context);
-  Map<String,AnkiFont> customFontsMap=new HashMap<String,AnkiFont>();
+  Map<String,AnkiFont> customFontsMap=new HashMap<>();
   for (  AnkiFont f : fonts) {
     customFontsMap.put(f.getName(),f);
   }

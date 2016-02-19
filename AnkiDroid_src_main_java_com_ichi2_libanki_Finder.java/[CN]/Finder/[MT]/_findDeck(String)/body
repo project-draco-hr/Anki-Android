@@ -14,7 +14,7 @@
       ids=dids(mCol.getDecks().id(val,false));
     }
  else {
-      ids=new ArrayList<Long>();
+      ids=new ArrayList<>();
       val=val.replace("*",".*");
       val=val.replace("+","\\+");
       for (      JSONObject d : mCol.getDecks().all()) {

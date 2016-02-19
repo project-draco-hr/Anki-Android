@@ -37,7 +37,7 @@ mPositiveText=getString(R.string.select);
 adjustToolbar(tagsDialogView);
 MaterialDialog.Builder builder=new MaterialDialog.Builder(getActivity()).positiveText(mPositiveText).negativeText(res.getString(R.string.dialog_cancel)).customView(tagsDialogView,false).callback(new MaterialDialog.ButtonCallback(){
 @Override public void onPositive(MaterialDialog dialog){
-mTagsDialogListener.onPositive(new ArrayList<String>(mCurrentTags),mSelectedOption);
+mTagsDialogListener.onPositive(new ArrayList<>(mCurrentTags),mSelectedOption);
 }
 }
 );

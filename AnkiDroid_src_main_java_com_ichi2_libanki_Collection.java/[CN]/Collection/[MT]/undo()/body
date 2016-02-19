@@ -32,7 +32,7 @@ ccc.flush(false);
 }
 return (Long)data[2];
 case UNDO_DELETE_NOTE:
-ArrayList<Long> ids=new ArrayList<Long>();
+ArrayList<Long> ids=new ArrayList<>();
 Note note2=(Note)data[1];
 note2.flush(note2.getMod(),false);
 ids.add(note2.getId());

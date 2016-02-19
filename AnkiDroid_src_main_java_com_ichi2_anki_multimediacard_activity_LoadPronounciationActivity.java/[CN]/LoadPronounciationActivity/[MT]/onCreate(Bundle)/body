@@ -12,7 +12,7 @@
   LinearLayout linearLayout=(LinearLayout)findViewById(R.id.layoutInLoadPronActivity);
   mLanguageLister=new LanguageListerBeolingus(this);
   mSpinnerFrom=new Spinner(this);
-  ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,mLanguageLister.getLanguages());
+  ArrayAdapter<String> adapter=new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,mLanguageLister.getLanguages());
   adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
   mSpinnerFrom.setAdapter(adapter);
   linearLayout.addView(mSpinnerFrom);

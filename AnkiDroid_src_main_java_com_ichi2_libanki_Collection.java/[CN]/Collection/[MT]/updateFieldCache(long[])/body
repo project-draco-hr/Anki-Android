@@ -1,6 +1,6 @@
 {
   String snids=Utils.ids2str(nids);
-  ArrayList<Object[]> r=new ArrayList<Object[]>();
+  ArrayList<Object[]> r=new ArrayList<>();
   for (  Object[] o : _fieldData(snids)) {
     String[] fields=Utils.splitFields((String)o[2]);
     JSONObject model=mModels.get((Long)o[1]);

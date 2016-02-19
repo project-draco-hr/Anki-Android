@@ -1,6 +1,6 @@
 {
   String[] flist=Utils.splitFields((String)data[6]);
-  Map<String,String> fields=new HashMap<String,String>();
+  Map<String,String> fields=new HashMap<>();
   JSONObject model=mModels.get((Long)data[2]);
   Map<String,Pair<Integer,JSONObject>> fmap=mModels.fieldMap(model);
   for (  String name : fmap.keySet()) {
@@ -22,11 +22,11 @@
     }
     fields.put("Card",template.getString("name"));
     fields.put(String.format(Locale.US,"c%d",cardNum),"1");
-    HashMap<String,String> d=new HashMap<String,String>();
+    HashMap<String,String> d=new HashMap<>();
     d.put("id",Long.toString((Long)data[0]));
     qfmt=TextUtils.isEmpty(qfmt) ? template.getString("qfmt") : qfmt;
     afmt=TextUtils.isEmpty(afmt) ? template.getString("afmt") : afmt;
-    for (    Pair<String,String> p : new Pair[]{new Pair<String,String>("q",qfmt),new Pair<String,String>("a",afmt)}) {
+    for (    Pair<String,String> p : new Pair[]{new Pair<>("q",qfmt),new Pair<>("a",afmt)}) {
       String type=p.first;
       String format=p.second;
       if (type.equals("q")) {

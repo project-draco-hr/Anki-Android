@@ -16,11 +16,7 @@
       }
       mCon.publishProgress(String.format(AnkiDroidApp.getAppResources().getString(R.string.sync_media_downloaded_count),mDownloadCount));
     }
- catch (    IOException e) {
-      Timber.e(e,"Error downloading media files");
-      throw new RuntimeException(e);
-    }
-catch (    UnknownHttpResponseException e) {
+ catch (    IOException|UnknownHttpResponseException e) {
       Timber.e(e,"Error downloading media files");
       throw new RuntimeException(e);
     }

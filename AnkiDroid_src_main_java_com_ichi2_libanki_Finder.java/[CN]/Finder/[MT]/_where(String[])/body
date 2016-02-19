@@ -1,9 +1,9 @@
 {
   SearchState s=new SearchState();
-  List<String> args=new ArrayList<String>();
+  List<String> args=new ArrayList<>();
   for (  String token : tokens) {
     if (s.bad) {
-      return new Pair<String,String[]>(null,null);
+      return new Pair<>(null,null);
     }
     if (token.equals("-")) {
       s.isnot=true;
@@ -67,7 +67,7 @@
     }
   }
   if (s.bad) {
-    return new Pair<String,String[]>(null,null);
+    return new Pair<>(null,null);
   }
-  return new Pair<String,String[]>(s.q,args.toArray(new String[args.size()]));
+  return new Pair<>(s.q,args.toArray(new String[args.size()]));
 }

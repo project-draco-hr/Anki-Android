@@ -69,8 +69,8 @@ mAddNote=true;
 break;
 }
 mNoteTypeSpinner=(Spinner)findViewById(R.id.note_type_spinner);
-mAllModelIds=new ArrayList<Long>();
-final ArrayList<String> modelNames=new ArrayList<String>();
+mAllModelIds=new ArrayList<>();
+final ArrayList<String> modelNames=new ArrayList<>();
 ArrayList<JSONObject> models=getCol().getModels().all();
 Collections.sort(models,new JSONNameComparator());
 for (JSONObject m : models) {
@@ -82,7 +82,7 @@ mAllModelIds.add(m.getLong("id"));
 throw new RuntimeException(e);
 }
 }
-ArrayAdapter<String> noteTypeAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,modelNames);
+ArrayAdapter<String> noteTypeAdapter=new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,modelNames);
 mNoteTypeSpinner.setAdapter(noteTypeAdapter);
 noteTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 TextView deckTextView=(TextView)findViewById(R.id.CardEditorDeckText);
@@ -95,8 +95,8 @@ deckTextView.setText(R.string.CardEditorCardDeck);
 throw new RuntimeException();
 }
 mNoteDeckSpinner=(Spinner)findViewById(R.id.note_deck_spinner);
-mAllDeckIds=new ArrayList<Long>();
-final ArrayList<String> deckNames=new ArrayList<String>();
+mAllDeckIds=new ArrayList<>();
+final ArrayList<String> deckNames=new ArrayList<>();
 ArrayList<JSONObject> decks=getCol().getDecks().all();
 Collections.sort(decks,new JSONNameComparator());
 for (JSONObject d : decks) {
@@ -112,7 +112,7 @@ mAllDeckIds.add(thisDid);
 throw new RuntimeException(e);
 }
 }
-ArrayAdapter<String> noteDeckAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,deckNames);
+ArrayAdapter<String> noteDeckAdapter=new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,deckNames);
 mNoteDeckSpinner.setAdapter(noteDeckAdapter);
 noteDeckAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 mNoteDeckSpinner.setOnItemSelectedListener(new OnItemSelectedListener(){
@@ -160,7 +160,7 @@ setEditFieldTexts(contents);
 mNoteTypeSpinner.setOnItemSelectedListener(new EditNoteTypeListener());
 setTitle(R.string.cardeditor_title_edit_card);
 }
-((LinearLayout)findViewById(R.id.CardEditorTagButton)).setOnClickListener(new View.OnClickListener(){
+findViewById(R.id.CardEditorTagButton).setOnClickListener(new View.OnClickListener(){
 @Override public void onClick(View v){
 Timber.i("NoteEditor:: Tags button pressed... opening tags editor");
 showTagsDialog();

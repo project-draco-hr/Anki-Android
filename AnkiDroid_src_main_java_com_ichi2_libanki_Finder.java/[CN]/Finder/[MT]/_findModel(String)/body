@@ -1,5 +1,5 @@
 {
-  LinkedList<Long> ids=new LinkedList<Long>();
+  LinkedList<Long> ids=new LinkedList<>();
   try {
     for (    JSONObject m : mCol.getModels().all()) {
       if (m.getString("name").equalsIgnoreCase(val)) {

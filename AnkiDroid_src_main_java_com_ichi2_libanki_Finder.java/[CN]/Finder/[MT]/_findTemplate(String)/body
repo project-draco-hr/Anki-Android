@@ -9,7 +9,7 @@
   if (num != null) {
     return "c.ord = " + num;
   }
-  List<String> lims=new ArrayList<String>();
+  List<String> lims=new ArrayList<>();
   try {
     for (    JSONObject m : mCol.getModels().all()) {
       JSONArray tmpls=m.getJSONArray("tmpls");

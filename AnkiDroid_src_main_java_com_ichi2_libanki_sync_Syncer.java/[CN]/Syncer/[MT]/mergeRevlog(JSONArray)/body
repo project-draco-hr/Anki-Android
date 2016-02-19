@@ -3,10 +3,7 @@
     try {
       mCol.getDb().execute("INSERT OR IGNORE INTO revlog VALUES (?,?,?,?,?,?,?,?,?)",ConvUtils.jsonArray2Objects(logs.getJSONArray(i)));
     }
- catch (    SQLException e) {
-      throw new RuntimeException(e);
-    }
-catch (    JSONException e) {
+ catch (    SQLException|JSONException e) {
       throw new RuntimeException(e);
     }
   }

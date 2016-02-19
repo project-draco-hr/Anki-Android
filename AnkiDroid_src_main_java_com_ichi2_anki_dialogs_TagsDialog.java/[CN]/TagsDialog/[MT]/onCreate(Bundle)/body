@@ -2,9 +2,9 @@
   super.onCreate(savedInstanceState);
   getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
   mType=getArguments().getInt(DIALOG_TYPE_KEY);
-  mCurrentTags=new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+  mCurrentTags=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
   mCurrentTags.addAll(getArguments().getStringArrayList(CHECKED_TAGS_KEY));
-  mAllTags=new ArrayList<String>();
+  mAllTags=new ArrayList<>();
   mAllTags.addAll(getArguments().getStringArrayList(ALL_TAGS_KEY));
   for (  String tag : mCurrentTags) {
     if (!mAllTags.contains(tag)) {

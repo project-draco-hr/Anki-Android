@@ -8,10 +8,7 @@
   try {
     sqliteInstalled=Runtime.getRuntime().exec("sqlite3 --version").waitFor() == 0;
   }
- catch (  IOException e) {
-    e.printStackTrace();
-  }
-catch (  InterruptedException e) {
+ catch (  IOException|InterruptedException e) {
     e.printStackTrace();
   }
 switch (mType) {
@@ -43,8 +40,8 @@ case DIALOG_DB_ERROR:
 dialog.getCustomView().findViewById(R.id.buttonDefaultNegative).setEnabled(((DeckPicker)getActivity()).hasErrorFiles());
 return dialog;
 case DIALOG_ERROR_HANDLING:
-ArrayList<String> options=new ArrayList<String>();
-ArrayList<Integer> values=new ArrayList<Integer>();
+ArrayList<String> options=new ArrayList<>();
+ArrayList<Integer> values=new ArrayList<>();
 if (!((AnkiActivity)getActivity()).colIsOpen()) {
 options.add(res.getString(R.string.backup_retry_opening));
 values.add(0);
