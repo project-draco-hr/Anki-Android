@@ -4,7 +4,7 @@
       return;
     }
     JSONArray req=new JSONArray();
-    ArrayList<String> flds=new ArrayList<String>();
+    ArrayList<String> flds=new ArrayList<>();
     JSONArray fields;
     fields=m.getJSONArray("flds");
     for (int i=0; i < fields.length(); i++) {

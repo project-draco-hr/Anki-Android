@@ -1,6 +1,6 @@
 {
   File file=new File(mPath);
-  ArrayList<String> problems=new ArrayList<String>();
+  ArrayList<String> problems=new ArrayList<>();
   long oldSize=file.length();
   try {
     mDb.getDatabase().beginTransaction();
@@ -16,7 +16,7 @@
       }
       for (      JSONObject m : mModels.all()) {
         if (m.getInt("type") == Consts.MODEL_STD) {
-          ArrayList<Integer> ords=new ArrayList<Integer>();
+          ArrayList<Integer> ords=new ArrayList<>();
           JSONArray tmpls=m.getJSONArray("tmpls");
           for (int t=0; t < tmpls.length(); t++) {
             ords.add(tmpls.getJSONObject(t).getInt("ord"));
@@ -27,7 +27,7 @@
             remCards(Utils.arrayList2array(ids));
           }
         }
-        ids=new ArrayList<Long>();
+        ids=new ArrayList<>();
         Cursor cur=null;
         try {
           cur=mDb.getDatabase().rawQuery("select id, flds from notes where mid = " + m.getLong("id"),null);
@@ -70,7 +70,7 @@
         problems.add("Fixed " + ids.size() + " card(s) with invalid properties.");
         mDb.execute("update cards set odue=0 where id in " + Utils.ids2str(ids));
       }
-      ArrayList<Long> dids=new ArrayList<Long>();
+      ArrayList<Long> dids=new ArrayList<>();
       for (      long id : mDecks.allIds()) {
         if (!mDecks.isDyn(id)) {
           dids.add(id);
@@ -117,5 +117,5 @@
   if (problems.size() > 0) {
     modSchemaNoCheck();
   }
-  return (long)((oldSize - newSize) / 1024);
+  return (oldSize - newSize) / 1024;
 }

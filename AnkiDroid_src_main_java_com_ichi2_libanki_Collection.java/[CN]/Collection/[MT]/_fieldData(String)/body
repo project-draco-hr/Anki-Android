@@ -1,5 +1,5 @@
 {
-  ArrayList<Object[]> result=new ArrayList<Object[]>();
+  ArrayList<Object[]> result=new ArrayList<>();
   Cursor cur=null;
   try {
     cur=mDb.getDatabase().rawQuery("SELECT id, mid, flds FROM notes WHERE id IN " + snids,null);

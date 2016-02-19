@@ -27,7 +27,7 @@ String lim="";
 if (end != -1) {
 lim+=" AND day <= " + end;
 }
-ArrayList<int[]> dues=new ArrayList<int[]>();
+ArrayList<int[]> dues=new ArrayList<>();
 Cursor cur=null;
 try {
 String query;

@@ -4,7 +4,7 @@
  else   simulationResult=new SimulationResult(nTimeBins,timeBinLength,SimulationResult.DOUBLE_TO_INT_MODE_ROUND);
   Timber.d("today: " + today);
   Stack<Review> reviews=new Stack<>();
-  ArrayList<Review> reviewList=new ArrayList<Review>();
+  ArrayList<Review> reviewList=new ArrayList<>();
   Card card=new Card(0,0,0,0,0,0);
   CardIterator cardIterator=null;
   Review review=new Review(deck,simulationResult,classifier,reviews,reviewList);

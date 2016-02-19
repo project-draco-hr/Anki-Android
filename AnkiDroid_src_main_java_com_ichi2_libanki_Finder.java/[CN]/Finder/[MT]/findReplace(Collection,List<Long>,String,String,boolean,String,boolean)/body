@@ -1,5 +1,5 @@
 {
-  Map<Long,Integer> mmap=new HashMap<Long,Integer>();
+  Map<Long,Integer> mmap=new HashMap<>();
   if (field != null) {
     try {
       for (      JSONObject m : col.getModels().all()) {
@@ -26,9 +26,9 @@
     src="(?i)" + src;
   }
   Pattern regex=Pattern.compile(src);
-  ArrayList<Object[]> d=new ArrayList<Object[]>();
+  ArrayList<Object[]> d=new ArrayList<>();
   String snids=Utils.ids2str(nids);
-  nids=new ArrayList<Long>();
+  nids=new ArrayList<>();
   Cursor cur=null;
   try {
     cur=col.getDb().getDatabase().rawQuery("select id, mid, flds from notes where id in " + snids,null);

@@ -3,7 +3,7 @@
   Pair<String,String[]> res1=_where(tokens);
   String preds=res1.first;
   String[] args=res1.second;
-  List<Long> res=new ArrayList<Long>();
+  List<Long> res=new ArrayList<>();
   if (preds == null) {
     return res;
   }
@@ -19,7 +19,7 @@
     }
   }
  catch (  SQLException e) {
-    return new ArrayList<Long>();
+    return new ArrayList<>();
   }
  finally {
     if (cur != null) {

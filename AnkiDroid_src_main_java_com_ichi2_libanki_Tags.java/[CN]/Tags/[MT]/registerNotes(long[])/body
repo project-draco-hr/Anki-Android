@@ -8,7 +8,7 @@
     mTags.clear();
     mChanged=true;
   }
-  List<String> tags=new ArrayList<String>();
+  List<String> tags=new ArrayList<>();
   Cursor cursor=null;
   try {
     cursor=mCol.getDb().getDatabase().rawQuery("SELECT DISTINCT tags FROM notes" + lim,null);
@@ -21,7 +21,7 @@
       cursor.close();
     }
   }
-  HashSet<String> tagSet=new HashSet<String>();
+  HashSet<String> tagSet=new HashSet<>();
   for (  String s : split(TextUtils.join(" ",tags))) {
     tagSet.add(s);
   }

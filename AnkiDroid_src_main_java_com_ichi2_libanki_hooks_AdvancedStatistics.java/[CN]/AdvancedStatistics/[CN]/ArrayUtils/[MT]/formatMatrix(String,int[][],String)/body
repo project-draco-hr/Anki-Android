@@ -3,9 +3,9 @@
   s.append(matrixName);
   s.append(":");
   s.append(System.getProperty("line.separator"));
-  for (int i=0; i < matrix.length; i++) {
-    for (int j=0; j < matrix[i].length; j++) {
-      s.append(String.format(format,matrix[i][j]));
+  for (  int[] aMatrix : matrix) {
+    for (int j=0; j < aMatrix.length; j++) {
+      s.append(String.format(format,aMatrix[j]));
     }
     s.append(System.getProperty("line.separator"));
   }

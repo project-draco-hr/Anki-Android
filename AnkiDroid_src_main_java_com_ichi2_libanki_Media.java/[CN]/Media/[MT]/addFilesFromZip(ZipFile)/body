@@ -1,6 +1,6 @@
 {
   try {
-    List<Object[]> media=new ArrayList<Object[]>();
+    List<Object[]> media=new ArrayList<>();
     JSONObject meta=new JSONObject(Utils.convertStreamToString(z.getInputStream(z.getEntry("_meta"))));
     int cnt=0;
     for (    ZipEntry i : Collections.list(z.entries())) {

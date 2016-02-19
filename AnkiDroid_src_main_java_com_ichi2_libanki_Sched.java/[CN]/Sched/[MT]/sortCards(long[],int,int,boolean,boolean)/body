@@ -1,7 +1,7 @@
 {
   String scids=Utils.ids2str(cids);
   long now=Utils.intNow();
-  ArrayList<Long> nids=new ArrayList<Long>();
+  ArrayList<Long> nids=new ArrayList<>();
   for (  long id : cids) {
     long nid=mCol.getDb().queryLongScalar("SELECT nid FROM cards WHERE id = " + id);
     if (!nids.contains(nid)) {
@@ -11,7 +11,7 @@
   if (nids.size() == 0) {
     return;
   }
-  HashMap<Long,Long> due=new HashMap<Long,Long>();
+  HashMap<Long,Long> due=new HashMap<>();
   if (shuffle) {
     Collections.shuffle(nids);
   }
@@ -26,7 +26,7 @@
       mCol.getDb().execute("UPDATE cards SET mod = " + now + ", usn = "+ mCol.usn()+ ", due = due + "+ shiftby+ " WHERE id NOT IN "+ scids+ " AND due >= "+ low+ " AND queue = 0");
     }
   }
-  ArrayList<Object[]> d=new ArrayList<Object[]>();
+  ArrayList<Object[]> d=new ArrayList<>();
   Cursor cur=null;
   try {
     cur=mCol.getDb().getDatabase().rawQuery("SELECT id, nid FROM cards WHERE type = 0 AND id IN " + scids,null);

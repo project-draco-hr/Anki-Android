@@ -2,6 +2,6 @@
   SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
   df.setTimeZone(TimeZone.getTimeZone("GMT"));
   Calendar cal=new GregorianCalendar(TimeZone.getTimeZone("GMT"));
-  cal.setTimeInMillis(System.currentTimeMillis() - (long)utcOffset * 1000l);
+  cal.setTimeInMillis(System.currentTimeMillis() - (long)utcOffset * 1000L);
   return Date.valueOf(df.format(cal.getTime()));
 }

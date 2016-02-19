@@ -12,7 +12,7 @@
         showToast(gtxt(R.string.multimedia_editor_text_field_editing_many_words));
       }
       PickStringDialogFragment fragment=new PickStringDialogFragment();
-      final ArrayList<String> translationSources=new ArrayList<String>();
+      final ArrayList<String> translationSources=new ArrayList<>();
       translationSources.add("Glosbe.com");
       if (!CompatHelper.isChromebook()) {
         translationSources.add("ColorDict");

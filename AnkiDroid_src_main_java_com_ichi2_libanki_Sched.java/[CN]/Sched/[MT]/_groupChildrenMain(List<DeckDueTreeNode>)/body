@@ -1,10 +1,10 @@
 {
-  List<DeckDueTreeNode> tree=new ArrayList<DeckDueTreeNode>();
+  List<DeckDueTreeNode> tree=new ArrayList<>();
   ListIterator<DeckDueTreeNode> it=grps.listIterator();
   while (it.hasNext()) {
     DeckDueTreeNode node=it.next();
     String head=node.names[0];
-    List<DeckDueTreeNode> tail=new ArrayList<DeckDueTreeNode>();
+    List<DeckDueTreeNode> tail=new ArrayList<>();
     tail.add(node);
     while (it.hasNext()) {
       DeckDueTreeNode next=it.next();
@@ -20,7 +20,7 @@
     int rev=0;
     int _new=0;
     int lrn=0;
-    List<DeckDueTreeNode> children=new ArrayList<DeckDueTreeNode>();
+    List<DeckDueTreeNode> children=new ArrayList<>();
     for (    DeckDueTreeNode c : tail) {
       if (c.names.length == 1) {
         did=c.did;

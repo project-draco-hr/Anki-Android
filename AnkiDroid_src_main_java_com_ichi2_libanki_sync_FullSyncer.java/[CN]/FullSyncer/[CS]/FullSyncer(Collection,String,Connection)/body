@@ -1,6 +1,6 @@
 {
   super(hkey,con);
-  mPostVars=new HashMap<String,Object>();
+  mPostVars=new HashMap<>();
   mPostVars.put("k",hkey);
   mPostVars.put("v",String.format(Locale.US,"ankidroid,%s,%s",VersionUtils.getPkgVersionName(),Utils.platDesc()));
   mCol=col;

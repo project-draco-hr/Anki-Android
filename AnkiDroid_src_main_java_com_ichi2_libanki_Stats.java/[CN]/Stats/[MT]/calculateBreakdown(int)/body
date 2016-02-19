@@ -16,7 +16,7 @@
   }
   long cutoff=mCol.getSched().getDayCutoff();
   long cut=cutoff - sd.get(Calendar.HOUR_OF_DAY) * 3600;
-  ArrayList<double[]> list=new ArrayList<double[]>();
+  ArrayList<double[]> list=new ArrayList<>();
   Cursor cur=null;
   String query="select " + "23 - ((cast((" + cut + " - id/1000) / 3600.0 as int)) % 24) as hour, "+ "sum(case when ease = 1 then 0 else 1 end) / "+ "cast(count() as float) * 100, "+ "count() "+ "from revlog where type in (0,1,2) "+ lim+ " "+ "group by hour having count() > 30 order by hour";
   Timber.d(sd.get(Calendar.HOUR_OF_DAY) + " : " + cutoff+ " breakdown query: %s",query);

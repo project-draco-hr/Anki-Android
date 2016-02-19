@@ -2,8 +2,8 @@
   _checkDay();
   mCol.getDecks().recoverOrphans();
   ArrayList<JSONObject> decks=mCol.getDecks().allSorted();
-  HashMap<String,Integer[]> lims=new HashMap<String,Integer[]>();
-  ArrayList<DeckDueTreeNode> data=new ArrayList<DeckDueTreeNode>();
+  HashMap<String,Integer[]> lims=new HashMap<>();
+  ArrayList<DeckDueTreeNode> data=new ArrayList<>();
   try {
     for (    JSONObject deck : decks) {
       if (lims.containsKey(deck.getString("name"))) {

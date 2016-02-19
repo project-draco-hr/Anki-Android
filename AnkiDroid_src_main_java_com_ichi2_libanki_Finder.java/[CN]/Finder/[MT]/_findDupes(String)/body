@@ -6,7 +6,7 @@
   String mid=split[0];
   val=split[1];
   String csum=Long.toString(Utils.fieldChecksum(val));
-  List<Long> nids=new ArrayList<Long>();
+  List<Long> nids=new ArrayList<>();
   Cursor cur=null;
   try {
     cur=mCol.getDb().getDatabase().rawQuery("select id, flds from notes where mid=? and csum=?",new String[]{mid,csum});

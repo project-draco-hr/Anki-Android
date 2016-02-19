@@ -27,7 +27,7 @@ chunk=30;
 lim="";
 break;
 }
-ArrayList<double[]> list=new ArrayList<double[]>();
+ArrayList<double[]> list=new ArrayList<>();
 Cursor cur=null;
 try {
 cur=mCol.getDb().getDatabase().rawQuery("select ivl / " + chunk + " as grp, count() from cards "+ "where did in "+ _limit()+ " and queue = 2 "+ lim+ " "+ "group by grp "+ "order by grp",null);

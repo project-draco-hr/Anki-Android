@@ -1,10 +1,10 @@
 {
-  HashMap<Long,HashMap<Integer,String>> result=new HashMap<Long,HashMap<Integer,String>>();
+  HashMap<Long,HashMap<Integer,String>> result=new HashMap<>();
   for (  JSONObject m : mModels.values()) {
     JSONArray templates;
     try {
       templates=m.getJSONArray("tmpls");
-      HashMap<Integer,String> names=new HashMap<Integer,String>();
+      HashMap<Integer,String> names=new HashMap<>();
       for (int i=0; i < templates.length(); i++) {
         JSONObject t=templates.getJSONObject(i);
         names.put(t.getInt("ord"),t.getString("name"));

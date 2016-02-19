@@ -1,5 +1,5 @@
 {
-  ArrayList<String> res=new ArrayList<String>();
+  ArrayList<String> res=new ArrayList<>();
   res.addAll(mLanguageMap.keySet());
   Collections.sort(res,new Comparator<String>(){
     @Override public int compare(    String text1,    String text2){

@@ -5,7 +5,7 @@
   if (mFields.size() <= 1) {
     return;
   }
-  ArrayList<IField> newFields=new ArrayList<IField>();
+  ArrayList<IField> newFields=new ArrayList<>();
   newFields.add(mFields.get(mFields.size() - 1));
   newFields.addAll(mFields);
   newFields.remove(mFields.size());

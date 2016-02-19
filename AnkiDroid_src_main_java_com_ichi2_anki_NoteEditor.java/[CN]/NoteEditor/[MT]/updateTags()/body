@@ -1,6 +1,6 @@
 {
   if (mSelectedTags == null) {
-    mSelectedTags=new ArrayList<String>();
+    mSelectedTags=new ArrayList<>();
   }
   mTagsButton.setText(getResources().getString(R.string.CardEditorTags,getCol().getTags().join(getCol().getTags().canonify(mSelectedTags)).trim().replace(" ",", ")));
 }

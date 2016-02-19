@@ -1,6 +1,6 @@
 {
-  List<String> lineArray=new ArrayList<String>();
-  Map<String,Integer> lineHash=new HashMap<String,Integer>();
+  List<String> lineArray=new ArrayList<>();
+  Map<String,Integer> lineHash=new HashMap<>();
   lineArray.add("");
   String chars1=diff_linesToCharsMunge(text1,lineArray,lineHash);
   String chars2=diff_linesToCharsMunge(text2,lineArray,lineHash);

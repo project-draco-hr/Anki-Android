@@ -1,5 +1,5 @@
 {
-  ArrayList<Object[]> data=new ArrayList<Object[]>();
+  ArrayList<Object[]> data=new ArrayList<>();
   Cursor cur=null;
   try {
     cur=mDb.getDatabase().rawQuery("SELECT c.id, n.id, n.mid, c.did, c.ord, " + "n.tags, n.flds FROM cards c, notes n WHERE c.nid == n.id " + where,null);

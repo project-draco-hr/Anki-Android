@@ -1,6 +1,6 @@
 {
   File mdir=new File(dir());
-  Set<String> allRefs=new HashSet<String>();
+  Set<String> allRefs=new HashSet<>();
   Cursor cur=null;
   try {
     cur=mCol.getDb().getDatabase().rawQuery("select id, mid, flds from notes",null);
@@ -24,8 +24,8 @@
       cur.close();
     }
   }
-  List<String> unused=new ArrayList<String>();
-  List<String> invalid=new ArrayList<String>();
+  List<String> unused=new ArrayList<>();
+  List<String> invalid=new ArrayList<>();
   File[] files;
   if (local == null) {
     files=mdir.listFiles();
@@ -67,13 +67,13 @@
   if (renamedFiles) {
     return check(local);
   }
-  List<String> nohave=new ArrayList<String>();
+  List<String> nohave=new ArrayList<>();
   for (  String x : allRefs) {
     if (!x.startsWith("_")) {
       nohave.add(x);
     }
   }
-  List<List<String>> result=new ArrayList<List<String>>();
+  List<List<String>> result=new ArrayList<>();
   result.add(nohave);
   result.add(unused);
   result.add(invalid);

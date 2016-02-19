@@ -1,6 +1,6 @@
 {
   if (mWholeCollection) {
-    ArrayList<Long> ids=new ArrayList<Long>();
+    ArrayList<Long> ids=new ArrayList<>();
     for (    JSONObject d : mCol.getDecks().all()) {
       try {
         ids.add(d.getLong("id"));

@@ -1,5 +1,5 @@
 {
-  LinkedList<Long> toBury=new LinkedList<Long>();
+  LinkedList<Long> toBury=new LinkedList<>();
   JSONObject nconf=_newConf(card);
   boolean buryNew=nconf.optBoolean("bury",true);
   JSONObject rconf=_revConf(card);

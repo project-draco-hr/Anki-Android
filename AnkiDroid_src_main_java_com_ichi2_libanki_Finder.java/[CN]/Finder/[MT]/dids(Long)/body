@@ -3,7 +3,7 @@
     return null;
   }
   TreeMap<String,Long> children=mCol.getDecks().children(did);
-  List<Long> res=new ArrayList<Long>();
+  List<Long> res=new ArrayList<>();
   res.add(did);
   res.addAll(children.values());
   return res;

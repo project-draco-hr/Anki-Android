@@ -1,7 +1,6 @@
 {
-  Iterator<Entry<Long,JSONObject>> iterator=mModels.entrySet().iterator();
-  while (iterator.hasNext()) {
-    if (!validateBrackets(iterator.next().getValue())) {
+  for (  Entry<Long,JSONObject> longJSONObjectEntry : mModels.entrySet()) {
+    if (!validateBrackets(longJSONObjectEntry.getValue())) {
       return false;
     }
   }

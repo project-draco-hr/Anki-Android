@@ -7,7 +7,7 @@
     for (    String f : fields) {
       f=f.trim();
     }
-    ArrayList<Integer> avail=new ArrayList<Integer>();
+    ArrayList<Integer> avail=new ArrayList<>();
     JSONArray reqArray=m.getJSONArray("req");
     for (int i=0; i < reqArray.length(); i++) {
       JSONArray sr=reqArray.getJSONArray(i);

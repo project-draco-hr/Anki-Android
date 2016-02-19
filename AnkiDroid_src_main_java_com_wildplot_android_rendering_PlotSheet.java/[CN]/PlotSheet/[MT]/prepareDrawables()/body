@@ -2,8 +2,8 @@
   if (!mDrawablesPrepared) {
     mDrawablesPrepared=true;
     Vector<Drawable> drawables=this.screenParts.get(0).getDrawables();
-    Vector<Drawable> onFrameDrawables=new Vector<Drawable>();
-    Vector<Drawable> offFrameDrawables=new Vector<Drawable>();
+    Vector<Drawable> onFrameDrawables=new Vector<>();
+    Vector<Drawable> offFrameDrawables=new Vector<>();
     DrawableContainer onFrameContainer=new DrawableContainer(true,false);
     DrawableContainer offFrameContainer=new DrawableContainer(false,false);
     for (    Drawable drawable : drawables) {

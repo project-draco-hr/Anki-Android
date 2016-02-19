@@ -123,10 +123,7 @@
       mCol.getDb().getDatabase().endTransaction();
     }
   }
- catch (  JSONException e) {
-    throw new RuntimeException(e);
-  }
-catch (  IllegalStateException e) {
+ catch (  JSONException|IllegalStateException e) {
     throw new RuntimeException(e);
   }
 catch (  OutOfMemoryError e) {

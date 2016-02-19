@@ -1,6 +1,6 @@
 {
-  Set<String> fields=new HashSet<String>();
-  List<String> names=new ArrayList<String>();
+  Set<String> fields=new HashSet<>();
+  List<String> names=new ArrayList<>();
   try {
     for (    JSONObject m : col.getModels().all()) {
       JSONArray flds=m.getJSONArray("flds");
@@ -17,7 +17,7 @@
     throw new RuntimeException(e);
   }
   if (downcase) {
-    return new ArrayList<String>(fields);
+    return new ArrayList<>(fields);
   }
   return names;
 }

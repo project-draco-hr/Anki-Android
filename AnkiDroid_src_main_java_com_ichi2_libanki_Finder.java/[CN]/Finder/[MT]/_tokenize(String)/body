@@ -1,6 +1,6 @@
 {
   char inQuote=0;
-  List<String> tokens=new ArrayList<String>();
+  List<String> tokens=new ArrayList<>();
   String token="";
   for (int i=0; i < query.length(); ++i) {
     char c=query.charAt(i);

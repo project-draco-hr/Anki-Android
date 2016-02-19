@@ -1,7 +1,7 @@
 {
   int nullExceptionCount=0;
   InvocationTargetException nullException=null;
-  ArrayList<T> results=new ArrayList<T>();
+  ArrayList<T> results=new ArrayList<>();
   Cursor cursor=null;
   try {
     cursor=mDatabase.rawQuery(query,null);
@@ -25,13 +25,7 @@
       }
     }
   }
- catch (  NoSuchMethodException e) {
-    throw new RuntimeException(e);
-  }
-catch (  IllegalArgumentException e) {
-    throw new RuntimeException(e);
-  }
-catch (  IllegalAccessException e) {
+ catch (  NoSuchMethodException|IllegalAccessException|IllegalArgumentException e) {
     throw new RuntimeException(e);
   }
  finally {

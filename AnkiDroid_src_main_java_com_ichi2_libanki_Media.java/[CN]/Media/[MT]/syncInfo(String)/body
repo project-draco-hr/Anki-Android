@@ -5,10 +5,10 @@
     if (cur.moveToNext()) {
       String csum=cur.getString(0);
       int dirty=cur.getInt(1);
-      return new Pair<String,Integer>(csum,dirty);
+      return new Pair<>(csum,dirty);
     }
  else {
-      return new Pair<String,Integer>(null,0);
+      return new Pair<>(null,0);
     }
   }
   finally {

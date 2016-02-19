@@ -2,7 +2,7 @@
   mCol.modSchema(true);
   try {
     JSONArray ja=m.getJSONArray("flds");
-    ArrayList<JSONObject> l=new ArrayList<JSONObject>();
+    ArrayList<JSONObject> l=new ArrayList<>();
     int oldidx=-1;
     for (int i=0; i < ja.length(); ++i) {
       l.add(ja.getJSONObject(i));

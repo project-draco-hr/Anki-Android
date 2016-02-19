@@ -1,6 +1,6 @@
 {
   mChanged=false;
-  mModels=new HashMap<Long,JSONObject>();
+  mModels=new HashMap<>();
   try {
     JSONObject modelarray=new JSONObject(json);
     JSONArray ids=modelarray.names();

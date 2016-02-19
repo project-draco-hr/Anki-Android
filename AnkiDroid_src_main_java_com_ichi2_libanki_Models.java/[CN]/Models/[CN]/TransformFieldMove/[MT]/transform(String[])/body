@@ -1,6 +1,6 @@
 {
   String val=fields[oldidx];
-  ArrayList<String> fl=new ArrayList<String>(Arrays.asList(fields));
+  ArrayList<String> fl=new ArrayList<>(Arrays.asList(fields));
   fl.remove(oldidx);
   fl.add(idx,val);
   return fl.toArray(new String[fl.size()]);

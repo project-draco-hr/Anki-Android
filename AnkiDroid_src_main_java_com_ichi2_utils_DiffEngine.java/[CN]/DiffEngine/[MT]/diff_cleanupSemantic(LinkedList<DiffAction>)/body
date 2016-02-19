@@ -3,7 +3,7 @@
     return;
   }
   boolean changes=false;
-  Stack<DiffAction> equalities=new Stack<DiffAction>();
+  Stack<DiffAction> equalities=new Stack<>();
   String lastequality=null;
   ListIterator<DiffAction> pointer=diffs.listIterator();
   int length_changes1=0;

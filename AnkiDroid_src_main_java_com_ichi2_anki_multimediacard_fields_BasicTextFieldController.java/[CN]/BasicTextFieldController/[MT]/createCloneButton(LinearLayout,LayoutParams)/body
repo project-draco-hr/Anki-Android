@@ -1,6 +1,6 @@
 {
   if (mNote.getNumberOfFields() > 1) {
-    mPossibleClones=new ArrayList<String>();
+    mPossibleClones=new ArrayList<>();
     int numTextFields=0;
     for (int i=0; i < mNote.getNumberOfFields(); ++i) {
       IField curField=mNote.getField(i);

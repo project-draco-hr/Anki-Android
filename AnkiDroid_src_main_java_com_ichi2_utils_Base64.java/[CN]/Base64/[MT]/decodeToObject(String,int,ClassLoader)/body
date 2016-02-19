@@ -24,10 +24,7 @@
     }
     obj=ois.readObject();
   }
- catch (  java.io.IOException e) {
-    throw e;
-  }
-catch (  java.lang.ClassNotFoundException e) {
+ catch (  java.io.IOException|ClassNotFoundException e) {
     throw e;
   }
  finally {

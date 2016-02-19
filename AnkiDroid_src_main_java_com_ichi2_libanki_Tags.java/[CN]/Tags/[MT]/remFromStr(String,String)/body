@@ -1,7 +1,7 @@
 {
   List<String> currentTags=split(tags);
   for (  String tag : split(deltags)) {
-    List<String> remove=new ArrayList<String>();
+    List<String> remove=new ArrayList<>();
     for (    String tx : currentTags) {
       if (tag.equalsIgnoreCase(tx)) {
         remove.add(tx);
