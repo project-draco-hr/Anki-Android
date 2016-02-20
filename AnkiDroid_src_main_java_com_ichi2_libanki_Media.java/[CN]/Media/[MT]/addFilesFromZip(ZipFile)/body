@@ -9,7 +9,7 @@
       }
  else {
         String name=meta.getString(i.getName());
-        name=HtmlUtil.nfcNormalized(name);
+        name=Utils.nfcNormalized(name);
         String destPath=dir().concat(File.separator).concat(name);
         Utils.writeToFile(z.getInputStream(i),destPath);
         String csum=Utils.fileChecksum(destPath);

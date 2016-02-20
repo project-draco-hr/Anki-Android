@@ -19,7 +19,7 @@
           continue;
         }
         if (meaning.getLanguage().contentEquals(desiredLang)) {
-          String unescappedString=HtmlUtil.unescape(meaning.getText());
+          String unescappedString=Utils.unescape(meaning.getText());
           res.add(unescappedString);
         }
       }
@@ -30,7 +30,7 @@
         continue;
       }
       if (phrase.getLanguage().contentEquals(desiredLang)) {
-        String unescappedString=HtmlUtil.unescape(phrase.getText());
+        String unescappedString=Utils.unescape(phrase.getText());
         res.add(unescappedString);
       }
     }

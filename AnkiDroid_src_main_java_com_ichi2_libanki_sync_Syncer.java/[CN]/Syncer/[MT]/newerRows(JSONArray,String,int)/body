@@ -21,7 +21,7 @@
     for (int i=0; i < data.length(); i++) {
       JSONArray r=data.getJSONArray(i);
       if (!lmods.containsKey(r.getLong(0)) || lmods.get(r.getLong(0)) < r.getLong(modIdx)) {
-        update.add(ConvUtils.jsonArray2Objects(r));
+        update.add(Utils.jsonArray2Objects(r));
       }
     }
     mCol.log(table,data);

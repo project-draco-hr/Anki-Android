@@ -51,7 +51,7 @@ catch (    IOException e) {
       if (!file.startsWith("_") && !file.startsWith("latex-")) {
         continue;
       }
-      File path=new File(mCol.getMedia().dir(),HtmlUtil.nfcNormalized(file));
+      File path=new File(mCol.getMedia().dir(),Utils.nfcNormalized(file));
       if (!path.exists()) {
         try {
           Utils.unzipFiles(mZip,mCol.getMedia().dir(),new String[]{c},numToName);

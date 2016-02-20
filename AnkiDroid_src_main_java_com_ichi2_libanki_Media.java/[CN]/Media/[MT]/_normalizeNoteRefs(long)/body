@@ -3,7 +3,7 @@
   String[] flds=note.getFields();
   for (int c=0; c < flds.length; c++) {
     String fld=flds[c];
-    String nfc=HtmlUtil.nfcNormalized(fld);
+    String nfc=Utils.nfcNormalized(fld);
     if (!nfc.equals(fld)) {
       note.setField(c,nfc);
     }

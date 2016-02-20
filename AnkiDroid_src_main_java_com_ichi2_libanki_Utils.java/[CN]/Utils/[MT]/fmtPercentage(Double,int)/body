@@ -2,6 +2,5 @@
   if (mCurrentPercentageFormat == null) {
     mCurrentPercentageFormat=NumberFormat.getPercentInstance(LanguageUtil.getLocale());
   }
-  mCurrentNumberFormat.setMaximumFractionDigits(point);
   return mCurrentPercentageFormat.format(value);
 }

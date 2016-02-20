@@ -1,0 +1,10 @@
+{
+  String name=filename;
+  String ext="";
+  int dotPosition=filename.lastIndexOf('.');
+  if (dotPosition != -1) {
+    name=filename.substring(0,dotPosition);
+    ext=filename.substring(dotPosition);
+  }
+  return new String[]{name,ext};
+}
