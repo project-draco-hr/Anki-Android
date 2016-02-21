@@ -9,7 +9,10 @@
   }
   mWebView=(WebView)rootView.findViewById(R.id.web_view_stats);
   if (mWebView == null)   Timber.d("mChart null!!!");
- else   Timber.d("mChart is not null!");
+ else {
+    Timber.d("mChart is not null!");
+    mWebView.setBackgroundColor(Color.argb(1,0,0,0));
+  }
   mProgressBar=(ProgressBar)rootView.findViewById(R.id.progress_bar_stats_overview);
   mProgressBar.setVisibility(View.VISIBLE);
   createStatisticOverview();
