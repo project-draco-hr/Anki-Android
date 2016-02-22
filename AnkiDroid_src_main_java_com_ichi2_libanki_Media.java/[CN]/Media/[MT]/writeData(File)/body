@@ -1,9 +1,10 @@
 {
   String fname=ofile.getName();
-  fname=HtmlUtil.nfcNormalized(fname);
+  fname=Utils.nfcNormalized(fname);
   String base=stripIllegal(fname);
-  String root=Utils.removeFileExtension(base);
-  String ext=Utils.getFileExtension(base);
+  String[] split=Utils.splitFilename(base);
+  String root=split[0];
+  String ext=split[1];
   String csum=Utils.fileChecksum(ofile);
   while (true) {
     fname=root + ext;

@@ -2,5 +2,5 @@
   if (answer == null || answer.equals("")) {
     return "";
   }
-  return HtmlUtil.nfcNormalized(answer.trim());
+  return Utils.nfcNormalized(answer.trim());
 }

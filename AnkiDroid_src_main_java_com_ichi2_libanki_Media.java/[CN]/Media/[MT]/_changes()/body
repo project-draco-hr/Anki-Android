@@ -40,7 +40,7 @@
       mCol.log("ignoring file over 100MB",f);
       continue;
     }
-    String normf=HtmlUtil.nfcNormalized(fname);
+    String normf=Utils.nfcNormalized(fname);
     if (!fname.equals(normf)) {
       File nf=new File(dir(),normf);
       if (nf.exists()) {

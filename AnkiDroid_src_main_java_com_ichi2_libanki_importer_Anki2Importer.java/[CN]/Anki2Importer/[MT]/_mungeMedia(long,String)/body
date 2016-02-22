@@ -11,8 +11,9 @@
         m.appendReplacement(sb,m.group(0));
         continue;
       }
-      String name=Utils.removeFileExtension(fname);
-      String ext=Utils.getFileExtension(fname);
+      String[] split=Utils.splitFilename(fname);
+      String name=split[0];
+      String ext=split[1];
       String lname=String.format(Locale.US,"%s_%s%s",name,mid,ext);
       if (mDst.getMedia().have(lname)) {
         m.appendReplacement(sb,m.group(0).replace(fname,lname));

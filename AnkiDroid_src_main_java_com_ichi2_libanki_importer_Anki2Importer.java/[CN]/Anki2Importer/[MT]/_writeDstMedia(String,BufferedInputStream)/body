@@ -1,6 +1,6 @@
 {
   try {
-    String path=new File(mDst.getMedia().dir(),HtmlUtil.nfcNormalized(fname)).getAbsolutePath();
+    String path=new File(mDst.getMedia().dir(),Utils.nfcNormalized(fname)).getAbsolutePath();
     Utils.writeToFile(data,path);
     mDst.getMedia().markFileAdd(fname);
   }

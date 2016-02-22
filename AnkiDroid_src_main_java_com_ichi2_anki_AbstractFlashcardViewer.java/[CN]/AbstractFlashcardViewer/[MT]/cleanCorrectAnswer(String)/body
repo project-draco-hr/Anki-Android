@@ -9,5 +9,5 @@
   answerText=matcher.replaceAll("\n");
   matcher=Sound.sSoundPattern.matcher(answerText);
   answerText=matcher.replaceAll("");
-  return HtmlUtil.nfcNormalized(answerText);
+  return Utils.nfcNormalized(answerText);
 }

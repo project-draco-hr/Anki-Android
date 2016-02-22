@@ -40,7 +40,7 @@
  catch (        JSONException e) {
           throw new RuntimeException(e);
         }
-        if (mLoadWithDeckOptions == true) {
+        if (mLoadWithDeckOptions) {
           openFilteredDeckOptions(mLoadWithDeckOptions);
           return;
         }

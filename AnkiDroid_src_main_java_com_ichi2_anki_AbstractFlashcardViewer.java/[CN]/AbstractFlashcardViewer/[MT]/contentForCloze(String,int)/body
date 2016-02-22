@@ -2,7 +2,7 @@
   Pattern re=Pattern.compile("\\{\\{c" + idx + "::(.+?)\\}\\}");
   Matcher m=re.matcher(txt);
   Set<String> matches=new LinkedHashSet<>();
-  String groupOne=new String();
+  String groupOne;
   int colonColonIndex=-1;
   while (m.find()) {
     groupOne=m.group(1);
