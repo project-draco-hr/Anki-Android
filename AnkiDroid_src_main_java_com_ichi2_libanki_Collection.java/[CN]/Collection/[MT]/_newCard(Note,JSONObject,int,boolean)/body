@@ -7,15 +7,14 @@
  catch (  JSONException e) {
     new RuntimeException(e);
   }
-  long did;
-  try {
-    did=template.getLong("did");
+  long did=template.optLong("did",0);
+  if (did > 0 && mDecks.getDecks().containsKey(did)) {
+    card.setDid(did);
   }
- catch (  JSONException e) {
-    did=0;
+ else {
+    card.setDid(note.model().optLong("did",0));
   }
   try {
-    card.setDid(did != 0 ? did : note.model().getLong("did"));
     JSONObject deck=mDecks.get(card.getDid());
     if (deck.getInt("dyn") == 1) {
       card.setDid(1);
