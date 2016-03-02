@@ -1,0 +1,14 @@
+{
+  String modelName=getModelName(mid);
+  String deckName=getDeckName(did);
+  if (modelName == null || deckName == null) {
+    return null;
+  }
+  String query=String.format("deck:\"%s\" note:\"%s\"",deckName,modelName);
+  Cursor cursor=null;
+  cursor=mResolver.query(FlashCardsContract.Note.CONTENT_URI,FlashCardsContract.Note.DEFAULT_PROJECTION,query,null,null);
+  if (cursor == null) {
+    return null;
+  }
+  return cursor;
+}

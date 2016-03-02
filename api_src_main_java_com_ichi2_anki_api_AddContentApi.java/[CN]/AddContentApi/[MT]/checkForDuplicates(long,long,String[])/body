@@ -5,12 +5,5 @@
     return false;
   }
   String[] fieldNames=getFieldList(mid);
-  String query=String.format("%s:\"%s\" deck:\"%s\" note:\"%s\"",fieldNames[0],fields[0],deckName,modelName);
-  Cursor notesTableCursor=mResolver.query(FlashCardsContract.Note.CONTENT_URI,FlashCardsContract.Note.DEFAULT_PROJECTION,query,null,null);
-  if (notesTableCursor != null) {
-    int count=notesTableCursor.getCount();
-    notesTableCursor.close();
-    return count > 0;
-  }
-  return false;
+  return findNoteId(modelName,deckName,fieldNames,fields) != null;
 }

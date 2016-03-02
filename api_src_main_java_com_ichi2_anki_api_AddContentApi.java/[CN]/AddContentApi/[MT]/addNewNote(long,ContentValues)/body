@@ -1,0 +1,21 @@
+{
+  Uri newNoteUri=mResolver.insert(FlashCardsContract.Note.CONTENT_URI,values);
+  if (newNoteUri == null) {
+    return null;
+  }
+  Uri cardsUri=Uri.withAppendedPath(newNoteUri,"cards");
+  final Cursor cardsCursor=mResolver.query(cardsUri,null,null,null,null);
+  try {
+    while (cardsCursor.moveToNext()) {
+      String ord=cardsCursor.getString(cardsCursor.getColumnIndex(FlashCardsContract.Card.CARD_ORD));
+      ContentValues cardValues=new ContentValues();
+      cardValues.put(FlashCardsContract.Card.DECK_ID,did);
+      Uri cardUri=Uri.withAppendedPath(Uri.withAppendedPath(newNoteUri,"cards"),ord);
+      mResolver.update(cardUri,cardValues,null,null);
+    }
+  }
+  finally {
+    cardsCursor.close();
+  }
+  return newNoteUri;
+}

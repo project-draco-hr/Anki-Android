@@ -1,0 +1,13 @@
+{
+  int result=0;
+  for (  ContentValues values : valuesArr) {
+    if (values == null) {
+      continue;
+    }
+    Uri noteUri=addNewNote(did,values);
+    if (noteUri != null) {
+      result++;
+    }
+  }
+  return result;
+}

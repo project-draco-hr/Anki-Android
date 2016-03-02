@@ -1,0 +1,12 @@
+{
+  ProviderInfo info=mContext.getPackageManager().resolveContentProvider(FlashCardsContract.AUTHORITY,PackageManager.GET_META_DATA);
+  if (info == null) {
+    return -1;
+  }
+  if (info.metaData != null && info.metaData.containsKey(PROVIDER_SPEC_META_DATA_KEY)) {
+    return info.metaData.getInt(PROVIDER_SPEC_META_DATA_KEY);
+  }
+ else {
+    return DEFAULT_PROVIDER_SPEC_VALUE;
+  }
+}

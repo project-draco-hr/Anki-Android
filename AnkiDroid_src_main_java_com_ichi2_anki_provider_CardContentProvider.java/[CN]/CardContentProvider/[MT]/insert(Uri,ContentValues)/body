@@ -65,6 +65,7 @@ newModel.put("did",did);
 }
 mm.add(newModel);
 mm.save(newModel);
+mm.flush();
 String mid=Long.toString(newModel.getLong("id"));
 return Uri.withAppendedPath(FlashCardsContract.Model.CONTENT_URI,mid);
 }
