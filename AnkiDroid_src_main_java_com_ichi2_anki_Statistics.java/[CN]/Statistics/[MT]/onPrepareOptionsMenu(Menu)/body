@@ -3,15 +3,15 @@
     return true;
   }
 switch (mTaskHandler.getStatType()) {
-case Stats.TYPE_MONTH:
+case TYPE_MONTH:
     MenuItem monthItem=menu.findItem(R.id.item_time_month);
   monthItem.setChecked(true);
 break;
-case Stats.TYPE_YEAR:
+case TYPE_YEAR:
 MenuItem yearItem=menu.findItem(R.id.item_time_year);
 yearItem.setChecked(true);
 break;
-case Stats.TYPE_LIFE:
+case TYPE_LIFE:
 MenuItem lifeItem=menu.findItem(R.id.item_time_all);
 lifeItem.setChecked(true);
 break;

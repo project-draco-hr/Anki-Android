@@ -1,0 +1,102 @@
+{
+  mDynamicAxis=true;
+  mType=type;
+  double all=0, avg=0, max_=0;
+  mBackwards=false;
+  mTitle=R.string.stats_review_intervals;
+  mAxisTitles=new int[]{type.ordinal(),R.string.stats_cards,R.string.stats_percentage};
+  mValueLabels=new int[]{R.string.stats_cards_intervals};
+  mColors=new int[]{R.attr.stats_interval};
+  int num=0;
+  String lim="";
+  int chunk=0;
+switch (type) {
+case TYPE_MONTH:
+    num=31;
+  chunk=1;
+lim=" and grp <= 30";
+break;
+case TYPE_YEAR:
+num=52;
+chunk=7;
+lim=" and grp <= 52";
+break;
+case TYPE_LIFE:
+num=-1;
+chunk=30;
+lim="";
+break;
+}
+ArrayList<double[]> list=new ArrayList<>();
+Cursor cur=null;
+try {
+cur=mCol.getDb().getDatabase().rawQuery("select ivl / " + chunk + " as grp, count() from cards "+ "where did in "+ _limit()+ " and queue = 2 "+ lim+ " "+ "group by grp "+ "order by grp",null);
+while (cur.moveToNext()) {
+list.add(new double[]{cur.getDouble(0),cur.getDouble(1)});
+}
+if (cur != null && !cur.isClosed()) {
+cur.close();
+}
+cur=mCol.getDb().getDatabase().rawQuery("select count(), avg(ivl), max(ivl) from cards where did in " + _limit() + " and queue = 2",null);
+cur.moveToFirst();
+all=cur.getDouble(0);
+avg=cur.getDouble(1);
+max_=cur.getDouble(2);
+}
+  finally {
+if (cur != null && !cur.isClosed()) {
+cur.close();
+}
+}
+if (list.size() == 0 || list.get(0)[0] > 0) {
+list.add(0,new double[]{0,0,0});
+}
+if (num == -1 && list.size() < 2) {
+num=31;
+}
+if (type != AxisType.TYPE_LIFE && list.get(list.size() - 1)[0] < num) {
+list.add(new double[]{num,0});
+}
+ else if (type == AxisType.TYPE_LIFE && list.size() < 2) {
+list.add(new double[]{Math.max(12,list.get(list.size() - 1)[0] + 1),0});
+}
+mLastElement=0;
+mSeriesList=new double[2][list.size()];
+for (int i=0; i < list.size(); i++) {
+double[] data=list.get(i);
+mSeriesList[0][i]=data[0];
+mSeriesList[1][i]=data[1];
+if (mSeriesList[1][i] > mMaxCards) mMaxCards=(int)Math.round(data[1]);
+if (data[0] > mLastElement) mLastElement=data[0];
+}
+mCumulative=createCumulative(mSeriesList);
+for (int i=0; i < list.size(); i++) {
+mCumulative[1][i]/=all / 100;
+}
+mMcount=100;
+switch (mType) {
+case TYPE_MONTH:
+mLastElement=31;
+break;
+case TYPE_YEAR:
+mLastElement=52;
+break;
+default :
+}
+mFirstElement=0;
+mMaxElements=list.size() - 1;
+mAverage=Utils.timeSpan(context,(int)Math.round(avg * 86400));
+mLongest=Utils.timeSpan(context,(int)Math.round(max_ * 86400));
+if (mMaxElements == 0) {
+mMaxElements=10;
+}
+if (mMcount == 0) {
+mMcount=10;
+}
+if (mFirstElement == mLastElement) {
+mFirstElement=0;
+mLastElement=6;
+}
+if (mMaxCards == 0) mMaxCards=10;
+return list.size() > 0;
+}
