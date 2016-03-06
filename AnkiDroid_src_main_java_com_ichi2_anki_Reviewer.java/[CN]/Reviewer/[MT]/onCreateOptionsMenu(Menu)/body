@@ -28,7 +28,7 @@
     menu.findItem(R.id.action_enable_whiteboard).setTitle(R.string.disable_whiteboard);
     menu.findItem(R.id.action_hide_whiteboard).setVisible(true);
     menu.findItem(R.id.action_clear_whiteboard).setVisible(true);
-    Drawable whiteboardIcon=getResources().getDrawable(R.drawable.ic_gesture_white_24dp);
+    Drawable whiteboardIcon=ContextCompat.getDrawable(this,R.drawable.ic_gesture_white_24dp);
     if (mShowWhiteboard) {
       whiteboardIcon.setAlpha(255);
       menu.findItem(R.id.action_hide_whiteboard).setIcon(whiteboardIcon);
