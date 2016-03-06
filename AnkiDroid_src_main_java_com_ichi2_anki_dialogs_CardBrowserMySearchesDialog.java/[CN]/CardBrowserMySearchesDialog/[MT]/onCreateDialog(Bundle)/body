@@ -1,11 +1,12 @@
 {
   super.onCreate(savedInstanceState);
   final Resources res=getResources();
-  final MaterialDialog.Builder builder=new MaterialDialog.Builder(getActivity());
+  Activity activity=getActivity();
+  final MaterialDialog.Builder builder=new MaterialDialog.Builder(activity);
   int type=getArguments().getInt("type");
   if (type == CARD_BROWSER_MY_SEARCHES_TYPE_LIST) {
     mSavedFilters=(HashMap<String,String>)getArguments().getSerializable("savedFilters");
-    mSearchesAdapter=new MySearchesArrayAdapter(getActivity(),new ArrayList<>(mSavedFilters.keySet()));
+    mSearchesAdapter=new MySearchesArrayAdapter(activity,new ArrayList<>(mSavedFilters.keySet()));
     mSearchesAdapter.notifyDataSetChanged();
     builder.title(res.getString(R.string.card_browser_list_my_searches_title)).adapter(mSearchesAdapter,new MaterialDialog.ListCallback(){
       @Override public void onSelection(      MaterialDialog dialog,      View itemView,      int which,      CharSequence text){
@@ -26,7 +27,7 @@
   }
   MaterialDialog dialog=builder.build();
   if (dialog.getListView() != null) {
-    dialog.getListView().setDivider(new ColorDrawable(res.getColor(R.color.material_grey_600)));
+    dialog.getListView().setDivider(new ColorDrawable(ContextCompat.getColor(activity,R.color.material_grey_600)));
     dialog.getListView().setDividerHeight(1);
     float scale=res.getDisplayMetrics().density;
     int dpAsPixels=(int)(5 * scale + 0.5f);

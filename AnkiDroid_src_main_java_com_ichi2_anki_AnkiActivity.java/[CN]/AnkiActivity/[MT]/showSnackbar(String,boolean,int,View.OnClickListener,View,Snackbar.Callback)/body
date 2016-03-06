@@ -19,7 +19,7 @@
   TextView action=(TextView)view.findViewById(android.support.design.R.id.snackbar_action);
   if (tv != null && action != null) {
     tv.setTextColor(Color.WHITE);
-    action.setTextColor(getResources().getColor(R.color.material_light_blue_500));
+    action.setTextColor(ContextCompat.getColor(this,R.color.material_light_blue_500));
     tv.setMaxLines(2);
   }
   sb.show();

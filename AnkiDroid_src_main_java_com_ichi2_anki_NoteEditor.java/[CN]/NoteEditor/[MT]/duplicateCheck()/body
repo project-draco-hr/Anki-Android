@@ -5,7 +5,7 @@
   updateField(field);
   Integer dupeCode=mEditorNote.dupeOrEmpty();
   if (dupeCode != null && dupeCode == 2) {
-    field.getBackground().setColorFilter(getResources().getColor(R.color.material_red_500),PorterDuff.Mode.SRC_ATOP);
+    field.getBackground().setColorFilter(ContextCompat.getColor(this,R.color.material_red_500),PorterDuff.Mode.SRC_ATOP);
     isDupe=true;
   }
  else {

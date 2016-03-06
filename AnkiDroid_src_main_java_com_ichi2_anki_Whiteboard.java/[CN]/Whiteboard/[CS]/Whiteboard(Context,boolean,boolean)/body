@@ -7,7 +7,7 @@
       mForegroundColor=Color.BLACK;
     }
  else {
-      mForegroundColor=context.getResources().getColor(R.color.wb_fg_color);
+      mForegroundColor=ContextCompat.getColor(context,R.color.wb_fg_color);
     }
   }
  else {
@@ -15,7 +15,7 @@
       mForegroundColor=Color.WHITE;
     }
  else {
-      mForegroundColor=context.getResources().getColor(R.color.wb_fg_color_inv);
+      mForegroundColor=ContextCompat.getColor(context,R.color.wb_fg_color_inv);
     }
   }
   mPaint=new Paint();
