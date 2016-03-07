@@ -1,0 +1,77 @@
+{
+  metaInfo.setStatsCalculated(true);
+  Collection mCol=CollectionHelper.getInstance().getCol(context);
+  double[][] mSeriesList;
+  int[] mValueLabels;
+  int[] mColors;
+  int[] mAxisTitles;
+  int mMaxCards=0;
+  int mMaxElements;
+  double mFirstElement;
+  double mLastElement=0;
+  int mZeroIndex=0;
+  double[][] mCumulative;
+  double mMcount;
+  mValueLabels=new int[]{R.string.statistics_relearn,R.string.statistics_mature,R.string.statistics_young,R.string.statistics_learn};
+  mColors=new int[]{R.attr.stats_relearn,R.attr.stats_mature,R.attr.stats_young,R.attr.stats_learn};
+  mAxisTitles=new int[]{type.ordinal(),R.string.stats_cards,R.string.stats_cumulative_cards};
+  PlottableSimulationResult simuationResult=calculateDueAsPlottableSimulationResult(type,mCol,dids);
+  ArrayList<int[]> dues=simuationResult.getNReviews();
+  mSeriesList=new double[REVIEW_TYPE_COUNT_PLUS_1][dues.size()];
+  for (int t=0; t < dues.size(); t++) {
+    int[] data=dues.get(t);
+    int nReviews=data[REVIEW_TYPE_LEARN_PLUS_1] + data[REVIEW_TYPE_YOUNG_PLUS_1] + data[REVIEW_TYPE_MATURE_PLUS_1]+ data[REVIEW_TYPE_RELEARN_PLUS_1];
+    if (nReviews > mMaxCards)     mMaxCards=nReviews;
+    mSeriesList[TIME][t]=data[TIME];
+    mSeriesList[REVIEW_TYPE_LEARN_PLUS_1][t]=data[REVIEW_TYPE_LEARN_PLUS_1] + data[REVIEW_TYPE_YOUNG_PLUS_1] + data[REVIEW_TYPE_MATURE_PLUS_1]+ data[REVIEW_TYPE_RELEARN_PLUS_1];
+    mSeriesList[REVIEW_TYPE_YOUNG_PLUS_1][t]=data[REVIEW_TYPE_LEARN_PLUS_1] + data[REVIEW_TYPE_YOUNG_PLUS_1] + data[REVIEW_TYPE_MATURE_PLUS_1];
+    mSeriesList[REVIEW_TYPE_MATURE_PLUS_1][t]=data[REVIEW_TYPE_LEARN_PLUS_1] + data[REVIEW_TYPE_YOUNG_PLUS_1];
+    mSeriesList[REVIEW_TYPE_RELEARN_PLUS_1][t]=data[REVIEW_TYPE_LEARN_PLUS_1];
+    if (data[TIME] > mLastElement)     mLastElement=data[TIME];
+    if (data[TIME] == 0) {
+      mZeroIndex=t;
+    }
+  }
+  mMaxElements=dues.size() - 1;
+switch (type) {
+case TYPE_MONTH:
+    mLastElement=31;
+  break;
+case TYPE_YEAR:
+mLastElement=52;
+break;
+default :
+}
+mFirstElement=0;
+mCumulative=simuationResult.getNInState();
+mMcount=mCumulative[CARD_TYPE_NEW_PLUS_1][mCumulative[CARD_TYPE_NEW_PLUS_1].length - 1] + mCumulative[CARD_TYPE_YOUNG_PLUS_1][mCumulative[CARD_TYPE_YOUNG_PLUS_1].length - 1] + mCumulative[CARD_TYPE_MATURE_PLUS_1][mCumulative[CARD_TYPE_MATURE_PLUS_1].length - 1];
+if (mMaxElements == 0) {
+mMaxElements=10;
+}
+if (mMcount == 0) {
+mMcount=10;
+}
+if (mFirstElement == mLastElement) {
+mFirstElement=0;
+mLastElement=6;
+}
+if (mMaxCards == 0) mMaxCards=10;
+metaInfo.setmDynamicAxis(true);
+metaInfo.setmHasColoredCumulative(true);
+metaInfo.setmType(type);
+metaInfo.setmTitle(R.string.stats_forecast);
+metaInfo.setmBackwards(false);
+metaInfo.setmValueLabels(mValueLabels);
+metaInfo.setmColors(mColors);
+metaInfo.setmAxisTitles(mAxisTitles);
+metaInfo.setmMaxCards(mMaxCards);
+metaInfo.setmMaxElements(mMaxElements);
+metaInfo.setmFirstElement(mFirstElement);
+metaInfo.setmLastElement(mLastElement);
+metaInfo.setmZeroIndex(mZeroIndex);
+metaInfo.setmCumulative(mCumulative);
+metaInfo.setmMcount(mMcount);
+metaInfo.setmSeriesList(mSeriesList);
+metaInfo.setDataAvailable(dues.size() > 0);
+return metaInfo;
+}
