@@ -29,7 +29,10 @@ case NOTES_ID:
       }
  else       if (key.equals(FlashCardsContract.Note.TAGS)) {
         Timber.d("CardContentProvider: tags update...");
-        currentNote.setTagsFromStr((String)entry.getValue());
+        Object tags=entry.getValue();
+        if (tags != null) {
+          currentNote.setTagsFromStr(String.valueOf(tags));
+        }
         updated++;
       }
  else {

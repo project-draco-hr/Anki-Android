@@ -1,0 +1,17 @@
+{
+  Timber.d("CardContentProvider.bulkInsert");
+  int match=sUriMatcher.match(uri);
+  if (match == NOTES) {
+    String deckIdStr=uri.getQueryParameter(FlashCardsContract.Note.DECK_ID_QUERY_PARAM);
+    if (deckIdStr != null) {
+      try {
+        long deckId=Long.valueOf(deckIdStr);
+        return bulkInsertNotes(values,deckId);
+      }
+ catch (      NumberFormatException e) {
+        Timber.d("Invalid %s: %s",FlashCardsContract.Note.DECK_ID_QUERY_PARAM,deckIdStr);
+      }
+    }
+  }
+  return super.bulkInsert(uri,values);
+}

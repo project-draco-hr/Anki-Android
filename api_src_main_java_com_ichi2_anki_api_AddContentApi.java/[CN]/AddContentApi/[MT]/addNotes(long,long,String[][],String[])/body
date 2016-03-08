@@ -1,0 +1,40 @@
+{
+  if (tagsArr != null && fieldsArr.length != tagsArr.length) {
+    throw new IllegalArgumentException("fieldsArr and tagsArr different length");
+  }
+  Map<String,Note> existingNotesMap=createNotesMap(mid,did);
+  List<ContentValues> newNoteValuesList=new ArrayList<>();
+  for (int i=0; i < fieldsArr.length; i++) {
+    String[] fields=fieldsArr[i];
+    if (fields == null) {
+      continue;
+    }
+    String tags=tagsArr[i];
+    if (fields.length >= 1) {
+      String key=fields[0];
+      if (existingNotesMap.containsKey(key)) {
+        Note note=existingNotesMap.get(key);
+        if (note == null) {
+        }
+ else         if (note.equals(fields,tags)) {
+        }
+ else {
+        }
+        continue;
+      }
+      existingNotesMap.put(key,null);
+    }
+    ContentValues values=new ContentValues();
+    values.put(FlashCardsContract.Note.MID,mid);
+    values.put(FlashCardsContract.Note.FLDS,joinFields(fields));
+    if (tags != null) {
+      values.put(FlashCardsContract.Note.TAGS,tags);
+    }
+    newNoteValuesList.add(values);
+  }
+  if (newNoteValuesList.isEmpty()) {
+    return 0;
+  }
+  ContentValues[] newNoteValues=newNoteValuesList.toArray(new ContentValues[newNoteValuesList.size()]);
+  return getCompat().addNewNotes(did,newNoteValues);
+}

@@ -4,7 +4,7 @@
   }
   ContentValues values=new ContentValues();
   values.put(FlashCardsContract.Model.NAME,name);
-  values.put(FlashCardsContract.Model.FIELD_NAMES,AddContentApi.joinFields(fields));
+  values.put(FlashCardsContract.Model.FIELD_NAMES,joinFields(fields));
   values.put(FlashCardsContract.Model.NUM_CARDS,cards.length);
   values.put(FlashCardsContract.Model.CSS,css);
   values.put(FlashCardsContract.Model.DECK_ID,did);

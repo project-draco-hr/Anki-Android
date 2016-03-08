@@ -1,0 +1,5 @@
+{
+  Uri.Builder builder=FlashCardsContract.Note.CONTENT_URI.buildUpon();
+  builder.appendQueryParameter(FlashCardsContract.Note.DECK_ID_QUERY_PARAM,String.valueOf(did));
+  return mResolver.bulkInsert(builder.build(),valuesArr);
+}

@@ -1,0 +1,61 @@
+{
+  if (valuesArr == null || valuesArr.length == 0) {
+    return 0;
+  }
+  Collection col=CollectionHelper.getInstance().getCol(getContext());
+  if (col == null) {
+    return 0;
+  }
+  Timber.d("performing bulkInsertNotes for " + valuesArr.length + " items");
+  long modelId=-1L;
+  JSONObject model=null;
+  col.getDecks().flush();
+  SQLiteDatabase sqldb=col.getDb().getDatabase();
+  try {
+    int result=0;
+    sqldb.beginTransaction();
+    for (int i=0; i < valuesArr.length; i++) {
+      ContentValues values=valuesArr[i];
+      if (values == null) {
+        continue;
+      }
+      String flds=values.getAsString(FlashCardsContract.Note.FLDS);
+      if (flds == null) {
+        continue;
+      }
+      Long thisModelId=values.getAsLong(FlashCardsContract.Note.MID);
+      if (thisModelId == null || thisModelId < 0) {
+        Timber.d("Unable to get model at index: " + i);
+        continue;
+      }
+      String[] fldsArray=Utils.splitFields(flds);
+      if (model == null || thisModelId != modelId) {
+        model=col.getModels().get(thisModelId);
+        modelId=thisModelId;
+      }
+      com.ichi2.libanki.Note newNote=new com.ichi2.libanki.Note(col,model);
+      if (fldsArray.length != newNote.getFields().length) {
+        throw new IllegalArgumentException("Incorrect flds argument : " + flds);
+      }
+      for (int idx=0; idx < fldsArray.length; idx++) {
+        newNote.setField(idx,fldsArray[idx]);
+      }
+      String tags=values.getAsString(FlashCardsContract.Note.TAGS);
+      if (tags != null) {
+        newNote.setTagsFromStr(tags);
+      }
+      col.addNote(newNote);
+      for (      Card card : newNote.cards()) {
+        card.setDid(deckId);
+        card.flush();
+      }
+      result++;
+    }
+    col.flush();
+    sqldb.setTransactionSuccessful();
+    return result;
+  }
+  finally {
+    sqldb.endTransaction();
+  }
+}
