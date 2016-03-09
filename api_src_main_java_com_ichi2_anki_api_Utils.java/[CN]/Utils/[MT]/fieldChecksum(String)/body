@@ -1,0 +1,13 @@
+{
+  data=stripHTMLMedia(data);
+  try {
+    MessageDigest md=MessageDigest.getInstance("SHA1");
+    byte[] digest=md.digest(data.getBytes("UTF-8"));
+    BigInteger biginteger=new BigInteger(1,digest);
+    String result=biginteger.toString(16);
+    return Long.valueOf(result.substring(0,8),16);
+  }
+ catch (  Exception e) {
+    throw new IllegalStateException("Error making field checksum with SHA1 algorithm and UTF-8 encoding",e);
+  }
+}

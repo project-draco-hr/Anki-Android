@@ -1,0 +1,8 @@
+{
+  String modelName=getModelName(mid);
+  if (modelName == null) {
+    modelName="";
+  }
+  String[] fieldNames=getFieldList(mid);
+  return String.format("%s:\"%s\" note:\"%s\"",fieldNames[0],fields[0],modelName);
+}

@@ -1,0 +1,10 @@
+{
+  html=html.replace("&nbsp;"," ");
+  Matcher htmlEntities=htmlEntitiesPattern.matcher(html);
+  StringBuffer sb=new StringBuffer();
+  while (htmlEntities.find()) {
+    htmlEntities.appendReplacement(sb,Html.fromHtml(htmlEntities.group()).toString());
+  }
+  htmlEntities.appendTail(sb);
+  return sb.toString();
+}

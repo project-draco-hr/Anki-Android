@@ -10,21 +10,30 @@ case NOTES:
 {
       String columnsStr=proj2str(projection);
       String query=(selection != null) ? selection : "";
-      List<Long> noteIds=col.findNotes(query);
-      if ((noteIds != null) && (!noteIds.isEmpty())) {
-        String selectedIds="id in " + Utils.ids2str(noteIds);
-        Cursor cur;
-        try {
-          cur=col.getDb().getDatabase().rawQuery("select " + columnsStr + " from notes where "+ selectedIds,null);
-        }
- catch (        SQLException e) {
-          throw new IllegalArgumentException("Not possible to query for data for IDs " + selectedIds,e);
-        }
-        return cur;
+      String sqlSelection=(selectionArgs == null && selection == null) ? "" : " where ";
+      if (selectionArgs != null) {
+        sqlSelection+=TextUtils.join(" and ",selectionArgs);
       }
+      if (selection != null) {
+        List<Long> noteIds=col.findNotes(query);
+        if ((noteIds != null) && (!noteIds.isEmpty())) {
+          if (selectionArgs != null) {
+            sqlSelection+=" and ";
+          }
+          sqlSelection+="id in " + Utils.ids2str(noteIds);
+        }
  else {
-        return null;
+          return null;
+        }
       }
+      Cursor cur;
+      try {
+        cur=col.getDb().getDatabase().rawQuery("select " + columnsStr + " from notes"+ sqlSelection,null);
+      }
+ catch (      SQLException e) {
+        throw new IllegalArgumentException("Not possible to query for data " + sqlSelection,e);
+      }
+      return cur;
     }
 case NOTES_ID:
 {

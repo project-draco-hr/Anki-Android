@@ -14,7 +14,7 @@
       if (fldsStr == null) {
         continue;
       }
-      String[] flds=splitFields(fldsStr);
+      String[] flds=Utils.splitFields(fldsStr);
       if (flds.length < 1) {
         continue;
       }

@@ -6,7 +6,7 @@
       long modelId=allModelsCursor.getLong(allModelsCursor.getColumnIndex(FlashCardsContract.Model._ID));
       String name=allModelsCursor.getString(allModelsCursor.getColumnIndex(FlashCardsContract.Model.NAME));
       String flds=allModelsCursor.getString(allModelsCursor.getColumnIndex(FlashCardsContract.Model.FIELD_NAMES));
-      int numFlds=splitFields(flds).length;
+      int numFlds=Utils.splitFields(flds).length;
       if (numFlds >= minNumFields) {
         models.put(modelId,name);
       }

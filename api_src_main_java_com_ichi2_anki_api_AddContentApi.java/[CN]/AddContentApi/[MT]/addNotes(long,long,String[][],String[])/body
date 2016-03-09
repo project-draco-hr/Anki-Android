@@ -26,7 +26,7 @@
     }
     ContentValues values=new ContentValues();
     values.put(FlashCardsContract.Note.MID,mid);
-    values.put(FlashCardsContract.Note.FLDS,joinFields(fields));
+    values.put(FlashCardsContract.Note.FLDS,Utils.joinFields(fields));
     if (tags != null) {
       values.put(FlashCardsContract.Note.TAGS,tags);
     }
