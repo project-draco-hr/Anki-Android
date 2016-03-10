@@ -1,5 +1,5 @@
 {
-  Timber.d("CardContentProvider.bulkInsert");
+  logProviderCall("bulkInsert",uri);
   int match=sUriMatcher.match(uri);
   if (match == NOTES) {
     String deckIdStr=uri.getQueryParameter(FlashCardsContract.Note.DECK_ID_QUERY_PARAM);
