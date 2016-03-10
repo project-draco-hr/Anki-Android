@@ -1,0 +1,7 @@
+{
+  NoteInfo note=findExistingNote(mid,fields);
+  if (note == null) {
+    return null;
+  }
+  return note.id;
+}

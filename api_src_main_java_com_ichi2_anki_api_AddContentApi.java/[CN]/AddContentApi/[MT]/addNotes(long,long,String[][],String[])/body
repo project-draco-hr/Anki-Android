@@ -2,39 +2,36 @@
   if (tagsArr != null && fieldsArr.length != tagsArr.length) {
     throw new IllegalArgumentException("fieldsArr and tagsArr different length");
   }
-  Map<String,Note> existingNotesMap=createNotesMap(mid,did);
+  NoteInfo[] existingNotes=getCompat().findExistingNotes(mid,fieldsArr);
   List<ContentValues> newNoteValuesList=new ArrayList<>();
+  NoteInfo[] result=new NoteInfo[fieldsArr.length];
+  Map<String,Integer> resultsMap=new HashMap<>();
   for (int i=0; i < fieldsArr.length; i++) {
     String[] fields=fieldsArr[i];
-    if (fields == null) {
-      continue;
-    }
-    String tags=tagsArr[i];
-    if (fields.length >= 1) {
-      String key=fields[0];
-      if (existingNotesMap.containsKey(key)) {
-        Note note=existingNotesMap.get(key);
-        if (note == null) {
-        }
- else         if (note.equals(fields,tags)) {
-        }
- else {
-        }
-        continue;
+    if (fields == null || resultsMap.containsKey(fields[0]) || (existingNotes != null && existingNotes[i] != null)) {
+      if (existingNotes != null && existingNotes[i] != null) {
+        result[i]=existingNotes[i];
+        result[i].newlyAdded=false;
       }
-      existingNotesMap.put(key,null);
+      continue;
     }
     ContentValues values=new ContentValues();
     values.put(FlashCardsContract.Note.MID,mid);
-    values.put(FlashCardsContract.Note.FLDS,joinFields(fields));
-    if (tags != null) {
-      values.put(FlashCardsContract.Note.TAGS,tags);
+    values.put(FlashCardsContract.Note.FLDS,Utils.joinFields(fields));
+    if (tagsArr != null && tagsArr[i] != null) {
+      values.put(FlashCardsContract.Note.TAGS,tagsArr[i]);
     }
     newNoteValuesList.add(values);
+    resultsMap.put(fields[0],i);
   }
-  if (newNoteValuesList.isEmpty()) {
-    return 0;
+  if (!newNoteValuesList.isEmpty()) {
+    getCompat().addNewNotes(did,newNoteValuesList.toArray(new ContentValues[newNoteValuesList.size()]));
+    NoteInfo[] newNotes=getCompat().findExistingNotes(mid,fieldsArr);
+    for (    String key : resultsMap.keySet()) {
+      int originalIndex=resultsMap.get(key);
+      result[originalIndex]=newNotes[originalIndex];
+      result[originalIndex].newlyAdded=true;
+    }
   }
-  ContentValues[] newNoteValues=newNoteValuesList.toArray(new ContentValues[newNoteValuesList.size()]);
-  return getCompat().addNewNotes(did,newNoteValues);
+  return result;
 }

@@ -1,9 +1,3 @@
 {
-  String modelName=getModelName(mid);
-  String deckName=getDeckName(did);
-  if (modelName == null || deckName == null) {
-    return false;
-  }
-  String[] fieldNames=getFieldList(mid);
-  return findNoteId(modelName,deckName,fieldNames,fields) != null;
+  return findExistingNoteId(mid,fields) != null;
 }

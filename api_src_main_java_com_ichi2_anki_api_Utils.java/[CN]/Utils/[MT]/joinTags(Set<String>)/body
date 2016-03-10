@@ -1,0 +1,6 @@
+{
+  for (  String t : tags) {
+    t.replaceAll(" ","_");
+  }
+  return TextUtils.join(" ",tags);
+}

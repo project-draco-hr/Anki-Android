@@ -1,0 +1,17 @@
+{
+  NoteInfo existing=findExistingNote(mid,fields);
+  if (existing != null) {
+    return existing;
+  }
+  ContentValues values=new ContentValues();
+  values.put(FlashCardsContract.Note.MID,mid);
+  values.put(FlashCardsContract.Note.FLDS,Utils.joinFields(fields));
+  values.put(FlashCardsContract.Note.TAGS,tags);
+  addNote(did,values);
+  NoteInfo newNote=findExistingNote(mid,fields);
+  if (newNote != null) {
+    newNote.newlyAdded=true;
+    return newNote;
+  }
+  return null;
+}

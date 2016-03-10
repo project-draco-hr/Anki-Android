@@ -1,0 +1,7 @@
+{
+  Map<String,String> note=getNote(noteId);
+  if (note != null) {
+    return Utils.splitFields(note.get("fields"));
+  }
+  return null;
+}

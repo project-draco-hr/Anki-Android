@@ -1,0 +1,9 @@
+{
+  Matcher htmlMatcher=stylePattern.matcher(s);
+  s=htmlMatcher.replaceAll("");
+  htmlMatcher=scriptPattern.matcher(s);
+  s=htmlMatcher.replaceAll("");
+  htmlMatcher=tagPattern.matcher(s);
+  s=htmlMatcher.replaceAll("");
+  return entsToTxt(s);
+}

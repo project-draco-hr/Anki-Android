@@ -5,7 +5,7 @@
   try {
     if (modelCursor.moveToNext()) {
       String flds=modelCursor.getString(modelCursor.getColumnIndex(FlashCardsContract.Model.FIELD_NAMES));
-      splitFlds=splitFields(flds);
+      splitFlds=Utils.splitFields(flds);
     }
   }
   finally {

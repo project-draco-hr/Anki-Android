@@ -1,0 +1,13 @@
+{
+  String[] selectionArgs={String.format("%s=%d",FlashCardsContract.Note.MID,mid)};
+  Cursor cursor=mResolver.query(FlashCardsContract.Note.CONTENT_URI,PROJECTION,null,selectionArgs,null);
+  if (cursor == null) {
+    return 0;
+  }
+  try {
+    return cursor.getCount();
+  }
+  finally {
+    cursor.close();
+  }
+}

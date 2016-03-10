@@ -4,7 +4,7 @@
     if (values == null) {
       continue;
     }
-    Uri noteUri=addNewNote(did,values);
+    Uri noteUri=addNote(did,values);
     if (noteUri != null) {
       result++;
     }
