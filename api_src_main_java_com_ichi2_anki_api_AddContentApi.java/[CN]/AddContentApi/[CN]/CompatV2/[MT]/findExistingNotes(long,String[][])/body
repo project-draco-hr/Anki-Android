@@ -1,0 +1,29 @@
+{
+  List<Long> csums=new ArrayList<>(fieldsArray.length);
+  for (  String[] aFieldsArray : fieldsArray) {
+    csums.add(Utils.fieldChecksum(aFieldsArray[0]));
+  }
+  String sel=String.format("%s=%d and %s in ",FlashCardsContract.Note.MID,mid,FlashCardsContract.Note.CSUM);
+  String[] selArgs={sel + Utils.ids2str(csums)};
+  Cursor notesTableCursor=mResolver.query(FlashCardsContract.Note.CONTENT_URI,PROJECTION,null,selArgs,null);
+  if (notesTableCursor == null) {
+    return null;
+  }
+  Map<String,NoteInfo> idMap=new HashMap<>();
+  try {
+    while (notesTableCursor.moveToNext()) {
+      NoteInfo note=NoteInfo.buildFromCursor(notesTableCursor);
+      if (!idMap.containsKey(note.key)) {
+        idMap.put(note.key,note);
+      }
+    }
+  }
+  finally {
+    notesTableCursor.close();
+  }
+  NoteInfo[] result=new NoteInfo[fieldsArray.length];
+  for (int i=0; i < fieldsArray.length; i++) {
+    result[i]=idMap.get(fieldsArray[i][0]);
+  }
+  return result;
+}

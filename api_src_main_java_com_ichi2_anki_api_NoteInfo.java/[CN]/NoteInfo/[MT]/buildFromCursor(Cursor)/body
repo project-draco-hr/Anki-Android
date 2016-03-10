@@ -1,0 +1,14 @@
+{
+  try {
+    int idIndex=cursor.getColumnIndexOrThrow(FlashCardsContract.Note._ID);
+    int fldsIndex=cursor.getColumnIndexOrThrow(FlashCardsContract.Note.FLDS);
+    int tagsIndex=cursor.getColumnIndexOrThrow(FlashCardsContract.Note.TAGS);
+    String[] fields=Utils.splitFields(cursor.getString(fldsIndex));
+    long id=cursor.getLong(idIndex);
+    Set<String> tags=new HashSet<>(Arrays.asList(Utils.splitTags(cursor.getString(tagsIndex))));
+    return new NoteInfo(id,fields,tags);
+  }
+ catch (  Exception e) {
+    return null;
+  }
+}
