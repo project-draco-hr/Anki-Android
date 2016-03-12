@@ -7,20 +7,11 @@
   mModelId=model.getLong("id");
   ArrayList<String> flds=col.getModels().fieldNames(model);
   mDummyFields=flds.toArray(new String[flds.size()]);
-  final AddContentApi api=new AddContentApi(getContext());
-  HashMap<Long,String> deckList=api.getDeckList();
-  mNumDecksBeforeTest=deckList.size();
+  mNumDecksBeforeTest=col.getDecks().count();
   for (int i=0; i < TEST_DECKS.length; i++) {
-    mTestDeckIds[i]=api.addNewDeck(TEST_DECKS[i]);
-    Uri newNoteUri=api.addNewNote(mModelId,mTestDeckIds[i],mDummyFields,TEST_TAG);
-    assertNotNull(newNoteUri);
-    mCreatedNotes.add(newNoteUri);
-    long nid=Long.parseLong(newNoteUri.getLastPathSegment());
-    Note addedNote=col.getNote(nid);
-    assertTrue("Check that the flds data was set correctly",Arrays.equals(addedNote.getFields(),mDummyFields));
-    assertTrue("Check that there was at least one card generated",addedNote.cards().size() > 0);
+    long did=col.getDecks().id(TEST_DECKS[i]);
+    mTestDeckIds[i]=did;
+    mCreatedNotes.add(setupNewNote(col,mModelId,did,mDummyFields,TEST_TAG));
   }
-  Uri newNoteUri=api.addNewNote(mModelId,1,mDummyFields,TEST_TAG);
-  assertNotNull(newNoteUri);
-  mCreatedNotes.add(newNoteUri);
+  mCreatedNotes.add(setupNewNote(col,mModelId,1,mDummyFields,TEST_TAG));
 }

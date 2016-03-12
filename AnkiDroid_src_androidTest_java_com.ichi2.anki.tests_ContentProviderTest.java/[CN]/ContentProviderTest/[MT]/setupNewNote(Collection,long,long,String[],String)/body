@@ -1,0 +1,13 @@
+{
+  Note newNote=new Note(col,col.getModels().get(mid));
+  for (int idx=0; idx < flds.length; idx++) {
+    newNote.setField(idx,flds[idx]);
+  }
+  newNote.addTag(tag);
+  assertTrue("At least one card added for note",col.addNote(newNote) >= 1);
+  for (  Card c : newNote.cards()) {
+    c.setDid(did);
+    c.flush();
+  }
+  return Uri.withAppendedPath(FlashCardsContract.Note.CONTENT_URI,Long.toString(newNote.getId()));
+}

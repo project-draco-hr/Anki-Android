@@ -1,8 +1,11 @@
 {
   final ContentResolver cr=getContext().getContentResolver();
   final Collection col=CollectionHelper.getInstance().getCol(getContext());
-  final AddContentApi api=new AddContentApi(getContext());
-  Uri newNoteUri=api.addNewNote(mModelId,1,TEST_NOTE_FIELDS,TEST_TAG);
+  ContentValues values=new ContentValues();
+  values.put(FlashCardsContract.Note.MID,mModelId);
+  values.put(FlashCardsContract.Note.FLDS,Utils.joinFields(TEST_NOTE_FIELDS));
+  values.put(FlashCardsContract.Note.TAGS,TEST_TAG);
+  Uri newNoteUri=cr.insert(FlashCardsContract.Note.CONTENT_URI,values);
   assertNotNull("Check that URI returned from addNewNote is not null",newNoteUri);
   Note addedNote=new Note(col,Long.parseLong(newNoteUri.getLastPathSegment()));
   addedNote.load();
