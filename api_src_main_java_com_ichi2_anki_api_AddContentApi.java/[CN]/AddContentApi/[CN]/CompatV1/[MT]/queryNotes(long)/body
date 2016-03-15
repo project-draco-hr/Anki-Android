@@ -1,0 +1,8 @@
+{
+  String modelName=getModelName(mid);
+  if (modelName == null) {
+    return null;
+  }
+  String queryFormat=String.format("note:\"%s\"",modelName);
+  return mResolver.query(FlashCardsContract.Note.CONTENT_URI,PROJECTION,queryFormat,null,null);
+}
