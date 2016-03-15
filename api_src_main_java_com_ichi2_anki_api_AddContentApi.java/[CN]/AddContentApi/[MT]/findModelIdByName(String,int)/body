@@ -1,25 +1,14 @@
 {
+  SharedPreferences modelsDb=mContext.getSharedPreferences(MODEL_REF_DB,Context.MODE_PRIVATE);
+  long prefsModelId=modelsDb.getLong(modelName,-1L);
+  if (prefsModelId != -1L && getModelName(prefsModelId) != null && getFieldList(prefsModelId).length >= numFields) {
+    return prefsModelId;
+  }
   Map<Long,String> modelList=getModelList(numFields);
-  ArrayList<Long> foundModels=new ArrayList<>();
   for (  Map.Entry<Long,String> entry : modelList.entrySet()) {
     if (entry.getValue().equals(modelName)) {
-      foundModels.add(entry.getKey());
+      return entry.getKey();
     }
   }
-  SharedPreferences modelsDb=mContext.getSharedPreferences(MODEL_REF_DB,Context.MODE_PRIVATE);
-  Long mid=modelsDb.getLong(modelName,-1);
-  if (mid == -1 && foundModels.size() == 0) {
-    return null;
-  }
- else   if (mid == -1 && foundModels.size() > 0) {
-    return foundModels.get(0);
-  }
- else {
-    if (getModelName(mid) != null && getFieldList(mid).length >= numFields) {
-      return mid;
-    }
- else {
-      return null;
-    }
-  }
+  return null;
 }
