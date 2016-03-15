@@ -1,0 +1,16 @@
+{
+  String format="%s.%s %s";
+  String path=uri == null ? null : uri.getPath();
+  String msg;
+  if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+    msg=String.format(format,CardContentProvider.class.getSimpleName(),methodName,path);
+  }
+ else {
+    msg=String.format(format + " (%s)",CardContentProvider.class.getSimpleName(),methodName,path,getCallingPackage());
+  }
+  Timber.i(msg);
+  Collection col=CollectionHelper.getInstance().getCol(getContext());
+  if (col != null) {
+    col.log(msg);
+  }
+}

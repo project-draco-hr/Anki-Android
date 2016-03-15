@@ -1,5 +1,5 @@
 {
-  Timber.d("CardContentProvider.insert");
+  logProviderCall("insert",uri);
   Collection col=CollectionHelper.getInstance().getCol(getContext());
   if (col == null) {
     return null;
