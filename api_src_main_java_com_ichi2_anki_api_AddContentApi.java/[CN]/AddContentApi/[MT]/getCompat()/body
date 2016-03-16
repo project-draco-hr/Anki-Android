@@ -1,3 +1,3 @@
 {
-  return getProviderSpecVersionCode() < BULK_INSERT_MIN_SPEC_VERSION ? new CompatV1() : new CompatV2();
+  return getApiHostSpecVersion() < 2 ? new CompatV1() : new CompatV2();
 }
