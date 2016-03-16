@@ -3,5 +3,5 @@
   if (result == null) {
     return null;
   }
-  return Uri.withAppendedPath(FlashCardsContract.Note.CONTENT_URI,Long.toString(result.id));
+  return Uri.withAppendedPath(FlashCardsContract.Note.CONTENT_URI,Long.toString(result.getId()));
 }

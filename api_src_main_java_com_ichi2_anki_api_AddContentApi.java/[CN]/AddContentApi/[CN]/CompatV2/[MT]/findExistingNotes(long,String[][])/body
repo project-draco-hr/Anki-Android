@@ -13,8 +13,9 @@
   try {
     while (notesTableCursor.moveToNext()) {
       NoteInfo note=NoteInfo.buildFromCursor(notesTableCursor);
-      if (!idMap.containsKey(note.key)) {
-        idMap.put(note.key,note);
+      String key=note.getFields()[0];
+      if (!idMap.containsKey(key)) {
+        idMap.put(key,note);
       }
     }
   }

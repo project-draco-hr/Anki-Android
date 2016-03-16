@@ -11,7 +11,6 @@
     if (fields == null || resultsMap.containsKey(fields[0]) || (existingNotes != null && existingNotes[i] != null)) {
       if (existingNotes != null && existingNotes[i] != null) {
         result[i]=existingNotes[i];
-        result[i].newlyAdded=false;
       }
       continue;
     }
@@ -30,7 +29,6 @@
     for (    String key : resultsMap.keySet()) {
       int originalIndex=resultsMap.get(key);
       result[originalIndex]=newNotes[originalIndex];
-      result[originalIndex].newlyAdded=true;
     }
   }
   return result;
