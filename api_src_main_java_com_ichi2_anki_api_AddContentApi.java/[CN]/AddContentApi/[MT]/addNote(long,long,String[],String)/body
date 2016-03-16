@@ -10,7 +10,6 @@
   addNote(did,values);
   NoteInfo newNote=findExistingNote(mid,fields);
   if (newNote != null) {
-    newNote.newlyAdded=true;
     return newNote;
   }
   return null;

@@ -1,18 +1,13 @@
 {
   String[] selectionArgs={String.format("%s=%d",FlashCardsContract.Note._ID,noteId)};
   Cursor cursor=mResolver.query(FlashCardsContract.Note.CONTENT_URI,PROJECTION,null,selectionArgs,null);
-  if (cursor != null && cursor.moveToFirst()) {
-    try {
-      String tags=cursor.getString(cursor.getColumnIndex(FlashCardsContract.Note.TAGS));
-      String fields=cursor.getString(cursor.getColumnIndex(FlashCardsContract.Note.FLDS));
-      Map<String,String> result=new HashMap<>();
-      result.put("tags",tags);
-      result.put("fields",fields);
-      return result;
-    }
-  finally {
-      cursor.close();
-    }
+  if (cursor == null) {
+    return null;
   }
-  return null;
+  try {
+    return NoteInfo.buildFromCursor(cursor);
+  }
+  finally {
+    cursor.close();
+  }
 }

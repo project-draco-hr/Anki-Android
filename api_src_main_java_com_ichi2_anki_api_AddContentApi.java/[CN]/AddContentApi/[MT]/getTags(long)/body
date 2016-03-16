@@ -1,7 +1,7 @@
 {
-  Map<String,String> note=getNote(noteId);
-  if (note != null) {
-    return new HashSet<>(Arrays.asList(Utils.splitTags(note.get("tags"))));
+  NoteInfo note=getNote(noteId);
+  if (note == null) {
+    return null;
   }
-  return null;
+  return note.getTags();
 }
