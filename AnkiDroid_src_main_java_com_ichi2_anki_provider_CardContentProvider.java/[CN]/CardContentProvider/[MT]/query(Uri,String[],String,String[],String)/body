@@ -1,4 +1,7 @@
 {
+  if (!hasReadWritePermission() && CompatHelper.isMarshmallow()) {
+    throw new SecurityException("Query permission not granted for: " + uri);
+  }
   Timber.d("CardContentProvider.query");
   Collection col=CollectionHelper.getInstance().getCol(getContext());
   if (col == null) {

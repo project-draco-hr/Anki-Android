@@ -1,0 +1,6 @@
+{
+  if (getContext().checkCallingPermission(READ_WRITE_PERMISSION) == PackageManager.PERMISSION_GRANTED) {
+    return true;
+  }
+  return BuildConfig.DEBUG && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && getContext().getPackageName().equals(getCallingPackage());
+}
