@@ -1,5 +1,5 @@
 {
-  Uri newNoteUri=addNoteInternal(mid,1,flds,Collections.singleton(TEST_TAG));
+  Uri newNoteUri=addNoteInternal(mid,DEFAULT_DECK_ID,flds,Collections.singleton(TEST_TAG));
   Map<String,Map<String,String>> cards=new HashMap<>();
   Uri cardsUri=Uri.withAppendedPath(newNoteUri,"cards");
   final Cursor cardsCursor=mResolver.query(cardsUri,null,null,null,null);
