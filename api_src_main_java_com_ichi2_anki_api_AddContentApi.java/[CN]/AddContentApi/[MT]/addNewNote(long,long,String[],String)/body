@@ -1,7 +1,7 @@
 {
-  NoteInfo result=addNote(mid,did,fields,tags);
-  if (result == null) {
-    return null;
-  }
-  return Uri.withAppendedPath(FlashCardsContract.Note.CONTENT_URI,Long.toString(result.getId()));
+  ContentValues values=new ContentValues();
+  values.put(FlashCardsContract.Note.MID,modelId);
+  values.put(FlashCardsContract.Note.FLDS,Utils.joinFields(fields));
+  values.put(FlashCardsContract.Note.TAGS,tags);
+  return addNote(deckId,values);
 }

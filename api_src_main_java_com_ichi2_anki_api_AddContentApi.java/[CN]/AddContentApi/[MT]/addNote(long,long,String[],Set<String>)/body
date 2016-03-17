@@ -1,0 +1,11 @@
+{
+  ContentValues values=new ContentValues();
+  values.put(FlashCardsContract.Note.MID,modelId);
+  values.put(FlashCardsContract.Note.FLDS,Utils.joinFields(fields));
+  values.put(FlashCardsContract.Note.TAGS,Utils.joinTags(tags));
+  Uri noteUri=addNote(deckId,values);
+  if (noteUri == null) {
+    return null;
+  }
+  return Long.parseLong(noteUri.getLastPathSegment());
+}
