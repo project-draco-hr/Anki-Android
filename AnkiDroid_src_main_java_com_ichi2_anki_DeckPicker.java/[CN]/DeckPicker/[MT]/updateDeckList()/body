@@ -40,7 +40,7 @@
         scrollDecklistToDeck(current);
         mFocusedDeck=current;
       }
-      AnkiStatsTaskHandler.createSmallTodayOverview(getCol(),mTodayTextView);
+      AnkiStatsTaskHandler.createReviewSummaryStatistics(getCol(),mReviewSummaryTextView);
     }
     @Override public void onProgressUpdate(    TaskData... values){
     }

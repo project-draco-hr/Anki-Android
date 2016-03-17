@@ -1,0 +1,24 @@
+{
+  String filter=getRevlogFilter(timespan,false);
+  String queryNeg="";
+  if (timespan != AxisType.TYPE_LIFE) {
+    String invfilter=getRevlogFilter(timespan,true);
+    queryNeg=" EXCEPT SELECT distinct cid FROM revlog " + invfilter;
+  }
+  String query="SELECT COUNT(*) FROM(\n" + "            SELECT distinct cid\n" + "            FROM revlog \n" + filter + queryNeg+ "        )";
+  Timber.d("New cards query: %s",query);
+  Cursor cur=null;
+  int res=0;
+  try {
+    cur=mCol.getDb().getDatabase().rawQuery(query,null);
+    while (cur.moveToNext()) {
+      res=cur.getInt(0);
+    }
+  }
+  finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+  return res;
+}

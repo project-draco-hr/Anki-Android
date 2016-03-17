@@ -1,0 +1,15 @@
+{
+  if (timespan == AxisType.TYPE_LIFE) {
+    return "";
+  }
+ else {
+    String operator=null;
+    if (inverse) {
+      operator="<= ";
+    }
+ else {
+      operator="> ";
+    }
+    return "id " + operator + ((mCol.getSched().getDayCutoff() - (timespan.days * SECONDS_PER_DAY)) * 1000);
+  }
+}

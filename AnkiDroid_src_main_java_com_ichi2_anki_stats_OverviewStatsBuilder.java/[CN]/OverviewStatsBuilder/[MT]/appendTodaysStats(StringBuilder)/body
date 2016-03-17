@@ -1,0 +1,24 @@
+{
+  Stats stats=new Stats(mCollectionData,mWholeCollection);
+  int[] todayStats=stats.calculateTodayStats();
+  stringBuilder.append(_title(mWebView.getResources().getString(R.string.stats_today)));
+  Resources res=mWebView.getResources();
+  final int minutes=(int)Math.round(todayStats[THETIME_INDEX] / 60.0);
+  final String span=res.getQuantityString(R.plurals.time_span_minutes,minutes,minutes);
+  stringBuilder.append(res.getQuantityString(R.plurals.stats_today_cards,todayStats[CARDS_INDEX],todayStats[CARDS_INDEX],span));
+  stringBuilder.append("<br>");
+  stringBuilder.append(res.getString(R.string.stats_today_again_count,todayStats[FAILED_INDEX]));
+  if (todayStats[CARDS_INDEX] > 0) {
+    stringBuilder.append(" ");
+    stringBuilder.append(res.getString(R.string.stats_today_correct_count,(((1 - todayStats[FAILED_INDEX] / (float)(todayStats[CARDS_INDEX])) * 100.0))));
+  }
+  stringBuilder.append("<br>");
+  stringBuilder.append(res.getString(R.string.stats_today_type_breakdown,todayStats[LRN_INDEX],todayStats[REV_INDEX],todayStats[RELRN_INDEX],todayStats[FILT_INDEX]));
+  stringBuilder.append("<br>");
+  if (todayStats[MCNT_INDEX] != 0) {
+    stringBuilder.append(res.getString(R.string.stats_today_mature_cards,todayStats[MSUM_INDEX],todayStats[MCNT_INDEX],(todayStats[MSUM_INDEX] / (float)(todayStats[MCNT_INDEX]) * 100.0)));
+  }
+ else {
+    stringBuilder.append(res.getString(R.string.stats_today_no_mature_cards));
+  }
+}

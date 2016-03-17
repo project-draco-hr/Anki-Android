@@ -9,8 +9,8 @@
     mWebView=(WebView)params[0];
     mProgressBar=(ProgressBar)params[1];
     String html="";
-    InfoStatsBuilder infoStatsBuilder=new InfoStatsBuilder(mWebView,mCollectionData,mIsWholeCollection);
-    html=infoStatsBuilder.createInfoHtmlString();
+    OverviewStatsBuilder overviewStatsBuilder=new OverviewStatsBuilder(mWebView,mCollectionData,mIsWholeCollection,mStatType);
+    html=overviewStatsBuilder.createInfoHtmlString();
     return html;
   }
   finally {
