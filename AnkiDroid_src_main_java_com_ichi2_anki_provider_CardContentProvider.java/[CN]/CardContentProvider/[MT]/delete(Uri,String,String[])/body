@@ -1,11 +1,11 @@
 {
+  if (!hasReadWritePermission()) {
+    throw new SecurityException("Delete permission not granted for: " + uri);
+  }
   logProviderCall("delete",uri);
   Collection col=CollectionHelper.getInstance().getCol(getContext());
   if (col == null) {
     return 0;
-  }
-  if (getContext().checkCallingPermission(FlashCardsContract.READ_WRITE_PERMISSION) != PackageManager.PERMISSION_GRANTED) {
-    throw new IllegalStateException("Delete permission not granted for: " + uri);
   }
 switch (sUriMatcher.match(uri)) {
 case NOTES_ID:

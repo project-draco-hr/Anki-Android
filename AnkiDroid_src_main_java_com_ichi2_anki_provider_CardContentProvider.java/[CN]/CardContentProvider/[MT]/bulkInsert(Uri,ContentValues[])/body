@@ -1,4 +1,7 @@
 {
+  if (!hasReadWritePermission() && CompatHelper.isMarshmallow()) {
+    throw new SecurityException("bulk insert permission not granted for: " + uri);
+  }
   logProviderCall("bulkInsert",uri);
   int match=sUriMatcher.match(uri);
   if (match == NOTES) {

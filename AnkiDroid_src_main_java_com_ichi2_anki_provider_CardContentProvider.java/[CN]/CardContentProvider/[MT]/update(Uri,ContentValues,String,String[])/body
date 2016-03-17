@@ -4,10 +4,11 @@
   if (col == null) {
     return 0;
   }
-  if (getContext().checkCallingPermission(FlashCardsContract.READ_WRITE_PERMISSION) != PackageManager.PERMISSION_GRANTED) {
-    throw new IllegalStateException("Update permission not granted for: " + uri);
-  }
   int match=sUriMatcher.match(uri);
+  List<Integer> ok=Arrays.asList(NOTES_ID_CARDS_ORD,MODELS_ID,MODELS_ID_TEMPLATES_ID,SCHEDULE,DECK_SELECTED);
+  if (!hasReadWritePermission() && (CompatHelper.isMarshmallow() || !ok.contains(match))) {
+    throw new SecurityException("Update permission not granted for: " + uri);
+  }
   int updated=0;
 switch (match) {
 case NOTES:
@@ -112,7 +113,7 @@ String afmt=values.getAsString(CardTemplate.ANSWER_FORMAT);
 String bqfmt=values.getAsString(CardTemplate.BROWSER_QUESTION_FORMAT);
 String bafmt=values.getAsString(CardTemplate.BROWSER_ANSWER_FORMAT);
 if (mid != null || ord != null) {
-throw new IllegalArgumentException("Can update mid or ord");
+throw new IllegalArgumentException("Updates to mid or ord are not allowed");
 }
 try {
 Integer templateOrd=Integer.parseInt(uri.getLastPathSegment());
