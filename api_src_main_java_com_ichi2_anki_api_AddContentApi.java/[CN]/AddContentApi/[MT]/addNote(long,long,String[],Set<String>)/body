@@ -1,0 +1,7 @@
+{
+  Uri noteUri=addNoteInternal(modelId,deckId,fields,tags);
+  if (noteUri == null) {
+    return null;
+  }
+  return Long.parseLong(noteUri.getLastPathSegment());
+}
