@@ -1,9 +1,5 @@
 {
-  ContentValues values=new ContentValues();
-  values.put(FlashCardsContract.Note.MID,modelId);
-  values.put(FlashCardsContract.Note.FLDS,Utils.joinFields(fields));
-  values.put(FlashCardsContract.Note.TAGS,Utils.joinTags(tags));
-  Uri noteUri=addNote(deckId,values);
+  Uri noteUri=addNoteInternal(modelId,deckId,fields,tags);
   if (noteUri == null) {
     return null;
   }

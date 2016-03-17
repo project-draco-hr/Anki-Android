@@ -1,7 +1,7 @@
 {
   int result=0;
   for (  ContentValues values : valuesArr) {
-    Uri noteUri=addNote(deckId,values);
+    Uri noteUri=addNoteForContentValues(deckId,values);
     if (noteUri != null) {
       result++;
     }
