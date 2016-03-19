@@ -17,6 +17,7 @@
   sInstance=this;
   setLanguage(preferences.getString(Preferences.LANGUAGE,""));
   CompatHelper.getCompat().enableCookiesForFileSchemePages();
+  CompatHelper.getCompat().prepareWebViewCookies(this.getApplicationContext());
   final ViewConfiguration vc=ViewConfiguration.get(this);
   DEFAULT_SWIPE_MIN_DISTANCE=vc.getScaledPagingTouchSlop();
   DEFAULT_SWIPE_THRESHOLD_VELOCITY=vc.getScaledMinimumFlingVelocity();

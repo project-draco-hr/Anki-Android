@@ -5,7 +5,7 @@
     mNextCard.loadDataWithBaseURL(mBaseUrl + "__viewer__.html",mCardContent.toString(),"text/html","utf-8",null);
     mNextCard.setVisibility(View.VISIBLE);
     mCardFrame.removeView(mCard);
-    mCard.destroy();
+    destroyWebView(mCard);
     mCard=mNextCard;
     mNextCard=createWebView();
     mNextCard.setVisibility(View.GONE);
