@@ -1,12 +1,12 @@
 {
   if (!hasReadWritePermission()) {
-    throw new SecurityException("Delete permission not granted for: " + uri);
+    throwSecurityException("delete",uri);
   }
-  logProviderCall("delete",uri);
   Collection col=CollectionHelper.getInstance().getCol(getContext());
   if (col == null) {
-    return 0;
+    throw new IllegalStateException("AnkiDroid database inaccessible. Open AnkiDroid to see what's wrong.");
   }
+  col.log(getLogMessage("delete",uri));
 switch (sUriMatcher.match(uri)) {
 case NOTES_ID:
     col.remNotes(new long[]{Long.parseLong(uri.getPathSegments().get(1))});

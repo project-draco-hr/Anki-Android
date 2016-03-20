@@ -4,9 +4,9 @@
   }
   Collection col=CollectionHelper.getInstance().getCol(getContext());
   if (col == null) {
-    return 0;
+    throw new IllegalStateException("AnkiDroid database inaccessible. Open AnkiDroid to see what's wrong.");
   }
-  Timber.d("performing bulkInsertNotes for " + valuesArr.length + " items");
+  col.log(String.format("bulkInsertNotes: %d items.\n%s",valuesArr.length,getLogMessage("bulkInsert",null)));
   long modelId=-1L;
   JSONObject model=null;
   col.getDecks().flush();

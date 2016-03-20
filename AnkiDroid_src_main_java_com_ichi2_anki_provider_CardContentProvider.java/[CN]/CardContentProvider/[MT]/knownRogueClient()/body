@@ -1,0 +1,16 @@
+{
+  if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+    return false;
+  }
+  final PackageManager pm=getContext().getPackageManager();
+  try {
+    PackageInfo callingPi=pm.getPackageInfo(getCallingPackage(),PackageManager.GET_PERMISSIONS);
+    if (callingPi == null || callingPi.requestedPermissions == null) {
+      return false;
+    }
+    return !Arrays.asList(callingPi.requestedPermissions).contains(READ_WRITE_PERMISSION);
+  }
+ catch (  PackageManager.NameNotFoundException e) {
+    return false;
+  }
+}

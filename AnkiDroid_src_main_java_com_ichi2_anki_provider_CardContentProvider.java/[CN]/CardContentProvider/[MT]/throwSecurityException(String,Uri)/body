@@ -1,0 +1,5 @@
+{
+  String msg=String.format("Permission not granted for: %s",getLogMessage(methodName,uri));
+  Timber.e(msg);
+  throw new SecurityException(msg);
+}
