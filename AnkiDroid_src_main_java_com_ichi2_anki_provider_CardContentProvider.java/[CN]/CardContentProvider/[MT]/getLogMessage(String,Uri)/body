@@ -1,0 +1,10 @@
+{
+  String format="%s.%s %s";
+  String path=uri == null ? null : uri.getPath();
+  if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+    return String.format(format,getClass().getSimpleName(),methodName,path);
+  }
+ else {
+    return String.format(format + " (%s)",getClass().getSimpleName(),methodName,path,getCallingPackage());
+  }
+}

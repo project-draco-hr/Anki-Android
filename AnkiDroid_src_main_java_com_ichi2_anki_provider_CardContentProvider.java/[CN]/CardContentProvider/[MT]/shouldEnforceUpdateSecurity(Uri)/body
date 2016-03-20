@@ -1,0 +1,4 @@
+{
+  final List<Integer> WHITELIST=Arrays.asList(NOTES_ID_CARDS_ORD,MODELS_ID,MODELS_ID_TEMPLATES_ID,SCHEDULE,DECK_SELECTED);
+  return CompatHelper.isMarshmallow() || !WHITELIST.contains(sUriMatcher.match(uri)) || knownRogueClient();
+}

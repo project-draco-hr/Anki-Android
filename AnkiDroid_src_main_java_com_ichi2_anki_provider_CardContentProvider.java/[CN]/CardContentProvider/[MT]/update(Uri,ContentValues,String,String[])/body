@@ -1,14 +1,13 @@
 {
-  logProviderCall("update",uri);
+  if (!hasReadWritePermission() && shouldEnforceUpdateSecurity(uri)) {
+    throwSecurityException("update",uri);
+  }
   Collection col=CollectionHelper.getInstance().getCol(getContext());
   if (col == null) {
-    return 0;
+    throw new IllegalStateException("AnkiDroid database inaccessible. Open AnkiDroid to see what's wrong.");
   }
+  col.log(getLogMessage("update",uri));
   int match=sUriMatcher.match(uri);
-  List<Integer> ok=Arrays.asList(NOTES_ID_CARDS_ORD,MODELS_ID,MODELS_ID_TEMPLATES_ID,SCHEDULE,DECK_SELECTED);
-  if (!hasReadWritePermission() && (CompatHelper.isMarshmallow() || !ok.contains(match))) {
-    throw new SecurityException("Update permission not granted for: " + uri);
-  }
   int updated=0;
 switch (match) {
 case NOTES:

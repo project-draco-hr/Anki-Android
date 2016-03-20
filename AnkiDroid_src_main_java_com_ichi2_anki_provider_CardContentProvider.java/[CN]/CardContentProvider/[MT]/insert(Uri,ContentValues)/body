@@ -1,12 +1,12 @@
 {
-  if (!hasReadWritePermission() && CompatHelper.isMarshmallow()) {
-    throw new SecurityException("Insert permission not granted for: " + uri);
+  if (!hasReadWritePermission() && shouldEnforceQueryOrInsertSecurity()) {
+    throwSecurityException("insert",uri);
   }
-  logProviderCall("insert",uri);
   Collection col=CollectionHelper.getInstance().getCol(getContext());
   if (col == null) {
-    return null;
+    throw new IllegalStateException("AnkiDroid database inaccessible. Open AnkiDroid to see what's wrong.");
   }
+  col.log(getLogMessage("insert",uri));
   int match=sUriMatcher.match(uri);
 switch (match) {
 case NOTES:
