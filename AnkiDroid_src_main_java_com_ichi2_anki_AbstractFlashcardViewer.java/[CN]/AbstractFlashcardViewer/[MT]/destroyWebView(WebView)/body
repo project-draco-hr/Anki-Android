@@ -1,0 +1,8 @@
+{
+  if (webView != null) {
+    webView.stopLoading();
+    webView.setWebChromeClient(null);
+    webView.setWebViewClient(null);
+    webView.destroy();
+  }
+}

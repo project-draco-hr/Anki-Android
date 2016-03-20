@@ -7,4 +7,5 @@
   longClickHandler.removeCallbacks(startLongClickAction);
   pauseTimer();
   mSoundPlayer.stopSounds();
+  CompatHelper.getCompat().flushWebViewCookies();
 }
