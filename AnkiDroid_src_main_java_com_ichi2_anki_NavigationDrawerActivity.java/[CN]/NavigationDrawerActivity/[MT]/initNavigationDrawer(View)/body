@@ -10,7 +10,12 @@
     getSupportActionBar().setHomeButtonEnabled(true);
     toolbar.setNavigationOnClickListener(new View.OnClickListener(){
       @Override public void onClick(      View v){
-        mDrawerLayout.openDrawer(Gravity.LEFT);
+        if (mNavButtonGoesBack) {
+          finishWithAnimation(ActivityTransitionAnimation.RIGHT);
+        }
+ else {
+          mDrawerLayout.openDrawer(Gravity.LEFT);
+        }
       }
     }
 );
