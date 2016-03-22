@@ -81,6 +81,10 @@ String newFieldList=values.getAsString(FlashCardsContract.Model.FIELD_NAMES);
 if (newFieldList != null) {
 throw new IllegalArgumentException("Field names cannot be changed via provider");
 }
+Integer newSortf=values.getAsInteger(FlashCardsContract.Model.SORT_FIELD_INDEX);
+Integer newType=values.getAsInteger(FlashCardsContract.Model.TYPE);
+String newLatexPost=values.getAsString(FlashCardsContract.Model.LATEX_POST);
+String newLatexPre=values.getAsString(FlashCardsContract.Model.LATEX_PRE);
 JSONObject model=col.getModels().get(getModelIdFromUri(uri,col));
 try {
 if (newModelName != null) {
@@ -93,6 +97,22 @@ updated++;
 }
 if (newDid != null) {
 model.put("did",newDid);
+updated++;
+}
+if (newSortf != null) {
+model.put("sortf",newSortf);
+updated++;
+}
+if (newType != null) {
+model.put("type",newType);
+updated++;
+}
+if (newLatexPost != null) {
+model.put("latexPost",newLatexPost);
+updated++;
+}
+if (newLatexPre != null) {
+model.put("latexPre",newLatexPre);
 updated++;
 }
 col.getModels().save(model);

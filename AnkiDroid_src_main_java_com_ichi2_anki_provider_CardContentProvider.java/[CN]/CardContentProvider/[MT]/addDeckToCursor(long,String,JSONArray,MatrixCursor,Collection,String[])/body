@@ -14,5 +14,12 @@
       String config=col.getDecks().confForDid(id).toString();
       rb.add(config);
     }
+ else     if (column.equals(FlashCardsContract.Deck.DECK_DYN)) {
+      rb.add(col.getDecks().isDyn(id) ? 1 : 0);
+    }
+ else     if (column.equals(FlashCardsContract.Deck.DECK_DESC)) {
+      String desc=col.getDecks().getActualDescription();
+      rb.add(desc);
+    }
   }
 }

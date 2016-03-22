@@ -26,6 +26,18 @@
  else       if (column.equals(FlashCardsContract.Model.DECK_ID)) {
         rb.add(jsonObject.getLong("did"));
       }
+ else       if (column.equals(FlashCardsContract.Model.SORT_FIELD_INDEX)) {
+        rb.add(jsonObject.getLong("sortf"));
+      }
+ else       if (column.equals(FlashCardsContract.Model.TYPE)) {
+        rb.add(jsonObject.getLong("type"));
+      }
+ else       if (column.equals(FlashCardsContract.Model.LATEX_POST)) {
+        rb.add(jsonObject.getString("latexPost"));
+      }
+ else       if (column.equals(FlashCardsContract.Model.LATEX_PRE)) {
+        rb.add(jsonObject.getString("latexPre"));
+      }
  else {
         throw new UnsupportedOperationException("Column \"" + column + "\" is unknown");
       }
