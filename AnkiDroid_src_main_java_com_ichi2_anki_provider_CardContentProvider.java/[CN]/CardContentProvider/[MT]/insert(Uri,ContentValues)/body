@@ -40,6 +40,10 @@ String css=values.getAsString(FlashCardsContract.Model.CSS);
 Long did=values.getAsLong(FlashCardsContract.Model.DECK_ID);
 String fieldNames=values.getAsString(FlashCardsContract.Model.FIELD_NAMES);
 Integer numCards=values.getAsInteger(FlashCardsContract.Model.NUM_CARDS);
+Integer sortf=values.getAsInteger(FlashCardsContract.Model.SORT_FIELD_INDEX);
+Integer type=values.getAsInteger(FlashCardsContract.Model.TYPE);
+String latexPost=values.getAsString(FlashCardsContract.Model.LATEX_POST);
+String latexPre=values.getAsString(FlashCardsContract.Model.LATEX_PRE);
 if (modelName == null || fieldNames == null || numCards == null) {
 throw new IllegalArgumentException("Model name, field_names, and num_cards can't be empty");
 }
@@ -66,6 +70,18 @@ newModel.put("css",css);
 if (did != null) {
 newModel.put("did",did);
 }
+if (sortf != null && sortf < allFields.length) {
+newModel.put("sortf",sortf);
+}
+if (type != null) {
+newModel.put("type",type);
+}
+if (latexPost != null) {
+newModel.put("latexPost",latexPost);
+}
+if (latexPre != null) {
+newModel.put("latexPre",latexPre);
+}
 mm.add(newModel);
 mm.save(newModel);
 mm.flush();
@@ -91,6 +107,24 @@ throw new IllegalArgumentException("Not possible to perform insert operation on 
 case DECKS:
 String deckName=values.getAsString(FlashCardsContract.Deck.DECK_NAME);
 did=col.getDecks().id(deckName);
+JSONObject deck=col.getDecks().get(did);
+if (deck != null) {
+try {
+Integer deckDyn=values.getAsInteger(FlashCardsContract.Deck.DECK_DYN);
+if (deckDyn != null) {
+deck.put("dyn",deckDyn);
+}
+String deckDesc=values.getAsString(FlashCardsContract.Deck.DECK_DESC);
+if (deckDesc != null) {
+deck.put("desc",deckDesc);
+}
+}
+ catch (JSONException e) {
+Timber.e(e,"Could not set a field of new deck %s",deckName);
+return null;
+}
+}
+col.getDecks().flush();
 return Uri.withAppendedPath(FlashCardsContract.Deck.CONTENT_ALL_URI,Long.toString(did));
 case DECK_SELECTED:
 throw new IllegalArgumentException("Selected deck can only be queried and updated");

@@ -8,6 +8,7 @@
   values.put(FlashCardsContract.Model.NUM_CARDS,cards.length);
   values.put(FlashCardsContract.Model.CSS,css);
   values.put(FlashCardsContract.Model.DECK_ID,did);
+  values.put(FlashCardsContract.Model.SORT_FIELD_INDEX,sortf);
   Uri modelUri=mResolver.insert(FlashCardsContract.Model.CONTENT_URI,values);
   Uri templatesUri=Uri.withAppendedPath(modelUri,"templates");
   for (int i=0; i < cards.length; i++) {
