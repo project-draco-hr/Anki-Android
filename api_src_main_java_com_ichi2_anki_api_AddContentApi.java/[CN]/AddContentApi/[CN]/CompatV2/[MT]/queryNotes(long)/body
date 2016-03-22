@@ -1,0 +1,4 @@
+{
+  String[] selectionArgs={String.format("%s=%d",FlashCardsContract.Note.MID,mid)};
+  return mResolver.query(FlashCardsContract.Note.CONTENT_URI,PROJECTION,null,selectionArgs,null);
+}
