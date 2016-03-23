@@ -1,5 +1,8 @@
 {
   final Cursor selectedDeckCursor=mResolver.query(Deck.CONTENT_SELECTED_URI,null,null,null,null);
+  if (selectedDeckCursor == null) {
+    return null;
+  }
   String name=null;
   try {
     if (selectedDeckCursor.moveToNext()) {

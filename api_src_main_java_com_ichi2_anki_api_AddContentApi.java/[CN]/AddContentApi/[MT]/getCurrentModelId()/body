@@ -1,6 +1,9 @@
 {
   Uri uri=Uri.withAppendedPath(Model.CONTENT_URI,Model.CURRENT_MODEL_ID);
   final Cursor singleModelCursor=mResolver.query(uri,null,null,null,null);
+  if (singleModelCursor == null) {
+    return -1L;
+  }
   long modelId;
   try {
     singleModelCursor.moveToFirst();
