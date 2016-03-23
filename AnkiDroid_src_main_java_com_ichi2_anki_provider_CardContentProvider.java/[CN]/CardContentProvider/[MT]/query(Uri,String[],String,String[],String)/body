@@ -4,64 +4,60 @@
   }
   Collection col=CollectionHelper.getInstance().getCol(getContext());
   if (col == null) {
-    throw new IllegalStateException("AnkiDroid database inaccessible. Open AnkiDroid to see what's wrong.");
+    throw new IllegalStateException(COL_NULL_ERROR_MSG);
   }
   Timber.d(getLogMessage("query",uri));
   int match=sUriMatcher.match(uri);
 switch (match) {
+case NOTES_V2:
+{
+      String[] proj=sanitizeNoteProjection(projection);
+      return col.getDb().getDatabase().query("notes",proj,selection,selectionArgs,null,null,order);
+    }
 case NOTES:
 {
-      String columnsStr=proj2str(projection);
-      String query=(selection != null) ? selection : "";
-      String sqlSelection=(selectionArgs == null && selection == null) ? "" : " where ";
-      if (selectionArgs != null) {
-        sqlSelection+=TextUtils.join(" and ",selectionArgs);
-      }
-      if (selection != null) {
-        List<Long> noteIds=col.findNotes(query);
-        if ((noteIds != null) && (!noteIds.isEmpty())) {
-          if (selectionArgs != null) {
-            sqlSelection+=" and ";
-          }
-          sqlSelection+="id in " + Utils.ids2str(noteIds);
-        }
- else {
-          return null;
-        }
-      }
+    String columnsStr=proj2str(projection);
+    String query=(selection != null) ? selection : "";
+    List<Long> noteIds=col.findNotes(query);
+    if ((noteIds != null) && (!noteIds.isEmpty())) {
+      String selectedIds="id in " + Utils.ids2str(noteIds);
       Cursor cur;
       try {
-        cur=col.getDb().getDatabase().rawQuery("select " + columnsStr + " from notes"+ sqlSelection,null);
+        cur=col.getDb().getDatabase().rawQuery("select " + columnsStr + " from notes where "+ selectedIds,null);
       }
  catch (      SQLException e) {
-        throw new IllegalArgumentException("Not possible to query for data " + sqlSelection,e);
+        throw new IllegalArgumentException("Not possible to query for data for IDs " + selectedIds,e);
       }
       return cur;
     }
+ else {
+      return null;
+    }
+  }
 case NOTES_ID:
 {
-    long noteId;
-    noteId=Long.parseLong(uri.getPathSegments().get(1));
-    String columnsStr=proj2str(projection);
-    String selectedIds="id = " + noteId;
-    Cursor cur;
-    try {
-      cur=col.getDb().getDatabase().rawQuery("select " + columnsStr + " from notes where "+ selectedIds,null);
-    }
- catch (    SQLException e) {
-      throw new IllegalArgumentException("Not possible to query for data for ID \"" + noteId + "\"",e);
-    }
-    return cur;
+  long noteId;
+  noteId=Long.parseLong(uri.getPathSegments().get(1));
+  String columnsStr=proj2str(projection);
+  String selectedIds="id = " + noteId;
+  Cursor cur;
+  try {
+    cur=col.getDb().getDatabase().rawQuery("select " + columnsStr + " from notes where "+ selectedIds,null);
   }
+ catch (  SQLException e) {
+    throw new IllegalArgumentException("Not possible to query for data for ID \"" + noteId + "\"",e);
+  }
+  return cur;
+}
 case NOTES_ID_CARDS:
 {
-  Note currentNote=getNoteFromUri(uri,col);
-  String[] columns=((projection != null) ? projection : FlashCardsContract.Card.DEFAULT_PROJECTION);
-  MatrixCursor rv=new MatrixCursor(columns,1);
-  for (  Card currentCard : currentNote.cards()) {
-    addCardToCursor(currentCard,rv,col,columns);
-  }
-  return rv;
+Note currentNote=getNoteFromUri(uri,col);
+String[] columns=((projection != null) ? projection : FlashCardsContract.Card.DEFAULT_PROJECTION);
+MatrixCursor rv=new MatrixCursor(columns,1);
+for (Card currentCard : currentNote.cards()) {
+  addCardToCursor(currentCard,rv,col,columns);
+}
+return rv;
 }
 case NOTES_ID_CARDS_ORD:
 {

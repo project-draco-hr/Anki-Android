@@ -1,0 +1,16 @@
+{
+  if (projection == null || projection.length == 0) {
+    return sDefaultNoteProjectionDBAccess;
+  }
+  List<String> sanitized=new ArrayList<>();
+  for (  String column : projection) {
+    int idx=projSearch(FlashCardsContract.Note.DEFAULT_PROJECTION,column);
+    if (idx >= 0) {
+      sanitized.add(sDefaultNoteProjectionDBAccess[idx]);
+    }
+ else {
+      throw new IllegalArgumentException("Unknown column " + column);
+    }
+  }
+  return sanitized.toArray(new String[sanitized.size()]);
+}

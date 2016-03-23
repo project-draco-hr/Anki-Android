@@ -1,0 +1,21 @@
+{
+  final ContentResolver cr=getContext().getContentResolver();
+  Cursor cursor=cr.query(FlashCardsContract.Note.CONTENT_URI_V2,null,String.format("mid=%d",mModelId),null,null);
+  assertNotNull(cursor);
+  try {
+    assertEquals("Check number of results",mCreatedNotes.size(),cursor.getCount());
+  }
+  finally {
+    cursor.close();
+  }
+  cursor=cr.query(FlashCardsContract.Note.CONTENT_URI_V2,null,"mid=0",null,null);
+  assertNotNull(cursor);
+  try {
+    assertEquals("Check number of results",0,cursor.getCount());
+  }
+  finally {
+    cursor.close();
+  }
+  cursor=cr.query(FlashCardsContract.Note.CONTENT_URI_V2,null,"mid=?",new String[]{"0"},null);
+  assertNotNull(cursor);
+}

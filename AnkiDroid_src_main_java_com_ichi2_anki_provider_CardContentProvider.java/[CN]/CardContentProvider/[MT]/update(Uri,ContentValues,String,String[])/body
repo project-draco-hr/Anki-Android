@@ -4,12 +4,13 @@
   }
   Collection col=CollectionHelper.getInstance().getCol(getContext());
   if (col == null) {
-    throw new IllegalStateException("AnkiDroid database inaccessible. Open AnkiDroid to see what's wrong.");
+    throw new IllegalStateException(COL_NULL_ERROR_MSG);
   }
   col.log(getLogMessage("update",uri));
   int match=sUriMatcher.match(uri);
   int updated=0;
 switch (match) {
+case NOTES_V2:
 case NOTES:
     throw new IllegalArgumentException("Not possible to update notes directly (only through data URI)");
 case NOTES_ID:
