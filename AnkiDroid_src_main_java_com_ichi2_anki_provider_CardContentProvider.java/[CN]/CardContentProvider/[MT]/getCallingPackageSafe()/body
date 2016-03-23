@@ -1,0 +1,10 @@
+{
+  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+    return getCallingPackage();
+  }
+  String[] pkgs=mContext.getPackageManager().getPackagesForUid(Binder.getCallingUid());
+  if (pkgs.length == 1) {
+    return pkgs[0];
+  }
+  return null;
+}

@@ -2,7 +2,7 @@
   if (!hasReadWritePermission() && shouldEnforceQueryOrInsertSecurity()) {
     throwSecurityException("insert",uri);
   }
-  Collection col=CollectionHelper.getInstance().getCol(getContext());
+  Collection col=CollectionHelper.getInstance().getCol(mContext);
   if (col == null) {
     throw new IllegalStateException("AnkiDroid database inaccessible. Open AnkiDroid to see what's wrong.");
   }

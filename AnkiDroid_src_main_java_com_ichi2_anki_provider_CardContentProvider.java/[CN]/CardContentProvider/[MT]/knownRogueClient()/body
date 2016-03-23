@@ -1,10 +1,7 @@
 {
-  if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-    return false;
-  }
-  final PackageManager pm=getContext().getPackageManager();
+  final PackageManager pm=mContext.getPackageManager();
   try {
-    PackageInfo callingPi=pm.getPackageInfo(getCallingPackage(),PackageManager.GET_PERMISSIONS);
+    PackageInfo callingPi=pm.getPackageInfo(getCallingPackageSafe(),PackageManager.GET_PERMISSIONS);
     if (callingPi == null || callingPi.requestedPermissions == null) {
       return false;
     }
