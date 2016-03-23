@@ -1,9 +1,9 @@
 {
-  final Cursor selectedDeckCursor=mResolver.query(FlashCardsContract.Deck.CONTENT_SELECTED_URI,null,null,null,null);
+  final Cursor selectedDeckCursor=mResolver.query(Deck.CONTENT_SELECTED_URI,null,null,null,null);
   String name=null;
   try {
     if (selectedDeckCursor.moveToNext()) {
-      name=selectedDeckCursor.getString(selectedDeckCursor.getColumnIndex(FlashCardsContract.Deck.DECK_NAME));
+      name=selectedDeckCursor.getString(selectedDeckCursor.getColumnIndex(Deck.DECK_NAME));
     }
   }
   finally {

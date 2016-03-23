@@ -5,10 +5,10 @@
   List<ContentValues> newNoteValuesList=new ArrayList<>();
   for (int i=0; i < fieldsList.size(); i++) {
     ContentValues values=new ContentValues();
-    values.put(FlashCardsContract.Note.MID,modelId);
-    values.put(FlashCardsContract.Note.FLDS,Utils.joinFields(fieldsList.get(i)));
+    values.put(Note.MID,modelId);
+    values.put(Note.FLDS,Utils.joinFields(fieldsList.get(i)));
     if (tagsList != null && tagsList.get(i) != null) {
-      values.put(FlashCardsContract.Note.TAGS,Utils.joinTags(tagsList.get(i)));
+      values.put(Note.TAGS,Utils.joinTags(tagsList.get(i)));
     }
     newNoteValuesList.add(values);
   }

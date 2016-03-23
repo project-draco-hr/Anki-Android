@@ -1,10 +1,10 @@
 {
-  Uri uri=Uri.withAppendedPath(FlashCardsContract.Model.CONTENT_URI,FlashCardsContract.Model.CURRENT_MODEL_ID);
+  Uri uri=Uri.withAppendedPath(Model.CONTENT_URI,Model.CURRENT_MODEL_ID);
   final Cursor singleModelCursor=mResolver.query(uri,null,null,null,null);
   long modelId;
   try {
     singleModelCursor.moveToFirst();
-    modelId=singleModelCursor.getLong(singleModelCursor.getColumnIndex(FlashCardsContract.Model._ID));
+    modelId=singleModelCursor.getLong(singleModelCursor.getColumnIndex(Model._ID));
   }
   finally {
     singleModelCursor.close();

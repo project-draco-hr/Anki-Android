@@ -1,8 +1,0 @@
-{
-  String[][] fieldsArray={fields};
-  NoteInfo[] notes=getCompat().findExistingNotes(mid,fieldsArray);
-  if (notes == null) {
-    return null;
-  }
-  return notes[0];
-}

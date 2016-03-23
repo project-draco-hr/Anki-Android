@@ -1,10 +1,10 @@
 {
-  final Cursor allDecksCursor=mResolver.query(FlashCardsContract.Deck.CONTENT_ALL_URI,null,null,null,null);
+  final Cursor allDecksCursor=mResolver.query(Deck.CONTENT_ALL_URI,null,null,null,null);
   HashMap<Long,String> decks=new HashMap<>();
   try {
     while (allDecksCursor.moveToNext()) {
-      long deckId=allDecksCursor.getLong(allDecksCursor.getColumnIndex(FlashCardsContract.Deck.DECK_ID));
-      String name=allDecksCursor.getString(allDecksCursor.getColumnIndex(FlashCardsContract.Deck.DECK_NAME));
+      long deckId=allDecksCursor.getLong(allDecksCursor.getColumnIndex(Deck.DECK_ID));
+      String name=allDecksCursor.getString(allDecksCursor.getColumnIndex(Deck.DECK_NAME));
       decks.put(deckId,name);
     }
   }
