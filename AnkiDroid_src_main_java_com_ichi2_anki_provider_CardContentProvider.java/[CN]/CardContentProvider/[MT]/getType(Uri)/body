@@ -1,6 +1,7 @@
 {
   int match=sUriMatcher.match(uri);
 switch (match) {
+case NOTES_V2:
 case NOTES:
     return FlashCardsContract.Note.CONTENT_TYPE;
 case NOTES_ID:

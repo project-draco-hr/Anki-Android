@@ -4,7 +4,7 @@
   }
   Collection col=CollectionHelper.getInstance().getCol(getContext());
   if (col == null) {
-    throw new IllegalStateException("AnkiDroid database inaccessible. Open AnkiDroid to see what's wrong.");
+    throw new IllegalStateException(COL_NULL_ERROR_MSG);
   }
   col.log(String.format("bulkInsertNotes: %d items.\n%s",valuesArr.length,getLogMessage("bulkInsert",null)));
   long modelId=-1L;
