@@ -1,5 +1,8 @@
 {
   final Cursor allModelsCursor=mResolver.query(Model.CONTENT_URI,null,null,null,null);
+  if (allModelsCursor == null) {
+    return null;
+  }
   HashMap<Long,String> models=new HashMap<>();
   try {
     while (allModelsCursor.moveToNext()) {

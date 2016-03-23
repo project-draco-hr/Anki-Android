@@ -1,5 +1,8 @@
 {
   final Cursor allDecksCursor=mResolver.query(Deck.CONTENT_ALL_URI,null,null,null,null);
+  if (allDecksCursor == null) {
+    return null;
+  }
   HashMap<Long,String> decks=new HashMap<>();
   try {
     while (allDecksCursor.moveToNext()) {

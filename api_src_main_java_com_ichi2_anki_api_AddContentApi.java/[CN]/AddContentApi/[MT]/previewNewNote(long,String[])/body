@@ -3,6 +3,9 @@
   Map<String,Map<String,String>> cards=new HashMap<>();
   Uri cardsUri=Uri.withAppendedPath(newNoteUri,"cards");
   final Cursor cardsCursor=mResolver.query(cardsUri,null,null,null,null);
+  if (cardsCursor == null) {
+    return null;
+  }
   try {
     while (cardsCursor.moveToNext()) {
       final String n=cardsCursor.getString(cardsCursor.getColumnIndex(Card.CARD_NAME));

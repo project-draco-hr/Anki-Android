@@ -5,6 +5,9 @@
   }
   Uri cardsUri=Uri.withAppendedPath(newNoteUri,"cards");
   final Cursor cardsCursor=mResolver.query(cardsUri,null,null,null,null);
+  if (cardsCursor == null) {
+    return null;
+  }
   try {
     while (cardsCursor.moveToNext()) {
       String ord=cardsCursor.getString(cardsCursor.getColumnIndex(Card.CARD_ORD));

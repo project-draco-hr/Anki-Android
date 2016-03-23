@@ -1,6 +1,9 @@
 {
   Uri uri=Uri.withAppendedPath(Model.CONTENT_URI,Long.toString(modelId));
   final Cursor modelCursor=mResolver.query(uri,null,null,null,null);
+  if (modelCursor == null) {
+    return null;
+  }
   String[] splitFlds=null;
   try {
     if (modelCursor.moveToNext()) {
