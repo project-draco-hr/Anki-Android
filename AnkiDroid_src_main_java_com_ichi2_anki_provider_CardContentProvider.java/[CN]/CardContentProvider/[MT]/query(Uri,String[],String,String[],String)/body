@@ -2,7 +2,7 @@
   if (!hasReadWritePermission() && shouldEnforceQueryOrInsertSecurity()) {
     throwSecurityException("query",uri);
   }
-  Collection col=CollectionHelper.getInstance().getCol(getContext());
+  Collection col=CollectionHelper.getInstance().getCol(mContext);
   if (col == null) {
     throw new IllegalStateException(COL_NULL_ERROR_MSG);
   }
@@ -154,7 +154,7 @@ if (currentCard != null) {
 int buttonCount=col.getSched().answerButtons(currentCard);
 JSONArray buttonTexts=new JSONArray();
 for (int i=0; i < buttonCount; i++) {
-buttonTexts.put(col.getSched().nextIvlStr(getContext(),currentCard,i + 1));
+buttonTexts.put(col.getSched().nextIvlStr(mContext,currentCard,i + 1));
 }
 addReviewInfoToCursor(currentCard,buttonTexts,buttonCount,rv,col,columns);
 }
