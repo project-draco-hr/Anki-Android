@@ -1,10 +1,10 @@
 {
-  Uri uri=Uri.withAppendedPath(FlashCardsContract.Model.CONTENT_URI,Long.toString(modelId));
+  Uri uri=Uri.withAppendedPath(Model.CONTENT_URI,Long.toString(modelId));
   final Cursor modelCursor=mResolver.query(uri,null,null,null,null);
   String[] splitFlds=null;
   try {
     if (modelCursor.moveToNext()) {
-      String flds=modelCursor.getString(modelCursor.getColumnIndex(FlashCardsContract.Model.FIELD_NAMES));
+      String flds=modelCursor.getString(modelCursor.getColumnIndex(Model.FIELD_NAMES));
       splitFlds=Utils.splitFields(flds);
     }
   }

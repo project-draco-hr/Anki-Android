@@ -3,21 +3,21 @@
     throw new IllegalArgumentException("cards, qfmt, and afmt arrays must all be same length");
   }
   ContentValues values=new ContentValues();
-  values.put(FlashCardsContract.Model.NAME,name);
-  values.put(FlashCardsContract.Model.FIELD_NAMES,Utils.joinFields(fields));
-  values.put(FlashCardsContract.Model.NUM_CARDS,cards.length);
-  values.put(FlashCardsContract.Model.CSS,css);
-  values.put(FlashCardsContract.Model.DECK_ID,did);
-  values.put(FlashCardsContract.Model.SORT_FIELD_INDEX,sortf);
-  Uri modelUri=mResolver.insert(FlashCardsContract.Model.CONTENT_URI,values);
+  values.put(Model.NAME,name);
+  values.put(Model.FIELD_NAMES,Utils.joinFields(fields));
+  values.put(Model.NUM_CARDS,cards.length);
+  values.put(Model.CSS,css);
+  values.put(Model.DECK_ID,did);
+  values.put(Model.SORT_FIELD_INDEX,sortf);
+  Uri modelUri=mResolver.insert(Model.CONTENT_URI,values);
   Uri templatesUri=Uri.withAppendedPath(modelUri,"templates");
   for (int i=0; i < cards.length; i++) {
     Uri uri=Uri.withAppendedPath(templatesUri,Integer.toString(i));
     values=new ContentValues();
-    values.put(FlashCardsContract.CardTemplate.NAME,cards[i]);
-    values.put(FlashCardsContract.CardTemplate.QUESTION_FORMAT,qfmt[i]);
-    values.put(FlashCardsContract.CardTemplate.ANSWER_FORMAT,afmt[i]);
-    values.put(FlashCardsContract.CardTemplate.ANSWER_FORMAT,afmt[i]);
+    values.put(CardTemplate.NAME,cards[i]);
+    values.put(CardTemplate.QUESTION_FORMAT,qfmt[i]);
+    values.put(CardTemplate.ANSWER_FORMAT,afmt[i]);
+    values.put(CardTemplate.ANSWER_FORMAT,afmt[i]);
     mResolver.update(uri,values,null,null);
   }
   if (modelUri == null) {

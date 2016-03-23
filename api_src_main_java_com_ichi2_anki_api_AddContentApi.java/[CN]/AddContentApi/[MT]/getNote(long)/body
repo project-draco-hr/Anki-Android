@@ -1,5 +1,5 @@
 {
-  Uri noteUri=Uri.withAppendedPath(FlashCardsContract.Note.CONTENT_URI,Long.toString(noteId));
+  Uri noteUri=Uri.withAppendedPath(Note.CONTENT_URI,Long.toString(noteId));
   Cursor cursor=mResolver.query(noteUri,PROJECTION,null,null,null);
   if (cursor == null) {
     return null;

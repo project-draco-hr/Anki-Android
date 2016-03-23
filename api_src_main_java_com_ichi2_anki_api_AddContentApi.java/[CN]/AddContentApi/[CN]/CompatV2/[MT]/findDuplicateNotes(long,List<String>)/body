@@ -1,0 +1,44 @@
+{
+  Set<Long> csums=new HashSet<>(keys.size());
+  Map<String,List<Integer>> keyToIndexesMap=new HashMap<>(keys.size());
+  for (int i=0; i < keys.size(); i++) {
+    String key=keys.get(i);
+    csums.add(Utils.fieldChecksum(key));
+    if (!keyToIndexesMap.containsKey(key)) {
+      keyToIndexesMap.put(key,new ArrayList<Integer>());
+    }
+    keyToIndexesMap.get(key).add(i);
+  }
+  String sel=String.format("%s=%d and %s in (%s)",Note.MID,mid,Note.CSUM,TextUtils.join(",",csums));
+  Cursor notesTableCursor=mResolver.query(Note.CONTENT_URI,PROJECTION,null,new String[]{sel},null);
+  if (notesTableCursor == null) {
+    return null;
+  }
+  SparseArray<List<NoteInfo>> result=new SparseArray<>();
+  try {
+    while (notesTableCursor.moveToNext()) {
+      NoteInfo note=NoteInfo.buildFromCursor(notesTableCursor);
+      if (note == null) {
+        continue;
+      }
+      if (keyToIndexesMap.containsKey(note.getKey())) {
+        List<Integer> outputPositions=keyToIndexesMap.get(note.getKey());
+        for (        Integer outputPos : outputPositions) {
+          int sparseArrayIndex=result.indexOfKey(outputPos);
+          if (sparseArrayIndex < 0) {
+            List<NoteInfo> duplicatesForKey=new ArrayList<>();
+            duplicatesForKey.add(note);
+            result.put(outputPos,duplicatesForKey);
+          }
+ else {
+            result.valueAt(sparseArrayIndex).add(note);
+          }
+        }
+      }
+    }
+  }
+  finally {
+    notesTableCursor.close();
+  }
+  return result;
+}

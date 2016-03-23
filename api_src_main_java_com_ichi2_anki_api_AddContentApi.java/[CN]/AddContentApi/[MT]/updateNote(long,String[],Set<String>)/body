@@ -1,12 +1,12 @@
 {
-  Uri.Builder builder=FlashCardsContract.Note.CONTENT_URI.buildUpon();
+  Uri.Builder builder=Note.CONTENT_URI.buildUpon();
   Uri contentUri=builder.appendPath(Long.toString(noteId)).build();
   ContentValues values=new ContentValues();
   if (fields != null) {
-    values.put(FlashCardsContract.Note.FLDS,Utils.joinFields(fields));
+    values.put(Note.FLDS,Utils.joinFields(fields));
   }
   if (tags != null) {
-    values.put(FlashCardsContract.Note.TAGS,Utils.joinTags(tags));
+    values.put(Note.TAGS,Utils.joinTags(tags));
   }
   int numRowsUpdated=mResolver.update(contentUri,values,null,null);
   return numRowsUpdated > 0;

@@ -1,7 +1,7 @@
 {
   ContentValues values=new ContentValues();
-  values.put(FlashCardsContract.Deck.DECK_NAME,deckName);
-  Uri newDeckUri=mResolver.insert(FlashCardsContract.Deck.CONTENT_ALL_URI,values);
+  values.put(Deck.DECK_NAME,deckName);
+  Uri newDeckUri=mResolver.insert(Deck.CONTENT_ALL_URI,values);
   if (newDeckUri != null) {
     long did=Long.parseLong(newDeckUri.getLastPathSegment());
     final SharedPreferences decksDb=mContext.getSharedPreferences(DECK_REF_DB,Context.MODE_PRIVATE);

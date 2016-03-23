@@ -5,9 +5,9 @@
   final Cursor cardsCursor=mResolver.query(cardsUri,null,null,null,null);
   try {
     while (cardsCursor.moveToNext()) {
-      final String n=cardsCursor.getString(cardsCursor.getColumnIndex(FlashCardsContract.Card.CARD_NAME));
-      final String q=cardsCursor.getString(cardsCursor.getColumnIndex(FlashCardsContract.Card.QUESTION));
-      final String a=cardsCursor.getString(cardsCursor.getColumnIndex(FlashCardsContract.Card.ANSWER));
+      final String n=cardsCursor.getString(cardsCursor.getColumnIndex(Card.CARD_NAME));
+      final String q=cardsCursor.getString(cardsCursor.getColumnIndex(Card.QUESTION));
+      final String a=cardsCursor.getString(cardsCursor.getColumnIndex(Card.ANSWER));
       Map<String,String> html=new HashMap<>();
       html.put("q",q);
       html.put("a",a);

@@ -1,0 +1,7 @@
+{
+  SparseArray<List<NoteInfo>> notes=getCompat().findDuplicateNotes(mid,Collections.singletonList(key));
+  if (notes.size() == 0) {
+    return Collections.emptyList();
+  }
+  return notes.valueAt(0);
+}
