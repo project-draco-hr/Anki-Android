@@ -1,7 +1,0 @@
-{
-  ContentValues values=new ContentValues();
-  values.put(Note.MID,modelId);
-  values.put(Note.FLDS,Utils.joinFields(fields));
-  values.put(Note.TAGS,tags);
-  return addNoteForContentValues(deckId,values);
-}

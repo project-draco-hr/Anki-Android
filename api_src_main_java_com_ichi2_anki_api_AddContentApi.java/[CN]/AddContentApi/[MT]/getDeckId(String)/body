@@ -1,9 +1,0 @@
-{
-  Map<Long,String> deckList=getDeckList();
-  for (  Map.Entry<Long,String> entry : deckList.entrySet()) {
-    if (entry.getValue().equals(deckName)) {
-      return entry.getKey();
-    }
-  }
-  return null;
-}
