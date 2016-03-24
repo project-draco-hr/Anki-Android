@@ -1,0 +1,11 @@
+{
+  int sparseArrayIndex=duplicates.indexOfKey(position);
+  if (sparseArrayIndex < 0) {
+    List<NoteInfo> duplicatesForKey=new ArrayList<>();
+    duplicatesForKey.add(note);
+    duplicates.put(position,duplicatesForKey);
+  }
+ else {
+    duplicates.valueAt(sparseArrayIndex).add(note);
+  }
+}
