@@ -3,7 +3,7 @@
   if (allModelsCursor == null) {
     return null;
   }
-  HashMap<Long,String> models=new HashMap<>();
+  Map<Long,String> models=new HashMap<>();
   try {
     while (allModelsCursor.moveToNext()) {
       long modelId=allModelsCursor.getLong(allModelsCursor.getColumnIndex(Model._ID));
