@@ -9,12 +9,12 @@
     }
     keyToIndexesMap.get(key).add(i);
   }
-  String sel=String.format("%s=%d and %s in (%s)",Note.MID,mid,Note.CSUM,TextUtils.join(",",csums));
+  String sel=String.format("%s=%d and %s in (%s)",Note.MID,modelId,Note.CSUM,TextUtils.join(",",csums));
   Cursor notesTableCursor=mResolver.query(Note.CONTENT_URI_V2,PROJECTION,sel,null,null);
   if (notesTableCursor == null) {
     return null;
   }
-  SparseArray<List<NoteInfo>> result=new SparseArray<>();
+  SparseArray<List<NoteInfo>> duplicates=new SparseArray<>();
   try {
     while (notesTableCursor.moveToNext()) {
       NoteInfo note=NoteInfo.buildFromCursor(notesTableCursor);
@@ -24,15 +24,7 @@
       if (keyToIndexesMap.containsKey(note.getKey())) {
         List<Integer> outputPositions=keyToIndexesMap.get(note.getKey());
         for (        Integer outputPos : outputPositions) {
-          int sparseArrayIndex=result.indexOfKey(outputPos);
-          if (sparseArrayIndex < 0) {
-            List<NoteInfo> duplicatesForKey=new ArrayList<>();
-            duplicatesForKey.add(note);
-            result.put(outputPos,duplicatesForKey);
-          }
- else {
-            result.valueAt(sparseArrayIndex).add(note);
-          }
+          addNoteToDuplicatesArray(note,duplicates,outputPos);
         }
       }
     }
@@ -40,5 +32,5 @@
   finally {
     notesTableCursor.close();
   }
-  return result;
+  return duplicates;
 }

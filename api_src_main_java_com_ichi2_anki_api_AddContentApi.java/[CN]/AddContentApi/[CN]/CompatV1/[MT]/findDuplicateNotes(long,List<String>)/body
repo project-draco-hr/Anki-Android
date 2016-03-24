@@ -1,10 +1,10 @@
 {
-  String modelName=getModelName(mid);
+  String modelName=getModelName(modelId);
   if (modelName == null) {
     modelName="";
   }
-  SparseArray<List<NoteInfo>> result=new SparseArray<>();
-  String queryFormat=String.format("%s:\"%%s\" note:\"%s\"",getFieldList(mid)[0],modelName);
+  SparseArray<List<NoteInfo>> duplicates=new SparseArray<>();
+  String queryFormat=String.format("%s:\"%%s\" note:\"%s\"",getFieldList(modelId)[0],modelName);
   for (int outputPos=0; outputPos < keys.size(); outputPos++) {
     String selection=String.format(queryFormat,keys.get(outputPos));
     Cursor cursor=mResolver.query(Note.CONTENT_URI,PROJECTION,selection,null,null);
@@ -13,21 +13,12 @@
     }
     try {
       if (cursor.moveToFirst()) {
-        NoteInfo note=NoteInfo.buildFromCursor(cursor);
-        int sparseArrayIndex=result.indexOfKey(outputPos);
-        if (sparseArrayIndex < 0) {
-          List<NoteInfo> duplicatesForKey=new ArrayList<>();
-          duplicatesForKey.add(note);
-          result.put(outputPos,duplicatesForKey);
-        }
- else {
-          result.valueAt(sparseArrayIndex).add(note);
-        }
+        addNoteToDuplicatesArray(NoteInfo.buildFromCursor(cursor),duplicates,outputPos);
       }
     }
   finally {
       cursor.close();
     }
   }
-  return result;
+  return duplicates;
 }
