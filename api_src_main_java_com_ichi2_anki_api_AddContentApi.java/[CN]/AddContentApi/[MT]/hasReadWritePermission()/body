@@ -1,0 +1,3 @@
+{
+  return mContext.checkPermission(READ_WRITE_PERMISSION,Process.myPid(),Process.myUid()) == PackageManager.PERMISSION_GRANTED;
+}
