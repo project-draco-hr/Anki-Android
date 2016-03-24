@@ -1,10 +1,11 @@
 {
   String modelName=getModelName(modelId);
-  if (modelName == null) {
-    modelName="";
+  String[] modelFieldList=getFieldList(modelId);
+  if (modelName == null || modelFieldList == null) {
+    return null;
   }
   SparseArray<List<NoteInfo>> duplicates=new SparseArray<>();
-  String queryFormat=String.format("%s:\"%%s\" note:\"%s\"",getFieldList(modelId)[0],modelName);
+  String queryFormat=String.format("%s:\"%%s\" note:\"%s\"",modelFieldList[0],modelName);
   for (int outputPos=0; outputPos < keys.size(); outputPos++) {
     String selection=String.format(queryFormat,keys.get(outputPos));
     Cursor cursor=mResolver.query(Note.CONTENT_URI,PROJECTION,selection,null,null);

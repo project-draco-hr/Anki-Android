@@ -3,7 +3,7 @@
   if (allDecksCursor == null) {
     return null;
   }
-  HashMap<Long,String> decks=new HashMap<>();
+  Map<Long,String> decks=new HashMap<>();
   try {
     while (allDecksCursor.moveToNext()) {
       long deckId=allDecksCursor.getLong(allDecksCursor.getColumnIndex(Deck.DECK_ID));

@@ -1,6 +1,6 @@
 {
-  if (did != null && did >= 0) {
-    Map<Long,String> deckList=getDeckList();
+  Map<Long,String> deckList=getDeckList();
+  if (did != null && did >= 0 && deckList != null) {
     for (    Map.Entry<Long,String> entry : deckList.entrySet()) {
       if (entry.getKey().equals(did)) {
         return entry.getValue();
