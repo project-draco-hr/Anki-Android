@@ -1,3 +1,6 @@
 {
+  if (tags == null) {
+    return null;
+  }
   return tags.trim().split("\\s+");
 }
