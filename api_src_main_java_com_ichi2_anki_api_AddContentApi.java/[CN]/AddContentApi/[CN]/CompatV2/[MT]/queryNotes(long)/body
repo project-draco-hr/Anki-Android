@@ -1,3 +1,3 @@
 {
-  return mResolver.query(Note.CONTENT_URI_V2,PROJECTION,String.format("%s=%d",Note.MID,mid),null,null);
+  return mResolver.query(Note.CONTENT_URI_V2,PROJECTION,String.format("%s=%d",Note.MID,modelId),null,null);
 }

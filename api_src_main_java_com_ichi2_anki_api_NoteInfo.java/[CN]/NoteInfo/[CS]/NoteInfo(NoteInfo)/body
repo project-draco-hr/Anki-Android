@@ -1,0 +1,5 @@
+{
+  mId=parent.getId();
+  mFields=parent.getFields().clone();
+  mTags=new HashSet<>(parent.getTags());
+}

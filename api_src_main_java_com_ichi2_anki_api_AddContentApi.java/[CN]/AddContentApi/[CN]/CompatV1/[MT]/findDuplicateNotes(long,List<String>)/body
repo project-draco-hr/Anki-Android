@@ -13,7 +13,7 @@
       continue;
     }
     try {
-      if (cursor.moveToFirst()) {
+      while (cursor.moveToNext()) {
         addNoteToDuplicatesArray(NoteInfo.buildFromCursor(cursor),duplicates,outputPos);
       }
     }
