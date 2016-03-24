@@ -1,3 +1,3 @@
 {
-  return fields.split("\\x1f",-1);
+  return fields != null ? fields.split("\\x1f",-1) : null;
 }

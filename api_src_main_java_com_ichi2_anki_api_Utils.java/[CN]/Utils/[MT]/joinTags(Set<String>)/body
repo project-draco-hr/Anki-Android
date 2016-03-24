@@ -1,4 +1,7 @@
 {
+  if (tags == null || tags.isEmpty()) {
+    return "";
+  }
   for (  String t : tags) {
     t.replaceAll(" ","_");
   }
