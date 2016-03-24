@@ -15,7 +15,7 @@
       rb.add(config);
     }
  else     if (column.equals(FlashCardsContract.Deck.DECK_DYN)) {
-      rb.add(col.getDecks().isDyn(id) ? 1 : 0);
+      rb.add(col.getDecks().isDyn(id));
     }
  else     if (column.equals(FlashCardsContract.Deck.DECK_DESC)) {
       String desc=col.getDecks().getActualDescription();

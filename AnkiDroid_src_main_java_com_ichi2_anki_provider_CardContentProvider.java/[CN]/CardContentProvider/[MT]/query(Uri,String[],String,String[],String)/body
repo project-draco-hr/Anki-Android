@@ -16,19 +16,12 @@ case NOTES_V2:
     }
 case NOTES:
 {
-    String columnsStr=proj2str(projection);
+    String[] proj=sanitizeNoteProjection(projection);
     String query=(selection != null) ? selection : "";
     List<Long> noteIds=col.findNotes(query);
     if ((noteIds != null) && (!noteIds.isEmpty())) {
-      String selectedIds="id in " + Utils.ids2str(noteIds);
-      Cursor cur;
-      try {
-        cur=col.getDb().getDatabase().rawQuery("select " + columnsStr + " from notes where "+ selectedIds,null);
-      }
- catch (      SQLException e) {
-        throw new IllegalArgumentException("Not possible to query for data for IDs " + selectedIds,e);
-      }
-      return cur;
+      String sel=String.format("id in (%s)",TextUtils.join(",",noteIds));
+      return col.getDb().getDatabase().query("notes",proj,sel,null,null,null,order);
     }
  else {
       return null;
@@ -36,18 +29,9 @@ case NOTES:
   }
 case NOTES_ID:
 {
-  long noteId;
-  noteId=Long.parseLong(uri.getPathSegments().get(1));
-  String columnsStr=proj2str(projection);
-  String selectedIds="id = " + noteId;
-  Cursor cur;
-  try {
-    cur=col.getDb().getDatabase().rawQuery("select " + columnsStr + " from notes where "+ selectedIds,null);
-  }
- catch (  SQLException e) {
-    throw new IllegalArgumentException("Not possible to query for data for ID \"" + noteId + "\"",e);
-  }
-  return cur;
+  String noteId=uri.getPathSegments().get(1);
+  String[] proj=sanitizeNoteProjection(projection);
+  return col.getDb().getDatabase().query("notes",proj,"id=?",new String[]{noteId},null,null,order);
 }
 case NOTES_ID_CARDS:
 {

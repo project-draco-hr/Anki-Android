@@ -60,6 +60,9 @@ for (Map.Entry<String,Object> entry : valueSet) {
   isDeckUpdate=key.equals(FlashCardsContract.Card.DECK_ID);
   did=values.getAsLong(key);
 }
+if (col.getDecks().isDyn(did)) {
+  throw new IllegalArgumentException("Cards cannot be moved to a filtered deck");
+}
 if ((isDeckUpdate) && (did >= 0)) {
   Timber.d("CardContentProvider: Moving card to other deck...");
   col.getDecks().flush();
@@ -97,6 +100,9 @@ model.put("css",newCss);
 updated++;
 }
 if (newDid != null) {
+if (col.getDecks().isDyn(Long.parseLong(newDid))) {
+throw new IllegalArgumentException("Cannot set a filtered deck as default deck for a model");
+}
 model.put("did",newDid);
 updated++;
 }

@@ -47,6 +47,9 @@ String latexPre=values.getAsString(FlashCardsContract.Model.LATEX_PRE);
 if (modelName == null || fieldNames == null || numCards == null) {
 throw new IllegalArgumentException("Model name, field_names, and num_cards can't be empty");
 }
+if (did != null && col.getDecks().isDyn(did)) {
+throw new IllegalArgumentException("Cannot set a filtered deck as default deck for a model");
+}
 Models mm=col.getModels();
 JSONObject newModel=mm.newModel(modelName);
 try {
@@ -106,14 +109,14 @@ case SCHEDULE:
 throw new IllegalArgumentException("Not possible to perform insert operation on schedule");
 case DECKS:
 String deckName=values.getAsString(FlashCardsContract.Deck.DECK_NAME);
-did=col.getDecks().id(deckName);
+did=col.getDecks().id(deckName,false);
+if (did != null) {
+throw new IllegalArgumentException("Deck name already exists: " + deckName);
+}
+did=col.getDecks().id(deckName,true);
 JSONObject deck=col.getDecks().get(did);
 if (deck != null) {
 try {
-Integer deckDyn=values.getAsInteger(FlashCardsContract.Deck.DECK_DYN);
-if (deckDyn != null) {
-deck.put("dyn",deckDyn);
-}
 String deckDesc=values.getAsString(FlashCardsContract.Deck.DECK_DESC);
 if (deckDesc != null) {
 deck.put("desc",deckDesc);
