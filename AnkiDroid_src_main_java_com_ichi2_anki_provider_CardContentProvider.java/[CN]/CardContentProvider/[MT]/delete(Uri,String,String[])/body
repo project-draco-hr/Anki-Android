@@ -11,6 +11,14 @@ switch (sUriMatcher.match(uri)) {
 case NOTES_ID:
     col.remNotes(new long[]{Long.parseLong(uri.getPathSegments().get(1))});
   return 1;
+case MODELS_ID_EMPTY_CARDS:
+JSONObject model=col.getModels().get(getModelIdFromUri(uri,col));
+if (model == null) {
+return -1;
+}
+List<Long> cids=col.genCards(col.getModels().nids(model));
+col.remCards(Utils.arrayList2array(cids));
+return cids.size();
 default :
 throw new UnsupportedOperationException();
 }
