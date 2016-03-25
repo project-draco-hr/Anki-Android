@@ -61,6 +61,11 @@ addModelToCursor(modelId,models,rv,columns);
 }
 return rv;
 }
+case MODELS_COUNTS:
+{
+String sql=String.format("select mid as %s, count(*) as %s from notes group by mid",FlashCardsContract.ModelCounts._ID,FlashCardsContract.ModelCounts.NOTE_COUNT);
+return col.getDb().getDatabase().rawQuery(sql,null);
+}
 case MODELS_ID:
 {
 long modelId=getModelIdFromUri(uri,col);
@@ -86,6 +91,12 @@ addTemplateToCursor(template,currentModel,idx + 1,rv,columns);
 throw new IllegalArgumentException("Model is malformed",e);
 }
 return rv;
+}
+case MODELS_ID_TEMPLATES_COUNTS:
+{
+long mid=getModelIdFromUri(uri,col);
+String sql=String.format("select cards.ord as %s, cards.ord as %s, count(*) as %s from cards, notes" + " where cards.nid = notes.id and notes.mid = ? group by cards.ord",FlashCardsContract.CardTemplateCounts._ID,FlashCardsContract.CardTemplateCounts.ORD,FlashCardsContract.CardTemplateCounts.CARD_COUNT);
+return col.getDb().getDatabase().rawQuery(sql,new String[]{Long.toString(mid)});
 }
 case MODELS_ID_TEMPLATES_ID:
 {
@@ -162,6 +173,11 @@ String name=deck.names[0];
 addDeckToCursor(id,name,getDeckCountsFromDueTreeNode(deck),rv,col,columns);
 }
 return rv;
+}
+case DECKS_COUNTS:
+{
+String sql=String.format("select cards.did as %s, count(*) as %s from cards group by cards.did",FlashCardsContract.DeckCounts.DECK_ID,FlashCardsContract.DeckCounts.CARD_COUNT);
+return col.getDb().getDatabase().rawQuery(sql,null);
 }
 case DECKS_ID:
 {
