@@ -45,7 +45,7 @@
     throw new RuntimeException(e);
   }
   mCards=new ArrayList<>();
-  ListView cardsListView=(ListView)findViewById(R.id.card_browser_list);
+  mCardsListView=(ListView)findViewById(R.id.card_browser_list);
   Spinner cardsColumn1Spinner=(Spinner)findViewById(R.id.browser_column1_spinner);
   ArrayAdapter<CharSequence> column1Adapter=ArrayAdapter.createFromResource(this,R.array.browser_column1_headings,android.R.layout.simple_spinner_item);
   column1Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -87,11 +87,11 @@
   int sflRelativeFontSize=preferences.getInt("relativeCardBrowserFontSize",DEFAULT_FONT_SIZE_RATIO);
   String sflCustomFont=preferences.getString("browserEditorFont","");
   mCardsAdapter=new MultiColumnListAdapter(this,R.layout.card_item_browser,new String[]{COLUMN1_KEYS[mColumn1Index],COLUMN2_KEYS[mColumn2Index]},new int[]{R.id.card_sfld,R.id.card_column2},"flags",sflRelativeFontSize,sflCustomFont);
-  cardsListView.setAdapter(mCardsAdapter);
-  cardsListView.setOnScrollListener(new RenderOnScroll());
+  mCardsListView.setAdapter(mCardsAdapter);
+  mCardsListView.setOnScrollListener(new RenderOnScroll());
   cardsColumn1Spinner.setSelection(mColumn1Index);
   cardsColumn2Spinner.setSelection(mColumn2Index);
-  cardsListView.setOnItemClickListener(new OnItemClickListener(){
+  mCardsListView.setOnItemClickListener(new OnItemClickListener(){
     @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
       mPositionInCardsList=position;
       long cardId=Long.parseLong(getCards().get(mPositionInCardsList).get("id"));
@@ -103,7 +103,7 @@
     }
   }
 );
-  cardsListView.setOnItemLongClickListener(new OnItemLongClickListener(){
+  mCardsListView.setOnItemLongClickListener(new OnItemLongClickListener(){
     @Override public boolean onItemLongClick(    AdapterView<?> adapterView,    View view,    int position,    long id){
       mPositionInCardsList=position;
       Map<String,String> card=getCards().get(mPositionInCardsList);
