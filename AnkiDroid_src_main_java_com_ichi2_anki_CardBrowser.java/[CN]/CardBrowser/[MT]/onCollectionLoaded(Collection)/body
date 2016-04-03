@@ -86,7 +86,7 @@
 );
   int sflRelativeFontSize=preferences.getInt("relativeCardBrowserFontSize",DEFAULT_FONT_SIZE_RATIO);
   String sflCustomFont=preferences.getString("browserEditorFont","");
-  mCardsAdapter=new MultiColumnListAdapter(this,mCards,R.layout.card_item_browser,new String[]{COLUMN1_KEYS[mColumn1Index],COLUMN2_KEYS[mColumn2Index]},new int[]{R.id.card_sfld,R.id.card_column2},"flags",sflRelativeFontSize,sflCustomFont);
+  mCardsAdapter=new MultiColumnListAdapter(this,R.layout.card_item_browser,new String[]{COLUMN1_KEYS[mColumn1Index],COLUMN2_KEYS[mColumn2Index]},new int[]{R.id.card_sfld,R.id.card_column2},"flags",sflRelativeFontSize,sflCustomFont);
   cardsListView.setAdapter(mCardsAdapter);
   cardsListView.setOnScrollListener(new RenderOnScroll());
   cardsColumn1Spinner.setSelection(mColumn1Index);
@@ -94,7 +94,7 @@
   cardsListView.setOnItemClickListener(new OnItemClickListener(){
     @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
       mPositionInCardsList=position;
-      long cardId=Long.parseLong(mCards.get(mPositionInCardsList).get("id"));
+      long cardId=Long.parseLong(getCards().get(mPositionInCardsList).get("id"));
       sCardBrowserCard=getCol().getCard(cardId);
       Intent editCard=new Intent(CardBrowser.this,NoteEditor.class);
       editCard.putExtra(NoteEditor.EXTRA_CALLER,NoteEditor.CALLER_CARDBROWSER_EDIT);
@@ -106,7 +106,7 @@
   cardsListView.setOnItemLongClickListener(new OnItemLongClickListener(){
     @Override public boolean onItemLongClick(    AdapterView<?> adapterView,    View view,    int position,    long id){
       mPositionInCardsList=position;
-      HashMap<String,String> card=mCards.get(mPositionInCardsList);
+      Map<String,String> card=getCards().get(mPositionInCardsList);
       int flags=Integer.parseInt(card.get("flags"));
       String cardName=card.get("sfld");
       boolean isMarked=(flags == 2 || flags == 3);

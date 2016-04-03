@@ -1,6 +1,6 @@
 {
   View[] columns=(View[])v.getTag();
-  final Map<String,String> dataSet=mData.get(position);
+  final Map<String,String> dataSet=getCards().get(position);
   final int colorIdx=getColor(dataSet.get(mColorFlagKey));
   int[] colors=Themes.getColorFromAttr(CardBrowser.this,new int[]{android.R.attr.colorBackground,R.attr.markedColor,R.attr.suspendedColor,R.attr.markedColor});
   for (int i=0; i < mToIds.length; i++) {
