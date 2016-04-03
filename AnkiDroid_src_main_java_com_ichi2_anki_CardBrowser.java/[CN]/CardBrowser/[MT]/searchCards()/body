@@ -11,6 +11,7 @@
   if (colIsOpen() && mCardsAdapter != null) {
     getCards().clear();
     mCardsAdapter.notifyDataSetChanged();
-    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SEARCH_CARDS,mSearchCardsHandler,new DeckTask.TaskData(new Object[]{mDeckNames,searchText,((mOrder != CARD_ORDER_NONE))}));
+    int numCardsToRender=(int)Math.ceil(mCardsListView.getHeight() / TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,20,getResources().getDisplayMetrics())) + 5;
+    DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SEARCH_CARDS,mSearchCardsHandler,new DeckTask.TaskData(new Object[]{mDeckNames,searchText,((mOrder != CARD_ORDER_NONE)),numCardsToRender}));
   }
 }
