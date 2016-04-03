@@ -1,5 +1,5 @@
 {
-  HashMap<String,String> qa=c._getQA(true,true);
+  Map<String,String> qa=c._getQA(true,true);
   if (qa.get("q").equals("") || qa.get("a").equals("")) {
     HashMap<String,String> qaFull=c._getQA(true,false);
     if (qa.get("q").equals("")) {

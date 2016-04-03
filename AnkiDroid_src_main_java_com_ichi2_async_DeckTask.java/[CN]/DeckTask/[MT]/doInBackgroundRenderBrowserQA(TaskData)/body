@@ -1,7 +1,7 @@
 {
   Timber.d("doInBackgroundRenderBrowserQA");
   Collection col=CollectionHelper.getInstance().getCol(mContext);
-  ArrayList<HashMap<String,String>> items=(ArrayList<HashMap<String,String>>)params[0].getObjArray()[0];
+  List<Map<String,String>> items=(List<Map<String,String>>)params[0].getObjArray()[0];
   Integer startPos=(Integer)params[0].getObjArray()[1];
   Integer n=(Integer)params[0].getObjArray()[2];
   for (int i=startPos; i < startPos + n; i++) {
