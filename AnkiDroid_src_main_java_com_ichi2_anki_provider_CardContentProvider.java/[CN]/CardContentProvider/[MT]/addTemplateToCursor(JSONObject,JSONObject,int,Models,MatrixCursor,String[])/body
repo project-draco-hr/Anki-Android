@@ -26,6 +26,9 @@
  else       if (column.equals(CardTemplate.BROWSER_ANSWER_FORMAT)) {
         rb.add(tmpl.getString("bafmt"));
       }
+ else       if (column.equals(CardTemplate.CARD_COUNT)) {
+        rb.add(models.tmplUseCount(model,tmpl.getInt("ord")));
+      }
  else {
         throw new UnsupportedOperationException("Support for column \"" + column + "\" is not implemented");
       }
