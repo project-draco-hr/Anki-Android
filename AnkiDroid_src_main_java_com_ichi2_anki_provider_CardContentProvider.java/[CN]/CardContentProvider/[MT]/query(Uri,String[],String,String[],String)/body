@@ -53,38 +53,33 @@ return rv;
 }
 case MODELS:
 {
-HashMap<Long,JSONObject> models=col.getModels().getModels();
+Models models=col.getModels();
 String[] columns=((projection != null) ? projection : FlashCardsContract.Model.DEFAULT_PROJECTION);
 MatrixCursor rv=new MatrixCursor(columns,1);
-for (Long modelId : models.keySet()) {
+for (Long modelId : models.getModels().keySet()) {
 addModelToCursor(modelId,models,rv,columns);
 }
 return rv;
-}
-case MODELS_COUNTS:
-{
-String sql=String.format("select mid as %s, count(*) as %s from notes group by mid",FlashCardsContract.ModelCounts._ID,FlashCardsContract.ModelCounts.NOTE_COUNT);
-return col.getDb().getDatabase().rawQuery(sql,null);
 }
 case MODELS_ID:
 {
 long modelId=getModelIdFromUri(uri,col);
 String[] columns=((projection != null) ? projection : FlashCardsContract.Model.DEFAULT_PROJECTION);
 MatrixCursor rv=new MatrixCursor(columns,1);
-HashMap<Long,JSONObject> models=col.getModels().getModels();
-addModelToCursor(modelId,models,rv,columns);
+addModelToCursor(modelId,col.getModels(),rv,columns);
 return rv;
 }
 case MODELS_ID_TEMPLATES:
 {
-JSONObject currentModel=col.getModels().get(getModelIdFromUri(uri,col));
+Models models=col.getModels();
+JSONObject currentModel=models.get(getModelIdFromUri(uri,col));
 String[] columns=((projection != null) ? projection : CardTemplate.DEFAULT_PROJECTION);
 MatrixCursor rv=new MatrixCursor(columns,1);
 try {
 JSONArray templates=currentModel.getJSONArray("tmpls");
 for (int idx=0; idx < templates.length(); idx++) {
 JSONObject template=templates.getJSONObject(idx);
-addTemplateToCursor(template,currentModel,idx + 1,rv,columns);
+addTemplateToCursor(template,currentModel,idx + 1,models,rv,columns);
 }
 }
  catch (JSONException e) {
@@ -92,21 +87,16 @@ throw new IllegalArgumentException("Model is malformed",e);
 }
 return rv;
 }
-case MODELS_ID_TEMPLATES_COUNTS:
-{
-long mid=getModelIdFromUri(uri,col);
-String sql=String.format("select cards.ord as %s, cards.ord as %s, count(*) as %s from cards, notes" + " where cards.nid = notes.id and notes.mid = ? group by cards.ord",FlashCardsContract.CardTemplateCounts._ID,FlashCardsContract.CardTemplateCounts.ORD,FlashCardsContract.CardTemplateCounts.CARD_COUNT);
-return col.getDb().getDatabase().rawQuery(sql,new String[]{Long.toString(mid)});
-}
 case MODELS_ID_TEMPLATES_ID:
 {
+Models models=col.getModels();
 int ord=Integer.parseInt(uri.getLastPathSegment());
-JSONObject currentModel=col.getModels().get(getModelIdFromUri(uri,col));
+JSONObject currentModel=models.get(getModelIdFromUri(uri,col));
 String[] columns=((projection != null) ? projection : CardTemplate.DEFAULT_PROJECTION);
 MatrixCursor rv=new MatrixCursor(columns,1);
 try {
 JSONObject template=getTemplateFromUri(uri,col);
-addTemplateToCursor(template,currentModel,ord + 1,rv,columns);
+addTemplateToCursor(template,currentModel,ord + 1,models,rv,columns);
 }
  catch (JSONException e) {
 throw new IllegalArgumentException("Model is malformed",e);
@@ -173,11 +163,6 @@ String name=deck.names[0];
 addDeckToCursor(id,name,getDeckCountsFromDueTreeNode(deck),rv,col,columns);
 }
 return rv;
-}
-case DECKS_COUNTS:
-{
-String sql=String.format("select cards.did as %s, count(*) as %s from cards group by cards.did",FlashCardsContract.DeckCounts.DECK_ID,FlashCardsContract.DeckCounts.CARD_COUNT);
-return col.getDb().getDatabase().rawQuery(sql,null);
 }
 case DECKS_ID:
 {

@@ -38,6 +38,9 @@
  else       if (column.equals(FlashCardsContract.Model.LATEX_PRE)) {
         rb.add(jsonObject.getString("latexPre"));
       }
+ else       if (column.equals(FlashCardsContract.Model.NOTE_COUNT)) {
+        rb.add(models.useCount(jsonObject));
+      }
  else {
         throw new UnsupportedOperationException("Column \"" + column + "\" is unknown");
       }

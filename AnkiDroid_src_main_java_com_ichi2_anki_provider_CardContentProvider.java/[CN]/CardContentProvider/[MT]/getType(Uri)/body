@@ -12,16 +12,12 @@ case NOTES_ID_CARDS_ORD:
 return FlashCardsContract.Card.CONTENT_ITEM_TYPE;
 case MODELS:
 return FlashCardsContract.Model.CONTENT_TYPE;
-case MODELS_COUNTS:
-return FlashCardsContract.ModelCounts.CONTENT_TYPE;
 case MODELS_ID:
 return FlashCardsContract.Model.CONTENT_ITEM_TYPE;
 case MODELS_ID_EMPTY_CARDS:
 return FlashCardsContract.Card.CONTENT_TYPE;
 case MODELS_ID_TEMPLATES:
 return FlashCardsContract.CardTemplate.CONTENT_TYPE;
-case MODELS_ID_TEMPLATES_COUNTS:
-return FlashCardsContract.CardTemplateCounts.CONTENT_TYPE;
 case MODELS_ID_TEMPLATES_ID:
 return FlashCardsContract.CardTemplate.CONTENT_ITEM_TYPE;
 case SCHEDULE:
@@ -30,8 +26,6 @@ case DECKS:
 return FlashCardsContract.Deck.CONTENT_TYPE;
 case DECKS_ID:
 return FlashCardsContract.Deck.CONTENT_TYPE;
-case DECKS_COUNTS:
-return FlashCardsContract.DeckCounts.CONTENT_TYPE;
 case DECK_SELECTED:
 return FlashCardsContract.Deck.CONTENT_TYPE;
 default :
