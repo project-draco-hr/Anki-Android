@@ -1,21 +1,21 @@
 {
 switch (type) {
-case UNDO_REVIEW:
+case REVIEW:
     mUndo.add(new Object[]{type,((Card)o[0]).clone(),o[1]});
   break;
-case UNDO_BURY_NOTE:
+case BURY_CARD:
 mUndo.add(new Object[]{type,o[0],o[1],o[2]});
 break;
-case UNDO_SUSPEND_CARD:
+case BURY_NOTE:
+mUndo.add(new Object[]{type,o[0],o[1],o[2]});
+break;
+case SUSPEND_CARD:
 mUndo.add(new Object[]{type,((Card)o[0]).clone()});
 break;
-case UNDO_SUSPEND_NOTE:
+case SUSPEND_NOTE:
 mUndo.add(new Object[]{type,o[0],o[1]});
 break;
-case UNDO_DELETE_NOTE:
-mUndo.add(new Object[]{type,o[0],o[1],o[2]});
-break;
-case UNDO_BURY_CARD:
+case DELETE_NOTE:
 mUndo.add(new Object[]{type,o[0],o[1],o[2]});
 break;
 }

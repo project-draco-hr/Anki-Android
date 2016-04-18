@@ -1,7 +1,7 @@
 {
   Object[] data=mUndo.removeLast();
-switch ((Integer)data[0]) {
-case UNDO_REVIEW:
+switch ((DismissType)data[0]) {
+case REVIEW:
     Card c=(Card)data[1];
   Boolean wasLeech=(Boolean)data[2];
 if (!wasLeech && c.note().hasTag("leech")) {
@@ -17,21 +17,21 @@ String type=(new String[]{"new","lrn","rev"})[n];
 mSched._updateStats(c,type,-1);
 mSched.setReps(mSched.getReps() - 1);
 return c.getId();
-case UNDO_BURY_NOTE:
+case BURY_NOTE:
 for (Card cc : (ArrayList<Card>)data[2]) {
 cc.flush(false);
 }
 return (Long)data[3];
-case UNDO_SUSPEND_CARD:
+case SUSPEND_CARD:
 Card suspendedCard=(Card)data[1];
 suspendedCard.flush(false);
 return suspendedCard.getId();
-case UNDO_SUSPEND_NOTE:
+case SUSPEND_NOTE:
 for (Card ccc : (ArrayList<Card>)data[1]) {
 ccc.flush(false);
 }
 return (Long)data[2];
-case UNDO_DELETE_NOTE:
+case DELETE_NOTE:
 ArrayList<Long> ids=new ArrayList<>();
 Note note2=(Note)data[1];
 note2.flush(note2.getMod(),false);
@@ -42,7 +42,7 @@ ids.add(c4.getId());
 }
 mDb.execute("DELETE FROM graves WHERE oid IN " + Utils.ids2str(Utils.arrayList2array(ids)));
 return (Long)data[3];
-case UNDO_BURY_CARD:
+case BURY_CARD:
 for (Card cc : (ArrayList<Card>)data[2]) {
 cc.flush(false);
 }

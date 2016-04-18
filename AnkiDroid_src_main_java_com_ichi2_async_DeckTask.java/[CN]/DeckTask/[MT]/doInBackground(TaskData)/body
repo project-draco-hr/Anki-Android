@@ -39,7 +39,7 @@ case TASK_TYPE_UNDO:
 return doInBackgroundUndo(params);
 case TASK_TYPE_SEARCH_CARDS:
 return doInBackgroundSearchCards(params);
-case TASK_TYPE_DISMISS_NOTE:
+case TASK_TYPE_DISMISS:
 return doInBackgroundDismissNote(params);
 case TASK_TYPE_CHECK_DATABASE:
 return doInBackgroundCheckDatabase(params);
