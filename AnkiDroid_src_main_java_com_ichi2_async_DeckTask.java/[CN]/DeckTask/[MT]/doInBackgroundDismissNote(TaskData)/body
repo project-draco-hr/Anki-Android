@@ -1,25 +1,26 @@
 {
   Collection col=CollectionHelper.getInstance().getCol(mContext);
   Sched sched=col.getSched();
-  Card card=params[0].getCard();
+  Object[] data=params[0].getObjArray();
+  Card card=(Card)data[0];
+  Collection.DismissType type=(Collection.DismissType)data[1];
   Note note=card.note();
-  int type=params[0].getInt();
   try {
     col.getDb().getDatabase().beginTransaction();
     try {
 switch (type) {
-case 4:
-        col.markUndo(Collection.UNDO_BURY_CARD,new Object[]{col.getDirty(),note.cards(),card.getId()});
+case BURY_CARD:
+        col.markUndo(type,new Object[]{col.getDirty(),note.cards(),card.getId()});
       sched.buryCards(new long[]{card.getId()});
     sHadCardQueue=true;
   break;
-case 0:
-col.markUndo(Collection.UNDO_BURY_NOTE,new Object[]{col.getDirty(),note.cards(),card.getId()});
+case BURY_NOTE:
+col.markUndo(type,new Object[]{col.getDirty(),note.cards(),card.getId()});
 sched.buryNote(note.getId());
 sHadCardQueue=true;
 break;
-case 1:
-col.markUndo(Collection.UNDO_SUSPEND_CARD,new Object[]{card});
+case SUSPEND_CARD:
+col.markUndo(type,new Object[]{card});
 if (card.getQueue() == -1) {
 sched.unsuspendCards(new long[]{card.getId()});
 }
@@ -28,19 +29,19 @@ sched.suspendCards(new long[]{card.getId()});
 }
 sHadCardQueue=true;
 break;
-case 2:
+case SUSPEND_NOTE:
 ArrayList<Card> cards=note.cards();
 long[] cids=new long[cards.size()];
 for (int i=0; i < cards.size(); i++) {
 cids[i]=cards.get(i).getId();
 }
-col.markUndo(Collection.UNDO_SUSPEND_NOTE,new Object[]{cards,card.getId()});
+col.markUndo(type,new Object[]{cards,card.getId()});
 sched.suspendCards(cids);
 sHadCardQueue=true;
 break;
-case 3:
+case DELETE_NOTE:
 ArrayList<Card> allCs=note.cards();
-col.markUndo(Collection.UNDO_DELETE_NOTE,new Object[]{note,allCs,card.getId()});
+col.markUndo(type,new Object[]{note,allCs,card.getId()});
 col.remNotes(new long[]{note.getId()});
 sHadCardQueue=true;
 break;
