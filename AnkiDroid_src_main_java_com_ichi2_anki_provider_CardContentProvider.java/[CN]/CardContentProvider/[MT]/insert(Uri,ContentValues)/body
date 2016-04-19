@@ -102,6 +102,7 @@ return null;
 case MODELS_ID:
 throw new IllegalArgumentException("Not possible to insert model with specific ID");
 case MODELS_ID_TEMPLATES:
+{
 Models models=col.getModels();
 Long mid=getModelIdFromUri(uri,col);
 JSONObject existingModel=models.get(mid);
@@ -125,7 +126,8 @@ t.put("bafmt",bafmt);
 throw new RuntimeException(e);
 }
 models.addTemplate(existingModel,t);
-col.getModels().save(existingModel);
+models.save(existingModel);
+models.flush();
 return ContentUris.withAppendedId(uri,t.getInt("ord"));
 }
  catch (ConfirmModSchemaException e) {
@@ -134,8 +136,35 @@ throw new IllegalArgumentException("Unable to add template",e);
 catch (JSONException e) {
 throw new IllegalArgumentException("Unable to get ord from new template",e);
 }
+}
 case MODELS_ID_TEMPLATES_ID:
 throw new IllegalArgumentException("Not possible to insert template with specific ORD");
+case MODELS_ID_FIELDS:
+{
+Models models=col.getModels();
+Long mid=getModelIdFromUri(uri,col);
+JSONObject existingModel=models.get(mid);
+if (existingModel == null) {
+throw new IllegalArgumentException("model missing: " + mid);
+}
+String name=values.getAsString(FlashCardsContract.Model.FIELD_NAME);
+if (name == null) {
+throw new IllegalArgumentException("field name missing for model: " + mid);
+}
+JSONObject field=models.newField(name);
+try {
+models.addField(existingModel,field);
+models.flush();
+JSONArray ja=existingModel.getJSONArray("flds");
+return ContentUris.withAppendedId(uri,ja.length() - 1);
+}
+ catch (ConfirmModSchemaException e) {
+throw new IllegalArgumentException("Unable to insert field: " + name,e);
+}
+catch (JSONException e) {
+throw new IllegalArgumentException("Unable to get newly created field: " + name,e);
+}
+}
 case SCHEDULE:
 throw new IllegalArgumentException("Not possible to perform insert operation on schedule");
 case DECKS:

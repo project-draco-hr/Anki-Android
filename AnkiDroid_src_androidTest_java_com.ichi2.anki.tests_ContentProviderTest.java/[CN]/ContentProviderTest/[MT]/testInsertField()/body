@@ -1,0 +1,19 @@
+{
+  final ContentResolver cr=getContext().getContentResolver();
+  final Collection col=CollectionHelper.getInstance().getCol(getContext());
+  JSONObject model=Models.addBasicModel(col,BASIC_MODEL_NAME);
+  long modelId=model.getLong("id");
+  JSONArray initialFldsArr=model.getJSONArray("flds");
+  int initialFieldCount=initialFldsArr.length();
+  Uri noteTypeUri=ContentUris.withAppendedId(FlashCardsContract.Model.CONTENT_URI,modelId);
+  ContentValues insertFieldValues=new ContentValues();
+  insertFieldValues.put(FlashCardsContract.Model.FIELD_NAME,TEST_FIELD_NAME);
+  Uri fieldUri=cr.insert(Uri.withAppendedPath(noteTypeUri,"fields"),insertFieldValues);
+  assertNotNull("Check field uri",fieldUri);
+  long fieldId=ContentUris.parseId(fieldUri);
+  assertEquals("Check field id",initialFieldCount,fieldId);
+  JSONArray fldsArr=model.getJSONArray("flds");
+  assertEquals("Check fields length",initialFieldCount + 1,fldsArr.length());
+  assertEquals("Check last field name",TEST_FIELD_NAME,fldsArr.getJSONObject(fldsArr.length() - 1).optString("name",""));
+  col.getModels().rem(model);
+}
