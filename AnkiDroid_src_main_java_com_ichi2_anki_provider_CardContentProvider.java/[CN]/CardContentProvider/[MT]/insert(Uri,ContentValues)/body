@@ -26,6 +26,7 @@ case NOTES:
         newNote.setTagsFromStr(tags);
       }
       col.addNote(newNote);
+      col.save();
       return Uri.withAppendedPath(FlashCardsContract.Note.CONTENT_URI,Long.toString(newNote.getId()));
     }
 case NOTES_ID:
@@ -86,8 +87,7 @@ if (latexPre != null) {
 newModel.put("latexPre",latexPre);
 }
 mm.add(newModel);
-mm.save(newModel);
-mm.flush();
+col.save();
 String mid=Long.toString(newModel.getLong("id"));
 return Uri.withAppendedPath(FlashCardsContract.Model.CONTENT_URI,mid);
 }
@@ -127,7 +127,7 @@ throw new RuntimeException(e);
 }
 models.addTemplate(existingModel,t);
 models.save(existingModel);
-models.flush();
+col.save();
 return ContentUris.withAppendedId(uri,t.getInt("ord"));
 }
  catch (ConfirmModSchemaException e) {
@@ -154,7 +154,7 @@ throw new IllegalArgumentException("field name missing for model: " + mid);
 JSONObject field=models.newField(name);
 try {
 models.addField(existingModel,field);
-models.flush();
+col.save();
 JSONArray ja=existingModel.getJSONArray("flds");
 return ContentUris.withAppendedId(uri,ja.length() - 1);
 }

@@ -4,21 +4,24 @@
   cv.put(FlashCardsContract.Model.NAME,TEST_MODEL_NAME);
   cv.put(FlashCardsContract.Model.FIELD_NAMES,Utils.joinFields(TEST_MODEL_FIELDS));
   cv.put(FlashCardsContract.Model.NUM_CARDS,TEST_MODEL_CARDS.length);
-  cv.put(FlashCardsContract.Model.CSS,TEST_MODEL_CSS);
   Uri modelUri=cr.insert(FlashCardsContract.Model.CONTENT_URI,cv);
   assertNotNull("Check inserted model isn't null",modelUri);
   long mid=Long.parseLong(modelUri.getLastPathSegment());
-  final Collection col=CollectionHelper.getInstance().getCol(getContext());
+  Collection col=reopenCol();
   try {
     JSONObject model=col.getModels().get(mid);
     assertEquals("Check model name",TEST_MODEL_NAME,model.getString("name"));
-    assertEquals("Check css",TEST_MODEL_CSS,model.getString("css"));
     assertEquals("Check templates length",TEST_MODEL_CARDS.length,model.getJSONArray("tmpls").length());
     assertEquals("Check field length",TEST_MODEL_FIELDS.length,model.getJSONArray("flds").length());
     JSONArray flds=model.getJSONArray("flds");
     for (int i=0; i < flds.length(); i++) {
       assertEquals("Check name of fields",flds.getJSONObject(i).getString("name"),TEST_MODEL_FIELDS[i]);
     }
+    cv=new ContentValues();
+    cv.put(FlashCardsContract.Model.CSS,TEST_MODEL_CSS);
+    assertTrue(cr.update(modelUri,cv,null,null) > 0);
+    col=reopenCol();
+    assertEquals("Check css",TEST_MODEL_CSS,col.getModels().get(mid).getString("css"));
     for (int i=0; i < TEST_MODEL_CARDS.length; i++) {
       cv=new ContentValues();
       cv.put(FlashCardsContract.CardTemplate.NAME,TEST_MODEL_CARDS[i]);
@@ -28,6 +31,7 @@
       cv.put(FlashCardsContract.CardTemplate.BROWSER_ANSWER_FORMAT,TEST_MODEL_AFMT[i]);
       Uri tmplUri=Uri.withAppendedPath(Uri.withAppendedPath(modelUri,"templates"),Integer.toString(i));
       assertTrue("Update rows",cr.update(tmplUri,cv,null,null) > 0);
+      col=reopenCol();
       JSONObject template=col.getModels().get(mid).getJSONArray("tmpls").getJSONObject(i);
       assertEquals("Check template name",TEST_MODEL_CARDS[i],template.getString("name"));
       assertEquals("Check qfmt",TEST_MODEL_QFMT[i],template.getString("qfmt"));

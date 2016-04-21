@@ -1,10 +1,9 @@
 {
   Collection col;
   col=CollectionHelper.getInstance().getCol(getContext());
-  Sched sched=col.getSched();
   long deckId=mTestDeckIds[0];
   col.getDecks().select(deckId);
-  Card card=sched.getCard();
+  Card card=col.getSched().getCard();
   ContentResolver cr=getContext().getContentResolver();
   Uri reviewInfoUri=FlashCardsContract.ReviewInfo.CONTENT_URI;
   ContentValues values=new ContentValues();
@@ -16,8 +15,8 @@
   values.put(FlashCardsContract.ReviewInfo.EASE,ease);
   int updateCount=cr.update(reviewInfoUri,values,null,null);
   assertEquals("Check if update returns 1",1,updateCount);
-  sched.reset();
-  Card newCard=sched.getCard();
+  col.getSched().reset();
+  Card newCard=col.getSched().getCard();
   if (newCard != null) {
     if (newCard.note().getId() == card.note().getId() && newCard.getOrd() == card.getOrd()) {
       fail("Next scheduled card has not changed");

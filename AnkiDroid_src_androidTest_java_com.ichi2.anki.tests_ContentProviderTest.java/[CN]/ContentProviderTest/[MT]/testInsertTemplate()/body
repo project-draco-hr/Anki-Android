@@ -1,6 +1,6 @@
 {
   final ContentResolver cr=getContext().getContentResolver();
-  final Collection col=CollectionHelper.getInstance().getCol(getContext());
+  Collection col=CollectionHelper.getInstance().getCol(getContext());
   JSONObject model=Models.addBasicModel(col,BASIC_MODEL_NAME);
   long modelId=model.getLong("id");
   Uri modelUri=ContentUris.withAppendedId(FlashCardsContract.Model.CONTENT_URI,modelId);
@@ -14,6 +14,7 @@
   cv.put(FlashCardsContract.CardTemplate.BROWSER_ANSWER_FORMAT,TEST_MODEL_AFMT[testIndex]);
   Uri templatesUri=Uri.withAppendedPath(modelUri,"templates");
   Uri templateUri=cr.insert(templatesUri,cv);
+  col=reopenCol();
   assertNotNull("Check template uri",templateUri);
   assertEquals("Check template uri ord",expectedOrd,ContentUris.parseId(templateUri));
   JSONObject template=col.getModels().get(modelId).getJSONArray("tmpls").getJSONObject(expectedOrd);

@@ -54,7 +54,7 @@
       }
       result++;
     }
-    col.flush();
+    col.save();
     sqldb.setTransactionSuccessful();
     return result;
   }
