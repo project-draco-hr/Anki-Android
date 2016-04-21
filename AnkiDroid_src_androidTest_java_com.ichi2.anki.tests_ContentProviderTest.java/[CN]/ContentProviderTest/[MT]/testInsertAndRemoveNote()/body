@@ -1,12 +1,12 @@
 {
   final ContentResolver cr=getContext().getContentResolver();
-  final Collection col=CollectionHelper.getInstance().getCol(getContext());
   ContentValues values=new ContentValues();
   values.put(FlashCardsContract.Note.MID,mModelId);
   values.put(FlashCardsContract.Note.FLDS,Utils.joinFields(TEST_NOTE_FIELDS));
   values.put(FlashCardsContract.Note.TAGS,TEST_TAG);
   Uri newNoteUri=cr.insert(FlashCardsContract.Note.CONTENT_URI,values);
   assertNotNull("Check that URI returned from addNewNote is not null",newNoteUri);
+  final Collection col=reopenCol();
   Note addedNote=new Note(col,Long.parseLong(newNoteUri.getLastPathSegment()));
   addedNote.load();
   assertTrue("Check that fields were set correctly",Arrays.equals(addedNote.getFields(),TEST_NOTE_FIELDS));

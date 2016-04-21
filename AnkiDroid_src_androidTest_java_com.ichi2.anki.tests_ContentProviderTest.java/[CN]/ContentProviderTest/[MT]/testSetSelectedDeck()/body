@@ -5,7 +5,6 @@
   ContentValues values=new ContentValues();
   values.put(FlashCardsContract.Deck.DECK_ID,deckId);
   cr.update(selectDeckUri,values,null,null);
-  Collection col;
-  col=CollectionHelper.getInstance().getCol(getContext());
+  Collection col=reopenCol();
   assertEquals("Check that the selected deck has been correctly set",deckId,col.getDecks().selected());
 }

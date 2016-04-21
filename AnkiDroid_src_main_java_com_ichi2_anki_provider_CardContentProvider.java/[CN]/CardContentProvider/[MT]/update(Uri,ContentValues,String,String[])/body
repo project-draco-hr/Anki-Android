@@ -68,6 +68,7 @@ if ((isDeckUpdate) && (did >= 0)) {
   col.getDecks().flush();
   currentCard.setDid(did);
   currentCard.flush();
+  col.save();
   updated++;
 }
  else {
@@ -123,6 +124,7 @@ model.put("latexPre",newLatexPre);
 updated++;
 }
 col.getModels().save(model);
+col.save();
 }
  catch (JSONException e) {
 Timber.e(e,"JSONException updating model");
@@ -169,6 +171,7 @@ updated++;
 templates.put(templateOrd,template);
 existingModel.put("tmpls",templates);
 col.getModels().save(existingModel,true);
+col.save();
 }
  catch (JSONException e) {
 throw new IllegalArgumentException("Model is malformed",e);
@@ -224,6 +227,7 @@ updated++;
 }
 }
 }
+col.save();
 break;
 }
 default :

@@ -16,6 +16,7 @@
           values.put(FlashCardsContract.Card.DECK_ID,targetDid);
           Uri cardUri=Uri.withAppendedPath(cardsUri,cardsCursor.getString(cardsCursor.getColumnIndex(FlashCardsContract.Card.CARD_ORD)));
           cr.update(cardUri,values,null,null);
+          reopenCol();
           Cursor movedCardCur=cr.query(cardUri,null,null,null,null);
           assertNotNull("Check that there is a valid cursor after moving card",movedCardCur);
           assertTrue("Move to beginning of cursor after moving card",movedCardCur.moveToFirst());

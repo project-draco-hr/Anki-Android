@@ -1,6 +1,6 @@
 {
   final ContentResolver cr=getContext().getContentResolver();
-  final Collection col=CollectionHelper.getInstance().getCol(getContext());
+  Collection col=CollectionHelper.getInstance().getCol(getContext());
   JSONObject model=Models.addBasicModel(col,BASIC_MODEL_NAME);
   long modelId=model.getLong("id");
   JSONArray initialFldsArr=model.getJSONArray("flds");
@@ -10,6 +10,8 @@
   insertFieldValues.put(FlashCardsContract.Model.FIELD_NAME,TEST_FIELD_NAME);
   Uri fieldUri=cr.insert(Uri.withAppendedPath(noteTypeUri,"fields"),insertFieldValues);
   assertNotNull("Check field uri",fieldUri);
+  col=reopenCol();
+  model=col.getModels().get(modelId);
   long fieldId=ContentUris.parseId(fieldUri);
   assertEquals("Check field id",initialFieldCount,fieldId);
   JSONArray fldsArr=model.getJSONArray("flds");
