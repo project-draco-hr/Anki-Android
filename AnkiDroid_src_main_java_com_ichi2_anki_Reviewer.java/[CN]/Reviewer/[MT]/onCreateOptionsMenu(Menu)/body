@@ -1,5 +1,4 @@
 {
-  mMenu=menu;
   getMenuInflater().inflate(R.menu.reviewer,menu);
   Resources res=getResources();
   setCustomButtons(menu);
@@ -42,6 +41,24 @@
   }
   if (mSpeakText) {
     if (mCustomButtons.get(R.id.action_select_tts) != MENU_DISABLED)     menu.findItem(R.id.action_select_tts).setVisible(true);
+  }
+  MenuItemCompat.setActionProvider(menu.findItem(R.id.action_suspend),new SuspendProvider(this));
+  MenuItemCompat.setActionProvider(menu.findItem(R.id.action_bury),new BuryProvider(this));
+  if (dismissNoteAvailable(DismissType.SUSPEND_NOTE)) {
+    menu.findItem(R.id.action_suspend).setIcon(R.drawable.ic_lock_outline_white_24px_dropdown);
+    menu.findItem(R.id.action_suspend).setTitle(R.string.menu_suspend);
+  }
+ else {
+    menu.findItem(R.id.action_suspend).setIcon(R.drawable.ic_lock_outline_white_24dp);
+    menu.findItem(R.id.action_suspend).setTitle(R.string.menu_suspend_card);
+  }
+  if (dismissNoteAvailable(DismissType.BURY_NOTE)) {
+    menu.findItem(R.id.action_bury).setIcon(R.drawable.ic_flip_to_back_white_24px_dropdown);
+    menu.findItem(R.id.action_bury).setTitle(R.string.menu_bury);
+  }
+ else {
+    menu.findItem(R.id.action_bury).setIcon(R.drawable.ic_flip_to_back_white_24dp);
+    menu.findItem(R.id.action_bury).setTitle(R.string.menu_bury_card);
   }
   return super.onCreateOptionsMenu(menu);
 }

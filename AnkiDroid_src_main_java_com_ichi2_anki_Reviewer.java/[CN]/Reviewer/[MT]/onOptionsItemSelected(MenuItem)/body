@@ -22,44 +22,21 @@ break;
 case R.id.action_edit:
 Timber.i("Reviewer:: Edit note button pressed");
 return editCard();
-case R.id.action_bury_actionbar_only:
+case R.id.action_bury:
 Timber.i("Reviewer:: Bury button pressed");
-if (!mShowBuryActionbarOnlySubmenu) {
-mMenu.findItem(R.id.action_bury_actionbar_only).getSubMenu().setGroupVisible(R.id.group_menu_bury_actionbar_only,false);
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mCurrentCard,4));
-}
- else {
-mMenu.findItem(R.id.action_bury_actionbar_only).getSubMenu().setGroupVisible(R.id.group_menu_bury_actionbar_only,true);
+if (!MenuItemCompat.getActionProvider(item).hasSubMenu()) {
+Timber.d("Bury card due to no submenu");
+dismiss(DismissType.BURY_CARD);
 }
 break;
-case R.id.action_bury_card:
-Timber.i("Reviewer:: Bury card button pressed");
-dismiss(Collection.DismissType.BURY_CARD);
-break;
-case R.id.action_bury_note:
-Timber.i("Reviewer:: Bury note button pressed");
-dismiss(Collection.DismissType.BURY_NOTE);
-break;
-case R.id.action_suspend_card:
-Timber.i("Reviewer:: Suspend card button pressed");
-dismiss(Collection.DismissType.SUSPEND_CARD);
-break;
-case R.id.action_suspend_note:
-Timber.i("Reviewer:: Suspend note button pressed");
-dismiss(Collection.DismissType.SUSPEND_NOTE);
-break;
-case R.id.action_suspend_actionbar_only:
+case R.id.action_suspend:
 Timber.i("Reviewer:: Suspend button pressed");
-if (!mShowSuspendActionbarOnlySubmenu) {
-mMenu.findItem(R.id.action_suspend_actionbar_only).getSubMenu().setGroupVisible(R.id.group_menu_suspend_actionbar_only,false);
-DeckTask.launchDeckTask(DeckTask.TASK_TYPE_DISMISS_NOTE,mDismissCardHandler,new DeckTask.TaskData(mCurrentCard,1));
-}
- else {
-mMenu.findItem(R.id.action_suspend_actionbar_only).getSubMenu().setGroupVisible(R.id.group_menu_suspend_actionbar_only,true);
+if (!MenuItemCompat.getActionProvider(item).hasSubMenu()) {
+Timber.d("Suspend card due to no submenu");
+dismiss(DismissType.SUSPEND_CARD);
 }
 break;
 case R.id.action_delete:
-case R.id.action_delete_actionbar_only:
 Timber.i("Reviewer:: Delete note button pressed");
 showDeleteNoteDialog();
 break;

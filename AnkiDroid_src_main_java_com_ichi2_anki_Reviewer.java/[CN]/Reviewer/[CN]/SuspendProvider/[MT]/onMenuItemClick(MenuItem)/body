@@ -1,0 +1,12 @@
+{
+switch (item.getItemId()) {
+case R.id.action_suspend_card:
+    dismiss(DismissType.SUSPEND_CARD);
+  return true;
+case R.id.action_suspend_note:
+dismiss(DismissType.SUSPEND_NOTE);
+return true;
+default :
+return false;
+}
+}

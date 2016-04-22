@@ -1,0 +1,12 @@
+{
+switch (item.getItemId()) {
+case R.id.action_bury_card:
+    dismiss(DismissType.BURY_CARD);
+  return true;
+case R.id.action_bury_note:
+dismiss(DismissType.BURY_NOTE);
+return true;
+default :
+return false;
+}
+}
