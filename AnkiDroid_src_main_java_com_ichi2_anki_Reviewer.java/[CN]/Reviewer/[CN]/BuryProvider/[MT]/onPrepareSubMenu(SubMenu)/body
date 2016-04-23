@@ -1,0 +1,7 @@
+{
+  subMenu.clear();
+  getMenuInflater().inflate(R.menu.reviewer_bury,subMenu);
+  for (int i=0; i < subMenu.size(); i++) {
+    subMenu.getItem(i).setOnMenuItemClickListener(this);
+  }
+}

@@ -1,6 +1,7 @@
 {
   getMenuInflater().inflate(R.menu.reviewer,menu);
   Resources res=getResources();
+  setCustomButtons(menu);
   if (mCurrentCard != null && mCurrentCard.note().hasTag("marked")) {
     menu.findItem(R.id.action_mark_card).setTitle(R.string.menu_unmark_note).setIcon(R.drawable.ic_star_white_24dp);
   }
@@ -14,20 +15,9 @@
     menu.findItem(R.id.action_undo).setEnabled(false).getIcon().setAlpha(Themes.ALPHA_ICON_DISABLED_LIGHT);
   }
   if (mPrefWhiteboard) {
-    MenuItemCompat.setShowAsAction(menu.findItem(R.id.action_mark_card),MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
-    if (CompatHelper.getSdkVersion() >= 14 && !ViewConfiguration.get(this).hasPermanentMenuKey()) {
-      Display display=getWindowManager().getDefaultDisplay();
-      DisplayMetrics outMetrics=new DisplayMetrics();
-      display.getMetrics(outMetrics);
-      float density=getResources().getDisplayMetrics().density;
-      float dpWidth=outMetrics.widthPixels / density;
-      if (dpWidth < 360) {
-        menu.findItem(R.id.action_hide_whiteboard).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-      }
-    }
     menu.findItem(R.id.action_enable_whiteboard).setTitle(R.string.disable_whiteboard);
-    menu.findItem(R.id.action_hide_whiteboard).setVisible(true);
-    menu.findItem(R.id.action_clear_whiteboard).setVisible(true);
+    if (mCustomButtons.get(R.id.action_hide_whiteboard) != MENU_DISABLED)     menu.findItem(R.id.action_hide_whiteboard).setVisible(true);
+    if (mCustomButtons.get(R.id.action_clear_whiteboard) != MENU_DISABLED)     menu.findItem(R.id.action_clear_whiteboard).setVisible(true);
     Drawable whiteboardIcon=ContextCompat.getDrawable(this,R.drawable.ic_gesture_white_24dp);
     if (mShowWhiteboard) {
       whiteboardIcon.setAlpha(255);
@@ -50,7 +40,25 @@
     menu.findItem(R.id.action_open_deck_options).setVisible(false);
   }
   if (mSpeakText) {
-    menu.findItem(R.id.action_select_tts).setVisible(true);
+    if (mCustomButtons.get(R.id.action_select_tts) != MENU_DISABLED)     menu.findItem(R.id.action_select_tts).setVisible(true);
+  }
+  MenuItemCompat.setActionProvider(menu.findItem(R.id.action_suspend),new SuspendProvider(this));
+  MenuItemCompat.setActionProvider(menu.findItem(R.id.action_bury),new BuryProvider(this));
+  if (dismissNoteAvailable(DismissType.SUSPEND_NOTE)) {
+    menu.findItem(R.id.action_suspend).setIcon(R.drawable.ic_lock_outline_white_24px_dropdown);
+    menu.findItem(R.id.action_suspend).setTitle(R.string.menu_suspend);
+  }
+ else {
+    menu.findItem(R.id.action_suspend).setIcon(R.drawable.ic_lock_outline_white_24dp);
+    menu.findItem(R.id.action_suspend).setTitle(R.string.menu_suspend_card);
+  }
+  if (dismissNoteAvailable(DismissType.BURY_NOTE)) {
+    menu.findItem(R.id.action_bury).setIcon(R.drawable.ic_flip_to_back_white_24px_dropdown);
+    menu.findItem(R.id.action_bury).setTitle(R.string.menu_bury);
+  }
+ else {
+    menu.findItem(R.id.action_bury).setIcon(R.drawable.ic_flip_to_back_white_24dp);
+    menu.findItem(R.id.action_bury).setTitle(R.string.menu_bury_card);
   }
   return super.onCreateOptionsMenu(menu);
 }

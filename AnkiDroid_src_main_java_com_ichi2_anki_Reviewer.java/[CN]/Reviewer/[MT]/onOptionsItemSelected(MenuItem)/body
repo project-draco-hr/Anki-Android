@@ -22,21 +22,19 @@ break;
 case R.id.action_edit:
 Timber.i("Reviewer:: Edit note button pressed");
 return editCard();
-case R.id.action_bury_card:
-Timber.i("Reviewer:: Bury card button pressed");
-dismiss(Collection.DismissType.BURY_CARD);
+case R.id.action_bury:
+Timber.i("Reviewer:: Bury button pressed");
+if (!MenuItemCompat.getActionProvider(item).hasSubMenu()) {
+Timber.d("Bury card due to no submenu");
+dismiss(DismissType.BURY_CARD);
+}
 break;
-case R.id.action_bury_note:
-Timber.i("Reviewer:: Bury note button pressed");
-dismiss(Collection.DismissType.BURY_NOTE);
-break;
-case R.id.action_suspend_card:
-Timber.i("Reviewer:: Suspend card button pressed");
-dismiss(Collection.DismissType.SUSPEND_CARD);
-break;
-case R.id.action_suspend_note:
-Timber.i("Reviewer:: Suspend note button pressed");
-dismiss(Collection.DismissType.SUSPEND_NOTE);
+case R.id.action_suspend:
+Timber.i("Reviewer:: Suspend button pressed");
+if (!MenuItemCompat.getActionProvider(item).hasSubMenu()) {
+Timber.d("Suspend card due to no submenu");
+dismiss(DismissType.SUSPEND_CARD);
+}
 break;
 case R.id.action_delete:
 Timber.i("Reviewer:: Delete note button pressed");
@@ -71,6 +69,10 @@ break;
 case R.id.action_select_tts:
 Timber.i("Reviewer:: Select TTS button pressed");
 showSelectTtsDialogue();
+break;
+case R.id.action_add_note_reviewer:
+Timber.i("Reviewer:: Add note button pressed");
+addNote();
 break;
 default :
 return super.onOptionsItemSelected(item);

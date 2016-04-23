@@ -32,19 +32,19 @@
       return true;
     }
     if (keyPressed == '-') {
-      dismiss(Collection.DismissType.BURY_CARD);
+      dismiss(DismissType.BURY_CARD);
       return true;
     }
     if (keyPressed == '=') {
-      dismiss(Collection.DismissType.BURY_NOTE);
+      dismiss(DismissType.BURY_NOTE);
       return true;
     }
     if (keyPressed == '@') {
-      dismiss(Collection.DismissType.SUSPEND_CARD);
+      dismiss(DismissType.SUSPEND_CARD);
       return true;
     }
     if (keyPressed == '!') {
-      dismiss(Collection.DismissType.SUSPEND_NOTE);
+      dismiss(DismissType.SUSPEND_NOTE);
       return true;
     }
     if (keyPressed == 'r' || keyCode == KeyEvent.KEYCODE_F5) {

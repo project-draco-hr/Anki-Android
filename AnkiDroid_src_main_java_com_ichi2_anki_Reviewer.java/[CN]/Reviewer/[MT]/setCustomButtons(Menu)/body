@@ -1,0 +1,10 @@
+{
+  for (  int itemId : mCustomButtons.keySet()) {
+    if (mCustomButtons.get(itemId) != MENU_DISABLED) {
+      MenuItemCompat.setShowAsAction(menu.findItem(itemId),mCustomButtons.get(itemId));
+    }
+ else {
+      menu.findItem(itemId).setVisible(false);
+    }
+  }
+}
