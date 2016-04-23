@@ -41,6 +41,22 @@
     if (previous < 20301208) {
       mRecommendFullSync=true;
     }
+    if (previous < 20600123) {
+      try {
+        Models models=getCol().getModels();
+        for (        JSONObject m : models.all()) {
+          String css=m.getString("css");
+          if (css.contains("font-familiy")) {
+            m.put("css",css.replace("font-familiy","font-family"));
+            models.save(m);
+          }
+        }
+        models.flush();
+      }
+ catch (      JSONException e) {
+        Timber.e(e,"Failed to upgrade css definitions.");
+      }
+    }
     int upgradePrefsVersion=AnkiDroidApp.CHECK_PREFERENCES_AT_VERSION;
     int upgradeDbVersion=AnkiDroidApp.CHECK_DB_AT_VERSION;
     if (previous < upgradeDbVersion || previous < upgradePrefsVersion) {
