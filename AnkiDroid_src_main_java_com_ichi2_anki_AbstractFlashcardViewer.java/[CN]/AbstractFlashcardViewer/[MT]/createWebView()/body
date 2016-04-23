@@ -39,8 +39,52 @@
         mFlipCardLayout.setVisibility(View.GONE);
         return true;
       }
-      Timber.d("Opening external link \"%s\" with an Intent",url);
-      Intent intent=new Intent(Intent.ACTION_VIEW,Uri.parse(url));
+      Intent intent=null;
+      try {
+        if (url.startsWith("intent:")) {
+          intent=Intent.parseUri(url,Intent.URI_INTENT_SCHEME);
+        }
+ else         if (url.startsWith("android-app:")) {
+          intent=Intent.parseUri(url,Intent.URI_ANDROID_APP_SCHEME);
+        }
+        if (intent != null) {
+          if (getPackageManager().resolveActivity(intent,0) == null) {
+            String fallbackUrl=intent.getStringExtra(EXTRA_BROWSER_FALLBACK_URL);
+            if (!TextUtils.isEmpty(fallbackUrl)) {
+              Timber.d("Using fallback url in intent uri: %s",url);
+              intent=null;
+              url=fallbackUrl;
+            }
+ else {
+              String packageName=intent.getPackage();
+              if (packageName == null) {
+                Timber.d("Not using resolved intent uri because not available: %s",intent);
+                intent=null;
+              }
+ else {
+                Timber.d("Resolving intent uri to market uri because not available: %s",intent);
+                intent=new Intent(Intent.ACTION_VIEW,Uri.parse("market://details?id=" + packageName));
+                if (getPackageManager().resolveActivity(intent,0) == null) {
+                  intent=null;
+                }
+              }
+            }
+          }
+ else {
+            intent.removeExtra(EXTRA_BROWSER_FALLBACK_URL);
+          }
+        }
+      }
+ catch (      URISyntaxException e) {
+        Timber.w("Unable to parse intent uri: %s",url);
+      }
+      if (intent == null) {
+        Timber.d("Opening external link \"%s\" with an Intent",url);
+        intent=new Intent(Intent.ACTION_VIEW,Uri.parse(url));
+      }
+ else {
+        Timber.d("Opening resolved external link \"%s\" with an Intent: %s",url,intent);
+      }
       try {
         startActivityWithoutAnimation(intent);
       }
