@@ -15,14 +15,14 @@
       if (visible) {
         toolbar.setAlpha(0.0f);
         toolbar.setVisibility(View.VISIBLE);
-        toolbar.animate().alpha(1f).setDuration(ANIMATION_DURATION).setListener(null);
+        toolbar.animate().alpha(TRANSPARENCY).setDuration(ANIMATION_DURATION).setListener(null);
         if (fullscreenMode >= FULLSCREEN_ALL_GONE) {
           topbar.setAlpha(0.0f);
           topbar.setVisibility(View.VISIBLE);
-          topbar.animate().alpha(1f).setDuration(ANIMATION_DURATION).setListener(null);
+          topbar.animate().alpha(TRANSPARENCY).setDuration(ANIMATION_DURATION).setListener(null);
           answerButtons.setAlpha(0.0f);
           answerButtons.setVisibility(View.VISIBLE);
-          answerButtons.animate().alpha(1f).setDuration(ANIMATION_DURATION).setListener(null);
+          answerButtons.animate().alpha(TRANSPARENCY).setDuration(ANIMATION_DURATION).setListener(null);
         }
       }
  else {
