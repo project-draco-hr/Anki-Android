@@ -22,7 +22,7 @@
       AnkiDroidApp.sendExceptionReport(e,"closeDB");
     }
     if (!mServer) {
-      mDb.getDatabase().rawQuery("pragma journal_mode = delete",null);
+      CompatHelper.getCompat().disableDatabaseWriteAheadLogging(mDb.getDatabase());
     }
     mDb.close();
     mDb=null;
