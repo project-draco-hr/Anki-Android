@@ -39,8 +39,51 @@
         mFlipCardLayout.setVisibility(View.GONE);
         return true;
       }
-      Timber.d("Opening external link \"%s\" with an Intent",url);
-      Intent intent=new Intent(Intent.ACTION_VIEW,Uri.parse(url));
+      Intent intent=null;
+      try {
+        if (url.startsWith("intent:")) {
+          intent=Intent.parseUri(url,Intent.URI_INTENT_SCHEME);
+        }
+ else         if (url.startsWith("android-app:")) {
+          if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP_MR1) {
+            intent=Intent.parseUri(url,0);
+            intent.setData(null);
+            intent.setPackage(Uri.parse(url).getHost());
+          }
+ else {
+            intent=Intent.parseUri(url,Intent.URI_ANDROID_APP_SCHEME);
+          }
+        }
+        if (intent != null) {
+          if (getPackageManager().resolveActivity(intent,0) == null) {
+            String packageName=intent.getPackage();
+            if (packageName == null) {
+              Timber.d("Not using resolved intent uri because not available: %s",intent);
+              intent=null;
+            }
+ else {
+              Timber.d("Resolving intent uri to market uri because not available: %s",intent);
+              intent=new Intent(Intent.ACTION_VIEW,Uri.parse("market://details?id=" + packageName));
+              if (getPackageManager().resolveActivity(intent,0) == null) {
+                intent=null;
+              }
+            }
+          }
+ else {
+            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+          }
+        }
+      }
+ catch (      Throwable t) {
+        Timber.w("Unable to parse intent uri: %s because: %s",url,t.getMessage());
+      }
+      if (intent == null) {
+        Timber.d("Opening external link \"%s\" with an Intent",url);
+        intent=new Intent(Intent.ACTION_VIEW,Uri.parse(url));
+      }
+ else {
+        Timber.d("Opening resolved external link \"%s\" with an Intent: %s",url,intent);
+      }
       try {
         startActivityWithoutAnimation(intent);
       }
