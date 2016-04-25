@@ -3,15 +3,7 @@
   mExtensions=new ReviewerExtRegistry(getBaseContext());
   restorePreferences();
   super.onCreate(savedInstanceState);
-  if (mPrefFullscreenReview == 0) {
-    setContentView(R.layout.reviewer);
-  }
- else {
-    setContentView(mPrefFullscreenReview == 1 ? R.layout.reviewer_fullscreen_1 : R.layout.reviewer_fullscreen_2);
-    if (CompatHelper.isLollipop()) {
-      getWindow().setStatusBarColor(Themes.getColorFromAttr(this,R.attr.colorPrimaryDark));
-    }
-  }
+  setContentView(getContentViewAttr(mPrefFullscreenReview));
   View mainView=findViewById(android.R.id.content);
   initNavigationDrawer(mainView);
   startLoadingCollection();

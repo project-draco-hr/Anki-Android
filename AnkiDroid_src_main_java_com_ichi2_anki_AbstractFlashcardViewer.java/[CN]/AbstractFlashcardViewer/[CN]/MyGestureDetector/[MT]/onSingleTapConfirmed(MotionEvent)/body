@@ -1,5 +1,5 @@
 {
-  if (mGesturesEnabled && !mIsSelecting) {
+  if (mGesturesEnabled && !mIsSelecting && !isPendingImmersiveMode()) {
     int height=mTouchLayer.getHeight();
     int width=mTouchLayer.getWidth();
     float posX=e.getX();
