@@ -45,38 +45,37 @@
           intent=Intent.parseUri(url,Intent.URI_INTENT_SCHEME);
         }
  else         if (url.startsWith("android-app:")) {
-          intent=Intent.parseUri(url,Intent.URI_ANDROID_APP_SCHEME);
+          if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP_MR1) {
+            intent=Intent.parseUri(url,0);
+            intent.setData(null);
+            intent.setPackage(Uri.parse(url).getHost());
+          }
+ else {
+            intent=Intent.parseUri(url,Intent.URI_ANDROID_APP_SCHEME);
+          }
         }
         if (intent != null) {
           if (getPackageManager().resolveActivity(intent,0) == null) {
-            String fallbackUrl=intent.getStringExtra(EXTRA_BROWSER_FALLBACK_URL);
-            if (!TextUtils.isEmpty(fallbackUrl)) {
-              Timber.d("Using fallback url in intent uri: %s",url);
+            String packageName=intent.getPackage();
+            if (packageName == null) {
+              Timber.d("Not using resolved intent uri because not available: %s",intent);
               intent=null;
-              url=fallbackUrl;
             }
  else {
-              String packageName=intent.getPackage();
-              if (packageName == null) {
-                Timber.d("Not using resolved intent uri because not available: %s",intent);
+              Timber.d("Resolving intent uri to market uri because not available: %s",intent);
+              intent=new Intent(Intent.ACTION_VIEW,Uri.parse("market://details?id=" + packageName));
+              if (getPackageManager().resolveActivity(intent,0) == null) {
                 intent=null;
-              }
- else {
-                Timber.d("Resolving intent uri to market uri because not available: %s",intent);
-                intent=new Intent(Intent.ACTION_VIEW,Uri.parse("market://details?id=" + packageName));
-                if (getPackageManager().resolveActivity(intent,0) == null) {
-                  intent=null;
-                }
               }
             }
           }
  else {
-            intent.removeExtra(EXTRA_BROWSER_FALLBACK_URL);
+            intent.addCategory(Intent.CATEGORY_BROWSABLE);
           }
         }
       }
- catch (      URISyntaxException e) {
-        Timber.w("Unable to parse intent uri: %s",url);
+ catch (      Throwable t) {
+        Timber.w("Unable to parse intent uri: %s because: %s",url,t.getMessage());
       }
       if (intent == null) {
         Timber.d("Opening external link \"%s\" with an Intent",url);
