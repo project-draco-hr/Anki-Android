@@ -1,0 +1,8 @@
+{
+  view.animate().alpha(0f).setDuration(ANIMATION_DURATION).setListener(new AnimatorListenerAdapter(){
+    @Override public void onAnimationEnd(    Animator animation){
+      view.setVisibility(View.GONE);
+    }
+  }
+);
+}

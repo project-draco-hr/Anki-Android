@@ -6,7 +6,7 @@
   mDisableClipboard=preferences.getString("dictionary","0").equals("0");
   mLongClickWorkaround=preferences.getBoolean("textSelectionLongclickWorkaround",false);
   mNightMode=preferences.getBoolean("invertedColors",false);
-  mPrefFullscreenReview=Integer.parseInt(preferences.getString("fullscreenMode","0")) > 0;
+  mPrefFullscreenReview=Integer.parseInt(preferences.getString("fullscreenMode","0"));
   mCardZoom=preferences.getInt("cardZoom",100);
   mImageZoom=preferences.getInt("imageZoom",100);
   mRelativeButtonSize=preferences.getInt("answerButtonSize",100);

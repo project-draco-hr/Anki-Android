@@ -1,0 +1,3 @@
+{
+  return mPrefFullscreenReview > 0 && (getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
+}
