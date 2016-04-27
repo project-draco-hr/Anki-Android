@@ -1,5 +1,9 @@
 {
-  if (mGesturesEnabled && !mIsSelecting && !isPendingImmersiveMode()) {
+  if (mPrefFullscreenReview > 0 && CompatHelper.getCompat().isSystemUiVisible(AbstractFlashcardViewer.this)) {
+    delayedHide(INITIAL_HIDE_DELAY);
+    return true;
+  }
+  if (mGesturesEnabled && !mIsSelecting) {
     int height=mTouchLayer.getHeight();
     int width=mTouchLayer.getWidth();
     float posX=e.getX();
