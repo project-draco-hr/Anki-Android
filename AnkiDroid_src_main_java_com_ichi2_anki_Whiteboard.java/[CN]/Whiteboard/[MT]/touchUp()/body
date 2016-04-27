@@ -1,5 +1,16 @@
 {
+  PathMeasure pm=new PathMeasure(mPath,false);
   mPath.lineTo(mX,mY);
-  mCanvas.drawPath(mPath,mPaint);
+  if (pm.getLength() > 0) {
+    mCanvas.drawPath(mPath,mPaint);
+    mUndo.add(mPath);
+  }
+ else {
+    mCanvas.drawPoint(mX,mY,mPaint);
+    mUndo.add(mX,mY);
+  }
   mPath.reset();
+  if (mUndo.size() == 1 && mActivity.get() != null) {
+    mActivity.get().supportInvalidateOptionsMenu();
+  }
 }

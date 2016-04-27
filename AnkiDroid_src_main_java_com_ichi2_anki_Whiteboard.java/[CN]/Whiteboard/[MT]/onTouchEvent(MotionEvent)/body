@@ -1,28 +1,23 @@
 {
-  boolean handled=false;
-  if (!mLocked) {
-    float x=event.getX();
-    float y=event.getY();
-    handled=true;
+  float x=event.getX();
+  float y=event.getY();
 switch (event.getAction()) {
 case MotionEvent.ACTION_DOWN:
-      touchStart(x,y);
-    invalidate();
-  break;
+    touchStart(x,y);
+  invalidate();
+return true;
 case MotionEvent.ACTION_MOVE:
 for (int i=0; i < event.getHistorySize(); i++) {
-  touchMove(event.getHistoricalX(i),event.getHistoricalY(i));
+touchMove(event.getHistoricalX(i),event.getHistoricalY(i));
 }
 touchMove(x,y);
 invalidate();
-break;
+return true;
 case MotionEvent.ACTION_UP:
 touchUp();
 invalidate();
-break;
+return true;
 default :
-handled=false;
+return false;
 }
-}
-return handled;
 }

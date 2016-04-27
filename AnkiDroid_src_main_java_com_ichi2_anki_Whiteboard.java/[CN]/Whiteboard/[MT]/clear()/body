@@ -1,5 +1,8 @@
 {
-  mBitmap.eraseColor(mBackgroundColor);
+  mBitmap.eraseColor(0);
+  mUndo.clear();
   invalidate();
-  unlock();
+  if (mActivity.get() != null) {
+    mActivity.get().supportInvalidateOptionsMenu();
+  }
 }

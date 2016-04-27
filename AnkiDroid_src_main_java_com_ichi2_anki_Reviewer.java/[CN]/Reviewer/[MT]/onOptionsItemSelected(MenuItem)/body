@@ -9,7 +9,12 @@ case android.R.id.home:
 break;
 case R.id.action_undo:
 Timber.i("Reviewer:: Undo button pressed");
+if (mShowWhiteboard && mWhiteboard != null && mWhiteboard.undoSize() > 0) {
+mWhiteboard.undo();
+}
+ else {
 undo();
+}
 break;
 case R.id.action_mark_card:
 Timber.i("Reviewer:: Mark button pressed");

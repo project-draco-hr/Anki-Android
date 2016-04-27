@@ -1,0 +1,10 @@
+{
+  mBitmap.eraseColor(0);
+  for (  Path path : mPathStack) {
+    mCanvas.drawPath(path,mPaint);
+  }
+  for (  PointF point : mPointStack) {
+    mCanvas.drawPoint(point.x,point.y,mPaint);
+  }
+  invalidate();
+}
