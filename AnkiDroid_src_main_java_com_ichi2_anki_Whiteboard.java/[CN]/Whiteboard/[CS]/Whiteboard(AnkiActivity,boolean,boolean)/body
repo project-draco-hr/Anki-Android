@@ -1,27 +1,29 @@
 {
   super(context,null);
+  mActivity=new WeakReference<>(context);
   mInvertedColors=inverted;
   mMonochrome=monochrome;
+  int foregroundColor;
   if (!mInvertedColors) {
     if (mMonochrome) {
-      mForegroundColor=Color.BLACK;
+      foregroundColor=Color.BLACK;
     }
  else {
-      mForegroundColor=ContextCompat.getColor(context,R.color.wb_fg_color);
+      foregroundColor=ContextCompat.getColor(context,R.color.wb_fg_color);
     }
   }
  else {
     if (mMonochrome) {
-      mForegroundColor=Color.WHITE;
+      foregroundColor=Color.WHITE;
     }
  else {
-      mForegroundColor=ContextCompat.getColor(context,R.color.wb_fg_color_inv);
+      foregroundColor=ContextCompat.getColor(context,R.color.wb_fg_color_inv);
     }
   }
   mPaint=new Paint();
   mPaint.setAntiAlias(true);
   mPaint.setDither(true);
-  mPaint.setColor(mForegroundColor);
+  mPaint.setColor(foregroundColor);
   mPaint.setStyle(Paint.Style.STROKE);
   mPaint.setStrokeJoin(Paint.Join.ROUND);
   mPaint.setStrokeCap(Paint.Cap.ROUND);

@@ -1,0 +1,7 @@
+{
+  mUndo.pop();
+  mUndo.apply();
+  if (undoSize() == 0 && mActivity.get() != null) {
+    mActivity.get().supportInvalidateOptionsMenu();
+  }
+}

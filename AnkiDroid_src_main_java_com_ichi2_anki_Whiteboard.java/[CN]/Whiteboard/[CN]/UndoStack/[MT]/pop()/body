@@ -1,0 +1,12 @@
+{
+  if (mWhichStack.size() == 0)   return;
+switch (mWhichStack.peek()) {
+case 0:
+    mPathStack.pop();
+  break;
+case 1:
+mPointStack.pop();
+break;
+}
+mWhichStack.pop();
+}

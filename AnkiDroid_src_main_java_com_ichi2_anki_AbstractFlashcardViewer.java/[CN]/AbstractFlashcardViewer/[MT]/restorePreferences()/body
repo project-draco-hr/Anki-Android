@@ -37,8 +37,8 @@
   mCustomButtons.put(R.id.action_edit,Integer.parseInt(preferences.getString("customButtonEditCard","1")));
   mCustomButtons.put(R.id.action_add_note_reviewer,Integer.parseInt(preferences.getString("customButtonAddCard","3")));
   mCustomButtons.put(R.id.action_replay,Integer.parseInt(preferences.getString("customButtonReplay","1")));
-  mCustomButtons.put(R.id.action_clear_whiteboard,Integer.parseInt(preferences.getString("customButtonClearWhiteboard","2")));
-  mCustomButtons.put(R.id.action_hide_whiteboard,Integer.parseInt(preferences.getString("customButtonShowHideWhiteboard",isSmallScreen() ? "1" : "2")));
+  mCustomButtons.put(R.id.action_clear_whiteboard,Integer.parseInt(preferences.getString("customButtonClearWhiteboard","1")));
+  mCustomButtons.put(R.id.action_hide_whiteboard,Integer.parseInt(preferences.getString("customButtonShowHideWhiteboard","2")));
   mCustomButtons.put(R.id.action_select_tts,Integer.parseInt(preferences.getString("customButtonSelectTts","0")));
   mCustomButtons.put(R.id.action_open_deck_options,Integer.parseInt(preferences.getString("customButtonDeckOptions","0")));
   mCustomButtons.put(R.id.action_bury,Integer.parseInt(preferences.getString("customButtonBury","0")));
