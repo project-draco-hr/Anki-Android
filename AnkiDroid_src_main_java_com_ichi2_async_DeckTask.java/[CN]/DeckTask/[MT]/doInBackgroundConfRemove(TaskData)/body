@@ -10,6 +10,7 @@
       conf.getJSONObject("new").put("order",defaultOrder);
       col.getSched().resortConf(conf);
     }
+    col.save();
     return new TaskData(true);
   }
  catch (  JSONException e) {

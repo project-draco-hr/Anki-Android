@@ -9,6 +9,7 @@
     if (!success) {
       return new TaskData("removeTemplateFailed",false);
     }
+    col.save();
   }
  catch (  ConfirmModSchemaException e) {
     Timber.e("doInBackgroundRemoveTemplate :: ConfirmModSchemaException");

@@ -6,6 +6,7 @@
   Collection col=CollectionHelper.getInstance().getCol(mContext);
   try {
     col.getModels().addField(model,col.getModels().newField(fieldName));
+    col.save();
   }
  catch (  ConfirmModSchemaException e) {
     return new TaskData(false);
