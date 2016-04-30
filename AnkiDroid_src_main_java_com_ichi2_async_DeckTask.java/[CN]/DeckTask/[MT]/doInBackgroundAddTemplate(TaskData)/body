@@ -6,6 +6,7 @@
   JSONObject template=(JSONObject)args[1];
   try {
     col.getModels().addTemplate(model,template);
+    col.save();
   }
  catch (  ConfirmModSchemaException e) {
     Timber.e("doInBackgroundAddTemplate :: ConfirmModSchemaException");

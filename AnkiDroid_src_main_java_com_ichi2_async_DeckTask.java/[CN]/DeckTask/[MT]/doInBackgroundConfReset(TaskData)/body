@@ -4,5 +4,6 @@
   Object[] data=params[0].getObjArray();
   JSONObject conf=(JSONObject)data[0];
   col.getDecks().restoreToDefault(conf);
+  col.save();
   return new TaskData(true);
 }

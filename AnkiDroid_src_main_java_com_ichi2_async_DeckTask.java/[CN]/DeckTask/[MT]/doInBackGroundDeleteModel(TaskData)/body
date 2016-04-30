@@ -4,6 +4,7 @@
   Collection col=CollectionHelper.getInstance().getCol(mContext);
   try {
     col.getModels().rem(col.getModels().get(modID));
+    col.save();
   }
  catch (  ConfirmModSchemaException e) {
     Timber.e("doInBackGroundDeleteModel :: ConfirmModSchemaException");

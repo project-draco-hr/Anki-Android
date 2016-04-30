@@ -6,9 +6,11 @@
     int idx=(int)objects[1];
     Collection col=CollectionHelper.getInstance().getCol(mContext);
     col.getModels().setSortIdx(model,idx);
+    col.save();
   }
  catch (  Exception e) {
-    e.printStackTrace();
+    Timber.e(e,"Error changing sort field");
+    return new TaskData(false);
   }
   return new TaskData(true);
 }

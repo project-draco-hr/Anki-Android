@@ -19,6 +19,7 @@ case 1:
 }
 }
 col.getDecks().setConf(deck,newConfId);
+col.save();
 return new TaskData(true);
 }
  catch (JSONException e) {
