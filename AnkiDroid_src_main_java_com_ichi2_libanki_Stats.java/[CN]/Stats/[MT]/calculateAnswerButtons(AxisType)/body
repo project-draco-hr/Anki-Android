@@ -7,17 +7,31 @@
   mType=type;
   String lim=_getDeckFilter().replaceAll("[\\[\\]]","");
   Vector<String> lims=new Vector<>();
-  int days=0;
-  if (lim.length() > 0)   lims.add(lim);
-  if (type == AxisType.TYPE_MONTH)   days=30;
- else   if (type == AxisType.TYPE_YEAR)   days=365;
- else   days=-1;
-  if (days > 0)   lims.add("id > " + ((mCol.getSched().getDayCutoff() - (days * SECONDS_PER_DAY)) * 1000));
+  int days;
+  if (lim.length() > 0) {
+    lims.add(lim);
+  }
+  if (type == AxisType.TYPE_MONTH) {
+    days=30;
+  }
+ else   if (type == AxisType.TYPE_YEAR) {
+    days=365;
+  }
+ else {
+    days=-1;
+  }
+  if (days > 0) {
+    lims.add("id > " + ((mCol.getSched().getDayCutoff() - (days * SECONDS_PER_DAY)) * 1000));
+  }
   if (lims.size() > 0) {
     lim="where " + lims.get(0);
-    for (int i=1; i < lims.size(); i++)     lim+=" and " + lims.get(i);
+    for (int i=1; i < lims.size(); i++) {
+      lim+=" and " + lims.get(i);
+    }
   }
- else   lim="";
+ else {
+    lim="";
+  }
   ArrayList<double[]> list=new ArrayList<>();
   Cursor cur=null;
   String query="select (case " + "                when type in (0,2) then 0 " + "        when lastIvl < 21 then 1 "+ "        else 2 end) as thetype, "+ "        (case when type in (0,2) and ease = 4 then 3 else ease end), count() from revlog " + lim + " "+ "        group by thetype, ease "+ "        order by thetype, ease";
@@ -53,8 +67,12 @@
     int currentType=(int)data[0];
     double ease=data[1];
     double cnt=data[2];
-    if (currentType == 1)     ease+=5;
- else     if (currentType == 2)     ease+=10;
+    if (currentType == 1) {
+      ease+=5;
+    }
+ else     if (currentType == 2) {
+      ease+=10;
+    }
     if ((int)ease == 1) {
       badNew=i;
     }
@@ -66,7 +84,9 @@
     }
     mSeriesList[0][i]=ease;
     mSeriesList[1 + currentType][i]=cnt;
-    if (cnt > mMaxCards)     mMaxCards=(int)cnt;
+    if (cnt > mMaxCards) {
+      mMaxCards=(int)cnt;
+    }
   }
   mSeriesList[0][list.size()]=15;
   mCumulative=new double[4][];
@@ -78,6 +98,8 @@
   mLastElement=14.5;
   mMcount=100;
   mMaxElements=15;
-  if (mMaxCards == 0)   mMaxCards=10;
+  if (mMaxCards == 0) {
+    mMaxCards=10;
+  }
   return list.size() > 0;
 }

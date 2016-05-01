@@ -34,9 +34,7 @@ cur=mCol.getDb().getDatabase().rawQuery("select ivl / " + chunk + " as grp, coun
 while (cur.moveToNext()) {
 list.add(new double[]{cur.getDouble(0),cur.getDouble(1)});
 }
-if (cur != null && !cur.isClosed()) {
 cur.close();
-}
 cur=mCol.getDb().getDatabase().rawQuery("select count(), avg(ivl), max(ivl) from cards where did in " + _limit() + " and queue = 2",null);
 cur.moveToFirst();
 all=cur.getDouble(0);
@@ -97,6 +95,8 @@ if (mFirstElement == mLastElement) {
 mFirstElement=0;
 mLastElement=6;
 }
-if (mMaxCards == 0) mMaxCards=10;
+if (mMaxCards == 0) {
+mMaxCards=10;
+}
 return list.size() > 0;
 }

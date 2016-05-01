@@ -1,5 +1,7 @@
 {
-  if (mCumulative == null)   return;
+  if (mCumulative == null) {
+    return;
+  }
   for (int i=1; i < mCumulative.length; i++) {
     double[][] cumulative={mCumulative[0],mCumulative[i]};
     ColorWrap usedColor=new ColorWrap(Themes.getColorFromAttr(mChartView.getContext(),R.attr.stats_cumulative));

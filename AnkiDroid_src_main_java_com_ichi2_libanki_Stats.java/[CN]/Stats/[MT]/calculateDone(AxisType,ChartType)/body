@@ -96,12 +96,24 @@ mSeriesList[2][i]=data[2] + data[3] + data[4]+ data[5];
 mSeriesList[3][i]=data[3] + data[4] + data[5];
 mSeriesList[4][i]=data[4] + data[5];
 mSeriesList[5][i]=data[5];
-if (mSeriesList[1][i] > mMaxCards) mMaxCards=(int)Math.round(data[1] + data[2] + data[3]+ data[4]+ data[5]);
-if (data[5] >= 0.999) mFoundCramCards=true;
-if (data[1] >= 0.999) mFoundLearnCards=true;
-if (data[2] >= 0.999) mFoundRelearnCards=true;
-if (data[0] > mLastElement) mLastElement=data[0];
-if (data[0] < mFirstElement) mFirstElement=data[0];
+if (mSeriesList[1][i] > mMaxCards) {
+mMaxCards=(int)Math.round(data[1] + data[2] + data[3]+ data[4]+ data[5]);
+}
+if (data[5] >= 0.999) {
+mFoundCramCards=true;
+}
+if (data[1] >= 0.999) {
+mFoundLearnCards=true;
+}
+if (data[2] >= 0.999) {
+mFoundRelearnCards=true;
+}
+if (data[0] > mLastElement) {
+mLastElement=data[0];
+}
+if (data[0] < mFirstElement) {
+mFirstElement=data[0];
+}
 if (data[0] == 0) {
 mZeroIndex=i;
 }
@@ -132,7 +144,9 @@ for (int j=0; j < mCumulative[i].length; j++) {
 if (mMcount < mCumulative[i][j]) mMcount=mCumulative[i][j];
 }
 }
-if (mMaxCards == 0) mMaxCards=10;
+if (mMaxCards == 0) {
+mMaxCards=10;
+}
 if (mMaxElements == 0) {
 mMaxElements=10;
 }

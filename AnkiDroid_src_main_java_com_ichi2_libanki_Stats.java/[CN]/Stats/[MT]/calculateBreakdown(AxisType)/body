@@ -38,7 +38,9 @@
     double[] data=list.get(i);
     int intHour=(int)data[0];
     int hour=(intHour - 4) % 24;
-    if (hour < 0)     hour+=24;
+    if (hour < 0) {
+      hour+=24;
+    }
     data[0]=hour;
     list.set(i,data);
   }
@@ -58,10 +60,16 @@
   for (int i=0; i < list.size(); i++) {
     double[] data=list.get(i);
     int hour=(int)data[0];
-    if (hour < minHour)     minHour=hour;
-    if (hour > maxHour)     maxHour=hour;
+    if (hour < minHour) {
+      minHour=hour;
+    }
+    if (hour > maxHour) {
+      maxHour=hour;
+    }
     double pct=data[1];
-    if (pct > mPeak)     mPeak=pct;
+    if (pct > mPeak) {
+      mPeak=pct;
+    }
     mSeriesList[0][i]=hour;
     mSeriesList[1][i]=pct;
     mSeriesList[2][i]=data[2];
@@ -75,8 +83,12 @@
       diff=Math.round(diff * 10.0) / 10.0;
       mSeriesList[3][i]=prev + diff;
     }
-    if (data[2] > mMcount)     mMcount=data[2];
-    if (mSeriesList[1][i] > mMaxCards)     mMaxCards=(int)mSeriesList[1][i];
+    if (data[2] > mMcount) {
+      mMcount=data[2];
+    }
+    if (mSeriesList[1][i] > mMaxCards) {
+      mMaxCards=(int)mSeriesList[1][i];
+    }
   }
   mFirstElement=mSeriesList[0][0];
   mLastElement=mSeriesList[0][mSeriesList[0].length - 1];
@@ -91,6 +103,8 @@
     mFirstElement=0;
     mLastElement=23;
   }
-  if (mMaxCards == 0)   mMaxCards=10;
+  if (mMaxCards == 0) {
+    mMaxCards=10;
+  }
   return list.size() > 0;
 }

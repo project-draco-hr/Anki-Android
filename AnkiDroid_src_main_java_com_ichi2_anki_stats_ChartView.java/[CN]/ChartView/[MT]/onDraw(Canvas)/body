@@ -6,8 +6,7 @@
     GraphicsWrap g=new GraphicsWrap(canvas,paint);
     Rect field=new Rect();
     this.getDrawingRect(field);
-    mRectangle=new RectangleWrap(field);
-    g.setClip(mRectangle);
+    g.setClip(new RectangleWrap(field));
     if (mPlotSheet != null) {
       mPlotSheet.paint(g);
     }

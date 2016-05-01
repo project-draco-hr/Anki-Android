@@ -1,7 +1,7 @@
 {
   Stats stats=new Stats(mCollectionData,mWholeCollection);
   OverviewStats oStats=new OverviewStats();
-  stats.calculateOverviewStatistics(mType,oStats,mWebView.getContext());
+  stats.calculateOverviewStatistics(mType,oStats);
   Resources res=mWebView.getResources();
   stringBuilder.append(_title(res.getString(mType.descriptionId)));
   boolean allDaysStudied=oStats.daysStudied == oStats.allDays;

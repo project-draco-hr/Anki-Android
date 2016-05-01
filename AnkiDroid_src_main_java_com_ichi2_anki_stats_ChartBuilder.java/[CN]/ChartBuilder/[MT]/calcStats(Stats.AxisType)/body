@@ -1,36 +1,34 @@
 {
-  mType=type;
   Stats stats=new Stats(mCollectionData,mIsWholeCollection);
 switch (mChartType) {
 case FORECAST:
-    stats.calculateDue(mChartView.getContext(),mType);
+    stats.calculateDue(mChartView.getContext(),type);
   break;
 case REVIEW_COUNT:
-stats.calculateReviewCount(mType);
+stats.calculateReviewCount(type);
 break;
 case REVIEW_TIME:
-stats.calculateReviewTime(mType);
+stats.calculateReviewTime(type);
 break;
 case INTERVALS:
-stats.calculateIntervals(mChartView.getContext(),mType);
+stats.calculateIntervals(mChartView.getContext(),type);
 break;
 case HOURLY_BREAKDOWN:
-stats.calculateBreakdown(mType);
+stats.calculateBreakdown(type);
 break;
 case WEEKLY_BREAKDOWN:
-stats.calculateWeeklyBreakdown(mType);
+stats.calculateWeeklyBreakdown(type);
 break;
 case ANSWER_BUTTONS:
-stats.calculateAnswerButtons(mType);
+stats.calculateAnswerButtons(type);
 break;
 case CARDS_TYPES:
-stats.calculateCardsTypes(mType);
+stats.calculateCardTypes(type);
 break;
 }
 mCumulative=stats.getCumulative();
 mSeriesList=stats.getSeriesList();
 Object[] metaData=stats.getMetaInfo();
-mBackwards=(Boolean)metaData[2];
 mValueLabels=(int[])metaData[3];
 mColors=(int[])metaData[4];
 mAxisTitles=(int[])metaData[5];

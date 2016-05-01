@@ -2,10 +2,12 @@
   sLock.lock();
   try {
     if (!mIsRunning) {
-      Timber.d("quiting CreateChartTask (%s) before execution",mChartType.name());
+      Timber.d("Quitting CreateChartTask (%s) before execution",mChartType.name());
       return null;
     }
- else     Timber.d("starting Create ChartTask, type: %s",mChartType.name());
+ else {
+      Timber.d("Starting CreateChartTask, type: %s",mChartType.name());
+    }
     mImageView=(ChartView)params[0];
     mProgressBar=(ProgressBar)params[1];
     ChartBuilder chartBuilder=new ChartBuilder(mImageView,mCollectionData,mIsWholeCollection,mChartType);
