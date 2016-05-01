@@ -4,7 +4,7 @@
   mValueLabels=new int[]{R.string.stats_percentage_correct,R.string.stats_answers};
   mColors=new int[]{R.attr.stats_counts,R.attr.stats_hours};
   mType=type;
-  String lim=_revlogLimit().replaceAll("[\\[\\]]","");
+  String lim=_getDeckFilter().replaceAll("[\\[\\]]","");
   if (lim.length() > 0) {
     lim=" and " + lim;
   }
@@ -12,7 +12,7 @@
   sd.setTimeInMillis(mCol.getCrt() * 1000);
   int pd=_periodDays();
   if (pd > 0) {
-    lim+=" and id > " + ((mCol.getSched().getDayCutoff() - (86400 * pd)) * 1000);
+    lim+=" and id > " + ((mCol.getSched().getDayCutoff() - (SECONDS_PER_DAY * pd)) * 1000);
   }
   long cutoff=mCol.getSched().getDayCutoff();
   long cut=cutoff - sd.get(Calendar.HOUR_OF_DAY) * 3600;

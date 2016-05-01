@@ -1,0 +1,46 @@
+{
+  oStats.allDays=timespan.days;
+  String lim=getRevlogFilter(timespan,false);
+  Cursor cur=null;
+  try {
+    cur=mCol.getDb().getDatabase().rawQuery("SELECT COUNT(*) as num_reviews, sum(case when type = 0 then 1 else 0 end) as new_cards FROM revlog " + lim,null);
+    while (cur.moveToNext()) {
+      oStats.totalReviews=cur.getInt(0);
+    }
+  }
+  finally {
+    if (cur != null && !cur.isClosed())     cur.close();
+  }
+  String cntquery="SELECT  COUNT(*) numDays, MIN(day) firstDay, SUM(time_per_day) sum_time  from (" + " SELECT (cast((id/1000 - " + mCol.getSched().getDayCutoff() + ") / "+ SECONDS_PER_DAY+ " AS INT)) AS day,  sum(time/1000.0/60.0) AS time_per_day"+ " FROM revlog "+ lim+ " GROUP BY day ORDER BY day)";
+  Timber.d("Count cntquery: %s",cntquery);
+  try {
+    cur=mCol.getDb().getDatabase().rawQuery(cntquery,null);
+    while (cur.moveToNext()) {
+      oStats.daysStudied=cur.getInt(0);
+      oStats.totalTime=cur.getDouble(2);
+      if (timespan == AxisType.TYPE_LIFE)       oStats.allDays=Math.abs(cur.getInt(1)) + 1;
+    }
+  }
+  finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+  try {
+    cur=mCol.getDb().getDatabase().rawQuery("select avg(ivl), max(ivl) from cards where did in " + _limit() + " and queue = 2",null);
+    cur.moveToFirst();
+    oStats.averageInterval=cur.getDouble(0);
+    oStats.longestInterval=cur.getDouble(1);
+  }
+  finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+  oStats.reviewsPerDayOnAll=(double)oStats.totalReviews / oStats.allDays;
+  oStats.reviewsPerDayOnStudyDays=(double)oStats.totalReviews / oStats.daysStudied;
+  oStats.timePerDayOnAll=oStats.totalTime / oStats.allDays;
+  oStats.timePerDayOnStudyDays=oStats.totalTime / oStats.daysStudied;
+  oStats.totalNewCards=getNewCards(timespan);
+  oStats.newCardsPerDay=(double)oStats.totalNewCards / (double)oStats.allDays;
+}

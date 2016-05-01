@@ -30,9 +30,9 @@ break;
 }
 ArrayList<String> lims=new ArrayList<>();
 if (num != -1) {
-lims.add("id > " + ((mCol.getSched().getDayCutoff() - ((num + 1) * chunk * 86400)) * 1000));
+lims.add("id > " + ((mCol.getSched().getDayCutoff() - ((num + 1) * chunk * SECONDS_PER_DAY)) * 1000));
 }
-String lim=_revlogLimit().replaceAll("[\\[\\]]","");
+String lim=_getDeckFilter().replaceAll("[\\[\\]]","");
 if (lim.length() > 0) {
 lims.add(lim);
 }
@@ -49,7 +49,7 @@ lim="";
 String ti;
 String tf;
 if (charType == ChartType.REVIEW_TIME) {
-ti="time/1000";
+ti="time/1000.0";
 if (mType == AxisType.TYPE_MONTH) {
 tf="/60.0";
 mAxisTitles=new int[]{type.ordinal(),R.string.stats_minutes,R.string.stats_cumulative_time_minutes};
@@ -65,7 +65,7 @@ tf="";
 }
 ArrayList<double[]> list=new ArrayList<>();
 Cursor cur=null;
-String query="SELECT (cast((id/1000 - " + mCol.getSched().getDayCutoff() + ") / 86400.0 AS INT))/"+ chunk+ " AS day, "+ "sum(CASE WHEN type = 0 THEN "+ ti+ " ELSE 0 END)"+ tf+ ", "+ "sum(CASE WHEN type = 1 AND lastIvl < 21 THEN "+ ti+ " ELSE 0 END)"+ tf+ ", "+ "sum(CASE WHEN type = 1 AND lastIvl >= 21 THEN "+ ti+ " ELSE 0 END)"+ tf+ ", "+ "sum(CASE WHEN type = 2 THEN "+ ti+ " ELSE 0 END)"+ tf+ ", "+ "sum(CASE WHEN type = 3 THEN "+ ti+ " ELSE 0 END)"+ tf+ " FROM revlog "+ lim+ " GROUP BY day ORDER BY day";
+String query="SELECT (cast((id/1000 - " + mCol.getSched().getDayCutoff() + ") / "+ SECONDS_PER_DAY+ " AS INT))/"+ chunk+ " AS day, "+ "sum(CASE WHEN type = 0 THEN "+ ti+ " ELSE 0 END)"+ tf+ ", "+ "sum(CASE WHEN type = 1 AND lastIvl < 21 THEN "+ ti+ " ELSE 0 END)"+ tf+ ", "+ "sum(CASE WHEN type = 1 AND lastIvl >= 21 THEN "+ ti+ " ELSE 0 END)"+ tf+ ", "+ "sum(CASE WHEN type = 2 THEN "+ ti+ " ELSE 0 END)"+ tf+ ", "+ "sum(CASE WHEN type = 3 THEN "+ ti+ " ELSE 0 END)"+ tf+ " FROM revlog "+ lim+ " GROUP BY day ORDER BY day";
 Timber.d("ReviewCount query: %s",query);
 try {
 cur=mCol.getDb().getDatabase().rawQuery(query,null);

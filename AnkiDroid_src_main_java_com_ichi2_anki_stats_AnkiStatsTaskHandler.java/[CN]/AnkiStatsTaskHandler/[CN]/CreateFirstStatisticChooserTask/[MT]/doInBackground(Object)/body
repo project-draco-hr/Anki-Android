@@ -11,7 +11,7 @@
     int cards;
     Cursor cur=null;
     String query="select count() from revlog where id > " + ((collection.getSched().getDayCutoff() - 86400) * 1000);
-    Timber.d("CreateSmallTodayOverview query: " + query);
+    Timber.d("DeckPreviewStatistics query: " + query);
     try {
       cur=collection.getDb().getDatabase().rawQuery(query,null);
       cur.moveToFirst();

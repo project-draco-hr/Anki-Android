@@ -5,14 +5,14 @@
   mValueLabels=new int[]{R.string.statistics_learn,R.string.statistics_young,R.string.statistics_mature};
   mColors=new int[]{R.attr.stats_learn,R.attr.stats_young,R.attr.stats_mature};
   mType=type;
-  String lim=_revlogLimit().replaceAll("[\\[\\]]","");
+  String lim=_getDeckFilter().replaceAll("[\\[\\]]","");
   Vector<String> lims=new Vector<>();
   int days=0;
   if (lim.length() > 0)   lims.add(lim);
   if (type == AxisType.TYPE_MONTH)   days=30;
  else   if (type == AxisType.TYPE_YEAR)   days=365;
  else   days=-1;
-  if (days > 0)   lims.add("id > " + ((mCol.getSched().getDayCutoff() - (days * 86400)) * 1000));
+  if (days > 0)   lims.add("id > " + ((mCol.getSched().getDayCutoff() - (days * SECONDS_PER_DAY)) * 1000));
   if (lims.size() > 0) {
     lim="where " + lims.get(0);
     for (int i=1; i < lims.size(); i++)     lim+=" and " + lims.get(i);
