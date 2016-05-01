@@ -58,11 +58,15 @@ dues.add(new int[]{Math.max(12,dues.get(dues.size() - 1)[0] + 1),0,0});
 mSeriesList=new double[3][dues.size()];
 for (int i=0; i < dues.size(); i++) {
 int[] data=dues.get(i);
-if (data[1] > mMaxCards) mMaxCards=data[1];
+if (data[1] > mMaxCards) {
+mMaxCards=data[1];
+}
 mSeriesList[0][i]=data[0];
 mSeriesList[1][i]=data[1];
 mSeriesList[2][i]=data[2];
-if (data[0] > mLastElement) mLastElement=data[0];
+if (data[0] > mLastElement) {
+mLastElement=data[0];
+}
 if (data[0] == 0) {
 mZeroIndex=i;
 }
@@ -91,6 +95,8 @@ if (mFirstElement == mLastElement) {
 mFirstElement=0;
 mLastElement=6;
 }
-if (mMaxCards == 0) mMaxCards=10;
+if (mMaxCards == 0) {
+mMaxCards=10;
+}
 return dues.size() > 0;
 }

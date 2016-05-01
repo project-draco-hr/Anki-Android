@@ -1,7 +1,6 @@
 {
   super.onCreateOptionsMenu(menu);
-  mMenu=menu;
   MenuInflater inflater=getMenuInflater();
-  inflater.inflate(R.menu.anki_stats,mMenu);
+  inflater.inflate(R.menu.anki_stats,menu);
   return true;
 }

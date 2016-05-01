@@ -3,7 +3,6 @@
   sIsSubtitle=true;
   super.onCreate(savedInstanceState);
   setContentView(R.layout.activity_anki_stats);
-  mMainLayout=findViewById(android.R.id.content);
-  initNavigationDrawer(mMainLayout);
+  initNavigationDrawer(findViewById(android.R.id.content));
   startLoadingCollection();
 }

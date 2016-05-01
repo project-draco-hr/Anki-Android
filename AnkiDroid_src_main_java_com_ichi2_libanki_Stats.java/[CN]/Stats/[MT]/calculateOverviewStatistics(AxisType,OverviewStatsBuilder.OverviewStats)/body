@@ -9,7 +9,9 @@
     }
   }
   finally {
-    if (cur != null && !cur.isClosed())     cur.close();
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
   }
   String cntquery="SELECT  COUNT(*) numDays, MIN(day) firstDay, SUM(time_per_day) sum_time  from (" + " SELECT (cast((id/1000 - " + mCol.getSched().getDayCutoff() + ") / "+ SECONDS_PER_DAY+ " AS INT)) AS day,  sum(time/1000.0/60.0) AS time_per_day"+ " FROM revlog "+ lim+ " GROUP BY day ORDER BY day)";
   Timber.d("Count cntquery: %s",cntquery);
@@ -18,7 +20,9 @@
     while (cur.moveToNext()) {
       oStats.daysStudied=cur.getInt(0);
       oStats.totalTime=cur.getDouble(2);
-      if (timespan == AxisType.TYPE_LIFE)       oStats.allDays=Math.abs(cur.getInt(1)) + 1;
+      if (timespan == AxisType.TYPE_LIFE) {
+        oStats.allDays=Math.abs(cur.getInt(1)) + 1;
+      }
     }
   }
   finally {

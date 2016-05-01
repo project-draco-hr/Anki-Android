@@ -2,16 +2,16 @@
   sLock.lock();
   try {
     if (!mIsRunning) {
-      Timber.d("quiting CreateStatisticsOverview before execution");
+      Timber.d("Quitting CreateStatisticsOverview before execution");
       return null;
     }
- else     Timber.d("starting CreateStatisticsOverview");
+ else {
+      Timber.d("Starting CreateStatisticsOverview");
+    }
     mWebView=(WebView)params[0];
     mProgressBar=(ProgressBar)params[1];
-    String html="";
     OverviewStatsBuilder overviewStatsBuilder=new OverviewStatsBuilder(mWebView,mCollectionData,mIsWholeCollection,mStatType);
-    html=overviewStatsBuilder.createInfoHtmlString();
-    return html;
+    return overviewStatsBuilder.createInfoHtmlString();
   }
   finally {
     sLock.unlock();

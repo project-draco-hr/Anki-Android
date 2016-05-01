@@ -8,7 +8,9 @@
     return rootView;
   }
   mWebView=(WebView)rootView.findViewById(R.id.web_view_stats);
-  if (mWebView == null)   Timber.d("mChart null!!!");
+  if (mWebView == null) {
+    Timber.d("mChart null!");
+  }
  else {
     Timber.d("mChart is not null!");
     mWebView.setBackgroundColor(Color.argb(1,0,0,0));

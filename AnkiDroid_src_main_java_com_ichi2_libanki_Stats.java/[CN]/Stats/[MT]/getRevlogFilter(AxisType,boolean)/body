@@ -1,7 +1,9 @@
 {
   ArrayList<String> lims=new ArrayList<>();
   String dayFilter=getRevlogTimeFilter(timespan,inverseTimeSpan);
-  if (dayFilter != "")   lims.add(dayFilter);
+  if (!TextUtils.isEmpty(dayFilter)) {
+    lims.add(dayFilter);
+  }
   String lim=_getDeckFilter().replaceAll("[\\[\\]]","");
   if (lim.length() > 0) {
     lims.add(lim);

@@ -1,6 +1,8 @@
 {
   String lim=_getDeckFilter();
-  if (lim.length() > 0)   lim=" and " + lim;
+  if (lim.length() > 0) {
+    lim=" and " + lim;
+  }
   Cursor cur=null;
   String query="select count(), sum(time)/1000, " + "sum(case when ease = 1 then 1 else 0 end), " + "sum(case when type = 0 then 1 else 0 end), "+ "sum(case when type = 1 then 1 else 0 end), "+ "sum(case when type = 2 then 1 else 0 end), "+ "sum(case when type = 3 then 1 else 0 end) "+ "from revlog where id > " + ((mCol.getSched().getDayCutoff() - SECONDS_PER_DAY) * 1000) + " "+ lim;
   Timber.d("todays statistics query: %s",query);

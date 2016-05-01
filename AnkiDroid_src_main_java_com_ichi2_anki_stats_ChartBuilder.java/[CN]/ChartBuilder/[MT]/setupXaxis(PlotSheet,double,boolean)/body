@@ -2,7 +2,9 @@
   XAxis xAxis=new XAxis(plotSheet,0,xTicks,xTicks / 2.0);
   xAxis.setOnFrame();
   if (hasName) {
-    if (mDynamicAxis)     xAxis.setName(mChartView.getResources().getStringArray(R.array.due_x_axis_title)[mAxisTitles[0]]);
+    if (mDynamicAxis) {
+      xAxis.setName(mChartView.getResources().getStringArray(R.array.due_x_axis_title)[mAxisTitles[0]]);
+    }
  else {
       xAxis.setName(mChartView.getResources().getString(mAxisTitles[0]));
     }
