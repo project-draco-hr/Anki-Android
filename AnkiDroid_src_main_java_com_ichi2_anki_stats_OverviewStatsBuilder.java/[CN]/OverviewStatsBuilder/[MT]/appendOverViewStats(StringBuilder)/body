@@ -5,8 +5,10 @@
   Resources res=mWebView.getResources();
   stringBuilder.append(_title(res.getString(mType.descriptionId)));
   boolean allDaysStudied=oStats.daysStudied == oStats.allDays;
+  String daysStudied=res.getString(R.string.stats_overview_days_studied,(int)((float)oStats.daysStudied / (float)oStats.allDays * 100),oStats.daysStudied,oStats.allDays);
   stringBuilder.append(_subtitle(res.getString(R.string.stats_review_count).toUpperCase()));
-  stringBuilder.append(res.getString(R.string.stats_overview_days_studied,(int)((float)oStats.daysStudied / (float)oStats.allDays * 100),oStats.daysStudied,oStats.allDays));
+  stringBuilder.append(daysStudied);
+  stringBuilder.append("<br>");
   stringBuilder.append(res.getString(R.string.stats_overview_total_reviews,oStats.totalReviews));
   stringBuilder.append("<br>");
   stringBuilder.append(res.getString(R.string.stats_overview_reviews_per_day_studydays,oStats.reviewsPerDayOnStudyDays));
@@ -14,23 +16,25 @@
     stringBuilder.append("<br>");
     stringBuilder.append(res.getString(R.string.stats_overview_reviews_per_day_all,oStats.reviewsPerDayOnAll));
   }
-  stringBuilder.append("<br><br>");
+  stringBuilder.append("<br>");
   stringBuilder.append(_subtitle(res.getString(R.string.stats_review_time).toUpperCase()));
+  stringBuilder.append(daysStudied);
+  stringBuilder.append("<br>");
   stringBuilder.append(res.getString(R.string.stats_overview_time_per_day_studydays,oStats.timePerDayOnStudyDays));
   if (!allDaysStudied) {
     stringBuilder.append("<br>");
     stringBuilder.append(res.getString(R.string.stats_overview_time_per_day_all,oStats.timePerDayOnAll));
   }
-  stringBuilder.append("<br><br>");
-  stringBuilder.append(_subtitle(res.getString(R.string.stats_progress).toUpperCase()));
-  stringBuilder.append(res.getString(R.string.stats_overview_total_new_cards,oStats.totalNewCards));
   stringBuilder.append("<br>");
-  stringBuilder.append(res.getString(R.string.stats_overview_new_cards_per_day,oStats.newCardsPerDay));
-  stringBuilder.append("<br><br>");
   stringBuilder.append(_subtitle(res.getString(R.string.stats_review_intervals).toUpperCase()));
   stringBuilder.append(res.getString(R.string.stats_overview_average_interval));
   stringBuilder.append(Utils.roundedTimeSpan(mWebView.getContext(),(int)Math.round(oStats.averageInterval * Stats.SECONDS_PER_DAY)));
   stringBuilder.append("<br>");
   stringBuilder.append(res.getString(R.string.stats_overview_longest_interval));
   stringBuilder.append(Utils.roundedTimeSpan(mWebView.getContext(),(int)Math.round(oStats.longestInterval * Stats.SECONDS_PER_DAY)));
+  stringBuilder.append("<br>");
+  stringBuilder.append(_subtitle(res.getString(R.string.stats_progress).toUpperCase()));
+  stringBuilder.append(res.getString(R.string.stats_overview_total_new_cards,oStats.totalNewCards));
+  stringBuilder.append("<br>");
+  stringBuilder.append(res.getString(R.string.stats_overview_new_cards_per_day,oStats.newCardsPerDay));
 }
