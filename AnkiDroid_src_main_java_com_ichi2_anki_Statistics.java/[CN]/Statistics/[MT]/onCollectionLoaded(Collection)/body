@@ -22,7 +22,6 @@
   mViewPager.setOffscreenPageLimit(8);
   slidingTabLayout=(SlidingTabLayout)findViewById(R.id.sliding_tabs);
   slidingTabLayout.setViewPager(mViewPager);
-  AnkiStatsTaskHandler.createFirstStatisticChooserTask(col,mViewPager);
   float size=new TextView(this).getTextSize();
   mTaskHandler.setmStandardTextSize(size);
   supportInvalidateOptionsMenu();
