@@ -13,7 +13,7 @@
         ConfirmationDialog dialog=new ConfirmationDialog(){
           @Override public void confirm(){
             getCol().remCards(Utils.arrayList2array(cids));
-            showSimpleSnackbar(String.format(getResources().getString(R.string.empty_cards_deleted),cids.size()),false);
+            UIUtils.showSimpleSnackbar(DeckPicker.this,String.format(getResources().getString(R.string.empty_cards_deleted),cids.size()),false);
           }
         }
 ;

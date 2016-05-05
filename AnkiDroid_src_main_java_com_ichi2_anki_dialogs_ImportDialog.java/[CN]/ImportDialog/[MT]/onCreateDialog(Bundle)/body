@@ -18,7 +18,7 @@ case DIALOG_IMPORT_HINT:
 case DIALOG_IMPORT_SELECT:
   List<File> fileList=Utils.getImportableDecks(getActivity());
 if (fileList.size() == 0) {
-  Themes.showThemedToast(getActivity(),getResources().getString(R.string.upgrade_import_no_file_found,"'.apkg'"),false);
+  UIUtils.showThemedToast(getActivity(),getResources().getString(R.string.upgrade_import_no_file_found,"'.apkg'"),false);
   return builder.showListener(new DialogInterface.OnShowListener(){
     @Override public void onShow(    DialogInterface dialog){
       dialog.cancel();

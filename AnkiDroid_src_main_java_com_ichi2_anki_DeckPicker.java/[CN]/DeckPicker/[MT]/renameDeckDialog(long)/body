@@ -14,7 +14,7 @@
           col.getDecks().rename(col.getDecks().get(did),newName);
         }
  catch (        DeckRenameException e) {
-          Themes.showThemedToast(DeckPicker.this,e.getLocalizedMessage(res),false);
+          UIUtils.showThemedToast(DeckPicker.this,e.getLocalizedMessage(res),false);
         }
       }
       dismissAllDialogFragments();

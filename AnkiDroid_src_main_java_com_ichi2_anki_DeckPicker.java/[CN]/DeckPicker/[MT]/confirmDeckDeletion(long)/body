@@ -4,7 +4,7 @@
     return;
   }
   if (did == 1) {
-    showSimpleSnackbar(R.string.delete_deck_default_deck,true);
+    UIUtils.showSimpleSnackbar(this,R.string.delete_deck_default_deck,true);
     dismissAllDialogFragments();
     return;
   }

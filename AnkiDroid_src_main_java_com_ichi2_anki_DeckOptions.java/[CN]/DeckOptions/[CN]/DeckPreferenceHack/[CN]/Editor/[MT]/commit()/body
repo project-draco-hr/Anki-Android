@@ -111,7 +111,7 @@
       }
  else       if (key.equals("confRemove")) {
         if (mOptions.getLong("id") == 1) {
-          Themes.showThemedToast(DeckOptions.this,getResources().getString(R.string.default_conf_delete_error),false);
+          UIUtils.showThemedToast(DeckOptions.this,getResources().getString(R.string.default_conf_delete_error),false);
         }
  else {
           try {

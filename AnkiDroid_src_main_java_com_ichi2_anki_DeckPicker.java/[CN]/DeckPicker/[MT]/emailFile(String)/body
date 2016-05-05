@@ -11,6 +11,6 @@
     startActivityWithoutAnimation(intent);
   }
  catch (  ActivityNotFoundException e) {
-    Themes.showThemedToast(this,getResources().getString(R.string.no_email_client),false);
+    UIUtils.showThemedToast(this,getResources().getString(R.string.no_email_client),false);
   }
 }

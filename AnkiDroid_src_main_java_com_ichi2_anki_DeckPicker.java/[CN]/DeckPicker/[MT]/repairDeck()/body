@@ -8,7 +8,7 @@
         mProgressDialog.dismiss();
       }
       if (result == null || !result.getBoolean()) {
-        Themes.showThemedToast(DeckPicker.this,getResources().getString(R.string.deck_repair_error),true);
+        UIUtils.showThemedToast(DeckPicker.this,getResources().getString(R.string.deck_repair_error),true);
         onCollectionLoadError();
       }
     }

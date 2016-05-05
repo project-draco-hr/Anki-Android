@@ -3,5 +3,5 @@
   getCol().getSched().reschedCards(new long[]{mCurrentEditedCard.getId()},days,days);
   getCol().reset();
   mReloadRequired=true;
-  Themes.showThemedToast(NoteEditor.this,getResources().getString(R.string.reschedule_card_dialog_acknowledge),true);
+  UIUtils.showThemedToast(NoteEditor.this,getResources().getString(R.string.reschedule_card_dialog_acknowledge),true);
 }

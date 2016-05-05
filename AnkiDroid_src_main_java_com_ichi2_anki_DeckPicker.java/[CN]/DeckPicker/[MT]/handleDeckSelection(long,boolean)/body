@@ -20,7 +20,7 @@
     openStudyOptions(false);
   }
  else   if (getCol().getSched().newDue() || getCol().getSched().revDue()) {
-    showSnackbar(R.string.studyoptions_limit_reached,false,R.string.study_more,new OnClickListener(){
+    UIUtils.showSnackbar(this,R.string.studyoptions_limit_reached,false,R.string.study_more,new OnClickListener(){
       @Override public void onClick(      View v){
         CustomStudyDialog d=CustomStudyDialog.newInstance(CustomStudyDialog.CONTEXT_MENU_LIMITS,getCol().getDecks().selected(),true);
         showDialogFragment(d);
@@ -34,7 +34,7 @@
  else   if (deckDueTreeNode.children.size() == 0 && getCol().cardCount(new Long[]{did}) == 0) {
     final Uri helpUrl=Uri.parse(getResources().getString(R.string.link_manual_getting_started));
     mayOpenUrl(helpUrl);
-    showSnackbar(R.string.empty_deck,false,R.string.help,new OnClickListener(){
+    UIUtils.showSnackbar(this,R.string.empty_deck,false,R.string.help,new OnClickListener(){
       @Override public void onClick(      View v){
         openUrl(helpUrl);
       }
@@ -42,7 +42,7 @@
 ,findViewById(R.id.root_layout),mSnackbarShowHideCallback);
   }
  else {
-    showSnackbar(R.string.studyoptions_empty_schedule,false,R.string.custom_study,new OnClickListener(){
+    UIUtils.showSnackbar(this,R.string.studyoptions_empty_schedule,false,R.string.custom_study,new OnClickListener(){
       @Override public void onClick(      View v){
         CustomStudyDialog d=CustomStudyDialog.newInstance(CustomStudyDialog.CONTEXT_MENU_EMPTY_SCHEDULE,getCol().getDecks().selected(),true);
         showDialogFragment(d);
