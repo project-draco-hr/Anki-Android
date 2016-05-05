@@ -7,6 +7,6 @@
     Connection.login(loginListener,new Connection.Payload(new Object[]{username,password}));
   }
  else {
-    showSimpleSnackbar(R.string.invalid_username_password,true);
+    UIUtils.showSimpleSnackbar(this,R.string.invalid_username_password,true);
   }
 }

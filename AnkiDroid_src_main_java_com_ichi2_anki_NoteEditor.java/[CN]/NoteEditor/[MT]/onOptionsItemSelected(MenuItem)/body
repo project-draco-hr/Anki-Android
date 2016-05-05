@@ -27,7 +27,7 @@ Timber.i("NoteEditor:: OK button pressed");
 getCol().getSched().forgetCards(new long[]{mCurrentEditedCard.getId()});
 getCol().reset();
 mReloadRequired=true;
-Themes.showThemedToast(NoteEditor.this,getResources().getString(R.string.reset_card_dialog_acknowledge),true);
+UIUtils.showThemedToast(NoteEditor.this,getResources().getString(R.string.reset_card_dialog_acknowledge),true);
 }
 }
 ;

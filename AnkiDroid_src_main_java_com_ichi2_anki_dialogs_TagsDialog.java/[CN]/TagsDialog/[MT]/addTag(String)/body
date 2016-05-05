@@ -17,6 +17,6 @@
       mCurrentTags.add(tag);
     }
     mTagsArrayAdapter.notifyDataSetChanged();
-    Snackbar.make(mDialog.getView().findViewById(R.id.tags_dialog_snackbar),feedbackText,Snackbar.LENGTH_LONG).show();
+    UIUtils.showSnackbar(getActivity(),feedbackText,false,-1,null,mDialog.getView().findViewById(R.id.tags_dialog_snackbar),null);
   }
 }
