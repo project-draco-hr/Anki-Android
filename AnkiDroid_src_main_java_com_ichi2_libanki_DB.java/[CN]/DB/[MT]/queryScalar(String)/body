@@ -1,17 +1,3 @@
 {
-  Cursor cursor=null;
-  int scalar;
-  try {
-    cursor=mDatabase.rawQuery(query,null);
-    if (!cursor.moveToNext()) {
-      return 0;
-    }
-    scalar=cursor.getInt(0);
-  }
-  finally {
-    if (cursor != null) {
-      cursor.close();
-    }
-  }
-  return scalar;
+  return queryScalar(query,null);
 }
