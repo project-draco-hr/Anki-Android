@@ -6,7 +6,7 @@
   fl.addView(mWhiteboard);
   mWhiteboard.setOnTouchListener(new View.OnTouchListener(){
     @Override public boolean onTouch(    View v,    MotionEvent event){
-      if (!mShowWhiteboard || mPrefFullscreenReview && CompatHelper.getCompat().isSystemUiVisible(Reviewer.this)) {
+      if (!mShowWhiteboard || (mPrefFullscreenReview && CompatHelper.getCompat().isImmersiveSystemUiVisible(Reviewer.this))) {
         return getGestureDetector().onTouchEvent(event);
       }
       return mWhiteboard.handleTouchEvent(event);
