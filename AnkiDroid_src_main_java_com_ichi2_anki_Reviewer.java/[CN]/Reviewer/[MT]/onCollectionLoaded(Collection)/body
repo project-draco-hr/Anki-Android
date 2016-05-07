@@ -7,7 +7,6 @@
   }
   col.getSched().reset();
   DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD,mAnswerCardHandler,new DeckTask.TaskData(null,0));
-  disableDrawerSwipeOnConflicts();
   mSched.setContext(new WeakReference<Activity>(this));
   if (mPrefFullscreenReview) {
     CompatHelper.getCompat().setFullScreen(this);
