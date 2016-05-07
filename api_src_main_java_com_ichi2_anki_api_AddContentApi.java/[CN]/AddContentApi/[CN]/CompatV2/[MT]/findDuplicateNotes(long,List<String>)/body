@@ -9,7 +9,7 @@
     }
     keyToIndexesMap.get(key).add(i);
   }
-  String sel=String.format("%s=%d and %s in (%s)",Note.MID,modelId,Note.CSUM,TextUtils.join(",",csums));
+  String sel=String.format(Locale.US,"%s=%d and %s in (%s)",Note.MID,modelId,Note.CSUM,TextUtils.join(",",csums));
   Cursor notesTableCursor=mResolver.query(Note.CONTENT_URI_V2,PROJECTION,sel,null,null);
   if (notesTableCursor == null) {
     return null;
