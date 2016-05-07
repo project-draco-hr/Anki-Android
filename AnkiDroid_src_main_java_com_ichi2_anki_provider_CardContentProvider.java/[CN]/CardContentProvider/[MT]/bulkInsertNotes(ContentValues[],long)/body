@@ -9,7 +9,7 @@
   if (col.getDecks().isDyn(deckId)) {
     throw new IllegalArgumentException("A filtered deck cannot be specified as the deck in bulkInsertNotes");
   }
-  col.log(String.format("bulkInsertNotes: %d items.\n%s",valuesArr.length,getLogMessage("bulkInsert",null)));
+  col.log(String.format(Locale.US,"bulkInsertNotes: %d items.\n%s",valuesArr.length,getLogMessage("bulkInsert",null)));
   long modelId=-1L;
   JSONObject model=null;
   col.getDecks().flush();

@@ -21,10 +21,10 @@ Timber.i("DeckPicker:: New filtered deck button pressed");
 mDialogEditText=new EditText(DeckPicker.this);
 ArrayList<String> names=getCol().getDecks().allNames();
 int n=1;
-String name=String.format("%s %d",res.getString(R.string.filtered_deck_name),n);
+String name=String.format(Locale.getDefault(),"%s %d",res.getString(R.string.filtered_deck_name),n);
 while (names.contains(name)) {
 n++;
-name=String.format("%s %d",res.getString(R.string.filtered_deck_name),n);
+name=String.format(Locale.getDefault(),"%s %d",res.getString(R.string.filtered_deck_name),n);
 }
 mDialogEditText.setText(name);
 new MaterialDialog.Builder(DeckPicker.this).title(res.getString(R.string.new_deck)).customView(mDialogEditText,true).positiveText(res.getString(R.string.create)).negativeText(res.getString(R.string.dialog_cancel)).callback(new MaterialDialog.ButtonCallback(){
