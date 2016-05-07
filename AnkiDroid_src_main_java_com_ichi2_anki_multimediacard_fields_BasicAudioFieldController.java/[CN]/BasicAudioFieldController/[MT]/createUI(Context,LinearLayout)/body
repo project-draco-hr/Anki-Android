@@ -21,13 +21,13 @@
       tempAudioPath=null;
     }
   }
-  AudioView audioView=AudioView.createRecorderInstance(mActivity,R.drawable.av_play,R.drawable.av_pause,R.drawable.av_stop,R.drawable.av_rec,R.drawable.av_rec_stop,tempAudioPath);
-  audioView.setOnRecordingFinishEventListener(new AudioView.OnRecordingFinishEventListener(){
+  mAudioView=AudioView.createRecorderInstance(mActivity,R.drawable.av_play,R.drawable.av_pause,R.drawable.av_stop,R.drawable.av_rec,R.drawable.av_rec_stop,tempAudioPath);
+  mAudioView.setOnRecordingFinishEventListener(new AudioView.OnRecordingFinishEventListener(){
     @Override public void onRecordingFinish(    View v){
       mField.setAudioPath(tempAudioPath);
       mField.setHasTemporaryMedia(true);
     }
   }
 );
-  layout.addView(audioView,LinearLayout.LayoutParams.FILL_PARENT);
+  layout.addView(mAudioView,LinearLayout.LayoutParams.FILL_PARENT);
 }

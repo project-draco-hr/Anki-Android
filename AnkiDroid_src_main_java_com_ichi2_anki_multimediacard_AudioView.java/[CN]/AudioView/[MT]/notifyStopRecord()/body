@@ -4,4 +4,11 @@
   if (mRecord != null) {
     mRecord.update();
   }
+  if (mRecorder != null && mStatus == Status.RECORDING) {
+    mRecorder.stop();
+    mStatus=Status.IDLE;
+    if (mOnRecordingFinishEventListener != null) {
+      mOnRecordingFinishEventListener.onRecordingFinish(AudioView.this);
+    }
+  }
 }
