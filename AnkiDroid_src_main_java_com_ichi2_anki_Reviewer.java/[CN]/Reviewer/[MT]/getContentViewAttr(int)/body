@@ -1,4 +1,7 @@
 {
+  if (CompatHelper.getSdkVersion() < Build.VERSION_CODES.KITKAT) {
+    fullscreenMode=0;
+  }
 switch (fullscreenMode) {
 case 1:
     return R.layout.reviewer_fullscreen_1;
