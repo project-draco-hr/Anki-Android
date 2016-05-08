@@ -12,7 +12,7 @@ openFilteredDeckOptions();
 }
  else {
 Intent i=new Intent(getActivity(),DeckOptions.class);
-startActivityForResult(i,DECK_OPTIONS);
+getActivity().startActivityForResult(i,DECK_OPTIONS);
 ActivityTransitionAnimation.slide(getActivity(),ActivityTransitionAnimation.FADE);
 }
 return true;

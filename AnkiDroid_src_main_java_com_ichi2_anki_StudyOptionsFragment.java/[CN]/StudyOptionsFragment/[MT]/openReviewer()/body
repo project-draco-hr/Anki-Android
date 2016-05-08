@@ -1,7 +1,7 @@
 {
   Intent reviewer=new Intent(getActivity(),Reviewer.class);
   if (mFragmented) {
-    startActivityForResult(reviewer,AnkiActivity.REQUEST_REVIEW);
+    getActivity().startActivityForResult(reviewer,AnkiActivity.REQUEST_REVIEW);
   }
  else {
     reviewer.setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);

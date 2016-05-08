@@ -1,6 +1,6 @@
 {
   Intent i=new Intent(getActivity(),FilteredDeckOptions.class);
   i.putExtra("defaultConfig",defaultConfig);
-  startActivityForResult(i,DECK_OPTIONS);
+  getActivity().startActivityForResult(i,DECK_OPTIONS);
   ActivityTransitionAnimation.slide(getActivity(),ActivityTransitionAnimation.FADE);
 }
