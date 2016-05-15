@@ -3,9 +3,10 @@
   mValues=vals;
   mPercent=new double[mValues.length];
   for (  double v : mValues)   mSum+=v;
-  mPercent[0]=mValues[0] / mSum;
+  double denominator=(mSum == 0) ? 1 : mSum;
+  mPercent[0]=mValues[0] / denominator;
   for (int i=1; i < mValues.length; i++) {
-    mPercent[i]=mPercent[i - 1] + mValues[i] / mSum;
+    mPercent[i]=mPercent[i - 1] + mValues[i] / denominator;
   }
   mColorHelper=mColors.length;
   if ((mValues.length - 1) % (mColors.length) == 0)   mColorHelper=mColors.length - 1;
