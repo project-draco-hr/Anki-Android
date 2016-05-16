@@ -21,13 +21,14 @@
   plotSheet.setBackgroundColor(new ColorWrap(backgroundColor));
   int textColor=Themes.getColorFromAttr(mChartView.getContext(),android.R.attr.textColor);
   plotSheet.setTextColor(new ColorWrap(textColor));
+  plotSheet.setIsBackwards(mBackwards);
   if (mChartType == Stats.ChartType.CARDS_TYPES) {
     return createPieChart(plotSheet);
   }
   PlotSheet hiddenPlotSheet=new PlotSheet(mFirstElement - 0.5,mLastElement + 0.5,0,mMcount * Y_AXIS_STRETCH_FACTOR);
   hiddenPlotSheet.setFrameThickness(frameThickness * 0.66f,frameThickness * 0.66f,frameThickness,frameThickness * 0.9f);
-  setupBarGraphs(plotSheet,hiddenPlotSheet);
   setupCumulative(plotSheet,hiddenPlotSheet);
+  setupBarGraphs(plotSheet,hiddenPlotSheet);
   double xTicks=ticksCalcX(desiredPixelDistanceBetweenTicks,rect,mFirstElement,mLastElement);
   setupXaxis(plotSheet,xTicks,true);
   double yTicks=ticksCalcY(desiredPixelDistanceBetweenTicks,rect,0,mMaxCards * Y_AXIS_STRETCH_FACTOR);

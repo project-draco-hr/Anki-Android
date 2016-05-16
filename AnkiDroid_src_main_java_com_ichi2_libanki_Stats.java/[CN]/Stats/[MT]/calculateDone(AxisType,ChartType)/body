@@ -10,8 +10,8 @@
  else   if (charType == ChartType.REVIEW_TIME) {
     mTitle=R.string.stats_review_time;
   }
-  mValueLabels=new int[]{R.string.statistics_learn,R.string.statistics_relearn,R.string.statistics_young,R.string.statistics_mature,R.string.statistics_cram};
-  mColors=new int[]{R.attr.stats_learn,R.attr.stats_relearn,R.attr.stats_young,R.attr.stats_mature,R.attr.stats_cram};
+  mValueLabels=new int[]{R.string.statistics_cram,R.string.statistics_learn,R.string.statistics_relearn,R.string.statistics_young,R.string.statistics_mature};
+  mColors=new int[]{R.attr.stats_cram,R.attr.stats_learn,R.attr.stats_relearn,R.attr.stats_young,R.attr.stats_mature};
   int num=0;
   int chunk=0;
 switch (type) {
@@ -70,7 +70,7 @@ Timber.d("ReviewCount query: %s",query);
 try {
 cur=mCol.getDb().getDatabase().rawQuery(query,null);
 while (cur.moveToNext()) {
-list.add(new double[]{cur.getDouble(0),cur.getDouble(1),cur.getDouble(4),cur.getDouble(2),cur.getDouble(3),cur.getDouble(5)});
+list.add(new double[]{cur.getDouble(0),cur.getDouble(5),cur.getDouble(1),cur.getDouble(4),cur.getDouble(2),cur.getDouble(3)});
 }
 }
   finally {

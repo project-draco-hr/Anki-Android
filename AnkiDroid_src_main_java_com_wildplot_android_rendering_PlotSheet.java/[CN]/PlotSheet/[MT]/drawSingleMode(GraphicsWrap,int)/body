@@ -50,7 +50,10 @@
       g.drawString(this.title,field.width / 2 - width / 2,upperFrameThickness - 10 - height);
       g.setFontSize(oldFontSize);
     }
-    Set<String> keySet=mLegendMap.keySet();
+    List<String> keyList=new Vector<>(mLegendMap.keySet());
+    if (isBackwards) {
+      Collections.reverse(keyList);
+    }
     float oldFontSize=g.getFontSize();
     g.setFontSize(oldFontSize * 0.9f);
     FontMetricsWrap fm=g.getFontMetrics();
@@ -62,7 +65,7 @@
     float currentPixelWidth=xPointer;
     int legendCnt=0;
     Timber.d("should draw legend now, number of legend entries: %d",mLegendMap.size());
-    for (    String legendName : keySet) {
+    for (    String legendName : keyList) {
       float stringWidth=fm.stringWidth(" : " + legendName);
       float delta=rectangleSize - height;
       ColorWrap color=mLegendMap.get(legendName);

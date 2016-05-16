@@ -29,6 +29,7 @@ break;
 mCumulative=stats.getCumulative();
 mSeriesList=stats.getSeriesList();
 Object[] metaData=stats.getMetaInfo();
+mBackwards=(Boolean)metaData[2];
 mValueLabels=(int[])metaData[3];
 mColors=(int[])metaData[4];
 mAxisTitles=(int[])metaData[5];
