@@ -1,5 +1,5 @@
 {
-  Stats stats=new Stats(mCollectionData,mWholeCollection);
+  Stats stats=new Stats(mCol,mWholeCollection);
   int[] todayStats=stats.calculateTodayStats();
   stringBuilder.append(_title(mWebView.getResources().getString(R.string.stats_today)));
   Resources res=mWebView.getResources();
