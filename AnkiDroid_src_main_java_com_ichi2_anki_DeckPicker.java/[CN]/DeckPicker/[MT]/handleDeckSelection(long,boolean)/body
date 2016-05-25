@@ -27,6 +27,12 @@
       }
     }
 ,findViewById(R.id.root_layout),mSnackbarShowHideCallback);
+    if (mFragmented) {
+      openStudyOptions(false);
+    }
+ else {
+      updateDeckList();
+    }
   }
  else   if (getCol().getDecks().isDyn(did)) {
     openStudyOptions(false);
@@ -40,6 +46,12 @@
       }
     }
 ,findViewById(R.id.root_layout),mSnackbarShowHideCallback);
+    if (mFragmented) {
+      openStudyOptions(false);
+    }
+ else {
+      updateDeckList();
+    }
   }
  else {
     UIUtils.showSnackbar(this,R.string.studyoptions_empty_schedule,false,R.string.custom_study,new OnClickListener(){
@@ -49,5 +61,11 @@
       }
     }
 ,findViewById(R.id.root_layout),mSnackbarShowHideCallback);
+    if (mFragmented) {
+      openStudyOptions(false);
+    }
+ else {
+      updateDeckList();
+    }
   }
 }
