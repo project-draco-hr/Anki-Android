@@ -1,4 +1,7 @@
 {
+  if (mPrefFullscreenReview > 0 && CompatHelper.getCompat().isImmersiveSystemUiVisible(AbstractFlashcardViewer.this)) {
+    delayedHide(INITIAL_HIDE_DELAY);
+  }
   if (mGesturesEnabled) {
     try {
       float dy=e2.getY() - e1.getY();
