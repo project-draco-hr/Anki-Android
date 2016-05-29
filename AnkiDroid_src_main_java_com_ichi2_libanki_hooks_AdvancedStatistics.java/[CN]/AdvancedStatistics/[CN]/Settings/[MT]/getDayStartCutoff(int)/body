@@ -1,0 +1,4 @@
+{
+  long today=getToday(collectionCreatedTime);
+  return (collectionCreatedTime + (today * getNSecsPerDay())) * 1000;
+}

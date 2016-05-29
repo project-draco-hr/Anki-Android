@@ -1,0 +1,15 @@
+{
+  Cursor cur=null;
+  String query="select cards.did, " + "sum(case when revlog.type = 0 then 1 else 0 end)" + " from revlog, cards where revlog.cid = cards.id and revlog.id > " + dayStartCutoff + " group by cards.did";
+  Timber.d("AdvancedStatistics.TodayStats query: %s",query);
+  try {
+    cur=db.rawQuery(query,null);
+    cur.moveToFirst();
+    nLearnedPerDeckId.put(cur.getLong(0),cur.getInt(1));
+  }
+  finally {
+    if (cur != null && !cur.isClosed()) {
+      cur.close();
+    }
+  }
+}

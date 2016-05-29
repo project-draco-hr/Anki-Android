@@ -5,7 +5,7 @@
   double nIterationsInv=1.0 / nIterations;
   for (  long did : dids) {
     for (int iteration=0; iteration < nIterations; iteration++) {
-      newCardSimulator.reset();
+      newCardSimulator.reset(todayStats.getNLearned(did));
       simulationResultAggregated.add(simNreviews(today,Decks.createDeck(did,decks)),nIterationsInv);
     }
   }
