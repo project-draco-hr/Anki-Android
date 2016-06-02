@@ -1,4 +1,13 @@
 {
   mShowWhiteboard=state;
-  mWhiteboard.setVisibility(state ? View.VISIBLE : View.GONE);
+  if (state) {
+    mWhiteboard.setVisibility(View.VISIBLE);
+    disableDrawerSwipe();
+  }
+ else {
+    mWhiteboard.setVisibility(View.GONE);
+    if (!mHasDrawerSwipeConflicts) {
+      enableDrawerSwipe();
+    }
+  }
 }
