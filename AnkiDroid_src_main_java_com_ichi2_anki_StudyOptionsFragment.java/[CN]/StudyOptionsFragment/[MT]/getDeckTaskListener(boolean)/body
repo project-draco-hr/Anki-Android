@@ -42,6 +42,7 @@
         }
         if (mLoadWithDeckOptions) {
           openFilteredDeckOptions(mLoadWithDeckOptions);
+          mLoadWithDeckOptions=false;
           return;
         }
         boolean isDynamic=deck.optInt("dyn",0) != 0;
