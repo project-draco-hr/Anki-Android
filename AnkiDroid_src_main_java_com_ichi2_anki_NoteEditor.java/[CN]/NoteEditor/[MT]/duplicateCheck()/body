@@ -5,11 +5,11 @@
   updateField(field);
   Integer dupeCode=mEditorNote.dupeOrEmpty();
   if (dupeCode != null && dupeCode == 2) {
-    field.getBackground().setColorFilter(ContextCompat.getColor(this,R.color.material_red_500),PorterDuff.Mode.SRC_ATOP);
+    field.setDupeStyle();
     isDupe=true;
   }
  else {
-    field.getBackground().clearColorFilter();
+    field.setDefaultStyle();
     isDupe=false;
   }
   mEditorNote.values()[0]=oldValue;
