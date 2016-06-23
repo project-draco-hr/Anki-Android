@@ -10,8 +10,10 @@
  catch (    JSONException e) {
       throw new RuntimeException(e);
     }
-    int eta=mSched.eta(counts,false);
-    actionBar.setSubtitle(getResources().getQuantityString(R.plurals.reviewer_window_title,eta,eta));
+    if (mPrefShowETA) {
+      int eta=mSched.eta(counts,false);
+      actionBar.setSubtitle(getResources().getQuantityString(R.plurals.reviewer_window_title,eta,eta));
+    }
   }
   SpannableString newCount=new SpannableString(String.valueOf(counts[0]));
   SpannableString lrnCount=new SpannableString(String.valueOf(counts[1]));
