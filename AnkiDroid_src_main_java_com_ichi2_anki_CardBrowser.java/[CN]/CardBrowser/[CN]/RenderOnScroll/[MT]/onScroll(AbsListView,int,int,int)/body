@@ -1,6 +1,7 @@
 {
   int lastVisibleItem=firstVisibleItem + visibleItemCount;
-  if (firstVisibleItem > 0 && lastVisibleItem > 0 && getCards().size() > lastVisibleItem) {
+  int size=getCards().size();
+  if (size > 0 && firstVisibleItem < size && lastVisibleItem - 1 < size) {
     String firstAns=getCards().get(firstVisibleItem).get("answer");
     String lastAns=getCards().get(lastVisibleItem - 1).get("answer");
     if (firstAns != null && firstAns.equals("") || lastAns != null && lastAns.equals("")) {
