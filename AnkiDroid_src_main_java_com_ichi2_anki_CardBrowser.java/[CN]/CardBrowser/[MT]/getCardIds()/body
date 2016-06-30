@@ -1,0 +1,7 @@
+{
+  long[] l=new long[mCards.size()];
+  for (int i=0; i < mCards.size(); i++) {
+    l[i]=Long.parseLong(mCards.get(i).get("id"));
+  }
+  return l;
+}

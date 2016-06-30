@@ -1,6 +1,6 @@
 {
   super.onCollectionLoaded(col);
-  mCurrentCard=col.getCard(mCurrentCardId);
+  mCurrentCard=col.getCard(mCardList[mIndex]);
   displayCardQuestion();
   showBackIcon();
 }

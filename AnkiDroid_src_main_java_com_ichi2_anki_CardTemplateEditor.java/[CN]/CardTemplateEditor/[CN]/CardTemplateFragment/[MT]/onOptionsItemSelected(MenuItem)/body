@@ -48,7 +48,8 @@ if (dummyCard != null) {
   return true;
 }
 }
-i.putExtra("currentCardId",cid);
+i.putExtra("cardList",new long[]{cid});
+i.putExtra("index",0);
 startActivityForResult(i,REQUEST_PREVIEWER);
 return true;
 }
