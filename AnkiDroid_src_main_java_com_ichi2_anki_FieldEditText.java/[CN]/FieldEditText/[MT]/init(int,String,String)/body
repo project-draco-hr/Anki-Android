@@ -8,6 +8,7 @@
     content=content.replaceAll("<br(\\s*\\/*)>",NEW_LINE);
   }
   setText(content);
+  setContentDescription(name);
   setMinimumWidth(400);
   mOrigBackground=getBackground();
   setDefaultStyle();
