@@ -1,8 +1,9 @@
 {
   Timber.d("onCreate()");
-  mCurrentCardId=getIntent().getLongExtra("currentCardId",-1);
-  if (mCurrentCardId == -1) {
-    Timber.e("Previewer started without a valid card ID");
+  mCardList=getIntent().getLongArrayExtra("cardList");
+  mIndex=getIntent().getIntExtra("index",-1);
+  if (mCardList.length == 0 || mIndex == -1) {
+    Timber.e("Previewer started without empty card list or invalid index");
     finishWithoutAnimation();
   }
   super.onCreate(savedInstanceState);

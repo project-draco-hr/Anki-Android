@@ -1,0 +1,35 @@
+{
+  if (mCardList.length == 1) {
+    findViewById(R.id.answer_options_layout).setVisibility(View.GONE);
+    mFlipCardLayout.setVisibility(View.GONE);
+    hideEaseButtons();
+    return;
+  }
+  mFlipCardLayout.setVisibility(View.GONE);
+  mEase1Layout.setVisibility(View.VISIBLE);
+  mEase2Layout.setVisibility(View.VISIBLE);
+  mEase3Layout.setVisibility(View.GONE);
+  mEase4Layout.setVisibility(View.GONE);
+  mNext1.setTextSize(30);
+  mEase1.setVisibility(View.GONE);
+  mEase1Layout.setOnClickListener(mSelectScrollHandler);
+  mNext2.setTextSize(30);
+  mEase2.setVisibility(View.GONE);
+  mEase2Layout.setOnClickListener(mSelectScrollHandler);
+  if (mIndex == 0 && mShowingAnswer) {
+    mEase1Layout.setEnabled(false);
+    mNext1.setText("-");
+  }
+ else {
+    mEase1Layout.setEnabled(true);
+    mNext1.setText("<");
+  }
+  if (mIndex == mCardList.length - 1 && mShowingAnswer) {
+    mEase2Layout.setEnabled(false);
+    mNext2.setText("-");
+  }
+ else {
+    mEase2Layout.setEnabled(true);
+    mNext2.setText(">");
+  }
+}
