@@ -2,8 +2,8 @@
   Timber.d("onCreate()");
   mCardList=getIntent().getLongArrayExtra("cardList");
   mIndex=getIntent().getIntExtra("index",-1);
-  if (mCardList.length == 0 || mIndex == -1) {
-    Timber.e("Previewer started without empty card list or invalid index");
+  if (mCardList.length == 0 || mIndex < 0 || mIndex > mCardList.length - 1) {
+    Timber.e("Previewer started with empty card list or invalid index");
     finishWithoutAnimation();
   }
   super.onCreate(savedInstanceState);
