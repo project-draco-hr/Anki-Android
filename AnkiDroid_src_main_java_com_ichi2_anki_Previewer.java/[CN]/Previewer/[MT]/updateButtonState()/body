@@ -1,8 +1,13 @@
 {
   if (mCardList.length == 1) {
-    findViewById(R.id.answer_options_layout).setVisibility(View.GONE);
-    mFlipCardLayout.setVisibility(View.GONE);
-    hideEaseButtons();
+    if (!mShowingAnswer) {
+      mFlipCardLayout.setVisibility(View.VISIBLE);
+    }
+ else {
+      findViewById(R.id.answer_options_layout).setVisibility(View.GONE);
+      mFlipCardLayout.setVisibility(View.GONE);
+      hideEaseButtons();
+    }
     return;
   }
   mFlipCardLayout.setVisibility(View.GONE);
@@ -10,12 +15,18 @@
   mEase2Layout.setVisibility(View.VISIBLE);
   mEase3Layout.setVisibility(View.GONE);
   mEase4Layout.setVisibility(View.GONE);
+  final int[] background=Themes.getResFromAttr(this,new int[]{R.attr.hardButtonRef});
+  final int[] textColor=Themes.getColorFromAttr(this,new int[]{R.attr.hardButtonTextColor});
   mNext1.setTextSize(30);
   mEase1.setVisibility(View.GONE);
+  mNext1.setTextColor(textColor[0]);
   mEase1Layout.setOnClickListener(mSelectScrollHandler);
+  mEase1Layout.setBackgroundResource(background[0]);
   mNext2.setTextSize(30);
   mEase2.setVisibility(View.GONE);
+  mNext2.setTextColor(textColor[0]);
   mEase2Layout.setOnClickListener(mSelectScrollHandler);
+  mEase2Layout.setBackgroundResource(background[0]);
   if (mIndex == 0 && mShowingAnswer) {
     mEase1Layout.setEnabled(false);
     mNext1.setText("-");
