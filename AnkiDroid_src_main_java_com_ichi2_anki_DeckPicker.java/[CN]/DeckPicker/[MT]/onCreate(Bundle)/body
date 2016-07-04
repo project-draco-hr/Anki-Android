@@ -22,6 +22,7 @@
   mRecyclerView.setAdapter(mDeckListAdapter);
   mActionsMenu=(FloatingActionsMenu)findViewById(R.id.add_content_menu);
   if (mActionsMenu != null) {
+    mActionsMenu.findViewById(R.id.fab_expand_menu_button).setContentDescription(getString(R.string.menu_add));
     configureFloatingActionsMenu();
   }
  else {
