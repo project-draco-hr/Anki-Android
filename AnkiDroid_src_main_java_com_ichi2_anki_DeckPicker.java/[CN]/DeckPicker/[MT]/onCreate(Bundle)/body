@@ -20,6 +20,13 @@
   mDeckListAdapter.setDeckExpanderClickListener(mDeckExpanderClickListener);
   mDeckListAdapter.setDeckLongClickListener(mDeckLongClickListener);
   mRecyclerView.setAdapter(mDeckListAdapter);
+  mPullToSyncWrapper=(SwipeRefreshLayout)findViewById(R.id.pull_to_sync_wrapper);
+  mPullToSyncWrapper.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
+    @Override public void onRefresh(){
+      sync();
+    }
+  }
+);
   mActionsMenu=(FloatingActionsMenu)findViewById(R.id.add_content_menu);
   if (mActionsMenu != null) {
     mActionsMenu.findViewById(R.id.fab_expand_menu_button).setContentDescription(getString(R.string.menu_add));
