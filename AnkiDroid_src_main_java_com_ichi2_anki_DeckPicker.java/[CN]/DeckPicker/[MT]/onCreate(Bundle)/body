@@ -23,6 +23,7 @@
   mPullToSyncWrapper=(SwipeRefreshLayout)findViewById(R.id.pull_to_sync_wrapper);
   mPullToSyncWrapper.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
     @Override public void onRefresh(){
+      mPullToSyncWrapper.setRefreshing(false);
       sync();
     }
   }
