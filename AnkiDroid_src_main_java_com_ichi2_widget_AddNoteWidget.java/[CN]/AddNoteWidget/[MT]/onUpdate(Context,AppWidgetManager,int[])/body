@@ -1,0 +1,10 @@
+{
+  super.onUpdate(context,appWidgetManager,appWidgetIds);
+  Timber.d("onUpdate");
+  final RemoteViews remoteViews=new RemoteViews(context.getPackageName(),R.layout.widget_add_note);
+  final Intent intent=new Intent(context,NoteEditor.class);
+  intent.putExtra(NoteEditor.EXTRA_CALLER,NoteEditor.CALLER_DECKPICKER);
+  final PendingIntent pendingIntent=PendingIntent.getActivity(context,0,intent,0);
+  remoteViews.setOnClickPendingIntent(R.id.widget_add_note_button,pendingIntent);
+  appWidgetManager.updateAppWidget(appWidgetIds,remoteViews);
+}
