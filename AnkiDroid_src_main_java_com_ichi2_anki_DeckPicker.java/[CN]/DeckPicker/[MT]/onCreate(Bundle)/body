@@ -21,6 +21,7 @@
   mDeckListAdapter.setDeckLongClickListener(mDeckLongClickListener);
   mRecyclerView.setAdapter(mDeckListAdapter);
   mPullToSyncWrapper=(SwipeRefreshLayout)findViewById(R.id.pull_to_sync_wrapper);
+  mPullToSyncWrapper.setDistanceToTriggerSync(SWIPE_TO_SYNC_TRIGGER_DISTANCE);
   mPullToSyncWrapper.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
     @Override public void onRefresh(){
       mPullToSyncWrapper.setRefreshing(false);
