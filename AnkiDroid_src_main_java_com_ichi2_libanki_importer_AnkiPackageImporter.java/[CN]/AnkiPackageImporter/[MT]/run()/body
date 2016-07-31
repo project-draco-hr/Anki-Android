@@ -1,13 +1,14 @@
 {
   publishProgress(0,0,0);
   File tempDir=new File(new File(mCol.getPath()).getParent(),"tmpzip");
+  Collection tmpCol;
   try {
     try {
       mZip=new ZipFile(new File(mFile),ZipFile.OPEN_READ);
       Utils.unzipFiles(mZip,tempDir.getAbsolutePath(),new String[]{"collection.anki2","media"},null);
     }
  catch (    IOException e) {
-      Timber.e("Failed to unzip apkg.",e);
+      Timber.e(e,"Failed to unzip apkg.");
       mLog.add(getRes().getString(R.string.import_log_no_apkg));
       return;
     }
@@ -16,9 +17,17 @@
       mLog.add(getRes().getString(R.string.import_log_no_apkg));
       return;
     }
-    if (!Storage.Collection(mContext,colpath).validCollection()) {
-      mLog.add(getRes().getString(R.string.import_log_no_apkg));
-      return;
+    tmpCol=Storage.Collection(mContext,colpath);
+    try {
+      if (!tmpCol.validCollection()) {
+        mLog.add(getRes().getString(R.string.import_log_no_apkg));
+        return;
+      }
+    }
+  finally {
+      if (tmpCol != null) {
+        tmpCol.close();
+      }
     }
     mFile=colpath;
     File mediaMapFile=new File(tempDir,"media");
