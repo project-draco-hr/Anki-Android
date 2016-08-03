@@ -61,7 +61,6 @@
   }
   int addedCount=-1;
   try {
-    col.reopen();
     CollectionHelper.getInstance().unlockCollection();
     HashMap<String,String> nameToNum=new HashMap<>();
     HashMap<String,String> numToName=new HashMap<>();
