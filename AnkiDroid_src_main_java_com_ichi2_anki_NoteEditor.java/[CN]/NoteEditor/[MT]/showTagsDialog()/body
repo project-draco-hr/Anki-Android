@@ -7,6 +7,9 @@
   TagsDialog dialog=com.ichi2.anki.dialogs.TagsDialog.newInstance(TagsDialog.TYPE_ADD_TAG,selTags,tags);
   dialog.setTagsDialogListener(new TagsDialogListener(){
     @Override public void onPositive(    List<String> selectedTags,    int option){
+      if (!mSelectedTags.equals(selectedTags)) {
+        mTagsEdited=true;
+      }
       mSelectedTags=selectedTags;
       updateTags();
     }
