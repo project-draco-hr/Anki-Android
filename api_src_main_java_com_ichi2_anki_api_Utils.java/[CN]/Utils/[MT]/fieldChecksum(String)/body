@@ -5,6 +5,10 @@
     byte[] digest=md.digest(data.getBytes("UTF-8"));
     BigInteger biginteger=new BigInteger(1,digest);
     String result=biginteger.toString(16);
+    if (result.length() < 40) {
+      String zeroes="0000000000000000000000000000000000000000";
+      result=zeroes.substring(0,zeroes.length() - result.length()) + result;
+    }
     return Long.valueOf(result.substring(0,8),16);
   }
  catch (  Exception e) {
