@@ -8,7 +8,7 @@
       BufferedInputStream srcData=_srcMediaData(fname);
       BufferedInputStream dstData=_dstMediaData(fname);
       if (srcData == null) {
-        m.appendReplacement(sb,m.group(0));
+        m.appendReplacement(sb,Matcher.quoteReplacement(m.group(0)));
         continue;
       }
       String[] split=Utils.splitFilename(fname);
@@ -16,18 +16,18 @@
       String ext=split[1];
       String lname=String.format(Locale.US,"%s_%s%s",name,mid,ext);
       if (mDst.getMedia().have(lname)) {
-        m.appendReplacement(sb,m.group(0).replace(fname,lname));
+        m.appendReplacement(sb,Matcher.quoteReplacement(m.group(0).replace(fname,lname)));
         continue;
       }
  else       if (dstData == null || compareMedia(srcData,dstData)) {
         if (dstData == null) {
           _writeDstMedia(fname,srcData);
         }
-        m.appendReplacement(sb,m.group(0));
+        m.appendReplacement(sb,Matcher.quoteReplacement(m.group(0)));
         continue;
       }
       _writeDstMedia(lname,srcData);
-      m.appendReplacement(sb,m.group(0).replace(fname,lname));
+      m.appendReplacement(sb,Matcher.quoteReplacement(m.group(0).replace(fname,lname)));
     }
     m.appendTail(sb);
     fields=sb.toString();
