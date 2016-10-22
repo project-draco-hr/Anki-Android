@@ -1,0 +1,15 @@
+{
+  float left=xCenter - diameter / 2F;
+  float top=yCenter - diameter / 2F;
+  float currentAngle=FIRST_SECTOR_OFFSET;
+  for (int i=0; i < mPercent.length - 1; i++) {
+    g.setColor(mColors[i]);
+    float arcLength=(float)((360 * mValues[i]) / mSum);
+    g.fillArc(left,top,diameter,diameter,currentAngle,arcLength);
+    currentAngle+=arcLength;
+  }
+  g.setColor(getLastSectorColor());
+  g.fillArc(left,top,diameter,diameter,currentAngle,(360F + FIRST_SECTOR_OFFSET - currentAngle));
+  g.setColor(ColorWrap.black);
+  g.drawArc(left,top,diameter,diameter,0,360);
+}

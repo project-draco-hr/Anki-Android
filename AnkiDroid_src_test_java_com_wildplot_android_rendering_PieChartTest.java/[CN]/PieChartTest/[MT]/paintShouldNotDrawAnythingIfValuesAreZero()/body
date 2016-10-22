@@ -1,0 +1,5 @@
+{
+  pieChart=new PieChart(plot,new double[]{0,0},new ColorWrap[]{ColorWrap.RED,ColorWrap.GREEN});
+  pieChart.paint(graphics);
+  verify(graphics,never()).fillArc(anyFloat(),anyFloat(),anyFloat(),anyFloat(),anyFloat(),anyFloat());
+}

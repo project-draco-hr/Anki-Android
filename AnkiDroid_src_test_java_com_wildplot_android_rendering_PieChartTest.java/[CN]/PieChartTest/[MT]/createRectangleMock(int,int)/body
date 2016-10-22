@@ -1,0 +1,8 @@
+{
+  RectangleWrap r=mock(RectangleWrap.class);
+  r.width=width;
+  r.height=height;
+  when(r.width()).thenReturn(width);
+  when(r.height()).thenReturn(height);
+  return r;
+}

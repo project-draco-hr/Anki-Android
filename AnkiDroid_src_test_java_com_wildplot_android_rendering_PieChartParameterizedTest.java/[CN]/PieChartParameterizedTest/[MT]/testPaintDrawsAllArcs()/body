@@ -1,0 +1,9 @@
+{
+  pieChart.paint(graphics);
+  InOrder inOrder=inOrder(graphics);
+  for (int i=0; i < values.length; i++) {
+    if (arcLengths[i] == 0)     continue;
+    inOrder.verify(graphics).setColor(colors[i]);
+    inOrder.verify(graphics).fillArc(anyFloat(),anyFloat(),anyFloat(),anyFloat(),floatThat(closeTo(startAngles[i])),floatThat(closeTo(arcLengths[i])));
+  }
+}

@@ -1,0 +1,18 @@
+{
+  ColorWrap labelBackground=new ColorWrap(0,0,0,0.5f);
+  for (int j=0; j < mPercent.length; j++) {
+    if (mValues[j] == 0)     continue;
+    double oldPercent=0;
+    if (j != 0)     oldPercent=mPercent[j - 1];
+    String text="" + Math.round((((mPercent[j] - oldPercent)) * 100) * 100) / 100.0 + "%";
+    float x=(float)(xCenter + Math.cos(-1 * ((oldPercent + (mPercent[j] - oldPercent) * 0.5) * 360 + FIRST_SECTOR_OFFSET) * Math.PI / 180.0) * 0.375 * diameter) - 20;
+    float y=(float)(yCenter - Math.sin(-1 * ((oldPercent + (mPercent[j] - oldPercent) * 0.5) * 360 + FIRST_SECTOR_OFFSET) * Math.PI / 180.0) * 0.375 * diameter);
+    FontMetricsWrap fm=g.getFontMetrics();
+    float width=fm.stringWidth(text);
+    float height=fm.getHeight();
+    g.setColor(labelBackground);
+    g.fillRect(x - 1,y - height + 3,width + 2,height);
+    g.setColor(ColorWrap.white);
+    g.drawString(text,x,y);
+  }
+}

@@ -1,6 +1,8 @@
 {
-  this.mPlotSheet=plotSheet;
-  mValues=vals;
+  checkArguments(plotSheet,values,colors);
+  mPlotSheet=plotSheet;
+  mValues=values;
+  mColors=colors;
   mPercent=new double[mValues.length];
   for (  double v : mValues)   mSum+=v;
   double denominator=(mSum == 0) ? 1 : mSum;
@@ -8,6 +10,4 @@
   for (int i=1; i < mValues.length; i++) {
     mPercent[i]=mPercent[i - 1] + mValues[i] / denominator;
   }
-  mColorHelper=mColors.length;
-  if ((mValues.length - 1) % (mColors.length) == 0)   mColorHelper=mColors.length - 1;
 }
