@@ -1,0 +1,4 @@
+{
+  PieChartTestParametersBuilder builder=new PieChartTestParametersBuilder(values,PieChart.FIRST_SECTOR_OFFSET);
+  return new Object[]{values,builder.getStartAngles(),builder.getArcLengths(),builder.getColors()};
+}

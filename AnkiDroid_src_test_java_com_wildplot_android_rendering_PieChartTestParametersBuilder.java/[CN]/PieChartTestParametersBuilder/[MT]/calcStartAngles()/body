@@ -1,0 +1,6 @@
+{
+  mStartAngles[0]=mFirstSectorAngle;
+  for (int i=1; i < mNumberOfValues; i++) {
+    mStartAngles[i]=mStartAngles[i - 1] + mArcLengths[i - 1];
+  }
+}

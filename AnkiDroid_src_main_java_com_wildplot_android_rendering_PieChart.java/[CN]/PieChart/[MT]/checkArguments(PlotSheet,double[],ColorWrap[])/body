@@ -1,0 +1,8 @@
+{
+  if (plotSheet == null) {
+    throw new NullPointerException();
+  }
+  if (values.length != colors.length) {
+    throw new IllegalArgumentException("The number of colors must match the number of values");
+  }
+}

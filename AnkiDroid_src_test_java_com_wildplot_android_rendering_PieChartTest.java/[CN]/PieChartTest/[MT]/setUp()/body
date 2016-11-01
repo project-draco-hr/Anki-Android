@@ -1,0 +1,9 @@
+{
+  mockStatic(android.graphics.Color.class);
+  when(Color.argb(anyInt(),anyInt(),anyInt(),anyInt())).thenReturn(0);
+  when(plot.getFrameThickness()).thenReturn(new float[]{0,0,0,0});
+  FontMetricsWrap fm=mock(FontMetricsWrap.class);
+  when(fm.getHeight()).thenReturn(10f);
+  when(fm.stringWidth(any(String.class))).thenReturn(30f);
+  when(graphics.getFontMetrics()).thenReturn(fm);
+}

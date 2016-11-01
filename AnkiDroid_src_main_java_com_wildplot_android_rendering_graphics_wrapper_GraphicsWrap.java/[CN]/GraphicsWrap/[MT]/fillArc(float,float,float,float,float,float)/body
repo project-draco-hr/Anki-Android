@@ -2,6 +2,6 @@
   Style oldStyle=paint.getStyle();
   paint.setStyle(Style.FILL);
   RectF rectF=new RectF(x,y,x + width,y + height);
-  canvas.drawArc(rectF,-startAngle,-arcAngle,true,paint);
+  canvas.drawArc(rectF,startAngle,arcAngle,true,paint);
   paint.setStyle(oldStyle);
 }

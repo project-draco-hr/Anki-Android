@@ -1,0 +1,7 @@
+{
+  Collection<Object[]> parameters=new ArrayList<>(values.size());
+  for (  double[] v : values) {
+    parameters.add(createParameters(v));
+  }
+  return parameters;
+}

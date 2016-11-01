@@ -1,0 +1,18 @@
+{
+  if (values.length < 1) {
+    throw new IllegalArgumentException("Empty array of values");
+  }
+  mValues=values;
+  mNumberOfValues=values.length;
+  mSum=calcSum(values);
+  if (mSum == 0) {
+    throw new IllegalArgumentException(format("All %d values are zero",values.length));
+  }
+  mFirstSectorAngle=firstSectorAngle;
+  mStartAngles=new double[mNumberOfValues];
+  mArcLengths=new double[mNumberOfValues];
+  mColors=new ColorWrap[mNumberOfValues];
+  calcArcLengths();
+  calcStartAngles();
+  fillColors();
+}
